@@ -7,15 +7,11 @@
 //
 
 #import "PWDraggableItem.h"
-#import "PWimgeCache/PWAsyncImageCache.h"
-#import "UZAppUtils.h"
-#import "NSDictionaryUtils.h"
 #import "LongPressControl.h"
 
 static CGFloat kDuration = .3f;
 
 #define screenHeight self.superview.frame.size.height //[UIScreen mainScreen].bounds.size.height
-#define ZOOM_SCALE  (float)([[UIScreen mainScreen] bounds].size.width/360.0)
 @interface PWDraggableItem ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign) NSInteger dragIndex;
@@ -58,24 +54,9 @@ static CGFloat kDuration = .3f;
 }
 
 - (void)createUI{
-    if (!_upTitleLab) {
-        _upTitleLab = [[UILabel alloc]initWithFrame:CGRectMake(24*ZOOM_SCALE, 38*ZOOM_SCALE, 58*ZOOM_SCALE, 34*ZOOM_SCALE)];
-        _upTitleLab.numberOfLines = 2;
-        _upTitleLab.font = [UIFont systemFontOfSize:12];
-        _upTitleLab.textAlignment = NSTextAlignmentLeft;
-        _upTitleLab.textColor = [UIColor whiteColor];
-        [self addSubview:_upTitleLab];
-    }
-    if (!_subTitleLab) {
-        _subTitleLab = [[UILabel alloc]initWithFrame:CGRectMake(5*ZOOM_SCALE, 117*ZOOM_SCALE, 80*ZOOM_SCALE, 34*ZOOM_SCALE)];
-        _subTitleLab.numberOfLines = 2;
-        _subTitleLab.textAlignment = NSTextAlignmentCenter;
-        _subTitleLab.font = [UIFont systemFontOfSize:12];
-        _subTitleLab.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1/1.0];
-        [self addSubview:_subTitleLab];
-    }
+ 
    
-    CGFloat height = 116*ZOOM_SCALE;
+    CGFloat height = ZOOM_SCALE(116);
     if (!_iconImgVie) {
         _iconImgVie = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height)];
         _iconImgVie.contentMode = UIViewContentModeBottom;
@@ -87,14 +68,11 @@ static CGFloat kDuration = .3f;
     [self bringSubviewToFront:self.subTitleLab];
     self.upTitleLab.text = self.model.title;
     self.subTitleLab.text = self.model.subtitle;
-    CGSize maximumLabelSize = CGSizeMake(80*ZOOM_SCALE, 34);//labelsize的最大值
+    CGSize maximumLabelSize = CGSizeMake(ZOOM_SCALE(80), 34);//labelsize的最大值
 
     CGSize expectSize = [_subTitleLab sizeThatFits:maximumLabelSize];
     //sizeThatsFits根据textLabel的字符长度显示label的大小，当textLabel的字符长度大于maximumLabelSize时，自动换行。
     //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
-    self.subTitleLab.frame = CGRectMake(5*ZOOM_SCALE, 117*ZOOM_SCALE, expectSize.width, expectSize.height);
-    CGFloat centerx = self.iconImgVie.center.x;
-    self.subTitleLab.center = CGPointMake(centerx, _subTitleLab.center.y);
     
 }
 

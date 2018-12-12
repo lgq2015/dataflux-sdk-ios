@@ -7,24 +7,70 @@
 //
 
 #import "MainTabBarController.h"
-
+#import "RootViewController.h"
+#import "RootNavigationController.h"
+#import "UITabBar+CustomBadge.h"
+#import "PWTabBar.h"
 @interface MainTabBarController ()
-
+@property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
 @end
 
 @implementation MainTabBarController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //初始化tabbar
+    [self setUpTabBar];
+    //添加子控制器
     [self setUpAllChildViewController];
 }
-- (void)setUpAllChildViewController{
-    
+-(void)setUpTabBar{
+    //设置背景色 去掉分割线
+    [self setValue:[PWTabBar new] forKey:@"tabBar"];
+//    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
+    [self.tabBar setBackgroundImage:[UIImage new]];
+    //通过这两个参数来调整badge位置
+    [self.tabBar setTabIconWidth:ZOOM_SCALE(24)];
+    [self.tabBar setBadgeTop:ZOOM_SCALE(6)];
 }
-- (void)setUpOneChildViewController:(UIViewController *)viewController image:(UIImage *)image selectedImage:(UIImage *)selectedImage title:(NSString *)title{
-    viewController.tabBarItem.image = image;
-    viewController.tabBarItem.selectedImage = selectedImage;
-    viewController.tabBarItem.title = title;
+- (void)setUpAllChildViewController{
+    _VCS = @[].mutableCopy;
+    //    HomeViewController *homeVC = [[HomeViewController alloc]init];
+    //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
+    UIViewController *homeVC = [[UIViewController alloc]init];
+    [self setupChildViewController:homeVC title:@"首页" imageName:@"icon_home_nor" seleceImageName:@"icon_home_sel"];
+    homeVC.navigationController.navigationBar.hidden = YES;
+
+    //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
+    UIViewController *makeFriendVC = [[UIViewController alloc]init];
+    [self setupChildViewController:makeFriendVC title:@"云服务" imageName:@"icon_cc" seleceImageName:@"icon_tabbar_onsite_selected"];
+    
+    //    MsgViewController *msgVC = [[MsgViewController alloc]init];
+    UIViewController *msgVC = [UIViewController new];
+    [self setupChildViewController:msgVC title:@"CloudCare+" imageName:@"icon_cc+" seleceImageName:@"icon_cc+_sel"];
+    
+    
+    UIViewController *mineVC = [[UIViewController alloc]init];
+    [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_mine_NOR" seleceImageName:@"icon_tabbar_mine_selected"];
+    mineVC.navigationController.navigationBar.hidden = YES;
+    
+    self.viewControllers = _VCS;
+}
+-(void)setupChildViewController:(UIViewController*)controller title:(NSString *)title imageName:(NSString *)imageName seleceImageName:(NSString *)selectImageName{
+    controller.title = title;
+    controller.tabBarItem.title = title;//跟上面一样效果
+    controller.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //未选中字体颜色
+    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:CTabbarTextColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateNormal];
+    
+    //选中字体颜色
+    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:CTabbarTextColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateSelected];
+    //包装导航控制器
+    RootNavigationController *nav = [[RootNavigationController alloc]initWithRootViewController:controller];
+
+    //    [self addChildViewController:nav];
+    [_VCS addObject:nav];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

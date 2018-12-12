@@ -13,8 +13,14 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 //全局宏
 #import "UtilsMacros.h"
+#import "NotificationMacros.h"
+#import "PWNetworking.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 // 布局
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+#import <YYKit.h>
 
+#import "AppDelegate.h"
+#import "AppDelegate+AppService.h"
 #endif /* PrefixHeader_pch */

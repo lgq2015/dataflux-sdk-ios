@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol PWInfoInitialViewDelegate <NSObject>
+- (void)serverConnectClick;
+@end
 @interface PWInfoInitialView : UIView
-@property (nonatomic, copy) void(^serverConnectClick)(void);
+/**
+ *  代理方法
+ */
+@property (nonatomic, weak) id<PWInfoInitialViewDelegate> delegate;
+
 @end

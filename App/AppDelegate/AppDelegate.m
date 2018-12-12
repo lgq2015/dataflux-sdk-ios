@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MainTabBarController.h"
 @interface AppDelegate ()
-@property (nonatomic, strong) UITabBarController *mainTB;
+@property (nonatomic, strong) MainTabBarController *mainTB;
 @end
 
 @implementation AppDelegate
@@ -18,15 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    _mainTB = [[UITabBarController alloc]init];
-    
+    _mainTB = [[MainTabBarController alloc]init];
+    NSLog(@"%@",[@"qwe123123" md5String]);
     self.window.rootViewController = self.mainTB;
-    ViewController *VC1 = [[ViewController alloc]init];
-    
-    ViewController *VC2 = [[ViewController alloc]init];
-    
-    ViewController *VC3 = [[ViewController alloc]init];
-    self.mainTB.viewControllers= @[VC1,VC2,VC3];
+   
     // Override point for customization after application launch.
     return YES;
 }

@@ -10,7 +10,6 @@
 
 #ifndef define_h
 #define define_h
-
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]
 #define kAppWindow          [UIApplication sharedApplication].delegate.window
@@ -69,16 +68,21 @@
 
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
+//主题色 导航栏颜色
+#define CNavBgColor  [UIColor colorWithHexString:@"00AE68"]
+#define CTabbarTextColor [UIColor colorWithHexString:@"333333"]
 
+#define PWTextColor [UIColor colorWithHexString:@"333333"]
 //颜色
-#define KClearColor [UIColor clearColor]
-#define KWhiteColor [UIColor whiteColor]
-#define KBlackColor [UIColor blackColor]
-#define KGrayColor [UIColor grayColor]
-#define KGray2Color [UIColor lightGrayColor]
-#define KBlueColor [UIColor blueColor]
-#define KRedColor [UIColor redColor]
-#define kRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
+
+#define PWClearColor [UIColor clearColor]
+#define PWWhiteColor [UIColor whiteColor]
+#define PWBlackColor [UIColor blackColor]
+#define PWGrayColor [UIColor grayColor]
+#define PWGray2Color [UIColor lightGrayColor]
+#define PWBlueColor [UIColor blueColor]
+#define PWRedColor [UIColor redColor]
+#define PWRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 //字体

@@ -7,13 +7,7 @@
 //
 
 #import "PWInfoBoardCell.h"
-#import "NSDictionaryUtils.h"
-#import "UZAppUtils.h"
-#define kWidth [UIScreen mainScreen].bounds.size.width
-#define kHeight [UIScreen mainScreen].bounds.size.height
-#define ZOOM_SCALE  (float)([[UIScreen mainScreen] bounds].size.width/360.0)
-#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-#define LOADIMAGE(file,ext) [[NSBundle mainBundle]pathForResource:file ofType:ext]
+
 
 static NSString *const PWInfoTypeMonitor
 = @"monitor";
@@ -68,27 +62,9 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 - (void)setupUI{
     self.tickImg.hidden = YES;
     //数据类型 ,type,为 monitor(监控)，consume（费用），security（安全） ，service（服务），optimization（优化）, serviceConnect（链接服务）
-    if (!self.iconImg) {
-        _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(19*ZOOM_SCALE, 15*ZOOM_SCALE, 30*ZOOM_SCALE, 30*ZOOM_SCALE)];
-        _iconImg.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:_iconImg];
-    }
-    if (!self.title) {
-        _title = [[UILabel alloc]initWithFrame:CGRectMake(60*ZOOM_SCALE, 19*ZOOM_SCALE, 32*ZOOM_SCALE, 22*ZOOM_SCALE)];
-        _title.font = [UIFont fontWithName:@"Helvetica-Bold" size:16*ZOOM_SCALE];
-        _title.textColor =  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1/1.0];
-        [self addSubview:_title];
-    }
-    if (!self.subtitle) {
-        _subtitle = [[UILabel alloc]initWithFrame:CGRectMake(102*ZOOM_SCALE, 22*ZOOM_SCALE, 170*ZOOM_SCALE, 17*ZOOM_SCALE)];
-        _subtitle.font = [UIFont systemFontOfSize:12];
-        _subtitle.numberOfLines = 1;
-        _subtitle.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1/1.0];
-        [self addSubview:_subtitle];
 
-    }
-    NSString *subtitle = [self.datas stringValueForKey:@"subtitle" defaultValue:@""];
-    self.subtitle.text = subtitle;
+//    NSString *subtitle = [self.datas stringValueForKey:@"subtitle" defaultValue:@""];
+//    self.subtitle.text = subtitle;
     NSString *messageCountStr = [NSString stringWithFormat:@"%@",self.datas[@"messageCount"]];
     if(![[self.datas allKeys] containsObject:@"messageCount"]){
         messageCountStr = @"";
@@ -108,13 +84,13 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
                 [self fitPopFrameWithCount:0];
                 _count.hidden = YES;
                 _popView.hidden = NO;
-                textColor = [UZAppUtils colorFromNSString:@"#3FEC67"];
+//                textColor = [UZAppUtils colorFromNSString:@"#3FEC67"];
                 break;
             case PWInfoBoardItemStateWarning:
-                textColor = [UZAppUtils colorFromNSString:@"#FFE27E"];
+//                textColor = [UZAppUtils colorFromNSString:@"#FFE27E"];
                 break;
             case PWInfoBoardItemStateSeriousness:
-                textColor = [UZAppUtils colorFromNSString:@"#FF7975"];
+//                textColor = [UZAppUtils colorFromNSString:@"#FF7975"];
                 break;
             default:
                 break;
@@ -125,43 +101,53 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     NSString *imageName;
     if ([type isEqualToString:PWInfoTypeConsume]) {
         self.title.text = @"费用";
-        imageName = @"res_PWInfoBoard/consume@2x";
+        imageName = @"consume";
     }else if([type isEqualToString:PWInfoTypeMonitor]){
         self.title.text = @"监控";
-        imageName = @"res_PWInfoBoard/monitoring@2x";
+        imageName = @"monitoring";
     }else if([type isEqualToString:PWInfoTypeService]){
         self.title.text = @"服务";
-        imageName = @"res_PWInfoBoard/service@2x";
+        imageName = @"service";
     }else if([type isEqualToString:PWInfoTypeSecurity]){
         self.title.text = @"安全";
-        imageName = @"res_PWInfoBoard/safe@2x";
+        imageName = @"safe";
     }else if([type isEqualToString:PWInfoTypeOptimization]){
         self.title.text = @"优化";
-        imageName = @"res_PWInfoBoard/optimize@2x";
+        imageName = @"optimize";
     }
-    self.iconImg.image = [UIImage imageWithContentsOfFile:LOADIMAGE(imageName, @"png")];
+    self.iconImg.image = [UIImage imageNamed:imageName];
    
 }
 
 -(void)fitPopFrameWithCount:(NSString *)count{
-    self.count.text =count;
-    [self.count sizeToFit];
-    CGFloat width = self.count.frame.size.width+8>36? self.count.frame.size.width+8:36;
-    CGFloat realWidth = width<50? width:50;
-    self.subtitle.frame = CGRectMake(102*ZOOM_SCALE, 22*ZOOM_SCALE, 170*ZOOM_SCALE-(realWidth-36), 17*ZOOM_SCALE);
-    self.popView.frame = CGRectMake(280*ZOOM_SCALE, 12*ZOOM_SCALE, realWidth, realWidth);
-    self.popView.center = CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
-    self.popView.layer.cornerRadius = realWidth/2.00;
-    self.count.frame = self.popView.frame;
-    if (self.tickImg.hidden == NO) {
-        _tickImg.frame = CGRectMake(0, 0, 19*ZOOM_SCALE, 13*ZOOM_SCALE);
-        _tickImg.center =CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
+//    self.count.text =count;
+//    [self.count sizeToFit];
+//    CGFloat width = self.count.frame.size.width+8>36? self.count.frame.size.width+8:36;
+//    CGFloat realWidth = width<50? width:50;
+//    self.subtitle.frame = CGRectMake(102*ZOOM_SCALE, 22*ZOOM_SCALE, 170*ZOOM_SCALE-(realWidth-36), 17*ZOOM_SCALE);
+//    self.popView.frame = CGRectMake(280*ZOOM_SCALE, 12*ZOOM_SCALE, realWidth, realWidth);
+//    self.popView.center = CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
+//    self.popView.layer.cornerRadius = realWidth/2.00;
+//    self.count.frame = self.popView.frame;
+//    if (self.tickImg.hidden == NO) {
+//        _tickImg.frame = CGRectMake(0, 0, 19*ZOOM_SCALE, 13*ZOOM_SCALE);
+//        _tickImg.center =CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
+//    }
+//    initialCenter = CGPointMake(self.popView.frame.origin.x+self.popView.frame.size.width/2, self.popView.frame.origin.y+self.popView.frame.size.height/2);
+//    [self bringSubviewToFront:self.count];
+//    if (_tickImg.hidden==NO) {
+//        [self bringSubviewToFront:self.tickImg];
+//    }
+}
+-(UILabel *)subtitle{
+    if (!_subtitle) {
+        _subtitle = [[UILabel alloc]initWithFrame:CGRectZero];
+        _subtitle.font = [UIFont systemFontOfSize:12];
+        _subtitle.numberOfLines = 1;
+        _subtitle.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1/1.0];
+        [self addSubview:_subtitle];
     }
-    initialCenter = CGPointMake(self.popView.frame.origin.x+self.popView.frame.size.width/2, self.popView.frame.origin.y+self.popView.frame.size.height/2);
-    [self bringSubviewToFront:self.count];
-    if (_tickImg.hidden==NO) {
-        [self bringSubviewToFront:self.tickImg];
-    }
+    return _subtitle;
 }
 -(UIView *)popView{
     if (!_popView) {
@@ -170,11 +156,27 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     }
     return _popView;
 }
-
+- (UILabel *)title{
+    if (!_title) {
+        _title = [[UILabel alloc]initWithFrame:CGRectMake(ZOOM_SCALE(60), ZOOM_SCALE(19), ZOOM_SCALE(32), ZOOM_SCALE(22))];
+        _title.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        _title.textColor =  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1/1.0];
+        [self addSubview:_title];
+    }
+    return _title;
+}
+-(UIImageView *)iconImg{
+    if (!_iconImg) {
+        _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(19), ZOOM_SCALE(15), ZOOM_SCALE(30), ZOOM_SCALE(30))];
+        _iconImg.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_iconImg];
+    }
+    return _iconImg;
+}
 -(UILabel *)count{
     if (!_count) {
         _count = [[UILabel alloc]initWithFrame:CGRectZero];
-        _count.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14*ZOOM_SCALE];
+        _count.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
         _count.textAlignment = NSTextAlignmentCenter;
         _count.textColor = [UIColor whiteColor];
         _count.backgroundColor = [UIColor clearColor];
@@ -256,7 +258,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 }
 -(UIImageView *)tickImg{
     if (!_tickImg) {
-        _tickImg = [[UIImageView alloc]initWithImage:[UIImage imageWithContentsOfFile:LOADIMAGE(@"res_PWInfoBoard/tick@2x", @"png")]];
+        _tickImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tick"]];
         _tickImg.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:_tickImg];
     }

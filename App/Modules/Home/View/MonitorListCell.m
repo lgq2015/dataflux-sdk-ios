@@ -52,7 +52,48 @@
             make.height.mas_equalTo(ZOOM_SCALE(34));
         }];
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.icon] placeholderImage:[UIImage imageNamed:@""]];
-     }
+        [self.attrsLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.iconImgView).with.offset(ZOOM_SCALE(20));
+            make.top.equalTo(self.titleLab).with.offset(ZOOM_SCALE(20));
+            make.right.mas_equalTo(ZOOM_SCALE(12));
+        }];
+        self.attrsLab.text = model.attrs;
+        CGPoint center = self.iconImgView.center;
+        if (CGRectGetMaxY(self.imageView.frame)>CGRectGetMaxY(self.attrsLab.frame)) {
+            center.x = self.attrsLab.center.x;
+            self.attrsLab.center = center;
+            top = self.iconImgView;
+        }else{
+            center.y = self.iconImgView.center.y;
+            self.iconImgView.center = center;
+            top = self.attrsLab;
+        }
+    }
+    if (model.descs.length>0) {
+        [self.descsLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(top).with.offset(ZOOM_SCALE(10));
+            make.left.mas_equalTo(ZOOM_SCALE(17));
+            make.right.mas_equalTo(ZOOM_SCALE(17));
+        }];
+        self.descsLab.text = model.descs;
+        top = self.descsLab;
+    }
+    if (model.suggestion.length>0) {
+        [self.suggestionLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(top).with.offset(ZOOM_SCALE(15));
+            make.left.mas_equalTo(ZOOM_SCALE(17));
+            make.right.mas_equalTo(ZOOM_SCALE(17));
+        }];
+        self.suggestionLab.text = model.suggestion;
+        top = self.suggestionLab;
+    }
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(top).with.offset(ZOOM_SCALE(10));
+        make.left.mas_equalTo(ZOOM_SCALE(17));
+        make.right.mas_equalTo(ZOOM_SCALE(17));
+        make.bottom.mas_equalTo(ZOOM_SCALE(25));
+    }];
+    self.timeLab.text = model.time;
 }
 -(UIView *)lineView{
     if (!_lineView) {

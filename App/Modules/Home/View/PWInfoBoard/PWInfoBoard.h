@@ -7,9 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef NS_ENUM(NSInteger, PWInfoBoardStyle) {
+    PWInfoBoardStyleNotConnected = 0,       //未添加账号
+    PWInfoBoardStyleConnected = 1,         //连接后
+};
 @interface PWInfoBoard : UIView
--(instancetype)initWithFrame:(CGRect)frame paramsDic:(NSDictionary*)paramsDic;
-- (void)openModel:(NSDictionary *)paramsDict;
+@property (nonatomic, copy) void(^connectClick)(void);
+@property (nonatomic, copy) void(^historyInfoClick)(void);
+
+/** 初始化InfoBoard视图的frame与style*/
+-(instancetype)initWithFrame:(CGRect)frame style:(PWInfoBoardStyle)style;
+
+/** 创建InfoBoard视图*/
+- (void)createUIWithParamsDict:(NSDictionary *)paramsDict;
+
+/** 更改InfoBoard的style*/
+- (void)updataInfoBoardStyle:(PWInfoBoardStyle)style itemData:(NSDictionary *)paramsDict;
+
+/** 界面刷新*/
+- (void)updataDatas:(NSDictionary *)paramsDict;
+
+/** item刷新*/
 - (void)updateItem:(NSDictionary *)paramsDict;
-- (void)updateTitle:(NSDictionary *)paramsDict;
+
+/** InfoBoard模块title更新*/
+- (void)updateTitle:(NSString *)title;
 @end

@@ -15,9 +15,7 @@
 @property (nonatomic, assign) CGFloat keyboardheight;
 @property (nonatomic, strong) UITextField *inputTf;
 @end
-#define kWidth [UIScreen mainScreen].bounds.size.width
-#define kHeight [UIScreen mainScreen].bounds.size.height
-#define ZOOM_SCALE  (float)([[UIScreen mainScreen] bounds].size.width/360.0)
+
 #define DELETEBUTTONTAG 20000
 @implementation PWMNView
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -44,7 +42,7 @@
         [self.inputTf resignFirstResponder];
     }
 }
-#pragma mark - private method -
+#pragma mark ========== private method ==========
 - (void)createItem{
     self.seletTag = 1;
     self.isCodeViewStatus = YES;
@@ -186,7 +184,7 @@
 
 -(UITextField *)inputTf{
     if (!_inputTf) {
-        _inputTf = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 20*ZOOM_SCALE, 28*ZOOM_SCALE)];
+        _inputTf = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, ZOOM_SCALE(20), ZOOM_SCALE(28))];
         _inputTf.keyboardType = UIKeyboardTypeNumberPad;
         [_inputTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         _inputTf.tintColor =  [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1/1.0];

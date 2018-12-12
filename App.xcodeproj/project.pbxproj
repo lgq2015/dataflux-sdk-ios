@@ -15,8 +15,6 @@
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
-		4A6C287D219C1B9C0059BB08 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C287C219C1B9C0059BB08 /* MainTabBarController.m */; };
-		4A6C2884219D16790059BB08 /* CCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2883219D16790059BB08 /* CCNavigationController.m */; };
 		4A6C2887219D50980059BB08 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2886219D50980059BB08 /* RootViewController.m */; };
 		4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
 		4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
@@ -28,6 +26,35 @@
 		4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
 		4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
+		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
+		4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
+		4ABF437F21B77DE3002AF34E /* UITabBar+CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437D21B77DE3002AF34E /* UITabBar+CustomBadge.m */; };
+		4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439D21B8BACE002AF34E /* PWDraggableItem.m */; };
+		4ABF43B621B8BACE002AF34E /* PWDraggableLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439F21B8BACE002AF34E /* PWDraggableLibraryView.m */; };
+		4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A021B8BACE002AF34E /* LongPressControl.m */; };
+		4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A521B8BACE002AF34E /* TADotView.m */; };
+		4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A621B8BACE002AF34E /* TAPageControl.m */; };
+		4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
+		4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A821B8BACE002AF34E /* TAAbstractDotView.m */; };
+		4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AD21B8BACE002AF34E /* PWGridView.m */; };
+		4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
+		4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
+		4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
+		4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
+		4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */; };
+		4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442121BD320E002AF34E /* PWCacheManager.m */; };
+		4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442421BD326F002AF34E /* PWMemoryCache.m */; };
+		4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442721BD334A002AF34E /* PWDiskCache.m */; };
+		4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442A21BD3393002AF34E /* PWLRUManager.m */; };
+		4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
+		4ABF448121BFA170002AF34E /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448021BFA170002AF34E /* MineViewController.m */; };
+		4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448421BFBDD4002AF34E /* UserManager.m */; };
+		4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448B21C0A52A002AF34E /* PWTransition.m */; };
+		4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */; };
+		4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
+		4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -51,10 +78,6 @@
 		4A6C286F219C156D0059BB08 /* PWMNView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWMNView.h; sourceTree = "<group>"; };
 		4A6C2870219C156D0059BB08 /* PWMNInputItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWMNInputItem.h; sourceTree = "<group>"; };
 		4A6C2871219C156D0059BB08 /* PWMNView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNView.m; sourceTree = "<group>"; };
-		4A6C287B219C1B9C0059BB08 /* MainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
-		4A6C287C219C1B9C0059BB08 /* MainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
-		4A6C2882219D16790059BB08 /* CCNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCNavigationController.h; sourceTree = "<group>"; };
-		4A6C2883219D16790059BB08 /* CCNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCNavigationController.m; sourceTree = "<group>"; };
 		4A6C2885219D50980059BB08 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		4A6C2886219D50980059BB08 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		4A6C288D219D59700059BB08 /* RefreshTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshTableView.h; sourceTree = "<group>"; };
@@ -77,6 +100,67 @@
 		4A95BBE12181C77000FC2979 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
+		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
+		4ABF437521B76B6D002AF34E /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTabBarController.m; path = App/Base/TabbarController/MainTabBarController.m; sourceTree = SOURCE_ROOT; };
+		4ABF437621B76B6D002AF34E /* PWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWTabBar.h; path = App/Base/TabbarController/PWTabBar.h; sourceTree = SOURCE_ROOT; };
+		4ABF437721B76B6D002AF34E /* PWTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWTabBar.m; path = App/Base/TabbarController/PWTabBar.m; sourceTree = SOURCE_ROOT; };
+		4ABF437A21B76BC5002AF34E /* RootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootNavigationController.h; sourceTree = "<group>"; };
+		4ABF437B21B76BC5002AF34E /* RootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootNavigationController.m; sourceTree = "<group>"; };
+		4ABF437D21B77DE3002AF34E /* UITabBar+CustomBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+CustomBadge.m"; sourceTree = "<group>"; };
+		4ABF437E21B77DE3002AF34E /* UITabBar+CustomBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+CustomBadge.h"; sourceTree = "<group>"; };
+		4ABF439B21B8BACE002AF34E /* LongPressControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LongPressControl.h; sourceTree = "<group>"; };
+		4ABF439C21B8BACE002AF34E /* PWDraggableLibraryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWDraggableLibraryView.h; sourceTree = "<group>"; };
+		4ABF439D21B8BACE002AF34E /* PWDraggableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWDraggableItem.m; sourceTree = "<group>"; };
+		4ABF439F21B8BACE002AF34E /* PWDraggableLibraryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWDraggableLibraryView.m; sourceTree = "<group>"; };
+		4ABF43A021B8BACE002AF34E /* LongPressControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LongPressControl.m; sourceTree = "<group>"; };
+		4ABF43A121B8BACE002AF34E /* PWDraggableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWDraggableItem.h; sourceTree = "<group>"; };
+		4ABF43A421B8BACE002AF34E /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		4ABF43A521B8BACE002AF34E /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		4ABF43A621B8BACE002AF34E /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		4ABF43A821B8BACE002AF34E /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		4ABF43A921B8BACE002AF34E /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		4ABF43AA21B8BACE002AF34E /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		4ABF43AB21B8BACE002AF34E /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		4ABF43AD21B8BACE002AF34E /* PWGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWGridView.m; sourceTree = "<group>"; };
+		4ABF43AF21B8BACE002AF34E /* GridViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewItem.m; sourceTree = "<group>"; };
+		4ABF43B021B8BACE002AF34E /* ItemContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemContentCell.m; sourceTree = "<group>"; };
+		4ABF43B121B8BACE002AF34E /* PWGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWGridView.h; sourceTree = "<group>"; };
+		4ABF43B221B8BACE002AF34E /* ItemContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemContentCell.h; sourceTree = "<group>"; };
+		4ABF43B321B8BACE002AF34E /* GridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewItem.h; sourceTree = "<group>"; };
+		4ABF43C121B8BB1D002AF34E /* PWDraggableModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDraggableModel.h; sourceTree = "<group>"; };
+		4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDraggableModel.m; sourceTree = "<group>"; };
+		4ABF43FB21B8FD88002AF34E /* LoginPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginPasswordVC.h; sourceTree = "<group>"; };
+		4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginPasswordVC.m; sourceTree = "<group>"; };
+		4ABF441821BD1F68002AF34E /* PWNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWNetworking.h; sourceTree = "<group>"; };
+		4ABF441921BD1F68002AF34E /* PWNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWNetworking.m; sourceTree = "<group>"; };
+		4ABF441C21BD3146002AF34E /* PWNetworking+RequestManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PWNetworking+RequestManager.h"; sourceTree = "<group>"; };
+		4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PWNetworking+RequestManager.m"; sourceTree = "<group>"; };
+		4ABF442021BD320E002AF34E /* PWCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCacheManager.h; sourceTree = "<group>"; };
+		4ABF442121BD320E002AF34E /* PWCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCacheManager.m; sourceTree = "<group>"; };
+		4ABF442321BD326F002AF34E /* PWMemoryCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWMemoryCache.h; sourceTree = "<group>"; };
+		4ABF442421BD326F002AF34E /* PWMemoryCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWMemoryCache.m; sourceTree = "<group>"; };
+		4ABF442621BD334A002AF34E /* PWDiskCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDiskCache.h; sourceTree = "<group>"; };
+		4ABF442721BD334A002AF34E /* PWDiskCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDiskCache.m; sourceTree = "<group>"; };
+		4ABF442921BD3393002AF34E /* PWLRUManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWLRUManager.h; sourceTree = "<group>"; };
+		4ABF442A21BD3393002AF34E /* PWLRUManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLRUManager.m; sourceTree = "<group>"; };
+		4ABF446121BE0E97002AF34E /* PWNetWorkURLs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWNetWorkURLs.h; sourceTree = "<group>"; };
+		4ABF447C21BF8C2D002AF34E /* GridViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridViewModel.h; sourceTree = "<group>"; };
+		4ABF447D21BF8C2D002AF34E /* GridViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewModel.m; sourceTree = "<group>"; };
+		4ABF447F21BFA170002AF34E /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		4ABF448021BFA170002AF34E /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		4ABF448321BFBDD4002AF34E /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		4ABF448421BFBDD4002AF34E /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		4ABF448A21C0A52A002AF34E /* PWTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWTransition.h; sourceTree = "<group>"; };
+		4ABF448B21C0A52A002AF34E /* PWTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTransition.m; sourceTree = "<group>"; };
+		4ABF449121C0A61A002AF34E /* PWTransitionProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWTransitionProtocol.h; sourceTree = "<group>"; };
+		4ABF449221C0B246002AF34E /* AppDelegate+AppService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+AppService.h"; sourceTree = "<group>"; };
+		4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+AppService.m"; sourceTree = "<group>"; };
+		4ABF449521C0B2F5002AF34E /* NotificationMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacros.h; sourceTree = "<group>"; };
+		4ABF449921C0B82C002AF34E /* AppManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
+		4ABF449A21C0B82C002AF34E /* AppManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
+		4ABF449D21C0B8A3002AF34E /* YYFPSLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -121,6 +205,9 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4ABF43A321B8BACE002AF34E /* PageControl */,
+				4ABF439A21B8BACE002AF34E /* PWDraggableLibraryView */,
+				4ABF43AC21B8BACE002AF34E /* PWGridView */,
 				4A19548621A7F7BE007ADFCA /* PWInfoBoard */,
 				4A19550521ABE4D8007ADFCA /* MonitorListCell.h */,
 				4A19550621ABE4D8007ADFCA /* MonitorListCell.m */,
@@ -146,6 +233,8 @@
 			children = (
 				4A6C2864219BF75E0059BB08 /* AppDelegate.h */,
 				4A6C2865219BF75E0059BB08 /* AppDelegate.m */,
+				4ABF449221C0B246002AF34E /* AppDelegate+AppService.h */,
+				4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -166,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				4A19549021A7FEDE007ADFCA /* UtilsMacros.h */,
+				4ABF449521C0B2F5002AF34E /* NotificationMacros.h */,
 			);
 			path = Define;
 			sourceTree = "<group>";
@@ -186,6 +276,8 @@
 			isa = PBXGroup;
 			children = (
 				4A6C286D219C156D0059BB08 /* CCMultiNumberInput */,
+				4ABF43FB21B8FD88002AF34E /* LoginPasswordVC.h */,
+				4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -193,9 +285,9 @@
 		4A6C286D219C156D0059BB08 /* CCMultiNumberInput */ = {
 			isa = PBXGroup;
 			children = (
+				4A6C2870219C156D0059BB08 /* PWMNInputItem.h */,
 				4A6C286E219C156D0059BB08 /* PWMNInputItem.m */,
 				4A6C286F219C156D0059BB08 /* PWMNView.h */,
-				4A6C2870219C156D0059BB08 /* PWMNInputItem.h */,
 				4A6C2871219C156D0059BB08 /* PWMNView.m */,
 			);
 			path = CCMultiNumberInput;
@@ -204,6 +296,8 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4ABF449C21C0B892002AF34E /* Other */,
+				4ABF448621C0A4D5002AF34E /* PWTransition */,
 				4A19546F21A7A445007ADFCA /* LocalLog */,
 				4A19546E21A7A3E3007ADFCA /* DataBase */,
 				4A95BBB4217DB76100FC2979 /* Adaptive */,
@@ -238,8 +332,12 @@
 		4A6C2878219C1B6F0059BB08 /* TabbarController */ = {
 			isa = PBXGroup;
 			children = (
-				4A6C287B219C1B9C0059BB08 /* MainTabBarController.h */,
-				4A6C287C219C1B9C0059BB08 /* MainTabBarController.m */,
+				4ABF437421B76B6D002AF34E /* MainTabBarController.h */,
+				4ABF437521B76B6D002AF34E /* MainTabBarController.m */,
+				4ABF437E21B77DE3002AF34E /* UITabBar+CustomBadge.h */,
+				4ABF437D21B77DE3002AF34E /* UITabBar+CustomBadge.m */,
+				4ABF437621B76B6D002AF34E /* PWTabBar.h */,
+				4ABF437721B76B6D002AF34E /* PWTabBar.m */,
 			);
 			path = TabbarController;
 			sourceTree = "<group>";
@@ -256,8 +354,8 @@
 		4A6C287A219C1B6F0059BB08 /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				4A6C2882219D16790059BB08 /* CCNavigationController.h */,
-				4A6C2883219D16790059BB08 /* CCNavigationController.m */,
+				4ABF437A21B76BC5002AF34E /* RootNavigationController.h */,
+				4ABF437B21B76BC5002AF34E /* RootNavigationController.m */,
 			);
 			path = NavigationController;
 			sourceTree = "<group>";
@@ -288,6 +386,8 @@
 		4A6C2881219D08B70059BB08 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				4ABF447F21BFA170002AF34E /* MineViewController.h */,
+				4ABF448021BFA170002AF34E /* MineViewController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -295,6 +395,9 @@
 		4A6C2888219D586D0059BB08 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				4ABF448221BFBD9D002AF34E /* UserManger */,
+				4ABF449921C0B82C002AF34E /* AppManager.h */,
+				4ABF449A21C0B82C002AF34E /* AppManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -361,6 +464,11 @@
 		4A95BBE92182AF4100FC2979 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				4ABF446121BE0E97002AF34E /* PWNetWorkURLs.h */,
+				4ABF441821BD1F68002AF34E /* PWNetworking.h */,
+				4ABF441921BD1F68002AF34E /* PWNetworking.m */,
+				4ABF441B21BD3100002AF34E /* RequestManager */,
+				4ABF441F21BD31E5002AF34E /* Cache */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -370,8 +478,105 @@
 			children = (
 				4ABF426121ACDCBE002AF34E /* MonitorListModel.h */,
 				4ABF426221ACDCBE002AF34E /* MonitorListModel.m */,
+				4ABF43C121B8BB1D002AF34E /* PWDraggableModel.h */,
+				4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */,
+				4ABF447C21BF8C2D002AF34E /* GridViewModel.h */,
+				4ABF447D21BF8C2D002AF34E /* GridViewModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4ABF439A21B8BACE002AF34E /* PWDraggableLibraryView */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF439B21B8BACE002AF34E /* LongPressControl.h */,
+				4ABF43A021B8BACE002AF34E /* LongPressControl.m */,
+				4ABF439C21B8BACE002AF34E /* PWDraggableLibraryView.h */,
+				4ABF439F21B8BACE002AF34E /* PWDraggableLibraryView.m */,
+				4ABF43A121B8BACE002AF34E /* PWDraggableItem.h */,
+				4ABF439D21B8BACE002AF34E /* PWDraggableItem.m */,
+			);
+			path = PWDraggableLibraryView;
+			sourceTree = "<group>";
+		};
+		4ABF43A321B8BACE002AF34E /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF43A421B8BACE002AF34E /* TAAbstractDotView.h */,
+				4ABF43A521B8BACE002AF34E /* TADotView.m */,
+				4ABF43A621B8BACE002AF34E /* TAPageControl.m */,
+				4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */,
+				4ABF43A821B8BACE002AF34E /* TAAbstractDotView.m */,
+				4ABF43A921B8BACE002AF34E /* TADotView.h */,
+				4ABF43AA21B8BACE002AF34E /* TAAnimatedDotView.h */,
+				4ABF43AB21B8BACE002AF34E /* TAPageControl.h */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
+		4ABF43AC21B8BACE002AF34E /* PWGridView */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF43B321B8BACE002AF34E /* GridViewItem.h */,
+				4ABF43AF21B8BACE002AF34E /* GridViewItem.m */,
+				4ABF43B121B8BACE002AF34E /* PWGridView.h */,
+				4ABF43AD21B8BACE002AF34E /* PWGridView.m */,
+				4ABF43B021B8BACE002AF34E /* ItemContentCell.m */,
+				4ABF43B221B8BACE002AF34E /* ItemContentCell.h */,
+			);
+			path = PWGridView;
+			sourceTree = "<group>";
+		};
+		4ABF441B21BD3100002AF34E /* RequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF441C21BD3146002AF34E /* PWNetworking+RequestManager.h */,
+				4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */,
+			);
+			path = RequestManager;
+			sourceTree = "<group>";
+		};
+		4ABF441F21BD31E5002AF34E /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF442021BD320E002AF34E /* PWCacheManager.h */,
+				4ABF442121BD320E002AF34E /* PWCacheManager.m */,
+				4ABF442321BD326F002AF34E /* PWMemoryCache.h */,
+				4ABF442421BD326F002AF34E /* PWMemoryCache.m */,
+				4ABF442621BD334A002AF34E /* PWDiskCache.h */,
+				4ABF442721BD334A002AF34E /* PWDiskCache.m */,
+				4ABF442921BD3393002AF34E /* PWLRUManager.h */,
+				4ABF442A21BD3393002AF34E /* PWLRUManager.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		4ABF448221BFBD9D002AF34E /* UserManger */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF448321BFBDD4002AF34E /* UserManager.h */,
+				4ABF448421BFBDD4002AF34E /* UserManager.m */,
+			);
+			path = UserManger;
+			sourceTree = "<group>";
+		};
+		4ABF448621C0A4D5002AF34E /* PWTransition */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF449121C0A61A002AF34E /* PWTransitionProtocol.h */,
+				4ABF448A21C0A52A002AF34E /* PWTransition.h */,
+				4ABF448B21C0A52A002AF34E /* PWTransition.m */,
+			);
+			path = PWTransition;
+			sourceTree = "<group>";
+		};
+		4ABF449C21C0B892002AF34E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				4ABF449D21C0B8A3002AF34E /* YYFPSLabel.h */,
+				4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		AA4215202FD2BC75048B9D47 /* Frameworks */ = {
@@ -499,19 +704,46 @@
 			files = (
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
+				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
+				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
+				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
+				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
+				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
+				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */,
 				4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */,
+				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
+				4ABF437F21B77DE3002AF34E /* UITabBar+CustomBadge.m in Sources */,
+				4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */,
+				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
+				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
+				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
+				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
+				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
+				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
+				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* PWInfoInitialView.m in Sources */,
+				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
+				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
+				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
+				4ABF43B621B8BACE002AF34E /* PWDraggableLibraryView.m in Sources */,
+				4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */,
 				4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */,
+				4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */,
 				4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */,
-				4A6C287D219C1B9C0059BB08 /* MainTabBarController.m in Sources */,
+				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
+				4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */,
+				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
+				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
+				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
+				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
 				4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */,
-				4A6C2884219D16790059BB08 /* CCNavigationController.m in Sources */,
+				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
