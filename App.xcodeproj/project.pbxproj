@@ -55,6 +55,7 @@
 		4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */; };
 		4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
 		4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */; };
+		4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +162,8 @@
 		4ABF449A21C0B82C002AF34E /* AppManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
 		4ABF449D21C0B8A3002AF34E /* YYFPSLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		4ABF44A021C0FD7E002AF34E /* UserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		4ABF44A121C0FD7E002AF34E /* UserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -556,6 +559,8 @@
 			children = (
 				4ABF448321BFBDD4002AF34E /* UserManager.h */,
 				4ABF448421BFBDD4002AF34E /* UserManager.m */,
+				4ABF44A021C0FD7E002AF34E /* UserInfo.h */,
+				4ABF44A121C0FD7E002AF34E /* UserInfo.m */,
 			);
 			path = UserManger;
 			sourceTree = "<group>";
@@ -710,6 +715,7 @@
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
 				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
 				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
+				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */,
 				4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,

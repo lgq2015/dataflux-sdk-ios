@@ -16,11 +16,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    _mainTB = [[MainTabBarController alloc]init];
-    NSLog(@"%@",[@"qwe123123" md5String]);
-    self.window.rootViewController = self.mainTB;
+    
+    [self initWindow];
+   
+    [self initUserManager];
+   
    
     // Override point for customization after application launch.
     return YES;

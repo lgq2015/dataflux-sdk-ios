@@ -11,6 +11,7 @@
 #import "LoginPasswordVC.h"
 #import "UserManager.h"
 #import "AppManager.h"
+
 @implementation AppDelegate (AppService)
 #pragma mark ————— 初始化服务 —————
 
@@ -32,6 +33,9 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
+    self.mainTabBar = [[MainTabBarController alloc]init];
+    NSLog(@"%@",[@"qwe123123" md5String]);
+    self.window.rootViewController = self.mainTabBar;
     [self.window makeKeyAndVisible];
     [[UIButton appearance] setExclusiveTouch:YES];
     //    [[UIButton appearance] setShowsTouchWhenHighlighted:YES];
@@ -48,7 +52,12 @@
 
 #pragma mark ————— 初始化用户系统 —————
 -(void)initUserManager{
-  
+//    DLog(@"设备IMEI ：%@",[OpenUDID value]);
+//
+//    if([userManager loadUserInfo]){
+//
+//    }
+
 }
 
 #pragma mark ————— 登录状态处理 —————

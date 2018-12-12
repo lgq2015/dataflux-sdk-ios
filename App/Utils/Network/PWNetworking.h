@@ -142,7 +142,7 @@ typedef PWResponseFailBlock PWDownloadFailBlock;
  *  @param successBlock     成功回调
  *  @param failBlock        失败回调
  *
- *  @return 返回的对象中可取消请求
+ *  @return 返回的对象中可取消请求 token
  */
 + (PWURLSessionTask *)requsetWithUrl:(NSString *)url
                 withRequestType:(NetworkRequestType)type
