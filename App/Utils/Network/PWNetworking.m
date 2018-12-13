@@ -21,7 +21,7 @@ static NSDictionary     *headers;
 
 static PWNetworkStatus  networkStatus;
 
-static NSTimeInterval   requestTimeout = 20.f;
+static NSTimeInterval   requestTimeout = 60.f;
 
 @implementation PWNetworking
 #pragma mark - manager
@@ -31,9 +31,8 @@ static NSTimeInterval   requestTimeout = 20.f;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //默认解析模式
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    
     //配置请求序列化
     AFJSONResponseSerializer *serializer = [AFJSONResponseSerializer serializer];
     
@@ -42,7 +41,7 @@ static NSTimeInterval   requestTimeout = 20.f;
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     
     manager.requestSerializer.timeoutInterval = requestTimeout;
-    
+    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json",@"X-CloudCare-Client=":@"3.0"};
     for (NSString *key in headers.allKeys) {
         if (headers[key] != nil) {
             [manager.requestSerializer setValue:headers[key] forHTTPHeaderField:key];
@@ -116,8 +115,8 @@ static NSTimeInterval   requestTimeout = 20.f;
                    progressBlock:(PWProgress)progressBlock
                     successBlock:(PWResponseSuccessBlock)successBlock
                        failBlock:(PWResponseFailBlock)failBlock {
-       [[self manager].requestSerializer setValue:headerstr forHTTPHeaderField:@"Authorization"];
-    
+       [[self manager].requestSerializer setValue:headerstr forHTTPHeaderField:@"X-Auth-Token"];
+   
     return [self requsetWithUrl:url withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 + (PWURLSessionTask *)requsetWithUrl:(NSString *)url
@@ -129,9 +128,15 @@ static NSTimeInterval   requestTimeout = 20.f;
                         successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
-    
     AFHTTPSessionManager *manager = [self manager];
-    
+    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
+
+//    NSError *parseError = nil;
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&parseError];
+//    NSString *paramStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *typestr = type == NetworkPostType? @"Post":@"Get";
+    DLog(@"method = %@ baseUrl = %@ param = %@",typestr,url,params);
+
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;

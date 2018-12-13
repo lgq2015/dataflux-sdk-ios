@@ -20,7 +20,7 @@
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import <YYKit.h>
-
+#import "iToast+SYCategory.h"
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
 #endif /* PrefixHeader_pch */

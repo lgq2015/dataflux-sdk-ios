@@ -48,10 +48,24 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)cheackSmsCountComplete:(completeBlock)complete{
     //    [PWNetworking requsetWithUrl:PW_smsCount withRequestType:<#(NetworkRequestType)#> refreshRequest:<#(BOOL)#> cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
 }
+#pragma mark ========== 刷新验证图片 ==========
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == kUserLoginTypePwd){
       //密码登录
+        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            if ([response[@"code"] isEqual:@0]) {
+                
+                KPostNotification(KNotificationLoginStateChange, @YES);
+            }
+            if ([response[@"code"] isEqual:@77]) {
+                DLog(@"%@",response);
+                [iToast alertWithTitleCenter:response[@"zh_CN"]];
+            }
+        } failBlock:^(NSError *error) {
+            DLog(@"%@",error);
+
+        }];
     }else{
       //验证码登录
     }
@@ -89,6 +103,7 @@ SINGLETON_FOR_CLASS(UserManager);
     KPostNotification(KNotificationLoginStateChange, @NO);
 }
 -(void)autoLoginToServer:(loginBlock)completion{
+    
 }
 #pragma mark ========== 加载缓存的用户信息 ==========
 -(BOOL)loadUserInfo{

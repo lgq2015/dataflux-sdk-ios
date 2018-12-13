@@ -7,7 +7,12 @@
 //
 
 #import "LoginPasswordVC.h"
-
+#import "NSString+verify.h"
+#import "OpenUDID.h"
+#import "FindPasswordVC.h"
+#import "VerifyCodeLoginVC.h"
+#import "UserManager.h"
+#import <AFNetworking.h>
 @interface LoginPasswordVC ()
 @property (nonatomic, strong) UIImageView *iconImg;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -33,9 +38,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isHidenNaviBar = YES;
     [self createUI];
 }
-#pragma mark ========== UI ==========
+#pragma mark ========== UI布局 ==========
 - (void)createUI{
     if (!_iconImg) {
         _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(130), ZOOM_SCALE(88), ZOOM_SCALE(100), ZOOM_SCALE(56))];
@@ -67,6 +73,7 @@
     if (!_line1){
         _line1 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(279), ZOOM_SCALE(280), 1)];
         _line1.backgroundColor = PWBlackColor;
+        _line1.alpha = 0.05;
         [self.view addSubview:_line1];
     }
     if (!_passwordImg) {
@@ -86,36 +93,43 @@
         _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
         _passwordTf.textAlignment = NSTextAlignmentLeft;
         _passwordTf.secureTextEntry = YES;
+        _passwordTf.placeholder = @"请输入账号密码";
         _passwordTf.textColor = PWTextColor;
         [self.view addSubview:_passwordTf];
     }
     [_passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.passwordImg).offset(ZOOM_SCALE(10));
+        make.left.equalTo(self.passwordImg.mas_right).offset(ZOOM_SCALE(10));
         make.top.equalTo(self.passwordImg);
-        make.right.equalTo(self.showWordsBtn).offset(ZOOM_SCALE(10));
+        make.right.equalTo(self.showWordsBtn.mas_left).offset(-ZOOM_SCALE(10));
         make.height.offset(ZOOM_SCALE(20));
     }];
     if (!_line2) {
         _line2 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(336), ZOOM_SCALE(280), 1)];
         _line2.backgroundColor = PWBlackColor;
-        [self.view addSubview:_line1];
+        _line2.alpha = 0.05;
+        [self.view addSubview:_line2];
     }
     if (!_findWordsBtn) {
         _findWordsBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(272), ZOOM_SCALE(343), ZOOM_SCALE(48), ZOOM_SCALE(17))];
         [_findWordsBtn setTitle:@"找回密码" forState:UIControlStateNormal];
+        [_findWordsBtn setTitleColor:[UIColor colorWithHexString:@"7F7F7F"] forState:UIControlStateNormal];
         _findWordsBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 12];
+        [_findWordsBtn addTarget:self action:@selector(findWordClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_findWordsBtn];
     }
     if(!_loginBtn){
         _loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44))];
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
         _loginBtn.enabled = NO;
+        _loginBtn.layer.cornerRadius = ZOOM_SCALE(5);
         [self.view addSubview:_loginBtn];
     }
     if (!_verifyCodeBtn) {
-        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(120),ZOOM_SCALE(441), ZOOM_SCALE(110), ZOOM_SCALE(20))];
+        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(110),ZOOM_SCALE(441), ZOOM_SCALE(130), ZOOM_SCALE(20))];
         [_verifyCodeBtn setTitle:@"验证码登录/注册" forState:UIControlStateNormal];
         [_verifyCodeBtn addTarget:self action:@selector(verifyCodeClick) forControlEvents:UIControlEventTouchUpInside];
+        _verifyCodeBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 14];
         [_verifyCodeBtn setTitleColor:[UIColor colorWithHexString:@"FF4E00"] forState:UIControlStateNormal];
         [self.view addSubview:_verifyCodeBtn];
     }
@@ -129,34 +143,60 @@
         make.bottom.mas_equalTo(0);
         make.height.offset(ZOOM_SCALE(125));
     }];
-    RACSignal *passwordTf =  [self.passwordTf.rac_textSignal map:^id(NSString* value) {
-      return @([value rangeOfString:@"@"].location != NSNotFound);
+    RACSignal *phoneTf = [self.phoneTf rac_textSignal];
+    RACSignal *passwordTf =  [self.passwordTf rac_textSignal];
+   
+    RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf] reduce:^id(NSString * phone,NSString * password){
+        return @([NSString validateCellPhoneNumber:phone] && [NSString validatePassWordForm:password]);
     }];
-    RACSignal *phoneTf = [self.phoneTf.rac_textSignal map:^id(NSString* value) {
-      return @([value rangeOfString:@"@"].location != NSNotFound);
+    RAC(self.loginBtn,enabled) = validEmailSignal;
+    RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
+        if([value boolValue]){
+            return [UIColor greenColor];
+        }else{
+            return [UIColor colorWithHexString:@"D8D8D8"];
+        }
     }];
-    RAC(self.loginBtn,enabled) = [RACSignal concat: @[passwordTf, phoneTf]];
 }
-
-#pragma mark ========== 事件处理 ==========
-- (void)verifyCodeClick{
+#pragma mark ========== 登录 ==========
+- (void)loginClick{
+    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
+    NSString *openUDID = [OpenUDID value];
+    NSString *device_version = [NSString getCurrentDeviceModel];
     NSDictionary *param =@{@"auth_type":@"create",
         @"username":self.phoneTf.text,
         @"password": [self.passwordTf.text md5String],
-        @"client_id": @"b20d13a9-5bc6-4910-9998-b17ec2c5d6e6",
-        @"register_id":@"b20d13a9-5bc6-4910-9998-b17ec2c5d6e6",
+        @"client_id": openUDID,
+        @"register_id":@"191e35f7e06a8f91d83",
         @"device_type": @"ios",
-        @"device_version":@"string",
-        @"os_version": @"iOS 11.0(15A5341f)",
-        @"product": @"JIAGOUYUN,ECAMS",
-        @"refresh_token":@"string"
-                           };
-    [PWNetworking requsetWithUrl:PW_login withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        
-    } failBlock:^(NSError *error) {
+        @"os_version": os_version,
+        @"device_version":device_version,
+    };
+//    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+//    [session POST:PW_loginUrl parameters:<#(nullable id)#> progress:<#^(NSProgress * _Nonnull uploadProgress)uploadProgress#> success:<#^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)success#> failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>]
+    
+    /*
+     \"auth_type\":\"create\",\"username\":\"18236889895\",\"password\":\"ebcbf97ec1d80c0388d39bf508039baa\",\"client_id\":\"448A3D6C-2DD6-4326-83D3-3B8CA376C90A\",\"register_id\":\"191e35f7e06a8f91d83\",\"device_type\":\"ios\",\"device_version\":\"iPhone 7\",\"os_version\":\"10.1.1\",\"product\":\"string\",\"refresh_token\":\"string\"}"*/
+    [[UserManager sharedUserManager] login:kUserLoginTypePwd params:param completion:^(BOOL success, NSString *des) {
         
     }];
+//    [PWNetworking requsetWithUrl:PW_login withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+//        
+//    } failBlock:^(NSError *error) {
+//        
+//    }];
 }
+#pragma mark ========== 找回密码 ==========
+- (void)findWordClick{
+    FindPasswordVC *findVC = [[FindPasswordVC alloc]init];
+    [self.navigationController pushViewController:findVC animated:YES];
+}
+#pragma mark ========== 验证码登录页面跳转 ==========
+- (void)verifyCodeClick{
+    VerifyCodeLoginVC *verifyVC=[[VerifyCodeLoginVC alloc]init];
+    [self.navigationController pushViewController:verifyVC animated:YES];
+}
+#pragma mark ========== 密码可见/不可见 ==========
 - (void)pwdTextSwitch:(UIButton *)sender {
         // 切换按钮的状态
     sender.selected = !sender.selected;
@@ -172,7 +212,11 @@
         self.passwordTf.text = tempPwdStr;
     }
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    [self.phoneTf resignFirstResponder];
+    [self.passwordTf resignFirstResponder];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

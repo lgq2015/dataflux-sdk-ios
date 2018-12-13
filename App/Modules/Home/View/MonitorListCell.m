@@ -7,6 +7,7 @@
 //
 
 #import "MonitorListCell.h"
+#import "NSString+verify.h"
 @interface MonitorListCell()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *attrsLab;

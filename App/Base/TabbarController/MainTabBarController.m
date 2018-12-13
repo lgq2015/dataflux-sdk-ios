@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "RootNavigationController.h"
 #import "UITabBar+CustomBadge.h"
+#import "HomeViewController.h"
 #import "PWTabBar.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
@@ -30,14 +31,14 @@
 //    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundImage:[UIImage new]];
     //通过这两个参数来调整badge位置
-    [self.tabBar setTabIconWidth:ZOOM_SCALE(24)];
+    [self.tabBar setTabIconWidth:30];
     [self.tabBar setBadgeTop:ZOOM_SCALE(6)];
 }
 - (void)setUpAllChildViewController{
     _VCS = @[].mutableCopy;
     //    HomeViewController *homeVC = [[HomeViewController alloc]init];
     //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
-    UIViewController *homeVC = [[UIViewController alloc]init];
+    HomeViewController *homeVC = [[HomeViewController alloc]init];
     [self setupChildViewController:homeVC title:@"首页" imageName:@"icon_home_nor" seleceImageName:@"icon_home_sel"];
     homeVC.navigationController.navigationBar.hidden = YES;
 

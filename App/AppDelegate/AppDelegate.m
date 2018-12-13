@@ -16,9 +16,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [self initService];
     [self initWindow];
-   
+    
     [self initUserManager];
    
    
