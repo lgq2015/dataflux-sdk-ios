@@ -9,7 +9,7 @@
 #import "iToast.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define FontSize ([UIFont systemFontOfSize:16.0])
+#define FontSize ([UIFont fontWithName:@"PingFangSC-Light" size: 14])
 static CGFloat sizeSpace = 40.0;
 static CGFloat sizelabel = 8.0;
 #define maxlabel (windowView.frame.size.width - 20.0 * 2)

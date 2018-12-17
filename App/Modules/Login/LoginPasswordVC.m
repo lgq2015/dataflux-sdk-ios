@@ -31,7 +31,7 @@
 @property (nonatomic, strong) UIButton *verifyCodeBtn;
 
 @property (nonatomic, strong) UIImageView *bgImg;
-
+@property (nonatomic, strong) CAGradientLayer* backLayer;
 @end
 
 @implementation LoginPasswordVC
@@ -93,7 +93,7 @@
         _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
         _passwordTf.textAlignment = NSTextAlignmentLeft;
         _passwordTf.secureTextEntry = YES;
-        _passwordTf.placeholder = @"请输入账号密码";
+        _passwordTf.placeholder = @"请输入密码";
         _passwordTf.textColor = PWTextColor;
         [self.view addSubview:_passwordTf];
     }
@@ -123,6 +123,7 @@
         [_loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
         _loginBtn.enabled = NO;
         _loginBtn.layer.cornerRadius = ZOOM_SCALE(5);
+        _loginBtn.layer.masksToBounds = YES;
         [self.view addSubview:_loginBtn];
     }
     if (!_verifyCodeBtn) {
@@ -152,9 +153,11 @@
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
         if([value boolValue]){
-            return [UIColor greenColor];
+            [self.loginBtn.layer insertSublayer:self.backLayer below:self.loginBtn.titleLabel.layer];
+            return [UIColor clearColor];
         }else{
-            return [UIColor colorWithHexString:@"D8D8D8"];
+            [self.backLayer removeFromSuperlayer];
+            return PWBtnEnableColor;
         }
     }];
 }
@@ -172,11 +175,7 @@
         @"os_version": os_version,
         @"device_version":device_version,
     };
-//    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-//    [session POST:PW_loginUrl parameters:<#(nullable id)#> progress:<#^(NSProgress * _Nonnull uploadProgress)uploadProgress#> success:<#^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)success#> failure:<#^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)failure#>]
-    
-    /*
-     \"auth_type\":\"create\",\"username\":\"18236889895\",\"password\":\"ebcbf97ec1d80c0388d39bf508039baa\",\"client_id\":\"448A3D6C-2DD6-4326-83D3-3B8CA376C90A\",\"register_id\":\"191e35f7e06a8f91d83\",\"device_type\":\"ios\",\"device_version\":\"iPhone 7\",\"os_version\":\"10.1.1\",\"product\":\"string\",\"refresh_token\":\"string\"}"*/
+
     [[UserManager sharedUserManager] login:kUserLoginTypePwd params:param completion:^(BOOL success, NSString *des) {
         
     }];
@@ -212,6 +211,14 @@
         self.passwordTf.text = tempPwdStr;
     }
 }
+#pragma mark ========== btn渐变背景 ==========
+-(CAGradientLayer *)backLayer{
+    if (!_backLayer) {
+        _backLayer = [self getbackgroundLayerWithFrame:self.loginBtn.frame];
+    }
+    return _backLayer;
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.phoneTf resignFirstResponder];
