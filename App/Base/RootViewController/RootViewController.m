@@ -25,11 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor =PWWhiteColor;
+    self.view.backgroundColor =PWBackgroundColor;
     //是否显示返回按钮
     self.isShowLiftBack = YES;
     //默认导航栏样式：黑字
-    self.StatusBarStyle = UIStatusBarStyleLightContent;
+    self.StatusBarStyle = UIStatusBarStyleDefault;
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -96,7 +96,7 @@
         //        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
         //        _tableView.mj_footer.ignoredScrollViewContentInsetBottom = 30;
         
-        _tableView.backgroundColor= PWWhiteColor;
+        _tableView.backgroundColor= PWBackgroundColor;
         _tableView.scrollsToTop = YES;
         _tableView.tableFooterView = [[UIView alloc] init];
     }
@@ -148,13 +148,13 @@
 /**
  *  是否显示返回按钮
  */
-- (void) setIsShowLiftBack:(BOOL)isShowLiftBack
+- (void)setIsShowLiftBack:(BOOL)isShowLiftBack
 {
     _isShowLiftBack = isShowLiftBack;
     NSInteger VCCount = self.navigationController.viewControllers.count;
     //下面判断的意义是 当VC所在的导航控制器中的VC个数大于1 或者 是present出来的VC时，才展示返回按钮，其他情况不展示
     if (isShowLiftBack && ( VCCount > 1 || self.navigationController.presentingViewController != nil)) {
-        [self addNavigationItemWithImageNames:@[@"back_icon"] isLeft:YES target:self action:@selector(backBtnClicked) tags:nil];
+        [self addNavigationItemWithImageNames:@[@"icon_back_black"] isLeft:YES target:self action:@selector(backBtnClicked) tags:nil];
         
     } else {
         self.navigationItem.hidesBackButton = YES;
@@ -214,6 +214,19 @@
         self.navigationItem.rightBarButtonItems = items;
     }
 }
+- (CAGradientLayer *)getbackgroundLayerWithFrame:(CGRect)frame{
+    CAGradientLayer *backLayer = [CAGradientLayer layer];
+    backLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    backLayer.colors = @[
+                          (id)[UIColor colorWithHexString:@"FFBC88"].CGColor,
+                          (id)[UIColor colorWithHexString:@"FF6F5B"].CGColor
+                          ];
+    // 设置渐变方向(0~1)
+    backLayer.locations = @[@0];
+    backLayer.startPoint = CGPointMake(0, 0);
+    backLayer.endPoint = CGPointMake(1.0, 0);
+    return backLayer;
+}
 
 #pragma mark ————— 导航栏 添加文字按钮 —————
 - (NSMutableArray<UIButton *> *)addNavigationItemWithTitles:(NSArray *)titles isLeft:(BOOL)isLeft target:(id)target action:(SEL)action tags:(NSArray *)tags
@@ -222,7 +235,7 @@
     NSMutableArray * items = [[NSMutableArray alloc] init];
     
     //调整按钮位置
-    //    UIBarButtonItem* spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    //  UIBarButtonItem* spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     //    //将宽度设为负值
     //    spaceItem.width= -5;
     //    [items addObject:spaceItem];

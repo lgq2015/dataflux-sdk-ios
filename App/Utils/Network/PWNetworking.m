@@ -111,7 +111,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                      token:(NSString *)headerstr
                   refreshRequest:(BOOL)refresh
                            cache:(BOOL)cache
-                          params:(NSDictionary *)params
+                          params:(NSDictionary*)params
                    progressBlock:(PWProgress)progressBlock
                     successBlock:(PWResponseSuccessBlock)successBlock
                        failBlock:(PWResponseFailBlock)failBlock {
@@ -123,17 +123,13 @@ static NSTimeInterval   requestTimeout = 60.f;
                      withRequestType:(NetworkRequestType)type
                       refreshRequest:(BOOL)refresh
                                cache:(BOOL)cache
-                              params:(NSDictionary *)params
+                              params:(NSDictionary*)params
                        progressBlock:(PWProgress)progressBlock
                         successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
     AFHTTPSessionManager *manager = [self manager];
     DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
-
-//    NSError *parseError = nil;
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:&parseError];
-//    NSString *paramStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSString *typestr = type == NetworkPostType? @"Post":@"Get";
     DLog(@"method = %@ baseUrl = %@ param = %@",typestr,url,params);
 

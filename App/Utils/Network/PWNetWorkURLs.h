@@ -15,13 +15,13 @@
 
 #pragma mark ========== 登录/注册 ==========
 // 登录接口 获取token
-#define PW_loginUrl          [NSString stringWithFormat:@"%@/v3/auth/token", API_HOST]
+#define PW_loginUrl           [NSString stringWithFormat:@"%@/v3/auth/token", API_HOST]
 // 发送验证码
-#define PW_sendAuthCodeUrl       [NSString stringWithFormat:@"%@/v3/auth/sms_verify_code_old", API_HOST]
+#define PW_sendAuthCodeUrl    [NSString stringWithFormat:@"%@/v3/auth/sms_verify_code_old", API_HOST]
 // 验证码验证
 #define PW_checkCodeUrl       [NSString stringWithFormat:@"%@/v3/auth/phone_sms_verify", API_HOST]
 // 设备上短信数量
-#define PW_smsCountUrl        [NSString stringWithFormat:@"%@/v3/auth/sms_count/${deviceId}", API_HOST]
+#define PW_smsCountUrl        [NSString stringWithFormat:@"%@v3/auth/sms_count", API_HOST]
 
 /*
  // ---serviceUrl 相关 start --

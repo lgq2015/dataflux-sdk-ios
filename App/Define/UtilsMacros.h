@@ -69,10 +69,14 @@
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 //主题色 导航栏颜色
-#define CNavBgColor  [UIColor colorWithHexString:@"00AE68"]
+#define CNavBgColor  [UIColor whiteColor]
 #define CTabbarTextColor [UIColor colorWithHexString:@"333333"]
 
 #define PWTextColor [UIColor colorWithHexString:@"333333"]
+#define PWOrangeTextColor [UIColor colorWithHexString:@"FF4E00"]
+#define PWTextLight [UIColor colorWithHexString:@"A6A6A6"]
+#define PWBtnEnableColor [UIColor colorWithHexString:@"D8D8D8"]
+#define PWBackgroundColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0]
 //颜色
 
 #define PWClearColor [UIColor clearColor]

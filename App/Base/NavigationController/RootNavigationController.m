@@ -22,13 +22,12 @@
     //导航栏主题 title文字属性
     UINavigationBar *navBar = [UINavigationBar appearance];
     //导航栏背景图
-    //    [navBar setBackgroundImage:[UIImage imageNamed:@"tabBarBj"] forBarMetrics:UIBarMetricsDefault];
     [navBar setBarTintColor:CNavBgColor];
     [navBar setTintColor:CNavBgColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :CNavBgColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
-    
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+
     [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navBar setShadowImage:[UIImage new]];//去掉阴影线
+//    [navBar setShadowImage:[UIImage new]];//去掉阴影线
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,6 +87,9 @@
         RootViewController * vc = (RootViewController *)viewController;
         if (vc.isHidenNaviBar) {
             vc.view.top = 0;
+//            if (kStatusBarHeight>22) {
+//                vc.view.top = kStatusBarHeight-22;
+//            }
             [vc.navigationController setNavigationBarHidden:YES animated:animated];
         }else{
             vc.view.top = kTopHeight;

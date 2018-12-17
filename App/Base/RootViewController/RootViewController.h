@@ -35,7 +35,10 @@
  *  停止加载
  */
 - (void)stopLoadingAnimation;
-
+/**
+ *  获取渐变背景
+ */
+- (CAGradientLayer *)getbackgroundLayerWithFrame:(CGRect)frame;
 /**
  *  是否显示返回按钮,默认情况是YES
  */

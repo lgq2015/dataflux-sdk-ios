@@ -11,6 +11,7 @@
 #import "RootNavigationController.h"
 #import "UITabBar+CustomBadge.h"
 #import "HomeViewController.h"
+#import "MineViewController.h"
 #import "PWTabBar.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
@@ -40,7 +41,7 @@
     //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
     HomeViewController *homeVC = [[HomeViewController alloc]init];
     [self setupChildViewController:homeVC title:@"首页" imageName:@"icon_home_nor" seleceImageName:@"icon_home_sel"];
-    homeVC.navigationController.navigationBar.hidden = YES;
+//    homeVC.isHidenNaviBar= YES;
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
     UIViewController *makeFriendVC = [[UIViewController alloc]init];
@@ -51,9 +52,8 @@
     [self setupChildViewController:msgVC title:@"CloudCare+" imageName:@"icon_cc+" seleceImageName:@"icon_cc+_sel"];
     
     
-    UIViewController *mineVC = [[UIViewController alloc]init];
+    MineViewController *mineVC = [[MineViewController alloc]init];
     [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_mine_NOR" seleceImageName:@"icon_tabbar_mine_selected"];
-    mineVC.navigationController.navigationBar.hidden = YES;
     
     self.viewControllers = _VCS;
 }

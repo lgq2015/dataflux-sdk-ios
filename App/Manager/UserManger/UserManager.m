@@ -7,6 +7,7 @@
 //
 
 #import "UserManager.h"
+#import "OpenUDID.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -29,14 +30,19 @@ SINGLETON_FOR_CLASS(UserManager);
     if (codeType == CodeTypeCode) {
         [self cheackSmsCountComplete:^(id response) {
             //大于5
-            NSDictionary *dict = response;
-            if ([dict[@"count"] integerValue]>=5) {
-                if (completion) {
-                    completion(CodeStatusNeedImgCode,nil);
-                }
-            }else{
+//            NSDictionary *dict = response;
+//            if ([dict[@"count"] integerValue]>=5) {
+//                if (completion) {
+//                    completion(CodeStatusNeedImgCode,nil);
+//                }
+//            }else{
+//
+//            }
+            [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+                DLog(@"%@",response);
+            } failBlock:^(NSError *error) {
                 
-            }
+            }];
         }];
     }else{
     //短信请求过多 图片验证
@@ -46,16 +52,28 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 检验短信数量 ==========
 -(void)cheackSmsCountComplete:(completeBlock)complete{
-    //    [PWNetworking requsetWithUrl:PW_smsCount withRequestType:<#(NetworkRequestType)#> refreshRequest:<#(BOOL)#> cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
+    NSString *deviceId = [OpenUDID value];
+    NSDictionary *param = @{@"deviceId":deviceId};
+    [PWNetworking requsetWithUrl:PW_smsCountUrl withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if (complete) {
+            complete(response);
+        }
+        DLog(@"%@",response);
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
 }
 #pragma mark ========== 刷新验证图片 ==========
+
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == kUserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
-                
+                NSError *error;
+                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+                [self saveUserInfo];
                 KPostNotification(KNotificationLoginStateChange, @YES);
             }
             if ([response[@"code"] isEqual:@77]) {
@@ -68,6 +86,20 @@ SINGLETON_FOR_CLASS(UserManager);
         }];
     }else{
       //验证码登录
+        [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            if ([response[@"code"] isEqual:@0]) {
+                NSError *error;
+                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+                [self saveUserInfo];
+                KPostNotification(KNotificationLoginStateChange, @YES);
+            }
+            if ([response[@"code"] isEqual:@77]) {
+                DLog(@"%@",response);
+                [iToast alertWithTitleCenter:response[@"zh_CN"]];
+            }
+        } failBlock:^(NSError *error) {
+                DLog(@"%@",error);
+        }];
     }
     
 }
