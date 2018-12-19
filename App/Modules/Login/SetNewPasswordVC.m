@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = PWWhiteColor;
     self.title = @"找回密码";
     [self createUI];
 }

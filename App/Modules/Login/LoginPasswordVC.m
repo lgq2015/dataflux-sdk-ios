@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
     [self createUI];
 }

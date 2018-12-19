@@ -103,7 +103,6 @@
     for (PWCustomLabel *label in self.titleLabels) {
         
         titleX = index * (titleW+self.segmentStyle.titleMargin)+CGRectGetMaxX(_extraBtn.frame)+self.segmentStyle.extraBtnMarginTitle;
-        
         label.frame = CGRectMake(titleX, titleY, titleW, titleH);
         index++;
         
@@ -139,7 +138,7 @@
             make.top.equalTo(firstLabel.mas_bottom);
             make.left.equalTo(firstLabel.mas_left);
             make.right.equalTo(firstLabel.mas_right);
-            make.height.offset(ZOOM_SCALE(1));
+            make.height.offset(2);
         }];
     }
     

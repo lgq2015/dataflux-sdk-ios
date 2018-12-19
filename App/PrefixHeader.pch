@@ -16,6 +16,8 @@
 #import "NotificationMacros.h"
 #import "PWNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import "NSString+verify.h"
+
 // 布局
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"

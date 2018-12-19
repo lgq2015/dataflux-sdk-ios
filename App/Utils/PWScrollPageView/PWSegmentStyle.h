@@ -10,6 +10,7 @@
 
 @interface PWSegmentStyle : NSObject
 @property (assign, nonatomic) CGRect extraBtnFrame;
+@property (assign, nonatomic) CGRect rightBtnFrame;
 /** 标题之间的间隙 默认为15.0 */
 @property (assign, nonatomic) CGFloat titleMargin;
 /** 标题的字体 默认为14 */

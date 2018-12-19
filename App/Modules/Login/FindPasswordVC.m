@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = PWWhiteColor;
     self.isShowLiftBack = YES;
     self.title = @"找回密码";
     [self createUI];
@@ -97,9 +98,17 @@
         _nextSetPasswordBtn.backgroundColor = PWBtnEnableColor;
         [self.view addSubview:_nextSetPasswordBtn];
     }
+    
 }
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
+    BOOL isPhone = [NSString validateCellPhoneNumber:self.userTf.text];
+    BOOL isEmail = [NSString validateEmail:self.userTf.text];
+    if (!(isEmail || isPhone)) {
+        [iToast alertWithTitleCenter:@"请输入正确的手机号/邮箱"];
+    }else{
+      
+    }
     
 }
 #pragma mark ========== 下一步 ==========

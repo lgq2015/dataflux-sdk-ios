@@ -40,8 +40,10 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [iToast hiddenIToast];
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
+
 - (void)showLoadingAnimation
 {
     

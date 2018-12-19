@@ -108,6 +108,7 @@
         self.window.rootViewController = loginNavi;
         
         [kAppWindow.layer addAnimation:anima forKey:@"revealAnimation"];
+       
         
     }
     //展示FPS

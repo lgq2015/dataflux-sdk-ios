@@ -13,7 +13,7 @@
 - (instancetype)init {
     if(self = [super init]) {
        
-        self.scrollLineHeight = ZOOM_SCALE(3);
+        self.scrollLineHeight = 4;
         self.scrollLineColor = self.selectedTitleColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1.0];
      
         self.titleMargin = 15.0;

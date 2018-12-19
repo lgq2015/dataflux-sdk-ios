@@ -24,15 +24,15 @@
     PWSegmentStyle *style = [[PWSegmentStyle alloc]init];
     style.titleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 17];
     style.selectTitleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 24];
-    style.selectedTitleColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1.0];
+    style.selectedTitleColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     style.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
     style.showExtraButton = YES;
-    style.titleMargin = ZOOM_SCALE(30);
-    style.extraBtnMarginTitle = ZOOM_SCALE(36);
+    style.titleMargin = 30;
+    style.extraBtnMarginTitle = 36;
     style.extraBtnBackgroundImageName = @"icon_sacn_black";
-    CGRect scanBtnFrame = CGRectMake(ZOOM_SCALE(15), ZOOM_SCALE(30), ZOOM_SCALE(24), ZOOM_SCALE(24));
+    CGRect scanBtnFrame = CGRectMake(15, 30, 24, 24);
     style.extraBtnFrame = scanBtnFrame;
-    style.segmentHeight = ZOOM_SCALE(81);
+    style.segmentHeight = 81;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height -kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block

@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
     [self createUI];
 }
@@ -172,6 +173,7 @@
 }
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
+
     NSDictionary *param;
     if ([NSString validateCellPhoneNumber:self.phoneTf.text]) {
         param = @{@"token": @"token",
