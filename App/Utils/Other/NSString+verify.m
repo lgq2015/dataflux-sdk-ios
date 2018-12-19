@@ -147,5 +147,11 @@
     if ([deviceModel isEqualToString:@"x86_64"])       return @"Simulator";
     return deviceModel;
 }
++ (BOOL)validateEmail:(NSString *)pEmail{
+    NSString *pEmailCheck = @"[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+[A-Za-z]{2,4}";
+    NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
+    return [pEmailTest evaluateWithObject:pEmail];
+}
+
 
 @end

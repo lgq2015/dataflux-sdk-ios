@@ -21,4 +21,8 @@
   返回手机型号
  */
 + (NSString *)getCurrentDeviceModel;
+/**
+ 检验是否为邮箱
+ */
++ (BOOL)validateEmail:(NSString *)pEmail;
 @end
