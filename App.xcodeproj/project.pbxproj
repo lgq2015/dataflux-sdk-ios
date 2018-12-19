@@ -73,6 +73,7 @@
 		4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
 		4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375321C74194004CF320 /* PWScrollPageView.m */; };
 		4AE5375721C743CC004CF320 /* PWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375621C743CC004CF320 /* PWContentView.m */; };
+		4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,8 @@
 		4AE5375321C74194004CF320 /* PWScrollPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWScrollPageView.m; sourceTree = "<group>"; };
 		4AE5375521C743CC004CF320 /* PWContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWContentView.h; sourceTree = "<group>"; };
 		4AE5375621C743CC004CF320 /* PWContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWContentView.m; sourceTree = "<group>"; };
+		4AE5377321CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWPhotoOrAlbumImagePicker.h; sourceTree = "<group>"; };
+		4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPhotoOrAlbumImagePicker.m; sourceTree = "<group>"; };
 		B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -356,6 +359,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4AE5377221CA2CC9004CF320 /* PWPhotoOrAlbumImagePicker */,
 				4AE5374521C68B89004CF320 /* PWScrollPageView */,
 				4A7C4B0D21C2820F007730E6 /* iToast */,
 				4ABF449C21C0B892002AF34E /* Other */,
@@ -693,6 +697,15 @@
 			path = PWScrollPageView;
 			sourceTree = "<group>";
 		};
+		4AE5377221CA2CC9004CF320 /* PWPhotoOrAlbumImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				4AE5377321CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.h */,
+				4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */,
+			);
+			path = PWPhotoOrAlbumImagePicker;
+			sourceTree = "<group>";
+		};
 		AA4215202FD2BC75048B9D47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,6 +833,7 @@
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
+				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
