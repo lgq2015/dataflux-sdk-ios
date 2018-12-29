@@ -25,4 +25,8 @@
  检验是否为邮箱
  */
 + (BOOL)validateEmail:(NSString *)pEmail;
+/**
+ 时间戳
+ */
++(NSString *)getNowTimeTimestamp;
 @end
