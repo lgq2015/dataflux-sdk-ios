@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UserInfo.h"
 typedef NS_ENUM(NSInteger, UserLoginType){
     kUserLoginTypeVerificationCode= 0,//未知
     kUserLoginTypePwd,///账号登录
@@ -23,7 +22,7 @@ typedef NS_ENUM(NSInteger, CodeType){
 };
 typedef void (^loginBlock)(BOOL success, NSString * des);
 typedef void (^codeBlock) (CodeStatus status, NSString * des);
-
+@class UserInfo,CurrentUserModel;
 #define isLogin [UserManager sharedUserManager].isLogined
 #define curUser [UserManager sharedUserManager].curUserInfo
 #define userManager [UserManager sharedUserManager]
@@ -33,7 +32,7 @@ typedef void (^codeBlock) (CodeStatus status, NSString * des);
 SINGLETON_FOR_HEADER(UserManager)
 
 //当前用户
-@property (nonatomic, strong) UserInfo *curUserInfo;
+@property (nonatomic, strong) CurrentUserModel *curUserInfo;
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, assign) BOOL isLogined;
 /**

@@ -17,7 +17,7 @@
 #import "PWNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSString+verify.h"
-
+#import <WebViewJavascriptBridge.h>
 // 布局
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"

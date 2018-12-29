@@ -8,6 +8,7 @@
 
 #import "UserManager.h"
 #import "OpenUDID.h"
+#import "CurrentUserModel.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -38,11 +39,12 @@ SINGLETON_FOR_CLASS(UserManager);
 //            }else{
 //
 //            }
-            [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-                DLog(@"%@",response);
-            } failBlock:^(NSError *error) {
-                
-            }];
+//            [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+//                DLog(@"%@",response);
+//            } failBlock:^(NSError *error) {
+//                DLog(@"%@",error);
+//
+//            }];
         }];
     }else{
     //短信请求过多 图片验证
@@ -61,6 +63,9 @@ SINGLETON_FOR_CLASS(UserManager);
         DLog(@"%@",response);
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
+        if (complete) {
+            complete(error);
+        }
     }];
 }
 #pragma mark ========== 刷新验证图片 ==========
@@ -72,7 +77,7 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
                 NSError *error;
-                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+//                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
                 [self saveUserInfo];
                 KPostNotification(KNotificationLoginStateChange, @YES);
             }
@@ -88,8 +93,8 @@ SINGLETON_FOR_CLASS(UserManager);
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
-                NSError *error;
-                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+//                NSError *error;
+//                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
                 [self saveUserInfo];
                 KPostNotification(KNotificationLoginStateChange, @YES);
             }
@@ -105,6 +110,15 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfo{
+    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        DLog(@"%@",response);
+        if([response[@"code"] isEqual:@0]){
+            NSError *error;
+            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"data"] error:&error];
+        }
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
     if (self.curUserInfo) {
         YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
         NSDictionary *dic = [self.curUserInfo modelToJSONObject];
@@ -142,7 +156,7 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
     if (userDic) {
-        self.curUserInfo = [UserInfo modelWithJSON:userDic];
+        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
         return YES;
     }
     return NO;

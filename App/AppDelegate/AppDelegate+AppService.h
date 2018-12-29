@@ -36,7 +36,7 @@
 /**
  当前顶层控制器
  */
--(UIViewController*) getCurrentVC;
+-(UIViewController*)getCurrentVC;
 
 -(UIViewController*) getCurrentUIVC;
 @end

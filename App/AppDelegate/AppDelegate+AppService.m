@@ -33,12 +33,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
     self.mainTabBar = [[MainTabBarController alloc]init];
-    NSLog(@"%@",[@"qwe123123" md5String]);
     self.window.rootViewController = self.mainTabBar;
     [self.window makeKeyAndVisible];
     [[UIButton appearance] setExclusiveTouch:YES];
-    //    [[UIButton appearance] setShowsTouchWhenHighlighted:YES];
-//    [UIActivityIndicatorView appearanceWhenContainedIn:[MBProgressHUD class], nil].color = KWhiteColor;
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
@@ -61,7 +58,7 @@
         [userManager autoLoginToServer:^(BOOL success, NSString *des) {
             if (success) {
                 DLog(@"自动登录成功");
-                //                    [MBProgressHUD showSuccessMessage:@"自动登录成功"];
+                // [MBProgressHUD showSuccessMessage:@"自动登录成功"];
                 KPostNotification(KNotificationAutoLoginSuccess, nil);
             }else{
 //                [MBProgressHUD showErrorMessage:NSStringFormat(@"自动登录失败：%@",des)];
@@ -96,20 +93,14 @@
         }
         
     }else {//登陆失败加载登陆页面控制器
-        
         self.mainTabBar = nil;
         RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[LoginPasswordVC new]];
-        
         CATransition *anima = [CATransition animation];
         anima.type = @"fade";//设置动画的类型
         anima.subtype = kCATransitionFromRight; //设置动画的方向
         anima.duration = 0.3f;
-        
         self.window.rootViewController = loginNavi;
-        
         [kAppWindow.layer addAnimation:anima forKey:@"revealAnimation"];
-       
-        
     }
     //展示FPS
     [AppManager showFPS];
