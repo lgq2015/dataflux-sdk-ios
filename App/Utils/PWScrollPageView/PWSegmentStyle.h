@@ -32,5 +32,6 @@
 /** 是否显示附加的按钮 默认为NO*/
 @property (assign, nonatomic, getter=isShowExtraButton) BOOL showExtraButton;
 /** 设置附加按钮的背景图片 默认为nil*/
-@property (strong, nonatomic) NSString *extraBtnBackgroundImageName;
+@property (strong, nonatomic) NSArray *extraBtnImageNames;
+
 @end

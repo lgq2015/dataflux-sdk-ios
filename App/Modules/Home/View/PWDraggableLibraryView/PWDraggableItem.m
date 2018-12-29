@@ -1,6 +1,6 @@
 //
 //  PWDraggableItem.m
-//  TLDragButton-demo
+// 
 //
 //  Created by 胡蕾蕾 on 2018/9/12.
 //  Copyright © 2018年 andezhou. All rights reserved.
@@ -66,11 +66,11 @@ static CGFloat kDuration = .3f;
     self.iconImgVie.contentMode = UIViewContentModeScaleAspectFit;
     [self bringSubviewToFront:self.upTitleLab];
     [self bringSubviewToFront:self.subTitleLab];
-    self.upTitleLab.text = self.model.title;
-    self.subTitleLab.text = self.model.subtitle;
-    CGSize maximumLabelSize = CGSizeMake(ZOOM_SCALE(80), 34);//labelsize的最大值
-
-    CGSize expectSize = [_subTitleLab sizeThatFits:maximumLabelSize];
+//    self.upTitleLab.text = self.model.title;
+//    self.subTitleLab.text = self.model.subtitle;
+//    CGSize maximumLabelSize = CGSizeMake(ZOOM_SCALE(80), 34);//labelsize的最大值
+//
+//    CGSize expectSize = [_subTitleLab sizeThatFits:maximumLabelSize];
     //sizeThatsFits根据textLabel的字符长度显示label的大小，当textLabel的字符长度大于maximumLabelSize时，自动换行。
     //别忘了把frame给回label，如果用xib加了约束的话可以只改一个约束的值
     

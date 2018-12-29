@@ -23,6 +23,9 @@
 #define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
 #define kTopHeight (kStatusBarHeight + kNavBarHeight)
 
+//验证码有效时间token
+#define verifyCode_token @"verifyCode_token"
+//
 //获取屏幕宽高
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
@@ -31,7 +34,7 @@
 #define Iphone6ScaleWidth KScreenWidth/375.0
 #define Iphone6ScaleHeight KScreenHeight/667.0
 //根据设计图的尺寸来拉伸
-#define ZOOM_SCALE(fitting)  fitting*(float)([[UIScreen mainScreen] bounds].size.width/360.0)
+#define ZOOM_SCALE(fitting)  fitting*(float)([[UIScreen mainScreen] bounds].size.width/375.0)
 
 //强弱引用
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
@@ -100,26 +103,21 @@
 #define IMAGE_NAMED(name) [UIImage imageNamed:name]
 
 //数据验证
-#define StrValid(f) (f!=nil && [f isKindOfClass:[NSString class]] && ![f isEqualToString:@""])
-#define SafeStr(f) (StrValid(f) ? f:@"")
 #define HasString(str,key) ([str rangeOfString:key].location!=NSNotFound)
 
-#define ValidStr(f) StrValid(f)
 #define ValidDict(f) (f!=nil && [f isKindOfClass:[NSDictionary class]])
 #define ValidArray(f) (f!=nil && [f isKindOfClass:[NSArray class]] && [f count]>0)
 #define ValidNum(f) (f!=nil && [f isKindOfClass:[NSNumber class]])
 #define ValidClass(f,cls) (f!=nil && [f isKindOfClass:[cls class]])
 #define ValidData(f) (f!=nil && [f isKindOfClass:[NSData class]])
 
-//获取一段时间间隔
-#define kStartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-#define kEndTime  NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start)
+
 //打印当前方法名
 #define ITTDPRINTMETHODNAME() ITTDPRINT(@"%s", __PRETTY_FUNCTION__)
 
 
-//发送通知
-#define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
+
+
 
 //单例化一个类
 #define SINGLETON_FOR_HEADER(className) \

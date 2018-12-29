@@ -8,7 +8,9 @@
 
 #import "HomeViewController.h"
 #import "PWScrollPageView.h"
-
+#import "InformationVC.h"
+#import "ServiceVC.h"
+#import "ThinkTankVC.h"
 @interface HomeViewController ()
 
 @end
@@ -29,7 +31,7 @@
     style.showExtraButton = YES;
     style.titleMargin = 30;
     style.extraBtnMarginTitle = 36;
-    style.extraBtnBackgroundImageName = @"icon_sacn_black";
+    style.extraBtnImageNames =@[@"icon_sacn_black"];
     CGRect scanBtnFrame = CGRectMake(15, 30, 24, 24);
     style.extraBtnFrame = scanBtnFrame;
     style.segmentHeight = 81;
@@ -40,20 +42,19 @@
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         weakSelf.title = @"点击了extraBtn";
         NSLog(@"点击了extraBtn");
-        
     };
     [self.view addSubview:scrollPageView];
 }
 - (NSArray *)setupChildVcAndTitle {
-    UIViewController *vc1 = [UIViewController new];
+    InformationVC *vc1 = [InformationVC new];
     vc1.view.backgroundColor = PWBackgroundColor;
     vc1.title = @"情报";
     
-    UIViewController *vc2 = [UIViewController new];
+    ThinkTankVC *vc2 = [ThinkTankVC new];
     vc2.view.backgroundColor = PWBackgroundColor;
     vc2.title = @"智库";
     
-    UIViewController *vc3 = [UIViewController new];
+    ServiceVC *vc3 = [ServiceVC new];
     vc3.view.backgroundColor = PWBackgroundColor;
     vc3.title = @"服务";
     NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, vc3, nil];

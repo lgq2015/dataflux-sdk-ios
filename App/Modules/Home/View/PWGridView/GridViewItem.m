@@ -7,6 +7,7 @@
 //
 
 #import "GridViewItem.h"
+#import "GridViewModel.h"
 @interface GridViewItem()
 @property (nonatomic, strong) UIImageView *itemImg;
 @property (nonatomic, strong) UILabel *itemTitle;

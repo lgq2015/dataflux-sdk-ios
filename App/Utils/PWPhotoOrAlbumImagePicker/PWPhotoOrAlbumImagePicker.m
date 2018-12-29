@@ -8,7 +8,6 @@
 
 #import "PWPhotoOrAlbumImagePicker.h"
 #import <UIKit/UIKit.h>
-
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/PhotosDefines.h>
 #import <Photos/PHPhotoLibrary.h>
@@ -178,5 +177,8 @@
         }
     }];
 }
-
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [viewController.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWOrangeTextColor, NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+}
 @end

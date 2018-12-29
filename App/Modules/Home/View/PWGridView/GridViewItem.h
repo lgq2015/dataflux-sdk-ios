@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GridViewModel.h"
-
+@class GridViewModel;
 @interface GridViewItem : UIView
 @property (nonatomic, strong) GridViewModel* model;
 @property (nonatomic, copy) void(^itemClick)(NSInteger index);

@@ -33,6 +33,7 @@
     if (!_passwordTf) {
         _passwordTf = [[UITextField alloc]init];
         _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+        _passwordTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passwordTf.textAlignment = NSTextAlignmentLeft;
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";

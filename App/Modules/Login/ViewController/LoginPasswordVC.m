@@ -67,6 +67,7 @@
         _phoneTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
         _phoneTf.textAlignment = NSTextAlignmentLeft;
         _phoneTf.placeholder = @"请输入手机号码";
+        _phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTf.textColor = PWTextColor;
         [self.view addSubview:_phoneTf];
@@ -92,6 +93,7 @@
     if (!_passwordTf) {
         _passwordTf = [[UITextField alloc]init];
         _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+        _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
         _passwordTf.textAlignment = NSTextAlignmentLeft;
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";

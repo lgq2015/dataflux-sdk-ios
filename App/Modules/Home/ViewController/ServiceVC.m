@@ -16,9 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mainScrollView.backgroundColor = PWBackgroundColor;
+    [self setRefreshHeader];
     // Do any additional setup after loading the view.
 }
-
+- (void)headerRereshing{
+    [self.mainScrollView.mj_header endRefreshing];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

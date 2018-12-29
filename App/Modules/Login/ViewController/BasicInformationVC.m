@@ -1,27 +1,25 @@
 //
-//  InformationVC.m
+//  BasicInformationVC.m
 //  App
 //
-//  Created by 胡蕾蕾 on 2018/12/12.
-//  Copyright © 2018年 hll. All rights reserved.
+//  Created by 胡蕾蕾 on 2018/12/20.
+//  Copyright © 2018 hll. All rights reserved.
 //
 
-#import "InformationVC.h"
+#import "BasicInformationVC.h"
 
-@interface InformationVC ()
+@interface BasicInformationVC ()
 
 @end
 
-@implementation InformationVC
+@implementation BasicInformationVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainScrollView.backgroundColor = PWBackgroundColor;
-    [self setRefreshHeader];
+    self.title = @"基本信息";
+    
 }
-- (void)headerRereshing{
-    [self.mainScrollView.mj_header endRefreshing];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

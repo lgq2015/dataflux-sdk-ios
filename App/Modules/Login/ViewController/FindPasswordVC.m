@@ -42,6 +42,7 @@
         _userTf = [[UITextField alloc]initWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(58), ZOOM_SCALE(250), ZOOM_SCALE(20))];
         _userTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
         _userTf.textAlignment = NSTextAlignmentLeft;
+        _userTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _userTf.placeholder = @"请输入手机号/邮箱";
         _userTf.keyboardType = UIKeyboardTypeNumberPad;
         _userTf.textColor = PWTextColor;
@@ -72,6 +73,7 @@
         _verifyCodeTf.textAlignment = NSTextAlignmentLeft;
         _verifyCodeTf.secureTextEntry = YES;
         _verifyCodeTf.placeholder = @"请输入验证码";
+        _verifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _verifyCodeTf.textColor = PWTextColor;
         [self.view addSubview:_verifyCodeTf];
     }

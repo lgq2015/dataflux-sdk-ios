@@ -54,7 +54,6 @@ static LongPressControl *_longPressControl = nil;
  *
  *  @param view 调用的view
  *
- *  @author pigpigdaddy
  */
 - (void)addLongPressAction:(LONG_PRESS_VIEW)view
 {
@@ -66,7 +65,6 @@ static LongPressControl *_longPressControl = nil;
  *
  *  @param view 调用的view
  *
- *  @author pigpigdaddy
  */
 - (void)removeLongPressAction:(LONG_PRESS_VIEW)view
 {
@@ -80,9 +78,8 @@ static LongPressControl *_longPressControl = nil;
  *
  *  @param view 是那个View
  *
- *  @return
+ *  @return Yes 存在
  *
- *  @author pigpigdaddy
  */
 - (BOOL)isExistLongPressAction:(LONG_PRESS_VIEW)view
 {

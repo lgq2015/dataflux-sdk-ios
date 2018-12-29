@@ -239,7 +239,7 @@
     if (!_extraBtn) {
         UIButton *btn = [UIButton new];
         [btn addTarget:self action:@selector(extraBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        NSString *imageName = self.segmentStyle.extraBtnBackgroundImageName ? self.segmentStyle.extraBtnBackgroundImageName : @"";
+        NSString *imageName = self.segmentStyle.extraBtnImageNames ? self.segmentStyle.extraBtnImageNames[0] : @"";
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         btn.backgroundColor = [UIColor whiteColor];
 //        // 设置边缘的阴影效果

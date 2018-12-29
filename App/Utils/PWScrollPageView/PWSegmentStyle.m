@@ -25,7 +25,7 @@
         self.showExtraButton = NO;
         self.extraBtnFrame = CGRectZero;
         self.segmentHeight = ZOOM_SCALE(60);
-        
+        self.extraBtnImageNames = nil;
     }
     return self;
 }

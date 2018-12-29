@@ -71,7 +71,7 @@ static CGFloat sizelabel = 15;
         [windowView addSubview:self.textlabel];
         self.textlabel.text = text;
         CGRect textRect = [text boundingRectWithSize:CGSizeMake(maxlabel, kHeight/3) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : [UIFont fontWithName:@"PingFangSC-Light" size: 14]} context:nil];
-        //[text sizeWithFont:FontSize constrainedToSize:CGSizeMake(maxlabel, maxlabel)];
+        
         CGSize textSize = textRect.size;
         CGFloat labelX = (windowView.frame.size.width - textSize.width) / 2;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;

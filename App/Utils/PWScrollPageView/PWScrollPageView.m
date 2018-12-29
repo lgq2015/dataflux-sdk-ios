@@ -86,7 +86,6 @@
         [self addSubview:content];
         _contentView = content;
     }
-    
     return  _contentView;
 }
 

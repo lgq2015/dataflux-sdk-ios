@@ -67,6 +67,7 @@
         _phoneTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
         _phoneTf.textAlignment = NSTextAlignmentLeft;
         _phoneTf.placeholder = @"请输入手机号码";
+        _phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTf.textColor = PWTextColor;
         [self.view addSubview:_phoneTf];
@@ -93,6 +94,7 @@
     if (!_verifyCodeTf) {
         _verifyCodeTf = [[UITextField alloc]init];
         _verifyCodeTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+        _verifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _verifyCodeTf.textAlignment = NSTextAlignmentLeft;
         _verifyCodeTf.secureTextEntry = YES;
         _verifyCodeTf.placeholder = @"请输入验证码";
@@ -175,10 +177,13 @@
 - (void)getVerifyCode{
 
     NSDictionary *param;
+    //reset_password 
+    NSString *token = [[NSString getNowTimeTimestamp] md5String];
+    [kUserDefaults setObject:token forKey:verifyCode_token];
     if ([NSString validateCellPhoneNumber:self.phoneTf.text]) {
-        param = @{@"token": @"token",
+        param = @{@"token": token,
             @"mobile": self.phoneTf.text,
-            @"type": @"register",
+            @"type": @"entry_option",
             @"captcha":@"",
             @"client_id": [OpenUDID value]
         };

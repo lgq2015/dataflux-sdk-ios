@@ -8,7 +8,8 @@
 
 #ifndef NotificationMacros_h
 #define NotificationMacros_h
-
+//发送通知
+#define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
 #pragma mark - ——————— 用户相关 ————————
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
