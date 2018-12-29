@@ -8,7 +8,8 @@
 
 #import "RootViewController.h"
 @interface RootViewController ()
-@property(nonatomic,strong) UIImageView *noDataView;
+@property(nonatomic, strong) UIImageView *noDataView;
+@property(nonatomic, strong) MJRefreshGifHeader *header;
 @end
 
 @implementation RootViewController
@@ -19,7 +20,7 @@
 }
 //动态更新状态栏颜色
 -(void)setStatusBarStyle:(UIStatusBarStyle)StatusBarStyle{
-    _StatusBarStyle=StatusBarStyle;
+    _StatusBarStyle = StatusBarStyle;
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
@@ -53,7 +54,35 @@
 {
     
 }
-
+- (void)setRefreshHeader{
+    //头部刷新
+    if (_mainScrollView) {
+        self.mainScrollView.mj_header = self.header;
+    }
+    if (_tableView) {
+        self.tableView.mj_header = self.header;
+    }
+    if (_collectionView) {
+        self.collectionView.mj_header = self.header;
+    }
+}
+-(MJRefreshGifHeader *)header{
+    if (!_header) {
+        _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+        NSMutableArray *araray = [NSMutableArray new];
+        for (int i =0; i<30; i++) {
+            NSString *imgName = [NSString stringWithFormat:@"frame-%d@2x.png",i];
+            [araray addObject:[UIImage imageNamed:imgName]];
+        }
+        NSArray *pullingImages = araray;
+        _header.lastUpdatedTimeLabel.hidden = YES;
+        _header.stateLabel.hidden =YES;
+        [_header setImages:pullingImages duration:0.3 forState:MJRefreshStateIdle];
+        
+        [_header setImages:pullingImages duration:1 forState:MJRefreshStatePulling];
+    }
+    return _header;
+}
 -(void)showNoDataImage
 {
     _noDataView=[[UIImageView alloc] init];
@@ -72,7 +101,20 @@
         _noDataView = nil;
     }
 }
-
+/**
+ *  懒加载UIScrollView
+ *
+ *  @return UIScrollView
+ */
+-(UIScrollView *)mainScrollView{
+    if (!_mainScrollView) {
+        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight-kTabBarHeight)];
+        _mainScrollView.alwaysBounceHorizontal = NO;
+        _mainScrollView.directionalLockEnabled = YES;
+        [self.view addSubview:_mainScrollView];
+    }
+    return _mainScrollView;
+}
 /**
  *  懒加载UITableView
  *
@@ -88,7 +130,9 @@
         _tableView.estimatedSectionFooterHeight = 0;
         
         //头部刷新
-        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+        MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+        [header setImages:@[@"frame-0",@"frame-1",@"frame-2",@"frame-3"] duration:0.3 forState:MJRefreshStateWillRefresh];
+        
         header.automaticallyChangeAlpha = YES;
         header.lastUpdatedTimeLabel.hidden = YES;
         _tableView.mj_header = header;
@@ -125,14 +169,7 @@
         
         //底部刷新
         _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-        
-        //#ifdef kiOS11Before
-        //
-        //#else
-        //        _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        //        _collectionView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
-        //        _collectionView.scrollIndicatorInsets = _collectionView.contentInset;
-        //#endif
+
         
         _collectionView.backgroundColor=PWWhiteColor;
         _collectionView.scrollsToTop = YES;
@@ -140,7 +177,7 @@
     return _collectionView;
 }
 -(void)headerRereshing{
-    
+
 }
 
 -(void)footerRereshing{

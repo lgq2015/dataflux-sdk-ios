@@ -16,6 +16,12 @@
 @property (nonatomic, assign) UIStatusBarStyle StatusBarStyle;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIScrollView *mainScrollView;
+/**
+ *  下拉刷新
+ */
+- (void)setRefreshHeader;
+- (void)headerRereshing;
 /**
  *  显示没有数据页面
  */
