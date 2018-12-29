@@ -8,10 +8,11 @@ target 'App' do
   # Pods for App
   pod 'SDWebImage', '~>3.8'
   pod 'AFNetworking', '~> 3.0'
-  pod "JSONModel"
+  pod 'JSONModel'
   pod 'Masonry'
   pod 'ReactiveCocoa' , '2.0'
   pod 'MJRefresh'
   pod 'YYKit'
-
+  pod 'WebViewJavascriptBridge', '~> 6.0'
+  pod 'FMDB'
 end
