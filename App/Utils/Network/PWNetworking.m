@@ -41,7 +41,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     
     manager.requestSerializer.timeoutInterval = requestTimeout;
-    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json",@"X-CloudCare-Client=":@"3.0"};
+    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json",@"X-CloudCare-Client=":@"3.0",@"X-Auth-Token":@""};
     for (NSString *key in headers.allKeys) {
         if (headers[key] != nil) {
             [manager.requestSerializer setValue:headers[key] forHTTPHeaderField:key];
@@ -105,20 +105,21 @@ static NSTimeInterval   requestTimeout = 60.f;
     return requestTasksPool;
 }
 
-#pragma mark ========== get/post ==========
-+ (PWURLSessionTask *)requsetWithUrl:(NSString *)url
+#pragma mark ========== get/post hasToken ==========
++ (PWURLSessionTask *)requsetHasTokenWithUrl:(NSString *)url
                      withRequestType:(NetworkRequestType)type
-                     token:(NSString *)headerstr
                   refreshRequest:(BOOL)refresh
                            cache:(BOOL)cache
                           params:(NSDictionary*)params
                    progressBlock:(PWProgress)progressBlock
                     successBlock:(PWResponseSuccessBlock)successBlock
                        failBlock:(PWResponseFailBlock)failBlock {
-       [[self manager].requestSerializer setValue:headerstr forHTTPHeaderField:@"X-Auth-Token"];
-   
+    AFHTTPSessionManager *manager = [self manager];
+
+    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
     return [self requsetWithUrl:url withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
+#pragma mark ========== get/post noToken==========
 + (PWURLSessionTask *)requsetWithUrl:(NSString *)url
                      withRequestType:(NetworkRequestType)type
                       refreshRequest:(BOOL)refresh
@@ -129,10 +130,8 @@ static NSTimeInterval   requestTimeout = 60.f;
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
     AFHTTPSessionManager *manager = [self manager];
-    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
     NSString *typestr = type == NetworkPostType? @"Post":@"Get";
     DLog(@"method = %@ baseUrl = %@ param = %@",typestr,url,params);
-
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;
@@ -219,61 +218,6 @@ static NSTimeInterval   requestTimeout = 60.f;
     
     
 }
-//- (PWURLSessionTask *)postWithUrl:(NSString *)url
-//                   refreshRequest:(BOOL)refresh
-//                            cache:(BOOL)cache
-//                           params:(NSDictionary *)params
-//                    progressBlock:(PWProgress)progressBlock
-//                     successBlock:(PWResponseSuccessBlock)successBlock
-//                        failBlock:(PWResponseFailBlock)failBlock {
-//    __block PWURLSessionTask *session = nil;
-//
-//    AFHTTPSessionManager *manager = [self manager];
-//
-//    if (networkStatus == PWNetworkStatusNotReachable) {
-//        if (failBlock) failBlock(YQ_ERROR);
-//        return session;
-//    }
-//
-//    id responseObj = [[PWCacheManager shareManager] getCacheResponseObjectWithRequestUrl:url params:params];
-//
-//    if (responseObj && cache) {
-//        if (successBlock) successBlock(responseObj);
-//    }
-//
-//    session = [manager POST:url
-//                 parameters:params
-//                   progress:^(NSProgress * _Nonnull uploadProgress) {
-//                       if (progressBlock) progressBlock(uploadProgress.completedUnitCount,
-//                                                        uploadProgress.totalUnitCount);
-//
-//                   } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                       if (successBlock) successBlock(responseObject);
-//
-//                       if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
-//
-//                       if ([[self allTasks] containsObject:session]) {
-//                           [[self allTasks] removeObject:session];
-//                       }
-//
-//                   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                       if (failBlock) failBlock(error);
-//                       [[self allTasks] removeObject:session];
-//
-//                   }];
-//
-//
-//    if ([self haveSameRequestInTasksPool:session] && !refresh) {
-//        [session cancel];
-//        return session;
-//    }else {
-//        YQURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
-//        if (oldTask) [[self allTasks] removeObject:oldTask];
-//        if (session) [[self allTasks] addObject:session];
-//        [session resume];
-//        return session;
-//    }
-//}
 
 #pragma mark - 文件上传
 + (PWURLSessionTask *)uploadFileWithUrl:(NSString *)url
@@ -287,7 +231,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     __block PWURLSessionTask *session = nil;
     
     AFHTTPSessionManager *manager = [self manager];
-    
+    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;
@@ -367,7 +311,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                                 [responses addObject:response];
                                 
                                 dispatch_group_leave(uploadGroup);
-                                
+
                                 [sessions removeObject:session];
                                 
                             } failBlock:^(NSError *error) {
@@ -381,12 +325,9 @@ static NSTimeInterval   requestTimeout = 60.f;
                             }];
         
         [session resume];
-        
         if (session) [sessions addObject:session];
     }
-    
     [[self allTasks] addObjectsFromArray:sessions];
-    
     dispatch_group_notify(uploadGroup, dispatch_get_main_queue(), ^{
         if (responses.count > 0) {
             if (successBlock) {
@@ -437,7 +378,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     AFHTTPSessionManager *manager = [self manager];
     //响应内容序列化为二进制
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
     session = [manager GET:url
                 parameters:nil
                   progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -526,7 +467,6 @@ static NSTimeInterval   requestTimeout = 60.f;
 }
 
 + (NSString *)getCacheDiretoryPath {
-    
     return [[PWCacheManager shareManager] getCacheDiretoryPath];
 }
 

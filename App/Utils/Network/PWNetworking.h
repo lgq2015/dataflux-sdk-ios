@@ -144,9 +144,8 @@ typedef PWResponseFailBlock PWDownloadFailBlock;
  *
  *  @return 返回的对象中可取消请求 token
  */
-+ (PWURLSessionTask *)requsetWithUrl:(NSString *)url
++ (PWURLSessionTask *)requsetHasTokenWithUrl:(NSString *)url
                 withRequestType:(NetworkRequestType)type
-                  token:(NSString *)token
                   refreshRequest:(BOOL)refresh
                            cache:(BOOL)cache
                           params:(NSDictionary *)params

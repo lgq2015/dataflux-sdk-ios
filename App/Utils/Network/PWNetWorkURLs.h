@@ -21,8 +21,11 @@
 // 验证码验证
 #define PW_checkCodeUrl       [NSString stringWithFormat:@"%@/v3/auth/phone_sms_verify", API_HOST]
 // 设备上短信数量
-#define PW_smsCountUrl        [NSString stringWithFormat:@"%@v3/auth/sms_count", API_HOST]
-
+#define PW_smsCountUrl        [NSString stringWithFormat:@"%@/v3/auth/sms_count", API_HOST]
+// 当前用户的信息
+#define PW_currentUser  [NSString stringWithFormat:@"%@/v3/current_user", API_HOST]
+// 用户头像
+#define PW_currentUserIcon            [NSString stringWithFormat:@"%@/v3/current_user/icon", API_HOST]
 /*
  // ---serviceUrl 相关 start --
  
