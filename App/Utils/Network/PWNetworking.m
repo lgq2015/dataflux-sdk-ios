@@ -115,7 +115,6 @@ static NSTimeInterval   requestTimeout = 60.f;
                     successBlock:(PWResponseSuccessBlock)successBlock
                        failBlock:(PWResponseFailBlock)failBlock {
     AFHTTPSessionManager *manager = [self manager];
-
     [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
     return [self requsetWithUrl:url withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
@@ -131,7 +130,6 @@ static NSTimeInterval   requestTimeout = 60.f;
     __block PWURLSessionTask *session = nil;
     AFHTTPSessionManager *manager = [self manager];
     NSString *typestr = type == NetworkPostType? @"Post":@"Get";
-    DLog(@"method = %@ baseUrl = %@ param = %@",typestr,url,params);
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;
@@ -153,13 +151,15 @@ static NSTimeInterval   requestTimeout = 60.f;
                               
                           } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                               if (successBlock) successBlock(responseObject);
-                              
+                              DLog(@"method = %@ baseUrl = %@ param = %@ response = %@",typestr,url,params,responseObject);
+
                               if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
                               
                               [[self allTasks] removeObject:session];
                               
                           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                               if (failBlock) failBlock(error);
+                              DLog(@"method = %@ baseUrl = %@ param = %@ error = %@",typestr,url,params,error);
                               [[self allTasks] removeObject:session];
                               
                           }];
@@ -188,7 +188,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                        
                             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                               if (successBlock) successBlock(responseObject);
-                       
+                            DLog(@"method = %@ baseUrl = %@ param = %@ response = %@",typestr,url,params,responseObject);
                               if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
                        
                                 if ([[self allTasks] containsObject:session]) {
@@ -197,6 +197,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                        
                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                     if (failBlock) failBlock(error);
+                                DLog(@"method = %@ baseUrl = %@ param = %@ error = %@",typestr,url,params,error);
                                     [[self allTasks] removeObject:session];
                     
                                 }];

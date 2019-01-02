@@ -86,13 +86,8 @@
     if ([viewController isKindOfClass:[RootViewController class]]) {
         RootViewController * vc = (RootViewController *)viewController;
         if (vc.isHidenNaviBar) {
-            vc.view.top = 0;
-//            if (kStatusBarHeight>22) {
-//                vc.view.top = kStatusBarHeight-22;
-//            }
             [vc.navigationController setNavigationBarHidden:YES animated:animated];
         }else{
-            vc.view.top = kTopHeight;
             [vc.navigationController setNavigationBarHidden:NO animated:animated];
         }
     }
@@ -154,7 +149,6 @@
     self.isSystemSlidBack = YES;
     //如果来源VC和目标VC都实现协议，那么都做动画
     if ([fromVC conformsToProtocol:@protocol(PWTransitionProtocol)] && [toVC conformsToProtocol:@protocol(PWTransitionProtocol)]) {
-        
         BOOL pinterestNedd = [self isNeedTransition:fromVC:toVC];
         PWTransition *transion = [PWTransition new];
         if (operation == UINavigationControllerOperationPush && pinterestNedd) {

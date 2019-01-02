@@ -25,6 +25,7 @@
     PWInfoBoard *infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(394)) style:PWInfoBoardStyleNotConnected];
     [self.mainScrollView addSubview:infoboard];
     HomeNoticeScrollView *notice = [[HomeNoticeScrollView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
+    notice.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:notice];
 
 }

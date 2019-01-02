@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isHidenNaviBar = YES;
     [self createUI];
 }
 - (void)createUI{
@@ -34,9 +33,9 @@
     style.extraBtnImageNames =@[@"icon_sacn_black"];
     CGRect scanBtnFrame = CGRectMake(15, 30, 24, 24);
     style.extraBtnFrame = scanBtnFrame;
-    style.segmentHeight = 81;
+    style.segmentHeight = kStatusBarHeight+60;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
-    PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height -kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
+    PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
     __weak typeof(self) weakSelf = self;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){

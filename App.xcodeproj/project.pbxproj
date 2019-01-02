@@ -12,6 +12,8 @@
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
 		4A19548F21A7F7BF007ADFCA /* PWInfoInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* PWInfoInitialView.m */; };
 		4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19550621ABE4D8007ADFCA /* MonitorListCell.m */; };
+		4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* PWNewsListCell.m */; };
+		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -132,6 +134,10 @@
 		4A19549121A8060D007ADFCA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4A19550521ABE4D8007ADFCA /* MonitorListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListCell.h; sourceTree = "<group>"; };
 		4A19550621ABE4D8007ADFCA /* MonitorListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListCell.m; sourceTree = "<group>"; };
+		4A61144521DCAE4000E4138B /* PWNewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWNewsListCell.m; sourceTree = "<group>"; };
+		4A61144621DCAE4000E4138B /* PWNewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWNewsListCell.h; sourceTree = "<group>"; };
+		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
+		4A61144921DCAE6C00E4138B /* NewsListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsListModel.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -357,6 +363,8 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4A61144621DCAE4000E4138B /* PWNewsListCell.h */,
+				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
 				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* PWDraggableLibraryView */,
 				4ABF43AC21B8BACE002AF34E /* PWGridView */,
@@ -652,6 +660,8 @@
 				4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */,
 				4ABF447C21BF8C2D002AF34E /* GridViewModel.h */,
 				4ABF447D21BF8C2D002AF34E /* GridViewModel.m */,
+				4A61144821DCAE6C00E4138B /* NewsListModel.h */,
+				4A61144921DCAE6C00E4138B /* NewsListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1127,11 +1137,13 @@
 				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
 				4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
+				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
 				4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */,
 				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
+				4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */,
 				4A7C4B1521C282DA007730E6 /* iToast.m in Sources */,
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
 				4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */,

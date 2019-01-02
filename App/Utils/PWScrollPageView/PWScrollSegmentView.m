@@ -87,7 +87,7 @@
 - (void)setupScrollViewAndExtraBtn{
    
     CGFloat scrollW = kWidth;
-    self.scrollView.frame = CGRectMake(0.0, 0.0, scrollW, self.pw_height);
+    self.scrollView.frame = CGRectMake(0.0, kStatusBarHeight>22?kStatusBarHeight-22:0, scrollW, self.pw_height);
     if (self.extraBtn) {
         self.extraBtn.frame = self.segmentStyle.extraBtnFrame;
     }

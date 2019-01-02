@@ -63,7 +63,7 @@
 // 当前系统版本
 #define CurrentSystemVersion [[UIDevice currentDevice].systemVersion doubleValue]
 //当前语言
-#define CurrentLanguage (［NSLocale preferredLanguages] objectAtIndex:0])
+#define CurrentLanguage ([NSLocale preferredLanguages] objectAtIndex:0])
 
 //-------------------打印日志-------------------------
 //DEBUG  模式下打印日志,当前行

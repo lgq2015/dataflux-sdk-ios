@@ -41,7 +41,7 @@
     //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
     HomeViewController *homeVC = [[HomeViewController alloc]init];
     [self setupChildViewController:homeVC title:@"首页" imageName:@"icon_home_nor" seleceImageName:@"icon_home_sel"];
-//    homeVC.isHidenNaviBar= YES;
+     homeVC.isHidenNaviBar= YES;
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
     UIViewController *makeFriendVC = [[UIViewController alloc]init];

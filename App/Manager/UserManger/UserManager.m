@@ -9,6 +9,7 @@
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "CurrentUserModel.h"
+#import "UserInfo.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -77,9 +78,10 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
                 NSError *error;
-//                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
-                [self saveUserInfo];
+                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+                setXAuthToken(response[@"data"][@"ticket"]);
                 KPostNotification(KNotificationLoginStateChange, @YES);
+                [self saveUserInfo];
             }
             if ([response[@"code"] isEqual:@77]) {
                 DLog(@"%@",response);
@@ -93,8 +95,8 @@ SINGLETON_FOR_CLASS(UserManager);
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
-//                NSError *error;
-//                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
+                NSError *error;
+                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
                 [self saveUserInfo];
                 KPostNotification(KNotificationLoginStateChange, @YES);
             }
@@ -110,15 +112,14 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfo{
-    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        DLog(@"%@",response);
-        if([response[@"code"] isEqual:@0]){
-            NSError *error;
-            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"data"] error:&error];
-        }
-    } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
-    }];
+//    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        if([response[@"code"] isEqual:@0]){
+//            NSError *error;
+//            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"data"] error:&error];
+//        }
+//    } failBlock:^(NSError *error) {
+//        DLog(@"%@",error);
+//    }];
     if (self.curUserInfo) {
         YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
         NSDictionary *dic = [self.curUserInfo modelToJSONObject];
