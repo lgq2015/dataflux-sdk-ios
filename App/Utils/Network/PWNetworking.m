@@ -116,7 +116,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                        failBlock:(PWResponseFailBlock)failBlock {
     AFHTTPSessionManager *manager = [self manager];
 
-    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
+    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
     return [self requsetWithUrl:url withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 #pragma mark ========== get/post noToken==========
@@ -231,7 +231,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     __block PWURLSessionTask *session = nil;
     
     AFHTTPSessionManager *manager = [self manager];
-    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
+    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;

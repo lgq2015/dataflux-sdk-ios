@@ -15,4 +15,5 @@ target 'App' do
   pod 'YYKit'
   pod 'WebViewJavascriptBridge', '~> 6.0'
   pod 'FMDB'
+  pod 'CocoaAsyncSocket'
 end

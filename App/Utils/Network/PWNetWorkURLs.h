@@ -26,6 +26,8 @@
 #define PW_currentUser  [NSString stringWithFormat:@"%@/v3/current_user", API_HOST]
 // 用户头像
 #define PW_currentUserIcon            [NSString stringWithFormat:@"%@/v3/current_user/icon", API_HOST]
+// 修改密码
+#define PW_changePassword     [NSString stringWithFormat:@"%@/v3/auth/change_password", API_HOST]
 /*
  // ---serviceUrl 相关 start --
  

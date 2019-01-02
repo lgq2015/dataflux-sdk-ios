@@ -7,7 +7,8 @@
 //
 
 #import "InformationVC.h"
-
+#import "PWInfoBoard.h"
+#import "HomeNoticeScrollView.h"
 @interface InformationVC ()
 
 @end
@@ -18,7 +19,16 @@
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWBackgroundColor;
     [self setRefreshHeader];
+    [self createUI];
 }
+- (void)createUI{
+    PWInfoBoard *infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(394)) style:PWInfoBoardStyleNotConnected];
+    [self.mainScrollView addSubview:infoboard];
+    HomeNoticeScrollView *notice = [[HomeNoticeScrollView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
+    [self.mainScrollView addSubview:notice];
+
+}
+
 - (void)headerRereshing{
     [self.mainScrollView.mj_header endRefreshing];
 }

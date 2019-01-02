@@ -111,6 +111,10 @@
 		4AE9C4F021D362FD003BB9CB /* AccountInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EF21D362FD003BB9CB /* AccountInfoModel.m */; };
 		4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */; };
 		4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
+		4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53021D73B37003BB9CB /* HomeNoticeScrollView.m */; };
+		4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
+		4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
+		4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +303,14 @@
 		4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrimaryCompanyModel.m; sourceTree = "<group>"; };
 		4AE9C51121D5D435003BB9CB /* PWFMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWFMDB.h; sourceTree = "<group>"; };
 		4AE9C51221D5D435003BB9CB /* PWFMDB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWFMDB.m; sourceTree = "<group>"; };
+		4AE9C52F21D73B37003BB9CB /* HomeNoticeScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeNoticeScrollView.h; sourceTree = "<group>"; };
+		4AE9C53021D73B37003BB9CB /* HomeNoticeScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeNoticeScrollView.m; sourceTree = "<group>"; };
+		4AE9C53221D73F05003BB9CB /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		4AE9C53321D73F05003BB9CB /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		4AE9C53421D73F05003BB9CB /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -345,6 +357,7 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* PWDraggableLibraryView */,
 				4ABF43AC21B8BACE002AF34E /* PWGridView */,
 				4A19548621A7F7BE007ADFCA /* PWInfoBoard */,
@@ -887,6 +900,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				4AE9C52F21D73B37003BB9CB /* HomeNoticeScrollView.h */,
+				4AE9C53021D73B37003BB9CB /* HomeNoticeScrollView.m */,
+				4AE9C53321D73F05003BB9CB /* SDCollectionViewCell.h */,
+				4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */,
+				4AE9C53421D73F05003BB9CB /* SDCycleScrollView.h */,
+				4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */,
+				4AE9C53221D73F05003BB9CB /* UIView+SDExtension.h */,
+				4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */,
+			);
+			path = HomeNoticeScrollView;
+			sourceTree = "<group>";
+		};
 		AA4215202FD2BC75048B9D47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1071,7 @@
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
+				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
@@ -1070,6 +1099,7 @@
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
 				4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */,
+				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
 				4ABF44CC21C127D2002AF34E /* ServiceVC.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
@@ -1100,6 +1130,7 @@
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
+				4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */,
 				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
 				4A7C4B1521C282DA007730E6 /* iToast.m in Sources */,
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
@@ -1109,6 +1140,7 @@
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
+				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

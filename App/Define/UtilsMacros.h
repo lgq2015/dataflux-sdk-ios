@@ -22,10 +22,14 @@
 #define kNavBarHeight 44.0
 #define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
 #define kTopHeight (kStatusBarHeight + kNavBarHeight)
-
-//验证码有效时间token
+//验证码有效时间token key
 #define verifyCode_token @"verifyCode_token"
-//
+//请求头 Token
+#define XAuthToken @"X-Auth-Token"
+#define setXAuthToken(str)      [kUserDefaults setObject:str forKey:XAuthToken]
+#define getXAuthToken           [kUserDefaults objectForKey:XAuthToken]
+
+
 //获取屏幕宽高
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
