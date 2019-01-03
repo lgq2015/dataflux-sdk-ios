@@ -157,7 +157,7 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
     if (userDic) {
-        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
+        self.curUserInfo = [UserInfo modelWithJSON:userDic];
         return YES;
     }
     return NO;

@@ -134,7 +134,6 @@ typedef PWResponseFailBlock PWDownloadFailBlock;
  *
  *  @param url              请求路径
  *  @param type             请求类型
- *  @param token            令牌
  *  @param cache            是否缓存
  *  @param refresh          是否刷新请求(遇到重复请求，若为YES，则会取消旧的请求，用新的请求，若为NO，则忽略新请求，用旧请求)
  *  @param params           拼接参数

@@ -18,7 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWBackgroundColor;
-    [self setRefreshHeader];
+    self.mainScrollView.mj_header = self.header;
+//    self.tableView.mj_footer = self.footer;
     [self createUI];
 }
 - (void)createUI{
@@ -27,7 +28,6 @@
     HomeNoticeScrollView *notice = [[HomeNoticeScrollView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
     notice.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:notice];
-
 }
 
 - (void)headerRereshing{

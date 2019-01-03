@@ -36,6 +36,9 @@ PODS:
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
+  - Zhugeio (3.2.2):
+    - Zhugeio/Zhugeio (= 3.2.2)
+  - Zhugeio/Zhugeio (3.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -47,6 +50,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.8)
   - WebViewJavascriptBridge (~> 6.0)
   - YYKit
+  - Zhugeio
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -59,6 +63,7 @@ SPEC REPOS:
     - SDWebImage
     - WebViewJavascriptBridge
     - YYKit
+    - Zhugeio
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -70,7 +75,8 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  Zhugeio: e09f4f87da0e59057ac6669933afe519dd0126b0
 
-PODFILE CHECKSUM: 0d9b2d9a3439c9ece6113c23c2526d7d0a790e6b
+PODFILE CHECKSUM: 49b8ae08da72efae3bfa910fcdb7410e4f919578
 
 COCOAPODS: 1.5.3

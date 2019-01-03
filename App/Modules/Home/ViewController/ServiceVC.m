@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWBackgroundColor;
-    [self setRefreshHeader];
+    self.mainScrollView.mj_header = self.header;
     // Do any additional setup after loading the view.
 }
 - (void)headerRereshing{

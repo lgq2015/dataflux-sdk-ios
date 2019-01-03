@@ -10,13 +10,15 @@
 #import "UserManager.h"
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "MainViewCell.h"
+#import "MineCellModel.h"
+#import "SettingUpVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *iconImgBtn;
 @property (nonatomic, strong) UILabel *userName;
 @property (nonatomic, strong) UILabel *companyName;
 @property (nonatomic, strong) UITableView *mainTableView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 
 @end
@@ -51,7 +53,7 @@
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headerView.mas_bottom).offset(ZOOM_SCALE(2));
         make.width.offset(kWidth);
-        make.height.offset(300);
+        make.height.offset(self.dataSource.count*45);
     }];
 }
 
@@ -66,13 +68,14 @@
         _mainTableView.dataSource = self;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.showsVerticalScrollIndicator = NO;
+        [_mainTableView registerClass:[MainViewCell class] forCellReuseIdentifier:@"MainViewCell"];
         [self.mainScrollView addSubview:_mainTableView];
     }
     return _mainTableView;
 }
 - (UIView *)headerView{
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 150)];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 150+kStatusBarHeight-22)];
         _headerView.backgroundColor = PWWhiteColor;
         [self.mainScrollView addSubview:_headerView];
     }
@@ -109,17 +112,47 @@
 }
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithData{
-//    self.dataSource = [NSMutableArray arrayWithObjects:@[],@[],@[],@[], nil];
+    MineCellModel *company = [[MineCellModel alloc]initWithTitle:@"我的企业" icon:@"icon_corporation" cellType:MineCellTypeCompany];
+    MineCellModel *aliyun = [[MineCellModel alloc]initWithTitle:@"阿里云账号管理" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
+    MineCellModel *order = [[MineCellModel alloc]initWithTitle:@"订单管理" icon:@"icon_code" cellType:MineCellTypeOrderManagement];
+    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"我的收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
+    MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_code" cellType:MineCellTypeOpinion];
+    MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_code" cellType:MineCellTypeContactuUs];
+    MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_code" cellType:MineCellTypeSetting];
+    self.dataSource = @[company,aliyun,order,collection,opinion,contact,setting];
 }
 #pragma mark ========== UITableViewDelegate ==========
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MainViewCell *cell = (MainViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    SettingUpVC *settingVC = [[SettingUpVC alloc]init];
+    switch (cell.data.type) {
+        case MineCellTypeSetting:
+            [self.navigationController pushViewController:settingVC animated:YES];
+            break;
+        case MineCellTypeContactuUs:
+            break;
+        case MineCellTypeOpinion:
+            break;
+        case MineCellTypeCollect:
+            break;
+        case MineCellTypeOrderManagement:
+            break;
+        case MineCellTypeAliyun:
+            break;
+        case MineCellTypeCompany:
+            break;
+    }
 
+}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    MainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MainViewCell"];
+    cell.data = self.dataSource[indexPath.row];
+    return cell;
 }
 #pragma mark ========== 用户头像选取 ==========
 - (void)icomImgClick{

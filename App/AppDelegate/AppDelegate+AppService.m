@@ -121,6 +121,10 @@
 -(void)configUSharePlatforms{
     
 }
+#pragma mark ========== 诸葛io 初始化 ==========
+-(void)initZhuge{
+    
+}
 #pragma mark ========== OpenURL 回调 ==========
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation

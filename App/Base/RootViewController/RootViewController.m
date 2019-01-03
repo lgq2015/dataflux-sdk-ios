@@ -9,7 +9,6 @@
 #import "RootViewController.h"
 @interface RootViewController ()
 @property(nonatomic, strong) UIImageView *noDataView;
-@property(nonatomic, strong) MJRefreshGifHeader *header;
 @end
 
 @implementation RootViewController
@@ -54,6 +53,9 @@
 {
     
 }
+/**
+ 优先级 ScrollView>tableView>collectionView
+ */
 - (void)setRefreshHeader{
     //头部刷新
     if (_mainScrollView) {
@@ -128,20 +130,6 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
-        
-        //头部刷新
-        MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
-        [header setImages:@[@"frame-0",@"frame-1",@"frame-2",@"frame-3"] duration:0.3 forState:MJRefreshStateWillRefresh];
-        
-        header.automaticallyChangeAlpha = YES;
-        header.lastUpdatedTimeLabel.hidden = YES;
-        _tableView.mj_header = header;
-        
-        //底部刷新
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-        //        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
-        //        _tableView.mj_footer.ignoredScrollViewContentInsetBottom = 30;
-        
         _tableView.backgroundColor= PWBackgroundColor;
         _tableView.scrollsToTop = YES;
         _tableView.tableFooterView = [[UIView alloc] init];

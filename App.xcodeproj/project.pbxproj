@@ -14,6 +14,7 @@
 		4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19550621ABE4D8007ADFCA /* MonitorListCell.m */; };
 		4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* PWNewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
+		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -138,6 +139,8 @@
 		4A61144621DCAE4000E4138B /* PWNewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWNewsListCell.h; sourceTree = "<group>"; };
 		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
 		4A61144921DCAE6C00E4138B /* NewsListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsListModel.m; sourceTree = "<group>"; };
+		4A61146521DE0B5300E4138B /* MineCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCellModel.h; sourceTree = "<group>"; };
+		4A61146621DE0B5300E4138B /* MineCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCellModel.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 		4AE5377821CA42A1004CF320 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4A61146521DE0B5300E4138B /* MineCellModel.h */,
+				4A61146621DE0B5300E4138B /* MineCellModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1078,6 +1083,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,

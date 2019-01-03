@@ -18,9 +18,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self initService];
     [self initWindow];
-    
     [self initUserManager];
-   
+    [self initZhuge];
+
    
     // Override point for customization after application launch.
     return YES;

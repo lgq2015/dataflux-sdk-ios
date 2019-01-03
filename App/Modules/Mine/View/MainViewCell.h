@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class MineCellModel;
 @interface MainViewCell : UITableViewCell
-
+@property (nonatomic, strong) MineCellModel *data;
 @end
