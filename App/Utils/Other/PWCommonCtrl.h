@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSInteger, PWButtonType) {
+    PWButtonTypeWord = 0,         //文字按钮
+    PWButtonTypeSummarize = 1,    //概述按钮
+    PWButtonTypeContain,          //包含按钮
+    PWButtonTypeBuoy,             //浮标按钮
+};
 
 @interface PWCommonCtrl : NSObject
-
++(UIButton *)buttonWithFrame:(CGRect)frame
+                          type:(PWButtonType)type
+                          text:(NSString *)text;
 @end
 
-NS_ASSUME_NONNULL_END
