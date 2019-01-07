@@ -199,5 +199,56 @@
         }
     return superVC;
 }
-
+-(void)DetectNewVersion{
+    //检查新版本 更新
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 耗时的操作
+        
+        //获取本地版本号
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+        NSString *nowVersion = [NSString stringWithFormat:@"%@.%@", version, build];
+        
+        //获取appStore网络版本号
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", @"1081299934"]];
+        NSString * file =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        
+        NSRange substr = [file rangeOfString:@"\"version\":\""];
+        NSRange range1 = NSMakeRange(substr.location+substr.length,10);
+        //    NSRange substr2 =[file rangeOfString:@"\"" options:nil range:range1];
+        NSRange substr2 = [file rangeOfString:@"\"" options:NSCaseInsensitiveSearch  range:range1];
+        NSRange range2 = NSMakeRange(substr.location+substr.length, substr2.location-substr.location-substr.length);
+        NSString *appStoreVersion =[file substringWithRange:range2];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 更新界面
+            //如果不一样去更新
+            if(![nowVersion isEqualToString:appStoreVersion])
+            {
+                [self showAlertisNew:NO];
+            }
+            
+            
+        });
+    });
+}
+- (void)showAlertisNew:(BOOL)isNew{
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    NSString *message = isNew == YES? @"已是最新版本！":@"检测有最新版本";
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    if (isNew == YES) {
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancle];
+    }else{
+        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *update = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", @"10812999054"]];
+            [[UIApplication sharedApplication] openURL:url];
+        }];
+        [alert addAction:cancle];
+        [alert addAction:update];
+    }
+    [window.viewController presentViewController:alert animated:YES completion:nil];
+}
 @end
