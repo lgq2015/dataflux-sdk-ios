@@ -211,16 +211,20 @@
         NSString *nowVersion = [NSString stringWithFormat:@"%@.%@", version, build];
         
         //获取appStore网络版本号
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", @"1081299934"]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APP_ID]];
         NSString * file =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         
         NSRange substr = [file rangeOfString:@"\"version\":\""];
+        NSString *appStoreVersion;
+        if (substr.length==0) {
+            appStoreVersion = @"";
+        }else{
         NSRange range1 = NSMakeRange(substr.location+substr.length,10);
         //    NSRange substr2 =[file rangeOfString:@"\"" options:nil range:range1];
         NSRange substr2 = [file rangeOfString:@"\"" options:NSCaseInsensitiveSearch  range:range1];
         NSRange range2 = NSMakeRange(substr.location+substr.length, substr2.location-substr.location-substr.length);
-        NSString *appStoreVersion =[file substringWithRange:range2];
-        
+           appStoreVersion =[file substringWithRange:range2];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
             //如果不一样去更新
@@ -243,12 +247,12 @@
     }else{
         UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *update = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", @"10812999054"]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         }];
         [alert addAction:cancle];
         [alert addAction:update];
     }
-    [window.viewController presentViewController:alert animated:YES completion:nil];
+    [window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 @end

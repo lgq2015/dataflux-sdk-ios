@@ -7,11 +7,11 @@
 //
 
 #import "MineViewController.h"
-#import "UserManager.h"
 #import "PWPhotoOrAlbumImagePicker.h"
-#import "MainViewCell.h"
+#import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
+#import "ContactUsVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *iconImgBtn;
@@ -66,9 +66,10 @@
         _mainTableView.backgroundColor = PWWhiteColor;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
-        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _mainTableView.separatorInset = UIEdgeInsetsMake(5, 0, 0, 5);
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _mainTableView.showsVerticalScrollIndicator = NO;
-        [_mainTableView registerClass:[MainViewCell class] forCellReuseIdentifier:@"MainViewCell"];
+        [_mainTableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
         [self.mainScrollView addSubview:_mainTableView];
     }
     return _mainTableView;
@@ -114,7 +115,7 @@
 - (void)dealWithData{
     MineCellModel *company = [[MineCellModel alloc]initWithTitle:@"我的企业" icon:@"icon_corporation" cellType:MineCellTypeCompany];
     MineCellModel *aliyun = [[MineCellModel alloc]initWithTitle:@"阿里云账号管理" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
-    MineCellModel *order = [[MineCellModel alloc]initWithTitle:@"订单管理" icon:@"icon_code" cellType:MineCellTypeOrderManagement];
+    MineCellModel *order = [[MineCellModel alloc]initWithTitle:@"小工具" icon:@"icon_code" cellType:MineCellTypeTool];
     MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"我的收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
     MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_code" cellType:MineCellTypeOpinion];
     MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_code" cellType:MineCellTypeContactuUs];
@@ -123,23 +124,26 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MainViewCell *cell = (MainViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    MineViewCell *cell = (MineViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     SettingUpVC *settingVC = [[SettingUpVC alloc]init];
+    ContactUsVC *contactVC = [[ContactUsVC alloc]init];
     switch (cell.data.type) {
         case MineCellTypeSetting:
             [self.navigationController pushViewController:settingVC animated:YES];
             break;
         case MineCellTypeContactuUs:
+            [self.navigationController pushViewController:contactVC animated:YES];
             break;
         case MineCellTypeOpinion:
             break;
         case MineCellTypeCollect:
             break;
-        case MineCellTypeOrderManagement:
+        case MineCellTypeTool:
             break;
         case MineCellTypeAliyun:
             break;
         case MineCellTypeCompany:
+            
             break;
     }
 
@@ -150,8 +154,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MainViewCell"];
-    cell.data = self.dataSource[indexPath.row];
+    MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
+    [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeBase];
     return cell;
 }
 #pragma mark ========== 用户头像选取 ==========
@@ -168,9 +172,7 @@
             
         }];
     }];
-    [userManager logout:^(BOOL success, NSString *des) {
-        
-    }];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

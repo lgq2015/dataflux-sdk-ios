@@ -10,6 +10,13 @@
 
 #ifndef define_h
 #define define_h
+
+#define APP_ID @""
+// iOS 11 以下的评价跳转
+#define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]
+// iOS 11 的评价跳转
+#define APP_OPEN_EVALUATE_AFTER_IOS11 [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8&action=write-review", APP_ID]
+
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]
 #define kAppWindow          [UIApplication sharedApplication].delegate.window
@@ -84,6 +91,7 @@
 #define PWTextLight [UIColor colorWithHexString:@"A6A6A6"]
 #define PWBtnEnableColor [UIColor colorWithHexString:@"D8D8D8"]
 #define PWBackgroundColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0]
+
 //颜色
 
 #define PWClearColor [UIColor clearColor]

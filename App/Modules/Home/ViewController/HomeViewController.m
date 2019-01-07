@@ -39,8 +39,7 @@
     // 额外的按钮响应的block
     __weak typeof(self) weakSelf = self;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
-        weakSelf.title = @"点击了extraBtn";
-        NSLog(@"点击了extraBtn");
+        
     };
     [self.view addSubview:scrollPageView];
 }
