@@ -23,7 +23,6 @@
         
         self.selectedTitleColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1.0];
         self.showExtraButton = NO;
-        self.extraBtnFrame = CGRectZero;
         self.segmentHeight = kStatusBarHeight+60;
         self.extraBtnImageNames = nil;
     }

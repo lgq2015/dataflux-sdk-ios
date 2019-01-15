@@ -28,18 +28,19 @@
     style.selectedTitleColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     style.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
     style.showExtraButton = YES;
-    style.titleMargin = 30;
-    style.extraBtnMarginTitle = 36;
-    style.extraBtnImageNames =@[@"icon_sacn_black"];
-    CGRect scanBtnFrame = CGRectMake(15, 30, 24, 24);
-    style.extraBtnFrame = scanBtnFrame;
-    style.segmentHeight = kStatusBarHeight+60;
+    style.titleMargin = 20;
+    style.extraBtnMarginTitle = 20;
+    style.extraBtnImageNames =@[@"icon_sacn_black",@"icon_sacn_black"];
+    style.segmentHeight = kTopHeight;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
-    __weak typeof(self) weakSelf = self;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
-        
+        if (extraBtn.tag == 10) {
+
+        }else if(extraBtn.tag == 11){
+            
+        }
     };
     [self.view addSubview:scrollPageView];
 }
@@ -51,11 +52,8 @@
     ThinkTankVC *vc2 = [ThinkTankVC new];
     vc2.view.backgroundColor = PWBackgroundColor;
     vc2.title = @"智库";
-    
-    ServiceVC *vc3 = [ServiceVC new];
-    vc3.view.backgroundColor = PWBackgroundColor;
-    vc3.title = @"服务";
-    NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, vc3, nil];
+   
+    NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, nil];
     return childVcs;
 }
 - (void)didReceiveMemoryWarning {

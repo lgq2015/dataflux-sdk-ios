@@ -17,8 +17,7 @@
 }
 // 滚动条
 @property (weak, nonatomic) UIView *scrollLine;
-// 滚动scrollView
-@property (weak, nonatomic) UIScrollView *scrollView;
+
 // 附加的按钮
 @property (weak, nonatomic) UIButton *extraBtn;
 // 所有标题的设置
@@ -43,7 +42,7 @@
         self.titleBtnOnClick = titleDidClick;
         _currentIndex = 0;
         _oldIndex = 0;
-        _currentWidth = self.segmentStyle.showExtraButton? self.frame.size.width - 2*(CGRectGetMaxX(self.segmentStyle.extraBtnFrame)+self.segmentStyle.extraBtnMarginTitle): self.frame.size.width;
+        _currentWidth = self.segmentStyle.showExtraButton? self.frame.size.width - (CGRectGetMaxX(self.segmentStyle.extraBtnFrame)+self.segmentStyle.extraBtnMarginTitle): self.frame.size.width;
         
         // 设置了frame之后可以直接设置其他的控件的frame了, 不需要在layoutsubView()里面设置
         [self setupTitles];
@@ -73,36 +72,51 @@
         CGRect bounds = [title boundingRectWithSize:CGSizeMake(MAXFLOAT, 0.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: label.font} context:nil];
         [self.titleWidths addObject:@(bounds.size.width)];
         [self.titleLabels addObject:label];
-        [self.scrollView addSubview:label];
+        [self addSubview:label];
         
         index++;
         
     }
 }
 - (void)setupUI{
-    [self setupScrollViewAndExtraBtn];
+    [self setupExtraBtn];
     [self setUpLabelsPosition];
     [self setupScrollLineAndCover];
 }
-- (void)setupScrollViewAndExtraBtn{
-   
-    CGFloat scrollW = kWidth;
-    self.scrollView.frame = CGRectMake(0.0, kStatusBarHeight>22?kStatusBarHeight-22:0, scrollW, self.pw_height);
-    if (self.extraBtn) {
-        self.extraBtn.frame = self.segmentStyle.extraBtnFrame;
+- (void)setupExtraBtn{
+    for (NSInteger i=0; i<self.segmentStyle.extraBtnImageNames.count; i++) {
+        UIButton *btn = [UIButton new];
+        [btn addTarget:self action:@selector(extraBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        NSString *imageName = self.segmentStyle.extraBtnImageNames[i];
+//        btn.frame = CGRectMake(15, 200+i*50, 24, 24);
+       
+        btn.tag = i+10;
+        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        btn.backgroundColor = [UIColor whiteColor];
+        //        // 设置边缘的阴影效果
+        //        btn.layer.shadowColor = [UIColor whiteColor].CGColor;
+        //        btn.layer.shadowOffset = CGSizeMake(-5, 0);
+        //        btn.layer.shadowOpacity = 1;
+        [self addSubview:btn];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(30);
+            make.right.mas_equalTo(self).offset(-20-i*40);
+            make.height.width.offset(24);
+        }];
     }
+    
 }
 - (void)setUpLabelsPosition{
     CGFloat titleX = 0.0;
-    CGFloat titleY = ZOOM_SCALE(27);
+    CGFloat titleY = 27;
     CGFloat titleW = 0.0;
-     CGFloat titleH = ZOOM_SCALE(33);
-    titleW = (_currentWidth - (self.titles.count-1)*self.segmentStyle.titleMargin)/ self.titles.count*1.00;
+    CGFloat titleH = 33;
+    titleW = 48;
     
     NSInteger index = 0;
     for (PWCustomLabel *label in self.titleLabels) {
         
-        titleX = index * (titleW+self.segmentStyle.titleMargin)+CGRectGetMaxX(_extraBtn.frame)+self.segmentStyle.extraBtnMarginTitle;
+        titleX = index * (titleW+self.segmentStyle.titleMargin)+20;
         label.frame = CGRectMake(titleX, titleY, titleW, titleH);
         index++;
         
@@ -205,7 +219,7 @@
 }
 
 - (void)reloadTitlesWithNewTitles:(NSArray *)titles {
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     // 将子控件置为nil 否则懒加载会不正常
     _scrollLine = nil;
     
@@ -226,8 +240,7 @@
     if (!_scrollLine) {
         UIView *lineView = [[UIView alloc] init];
         lineView.backgroundColor = self.segmentStyle.scrollLineColor;
-        
-        [self.scrollView addSubview:lineView];
+        [self addSubview:lineView];
         _scrollLine = lineView;
         
     }
@@ -251,20 +264,7 @@
     }
     return _extraBtn;
 }
-- (UIScrollView *)scrollView {
-    
-    if (!_scrollView) {
-        UIScrollView *scrollView = [[UIScrollView alloc] init];
-        scrollView.showsHorizontalScrollIndicator = NO;
-        scrollView.bounces = YES;
-        scrollView.pagingEnabled = NO;
-        // weak 需要强引用
-        [self addSubview:scrollView];
-        
-        _scrollView = scrollView;
-    }
-    return _scrollView;
-}
+
 
 
 - (NSMutableArray *)titleLabels
