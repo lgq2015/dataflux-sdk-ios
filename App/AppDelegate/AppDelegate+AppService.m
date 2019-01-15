@@ -242,11 +242,11 @@
     NSString *message = isNew == YES? @"已是最新版本！":@"检测有最新版本";
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     if (isNew == YES) {
-        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancle];
     }else{
-        UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *update = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *update = [PWCommonCtrl actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         }];

@@ -46,9 +46,11 @@
 #define Iphone6ScaleHeight KScreenHeight/667.0
 //根据设计图的尺寸来拉伸
 #define ZOOM_SCALE(fitting)  fitting*(float)([[UIScreen mainScreen] bounds].size.width/375.0)
-
+#define Interval(fitting)  fitting
 //强弱引用
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define WeakSelf __weak typeof(self) weakSelf = self;
+
 #define kStrongSelf(type) __strong typeof(type) type = weak##type;
 
 //View 圆角和加边框
@@ -91,6 +93,13 @@
 #define PWTextLight [UIColor colorWithHexString:@"A6A6A6"]
 #define PWBtnEnableColor [UIColor colorWithHexString:@"D8D8D8"]
 #define PWBackgroundColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0]
+#define PWTextFiledTextColor [UIColor colorWithHexString:@"140F26"]
+#define PWCancelBtnColor [UIColor colorWithHexString:@"8E8E93"]
+#define PWDefaultBtnColor [UIColor colorWithHexString:@"0D47A1"]
+#define PWDestructiveBtnColor [UIColor colorWithHexString:@"D50000"]
+#define textColorNormalState [UIColor colorWithHexString:@"8E8E93"]
+#define textColorWarningState [UIColor colorWithHexString:@"D50000"]
+#define WarningTextColor [UIColor colorWithHexString:@"F56300"]
 
 //颜色
 

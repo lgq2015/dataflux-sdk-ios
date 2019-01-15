@@ -125,7 +125,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight - kTopHeight -kTabBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
@@ -165,11 +165,13 @@
     return _collectionView;
 }
 -(void)headerRereshing{
-
+    [NSException raise:@"[RootViewController headerRereshing]"
+                format:@"You Must Override This Method."];
 }
 
 -(void)footerRereshing{
-    
+    [NSException raise:@"[RootViewController footerRereshing]"
+                format:@"You Must Override This Method."];
 }
 
 /**
@@ -271,19 +273,19 @@
     NSInteger i = 0;
     for (NSString * title in titles) {
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0, 0, 30, 30);
+        btn.frame = CGRectMake(0, 0, 40, 30);
         [btn setTitle:title forState:UIControlStateNormal];
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = SYSTEMFONT(16);
-        [btn setTitleColor:PWWhiteColor forState:UIControlStateNormal];
+        [btn setTitleColor:PWBlackColor forState:UIControlStateNormal];
         btn.tag = [tags[i++] integerValue];
         [btn sizeToFit];
         
         //设置偏移
         if (isLeft) {
-            [btn setContentEdgeInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+            [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         }else{
-            [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
+            [btn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         }
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:btn];

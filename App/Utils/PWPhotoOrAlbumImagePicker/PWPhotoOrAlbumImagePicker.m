@@ -33,20 +33,17 @@
     self.photoBlock = photoBlock;
     self.viewController = controller;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *photoAlbumAction = [UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:1];
     }];
-    [photoAlbumAction setValue:PWOrangeTextColor forKey:@"_titleTextColor"];
 
-    UIAlertAction *cemeraAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
-    [cemeraAction setValue:PWOrangeTextColor forKey:@"_titleTextColor"];
 
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
-    [cancleAction setValue:PWOrangeTextColor forKey:@"_titleTextColor"];
-
     [alertController addAction:cancleAction];
     // 判断是否支持拍照
     [self imagePickerControlerIsAvailabelToCamera] ? [alertController addAction:cemeraAction]:nil;

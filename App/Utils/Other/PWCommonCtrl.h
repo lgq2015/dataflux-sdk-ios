@@ -19,5 +19,8 @@ typedef NS_ENUM(NSInteger, PWButtonType) {
 +(UIButton *)buttonWithFrame:(CGRect)frame
                           type:(PWButtonType)type
                           text:(NSString *)text;
+
++(UIAlertAction *)actionWithTitle:(nullable NSString *)title style:(UIAlertActionStyle)style handler:(void (^ __nullable)(UIAlertAction *action))handler;
++(UITextField *)textFieldWithFrame:(CGRect)frame;
 @end
 
