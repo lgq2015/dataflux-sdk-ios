@@ -31,13 +31,9 @@
     }
     
     if (!_passwordTf) {
-        _passwordTf = [[UITextField alloc]init];
-        _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
-        _passwordTf.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _passwordTf.textAlignment = NSTextAlignmentLeft;
+        _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
-        _passwordTf.textColor = PWTextColor;
         [self.view addSubview:_passwordTf];
     }
     [_passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -63,13 +63,9 @@
         [self.view addSubview:_phoneImg];
     }
     if (!_phoneTf) {
-        _phoneTf = [[UITextField alloc]initWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(250), ZOOM_SCALE(250), ZOOM_SCALE(20))];
-        _phoneTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
-        _phoneTf.textAlignment = NSTextAlignmentLeft;
+        _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(250), ZOOM_SCALE(250), ZOOM_SCALE(20))];
         _phoneTf.placeholder = @"请输入手机号码";
-        _phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
-        _phoneTf.textColor = PWTextColor;
         [self.view addSubview:_phoneTf];
     }
     if (!_line1){
@@ -92,13 +88,9 @@
         [self.view addSubview:_verifyCodeBtn];
     }
     if (!_verifyCodeTf) {
-        _verifyCodeTf = [[UITextField alloc]init];
-        _verifyCodeTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
-        _verifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _verifyCodeTf.textAlignment = NSTextAlignmentLeft;
+        _verifyCodeTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _verifyCodeTf.secureTextEntry = YES;
         _verifyCodeTf.placeholder = @"请输入验证码";
-        _verifyCodeTf.textColor = PWTextColor;
         [self.view addSubview:_verifyCodeTf];
     }
     [_verifyCodeTf mas_makeConstraints:^(MASConstraintMaker *make) {

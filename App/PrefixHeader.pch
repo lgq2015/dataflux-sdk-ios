@@ -20,6 +20,7 @@
 #import <WebViewJavascriptBridge.h>
 // 布局
 #import "Masonry.h"
+#import "PWCommonCtrl.h"
 #import "UIImageView+WebCache.h"
 #import <YYKit.h>
 #import "iToast+SYCategory.h"

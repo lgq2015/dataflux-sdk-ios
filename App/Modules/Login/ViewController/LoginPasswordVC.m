@@ -63,13 +63,9 @@
         [self.view addSubview:_phoneImg];
     }
     if (!_phoneTf) {
-        _phoneTf = [[UITextField alloc]initWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(250), ZOOM_SCALE(250), ZOOM_SCALE(20))];
-        _phoneTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
-        _phoneTf.textAlignment = NSTextAlignmentLeft;
+        _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(250), ZOOM_SCALE(250), ZOOM_SCALE(20))];
         _phoneTf.placeholder = @"请输入手机号码";
-        _phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
-        _phoneTf.textColor = PWTextColor;
         [self.view addSubview:_phoneTf];
     }
     if (!_line1){
@@ -91,13 +87,9 @@
         [self.view addSubview:_showWordsBtn];
     }
     if (!_passwordTf) {
-        _passwordTf = [[UITextField alloc]init];
-        _passwordTf.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
-        _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
-        _passwordTf.textAlignment = NSTextAlignmentLeft;
+        _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
-        _passwordTf.textColor = PWTextColor;
         [self.view addSubview:_passwordTf];
     }
     [_passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -182,11 +174,7 @@
     [[UserManager sharedUserManager] login:kUserLoginTypePwd params:param completion:^(BOOL success, NSString *des) {
         
     }];
-//    [PWNetworking requsetWithUrl:PW_login withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-//        
-//    } failBlock:^(NSError *error) {
-//        
-//    }];
+
 }
 #pragma mark ========== 找回密码 ==========
 - (void)findWordClick{

@@ -9,8 +9,14 @@
 #import "InformationVC.h"
 #import "PWInfoBoard.h"
 #import "HomeNoticeScrollView.h"
-@interface InformationVC ()
+#import "PWNewsListCell.h"
+#import "MonitorVC.h"
+#import "InformationSourceVC.h"
 
+@interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSMutableArray *newsDatas;
+@property (nonatomic, strong) PWInfoBoard *infoboard;
+@property (nonatomic, strong) HomeNoticeScrollView *notice;
 @end
 
 @implementation InformationVC
@@ -21,17 +27,61 @@
     self.mainScrollView.mj_header = self.header;
 //    self.tableView.mj_footer = self.footer;
     [self createUI];
+    [self loadNewData];
 }
 - (void)createUI{
-    PWInfoBoard *infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(394)) style:PWInfoBoardStyleNotConnected];
-    [self.mainScrollView addSubview:infoboard];
-    HomeNoticeScrollView *notice = [[HomeNoticeScrollView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
-    notice.backgroundColor = PWWhiteColor;
-    [self.mainScrollView addSubview:notice];
+    [self.infoboard createUIWithParamsDict:@{@"datas":@{}}];
+    __weak typeof(self) weakSelf = self;
+    self.infoboard.historyInfoClick = ^(void){
+        InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
+        [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
+    };
+    [self.notice mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.infoboard.mas_bottom).offset(Interval(10));
+        make.width.offset(kWidth);
+        make.height.offset(ZOOM_SCALE(60));
+    }];
+    [self.mainScrollView addSubview:self.tableView];
+    self.tableView.frame = CGRectMake(0, ZOOM_SCALE(464), kWidth, self.newsDatas.count*60);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.rowHeight = ZOOM_SCALE(128);
+    [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
+    [self.mainScrollView addSubview:self.tableView];
 }
-
+-(PWInfoBoard *)infoboard{
+    if (!_infoboard) {
+        _infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(394)) style:PWInfoBoardStyleNotConnected]; // type从用户信息里提前获取
+        [self.mainScrollView addSubview:_infoboard];
+    }
+    return _infoboard;
+}
+-(HomeNoticeScrollView *)notice{
+    if (!_notice) {
+       _notice = [[HomeNoticeScrollView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
+       _notice.backgroundColor = PWWhiteColor;
+       [self.mainScrollView addSubview:_notice];
+    }
+    return _notice;
+}
 - (void)headerRereshing{
     [self.mainScrollView.mj_header endRefreshing];
+}
+- (void)loadNewData{
+    
+}
+
+#pragma mark ========== UITableViewDataSource ==========
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.newsDatas.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
+    return cell;
+}
+#pragma mark ========== UITableViewDelegate ==========
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

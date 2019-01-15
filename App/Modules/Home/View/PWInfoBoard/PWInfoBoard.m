@@ -36,28 +36,38 @@
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(ZOOM_SCALE(12));
-        make.top.mas_equalTo(ZOOM_SCALE(12));
-        make.height.offset(ZOOM_SCALE(20));
+        make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
+        make.right.mas_equalTo(self).offset(ZOOM_SCALE(-13));
+        make.height.offset(ZOOM_SCALE(30));
+        make.width.offset(ZOOM_SCALE(100));
     }];
-    [self.rightBtn setTitle:@"" forState:UIControlStateNormal];
-    [self.rightBtnIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.rightBtn).offset(ZOOM_SCALE(3));
-        make.width.offset(ZOOM_SCALE(20));
-        make.height.offset(ZOOM_SCALE(20));
-        make.center.centerY.equalTo(self.rightBtn);
-    }];
+    
+    [self.rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
+//    [self.rightBtnIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.rightBtn.mas_left).offset(ZOOM_SCALE(-3));
+//        make.width.offset(ZOOM_SCALE(20));
+//        make.height.offset(ZOOM_SCALE(20));
+//        make.center.centerY.equalTo(self.rightBtn);
+//    }];
     self.rightBtnIcon.image = [UIImage imageNamed:@""];
     [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(ZOOM_SCALE(12));
-        make.right.equalTo(self.rightBtnIcon).offset(10);
+        make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
         make.height.offset(ZOOM_SCALE(20));
-        make.center.centerY.equalTo(self.rightBtnIcon);
+        make.centerY.equalTo(self.rightBtn.mas_centerY);
+
     }];
-    self.titleLable.text = @"";
+    self.titleLable.text = @"qwqeqeqweqwewqeqweqweqwe";
     if (self.style == PWInfoBoardStyleNotConnected) {
-        self.titleLable.hidden = YES;
+        self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
+        //CGRectMake(ZOOM_SCALE(12), ZOOM_SCALE(43), ZOOM_SCALE(336), ZOOM_SCALE(271))
+        [self.initializeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(ZOOM_SCALE(42));
+            make.left.mas_equalTo(self).offset(Interval(12));
+            make.right.mas_equalTo(self).offset(Interval(-12));
+            make.height.offset(ZOOM_SCALE(271));
+        }];
     }else{
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
@@ -75,7 +85,7 @@
         //该方法也可以设置itemSize
         layout.itemSize =CGSizeMake(ZOOM_SCALE(336), ZOOM_SCALE(60));
         layout.minimumLineSpacing = ZOOM_SCALE(10);
-       _itemCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+        _itemCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _itemCollectionView.delegate = self;
         _itemCollectionView.dataSource = self;
         _itemCollectionView.scrollEnabled = NO;
@@ -100,6 +110,7 @@
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_rightBtn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1/1.0] forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(historyInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_rightBtn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
         [self addSubview:_rightBtn];
     }
     return _rightBtn;
@@ -113,7 +124,7 @@
 }
 -(PWInfoInitialView *)initializeView{
     if(!_initializeView){
-        _initializeView = [[PWInfoInitialView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(12), ZOOM_SCALE(43), ZOOM_SCALE(336), ZOOM_SCALE(271))];
+        _initializeView = [[PWInfoInitialView alloc]initWithFrame:CGRectZero];
         _initializeView.delegate = self;
         [self addSubview:_initializeView];
     }
@@ -183,6 +194,7 @@
 }
 #pragma mark ========== private methods ==========
 - (void)historyInfoBtnClick{
+    DLog(@"click");
     if (self.historyInfoClick) {
         self.historyInfoClick();
     }
@@ -200,7 +212,6 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PWInfoBoardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
     cell.datas = self.datas[indexPath.row];
-    cell.backgroundColor = [UIColor whiteColor];
     cell.layer.cornerRadius = ZOOM_SCALE(8);
     return cell;
 }

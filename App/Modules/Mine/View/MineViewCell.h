@@ -18,5 +18,7 @@ typedef NS_ENUM(NSInteger, MineVCCellType) {
 @class MineCellModel;
 @interface MineViewCell : UITableViewCell
 @property (nonatomic, strong) MineCellModel *data;
+@property (nonatomic, strong) UISwitch *switchBtn;
+
 -(void)initWithData:(MineCellModel *)data type:(MineVCCellType)type;
 @end

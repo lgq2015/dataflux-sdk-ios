@@ -18,12 +18,14 @@ typedef NS_ENUM(NSInteger, MineCellType) {
 };
 typedef NS_ENUM(NSInteger, MineToolType) {
     MineToolTypeWhois = 0,         //Whois查询
-    MineToolTypeAliyun = 1,        //网站备案查询
-    MineToolTypeOrderManagement,   //IP查询
-    MineToolTypeCollect,           //Ping检测
-    MineToolTypeOpinion,           //DNS查询
-    MineToolTypeContactuUs,        //nslookup查询
-    MineToolTypeSetting,           //路由追踪
+    MineToolTypeWebsiteRecord = 1, //网站备案查询
+    MineToolTypeIP,                //IP查询
+    MineToolTypePing,              //Ping检测
+    MineToolTypeDNS,               //DNS查询
+    MineToolTypeNslookup,          //nslookup查询
+    MineToolTypeTraceroute,        //路由追踪
+    MineToolTypePortDetection,     //端口检测
+    MineToolTypeSSH,               //在线SSH
 };
 
 @interface MineCellModel : NSObject

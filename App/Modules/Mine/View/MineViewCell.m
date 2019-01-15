@@ -13,7 +13,6 @@
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIImageView *arrowImgView;
-@property (nonatomic, strong) UISwitch *switchBtn;
 @end
 @implementation MineViewCell
 
@@ -96,6 +95,11 @@
         make.centerY.mas_equalTo(self.contentView);
     }];
     self.titleLab.text = _data.title;
+    [self.switchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-18);
+        make.centerY.mas_equalTo(self.titleLab);
+    }];
+    [self.switchBtn setOn:self.data.isOn];
 }
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
@@ -128,6 +132,7 @@
 -(UISwitch *)switchBtn{
     if (!_switchBtn) {
         _switchBtn = [[UISwitch alloc]initWithFrame:CGRectZero];
+        [self addSubview:_switchBtn];
     }
     return _switchBtn;
 }

@@ -32,7 +32,7 @@
     self.tableView.rowHeight = 45;
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"修改登录密码"];
     MineCellModel *gesturePassword = [[MineCellModel alloc]initWithTitle:@"手势密码解锁" switch:YES];
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"接收消息通知" switch:YES];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"接收消息通知" switch:NO];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"关于我们"];
     MineCellModel *quit = [[MineCellModel alloc]initWithTitle:@"退出登录"];
     NSArray *array =@[changePassword,gesturePassword,notification];
@@ -78,8 +78,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 2){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定退出登录吗？" message:@"退出后不会删除内容记录，下次登录依然可以使用本账号" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *confim = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[UserManager sharedUserManager]logout:^(BOOL success, NSString *des) {
                 
             }];

@@ -112,14 +112,15 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfo{
-//    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-//        if([response[@"code"] isEqual:@0]){
-//            NSError *error;
+    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if([response[@"code"] isEqual:@0]){
+            DLog(@"%@",response);
+            NSError *error;
 //            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"data"] error:&error];
-//        }
-//    } failBlock:^(NSError *error) {
-//        DLog(@"%@",error);
-//    }];
+        }
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
     if (self.curUserInfo) {
         YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
         NSDictionary *dic = [self.curUserInfo modelToJSONObject];

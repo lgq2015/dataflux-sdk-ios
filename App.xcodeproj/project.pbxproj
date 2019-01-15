@@ -19,6 +19,15 @@
 		4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A021DF6FB900E4138B /* AboutUsVC.m */; };
 		4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
+		4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
+		4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
+		4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
+		4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
+		4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
+		4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
+		4A6114C321E5C31600E4138B /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
+		4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
+		4A6114CA21E7115900E4138B /* MonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C921E7115900E4138B /* MonitorVC.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -35,6 +44,9 @@
 		4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
 		4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
+		4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* MonitorCell.m */; };
+		4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */; };
+		4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -153,6 +165,24 @@
 		4A6114A321E2EB8500E4138B /* ContactUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsVC.m; sourceTree = "<group>"; };
 		4A6114A821E3491700E4138B /* PWCommonCtrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCommonCtrl.h; sourceTree = "<group>"; };
 		4A6114A921E3491700E4138B /* PWCommonCtrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCommonCtrl.m; sourceTree = "<group>"; };
+		4A6114AB21E449F500E4138B /* ToolsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolsVC.h; sourceTree = "<group>"; };
+		4A6114AC21E449F500E4138B /* ToolsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolsVC.m; sourceTree = "<group>"; };
+		4A6114B021E590ED00E4138B /* GestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GestureViewController.h; sourceTree = "<group>"; };
+		4A6114B121E590ED00E4138B /* GestureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GestureViewController.m; sourceTree = "<group>"; };
+		4A6114B321E5958300E4138B /* MultimodeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultimodeLabel.h; sourceTree = "<group>"; };
+		4A6114B421E5958300E4138B /* MultimodeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultimodeLabel.m; sourceTree = "<group>"; };
+		4A6114B721E5998600E4138B /* CALayer+Anim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
+		4A6114B821E5998600E4138B /* CALayer+Anim.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
+		4A6114BB21E59BDB00E4138B /* PWCircleViewConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleViewConst.h; sourceTree = "<group>"; };
+		4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleViewConst.m; sourceTree = "<group>"; };
+		4A6114BE21E5A2E200E4138B /* PWCircleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleView.h; sourceTree = "<group>"; };
+		4A6114BF21E5A2E200E4138B /* PWCircleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleView.m; sourceTree = "<group>"; };
+		4A6114C121E5C31600E4138B /* PWCircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircle.h; sourceTree = "<group>"; };
+		4A6114C221E5C31600E4138B /* PWCircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircle.m; sourceTree = "<group>"; };
+		4A6114C521E5E70C00E4138B /* PWCircleInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleInfoView.h; sourceTree = "<group>"; };
+		4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleInfoView.m; sourceTree = "<group>"; };
+		4A6114C821E7115900E4138B /* MonitorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorVC.h; sourceTree = "<group>"; };
+		4A6114C921E7115900E4138B /* MonitorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorVC.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -185,6 +215,12 @@
 		4A95BBDB2181C52500FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A95BBDF2181C76F00FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A95BBE12181C77000FC2979 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4AB489B121EC6640009F9E94 /* MonitorCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorCell.h; sourceTree = "<group>"; };
+		4AB489B221EC6640009F9E94 /* MonitorCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorCell.m; sourceTree = "<group>"; };
+		4AB489B721EDB14B009F9E94 /* InformationSourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationSourceVC.h; sourceTree = "<group>"; };
+		4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSourceVC.m; sourceTree = "<group>"; };
+		4AB489BA21EDB450009F9E94 /* AddSourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
+		4AB489BB21EDB450009F9E94 /* AddSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -378,14 +414,16 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4A61144621DCAE4000E4138B /* PWNewsListCell.h */,
-				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
 				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* PWDraggableLibraryView */,
 				4ABF43AC21B8BACE002AF34E /* PWGridView */,
 				4A19548621A7F7BE007ADFCA /* PWInfoBoard */,
 				4A19550521ABE4D8007ADFCA /* MonitorListCell.h */,
 				4A19550621ABE4D8007ADFCA /* MonitorListCell.m */,
+				4A61144621DCAE4000E4138B /* PWNewsListCell.h */,
+				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
+				4AB489B121EC6640009F9E94 /* MonitorCell.h */,
+				4AB489B221EC6640009F9E94 /* MonitorCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +439,57 @@
 				4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */,
 			);
 			path = PWInfoBoard;
+			sourceTree = "<group>";
+		};
+		4A6114AE21E4B29C00E4138B /* GestureLock */ = {
+			isa = PBXGroup;
+			children = (
+				4A6114C421E5E6EE00E4138B /* View */,
+				4A6114BA21E59BAD00E4138B /* FrameWork */,
+				4A6114B621E5995600E4138B /* Gategory */,
+				4A6114AF21E58C1400E4138B /* Controller */,
+			);
+			path = GestureLock;
+			sourceTree = "<group>";
+		};
+		4A6114AF21E58C1400E4138B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4A6114B021E590ED00E4138B /* GestureViewController.h */,
+				4A6114B121E590ED00E4138B /* GestureViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4A6114B621E5995600E4138B /* Gategory */ = {
+			isa = PBXGroup;
+			children = (
+				4A6114B721E5998600E4138B /* CALayer+Anim.h */,
+				4A6114B821E5998600E4138B /* CALayer+Anim.m */,
+			);
+			path = Gategory;
+			sourceTree = "<group>";
+		};
+		4A6114BA21E59BAD00E4138B /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				4A6114BB21E59BDB00E4138B /* PWCircleViewConst.h */,
+				4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */,
+				4A6114BE21E5A2E200E4138B /* PWCircleView.h */,
+				4A6114BF21E5A2E200E4138B /* PWCircleView.m */,
+				4A6114C121E5C31600E4138B /* PWCircle.h */,
+				4A6114C221E5C31600E4138B /* PWCircle.m */,
+			);
+			path = FrameWork;
+			sourceTree = "<group>";
+		};
+		4A6114C421E5E6EE00E4138B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4A6114C521E5E70C00E4138B /* PWCircleInfoView.h */,
+				4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4A6C2863219BF75E0059BB08 /* AppDelegate */ = {
@@ -471,6 +560,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A6114AE21E4B29C00E4138B /* GestureLock */,
 				4ABF43A321B8BACE002AF34E /* PageControl */,
 				4AE5377221CA2CC9004CF320 /* PWPhotoOrAlbumImagePicker */,
 				4AE5374521C68B89004CF320 /* PWScrollPageView */,
@@ -778,6 +868,8 @@
 				4ABF44CF21C20090002AF34E /* NSString+verify.m */,
 				4A6114A821E3491700E4138B /* PWCommonCtrl.h */,
 				4A6114A921E3491700E4138B /* PWCommonCtrl.m */,
+				4A6114B321E5958300E4138B /* MultimodeLabel.h */,
+				4A6114B421E5958300E4138B /* MultimodeLabel.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -793,6 +885,12 @@
 				4ABF44C821C127B1002AF34E /* ThinkTankVC.m */,
 				4ABF44CA21C127D2002AF34E /* ServiceVC.h */,
 				4ABF44CB21C127D2002AF34E /* ServiceVC.m */,
+				4A6114C821E7115900E4138B /* MonitorVC.h */,
+				4A6114C921E7115900E4138B /* MonitorVC.m */,
+				4AB489B721EDB14B009F9E94 /* InformationSourceVC.h */,
+				4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */,
+				4AB489BA21EDB450009F9E94 /* AddSourceVC.h */,
+				4AB489BB21EDB450009F9E94 /* AddSourceVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -838,6 +936,8 @@
 				4A6114A021DF6FB900E4138B /* AboutUsVC.m */,
 				4A6114A221E2EB8500E4138B /* ContactUsVC.h */,
 				4A6114A321E2EB8500E4138B /* ContactUsVC.m */,
+				4A6114AB21E449F500E4138B /* ToolsVC.h */,
+				4A6114AC21E449F500E4138B /* ToolsVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1109,13 +1209,17 @@
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
+				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
+				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
+				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
+				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
@@ -1127,10 +1231,13 @@
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */,
 				4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */,
+				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
 				4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */,
+				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
+				4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */,
 				4ABF437F21B77DE3002AF34E /* UITabBar+CustomBadge.m in Sources */,
 				4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
@@ -1142,6 +1249,7 @@
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
 				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
+				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
@@ -1158,6 +1266,9 @@
 				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
+				4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */,
+				4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */,
+				4A6114CA21E7115900E4138B /* MonitorVC.m in Sources */,
 				4ABF43B621B8BACE002AF34E /* PWDraggableLibraryView.m in Sources */,
 				4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */,
 				4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */,
@@ -1165,6 +1276,7 @@
 				4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */,
 				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
 				4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */,
+				4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,

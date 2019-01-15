@@ -12,6 +12,7 @@
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
 #import "ContactUsVC.h"
+#import "ToolsVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *iconImgBtn;
@@ -125,20 +126,25 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = (MineViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    SettingUpVC *settingVC = [[SettingUpVC alloc]init];
-    ContactUsVC *contactVC = [[ContactUsVC alloc]init];
     switch (cell.data.type) {
-        case MineCellTypeSetting:
+        case MineCellTypeSetting:{
+            SettingUpVC *settingVC = [[SettingUpVC alloc]init];
             [self.navigationController pushViewController:settingVC animated:YES];
+        }
             break;
-        case MineCellTypeContactuUs:
+        case MineCellTypeContactuUs:{
+            ContactUsVC *contactVC = [[ContactUsVC alloc]init];
             [self.navigationController pushViewController:contactVC animated:YES];
+        }
             break;
         case MineCellTypeOpinion:
             break;
         case MineCellTypeCollect:
             break;
-        case MineCellTypeTool:
+        case MineCellTypeTool:{
+            ToolsVC *tool = [[ToolsVC alloc]init];
+            [self.navigationController pushViewController:tool animated:YES];
+        }
             break;
         case MineCellTypeAliyun:
             break;

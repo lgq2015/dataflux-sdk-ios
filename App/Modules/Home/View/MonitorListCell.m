@@ -20,10 +20,10 @@
 @end
 @implementation MonitorListCell
 -(void)setFrame:(CGRect)frame{
-    frame.origin.x += ZOOM_SCALE(12);
-    frame.origin.y += ZOOM_SCALE(15);
-    frame.size.height -= ZOOM_SCALE(15);
-    frame.size.width -= ZOOM_SCALE(24);
+    frame.origin.x += Interval(12);
+    frame.origin.y += Interval(15);
+    frame.size.height -= Interval(15);
+    frame.size.width -= Interval(24);
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = 8.0;
     [super setFrame:frame];

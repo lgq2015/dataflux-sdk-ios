@@ -39,15 +39,14 @@ static NSTimeInterval   requestTimeout = 60.f;
     [serializer setRemovesKeysWithNullValues:YES];
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-    
     manager.requestSerializer.timeoutInterval = requestTimeout;
-    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json",@"X-CloudCare-Client=":@"3.0",@"X-Auth-Token":@""};
+    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
     for (NSString *key in headers.allKeys) {
         if (headers[key] != nil) {
             [manager.requestSerializer setValue:headers[key] forHTTPHeaderField:key];
         }
     }
-    
+    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
     //配置响应序列化
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
                                                                               @"text/html",
@@ -116,7 +115,8 @@ static NSTimeInterval   requestTimeout = 60.f;
                        failBlock:(PWResponseFailBlock)failBlock {
     AFHTTPSessionManager *manager = [self manager];
     [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
-    return [self requsetWithUrl:url withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
+    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
+    return [self requsetWithUrl:url manager:manager withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 #pragma mark ========== get/post noToken==========
 + (PWURLSessionTask *)requsetWithUrl:(NSString *)url
@@ -126,9 +126,20 @@ static NSTimeInterval   requestTimeout = 60.f;
                               params:(NSDictionary*)params
                        progressBlock:(PWProgress)progressBlock
                         successBlock:(PWResponseSuccessBlock)successBlock
+                           failBlock:(PWResponseFailBlock)failBlock{
+    AFHTTPSessionManager *manger = [self manager];
+    return [self requsetWithUrl:url manager:manger withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
+}
++ (PWURLSessionTask *)requsetWithUrl:(NSString *)url
+                              manager:(AFHTTPSessionManager *)manager
+                     withRequestType:(NetworkRequestType)type
+                      refreshRequest:(BOOL)refresh
+                               cache:(BOOL)cache
+                              params:(NSDictionary*)params
+                       progressBlock:(PWProgress)progressBlock
+                        successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
-    AFHTTPSessionManager *manager = [self manager];
     NSString *typestr = type == NetworkPostType? @"Post":@"Get";
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
@@ -142,7 +153,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     }
     switch (type) {
         case NetworkGetType:
-        {
+        {   
             session = [manager GET:url
                         parameters:params
                           progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -151,7 +162,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                               
                           } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                               if (successBlock) successBlock(responseObject);
-                              DLog(@"method = %@ baseUrl = %@ param = %@ response = %@",typestr,url,params,responseObject);
+                              DLog(@"method = %@ baseUrl = %@ param = %@ response = %@ header = %@  ",typestr,url,params,responseObject,manager.requestSerializer.HTTPRequestHeaders);
 
                               if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
                               
@@ -179,7 +190,9 @@ static NSTimeInterval   requestTimeout = 60.f;
         }
             break;
          case NetworkPostType:
-        {
+          {  // body传输
+              manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//            NSDictionary *dict = @{@"data":params};
             session = [manager POST:url
                         parameters:params
                             progress:^(NSProgress * _Nonnull uploadProgress) {
