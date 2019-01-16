@@ -47,6 +47,8 @@
 		4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* MonitorCell.m */; };
 		4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */; };
 		4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
+		4AB489CB21EECAFD009F9E94 /* InformationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */; };
+		4AB489CF21EECED4009F9E94 /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489CE21EECED4009F9E94 /* BadgeButton.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -221,6 +223,10 @@
 		4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSourceVC.m; sourceTree = "<group>"; };
 		4AB489BA21EDB450009F9E94 /* AddSourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
 		4AB489BB21EDB450009F9E94 /* AddSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
+		4AB489C921EECAFD009F9E94 /* InformationDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationDetailVC.h; sourceTree = "<group>"; };
+		4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationDetailVC.m; sourceTree = "<group>"; };
+		4AB489CD21EECED4009F9E94 /* BadgeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BadgeButton.h; sourceTree = "<group>"; };
+		4AB489CE21EECED4009F9E94 /* BadgeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -560,6 +566,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4AB489CC21EECE63009F9E94 /* BadgeButton */,
 				4A6114AE21E4B29C00E4138B /* GestureLock */,
 				4ABF43A321B8BACE002AF34E /* PageControl */,
 				4AE5377221CA2CC9004CF320 /* PWPhotoOrAlbumImagePicker */,
@@ -756,6 +763,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		4AB489CC21EECE63009F9E94 /* BadgeButton */ = {
+			isa = PBXGroup;
+			children = (
+				4AB489CD21EECED4009F9E94 /* BadgeButton.h */,
+				4AB489CE21EECED4009F9E94 /* BadgeButton.m */,
+			);
+			path = BadgeButton;
+			sourceTree = "<group>";
+		};
 		4ABF426021ACDC90002AF34E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -891,6 +907,8 @@
 				4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */,
 				4AB489BA21EDB450009F9E94 /* AddSourceVC.h */,
 				4AB489BB21EDB450009F9E94 /* AddSourceVC.m */,
+				4AB489C921EECAFD009F9E94 /* InformationDetailVC.h */,
+				4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1234,6 +1252,7 @@
 				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
 				4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
+				4AB489CB21EECAFD009F9E94 /* InformationDetailVC.m in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
@@ -1253,6 +1272,7 @@
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
+				4AB489CF21EECED4009F9E94 /* BadgeButton.m in Sources */,
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
