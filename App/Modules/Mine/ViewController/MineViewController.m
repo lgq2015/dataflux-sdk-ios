@@ -37,6 +37,7 @@
 - (void)createUI{
     self.mainScrollView.backgroundColor = PWBackgroundColor;
     self.mainScrollView.contentSize = CGSizeMake(0, kHeight);
+    [self.view addSubview:self.mainScrollView];
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.iconImgBtn).offset(ZOOM_SCALE(11));
         make.left.equalTo(self.iconImgBtn.mas_right).offset(ZOOM_SCALE(30));

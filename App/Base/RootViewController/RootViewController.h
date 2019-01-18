@@ -17,7 +17,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
-@property(nonatomic, strong) MJRefreshGifHeader *header;
+@property (nonatomic, strong) MJRefreshGifHeader *header;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 /**
  *  下拉刷新
  */

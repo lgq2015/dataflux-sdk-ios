@@ -49,6 +49,10 @@
 		4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
 		4AB489CB21EECAFD009F9E94 /* InformationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */; };
 		4AB489CF21EECED4009F9E94 /* BadgeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489CE21EECED4009F9E94 /* BadgeButton.m */; };
+		4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
+		4AB489DB21EF3EF8009F9E94 /* CreateQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */; };
+		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
+		4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489E321F06B42009F9E94 /* SourceVC.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -227,6 +231,14 @@
 		4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationDetailVC.m; sourceTree = "<group>"; };
 		4AB489CD21EECED4009F9E94 /* BadgeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BadgeButton.h; sourceTree = "<group>"; };
 		4AB489CE21EECED4009F9E94 /* BadgeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BadgeButton.m; sourceTree = "<group>"; };
+		4AB489D321EF07D6009F9E94 /* InformationSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationSourceCell.h; sourceTree = "<group>"; };
+		4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSourceCell.m; sourceTree = "<group>"; };
+		4AB489D921EF3EF8009F9E94 /* CreateQuestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateQuestionVC.h; sourceTree = "<group>"; };
+		4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQuestionVC.m; sourceTree = "<group>"; };
+		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
+		4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceCell.m; sourceTree = "<group>"; };
+		4AB489E221F06B42009F9E94 /* SourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceVC.h; sourceTree = "<group>"; };
+		4AB489E321F06B42009F9E94 /* SourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceVC.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -430,6 +442,10 @@
 				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
 				4AB489B121EC6640009F9E94 /* MonitorCell.h */,
 				4AB489B221EC6640009F9E94 /* MonitorCell.m */,
+				4AB489D321EF07D6009F9E94 /* InformationSourceCell.h */,
+				4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */,
+				4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */,
+				4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -909,6 +925,10 @@
 				4AB489BB21EDB450009F9E94 /* AddSourceVC.m */,
 				4AB489C921EECAFD009F9E94 /* InformationDetailVC.h */,
 				4AB489CA21EECAFD009F9E94 /* InformationDetailVC.m */,
+				4AB489D921EF3EF8009F9E94 /* CreateQuestionVC.h */,
+				4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */,
+				4AB489E221F06B42009F9E94 /* SourceVC.h */,
+				4AB489E321F06B42009F9E94 /* SourceVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1236,8 +1256,10 @@
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
+				4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */,
 				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
 				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
+				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
@@ -1276,6 +1298,7 @@
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
+				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* PWInfoInitialView.m in Sources */,
@@ -1302,6 +1325,7 @@
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
+				4AB489DB21EF3EF8009F9E94 /* CreateQuestionVC.m in Sources */,
 				4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */,
 				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
 				4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */,

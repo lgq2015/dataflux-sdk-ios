@@ -145,18 +145,17 @@
 - (UICollectionView *)collectionView
 {
     if (_collectionView == nil) {
-        UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight - kTabBarHeight) collectionViewLayout:flow];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight - kTabBarHeight) collectionViewLayout:self.layout];
         
-        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
-        header.automaticallyChangeAlpha = YES;
-        header.lastUpdatedTimeLabel.hidden = YES;
-        header.stateLabel.hidden = YES;
-        _collectionView.mj_header = header;
-        
-        //底部刷新
-        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+//        header.automaticallyChangeAlpha = YES;
+//        header.lastUpdatedTimeLabel.hidden = YES;
+//        header.stateLabel.hidden = YES;
+//        _collectionView.mj_header = header;
+//
+//        //底部刷新
+//        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
 
         
         _collectionView.backgroundColor=PWWhiteColor;

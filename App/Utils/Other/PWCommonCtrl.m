@@ -70,7 +70,7 @@
 +(UITextField *)textFieldWithFrame:(CGRect)frame{
     UITextField *tf = [[UITextField alloc]initWithFrame:frame];
     [tf setFont:[UIFont fontWithName:@"PingFangSC-Light" size:16]];
-    tf.textColor = PWTextFiledTextColor;
+    tf.textColor = PWTextBlackColor;
     [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
     tf.clearButtonMode=UITextFieldViewModeWhileEditing;
     tf.textAlignment = NSTextAlignmentLeft;

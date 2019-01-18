@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
+@class MonitorListModel;
 @interface MonitorCell : UITableViewCell
-@property (nonatomic, strong) NSDictionary *model;
+@property (nonatomic, strong) MonitorListModel *model;
+- (CGFloat)heightForModel:(NSDictionary *)model;
 @end
 
-NS_ASSUME_NONNULL_END
+
