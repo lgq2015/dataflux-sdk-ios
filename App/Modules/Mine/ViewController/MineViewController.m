@@ -12,7 +12,7 @@
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
 #import "ContactUsVC.h"
-#import "ToolsVC.h"
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *iconImgBtn;
@@ -117,12 +117,11 @@
 - (void)dealWithData{
     MineCellModel *company = [[MineCellModel alloc]initWithTitle:@"我的企业" icon:@"icon_corporation" cellType:MineCellTypeCompany];
     MineCellModel *aliyun = [[MineCellModel alloc]initWithTitle:@"阿里云账号管理" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
-    MineCellModel *order = [[MineCellModel alloc]initWithTitle:@"小工具" icon:@"icon_code" cellType:MineCellTypeTool];
     MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"我的收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
     MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_code" cellType:MineCellTypeOpinion];
     MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_code" cellType:MineCellTypeContactuUs];
     MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_code" cellType:MineCellTypeSetting];
-    self.dataSource = @[company,aliyun,order,collection,opinion,contact,setting];
+    self.dataSource = @[company,aliyun,collection,opinion,contact,setting];
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -141,11 +140,6 @@
         case MineCellTypeOpinion:
             break;
         case MineCellTypeCollect:
-            break;
-        case MineCellTypeTool:{
-            ToolsVC *tool = [[ToolsVC alloc]init];
-            [self.navigationController pushViewController:tool animated:YES];
-        }
             break;
         case MineCellTypeAliyun:
             break;

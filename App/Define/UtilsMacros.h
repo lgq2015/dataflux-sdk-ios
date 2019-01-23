@@ -11,6 +11,7 @@
 #ifndef define_h
 #define define_h
 
+
 #define APP_ID @""
 // iOS 11 以下的评价跳转
 #define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]
@@ -100,7 +101,7 @@
 #define textColorNormalState [UIColor colorWithHexString:@"8E8E93"]
 #define textColorWarningState [UIColor colorWithHexString:@"D50000"]
 #define WarningTextColor [UIColor colorWithHexString:@"2A7AF7"]
-
+#define PWTitleColor [UIColor colorWithHexString:@"595860"]
 //颜色
 
 #define PWClearColor [UIColor clearColor]
@@ -108,7 +109,7 @@
 #define PWBlackColor [UIColor blackColor]
 #define PWGrayColor [UIColor grayColor]
 #define PWGray2Color [UIColor lightGrayColor]
-#define PWBlueColor [UIColor blueColor]
+#define PWBlueColor [UIColor colorWithHexString:@"2A7AF7"]
 #define PWRedColor [UIColor redColor]
 #define PWRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]

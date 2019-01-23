@@ -11,8 +11,10 @@
 #import "InformationVC.h"
 #import "ServiceVC.h"
 #import "ThinkTankVC.h"
+#import "NetworkToolboxView.h"
+#import "ToolsVC.h"
 @interface HomeViewController ()
-
+@property (nonatomic, strong) NetworkToolboxView *toolsView;
 @end
 
 @implementation HomeViewController
@@ -30,14 +32,18 @@
     style.showExtraButton = YES;
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
-    style.extraBtnImageNames =@[@"icon_sacn_black",@"icon_sacn_black"];
+    style.extraBtnImageNames =@[@"icon_tools",@"icon_scan"];
     style.segmentHeight = kTopHeight;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
+    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         if (extraBtn.tag == 10) {
-
+            [self.toolsView showInView:[UIApplication sharedApplication].keyWindow];
+            self.toolsView.itemClick = ^(ToolType type){
+                [weakSelf dealWithType:type];
+            };
         }else if(extraBtn.tag == 11){
             
         }
@@ -51,10 +57,20 @@
     
     ThinkTankVC *vc2 = [ThinkTankVC new];
     vc2.view.backgroundColor = PWBackgroundColor;
-    vc2.title = @"智库";
+    vc2.title = @"手册";
    
     NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, nil];
     return childVcs;
+}
+- (NetworkToolboxView *)toolsView{
+    if (!_toolsView) {
+        _toolsView = [[NetworkToolboxView alloc]init];
+    }
+    return _toolsView;
+}
+- (void)dealWithType:(ToolType)type{
+    ToolsVC *toolVC = [[ToolsVC alloc]init];
+    [self.navigationController pushViewController:toolVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

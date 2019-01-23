@@ -51,7 +51,7 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SourceVC *source = [[SourceVC alloc]init];
-    source.type = SourceTypeAli;
+    source.type = SourceTypeSingleDiagnose;
     [self.navigationController pushViewController:source animated:YES];
 }
 /*

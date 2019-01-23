@@ -14,7 +14,7 @@
     if(self = [super init]) {
        
         self.scrollLineHeight = 4;
-        self.scrollLineColor = self.selectedTitleColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1.0];
+        self.scrollLineColor = self.selectedTitleColor = PWBlueColor;
      
         self.titleMargin = 15.0;
         self.titleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 17];

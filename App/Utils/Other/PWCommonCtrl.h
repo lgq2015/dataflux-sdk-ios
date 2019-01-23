@@ -16,11 +16,13 @@ typedef NS_ENUM(NSInteger, PWButtonType) {
 };
 
 @interface PWCommonCtrl : NSObject
+@property (nonatomic, assign) NSString *placeHolder;
 +(UIButton *)buttonWithFrame:(CGRect)frame
                           type:(PWButtonType)type
                           text:(NSString *)text;
 
 +(UIAlertAction *)actionWithTitle:(nullable NSString *)title style:(UIAlertActionStyle)style handler:(void (^ __nullable)(UIAlertAction *action))handler;
 +(UITextField *)textFieldWithFrame:(CGRect)frame;
++(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder;
 @end
 

@@ -45,18 +45,22 @@
     NSDictionary *dict = array[index];
     UIView *item = [[UIView alloc]initWithFrame:CGRectZero];
     item.tag = 1+index;
+    
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(6), ZOOM_SCALE(56), ZOOM_SCALE(38))];
     [item addSubview:icon];
     [icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(item.mas_centerX);
+        make.top.mas_equalTo(item).offset(ZOOM_SCALE(6));
+        make.width.offset(ZOOM_SCALE(56));
+        make.height.offset(ZOOM_SCALE(38));
     }];
-    icon.image = [UIImage imageNamed:@""];
+    icon.image = [UIImage imageNamed:dict[@"icon"]];
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectZero];
     name.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
     name.text = dict[@"name"];
     name.textAlignment = NSTextAlignmentCenter;
     if ([self.data[@"type"] isEqual:@1]) {
-        name.textColor = [UIColor colorWithHexString:@"595860"];
+        name.textColor = PWTitleColor;
     }else{
         name.textColor = [UIColor colorWithHexString:@"8E8E93"];
     }

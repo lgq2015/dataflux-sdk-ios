@@ -17,6 +17,6 @@
 //@property (nonatomic, assign) MonitorListState state;
 @property (nonatomic, strong) NSString *suggestion;
 @property (nonatomic, strong) NSString *time;
-
-@property (nonatomic,assign) CGFloat cellHeight;
+@property (nonatomic, assign) int state;
+@property (nonatomic, assign) CGFloat cellHeight;
 @end

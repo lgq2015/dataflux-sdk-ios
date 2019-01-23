@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, PWInfoBoardStyle) {
 @interface PWInfoBoard : UIView
 @property (nonatomic, copy) void(^connectClick)(void);
 @property (nonatomic, copy) void(^historyInfoClick)(void);
+@property (nonatomic, copy) void(^itemClick)(NSInteger index);
 
 /** 初始化InfoBoard视图的frame与style*/
 -(instancetype)initWithFrame:(CGRect)frame style:(PWInfoBoardStyle)style;

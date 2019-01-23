@@ -12,6 +12,7 @@
 #import "UITabBar+CustomBadge.h"
 #import "HomeViewController.h"
 #import "MineViewController.h"
+#import "TeamVC.h"
 #import "PWTabBar.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
@@ -45,11 +46,11 @@
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
     UIViewController *makeFriendVC = [[UIViewController alloc]init];
-    [self setupChildViewController:makeFriendVC title:@"云服务" imageName:@"icon_cc" seleceImageName:@"icon_tabbar_onsite_selected"];
+    [self setupChildViewController:makeFriendVC title:@"服务+" imageName:@"icon_cc" seleceImageName:@"icon_tabbar_onsite_selected"];
     
     //    MsgViewController *msgVC = [[MsgViewController alloc]init];
-    UIViewController *msgVC = [UIViewController new];
-    [self setupChildViewController:msgVC title:@"CloudCare+" imageName:@"icon_cc+" seleceImageName:@"icon_cc+_sel"];
+    TeamVC *team = [TeamVC new];
+    [self setupChildViewController:team title:@"团队" imageName:@"icon_cc+" seleceImageName:@"icon_cc+_sel"];
     
     
     MineViewController *mineVC = [[MineViewController alloc]init];

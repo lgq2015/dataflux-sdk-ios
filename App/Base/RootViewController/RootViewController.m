@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "UIScrollView+UITouch.h"
 @interface RootViewController ()
 @property(nonatomic, strong) UIImageView *noDataView;
 @end
@@ -110,7 +111,7 @@
  */
 -(UIScrollView *)mainScrollView{
     if (!_mainScrollView) {
-        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight-kTabBarHeight)];
+        _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
         _mainScrollView.alwaysBounceHorizontal = NO;
         _mainScrollView.directionalLockEnabled = YES;
         [self.view addSubview:_mainScrollView];
@@ -275,8 +276,8 @@
         btn.frame = CGRectMake(0, 0, 40, 30);
         [btn setTitle:title forState:UIControlStateNormal];
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.font = SYSTEMFONT(16);
-        [btn setTitleColor:PWBlackColor forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         btn.tag = [tags[i++] integerValue];
         [btn sizeToFit];
         

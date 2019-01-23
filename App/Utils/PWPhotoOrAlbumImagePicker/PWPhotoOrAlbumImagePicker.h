@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 typedef void (^PWPhotoOrAlbumImagePickerBlock)(UIImage *image);
+typedef void (^PWFileBlock)(NSData *file);
 
 @interface PWPhotoOrAlbumImagePicker : NSObject
 /**
@@ -17,6 +18,11 @@ typedef void (^PWPhotoOrAlbumImagePickerBlock)(UIImage *image);
  @param photoBlock 选择图片后的回掉
  */
 - (void)getPhotoAlbumOrTakeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock;
-
-
+/**
+ 公共方法 选择图片或文件
+ 
+ @param controller 使用这个工具的控制器
+ @param photoBlock 选择图片后的回掉
+ */
+- (void)getPhotoAlbumOrTakeAPhotoOrFileWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock fileBlock:(PWFileBlock)fileBlock;
 @end

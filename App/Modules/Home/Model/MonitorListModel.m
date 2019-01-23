@@ -9,5 +9,8 @@
 #import "MonitorListModel.h"
 
 @implementation MonitorListModel
-
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

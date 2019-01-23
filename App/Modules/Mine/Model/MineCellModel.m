@@ -28,11 +28,5 @@
     }
     return self;
 }
--(instancetype)initWithTitle:(NSString *)title toolType:(MineToolType)toolType{
-    if (self = [super init]) {
-        self.title = title;
-        self.toolType = toolType;
-    }
-    return self;
-}
+
 @end

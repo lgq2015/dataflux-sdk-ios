@@ -69,11 +69,28 @@
 }
 +(UITextField *)textFieldWithFrame:(CGRect)frame{
     UITextField *tf = [[UITextField alloc]initWithFrame:frame];
-    [tf setFont:[UIFont fontWithName:@"PingFangSC-Light" size:16]];
+    [tf setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:16]];
     tf.textColor = PWTextBlackColor;
     [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
     tf.clearButtonMode=UITextFieldViewModeWhileEditing;
     tf.textAlignment = NSTextAlignmentLeft;
     return tf;
+}
++(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder{
+    UITextView *textView = [[UITextView alloc]initWithFrame:frame];
+    [textView setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:16]];
+    textView.textColor = PWTextBlackColor;
+//    [textView setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
+
+    UILabel *place = [[UILabel alloc]init];
+    place.text = placeHolder;
+    place.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+    place.textColor =PWTextLight;
+    place.numberOfLines = 0;
+    [place sizeToFit];
+
+    [textView addSubview:place];
+    [textView setValue:place forKey:@"_placeholderLabel"];
+    return textView;
 }
 @end

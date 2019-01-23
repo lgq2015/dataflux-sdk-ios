@@ -35,46 +35,45 @@
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict{
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
-    [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
-        make.right.mas_equalTo(self).offset(ZOOM_SCALE(-13));
-        make.height.offset(ZOOM_SCALE(30));
-        make.width.offset(ZOOM_SCALE(100));
-    }];
-    
-    [self.rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
+  
 //    [self.rightBtnIcon mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.right.equalTo(self.rightBtn.mas_left).offset(ZOOM_SCALE(-3));
 //        make.width.offset(ZOOM_SCALE(20));
 //        make.height.offset(ZOOM_SCALE(20));
 //        make.center.centerY.equalTo(self.rightBtn);
 //    }];
-    self.rightBtnIcon.image = [UIImage imageNamed:@""];
-    [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(ZOOM_SCALE(12));
-        make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
-        make.height.offset(ZOOM_SCALE(20));
-        make.centerY.equalTo(self.rightBtn.mas_centerY);
-
-    }];
-    self.titleLable.text = @"qwqeqeqweqwewqeqweqweqwe";
+//    self.rightBtnIcon.image = [UIImage imageNamed:@""];
+   
     if (self.style == PWInfoBoardStyleNotConnected) {
         self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
         //CGRectMake(ZOOM_SCALE(12), ZOOM_SCALE(43), ZOOM_SCALE(336), ZOOM_SCALE(271))
         [self.initializeView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self).offset(ZOOM_SCALE(42));
-            make.left.mas_equalTo(self).offset(Interval(12));
-            make.right.mas_equalTo(self).offset(Interval(-12));
-            make.height.offset(ZOOM_SCALE(271));
+            make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
+            make.left.mas_equalTo(self).offset(Interval(16));
+            make.right.mas_equalTo(self).offset(Interval(-16));
+            make.height.offset(ZOOM_SCALE(586));
         }];
     }else{
+        [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
+            make.right.mas_equalTo(self).offset(ZOOM_SCALE(-13));
+            make.height.offset(ZOOM_SCALE(30));
+            make.width.offset(ZOOM_SCALE(100));
+        }];
+        [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(ZOOM_SCALE(12));
+            make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
+            make.height.offset(ZOOM_SCALE(20));
+            make.centerY.equalTo(self.rightBtn.mas_centerY);
+        }];
+        self.titleLable.text = @"qwqeqeqweqwewqeqweqweqwe";
+        [self.rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
+        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(70*self.datas.count));
     }
-    float top = self.style==PWInfoBoardStyleConnected?ZOOM_SCALE(42):ZOOM_SCALE(323);
-    self.itemCollectionView.frame = CGRectMake(0, top, kWidth, ZOOM_SCALE(70*self.datas.count));
     
 }
 
@@ -89,6 +88,7 @@
         _itemCollectionView.delegate = self;
         _itemCollectionView.dataSource = self;
         _itemCollectionView.scrollEnabled = NO;
+        _itemCollectionView.backgroundColor = PWBackgroundColor;
         [_itemCollectionView registerClass:[PWInfoBoardCell class] forCellWithReuseIdentifier:@"cellId"];
         [self addSubview:_itemCollectionView];
 
@@ -218,6 +218,9 @@
 #pragma mark ========== UICollectionViewDelegate ==========
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     PWInfoBoardCell *cell = (PWInfoBoardCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (self.itemClick) {
+        self.itemClick(indexPath.row);
+    }
     cell.layer.shadowOffset = CGSizeMake(0,2);
     cell.layer.shadowRadius = 5;
 }

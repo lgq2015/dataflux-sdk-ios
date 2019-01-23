@@ -16,4 +16,5 @@ target 'App' do
   pod 'WebViewJavascriptBridge', '~> 6.0'
   pod 'FMDB'
   pod 'Zhugeio'
+  pod 'IQKeyboardManager'
 end

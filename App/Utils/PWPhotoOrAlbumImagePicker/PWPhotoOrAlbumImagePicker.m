@@ -15,6 +15,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 @interface PWPhotoOrAlbumImagePicker()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic,copy) PWPhotoOrAlbumImagePickerBlock photoBlock;   //-> 回掉
+@property (nonatomic,copy) PWFileBlock fileBlock;
 @property (nonatomic,strong) UIImagePickerController *picker; //-> 多媒体选择控制器
 @property (nonatomic,weak) UIViewController  *viewController; //-> 一定是weak 避免循环引用
 @property (nonatomic,assign) NSInteger sourceType;            //-> 媒体来源 （相册/相机）
@@ -41,7 +42,7 @@
     UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
-
+   
     UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:cancleAction];
@@ -51,7 +52,29 @@
     [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
 
-
+- (void)getPhotoAlbumOrTakeAPhotoOrFileWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock fileBlock:(PWFileBlock)fileBlock{
+    self.photoBlock = photoBlock;
+    self.viewController = controller;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getAlertActionType:1];
+    }];
+    
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getAlertActionType:2];
+    }];
+    UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:@"文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertController addAction:cancleAction];
+    // 判断是否支持拍照
+    [self imagePickerControlerIsAvailabelToCamera] ? [alertController addAction:cemeraAction]:nil;
+    [alertController addAction:photoAlbumAction];
+    [alertController addAction:fileAction];
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
+}
 
 /**
  UIAlertController 点击事件 确定选择的媒体来源（相册/相机）

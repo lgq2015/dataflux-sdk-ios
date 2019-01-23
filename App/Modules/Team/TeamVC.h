@@ -1,8 +1,8 @@
 //
-//  InformationDetailVC.h
+//  TeamVC.h
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/1/16.
+//  Created by 胡蕾蕾 on 2019/1/23.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InformationDetailVC : RootViewController
+@interface TeamVC : RootViewController
 
 @end
 

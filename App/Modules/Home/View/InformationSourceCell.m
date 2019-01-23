@@ -15,7 +15,7 @@
 @implementation InformationSourceCell
 -(void)setFrame:(CGRect)frame{
     frame.origin.x += Interval(16);
-    frame.size.width -= Interval(24);
+    frame.size.width -= Interval(32);
     frame.origin.y += Interval(12);
     frame.size.height -= Interval(12);
     self.layer.masksToBounds = YES;
