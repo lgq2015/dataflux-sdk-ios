@@ -13,24 +13,10 @@
 #import "OpenUDID.h"
 
 @interface VerifyCodeLoginVC ()
-@property (nonatomic, strong) UIImageView *iconImg;
-@property (nonatomic, strong) UILabel *titleLab;
 
-@property (nonatomic, strong) UIImageView *phoneImg;
 @property (nonatomic, strong) UITextField *phoneTf;
-@property (nonatomic, strong) UIView *line1;
-
-@property (nonatomic, strong) UIImageView *verifyCodeImg;
-@property (nonatomic, strong) UITextField *verifyCodeTf;
 @property (nonatomic, strong) UIButton *verifyCodeBtn;
-@property (nonatomic, strong) UIView *line2;
-
-@property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *passwordBtn;
-
-@property (nonatomic, strong) UIImageView *bgImg;
-@property (nonatomic, strong) CAGradientLayer* backLayer;
-
 @end
 
 @implementation VerifyCodeLoginVC
@@ -43,122 +29,114 @@
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-    if (!_iconImg) {
-        _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(130), ZOOM_SCALE(88), ZOOM_SCALE(100), ZOOM_SCALE(56))];
-        _iconImg.image = [UIImage imageNamed:@""];
-        [self.view addSubview:_iconImg];
-    }
-    if (!_titleLab) {
-        _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(164), kWidth, ZOOM_SCALE(25))];
-        _titleLab.font = [UIFont systemFontOfSize:18];
-        _titleLab.text = @"验证码登录/注册";
-        _titleLab.textColor = PWTextColor;
-        _titleLab.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:_titleLab];
-    }
+    [self.passwordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+13));
+        make.height.offset(ZOOM_SCALE(22));
+    }];
+      UILabel  *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(53)+kStatusBarHeight, kWidth, ZOOM_SCALE(37))];
+      titleLab.font = BOLDFONT(26);
+      titleLab.text = @"您好，";
+      titleLab.textColor = PWTextBlackColor;
+      titleLab.textAlignment = NSTextAlignmentLeft;
+     [self.view addSubview:titleLab];
+     UILabel  *titleLab2 = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(101)+kStatusBarHeight, kWidth, ZOOM_SCALE(37))];
+     titleLab2.font = BOLDFONT(26);
+     titleLab2.text = @"欢迎来到王教授";
+     titleLab2.textColor = PWTextBlackColor;
+     titleLab2.textAlignment = NSTextAlignmentLeft;
+     [self.view addSubview:titleLab2];
     
-    if (!_phoneImg) {
-        _phoneImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(249), ZOOM_SCALE(20), ZOOM_SCALE(20))];
-        _phoneImg.image = [UIImage imageNamed:@"icon_account"];
-        [self.view addSubview:_phoneImg];
-    }
+    [self.phoneTf mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.top.mas_equalTo(titleLab2.mas_bottom).offset(ZOOM_SCALE(86));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(25));
+    }];
+    UIView * line1 = [[UIView alloc]init];
+    line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+    [self.view addSubview:line1];
+    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(self.phoneTf.mas_bottom).offset(ZOOM_SCALE(4));
+        make.right.mas_equalTo(self.phoneTf.mas_right);
+        make.height.offset(ZOOM_SCALE(1));
+    }];
+    [self.verifyCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.top.mas_equalTo(line1.mas_bottom).offset(ZOOM_SCALE(42));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(47));
+    }];
+    UILabel *tip = [[UILabel alloc]init];
+    tip.text = @"未注册的手机，验证后即完成注册";
+    tip.font = MediumFONT(14);
+    tip.textColor = [UIColor colorWithHexString:@"8E8E93"];
+    tip.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:tip];
+    [tip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.top.mas_equalTo(self.verifyCodeBtn.mas_bottom).offset(ZOOM_SCALE(12));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(20));
+    }];
+
+
+    RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
+        return @([NSString validateCellPhoneNumber:value]);
+    }];
+    RAC(self.verifyCodeBtn,enabled) = phoneTf;
+   
+    RAC(self.verifyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
+        if([value boolValue]){
+            return PWBlueColor;
+        }else{
+            return [UIColor colorWithHexString:@"C7C7CC"];;
+        }
+    }];
+}
+-(UITextField *)phoneTf{
     if (!_phoneTf) {
-        _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(250), ZOOM_SCALE(250), ZOOM_SCALE(20))];
+        _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _phoneTf.placeholder = @"请输入手机号码";
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_phoneTf];
     }
-    if (!_line1){
-        _line1 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(279), ZOOM_SCALE(280), 1)];
-        _line1.backgroundColor = PWBlackColor;
-        _line1.alpha = 0.05;
-        [self.view addSubview:_line1];
-    }
-    if (!_verifyCodeImg) {
-        _verifyCodeImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(306), ZOOM_SCALE(20), ZOOM_SCALE(20))];
-        _verifyCodeImg.image = [UIImage imageNamed:@"icon_code"];
-        [self.view addSubview:_verifyCodeImg];
-    }
-    if (!_verifyCodeBtn) {
-        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(240), ZOOM_SCALE(306), ZOOM_SCALE(70), ZOOM_SCALE(21))];
-        [_verifyCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [_verifyCodeBtn setTitleColor:PWOrangeTextColor forState:UIControlStateNormal];
-        _verifyCodeBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 14];
-        [_verifyCodeBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_verifyCodeBtn];
-    }
-    if (!_verifyCodeTf) {
-        _verifyCodeTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _verifyCodeTf.secureTextEntry = YES;
-        _verifyCodeTf.placeholder = @"请输入验证码";
-        [self.view addSubview:_verifyCodeTf];
-    }
-    [_verifyCodeTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.verifyCodeImg.mas_right).offset(ZOOM_SCALE(10));
-        make.top.equalTo(self.verifyCodeImg);
-        make.right.equalTo(self.verifyCodeBtn.mas_left).offset(-ZOOM_SCALE(10));
-        make.height.offset(ZOOM_SCALE(20));
-    }];
-    if (!_line2) {
-        _line2 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(336), ZOOM_SCALE(280), 1)];
-        _line2.backgroundColor = PWBlackColor;
-        _line2.alpha = 0.05;
-        [self.view addSubview:_line2];
-    }
-    
-    if(!_loginBtn){
-        _loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [_loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-        _loginBtn.enabled = NO;
-        _loginBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _loginBtn.layer.masksToBounds = YES;
-        [self.view addSubview:_loginBtn];
-    }
+    return _phoneTf;
+}
+-(UIButton *)passwordBtn{
     if (!_passwordBtn) {
-        _passwordBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(110),ZOOM_SCALE(441), ZOOM_SCALE(130), ZOOM_SCALE(20))];
-        [_passwordBtn setTitle:@"短信登录" forState:UIControlStateNormal];
+        _passwordBtn = [[UIButton alloc]init];
+        [_passwordBtn setTitle:@"密码登录" forState:UIControlStateNormal];
         [_passwordBtn addTarget:self action:@selector(passwordBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _passwordBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 14];
-        [_passwordBtn setTitleColor:PWOrangeTextColor forState:UIControlStateNormal];
+        _passwordBtn.titleLabel.font = MediumFONT(16);
+        [_passwordBtn setTitleColor:PWTextColor forState:UIControlStateNormal];
         [self.view addSubview:_passwordBtn];
     }
-    if (!_bgImg) {
-        _bgImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_bg"]];
-        [self.view addSubview:_bgImg];
+    return _passwordBtn;
+}
+-(UIButton *)verifyCodeBtn{
+    if(!_verifyCodeBtn){
+        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_verifyCodeBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
+        [_verifyCodeBtn setBackgroundColor:PWBlueColor];
+        _verifyCodeBtn.enabled = NO;
+        _verifyCodeBtn.layer.cornerRadius = ZOOM_SCALE(5);
+        _verifyCodeBtn.layer.masksToBounds = YES;
+        [self.view addSubview:_verifyCodeBtn];
     }
-    [_bgImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(0);
-        make.left.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.offset(ZOOM_SCALE(125));
-    }];
-    RACSignal *phoneTf = [self.phoneTf rac_textSignal];
-    RACSignal *passwordTf =  [self.verifyCodeTf rac_textSignal];
-    
-    RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf] reduce:^id(NSString * phone,NSString * password){
-        return @([NSString validateCellPhoneNumber:phone] && [NSString validatePassWordForm:password]);
-    }];
-    RAC(self.loginBtn,enabled) = validEmailSignal;
-    RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
-        if([value boolValue]){
-            [self.loginBtn.layer insertSublayer:self.backLayer below:self.loginBtn.titleLabel.layer];
-            return [UIColor clearColor];
-        }else{
-            [self.backLayer removeFromSuperlayer];
-            return [UIColor colorWithHexString:@"D8D8D8"];
-        }
-    }];
+    return _verifyCodeBtn;
 }
 #pragma mark ========== 跳转密码登录 ==========
 - (void)passwordBtnClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    LoginPasswordVC *login = [[LoginPasswordVC alloc]init];
+    [self.navigationController pushViewController:login animated:YES];
 }
 #pragma mark ========== 登录 ==========
 - (void)loginClick{
     NSDictionary *param = @{
         @"token": @"token",
-        @"verify_code": self.verifyCodeTf.text,
         @"mobile":self.phoneTf.text
     };
     [[UserManager sharedUserManager] login:kUserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
@@ -192,17 +170,16 @@
     
 
 }
-#pragma mark ========== btn渐变背景 ==========
--(CAGradientLayer *)backLayer{
-    if (!_backLayer) {
-        _backLayer = [self getbackgroundLayerWithFrame:self.loginBtn.frame];
-    }
-    return _backLayer;
-}
+//#pragma mark ========== btn渐变背景 ==========
+//-(CAGradientLayer *)backLayer{
+//    if (!_backLayer) {
+//        _backLayer = [self getbackgroundLayerWithFrame:self.loginBtn.frame];
+//    }
+//    return _backLayer;
+//}
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.phoneTf resignFirstResponder];
-    [self.verifyCodeTf resignFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

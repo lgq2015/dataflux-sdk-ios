@@ -89,7 +89,7 @@
         _nextSetPasswordBtn.enabled = YES;
         _nextSetPasswordBtn.layer.cornerRadius = ZOOM_SCALE(5);
         _nextSetPasswordBtn.layer.masksToBounds = YES;
-        _nextSetPasswordBtn.backgroundColor = PWBtnEnableColor;
+        _nextSetPasswordBtn.backgroundColor = PWBlueColor;
         [self.view addSubview:_nextSetPasswordBtn];
     }
     

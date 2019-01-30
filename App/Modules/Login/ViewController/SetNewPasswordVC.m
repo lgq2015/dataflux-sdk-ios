@@ -56,7 +56,7 @@
         _confirmBtn.enabled = YES;
         _confirmBtn.layer.cornerRadius = ZOOM_SCALE(5);
         _confirmBtn.layer.masksToBounds = YES;
-        _confirmBtn.backgroundColor = PWBtnEnableColor;
+        _confirmBtn.backgroundColor = PWBlueColor;
         [self.view addSubview:_confirmBtn];
     }
 }
