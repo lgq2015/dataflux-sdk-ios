@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icon_ expense.png",
+      "filename" : "icon_unselected.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icon_unselected@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icon_unselected@3x.png",
       "scale" : "3x"
     }
   ],
