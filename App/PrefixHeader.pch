@@ -14,7 +14,6 @@
 //全局宏
 #import "UtilsMacros.h"
 #import "NotificationMacros.h"
-#import "Define/EnumMacros.h"
 #import "PWNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSString+verify.h"

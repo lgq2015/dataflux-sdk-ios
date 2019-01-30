@@ -17,6 +17,7 @@ PODS:
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
+  - IQKeyboardManager (6.1.1)
   - JSONModel (1.7.0)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
@@ -32,6 +33,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - TTTAttributedLabel (2.0.0)
   - WebViewJavascriptBridge (6.0.3)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -43,11 +45,13 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - FMDB
+  - IQKeyboardManager
   - JSONModel
   - Masonry
   - MJRefresh
   - ReactiveCocoa (= 2.0)
   - SDWebImage (~> 3.8)
+  - TTTAttributedLabel
   - WebViewJavascriptBridge (~> 6.0)
   - YYKit
   - Zhugeio
@@ -56,11 +60,13 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - FMDB
+    - IQKeyboardManager
     - JSONModel
     - Masonry
     - MJRefresh
     - ReactiveCocoa
     - SDWebImage
+    - TTTAttributedLabel
     - WebViewJavascriptBridge
     - YYKit
     - Zhugeio
@@ -68,15 +74,17 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  IQKeyboardManager: 79c57795f5c2408d259d37b9da2ed07efcbb5225
   JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: e09f4f87da0e59057ac6669933afe519dd0126b0
 
-PODFILE CHECKSUM: 49b8ae08da72efae3bfa910fcdb7410e4f919578
+PODFILE CHECKSUM: 8f9bafa732f8749b362475c498ad9d68e67d5d3b
 
 COCOAPODS: 1.5.3

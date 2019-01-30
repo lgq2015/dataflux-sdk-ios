@@ -7,21 +7,14 @@
 //
 
 #import "RootViewController.h"
-typedef NS_ENUM(NSUInteger, SourceType) {
-    SourceTypeAli = 1,             //阿里云
-    SourceTypeAWS,                 //AWS
-    SourceTypeTencent,             //腾讯云
-    SourceTypeHUAWEI,              //华为云
-    SourceTypeSingleDiagnose,      //主机诊断
-    SourceTypeClusterDiagnose,     //集群诊断
-    SourceTypeDomainNameDiagnose,  //域名诊断
-    SourceTypeWebsiteSecurityScan, //网站安全扫描
-    SourceTypeURLDiagnose,         //URL 诊断
-};
+#import "PWInfoSourceModel.h"
+
 
 @interface SourceVC : RootViewController
 @property (nonatomic, assign) SourceType type;
+@property (nonatomic, strong) PWInfoSourceModel *model;
 @property (nonatomic, assign) BOOL isAdd;
+@property (nonatomic, copy) void(^RefreshClick)(void);
 @end
 
 

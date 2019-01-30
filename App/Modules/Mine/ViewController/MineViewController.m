@@ -8,6 +8,7 @@
 
 #import "MineViewController.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#import "PersonalInfoVC.h"
 #import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
@@ -15,10 +16,10 @@
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong) UIButton *iconImgBtn;
+@property (nonatomic, strong) UIImageView *iconImgView;
+@property (nonatomic, strong) UIButton *personalBtn;
 @property (nonatomic, strong) UILabel *userName;
 @property (nonatomic, strong) UILabel *companyName;
-@property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 
@@ -39,59 +40,66 @@
     self.mainScrollView.contentSize = CGSizeMake(0, kHeight);
     [self.view addSubview:self.mainScrollView];
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.iconImgBtn).offset(ZOOM_SCALE(11));
-        make.left.equalTo(self.iconImgBtn.mas_right).offset(ZOOM_SCALE(30));
+        make.left.equalTo(self.iconImgView.mas_right).offset(ZOOM_SCALE(30));
         make.right.mas_equalTo(ZOOM_SCALE(30));
-        make.height.offset(ZOOM_SCALE(33));
+        make.centerY.mas_equalTo(self.iconImgView);
+        make.height.offset(ZOOM_SCALE(25));
     }];
     self.userName.text = @"User ONE";
-    [self.companyName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.userName.mas_bottom).offset(ZOOM_SCALE(8));
-        make.left.equalTo(self.userName.mas_left);
-        make.right.equalTo(self.userName.mas_right);
-        make.height.offset(ZOOM_SCALE(17));
+    [self.personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.userName);
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.width.height.offset(ZOOM_SCALE(20));
     }];
-    self.companyName.text = @"上海驻云信息科技有限公司";
-    [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headerView.mas_bottom).offset(ZOOM_SCALE(2));
+//    [self.companyName mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.userName.mas_bottom).offset(ZOOM_SCALE(8));
+//        make.left.equalTo(self.userName.mas_left);
+//        make.right.equalTo(self.userName.mas_right);
+//        make.height.offset(ZOOM_SCALE(17));
+//    }];
+//    self.companyName.text = @"上海驻云信息科技有限公司";
+    self.tableView.rowHeight = 45;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorInset = UIEdgeInsetsMake(5, 0, 0, 5);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.showsVerticalScrollIndicator = NO;
+    [self.mainScrollView addSubview:self.tableView];
+    [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.headerView.mas_bottom);
         make.width.offset(kWidth);
-        make.height.offset(self.dataSource.count*45);
+        make.height.offset(8*45+100);
     }];
 }
 
        
 
-- (UITableView *)mainTableView{
-    if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _mainTableView.rowHeight = 45;
-        _mainTableView.backgroundColor = PWWhiteColor;
-        _mainTableView.delegate = self;
-        _mainTableView.dataSource = self;
-        _mainTableView.separatorInset = UIEdgeInsetsMake(5, 0, 0, 5);
-        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _mainTableView.showsVerticalScrollIndicator = NO;
-        [_mainTableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
-        [self.mainScrollView addSubview:_mainTableView];
-    }
-    return _mainTableView;
-}
+
 - (UIView *)headerView{
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 150+kStatusBarHeight-22)];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 160+kStatusBarHeight-22)];
         _headerView.backgroundColor = PWWhiteColor;
         [self.mainScrollView addSubview:_headerView];
     }
     return _headerView;
 }
-- (UIButton *)iconImgBtn{
-    if (!_iconImgBtn) {
-        _iconImgBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(52), ZOOM_SCALE(78), ZOOM_SCALE(78))];
-        [_iconImgBtn addTarget:self action:@selector(icomImgClick) forControlEvents:UIControlEventTouchUpInside];
-        [_iconImgBtn setImage:[UIImage imageNamed:@"icon_defaulthead"] forState:UIControlStateNormal];
-        [self.headerView addSubview:_iconImgBtn];
+-(UIButton *)personalBtn{
+    if (!_personalBtn) {
+        _personalBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_personalBtn setImage:[UIImage imageNamed:@"icon_nextbig"] forState:UIControlStateNormal];
+        [_personalBtn addTarget:self action:@selector(personalBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.headerView addSubview:_personalBtn];
     }
-    return _iconImgBtn;
+    return _personalBtn;
+}
+- (UIImageView *)iconImgView{
+    if (!_iconImgView) {
+        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(16), kStatusBarHeight-22+54, ZOOM_SCALE(70), ZOOM_SCALE(70))];
+        _iconImgView.image = [UIImage imageNamed:@"icon_defaulthead"];
+        [self.headerView addSubview:_iconImgView];
+    }
+    return _iconImgView;
 }
 - (UILabel *)userName{
     if (!_userName) {
@@ -113,15 +121,24 @@
     }
     return _companyName;
 }
+- (void)personalBtnClick:(UIButton *)button{
+    PersonalInfoVC *personal = [[PersonalInfoVC alloc]init];
+    [self.navigationController pushViewController:personal animated:YES];
+}
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithData{
-    MineCellModel *company = [[MineCellModel alloc]initWithTitle:@"我的企业" icon:@"icon_corporation" cellType:MineCellTypeCompany];
-    MineCellModel *aliyun = [[MineCellModel alloc]initWithTitle:@"阿里云账号管理" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
-    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"我的收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
+    MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_corporation" cellType:MineCellTypeCompany];
+    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
+    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
     MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_code" cellType:MineCellTypeOpinion];
     MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_code" cellType:MineCellTypeContactuUs];
+    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_code" cellType:MineCellTypeSetting];
+    MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_code" cellType:MineCellTypeSetting];
     MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_code" cellType:MineCellTypeSetting];
-    self.dataSource = @[company,aliyun,collection,opinion,contact,setting];
+    NSArray *group1 = @[mynews,infoSource,collection];
+    NSArray *group2 = @[opinion,contact,encourage,aboutPW];
+    NSArray *group3 = @[setting];
+    self.dataSource = @[group1,group2,group3];
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -151,12 +168,22 @@
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray *arry = [self.dataSource objectAtIndex:section];
+    if (arry&&arry.count) {
+        return arry.count;
+    }
+    return 0;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.dataSource.count;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 12;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
-    [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeBase];
+    [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeBase];
     return cell;
 }
 #pragma mark ========== 用户头像选取 ==========

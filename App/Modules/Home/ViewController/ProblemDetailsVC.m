@@ -7,10 +7,10 @@
 //
 
 #import "ProblemDetailsVC.h"
-#import "BadgeButton.h"
+#import "PPBadgeView.h"
 
 @interface ProblemDetailsVC ()
-@property (nonatomic, strong) BadgeButton *navRightBtn;
+@property (nonatomic, strong) UIBarButtonItem *navRightBtn;
 @property (nonatomic, strong) UIView *upContainerView;
 @end
 
@@ -18,16 +18,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"问题详情";
+    self.title = @"情报详情";
     [self createUI];
 }
 #pragma mark ========== UI ==========
 - (void)createUI{
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick:)];;
+   
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setupBadges];
+    });
+
 #pragma mark 导航
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
-    self.navigationItem.rightBarButtonItem = item;
+//    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
+//    [self.navRightBtn setBadgeValue:2];
+//    self.navigationItem.rightBarButtonItem = item;
     
-    
+
+   
+}
+- (void)setupBadges{
+    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
 }
 -(UIView *)upContainerView{
     if (!_upContainerView) {
@@ -46,11 +58,9 @@
     return _upContainerView;
 }
 
--(BadgeButton *)navRightBtn{
+-(UIBarButtonItem *)navRightBtn{
     if (!_navRightBtn) {
-        _navRightBtn = [[BadgeButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [_navRightBtn setTitle:@"讨论" forState:UIControlStateNormal];
-        [_navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return _navRightBtn;
 }

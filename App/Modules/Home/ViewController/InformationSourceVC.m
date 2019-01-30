@@ -20,12 +20,14 @@
     [super viewDidLoad];
     self.title = @"情报源";
     [self createUI];
+    [self loadData];
 }
 - (void)createUI{
     NSArray *title = @[@"添加"];
     [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
-    NSArray *array = @[@{@"icon":@"",@"title":@"我的阿里云",@"state":@1},@{@"icon":@"",@"title":@"www.cloudcare.cn",@"state":@2},@{@"icon":@"",@"title":@"oa-web-02",@"state":@3}];
-    self.dataSource = [NSMutableArray arrayWithArray:array];
+    NSArray *data = self.response[@"content"][@"data"];
+    self.dataSource = [NSMutableArray arrayWithArray:data];
+//    NSArray *array = @[@{@"icon":@"",@"title":@"我的阿里云",@"state":@1,@"type":@1},@{@"icon":@"",@"title":@"www.cloudcare.cn",@"state":@2,@"type":@8},@{@"icon":@"",@"title":@"oa-web-02",@"state":@3,@"type":@6},@{@"icon":@"",@"title":@"oa-web-02",@"state":@3,@"type":@5},@{@"icon":@"",@"title":@"cloudcare.cn",@"state":@1,@"type":@7},@{@"icon":@"",@"title":@"http://www.skghak.com.cn/chart.php",@"state":@2,@"type":@9}];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
@@ -33,6 +35,20 @@
     self.tableView.rowHeight = 100.f;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[InformationSourceCell class] forCellReuseIdentifier:@"InformationSourceCell"];
+}
+- (void)loadData{
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        DLog(@"%@",response);
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *dict = response[@"content"];
+            NSArray *data = dict[@"data"];
+            if (data.count>0) {
+            }
+        }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
+        }
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
 }
 - (void)addInfoSource{
     AddSourceVC *addVC = [[AddSourceVC alloc]init];
@@ -45,13 +61,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InformationSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationSourceCell"];
-    cell.data = self.dataSource[indexPath.row];
+    
+    cell.model = [[PWInfoSourceModel alloc]initWithJsonDictionary:self.dataSource[indexPath.row]];
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
     SourceVC *source = [[SourceVC alloc]init];
-    source.type = SourceTypeSingleDiagnose;
+    source.model = cell.model;
+    source.isAdd = NO;
     [self.navigationController pushViewController:source animated:YES];
 }
 /*

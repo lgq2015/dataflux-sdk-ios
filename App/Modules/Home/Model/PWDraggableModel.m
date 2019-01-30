@@ -9,5 +9,11 @@
 #import "PWDraggableModel.h"
 
 @implementation PWDraggableModel
-
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
+                                                       @"id": @"handbook_id",
+                                                       }];
+    
+}
 @end

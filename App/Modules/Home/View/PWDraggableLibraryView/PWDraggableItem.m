@@ -25,7 +25,6 @@ static CGFloat kDuration = .3f;
 @property (nonatomic, strong) UIView *displayView;
 @property (nonatomic, strong) UIButton *topView, *bottomView;
 
-@property (nonatomic, strong) UIImageView *iconImgVie;
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGes;

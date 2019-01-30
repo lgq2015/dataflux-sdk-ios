@@ -11,8 +11,9 @@
 #import "InformationVC.h"
 #import "ServiceVC.h"
 #import "ThinkTankVC.h"
-#import "NetworkToolboxView.h"
 #import "ToolsVC.h"
+
+
 @interface HomeViewController ()
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
 @end
@@ -41,7 +42,7 @@
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         if (extraBtn.tag == 10) {
             [self.toolsView showInView:[UIApplication sharedApplication].keyWindow];
-            self.toolsView.itemClick = ^(ToolType type){
+            self.toolsView.itemClick = ^(PWToolType type){
                 [weakSelf dealWithType:type];
             };
         }else if(extraBtn.tag == 11){
@@ -68,8 +69,9 @@
     }
     return _toolsView;
 }
-- (void)dealWithType:(ToolType)type{
+- (void)dealWithType:(PWToolType)type{
     ToolsVC *toolVC = [[ToolsVC alloc]init];
+    toolVC.type = type;
     [self.navigationController pushViewController:toolVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

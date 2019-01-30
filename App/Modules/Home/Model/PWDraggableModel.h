@@ -7,10 +7,26 @@
 //
 
 #import "JSONModel.h"
-
+/*
+ "bucketPath": "linux-cmd",
+ "category": "handbook",
+ "coverImageMobile": "",
+ "coverImageWeb": "",
+ "createAccountId": "",
+ "createTime": "Fri, 25 Jan 2019 17:28:52 GMT",
+ "id": "hdbk-tz6RomJC728WDUy7JbvP59",
+ "isShow": true,
+ "lastSync": "Tue, 29 Jan 2019 17:03:36 GMT",
+ "name": "林纳克斯命令集",
+ "orderNum": 1,
+ "seq": 1,
+ "updateAccountId": "",
+ "updateTime": "Fri, 25 Jan 2019 17:28:52 GMT"
+ */
 @interface PWDraggableModel : JSONModel
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *subtitle;
-@property (nonatomic, strong) NSString *image;
-@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) NSString *coverImageMobile;
+@property (nonatomic, assign) NSInteger orderNum;
+@property (nonatomic, strong) NSString *handbook_id;
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "PWInfoBoard.h"
-#import "PWInfoBoardCell.h"
 #import "PWInfoInitialView.h"
 @interface PWInfoBoard ()<UICollectionViewDelegate,UICollectionViewDataSource,PWInfoInitialViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datas;
@@ -35,19 +34,10 @@
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict{
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
-  
-//    [self.rightBtnIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self.rightBtn.mas_left).offset(ZOOM_SCALE(-3));
-//        make.width.offset(ZOOM_SCALE(20));
-//        make.height.offset(ZOOM_SCALE(20));
-//        make.center.centerY.equalTo(self.rightBtn);
-//    }];
-//    self.rightBtnIcon.image = [UIImage imageNamed:@""];
-   
+    
     if (self.style == PWInfoBoardStyleNotConnected) {
         self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
-        //CGRectMake(ZOOM_SCALE(12), ZOOM_SCALE(43), ZOOM_SCALE(336), ZOOM_SCALE(271))
         [self.initializeView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
             make.left.mas_equalTo(self).offset(Interval(16));
@@ -57,22 +47,21 @@
     }else{
         [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
-            make.right.mas_equalTo(self).offset(ZOOM_SCALE(-13));
+            make.right.mas_equalTo(self).offset(-Interval(16));
             make.height.offset(ZOOM_SCALE(30));
             make.width.offset(ZOOM_SCALE(100));
         }];
         [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(ZOOM_SCALE(12));
+            make.left.mas_equalTo(Interval(16));
             make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
             make.height.offset(ZOOM_SCALE(20));
             make.centerY.equalTo(self.rightBtn.mas_centerY);
         }];
         self.titleLable.text = @"qwqeqeqweqwewqeqweqweqwe";
-        [self.rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
-        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(70*self.datas.count));
+        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*self.datas.count));
     }
     
 }
@@ -82,8 +71,8 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         //该方法也可以设置itemSize
-        layout.itemSize =CGSizeMake(ZOOM_SCALE(336), ZOOM_SCALE(60));
-        layout.minimumLineSpacing = ZOOM_SCALE(10);
+        layout.itemSize =CGSizeMake(kWidth-2*Interval(16), ZOOM_SCALE(64));
+        layout.minimumLineSpacing = ZOOM_SCALE(18);
         _itemCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _itemCollectionView.delegate = self;
         _itemCollectionView.dataSource = self;
@@ -107,8 +96,19 @@
 -(UIButton *)rightBtn{
     if (!_rightBtn) {
         _rightBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+        [_rightBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_rightBtn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1/1.0] forState:UIControlStateNormal];
+        [_rightBtn sizeToFit];
+        // 重点位置开始
+        _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_rightBtn.imageView.frame.size.width - _rightBtn.frame.size.width + _rightBtn.titleLabel.frame.size.width, 0, 0);
+        
+        _rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_rightBtn.titleLabel.frame.size.width - _rightBtn.frame.size.width + _rightBtn.imageView.frame.size.width);
+        
+        // 重点位置结束
+//        _rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [_rightBtn addTarget:self action:@selector(historyInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
         [self addSubview:_rightBtn];
@@ -133,7 +133,7 @@
 #pragma mark ========== 实例方法 ==========
 - (void)updataInfoBoardStyle:(PWInfoBoardStyle)style itemData:(NSDictionary *)paramsDict{
     NSArray *data = paramsDict[@"data"];
-    if(data.count>0){
+        if(data.count>0){
         if(self.style != style){
                   self.style = style;
             float top = self.style==PWInfoBoardStyleConnected?ZOOM_SCALE(42):ZOOM_SCALE(323);
@@ -151,7 +151,6 @@
         [self.datas addObjectsFromArray:data];
         [self.itemCollectionView reloadData];
     }
-    
 }
 - (void)updataDatas:(NSDictionary *)paramsDict{
     [self.datas removeAllObjects];
@@ -211,8 +210,7 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PWInfoBoardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
-    cell.datas = self.datas[indexPath.row];
-    cell.layer.cornerRadius = ZOOM_SCALE(8);
+    cell.model = self.datas[indexPath.row];
     return cell;
 }
 #pragma mark ========== UICollectionViewDelegate ==========
@@ -221,6 +219,7 @@
     if (self.itemClick) {
         self.itemClick(indexPath.row);
     }
+    
     cell.layer.shadowOffset = CGSizeMake(0,2);
     cell.layer.shadowRadius = 5;
 }

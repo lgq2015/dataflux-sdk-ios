@@ -7,6 +7,7 @@
 //
 
 #import "ServiceVC.h"
+#import "PPBadgeView.h"
 
 @interface ServiceVC ()
 
@@ -18,7 +19,11 @@
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWBackgroundColor;
     self.mainScrollView.mj_header = self.header;
+    
     // Do any additional setup after loading the view.
+}
+- (void)navRightBtnClick:(UIBarButtonItem *)item{
+    
 }
 - (void)headerRereshing{
     [self.mainScrollView.mj_header endRefreshing];

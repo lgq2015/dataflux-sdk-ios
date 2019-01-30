@@ -44,6 +44,7 @@ typedef void (^DisplayBlock)(NSInteger index);
 @property (nonatomic, assign) NSUInteger lineCount;
 @property (nonatomic, strong) UILabel *upTitleLab;
 @property (nonatomic, strong) UILabel *subTitleLab;
+@property (nonatomic, strong) UIImageView *iconImgVie;
 @property (nonatomic, strong) PWDraggableModel *model;
 @property (nonatomic, copy) DisplayBlock clickBlock;
 

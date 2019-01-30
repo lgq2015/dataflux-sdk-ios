@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, PWToolType) {
     PWToolTypeNslookup,          //nslookup查询
     PWToolTypeTraceroute,        //路由追踪
     PWToolTypePortDetection,     //端口检测
-    PWToolTypeSSH,               //在线SSH
 };
 NS_ASSUME_NONNULL_BEGIN
 

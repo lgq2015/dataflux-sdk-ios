@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"添加情报源";
+    [self loadUtils];
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -34,10 +35,16 @@
     NSArray *array = @[@{@"title":@"连接云服务",@"type":@1,@"datas":@[@{@"icon":@"icon_ali",@"name":@"阿里云",@"sourceType":@1},@{@"icon":@"icon_aws",@"name":@"AWS",@"sourceType":@2},@{@"icon":@"icon_tencent",@"name":@"腾讯云",@"sourceType":@3},@{@"icon":@"icon_huawei",@"name":@"华为云",@"sourceType":@4}]},@{@"title":@"深度诊断",@"type":@2,@"datas":@[@{@"icon":@"icon_single",@"name":@"单机诊断",@"sourceType":@5},@{@"icon":@"icon_cluster",@"name":@"集群诊断",@"sourceType":@6}]},@{@"title":@"更多诊断服务",@"type":@3,@"datas":@[@{@"icon":@"icon_domainname",@"name":@"域名诊断",@"sourceType":@7},@{@"icon":@"icon_netscan",@"name":@"网站安全扫描",@"sourceType":@8},@{@"icon":@"icon_url",@"name":@"URL诊断",@"sourceType":@9}]}];
     self.dataSource = [NSMutableArray arrayWithArray:array];
     [self.collectionView reloadData];
-
-
+    
 }
-
+#pragma mark ========== 获取常量表 ==========
+- (void)loadUtils{
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:NO params:@{@"keys":@"issueSourceProvider"} progressBlock:nil successBlock:^(id response) {
+        DLog(@"%@",response);
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
+}
 #pragma mark ========== UICollectionViewDataSource ==========
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.dataSource.count;

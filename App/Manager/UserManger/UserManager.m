@@ -9,7 +9,6 @@
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "CurrentUserModel.h"
-#import "UserInfo.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -76,17 +75,18 @@ SINGLETON_FOR_CLASS(UserManager);
     if(loginType == kUserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if ([response[@"code"] isEqual:@0]) {
-                NSError *error;
-                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
-                setXAuthToken(response[@"data"][@"ticket"]);
+            NSString *errCode = response[@"errCode"];
+            if(errCode.length>0){
+                [iToast alertWithTitleCenter:response[@"message"]];
+            }else{
+                NSDictionary *content = response[@"content"];
+                NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
+                [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
+                [token synchronize];
                 KPostNotification(KNotificationLoginStateChange, @YES);
                 [self saveUserInfo];
             }
-            if ([response[@"code"] isEqual:@77]) {
-                DLog(@"%@",response);
-                [iToast alertWithTitleCenter:response[@"zh_CN"]];
-            }
+            
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
 
@@ -95,8 +95,6 @@ SINGLETON_FOR_CLASS(UserManager);
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"code"] isEqual:@0]) {
-                NSError *error;
-                _curUserInfo = [[UserInfo alloc]initWithDictionary:response[@"data"] error:&error];
                 [self saveUserInfo];
                 KPostNotification(KNotificationLoginStateChange, @YES);
             }
@@ -113,19 +111,23 @@ SINGLETON_FOR_CLASS(UserManager);
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfo{
     [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if([response[@"code"] isEqual:@0]){
-            DLog(@"%@",response);
+        NSString *errCode = response[@"errCode"];
+        if(errCode.length>0){
+            [iToast alertWithTitleCenter:response[@"message"]];
+        }else{
             NSError *error;
-//            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"data"] error:&error];
+            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
+            KPostNotification(KNotificationLoginStateChange, @YES);
+            if (self.curUserInfo) {
+                YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+                NSDictionary *dic = [self.curUserInfo modelToJSONObject];
+                [cache setObject:dic forKey:KUserModelCache];
+            }
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
     }];
-    if (self.curUserInfo) {
-        YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
-        NSDictionary *dic = [self.curUserInfo modelToJSONObject];
-        [cache setObject:dic forKey:KUserModelCache];
-    }
+    
     
 }
 #pragma mark ========== 退出登录 ==========
@@ -158,7 +160,7 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
     if (userDic) {
-        self.curUserInfo = [UserInfo modelWithJSON:userDic];
+        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
         return YES;
     }
     return NO;

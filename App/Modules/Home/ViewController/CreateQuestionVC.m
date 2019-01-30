@@ -128,7 +128,9 @@
     }];
     [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
         count.text = [NSString stringWithFormat:@"%lu/250",(unsigned long)text.length];
+        self.describeTextView.editable = text.length<250?YES:NO;
     }];
+    
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
     UIButton *button = [[UIButton alloc]init];

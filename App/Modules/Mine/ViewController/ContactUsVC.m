@@ -7,6 +7,7 @@
 //
 
 #import "ContactUsVC.h"
+#import "PPBadgeView.h"
 
 @interface ContactUsVC ()
 
@@ -17,8 +18,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"联系我们";
-}
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick:)];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setupBadges];
+    });
+    return;
 
+    
+}
+- (void)setupBadges{
+    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
+
+}
+- (void)navRightBtnClick:(UIBarButtonItem *)item{
+    
+}
 /*
 #pragma mark - Navigation
 

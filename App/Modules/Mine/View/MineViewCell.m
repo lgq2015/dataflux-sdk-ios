@@ -70,8 +70,8 @@
     self.titleLab.text = _data.title;
     [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-15);
-        make.width.offset(20);
-        make.height.offset(20);
+        make.width.offset(16);
+        make.height.offset(16);
         make.centerY.mas_equalTo(self.titleLab);
     }];
 }
@@ -124,7 +124,8 @@
 
 -(UIImageView *)arrowImgView{
     if (!_arrowImgView) {
-        _arrowImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nest"]];
+        _arrowImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
+        _arrowImgView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_arrowImgView];
     }
     return _arrowImgView;

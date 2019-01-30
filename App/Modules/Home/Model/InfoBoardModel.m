@@ -9,5 +9,19 @@
 #import "InfoBoardModel.h"
 
 @implementation InfoBoardModel
+- (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary{
+    if (![dictionary isKindOfClass:[NSDictionary class]]) return nil;
+    if (self = [super init]) {
+        [self setValueWithJson:dictionary];
+    }
+    return self;
+    
+}
+- (void)setValueWithJson:(NSDictionary *)dict{
+    self.messageCount = dict[@"messageCount"];
+    self.type = [dict[@"type"] integerValue];
+    self.subTitle = dict[@"subTitle"];
+    self.state = [dict[@"state"] integerValue];
+}
 
 @end

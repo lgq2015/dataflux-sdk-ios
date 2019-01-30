@@ -92,7 +92,6 @@
 #define PWTextColor [UIColor colorWithHexString:@"333333"]
 #define PWOrangeTextColor [UIColor colorWithHexString:@"FF4E00"]
 #define PWTextLight [UIColor colorWithHexString:@"A6A6A6"]
-#define PWBtnEnableColor [UIColor colorWithHexString:@"D8D8D8"]
 #define PWBackgroundColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0]
 #define PWTextBlackColor [UIColor colorWithHexString:@"140F26"]
 #define PWCancelBtnColor [UIColor colorWithHexString:@"140F26"]
@@ -102,6 +101,7 @@
 #define textColorWarningState [UIColor colorWithHexString:@"D50000"]
 #define WarningTextColor [UIColor colorWithHexString:@"2A7AF7"]
 #define PWTitleColor [UIColor colorWithHexString:@"595860"]
+#define PWSubTitleColor [UIColor colorWithHexString:@"8E8E93"] 
 //颜色
 
 #define PWClearColor [UIColor clearColor]
@@ -114,8 +114,9 @@
 #define PWRandomColor    KRGBColor(arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0,arc4random_uniform(256)/255.0)        //随机色生成
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
-//字体
-#define BOLDSYSTEMFONT(FONTSIZE)[UIFont boldSystemFontOfSize:FONTSIZE]
+//字体 Family: PingFang SC
+#define BOLDFONT(FONTSIZE)      FONT(@"PingFangSC-Semibold", FONTSIZE)
+#define MediumFONT(FONTSIZE)    FONT(@"PingFangSC-Medium", FONTSIZE)
 #define SYSTEMFONT(FONTSIZE)    [UIFont systemFontOfSize:FONTSIZE]
 #define FONT(NAME, FONTSIZE)    [UIFont fontWithName:(NAME) size:(FONTSIZE)]
 

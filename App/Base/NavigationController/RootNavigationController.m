@@ -21,12 +21,12 @@
 {
     //导航栏主题 title文字属性
     UINavigationBar *navBar = [UINavigationBar appearance];
-    //导航栏背景图
+    // 导航栏背景图
     [navBar setBarTintColor:CNavBgColor];
     [navBar setTintColor:CNavBgColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
 
-    [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+   [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
 //    [navBar setShadowImage:[UIImage new]];//去掉阴影线
 }
 - (void)viewDidLoad {

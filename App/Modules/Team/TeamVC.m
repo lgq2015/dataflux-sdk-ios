@@ -9,16 +9,38 @@
 #import "TeamVC.h"
 
 @interface TeamVC ()
-
+@property (nonatomic, strong) UILabel *teamNameLab;
+@property (nonatomic, strong) UILabel *feeLab;
 @end
 
 @implementation TeamVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.isHidenNaviBar = YES;
+    [self createUI];
 }
 
+- (void)createUI{
+    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight);
+    
+}
+-(UILabel *)teamNameLab{
+    if (!_teamNameLab) {
+        _teamNameLab = [[UILabel alloc]init];
+        _teamNameLab.font = [UIFont fontWithName:@"PingFang-SC-Bold" size:20];
+        _teamNameLab.textColor = PWWhiteColor;
+    }
+    return _teamNameLab;
+}
+-(UILabel *)feeLab{
+    if (!_feeLab) {
+        _feeLab = [[UILabel alloc]init];
+        _feeLab.font = [UIFont fontWithName:@"PingFang-SC-Bold" size:30];
+        _feeLab.textColor = PWWhiteColor;
+    }
+    return _feeLab;
+}
 /*
 #pragma mark - Navigation
 

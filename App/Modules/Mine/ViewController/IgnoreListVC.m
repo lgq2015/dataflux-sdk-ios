@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"忽略列表";
     // Do any additional setup after loading the view.
 }
 

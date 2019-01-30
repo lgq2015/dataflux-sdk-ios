@@ -12,12 +12,10 @@ static NSString *const NoImgTips =@"该图片无法显示";
 @interface PWNewsListCell()
 @property (nonatomic, strong) UIImageView *iconImgVie;
 @property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UILabel *subtitleLab;
 @property (nonatomic, strong) UILabel *sourceLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) UIView *tipView;
 @property (nonatomic, strong) UILabel *noImgLab; //图片加载不出来时 提示label
-
+@property (nonatomic, strong) UILabel *topStateLab;
 @end
 
 @implementation PWNewsListCell
@@ -30,40 +28,45 @@ static NSString *const NoImgTips =@"该图片无法显示";
     frame.size.height -= ZOOM_SCALE(4);
     [super setFrame:frame];
 }
-
+#pragma mark ========== 有图 有标题 ==========
 - (void)createSingleImgUI{
     self.backgroundColor = [UIColor whiteColor];
     self.iconImgVie.hidden = NO;
     self.timeLab.hidden = NO;
     self.titleLab.hidden = NO;
-    self.subtitleLab.hidden = NO;
-    self.sourceLab.hidden = NO;
-    self.iconImgVie.frame = CGRectMake(ZOOM_SCALE(240), ZOOM_SCALE(20), ZOOM_SCALE(100), ZOOM_SCALE(86));
-    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@""]];
-//    self.titleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(20), ZOOM_SCALE(220), 23);
-    self.subtitleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(48), ZOOM_SCALE(200), ZOOM_SCALE(40));
+   
+    [self.iconImgVie mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self).offset(Interval(16));
+        make.right.mas_equalTo(self).offset(-Interval(16));
+        make.width.height.offset(ZOOM_SCALE(90));
+    }];
+    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
+    self.titleLab.numberOfLines = 3;
+    self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(151);
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self).offset(Interval(11));
+        make.left.mas_equalTo(self).offset(Interval(15));
+        make.right.mas_equalTo(self.iconImgVie.mas_left).offset(-Interval(30));
+    }];
     self.titleLab.text = self.model.title;
-    
-    self.subtitleLab.text = self.model.subtitle;
-    float top = ZOOM_SCALE(96);
-    if (self.model.source != nil && self.model.source.length>0) {
-        self.sourceLab.text = self.model.source;
-        [self.sourceLab sizeToFit];
-         self.sourceLab.hidden = NO;
+    if (self.model.isTop) {
+        self.topStateLab.hidden = NO;
+        [self.topStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self).offset(Interval(16));
+            make.top.mas_equalTo(self.iconImgVie.mas_bottom);
+            make.width.offset(ZOOM_SCALE(40));
+            make.height.offset(ZOOM_SCALE(22));
+        }];
     }else{
-         self.sourceLab.hidden = YES;
-    }
-    if (![self.model.time isEqualToString:@""]) {
-        self.timeLab.hidden = NO;
-        self.timeLab.text = self.model.time;
-    }else{
-        self.timeLab.hidden = YES;
-    }
-    
-    if (self.model.showFlag == YES) {
-        self.tipView.hidden =NO;
-    }else{
-        _tipView.hidden = YES;
+        self.topStateLab.hidden = YES;
+        [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self).offset(Interval(15));
+            make.top.mas_equalTo(self.iconImgVie.mas_bottom);
+            make.height.offset(ZOOM_SCALE(17));
+            make.right.mas_equalTo(self).offset(-Interval(15));
+        }];
+        self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.time,self.model.source];
+        
     }
 }
 - (void)createFillImgUI{
@@ -76,26 +79,14 @@ static NSString *const NoImgTips =@"该图片无法显示";
     }
     [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@"loadingImgError"]];
     self.timeLab.hidden = YES;
-    self.tipView.hidden = YES;
     self.titleLab.hidden = YES;
-    self.subtitleLab.hidden = YES;
-    self.sourceLab.hidden = YES;
 }
 - (void)createTextUI{
     self.iconImgVie.hidden = YES;
     self.timeLab.hidden = NO;
     self.titleLab.hidden = NO;
-    self.subtitleLab.hidden = NO;
-    self.sourceLab.hidden = NO;
     self.titleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(20), ZOOM_SCALE(320), ZOOM_SCALE(22));
     self.titleLab.text = self.model.title;
-    self.subtitleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(48), ZOOM_SCALE(320), ZOOM_SCALE(40));
-    self.subtitleLab.text = self.model.subtitle;
-    if (self.model.showFlag == YES) {
-        self.tipView.hidden =NO;
-    }else{
-        _tipView.hidden = YES;
-    }
 
     if (self.model.source != nil && self.model.source.length>0) {
         self.sourceLab.text = self.model.source;
@@ -130,7 +121,22 @@ static NSString *const NoImgTips =@"该图片无法显示";
             break;
     }
 }
-
+-(UILabel *)topStateLab{
+    if (!_topStateLab) {
+        _topStateLab = [[UILabel alloc]init];
+        _topStateLab.text = @"置顶";
+        _topStateLab.backgroundColor = PWWhiteColor;
+        _topStateLab.textColor = [UIColor colorWithHexString:@"6F85FF"];
+        _topStateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _topStateLab.textAlignment = NSTextAlignmentCenter;
+        _topStateLab.layer.cornerRadius = 4.0f;
+        _topStateLab.layer.masksToBounds = YES;
+        _topStateLab.layer.borderWidth = 1;//边框宽度
+        _topStateLab.layer.borderColor = [UIColor colorWithHexString:@"6F85FF"].CGColor;
+        [self.contentView addSubview:_topStateLab];
+    }
+    return _topStateLab;
+}
 -(UIImageView *)iconImgVie{
     if (!_iconImgVie) {
         _iconImgVie = [[UIImageView alloc]initWithFrame:CGRectZero];
@@ -144,7 +150,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.textColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1/1.0];
+        _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
         _timeLab.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_timeLab];
     }
@@ -159,16 +165,6 @@ static NSString *const NoImgTips =@"该图片无法显示";
     }
     return _titleLab;
 }
--(UILabel *)subtitleLab{
-    if (!_subtitleLab){
-        _subtitleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _subtitleLab.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1/1.0];
-        _subtitleLab.font = [UIFont systemFontOfSize:14.0f];
-        _subtitleLab.numberOfLines = 2;
-        [self.contentView addSubview:_subtitleLab];
-    }
-    return _subtitleLab;
-}
 -(UILabel *)sourceLab{
     if (!_sourceLab) {
         _sourceLab = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -178,15 +174,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
     }
     return _sourceLab;
 }
--(UIView *)tipView{
-    if (!_tipView) {
-        _tipView = [[UIView alloc]initWithFrame:CGRectZero];
-        _tipView.backgroundColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1/1.0];
-        _tipView.layer.cornerRadius = ZOOM_SCALE(4);
-        [self.contentView addSubview:_tipView];
-    }
-    return _tipView;
-}
+
 
 -(UILabel *)noImgLab{
     if (!_noImgLab) {

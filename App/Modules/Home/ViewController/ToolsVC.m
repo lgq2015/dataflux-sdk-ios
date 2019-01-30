@@ -10,7 +10,7 @@
 #import "MineCellModel.h"
 #import "MineViewCell.h"
 
-@interface ToolsVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface ToolsVC ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
@@ -22,7 +22,32 @@
     [self createUI];
 }
 - (void)createUI{
-   
+    switch (self.type) {
+        case PWToolTypeIP:
+            self.title = @"IP 查询";
+            break;
+        case PWToolTypeDNS:
+            self.title = @"DNS 查询";
+            break;
+        case PWToolTypePing:
+            self.title = @"Ping 查询";
+            break;
+        case PWToolTypeWhois:
+            self.title = @"whois 查询";
+            break;
+        case PWToolTypeNslookup:
+            self.title = @"nslook 查询";
+            break;
+        case PWToolTypeTraceroute:
+            self.title = @"路由追踪";
+            break;
+        case PWToolTypePortDetection:
+            self.title = @"端口检测";
+            break;
+        case PWToolTypeWebsiteRecord:
+            self.title = @"备案查询";
+            break;
+    }
    
     
 }

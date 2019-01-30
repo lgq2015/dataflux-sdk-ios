@@ -22,8 +22,11 @@
     frame.size.width -= Interval(32);
     frame.origin.y += Interval(12);
     frame.size.height -= Interval(12);
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 4.0;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
     [super setFrame:frame];
 }
 -(void)layoutSubviews{
@@ -34,6 +37,7 @@
     [self createUI];
 }
 - (void)createUI{
+   
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(28));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
@@ -41,26 +45,17 @@
         make.height.offset(ZOOM_SCALE(20));
     }];
     [self.warningLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(6));
+        make.top.mas_equalTo(self.contentView).offset(Interval(16));
         make.right.mas_equalTo(self.contentView).offset(-20);
         make.height.offset(ZOOM_SCALE(28));
-        make.width.offset(ZOOM_SCALE(115));
+        make.width.offset(ZOOM_SCALE(120));
     }];
     self.titleLab.numberOfLines = 0;
-    if (self.model.attrs) {
-        self.titleLab.preferredMaxLayoutWidth = kWidth-ZOOM_SCALE(115)-Interval(47);
-    }else{
-        self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
-    }
-//    self.titleLab.preferredMaxLayoutWidth = kWidth-ZOOM_SCALE(155);
+  
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(3));
         make.left.equalTo(self.stateLab.mas_left);
-        if(self.model.attrs){
-            make.right.mas_equalTo(self.warningLab.mas_left).offset(-Interval(15));
-        }else{
-            make.right.mas_equalTo(self.contentView).offset(-Interval(21));
-        }
+        make.right.mas_equalTo(self.contentView).offset(-Interval(21));
    if (!self.model.suggestion) {
             make.bottom.mas_equalTo(self.contentView).offset(-Interval(11));
     }
@@ -75,38 +70,7 @@
 }
 - (void)setModel:(MonitorListModel *)model{
     _model = model;
-//    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(28));
-//        make.centerY.mas_equalTo(self.stateLab.mas_centerY);
-//        make.right.mas_equalTo(self.contentView).offset(-15);
-//        make.height.offset(ZOOM_SCALE(20));
-//    }];
-//    [self.warningLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(4));
-//        make.right.mas_equalTo(self.contentView).offset(-20);
-//        make.height.offset(ZOOM_SCALE(28));
-//        make.width.offset(ZOOM_SCALE(115));
-//    }];
-//    self.titleLab.numberOfLines = 2;
-//    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(8));
-//        make.left.equalTo(self.stateLab.mas_left);
-//        if(self.model.attrs){
-//            make.right.mas_equalTo(self.warningLab.mas_left).offset(-Interval(26));
-//        }else{
-//            make.right.mas_equalTo(self.contentView).offset(-Interval(21));
-//        }
-////        if (!self.model.suggestion) {
-//            make.bottom.mas_equalTo(self.contentView).offset(-Interval(11));
-////        }
-//    }];
-//    [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(8));
-//        make.left.mas_equalTo(self.stateLab.mas_left);
-//        make.right.mas_equalTo(self.contentView).offset(-17);
-//        make.height.offset(ZOOM_SCALE(18));
-//        make.bottom.mas_equalTo(self.contentView).offset(-Interval(11));
-//    }];
+
     switch (self.model.state) {
         case 1:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
@@ -125,11 +89,8 @@
             self.stateLab.text = @"失效";
             break;
     }
-    if (self.model.attrs) {
-        self.titleLab.preferredMaxLayoutWidth = kWidth-ZOOM_SCALE(115)-Interval(47);
-    }else{
-        self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
-    }
+    
+    self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
     self.timeLab.text = self.model.time;
     
     self.warningLab.text = self.model.attrs;
@@ -162,7 +123,8 @@
 - (UILabel *)warningLab{
     if (!_warningLab) {
         _warningLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _warningLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:20];;
+        _warningLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:20];
+        _warningLab.textAlignment = NSTextAlignmentRight;
         _warningLab.textColor = PWBlueColor;
         [self.contentView addSubview:_warningLab];
     }
@@ -179,7 +141,7 @@
 }
 -(UILabel *)stateLab{
     if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(15), ZOOM_SCALE(50), ZOOM_SCALE(24))];
+        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(17), ZOOM_SCALE(50), ZOOM_SCALE(24))];
         _stateLab.textColor = [UIColor whiteColor];
         _stateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
         _stateLab.textAlignment = NSTextAlignmentCenter;

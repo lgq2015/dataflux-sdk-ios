@@ -11,6 +11,7 @@
 
 
 @interface InformationSourceVC : RootViewController
+@property (nonatomic, strong) NSDictionary *response;
 
 @end
 

@@ -8,17 +8,6 @@
 
 #import "PWInfoBoardCell.h"
 
-
-static NSString *const PWInfoTypeMonitor
-= @"monitor";
-static NSString *const PWInfoTypeConsume
-= @"consume";
-static NSString *const PWInfoTypeSecurity
-= @"security";
-static NSString *const PWInfoTypeService
-= @"service";
-static NSString *const PWInfoTypeOptimization
-= @"optimization";
 //%%% pop values
 static CGFloat const kPopStartRatio = .75;
 static CGFloat const kPopOutRatio = 1.2;
@@ -44,105 +33,130 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
-        self.layer.cornerRadius = 8;
         self.layer.shadowOffset = CGSizeMake(0,2);
         self.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.layer.shadowRadius = 5;
+        self.layer.shadowRadius = 8;
         self.layer.shadowOpacity = 0.06;
     }
     
     return self;
 }
--(void)setDatas:(NSDictionary *)datas{
-    _datas = datas;
+-(void)setModel:(InfoBoardModel *)model{
+    _model = model;
     [self setupUI];
 }
 
 - (void)setupUI{
-    self.tickImg.hidden = YES;
+    self.contentView.backgroundColor = PWWhiteColor;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.contentView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.contentView.layer.mask = maskLayer;
     //数据类型 ,type,为 monitor(监控)，consume（费用），security（安全） ，service（服务），optimization（优化）, serviceConnect（链接服务）
-
-//    NSString *subtitle = [self.datas stringValueForKey:@"subtitle" defaultValue:@""];
-//    self.subtitle.text = subtitle;
-    NSString *messageCountStr = [NSString stringWithFormat:@"%@",self.datas[@"messageCount"]];
-    if(![[self.datas allKeys] containsObject:@"messageCount"]){
-        messageCountStr = @"";
-    }
-    if (messageCountStr.length != 0 && ![messageCountStr isEqualToString:@"0"]) {
+    [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.iconImg.mas_right).offset(Interval(15));
+        make.centerY.mas_equalTo(self.iconImg);
+        make.width.offset(ZOOM_SCALE(36));
+    }];
+    [self.popView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self).offset(-Interval(20));
+        make.width.height.offset(ZOOM_SCALE(38));
+        make.centerY.mas_equalTo(self);
+    }];
+    self.popView.layer.cornerRadius = ZOOM_SCALE(19);
+    [self.subtitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.title.mas_right).offset(Interval(10));
+        make.right.mas_equalTo(self.popView.mas_left).offset(-Interval(10));
+        make.height.offset(ZOOM_SCALE(18));
+        make.centerY.mas_equalTo(self);
+    }];
+    [self.count mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(self.popView);
+        make.center.mas_equalTo(self.popView);
+        make.height.offset(ZOOM_SCALE(21));
+    }];
+    [self.tickImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(ZOOM_SCALE(20));
+        make.center.mas_equalTo(self.popView);
+        make.height.offset(ZOOM_SCALE(14));
+    }];
+    self.subtitle.text = self.model.subTitle;
+    NSString *messageCountStr = [NSString stringWithFormat:@"%@",self.model.messageCount];
+       self.count.text = messageCountStr;
+    
         self.popView.hidden = NO;
         self.count.hidden = NO;
-        [self fitPopFrameWithCount:messageCountStr];
-    }else{
-        _popView.hidden = YES;
-        _count.hidden = YES;
-    }
-        UIColor *textColor;
-        switch ([self.datas[@"state"] intValue]) {
+        self.tickImg.hidden = YES;
+        UIColor *popColor;
+        switch (self.model.state) {
             case PWInfoBoardItemStateRecommend:
                 self.tickImg.hidden = NO;
-                [self fitPopFrameWithCount:0];
                 _count.hidden = YES;
-                _popView.hidden = NO;
-//                textColor = [UZAppUtils colorFromNSString:@"#3FEC67"];
+                popColor = [UIColor colorWithHexString:@"#3FEC67"];
                 break;
             case PWInfoBoardItemStateWarning:
-//                textColor = [UZAppUtils colorFromNSString:@"#FFE27E"];
+                popColor = [UIColor colorWithHexString:@"#FFE27E"];
                 break;
             case PWInfoBoardItemStateSeriousness:
-//                textColor = [UZAppUtils colorFromNSString:@"#FF7975"];
-                break;
-            default:
+                popColor = [UIColor colorWithHexString:@"#FF7975"];
                 break;
         }
-        self.popView.backgroundColor = textColor;
+        self.popView.backgroundColor = popColor;
     
-    NSString *type = self.datas[@"type"];
+    
     NSString *imageName;
-    if ([type isEqualToString:PWInfoTypeConsume]) {
-        self.title.text = @"费用";
-        imageName = @"consume";
-    }else if([type isEqualToString:PWInfoTypeMonitor]){
-        self.title.text = @"监控";
-        imageName = @"monitoring";
-    }else if([type isEqualToString:PWInfoTypeService]){
-        self.title.text = @"服务";
-        imageName = @"service";
-    }else if([type isEqualToString:PWInfoTypeSecurity]){
-        self.title.text = @"安全";
-        imageName = @"safe";
-    }else if([type isEqualToString:PWInfoTypeOptimization]){
-        self.title.text = @"优化";
-        imageName = @"optimize";
+    switch (self.model.type) {
+        case PWInfoTypeConsume:
+            self.title.text = @"费用";
+            imageName = @"icon_expense";
+            break;
+        case PWInfoTypeMonitor:
+            self.title.text = @"监控";
+            imageName = @"icon_monitor";
+            break;
+        case PWInfoTypeAlert:
+            self.title.text = @"提醒";
+            imageName = @"icon_caution";
+            break;
+        case PWInfoTypeOptimization:
+            self.title.text = @"优化";
+            imageName = @"icon_optimize";
+            break;
+        case PWInfoTypeSecurity:
+            self.title.text = @"安全";
+            imageName = @"icon_safe";
+            break;
     }
+
     self.iconImg.image = [UIImage imageNamed:imageName];
-   
+
 }
 
 -(void)fitPopFrameWithCount:(NSString *)count{
-//    self.count.text =count;
-//    [self.count sizeToFit];
-//    CGFloat width = self.count.frame.size.width+8>36? self.count.frame.size.width+8:36;
-//    CGFloat realWidth = width<50? width:50;
-//    self.subtitle.frame = CGRectMake(102*ZOOM_SCALE, 22*ZOOM_SCALE, 170*ZOOM_SCALE-(realWidth-36), 17*ZOOM_SCALE);
-//    self.popView.frame = CGRectMake(280*ZOOM_SCALE, 12*ZOOM_SCALE, realWidth, realWidth);
-//    self.popView.center = CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
-//    self.popView.layer.cornerRadius = realWidth/2.00;
-//    self.count.frame = self.popView.frame;
-//    if (self.tickImg.hidden == NO) {
-//        _tickImg.frame = CGRectMake(0, 0, 19*ZOOM_SCALE, 13*ZOOM_SCALE);
-//        _tickImg.center =CGPointMake(298*ZOOM_SCALE,self.contentView.center.y);
-//    }
-//    initialCenter = CGPointMake(self.popView.frame.origin.x+self.popView.frame.size.width/2, self.popView.frame.origin.y+self.popView.frame.size.height/2);
-//    [self bringSubviewToFront:self.count];
-//    if (_tickImg.hidden==NO) {
-//        [self bringSubviewToFront:self.tickImg];
-//    }
+    self.count.text =count;
+    [self.count sizeToFit];
+    CGFloat width = self.count.frame.size.width+8>36? self.count.frame.size.width+8:36;
+    CGFloat realWidth = width<50? width:50;
+    self.subtitle.frame = CGRectMake(ZOOM_SCALE(102), ZOOM_SCALE(22), ZOOM_SCALE(170)-(realWidth-36), ZOOM_SCALE(17));
+    self.popView.frame = CGRectMake(ZOOM_SCALE(280), ZOOM_SCALE(12), realWidth, realWidth);
+    self.popView.center = CGPointMake(ZOOM_SCALE(298),self.contentView.center.y);
+    self.popView.layer.cornerRadius = realWidth/2.00;
+    self.count.frame = self.popView.frame;
+    if (self.tickImg.hidden == NO) {
+        _tickImg.frame = CGRectMake(0, 0, ZOOM_SCALE(19), ZOOM_SCALE(13));
+        _tickImg.center =CGPointMake(ZOOM_SCALE(298),self.contentView.center.y);
+    }
+    initialCenter = CGPointMake(self.popView.frame.origin.x+self.popView.frame.size.width/2, self.popView.frame.origin.y+self.popView.frame.size.height/2);
+    [self bringSubviewToFront:self.count];
+    if (_tickImg.hidden==NO) {
+        [self bringSubviewToFront:self.tickImg];
+    }
 }
 -(UILabel *)subtitle{
     if (!_subtitle) {
         _subtitle = [[UILabel alloc]initWithFrame:CGRectZero];
-        _subtitle.font = [UIFont systemFontOfSize:12];
+        _subtitle.font = [UIFont systemFontOfSize:13];
         _subtitle.numberOfLines = 1;
         _subtitle.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1/1.0];
         [self addSubview:_subtitle];
@@ -158,8 +172,8 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 }
 - (UILabel *)title{
     if (!_title) {
-        _title = [[UILabel alloc]initWithFrame:CGRectMake(ZOOM_SCALE(60), ZOOM_SCALE(19), ZOOM_SCALE(32), ZOOM_SCALE(22))];
-        _title.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+        _title = [[UILabel alloc]initWithFrame:CGRectZero];
+        _title.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
         _title.textColor =  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1/1.0];
         [self addSubview:_title];
     }
@@ -167,7 +181,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 }
 -(UIImageView *)iconImg{
     if (!_iconImg) {
-        _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(19), ZOOM_SCALE(15), ZOOM_SCALE(30), ZOOM_SCALE(30))];
+        _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(11), ZOOM_SCALE(18), ZOOM_SCALE(28), ZOOM_SCALE(28))];
         _iconImg.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_iconImg];
     }
@@ -176,13 +190,21 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 -(UILabel *)count{
     if (!_count) {
         _count = [[UILabel alloc]initWithFrame:CGRectZero];
-        _count.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+        _count.font = [UIFont fontWithName:@"PingFangSC-Medium" size:15];
         _count.textAlignment = NSTextAlignmentCenter;
         _count.textColor = [UIColor whiteColor];
         _count.backgroundColor = [UIColor clearColor];
         [self addSubview:_count];
     }
     return _count;
+}
+-(UIImageView *)tickImg{
+    if (!_tickImg) {
+        _tickImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tick"]];
+        _tickImg.contentMode = UIViewContentModeScaleAspectFill;
+        [self addSubview:_tickImg];
+    }
+    return _tickImg;
 }
 - (void)pop
 {
@@ -256,14 +278,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
         }];
     }];
 }
--(UIImageView *)tickImg{
-    if (!_tickImg) {
-        _tickImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tick"]];
-        _tickImg.contentMode = UIViewContentModeScaleAspectFill;
-        [self addSubview:_tickImg];
-    }
-    return _tickImg;
-}
+
 - (void)bumpCenterY:(float)yVal
 {
   

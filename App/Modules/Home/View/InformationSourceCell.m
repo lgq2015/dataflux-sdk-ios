@@ -22,21 +22,21 @@
     self.layer.cornerRadius = 4.0;
     [super setFrame:frame];
 }
--(void)setData:(NSDictionary *)data{
-    _data = data;
-    int state = [data[@"state"] intValue];
-    switch (state) {
-        case 1:
+-(void)setModel:(PWInfoSourceModel *)model{
+    _model = model;
+    
+    switch (_model.state) {
+        case SourceStateNotDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"F15533"].CGColor;
             self.stateLab.textColor = PWDestructiveBtnColor;
             self.stateLab.text = @"未开始检测";
             break;
-        case 2:
+        case SourceStateDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"35B34A"].CGColor;
             self.stateLab.textColor = [UIColor colorWithHexString:@"35B34A"];
             self.stateLab.text = @"已纳入检测";
             break;
-        case 3:
+        case SourceStateAbnormal:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"F5C501"].CGColor;
             self.stateLab.textColor = [UIColor colorWithHexString:@"F5C501"];
             self.stateLab.text = @"情报源异常";
@@ -54,7 +54,7 @@
         make.height.offset(ZOOM_SCALE(20));
         make.width.offset(ZOOM_SCALE(80));
     }];
-    self.titleLab.text = self.data[@"title"];
+    self.titleLab.text = self.model.name;
 }
 
 -(UIImageView *)iconImgView{

@@ -7,16 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef NS_ENUM(NSInteger, PWInfoBoardItemState) {
-    PWInfoBoardItemStateDisable = -1,       //不可用
-    PWInfoBoardItemStateNormal = 0,         //normal
-    PWInfoBoardItemStateRecommend,          //推荐
-    PWInfoBoardItemStateWarning,            //警告
-    PWInfoBoardItemStateSeriousness,        //严重
-};
+#import "InfoBoardModel.h"
+
 
 @interface PWInfoBoardCell : UICollectionViewCell
-@property (nonatomic, strong) NSDictionary *datas;
+@property (nonatomic, strong) InfoBoardModel *model;
 -(void)pop;
 -(void)bump;
 @end

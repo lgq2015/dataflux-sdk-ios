@@ -8,17 +8,31 @@
 
 #import "JSONModel.h"
 @class AccountInfoModel;
+/*
+ "createTime": "2019-01-25T10:54:23.000Z",
+ "email": null,
+ "id": "acnt-bbfzQfqE6igbndcvgcMgwf",
+ "isDisabled": false,
+ "mobile": "18236889895",
+ "name": "18236889895",
+ "namespace": "default",
+ "seq": 23253,
+ "tags": null,
+ "updateTime": "2019-01-25T10:55:09.000Z",
+ "username": null
+ */
 @interface CurrentUserModel : JSONModel
-@property (nonatomic, strong) NSString *account;
+@property (nonatomic, strong) NSString *tags;
 @property (nonatomic, strong) NSArray<AccountInfoModel *>*account_info;
-@property (nonatomic, assign) BOOL active;
+@property (nonatomic, assign) BOOL isDisabled;
 @property (nonatomic, strong) NSString *avatar;
-@property (nonatomic, strong) NSString *app_key;
-@property (nonatomic, strong) NSString *full_name;
+@property (nonatomic, strong) NSString *seq;
+@property (nonatomic, strong) NSString *pwid;
 @property (nonatomic, strong) NSString *mobile;
-@property (nonatomic, strong) NSString *client_id;
-@property (nonatomic, strong) NSString *company_unique_id;
-@property (nonatomic, strong) NSString *refresh_token;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *updateTime;
+@property (nonatomic, strong) NSString *createTime;
 @end
 /*
  

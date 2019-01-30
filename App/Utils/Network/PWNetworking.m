@@ -114,8 +114,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                     successBlock:(PWResponseSuccessBlock)successBlock
                        failBlock:(PWResponseFailBlock)failBlock {
     AFHTTPSessionManager *manager = [self manager];
-    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
-    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
+    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Core-Stone-Auth-Token"];
     return [self requsetWithUrl:url manager:manager withRequestType:type refreshRequest:refresh cache:cache params:params progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 #pragma mark ========== get/post noToken==========
@@ -169,9 +168,21 @@ static NSTimeInterval   requestTimeout = 60.f;
                               [[self allTasks] removeObject:session];
                               
                           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                              if (failBlock) failBlock(error);
-                              DLog(@"method = %@ baseUrl = %@ param = %@ error = %@",typestr,url,params,error);
-                              [[self allTasks] removeObject:session];
+                              DLog(@"method = %@ baseUrl = %@ param = %@ token =%@ error = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,error);
+                              if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+                                  // server error
+                                  id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
+                                  if (successBlock) successBlock(response);
+                                  // response中包含服务端返回的内容
+                              } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
+                                  // server throw exception
+                                  if (failBlock) failBlock(error);
+
+                              } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
+                                  // network error
+                                  if (failBlock) failBlock(error);
+                              }
+
                               
                           }];
             
@@ -191,9 +202,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             break;
          case NetworkPostType:
           {  // body传输
-              manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//            NSDictionary *dict = @{@"data":params};
-            session = [manager POST:url
+              session = [manager POST:url
                         parameters:params
                             progress:^(NSProgress * _Nonnull uploadProgress) {
                               if (progressBlock) progressBlock(uploadProgress.completedUnitCount,
@@ -201,7 +210,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                        
                             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                               if (successBlock) successBlock(responseObject);
-                            DLog(@"method = %@ baseUrl = %@ param = %@ response = %@",typestr,url,params,responseObject);
+                            DLog(@"method = %@ baseUrl = %@ param = %@ token = %@ response = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,responseObject);
                               if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
                        
                                 if ([[self allTasks] containsObject:session]) {
@@ -209,8 +218,21 @@ static NSTimeInterval   requestTimeout = 60.f;
                                  }
                        
                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                DLog(@"method = %@ baseUrl = %@ param = %@ token = %@ error = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,error);
+                                if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+                                    // server error
+                                    id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
+                                  DLog(@"response = %@",response)
+                                    if (successBlock) successBlock(response);
+                                    // response中包含服务端返回的内容
+                                } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
+                                    // server throw exception
                                     if (failBlock) failBlock(error);
-                                DLog(@"method = %@ baseUrl = %@ param = %@ error = %@",typestr,url,params,error);
+
+                                } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
+                                    // network error
+                                    if (failBlock) failBlock(error);
+                                }
                                     [[self allTasks] removeObject:session];
                     
                                 }];

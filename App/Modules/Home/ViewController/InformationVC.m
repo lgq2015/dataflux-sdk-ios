@@ -16,8 +16,11 @@
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *newsDatas;
 @property (nonatomic, strong) NSMutableArray *infoDatas;
+@property (nonatomic, strong) NSDictionary *infoSourceDatas;
 @property (nonatomic, strong) PWInfoBoard *infoboard;
 @property (nonatomic, strong) HomeNoticeScrollView *notice;
+@property (nonatomic, assign) PWInfoBoardStyle infoBoardStyle;
+@property (nonatomic, assign) BOOL isConnect;
 @end
 
 @implementation InformationVC
@@ -26,15 +29,25 @@
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWBackgroundColor;
     self.mainScrollView.mj_header = self.header;
+    self.isConnect = YES;
+    [self loadIssueData];
+    [self loadNewsDatas];
     [self createUI];
-    [self loadNewData];
 }
 - (void)createUI{
-    self.infoDatas = [NSMutableArray arrayWithArray:@[@{@"type":@"monitor"}]];
+    self.infoBoardStyle = 1;
+
+    InfoBoardModel *monitor = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@0,@"messageCount":@"0",@"subTitle":@"",@"state":@1}];
+    InfoBoardModel *security = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@3,@"messageCount":@"0",@"subTitle":@"",@"state":@1}];
+    InfoBoardModel *consume = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@1,@"messageCount":@"0",@"subTitle":@"",@"state":@1}];
+    InfoBoardModel *optimization = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@4,@"messageCount":@"0",@"subTitle":@"",@"state":@1}];
+    InfoBoardModel *alert = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@2,@"messageCount":@"0",@"subTitle":@"",@"state":@1}];
+    self.infoDatas = [[NSMutableArray alloc]initWithArray:@[monitor,security,consume,optimization,alert]];
     [self.infoboard createUIWithParamsDict:@{@"datas":self.infoDatas}];
     __weak typeof(self) weakSelf = self;
     self.infoboard.historyInfoClick = ^(void){
         InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
+        infosourceVC.response = self.infoSourceDatas;
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
     self.infoboard.itemClick = ^(NSInteger index){
@@ -72,7 +85,8 @@
 }
 -(PWInfoBoard *)infoboard{
     if (!_infoboard) {
-        _infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(600)) style:PWInfoBoardStyleNotConnected]; // type从用户信息里提前获取
+        CGFloat height = self.isConnect == YES? ZOOM_SCALE(440):ZOOM_SCALE(600);
+        _infoboard = [[PWInfoBoard alloc]initWithFrame:CGRectMake(0, 0, kWidth, height) style:self.infoBoardStyle]; // type从用户信息里提前获取
         [self.mainScrollView addSubview:_infoboard];
     }
     return _infoboard;
@@ -88,10 +102,34 @@
 - (void)headerRereshing{
     [self.mainScrollView.mj_header endRefreshing];
 }
-- (void)loadNewData{
+- (void)loadIssueData{
+    
+//    NSString *token = getXAuthToken;
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        DLog(@"%@",response);
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *dict = response[@"content"];
+            NSArray *data = dict[@"data"];
+            if (data.count>0) {
+                self.infoBoardStyle = PWInfoBoardStyleConnected;
+            }
+            self.infoSourceDatas = response;
+        }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
+            KPostNotification(KNotificationLoginStateChange, @NO);
+        }
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
     
 }
-
+- (void)loadNewsDatas{
+    NSDictionary *param = @{@"page":@"1",@"pageSize":@"10"};
+    [PWNetworking requsetHasTokenWithUrl:@"http://testing.forum-via-core-stone.cloudcare.cn:10707/v1/post" withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.newsDatas.count;

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PWInfoBoardCell.h"
+
 typedef NS_ENUM(NSInteger, PWInfoBoardStyle) {
     PWInfoBoardStyleNotConnected = 0,       //未添加账号
     PWInfoBoardStyleConnected = 1,         //连接后

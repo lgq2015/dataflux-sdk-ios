@@ -9,5 +9,8 @@
 #import "CurrentUserModel.h"
 
 @implementation CurrentUserModel
-
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, MineVCCellType) {
     MineVCCellTypeTitle = 1,       //只有title
     MineVCCellTypeSwitch,          //有title,有switch按钮
     MineVCCellTypeButton,          //类似按钮
+    MineVCCellTypedDescribe,           //有title 有右lab
 };
 
 @class MineCellModel;

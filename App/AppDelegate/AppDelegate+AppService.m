@@ -7,8 +7,10 @@
 //
 
 #import "AppDelegate+AppService.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "RootNavigationController.h"
 #import "LoginPasswordVC.h"
+#import "VerifyCodeLoginVC.h"
 #import "UserManager.h"
 #import "AppManager.h"
 
@@ -94,7 +96,7 @@
         
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;
-        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[LoginPasswordVC new]];
+        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[VerifyCodeLoginVC new]];
         CATransition *anima = [CATransition animation];
         anima.type = @"fade";//设置动画的类型
         anima.subtype = kCATransitionFromRight; //设置动画的方向
@@ -119,7 +121,8 @@
 }
 #pragma mark ========== 配置第三方 ==========
 -(void)configUSharePlatforms{
-    
+    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
+    keyboardManager.enable = YES; // 控制整个功能是否启用
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{
