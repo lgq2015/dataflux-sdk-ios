@@ -93,4 +93,11 @@
     [textView setValue:place forKey:@"_placeholderLabel"];
     return textView;
 }
++(UILabel *)lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text{
+    UILabel *lable = [[UILabel alloc]initWithFrame:frame];
+    lable.font = font;
+    lable.textColor = color;
+    lable.text = text;
+    return lable;
+}
 @end
