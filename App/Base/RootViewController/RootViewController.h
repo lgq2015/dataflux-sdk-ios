@@ -18,13 +18,14 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 @property (nonatomic, strong) MJRefreshGifHeader *header;
-
+@property (nonatomic, strong) MJRefreshBackStateFooter *footer;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 /**
  *  下拉刷新
  */
 - (void)setRefreshHeader;
 - (void)headerRereshing;
+- (void)footerRereshing;
 /**
  *  显示没有数据页面
  */

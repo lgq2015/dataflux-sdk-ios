@@ -34,7 +34,7 @@
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
     style.extraBtnImageNames =@[@"icon_tools",@"icon_scan"];
-    style.segmentHeight = kTopHeight;
+    style.segmentHeight = kTopHeight+16;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block

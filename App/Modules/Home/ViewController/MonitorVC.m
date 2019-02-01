@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"监控";
-    
+    [self loadData];
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
@@ -47,6 +47,10 @@
         [self.dataSource addObject:model];
     }
     [self.tableView reloadData];
+}
+- (void)loadData{
+//    NSDictionary *param = @{@"pageSize":10,}
+//    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
 }
 - (void)navBtnClick:(UIButton *)btn{
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];

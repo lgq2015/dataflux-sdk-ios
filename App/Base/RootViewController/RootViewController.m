@@ -86,6 +86,12 @@
     }
     return _header;
 }
+-(MJRefreshBackStateFooter *)footer{
+    if (!_footer) {
+        _footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+    }
+    return _footer;
+}
 -(void)showNoDataImage
 {
     _noDataView=[[UIImageView alloc] init];

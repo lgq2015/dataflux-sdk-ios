@@ -12,6 +12,8 @@
 #import "SourceVC.h"
 @interface InformationSourceVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, assign) NSInteger  currentPage;
+
 @end
 
 @implementation InformationSourceVC
@@ -20,16 +22,21 @@
     [super viewDidLoad];
     self.title = @"情报源";
     [self createUI];
-    [self loadData];
+    if (!self.response) {
+        [self loadData];
+    }
 }
 - (void)createUI{
     NSArray *title = @[@"添加"];
+    self.currentPage = 1;
     [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
     NSArray *data = self.response[@"content"][@"data"];
     self.dataSource = [NSMutableArray arrayWithArray:data];
-//    NSArray *array = @[@{@"icon":@"",@"title":@"我的阿里云",@"state":@1,@"type":@1},@{@"icon":@"",@"title":@"www.cloudcare.cn",@"state":@2,@"type":@8},@{@"icon":@"",@"title":@"oa-web-02",@"state":@3,@"type":@6},@{@"icon":@"",@"title":@"oa-web-02",@"state":@3,@"type":@5},@{@"icon":@"",@"title":@"cloudcare.cn",@"state":@1,@"type":@7},@{@"icon":@"",@"title":@"http://www.skghak.com.cn/chart.php",@"state":@2,@"type":@9}];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.mj_footer = self.footer;
+    self.tableView.mj_header = self.header;
+    self.footer.state = MJRefreshStateNoMoreData;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     self.tableView.rowHeight = 100.f;
@@ -37,18 +44,38 @@
     [self.tableView registerClass:[InformationSourceCell class] forCellReuseIdentifier:@"InformationSourceCell"];
 }
 - (void)loadData{
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        DLog(@"%@",response);
+    NSDictionary *param = @{@"pageNumber":[NSNumber numberWithInteger:self.currentPage],@"pageSize":@10};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *dict = response[@"content"];
             NSArray *data = dict[@"data"];
             if (data.count>0) {
+                if (self.currentPage == 1) {
+                    self.dataSource = [NSMutableArray arrayWithArray:data];
+                }else{
+                    [self.dataSource addObjectsFromArray:data];
+                }
+                [self.tableView reloadData];
+//                if ([dict[@"totalPages"] integerValue]>self.currentPage) {
+//                    self.currentPage++;
+//                    [self.footer endRefreshing];
+//                }else{
+//                    self.footer.state = MJRefreshStateNoMoreData;
+//                }
             }
         }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
         }
+        [self.header endRefreshing];
     } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
+        [self.header endRefreshing];
     }];
+}
+-(void)headerRereshing{
+    self.currentPage = 1;
+    [self loadData];
+}
+-(void)footerRereshing{
+    [self loadData];
 }
 - (void)addInfoSource{
     AddSourceVC *addVC = [[AddSourceVC alloc]init];

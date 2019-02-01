@@ -42,20 +42,20 @@
     //    HomeViewController *homeVC = [[HomeViewController alloc]init];
     //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
     HomeViewController *homeVC = [[HomeViewController alloc]init];
-    [self setupChildViewController:homeVC title:@"首页" imageName:@"icon_home_nor" seleceImageName:@"icon_home_sel"];
+    [self setupChildViewController:homeVC title:@"王教授" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
      homeVC.isHidenNaviBar= YES;
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
      ServiceVC  *makeFriendVC = [[ServiceVC alloc]init];
-    [self setupChildViewController:makeFriendVC title:@"服务+" imageName:@"icon_cc" seleceImageName:@"icon_tabbar_onsite_selected"];
+    [self setupChildViewController:makeFriendVC title:@"服务+" imageName:@"icon_serve" seleceImageName:@"icon_serveselect"];
     
     //    MsgViewController *msgVC = [[MsgViewController alloc]init];
     TeamVC *team = [TeamVC new];
-    [self setupChildViewController:team title:@"团队" imageName:@"icon_cc+" seleceImageName:@"icon_cc+_sel"];
+    [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
     
     
     MineViewController *mineVC = [[MineViewController alloc]init];
-    [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_mine_NOR" seleceImageName:@"icon_tabbar_mine_selected"];
+    [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_personal" seleceImageName:@"icon_personals"];
     
     self.viewControllers = _VCS;
 }
@@ -68,7 +68,7 @@
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:CTabbarTextColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateNormal];
     
     //选中字体颜色
-    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:CTabbarTextColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateSelected];
+    [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWBlueColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateSelected];
     //包装导航控制器
     RootNavigationController *nav = [[RootNavigationController alloc]initWithRootViewController:controller];
 

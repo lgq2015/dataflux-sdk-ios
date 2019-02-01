@@ -64,6 +64,9 @@
 		4AB48A7D21FC4741009F9E94 /* PPBadgeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7821FC4740009F9E94 /* PPBadgeControl.m */; };
 		4AB48A7E21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */; };
 		4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
+		4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
+		4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
+		4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -98,7 +101,6 @@
 		4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A821C1029B002AF34E /* HomeViewController.m */; };
 		4ABF44C621C12784002AF34E /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
 		4ABF44C921C127B1002AF34E /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
-		4ABF44CC21C127D2002AF34E /* ServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CB21C127D2002AF34E /* ServiceVC.m */; };
 		4ABF44D021C20090002AF34E /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
 		4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
@@ -274,6 +276,12 @@
 		4AB48A7921FC4740009F9E94 /* PPBadgeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBadgeControl.h; sourceTree = "<group>"; };
 		4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+PPBadgeView.m"; sourceTree = "<group>"; };
 		4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PPBadgeView.m"; sourceTree = "<group>"; };
+		4AB48AA22201C0B4009F9E94 /* IssueModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueModel.h; sourceTree = "<group>"; };
+		4AB48AA32201C0B4009F9E94 /* IssueModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueModel.m; sourceTree = "<group>"; };
+		4AB48AA52202A72F009F9E94 /* VerifyCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyCodeVC.h; sourceTree = "<group>"; };
+		4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeVC.m; sourceTree = "<group>"; };
+		4AB48AA822031D27009F9E94 /* PasswordSetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordSetVC.h; sourceTree = "<group>"; };
+		4AB48AA922031D27009F9E94 /* PasswordSetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordSetVC.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -345,8 +353,6 @@
 		4ABF44C521C12784002AF34E /* InformationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationVC.m; sourceTree = "<group>"; };
 		4ABF44C721C127B1002AF34E /* ThinkTankVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThinkTankVC.h; sourceTree = "<group>"; };
 		4ABF44C821C127B1002AF34E /* ThinkTankVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThinkTankVC.m; sourceTree = "<group>"; };
-		4ABF44CA21C127D2002AF34E /* ServiceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceVC.h; sourceTree = "<group>"; };
-		4ABF44CB21C127D2002AF34E /* ServiceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceVC.m; sourceTree = "<group>"; };
 		4ABF44CE21C20090002AF34E /* NSString+verify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+verify.h"; sourceTree = "<group>"; };
 		4ABF44CF21C20090002AF34E /* NSString+verify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+verify.m"; sourceTree = "<group>"; };
 		4ABF44D421C2080B002AF34E /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
@@ -858,6 +864,8 @@
 				4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */,
 				4AB48A3321F9B26A009F9E94 /* PWInfoSourceModel.h */,
 				4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */,
+				4AB48AA22201C0B4009F9E94 /* IssueModel.h */,
+				4AB48AA32201C0B4009F9E94 /* IssueModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -976,8 +984,6 @@
 				4ABF44C521C12784002AF34E /* InformationVC.m */,
 				4ABF44C721C127B1002AF34E /* ThinkTankVC.h */,
 				4ABF44C821C127B1002AF34E /* ThinkTankVC.m */,
-				4ABF44CA21C127D2002AF34E /* ServiceVC.h */,
-				4ABF44CB21C127D2002AF34E /* ServiceVC.m */,
 				4A6114C821E7115900E4138B /* MonitorVC.h */,
 				4A6114C921E7115900E4138B /* MonitorVC.m */,
 				4AB489B721EDB14B009F9E94 /* InformationSourceVC.h */,
@@ -1078,6 +1084,10 @@
 				4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */,
 				4AE5377B21CB3AE3004CF320 /* BasicInformationVC.h */,
 				4AE5377C21CB3AE3004CF320 /* BasicInformationVC.m */,
+				4AB48AA52202A72F009F9E94 /* VerifyCodeVC.h */,
+				4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */,
+				4AB48AA822031D27009F9E94 /* PasswordSetVC.h */,
+				4AB48AA922031D27009F9E94 /* PasswordSetVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1321,12 +1331,14 @@
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
+				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
 				4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */,
+				4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */,
 				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
 				4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */,
 				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
@@ -1359,7 +1371,6 @@
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
 				4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */,
 				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
-				4ABF44CC21C127D2002AF34E /* ServiceVC.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
 				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
@@ -1417,6 +1428,7 @@
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
+				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
 				4AB48A2121F7282C009F9E94 /* NetworkToolboxView.m in Sources */,
 				4AB48A2B21F86331009F9E94 /* IgnoreListVC.m in Sources */,
 			);

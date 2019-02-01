@@ -42,6 +42,14 @@
             self.stateLab.text = @"情报源异常";
             break;
     }
+    switch (_model.type) {
+        case SourceTypeAli:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            break;
+            
+        default:
+            break;
+    }
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(Interval(19));
         make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(17));
@@ -60,7 +68,6 @@
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
         _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(24),  Interval(14), ZOOM_SCALE(60), ZOOM_SCALE(60))];
-        _iconImgView.backgroundColor = PWTextLight;
         [self addSubview:_iconImgView];
     }
     return _iconImgView;

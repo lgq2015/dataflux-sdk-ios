@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *provider;
 @property (nonatomic, strong) NSString *teamId;
 @property (nonatomic, strong) NSString *issueId;
-
+@property (nonatomic, strong) NSString *akId;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
 
 @end

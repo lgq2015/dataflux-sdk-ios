@@ -72,7 +72,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
-    if(loginType == kUserLoginTypePwd){
+    if(loginType == UserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[@"errCode"];
@@ -94,14 +94,24 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if ([response[@"code"] isEqual:@0]) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                NSDictionary *content = response[@"content"];
+                NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
+                [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
+                [token synchronize];
                 [self saveUserInfo];
+                BOOL isRegister = content[@"isRegister"];
+                if (isRegister) {
+                    if (completion) {
+                        completion(YES,@"isRegister");
+                    }
+                }else{
                 KPostNotification(KNotificationLoginStateChange, @YES);
+                }
+            }else{
+               [iToast alertWithTitleCenter:response[@"message"]];
             }
-            if ([response[@"code"] isEqual:@77]) {
-                DLog(@"%@",response);
-                [iToast alertWithTitleCenter:response[@"zh_CN"]];
-            }
+            
         } failBlock:^(NSError *error) {
                 DLog(@"%@",error);
         }];
@@ -117,7 +127,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
             NSError *error;
             self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
-            KPostNotification(KNotificationLoginStateChange, @YES);
+//            KPostNotification(KNotificationLoginStateChange, @YES);
             if (self.curUserInfo) {
                 YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
                 NSDictionary *dic = [self.curUserInfo modelToJSONObject];

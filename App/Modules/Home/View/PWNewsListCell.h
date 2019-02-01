@@ -11,4 +11,5 @@
 
 @interface PWNewsListCell : UITableViewCell
 @property (nonatomic, strong) NewsListModel *model;
+- (CGFloat)heightForModel:(NewsListModel *)model;
 @end

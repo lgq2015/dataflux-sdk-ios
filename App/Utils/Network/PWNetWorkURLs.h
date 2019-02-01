@@ -17,9 +17,9 @@
 // 登录接口 密码登录
 #define PW_loginUrl           [NSString stringWithFormat:@"%@/v1/auth/password-login", API_SEVERID]
 // 发送验证码
-#define PW_sendAuthCodeUrl    [NSString stringWithFormat:@"%@/v3/auth/sms_verify_code_old", API_HOST]
+#define PW_sendAuthCodeUrl    [NSString stringWithFormat:@"%@/v1/auth/send-sms", API_SEVERID]
 // 验证码验证
-#define PW_checkCodeUrl       [NSString stringWithFormat:@"%@/v3/auth/phone_sms_verify", API_HOST]
+#define PW_checkCodeUrl       [NSString stringWithFormat:@"%@/v1/auth/sms-login", API_SEVERID]
 // 设备上短信数量
 #define PW_smsCountUrl        [NSString stringWithFormat:@"%@/v3/auth/sms_count", API_HOST]
 // 当前用户的信息

@@ -9,5 +9,8 @@
 #import "NewsListModel.h"
 
 @implementation NewsListModel
-
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

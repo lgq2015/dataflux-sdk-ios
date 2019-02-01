@@ -22,6 +22,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self createTextUI];
     // Initialization code
 }
 -(void)setFrame:(CGRect)frame{
@@ -65,7 +66,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
             make.height.offset(ZOOM_SCALE(17));
             make.right.mas_equalTo(self).offset(-Interval(15));
         }];
-        self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.time,self.model.source];
+        self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.createdAt,self.model.source];
         
     }
 }
@@ -86,40 +87,43 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.timeLab.hidden = NO;
     self.titleLab.hidden = NO;
     self.titleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(20), ZOOM_SCALE(320), ZOOM_SCALE(22));
+    self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(32);
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.contentView).offset(Interval(11));
+        make.left.mas_equalTo(self.contentView).offset(Interval(16));
+        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+    }];
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(28));
+        make.left.mas_equalTo(self.contentView).offset(Interval(16));
+        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(17));
+        make.bottom.mas_equalTo(self.contentView).offset(-Interval(8));
+    }];
     self.titleLab.text = self.model.title;
-
-    if (self.model.source != nil && self.model.source.length>0) {
-        self.sourceLab.text = self.model.source;
-        [self.sourceLab sizeToFit];
-        self.sourceLab.hidden = NO;
-    }else{
-        self.sourceLab.hidden = YES;
-    }
-    if (![self.model.time isEqualToString:@""]) {
-        self.timeLab.hidden = NO;
-        self.timeLab.text = self.model.time;
-        [self.timeLab sizeToFit];
-    }else{
-         self.timeLab.hidden = YES;
-    }
+    self.timeLab.text = [NSString stringWithFormat:@"%@   topic",self.model.createdAt];
+}
+-(void)setModel:(NewsListModel *)model{
+    _model = model;
+    [self createTextUI];
 
 }
-
 -(void)layoutSubviews{
     self.backgroundColor = [UIColor whiteColor];
     self.noImgLab.hidden = YES;
     self.iconImgVie.backgroundColor = [UIColor whiteColor];
-    switch (self.model.type) {
-            case NewListCellTypeSingleImg:
-            [self createSingleImgUI];
-            break;
-            case NewListCellTypeFillImg:
-            [self createFillImgUI];
-            break;
-            case NewListCellTypText:
-            [self createTextUI];
-            break;
-    }
+    [self createTextUI];
+//    switch (self.model.type) {
+//            case NewListCellTypeSingleImg:
+//            [self createSingleImgUI];
+//            break;
+//            case NewListCellTypeFillImg:
+//            [self createFillImgUI];
+//            break;
+//            case NewListCellTypText:
+//            [self createTextUI];
+//            break;
+//    }
 }
 -(UILabel *)topStateLab{
     if (!_topStateLab) {
@@ -159,8 +163,9 @@ static NSString *const NoImgTips =@"该图片无法显示";
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.textColor = [UIColor blackColor];
-        _titleLab.font = [UIFont systemFontOfSize:16];
+        _titleLab.textColor = PWTextBlackColor;
+        _titleLab.numberOfLines = 2;
+        _titleLab.font = MediumFONT(18);
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;
@@ -186,7 +191,12 @@ static NSString *const NoImgTips =@"该图片无法显示";
     }
     return _noImgLab;
 }
-
+- (CGFloat)heightForModel:(NewsListModel *)model{
+    [self setModel:model];
+    [self layoutIfNeeded];
+    CGFloat cellHeight = [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+4;
+    return cellHeight;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

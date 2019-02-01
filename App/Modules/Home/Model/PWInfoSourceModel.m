@@ -20,11 +20,16 @@
     self.name = dict[@"name"];
     self.issueId = dict[@"id"];
     self.provider = dict[@"provider"];
-    if ([dict[@"scanCheckStatus"] isEqualToString:@"nerverStarted"]) {
+    if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
         self.state = SourceStateNotDetected;
+    }else{
+        self.state = SourceStateDetected;
     }
     if ([dict[@"provider"] isEqualToString:@"aliyun"]) {
         self.type = SourceTypeAli;
+    }
+    if (dict[@"credentialJSON"]) {
+        self.akId = dict[@"credentialJSON"][@"akId"];
     }
 }
 @end

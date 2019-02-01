@@ -115,6 +115,7 @@
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
 //字体 Family: PingFang SC
+#define RegularFONT(FONTSIZE)           FONT(@"PingFangSC-Regular", FONTSIZE)
 #define BOLDFONT(FONTSIZE)      FONT(@"PingFangSC-Semibold", FONTSIZE)
 #define MediumFONT(FONTSIZE)    FONT(@"PingFangSC-Medium", FONTSIZE)
 #define SYSTEMFONT(FONTSIZE)    [UIFont systemFontOfSize:FONTSIZE]

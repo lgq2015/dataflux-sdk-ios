@@ -99,7 +99,7 @@
         //        btn.layer.shadowOpacity = 1;
         [self addSubview:btn];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self).offset(30);
+            make.bottom.mas_equalTo(self).offset(-18);
             make.right.mas_equalTo(self).offset(-20-i*40);
             make.height.width.offset(24);
         }];
@@ -108,9 +108,9 @@
 }
 - (void)setUpLabelsPosition{
     CGFloat titleX = 0.0;
-    CGFloat titleY = 27;
+    CGFloat titleY = 9+kStatusBarHeight;
     CGFloat titleW = 0.0;
-    CGFloat titleH = 33;
+    CGFloat titleH = 37;
     titleW = 48;
     
     NSInteger index = 0;

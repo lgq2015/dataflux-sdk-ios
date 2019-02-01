@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 typedef NS_ENUM(NSInteger, UserLoginType){
-    kUserLoginTypeVerificationCode= 0,//未知
-    kUserLoginTypePwd,///账号登录
+    UserLoginTypeVerificationCode= 0,//未知
+    UserLoginTypePwd,///账号登录
 };
 typedef NS_ENUM(NSInteger, CodeStatus){
     CodeStatusSuccess= 0,//未知
