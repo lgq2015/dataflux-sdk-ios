@@ -40,7 +40,7 @@
 - (void)createUI{
     [self.verifyCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+13));
+        make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+16));
         make.height.offset(ZOOM_SCALE(22));
     }];
     UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), kTopHeight+ZOOM_SCALE(50), kWidth, ZOOM_SCALE(37))];
@@ -230,8 +230,8 @@
 -(UIButton *)showWordsBtn{
     if (!_showWordsBtn) {
         _showWordsBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateNormal];
-        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateSelected];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateNormal];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateSelected];
         [_showWordsBtn addTarget:self action:@selector(pwdTextSwitch:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_showWordsBtn];
     }
@@ -263,7 +263,7 @@
         @"deviceVersion":device_version,
     };
     NSDictionary *data = @{@"data":param};
-    [[UserManager sharedUserManager] login:kUserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
+    [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
         
     }];
 

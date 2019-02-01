@@ -11,7 +11,7 @@
 #import "NSString+verify.h"
 #import "LoginPasswordVC.h"
 #import "OpenUDID.h"
-
+#import "VerifyCodeVC.h"
 @interface VerifyCodeLoginVC ()
 
 @property (nonatomic, strong) UITextField *phoneTf;
@@ -31,7 +31,7 @@
 - (void)createUI{
     [self.passwordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+13));
+        make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+16));
         make.height.offset(ZOOM_SCALE(22));
     }];
       UILabel  *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(53)+kStatusBarHeight, kWidth, ZOOM_SCALE(37))];
@@ -133,41 +133,21 @@
     LoginPasswordVC *login = [[LoginPasswordVC alloc]init];
     [self.navigationController pushViewController:login animated:YES];
 }
-#pragma mark ========== 登录 ==========
-- (void)loginClick{
-    NSDictionary *param = @{
-        @"token": @"token",
-        @"mobile":self.phoneTf.text
-    };
-    [[UserManager sharedUserManager] login:kUserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
-        
-    }];
-}
+
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
-
-    NSDictionary *param;
-    //reset_password 
-    NSString *token = [[NSString getNowTimeTimestamp] md5String];
-    [kUserDefaults setObject:token forKey:verifyCode_token];
-    if ([NSString validateCellPhoneNumber:self.phoneTf.text]) {
-        param = @{@"token": token,
-            @"mobile": self.phoneTf.text,
-            @"type": @"entry_option",
-            @"captcha":@"",
-            @"client_id": [OpenUDID value]
-        };
-        [[UserManager sharedUserManager] getVerificationCodeType:CodeTypeCode WithParams:param completion:^(CodeStatus status, NSString *des) {
-            
-        }];
-    }else{
-        if (self.phoneTf.text.length == 0) {
-            [iToast alertWithTitleCenter:@"手机号码不能为空！"];
-        }else{
-            [iToast alertWithTitleCenter:@"请输入正确的手机号码！"];
-        }
-    }
-    
+//    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
+//    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+//        if ([response[@"errCode"] isEqualToString:@""]) {
+            VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
+            codeVC.phoneNumber = self.phoneTf.text;
+            [self.navigationController pushViewController:codeVC animated:YES];
+//        }else{
+//        [iToast alertWithTitleCenter:response[@"message"]];
+//        }
+//    } failBlock:^(NSError *error) {
+//        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+//    }];
 
 }
 //#pragma mark ========== btn渐变背景 ==========

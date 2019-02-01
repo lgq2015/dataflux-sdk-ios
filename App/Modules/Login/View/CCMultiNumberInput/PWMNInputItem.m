@@ -15,7 +15,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = PWBackgroundColor;
     }
     return self;
 }
@@ -30,7 +30,7 @@
 }
 -(UIView *)line{
     if(!_line){
-        _line = [[UIView alloc]initWithFrame:CGRectMake(0, 31*self.zoom, 30*self.zoom, 4*self.zoom)];
+        _line = [[UIView alloc]initWithFrame:CGRectMake(0, 31*self.zoom, 30*self.zoom, 1)];
         _line.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1/1.0];
         [self addSubview:_line];
     }

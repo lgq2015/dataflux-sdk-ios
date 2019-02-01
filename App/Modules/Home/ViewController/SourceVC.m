@@ -23,6 +23,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 @property (nonatomic, strong) UIView *tipView;
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, copy) NSString *provider;
+@property (nonatomic, strong) UIButton  *showWordsBtn;
+
+@property (nonatomic, assign) BOOL isFirstEdit;
 @end
 @implementation SourceVC
 
@@ -80,26 +83,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else{
         [self createNavWithType:NaviTypeNormal];
     }
-    if (_navRightBtn) {
-        if (self.TFArray.count>0) {
-            NSMutableArray<RACSignal*> *signalAry = [NSMutableArray new];
-            [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                RACSignal *TfSignal = [obj rac_textSignal];
-                [signalAry addObject:TfSignal];
-            }];
-            RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
-             __block BOOL isenable = YES;
-                [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if(obj.text.length==0){
-                        isenable = NO;
-                        *stop = YES;
-                    }
-                }];
-                return @(isenable);
-            }];
-            RAC(self.navRightBtn,enabled) = navBtnSignal;
-        }
-    }
+    
 }
 - (void)createNavWithType:(NaviType)type{
     switch (type) {
@@ -110,6 +94,26 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navLeftBtnClick:) tags:@[@200]];
             UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
             self.navigationItem.rightBarButtonItem = item;
+            if (_navRightBtn) {
+                if (self.TFArray.count>0) {
+                    NSMutableArray<RACSignal*> *signalAry = [NSMutableArray new];
+                    [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        RACSignal *TfSignal = [obj rac_textSignal];
+                        [signalAry addObject:TfSignal];
+                    }];
+                    RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
+                        __block BOOL isenable = YES;
+                        [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if(obj.text.length==0){
+                                isenable = NO;
+                                *stop = YES;
+                            }
+                        }];
+                        return @(isenable);
+                    }];
+                    RAC(self.navRightBtn,enabled) = navBtnSignal;
+                }
+            }
             break;
         }
         case NaviTypeAddBack:
@@ -133,7 +137,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if (self.isAdd) {
         array = @[@{@"title":@"名称",@"tfText":@"请输入云账号名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 Access Key ID"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 Access Key Secret"}];
     }else{
-        array = @[@{@"title":@"名称",@"tfText":self.model.name},@{@"title":@"Access Key ID",@"tfText":@"ghwat354657"},@{@"title":@"Access Key Secret",@"tfText":@"ghwat354657"}];
+        array = @[@{@"title":@"名称",@"tfText":self.model.name},@{@"title":@"Access Key ID",@"tfText":self.model.akId},@{@"title":@"Access Key Secret",@"tfText":@"***********"}];
     }
     
         
@@ -171,10 +175,20 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             make.width.offset(kWidth);
             make.height.offset(ZOOM_SCALE(117));
         }];
-    
-    
-    
-    
+    if (!self.isAdd) {
+        self.isFirstEdit = YES;
+        UITextField *akId = self.TFArray[1];
+        UITextField *password = self.TFArray[2];
+        [[akId rac_textSignal] subscribeNext:^(id x) {
+            if (self.isFirstEdit) {
+                if (![x isEqualToString:self.model.akId]) {
+                    password.text = @"";
+                    self.isFirstEdit = NO;
+                    self.showWordsBtn.enabled = YES;
+                }
+            }
+        }];
+    }
 }
 #pragma mark ========== 单机诊断 ==========
 - (void)createSourceTypeSingle{
@@ -467,6 +481,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [showWordsBtn addTarget:self action:@selector(pwdTextSwitch:) forControlEvents:UIControlEventTouchUpInside];
         showWordsBtn.tag = tag+100;
         [item addSubview:showWordsBtn];
+        self.showWordsBtn = showWordsBtn;
     }
     tf.delegate = self;
     if (self.isAdd) {
@@ -491,6 +506,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }];
                 UITextField *tf = self.TFArray[0];
                 [tf becomeFirstResponder];
+                self.showWordsBtn.enabled =NO;
                 [self createNavWithType:NaviTypeAddDone];
             }];
             [alert addAction:edit];
@@ -513,25 +529,40 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
     }else if(button.tag == 100){
-        NSDictionary *param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
-        [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            DLog(@"%@",response);
-            
-        } failBlock:^(NSError *error) {
-            DLog(@"%@",error);
-        }];
-    }else{
-        NSDictionary *param = @{@"data":@{@"name":self.TFArray[0].text}};
-        [PWNetworking requsetWithUrl:PW_issueSourceModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            
-        } failBlock:^(NSError *error) {
-                    }];
-         
+        if(self.isAdd){
+            [self addIssueSource];
+        }else{
+            [self modifyIssueSource];
+        }
     }
 }
+#pragma mark ========== 编辑情报源 ==========
+- (void)modifyIssueSource{
+    NSDictionary *param ;
+    if ([self.TFArray[1].text isEqualToString:self.model.akId]) {
+        param = @{@"data":@{@"name":self.TFArray[0].text}};
+    }else{
+        param = @{@"data":@{@"name":self.TFArray[0].text},@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}};
+    }
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        
+    } failBlock:^(NSError *error) {
+    }];
+}
+#pragma mark ========== 添加情报源 ==========
+- (void)addIssueSource{
+    NSDictionary *param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
+    [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        DLog(@"%@",response);
+        
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+    }];
+}
+#pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{
     
-    [PWNetworking requsetWithUrl:PW_issueSourceDelete(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         
     } failBlock:^(NSError *error) {
         
