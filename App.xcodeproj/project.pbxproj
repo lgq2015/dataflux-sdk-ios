@@ -67,6 +67,8 @@
 		4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
 		4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
 		4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
+		4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */; };
+		4AB48ACC2212BE6F009F9E94 /* IssueListManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACB2212BE6F009F9E94 /* IssueListManger.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -282,6 +284,10 @@
 		4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeVC.m; sourceTree = "<group>"; };
 		4AB48AA822031D27009F9E94 /* PasswordSetVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordSetVC.h; sourceTree = "<group>"; };
 		4AB48AA922031D27009F9E94 /* PasswordSetVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordSetVC.m; sourceTree = "<group>"; };
+		4AB48AAB221145D7009F9E94 /* PWWeakProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWWeakProxy.h; sourceTree = "<group>"; };
+		4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWWeakProxy.m; sourceTree = "<group>"; };
+		4AB48ACA2212BE6F009F9E94 /* IssueListManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueListManger.h; sourceTree = "<group>"; };
+		4AB48ACB2212BE6F009F9E94 /* IssueListManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueListManger.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -593,7 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				4A6C287E219D08B70059BB08 /* Home */,
-				4A6C287F219D08B70059BB08 /* Synchronization */,
+				4A6C287F219D08B70059BB08 /* Service+ */,
 				4A6C2880219D08B70059BB08 /* Team */,
 				4A6C2881219D08B70059BB08 /* Mine */,
 				4A6C286C219C156D0059BB08 /* Login */,
@@ -707,11 +713,11 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		4A6C287F219D08B70059BB08 /* Synchronization */ = {
+		4A6C287F219D08B70059BB08 /* Service+ */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Synchronization;
+			path = "Service+";
 			sourceTree = "<group>";
 		};
 		4A6C2880219D08B70059BB08 /* Team */ = {
@@ -736,6 +742,7 @@
 		4A6C2888219D586D0059BB08 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				4AB48AC92212BE2D009F9E94 /* IssueListManger */,
 				4ABF448221BFBD9D002AF34E /* UserManger */,
 				4ABF449921C0B82C002AF34E /* AppManager.h */,
 				4ABF449A21C0B82C002AF34E /* AppManager.m */,
@@ -847,6 +854,15 @@
 				4AB48A2F21F88348009F9E94 /* HomeEnum.h */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		4AB48AC92212BE2D009F9E94 /* IssueListManger */ = {
+			isa = PBXGroup;
+			children = (
+				4AB48ACA2212BE6F009F9E94 /* IssueListManger.h */,
+				4AB48ACB2212BE6F009F9E94 /* IssueListManger.m */,
+			);
+			path = IssueListManger;
 			sourceTree = "<group>";
 		};
 		4ABF426021ACDC90002AF34E /* Model */ = {
@@ -971,6 +987,8 @@
 				4A6114B421E5958300E4138B /* MultimodeLabel.m */,
 				4AB48A1921F2CD9B009F9E94 /* UIScrollView+UITouch.h */,
 				4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */,
+				4AB48AAB221145D7009F9E94 /* PWWeakProxy.h */,
+				4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1284,11 +1302,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1380,6 +1400,7 @@
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
+				4AB48ACC2212BE6F009F9E94 /* IssueListManger.m in Sources */,
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
@@ -1393,6 +1414,7 @@
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
 				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
 				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
+				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
 				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,

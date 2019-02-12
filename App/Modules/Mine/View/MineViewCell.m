@@ -40,6 +40,9 @@
        case MineVCCellTypeSwitch:
             [self createUISwitch];
             break;
+        case MineVCCellTypedDescribe:
+            
+            break;
     }
 }
 #pragma mark ========== 有icon、title ==========
@@ -104,7 +107,7 @@
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
     if(!_iconImgView){
-        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, 20, 20)];
+        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, 30, 30)];
         CGPoint center = _iconImgView.center;
         center.y = self.center.y;
         _iconImgView.center = center;
@@ -115,8 +118,8 @@
 -(UILabel *)titleLab{
     if(!_titleLab){
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.font = [UIFont systemFontOfSize:16];
-        _titleLab.textColor = PWTextColor;
+        _titleLab.font = MediumFONT(16);
+        _titleLab.textColor = PWTextBlackColor;
         [self addSubview:_titleLab];
     }
     return _titleLab;

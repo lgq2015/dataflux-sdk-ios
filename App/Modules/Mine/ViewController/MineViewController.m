@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
     self.dataSource = [NSMutableArray new];
     [self dealWithData];
@@ -36,9 +37,8 @@
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-    self.mainScrollView.backgroundColor = PWBackgroundColor;
-    self.mainScrollView.contentSize = CGSizeMake(0, kHeight);
-    [self.view addSubview:self.mainScrollView];
+    [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.headerView;
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconImgView.mas_right).offset(ZOOM_SCALE(30));
         make.right.mas_equalTo(ZOOM_SCALE(30));
@@ -51,26 +51,15 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(20));
     }];
-//    [self.companyName mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.userName.mas_bottom).offset(ZOOM_SCALE(8));
-//        make.left.equalTo(self.userName.mas_left);
-//        make.right.equalTo(self.userName.mas_right);
-//        make.height.offset(ZOOM_SCALE(17));
-//    }];
-//    self.companyName.text = @"上海驻云信息科技有限公司";
-    self.tableView.rowHeight = 45;
+
+    self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorInset = UIEdgeInsetsMake(5, 0, 0, 5);
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
-    [self.mainScrollView addSubview:self.tableView];
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headerView.mas_bottom);
-        make.width.offset(kWidth);
-        make.height.offset(8*45+100);
-    }];
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
 }
 
        
@@ -80,7 +69,6 @@
     if (!_headerView) {
         _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 160+kStatusBarHeight-22)];
         _headerView.backgroundColor = PWWhiteColor;
-        [self.mainScrollView addSubview:_headerView];
     }
     return _headerView;
 }
@@ -127,14 +115,14 @@
 }
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithData{
-    MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_corporation" cellType:MineCellTypeCompany];
-    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_aliyun" cellType:MineCellTypeAliyun];
+    MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
+    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
     MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
-    MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_code" cellType:MineCellTypeOpinion];
-    MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_code" cellType:MineCellTypeContactuUs];
-    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_code" cellType:MineCellTypeSetting];
-    MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_code" cellType:MineCellTypeSetting];
-    MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_code" cellType:MineCellTypeSetting];
+    MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_opinion" cellType:MineCellTypeOpinion];
+    MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_contact" cellType:MineCellTypeContactuUs];
+    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
+    MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
+    MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
     NSArray *group1 = @[mynews,infoSource,collection];
     NSArray *group2 = @[opinion,contact,encourage,aboutPW];
     NSArray *group3 = @[setting];
@@ -158,9 +146,16 @@
             break;
         case MineCellTypeCollect:
             break;
-        case MineCellTypeAliyun:
+        case MineCellTypeAboutPW:
             break;
-        case MineCellTypeCompany:
+        case MineCellTypeEncourage:
+            
+            break;
+        
+        case MineCellTypeInformation:
+            
+            break;
+        case MineCellTypeInfoSource:
             
             break;
     }
@@ -184,7 +179,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeBase];
+    NSArray *array =self.dataSource[indexPath.section];
+    if(indexPath.row == array.count-1){
+     cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
+    }
     return cell;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 8)];
+    //自定义颜色
+    view.backgroundColor = PWBackgroundColor;
+    return view;
 }
 #pragma mark ========== 用户头像选取 ==========
 - (void)icomImgClick{

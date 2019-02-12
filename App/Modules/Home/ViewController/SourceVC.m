@@ -542,7 +542,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if ([self.TFArray[1].text isEqualToString:self.model.akId]) {
         param = @{@"data":@{@"name":self.TFArray[0].text}};
     }else{
-        param = @{@"data":@{@"name":self.TFArray[0].text},@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}};
+        param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
     }
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         
@@ -553,19 +553,23 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)addIssueSource{
     NSDictionary *param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        DLog(@"%@",response);
-        
+        if ([response[@"errCode"] isEqualToString:@""]) {
+//        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        }else{
+//        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
     }];
 }
 #pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{
-    
+//    [SVProgressHUD showWithStatus:@"正在删除..."];
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        
+//        [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+
     } failBlock:^(NSError *error) {
-        
+//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
     }];
 }
 -(void)navLeftBtnClick:(UIButton *)button{

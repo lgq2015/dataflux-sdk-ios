@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 typedef NS_ENUM(NSInteger, MineCellType) {
-    MineCellTypeCompany = 0,       //我的企业
-    MineCellTypeAliyun = 1,        //阿里云账号管理
+    MineCellTypeEncourage = 0,     //鼓励我们
+    MineCellTypeInformation,       //我的消息
+    MineCellTypeAboutPW,           //关于王教授
     MineCellTypeCollect,           //我的收藏
     MineCellTypeOpinion,           //意见与反馈
     MineCellTypeContactuUs,        //联系我们
     MineCellTypeSetting,           //设置
+    MineCellTypeInfoSource         //情报源
 };
 
 

@@ -27,7 +27,11 @@
 // 用户头像
 #define PW_currentUserIcon            [NSString stringWithFormat:@"%@/v3/current_user/icon", API_HOST]
 // 修改密码
-#define PW_changePassword     [NSString stringWithFormat:@"%@/v3/auth/change_password", API_HOST]
+#define PW_changePassword     [NSString stringWithFormat:@"%@/v1/auth/change-password", API_SEVERID]
+// 忘记密码
+#define PW_forgottenPassword     [NSString stringWithFormat:@"%@/v1/auth/forgotten-password", API_SEVERID]
+//首页News列表
+#define PW_newsList        @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
 //情报列表
 #define PW_issueList       [NSString stringWithFormat:@"%@/v1/issue/list", API_SEVERID]
 //情报源添加

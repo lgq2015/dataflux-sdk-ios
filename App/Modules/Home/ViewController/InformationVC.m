@@ -13,6 +13,8 @@
 #import "MonitorVC.h"
 #import "InformationSourceVC.h"
 #import "AddSourceVC.h"
+#import "UserManager.h"
+
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
 @property (nonatomic, strong) NSMutableArray *infoDatas;
@@ -30,15 +32,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.mainScrollView.backgroundColor = PWBackgroundColor;
-//    self.mainScrollView.mj_header = self.header;
-    self.tableView.mj_header = self.header;
-    self.tableView.mj_footer = self.footer;
-    self.isConnect = YES;
-    self.newsPage = 1;
-    [self loadIssueData];
-    [self loadNewsDatas];
-    [self createUI];
+    if([userManager loadUserInfo]){
+        self.tableView.mj_header = self.header;
+        self.tableView.mj_footer = self.footer;
+        self.isConnect = YES;
+        self.newsPage = 1;
+        [self loadIssueData];
+        [self loadNewsDatas];
+        [self createUI];
+    }
 }
 - (void)createUI{
     self.infoBoardStyle = 1;
@@ -55,7 +57,6 @@
     __weak typeof(self) weakSelf = self;
     self.infoboard.historyInfoClick = ^(void){
         InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
-        infosourceVC.response = weakSelf.infoSourceDatas;
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
     self.infoboard.itemClick = ^(NSInteger index){
@@ -112,7 +113,6 @@
 }
 - (void)loadIssueData{
     
-//    NSString *token = getXAuthToken;
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         DLog(@"%@",response);
         if ([response[@"errCode"] isEqualToString:@""]) {
@@ -132,7 +132,7 @@
 }
 - (void)loadNewsDatas{
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10};
-    [PWNetworking requsetWithUrl:@"http://testing.forum-via-core-stone.cloudcare.cn:10707/v1/post" withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
@@ -173,7 +173,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
+    if (!cell) {
+      cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
+    }
     cell.model = self.newsDatas[indexPath.row];
+    [cell layoutIfNeeded];
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========
@@ -191,7 +195,6 @@
     } else {
         return model.cellHeight;
     }
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

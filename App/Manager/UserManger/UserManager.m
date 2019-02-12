@@ -9,6 +9,7 @@
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "CurrentUserModel.h"
+
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager

@@ -18,4 +18,5 @@ target 'App' do
   pod 'Zhugeio'
   pod 'TTTAttributedLabel'
   pod 'IQKeyboardManager'
+  pod 'SVProgressHUD'
 end

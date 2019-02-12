@@ -29,4 +29,6 @@
  时间戳
  */
 +(NSString *)getNowTimeTimestamp;
+
+
 @end

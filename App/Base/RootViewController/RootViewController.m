@@ -137,8 +137,9 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
-        _tableView.backgroundColor= PWBackgroundColor;
+        _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollsToTop = YES;
+        _tableView.backgroundColor = PWBackgroundColor;
         _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;

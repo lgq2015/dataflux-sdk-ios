@@ -26,9 +26,11 @@ static NSString *const NoImgTips =@"该图片无法显示";
     // Initialization code
 }
 -(void)setFrame:(CGRect)frame{
-    frame.size.height -= ZOOM_SCALE(4);
+    frame.origin.y += Interval(4);
+    frame.size.height -= Interval(4);
     [super setFrame:frame];
 }
+
 #pragma mark ========== 有图 有标题 ==========
 - (void)createSingleImgUI{
     self.backgroundColor = [UIColor whiteColor];
@@ -50,7 +52,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         make.right.mas_equalTo(self.iconImgVie.mas_left).offset(-Interval(30));
     }];
     self.titleLab.text = self.model.title;
-    if (self.model.isTop) {
+    if (self.model.isStarred) {
         self.topStateLab.hidden = NO;
         [self.topStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self).offset(Interval(16));
@@ -89,16 +91,16 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.titleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(20), ZOOM_SCALE(320), ZOOM_SCALE(22));
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(32);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentView).offset(Interval(11));
-        make.left.mas_equalTo(self.contentView).offset(Interval(16));
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+        make.top.mas_equalTo(self).offset(Interval(11));
+        make.left.mas_equalTo(self).offset(Interval(16));
+        make.right.mas_equalTo(self).offset(-Interval(16));
     }];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(28));
-        make.left.mas_equalTo(self.contentView).offset(Interval(16));
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+        make.left.mas_equalTo(self).offset(Interval(16));
+        make.right.mas_equalTo(self).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(17));
-        make.bottom.mas_equalTo(self.contentView).offset(-Interval(8));
+        make.bottom.mas_equalTo(self).offset(-Interval(8));
     }];
     self.titleLab.text = self.model.title;
     self.timeLab.text = [NSString stringWithFormat:@"%@   topic",self.model.createdAt];
@@ -137,7 +139,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _topStateLab.layer.masksToBounds = YES;
         _topStateLab.layer.borderWidth = 1;//边框宽度
         _topStateLab.layer.borderColor = [UIColor colorWithHexString:@"6F85FF"].CGColor;
-        [self.contentView addSubview:_topStateLab];
+        [self addSubview:_topStateLab];
     }
     return _topStateLab;
 }
@@ -147,7 +149,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _iconImgVie.contentMode = UIViewContentModeScaleAspectFill;
         _iconImgVie.backgroundColor = [UIColor whiteColor];
         _iconImgVie.clipsToBounds = YES;
-        [self.contentView addSubview:_iconImgVie];
+        [self addSubview:_iconImgVie];
     }
     return _iconImgVie;
 }
@@ -156,7 +158,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
         _timeLab.font = [UIFont systemFontOfSize:12];
-        [self.contentView addSubview:_timeLab];
+        [self addSubview:_timeLab];
     }
     return _timeLab;
 }
@@ -166,7 +168,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _titleLab.textColor = PWTextBlackColor;
         _titleLab.numberOfLines = 2;
         _titleLab.font = MediumFONT(18);
-        [self.contentView addSubview:_titleLab];
+        [self addSubview:_titleLab];
     }
     return _titleLab;
 }
@@ -175,7 +177,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _sourceLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _sourceLab.textColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1/1.0];
         _sourceLab.font = [UIFont systemFontOfSize:12];
-        [self.contentView addSubview:_sourceLab];
+        [self addSubview:_sourceLab];
     }
     return _sourceLab;
 }
@@ -187,14 +189,14 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _noImgLab.textColor =  [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1/1.0];
         _noImgLab.font = [UIFont systemFontOfSize:16];
         _noImgLab.text = NoImgTips;
-        [self.contentView addSubview:_noImgLab];
+        [self addSubview:_noImgLab];
     }
     return _noImgLab;
 }
 - (CGFloat)heightForModel:(NewsListModel *)model{
     [self setModel:model];
     [self layoutIfNeeded];
-    CGFloat cellHeight = [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+4;
+    CGFloat cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+Interval(4);
     return cellHeight;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

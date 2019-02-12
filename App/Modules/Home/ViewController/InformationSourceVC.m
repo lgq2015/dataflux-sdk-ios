@@ -22,21 +22,17 @@
     [super viewDidLoad];
     self.title = @"情报源";
     [self createUI];
-    if (!self.response) {
-        [self loadData];
-    }
+    [self loadData];
 }
 - (void)createUI{
     NSArray *title = @[@"添加"];
     self.currentPage = 1;
     [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
-    NSArray *data = self.response[@"content"][@"data"];
-    self.dataSource = [NSMutableArray arrayWithArray:data];
+    self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.mj_footer = self.footer;
     self.tableView.mj_header = self.header;
-    self.footer.state = MJRefreshStateNoMoreData;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     self.tableView.rowHeight = 100.f;
@@ -47,8 +43,8 @@
     NSDictionary *param = @{@"pageNumber":[NSNumber numberWithInteger:self.currentPage],@"pageSize":@10};
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-            NSDictionary *dict = response[@"content"];
-            NSArray *data = dict[@"data"];
+            NSDictionary *content = response[@"content"];
+            NSArray *data = content[@"data"];
             if (data.count>0) {
                 if (self.currentPage == 1) {
                     self.dataSource = [NSMutableArray arrayWithArray:data];
@@ -56,12 +52,12 @@
                     [self.dataSource addObjectsFromArray:data];
                 }
                 [self.tableView reloadData];
-//                if ([dict[@"totalPages"] integerValue]>self.currentPage) {
-//                    self.currentPage++;
-//                    [self.footer endRefreshing];
-//                }else{
-//                    self.footer.state = MJRefreshStateNoMoreData;
-//                }
+                if ([content[@"pageInfo"][@"pageCount"] integerValue]>self.currentPage) {
+                    self.currentPage++;
+                    [self.footer endRefreshing];
+                }else{
+                    self.footer.state = MJRefreshStateNoMoreData;
+                }
             }
         }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
         }

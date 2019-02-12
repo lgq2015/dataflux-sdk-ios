@@ -46,7 +46,7 @@
 @property (nonatomic, strong) NSString *source;
 @property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *updatedAt;
-@property (nonatomic, assign) BOOL isTop;
+@property (nonatomic, assign) BOOL isStarred;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, assign) NSInteger type;
 
