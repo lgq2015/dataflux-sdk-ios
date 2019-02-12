@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VerifyCodeVC : RootViewController
 @property (nonatomic, copy) NSString *phoneNumber;
+@property (nonatomic, assign) BOOL isLog;
 @end
 
 NS_ASSUME_NONNULL_END

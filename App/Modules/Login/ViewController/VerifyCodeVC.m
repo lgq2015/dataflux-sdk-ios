@@ -12,21 +12,18 @@
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "PasswordSetVC.h"
+#import "PWWeakProxy.h"
+#import "SetNewPasswordVC.h"
 
 @interface VerifyCodeVC ()
 @property (nonatomic, strong) UIImageView *shadowImage;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) UILabel *timeLab;
+@property (nonatomic, assign) NSInteger second;
 @end
 
 @implementation VerifyCodeVC
-//NSArray *allSubviews(UIView *aView) {
-//     NSArray *results = [aView subviews];
-//     for (UIView *eachView in aView.subviews)
-//         {
-//               NSArray *subviews = allSubviews(eachView);
-//               if (subviews)
-//                     results = [results arrayByAddingObjectsFromArray:subviews];
-//             }
-//     return results;
+
 
 -(void)viewWillAppear:(BOOL)animated{
         [super viewWillAppear:animated];
@@ -44,6 +41,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    self.second = 60;
+    __weak typeof(self) weakSelf = self;
+    if (@available(iOS 10.0, *)) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            [weakSelf timerRun];
+        }];
+    } else {
+        self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    }
+   
 }
 - (void)createUI{
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17), 250, ZOOM_SCALE(37))];
@@ -79,7 +87,15 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
-    
+    if (!_timeLab) {
+        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWBlueColor text:@"60S"];
+        [self.view addSubview:_timeLab];
+    }
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(ZOOM_SCALE(25));
+        make.right.mas_equalTo(timeLab.mas_left);
+        make.centerY.mas_equalTo(timeLab);
+    }];
     PWMNView *codeTfView = [[PWMNView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(221), kWidth-Interval(32), ZOOM_SCALE(40))];
     codeTfView.backgroundColor = PWBackgroundColor;
     codeTfView.selectColor = PWBlueColor;
@@ -97,7 +113,14 @@
         make.height.offset(ZOOM_SCALE(50));
     }];
 }
+- (void)timerRun{
+    if (self.second>0) {
+        self.second--;
+    }
+    self.timeLab.text = [NSString stringWithFormat:@"%ldS",(long)self.second];
+}
 - (void)loginWithCode:(NSString *)code{
+    if(self.isLog){
     NSString *openUDID = [OpenUDID value];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *device_version = [NSString getCurrentDeviceModel];
@@ -109,8 +132,26 @@
                 [self.navigationController pushViewController:passwordVC animated:YES];
             }
         }
-        
     }];
+    }else{
+        NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile", }};
+        [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                NSDictionary *content = response[@"content"];
+                NSString *authAccessToken = content[@"authAccessToken"];
+                setXAuthToken(authAccessToken);
+                SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+                newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+                [self.navigationController pushViewController:newPasswordVC animated:YES];
+            }else{
+                [iToast alertWithTitleCenter:response[@"message"]];
+            }
+           
+        } failBlock:^(NSError *error) {
+            
+        }];
+       
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -126,6 +167,10 @@
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.enable = YES;
+}
+-(void)dealloc{
+    [self.timer invalidate];
+    NSLog(@"%s", __func__);
 }
 /*
 #pragma mark - Navigation

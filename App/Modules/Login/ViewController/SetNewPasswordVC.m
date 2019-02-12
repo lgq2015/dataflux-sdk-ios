@@ -7,57 +7,112 @@
 //
 
 #import "SetNewPasswordVC.h"
+#import "OpenUDID.h"
 
 @interface SetNewPasswordVC ()
-@property (nonatomic, strong) UIImageView *passwordImg;
 @property (nonatomic, strong) UITextField *passwordTf;
-@property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIButton *confirmBtn;
+@property (nonatomic, strong) UIButton *showWordsBtn;
 @end
 
 @implementation SetNewPasswordVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = PWWhiteColor;
-    self.title = @"找回密码";
     [self createUI];
 }
 - (void)createUI{
-    if (!_passwordImg) {
-        _passwordImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(58), ZOOM_SCALE(20), ZOOM_SCALE(20))];
-        _passwordImg.image = [UIImage imageNamed:@"icon_password"];
-        [self.view addSubview:_passwordImg];
-    }
-    
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:[UIColor colorWithHexString:@"140F26"] text:@"输入新密码"];
+    [self.view addSubview:titleLab];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"新密码格式至少包含两种 8-25 位\n大小写字母、数字或字符"];
+    tipLab.numberOfLines = 2;
+    [self.view addSubview:tipLab];
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
         [self.view addSubview:_passwordTf];
     }
-    [_passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.passwordImg.mas_right).offset(ZOOM_SCALE(10));
-        make.top.equalTo(self.passwordImg);
-        make.right.mas_equalTo(ZOOM_SCALE(290));
-        make.height.offset(ZOOM_SCALE(20));
+   [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(87));
+        make.width.height.offset(ZOOM_SCALE(24));
     }];
-    if (!_line) {
-        _line = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(90), ZOOM_SCALE(280), 1)];
-        _line.backgroundColor = PWBlackColor;
-        _line.alpha = 0.05;
-        [self.view addSubview:_line];
-    }
+    [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.showWordsBtn.mas_left);
+        make.centerY.mas_equalTo(self.showWordsBtn);
+        make.height.offset(ZOOM_SCALE(25));
+    }];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
+    line.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+    [self.view addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(self.passwordTf.mas_bottom).offset(ZOOM_SCALE(4));
+        make.right.mas_equalTo(self.view).offset(Interval(-16));
+        make.height.offset(ZOOM_SCALE(1));
+    }];
+    [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.view).offset(Interval(-16));
+        make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
+        make.height.offset(ZOOM_SCALE(47));
+    }];
     
+}
+-(UIButton *)confirmBtn{
     if(!_confirmBtn){
-        _confirmBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(131), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
-        [_confirmBtn addTarget:self action:@selector(confirmClick) forControlEvents:UIControlEventTouchUpInside];
-        _confirmBtn.enabled = YES;
+        _confirmBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_confirmBtn setBackgroundColor:PWBlueColor];
+        _confirmBtn.enabled = NO;
         _confirmBtn.layer.cornerRadius = ZOOM_SCALE(5);
         _confirmBtn.layer.masksToBounds = YES;
-        _confirmBtn.backgroundColor = PWBlueColor;
         [self.view addSubview:_confirmBtn];
+    }
+    return _confirmBtn;
+}
+-(UIButton *)showWordsBtn{
+    if (!_showWordsBtn) {
+        _showWordsBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateNormal];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateSelected];
+        [_showWordsBtn addTarget:self action:@selector(pwdTextSwitch:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_showWordsBtn];
+    }
+    return _showWordsBtn;
+}
+- (void)confirmBtnClick{
+    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
+    NSString *openUDID = [OpenUDID value];
+    NSString *device_version = [NSString getCurrentDeviceModel];
+    NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile",@"deviceId": openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
+    [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            setXAuthToken(response[@"authAccessToken"]);
+            KPostNotification(KNotificationLoginStateChange, @YES);
+        }else{
+            [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)pwdTextSwitch:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    UITextField *tf = self.passwordTf;
+    if (sender.selected) { // 按下去了就是明文
+        NSString *tempPwdStr = tf.text;
+        tf.text = @""; // 这句代码可以防止切换的时候光标偏移
+        tf.secureTextEntry = NO;
+        tf.text = tempPwdStr;
+    } else { // 暗文
+        NSString *tempPwdStr = tf.text;
+        tf.text = @"";
+        tf.secureTextEntry = YES;
+        tf.text = tempPwdStr;
     }
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

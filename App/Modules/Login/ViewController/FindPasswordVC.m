@@ -8,112 +8,124 @@
 
 #import "FindPasswordVC.h"
 #import "SetNewPasswordVC.h"
+#import "VerifyCodeVC.h"
+
 @interface FindPasswordVC ()
-@property (nonatomic, strong) UIImageView *userImg;
 @property (nonatomic, strong) UITextField *userTf;
-@property (nonatomic, strong) UIView *line1;
 
-@property (nonatomic, strong) UIImageView *verifyCodeImg;
-@property (nonatomic, strong) UITextField *verifyCodeTf;
-@property (nonatomic, strong) UIButton *verifyCodeBtn;
-@property (nonatomic, strong) UIView *line2;
-
-@property (nonatomic, strong) UIButton *nextSetPasswordBtn;
+@property (nonatomic, strong) UIButton *veritfyCodeBtn;
 
 @end
 
 @implementation FindPasswordVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
+//    keyboardManager.enable = NO;
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    // 导航栏背景图
+    [navBar setBarTintColor:PWBackgroundColor];
+    [navBar setTintColor:PWBackgroundColor];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    
+    [navBar setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navBar setShadowImage:[UIImage new]];//去掉阴影线
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = PWWhiteColor;
     self.isShowLiftBack = YES;
-    self.title = @"找回密码";
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-    if (!_userImg) {
-        _userImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(57), ZOOM_SCALE(20), ZOOM_SCALE(20))];
-        _userImg.image = [UIImage imageNamed:@"icon_account"];
-        [self.view addSubview:_userImg];
-    }
+   
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:[UIColor colorWithHexString:@"140F26"] text:@"忘记密码"];
+    [self.view addSubview:titleLab];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(84), ZOOM_SCALE(150), ZOOM_SCALE(20)) font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
+    [self.view addSubview:tipLab];
     if (!_userTf) {
-        _userTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(ZOOM_SCALE(70), ZOOM_SCALE(58), ZOOM_SCALE(250), ZOOM_SCALE(20))];
+        _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _userTf.placeholder = @"请输入手机号/邮箱";
         _userTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_userTf];
     }
-    if (!_line1){
-        _line1 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(90), ZOOM_SCALE(280), 1)];
-        _line1.backgroundColor = PWBlackColor;
-        _line1.alpha = 0.05;
-        [self.view addSubview:_line1];
-    }
-    if (!_verifyCodeImg) {
-        _verifyCodeImg = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(118), ZOOM_SCALE(20), ZOOM_SCALE(20))];
-        _verifyCodeImg.image = [UIImage imageNamed:@"icon_code"];
-        [self.view addSubview:_verifyCodeImg];
-    }
-    if (!_verifyCodeBtn) {
-        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(240), ZOOM_SCALE(117), ZOOM_SCALE(70), ZOOM_SCALE(21))];
-        [_verifyCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [_verifyCodeBtn setTitleColor:PWOrangeTextColor forState:UIControlStateNormal];
-        _verifyCodeBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size: 14];
-        [_verifyCodeBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_verifyCodeBtn];
-    }
-    if (!_verifyCodeTf) {
-        _verifyCodeTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _verifyCodeTf.secureTextEntry = YES;
-        _verifyCodeTf.placeholder = @"请输入验证码";
-        [self.view addSubview:_verifyCodeTf];
-    }
-    [_verifyCodeTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.verifyCodeImg.mas_right).offset(ZOOM_SCALE(10));
-        make.top.equalTo(self.verifyCodeImg);
-        make.right.equalTo(self.verifyCodeBtn.mas_left).offset(-ZOOM_SCALE(10));
-        make.height.offset(ZOOM_SCALE(20));
+    [self.userTf mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(8));
+        make.height.offset(ZOOM_SCALE(25));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
     }];
-    if (!_line2) {
-        _line2 = [[UIView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(147), ZOOM_SCALE(280), 1)];
-        _line2.backgroundColor = PWBlackColor;
-        _line2.alpha = 0.05;
-        [self.view addSubview:_line2];
-    }
+    UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
+    line.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+    [self.view addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(self.userTf.mas_bottom).offset(ZOOM_SCALE(4));
+        make.right.mas_equalTo(self.userTf.mas_right);
+        make.height.offset(ZOOM_SCALE(1));
+    }];
+   
+    [self.veritfyCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
+        make.height.offset(ZOOM_SCALE(47));
+    }];
+    RACSignal *phoneTf= [[self.userTf rac_textSignal] map:^id(NSString *value) {
+        return @([NSString validateCellPhoneNumber:value]||[NSString validateEmail:self.userTf.text]);
+    }];
+    RAC(self.veritfyCodeBtn,enabled) = phoneTf;
     
-    if(!_nextSetPasswordBtn){
-        _nextSetPasswordBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(188), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_nextSetPasswordBtn setTitle:@"下一步" forState:UIControlStateNormal];
-        [_nextSetPasswordBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _nextSetPasswordBtn.enabled = YES;
-        _nextSetPasswordBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _nextSetPasswordBtn.layer.masksToBounds = YES;
-        _nextSetPasswordBtn.backgroundColor = PWBlueColor;
-        [self.view addSubview:_nextSetPasswordBtn];
+    RAC(self.veritfyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
+        if([value boolValue]){
+            return PWBlueColor;
+        }else{
+            return [UIColor colorWithHexString:@"C7C7CC"];;
+        }
+    }];
+}
+-(UIButton *)veritfyCodeBtn{
+    if(!_veritfyCodeBtn){
+        _veritfyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+        [_veritfyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_veritfyCodeBtn addTarget:self action:@selector(veritfyCodeClick) forControlEvents:UIControlEventTouchUpInside];
+        [_veritfyCodeBtn setBackgroundColor:PWBlueColor];
+        _veritfyCodeBtn.enabled = NO;
+        _veritfyCodeBtn.layer.cornerRadius = ZOOM_SCALE(5);
+        _veritfyCodeBtn.layer.masksToBounds = YES;
+        [self.view addSubview:_veritfyCodeBtn];
     }
-    
+    return _veritfyCodeBtn;
 }
 #pragma mark ========== 获取验证码 ==========
-- (void)getVerifyCode{
-    BOOL isPhone = [NSString validateCellPhoneNumber:self.userTf.text];
-    BOOL isEmail = [NSString validateEmail:self.userTf.text];
-    if (!(isEmail || isPhone)) {
-        [iToast alertWithTitleCenter:@"请输入正确的手机号/邮箱"];
-    }else{
-      
-    }
-    
+- (void)veritfyCodeClick{
+//    NSDictionary *params = @{@"data":@{@"to":self.userTf.text,@"t":@"forgotten_password"}};
+//    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+//
+//    } failBlock:^(NSError *error) {
+//
+//    }];
+    VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
+    codeVC.isLog = NO;
+    codeVC.phoneNumber = self.userTf.text;
+    [self.navigationController pushViewController:codeVC animated:YES];
+
 }
-#pragma mark ========== 下一步 ==========
-- (void)nextBtnClick{
-    SetNewPasswordVC *setVC = [[SetNewPasswordVC alloc]init];
-    [self.navigationController pushViewController:setVC animated:YES];
-}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.userTf resignFirstResponder];
-    [self.verifyCodeTf resignFirstResponder];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    // 导航栏背景图
+    [navBar setBarTintColor:CNavBgColor];
+    [navBar setTintColor:CNavBgColor];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+    
+    [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [navBar setShadowImage:nil];//去掉阴影线
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

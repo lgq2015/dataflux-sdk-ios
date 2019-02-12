@@ -122,9 +122,10 @@
         make.width.height.offset(ZOOM_SCALE(13));
     }];
     [self.findWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(line2.mas_right);
+        make.right.mas_equalTo(self.view).offset(Interval(-16));
         make.height.offset(ZOOM_SCALE(20));
         make.centerY.mas_equalTo(self.selectBtn);
+        make.width.offset(ZOOM_SCALE(60));
     }];
     
     [self.agreementLab mas_makeConstraints:^(MASConstraintMaker *make) {

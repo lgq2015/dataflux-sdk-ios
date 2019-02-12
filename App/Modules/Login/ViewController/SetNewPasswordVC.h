@@ -9,5 +9,5 @@
 #import "RootViewController.h"
 
 @interface SetNewPasswordVC : RootViewController
-
+@property (nonatomic, copy) NSString *changePasswordToken;
 @end

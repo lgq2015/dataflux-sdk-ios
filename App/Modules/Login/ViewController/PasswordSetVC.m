@@ -39,6 +39,8 @@
         make.top.mas_equalTo(subTitle.mas_bottom).offset(Interval(85));
         make.width.height.offset(ZOOM_SCALE(24));
     }];
+    self.showWordsBtn.selected = YES;
+
     [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.showWordsBtn.mas_left).offset(-5);
