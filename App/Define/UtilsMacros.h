@@ -23,7 +23,7 @@
 #define kAppWindow          [UIApplication sharedApplication].delegate.window
 #define kAppDelegate        [AppDelegate shareAppDelegate]
 #define kRootViewController [UIApplication sharedApplication].delegate.window.rootViewController
-#define kUserDefaults       [NSUserDefaults standardUserDefaults]
+
 #define kNotificationCenter [NSNotificationCenter defaultCenter]
 
 #define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
@@ -32,10 +32,7 @@
 #define kTopHeight (kStatusBarHeight + kNavBarHeight)
 //验证码有效时间token key
 #define verifyCode_token @"verifyCode_token"
-//请求头 Token
-#define XAuthToken @"X-Auth-Token"
-#define setXAuthToken(str)      [kUserDefaults setObject:str forKey:XAuthToken]
-#define getXAuthToken           [kUserDefaults objectForKey:XAuthToken]
+
 
 
 //获取屏幕宽高

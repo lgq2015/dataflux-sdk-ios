@@ -7,6 +7,7 @@
 //
 
 #import "PasswordSetVC.h"
+#import "OpenUDID.h"
 
 @interface PasswordSetVC ()
 @property (nonatomic, strong) UIButton *skipBtn;
@@ -61,6 +62,18 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
         make.height.offset(ZOOM_SCALE(47));
+    }];
+    RACSignal *phoneTf= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        return @(value.length>=8?YES:NO);
+    }];
+    RAC(self.confirmBtn,enabled) = phoneTf;
+    
+    RAC(self.confirmBtn, backgroundColor) = [phoneTf map: ^id (id value){
+        if([value boolValue]){
+            return PWBlueColor;
+        }else{
+            return [UIColor colorWithHexString:@"C7C7CC"];;
+        }
     }];
     
 }
@@ -122,7 +135,15 @@
 }
 }
 - (void)confirmBtnClick{
-    
+    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
+    NSString *openUDID = [OpenUDID value];
+    NSString *device_version = [NSString getCurrentDeviceModel];
+    NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile", @"deviceId": openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
+    [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 - (void)skipBtnClick{
     KPostNotification(KNotificationLoginStateChange, @YES);

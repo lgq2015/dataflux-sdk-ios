@@ -14,12 +14,18 @@
 #import "PasswordSetVC.h"
 #import "PWWeakProxy.h"
 #import "SetNewPasswordVC.h"
+#import <TTTAttributedLabel.h>
 
-@interface VerifyCodeVC ()
-@property (nonatomic, strong) UIImageView *shadowImage;
+@interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, assign) NSInteger second;
+@property (nonatomic, strong) UIButton *resendCodeBtn;
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, strong) PWMNView *codeTfView;
+@property (nonatomic, strong) UIButton *selectBtn;
+@property (nonatomic, strong) TTTAttributedLabel *agreementLab;
+
 @end
 
 @implementation VerifyCodeVC
@@ -81,12 +87,22 @@
         make.width.offset(ZOOM_SCALE(150));
     }];
     UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTitleColor text:@"后重发"];
+    timeLab.tag = 10;
     [self.view addSubview:timeLab];
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(phoneLab);
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
+    [self.resendCodeBtn sizeToFit];
+    CGFloat width = self.resendCodeBtn.frame.size.width +5;
+    [self.resendCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(phoneLab);
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(25));
+        make.width.offset(width);
+    }];
+    self.resendCodeBtn.hidden = YES;
     if (!_timeLab) {
         _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWBlueColor text:@"60S"];
         [self.view addSubview:_timeLab];
@@ -96,28 +112,134 @@
         make.right.mas_equalTo(timeLab.mas_left);
         make.centerY.mas_equalTo(timeLab);
     }];
-    PWMNView *codeTfView = [[PWMNView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(221), kWidth-Interval(32), ZOOM_SCALE(40))];
-    codeTfView.backgroundColor = PWBackgroundColor;
-    codeTfView.selectColor = PWBlueColor;
-    codeTfView.normolColor = PWGrayColor;
-    codeTfView.count = 6;
-    [codeTfView createItem];
-    codeTfView.completeBlock = ^(NSString *completeStr){
-        [self loginWithCode:completeStr];
-    };
-    [self.view addSubview:codeTfView];
-    [codeTfView mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (!_codeTfView) {
+        PWMNView *codeTfView = [[PWMNView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(221), kWidth-Interval(32), ZOOM_SCALE(40))];
+        codeTfView.backgroundColor = PWBackgroundColor;
+        codeTfView.selectColor = PWBlueColor;
+        codeTfView.normolColor = PWGrayColor;
+        codeTfView.count = 6;
+        [codeTfView createItem];
+        codeTfView.completeBlock = ^(NSString *completeStr){
+            self.code = completeStr;
+            if (self.isLog &&!self.selectBtn.selected) {
+                [iToast alertWithTitleCenter:@"未同意用户协议"];
+            }else{
+                [self loginWithCode:completeStr];
+            }
+        };
+        codeTfView.deleteBlock = ^(void){
+            self.code = @"";
+        };
+        self.codeTfView = codeTfView;
+        [self.view addSubview:self.codeTfView];
+    }
+    
+    
+    [self.codeTfView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.top.mas_equalTo(phoneLab).offset(Interval(84));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(50));
     }];
+    if (self.isLog) {
+        [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.codeTfView.mas_left);
+            make.top.mas_equalTo(self.codeTfView.mas_bottom).offset(ZOOM_SCALE(14));
+            make.width.height.offset(ZOOM_SCALE(13));
+        }];
+        [self.agreementLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.selectBtn.mas_right).offset(ZOOM_SCALE(10));
+            make.right.mas_equalTo(self.view).offset(-ZOOM_SCALE(10));
+            make.height.offset(ZOOM_SCALE(20));
+            make.centerY.mas_equalTo(self.selectBtn);
+        }];
+    }else{
+    
+    }
+    
 }
+-(UIButton *)selectBtn{
+    if (!_selectBtn) {
+        _selectBtn = [[UIButton alloc]init];
+        [_selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_unselected"] forState:UIControlStateNormal];
+        [_selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_select"] forState:UIControlStateSelected];
+        [_selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _selectBtn.selected = YES;
+        [self.view addSubview:_selectBtn];
+    }
+    return _selectBtn;
+}
+-(TTTAttributedLabel *)agreementLab{
+    if (!_agreementLab) {
+        NSString *linkText = @"《服务协议》";
+        NSString *linkText2 = @"《隐私权政策》";
+        NSString *promptText = @"同意《服务协议》与《隐私权政策》";
+        NSRange linkRange = [promptText rangeOfString:linkText];
+        NSRange linkRange2 = [promptText rangeOfString:linkText2];
+        _agreementLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
+        _agreementLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _agreementLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
+        _agreementLab.numberOfLines = 1;
+        _agreementLab.delegate = self;
+        _agreementLab.lineBreakMode = NSLineBreakByCharWrapping;
+        _agreementLab.text = promptText;
+        NSDictionary *attributesDic = @{(NSString *)kCTForegroundColorAttributeName : (__bridge id)PWBlueColor.CGColor,
+                                        (NSString *)kCTUnderlineStyleAttributeName : @(NO)
+                                        };
+        _agreementLab.linkAttributes = attributesDic;
+        _agreementLab.activeLinkAttributes = attributesDic;
+        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange];
+        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange2];
+        [self.view addSubview:_agreementLab];
+    }
+    return _agreementLab;
+}
+-(UIButton *)resendCodeBtn{
+    if (!_resendCodeBtn) {
+        _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新发送"];
+        [_resendCodeBtn setTitleColor:[UIColor colorWithHexString:@"D50000"] forState:UIControlStateNormal];
+        [_resendCodeBtn addTarget:self action:@selector(resendCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_resendCodeBtn];
+    }
+    return _resendCodeBtn;
+}
+- (void)selectBtnClick:(UIButton *)button{
+    self.selectBtn.selected = !button.selected;
+    if (self.selectBtn.selected) {
+        if (self.code.length == 6) {
+            [self loginWithCode:self.code];
+        }
+    }
+}
+#pragma mark ========== 倒计时展示/重新发送 ==========
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
+        self.timeLab.text = [NSString stringWithFormat:@"%ldS",(long)self.second];
+    }else if(self.second == 0){
+        self.resendCodeBtn.hidden = NO;
+        [self.timer setFireDate:[NSDate distantFuture]];
+        UILabel *lab = [self.view viewWithTag:10];
+        lab.hidden = YES;
+        self.timeLab.hidden = YES;
     }
-    self.timeLab.text = [NSString stringWithFormat:@"%ldS",(long)self.second];
+}
+- (void)resendCodeBtnClick{
+    //    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
+    //    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    //        if ([response[@"errCode"] isEqualToString:@""]) {
+    [self.timer setFireDate:[NSDate distantPast]];
+    self.resendCodeBtn.hidden = YES;
+    self.second = 60;
+    self.timeLab.hidden = NO;
+    UILabel *lab = [self.view viewWithTag:10];
+    lab.hidden = NO;
+    //        }else{
+    //        [iToast alertWithTitleCenter:response[@"message"]];
+    //        }
+    //    } failBlock:^(NSError *error) {
+    //        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+    //    }];
 }
 - (void)loginWithCode:(NSString *)code{
     if(self.isLog){
@@ -127,10 +249,12 @@
     NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         if (success) {
-            if ([des isEqualToString:@"isRegister"]) {
-                PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
-                [self.navigationController pushViewController:passwordVC animated:YES];
-            }
+            PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
+            passwordVC.changePasswordToken = des;
+            [self.navigationController pushViewController:passwordVC animated:YES];
+        }else{
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
         }
     }];
     }else{
@@ -146,11 +270,9 @@
             }else{
                 [iToast alertWithTitleCenter:response[@"message"]];
             }
-           
         } failBlock:^(NSError *error) {
             
         }];
-       
     }
 }
 - (void)viewWillDisappear:(BOOL)animated{

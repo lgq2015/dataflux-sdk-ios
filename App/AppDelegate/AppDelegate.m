@@ -19,7 +19,8 @@
     [self initService];
     [self initWindow];
     [self initUserManager];
-    [self initZhuge];
+//    [self initZhuge];
+    [self configUSharePlatforms];
     // Override point for customization after application launch.
     return YES;
 }

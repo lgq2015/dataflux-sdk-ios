@@ -8,10 +8,13 @@
 
 #import "JSONModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface RenderedTextModel : JSONModel
-
+@property (nonatomic, strong) NSString *detail;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *summary;
+@property (nonatomic, strong) NSString *suggestion;
+@property (nonatomic, strong) NSString *highlight;
 @end
 
-NS_ASSUME_NONNULL_END

@@ -9,13 +9,13 @@
 #import "RootViewController.h"
 
 
-//typedef NS_ENUM(NSInteger, ChangeUserInfoType) {
-//    ChangeUITPhoneNumber = 1,
-//    ChangeUITPassword,
-//    ChangeUITEmail,
-//};
+typedef NS_ENUM(NSInteger, ChangeUserInfoType) {
+    ChangeUITPhoneNumber = 1,
+    ChangeUITPassword,
+    ChangeUITEmail,
+};
 @interface ChangeUserInfoVC : RootViewController
-//@property (nonatomic, assign) ChangeUserInfoType type;
+@property (nonatomic, assign) ChangeUserInfoType type;
 @end
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "JSONModel.h"
+#import "RenderedTextModel.h"
 /*
  {
  "accountId": "acnt-bbfzQfqE6igbndcvgcMgwf",
@@ -51,6 +52,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueModel : JSONModel
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSArray  *latestIssueLogs; //[@"title"] subtitle
+@property (nonatomic, strong) NSString *level;
+@property (nonatomic, strong) NSString *issueId;
+@property (nonatomic, strong) NSString *updateTime;
+@property (nonatomic, strong) NSString *status;
+@property (nonatomic, assign) long actSeq;
+@property (nonatomic, strong) RenderedTextModel *renderedText;
+@property (nonatomic, assign) BOOL isRead;
+@property (nonatomic, strong) NSString *origin;
 
 @end
 

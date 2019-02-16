@@ -32,5 +32,6 @@ typedef void(^completedBlock)(BOOL is);
 - (void)createItem;
 - (void)setItemEmpty;
 - (void)codeView_ResignFirstResponder;
+- (void)codeView_showWarnState;
 - (void)setValueWithString:(NSString *)value completed:(completedBlock)completedBlock;
 @end

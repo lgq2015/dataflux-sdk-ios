@@ -8,7 +8,6 @@
 
 #import "UserManager.h"
 #import "OpenUDID.h"
-#import "CurrentUserModel.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -18,6 +17,7 @@ SINGLETON_FOR_CLASS(UserManager);
 -(instancetype)init{
     self = [super init];
     if (self) {
+
         //被踢下线
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onKick)
@@ -78,12 +78,16 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[@"errCode"];
             if(errCode.length>0){
-                [iToast alertWithTitleCenter:response[@"message"]];
+                if ([errCode isEqualToString:@"home.auth.passwordIncorrect"]) {
+                    [iToast alertWithTitleCenter:@"账号或密码错误"];
+                }else{
+                    [iToast alertWithTitleCenter:response[@"message"]];
+                }
             }else{
+                self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
-                NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
-                [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
-                [token synchronize];
+                setXAuthToken(content[@"authAccessToken"]);
+                [kUserDefaults synchronize];
                 KPostNotification(KNotificationLoginStateChange, @YES);
                 [self saveUserInfo];
             }
@@ -96,21 +100,30 @@ SINGLETON_FOR_CLASS(UserManager);
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
+                self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
                 NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
                 [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
                 [token synchronize];
+                BOOL isRegister = [content[@"isRegister"] boolValue];
                 [self saveUserInfo];
-                BOOL isRegister = content[@"isRegister"];
-                if (isRegister) {
+             if (isRegister) {
+                 NSString *changePasswordToken = content[@"changePasswordToken"];
                     if (completion) {
-                        completion(YES,@"isRegister");
+                        completion(YES,changePasswordToken);
                     }
                 }else{
                 KPostNotification(KNotificationLoginStateChange, @YES);
                 }
             }else{
-               [iToast alertWithTitleCenter:response[@"message"]];
+                if (completion) {
+                    completion(NO,@"");
+                }
+                if([response[@"errCode"] isEqualToString:@"home.auth.smsCodeIncorrect"]){
+                    [SVProgressHUD showErrorWithStatus:@"验证码错误"];
+                }else{
+                [iToast alertWithTitleCenter:response[@"message"]];
+                }
             }
             
         } failBlock:^(NSError *error) {
@@ -128,7 +141,6 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
             NSError *error;
             self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
-//            KPostNotification(KNotificationLoginStateChange, @YES);
             if (self.curUserInfo) {
                 YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
                 NSDictionary *dic = [self.curUserInfo modelToJSONObject];

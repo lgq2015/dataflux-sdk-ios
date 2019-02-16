@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UIButton *selectBtn;
 
 @property (nonatomic, strong) TTTAttributedLabel *agreementLab;
+
+@property (nonatomic, strong) NSString *temp;
 @end
 
 @implementation LoginPasswordVC
@@ -135,11 +137,23 @@
         make.centerY.mas_equalTo(self.selectBtn);
     }];
 
-    RACSignal *phoneTf = [self.phoneTf rac_textSignal];
+    RACSignal *phoneTf = [[self.phoneTf rac_textSignal]map:^id(NSString *value) {
+        
+        if((value.length == 3 || value.length == 8 )){
+            if (value.length<self.temp.length) {
+                value =[value substringToIndex:value.length-1];
+            }else{
+            value = [NSString stringWithFormat:@"%@ ", value];
+            }
+        }
+        self.phoneTf.text = value;
+        self.temp = value;
+        return value;
+    }];
     RACSignal *passwordTf =  [self.passwordTf rac_textSignal];
    
     RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf] reduce:^id(NSString * phone,NSString * password){
-        return @([NSString validateCellPhoneNumber:phone] && [NSString validatePassWordForm:password]&&self.selectBtn.selected);
+        return @([NSString validateCellPhoneNumber:[phone stringByReplacingOccurrencesOfString:@" " withString:@""]] && [NSString validatePassWordForm:password]&&self.selectBtn.selected);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
@@ -256,7 +270,7 @@
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
     NSDictionary *param =@{@"marker":@"mobile",
-        @"username":self.phoneTf.text,
+        @"username":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
         @"password": self.passwordTf.text,
         @"deviceId": openUDID,
         @"registrationId":@"191e35f7e06a8f91d83",

@@ -57,8 +57,8 @@
     self.titleLab.text = _data.title;
     [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-15);
-        make.width.offset(20);
-        make.height.offset(20);
+        make.width.offset(16);
+        make.height.offset(16);
         make.centerY.mas_equalTo(self.iconImgView);
     }];
 }
@@ -66,7 +66,7 @@
 - (void)createUITitle{
     _arrowImgView.hidden = NO;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_offset(18);
+        make.left.mas_offset(Interval(16));
         make.height.offset(22);
         make.centerY.mas_equalTo(self.contentView);
     }];
@@ -103,6 +103,7 @@
         make.centerY.mas_equalTo(self.titleLab);
     }];
     [self.switchBtn setOn:self.data.isOn];
+    [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
@@ -139,6 +140,15 @@
         [self addSubview:_switchBtn];
     }
     return _switchBtn;
+}
+- (void)valueChanged:(UISwitch *)sender{
+    DLog(@"%d",sender.isOn);
+    if (self.switchChange) {
+        self.switchChange(sender.isOn);
+    }
+}
+-(void)setSwitchBtnisOn:(BOOL)ison{
+    [self.switchBtn setOn:ison];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

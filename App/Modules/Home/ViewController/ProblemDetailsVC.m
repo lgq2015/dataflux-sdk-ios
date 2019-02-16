@@ -49,8 +49,6 @@
 //    [self.navRightBtn setBadgeValue:2];
 //    self.navigationItem.rightBarButtonItem = item;
     
-
-   
 }
 - (void)setupView{
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
@@ -63,7 +61,7 @@
         make.top.mas_equalTo(self.mainScrollView).offset(Interval(12));
         make.width.offset(kWidth);
     }];
-    self.titleLab.text =@"标题标题标题标题标题";
+    self.titleLab.text =self.model.title;
     [self.stateLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(16);
         make.width.offset(ZOOM_SCALE(54));
@@ -106,7 +104,8 @@
         make.top.mas_equalTo(self.typeIcon.mas_bottom).offset(ZOOM_SCALE(6));
         make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
     }];
-    self.contentLab.text = @"描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述";
+    self.contentLab.text = self.model.attrs;
+    
     [self.contentImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));

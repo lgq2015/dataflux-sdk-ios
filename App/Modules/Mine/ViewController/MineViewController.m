@@ -13,7 +13,7 @@
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
 #import "ContactUsVC.h"
-
+#import "AboutUsVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIImageView *iconImgView;
@@ -31,7 +31,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
-    self.dataSource = [NSMutableArray new];
+    self.dataSource = [NSArray new];
     [self dealWithData];
     [self createUI];
 }
@@ -55,6 +55,7 @@
     self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.bounces = NO;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -146,7 +147,10 @@
             break;
         case MineCellTypeCollect:
             break;
-        case MineCellTypeAboutPW:
+        case MineCellTypeAboutPW:{
+            AboutUsVC *aboutVC = [[AboutUsVC alloc]init];
+            [self.navigationController pushViewController:aboutVC animated:YES];
+        }
             break;
         case MineCellTypeEncourage:
             
@@ -186,7 +190,7 @@
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 8)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 12)];
     //自定义颜色
     view.backgroundColor = PWBackgroundColor;
     return view;

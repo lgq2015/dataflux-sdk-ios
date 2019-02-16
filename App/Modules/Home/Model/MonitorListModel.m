@@ -7,10 +7,42 @@
 //
 
 #import "MonitorListModel.h"
-
+#import "IssueModel.h"
 @implementation MonitorListModel
-+(BOOL)propertyIsOptional:(NSString*)propertyName
-{
-    return YES;
+- (instancetype)initWithJsonDictionary:(IssueModel *)model{
+    if (![model isKindOfClass:[IssueModel class]]) return nil;
+    if (self = [super init]) {
+        [self setValueWithModel:model];
+    }
+    return self;
+}
+- (void)setValueWithModel:(IssueModel *)model{
+    if ([model.level isEqualToString:@"danger"]) {
+        self.state = MonitorListStateSeriousness;
+    }else if([model.level isEqualToString:@"warning"]){
+        self.state = MonitorListStateWarning;
+    }else{
+        self.state =MonitorListStateCommon;
+    }
+    if ([model.status isEqualToString:@"recovered"]) {
+        self.state =MonitorListStateRecommend;
+    }else if ([model.status isEqualToString:@"expired"] || [model.status isEqualToString:@"discarded"]){
+        self.state = MonitorListStateLoseeEfficacy;
+    }
+    if (model.renderedText) {
+        self.title = model.renderedText.title;
+        self.content = model.renderedText.summary;
+        self.attrs = model.renderedText.suggestion;
+    }else{
+        self.title = model.title;
+        self.content = model.content;
+        self.attrs = model.latestIssueLogs[0][@"title"];
+    }
+    self.time = model.updateTime;
+    if ([model.origin isEqualToString:@"user"]) {
+        self.isFromUser = YES;
+    }else{
+        self.isFromUser = NO;
+    }
 }
 @end

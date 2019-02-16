@@ -28,6 +28,12 @@
     self.line.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1/1.0];
     
 }
+-(void)warning{
+    self.line.backgroundColor = [UIColor colorWithHexString:@"D50000"];
+}
+- (void)setNormalState{
+    self.line.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1/1.0];
+}
 -(UIView *)line{
     if(!_line){
         _line = [[UIView alloc]initWithFrame:CGRectMake(0, 31*self.zoom, 30*self.zoom, 1)];

@@ -44,19 +44,21 @@
         make.right.mas_equalTo(self.contentView).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
     }];
+   
     [self.warningLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentView).offset(Interval(16));
         make.right.mas_equalTo(self.contentView).offset(-20);
         make.height.offset(ZOOM_SCALE(28));
         make.width.offset(ZOOM_SCALE(120));
     }];
+
     self.titleLab.numberOfLines = 0;
   
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(3));
         make.left.equalTo(self.stateLab.mas_left);
         make.right.mas_equalTo(self.contentView).offset(-Interval(21));
-   if (!self.model.suggestion) {
+   if (!self.model.attrs) {
             make.bottom.mas_equalTo(self.contentView).offset(-Interval(11));
     }
     }];
@@ -70,34 +72,39 @@
 }
 - (void)setModel:(MonitorListModel *)model{
     _model = model;
-
     switch (self.model.state) {
-        case 1:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"严重";
-            break;
-        case 2:
+        case MonitorListStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
             self.stateLab.text = @"警告";
             break;
-        case 3:
+        case MonitorListStateSeriousness:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
+            self.stateLab.text = @"严重";
+            break;
+        case MonitorListStateCommon:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF "];
+            self.stateLab.text = @"普通";
+            break;
+        case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已解决";
             break;
-        case 4:
+        case MonitorListStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
             self.stateLab.text = @"失效";
             break;
     }
-    
+    if ([self.model.highlight isEqualToString:@""]) {
+        self.warningLab.hidden = YES;
+    }
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
     self.timeLab.text = self.model.time;
     
-    self.warningLab.text = self.model.attrs;
+    self.warningLab.text = self.model.highlight;
     self.titleLab.text = self.model.title;
    
    
-    self.subLab.text = self.model.suggestion;
+    self.subLab.text = self.model.attrs;
     DLog(@"%f",self.contentView.height);
 }
 -(UILabel *)timeLab{

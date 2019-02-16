@@ -44,10 +44,31 @@
     }
     switch (_model.type) {
         case SourceTypeAli:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali"];
+            break;
+        case SourceTypeHUAWEI:
+            self.imageView.image = [UIImage imageNamed:@"icon_huawei"];
+            break;
+        case SourceTypeAWS:
+            self.imageView.image = [UIImage imageNamed:@"icon_aws"];
+            break;
+        case SourceTypeTencent:
+            self.imageView.image = [UIImage imageNamed:@"icon_tencent"];
+            break;
+        case SourceTypeURLDiagnose:
             self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
             break;
-            
-        default:
+        case SourceTypeSingleDiagnose:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            break;
+        case SourceTypeClusterDiagnose:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            break;
+        case SourceTypeDomainNameDiagnose:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            break;
+        case SourceTypeWebsiteSecurityScan:
+            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
             break;
     }
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {

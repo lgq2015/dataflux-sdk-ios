@@ -9,5 +9,13 @@
 #import "IssueModel.h"
 
 @implementation IssueModel
-
++(JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
+                                                                  @"issueId": @"id"
+                                                                  }];
+}
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

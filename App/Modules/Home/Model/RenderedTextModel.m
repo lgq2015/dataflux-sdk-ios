@@ -9,5 +9,8 @@
 #import "RenderedTextModel.h"
 
 @implementation RenderedTextModel
-
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

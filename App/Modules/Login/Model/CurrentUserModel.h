@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *createTime;
+@property (nonatomic, strong) NSString *userID;
 @end
 /*
  

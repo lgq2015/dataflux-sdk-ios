@@ -70,22 +70,22 @@
             top = self.attrsLab;
         }
     }
-    if (model.descs.length>0) {
+    if (model.attrs.length>0) {
         [self.descsLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(top).with.offset(ZOOM_SCALE(10));
             make.left.mas_equalTo(ZOOM_SCALE(17));
             make.right.mas_equalTo(ZOOM_SCALE(17));
         }];
-        self.descsLab.text = model.descs;
+        self.descsLab.text = model.attrs;
         top = self.descsLab;
     }
-    if (model.suggestion.length>0) {
+    if (model.attrs.length>0) {
         [self.suggestionLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(top).with.offset(ZOOM_SCALE(15));
             make.left.mas_equalTo(ZOOM_SCALE(17));
             make.right.mas_equalTo(ZOOM_SCALE(17));
         }];
-        self.suggestionLab.text = model.suggestion;
+        self.suggestionLab.text = model.attrs;
         top = self.suggestionLab;
     }
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {

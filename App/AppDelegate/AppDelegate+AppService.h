@@ -17,7 +17,7 @@
 
 //初始化 window
 -(void)initWindow;
-
+-(void)configUSharePlatforms;
 //初始化 UMeng
 -(void)initUMeng;
 //初始化 zhuge

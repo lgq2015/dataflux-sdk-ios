@@ -30,8 +30,16 @@
 #define PW_changePassword     [NSString stringWithFormat:@"%@/v1/auth/change-password", API_SEVERID]
 // 忘记密码
 #define PW_forgottenPassword     [NSString stringWithFormat:@"%@/v1/auth/forgotten-password", API_SEVERID]
+
+
+
+
+
+#pragma mark ========== 情报 ==========
 //首页News列表
 #define PW_newsList        @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
+
+
 //情报列表
 #define PW_issueList       [NSString stringWithFormat:@"%@/v1/issue/list", API_SEVERID]
 //情报源添加
@@ -45,8 +53,25 @@
 
 
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
+//情报添加
+#define PW_issueAdd              [NSString stringWithFormat:@"%@/v1/issue/add",API_SEVERID]
+
+
+
+
+
+#pragma mark ========== 智库 ==========
+//文章详情链接：
+#define PW_articleDetails(ID) [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/forum/a/:%@",ID]
+//handbook详情链接：(嵌套iframe
+#define PW_handbook(ID)     [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/handbook/h/:%@",ID]
 #define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/mgr/all/list", API_SEVERID]
 
+
+
+
+
+#pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
 

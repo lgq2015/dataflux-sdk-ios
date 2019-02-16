@@ -14,10 +14,13 @@
 //全局宏
 #import "UtilsMacros.h"
 #import "NotificationMacros.h"
+#import "NSUserDefaultsMacros.h"
 #import "PWNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSString+verify.h"
 #import <WebViewJavascriptBridge.h>
+#import "UserManager.h"
+
 // 布局
 #import "Masonry.h"
 #import "PWCommonCtrl.h"
@@ -26,6 +29,6 @@
 #import "iToast+SYCategory.h"
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
-//#import <SVProgressHUD.h>
+#import <SVProgressHUD.h>
 
 #endif /* PrefixHeader_pch */

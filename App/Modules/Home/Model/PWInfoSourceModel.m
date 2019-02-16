@@ -27,6 +27,12 @@
     }
     if ([dict[@"provider"] isEqualToString:@"aliyun"]) {
         self.type = SourceTypeAli;
+    }else if([dict[@"provider"] isEqualToString:@"qcloud"]){
+        self.type = SourceTypeTencent;
+    }else if([dict[@"provider"] isEqualToString:@"aws"]){
+        self.type = SourceTypeAWS;
+    }else if([dict[@"provider"] isEqualToString:@"huaweicloud"]){
+        self.type = SourceTypeHUAWEI;
     }
     if (dict[@"credentialJSON"]) {
         self.akId = dict[@"credentialJSON"][@"akId"];

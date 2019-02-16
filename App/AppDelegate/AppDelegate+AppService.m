@@ -13,7 +13,7 @@
 #import "VerifyCodeLoginVC.h"
 #import "UserManager.h"
 #import "AppManager.h"
-
+#import "IssueListManger.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -34,12 +34,19 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+       // 引导页
+        RootViewController *wsCtrl = [[RootViewController alloc]init];
+        self.window.rootViewController = wsCtrl;
+        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
+    }else{
     self.mainTabBar = [[MainTabBarController alloc]init];
     self.window.rootViewController = self.mainTabBar;
     [self.window makeKeyAndVisible];
     [[UIButton appearance] setExclusiveTouch:YES];
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
     }
 }
 #pragma mark ========== 初始化网络配置 ==========
@@ -93,6 +100,11 @@
             [kAppWindow.layer addAnimation:anima forKey:@"revealAnimation"];
             
         }
+      
+        BOOL connect =  [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
+        if (connect) {
+            [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        }
         
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;
@@ -123,6 +135,8 @@
 -(void)configUSharePlatforms{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.enable = YES; // 控制整个功能是否启用
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setMinimumDismissTimeInterval:2];
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{

@@ -33,6 +33,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SVProgressHUD (2.2.5)
   - TTTAttributedLabel (2.0.0)
   - WebViewJavascriptBridge (6.0.3)
   - YYKit (1.0.9):
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - MJRefresh
   - ReactiveCocoa (= 2.0)
   - SDWebImage (~> 3.8)
+  - SVProgressHUD
   - TTTAttributedLabel
   - WebViewJavascriptBridge (~> 6.0)
   - YYKit
@@ -66,6 +68,7 @@ SPEC REPOS:
     - MJRefresh
     - ReactiveCocoa
     - SDWebImage
+    - SVProgressHUD
     - TTTAttributedLabel
     - WebViewJavascriptBridge
     - YYKit
@@ -80,11 +83,12 @@ SPEC CHECKSUMS:
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: e09f4f87da0e59057ac6669933afe519dd0126b0
 
-PODFILE CHECKSUM: 8f9bafa732f8749b362475c498ad9d68e67d5d3b
+PODFILE CHECKSUM: 2b6d54eca287cf88600a885dd091b50d0807f480
 
 COCOAPODS: 1.5.3

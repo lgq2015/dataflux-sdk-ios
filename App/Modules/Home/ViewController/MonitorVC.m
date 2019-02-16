@@ -13,9 +13,8 @@
 #import "ProblemDetailsVC.h"
 
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) MonitorCell *tempCell;
-
+@property (nonatomic, strong) NSMutableArray *monitorData;
 @end
 
 @implementation MonitorVC
@@ -23,12 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"监控";
-    [self loadData];
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
     [self addNavigationItemWithTitles:@[@"创建问题"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    self.monitorData = [NSMutableArray new];
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -39,31 +38,25 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
     self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
-    NSArray *array = @[@{@"title":@"您的 ECS 还有5天过期几几年就能了立刻就看两节课老家看了",@"time":@"30分钟前",@"state":@"1",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期您的 ECS 还有5天",@"time":@"30分钟前",@"state":@"2",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期",@"time":@"30分钟前",@"state":@"3",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立",@"time":@"30分钟前",@"state":@"4",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…"},@{@"title":@"您的 ECS 还有5天过期几几年就能了立刻就看两节课老家看了",@"time":@"30分钟前",@"state":@"1",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期您的 ECS 还有5天",@"time":@"30分钟前",@"state":@"2",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期",@"time":@"30分钟前",@"state":@"3",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…",@"attrs":@"仅剩5天过期"},@{@"title":@"您的 ECS 还有5天过期您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立您的 ECS 还有5天过期几几年就能了立",@"time":@"30分钟前",@"state":@"4",@"suggestion":@"张三：可能需要寻求协助，大家意见保持保持保持保…"}];
-    self.dataSource = [NSMutableArray new];
-    for (NSDictionary *dict in array) {
-        NSError *error;
-        MonitorListModel *model = [[MonitorListModel alloc]initWithDictionary:dict error:&error];
-        [self.dataSource addObject:model];
-    }
+    [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
+        [self.monitorData addObject:model];
+    }];
     [self.tableView reloadData];
 }
-- (void)loadData{
-//    NSDictionary *param = @{@"pageSize":10,}
-//    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
-}
+
 - (void)navBtnClick:(UIButton *)btn{
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
     [self.navigationController pushViewController:creatVC animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return self.monitorData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MonitorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonitorCell"];
-    cell.model = self.dataSource[indexPath.row];
+    cell.model = self.monitorData[indexPath.row];
     cell.backgroundColor = PWWhiteColor;
     return cell;
 }
@@ -73,9 +66,9 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.dataSource[indexPath.row];
+    MonitorListModel *model =self.monitorData[indexPath.row];
     if (model.cellHeight == 0 || !model.cellHeight) {
-        CGFloat cellHeight = [self.tempCell heightForModel:self.dataSource[indexPath.row]];
+        CGFloat cellHeight = [self.tempCell heightForModel:self.monitorData[indexPath.row]];
         // 缓存给model
         model.cellHeight = cellHeight;
 

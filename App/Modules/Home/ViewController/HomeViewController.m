@@ -11,6 +11,7 @@
 #import "InformationVC.h"
 #import "ThinkTankVC.h"
 #import "ToolsVC.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 
 @interface HomeViewController ()
@@ -49,6 +50,8 @@
         }
     };
     [self.view addSubview:scrollPageView];
+    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
+    keyboardManager.enable = YES;
 }
 - (NSArray *)setupChildVcAndTitle {
     InformationVC *vc1 = [InformationVC new];

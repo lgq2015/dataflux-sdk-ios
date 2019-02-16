@@ -13,6 +13,8 @@
 #import "ChangePasswordVC.h"
 #import "IgnoreListVC.h"
 #import "AboutUsVC.h"
+#import "SecurityPrivacyVC.h"
+
 @interface SettingUpVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)  UIButton *exitBtn;
@@ -30,16 +32,17 @@
     
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
-    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" switch:NO];
+//    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:NO];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存"];
-    NSArray *array =@[changePassword,ignore,notification,aboutUs];
+    NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
     self.tableView.frame = CGRectMake(0, 5, kWidth, self.dataSource.count*45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.bounces = NO;
     self.tableView.rowHeight = 45;
-   
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
     [self.tableView reloadData];
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     [self.view addSubview:self.tableView];
@@ -74,32 +77,51 @@
     [alert addAction:confim];
     [self presentViewController:alert animated:YES completion:nil];
 }
+- (void)showSwitchChangeAlert:(NSInteger)row{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        
+    }];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+   __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [cell setSwitchBtnisOn:YES];
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     
-        if (indexPath.row==0 || indexPath.row == 1) {
+        if (indexPath.row==0 ) {
             [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeTitle];
-        }else if(indexPath.row == 2){
+        }else if(indexPath.row == 1){
             [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeSwitch];
+            cell.switchChange = ^(BOOL isOn){
+                if(!isOn){
+                    [self showSwitchChangeAlert:indexPath.row];
+                }
+            };
         }else{
             [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeTitle];
+            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
         }
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
-        IgnoreListVC *ignore = [[IgnoreListVC alloc]init];
-        [self.navigationController pushViewController:ignore animated:YES];
-    }else
-    if(indexPath.row == 3){
+    if (indexPath.row == 0) {
+        SecurityPrivacyVC *securityVC = [[SecurityPrivacyVC alloc]init];
+        [self.navigationController pushViewController:securityVC animated:YES];
+    }else if(indexPath.row == 2){
         UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:@"确定清理所有缓存" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             

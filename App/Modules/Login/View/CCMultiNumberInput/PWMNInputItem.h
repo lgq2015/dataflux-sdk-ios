@@ -11,5 +11,6 @@
 @interface PWMNInputItem : UIView
 @property (nonatomic, strong) UILabel *inputView;
 @property (nonatomic, assign) CGFloat zoom;
-
+-(void)warning;
+-(void)setNormalState;
 @end

@@ -8,9 +8,8 @@
 
 #import "RootViewController.h"
 
-
 @interface CreateQuestionVC : RootViewController
-
+@property (nonatomic, copy) NSString *type;
 @end
 
 

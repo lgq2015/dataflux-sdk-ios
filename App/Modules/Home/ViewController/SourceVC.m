@@ -476,8 +476,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if (isSecureTextEntry) {
         tf.frame = CGRectMake(Interval(16), ZOOM_SCALE(34), kWidth-Interval(64), ZOOM_SCALE(22));
       UIButton  *showWordsBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(337), ZOOM_SCALE(33), ZOOM_SCALE(24), ZOOM_SCALE(24))];
-        [showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateNormal];
-        [showWordsBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateSelected];
+        [showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateNormal];
+        [showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateSelected];
         [showWordsBtn addTarget:self action:@selector(pwdTextSwitch:) forControlEvents:UIControlEventTouchUpInside];
         showWordsBtn.tag = tag+100;
         [item addSubview:showWordsBtn];
@@ -554,9 +554,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     NSDictionary *param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-//        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
         }else{
-//        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);

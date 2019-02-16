@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UITextField *phoneTf;
 @property (nonatomic, strong) UIButton *verifyCodeBtn;
 @property (nonatomic, strong) UIButton *passwordBtn;
+@property (nonatomic, strong) NSString *temp;
+
 @end
 
 @implementation VerifyCodeLoginVC
@@ -81,9 +83,21 @@
         make.height.offset(ZOOM_SCALE(20));
     }];
 
-
+//    RACSignal *phoneTf = [[self.phoneTf rac_textSignal]map:^id(NSString *value) {
+//
+//        return value;
+//    }];
     RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
-        return @([NSString validateCellPhoneNumber:value]);
+        if((value.length == 3 || value.length == 8 )){
+            if (value.length<self.temp.length) {
+                value =[value substringToIndex:value.length-1];
+            }else{
+                value = [NSString stringWithFormat:@"%@ ", value];
+            }
+        }
+        self.phoneTf.text = value;
+        self.temp = value;
+        return @([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
     }];
     RAC(self.verifyCodeBtn,enabled) = phoneTf;
    
@@ -141,7 +155,7 @@
 //        if ([response[@"errCode"] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.isLog = YES;
-            codeVC.phoneNumber = self.phoneTf.text;
+            codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
 //        }else{
 //        [iToast alertWithTitleCenter:response[@"message"]];

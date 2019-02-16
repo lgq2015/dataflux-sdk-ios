@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CurrentUserModel.h"
 typedef NS_ENUM(NSInteger, UserLoginType){
     UserLoginTypeVerificationCode= 0,//未知
     UserLoginTypePwd,///账号登录

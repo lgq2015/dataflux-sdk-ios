@@ -9,6 +9,11 @@
 #import "CurrentUserModel.h"
 
 @implementation CurrentUserModel
++(JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
+                                                                  @"userID": @"id"
+                                                                  }];
+}
 +(BOOL)propertyIsOptional:(NSString*)propertyName
 {
     return YES;

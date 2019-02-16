@@ -14,6 +14,8 @@
 @property (nonatomic, assign) NSInteger flogIndex;//记录是否跳转到其他的编辑文本上面
 @property (nonatomic, assign) CGFloat keyboardheight;
 @property (nonatomic, strong) UITextField *inputTf;
+@property (nonatomic, strong) NSMutableArray<PWMNInputItem*> *itemAry;
+@property (nonatomic, assign) BOOL isWarning;
 @end
 
 #define DELETEBUTTONTAG 20000
@@ -38,9 +40,23 @@
                 self.deleteBlock();
             }
         }
+        if (self.seletTag == 1 && self.isWarning) {
+            [self.itemAry enumerateObjectsUsingBlock:^(PWMNInputItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj setNormalState];
+            }];
+            self.isWarning = NO;
+        }
     }else{
         [self.inputTf resignFirstResponder];
     }
+}
+-(void)codeView_showWarnState{
+    [self.itemAry enumerateObjectsUsingBlock:^(PWMNInputItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj warning];
+    }];
+    self.seletTag = 1;
+    self.isWarning = YES;
+    [self codeView_BecomeFirstResponder];
 }
 #pragma mark ========== private method ==========
 - (void)createItem{
@@ -54,17 +70,19 @@
     CGPoint center = self.center;
     center.y -= self.frame.origin.y;
     CGFloat left = (width-itemW*self.count-spacing*(self.count-1))/2.0;
+    self.itemAry = [NSMutableArray new];
     for (NSInteger i=0; i<self.count; i++) {
         PWMNInputItem *item = [[PWMNInputItem alloc]initWithFrame:CGRectMake(left+i*(itemW+spacing), 5, itemW, 30*zoom)];
         item.zoom = zoom;
         center.x = item.center.x;
         item.center = center;
         item.tag = i+1;
-        
+        [self.itemAry addObject:item];
         [self addSubview:item];
     }
      [self codeView_BecomeFirstResponder];
 }
+
 - (void)textFieldDidChange:(UITextField *)textField{
     PWMNInputItem *item = [self viewWithTag:self.seletTag];
     if (textField.text.length == 2) {

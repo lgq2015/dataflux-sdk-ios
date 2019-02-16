@@ -17,9 +17,12 @@ typedef NS_ENUM(NSInteger, MineVCCellType) {
 };
 
 @class MineCellModel;
+typedef void (^switchBlock)(BOOL isOn);
 @interface MineViewCell : UITableViewCell
 @property (nonatomic, strong) MineCellModel *data;
+@property (nonatomic, copy) switchBlock switchChange;
 @property (nonatomic, strong) UISwitch *switchBtn;
 
 -(void)initWithData:(MineCellModel *)data type:(MineVCCellType)type;
+-(void)setSwitchBtnisOn:(BOOL)ison;
 @end

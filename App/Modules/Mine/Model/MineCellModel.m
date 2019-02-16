@@ -21,7 +21,7 @@
 -(instancetype)initWithTitle:(NSString *)title{
    return  [self initWithTitle:title icon:@"" cellType:100];
 }
--(instancetype)initWithTitle:(NSString *)title switch:(BOOL)isOn{
+-(instancetype)initWithTitle:(NSString *)title isSwitch:(BOOL)isOn{
     if (self = [super init]) {
         self.title = title;
         self.isOn = isOn;

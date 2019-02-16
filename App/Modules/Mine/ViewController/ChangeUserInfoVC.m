@@ -16,30 +16,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UINavigationBar *navBar = [UINavigationBar appearance];
-    // 导航栏背景图
-    [navBar setBarTintColor:PWBackgroundColor];
-    [navBar setTintColor:PWBackgroundColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
-    
-    [navBar setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navBar setShadowImage:[UIImage new]];//去掉阴影线
+    self.isHidenNaviBar = YES;
+    [self createNav];
     [self createUI];
 }
-
+- (void)createNav{
+    
+}
 - (void)createUI{
-//    switch (self.type) {
-//        case ChangeUITPhoneNumber:
-//            self.title = @"修改手机";
-//            break;
-//        case ChangeUITPassword:
-//            self.title = @"修改密码";
-//            break;
-//        case ChangeUITEmail:
-//            self.title = @"修改邮箱";
-//            break;
-//    }
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58), kWidth, ZOOM_SCALE(50)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全\n请选择一种身份验证"];
+    switch (self.type) {
+        case ChangeUITPhoneNumber:
+            self.title = @"修改手机";
+            break;
+        case ChangeUITPassword:
+            self.title = @"修改密码";
+            break;
+        case ChangeUITEmail:
+            self.title = @"修改邮箱";
+            break;
+    }
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58), kWidth, ZOOM_SCALE(50)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];
     

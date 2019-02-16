@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UITextView *describeTextView;
 @property (nonatomic, strong) UIView *titleView;
 // type = 1 严重 type = 2  警告
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSString *level;
 @end
 
 @implementation CreateQuestionVC
@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"创建问题";
-    self.type = 0;
     self.isShowLiftBack = NO;
     [self createUI];
 }
@@ -76,12 +75,12 @@
         make.centerY.mas_equalTo(levelView.centerY);
     }];
     [[waringBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        self.type = 1;
+        self.level = @"warning";
         waringBtn.selected = YES;
         seriousBtn.selected = NO;
     }];
     [[seriousBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        self.type = 2;
+        self.level = @"danger";
         seriousBtn.selected = YES;
         waringBtn.selected = NO;
     }];
@@ -175,7 +174,12 @@
     if (button.tag == 5) {
         [self.navigationController popViewControllerAnimated:YES];
     }else if (button.tag == 6){
-        
+        NSDictionary *params = @{@"data":@{@"level":self.level,@"type":self.type}};
+        [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            
+        } failBlock:^(NSError *error) {
+            
+        }];
     }
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

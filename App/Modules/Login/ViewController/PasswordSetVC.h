@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PasswordSetVC : RootViewController
-
+@property (nonatomic, copy) NSString *changePasswordToken;
 @end
 
 NS_ASSUME_NONNULL_END
