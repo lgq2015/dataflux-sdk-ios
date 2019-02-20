@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MJRefresh.h>
-
+#import "NaviBarView.h"
 @interface RootViewController : UIViewController
 /**
  *  修改状态栏颜色
@@ -20,6 +20,8 @@
 @property (nonatomic, strong) MJRefreshGifHeader *header;
 @property (nonatomic, strong) MJRefreshBackStateFooter *footer;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+/** 导航条 */
+@property(nonatomic, strong)NaviBarView *topNavBar;
 /**
  *  下拉刷新
  */
@@ -58,8 +60,16 @@
  是否隐藏导航栏
  */
 @property (nonatomic, assign) BOOL isHidenNaviBar;
-
 /**
+ 是否显示自定义导航
+ */
+@property (nonatomic, assign) BOOL isShowCustomNaviBar;
+/**
+ 设置导航标题
+ */
+- (void)setNaviTitle:(NSString *)naviTitle ;
+/**
+ 
  导航栏添加文本按钮
  
  @param titles 文本数组

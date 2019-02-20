@@ -32,7 +32,12 @@
     //默认导航栏样式：黑字
     self.StatusBarStyle = UIStatusBarStyleDefault;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    if(self.isShowCustomNaviBar){
+        self.isHidenNaviBar = YES;
+        [self drawTopNaviBar];
+    }
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
@@ -44,7 +49,30 @@
     [iToast hiddenIToast];
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
-
+- (NaviBarView *)topNavBar {
+    return _topNavBar;
+}
+- (void)drawTopNaviBar{
+    if (_topNavBar) {
+        [_topNavBar removeFromSuperview];
+    }
+    // 添加自定义的导航条
+    NaviBarView *naviBar = [[NaviBarView alloc] initWithController:self];
+    naviBar.backgroundColor = PWBackgroundColor;
+    [self.view addSubview:naviBar];
+    self.topNavBar = naviBar;
+        // 添加返回按钮
+    [_topNavBar addBackBtn];
+        // 添加底部分割线 - 如果不需要添加,这里处理即可
+//    [_topNavBar addBottomSepLine];
+}
+- (void)setNaviTitle:(NSString *)naviTitle {
+    if (self.isHidenNaviBar) {
+        [_topNavBar setNavigationTitle:naviTitle];
+    }else{
+        self.title = naviTitle;
+    }
+}
 - (void)showLoadingAnimation
 {
     
