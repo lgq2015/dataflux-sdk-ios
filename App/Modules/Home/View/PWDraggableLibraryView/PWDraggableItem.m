@@ -37,6 +37,11 @@ static CGFloat kDuration = .3f;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.layer.shadowOffset = CGSizeMake(0,2);
+        self.layer.shadowColor = [UIColor colorWithHexString:@"627084"].CGColor;
+        self.layer.shadowRadius = 8;
+        self.layer.shadowOpacity = 0.11;
+        self.layer.cornerRadius = 4;
         self.longPressGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(buttonLongPressed:)];
         self.longPressGes.delegate = self;
         [self addGestureRecognizer:self.longPressGes];
@@ -53,16 +58,17 @@ static CGFloat kDuration = .3f;
 }
 
 - (void)createUI{
- 
-   
-    CGFloat height = ZOOM_SCALE(116);
+    CGFloat height = ZOOM_SCALE(136);
     if (!_iconImgVie) {
         _iconImgVie = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, height)];
-        _iconImgVie.contentMode = UIViewContentModeBottom;
+        _iconImgVie.layer.cornerRadius =4;
+        _iconImgVie.layer.masksToBounds =YES;
+        _iconImgVie.contentMode =UIViewContentModeScaleAspectFill;
+
         [self addSubview:_iconImgVie];
     }
     
-    self.iconImgVie.contentMode = UIViewContentModeScaleAspectFit;
+
     [self bringSubviewToFront:self.upTitleLab];
     [self bringSubviewToFront:self.subTitleLab];
 //    self.upTitleLab.text = self.model.title;

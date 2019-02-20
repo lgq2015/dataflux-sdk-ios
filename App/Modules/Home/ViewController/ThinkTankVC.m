@@ -11,15 +11,20 @@
 #import "PWDraggableItem.h"
 
 static NSUInteger kLineCount = 3;
-static NSUInteger ItemHeight = 158;
-@interface ThinkTankVC ()<PWDraggableItemDelegate>
+static NSUInteger ItemHeight = 136;
+static NSUInteger ItemWidth = 104;
+
+@interface ThinkTankVC ()<PWDraggableItemDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) NSMutableArray *handbookArray;
+@property (nonatomic, strong) UISearchBar *searchTf;
 @end
 
 @implementation ThinkTankVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mainScrollView.backgroundColor = PWWhiteColor;
+    self.mainScrollView.frame= CGRectMake(0, Interval(74), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
     [self loadDatas];
 }
 - (void)loadDatas{
@@ -37,15 +42,16 @@ static NSUInteger ItemHeight = 158;
     }];
 }
 - (void)createUI{
-    self.mainScrollView.frame= CGRectMake(0, 0, kWidth, kHeight-kTopHeight-kTabBarHeight);
+    self.searchTf.placeholder = @"搜索";
+    self.view.backgroundColor = PWWhiteColor;
     NSUInteger backImgCount = self.handbookArray.count%3 == 0? self.handbookArray.count/3:self.handbookArray.count/3+1;
-    self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*ZOOM_SCALE(167)+25);
-    [self.mainScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*(ItemHeight+ZOOM_SCALE(18)));
+//    [self.mainScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSMutableArray *array = [NSMutableArray array];
-    CGFloat width = ZOOM_SCALE(90);
-    CGFloat kMargin = (kWidth-3*width)/4.00;
-    CGFloat height = ZOOM_SCALE(127);
-    //            [self createBackImgWithCount:backImgCount];
+    CGFloat width = ZOOM_SCALE(ItemWidth);
+    CGFloat kMargin = (kWidth-kLineCount*width)/4.00;
+    CGFloat height = ZOOM_SCALE(ItemHeight);
+
     for (NSInteger index = 0; index<self.handbookArray.count; index++) {
         NSError *error;
         PWDraggableModel *model = [[PWDraggableModel alloc]initWithDictionary:self.handbookArray[index] error:&error];
@@ -53,7 +59,7 @@ static NSUInteger ItemHeight = 158;
         NSUInteger X = index % kLineCount;
         NSUInteger Y = index / kLineCount;
         PWDraggableItem *btn = [[PWDraggableItem alloc]init];
-        btn.frame = CGRectMake(X * (width + kMargin) + kMargin, Y*ZOOM_SCALE(167)+ZOOM_SCALE(25), width, height);
+        btn.frame = CGRectMake(X * (width + kMargin) + kMargin, Y*(ItemHeight+ZOOM_SCALE(18)), width, height);
         btn.tag = index+10;
         btn.lineCount = kLineCount;
         btn.model = model;
@@ -70,8 +76,29 @@ static NSUInteger ItemHeight = 158;
     }
     
 }
+-(UISearchBar *)searchTf{
+    if (!_searchTf) {
+        _searchTf = [[UISearchBar alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), Interval(36))];
+        [_searchTf setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F1F2F5"]]];
+        //设置背景色
+        [_searchTf setBackgroundColor:[UIColor clearColor]];
+        _searchTf.delegate =self;
+        //设置文本框背景
+        [_searchTf setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F1F2F5"]] forState:UIControlStateNormal];
+        _searchTf.layer.cornerRadius = 4.0f;
+        _searchTf.layer.masksToBounds = YES;
+        [self.view addSubview:_searchTf];
+    }
+    return _searchTf;
+}
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    
+}
 #pragma mark ========== PWDraggableItemDelegate ==========
 - (void)dragButton:(PWDraggableItem *)dragButton dragButtons:(NSArray *)dragButtons startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex{
+    
+}
+- (void)dragCenter:(CGPoint)point{
     
 }
 - (void)didReceiveMemoryWarning {

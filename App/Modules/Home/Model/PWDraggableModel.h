@@ -25,8 +25,12 @@
  */
 @interface PWDraggableModel : JSONModel
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, strong) NSString *category;
 @property (nonatomic, strong) NSString *coverImageMobile;
 @property (nonatomic, assign) NSInteger orderNum;
 @property (nonatomic, strong) NSString *handbook_id;
+@property (nonatomic, strong) NSString *bucketPath;
+@property (nonatomic, assign) BOOL isShow;
+@property (nonatomic, strong) NSString *updateTime;
+@property (nonatomic, strong) NSString *updateAccountId;
 @end
