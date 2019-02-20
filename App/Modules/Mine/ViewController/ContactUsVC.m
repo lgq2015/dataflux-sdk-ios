@@ -18,20 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"联系我们";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick:)];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setupBadges];
-    });
-    return;
-
-    
+    [self createUI];
 }
-- (void)setupBadges{
-    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
-
-}
-- (void)navRightBtnClick:(UIBarButtonItem *)item{
-    
+- (void)createUI{
+    UIImageView *iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, Interval(28), ZOOM_SCALE(160), ZOOM_SCALE(160))];
+    iconImg.image = [UIImage imageNamed:@"mine_contacticon"];
+    CGPoint center = iconImg.center;
+    center.x = self.view.centerX;
+    iconImg.center = center;
+    [self.view addSubview:iconImg];
 }
 /*
 #pragma mark - Navigation

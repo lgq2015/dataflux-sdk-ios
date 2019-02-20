@@ -24,10 +24,10 @@
 }
 - (void)createUI{
     MineCellModel *changeWord = [[MineCellModel alloc]initWithTitle:@"修改密码"];
-    MineCellModel *serviceContract = [[MineCellModel alloc]initWithTitle:@"服务协议"];
+//    MineCellModel *serviceContract = [[MineCellModel alloc]initWithTitle:@"服务协议"];
     MineCellModel *privacyPolicy = [[MineCellModel alloc]initWithTitle:@"隐私权政策"];
     NSArray *group1 = @[changeWord];
-    NSArray *group2 =@[serviceContract,privacyPolicy];
+    NSArray *group2 =@[privacyPolicy];
     self.dataSource = [NSArray new];
     self.dataSource = @[group1,group2];
     self.tableView.rowHeight = ZOOM_SCALE(45);
@@ -66,6 +66,8 @@
     if (indexPath.section == 0) {
          //修改密码
         ChangeUserInfoVC *changeVC = [[ChangeUserInfoVC alloc]init];
+        changeVC.isHidenNaviBar = YES;
+        changeVC.isShowCustomNaviBar = YES;
          changeVC.type = ChangeUITPassword;
         [self.navigationController pushViewController:changeVC animated:YES];
     }else{

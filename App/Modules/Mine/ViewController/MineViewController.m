@@ -153,7 +153,7 @@
         }
             break;
         case MineCellTypeEncourage:
-            
+            [self evaluateSkip];
             break;
         
         case MineCellTypeInformation:
@@ -164,6 +164,13 @@
             break;
     }
 
+}
+- (void)evaluateSkip{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];
+#else
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
+#endif
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
