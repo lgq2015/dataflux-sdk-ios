@@ -72,6 +72,8 @@
 		4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACE2213CADD009F9E94 /* SecurityPrivacyVC.m */; };
 		4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD422141A0B009F9E94 /* RenderedTextModel.m */; };
 		4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */; };
+		4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
+		4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -298,6 +300,10 @@
 		4AB48AD622142DBF009F9E94 /* ChangeUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserInfoVC.h; sourceTree = "<group>"; };
 		4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserInfoVC.m; sourceTree = "<group>"; };
 		4AB48ADE221582F4009F9E94 /* NSUserDefaultsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSUserDefaultsMacros.h; sourceTree = "<group>"; };
+		4AB48ADF221A4739009F9E94 /* NaviBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NaviBarView.h; sourceTree = "<group>"; };
+		4AB48AE0221A4739009F9E94 /* NaviBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NaviBarView.m; sourceTree = "<group>"; };
+		4AB48AE2221A8C16009F9E94 /* ChangeCardItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeCardItem.h; sourceTree = "<group>"; };
+		4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeCardItem.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -700,6 +706,8 @@
 			children = (
 				4A6C2885219D50980059BB08 /* RootViewController.h */,
 				4A6C2886219D50980059BB08 /* RootViewController.m */,
+				4AB48ADF221A4739009F9E94 /* NaviBarView.h */,
+				4AB48AE0221A4739009F9E94 /* NaviBarView.m */,
 			);
 			path = RootViewController;
 			sourceTree = "<group>";
@@ -1093,6 +1101,8 @@
 			children = (
 				4AE9C4E421D2035C003BB9CB /* MineViewCell.h */,
 				4AE9C4E521D2035C003BB9CB /* MineViewCell.m */,
+				4AB48AE2221A8C16009F9E94 /* ChangeCardItem.h */,
+				4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1360,6 +1370,7 @@
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
+				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
@@ -1424,6 +1435,7 @@
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
+				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
 				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,

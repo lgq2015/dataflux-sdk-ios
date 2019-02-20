@@ -16,14 +16,15 @@
 #import "UserManager.h"
 #import "IssueListManger.h"
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
 @property (nonatomic, strong) PWInfoBoard *infoboard;
 @property (nonatomic, strong) HomeNoticeScrollView *notice;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, assign) PWInfoBoardStyle infoBoardStyle;
+
 @property (nonatomic, assign) NSInteger  newsPage;
+@property (nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
 @property (nonatomic, strong) PWNewsListCell *tempCell;
 @end
 
@@ -31,13 +32,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        self.tableView.mj_header = self.header;
-        self.tableView.mj_footer = self.footer;
-        self.newsPage = 1;
-        [self loadIssueData];
-        [self loadNewsDatas];
+    self.tableView.mj_header = self.header;
+    self.tableView.mj_footer = self.footer;
+    self.newsPage = 1;
+    [self createUI];
+    [self loadRecommendationData];
+    [self loadNewsDatas];
 }
 - (void)createUI{
+    BOOL  isConnect = getConnectState;
+    if(isConnect){
+        self.infoBoardStyle = PWInfoBoardStyleConnected;
+    }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(534):ZOOM_SCALE(690);
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
@@ -86,7 +92,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    self.tableView.estimatedRowHeight = 44;
+//    self.tableView.estimatedRowHeight = 44;
     [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
     self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
     [self.view addSubview:self.tableView];
@@ -112,25 +118,13 @@
 -(void)footerRereshing{
     [self loadNewsDatas];
 }
-- (void)loadIssueData{
-    
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        DLog(@"%@",response);
+- (void)loadRecommendationData{
+    [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-            NSDictionary *dict = response[@"content"];
-            NSArray *data = dict[@"data"];
-            if (data.count>0) {
-                self.infoBoardStyle = PWInfoBoardStyleConnected;
-            }else{
-                self.infoBoardStyle = PWInfoBoardStyleNotConnected;
-            }
-            [self createUI];
-            self.infoSourceDatas = response;
-        }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
-            KPostNotification(KNotificationLoginStateChange, @NO);
-        }
+            NSArray *datas = response[@"content"];
+    }
     } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
+
     }];
     
 }
@@ -155,8 +149,7 @@
         self.newsDatas = [NSMutableArray new];
     }
     [items enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        NewsListModel *model = [[NewsListModel alloc]initWithDictionary:dict error:&error];
+        NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
         [self.newsDatas addObject:model];
     }];
     [self.tableView reloadData];

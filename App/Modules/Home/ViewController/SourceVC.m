@@ -362,7 +362,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if (!_navRightBtn) {
         _navRightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
-        [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_navRightBtn setTitle:@"保存" forState:UIControlStateNormal];
         [_navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _navRightBtn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
@@ -545,7 +545,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
     }
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        
+        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+         if ([response[@"errCode"] isEqualToString:@""]) {
+        __weak typeof (self) vc = self;
+        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+        [self.navigationController popViewControllerAnimated:NO];
+        }
     } failBlock:^(NSError *error) {
     }];
 }
@@ -555,6 +560,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        __weak typeof (self) vc = self;
+        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+        [self.navigationController popViewControllerAnimated:YES];
         }else{
         [SVProgressHUD showErrorWithStatus:@"保存失败"];
         }
@@ -573,6 +581,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }];
 }
 -(void)navLeftBtnClick:(UIButton *)button{
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark ========== TTTAttributedLabelDelegate ==========
@@ -612,6 +621,24 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj resignFirstResponder];
     }];
+}
+-(CATransition *)createTransitionAnimation
+{
+    //切换之前添加动画效果
+    //后面知识: Core Animation 核心动画
+    //不要写成: CATransaction
+    //创建CATransition动画对象
+    CATransition *animation = [CATransition animation];
+    //设置动画的类型:
+    animation.type = @"reveal";
+    //设置动画的方向
+    animation.subtype = kCATransitionFromBottom;
+    //设置动画的持续时间
+    animation.duration = 1;
+    //设置动画速率(可变的)
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    //动画添加到切换的过程中
+    return animation;
 }
 /*
 #pragma mark - Navigation

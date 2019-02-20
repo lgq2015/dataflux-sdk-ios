@@ -63,6 +63,7 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
+    detailVC.model = self.monitorData[indexPath.row];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -5,12 +5,12 @@
 //  Created by 胡蕾蕾 on 2019/1/2.
 //  Copyright © 2019 hll. All rights reserved.
 //
-#import "JSONModel.h"
-//typedef NS_ENUM(NSUInteger, NewListCellType) {
-//    NewListCellTypeSingleImg  = 0,
-//    NewListCellTypText,
-//    NewListCellTypeFillImg,
-//};
+#import <Foundation/Foundation.h>
+typedef NS_ENUM(NSUInteger, NewListCellType) {
+    NewListCellTypeSingleImg  = 0,
+    NewListCellTypText,
+    NewListCellTypeFillImg,
+};
 /*
  "id": 15,
  "topicId": 1,
@@ -40,7 +40,19 @@
  "updatedAt": "2019-01-26T09:05:53Z"
  
  */
-@interface NewsListModel : JSONModel
+/*
+ {
+ "createTime": "2019-02-16T10:49:05+00:00",
+ "id": "rcmd-5frTdL3MUgANvWPYiLBECm",
+ "onShelvesTime": "2019-02-16T10:49:11+00:00",
+ "picUrl": "",
+ "position": 1,
+ "summary": "",
+ "title": "推荐位5",
+ "url": "http://localhost:8080/recommend/add"
+ },
+ */
+@interface NewsListModel : NSObject
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
 @property (nonatomic, strong) NSString *source;
@@ -48,8 +60,12 @@
 @property (nonatomic, strong) NSString *updatedAt;
 @property (nonatomic, assign) BOOL isStarred;
 @property (nonatomic, strong) NSString *imageUrl;
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, assign) NewListCellType type;
 
 @property (nonatomic, assign) CGFloat cellHeight;
+- (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithStickJsonDictionary:(NSDictionary *)dictionary;
+
 @end
 

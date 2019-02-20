@@ -29,10 +29,12 @@
     }else if ([model.status isEqualToString:@"expired"] || [model.status isEqualToString:@"discarded"]){
         self.state = MonitorListStateLoseeEfficacy;
     }
-    if (model.renderedText) {
-        self.title = model.renderedText.title;
-        self.content = model.renderedText.summary;
-        self.attrs = model.renderedText.suggestion;
+    if (![model.renderedTextStr isEqualToString:@""]) {
+        NSDictionary *dict = [NSString dictionaryWithJsonString:model.renderedTextStr];
+        self.title = dict[@"title"];
+        self.content = dict[@"summary"];
+        self.attrs = dict[@"suggestion"];
+        self.highlight = dict[@"highlight"];
     }else{
         self.title = model.title;
         self.content = model.content;

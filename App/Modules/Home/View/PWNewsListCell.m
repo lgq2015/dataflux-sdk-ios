@@ -68,7 +68,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
             make.height.offset(ZOOM_SCALE(17));
             make.right.mas_equalTo(self).offset(-Interval(15));
         }];
-        self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.createdAt,self.model.source];
+        self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.updatedAt,self.model.source];
         
     }
 }
@@ -103,7 +103,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         make.bottom.mas_equalTo(self).offset(-Interval(8));
     }];
     self.titleLab.text = self.model.title;
-    self.timeLab.text = [NSString stringWithFormat:@"%@   topic",self.model.createdAt];
+    self.timeLab.text = [NSString stringWithFormat:@"%@   topic",self.model.updatedAt];
 }
 -(void)setModel:(NewsListModel *)model{
     _model = model;

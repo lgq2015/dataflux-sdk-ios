@@ -30,5 +30,5 @@
  */
 +(NSString *)getNowTimeTimestamp;
 
-
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 @end
