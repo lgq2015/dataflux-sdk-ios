@@ -154,7 +154,9 @@
 //    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
 //        if ([response[@"errCode"] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
-            codeVC.isLog = YES;
+            codeVC.type = VerifyCodeVCTypeLogin;
+            codeVC.isHidenNaviBar = YES;
+            codeVC.isShowCustomNaviBar = YES;
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
 //        }else{

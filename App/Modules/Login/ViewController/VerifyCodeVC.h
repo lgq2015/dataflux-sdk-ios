@@ -7,12 +7,18 @@
 //
 
 #import "RootViewController.h"
-
+typedef NS_ENUM(NSUInteger, VerifyCodeVCType){
+    VerifyCodeVCTypeLogin,
+    VerifyCodeVCTypeFindPassword,
+    VerifyCodeVCTypeChangePassword,
+    VerifyCodeVCTypeUpdateEmail,
+    VerifyCodeVCTypeUpdateMobile,
+};
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VerifyCodeVC : RootViewController
 @property (nonatomic, copy) NSString *phoneNumber;
-@property (nonatomic, assign) BOOL isLog;
+@property (nonatomic, assign) VerifyCodeVCType type;
 @end
 
 NS_ASSUME_NONNULL_END

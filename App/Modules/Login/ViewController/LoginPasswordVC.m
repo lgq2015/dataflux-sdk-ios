@@ -289,6 +289,8 @@
 #pragma mark ========== 找回密码 ==========
 - (void)findWordClick{
     FindPasswordVC *findVC = [[FindPasswordVC alloc]init];
+    findVC.isHidenNaviBar = YES;
+    findVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:findVC animated:YES];
 }
 #pragma mark ========== 验证码登录页面跳转 ==========

@@ -31,19 +31,7 @@
 @implementation VerifyCodeVC
 
 
--(void)viewWillAppear:(BOOL)animated{
-        [super viewWillAppear:animated];
-     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
-     keyboardManager.enable = NO;
-    UINavigationBar *navBar = [UINavigationBar appearance];
-    // 导航栏背景图
-    [navBar setBarTintColor:PWBackgroundColor];
-    [navBar setTintColor:PWBackgroundColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
-    
-    [navBar setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navBar setShadowImage:[UIImage new]];//去掉阴影线
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
@@ -60,7 +48,7 @@
    
 }
 - (void)createUI{
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17), 250, ZOOM_SCALE(37))];
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17)+kTopHeight, 250, ZOOM_SCALE(37))];
     title.text = @"输入验证码";
     title.font = BOLDFONT(26);
     title.textColor = PWTextBlackColor;
@@ -121,10 +109,10 @@
         [codeTfView createItem];
         codeTfView.completeBlock = ^(NSString *completeStr){
             self.code = completeStr;
-            if (self.isLog &&!self.selectBtn.selected) {
+            if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected) {
                 [iToast alertWithTitleCenter:@"未同意用户协议"];
             }else{
-                [self loginWithCode:completeStr];
+                [self btnClickWithCode:completeStr];
             }
         };
         codeTfView.deleteBlock = ^(void){
@@ -141,7 +129,7 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(50));
     }];
-    if (self.isLog) {
+    if (self.type == VerifyCodeVCTypeLogin) {
         [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.codeTfView.mas_left);
             make.top.mas_equalTo(self.codeTfView.mas_bottom).offset(ZOOM_SCALE(14));
@@ -207,7 +195,7 @@
     self.selectBtn.selected = !button.selected;
     if (self.selectBtn.selected) {
         if (self.code.length == 6) {
-            [self loginWithCode:self.code];
+            [self btnClickWithCode:self.code];
         }
     }
 }
@@ -241,8 +229,26 @@
     //        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
     //    }];
 }
-- (void)loginWithCode:(NSString *)code{
-    if(self.isLog){
+- (void)btnClickWithCode:(NSString *)code{
+    switch (self.type) {
+        case VerifyCodeVCTypeLogin:
+            [self loginWithCode:code];
+            break;
+        case VerifyCodeVCTypeFindPassword:
+            [self findPasswordWithCode:code];
+            break;
+        case VerifyCodeVCTypeChangePassword:
+            [self changePasswordWithCode:code];
+            break;
+        case VerifyCodeVCTypeUpdateEmail:
+            [self updateEmailWithCode:code];
+            break;
+        case VerifyCodeVCTypeUpdateMobile:
+            [self updateMobileWithCode:code];
+            break;
+    }
+}
+-(void)loginWithCode:(NSString *)code{
     NSString *openUDID = [OpenUDID value];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *device_version = [NSString getCurrentDeviceModel];
@@ -257,34 +263,32 @@
             [self.codeTfView codeView_showWarnState];
         }
     }];
-    }else{
-        NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile", }};
-        [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
-                NSDictionary *content = response[@"content"];
-                NSString *authAccessToken = content[@"authAccessToken"];
-                setXAuthToken(authAccessToken);
-                SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
-                newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
-                [self.navigationController pushViewController:newPasswordVC animated:YES];
-            }else{
-                [iToast alertWithTitleCenter:response[@"message"]];
-            }
-        } failBlock:^(NSError *error) {
-            
-        }];
-    }
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    UINavigationBar *navBar = [UINavigationBar appearance];
-    // 导航栏背景图
-    [navBar setBarTintColor:CNavBgColor];
-    [navBar setTintColor:CNavBgColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :PWBlackColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
+- (void)findPasswordWithCode:(NSString *)code{
+    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile", }};
+    [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *authAccessToken = content[@"authAccessToken"];
+            setXAuthToken(authAccessToken);
+            SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+            newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+            [self.navigationController pushViewController:newPasswordVC animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)changePasswordWithCode:(NSString *)code{
+//    [PWNetworking requsetHasTokenWithUrl:<#(NSString *)#> withRequestType:<#(NetworkRequestType)#> refreshRequest:<#(BOOL)#> cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
+}
+- (void)updateEmailWithCode:(NSString *)code{
     
-    [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [navBar setShadowImage:nil];//去掉阴影线
+}
+- (void)updateMobileWithCode:(NSString *)code{
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];

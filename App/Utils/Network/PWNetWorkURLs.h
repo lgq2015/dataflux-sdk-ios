@@ -55,7 +55,8 @@
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
 //情报添加
 #define PW_issueAdd              [NSString stringWithFormat:@"%@/v1/issue/add",API_SEVERID]
-
+//文章推荐
+#define PW_recommendation      [NSString stringWithFormat:@"%@/v1/recommendation/list",API_SEVERID]
 
 
 
