@@ -34,12 +34,12 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-       // 引导页
-        RootViewController *wsCtrl = [[RootViewController alloc]init];
-        self.window.rootViewController = wsCtrl;
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
-    }else{
+//    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+//       // 引导页
+//        RootViewController *wsCtrl = [[RootViewController alloc]init];
+//        self.window.rootViewController = wsCtrl;
+//        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
+//    }else{
         [self initUserManager];
 //    self.mainTabBar = [[MainTabBarController alloc]init];
 //    self.window.rootViewController = self.mainTabBar;
@@ -48,7 +48,7 @@
 //    if (@available(iOS 11.0, *)){
 //        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
 //    }
-    }
+   // }
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{

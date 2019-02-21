@@ -201,8 +201,8 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                 }
             }
             self.infoDatas[i].messageCount = itemDatas.count>99?@"99+":[NSString stringWithFormat:@"%lu",(unsigned long)itemDatas.count];
-            
-            DLog(@"%@",itemDatas);
+            KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
+
         }
      }
 }

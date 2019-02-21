@@ -116,7 +116,7 @@
 
 }
 -(void)infoBoardDatasUpdate{
-    NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
+    NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
     [self.infoboard updataDatas:@{@"datas":array}];
 }
 -(PWInfoBoard *)infoboard{
