@@ -34,20 +34,21 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-       // 引导页
-        RootViewController *wsCtrl = [[RootViewController alloc]init];
-        self.window.rootViewController = wsCtrl;
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
-    }else{
-    self.mainTabBar = [[MainTabBarController alloc]init];
-    self.window.rootViewController = self.mainTabBar;
-    [self.window makeKeyAndVisible];
-    [[UIButton appearance] setExclusiveTouch:YES];
-    if (@available(iOS 11.0, *)){
-        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    }
-    }
+//    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+//       // 引导页
+//        RootViewController *wsCtrl = [[RootViewController alloc]init];
+//        self.window.rootViewController = wsCtrl;
+//        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
+//    }else{
+        [self initUserManager];
+//    self.mainTabBar = [[MainTabBarController alloc]init];
+//    self.window.rootViewController = self.mainTabBar;
+//    [self.window makeKeyAndVisible];
+//    [[UIButton appearance] setExclusiveTouch:YES];
+//    if (@available(iOS 11.0, *)){
+//        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+//    }
+   // }
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{
@@ -101,10 +102,10 @@
             
         }
       
-        BOOL connect =  [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-        if (connect) {
-            [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
-        }
+//        BOOL connect =  [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
+//        if (connect) {
+//            [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+//        }
         
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;

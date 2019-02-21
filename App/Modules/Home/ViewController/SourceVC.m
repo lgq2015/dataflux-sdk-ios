@@ -546,6 +546,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+        KPostNotification(KNotificationIssueSourceChange,nil);
          if ([response[@"errCode"] isEqualToString:@""]) {
         __weak typeof (self) vc = self;
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
@@ -560,6 +561,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        KPostNotification(KNotificationIssueSourceChange,nil);
         __weak typeof (self) vc = self;
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:YES];
@@ -572,12 +574,18 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{
-//    [SVProgressHUD showWithStatus:@"正在删除..."];
+    [SVProgressHUD showWithStatus:@"正在删除..."];
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-//        [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            KPostNotification(KNotificationIssueSourceChange,nil);
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        }
+        
     } failBlock:^(NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        [SVProgressHUD showErrorWithStatus:@"删除失败"];
     }];
 }
 -(void)navLeftBtnClick:(UIButton *)button{

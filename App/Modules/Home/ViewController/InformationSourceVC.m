@@ -23,6 +23,10 @@
     self.title = @"情报源";
     [self createUI];
     [self loadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(headerRereshing)
+                                                 name:KNotificationIssueSourceChange
+                                               object:nil];
 }
 - (void)createUI{
     NSArray *title = @[@"添加"];
@@ -90,6 +94,7 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
     SourceVC *source = [[SourceVC alloc]init];
     source.model = cell.model;

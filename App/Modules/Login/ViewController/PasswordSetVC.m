@@ -140,12 +140,18 @@
     NSString *device_version = [NSString getCurrentDeviceModel];
     NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile", @"deviceId": openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            setXAuthToken(response[@"content"][@"authAccessToken"]);
+            KPostNotification(KNotificationLoginStateChange, @YES);
+        }else{
+            [iToast alertWithTitleCenter:@"message"];
+        }
     } failBlock:^(NSError *error) {
         
     }];
 }
 - (void)skipBtnClick{
+//    [userManager  saveUserInfo];
     KPostNotification(KNotificationLoginStateChange, @YES);
 }
 /*

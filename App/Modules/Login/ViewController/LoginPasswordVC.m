@@ -151,9 +151,11 @@
         return value;
     }];
     RACSignal *passwordTf =  [self.passwordTf rac_textSignal];
-   
-    RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf] reduce:^id(NSString * phone,NSString * password){
-        return @([NSString validateCellPhoneNumber:[phone stringByReplacingOccurrencesOfString:@" " withString:@""]] && [NSString validatePassWordForm:password]&&self.selectBtn.selected);
+    RACSignal *btn = [[self.selectBtn rac_signalForControlEvents:UIControlEventTouchUpInside]map:^id(id value) {
+        return @(self.selectBtn.selected);
+    }];
+    RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
+        return @(@([phone stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11) && [NSString validatePassWordForm:password] && self.selectBtn.selected);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){

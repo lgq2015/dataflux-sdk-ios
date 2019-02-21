@@ -94,7 +94,7 @@
         make.right.mas_equalTo(ZOOM_SCALE(17));
         make.bottom.mas_equalTo(ZOOM_SCALE(25));
     }];
-    self.timeLab.text = model.time;
+    self.timeLab.text = [NSString compareCurrentTime:model.time];
 }
 -(UIView *)lineView{
     if (!_lineView) {

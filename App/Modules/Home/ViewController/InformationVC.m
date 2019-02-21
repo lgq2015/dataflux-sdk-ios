@@ -35,15 +35,37 @@
     self.tableView.mj_header = self.header;
     self.tableView.mj_footer = self.footer;
     self.newsPage = 1;
-    [self createUI];
-    [self loadRecommendationData];
-    [self loadNewsDatas];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(infoBoardDatasUpdate)
+                                                 name:KNotificationInfoBoardDatasUpdate
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(infoBoardStyleUpdate)
+                                                 name:KNotificationIssueSourceChange
+                                               object:nil];
+    [self dealNewsDatas];
+    [self judgeIssueConnectState];
+    
+}
+- (void)judgeIssueConnectState{
+    BOOL  isconnect = getConnectState;
+    if(!isconnect){
+        [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
+            self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
+            if (isConnect) {
+                [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+            }
+            [self createUI];
+        }];
+      
+    }else{
+        self.infoBoardStyle = PWInfoBoardStyleConnected;
+        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [self createUI];
+    }
+
 }
 - (void)createUI{
-    BOOL  isConnect = getConnectState;
-    if(isConnect){
-        self.infoBoardStyle = PWInfoBoardStyleConnected;
-    }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(534):ZOOM_SCALE(690);
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
@@ -89,13 +111,27 @@
     }];
     self.tableView.tableHeaderView = self.headerView;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight-16);
+    self.tableView.estimatedRowHeight = 44;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-//    self.tableView.estimatedRowHeight = 44;
     [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
     self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
     [self.view addSubview:self.tableView];
+
+}
+-(void)infoBoardStyleUpdate{
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
+        NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
+        [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
+        self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(534));
+        self.infoboard.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(436));
+        self.tableView.tableHeaderView = self.headerView;
+    }
+}
+-(void)infoBoardDatasUpdate{
+    NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
+    [self.infoboard updataDatas:@{@"datas":array}];
 }
 -(PWInfoBoard *)infoboard{
     if (!_infoboard) {
@@ -113,20 +149,27 @@
 }
 - (void)headerRereshing{
     self.newsPage = 1;
-    [self loadNewsDatas];
+    [self dealNewsDatas];
 }
 -(void)footerRereshing{
+    [self loadNewsDatas];
+}
+- (void)dealNewsDatas{
+    self.newsDatas = [NSMutableArray new];
+    [self loadRecommendationData];
     [self loadNewsDatas];
 }
 - (void)loadRecommendationData{
     [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSArray *datas = response[@"content"];
+            if (datas.count>0) {
+                [self RecommendationDatas:datas];
+            }
     }
     } failBlock:^(NSError *error) {
 
     }];
-    
 }
 - (void)loadNewsDatas{
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10};
@@ -144,16 +187,23 @@
         [self.footer endRefreshing];
     }];
 }
+- (void)RecommendationDatas:(NSArray *)array{
+    [array enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        NewsListModel *model = [[NewsListModel alloc]initWithStickJsonDictionary:dict];
+        [self.newsDatas insertObject:model atIndex:0];
+    }];
+    [self.tableView reloadData];
+    [self.tableView layoutIfNeeded];
+}
 - (void)dealNewsDataWithData:(NSArray *)items andTotalPage:(NSInteger)page{
-    if (self.newsPage == 1) {
-        self.newsDatas = [NSMutableArray new];
-    }
+    
     [items enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
         [self.newsDatas addObject:model];
     }];
     [self.tableView reloadData];
-   
+    [self.tableView layoutIfNeeded];
+
     if (page == self.newsPage) {
         self.footer.state = MJRefreshStateNoMoreData;
         self.tableView.mj_footer.state= MJRefreshStateNoMoreData;
@@ -174,6 +224,7 @@
       cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
     }
     cell.model = self.newsDatas[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell layoutIfNeeded];
     return cell;
 }
@@ -187,7 +238,6 @@
         CGFloat cellHeight = [self.tempCell heightForModel:self.newsDatas[indexPath.row]];
         // 缓存给model
         model.cellHeight = cellHeight;
-        
         return cellHeight;
     } else {
         return model.cellHeight;

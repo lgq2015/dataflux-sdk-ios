@@ -62,11 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, assign) long actSeq;
 @property (nonatomic, strong) NSDictionary *renderedText;
+@property (nonatomic, strong) NSDictionary *reference;
 @property (nonatomic, assign) BOOL isRead;
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString *itAssetProvider_cache;
+
 @property (nonatomic, strong) NSString *latestIssueLogsStr;
 @property (nonatomic, strong) NSString *renderedTextStr;
+@property (nonatomic, strong) NSString *referenceStr;
 
 @end
 

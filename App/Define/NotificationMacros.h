@@ -26,6 +26,9 @@
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
 
+#define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
+
+#define KNotificationInfoBoardDatasUpdate @"KNotificationInfoBoardDatasUpdate"
 #pragma mark - ——————— 网络状态相关 ————————
 
 //网络状态变化

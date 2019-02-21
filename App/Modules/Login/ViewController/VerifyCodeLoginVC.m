@@ -97,7 +97,8 @@
         }
         self.phoneTf.text = value;
         self.temp = value;
-        return @([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
+        return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
+        //@([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
     }];
     RAC(self.verifyCodeBtn,enabled) = phoneTf;
    
@@ -150,21 +151,21 @@
 
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
-//    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
-//    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-//        if ([response[@"errCode"] isEqualToString:@""]) {
+    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
+    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.type = VerifyCodeVCTypeLogin;
             codeVC.isHidenNaviBar = YES;
             codeVC.isShowCustomNaviBar = YES;
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
-//        }else{
-//        [iToast alertWithTitleCenter:response[@"message"]];
-//        }
-//    } failBlock:^(NSError *error) {
-//        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
-//    }];
+        }else{
+        [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+    }];
 
 }
 //#pragma mark ========== btn渐变背景 ==========

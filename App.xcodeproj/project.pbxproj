@@ -74,6 +74,8 @@
 		4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */; };
 		4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
+		4AB48AE6221D21B5009F9E94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AB48AE5221D21B5009F9E94 /* Images.xcassets */; };
+		4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
@@ -612,6 +614,9 @@
 		4AB48AE0221A4739009F9E94 /* NaviBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NaviBarView.m; sourceTree = "<group>"; };
 		4AB48AE2221A8C16009F9E94 /* ChangeCardItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeCardItem.h; sourceTree = "<group>"; };
 		4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeCardItem.m; sourceTree = "<group>"; };
+		4AB48AE5221D21B5009F9E94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4AB48AE7221D4AE9009F9E94 /* FeedbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
+		4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
 		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
@@ -1158,6 +1163,7 @@
 				4A95BB93217DAD6100FC2979 /* Info.plist */,
 				4A95BB94217DAD6100FC2979 /* main.m */,
 				4A19549121A8060D007ADFCA /* PrefixHeader.pch */,
+				4AB48AE5221D21B5009F9E94 /* Images.xcassets */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1424,6 +1430,8 @@
 				4AB48ACE2213CADD009F9E94 /* SecurityPrivacyVC.m */,
 				4AB48AD622142DBF009F9E94 /* ChangeUserInfoVC.h */,
 				4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */,
+				4AB48AE7221D4AE9009F9E94 /* FeedbackVC.h */,
+				4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1621,7 +1629,7 @@
 				TargetAttributes = {
 					4A95BB81217DAD6100FC2979 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					CA1CF57B221ECB3A00D15316 = {
 						ProvisioningStyle = Manual;
@@ -1666,6 +1674,7 @@
 				4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */,
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
+				4AB48AE6221D21B5009F9E94 /* Images.xcassets in Resources */,
 				4AE537A921CC9206004CF320 /* frame-12@2x.png in Resources */,
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
@@ -1977,6 +1986,7 @@
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
+				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
 				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
@@ -2437,16 +2447,15 @@
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wangjiao.prof.wang-com.wangjiao.prof.wang-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2456,16 +2465,15 @@
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wangjiao.prof.wang-com.wangjiao.prof.wang-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

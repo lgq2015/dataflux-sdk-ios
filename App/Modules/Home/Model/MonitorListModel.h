@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, assign) MonitorListState state;
 @property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSDictionary *reference;//handbooks array   "title": "文章标题","url"
+
 @property (nonatomic, assign) BOOL isFromUser;
 @property (nonatomic, assign) CGFloat cellHeight;
 
