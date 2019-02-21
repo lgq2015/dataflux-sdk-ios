@@ -76,15 +76,15 @@
     tf.textAlignment = NSTextAlignmentLeft;
     return tf;
 }
-+(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder{
++(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder font:(UIFont *)font{
     UITextView *textView = [[UITextView alloc]initWithFrame:frame];
-    [textView setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:16]];
+    [textView setFont:font];
     textView.textColor = PWTextBlackColor;
 //    [textView setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
 
     UILabel *place = [[UILabel alloc]init];
     place.text = placeHolder;
-    place.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+    place.font = font;
     place.textColor =PWTextLight;
     place.numberOfLines = 0;
     [place sizeToFit];
