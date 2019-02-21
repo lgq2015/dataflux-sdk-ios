@@ -160,6 +160,314 @@
 		4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
 		4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
 		4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
+		CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
+		CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
+		CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
+		CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
+		CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
+		CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
+		CA1CF584221ECB3A00D15316 /* RenderedTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD422141A0B009F9E94 /* RenderedTextModel.m */; };
+		CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448421BFBDD4002AF34E /* UserManager.m */; };
+		CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
+		CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375321C74194004CF320 /* PWScrollPageView.m */; };
+		CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */; };
+		CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448B21C0A52A002AF34E /* PWTransition.m */; };
+		CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */; };
+		CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
+		CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
+		CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
+		CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
+		CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
+		CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
+		CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
+		CA1CF592221ECB3A00D15316 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
+		CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
+		CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
+		CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
+		CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
+		CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
+		CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E521D2035C003BB9CB /* MineViewCell.m */; };
+		CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
+		CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442121BD320E002AF34E /* PWCacheManager.m */; };
+		CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A021DF6FB900E4138B /* AboutUsVC.m */; };
+		CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */; };
+		CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A021B8BACE002AF34E /* LongPressControl.m */; };
+		CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
+		CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */; };
+		CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
+		CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A5121FB01E8009F9E94 /* PersonalInfoVC.m */; };
+		CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
+		CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
+		CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
+		CA1CF5A6221ECB3A00D15316 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
+		CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
+		CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
+		CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
+		CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
+		CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1D21F7000B009F9E94 /* ProblemDetailsVC.m */; };
+		CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A621B8BACE002AF34E /* TAPageControl.m */; };
+		CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* MonitorCell.m */; };
+		CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACE2213CADD009F9E94 /* SecurityPrivacyVC.m */; };
+		CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437D21B77DE3002AF34E /* UITabBar+CustomBadge.m */; };
+		CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A821B8BACE002AF34E /* TAAbstractDotView.m */; };
+		CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442721BD334A002AF34E /* PWDiskCache.m */; };
+		CA1CF5B2221ECB3A00D15316 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */; };
+		CA1CF5B3221ECB3A00D15316 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
+		CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
+		CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
+		CA1CF5B6221ECB3A00D15316 /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
+		CA1CF5B7221ECB3A00D15316 /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		CA1CF5B8221ECB3A00D15316 /* ExpertAdviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2321F818C0009F9E94 /* ExpertAdviceVC.m */; };
+		CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
+		CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
+		CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
+		CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
+		CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448021BFA170002AF34E /* MineViewController.m */; };
+		CA1CF5BE221ECB3A00D15316 /* IssueListManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACB2212BE6F009F9E94 /* IssueListManger.m */; };
+		CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */; };
+		CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2621F83B0C009F9E94 /* TeamVC.m */; };
+		CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377C21CB3AE3004CF320 /* BasicInformationVC.m */; };
+		CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
+		CA1CF5C3221ECB3A00D15316 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A821C1029B002AF34E /* HomeViewController.m */; };
+		CA1CF5C4221ECB3A00D15316 /* SourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489E321F06B42009F9E94 /* SourceVC.m */; };
+		CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EC21D361A6003BB9CB /* CurrentUserModel.m */; };
+		CA1CF5C6221ECB3A00D15316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BB94217DAD6100FC2979 /* main.m */; };
+		CA1CF5C7221ECB3A00D15316 /* PWInfoInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* PWInfoInitialView.m */; };
+		CA1CF5C8221ECB3A00D15316 /* AccountInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EF21D362FD003BB9CB /* AccountInfoModel.m */; };
+		CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7321FC473E009F9E94 /* UITabBarItem+PPBadgeView.m */; };
+		CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375621C743CC004CF320 /* PWContentView.m */; };
+		CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
+		CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A521B8BACE002AF34E /* TADotView.m */; };
+		CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */; };
+		CA1CF5CE221ECB3A00D15316 /* PWDraggableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439D21B8BACE002AF34E /* PWDraggableItem.m */; };
+		CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2886219D50980059BB08 /* RootViewController.m */; };
+		CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
+		CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7821FC4740009F9E94 /* PPBadgeControl.m */; };
+		CA1CF5D2221ECB3A00D15316 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
+		CA1CF5D3221ECB3A00D15316 /* InformationSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */; };
+		CA1CF5D4221ECB3A00D15316 /* MonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C921E7115900E4138B /* MonitorVC.m */; };
+		CA1CF5D5221ECB3A00D15316 /* PWDraggableLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439F21B8BACE002AF34E /* PWDraggableLibraryView.m */; };
+		CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AD21B8BACE002AF34E /* PWGridView.m */; };
+		CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
+		CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
+		CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
+		CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442421BD326F002AF34E /* PWMemoryCache.m */; };
+		CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
+		CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
+		CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442A21BD3393002AF34E /* PWLRUManager.m */; };
+		CA1CF5DE221ECB3A00D15316 /* PWNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* PWNewsListCell.m */; };
+		CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
+		CA1CF5E0221ECB3A00D15316 /* MonitorListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19550621ABE4D8007ADFCA /* MonitorListCell.m */; };
+		CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
+		CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */; };
+		CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53021D73B37003BB9CB /* HomeNoticeScrollView.m */; };
+		CA1CF5E4221ECB3A00D15316 /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
+		CA1CF5E5221ECB3A00D15316 /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
+		CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */; };
+		CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */; };
+		CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
+		CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
+		CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
+		CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
+		CA1CF5EC221ECB3A00D15316 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
+		CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
+		CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
+		CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
+		CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
+		CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
+		CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */; };
+		CA1CF5F3221ECB3A00D15316 /* IgnoreListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2A21F86331009F9E94 /* IgnoreListVC.m */; };
+		CA1CF5F5221ECB3A00D15316 /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
+		CA1CF5F7221ECB3A00D15316 /* frame-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379221CC9204004CF320 /* frame-29@2x.png */; };
+		CA1CF5F8221ECB3A00D15316 /* frame-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378C21CC9202004CF320 /* frame-3@2x.png */; };
+		CA1CF5F9221ECB3A00D15316 /* frame-9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379621CC9205004CF320 /* frame-9@2x.png */; };
+		CA1CF5FA221ECB3A00D15316 /* frame-24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379521CC9205004CF320 /* frame-24@2x.png */; };
+		CA1CF5FB221ECB3A00D15316 /* frame-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378221CC9200004CF320 /* frame-0@2x.png */; };
+		CA1CF5FC221ECB3A00D15316 /* frame-28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378D21CC9202004CF320 /* frame-28@2x.png */; };
+		CA1CF5FD221ECB3A00D15316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
+		CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378321CC9200004CF320 /* frame-26@2x.png */; };
+		CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379921CC9206004CF320 /* frame-22@2x.png */; };
+		CA1CF600221ECB3A00D15316 /* frame-12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378B21CC9202004CF320 /* frame-12@2x.png */; };
+		CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379121CC9204004CF320 /* frame-20@2x.png */; };
+		CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379B21CC9206004CF320 /* frame-10@2x.png */; };
+		CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378E21CC9202004CF320 /* frame-18@2x.png */; };
+		CA1CF604221ECB3A00D15316 /* frame-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5377F21CC9200004CF320 /* frame-2@2x.png */; };
+		CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378621CC9201004CF320 /* frame-11@2x.png */; };
+		CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379821CC9205004CF320 /* frame-16@2x.png */; };
+		CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378121CC9200004CF320 /* frame-7@2x.png */; };
+		CA1CF608221ECB3A00D15316 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB90217DAD6100FC2979 /* LaunchScreen.storyboard */; };
+		CA1CF609221ECB3A00D15316 /* frame-23@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378F21CC9203004CF320 /* frame-23@2x.png */; };
+		CA1CF60A221ECB3A00D15316 /* frame-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379C21CC9206004CF320 /* frame-4@2x.png */; };
+		CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378921CC9201004CF320 /* frame-21@2x.png */; };
+		CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379A21CC9206004CF320 /* frame-5@2x.png */; };
+		CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378521CC9201004CF320 /* frame-15@2x.png */; };
+		CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
+		CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379421CC9204004CF320 /* frame-25@2x.png */; };
+		CA1CF610221ECB3A00D15316 /* frame-27@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378821CC9201004CF320 /* frame-27@2x.png */; };
+		CA1CF611221ECB3A00D15316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB8E217DAD6100FC2979 /* Assets.xcassets */; };
+		CA1CF612221ECB3A00D15316 /* frame-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379021CC9203004CF320 /* frame-1@2x.png */; };
+		CA1CF613221ECB3A00D15316 /* frame-13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378421CC9201004CF320 /* frame-13@2x.png */; };
+		CA1CF614221ECB3A00D15316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB8B217DAD6100FC2979 /* Main.storyboard */; };
+		CA1CF615221ECB3A00D15316 /* frame-17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378021CC9200004CF320 /* frame-17@2x.png */; };
+		CA1CF616221ECB3A00D15316 /* frame-14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378721CC9201004CF320 /* frame-14@2x.png */; };
+		CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379721CC9205004CF320 /* frame-6@2x.png */; };
+		CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379321CC9204004CF320 /* frame-19@2x.png */; };
+		CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378A21CC9202004CF320 /* frame-8@2x.png */; };
+		CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
+		CA1CF624221ECB5000D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
+		CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
+		CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
+		CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
+		CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
+		CA1CF629221ECB5000D15316 /* RenderedTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD422141A0B009F9E94 /* RenderedTextModel.m */; };
+		CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448421BFBDD4002AF34E /* UserManager.m */; };
+		CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
+		CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375321C74194004CF320 /* PWScrollPageView.m */; };
+		CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */; };
+		CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448B21C0A52A002AF34E /* PWTransition.m */; };
+		CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */; };
+		CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
+		CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
+		CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
+		CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
+		CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
+		CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
+		CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
+		CA1CF637221ECB5000D15316 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
+		CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
+		CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
+		CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
+		CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
+		CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
+		CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E521D2035C003BB9CB /* MineViewCell.m */; };
+		CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
+		CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442121BD320E002AF34E /* PWCacheManager.m */; };
+		CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A021DF6FB900E4138B /* AboutUsVC.m */; };
+		CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */; };
+		CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A021B8BACE002AF34E /* LongPressControl.m */; };
+		CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
+		CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */; };
+		CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
+		CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A5121FB01E8009F9E94 /* PersonalInfoVC.m */; };
+		CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
+		CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
+		CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
+		CA1CF64B221ECB5000D15316 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
+		CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
+		CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
+		CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
+		CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
+		CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1D21F7000B009F9E94 /* ProblemDetailsVC.m */; };
+		CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A621B8BACE002AF34E /* TAPageControl.m */; };
+		CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* MonitorCell.m */; };
+		CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACE2213CADD009F9E94 /* SecurityPrivacyVC.m */; };
+		CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437D21B77DE3002AF34E /* UITabBar+CustomBadge.m */; };
+		CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A821B8BACE002AF34E /* TAAbstractDotView.m */; };
+		CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442721BD334A002AF34E /* PWDiskCache.m */; };
+		CA1CF657221ECB5000D15316 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449E21C0B8A3002AF34E /* YYFPSLabel.m */; };
+		CA1CF658221ECB5000D15316 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
+		CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
+		CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
+		CA1CF65B221ECB5000D15316 /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
+		CA1CF65C221ECB5000D15316 /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		CA1CF65D221ECB5000D15316 /* ExpertAdviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2321F818C0009F9E94 /* ExpertAdviceVC.m */; };
+		CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
+		CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
+		CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
+		CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
+		CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448021BFA170002AF34E /* MineViewController.m */; };
+		CA1CF663221ECB5000D15316 /* IssueListManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48ACB2212BE6F009F9E94 /* IssueListManger.m */; };
+		CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */; };
+		CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2621F83B0C009F9E94 /* TeamVC.m */; };
+		CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377C21CB3AE3004CF320 /* BasicInformationVC.m */; };
+		CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
+		CA1CF668221ECB5000D15316 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A821C1029B002AF34E /* HomeViewController.m */; };
+		CA1CF669221ECB5000D15316 /* SourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489E321F06B42009F9E94 /* SourceVC.m */; };
+		CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EC21D361A6003BB9CB /* CurrentUserModel.m */; };
+		CA1CF66B221ECB5000D15316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BB94217DAD6100FC2979 /* main.m */; };
+		CA1CF66C221ECB5000D15316 /* PWInfoInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* PWInfoInitialView.m */; };
+		CA1CF66D221ECB5000D15316 /* AccountInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EF21D362FD003BB9CB /* AccountInfoModel.m */; };
+		CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7321FC473E009F9E94 /* UITabBarItem+PPBadgeView.m */; };
+		CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375621C743CC004CF320 /* PWContentView.m */; };
+		CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
+		CA1CF671221ECB5000D15316 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A521B8BACE002AF34E /* TADotView.m */; };
+		CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */; };
+		CA1CF673221ECB5000D15316 /* PWDraggableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439D21B8BACE002AF34E /* PWDraggableItem.m */; };
+		CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2886219D50980059BB08 /* RootViewController.m */; };
+		CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
+		CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7821FC4740009F9E94 /* PPBadgeControl.m */; };
+		CA1CF677221ECB5000D15316 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
+		CA1CF678221ECB5000D15316 /* InformationSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */; };
+		CA1CF679221ECB5000D15316 /* MonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C921E7115900E4138B /* MonitorVC.m */; };
+		CA1CF67A221ECB5000D15316 /* PWDraggableLibraryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF439F21B8BACE002AF34E /* PWDraggableLibraryView.m */; };
+		CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AD21B8BACE002AF34E /* PWGridView.m */; };
+		CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
+		CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
+		CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
+		CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442421BD326F002AF34E /* PWMemoryCache.m */; };
+		CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
+		CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
+		CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442A21BD3393002AF34E /* PWLRUManager.m */; };
+		CA1CF683221ECB5000D15316 /* PWNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* PWNewsListCell.m */; };
+		CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
+		CA1CF685221ECB5000D15316 /* MonitorListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19550621ABE4D8007ADFCA /* MonitorListCell.m */; };
+		CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
+		CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */; };
+		CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53021D73B37003BB9CB /* HomeNoticeScrollView.m */; };
+		CA1CF689221ECB5000D15316 /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
+		CA1CF68A221ECB5000D15316 /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
+		CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */; };
+		CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */; };
+		CA1CF68D221ECB5000D15316 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
+		CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
+		CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
+		CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
+		CA1CF691221ECB5000D15316 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
+		CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
+		CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
+		CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
+		CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
+		CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
+		CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */; };
+		CA1CF698221ECB5000D15316 /* IgnoreListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2A21F86331009F9E94 /* IgnoreListVC.m */; };
+		CA1CF69A221ECB5000D15316 /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
+		CA1CF69C221ECB5000D15316 /* frame-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379221CC9204004CF320 /* frame-29@2x.png */; };
+		CA1CF69D221ECB5000D15316 /* frame-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378C21CC9202004CF320 /* frame-3@2x.png */; };
+		CA1CF69E221ECB5000D15316 /* frame-9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379621CC9205004CF320 /* frame-9@2x.png */; };
+		CA1CF69F221ECB5000D15316 /* frame-24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379521CC9205004CF320 /* frame-24@2x.png */; };
+		CA1CF6A0221ECB5000D15316 /* frame-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378221CC9200004CF320 /* frame-0@2x.png */; };
+		CA1CF6A1221ECB5000D15316 /* frame-28@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378D21CC9202004CF320 /* frame-28@2x.png */; };
+		CA1CF6A2221ECB5000D15316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
+		CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378321CC9200004CF320 /* frame-26@2x.png */; };
+		CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379921CC9206004CF320 /* frame-22@2x.png */; };
+		CA1CF6A5221ECB5000D15316 /* frame-12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378B21CC9202004CF320 /* frame-12@2x.png */; };
+		CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379121CC9204004CF320 /* frame-20@2x.png */; };
+		CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379B21CC9206004CF320 /* frame-10@2x.png */; };
+		CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378E21CC9202004CF320 /* frame-18@2x.png */; };
+		CA1CF6A9221ECB5000D15316 /* frame-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5377F21CC9200004CF320 /* frame-2@2x.png */; };
+		CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378621CC9201004CF320 /* frame-11@2x.png */; };
+		CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379821CC9205004CF320 /* frame-16@2x.png */; };
+		CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378121CC9200004CF320 /* frame-7@2x.png */; };
+		CA1CF6AD221ECB5000D15316 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB90217DAD6100FC2979 /* LaunchScreen.storyboard */; };
+		CA1CF6AE221ECB5000D15316 /* frame-23@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378F21CC9203004CF320 /* frame-23@2x.png */; };
+		CA1CF6AF221ECB5000D15316 /* frame-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379C21CC9206004CF320 /* frame-4@2x.png */; };
+		CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378921CC9201004CF320 /* frame-21@2x.png */; };
+		CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379A21CC9206004CF320 /* frame-5@2x.png */; };
+		CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378521CC9201004CF320 /* frame-15@2x.png */; };
+		CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
+		CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379421CC9204004CF320 /* frame-25@2x.png */; };
+		CA1CF6B5221ECB5000D15316 /* frame-27@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378821CC9201004CF320 /* frame-27@2x.png */; };
+		CA1CF6B6221ECB5000D15316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB8E217DAD6100FC2979 /* Assets.xcassets */; };
+		CA1CF6B7221ECB5000D15316 /* frame-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379021CC9203004CF320 /* frame-1@2x.png */; };
+		CA1CF6B8221ECB5000D15316 /* frame-13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378421CC9201004CF320 /* frame-13@2x.png */; };
+		CA1CF6B9221ECB5000D15316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BB8B217DAD6100FC2979 /* Main.storyboard */; };
+		CA1CF6BA221ECB5000D15316 /* frame-17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378021CC9200004CF320 /* frame-17@2x.png */; };
+		CA1CF6BB221ECB5000D15316 /* frame-14@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378721CC9201004CF320 /* frame-14@2x.png */; };
+		CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379721CC9205004CF320 /* frame-6@2x.png */; };
+		CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379321CC9204004CF320 /* frame-19@2x.png */; };
+		CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378A21CC9202004CF320 /* frame-8@2x.png */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -451,6 +759,10 @@
 		4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1CF61E221ECB3A00D15316 /* AppDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1CF61F221ECB3A00D15316 /* Info-dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-dev.plist"; path = "/Users/Brandon/Documents/workplace/MacProject/pw-ios/Info-dev.plist"; sourceTree = "<absolute>"; };
+		CA1CF6C3221ECB5000D15316 /* AppPreMade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppPreMade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1CF6C4221ECB5100D15316 /* Info-pre-made.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-pre-made.plist"; path = "/Users/Brandon/Documents/workplace/MacProject/pw-ios/Info-pre-made.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -459,6 +771,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1CF5F4221ECB3A00D15316 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF5F5221ECB3A00D15316 /* libPods-App.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1CF699221ECB5000D15316 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF69A221ECB5000D15316 /* libPods-App.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +1124,8 @@
 				4A95BB83217DAD6100FC2979 /* Products */,
 				3F34F2B0D556CBC0BA511C11 /* Pods */,
 				AA4215202FD2BC75048B9D47 /* Frameworks */,
+				CA1CF61F221ECB3A00D15316 /* Info-dev.plist */,
+				CA1CF6C4221ECB5100D15316 /* Info-pre-made.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -803,6 +1133,8 @@
 			isa = PBXGroup;
 			children = (
 				4A95BB82217DAD6100FC2979 /* App.app */,
+				CA1CF61E221ECB3A00D15316 /* AppDev.app */,
+				CA1CF6C3221ECB5000D15316 /* AppPreMade.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1240,6 +1572,44 @@
 			productReference = 4A95BB82217DAD6100FC2979 /* App.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CA1CF57B221ECB3A00D15316 /* AppDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA1CF61B221ECB3A00D15316 /* Build configuration list for PBXNativeTarget "AppDev" */;
+			buildPhases = (
+				CA1CF57C221ECB3A00D15316 /* [CP] Check Pods Manifest.lock */,
+				CA1CF57D221ECB3A00D15316 /* Sources */,
+				CA1CF5F4221ECB3A00D15316 /* Frameworks */,
+				CA1CF5F6221ECB3A00D15316 /* Resources */,
+				CA1CF61A221ECB3A00D15316 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppDev;
+			productName = App;
+			productReference = CA1CF61E221ECB3A00D15316 /* AppDev.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CA1CF620221ECB5000D15316 /* AppPreMade */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA1CF6C0221ECB5000D15316 /* Build configuration list for PBXNativeTarget "AppPreMade" */;
+			buildPhases = (
+				CA1CF621221ECB5000D15316 /* [CP] Check Pods Manifest.lock */,
+				CA1CF622221ECB5000D15316 /* Sources */,
+				CA1CF699221ECB5000D15316 /* Frameworks */,
+				CA1CF69B221ECB5000D15316 /* Resources */,
+				CA1CF6BF221ECB5000D15316 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppPreMade;
+			productName = App;
+			productReference = CA1CF6C3221ECB5000D15316 /* AppPreMade.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1251,6 +1621,12 @@
 				TargetAttributes = {
 					4A95BB81217DAD6100FC2979 = {
 						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+					CA1CF57B221ECB3A00D15316 = {
+						ProvisioningStyle = Manual;
+					};
+					CA1CF620221ECB5000D15316 = {
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1270,6 +1646,8 @@
 			projectRoot = "";
 			targets = (
 				4A95BB81217DAD6100FC2979 /* App */,
+				CA1CF57B221ECB3A00D15316 /* AppDev */,
+				CA1CF620221ECB5000D15316 /* AppPreMade */,
 			);
 		};
 /* End PBXProject section */
@@ -1317,6 +1695,90 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CA1CF5F6221ECB3A00D15316 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF5F7221ECB3A00D15316 /* frame-29@2x.png in Resources */,
+				CA1CF5F8221ECB3A00D15316 /* frame-3@2x.png in Resources */,
+				CA1CF5F9221ECB3A00D15316 /* frame-9@2x.png in Resources */,
+				CA1CF5FA221ECB3A00D15316 /* frame-24@2x.png in Resources */,
+				CA1CF5FB221ECB3A00D15316 /* frame-0@2x.png in Resources */,
+				CA1CF5FC221ECB3A00D15316 /* frame-28@2x.png in Resources */,
+				CA1CF5FD221ECB3A00D15316 /* Localizable.strings in Resources */,
+				CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */,
+				CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */,
+				CA1CF600221ECB3A00D15316 /* frame-12@2x.png in Resources */,
+				CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */,
+				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
+				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
+				CA1CF604221ECB3A00D15316 /* frame-2@2x.png in Resources */,
+				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
+				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
+				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
+				CA1CF608221ECB3A00D15316 /* LaunchScreen.storyboard in Resources */,
+				CA1CF609221ECB3A00D15316 /* frame-23@2x.png in Resources */,
+				CA1CF60A221ECB3A00D15316 /* frame-4@2x.png in Resources */,
+				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
+				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
+				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
+				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
+				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
+				CA1CF610221ECB3A00D15316 /* frame-27@2x.png in Resources */,
+				CA1CF611221ECB3A00D15316 /* Assets.xcassets in Resources */,
+				CA1CF612221ECB3A00D15316 /* frame-1@2x.png in Resources */,
+				CA1CF613221ECB3A00D15316 /* frame-13@2x.png in Resources */,
+				CA1CF614221ECB3A00D15316 /* Main.storyboard in Resources */,
+				CA1CF615221ECB3A00D15316 /* frame-17@2x.png in Resources */,
+				CA1CF616221ECB3A00D15316 /* frame-14@2x.png in Resources */,
+				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
+				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
+				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1CF69B221ECB5000D15316 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF69C221ECB5000D15316 /* frame-29@2x.png in Resources */,
+				CA1CF69D221ECB5000D15316 /* frame-3@2x.png in Resources */,
+				CA1CF69E221ECB5000D15316 /* frame-9@2x.png in Resources */,
+				CA1CF69F221ECB5000D15316 /* frame-24@2x.png in Resources */,
+				CA1CF6A0221ECB5000D15316 /* frame-0@2x.png in Resources */,
+				CA1CF6A1221ECB5000D15316 /* frame-28@2x.png in Resources */,
+				CA1CF6A2221ECB5000D15316 /* Localizable.strings in Resources */,
+				CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */,
+				CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */,
+				CA1CF6A5221ECB5000D15316 /* frame-12@2x.png in Resources */,
+				CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */,
+				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
+				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
+				CA1CF6A9221ECB5000D15316 /* frame-2@2x.png in Resources */,
+				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
+				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
+				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
+				CA1CF6AD221ECB5000D15316 /* LaunchScreen.storyboard in Resources */,
+				CA1CF6AE221ECB5000D15316 /* frame-23@2x.png in Resources */,
+				CA1CF6AF221ECB5000D15316 /* frame-4@2x.png in Resources */,
+				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
+				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
+				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
+				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
+				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
+				CA1CF6B5221ECB5000D15316 /* frame-27@2x.png in Resources */,
+				CA1CF6B6221ECB5000D15316 /* Assets.xcassets in Resources */,
+				CA1CF6B7221ECB5000D15316 /* frame-1@2x.png in Resources */,
+				CA1CF6B8221ECB5000D15316 /* frame-13@2x.png in Resources */,
+				CA1CF6B9221ECB5000D15316 /* Main.storyboard in Resources */,
+				CA1CF6BA221ECB5000D15316 /* frame-17@2x.png in Resources */,
+				CA1CF6BB221ECB5000D15316 /* frame-14@2x.png in Resources */,
+				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
+				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
+				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1358,6 +1820,86 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA1CF57C221ECB3A00D15316 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA1CF61A221ECB3A00D15316 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA1CF621221ECB5000D15316 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA1CF6BF221ECB5000D15316 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1485,6 +2027,256 @@
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
 				4AB48A2121F7282C009F9E94 /* NetworkToolboxView.m in Sources */,
 				4AB48A2B21F86331009F9E94 /* IgnoreListVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1CF57D221ECB3A00D15316 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */,
+				CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */,
+				CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */,
+				CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */,
+				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
+				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
+				CA1CF584221ECB3A00D15316 /* RenderedTextModel.m in Sources */,
+				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
+				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
+				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
+				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
+				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
+				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
+				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
+				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
+				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
+				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
+				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
+				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
+				CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */,
+				CA1CF592221ECB3A00D15316 /* InformationSourceCell.m in Sources */,
+				CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */,
+				CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */,
+				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
+				CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */,
+				CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */,
+				CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */,
+				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
+				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
+				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
+				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
+				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
+				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
+				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
+				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
+				CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */,
+				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
+				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
+				CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */,
+				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
+				CA1CF5A6221ECB3A00D15316 /* BaseWebVC.m in Sources */,
+				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
+				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
+				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
+				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
+				CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */,
+				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
+				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
+				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
+				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
+				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
+				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
+				CA1CF5B2221ECB3A00D15316 /* YYFPSLabel.m in Sources */,
+				CA1CF5B3221ECB3A00D15316 /* iToast+SYCategory.m in Sources */,
+				CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */,
+				CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */,
+				CA1CF5B6221ECB3A00D15316 /* PWInfoBoardCell.m in Sources */,
+				CA1CF5B7221ECB3A00D15316 /* PWDraggableModel.m in Sources */,
+				CA1CF5B8221ECB3A00D15316 /* ExpertAdviceVC.m in Sources */,
+				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
+				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
+				CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */,
+				CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */,
+				CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */,
+				CA1CF5BE221ECB3A00D15316 /* IssueListManger.m in Sources */,
+				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
+				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
+				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
+				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
+				CA1CF5C3221ECB3A00D15316 /* HomeViewController.m in Sources */,
+				CA1CF5C4221ECB3A00D15316 /* SourceVC.m in Sources */,
+				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
+				CA1CF5C6221ECB3A00D15316 /* main.m in Sources */,
+				CA1CF5C7221ECB3A00D15316 /* PWInfoInitialView.m in Sources */,
+				CA1CF5C8221ECB3A00D15316 /* AccountInfoModel.m in Sources */,
+				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
+				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
+				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
+				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
+				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
+				CA1CF5CE221ECB3A00D15316 /* PWDraggableItem.m in Sources */,
+				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
+				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
+				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
+				CA1CF5D2221ECB3A00D15316 /* AddSourceVC.m in Sources */,
+				CA1CF5D3221ECB3A00D15316 /* InformationSourceVC.m in Sources */,
+				CA1CF5D4221ECB3A00D15316 /* MonitorVC.m in Sources */,
+				CA1CF5D5221ECB3A00D15316 /* PWDraggableLibraryView.m in Sources */,
+				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
+				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
+				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
+				CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */,
+				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
+				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
+				CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */,
+				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
+				CA1CF5DE221ECB3A00D15316 /* PWNewsListCell.m in Sources */,
+				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
+				CA1CF5E0221ECB3A00D15316 /* MonitorListCell.m in Sources */,
+				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
+				CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */,
+				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
+				CA1CF5E4221ECB3A00D15316 /* RootNavigationController.m in Sources */,
+				CA1CF5E5221ECB3A00D15316 /* NewsListModel.m in Sources */,
+				CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
+				CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */,
+				CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */,
+				CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */,
+				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
+				CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */,
+				CA1CF5EC221ECB3A00D15316 /* ThinkTankVC.m in Sources */,
+				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
+				CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */,
+				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
+				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
+				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
+				CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */,
+				CA1CF5F3221ECB3A00D15316 /* IgnoreListVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CA1CF622221ECB5000D15316 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */,
+				CA1CF624221ECB5000D15316 /* LogManager.m in Sources */,
+				CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */,
+				CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */,
+				CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */,
+				CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */,
+				CA1CF629221ECB5000D15316 /* RenderedTextModel.m in Sources */,
+				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
+				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
+				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
+				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
+				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
+				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
+				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
+				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
+				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
+				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
+				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
+				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
+				CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */,
+				CA1CF637221ECB5000D15316 /* InformationSourceCell.m in Sources */,
+				CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */,
+				CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */,
+				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
+				CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */,
+				CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */,
+				CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */,
+				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
+				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
+				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
+				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
+				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
+				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
+				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
+				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
+				CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */,
+				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
+				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
+				CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */,
+				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
+				CA1CF64B221ECB5000D15316 /* BaseWebVC.m in Sources */,
+				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
+				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
+				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
+				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
+				CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */,
+				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
+				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
+				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
+				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
+				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
+				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
+				CA1CF657221ECB5000D15316 /* YYFPSLabel.m in Sources */,
+				CA1CF658221ECB5000D15316 /* iToast+SYCategory.m in Sources */,
+				CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */,
+				CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */,
+				CA1CF65B221ECB5000D15316 /* PWInfoBoardCell.m in Sources */,
+				CA1CF65C221ECB5000D15316 /* PWDraggableModel.m in Sources */,
+				CA1CF65D221ECB5000D15316 /* ExpertAdviceVC.m in Sources */,
+				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
+				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
+				CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */,
+				CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */,
+				CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */,
+				CA1CF663221ECB5000D15316 /* IssueListManger.m in Sources */,
+				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
+				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
+				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
+				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
+				CA1CF668221ECB5000D15316 /* HomeViewController.m in Sources */,
+				CA1CF669221ECB5000D15316 /* SourceVC.m in Sources */,
+				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
+				CA1CF66B221ECB5000D15316 /* main.m in Sources */,
+				CA1CF66C221ECB5000D15316 /* PWInfoInitialView.m in Sources */,
+				CA1CF66D221ECB5000D15316 /* AccountInfoModel.m in Sources */,
+				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
+				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
+				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
+				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,
+				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
+				CA1CF673221ECB5000D15316 /* PWDraggableItem.m in Sources */,
+				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
+				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
+				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
+				CA1CF677221ECB5000D15316 /* AddSourceVC.m in Sources */,
+				CA1CF678221ECB5000D15316 /* InformationSourceVC.m in Sources */,
+				CA1CF679221ECB5000D15316 /* MonitorVC.m in Sources */,
+				CA1CF67A221ECB5000D15316 /* PWDraggableLibraryView.m in Sources */,
+				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
+				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
+				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
+				CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */,
+				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
+				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
+				CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */,
+				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
+				CA1CF683221ECB5000D15316 /* PWNewsListCell.m in Sources */,
+				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
+				CA1CF685221ECB5000D15316 /* MonitorListCell.m in Sources */,
+				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
+				CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */,
+				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
+				CA1CF689221ECB5000D15316 /* RootNavigationController.m in Sources */,
+				CA1CF68A221ECB5000D15316 /* NewsListModel.m in Sources */,
+				CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
+				CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */,
+				CA1CF68D221ECB5000D15316 /* iToast.m in Sources */,
+				CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */,
+				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
+				CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */,
+				CA1CF691221ECB5000D15316 /* ThinkTankVC.m in Sources */,
+				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,
+				CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */,
+				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
+				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
+				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
+				CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */,
+				CA1CF698221ECB5000D15316 /* IgnoreListVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,6 +2470,82 @@
 			};
 			name = Release;
 		};
+		CA1CF61C221ECB3A00D15316 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FDRMD28QMM;
+				INFOPLIST_FILE = "$(SRCROOT)/Info-dev.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = dev;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CA1CF61D221ECB3A00D15316 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FDRMD28QMM;
+				INFOPLIST_FILE = "$(SRCROOT)/Info-dev.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CA1CF6C1221ECB5000D15316 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FDRMD28QMM;
+				INFOPLIST_FILE = "$(SRCROOT)/Info-pre-made.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = dev;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CA1CF6C2221ECB5000D15316 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FDRMD28QMM;
+				INFOPLIST_FILE = "$(SRCROOT)/Info-pre-made.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1695,6 +2563,24 @@
 			buildConfigurations = (
 				4A95BB99217DAD6100FC2979 /* Debug */,
 				4A95BB9A217DAD6100FC2979 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA1CF61B221ECB3A00D15316 /* Build configuration list for PBXNativeTarget "AppDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA1CF61C221ECB3A00D15316 /* Debug */,
+				CA1CF61D221ECB3A00D15316 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA1CF6C0221ECB5000D15316 /* Build configuration list for PBXNativeTarget "AppPreMade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA1CF6C1221ECB5000D15316 /* Debug */,
+				CA1CF6C2221ECB5000D15316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
