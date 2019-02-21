@@ -18,11 +18,25 @@ SINGLETON_FOR_HEADER(IssueListManger)
 + (instancetype)new NS_UNAVAILABLE;
 - (id)copy NS_UNAVAILABLE; // 没有遵循协议可以不写
 - (id)mutableCopy NS_UNAVAILABLE; // 没有遵循协议可以不写
-
+/**
+ 首页展示类型判断
+ */
+-(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect;
+/**
+ 每次打开app需要判断首页展示的数据
+ */
 - (void)downLoadAllIssueList;
-- (BOOL)judgeIssueConnectState;
-- (void)insertIssue;
+/**
+  socket 推送需要更新
+ */
+- (void)newIssueNeedUpdate;
+/**
+ 首页infoBoard数据提供
+ */
 - (NSArray *)getInfoBoardData;
+/**
+ 情报分类页数据源获取
+ */
 - (NSArray *)getIssueListWithIssueType:(NSString *)type;
 @end
 

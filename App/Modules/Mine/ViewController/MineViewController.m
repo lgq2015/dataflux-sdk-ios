@@ -12,6 +12,7 @@
 #import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "SettingUpVC.h"
+#import "FeedbackVC.h"
 #import "ContactUsVC.h"
 #import "AboutUsVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -143,7 +144,10 @@
             [self.navigationController pushViewController:contactVC animated:YES];
         }
             break;
-        case MineCellTypeOpinion:
+        case MineCellTypeOpinion:{
+            FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
+            [self.navigationController pushViewController:opinionVC animated:YES];
+        }
             break;
         case MineCellTypeCollect:
             break;

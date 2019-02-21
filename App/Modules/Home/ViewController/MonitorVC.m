@@ -58,6 +58,7 @@
     MonitorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonitorCell"];
     cell.model = self.monitorData[indexPath.row];
     cell.backgroundColor = PWWhiteColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========

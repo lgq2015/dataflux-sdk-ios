@@ -265,13 +265,14 @@
     }];
 }
 - (void)findPasswordWithCode:(NSString *)code{
-    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile", }};
+    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *authAccessToken = content[@"authAccessToken"];
             setXAuthToken(authAccessToken);
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+            newPasswordVC.isShowCustomNaviBar = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{

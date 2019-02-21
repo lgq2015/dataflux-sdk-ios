@@ -72,4 +72,5 @@ SINGLETON_FOR_HEADER(UserManager)
  @return 是否成功
  */
 -(BOOL)loadUserInfo;
+-(void)saveUserInfoLoginStateisChange:(BOOL)change;
 @end

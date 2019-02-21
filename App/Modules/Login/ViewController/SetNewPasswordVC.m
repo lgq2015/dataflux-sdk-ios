@@ -22,9 +22,9 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"新密码格式至少包含两种 8-25 位\n大小写字母、数字或字符"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"新密码格式至少包含两种 8-25 位\n大小写字母、数字或字符"];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
@@ -59,7 +59,17 @@
         make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
         make.height.offset(ZOOM_SCALE(47));
     }];
-    
+    RACSignal *passwordSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        return @(value.length>7);
+    }];
+    RAC(self.confirmBtn,enabled) = passwordSignal;
+    RAC(self.confirmBtn, backgroundColor) = [passwordSignal map: ^id (id value){
+        if([value boolValue]){
+            return PWBlueColor;
+        }else{
+            return [UIColor colorWithHexString:@"C7C7CC"];
+        }
+    }];
 }
 -(UIButton *)confirmBtn{
     if(!_confirmBtn){
@@ -91,8 +101,8 @@
     NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile",@"deviceId": openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-            setXAuthToken(response[@"authAccessToken"]);
-            KPostNotification(KNotificationLoginStateChange, @YES);
+            setXAuthToken(response[@"content"][@"authAccessToken"]);
+            [userManager saveUserInfoLoginStateisChange:YES];
         }else{
             [iToast alertWithTitleCenter:response[@"message"]];
         }

@@ -22,7 +22,6 @@ static NSString *const NoImgTips =@"该图片无法显示";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self createTextUI];
     // Initialization code
 }
 -(void)setFrame:(CGRect)frame{
@@ -36,7 +35,6 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.backgroundColor = [UIColor whiteColor];
     self.iconImgVie.hidden = NO;
     self.timeLab.hidden = NO;
-    self.titleLab.hidden = NO;
    
     [self.iconImgVie mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(Interval(16));
@@ -54,78 +52,107 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.titleLab.text = self.model.title;
     if (self.model.isStarred) {
         self.topStateLab.hidden = NO;
+        self.timeLab.hidden = YES;
         [self.topStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self).offset(Interval(16));
             make.top.mas_equalTo(self.iconImgVie.mas_bottom);
             make.width.offset(ZOOM_SCALE(40));
             make.height.offset(ZOOM_SCALE(22));
+            make.bottom.mas_equalTo(self).offset(-Interval(8));
         }];
     }else{
         self.topStateLab.hidden = YES;
+        self.timeLab.hidden = NO;
         [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self).offset(Interval(15));
             make.top.mas_equalTo(self.iconImgVie.mas_bottom);
             make.height.offset(ZOOM_SCALE(17));
             make.right.mas_equalTo(self).offset(-Interval(15));
+            make.bottom.mas_equalTo(self).offset(-Interval(8));
         }];
         self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.updatedAt,self.model.source];
-        
     }
 }
-- (void)createFillImgUI{
-    self.iconImgVie.hidden = NO;
-    self.iconImgVie.frame = self.contentView.bounds;
-    if([self.model.imageUrl isEqualToString:@""]){
-        self.iconImgVie.frame = CGRectMake(ZOOM_SCALE(155), ZOOM_SCALE(28), ZOOM_SCALE(205), ZOOM_SCALE(90));
-        self.iconImgVie.image = [UIImage imageNamed:@"loadingImgError"];
-        self.noImgLab.hidden = NO;
-    }
-    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@"loadingImgError"]];
-    self.timeLab.hidden = YES;
-    self.titleLab.hidden = YES;
-}
-- (void)createTextUI{
+//- (void)createFillImgUI{
+//    self.iconImgVie.hidden = NO;
+//    self.iconImgVie.frame = self.contentView.bounds;
+//    if([self.model.imageUrl isEqualToString:@""]){
+//        self.iconImgVie.frame = CGRectMake(ZOOM_SCALE(155), ZOOM_SCALE(28), ZOOM_SCALE(205), ZOOM_SCALE(90));
+//        self.iconImgVie.image = [UIImage imageNamed:@"loadingImgError"];
+//        self.noImgLab.hidden = NO;
+//    }
+//    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@"loadingImgError"]];
+//    self.timeLab.hidden = YES;
+//    self.titleLab.hidden = YES;
+//}
+- (void)createUI{
     self.iconImgVie.hidden = YES;
     self.timeLab.hidden = NO;
-    self.titleLab.hidden = NO;
-    self.titleLab.frame = CGRectMake(ZOOM_SCALE(20), ZOOM_SCALE(20), ZOOM_SCALE(320), ZOOM_SCALE(22));
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(32);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        if(self.model.type == NewListCellTypeSingleImg){
+            make.right.mas_equalTo(self.iconImgVie.mas_left).offset(-Interval(30));
+        }else{
+            make.right.mas_equalTo(self).offset(-Interval(16));
+        }
         make.top.mas_equalTo(self).offset(Interval(11));
         make.left.mas_equalTo(self).offset(Interval(16));
-        make.right.mas_equalTo(self).offset(-Interval(16));
     }];
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(28));
-        make.left.mas_equalTo(self).offset(Interval(16));
-        make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(17));
-        make.bottom.mas_equalTo(self).offset(-Interval(8));
-    }];
-    self.titleLab.text = self.model.title;
-    self.timeLab.text = [NSString stringWithFormat:@"%@   topic",self.model.updatedAt];
+    if(self.model.type == NewListCellTypeSingleImg){
+        self.iconImgVie.hidden = NO;
+        [self.iconImgVie mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self).offset(Interval(16));
+            make.right.mas_equalTo(self).offset(-Interval(16));
+            make.width.height.offset(ZOOM_SCALE(90));
+        }];
+    }
+    if (self.model.isStarred) {
+        self.timeLab.hidden = YES;
+        self.topStateLab.hidden =NO;
+        [self.topStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self).offset(Interval(16));
+            if(self.model.type == NewListCellTypeSingleImg){
+                make.top.mas_equalTo(self.iconImgVie.mas_bottom);
+            }else{
+                make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(28));
+            }
+            make.width.offset(ZOOM_SCALE(40));
+            make.height.offset(ZOOM_SCALE(22));
+            make.bottom.mas_equalTo(self).offset(-Interval(8));
+        }];
+    }else{
+        self.timeLab.hidden = NO;
+        self.topStateLab.hidden = YES;
+        [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(28));
+            make.left.mas_equalTo(self).offset(Interval(16));
+            make.right.mas_equalTo(self).offset(-Interval(16));
+            make.height.offset(ZOOM_SCALE(17));
+            make.bottom.mas_equalTo(self).offset(-Interval(8));
+        }];
+    }
+
 }
+
 -(void)setModel:(NewsListModel *)model{
     _model = model;
-    [self createTextUI];
+    if (_model.isStarred) {
+        self.timeLab.hidden = YES;
+        self.topStateLab.hidden = NO;
+    }else{
+        self.timeLab.hidden = NO;
+        self.topStateLab.hidden = YES;
+    }
+    self.iconImgVie.hidden = _model.type == NewListCellTypeSingleImg?NO:YES;
+    self.timeLab.text = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.model.updatedAt],_model.topic];
+    self.titleLab.text = _model.title;
 
 }
 -(void)layoutSubviews{
     self.backgroundColor = [UIColor whiteColor];
     self.noImgLab.hidden = YES;
-    self.iconImgVie.backgroundColor = [UIColor whiteColor];
-    [self createTextUI];
-//    switch (self.model.type) {
-//            case NewListCellTypeSingleImg:
-//            [self createSingleImgUI];
-//            break;
-//            case NewListCellTypeFillImg:
-//            [self createFillImgUI];
-//            break;
-//            case NewListCellTypText:
-//            [self createTextUI];
-//            break;
-//    }
+    self.iconImgVie.backgroundColor = PWBackgroundColor;
+    [self createUI];
 }
 -(UILabel *)topStateLab{
     if (!_topStateLab) {
@@ -204,5 +231,16 @@ static NSString *const NoImgTips =@"该图片无法显示";
 
     // Configure the view for the selected state
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    self.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+}
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent: event];
+    self.backgroundColor = PWWhiteColor;
+}
+-(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesCancelled:touches withEvent:event];
+    self.backgroundColor = PWWhiteColor;
+}
 @end

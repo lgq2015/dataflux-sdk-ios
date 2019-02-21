@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, NewListCellType) {
 @property (nonatomic, strong) NSString *source;
 @property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *updatedAt;
+@property (nonatomic, strong) NSString *topic;
 @property (nonatomic, assign) BOOL isStarred;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *url;

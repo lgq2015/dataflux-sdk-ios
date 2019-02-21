@@ -75,7 +75,7 @@
 }
 - (void)setValueWithJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
-    self.updatedAt = [dict stringValueForKey:@"updatedAt" default:@""];
+    self.updatedAt = [NSString getLocalDateFormateUTCDate:[dict stringValueForKey:@"updatedAt" default:@""] formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     self.subtitle = [dict stringValueForKey:@"content" default:@""];
     self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
     NSString *newid = [dict stringValueForKey:@"id" default:@""];
@@ -89,16 +89,25 @@
     }else{
         self.type = NewListCellTypText;
     }
+    NSDictionary *topic=dict[@"topic"];
+    self.topic =[topic stringValueForKey:@"title" default:@""];
     self.isStarred = NO;
 }
 - (void)setValueWithStickJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
-    self.updatedAt = [dict stringValueForKey:@"onShelvesTime" default:@""];
+    NSString *time = [dict stringValueForKey:@"onShelvesTime" default:@""];
+    if(time.length>19){
+        time = [time substringToIndex:19];
+        self.updatedAt =[NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss"];
+    }else{
+        self.updatedAt = time;
+    }
     self.subtitle = [dict stringValueForKey:@"summary" default:@""];
     self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
     self.url = [dict stringValueForKey:@"url" default:@""];
     if (![self.imageUrl isEqualToString:@""]) {
         self.type = NewListCellTypeSingleImg;
+        self.cellHeight = ZOOM_SCALE(112)+Interval(30);
     }else{
         self.type = NewListCellTypText;
     }

@@ -16,13 +16,17 @@
 #define getXAuthToken           [kUserDefaults objectForKey:XAuthToken]
 
 //首页是否展示未连接状态
-#define PWConnect @"isConnect"
+#define PWConnect               [NSString stringWithFormat:@"%@/isConnect", getPWUserID]
 #define setConnect(bool)        [kUserDefaults setBool:bool forKey:PWConnect]
 #define getConnectState         [kUserDefaults objectForKey:PWConnect]
 
 //上次请求issue的时间
-#define PWLastTime @"lastRequestTime"
+#define PWLastTime              [NSString stringWithFormat:@"%@/lastRequestTimet", getPWUserID]
 #define setLastTime(str)        [kUserDefaults setObject:str forKey:PWLastTime]
 #define getLastTime             [kUserDefaults objectForKey:PWLastTime]
 
+//当前用户id
+#define PWUserID @"userid"
+#define setPWUserID(str)        [kUserDefaults setObject:str forKey:PWUserID]
+#define getPWUserID             [kUserDefaults objectForKey:PWUserID]
 #endif /* NSUserDefaultsMacros_h */

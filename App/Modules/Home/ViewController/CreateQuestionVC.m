@@ -97,14 +97,17 @@
     desTitleLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
     desTitleLab.textColor = PWTitleColor;
     [describeView addSubview:desTitleLab];
-     self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入"];
-    [describeView addSubview:self.describeTextView];
-    [self.describeTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(desTitleLab.mas_bottom).offset(ZOOM_SCALE(6));
-        make.left.mas_equalTo(describeView).offset(Interval(12));
-        make.right.mas_equalTo(describeView).offset(-Interval(16));
-        make.bottom.mas_equalTo(describeView).offset(-Interval(19));
-    }];
+    if (!_describeTextView) {
+        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入" font:MediumFONT(16)];
+        [describeView addSubview:self.describeTextView];
+        [self.describeTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(desTitleLab.mas_bottom).offset(ZOOM_SCALE(6));
+            make.left.mas_equalTo(describeView).offset(Interval(12));
+            make.right.mas_equalTo(describeView).offset(-Interval(16));
+            make.bottom.mas_equalTo(describeView).offset(-Interval(19));
+        }];
+    }
+    
     UIButton *accessoryBtn = [[UIButton alloc]init];
     [accessoryBtn addTarget:self action:@selector(accessoryBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [accessoryBtn setImage:[UIImage imageNamed:@"icon_call_black"] forState:UIControlStateNormal];
@@ -126,8 +129,11 @@
         make.centerY.mas_equalTo(accessoryBtn);
     }];
     [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
+        if (text.length>1000) {
+            text = [text substringToIndex:250];
+            self.describeTextView.text = text;
+        }
         count.text = [NSString stringWithFormat:@"%lu/250",(unsigned long)text.length];
-        self.describeTextView.editable = text.length<250?YES:NO;
     }];
     
 }

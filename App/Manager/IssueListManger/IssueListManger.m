@@ -38,8 +38,9 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     self.infoDatas = [[NSMutableArray alloc]initWithArray:@[monitor,security,consume,optimization,alert]];
     self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
 }
+#pragma mark ========== public method ==========
 
-#pragma mark ========== 全量更新/会判断是否需要更新 ==========
+// 全量更新/会判断是否需要更新
 - (void)downLoadAllIssueList{
     BOOL update = [self isNeedUpdateAll];
     if (update) {
@@ -51,20 +52,32 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     [self loadIssueListWithParam:params];
 }
 }
-#pragma mark ========== 判断是否需要全量更新 ==========
-- (BOOL)isNeedUpdateAll{
-    NSString *lastTime = getLastTime;
-    if ([lastTime isEqualToString:@""]) {
-        return YES;
-    }else{
-        return [self isSameDay:[lastTime longValue] Time2:[[NSString getNowTimeTimestamp] longValue]];
-    }
-}
-#pragma mark ========== 添加或修改 issueList ==========
-- (void)insertIssue{
+// 更新 issueList
+- (void)newIssueNeedUpdate{
     
 }
-#pragma mark ========== issueList/GET ==========
+- (NSArray *)getIssueListWithIssueType:(NSString *)type{
+    
+    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
+    NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' order by actSeq desc",type];
+    NSArray *itemDatas = [pwfmdb pw_lookupTable:self.tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
+    return itemDatas;
+}
+- (NSArray *)getInfoBoardData{
+    [self dealDataForInfoBoard:YES];
+    return self.infoDatas;
+}
+#pragma mark ========== private method ==========
+// 判断是否需要全量更新
+- (BOOL)isNeedUpdateAll{
+        NSDate *lastTime = getLastTime;
+        if (lastTime == nil) {
+            return YES;
+        }else{
+            return ![NSDate date].isToday;
+        }
+}
+// issueList/GET
 - (void)loadIssueListWithParam:(NSDictionary *)param{
     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
@@ -93,7 +106,8 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 - (void)loadNextIssueListWithParam:(NSDictionary *)param{
     [self loadIssueListWithParam:param];
 }
-#pragma mark ========== 数据库存储 ==========
+#pragma mark ========== 数据库==========
+//数据库存储
 - (void)dealWithIssueData:(NSArray *)data{
     DLog(@"%@",data);
     if (data.count>0) {
@@ -102,14 +116,22 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
             NSError *error;
             IssueModel *model = [[IssueModel alloc]initWithDictionary:obj error:&error];
             NSArray *logs =  model.latestIssueLogs;
-            NSData *logData=  [NSJSONSerialization dataWithJSONObject:logs options:NSJSONWritingPrettyPrinted error:&error];
-            model.latestIssueLogsStr = [[NSString alloc]initWithData:logData encoding:NSUTF8StringEncoding];
-             NSDictionary *rendered =  model.renderedText;
+            if (logs.count>0) {
+                NSString *logstr = [logs jsonStringEncoded];
+                model.latestIssueLogsStr =logstr;
+            }
+             NSDictionary *rendered = model.renderedText;
             if(!rendered){
                 model.renderedTextStr = @"";
             }else{
-            NSData *renderedData=  [NSJSONSerialization dataWithJSONObject:rendered options:NSJSONWritingPrettyPrinted error:&error];
-            model.renderedTextStr = [[NSString alloc]initWithData:renderedData encoding:NSUTF8StringEncoding];
+                NSString *renderedTextStr = [rendered jsonPrettyStringEncoded];
+                model.renderedTextStr = renderedTextStr;
+            }
+            NSDictionary *reference = model.reference;
+            if(!reference){
+                model.referenceStr = @"";
+            }else{
+                model.referenceStr = [reference jsonPrettyStringEncoded];
             }
             [array addObject:model];
         }];
@@ -117,24 +139,27 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
       PWFMDB *pwfmdb = [PWFMDB shareDatabase];
    //存在issue表
     if ([pwfmdb pw_isExistTable:self.tableName]) {
-//          [pwfmdb pw_inDatabase:^{
+//           [pwfmdb pw_inDatabase:^{
             BOOL isopen = [pwfmdb pw_insertTable:self.tableName dicOrModelArray:array];
             if(isopen){
+            setLastTime([NSDate date]);
             [self dealDataForInfoBoard:YES];
             }
 //        }];
     }else{
-        
-        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text"};
+        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"reference":@"text"};
         BOOL isCreate = [pwfmdb pw_createTable:self.tableName dicOrModel:dict];
         if(isCreate)
+//              [pwfmdb pw_inDatabase:^{
             if([pwfmdb pw_insertTable:self.tableName dicOrModelArray:array]){
+                setLastTime([NSDate date]);
                 [self dealDataForInfoBoard:YES];
             }
+//          }];
         }
     }
 }
-#pragma mark ========== InfoBoard需要的数据处理 ==========
+// InfoBoard需要的数据处理
 -(void)dealDataForInfoBoard:(BOOL)isfull{
     if(isfull){
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
@@ -171,7 +196,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                 if([issue.renderedTextStr isEqualToString:@""]){
                     self.infoDatas[i].subTitle = issue.title;
                 }else{
-                    NSDictionary *dict = [NSString dictionaryWithJsonString:issue.renderedTextStr];
+                    NSDictionary *dict = [issue.renderedTextStr jsonValueDecoded];
                     self.infoDatas[i].subTitle = dict[@"title"];
                 }
             }
@@ -181,19 +206,18 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
         }
      }
 }
-#pragma mark ========== 判断首页是否连接 ==========
--(BOOL)judgeIssueConnectState{
-    __block BOOL connect = [getConnectState boolValue];
-    if (!connect) {
+// 判断首页是否连接
+-(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect{
+    
         NSDictionary *param = @{@"pageNumber":@1,@"pageSize":@1};
         [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
                 NSDictionary *content = response[@"content"];
                 NSArray *data = content[@"data"];
                 if (data.count>0) {
-                    connect = YES;
                     setConnect(YES);
                     [kUserDefaults synchronize];
+                    isConnect(YES);
                 }else{
                     NSDictionary *params =@{@"orderBy":@"actSeq",@"orderMethod":@"desc",@"pageSize":@1};
                     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
@@ -201,48 +225,24 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                             NSDictionary *content = response[@"content"];
                             NSArray *data = content[@"data"];
                             if (data.count>0) {
-                                connect = YES;
                                 setConnect(YES);
                                 [kUserDefaults synchronize];
+                                isConnect(YES);
                             }
                         }
                     } failBlock:^(NSError *error) {
-                        
+                        isConnect(NO);
                     }];
                 }
             }
+            isConnect(NO);
         } failBlock:^(NSError *error) {
+           isConnect(NO);
         }];
-    }
-    
-    return connect;
 }
-#pragma mark ========== 为InfoBoard提供数据 ==========
-- (NSArray *)getInfoBoardData{
-    [self dealDataForInfoBoard:YES];
-    return self.infoDatas;
-}
-- (NSArray *)getIssueListWithIssueType:(NSString *)type{
-    
-    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
-    NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' order by actSeq desc",type];
-    NSArray *itemDatas = [pwfmdb pw_lookupTable:self.tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
-    return itemDatas;
-}
-#pragma mark ========== 判断是否为同一天 ==========
-- (BOOL)isSameDay:(long)iTime1 Time2:(long)iTime2
-{
-    //传入时间毫秒数
-    NSDate *pDate1 = [NSDate dateWithTimeIntervalSince1970:iTime1/1000];
-    NSDate *pDate2 = [NSDate dateWithTimeIntervalSince1970:iTime2/1000];
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-    NSDateComponents* comp1 = [calendar components:unitFlags fromDate:pDate1];
-    NSDateComponents* comp2 = [calendar components:unitFlags fromDate:pDate2];
-    
-    return [comp1 day]   == [comp2 day] &&
-    [comp1 month] == [comp2 month] &&
-    [comp1 year]  == [comp2 year];
-}
+
+
+
+#pragma mark ========== infoBoard 数据库创建相关 ==========
 
 @end

@@ -57,7 +57,7 @@
             make.height.offset(ZOOM_SCALE(20));
             make.centerY.equalTo(self.rightBtn.mas_centerY);
         }];
-        self.titleLable.text = @"qwqeqeqweqwewqeqweqweqwe";
+        self.titleLable.text = @"检测时间";
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];

@@ -88,8 +88,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
-                KPostNotification(KNotificationLoginStateChange, @YES);
-                [self saveUserInfo];
+                [self saveUserInfoLoginStateisChange:YES];
             }
             
         } failBlock:^(NSError *error) {
@@ -106,14 +105,14 @@ SINGLETON_FOR_CLASS(UserManager);
                 [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
                 [token synchronize];
                 BOOL isRegister = [content[@"isRegister"] boolValue];
-                [self saveUserInfo];
              if (isRegister) {
                  NSString *changePasswordToken = content[@"changePasswordToken"];
                     if (completion) {
                         completion(YES,changePasswordToken);
                     }
+                    [self saveUserInfoLoginStateisChange:NO];
                 }else{
-                KPostNotification(KNotificationLoginStateChange, @YES);
+                    [self saveUserInfoLoginStateisChange:YES];
                 }
             }else{
                 if (completion) {
@@ -133,8 +132,8 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 #pragma mark ========== 储存用户信息 ==========
--(void)saveUserInfo{
-    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+-(void)saveUserInfoLoginStateisChange:(BOOL)change{
+    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSString *errCode = response[@"errCode"];
         if(errCode.length>0){
             [iToast alertWithTitleCenter:response[@"message"]];
@@ -145,8 +144,14 @@ SINGLETON_FOR_CLASS(UserManager);
                 YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
                 NSDictionary *dic = [self.curUserInfo modelToJSONObject];
                 [cache setObject:dic forKey:KUserModelCache];
+                NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                setPWUserID(userID);
+            }
+            if(change){
+            KPostNotification(KNotificationLoginStateChange, @YES);
             }
         }
+            
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
     }];

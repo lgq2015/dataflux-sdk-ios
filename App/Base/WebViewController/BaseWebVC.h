@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseWebVC : UIViewController
+@interface BaseWebVC : RootViewController
 - (id)initWithTitle:(NSString *)title andWebUrl:(NSURL *)webUrl;
 @end

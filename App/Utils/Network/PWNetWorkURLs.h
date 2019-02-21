@@ -71,7 +71,9 @@
 
 
 
-
+#pragma mark ========== 我的 ==========
+//添加反馈信息
+#define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
