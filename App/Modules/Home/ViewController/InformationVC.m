@@ -39,6 +39,10 @@
                                              selector:@selector(infoBoardDatasUpdate)
                                                  name:KNotificationInfoBoardDatasUpdate
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(infoBoardStyleUpdate)
+                                                 name:KNotificationIssueSourceChange
+                                               object:nil];
     [self dealNewsDatas];
     [self judgeIssueConnectState];
     
@@ -48,17 +52,18 @@
     if(!isconnect){
         [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
             self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
-            [self createUI];
             if (isConnect) {
                 [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
             }
+            [self createUI];
         }];
-
+      
     }else{
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         [self createUI];
     }
+
 }
 - (void)createUI{
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(534):ZOOM_SCALE(690);
@@ -114,6 +119,15 @@
     self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
     [self.view addSubview:self.tableView];
 
+}
+-(void)infoBoardStyleUpdate{
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
+        NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
+        [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
+        self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(534));
+        self.infoboard.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(436));
+        self.tableView.tableHeaderView = self.headerView;
+    }
 }
 -(void)infoBoardDatasUpdate{
     NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;

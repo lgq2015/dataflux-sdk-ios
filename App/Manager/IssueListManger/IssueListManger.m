@@ -228,14 +228,17 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                                 setConnect(YES);
                                 [kUserDefaults synchronize];
                                 isConnect(YES);
+                            }else{
+                               isConnect(NO);
                             }
                         }
                     } failBlock:^(NSError *error) {
                         isConnect(NO);
                     }];
                 }
+            }else{
+             isConnect(NO);
             }
-            isConnect(NO);
         } failBlock:^(NSError *error) {
            isConnect(NO);
         }];

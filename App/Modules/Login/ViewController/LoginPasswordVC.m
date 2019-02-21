@@ -155,7 +155,7 @@
         return @(self.selectBtn.selected);
     }];
     RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
-        return @([NSString validateCellPhoneNumber:[phone stringByReplacingOccurrencesOfString:@" " withString:@""]] && [NSString validatePassWordForm:password] && self.selectBtn.selected);
+        return @(@([phone stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11) && [NSString validatePassWordForm:password] && self.selectBtn.selected);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){

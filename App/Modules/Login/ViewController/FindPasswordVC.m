@@ -60,7 +60,7 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     RACSignal *phoneTf= [[self.userTf rac_textSignal] map:^id(NSString *value) {
-        return @([NSString validateCellPhoneNumber:value]||[NSString validateEmail:self.userTf.text]);
+        return @(value.length == 11||[NSString validateEmail:self.userTf.text]);
     }];
     RAC(self.veritfyCodeBtn,enabled) = phoneTf;
     
@@ -87,18 +87,22 @@
 }
 #pragma mark ========== 获取验证码 ==========
 - (void)veritfyCodeClick{
-//    NSDictionary *params = @{@"data":@{@"to":self.userTf.text,@"t":@"forgotten_password"}};
-//    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-//
-//    } failBlock:^(NSError *error) {
-//
-//    }];
-    VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
-    codeVC.isHidenNaviBar = YES;
-    codeVC.isShowLiftBack = YES;
-    codeVC.type = VerifyCodeVCTypeFindPassword;
-    codeVC.phoneNumber = self.userTf.text;
-    [self.navigationController pushViewController:codeVC animated:YES];
+    NSDictionary *params = @{@"data":@{@"to":self.userTf.text,@"t":@"forgotten_password"}};
+    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if([response[@"errCode"] isEqualToString:@""]){
+            VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
+            codeVC.isHidenNaviBar = YES;
+            codeVC.isShowLiftBack = YES;
+            codeVC.type = VerifyCodeVCTypeFindPassword;
+            codeVC.phoneNumber = self.userTf.text;
+            [self.navigationController pushViewController:codeVC animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:@"message"];
+        }
+    } failBlock:^(NSError *error) {
+
+    }];
+    
 
 }
 
