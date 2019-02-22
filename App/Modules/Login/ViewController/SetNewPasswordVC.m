@@ -102,7 +102,7 @@
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             setXAuthToken(response[@"content"][@"authAccessToken"]);
-            [userManager saveUserInfoLoginStateisChange:YES];
+            [userManager saveUserInfoLoginStateisChange:YES success:nil];
         }else{
             [iToast alertWithTitleCenter:response[@"message"]];
         }

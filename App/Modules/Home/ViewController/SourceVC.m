@@ -179,11 +179,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         self.isFirstEdit = YES;
         UITextField *akId = self.TFArray[1];
         UITextField *password = self.TFArray[2];
+        self.showWordsBtn.hidden = YES;
         [[akId rac_textSignal] subscribeNext:^(id x) {
             if (self.isFirstEdit) {
                 if (![x isEqualToString:self.model.akId]) {
                     password.text = @"";
                     self.isFirstEdit = NO;
+                    self.showWordsBtn.hidden = NO;
                     self.showWordsBtn.enabled = YES;
                 }
             }

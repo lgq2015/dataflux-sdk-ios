@@ -26,8 +26,8 @@
 }
 - (void)createUI{
     PWSegmentStyle *style = [[PWSegmentStyle alloc]init];
-    style.titleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 17];
-    style.selectTitleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 24];
+    style.titleFont = MediumFONT(17);
+    style.selectTitleFont = MediumFONT(24);
     style.selectedTitleColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     style.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
     style.showExtraButton = YES;

@@ -57,7 +57,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.iconImg.mas_right).offset(Interval(15));
         make.centerY.mas_equalTo(self.iconImg);
-        make.width.offset(ZOOM_SCALE(36));
+        make.width.offset(ZOOM_SCALE(40));
     }];
     [self.popView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-Interval(20));

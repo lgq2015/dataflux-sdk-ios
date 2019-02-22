@@ -97,7 +97,7 @@
             codeVC.phoneNumber = self.userTf.text;
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:@"message"];
+            [iToast alertWithTitleCenter:response[@"message"]];
         }
     } failBlock:^(NSError *error) {
 

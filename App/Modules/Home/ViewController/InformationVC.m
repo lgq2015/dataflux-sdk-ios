@@ -15,6 +15,7 @@
 #import "AddSourceVC.h"
 #import "UserManager.h"
 #import "IssueListManger.h"
+#import "NewsWebView.h"
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -79,24 +80,43 @@
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
     self.infoboard.itemClick = ^(NSInteger index){
-         MonitorVC *monitor = [[MonitorVC alloc]init];
+        NSArray *dataSource;
+         NSString *title;
+         IssueType issueType;
         switch (index) {
             case 0:
-                monitor.dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                title = @"监控";
+                issueType = IssueTypeMisc;
                 break;
             case 1:
-               monitor.dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
+                title = @"安全";
+                issueType = IssueTypeSecurity;
                 break;
             case 2:
-                 monitor.dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
+                 dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
+                title = @"费用";
+                issueType = IssueTypeExpense;
                 break;
             case 3:
-                monitor.dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
+                title = @"优化";
+                issueType = IssueTypeOptimization;
                 break;
             case 4:
-                monitor.dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                title = @"提醒";
+                issueType = IssueTypeAlarm;
+                break;
+            default:
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                title = @"提醒";
+                issueType = IssueTypeAlarm;
                 break;
         }
+        MonitorVC *monitor = [[MonitorVC alloc]initWithTitle:title andIssueType:issueType];
+        monitor.dataSource = dataSource;
         [weakSelf.navigationController pushViewController:monitor animated:YES];
     };
    
@@ -122,6 +142,7 @@
 }
 -(void)infoBoardStyleUpdate{
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
+        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
         self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(534));
@@ -230,7 +251,9 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NewsListModel *model = self.newsDatas[indexPath.row];
+    NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
+    [self.navigationController pushViewController:newsweb animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model =self.newsDatas[indexPath.row];

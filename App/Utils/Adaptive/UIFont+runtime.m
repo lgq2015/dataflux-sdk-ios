@@ -8,7 +8,7 @@
 
 #import "UIFont+runtime.h"
 #import <objc/runtime.h>
-#define MyUIScreen  375 // UI设计原型图的手机尺寸宽度(6), 6p的--414
+#define MyUIScreen  375.0 // UI设计原型图的手机尺寸宽度(6), 6p的--414
 
 @implementation UIFont (runtime)
 + (void)load {

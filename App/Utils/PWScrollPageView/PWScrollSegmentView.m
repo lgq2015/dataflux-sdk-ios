@@ -111,7 +111,7 @@
     CGFloat titleY = 9+kStatusBarHeight;
     CGFloat titleW = 0.0;
     CGFloat titleH = 37;
-    titleW = 48;
+    titleW = ZOOM_SCALE(48);
     
     NSInteger index = 0;
     for (PWCustomLabel *label in self.titleLabels) {

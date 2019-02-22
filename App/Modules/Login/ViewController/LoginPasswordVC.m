@@ -150,12 +150,11 @@
         self.temp = value;
         return value;
     }];
+    
     RACSignal *passwordTf =  [self.passwordTf rac_textSignal];
-    RACSignal *btn = [[self.selectBtn rac_signalForControlEvents:UIControlEventTouchUpInside]map:^id(id value) {
-        return @(self.selectBtn.selected);
-    }];
+    RACSignal *btn = RACObserve(self.selectBtn, selected);
     RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
-        return @(@([phone stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11) && [NSString validatePassWordForm:password] && self.selectBtn.selected);
+        return @([phone stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11 && [NSString validatePassWordForm:password] && self.selectBtn.selected);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
@@ -297,7 +296,7 @@
 }
 #pragma mark ========== 验证码登录页面跳转 ==========
 - (void)verifyCodeClick{
-//    VerifyCodeLoginVC *verifyVC=[[VerifyCodeLoginVC alloc]init];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark ========== 密码可见/不可见 ==========
