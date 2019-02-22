@@ -9,6 +9,20 @@
 #import "JSONModel.h"
 @class AccountInfoModel;
 /*
+ createTime = "2019-01-26T03:01:07.000Z";
+ email = "<null>";
+ id = "acnt-xtKprtNV4FkSJWQGRDLZsN";
+ isDisabled = 0;
+ mobile = 17317547313;
+ name = 17317547313;
+ namespace = default;
+ seq = 23626;
+ tags =         {
+ pwAvatar = "http://diaobao-test.oss-cn-hangzhou.aliyuncs.com/account_file/acnt-xtKprtNV4FkSJWQGRDLZsN/pwAvatar/566375c5-b3a4-4698-88d1-b03d2d05eb2c.png";
+ };
+ updateTime = "2019-01-26T03:01:07.000Z";
+ username = "<null>";*/
+/*
  "createTime": "2019-01-25T10:54:23.000Z",
  "email": null,
  "id": "acnt-bbfzQfqE6igbndcvgcMgwf",
@@ -22,7 +36,7 @@
  "username": null
  */
 @interface CurrentUserModel : JSONModel
-@property (nonatomic, strong) NSString *tags;
+@property (nonatomic, strong) NSDictionary *tags;
 @property (nonatomic, strong) NSArray<AccountInfoModel *>*account_info;
 @property (nonatomic, assign) BOOL isDisabled;
 @property (nonatomic, strong) NSString *avatar;
