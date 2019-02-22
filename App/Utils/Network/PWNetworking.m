@@ -223,6 +223,9 @@ static NSTimeInterval   requestTimeout = 60.f;
                                     // server error
                                     id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
                                   DLog(@"response = %@",response)
+                                    if ([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]) {
+                                        KPostNotification(KNotificationLoginStateChange, @NO);
+                                    }
                                     if (successBlock) successBlock(response);
                                     // response中包含服务端返回的内容
                                 } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {

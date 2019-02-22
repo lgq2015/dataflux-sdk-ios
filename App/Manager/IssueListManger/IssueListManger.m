@@ -36,20 +36,30 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     InfoBoardModel *optimization = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@4,@"messageCount":@"0",@"subTitle":@"",@"state":@0}];
     InfoBoardModel *alert = [[InfoBoardModel alloc]initWithJsonDictionary:@{@"type":@2,@"messageCount":@"0",@"subTitle":@"",@"state":@0}];
     self.infoDatas = [[NSMutableArray alloc]initWithArray:@[monitor,security,consume,optimization,alert]];
-    self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    if ([userManager loadUserInfo]) {
+       self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    }
 }
 #pragma mark ========== public method ==========
 
 // 全量更新/会判断是否需要更新
 - (void)downLoadAllIssueList{
+    if ([self.tableName isEqualToString:@""] || self.tableName == nil) {
+        if ([userManager loadUserInfo]) {
+            self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        }
+    }
+        [self doDownLoadAllIssueList];
+}
+- (void)doDownLoadAllIssueList{
     BOOL update = [self isNeedUpdateAll];
     if (update) {
-        NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10};
-    self.issueList = [NSMutableArray new];
-    if ([[PWFMDB shareDatabase] pw_isExistTable:self.tableName]) {
+        NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@100};
+        self.issueList = [NSMutableArray new];
+        if ([[PWFMDB shareDatabase] pw_isExistTable:self.tableName]) {
             [[PWFMDB shareDatabase] pw_deleteAllDataFromTable:self.tableName];
-    }
-    [self loadIssueListWithParam:params];
+        }
+        [self loadIssueListWithParam:params];
 }
 }
 // 更新 issueList

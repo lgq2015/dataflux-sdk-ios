@@ -33,7 +33,6 @@
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
 		4A6C2887219D50980059BB08 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2886219D50980059BB08 /* RootViewController.m */; };
 		4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
-		4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -74,7 +73,6 @@
 		4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */; };
 		4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
-		4AB48AE6221D21B5009F9E94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AB48AE5221D21B5009F9E94 /* Images.xcassets */; };
 		4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
 		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
@@ -114,6 +112,9 @@
 		4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
 		4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
+		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
+		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
+		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
 		4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
 		4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
@@ -221,8 +222,6 @@
 		4A6C2886219D50980059BB08 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		4A6C288D219D59700059BB08 /* RefreshTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RefreshTableView.h; sourceTree = "<group>"; };
 		4A6C288E219D59700059BB08 /* RefreshTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshTableView.m; sourceTree = "<group>"; };
-		4A6C289621A2B6870059BB08 /* BaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebVC.h; sourceTree = "<group>"; };
-		4A6C289721A2B6870059BB08 /* BaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebVC.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -306,7 +305,6 @@
 		4AB48AE0221A4739009F9E94 /* NaviBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NaviBarView.m; sourceTree = "<group>"; };
 		4AB48AE2221A8C16009F9E94 /* ChangeCardItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeCardItem.h; sourceTree = "<group>"; };
 		4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeCardItem.m; sourceTree = "<group>"; };
-		4AB48AE5221D21B5009F9E94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4AB48AE7221D4AE9009F9E94 /* FeedbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
 		4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
 		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
@@ -388,6 +386,12 @@
 		4ABF44D821C20B68002AF34E /* FindPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindPasswordVC.m; sourceTree = "<group>"; };
 		4ABF44DA21C20BD6002AF34E /* VerifyCodeLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyCodeLoginVC.h; sourceTree = "<group>"; };
 		4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeLoginVC.m; sourceTree = "<group>"; };
+		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
+		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
+		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
+		4AD848E6221FA986002ADF62 /* NewsWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsWebView.m; sourceTree = "<group>"; };
+		4AD848E8221FFC06002ADF62 /* WebItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebItemView.h; sourceTree = "<group>"; };
+		4AD848E9221FFC06002ADF62 /* WebItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebItemView.m; sourceTree = "<group>"; };
 		4AE5374621C68BD2004CF320 /* PWSegmentStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWSegmentStyle.h; sourceTree = "<group>"; };
 		4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWSegmentStyle.m; sourceTree = "<group>"; };
 		4AE5374921C69956004CF320 /* PWScrollSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWScrollSegmentView.h; sourceTree = "<group>"; };
@@ -516,6 +520,8 @@
 				4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */,
 				4AB48A1F21F7282C009F9E94 /* NetworkToolboxView.h */,
 				4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */,
+				4AD848E8221FFC06002ADF62 /* WebItemView.h */,
+				4AD848E9221FFC06002ADF62 /* WebItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -687,8 +693,8 @@
 		4A6C2877219C1B6F0059BB08 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4A6C289621A2B6870059BB08 /* BaseWebVC.h */,
-				4A6C289721A2B6870059BB08 /* BaseWebVC.m */,
+				4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */,
+				4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -831,7 +837,6 @@
 				4A95BB93217DAD6100FC2979 /* Info.plist */,
 				4A95BB94217DAD6100FC2979 /* main.m */,
 				4A19549121A8060D007ADFCA /* PrefixHeader.pch */,
-				4AB48AE5221D21B5009F9E94 /* Images.xcassets */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1045,6 +1050,8 @@
 				4AB48A2321F818C0009F9E94 /* ExpertAdviceVC.m */,
 				4A6114AB21E449F500E4138B /* ToolsVC.h */,
 				4A6114AC21E449F500E4138B /* ToolsVC.m */,
+				4AD848E5221FA986002ADF62 /* NewsWebView.h */,
+				4AD848E6221FA986002ADF62 /* NewsWebView.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1296,7 +1303,6 @@
 				4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */,
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
-				4AB48AE6221D21B5009F9E94 /* Images.xcassets in Resources */,
 				4AE537A921CC9206004CF320 /* frame-12@2x.png in Resources */,
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
@@ -1416,12 +1422,12 @@
 				4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */,
 				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */,
-				4A6C289821A2B6870059BB08 /* BaseWebVC.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* PWInfoSourceModel.m in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AB48A1E21F7000B009F9E94 /* ProblemDetailsVC.m in Sources */,
+				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
@@ -1455,6 +1461,7 @@
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
 				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
+				4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */,
 				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
 				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
 				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
@@ -1473,6 +1480,7 @@
 				4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */,
 				4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
+				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,

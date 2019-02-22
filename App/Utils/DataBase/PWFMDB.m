@@ -47,6 +47,7 @@ static PWFMDB *jqdb = nil;
         } else {
             path = [dbPath stringByAppendingPathComponent:dbName];
         }
+        DLog(@"%@",path);
         FMDatabase *fmdb = [FMDatabase databaseWithPath:path];
         if ([fmdb open]) {
             jqdb = PWFMDB.new;

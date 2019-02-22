@@ -24,8 +24,15 @@ static NSUInteger ItemWidth = 104;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mainScrollView.backgroundColor = PWWhiteColor;
-    self.mainScrollView.frame= CGRectMake(0, Interval(74), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
+    self.mainScrollView.frame= CGRectMake(0, Interval(64), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
+    [self createUpUI];
     [self loadDatas];
+    
+}
+- (void)createUpUI{
+    self.searchTf.backgroundColor = PWBackgroundColor;
+    self.searchTf.userInteractionEnabled = NO;
+    self.searchTf.placeholder = @"搜索";
 }
 - (void)loadDatas{
     self.handbookArray = [NSMutableArray new];
@@ -42,11 +49,10 @@ static NSUInteger ItemWidth = 104;
     }];
 }
 - (void)createUI{
-    self.searchTf.placeholder = @"搜索";
     self.view.backgroundColor = PWWhiteColor;
     NSUInteger backImgCount = self.handbookArray.count%3 == 0? self.handbookArray.count/3:self.handbookArray.count/3+1;
-    self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*(ItemHeight+ZOOM_SCALE(18)));
-//    [self.mainScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*(ZOOM_SCALE(ItemHeight)+ZOOM_SCALE(18))+Interval(10));
+
     NSMutableArray *array = [NSMutableArray array];
     CGFloat width = ZOOM_SCALE(ItemWidth);
     CGFloat kMargin = (kWidth-kLineCount*width)/4.00;
@@ -59,7 +65,7 @@ static NSUInteger ItemWidth = 104;
         NSUInteger X = index % kLineCount;
         NSUInteger Y = index / kLineCount;
         PWDraggableItem *btn = [[PWDraggableItem alloc]init];
-        btn.frame = CGRectMake(X * (width + kMargin) + kMargin, Y*(ItemHeight+ZOOM_SCALE(18)), width, height);
+        btn.frame = CGRectMake(X * (width + kMargin) + kMargin, Y*(ZOOM_SCALE(ItemHeight)+ZOOM_SCALE(18))+Interval(10), width, height);
         btn.tag = index+10;
         btn.lineCount = kLineCount;
         btn.model = model;

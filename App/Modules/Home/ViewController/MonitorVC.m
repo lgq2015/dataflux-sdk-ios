@@ -15,13 +15,19 @@
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
+@property (nonatomic, assign) IssueType type;
 @end
 
 @implementation MonitorVC
-
+- (id)initWithTitle:(NSString *)title andIssueType:(IssueType )type{
+    if (self = [super init]) {
+        self.title = title;
+        self.type = type;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"监控";
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========

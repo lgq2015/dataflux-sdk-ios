@@ -88,7 +88,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
-                [self saveUserInfoLoginStateisChange:YES];
+                [self saveUserInfoLoginStateisChange:YES success:nil];
             }
             
         } failBlock:^(NSError *error) {
@@ -110,9 +110,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     if (completion) {
                         completion(YES,changePasswordToken);
                     }
-                    [self saveUserInfoLoginStateisChange:NO];
+                    [self saveUserInfoLoginStateisChange:NO success:nil];
                 }else{
-                    [self saveUserInfoLoginStateisChange:YES];
+                    [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
             }else{
                 if (completion) {
@@ -132,10 +132,11 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 #pragma mark ========== 储存用户信息 ==========
--(void)saveUserInfoLoginStateisChange:(BOOL)change{
+-(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
     [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSString *errCode = response[@"errCode"];
         if(errCode.length>0){
+            isSuccess(NO);
             [iToast alertWithTitleCenter:response[@"message"]];
         }else{
             NSError *error;
@@ -146,10 +147,12 @@ SINGLETON_FOR_CLASS(UserManager);
                 [cache setObject:dic forKey:KUserModelCache];
                 NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                 setPWUserID(userID);
+                if(change){
+                    KPostNotification(KNotificationLoginStateChange, @YES);
+                }
+            
             }
-            if(change){
-            KPostNotification(KNotificationLoginStateChange, @YES);
-            }
+            
         }
             
     } failBlock:^(NSError *error) {
