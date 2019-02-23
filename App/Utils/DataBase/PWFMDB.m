@@ -90,12 +90,12 @@ static PWFMDB *jqdb = nil;
     }
     return nil;
 }
-- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters
+- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters primaryKey:(NSString *)primaryKey
 {
-    return [self pw_createTable:tableName dicOrModel:parameters excludeName:nil];
+    return [self pw_createTable:tableName dicOrModel:parameters excludeName:nil primaryKey:primaryKey];
 }
 
-- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArr
+- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
     
     NSDictionary *dic;
@@ -117,13 +117,13 @@ static PWFMDB *jqdb = nil;
         dic = [self modelToDictionary:CLS excludePropertyName:nameArr];
     }
     
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (issueId  INTEGER PRIMARY KEY,", tableName];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     int keyCount = 0;
     for (NSString *key in dic) {
         
         keyCount++;
-        if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:@"issueId"]) {
+        if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:primaryKey]) {
             continue;
         }
         if (keyCount == dic.count) {
@@ -139,15 +139,15 @@ static PWFMDB *jqdb = nil;
     DLog(@"%@",fieldStr);
     return creatFlag;
 }
-- (NSString *)createTable:(NSString *)tableName dictionary:(NSDictionary *)dic excludeName:(NSArray *)nameArr
+- (NSString *)createTable:(NSString *)tableName dictionary:(NSDictionary *)dic excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (issueId  INTEGER PRIMARY KEY,", tableName];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     int keyCount = 0;
     for (NSString *key in dic) {
         
         keyCount++;
-        if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:@"issueId"]) {
+        if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:primaryKey]) {
             continue;
         }
         if (keyCount == dic.count) {
@@ -161,16 +161,16 @@ static PWFMDB *jqdb = nil;
     return fieldStr;
 }
 
-- (NSString *)createTable:(NSString *)tableName model:(Class)cls excludeName:(NSArray *)nameArr
+- (NSString *)createTable:(NSString *)tableName model:(Class)cls excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (issueId INTEGER PRIMARY KEY,", tableName];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@ INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     NSDictionary *dic = [self modelToDictionary:cls excludePropertyName:nameArr];
     int keyCount = 0;
     for (NSString *key in dic) {
         
         keyCount++;
-        if ([key isEqualToString:@"issueId"]) {
+        if ([key isEqualToString:primaryKey]) {
             continue;
         }
         if (keyCount == dic.count) {

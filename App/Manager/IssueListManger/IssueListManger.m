@@ -25,6 +25,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
         // 要使用self来调用
         _sharedManger = [[self alloc] init];
         [_sharedManger createData];
+        
     });
     return _sharedManger;
 }
@@ -44,7 +45,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 
 // 全量更新/会判断是否需要更新
 - (void)downLoadAllIssueList{
-    if ([self.tableName isEqualToString:@""] || self.tableName == nil) {
+    if ([getPWUserID isEqualToString:@""] || self.tableName == nil) {
         if ([userManager loadUserInfo]) {
             self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
         }
@@ -56,8 +57,8 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     if (update) {
         NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@100};
         self.issueList = [NSMutableArray new];
-        if ([[PWFMDB shareDatabase] pw_isExistTable:self.tableName]) {
-            [[PWFMDB shareDatabase] pw_deleteAllDataFromTable:self.tableName];
+        if ([[PWFMDB shareDatabase] pw_isExistTable:getPWUserID]) {
+            [[PWFMDB shareDatabase] pw_deleteAllDataFromTable:getPWUserID];
         }
         [self loadIssueListWithParam:params];
 }
@@ -70,16 +71,18 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' order by actSeq desc",type];
-    NSArray *itemDatas = [pwfmdb pw_lookupTable:self.tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
+    NSArray *itemDatas = [pwfmdb pw_lookupTable:getPWUserID dicOrModel:[IssueModel class] whereFormat:whereFormat];
     return itemDatas;
 }
 - (NSArray *)getInfoBoardData{
+    [self createData];
     [self dealDataForInfoBoard:YES];
     return self.infoDatas;
 }
 #pragma mark ========== private method ==========
 // 判断是否需要全量更新
 - (BOOL)isNeedUpdateAll{
+    
         NSDate *lastTime = getLastTime;
         if (lastTime == nil) {
             return YES;
@@ -148,9 +151,9 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
      
       PWFMDB *pwfmdb = [PWFMDB shareDatabase];
    //存在issue表
-    if ([pwfmdb pw_isExistTable:self.tableName]) {
+    if ([pwfmdb pw_isExistTable:getPWUserID]) {
 //           [pwfmdb pw_inDatabase:^{
-            BOOL isopen = [pwfmdb pw_insertTable:self.tableName dicOrModelArray:array];
+            BOOL isopen = [pwfmdb pw_insertTable:getPWUserID dicOrModelArray:array];
             if(isopen){
             setLastTime([NSDate date]);
             [self dealDataForInfoBoard:YES];
@@ -158,10 +161,10 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 //        }];
     }else{
         NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"reference":@"text"};
-        BOOL isCreate = [pwfmdb pw_createTable:self.tableName dicOrModel:dict];
+        BOOL isCreate = [pwfmdb pw_createTable:getPWUserID dicOrModel:dict primaryKey:@"issueId"];
         if(isCreate)
 //              [pwfmdb pw_inDatabase:^{
-            if([pwfmdb pw_insertTable:self.tableName dicOrModelArray:array]){
+            if([pwfmdb pw_insertTable:getPWUserID dicOrModelArray:array]){
                 setLastTime([NSDate date]);
                 [self dealDataForInfoBoard:YES];
             }
@@ -173,8 +176,8 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 -(void)dealDataForInfoBoard:(BOOL)isfull{
     if(isfull){
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
-    NSString *tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSArray *nameArray = @[@"misc",@"security",@"expense",@"optimization",@"alarm"];
+    NSString *tableName = getPWUserID;
+        NSArray *nameArray = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
         for (NSInteger i=0; i<nameArray.count; i++) {
            NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' order by actSeq desc",nameArray[i]];
             NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
@@ -200,8 +203,10 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                     self.infoDatas[i].state = PWInfoBoardItemStateSeriousness;
                 }else if([issue.level isEqualToString:@"warning"]){
                     self.infoDatas[i].state = PWInfoBoardItemStateWarning;
-                }else{
+                }else if([issue.level isEqualToString:@"info"]){
                     self.infoDatas[i].state = PWInfoBoardItemStateRecommend;
+                }else{
+                     self.infoDatas[i].state = PWInfoBoardItemStateRecommend;
                 }
                 if([issue.renderedTextStr isEqualToString:@""]){
                     self.infoDatas[i].subTitle = issue.title;

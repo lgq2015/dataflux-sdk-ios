@@ -38,13 +38,13 @@
  @param parameters 设置表的字段,可以传model(runtime自动生成字段)或字典(格式:@{@"name":@"TEXT"})
  @return 是否创建成功
  */
-- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters;
+- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters primaryKey:(NSString *)primaryKey;
 /**
  同上,
  @param nameArr 不允许model或dic里的属性/key生成表的字段,如:nameArr = @[@"name"],则不允许名为name的属性/key 生成表的字段
  
  */
-- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArr;
+- (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey;
 
 /**
  增加: 向表中插入数据
