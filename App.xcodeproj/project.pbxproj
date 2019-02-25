@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
+		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
@@ -168,6 +170,11 @@
 
 /* Begin PBXFileReference section */
 		2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
+		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
+		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
+		4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightTriangleView.h; sourceTree = "<group>"; };
+		4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightTriangleView.m; sourceTree = "<group>"; };
+		4A092C5D2223C86000FB2A35 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
 		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* PWInfoInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInfoInitialView.h; sourceTree = "<group>"; };
@@ -522,6 +529,10 @@
 				4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */,
 				4AD848E8221FFC06002ADF62 /* WebItemView.h */,
 				4AD848E9221FFC06002ADF62 /* WebItemView.m */,
+				4A092C572222B05300FB2A35 /* TriangleView.h */,
+				4A092C582222B05300FB2A35 /* TriangleView.m */,
+				4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */,
+				4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -821,6 +832,7 @@
 		4A95BB84217DAD6100FC2979 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				4A092C5D2223C86000FB2A35 /* App.entitlements */,
 				4A6C2863219BF75E0059BB08 /* AppDelegate */,
 				4A6C2888219D586D0059BB08 /* Manager */,
 				4A6C286B219C156D0059BB08 /* Modules */,
@@ -1267,6 +1279,11 @@
 					4A95BB81217DAD6100FC2979 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1386,6 +1403,7 @@
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
+				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
@@ -1409,6 +1427,7 @@
 				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
+				4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
 				4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */,
@@ -1663,6 +1682,7 @@
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
@@ -1681,6 +1701,7 @@
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;

@@ -46,13 +46,20 @@
         make.centerY.mas_equalTo(self.iconImgView);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    self.userName.text = @"User ONE";
+    
+    NSString *name =  userManager.curUserInfo.username;
+    NSString *mobile = userManager.curUserInfo.mobile;
+    if (name == nil || [name isEqualToString:@""]) {
+        self.userName.text = mobile;
+    }else{
+        self.userName.text = name;
+    }
     [self.personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.userName);
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(20));
     }];
-
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:userManager.curUserInfo.avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
     self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -71,6 +78,8 @@
     if (!_headerView) {
         _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 160+kStatusBarHeight-22)];
         _headerView.backgroundColor = PWWhiteColor;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(personalBtnClick)];
+        [_headerView addGestureRecognizer:tap];
     }
     return _headerView;
 }
@@ -78,7 +87,7 @@
     if (!_personalBtn) {
         _personalBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [_personalBtn setImage:[UIImage imageNamed:@"icon_nextbig"] forState:UIControlStateNormal];
-        [_personalBtn addTarget:self action:@selector(personalBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_personalBtn addTarget:self action:@selector(personalBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.headerView addSubview:_personalBtn];
     }
     return _personalBtn;
@@ -86,7 +95,6 @@
 - (UIImageView *)iconImgView{
     if (!_iconImgView) {
         _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(16), kStatusBarHeight-22+54, ZOOM_SCALE(70), ZOOM_SCALE(70))];
-        _iconImgView.image = [UIImage imageNamed:@"icon_defaulthead"];
         [self.headerView addSubview:_iconImgView];
     }
     return _iconImgView;
@@ -111,7 +119,7 @@
     }
     return _companyName;
 }
-- (void)personalBtnClick:(UIButton *)button{
+- (void)personalBtnClick{
     PersonalInfoVC *personal = [[PersonalInfoVC alloc]init];
     [self.navigationController pushViewController:personal animated:YES];
 }
