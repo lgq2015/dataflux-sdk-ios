@@ -203,7 +203,7 @@
 		CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF5A6221ECB3A00D15316 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
+		CA1CF5A6221ECB3A00D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -357,7 +357,7 @@
 		CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF64B221ECB5000D15316 /* BaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C289721A2B6870059BB08 /* BaseWebVC.m */; };
+		CA1CF64B221ECB5000D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -471,6 +471,14 @@
 		CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379721CC9205004CF320 /* frame-6@2x.png */; };
 		CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379321CC9204004CF320 /* frame-19@2x.png */; };
 		CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378A21CC9202004CF320 /* frame-8@2x.png */; };
+		CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
+		CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
+		CA49D23422200F72000F6258 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
+		CA49D23522200F73000F6258 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
+		CA49D23722201003000F6258 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
+		CA49D23822201004000F6258 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
+		CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
+		CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -772,6 +780,9 @@
 		CA1CF61F221ECB3A00D15316 /* Info-dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-dev.plist"; path = "/Users/Brandon/Documents/workplace/MacProject/pw-ios/Info-dev.plist"; sourceTree = "<absolute>"; };
 		CA1CF6C3221ECB5000D15316 /* AppPreMade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppPreMade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1CF6C4221ECB5100D15316 /* Info-pre-made.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-pre-made.plist"; path = "/Users/Brandon/Documents/workplace/MacProject/pw-ios/Info-pre-made.plist"; sourceTree = "<absolute>"; };
+		CABBA8302223E1840060E997 /* AppDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppDev.entitlements; sourceTree = "<group>"; };
+		CABBA8312223E1C10060E997 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
+		CABBA8322223E1C70060E997 /* AppPreMade.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppPreMade.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1131,6 +1142,8 @@
 		4A95BB79217DAD6100FC2979 = {
 			isa = PBXGroup;
 			children = (
+				CABBA8322223E1C70060E997 /* AppPreMade.entitlements */,
+				CABBA8302223E1840060E997 /* AppDev.entitlements */,
 				4A95BB84217DAD6100FC2979 /* App */,
 				4A95BB83217DAD6100FC2979 /* Products */,
 				3F34F2B0D556CBC0BA511C11 /* Pods */,
@@ -1153,6 +1166,7 @@
 		4A95BB84217DAD6100FC2979 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				CABBA8312223E1C10060E997 /* App.entitlements */,
 				4A6C2863219BF75E0059BB08 /* AppDelegate */,
 				4A6C2888219D586D0059BB08 /* Manager */,
 				4A6C286B219C156D0059BB08 /* Modules */,
@@ -1637,12 +1651,27 @@
 					4A95BB81217DAD6100FC2979 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CA1CF57B221ECB3A00D15316 = {
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CA1CF620221ECB5000D15316 = {
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2092,11 +2121,12 @@
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF5A6221ECB3A00D15316 /* BaseWebVC.m in Sources */,
+				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
+				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
@@ -2120,6 +2150,7 @@
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
+				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				CA1CF5C3221ECB3A00D15316 /* HomeViewController.m in Sources */,
 				CA1CF5C4221ECB3A00D15316 /* SourceVC.m in Sources */,
@@ -2129,6 +2160,7 @@
 				CA1CF5C8221ECB3A00D15316 /* AccountInfoModel.m in Sources */,
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
+				CA49D23422200F72000F6258 /* NewsWebView.m in Sources */,
 				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
 				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
@@ -2136,6 +2168,7 @@
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
+				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
 				CA1CF5D2221ECB3A00D15316 /* AddSourceVC.m in Sources */,
 				CA1CF5D3221ECB3A00D15316 /* InformationSourceVC.m in Sources */,
 				CA1CF5D4221ECB3A00D15316 /* MonitorVC.m in Sources */,
@@ -2217,11 +2250,12 @@
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF64B221ECB5000D15316 /* BaseWebVC.m in Sources */,
+				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
+				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
@@ -2245,6 +2279,7 @@
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
+				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				CA1CF668221ECB5000D15316 /* HomeViewController.m in Sources */,
 				CA1CF669221ECB5000D15316 /* SourceVC.m in Sources */,
@@ -2254,6 +2289,7 @@
 				CA1CF66D221ECB5000D15316 /* AccountInfoModel.m in Sources */,
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
+				CA49D23522200F73000F6258 /* NewsWebView.m in Sources */,
 				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
 				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
@@ -2261,6 +2297,7 @@
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
+				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
 				CA1CF677221ECB5000D15316 /* AddSourceVC.m in Sources */,
 				CA1CF678221ECB5000D15316 /* InformationSourceVC.m in Sources */,
 				CA1CF679221ECB5000D15316 /* MonitorVC.m in Sources */,
@@ -2455,6 +2492,7 @@
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
@@ -2473,6 +2511,7 @@
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
@@ -2491,16 +2530,16 @@
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = "$(SRCROOT)/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev;
+				PROVISIONING_PROFILE_SPECIFIER = development_dev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2510,16 +2549,16 @@
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = "$(SRCROOT)/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				PROVISIONING_PROFILE_SPECIFIER = distribution_dev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2529,16 +2568,16 @@
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = AppPreMade.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = "$(SRCROOT)/Info-pre-made.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2548,16 +2587,16 @@
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = AppPreMade.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				INFOPLIST_FILE = "$(SRCROOT)/Info-pre-made.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.pre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distribution;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
