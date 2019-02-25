@@ -11,7 +11,7 @@
 #ifndef define_h
 #define define_h
 
-
+#define JPUSH_ID @"e008337585ca5df269038d4f"
 #define APP_ID @"1441939241"
 // iOS 11 以下的评价跳转
 #define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]

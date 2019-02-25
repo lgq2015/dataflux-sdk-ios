@@ -138,6 +138,8 @@
     keyboardManager.enable = YES; // 控制整个功能是否启用
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setMinimumDismissTimeInterval:2];
+  
+   
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{
@@ -225,11 +227,11 @@
         //获取本地版本号
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
         NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
-        NSString *nowVersion = [NSString stringWithFormat:@"%@.%@", version, build];
+//        NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
+        NSString *nowVersion = [NSString stringWithFormat:@"%@", version];
         
         //获取appStore网络版本号
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APP_ID]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID]];
         NSString * file =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         
         NSRange substr = [file rangeOfString:@"\"version\":\""];
@@ -249,6 +251,8 @@
             if(![nowVersion isEqualToString:appStoreVersion])
             {
                 [self showAlertisNew:NO];
+            }else{
+                [self showAlertisNew:YES];
             }
             
             
