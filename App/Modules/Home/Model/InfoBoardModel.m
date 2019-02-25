@@ -22,6 +22,7 @@
     self.type = [dict[@"type"] integerValue];
     self.subTitle = dict[@"subTitle"];
     self.state = [dict[@"state"] integerValue];
+    self.typeName = dict[@"typeName"];
 }
 
 @end

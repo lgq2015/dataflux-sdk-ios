@@ -8,13 +8,14 @@
 
 #import "MonitorCell.h"
 #import "MonitorListModel.h"
+#import "RightTriangleView.h"
 @interface MonitorCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *warningLab;
 @property (nonatomic, strong) UILabel *subLab;
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
-
+@property (nonatomic, strong) RightTriangleView *triangleView;
 @end
 @implementation MonitorCell
 -(void)setFrame:(CGRect)frame{
@@ -53,17 +54,23 @@
         make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(3));
         make.left.equalTo(self.stateLab.mas_left);
         make.right.mas_equalTo(self).offset(-Interval(21));
-   if (!self.model.attrs) {
+   if ([self.model.attrs isEqualToString:@""]) {
             make.bottom.mas_equalTo(self).offset(-Interval(11));
     }
     }];
-    [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(8));
-        make.left.mas_equalTo(self.stateLab.mas_left);
-        make.right.mas_equalTo(self).offset(-17);
-        make.height.offset(ZOOM_SCALE(18));
-        make.bottom.mas_equalTo(self).offset(-Interval(11));
-    }];
+    if (![self.model.attrs isEqualToString:@""]) {
+        [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(8));
+            make.left.mas_equalTo(self.stateLab.mas_left);
+            make.right.mas_equalTo(self).offset(-17);
+            make.height.offset(ZOOM_SCALE(18));
+            make.bottom.mas_equalTo(self).offset(-Interval(11));
+        }];
+        self.subLab.hidden = NO;
+    }else{
+        self.subLab.hidden = YES;
+    }
+    
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.bounds;
@@ -82,7 +89,7 @@
             self.stateLab.text = @"严重";
             break;
         case MonitorListStateCommon:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF "];
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
             self.stateLab.text = @"普通";
             break;
         case MonitorListStateRecommend:
@@ -107,7 +114,17 @@
    
    
     self.subLab.text = self.model.attrs;
+    self.triangleView.hidden =self.model.isRead == YES?YES:NO;
+    
     DLog(@"%f",self.height);
+}
+- (RightTriangleView *)triangleView{
+    if (!_triangleView) {
+        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-40, 0, 8, 8)];
+        
+        [self addSubview:_triangleView];
+    }
+    return _triangleView;
 }
 -(UILabel *)timeLab{
     if (!_timeLab) {

@@ -283,7 +283,7 @@ static PWFMDB *jqdb = nil;
     
     for (NSString *key in dic) {
         
-        if (![columnArr containsObject:key] || [key isEqualToString:@"issueId"]) {
+        if (![columnArr containsObject:key] || [key isEqualToString:@"PWId"]) {
             continue;
         }
         [finalStr appendFormat:@"%@,", key];
@@ -335,7 +335,7 @@ static PWFMDB *jqdb = nil;
     
     for (NSString *key in dic) {
         
-        if (![clomnArr containsObject:key] || [key isEqualToString:@"issueId"]) {
+        if (![clomnArr containsObject:key] || [key isEqualToString:@"PWId"]) {
             continue;
         }
         [finalStr appendFormat:@"%@ = %@,", key, @"?"];
@@ -520,11 +520,11 @@ static PWFMDB *jqdb = nil;
 
 - (NSInteger)lastInsertPrimaryKeyId:(NSString *)tableName
 {
-    NSString *sqlstr = [NSString stringWithFormat:@"SELECT * FROM %@ where issueId = (SELECT max(issueId) FROM %@)", tableName, tableName];
+    NSString *sqlstr = [NSString stringWithFormat:@"SELECT * FROM %@ where PWId = (SELECT max(PWId) FROM %@)", tableName, tableName];
     FMResultSet *set = [_db executeQuery:sqlstr];
     while ([set next])
     {
-        return [set longLongIntForColumn:@"issueId"];
+        return [set longLongIntForColumn:@"PWId"];
     }
     return 0;
 }

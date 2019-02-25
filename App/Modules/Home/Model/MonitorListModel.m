@@ -29,20 +29,18 @@
     }else if ([model.status isEqualToString:@"expired"] || [model.status isEqualToString:@"discarded"]){
         self.state = MonitorListStateLoseeEfficacy;
     }
+    NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];
+    NSDictionary *issueLogDict =latestIssueLogs[0];
     if (![model.renderedTextStr isEqualToString:@""]) {
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
         self.title = [dict stringValueForKey:@"title" default:@""];
         self.content = [dict stringValueForKey:@"summary" default:@""];
-        self.attrs = [dict stringValueForKey:@"suggestion" default:@""];
         self.highlight = [dict stringValueForKey:@"highlight" default:@""];
     }else{
-        NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];
-        NSDictionary *issueLogDict =latestIssueLogs[0];
         self.title = model.title;
         self.content = model.content;
-        self.attrs = [issueLogDict stringValueForKey:@"content" default:@""];
     }
-   
+    self.attrs = [issueLogDict stringValueForKey:@"title" default:@""];
     self.time = [NSString getLocalDateFormateUTCDate:model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
         self.isFromUser = YES;
@@ -52,5 +50,8 @@
     if (![model.referenceStr isEqualToString:@""]) {
         self.reference = [model.referenceStr jsonValueDecoded];
     }
+    self.isRead = model.isRead;
+    self.issueId = model.issueId;
+    self.PWId = model.PWId;
 }
 @end

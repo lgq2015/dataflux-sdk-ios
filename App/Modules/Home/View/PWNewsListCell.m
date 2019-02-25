@@ -105,6 +105,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
             make.right.mas_equalTo(self).offset(-Interval(16));
             make.width.height.offset(ZOOM_SCALE(90));
         }];
+        [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
     }
     if (self.model.isStarred) {
         self.timeLab.hidden = YES;

@@ -18,7 +18,7 @@
 //首页是否展示未连接状态
 #define PWConnect               [NSString stringWithFormat:@"%@/isConnect", getPWUserID]
 #define setConnect(bool)        [kUserDefaults setBool:bool forKey:PWConnect]
-#define getConnectState         [kUserDefaults objectForKey:PWConnect]
+#define getConnectState         [kUserDefaults boolForKey:PWConnect]
 
 //上次请求issue的时间
 #define PWLastTime              [NSString stringWithFormat:@"%@/lastRequestTimet", getPWUserID]
@@ -29,4 +29,10 @@
 #define PWUserID @"userid"
 #define setPWUserID(str)        [kUserDefaults setObject:str forKey:PWUserID]
 #define getPWUserID             [kUserDefaults objectForKey:PWUserID]
+
+//seqAct
+#define PWseqAct                [NSString stringWithFormat:@"%@/PWseqAct", getPWUserID]
+#define setPWseqAct(str,type)   [kUserDefaults setObject:str forKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
+#define getPWseqAct(type)       [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
+
 #endif /* NSUserDefaultsMacros_h */

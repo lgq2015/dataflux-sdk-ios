@@ -11,15 +11,15 @@
 #import "MonitorListModel.h"
 #import "CreateQuestionVC.h"
 #import "ProblemDetailsVC.h"
-
+#import "IssueModel.h"
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
-@property (nonatomic, assign) IssueType type;
+@property (nonatomic, copy) NSString *type;
 @end
 
 @implementation MonitorVC
-- (id)initWithTitle:(NSString *)title andIssueType:(IssueType )type{
+- (id)initWithTitle:(NSString *)title andIssueType:(NSString *)type{
     if (self = [super init]) {
         self.title = title;
         self.type = type;
@@ -53,6 +53,7 @@
 
 - (void)navBtnClick:(UIButton *)btn{
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
+    creatVC.type = self.type;
     [self.navigationController pushViewController:creatVC animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
@@ -70,8 +71,19 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
+    MonitorListModel *model =self.monitorData[indexPath.row];
+    model.isRead = YES;
     detailVC.model = self.monitorData[indexPath.row];
     [self.navigationController pushViewController:detailVC animated:YES];
+    PWFMDB *fmdb = [PWFMDB shareDatabase];
+    NSString *whereFormat = [NSString stringWithFormat:@"where PWId = %@",model.PWId];
+    NSArray<IssueModel*> *itemDatas = [fmdb pw_lookupTable:getPWUserID dicOrModel:[IssueModel class] whereFormat:whereFormat];
+    if(itemDatas.count>0){
+        itemDatas[0].isRead = YES;
+        [fmdb pw_updateTable:getPWUserID dicOrModel:itemDatas[0] whereFormat:whereFormat];
+        [self.tableView reloadData];
+    }
+   
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MonitorListModel *model =self.monitorData[indexPath.row];

@@ -12,6 +12,7 @@
 
 @interface PWInfoBoardCell : UICollectionViewCell
 @property (nonatomic, strong) InfoBoardModel *model;
+@property (nonatomic,assign) BOOL isShow;
 -(void)pop;
 -(void)bump;
 @end

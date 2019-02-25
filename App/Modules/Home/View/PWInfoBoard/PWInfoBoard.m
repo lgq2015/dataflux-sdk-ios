@@ -61,7 +61,7 @@
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
-        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*self.datas.count));
+        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*5));
     }
     
 }
@@ -219,6 +219,10 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     PWInfoBoardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
     cell.model = self.datas[indexPath.row];
+    NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
+    if ([seqAct longValue]<cell.model.seqAct) {
+        cell.isShow = YES;
+    }
     return cell;
 }
 #pragma mark ========== UICollectionViewDelegate ==========
@@ -227,7 +231,12 @@
     if (self.itemClick) {
         self.itemClick(indexPath.row);
     }
-    
+    NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
+    if ([seqAct longValue]<=cell.model.seqAct) {
+        seqAct = [NSNumber numberWithLong:cell.model.seqAct];
+        setPWseqAct(seqAct, cell.model.typeName);
+        cell.isShow = NO;
+    }
     cell.layer.shadowOffset = CGSizeMake(0,2);
     cell.layer.shadowRadius = 5;
 }

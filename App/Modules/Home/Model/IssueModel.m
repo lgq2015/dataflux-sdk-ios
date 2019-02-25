@@ -12,7 +12,7 @@
 +(JSONKeyMapper *)keyMapper{
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
                                                                   @"issueId": @"id"
-                                                                  }];
+                                                                  ,@"PWId":@"id"}];
 }
 +(BOOL)propertyIsOptional:(NSString*)propertyName
 {

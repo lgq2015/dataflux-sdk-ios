@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 @class InfoBoardModel;
 NS_ASSUME_NONNULL_BEGIN
+typedef void (^loadDataSuccess)(NSArray *datas,NSNumber *pageMaker);
+
 @interface IssueListManger : NSObject
 @property (nonatomic, strong) NSMutableArray<InfoBoardModel *> *infoDatas;
 

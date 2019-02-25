@@ -7,7 +7,9 @@
 //
 
 #import "TriangleView.h"
-
+@interface TriangleView()
+@property (nonatomic, assign) BOOL isRight;
+@end
 @implementation TriangleView
 
 /*
@@ -17,6 +19,7 @@
     // Drawing code
 }
 */
+
 - (void)drawRect:(CGRect)rect
 
 {

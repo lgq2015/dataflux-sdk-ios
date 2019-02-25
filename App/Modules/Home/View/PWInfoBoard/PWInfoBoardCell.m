@@ -7,6 +7,7 @@
 //
 
 #import "PWInfoBoardCell.h"
+#import "TriangleView.h"
 
 //%%% pop values
 static CGFloat const kPopStartRatio = .75;
@@ -28,6 +29,8 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 @property (nonatomic, strong) UIView *popView;
 @property (nonatomic, strong) UIImageView *tickImg;
 @property (nonatomic, strong) UIImageView *backgroundImg;
+@property (nonatomic, strong) TriangleView *triangleView;
+
 @end
 @implementation PWInfoBoardCell
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,7 +48,10 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     _model = model;
     [self setupUI];
 }
-
+-(void)setIsShow:(BOOL)isShow{
+    _isShow = isShow;
+    self.triangleView.hidden = !isShow;
+}
 - (void)setupUI{
     self.contentView.backgroundColor = PWWhiteColor;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
@@ -88,7 +94,12 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
         self.popView.hidden = NO;
         self.count.hidden = NO;
         self.tickImg.hidden = YES;
-        UIColor *popColor;
+    UIColor *popColor;
+    if([messageCountStr isEqualToString:@""]){
+        self.tickImg.hidden = NO;
+        _count.hidden = YES;
+        popColor = [UIColor colorWithHexString:@"#3FEC67"];
+    }
         switch (self.model.state) {
             case PWInfoBoardItemStateRecommend:
                 self.tickImg.hidden = NO;
@@ -101,9 +112,12 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
             case PWInfoBoardItemStateSeriousness:
                 popColor = [UIColor colorWithHexString:@"#FF7975"];
                 break;
+            case PWInfoBoardItemStateInfo:
+                popColor = [UIColor colorWithHexString:@"599AFF"];
+                break;
         }
-        self.popView.backgroundColor = popColor;
-    
+   
+    self.popView.backgroundColor = popColor;
     
     NSString *imageName;
     switch (self.model.type) {
@@ -153,6 +167,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
         [self bringSubviewToFront:self.tickImg];
     }
 }
+
 -(UILabel *)subtitle{
     if (!_subtitle) {
         _subtitle = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -205,6 +220,14 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
         [self addSubview:_tickImg];
     }
     return _tickImg;
+}
+- (TriangleView *)triangleView{
+    if (!_triangleView) {
+        _triangleView = [[TriangleView alloc]initWithFrame:CGRectMake(0, 0, 8, 8)];
+        
+        [self addSubview:_triangleView];
+    }
+    return _triangleView;
 }
 - (void)pop
 {

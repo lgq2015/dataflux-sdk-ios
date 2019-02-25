@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) NSString *PWId;
 @property (nonatomic, assign) long actSeq;
 @property (nonatomic, strong) NSDictionary *renderedText;
 @property (nonatomic, strong) NSDictionary *reference;

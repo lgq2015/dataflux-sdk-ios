@@ -228,11 +228,13 @@
 }
 - (void)backBtnClicked
 {
+    
     if (self.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
+    
 }
 
 
