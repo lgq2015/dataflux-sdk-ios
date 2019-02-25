@@ -20,6 +20,7 @@
 #import "NSString+verify.h"
 #import <WebViewJavascriptBridge.h>
 #import "UserManager.h"
+#import "PWFMDB.h"
 
 // 布局
 #import "Masonry.h"

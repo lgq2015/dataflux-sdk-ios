@@ -8,11 +8,15 @@
 
 #import "CreateQuestionVC.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#define NavRightBtnTag  100  // 右侧图片
+
 @interface CreateQuestionVC ()
 @property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 @property (nonatomic, strong) UITextField *titleTf;
 @property (nonatomic, strong) UITextView *describeTextView;
 @property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) UIButton *navRightBtn;
+
 // type = 1 严重 type = 2  警告
 @property (nonatomic, assign) NSString *level;
 @end
@@ -27,7 +31,8 @@
 }
 - (void)createUI{
     [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navigationBtnClick:) tags:@[@5]];
-    [self addNavigationItemWithTitles:@[@"完成"] isLeft:NO target:self action:@selector(navigationBtnClick:) tags:@[@6]];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
+    self.navigationItem.rightBarButtonItem = item;
     [self.view addSubview:self.mainScrollView];
     self.mainScrollView.contentSize = CGSizeMake(0, kHeight-kTopHeight);
     [self.mainScrollView setUserInteractionEnabled:YES];
@@ -110,7 +115,7 @@
     
     UIButton *accessoryBtn = [[UIButton alloc]init];
     [accessoryBtn addTarget:self action:@selector(accessoryBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [accessoryBtn setImage:[UIImage imageNamed:@"icon_call_black"] forState:UIControlStateNormal];
+    [accessoryBtn setImage:[UIImage imageNamed:@"paper-clip"] forState:UIControlStateNormal];
     [describeView addSubview:accessoryBtn];
     [accessoryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(describeView).offset(-Interval(21));
@@ -128,13 +133,22 @@
         make.height.offset(ZOOM_SCALE(18));
         make.centerY.mas_equalTo(accessoryBtn);
     }];
-    [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
+   [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
         if (text.length>1000) {
             text = [text substringToIndex:250];
             self.describeTextView.text = text;
         }
         count.text = [NSString stringWithFormat:@"%lu/250",(unsigned long)text.length];
     }];
+    RACSignal *describeTextView = [self.describeTextView rac_textSignal];
+    RACSignal *titleSignal = [self.titleTf rac_textSignal];
+    RACSignal *state = RACObserve(seriousBtn, selected);
+    RACSignal *state2 = RACObserve(waringBtn, selected);
+
+    RACSignal * navBtnSignal = [RACSignal combineLatest:@[describeTextView,titleSignal,state,state2] reduce:^id(NSString * title,NSString * content){
+        return @(title.length>0 && content.length>0 && self.level.length>0);
+    }];
+    RAC(self.navRightBtn,enabled) = navBtnSignal;
     
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
@@ -167,7 +181,21 @@
     }
     return _titleView;
 }
-
+-(UIButton *)navRightBtn{
+    if (!_navRightBtn) {
+        _navRightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
+        [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_navRightBtn addTarget:self action:@selector(navigationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _navRightBtn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+        [_navRightBtn setTitleColor:PWGrayColor forState:UIControlStateDisabled];
+        _navRightBtn.tag = NavRightBtnTag;
+        _navRightBtn.enabled = NO;
+        [_navRightBtn sizeToFit];
+    }
+    return _navRightBtn;
+}
 - (void)accessoryBtnClick{
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
     [self.myPicker getPhotoAlbumOrTakeAPhotoOrFileWithController:self photoBlock:^(UIImage *image) {
@@ -179,10 +207,13 @@
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
         [self.navigationController popViewControllerAnimated:YES];
-    }else if (button.tag == 6){
-        NSDictionary *params = @{@"data":@{@"level":self.level,@"type":self.type}};
+    }else if (button.tag == NavRightBtnTag){
+        NSDictionary *params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            
+            if([response[@"errCode"] isEqualToString:@""]){
+                [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         } failBlock:^(NSError *error) {
             
         }];

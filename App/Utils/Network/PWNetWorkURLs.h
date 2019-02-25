@@ -68,9 +68,9 @@
 #define PW_handbook(ID)     [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/handbook/h/:%@",ID]
 #define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/active/list", API_SEVERID]
 
+#define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
 
-
-
+#define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]

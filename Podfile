@@ -19,4 +19,5 @@ target 'App' do
   pod 'TTTAttributedLabel'
   pod 'IQKeyboardManager'
   pod 'SVProgressHUD'
+  pod 'JPush'
 end

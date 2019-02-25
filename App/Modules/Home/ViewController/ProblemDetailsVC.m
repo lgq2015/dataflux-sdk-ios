@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"情报详情";
+    self.title = self.model.isFromUser == YES?@"问题详情":@"情报详情";
     [self createUI];
 }
 #pragma mark ========== UI ==========
@@ -39,9 +39,9 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
     [item setTitleTextAttributes:dic forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = item;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setupBadges];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self setupBadges];
+//    });
     [self setupView];
     [self setSubView];
 #pragma mark 导航
@@ -103,22 +103,59 @@
         make.left.mas_equalTo(self.typeIcon);
         make.top.mas_equalTo(self.typeIcon.mas_bottom).offset(ZOOM_SCALE(6));
         make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
+        if (self.model.isFromUser) {
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
+        }
     }];
     self.contentLab.text = self.model.attrs;
-    
-    [self.contentImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
-        make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
-        make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(170));
-        make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
-    }];
+    if (!self.model.isFromUser) {
+        [self.contentImg mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
+            make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
+            make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
+            make.height.offset(ZOOM_SCALE(170));
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
+        }];
+    }
 }
 - (void)setSubView{
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
         make.width.offset(kWidth);
     }];
+    if (self.model.isFromUser) {
+        [self setAccessorySubView];
+    }else{
+        [self setSuggestSubView];
+    }
+}
+-(void)setAccessorySubView{
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"附件"];
+    [self.subContainerView addSubview:title];
+    [self.subContainerView addSubview:self.tableView];
+    self.tableView.backgroundColor = PWWhiteColor;
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(title.mas_bottom).offset(Interval(25));
+        make.width.offset(kWidth);
+        make.height.offset(4*45);
+        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
+    }];
+    [self.ignoreBtn setTitle:@"关闭此问题" forState:UIControlStateNormal];
+    
+    self.ignoreBtn.hidden = self.model.state == MonitorListStateRecommend?YES:NO;
+    
+    [self.ignoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(20));
+        make.width.offset(ZOOM_SCALE(100));
+        make.height.offset(ZOOM_SCALE(20));
+        make.centerX.mas_equalTo(self.mainScrollView);
+    }];
+    [self.view layoutIfNeeded];
+    CGFloat height = self.model.state == MonitorListStateRecommend? CGRectGetMaxY(self.subContainerView.frame):CGRectGetMaxY(self.ignoreBtn.frame);
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
+
+}
+-(void)setSuggestSubView{
     UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"建议"];
     [self.subContainerView addSubview:title];
     UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"professor"]];
@@ -132,14 +169,10 @@
         make.height.offset(4*45);
         make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
     }];
-    [self.ignoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(20));
-        make.width.offset(ZOOM_SCALE(100));
-        make.height.offset(ZOOM_SCALE(20));
-        make.centerX.mas_equalTo(self.mainScrollView);
-    }];
+  
     [self.view layoutIfNeeded];
-    CGFloat height = CGRectGetMaxY(self.ignoreBtn.frame);
+    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
+
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
 -(UIView *)upContainerView{
@@ -244,7 +277,7 @@
 -(UIButton *)ignoreBtn{
     if (!_ignoreBtn) {
         _ignoreBtn = [[UIButton alloc]init];
-        [_ignoreBtn setTitle:@"忽略此类情报" forState:UIControlStateNormal];
+        [_ignoreBtn setTitle:@"关闭此问题" forState:UIControlStateNormal];
         [_ignoreBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
         _ignoreBtn.titleLabel.font = RegularFONT(14);
         [_ignoreBtn addTarget:self action:@selector(ignoreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -272,14 +305,21 @@
     }
     [self.view layoutIfNeeded];
  
-    CGFloat height = CGRectGetMaxY(self.ignoreBtn.frame);
+    CGFloat height =self.model.isFromUser?CGRectGetMaxY(self.ignoreBtn.frame):CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
   
 }
 - (void)ignoreBtnClick:(UIButton *)button{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"文案产品提供" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm =[PWCommonCtrl actionWithTitle:@"确认忽略" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        
+    UIAlertAction *confirm =[PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                [SVProgressHUD showSuccessWithStatus:@"关闭成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        } failBlock:^(NSError *error) {
+            
+        }];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         

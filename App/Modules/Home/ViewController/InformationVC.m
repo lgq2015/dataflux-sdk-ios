@@ -16,6 +16,8 @@
 #import "UserManager.h"
 #import "IssueListManger.h"
 #import "NewsWebView.h"
+#import "PWFMDB.h"
+
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -82,37 +84,37 @@
     self.infoboard.itemClick = ^(NSInteger index){
         NSArray *dataSource;
          NSString *title;
-         IssueType issueType;
+         NSString *issueType;
         switch (index) {
             case 0:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
                 title = @"监控";
-                issueType = IssueTypeMisc;
+                issueType = @"alarm";
                 break;
             case 1:
                 dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
                 title = @"安全";
-                issueType = IssueTypeSecurity;
+                issueType = @"security";
                 break;
             case 2:
                  dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
                 title = @"费用";
-                issueType = IssueTypeExpense;
+                issueType = @"expense";
                 break;
             case 3:
                 dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
                 title = @"优化";
-                issueType = IssueTypeOptimization;
+                issueType = @"optimization";
                 break;
             case 4:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
                 title = @"提醒";
-                issueType = IssueTypeAlarm;
+                issueType = @"misc";
                 break;
             default:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
                 title = @"提醒";
-                issueType = IssueTypeAlarm;
+                issueType = @"misc";
                 break;
         }
         MonitorVC *monitor = [[MonitorVC alloc]initWithTitle:title andIssueType:issueType];
@@ -151,8 +153,10 @@
     }
 }
 -(void)infoBoardDatasUpdate{
-    NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
-    [self.infoboard updataDatas:@{@"datas":array}];
+    NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
+    if (array.count>0) {
+        [self.infoboard updataDatas:@{@"datas":array}];
+    }
 }
 -(PWInfoBoard *)infoboard{
     if (!_infoboard) {
@@ -170,7 +174,10 @@
 }
 - (void)headerRereshing{
     self.newsPage = 1;
-    [self dealNewsDatas];
+    self.newsDatas = [NSMutableArray new];
+    [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+    [self loadRecommendationData];
+    [self loadNewsDatas];
 }
 -(void)footerRereshing{
     [self loadNewsDatas];
@@ -245,6 +252,8 @@
       cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
     }
     cell.model = self.newsDatas[indexPath.row];
+    
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell layoutIfNeeded];
     return cell;

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProblemDetailsVC : RootViewController
 @property (nonatomic, strong) MonitorListModel *model;
-
 @end
 
 NS_ASSUME_NONNULL_END
