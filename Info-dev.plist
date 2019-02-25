@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>王教授</string>
+	<string>王教授(Dev)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.7</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>20180225.2000</string>
 	<key>LSApplicationCategoryType</key>
 	<dict/>
 	<key>LSRequiresIPhoneOS</key>
