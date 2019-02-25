@@ -42,11 +42,8 @@
     [segeView addSubview:close];
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:segeView];
     self.navigationItem.rightBarButtonItem = item;
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-    self.webview = webView;
-    DLog(@"%@",self.webUrl);
-    [self.webview loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
-    [self.view addSubview:self.webview];
+    
+    
     
 }
 - (void)shareBtnClick{
