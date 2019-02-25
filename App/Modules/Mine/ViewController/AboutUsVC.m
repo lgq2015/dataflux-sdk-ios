@@ -9,7 +9,7 @@
 #import "AboutUsVC.h"
 #import "MineViewCell.h"
 #import "MineCellModel.h"
-
+#import "PWBaseWebVC.h"
 @interface AboutUsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
@@ -55,7 +55,10 @@
     switch (indexPath.row) {
         case 0:
             break;
-        case 1:
+        case 1:{
+            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"服务协议" andURLString:PW_servicelegal];
+            [self.navigationController pushViewController:webView animated:YES];
+        }
             break;
         case 2:
             [[AppDelegate shareAppDelegate] DetectNewVersion];

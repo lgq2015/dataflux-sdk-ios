@@ -12,7 +12,7 @@
 #import "LoginPasswordVC.h"
 #import "OpenUDID.h"
 #import "VerifyCodeVC.h"
-@interface VerifyCodeLoginVC ()
+@interface VerifyCodeLoginVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
 @property (nonatomic, strong) UIButton *verifyCodeBtn;
@@ -87,6 +87,7 @@
 //
 //        return value;
 //    }];
+    self.phoneTf.delegate = self;
     RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
         if((value.length == 3 || value.length == 8 )){
             if (value.length<self.temp.length) {
@@ -97,6 +98,11 @@
         }
         self.phoneTf.text = value;
         self.temp = value;
+        if (value.length>13) {
+            value = [value substringToIndex:13];
+            self.phoneTf.text = [value substringToIndex:13];
+            self.temp = [value substringToIndex:13];
+        }
         return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
         //@([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
     }];
@@ -113,7 +119,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = @"请输入手机号码";
+        _phoneTf.placeholder = @"请输入手机号";
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_phoneTf];
     }
@@ -175,6 +181,25 @@
 //    }
 //    return _backLayer;
 //}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [self validateNumber:string];
+}
+
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
+}
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.phoneTf resignFirstResponder];

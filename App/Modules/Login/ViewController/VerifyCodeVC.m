@@ -15,6 +15,7 @@
 #import "PWWeakProxy.h"
 #import "SetNewPasswordVC.h"
 #import <TTTAttributedLabel.h>
+#import "PWBaseWebVC.h"
 
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
@@ -176,8 +177,8 @@
                                         };
         _agreementLab.linkAttributes = attributesDic;
         _agreementLab.activeLinkAttributes = attributesDic;
-        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange];
-        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange2];
+        [_agreementLab addLinkToURL:[NSURL URLWithString:PW_servicelegal] withRange:linkRange];
+        [_agreementLab addLinkToURL:[NSURL URLWithString:PW_privacylegal] withRange:linkRange2];
         [self.view addSubview:_agreementLab];
     }
     return _agreementLab;
@@ -294,6 +295,16 @@
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.enable = YES;
+}
+#pragma mark ========== TTTAttributedLabelDelegate ==========
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url{
+    NSString *title = @"服务协议";
+    if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
+        title = @"隐私权政策";
+    }
+    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
+    [self.navigationController pushViewController:webView animated:YES];
 }
 -(void)dealloc{
     [self.timer invalidate];

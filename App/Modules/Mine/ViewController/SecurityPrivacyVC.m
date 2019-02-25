@@ -10,6 +10,7 @@
 #import "MineCellModel.h"
 #import "MineViewCell.h"
 #import "ChangeUserInfoVC.h"
+#import "PWBaseWebVC.h"
 @interface SecurityPrivacyVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -72,9 +73,9 @@
         [self.navigationController pushViewController:changeVC animated:YES];
     }else{
         if (indexPath.row == 0) {
-         //服务协议
-        }else{
-         //隐私权政策
+         //隐私权
+            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"隐私权政策" andURLString:PW_privacylegal];
+            [self.navigationController pushViewController:webView animated:YES];
         }
     }
 }

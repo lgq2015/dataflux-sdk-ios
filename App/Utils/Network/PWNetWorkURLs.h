@@ -63,10 +63,10 @@
 
 #pragma mark ========== 智库 ==========
 //文章详情链接：
-#define PW_articleDetails(ID) [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/forum/a/:%@",ID]
+#define PW_articleDetails(ID) [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/forum/a/%@",ID]
 //handbook详情链接：(嵌套iframe
 #define PW_handbook(ID)     [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/handbook/h/:%@",ID]
-#define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/mgr/all/list", API_SEVERID]
+#define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/active/list", API_SEVERID]
 
 
 
@@ -78,4 +78,7 @@
 //获取常量字典
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
 
+#pragma mark ========== 协议 ==========
+#define PW_privacylegal       @"http://testing.profwang-h5.cloudcare.cn:10302/protocol/legal"
+#define PW_servicelegal       @"http://testing.profwang-h5.cloudcare.cn:10302/protocol/service"
 #endif /* PWNetWorkURLs_h */

@@ -8,7 +8,7 @@
 
 #import "SetNewPasswordVC.h"
 #import "OpenUDID.h"
-
+#import "LoginPasswordVC.h"
 @interface SetNewPasswordVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
@@ -124,6 +124,22 @@
         tf.secureTextEntry = YES;
         tf.text = tempPwdStr;
     }
+}
+-(void)backBtnClicked{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        for(UIViewController *temp in self.navigationController.viewControllers) {
+            if([temp isKindOfClass:[LoginPasswordVC class]]){
+                [self.navigationController popToViewController:temp animated:YES];
+            }
+        }
+    }];
+    [alert addAction:cancle];
+    [alert addAction:confirm];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];

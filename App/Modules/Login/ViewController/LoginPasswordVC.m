@@ -12,6 +12,7 @@
 #import "FindPasswordVC.h"
 #import "UserManager.h"
 #import <TTTAttributedLabel.h>
+#import "PWBaseWebVC.h"
 
 @interface LoginPasswordVC ()<TTTAttributedLabelDelegate>
 
@@ -179,7 +180,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = @"请输入手机号码";
+        _phoneTf.placeholder = @"请输入手机号";
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_phoneTf];
         }
@@ -204,8 +205,8 @@
                                         };
         _agreementLab.linkAttributes = attributesDic;
         _agreementLab.activeLinkAttributes = attributesDic;
-        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange];
-        [_agreementLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange2];
+        [_agreementLab addLinkToURL:[NSURL URLWithString:PW_servicelegal] withRange:linkRange];
+        [_agreementLab addLinkToURL:[NSURL URLWithString:PW_privacylegal] withRange:linkRange2];
         [self.view addSubview:_agreementLab];
     }
     return _agreementLab;
@@ -322,7 +323,16 @@
 //    }
 //    return _backLayer;
 //}
-
+#pragma mark ========== TTTAttributedLabelDelegate ==========
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url{
+    NSString *title = @"服务协议";
+    if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
+        title = @"隐私权政策";
+    }
+    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
+    [self.navigationController pushViewController:webView animated:YES];
+}
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.phoneTf resignFirstResponder];
