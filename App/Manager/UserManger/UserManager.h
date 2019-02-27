@@ -34,6 +34,7 @@ SINGLETON_FOR_HEADER(UserManager)
 
 //当前用户
 @property (nonatomic, strong) CurrentUserModel *curUserInfo;
+//@property (nonatomic, strong)
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, assign) BOOL isLogined;
 /**
@@ -73,4 +74,6 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 -(BOOL)loadUserInfo;
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess;
+-(void)judgeIsHaveTeam:(void(^)(BOOL isHave, NSDictionary *content))isHave;
+
 @end

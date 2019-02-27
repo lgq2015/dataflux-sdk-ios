@@ -28,5 +28,11 @@
     }
     return self;
 }
-
+- (instancetype)initWithTitle:(NSString *)title describeText:(NSString *)text{
+    if (self = [super init]) {
+        self.title = title;
+        self.describeText = text;
+    }
+    return self;
+}
 @end

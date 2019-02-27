@@ -235,6 +235,8 @@ static NSTimeInterval   requestTimeout = 60.f;
                                 } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
                                     // network error
                                     if (failBlock) failBlock(error);
+                                }else{
+                                     if (failBlock) failBlock(error);
                                 }
                                     [[self allTasks] removeObject:session];
                     

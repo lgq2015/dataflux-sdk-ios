@@ -9,6 +9,35 @@
 /* Begin PBXBuildFile section */
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
+		4A092C632224132100FB2A35 /* ChangePhoneNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C622224132100FB2A35 /* ChangePhoneNumVC.m */; };
+		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
+		4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
+		4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
+		4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
+		4A092C732225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */; };
+		4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */; };
+		4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */; };
+		4A092C7822253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7722253E4D00FB2A35 /* SetEmailOrPhoneVC.m */; };
+		4A092C7922253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7722253E4D00FB2A35 /* SetEmailOrPhoneVC.m */; };
+		4A092C7A22253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7722253E4D00FB2A35 /* SetEmailOrPhoneVC.m */; };
+		4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */; };
+		4A092C7E22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */; };
+		4A092C7F22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */; };
+		4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8622263FA000FB2A35 /* ChooseAddressVC.m */; };
+		4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8622263FA000FB2A35 /* ChooseAddressVC.m */; };
+		4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8622263FA000FB2A35 /* ChooseAddressVC.m */; };
+		4A092C8E2226620100FB2A35 /* DistrictCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8D2226620100FB2A35 /* DistrictCell.m */; };
+		4A092C8F2226620100FB2A35 /* DistrictCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8D2226620100FB2A35 /* DistrictCell.m */; };
+		4A092C902226620100FB2A35 /* DistrictCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C8D2226620100FB2A35 /* DistrictCell.m */; };
+		4A092C9322266C6700FB2A35 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9222266C6700FB2A35 /* CityCell.m */; };
+		4A092C9422266C6700FB2A35 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9222266C6700FB2A35 /* CityCell.m */; };
+		4A092C9522266C6700FB2A35 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9222266C6700FB2A35 /* CityCell.m */; };
+		4A092C9822268D7300FB2A35 /* ChooseTradesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */; };
+		4A092C9922268D7300FB2A35 /* ChooseTradesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */; };
+		4A092C9A22268D7300FB2A35 /* ChooseTradesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */; };
+		4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
+		4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
+		4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
 		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
@@ -490,7 +519,28 @@
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
 		4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightTriangleView.h; sourceTree = "<group>"; };
 		4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightTriangleView.m; sourceTree = "<group>"; };
-		4A092C5D2223C86000FB2A35 /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
+		4A092C612224132100FB2A35 /* ChangePhoneNumVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePhoneNumVC.h; sourceTree = "<group>"; };
+		4A092C622224132100FB2A35 /* ChangePhoneNumVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneNumVC.m; sourceTree = "<group>"; };
+		4A092C6422241B3800FB2A35 /* PasswordVerifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordVerifyVC.h; sourceTree = "<group>"; };
+		4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifyVC.m; sourceTree = "<group>"; };
+		4A092C672224D79100FB2A35 /* ClearCacheTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearCacheTool.h; sourceTree = "<group>"; };
+		4A092C682224D79100FB2A35 /* ClearCacheTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClearCacheTool.m; sourceTree = "<group>"; };
+		4A092C712225306B00FB2A35 /* BindEmailOrPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindEmailOrPhoneVC.h; sourceTree = "<group>"; };
+		4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindEmailOrPhoneVC.m; sourceTree = "<group>"; };
+		4A092C7622253E4D00FB2A35 /* SetEmailOrPhoneVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetEmailOrPhoneVC.h; sourceTree = "<group>"; };
+		4A092C7722253E4D00FB2A35 /* SetEmailOrPhoneVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetEmailOrPhoneVC.m; sourceTree = "<group>"; };
+		4A092C7B22256DAF00FB2A35 /* FillinTeamInforVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FillinTeamInforVC.h; sourceTree = "<group>"; };
+		4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FillinTeamInforVC.m; sourceTree = "<group>"; };
+		4A092C8522263FA000FB2A35 /* ChooseAddressVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseAddressVC.h; sourceTree = "<group>"; };
+		4A092C8622263FA000FB2A35 /* ChooseAddressVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseAddressVC.m; sourceTree = "<group>"; };
+		4A092C8C2226620100FB2A35 /* DistrictCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DistrictCell.h; sourceTree = "<group>"; };
+		4A092C8D2226620100FB2A35 /* DistrictCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DistrictCell.m; sourceTree = "<group>"; };
+		4A092C9122266C6700FB2A35 /* CityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
+		4A092C9222266C6700FB2A35 /* CityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
+		4A092C9622268D7300FB2A35 /* ChooseTradesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseTradesVC.h; sourceTree = "<group>"; };
+		4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseTradesVC.m; sourceTree = "<group>"; };
+		4A092C9B2226B14600FB2A35 /* CreateSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSuccessVC.h; sourceTree = "<group>"; };
+		4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSuccessVC.m; sourceTree = "<group>"; };
 		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
 		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* PWInfoInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInfoInitialView.h; sourceTree = "<group>"; };
@@ -829,6 +879,34 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4A092C8A22265B1300FB2A35 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4AB48A2521F83B0C009F9E94 /* TeamVC.h */,
+				4AB48A2621F83B0C009F9E94 /* TeamVC.m */,
+				4A092C7B22256DAF00FB2A35 /* FillinTeamInforVC.h */,
+				4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */,
+				4A092C8522263FA000FB2A35 /* ChooseAddressVC.h */,
+				4A092C8622263FA000FB2A35 /* ChooseAddressVC.m */,
+				4A092C9622268D7300FB2A35 /* ChooseTradesVC.h */,
+				4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */,
+				4A092C9B2226B14600FB2A35 /* CreateSuccessVC.h */,
+				4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4A092C8B222661BF00FB2A35 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4A092C8C2226620100FB2A35 /* DistrictCell.h */,
+				4A092C8D2226620100FB2A35 /* DistrictCell.m */,
+				4A092C9122266C6700FB2A35 /* CityCell.h */,
+				4A092C9222266C6700FB2A35 /* CityCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4A19546E21A7A3E3007ADFCA /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -1103,8 +1181,8 @@
 		4A6C2880219D08B70059BB08 /* Team */ = {
 			isa = PBXGroup;
 			children = (
-				4AB48A2521F83B0C009F9E94 /* TeamVC.h */,
-				4AB48A2621F83B0C009F9E94 /* TeamVC.m */,
+				4A092C8B222661BF00FB2A35 /* View */,
+				4A092C8A22265B1300FB2A35 /* ViewController */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -1378,6 +1456,8 @@
 				4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */,
 				4AB48AAB221145D7009F9E94 /* PWWeakProxy.h */,
 				4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */,
+				4A092C672224D79100FB2A35 /* ClearCacheTool.h */,
+				4A092C682224D79100FB2A35 /* ClearCacheTool.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1464,6 +1544,14 @@
 				4AB48AD722142DC0009F9E94 /* ChangeUserInfoVC.m */,
 				4AB48AE7221D4AE9009F9E94 /* FeedbackVC.h */,
 				4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */,
+				4A092C612224132100FB2A35 /* ChangePhoneNumVC.h */,
+				4A092C622224132100FB2A35 /* ChangePhoneNumVC.m */,
+				4A092C6422241B3800FB2A35 /* PasswordVerifyVC.h */,
+				4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */,
+				4A092C712225306B00FB2A35 /* BindEmailOrPhoneVC.h */,
+				4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */,
+				4A092C7622253E4D00FB2A35 /* SetEmailOrPhoneVC.h */,
+				4A092C7722253E4D00FB2A35 /* SetEmailOrPhoneVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1971,6 +2059,8 @@
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
+				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
+				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
@@ -1985,6 +2075,8 @@
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
+				4A092C7822253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
+				4A092C8E2226620100FB2A35 /* DistrictCell.m in Sources */,
 				4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */,
 				4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */,
 				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
@@ -2003,8 +2095,10 @@
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */,
 				4AB48A5221FB01E8009F9E94 /* PersonalInfoVC.m in Sources */,
+				4A092C9822268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */,
 				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
+				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* PWInfoSourceModel.m in Sources */,
@@ -2012,6 +2106,7 @@
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AB48A1E21F7000B009F9E94 /* ProblemDetailsVC.m in Sources */,
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
+				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
@@ -2025,12 +2120,14 @@
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
 				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
 				4AB48A2421F818C0009F9E94 /* ExpertAdviceVC.m in Sources */,
+				4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
 				4AB48ACC2212BE6F009F9E94 /* IssueListManger.m in Sources */,
+				4A092C732225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
@@ -2038,6 +2135,7 @@
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
 				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
+				4A092C632224132100FB2A35 /* ChangePhoneNumVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* PWInfoInitialView.m in Sources */,
@@ -2050,6 +2148,7 @@
 				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
 				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
+				4A092C9322266C6700FB2A35 /* CityCell.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
 				4AB48A7D21FC4741009F9E94 /* PPBadgeControl.m in Sources */,
 				4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */,
@@ -2112,9 +2211,11 @@
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
 				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
+				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */,
 				CA1CF592221ECB3A00D15316 /* InformationSourceCell.m in Sources */,
+				4A092C7E22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */,
 				CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */,
 				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
@@ -2129,17 +2230,20 @@
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
+				4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */,
 				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
+				4A092C7922253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
 				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
+				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
@@ -2160,6 +2264,7 @@
 				CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */,
 				CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */,
 				CA1CF5BE221ECB3A00D15316 /* IssueListManger.m in Sources */,
+				4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
@@ -2189,6 +2294,7 @@
 				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
 				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
 				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
+				4A092C9922268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */,
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
@@ -2196,10 +2302,12 @@
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* PWNewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
+				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				CA1CF5E0221ECB3A00D15316 /* MonitorListCell.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
+				4A092C8F2226620100FB2A35 /* DistrictCell.m in Sources */,
 				CA1CF5E4221ECB3A00D15316 /* RootNavigationController.m in Sources */,
 				CA1CF5E5221ECB3A00D15316 /* NewsListModel.m in Sources */,
 				CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
@@ -2241,9 +2349,11 @@
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
 				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
+				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */,
 				CA1CF637221ECB5000D15316 /* InformationSourceCell.m in Sources */,
+				4A092C7F22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */,
 				CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */,
 				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
@@ -2258,17 +2368,20 @@
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
+				4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */,
 				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
+				4A092C7A22253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
 				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
+				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
@@ -2289,6 +2402,7 @@
 				CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */,
 				CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */,
 				CA1CF663221ECB5000D15316 /* IssueListManger.m in Sources */,
+				4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
@@ -2318,6 +2432,7 @@
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
 				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
+				4A092C9A22268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */,
 				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
@@ -2325,10 +2440,12 @@
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
 				CA1CF683221ECB5000D15316 /* PWNewsListCell.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
+				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				CA1CF685221ECB5000D15316 /* MonitorListCell.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
+				4A092C902226620100FB2A35 /* DistrictCell.m in Sources */,
 				CA1CF689221ECB5000D15316 /* RootNavigationController.m in Sources */,
 				CA1CF68A221ECB5000D15316 /* NewsListModel.m in Sources */,
 				CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,

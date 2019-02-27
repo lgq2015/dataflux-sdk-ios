@@ -32,11 +32,54 @@
     [super viewDidLoad];
     self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(judgeIsTeam)
+                                                 name:KNotificationTeamStatusChange
+                                               object:nil];
     self.dataSource = [NSArray new];
-    [self dealWithData];
+    [self judgeIsTeam];
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
+- (void)judgeIsTeam{
+    NSString *team = getTeamState;
+    DLog(@"%@",team);
+    if (team == nil) {
+        [userManager judgeIsHaveTeam:^(BOOL isHave) {
+            if(isHave){
+                [self dealWithDataHasTeam:YES];
+            }else{
+                [self dealWithDataHasTeam:NO];
+            }
+        }];
+    }else if([team isEqualToString:PW_isTeam]){
+       [self dealWithDataHasTeam:YES];
+    }else{
+       [self dealWithDataHasTeam:NO];
+    }
+    
+}
+#pragma mark ========== 界面布局数据处理 ==========
+- (void)dealWithDataHasTeam:(BOOL)hasTeam{
+    MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
+    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
+    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
+    MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_opinion" cellType:MineCellTypeOpinion];
+    MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_contact" cellType:MineCellTypeContactuUs];
+    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
+    MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
+    MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
+    NSArray *group1;
+    if (hasTeam) {
+        group1 = @[mynews,collection];
+    }else{
+        group1 = @[mynews,infoSource,collection];
+    }
+    NSArray *group2 = @[opinion,contact,encourage,aboutPW];
+    NSArray *group3 = @[setting];
+    self.dataSource = @[group1,group2,group3];
+    [self.tableView reloadData];
+}
 - (void)createUI{
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
@@ -123,21 +166,7 @@
     PersonalInfoVC *personal = [[PersonalInfoVC alloc]init];
     [self.navigationController pushViewController:personal animated:YES];
 }
-#pragma mark ========== 界面布局数据处理 ==========
-- (void)dealWithData{
-    MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
-    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
-    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
-    MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_opinion" cellType:MineCellTypeOpinion];
-    MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_contact" cellType:MineCellTypeContactuUs];
-    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
-    MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
-    MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
-    NSArray *group1 = @[mynews,infoSource,collection];
-    NSArray *group2 = @[opinion,contact,encourage,aboutPW];
-    NSArray *group3 = @[setting];
-    self.dataSource = @[group1,group2,group3];
-}
+
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = (MineViewCell *)[tableView cellForRowAtIndexPath:indexPath];

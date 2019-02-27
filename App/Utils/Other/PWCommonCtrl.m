@@ -11,9 +11,11 @@
 @implementation PWCommonCtrl
 +(UIButton *)buttonWithFrame:(CGRect)frame type:(PWButtonType)type text:(NSString *)text{
     UIButton *button = [[UIButton alloc]initWithFrame:frame];
+
     [button setTitle:text forState:UIControlStateNormal];
     switch (type) {
         case PWButtonTypeBuoy:
+            button.layer.masksToBounds = YES;
             button.layer.cornerRadius = 37;
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#0D47A1"]] forState:UIControlStateNormal];
@@ -25,15 +27,17 @@
             break;
         case PWButtonTypeContain:
             button.layer.cornerRadius = 4;
-            [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#0D47A1"]] forState:UIControlStateNormal];
+            button.layer.masksToBounds = YES;
+            [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#2A7AF7"]] forState:UIControlStateNormal];
             [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#01388C"]] forState:UIControlStateHighlighted];
-            [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#6790D1"]] forState:UIControlStateDisabled];
+            [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#C7C7CC"]] forState:UIControlStateDisabled];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-            [button setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
             break;
         case PWButtonTypeSummarize:
             button.layer.cornerRadius = 4;
+            button.layer.masksToBounds = YES;
             [button setTitleColor:[UIColor colorWithHexString:@"#0D47A1"] forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
             [button setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
@@ -71,7 +75,16 @@
     UITextField *tf = [[UITextField alloc]initWithFrame:frame];
     [tf setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:16]];
     tf.textColor = PWTextBlackColor;
-    [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
+//    [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
+    UILabel *place = [[UILabel alloc]init];
+    place.font = MediumFONT(16);
+    place.textColor =PWTextLight;
+    place.numberOfLines = 0;
+    [place sizeToFit];
+    
+    [tf addSubview:place];
+    [tf setValue:place forKey:@"_placeholderLabel"];
+
     tf.clearButtonMode=UITextFieldViewModeWhileEditing;
     tf.textAlignment = NSTextAlignmentLeft;
     return tf;
@@ -80,7 +93,7 @@
     UITextView *textView = [[UITextView alloc]initWithFrame:frame];
     [textView setFont:font];
     textView.textColor = PWTextBlackColor;
-//    [textView setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
+    [textView setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
 
     UILabel *place = [[UILabel alloc]init];
     place.text = placeHolder;

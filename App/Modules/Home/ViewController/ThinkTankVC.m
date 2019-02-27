@@ -9,6 +9,7 @@
 #import "ThinkTankVC.h"
 #import "PWDraggableModel.h"
 #import "PWDraggableItem.h"
+#import "PWFMDB.h"
 
 static NSUInteger kLineCount = 3;
 static NSUInteger ItemHeight = 136;
@@ -26,7 +27,8 @@ static NSUInteger ItemWidth = 104;
     self.mainScrollView.backgroundColor = PWWhiteColor;
     self.mainScrollView.frame= CGRectMake(0, Interval(64), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
     [self createUpUI];
-    [self loadDatas];
+    [self dealWithData];
+   
     
 }
 - (void)createUpUI{
@@ -34,25 +36,61 @@ static NSUInteger ItemWidth = 104;
     self.searchTf.userInteractionEnabled = NO;
     self.searchTf.placeholder = @"搜索";
 }
+- (void)dealWithData{
+    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
+    NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
+    if([pwfmdb  pw_isExistTable:tableName]){
+       NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[NSDictionary class] whereFormat:nil];
+        if (itemDatas.count>0) {
+            self.handbookArray = [NSMutableArray arrayWithArray:itemDatas];
+            [self createUI];
+        }
+    }
+    [self loadDatas];
+}
 - (void)loadDatas{
     self.handbookArray = [NSMutableArray new];
     [PWNetworking requsetHasTokenWithUrl:PW_handbookList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             if (content.count>0) {
-                [self.handbookArray addObjectsFromArray:content];
-                [self createUI];
+                [self compareWithData:content];
             }
         }
     } failBlock:^(NSError *error) {
         
     }];
 }
+- (void)compareWithData:(NSArray *)array{
+ 
+    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
+    NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
+    if([pwfmdb  pw_isExistTable:tableName]){
+        NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[NSDictionary class] whereFormat:nil];
+        DLog(@"%@",itemDatas);
+        if (itemDatas>0) {
+            
+           
+            if ([pwfmdb pw_deleteAllDataFromTable:tableName]) {
+//                 [pwfmdb pw_insertTable:tableName dicOrModelArray:itemArray];
+            }
+//            self.handbookArray = [[NSMutableArray alloc]initWithArray:itemArray];
+            [self createUI];
+        }
+    }else{
+        
+        NSDictionary *dict = @{@"bucketPath":@"text",@"category":@"text",@"coverImageMobile":@"text",@"id":@"text",@"name":@"text",@"orderNum":@"integer",@"coverImageMobile":@"text"};
+        if ([pwfmdb pw_createTable:tableName dicOrModel:dict primaryKey:@"pid"]) {
+//        BOOL  is= [pwfmdb pw_insertTable:tableName dicOrModelArray:array];
+        }
+        self.handbookArray = [NSMutableArray arrayWithArray:array];
+        [self createUI];
+    }
+}
 - (void)createUI{
     self.view.backgroundColor = PWWhiteColor;
     NSUInteger backImgCount = self.handbookArray.count%3 == 0? self.handbookArray.count/3:self.handbookArray.count/3+1;
     self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*(ZOOM_SCALE(ItemHeight)+ZOOM_SCALE(18))+Interval(10));
-
     NSMutableArray *array = [NSMutableArray array];
     CGFloat width = ZOOM_SCALE(ItemWidth);
     CGFloat kMargin = (kWidth-kLineCount*width)/4.00;

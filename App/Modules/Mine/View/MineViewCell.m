@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIImageView *arrowImgView;
+@property (nonatomic, strong) UILabel *describeLab;
 @end
 @implementation MineViewCell
 
@@ -27,6 +28,7 @@
     
 }
 -(void)createUI{
+    _describeLab.hidden = YES;
     switch (self.type) {
         case MineVCCellTypeBase:
             [self createUIBase];
@@ -41,7 +43,10 @@
             [self createUISwitch];
             break;
         case MineVCCellTypedDescribe:
-            
+            [self createUIDescribe];
+            break;
+        case MineVCCellTypeOnlyTitle:
+            [self createUIOnlyTitle];
             break;
     }
 }
@@ -78,6 +83,15 @@
         make.centerY.mas_equalTo(self.titleLab);
     }];
 }
+-(void)createUIOnlyTitle{
+    _arrowImgView.hidden = YES;
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(Interval(16));
+        make.height.offset(22);
+        make.centerY.mas_equalTo(self.contentView);
+    }];
+    self.titleLab.text = _data.title;
+}
 #pragma mark ========== 退出按钮 ==========
 - (void)createUIButton{
     _arrowImgView.hidden = YES;
@@ -105,6 +119,29 @@
     [self.switchBtn setOn:self.data.isOn];
     [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
+- (void)createUIDescribe{
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(Interval(16));
+        make.height.offset(22);
+        make.centerY.mas_equalTo(self.contentView);
+    }];
+    self.titleLab.text = _data.title;
+    [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.width.offset(16);
+        make.height.offset(16);
+        make.centerY.mas_equalTo(self.titleLab);
+    }];
+    self.describeLab.hidden = NO;
+    [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+        make.centerY.mas_equalTo(self.titleLab);
+        make.height.offset(20);
+    }];
+    self.describeLab.text = _data.describeText;
+    
+    
+}
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
     if(!_iconImgView){
@@ -115,6 +152,14 @@
         [self addSubview:_iconImgView];
     }
     return _iconImgView;
+}
+-(UILabel *)describeLab{
+    if (!_describeLab) {
+        _describeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@""];
+        _describeLab.textAlignment = NSTextAlignmentRight;
+        [self addSubview:_describeLab];
+    }
+    return _describeLab;
 }
 -(UILabel *)titleLab{
     if(!_titleLab){
@@ -145,6 +190,11 @@
     DLog(@"%d",sender.isOn);
     if (self.switchChange) {
         self.switchChange(sender.isOn);
+    }
+}
+-(void)setDescribeLabText:(NSString *)text{
+    if (_describeLab) {
+        self.describeLab.text = text;
     }
 }
 -(void)setSwitchBtnisOn:(BOOL)ison{

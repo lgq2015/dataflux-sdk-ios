@@ -71,9 +71,18 @@
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
 
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
+
+#pragma mark ========== 团队 ==========
+#define PW_CurrentTeam    [NSString stringWithFormat:@"%@/v1/auth/team", API_SEVERID]
+
+#define PW_AddTeam        [NSString stringWithFormat:@"%@/v1/team/add", API_SEVERID]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]
+#define PW_verifycodeVerify [NSString stringWithFormat:@"%@/v1/account/verifycode/verify", API_SEVERID]
+
+#define PW_verifycodesend [NSString stringWithFormat:@"%@/v1/account/verifycode/send", API_SEVERID] 
+
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]

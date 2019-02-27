@@ -87,4 +87,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
+    
+}
+
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
+    
+}
+
 @end

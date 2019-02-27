@@ -161,6 +161,25 @@ SINGLETON_FOR_CLASS(UserManager);
     
     
 }
+-(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave{
+    [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            if (content.allKeys.count>0) {
+                setTeamState(PW_isTeam);
+                [kUserDefaults synchronize];
+                isHave(YES,content);
+            }else{
+                setTeamState(PW_isPersonal);
+                [kUserDefaults synchronize];
+                isHave(NO,nil);
+            }
+            
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];

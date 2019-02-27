@@ -37,4 +37,5 @@
  时间转换
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
++ (BOOL)validateNumber:(NSString*)number;
 @end

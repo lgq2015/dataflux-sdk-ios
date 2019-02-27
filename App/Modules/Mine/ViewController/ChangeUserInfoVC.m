@@ -25,13 +25,17 @@
 - (void)createUI{
     switch (self.type) {
         case ChangeUITPhoneNumber:
-           [self setNaviTitle:@"修改密码"];
+           [self setNaviTitle:@"修改手机"];
             break;
         case ChangeUITPassword:
            [self setNaviTitle:@"修改密码"];
             break;
         case ChangeUITEmail:
-           [self setNaviTitle:@"修改密码"];
+            if (userManager.curUserInfo.email == nil ||[userManager.curUserInfo.email isEqualToString:@""]) {
+            [self setNaviTitle:@"绑定邮箱"];
+            }else{
+           [self setNaviTitle:@"修改邮箱"];
+            }
             break;
     }
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
@@ -122,7 +126,7 @@
                 type = VerifyCodeVCTypeUpdateEmail;
                 break;
         }
-//        NSDictionary *param = @{@"data":@{@"to":userManager.curUserInfo.mobile,@"t":t}};
+        NSDictionary *param = @{@"data":@{@"to":userManager.curUserInfo.mobile,@"t":t}};
 //        [PWNetworking requsetHasTokenWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
 //            if ([response[@"errorCode"] isEqualToString:@""]) {
                 VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];

@@ -34,7 +34,7 @@
     if (!_userTf) {
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _userTf.placeholder = @"请输入手机号/邮箱";
-        _userTf.keyboardType = UIKeyboardTypeNumberPad;
+        _userTf.keyboardType = UIKeyboardTypeDefault;
         [self.view addSubview:_userTf];
     }
     [self.userTf mas_makeConstraints:^(MASConstraintMaker *make) {

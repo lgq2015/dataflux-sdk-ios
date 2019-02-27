@@ -35,4 +35,11 @@
 #define setPWseqAct(str,type)   [kUserDefaults setObject:str forKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
 #define getPWseqAct(type)       [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
 
+//个人还是团队
+#define PWisTeam                 [NSString stringWithFormat:@"%@/isTeam", getPWUserID]
+#define setTeamState(str)        [kUserDefaults setObject:str forKey:PWisTeam]
+#define getTeamState             [kUserDefaults objectForKey:PWisTeam]
+
+#define PW_isTeam @"isTeam"
+#define PW_isPersonal @"isPersonal"
 #endif /* NSUserDefaultsMacros_h */

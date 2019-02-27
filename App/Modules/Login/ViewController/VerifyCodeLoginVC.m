@@ -157,7 +157,7 @@
 
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
-    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
+    NSDictionary *param = @{@"data": @{@"to":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"t":@"login"}};
     [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];

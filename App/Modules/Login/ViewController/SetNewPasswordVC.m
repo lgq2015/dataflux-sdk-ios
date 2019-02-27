@@ -9,6 +9,8 @@
 #import "SetNewPasswordVC.h"
 #import "OpenUDID.h"
 #import "LoginPasswordVC.h"
+#import "SecurityPrivacyVC.h"
+
 @interface SetNewPasswordVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
@@ -102,7 +104,17 @@
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             setXAuthToken(response[@"content"][@"authAccessToken"]);
+            if(self.isChange){
+            [userManager saveUserInfoLoginStateisChange:NO success:nil];
+            [iToast alertWithTitleCenter:@"修改密码成功"];
+                for(UIViewController *temp in self.navigationController.viewControllers) {
+                    if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+                        [self.navigationController popToViewController:temp animated:YES];
+                    }
+                }
+            }else{
             [userManager saveUserInfoLoginStateisChange:YES success:nil];
+            }
         }else{
             [iToast alertWithTitleCenter:response[@"message"]];
         }
@@ -131,10 +143,18 @@
         
     }];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if (self.isChange) {
+            for(UIViewController *temp in self.navigationController.viewControllers) {
+                if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+                    [self.navigationController popToViewController:temp animated:YES];
+                }
+            }
+        }else{
         for(UIViewController *temp in self.navigationController.viewControllers) {
             if([temp isKindOfClass:[LoginPasswordVC class]]){
                 [self.navigationController popToViewController:temp animated:YES];
             }
+        }
         }
     }];
     [alert addAction:cancle];

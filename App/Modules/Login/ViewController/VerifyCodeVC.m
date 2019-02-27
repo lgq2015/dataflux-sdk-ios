@@ -16,7 +16,7 @@
 #import "SetNewPasswordVC.h"
 #import <TTTAttributedLabel.h>
 #import "PWBaseWebVC.h"
-
+#import "BindEmailOrPhoneVC.h"
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UILabel *timeLab;
@@ -284,13 +284,58 @@
     }];
 }
 - (void)changePasswordWithCode:(NSString *)code{
-//    [PWNetworking requsetHasTokenWithUrl:<#(NSString *)#> withRequestType:<#(NetworkRequestType)#> refreshRequest:<#(BOOL)#> cache:<#(BOOL)#> params:<#(NSDictionary *)#> progressBlock:<#^(int64_t bytesRead, int64_t totalBytes)progressBlock#> successBlock:<#^(id response)successBlock#> failBlock:<#^(NSError *error)failBlock#>]
+    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
+    [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *authAccessToken = content[@"authAccessToken"];
+            setXAuthToken(authAccessToken);
+            SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+            newPasswordVC.isShowCustomNaviBar = YES;
+            newPasswordVC.isChange = YES;
+            newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+            [self.navigationController pushViewController:newPasswordVC animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 - (void)updateEmailWithCode:(NSString *)code{
-    
+    //{ "data": { "username": "18236889895", "uType": "mobile", "verificationCode": "123456", "verificationCodeType": "verifycode", "t": "update_email" } }
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_email",@"verificationCodeType":@"verifycode"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
+            BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
+            bindemail.uuid = uuid;
+            bindemail.isEmail = YES;
+            bindemail.isFirst = userManager.curUserInfo.email == nil? YES:NO;
+            bindemail.isShowCustomNaviBar = YES;
+            [self.navigationController pushViewController:bindemail animated:YES];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 - (void)updateMobileWithCode:(NSString *)code{
-    
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_mobile",@"verificationCodeType":@"verifycode"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
+            BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
+            bindemail.uuid = uuid;
+            bindemail.isEmail = NO;
+            bindemail.isShowCustomNaviBar = YES;
+            [self.navigationController pushViewController:bindemail animated:YES];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+
 }
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];

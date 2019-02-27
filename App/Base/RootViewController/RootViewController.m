@@ -182,18 +182,7 @@
 {
     if (_collectionView == nil) {
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight - kTabBarHeight) collectionViewLayout:self.layout];
-        
-//        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
-//        header.automaticallyChangeAlpha = YES;
-//        header.lastUpdatedTimeLabel.hidden = YES;
-//        header.stateLabel.hidden = YES;
-//        _collectionView.mj_header = header;
-//
-//        //底部刷新
-//        _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-
-        
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight) collectionViewLayout:self.layout];
         _collectionView.backgroundColor=PWWhiteColor;
         _collectionView.scrollsToTop = YES;
     }
@@ -344,7 +333,7 @@
 }
 
 - (void)dealloc
-{
+{   [SVProgressHUD dismiss];
     [self cancelRequest];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

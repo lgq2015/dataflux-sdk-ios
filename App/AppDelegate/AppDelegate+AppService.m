@@ -14,6 +14,7 @@
 #import "UserManager.h"
 #import "AppManager.h"
 #import "IssueListManger.h"
+#import <Zhuge.h>
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -137,9 +138,7 @@
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.enable = YES; // 控制整个功能是否启用
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD setMinimumDismissTimeInterval:2];
-  
-   
+    [SVProgressHUD setMinimumDismissTimeInterval:2];   
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{

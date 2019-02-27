@@ -10,4 +10,5 @@
 
 @interface SetNewPasswordVC : RootViewController
 @property (nonatomic, copy) NSString *changePasswordToken;
+@property (nonatomic, assign) BOOL isChange;//是我的 进入
 @end
