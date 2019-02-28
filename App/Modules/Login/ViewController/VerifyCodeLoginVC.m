@@ -87,8 +87,8 @@
 //
 //        return value;
 //    }];
-    self.phoneTf.delegate = self;
-    RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
+      self.phoneTf.delegate = self;
+      RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
         if((value.length == 3 || value.length == 8 )){
             if (value.length<self.temp.length) {
                 value =[value substringToIndex:value.length-1];

@@ -111,7 +111,7 @@
         codeTfView.completeBlock = ^(NSString *completeStr){
             self.code = completeStr;
             if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected) {
-                [iToast alertWithTitleCenter:@"未同意用户协议"];
+                [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可登录哦"];
             }else{
                 [self btnClickWithCode:completeStr];
             }
@@ -250,11 +250,13 @@
     }
 }
 -(void)loginWithCode:(NSString *)code{
+    [SVProgressHUD showWithStatus:@"登录中..."];
     NSString *openUDID = [OpenUDID value];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *device_version = [NSString getCurrentDeviceModel];
     NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
+        [SVProgressHUD dismiss];
         if (success) {
             PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
             passwordVC.changePasswordToken = des;
@@ -262,6 +264,7 @@
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
+            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
         }
     }];
 }

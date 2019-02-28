@@ -11,7 +11,7 @@
 
 
 @interface InformationSourceVC : RootViewController
-
+@property (nonatomic, assign) BOOL isFromTeam;
 @end
 
 

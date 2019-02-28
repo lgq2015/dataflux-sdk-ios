@@ -16,6 +16,7 @@
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, strong) NSString *pageMaker;
 @end
 
 @implementation MonitorVC
@@ -29,10 +30,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    if (self.isFromTeam) {
+        [self loadTeamNeedData];
+    }
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-    [self addNavigationItemWithTitles:@[@"创建问题"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    if (!self.isFromTeam) {
+       [self addNavigationItemWithTitles:@[@"创建问题"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    }else{
+        self.title =@"服务记录";
+        self.tableView.mj_header = self.header;
+        self.tableView.mj_footer = self.footer;
+    }
     self.monitorData = [NSMutableArray new];
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
@@ -44,17 +54,35 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
     self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
-    [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
-        [self.monitorData addObject:model];
-    }];
-    [self.tableView reloadData];
+   
+    if (self.dataSource>0) {
+        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
+            [self.monitorData addObject:model];
+        }];
+        [self.tableView reloadData];
+    }
 }
+- (void)headerRereshing{
+    
+}
+-(void)footerRereshing{
 
+}
 - (void)navBtnClick:(UIButton *)btn{
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
     creatVC.type = self.type;
     [self.navigationController pushViewController:creatVC animated:YES];
+}
+- (void)loadTeamNeedData{
+    NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10,@"ticketType":@"serviceEvent"};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

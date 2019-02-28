@@ -38,20 +38,19 @@
         case PWButtonTypeSummarize:
             button.layer.cornerRadius = 4;
             button.layer.masksToBounds = YES;
-            [button setTitleColor:[UIColor colorWithHexString:@"#0D47A1"] forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-            [button setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
+            [button setTitleColor:[UIColor colorWithHexString:@"#595860"] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithHexString:@"#595860"] forState:UIControlStateDisabled];
             
-            [button setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#4178D1"]] forState:UIControlStateHighlighted];
+            [button setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateNormal];
+         
             [button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#F7F7F7"]] forState:UIControlStateDisabled];
             //设置边框的颜色
-            [button.layer setBorderColor:[UIColor colorWithHexString:@"#0D47A1"].CGColor];
+            [button.layer setBorderColor:[UIColor colorWithHexString:@"#595860"].CGColor];
             //设置边框的粗细
             [button.layer setBorderWidth:1.0];
-            [[button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-                [button.layer setBorderWidth:0];
-            }];
+//            [[button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+//                [button.layer setBorderWidth:0];
+//            }];
             break;
     }
     return button;

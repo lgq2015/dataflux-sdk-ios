@@ -8,6 +8,7 @@
 
 #import "InformationSourceVC.h"
 #import "InformationSourceCell.h"
+#import "TeamInfoModel.h"
 #import "AddSourceVC.h"
 #import "SourceVC.h"
 @interface InformationSourceVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -31,7 +32,10 @@
 - (void)createUI{
     NSArray *title = @[@"添加"];
     self.currentPage = 1;
+    DLog(@"%d",userManager.teamModel.isAdmin);
+    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){
     [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+    }
     self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

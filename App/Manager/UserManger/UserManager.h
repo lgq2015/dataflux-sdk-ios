@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, CodeType){
 };
 typedef void (^loginBlock)(BOOL success, NSString * des);
 typedef void (^codeBlock) (CodeStatus status, NSString * des);
-@class UserInfo,CurrentUserModel;
+@class UserInfo,CurrentUserModel,TeamInfoModel;
 #define isLogin [UserManager sharedUserManager].isLogined
 #define curUser [UserManager sharedUserManager].curUserInfo
 #define userManager [UserManager sharedUserManager]
@@ -34,7 +34,7 @@ SINGLETON_FOR_HEADER(UserManager)
 
 //当前用户
 @property (nonatomic, strong) CurrentUserModel *curUserInfo;
-//@property (nonatomic, strong)
+@property (nonatomic, strong) TeamInfoModel *teamModel;
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, assign) BOOL isLogined;
 /**

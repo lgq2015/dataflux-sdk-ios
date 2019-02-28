@@ -8,6 +8,7 @@
 
 #import "UserManager.h"
 #import "OpenUDID.h"
+#import "TeamInfoModel.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -133,32 +134,76 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
-    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        NSString *errCode = response[@"errCode"];
-        if(errCode.length>0){
-            isSuccess(NO);
-            [iToast alertWithTitleCenter:response[@"message"]];
-        }else{
-            NSError *error;
-            self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
-            if (self.curUserInfo) {
-                YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
-                NSDictionary *dic = [self.curUserInfo modelToJSONObject];
-                [cache setObject:dic forKey:KUserModelCache];
-                NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                setPWUserID(userID);
+    dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
+    dispatch_group_t grpupT = dispatch_group_create();//一个线程组
+    __block BOOL isUserSuccess,isTeamSuccess;
+    
+    dispatch_group_async(grpupT, queueT,^{
+        dispatch_group_enter(grpupT);
+        [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            NSString *errCode = response[@"errCode"];
+            if(errCode.length>0){
+                isUserSuccess = NO;
+                [iToast alertWithTitleCenter:response[@"message"]];
+            }else{
+                isUserSuccess = YES;
+                NSError *error;
+                self.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
+                if (self.curUserInfo) {
+                    YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+                    NSDictionary *dic = [self.curUserInfo modelToJSONObject];
+                    [cache setObject:dic forKey:KUserModelCache];
+                    NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                    setPWUserID(userID);
+                }
+                
+            }
+            dispatch_group_leave(grpupT);
+        } failBlock:^(NSError *error) {
+            DLog(@"%@",error);
+            isUserSuccess = NO;
+            dispatch_group_leave(grpupT);
+        }];
+        
+    });
+   
+    dispatch_group_async(grpupT, queueT, ^{
+        dispatch_group_enter(grpupT);
+        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                isTeamSuccess = YES;
+                NSDictionary *content = response[@"content"];
+                if (content.allKeys.count>0) {
+                    NSError *error;
+                    self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
+                    if (self.teamModel) {
+                        YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+                        NSDictionary *dic = [self.teamModel modelToJSONObject];
+                        [cache setObject:dic forKey:KTeamModelCache];
+                    }
+                    setTeamState(PW_isTeam);
+                    [kUserDefaults synchronize];
+                }else{
+                    setTeamState(PW_isPersonal);
+                    [kUserDefaults synchronize];
+                }
+            }
+            dispatch_group_leave(grpupT);
+        } failBlock:^(NSError *error) {
+            isTeamSuccess = NO;
+            dispatch_group_leave(grpupT);
+        }];
+    });
+    dispatch_group_notify(grpupT, queueT, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if( isTeamSuccess && isUserSuccess){
                 if(change){
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
-            
             }
-            
-        }
-            
-    } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
-    }];
-    
+        });
+        
+    });
     
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave{
@@ -166,6 +211,8 @@ SINGLETON_FOR_CLASS(UserManager);
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count>0) {
+                NSError *error;
+                self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
                 setTeamState(PW_isTeam);
                 [kUserDefaults synchronize];
                 isHave(YES,content);
@@ -194,12 +241,20 @@ SINGLETON_FOR_CLASS(UserManager);
     
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamModelCache];
+    __block BOOL iscompletion1,completion2;
     [cache removeAllObjectsWithBlock:^{
+        iscompletion1 = YES;
+    }];
+    [cacheteam removeAllObjectsWithBlock:^{
+        completion2 = YES;
+    }];
+    if (iscompletion1&&completion2) {
         if (completion) {
             completion(YES,nil);
         }
-    }];
-    
+    }
+   
     KPostNotification(KNotificationLoginStateChange, @NO);
 }
 -(void)autoLoginToServer:(loginBlock)completion{
@@ -208,9 +263,13 @@ SINGLETON_FOR_CLASS(UserManager);
 #pragma mark ========== 加载缓存的用户信息 ==========
 -(BOOL)loadUserInfo{
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
-    if (userDic) {
+    NSDictionary * teamDic = (NSDictionary *)[cacheteam objectForKey:KTeamModelCache];
+
+    if (userDic && teamDic) {
         self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
+        self.teamModel = [TeamInfoModel modelWithJSON:teamDic];
         return YES;
     }
     return NO;

@@ -157,6 +157,7 @@
         [self.cityCollectionView reloadData];
     }
     [self.cityAry addObjectsFromArray:dict[@"children"]];
+    self.province = self.districtAry[indexPath.row][@"name"];
     [self.cityCollectionView reloadData];
 }
 #pragma mark ========== ui ==========

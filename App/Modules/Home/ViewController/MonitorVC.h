@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MonitorVC : RootViewController
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, assign) BOOL isFromTeam;
 - (id)initWithTitle:(NSString *)title andIssueType:(NSString *)type;
 
 @end

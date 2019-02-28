@@ -8,11 +8,17 @@
 
 #import "TeamVC.h"
 #import "FillinTeamInforVC.h"
+#import "TeamHeaderView.h"
+#import "TeamInfoModel.h"
+#import "InformationSourceVC.h"
+#import "InviteMembersVC.h"
+#import "MonitorVC.h"
 
 @interface TeamVC ()
-@property (nonatomic, strong) UILabel *teamNameLab;
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
+
+@property (nonatomic, strong) UIView *headerView;
 @end
 
 @implementation TeamVC
@@ -58,8 +64,30 @@
 }
 - (void)createTeamUI{
     
-    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight);
-
+    TeamHeaderView *headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(500)+kStatusBarHeight)];
+    headerView.itemClick =^(NSInteger tag){
+        if (tag == InvateTag) {
+            InviteMembersVC *invite = [[InviteMembersVC alloc]init];
+            [self.navigationController pushViewController:invite animated:YES];
+        }else if (tag == InfoSourceTag){
+            InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
+            infoSource.isFromTeam = YES;
+            [self.navigationController pushViewController:infoSource animated:YES];
+        }else if(tag == ServeTag){
+            MonitorVC *monitor = [[MonitorVC alloc]init];
+            monitor.isFromTeam = YES;
+            [self.navigationController pushViewController:monitor animated:YES];
+        }else{
+            FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
+            fillVC.type = userManager.teamModel.isAdmin == YES? FillinTeamTypeIsAdmin:FillinTeamTypeIsMember;
+            [self.navigationController pushViewController:fillVC animated:YES];
+        }
+    };
+    DLog(@"%@",userManager.teamModel);
+    [headerView setTeamName:userManager.teamModel.name];
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
+    [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = headerView;
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -126,14 +154,7 @@
     item.layer.cornerRadius = 4.0f;
     return item;
 }
--(UILabel *)teamNameLab{
-    if (!_teamNameLab) {
-        _teamNameLab = [[UILabel alloc]init];
-        _teamNameLab.font = [UIFont fontWithName:@"PingFang-SC-Bold" size:20];
-        _teamNameLab.textColor = PWWhiteColor;
-    }
-    return _teamNameLab;
-}
+
 -(UILabel *)feeLab{
     if (!_feeLab) {
         _feeLab = [[UILabel alloc]init];
@@ -144,6 +165,7 @@
 }
 - (void)createTeamClick{
     FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
+    fillVC.type = FillinTeamTypeAdd;
     [self.navigationController pushViewController:fillVC animated:YES];
 }
 /*

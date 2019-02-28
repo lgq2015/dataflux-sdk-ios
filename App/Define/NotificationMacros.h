@@ -22,10 +22,11 @@
 
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
+#define KTeamCacheName @"KTeamCacheName"
 
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
-
+#define KTeamModelCache @"KTeamModelCache"
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
 
 #define KNotificationInfoBoardDatasUpdate @"KNotificationInfoBoardDatasUpdate"

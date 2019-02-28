@@ -24,10 +24,13 @@
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 
+@property (nonatomic, assign) NSInteger unread;
 @end
 
 @implementation MineViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [self getSystemMessagCount];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = PWWhiteColor;
@@ -45,7 +48,7 @@
     NSString *team = getTeamState;
     DLog(@"%@",team);
     if (team == nil) {
-        [userManager judgeIsHaveTeam:^(BOOL isHave) {
+        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
             if(isHave){
                 [self dealWithDataHasTeam:YES];
             }else{
@@ -79,6 +82,16 @@
     NSArray *group3 = @[setting];
     self.dataSource = @[group1,group2,group3];
     [self.tableView reloadData];
+}
+- (void)getSystemMessagCount{
+    [PWNetworking requsetHasTokenWithUrl:PW_system_message withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            self.unread = [content longValueForKey:@"unread" default:0];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 - (void)createUI{
     [self.view addSubview:self.tableView];
@@ -231,6 +244,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeBase];
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        
+    }
     NSArray *array =self.dataSource[indexPath.section];
     if(indexPath.row == array.count-1){
      cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
