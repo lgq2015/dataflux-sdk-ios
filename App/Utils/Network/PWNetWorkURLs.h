@@ -8,8 +8,15 @@
 
 #ifndef PWNetWorkURLs_h
 #define PWNetWorkURLs_h
-
+#ifdef DEBUG //开发环境
 #define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
+
+#elif PREFORM //预发环境
+#define API_SEVERID @"http://preprod-home-via-core-stone.cloudcare.cn:10100"
+
+#else //正式环境
+#define API_SEVERID @"http://home-via-core-stone.cloudcare.cn:10100"
+#endif
 
 #define API_HOST [NSString stringWithFormat:@"%@/api", API_SEVERID]
 
@@ -74,20 +81,21 @@
 
 #pragma mark ========== 团队 ==========
 #define PW_CurrentTeam    [NSString stringWithFormat:@"%@/v1/auth/team", API_SEVERID]
-
+#define PW_teamInvite     [NSString stringWithFormat:@"%@/v1/team/account/invite", API_SEVERID]
 #define PW_AddTeam        [NSString stringWithFormat:@"%@/v1/team/add", API_SEVERID]
+#define PW_CancelTeam     [NSString stringWithFormat:@"%@/v1/team/cancel", API_SEVERID]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]
 #define PW_verifycodeVerify [NSString stringWithFormat:@"%@/v1/account/verifycode/verify", API_SEVERID]
 
 #define PW_verifycodesend [NSString stringWithFormat:@"%@/v1/account/verifycode/send", API_SEVERID] 
-
+#define PW_system_message [NSString stringWithFormat:@"%@/v1/system_message/count", API_SEVERID] 
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
 
 #pragma mark ========== 协议 ==========
-#define PW_privacylegal       @"http://testing.profwang-h5.cloudcare.cn:10302/protocol/legal"
-#define PW_servicelegal       @"http://testing.profwang-h5.cloudcare.cn:10302/protocol/service"
+#define PW_privacylegal       @"http://testing.profwang-h5.cloudcare.cn:10302/terms/legal"
+#define PW_servicelegal       @"http://testing.profwang-h5.cloudcare.cn:10302/terms/service"
 #endif /* PWNetWorkURLs_h */
