@@ -2727,7 +2727,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -2746,7 +2746,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -2765,7 +2765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2151DBDF9517705F58B77BDE /* Pods-App.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPre;
 				CODE_SIGN_ENTITLEMENTS = AppPreMade.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2784,7 +2784,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B7EFF91B9D058239D3C4CCB7 /* Pods-App.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconPre;
 				CODE_SIGN_ENTITLEMENTS = AppPreMade.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
