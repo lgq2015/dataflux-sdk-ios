@@ -8,14 +8,20 @@
 
 #ifndef PWNetWorkURLs_h
 #define PWNetWorkURLs_h
-#ifdef DEBUG //开发环境
+#ifdef DEV //开发环境
 #define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
-
-#elif PREFORM //预发环境
+#define API_SHRINE  @"http://testing.shrine-via-core-stone.cloudcare.cn:10100"
+#define API_FORUM    @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
+#elif PREPROD //预发环境
 #define API_SEVERID @"http://preprod-home-via-core-stone.cloudcare.cn:10100"
+#define API_SHRINE  @"http://preprod-shrine-via-core-stone.cloudcare.cn:10100"
+#define API_FORUM   @"http://preprod-forum-via-core-stone.cloudcare.cn:10100"
 
 #else //正式环境
 #define API_SEVERID @"http://home-via-core-stone.cloudcare.cn:10100"
+#define API_SHRINE  @"http://shrine-via-core-stone.cloudcare.cn:10100"
+#define API_FORUM   @"http://forum-via-core-stone.cloudcare.cn:10100"
+
 #endif
 
 #define API_HOST [NSString stringWithFormat:@"%@/api", API_SEVERID]
@@ -43,8 +49,8 @@
 
 
 #pragma mark ========== 情报 ==========
-//首页News列表
-#define PW_newsList        @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
+//首页News列表   // @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
+#define PW_newsList     [NSString stringWithFormat:@"%@/v1/post?orderBy=updatedAt", API_FORUM]
 
 
 //情报列表
