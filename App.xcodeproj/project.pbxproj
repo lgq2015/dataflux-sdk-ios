@@ -56,6 +56,12 @@
 		4A092CC12227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CC02227D4E500FB2A35 /* QrCodeInviteVC.m */; };
 		4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CC02227D4E500FB2A35 /* QrCodeInviteVC.m */; };
 		4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CC02227D4E500FB2A35 /* QrCodeInviteVC.m */; };
+		4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */; };
+		4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */; };
+		4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */; };
+		4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
+		4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
+		4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
 		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
@@ -571,6 +577,10 @@
 		4A092CBB2227C70800FB2A35 /* InviteByPhoneOrEmail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteByPhoneOrEmail.m; sourceTree = "<group>"; };
 		4A092CBF2227D4E500FB2A35 /* QrCodeInviteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QrCodeInviteVC.h; sourceTree = "<group>"; };
 		4A092CC02227D4E500FB2A35 /* QrCodeInviteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QrCodeInviteVC.m; sourceTree = "<group>"; };
+		4A092CC92228CDC400FB2A35 /* MemberInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemberInfoModel.h; sourceTree = "<group>"; };
+		4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberInfoModel.m; sourceTree = "<group>"; };
+		4A092CCE2228D67D00FB2A35 /* TeamMemberCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamMemberCell.h; sourceTree = "<group>"; };
+		4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamMemberCell.m; sourceTree = "<group>"; };
 		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
 		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* PWInfoInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInfoInitialView.h; sourceTree = "<group>"; };
@@ -943,6 +953,8 @@
 				4A092CA12227804A00FB2A35 /* TeamHeaderView.m */,
 				4A092CB52227BE5300FB2A35 /* InviteCardView.h */,
 				4A092CB62227BE5300FB2A35 /* InviteCardView.m */,
+				4A092CCE2228D67D00FB2A35 /* TeamMemberCell.h */,
+				4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -952,6 +964,8 @@
 			children = (
 				4A092CA62227AA7000FB2A35 /* TeamInfoModel.h */,
 				4A092CA72227AA7000FB2A35 /* TeamInfoModel.m */,
+				4A092CC92228CDC400FB2A35 /* MemberInfoModel.h */,
+				4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2190,6 +2204,7 @@
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
+				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				4A092C632224132100FB2A35 /* ChangePhoneNumVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
@@ -2219,6 +2234,7 @@
 				4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
 				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
+				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
@@ -2256,6 +2272,7 @@
 				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
 				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
 				CA1CF584221ECB3A00D15316 /* RenderedTextModel.m in Sources */,
+				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
 				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
@@ -2299,6 +2316,7 @@
 				4A092C7922253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
 				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
+				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
@@ -2400,6 +2418,7 @@
 				CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */,
 				CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */,
 				CA1CF629221ECB5000D15316 /* RenderedTextModel.m in Sources */,
+				4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
 				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
@@ -2443,6 +2462,7 @@
 				4A092C7A22253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
 				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
+				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
