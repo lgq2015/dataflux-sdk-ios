@@ -9,19 +9,34 @@
 #ifndef PWNetWorkURLs_h
 #define PWNetWorkURLs_h
 #ifdef DEV //开发环境
+#define HTTP_PROTOCOL @"http://"
+#define API_SEVERID HTTP_PROTOCOL@"testing.home-via-core-stone.cloudcare.cn:10100"
+#define API_SHRINE  HTTP_PROTOCOL@"testing.shrine-via-core-stone.cloudcare.cn:10100"
+#define API_FORUM   HTTP_PROTOCOL@"testing.forum-via-core-stone.cloudcare.cn:10100"
+#define API_CORE_STONE   HTTP_PROTOCOL@"testing.core-stone.cloudcare.cn:10100"
+#define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
+#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  @"http://testing.shrine-via-core-stone.cloudcare.cn:10100"
 #define API_FORUM   @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
 
 #elif PREPROD //预发环境
-#define API_SEVERID @"http://preprod-home-via-core-stone.cloudcare.cn:10100"
-#define API_SHRINE  @"http://preprod-shrine-via-core-stone.cloudcare.cn:10100"
-#define API_FORUM   @"http://preprod-forum-via-core-stone.cloudcare.cn:10100"
+#define HTTP_PROTOCOL @"https://"
+#define API_SEVERID HTTP_PROTOCOL@"preprod-home-via-core-stone.cloudcare.cn"
+#define API_SHRINE  HTTP_PROTOCOL@"preprod-shrine-via-core-stone.cloudcare.cn"
+#define API_FORUM   HTTP_PROTOCOL@"preprod-forum-via-core-stone.cloudcare.cn"
+#define API_CORE_STONE   HTTP_PROTOCOL@"preprodcore-stone.cloudcare.cn:10100"
+#define API_H5_HOST   HTTP_PROTOCOL@"preprod-profwang-h5.cloudcare.cn:10302"
+#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-profwang-h5.cloudcare.cn:10302"
 
 #else //正式环境
-#define API_SEVERID @"http://home-via-core-stone.cloudcare.cn:10100"
-#define API_SHRINE  @"http://shrine-via-core-stone.cloudcare.cn:10100"
-#define API_FORUM   @"http://forum-via-core-stone.cloudcare.cn:10100"
+#define HTTP_PROTOCOL @"https://"
+#define API_SEVERID HTTP_PROTOCOL@"home-via-core-stone.cloudcare.cn"
+#define API_SHRINE  HTTP_PROTOCOL@"shrine-via-core-stone.cloudcare.cn"
+#define API_FORUM   HTTP_PROTOCOL@"forum-via-core-stone.cloudcare.cn"
+#define API_CORE_STONE   HTTP_PROTOCOL@"core-stone.cloudcare.cn:10100"
+#define API_H5_HOST   HTTP_PROTOCOL@"profwang-h5.cloudcare.cn:10302"
+#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"profwang-h5.cloudcare.cn:10302"
 
 #endif
 
@@ -77,9 +92,9 @@
 
 #pragma mark ========== 智库 ==========
 //文章详情链接：
-#define PW_articleDetails(ID) [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/forum/a/%@",ID]
+#define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
-#define PW_handbook(ID)     [NSString stringWithFormat:@"http://testing.profwang-h5.cloudcare.cn:10302/handbook/h/:%@",ID]
+#define PW_handbook(ID)     [NSString stringWithFormat:@"%@/handbook/h/:%@",API_H5_HOST,ID]
 #define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/active/list", API_SEVERID]
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
@@ -104,6 +119,6 @@
 #define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
 
 #pragma mark ========== 协议 ==========
-#define PW_privacylegal       @"http://testing.profwang-h5.cloudcare.cn:10302/terms/legal"
-#define PW_servicelegal       @"http://testing.profwang-h5.cloudcare.cn:10302/terms/service"
+#define PW_privacylegal       API_H5_HOST@"/terms/legal"
+#define PW_servicelegal       API_H5_HOST@"/terms/service"
 #endif /* PWNetWorkURLs_h */
