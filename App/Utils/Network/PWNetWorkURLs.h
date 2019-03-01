@@ -12,7 +12,7 @@
 #define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  @"http://testing.shrine-via-core-stone.cloudcare.cn:10100"
 #define API_FORUM   @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
-#define ApI_H5
+
 #elif PREPROD //预发环境
 #define API_SEVERID @"http://preprod-home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  @"http://preprod-shrine-via-core-stone.cloudcare.cn:10100"
