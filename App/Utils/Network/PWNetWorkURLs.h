@@ -11,7 +11,8 @@
 #ifdef DEV //开发环境
 #define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  @"http://testing.shrine-via-core-stone.cloudcare.cn:10100"
-#define API_FORUM    @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
+#define API_FORUM   @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
+#define ApI_H5
 #elif PREPROD //预发环境
 #define API_SEVERID @"http://preprod-home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  @"http://preprod-shrine-via-core-stone.cloudcare.cn:10100"
@@ -90,6 +91,7 @@
 #define PW_teamInvite     [NSString stringWithFormat:@"%@/v1/team/account/invite", API_SEVERID]
 #define PW_AddTeam        [NSString stringWithFormat:@"%@/v1/team/add", API_SEVERID]
 #define PW_CancelTeam     [NSString stringWithFormat:@"%@/v1/team/cancel", API_SEVERID]
+#define PW_TeamAccount    [NSString stringWithFormat:@"%@/v1/team/account/list", API_SEVERID]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]
