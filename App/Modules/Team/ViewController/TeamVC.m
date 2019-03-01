@@ -13,12 +13,15 @@
 #import "InformationSourceVC.h"
 #import "InviteMembersVC.h"
 #import "MonitorVC.h"
+#import "MemberInfoModel.h"
+#import "TeamMemberCell.h"
 
-@interface TeamVC ()
+@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
 
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) NSMutableArray *teamMemberArray;
 @end
 
 @implementation TeamVC
@@ -63,8 +66,8 @@
     [self createTeamUI];
 }
 - (void)createTeamUI{
-    
-    TeamHeaderView *headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(500)+kStatusBarHeight)];
+    [self loadTeamMemberInfo];
+    TeamHeaderView *headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
     headerView.itemClick =^(NSInteger tag){
         if (tag == InvateTag) {
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
@@ -88,6 +91,13 @@
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = headerView;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.rowHeight = ZOOM_SCALE(60);
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
+
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -163,11 +173,56 @@
     }
     return _feeLab;
 }
+- (void)loadTeamMemberInfo{
+    
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            [self dealWithDatas:content];
+        }
+        [SVProgressHUD dismiss];
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
+    
+}
+- (void)dealWithDatas:(NSArray *)content{
+    self.teamMemberArray = [NSMutableArray new];
+    NSMutableArray *admin = [NSMutableArray new];
+    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSError *error;
+        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+        NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        if ([memberID  isEqualToString:getPWUserID]) {
+            [self.teamMemberArray insertObject:model atIndex:0];
+        }else if(model.isAdmin){
+            [admin addObject:model];
+        }else{
+            [self.teamMemberArray addObject:model];
+        }
+    }];
+    if (admin.count>0) {
+        [self.teamMemberArray addObjectsFromArray:admin];
+    }
+    [self.tableView reloadData];
+}
 - (void)createTeamClick{
     FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
     fillVC.type = FillinTeamTypeAdd;
     [self.navigationController pushViewController:fillVC animated:YES];
 }
+#pragma mark ========== UITableViewDataSource ==========
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.teamMemberArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
+    cell.model = self.teamMemberArray[indexPath.row];
+    return cell;
+}
+
 /*
 #pragma mark - Navigation
 

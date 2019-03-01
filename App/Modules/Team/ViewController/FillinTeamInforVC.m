@@ -148,7 +148,7 @@
         }else{
             self.temp =value;
         }
-        self.tfAry[0].text = self.temp;
+        self.tfAry[0].text = value;
         
         return value;
     }];
@@ -229,7 +229,7 @@
             KPostNotification(KNotificationTeamStatusChange, @YES);
             CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
             [self presentViewController:create animated:YES completion:^{
-                [self.navigationController popViewControllerAnimated:NO];
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         }
         [SVProgressHUD dismiss];
@@ -250,9 +250,13 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)logoutTeamRequest{
-    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"解散成功"];
+            
+            [userManager logout:^(BOOL success, NSString *des) {
+                
+            }];
         }else{
             [SVProgressHUD showErrorWithStatus:@"解散失败"];
         }

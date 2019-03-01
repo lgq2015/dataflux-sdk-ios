@@ -11,7 +11,7 @@
 
 @interface TeamHeaderView()
 @property (nonatomic, strong) UILabel *teamNameLab;
-
+@property (nonatomic, strong) UILabel *memberNumLab;
 @end
 @implementation TeamHeaderView
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -22,6 +22,9 @@
 }
 -(void)setTeamName:(NSString *)teamName{
     self.teamNameLab.text = teamName;
+}
+-(void)setTeamNum:(NSString *)teamNum{
+    self.memberNumLab.text = teamNum;
 }
 -(void)layoutSubviews{
     UIImageView *headerBg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_header"]];
@@ -124,6 +127,25 @@
         }];
         
     }
+    UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
+    view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
+
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
+    [view addSubview:title];
+    self.memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTextBlackColor text:@""];
+    [view addSubview:self.memberNumLab];
+    [self.memberNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(title.mas_right).offset(Interval(20));
+        make.centerY.mas_equalTo(title);
+        make.height.offset(ZOOM_SCALE(18));
+    }];
+    [self addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self);
+        make.left.mas_equalTo(self);
+        make.right.mas_equalTo(self);
+        make.height.mas_equalTo(ZOOM_SCALE(48));
+    }];
     
 }
 -(UIImageView *)itemBtnWithIconName:(NSString *)iconName{

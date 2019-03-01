@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^itemClick)(NSInteger index);
 
 -(void)setTeamName:(NSString *)teamName;
+-(void)setTeamNum:(NSString *)teamNum;
 @end
 
 NS_ASSUME_NONNULL_END
