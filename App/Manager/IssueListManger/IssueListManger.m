@@ -227,6 +227,8 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 //          }];
         }
     }
+    }else{
+        [self dealDataForInfoBoardWithPageMaker:pageMaker];
     }
 }
 -(void)createInfoBoardFmdbWithData:(NSArray *)array{
@@ -294,6 +296,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                 }
                  model.seqAct = itemDatas[0].actSeq;
             }else{
+                 model.type = i;
                  model.subTitle =@"";
                  model.state = PWInfoBoardItemStateRecommend;
                  model.seqAct = 0;

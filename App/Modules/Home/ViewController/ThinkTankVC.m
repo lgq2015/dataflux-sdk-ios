@@ -17,6 +17,8 @@ static NSUInteger ItemWidth = 104;
 
 @interface ThinkTankVC ()<PWDraggableItemDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) NSMutableArray *handbookArray;
+
+
 @property (nonatomic, strong) UISearchBar *searchTf;
 @end
 
@@ -31,6 +33,7 @@ static NSUInteger ItemWidth = 104;
    
     
 }
+
 - (void)createUpUI{
     self.searchTf.backgroundColor = PWBackgroundColor;
     self.searchTf.userInteractionEnabled = NO;

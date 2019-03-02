@@ -30,7 +30,7 @@
 - (void)grtAdressData{
     [SVProgressHUD show];
     NSDictionary *param = @{@"keys":@"district"};
-    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:YES params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *content  =response[@"content"];
             self.districtAry = [content mutableArrayValueForKey:@"district"];

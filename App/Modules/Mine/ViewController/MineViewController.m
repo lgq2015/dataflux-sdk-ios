@@ -47,15 +47,7 @@
 - (void)judgeIsTeam{
     NSString *team = getTeamState;
     DLog(@"%@",team);
-    if (team == nil) {
-        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
-            if(isHave){
-                [self dealWithDataHasTeam:YES];
-            }else{
-                [self dealWithDataHasTeam:NO];
-            }
-        }];
-    }else if([team isEqualToString:PW_isTeam]){
+    if([team isEqualToString:PW_isTeam]){
        [self dealWithDataHasTeam:YES];
     }else{
        [self dealWithDataHasTeam:NO];

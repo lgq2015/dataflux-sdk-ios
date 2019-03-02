@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) RightTriangleView *triangleView;
+@property (nonatomic, strong) UILabel *serviceLab;
+@property (nonatomic, strong) UIView *serviceDot;
 @end
 @implementation MonitorCell
 -(void)setFrame:(CGRect)frame{
@@ -33,7 +35,6 @@
     [self createUI];
 }
 - (void)createUI{
-   
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(28));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
@@ -41,35 +42,40 @@
         make.height.offset(ZOOM_SCALE(20));
     }];
    
+   
+    if (self.isService) {
+        [self.serviceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self).offset(-Interval(20));
+            make.height.offset(ZOOM_SCALE(20));
+            make.centerY.mas_equalTo(self.timeLab);
+        }];
+        [self.serviceDot mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.serviceLab.mas_left).offset(-Interval(7));
+            make.width.height.offset(8);
+            make.centerY.mas_equalTo(self.serviceLab);
+        }];
+    }else{
     [self.warningLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(Interval(16));
         make.right.mas_equalTo(self).offset(-20);
         make.height.offset(ZOOM_SCALE(28));
         make.width.offset(ZOOM_SCALE(120));
     }];
-
+    }
     self.titleLab.numberOfLines = 0;
   
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(3));
+        make.top.equalTo(self.stateLab.mas_bottom).offset(Interval(9));
         make.left.equalTo(self.stateLab.mas_left);
         make.right.mas_equalTo(self).offset(-Interval(21));
-   if ([self.model.attrs isEqualToString:@""]) {
-            make.bottom.mas_equalTo(self).offset(-Interval(11));
-    }
     }];
-    if (![self.model.attrs isEqualToString:@""]) {
-        [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(8));
             make.left.mas_equalTo(self.stateLab.mas_left);
             make.right.mas_equalTo(self).offset(-17);
             make.height.offset(ZOOM_SCALE(18));
-            make.bottom.mas_equalTo(self).offset(-Interval(11));
-        }];
-        self.subLab.hidden = NO;
-    }else{
-        self.subLab.hidden = YES;
-    }
+            make.bottom.offset(-Interval(11));
+    }];
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -115,8 +121,28 @@
    
     self.subLab.text = self.model.attrs;
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
-    
+    if (self.isService) {
+        self.triangleView.hidden = YES;
+        self.serviceLab.text = [_model.ticketStatus isEqualToString:@"closed"]?@"已结束":@"服务中";
+        self.serviceDot.backgroundColor = [_model.ticketStatus isEqualToString:@"closed"]?[UIColor colorWithHexString:@"#70E1BC"]:[UIColor colorWithHexString:@"#7BAEFF"];
+    }
     DLog(@"%f",self.height);
+}
+-(UIView *)serviceDot{
+    if (!_serviceDot) {
+        _serviceDot = [[UIView alloc]init];
+        _serviceDot.layer.cornerRadius = 4.0f;
+        [self addSubview:_serviceDot];
+    }
+    return _serviceDot;
+}
+-(UILabel *)serviceLab{
+    if (!_serviceLab) {
+        _serviceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:@""];
+        _serviceLab.textAlignment = NSTextAlignmentRight;
+        [self addSubview:_serviceLab];
+    }
+    return _serviceLab;
 }
 - (RightTriangleView *)triangleView{
     if (!_triangleView) {
@@ -178,9 +204,15 @@
     return _stateLab;
 }
 - (CGFloat)heightForModel:(MonitorListModel *)model{
+    [self layoutSubviews];
     [self setModel:model];
     [self layoutIfNeeded];
-    CGFloat cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+30;
+    CGFloat cellHeight;
+    if ([model.attrs isEqualToString:@""]) {
+        cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
+    }else{
+        cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
+    }
     return cellHeight;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -12,6 +12,7 @@
 @class MonitorListModel;
 @interface MonitorCell : UITableViewCell
 @property (nonatomic, strong) MonitorListModel *model;
+@property (nonatomic, assign) BOOL isService;
 - (CGFloat)heightForModel:(NSDictionary *)model;
 @end
 

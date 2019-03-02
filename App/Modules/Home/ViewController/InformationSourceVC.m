@@ -23,6 +23,7 @@
     [super viewDidLoad];
     self.title = @"情报源";
     [self createUI];
+    [SVProgressHUD show];
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(headerRereshing)
@@ -48,6 +49,7 @@
     [self.tableView registerClass:[InformationSourceCell class] forCellReuseIdentifier:@"InformationSourceCell"];
 }
 - (void)loadData{
+
     NSDictionary *param = @{@"pageNumber":[NSNumber numberWithInteger:self.currentPage],@"pageSize":@10};
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
@@ -66,11 +68,21 @@
                 }else{
                     self.footer.state = MJRefreshStateNoMoreData;
                 }
+                 [self removeNoDataImage];
+            }else{
+                if (self.currentPage == 1) {
+                    [self showNoDataImage];
+                }
             }
-        }else if([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]){
+        }else{
+            
         }
+        [SVProgressHUD dismiss];
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
+        if (self.currentPage == 1) {
+            [self showNoDataImage];
+        }
         [self.header endRefreshing];
     }];
 }

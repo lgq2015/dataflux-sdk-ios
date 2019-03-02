@@ -93,9 +93,11 @@
         [SVProgressHUD dismiss];
         if ([response[@"errCode"] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
-        }else if ([response[@"errCode"] isEqualToString:@"home.account.alreadyInTeam"]){
+        }else if ([response[@"errCode"] isEqualToString:@"home.team.alreadyInTheTeam"]){
             [iToast alertWithTitleCenter:@"不能邀请本团队成员"];
         }else if([response[@"errCode"] isEqualToString:@"home.team.canNotInviteYourself"]){
+             [SVProgressHUD showErrorWithStatus:@"邀请失败"];
+        }else if([response[@"errCode"] isEqualToString:@"home.team.alreadyInTeam"]){
              [SVProgressHUD showErrorWithStatus:@"邀请失败"];
         }
     } failBlock:^(NSError *error) {

@@ -109,6 +109,9 @@
     return _skipBtn;
 }
 - (void)skipBtnClick{
+    if (self.btnClick) {
+        self.btnClick();
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 /*

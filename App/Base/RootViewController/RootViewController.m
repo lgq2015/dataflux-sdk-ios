@@ -8,8 +8,10 @@
 
 #import "RootViewController.h"
 #import "UIScrollView+UITouch.h"
+
 @interface RootViewController ()
-@property(nonatomic, strong) UIImageView *noDataView;
+@property(nonatomic, strong) UIView *noDataView;
+@property(nonatomic, strong) UILabel *noDataLab;
 @end
 
 @implementation RootViewController
@@ -82,6 +84,13 @@
 {
     
 }
+-(PWLibraryListNoMoreFootView*)footView{
+    if (!_footView) {
+        _footView = [[PWLibraryListNoMoreFootView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
+        _footView.backgroundColor =PWBackgroundColor;
+    }
+    return _footView;
+}
 /**
  优先级 ScrollView>tableView>collectionView
  */
@@ -122,20 +131,37 @@
 }
 -(void)showNoDataImage
 {
-    _noDataView=[[UIImageView alloc] init];
-    [_noDataView setImage:[UIImage imageNamed:@"generl_nodata"]];
+//    _noDataView=[[UIImageView alloc] init];
+
+//    [_noDataView setImage:[UIImage imageNamed:@"blank_page"]];
     [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITableView class]]) {
-            [_noDataView setFrame:CGRectMake(0, 0,obj.frame.size.width, obj.frame.size.height)];
-            [obj addSubview:_noDataView];
+            obj.hidden = YES;
         }
     }];
+    [self.view addSubview:self.noDataView];
 }
-
+-(UIView *)noDataView{
+    if (!_noDataView) {
+        _noDataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight)];
+        _noDataView.backgroundColor = PWWhiteColor;
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(111), ZOOM_SCALE(222), ZOOM_SCALE(190))];
+         [image setImage:[UIImage imageNamed:@"blank_page"]];
+        image.centerX = self.view.centerX;
+        [_noDataView addSubview:image];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"暂无列表"];
+        no.textAlignment = NSTextAlignmentCenter;
+        [_noDataView addSubview:no];
+    }
+    return _noDataView;
+}
 -(void)removeNoDataImage{
     if (_noDataView) {
         [_noDataView removeFromSuperview];
         _noDataView = nil;
+    }
+    if (_tableView) {
+        _tableView.hidden = NO;
     }
 }
 /**
@@ -350,7 +376,9 @@
     // 是否支持旋转
     return NO;
 }
-
+- (void)clearNavBarBackgroundColor{
+    [self.topNavBar clearNavBarBackgroundColor];
+}
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     // 默认进去类型

@@ -31,8 +31,10 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *PWId;
+@property (nonatomic, strong) NSString * ticketStatus;
 
 
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 @end

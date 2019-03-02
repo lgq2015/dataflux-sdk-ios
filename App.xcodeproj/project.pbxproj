@@ -63,6 +63,27 @@
 		4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
 		4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
 		4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */; };
+		4A092CF42229294A00FB2A35 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CEE2229294900FB2A35 /* MGSwipeTableCell.m */; };
+		4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CEE2229294900FB2A35 /* MGSwipeTableCell.m */; };
+		4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CEE2229294900FB2A35 /* MGSwipeTableCell.m */; };
+		4A092CF72229294A00FB2A35 /* MGSwipeImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF22229294900FB2A35 /* MGSwipeImageButton.m */; };
+		4A092CF82229294A00FB2A35 /* MGSwipeImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF22229294900FB2A35 /* MGSwipeImageButton.m */; };
+		4A092CF92229294A00FB2A35 /* MGSwipeImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF22229294900FB2A35 /* MGSwipeImageButton.m */; };
+		4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF32229294900FB2A35 /* MGSwipeButton.m */; };
+		4A092CFB2229294A00FB2A35 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF32229294900FB2A35 /* MGSwipeButton.m */; };
+		4A092CFC2229294A00FB2A35 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CF32229294900FB2A35 /* MGSwipeButton.m */; };
+		4A092CFF22293A1000FB2A35 /* MemberInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CFE22293A1000FB2A35 /* MemberInfoVC.m */; };
+		4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CFE22293A1000FB2A35 /* MemberInfoVC.m */; };
+		4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CFE22293A1000FB2A35 /* MemberInfoVC.m */; };
+		4A092D04222943F500FB2A35 /* ChooseAdminVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D03222943F500FB2A35 /* ChooseAdminVC.m */; };
+		4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D03222943F500FB2A35 /* ChooseAdminVC.m */; };
+		4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D03222943F500FB2A35 /* ChooseAdminVC.m */; };
+		4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D08222A34A000FB2A35 /* ServiceLogVC.m */; };
+		4A092D0A222A34A000FB2A35 /* ServiceLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D08222A34A000FB2A35 /* ServiceLogVC.m */; };
+		4A092D0B222A34A000FB2A35 /* ServiceLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D08222A34A000FB2A35 /* ServiceLogVC.m */; };
+		4A092D28222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D27222A765400FB2A35 /* PWLibraryListNoMoreFootView.m */; };
+		4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D27222A765400FB2A35 /* PWLibraryListNoMoreFootView.m */; };
+		4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092D27222A765400FB2A35 /* PWLibraryListNoMoreFootView.m */; };
 		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
@@ -586,6 +607,20 @@
 		4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberInfoModel.m; sourceTree = "<group>"; };
 		4A092CCE2228D67D00FB2A35 /* TeamMemberCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamMemberCell.h; sourceTree = "<group>"; };
 		4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamMemberCell.m; sourceTree = "<group>"; };
+		4A092CEE2229294900FB2A35 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
+		4A092CEF2229294900FB2A35 /* MGSwipeImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeImageButton.h; sourceTree = "<group>"; };
+		4A092CF02229294900FB2A35 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		4A092CF12229294900FB2A35 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		4A092CF22229294900FB2A35 /* MGSwipeImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeImageButton.m; sourceTree = "<group>"; };
+		4A092CF32229294900FB2A35 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		4A092CFD22293A1000FB2A35 /* MemberInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemberInfoVC.h; sourceTree = "<group>"; };
+		4A092CFE22293A1000FB2A35 /* MemberInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemberInfoVC.m; sourceTree = "<group>"; };
+		4A092D02222943F500FB2A35 /* ChooseAdminVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseAdminVC.h; sourceTree = "<group>"; };
+		4A092D03222943F500FB2A35 /* ChooseAdminVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseAdminVC.m; sourceTree = "<group>"; };
+		4A092D07222A34A000FB2A35 /* ServiceLogVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceLogVC.h; sourceTree = "<group>"; };
+		4A092D08222A34A000FB2A35 /* ServiceLogVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceLogVC.m; sourceTree = "<group>"; };
+		4A092D26222A765400FB2A35 /* PWLibraryListNoMoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLibraryListNoMoreFootView.h; sourceTree = "<group>"; };
+		4A092D27222A765400FB2A35 /* PWLibraryListNoMoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLibraryListNoMoreFootView.m; sourceTree = "<group>"; };
 		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
 		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* PWInfoInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInfoInitialView.h; sourceTree = "<group>"; };
@@ -952,6 +987,12 @@
 				4A092CBB2227C70800FB2A35 /* InviteByPhoneOrEmail.m */,
 				4A092CBF2227D4E500FB2A35 /* QrCodeInviteVC.h */,
 				4A092CC02227D4E500FB2A35 /* QrCodeInviteVC.m */,
+				4A092CFD22293A1000FB2A35 /* MemberInfoVC.h */,
+				4A092CFE22293A1000FB2A35 /* MemberInfoVC.m */,
+				4A092D02222943F500FB2A35 /* ChooseAdminVC.h */,
+				4A092D03222943F500FB2A35 /* ChooseAdminVC.m */,
+				4A092D07222A34A000FB2A35 /* ServiceLogVC.h */,
+				4A092D08222A34A000FB2A35 /* ServiceLogVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -982,6 +1023,19 @@
 				4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4A092CED2229294900FB2A35 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				4A092CEE2229294900FB2A35 /* MGSwipeTableCell.m */,
+				4A092CEF2229294900FB2A35 /* MGSwipeImageButton.h */,
+				4A092CF02229294900FB2A35 /* MGSwipeButton.h */,
+				4A092CF12229294900FB2A35 /* MGSwipeTableCell.h */,
+				4A092CF22229294900FB2A35 /* MGSwipeImageButton.m */,
+				4A092CF32229294900FB2A35 /* MGSwipeButton.m */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		4A19546E21A7A3E3007ADFCA /* DataBase */ = {
@@ -1183,6 +1237,7 @@
 		4A6C2875219C15970059BB08 /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				4A092CED2229294900FB2A35 /* views */,
 			);
 			path = ThridParty;
 			sourceTree = "<group>";
@@ -1520,6 +1575,8 @@
 		4ABF449C21C0B892002AF34E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4A092D26222A765400FB2A35 /* PWLibraryListNoMoreFootView.h */,
+				4A092D27222A765400FB2A35 /* PWLibraryListNoMoreFootView.m */,
 				4ABF44D521C2080B002AF34E /* OpenUDID.h */,
 				4ABF44D421C2080B002AF34E /* OpenUDID.m */,
 				4ABF449D21C0B8A3002AF34E /* YYFPSLabel.h */,
@@ -2144,6 +2201,7 @@
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
+				4A092CFF22293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
@@ -2155,6 +2213,7 @@
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
+				4A092D04222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
 				4A092C7822253E4D00FB2A35 /* SetEmailOrPhoneVC.m in Sources */,
 				4A092C8E2226620100FB2A35 /* DistrictCell.m in Sources */,
@@ -2179,6 +2238,7 @@
 				4A092C9822268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */,
 				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
+				4A092CF42229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
@@ -2218,6 +2278,7 @@
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */,
+				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
@@ -2233,6 +2294,8 @@
 				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
 				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
 				4ABF43B521B8BACE002AF34E /* PWDraggableItem.m in Sources */,
+				4A092D28222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
+				4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A092C9322266C6700FB2A35 /* CityCell.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
@@ -2253,6 +2316,7 @@
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
+				4A092CF72229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
 				4AB489DB21EF3EF8009F9E94 /* CreateQuestionVC.m in Sources */,
@@ -2292,9 +2356,11 @@
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
 				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
+				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4A092CA32227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CA92227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
+				4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
@@ -2322,6 +2388,7 @@
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
+				4A092CF82229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */,
 				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
@@ -2346,6 +2413,7 @@
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
 				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
+				4A092CFB2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				CA1CF5B2221ECB3A00D15316 /* YYFPSLabel.m in Sources */,
 				CA1CF5B3221ECB3A00D15316 /* iToast+SYCategory.m in Sources */,
 				CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */,
@@ -2365,7 +2433,9 @@
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
+				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
+				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				CA1CF5C3221ECB3A00D15316 /* HomeViewController.m in Sources */,
 				CA1CF5C4221ECB3A00D15316 /* SourceVC.m in Sources */,
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
@@ -2391,6 +2461,7 @@
 				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
 				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
 				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
+				4A092D0A222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A092C9922268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */,
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
@@ -2440,9 +2511,11 @@
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
 				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
+				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4A092CA42227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CAA2227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
+				4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
@@ -2470,6 +2543,7 @@
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
+				4A092CF92229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */,
 				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
@@ -2494,6 +2568,7 @@
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
 				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
+				4A092CFC2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				CA1CF657221ECB5000D15316 /* YYFPSLabel.m in Sources */,
 				CA1CF658221ECB5000D15316 /* iToast+SYCategory.m in Sources */,
 				CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */,
@@ -2513,7 +2588,9 @@
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
+				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
+				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				CA1CF668221ECB5000D15316 /* HomeViewController.m in Sources */,
 				CA1CF669221ECB5000D15316 /* SourceVC.m in Sources */,
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
@@ -2539,6 +2616,7 @@
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
 				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
+				4A092D0B222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A092C9A22268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */,
 				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
@@ -2736,8 +2814,8 @@
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
 					"DEV=1",
+					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2801,6 +2879,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"COCOAPODS=1",
+					"DEV=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2844,6 +2926,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"COCOAPODS=1",
+					"PREPROD=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Info-pre-made.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

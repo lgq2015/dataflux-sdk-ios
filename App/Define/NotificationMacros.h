@@ -34,7 +34,7 @@
 #pragma mark - ——————— team相关 ————————
 //team创建成功
 #define KNotificationTeamStatusChange  @"KNotificationTeamStatusChange"
-
+//#define KNotificationTeamNeedChange    @"KNotificationTeamNeedChange"
 #pragma mark - ——————— 网络状态相关 ————————
 
 //网络状态变化

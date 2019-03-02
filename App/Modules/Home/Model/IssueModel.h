@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isRead;
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString *itAssetProvider_cache;
-
+@property (nonatomic, strong) NSString * ticketStatus;
 @property (nonatomic, strong) NSString *latestIssueLogsStr;
 @property (nonatomic, strong) NSString *renderedTextStr;
 @property (nonatomic, strong) NSString *referenceStr;

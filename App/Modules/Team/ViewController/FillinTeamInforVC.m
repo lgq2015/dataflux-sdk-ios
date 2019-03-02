@@ -11,10 +11,13 @@
 #import "ChooseTradesVC.h"
 #import "CreateSuccessVC.h"
 #import "TeamInfoModel.h"
+#import "TeamVC.h"
+#import "ChooseAdminVC.h"
+
 #define AddressTag 15
 #define TradesTag  20
 
-@interface FillinTeamInforVC ()
+@interface FillinTeamInforVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSMutableArray<UITextField *> *tfAry;
 
 @property (nonatomic, strong) UITextView *textView;
@@ -22,6 +25,12 @@
 @end
 
 @implementation FillinTeamInforVC
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
+    
+}}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,9 +47,6 @@
         case FillinTeamTypeIsAdmin:
             self.title = @"团队管理";
              itemAry = @[@{@"title":@"团队名称",@"placeholder":@"请输入您的团队名称（必填）",@"enabled":@YES,@"showArrow":@NO},@{@"title":@"所在地",@"placeholder":@"请选择您的团队所在区域（必选）",@"enabled":@NO,@"showArrow":@YES},@{@"title":@"行业",@"placeholder":@"请选择您的团队所属行业（必选）",@"enabled":@NO,@"showArrow":@YES}];
-//            self.tfAry[0].text = userManager.teamModel.name;
-//            self.tfAry[1].text = [NSString stringWithFormat:@"%@ %@",userManager.teamModel.province,userManager.teamModel.city];
-//            self.textView.text = userManager.teamModel.name;
             break;
         case FillinTeamTypeIsMember:
             self.title = @"团队管理";
@@ -49,6 +55,7 @@
     }
     [self createUIWithData:itemAry];
 }
+
 - (void)createUIWithData:(NSArray *)itemAry{
    
     UIView *temp = nil;
@@ -118,6 +125,7 @@
     self.tfAry[1].text = [NSString stringWithFormat:@"%@ %@",model.province,model.city];
     self.tfAry[2].text = model.industry;
     self.textView.text = [model.tags stringValueForKey:@"introduction" default:@""];
+    self.textView.editable = NO;
     UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"退出团队"];
     [commitTeam addTarget:self action:@selector(exictTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitTeam];
@@ -127,6 +135,31 @@
         make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78));
         make.height.offset(ZOOM_SCALE(47));
     }];
+}
+
+-(void)exictTeamClick{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@" * 退出团队后，您当前有关该团队的所有信息都将被清空，并不再接收该团队的任何消息\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [SVProgressHUD show];
+        NSString *uid =userManager.curUserInfo.userID;
+        [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                [SVProgressHUD showSuccessWithStatus:@"退出成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [userManager logout:nil];
+                });
+            }else{
+                
+            }
+        } failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
+        }];
+    }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:confirm];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 #pragma mark ========== 创建团队 ==========
 - (void)createBtnViewAdd{
@@ -145,11 +178,15 @@
         if ([self textLength:value]>30) {
             [iToast alertWithTitleCenter:@"内容长度超限"];
             value = [value substringToIndex:self.temp.length];
+            self.tfAry[0].text = value;
         }else{
             self.temp =value;
         }
-        self.tfAry[0].text = value;
-        
+//        if (value.length>15) {
+//            [iToast alertWithTitleCenter:@"内容长度超限"];
+//            value = [value substringToIndex:15];
+//            self.tfAry[0].text = value;
+//        }
         return value;
     }];
     RACSignal *addressSignal = RACObserve(self.tfAry[1], text);
@@ -169,6 +206,35 @@
     }];
     RAC(commitTeam,enabled) = btnSignal;
 }
+- (void)commitTeamClick{
+    NSDictionary *params ;
+    NSArray *address = [self.tfAry[1].text componentsSeparatedByString:@" "];
+    NSString *province =address[0];
+    NSString *city = address[1];
+    if (self.textView.text.length>0) {
+        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+    }else{
+        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
+        
+    }
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            
+            
+                    CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
+                    create.btnClick =^(){
+                        KPostNotification(KNotificationTeamStatusChange, @YES);
+                        [self.navigationController popViewControllerAnimated:NO];
+                    };
+            [self presentViewController:create animated:YES completion:nil];  
+                }
+        [SVProgressHUD dismiss];
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
+    
+}
 #pragma mark ========== 团队/管理员 ==========
 - (void)createBtnViewAdmin{
     TeamInfoModel *model = userManager.teamModel;
@@ -185,7 +251,9 @@
         make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78));
         make.height.offset(ZOOM_SCALE(47));
     }];
-    
+    if(self.count<2){
+        transferTeam.enabled = NO;
+    }
     UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"注销团队"];
     [logoutTeam addTarget:self action:@selector(logoutTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:logoutTeam];
@@ -195,10 +263,6 @@
         make.top.mas_equalTo(transferTeam.mas_bottom).offset(Interval(20));
         make.height.offset(ZOOM_SCALE(47));
     }];
-}
-#pragma mark ========== btnClick ==========
-- (void)transferClick{
-    
 }
 - (void)logoutTeamClick{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
@@ -210,45 +274,7 @@
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }
-- (void)commitTeamClick{
-    NSDictionary *params ;
-    NSArray *address = [self.tfAry[1].text componentsSeparatedByString:@" "];
-    NSString *province =address[0];
-    NSString *city = address[1];
-    if (self.textView.text.length>0) {
-        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
-    }else{
-        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
-                  
-    }
-    [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
-            setTeamState(PWisTeam);
-            [kUserDefaults synchronize];
-            KPostNotification(KNotificationTeamStatusChange, @YES);
-            CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
-            [self presentViewController:create animated:YES completion:^{
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
-        }
-        [SVProgressHUD dismiss];
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-    }];
-    
-}
--(void)exictTeamClick{
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@" * 退出团队后，您当前有关该团队的所有信息都将被清空，并不再接收该团队的任何消息\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        
-    }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:confirm];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+
 - (void)logoutTeamRequest{
     [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
@@ -264,6 +290,55 @@
         [SVProgressHUD showErrorWithStatus:@"解散失败"];
     }];
 }
+- (void)backBtnClicked{
+    if (self.type == FillinTeamTypeIsAdmin) {
+        TeamInfoModel *model = userManager.teamModel;
+        if ([self.tfAry[0].text isEqualToString:model.name] &&[self.tfAry[1].text isEqualToString: [NSString stringWithFormat:@"%@ %@",model.province,model.city]]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            if ([self.tfAry[0].text isEqualToString:@""]) {
+                [iToast alertWithTitleCenter:@"团队名称不能为空"];
+            }else{
+                [SVProgressHUD show];
+                NSDictionary *param ;
+                NSArray *address = [self.tfAry[1].text componentsSeparatedByString:@" "];
+                NSString *province =address[0];
+                NSString *city = address[1];
+                if ([self.tfAry[0].text isEqualToString:model.name]) {
+                    param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+                }else{
+                    param= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+                }
+                [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+                    if ([response[@"errCode"] isEqualToString:@""]) {
+                        if (self.changeSuccess) {
+                            self.changeSuccess();
+                        }
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    [SVProgressHUD dismiss];
+                    
+                } failBlock:^(NSError *error) {
+                    
+                    [SVProgressHUD dismiss];
+                }];
+                
+                
+                
+            }
+        }
+        
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+}
+- (void)transferClick{
+    ChooseAdminVC *choose = [[ChooseAdminVC alloc]init];
+    [self.navigationController pushViewController:choose animated:YES];
+}
+
+#pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
         _textView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请简单介绍一下您的团队" font:MediumFONT(16)];
@@ -331,6 +406,17 @@
     
     return unicodeLength;
     
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+    return NO;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [SVProgressHUD dismiss];
 }
 /*
 #pragma mark - Navigation

@@ -12,16 +12,18 @@
 #import "TeamInfoModel.h"
 #import "InformationSourceVC.h"
 #import "InviteMembersVC.h"
-#import "MonitorVC.h"
+#import "ServiceLogVC.h"
 #import "MemberInfoModel.h"
 #import "TeamMemberCell.h"
+#import "MemberInfoVC.h"
 
-@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource>
+#define DeletBtnTag 100
+@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
 
-@property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong) NSMutableArray *teamMemberArray;
+@property (nonatomic, strong) TeamHeaderView *headerView;
+@property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @end
 
 @implementation TeamVC
@@ -38,15 +40,7 @@
 - (void)judgeIsTeam{
     NSString *team = getTeamState;
     DLog(@"%@",team);
-    if (team == nil) {
-        [userManager judgeIsHaveTeam:^(BOOL isHave,NSDictionary *content) {
-            if(isHave){
-                [self createTeamUI];
-            }else{
-                [self createPersonalUI];
-            }
-        }];
-    }else if([team isEqualToString:PW_isTeam]){
+   if([team isEqualToString:PW_isTeam]){
         [self createTeamUI];
     }else{
         [self createPersonalUI];
@@ -55,49 +49,66 @@
 }
 - (void)addTeamSuccess:(NSNotification *)notification
 {
+    self.isHidenNaviBar = YES;
+    NSString *team = getTeamState;
     BOOL isTeam = [notification.object boolValue];
-    [self.view removeAllSubviews];
     if (isTeam) {
-        [self createTeamUI];
-        
+        [userManager addTeamSuccess:^(BOOL isSuccess) {
+            if (isSuccess) {
+                if ([team isEqualToString:PW_isTeam]) {
+                     [self loadTeamMemberInfo];
+                    [self.headerView setTeamName:userManager.teamModel.name];
+                }else{
+            [self.view removeAllSubviews];
+            [self createTeamUI];
+            }}
+        }];
     }else{
+        [self.view removeAllSubviews];
         [self createPersonalUI];
     }
-    [self createTeamUI];
-}
+    }
+
 - (void)createTeamUI{
+    self.view.backgroundColor = PWBackgroundColor;
     [self loadTeamMemberInfo];
-    TeamHeaderView *headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
-    headerView.itemClick =^(NSInteger tag){
+    self.headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
+     WeakSelf;
+    self.headerView.itemClick =^(NSInteger tag){
         if (tag == InvateTag) {
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
-            [self.navigationController pushViewController:invite animated:YES];
+            [weakSelf.navigationController pushViewController:invite animated:YES];
         }else if (tag == InfoSourceTag){
             InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
             infoSource.isFromTeam = YES;
-            [self.navigationController pushViewController:infoSource animated:YES];
+            [weakSelf.navigationController pushViewController:infoSource animated:YES];
         }else if(tag == ServeTag){
-            MonitorVC *monitor = [[MonitorVC alloc]init];
-            monitor.isFromTeam = YES;
-            [self.navigationController pushViewController:monitor animated:YES];
+            ServiceLogVC *monitor = [[ServiceLogVC alloc]init];
+            [weakSelf.navigationController pushViewController:monitor animated:YES];
         }else{
             FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
             fillVC.type = userManager.teamModel.isAdmin == YES? FillinTeamTypeIsAdmin:FillinTeamTypeIsMember;
-            [self.navigationController pushViewController:fillVC animated:YES];
+            fillVC.changeSuccess = ^(){
+                [userManager addTeamSuccess:^(BOOL isSuccess) {
+                    if (isSuccess) {
+                [weakSelf.headerView setTeamName:userManager.teamModel.name];
+            }
+                }];};
+            fillVC.count = weakSelf.teamMemberArray.count;
+            [weakSelf.navigationController pushViewController:fillVC animated:YES];
         }
     };
-    DLog(@"%@",userManager.teamModel);
-    [headerView setTeamName:userManager.teamModel.name];
+
+    [self.headerView setTeamName:userManager.teamModel.name];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
-    [self.view addSubview:self.tableView];
-    self.tableView.tableHeaderView = headerView;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = ZOOM_SCALE(60);
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.rowHeight = ZOOM_SCALE(58);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
-
+    [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.headerView;
+    [self.tableView reloadData];
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -187,8 +198,16 @@
     }];
     
 }
+-(NSMutableArray<MemberInfoModel *> *)teamMemberArray{
+    if (!_teamMemberArray) {
+        _teamMemberArray = [NSMutableArray new];
+    }
+    return _teamMemberArray;
+}
 - (void)dealWithDatas:(NSArray *)content{
-    self.teamMemberArray = [NSMutableArray new];
+    if (self.teamMemberArray.count>0) {
+        [self.teamMemberArray removeAllObjects];
+    }
     NSMutableArray *admin = [NSMutableArray new];
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
@@ -216,13 +235,72 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.teamMemberArray.count;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        return 80;
+    }else{
+        return 60;
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row !=0){
+    MemberInfoVC *member = [[MemberInfoVC alloc]init];
+    member.isHidenNaviBar = YES;
+    member.isInfo = YES;
+    member.teamMemberRefresh =^(){
+       [self loadTeamMemberInfo];
+    };
+    member.model = self.teamMemberArray[indexPath.row];
+    [self.navigationController pushViewController:member animated:YES];
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
     cell.model = self.teamMemberArray[indexPath.row];
+    cell.phoneBtn.hidden = indexPath.row == 0?YES:NO;
+    cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    if (userManager.teamModel.isAdmin && indexPath.row!=0) {
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            [self delectMember:indexPath.row];
+            return NO;
+        }];
+        button.titleLabel.font = MediumFONT(14);
+        button.tag = indexPath.row + DeletBtnTag;
+//        button.callback = ^BOOL(MGSwipeTableCell * _Nonnull cell) {
+//
+//        };
+        [button centerIconOverTextWithSpacing:5];
+        cell.rightButtons = @[button];
+        cell.delegate = self;
+    }
     return cell;
 }
-
+- (void)delectMember:(NSInteger )row{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"移除成员后，成员将不在团队管理中，并不再接收团队任何消息" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        NSString *uid =self.teamMemberArray[row].memberID;
+        [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                [self loadTeamMemberInfo];
+            }else{
+                [SVProgressHUD showSuccessWithStatus:@"移除失败"];
+            }
+        } failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"移除失败"];
+        }];
+    }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 /*
 #pragma mark - Navigation
 

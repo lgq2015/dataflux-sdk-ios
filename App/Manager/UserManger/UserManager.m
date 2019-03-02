@@ -27,6 +27,38 @@ SINGLETON_FOR_CLASS(UserManager);
     }
     return self;
 }
+- (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess
+{
+    
+        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                NSDictionary *content = response[@"content"];
+                if (content.allKeys.count>0) {
+                    NSError *error;
+                    self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
+                    if (self.teamModel) {
+                        YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+                        NSDictionary *dic = [self.teamModel modelToJSONObject];
+                        [cache setObject:dic forKey:KTeamModelCache];
+                        if (isSuccess) {
+                            isSuccess(YES);
+                        }
+                    }
+                    setTeamState(PW_isTeam);
+                    [kUserDefaults synchronize];
+                }else{
+                    setTeamState(PW_isPersonal);
+                    [kUserDefaults synchronize];
+                }
+                
+            }
+        } failBlock:^(NSError *error) {
+            if (isSuccess) {
+                isSuccess(NO);
+            }
+        }];
+    
+}
 #pragma mark ========== 获取短信/图片验证码 ==========
 -(void)getVerificationCodeType:(CodeType)codeType WithParams:(NSDictionary *)params completion:(codeBlock)completion{
    //验证码
@@ -237,11 +269,12 @@ SINGLETON_FOR_CLASS(UserManager);
     
     
     self.curUserInfo = nil;
+    self.teamModel = nil;
     self.isLogined = NO;
     
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
-    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamModelCache];
+    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     __block BOOL iscompletion1,completion2;
     [cache removeAllObjectsWithBlock:^{
         iscompletion1 = YES;
@@ -274,6 +307,7 @@ SINGLETON_FOR_CLASS(UserManager);
     }
     return NO;
 }
+
 #pragma mark ========== 被踢下线 ==========
 -(void)onKick{
     [self logout:nil];

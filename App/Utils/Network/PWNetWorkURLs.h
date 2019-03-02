@@ -16,9 +16,7 @@
 #define API_CORE_STONE   HTTP_PROTOCOL@"testing.core-stone.cloudcare.cn:10100"
 #define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
-#define API_SEVERID @"http://testing.home-via-core-stone.cloudcare.cn:10100"
-#define API_SHRINE  @"http://testing.shrine-via-core-stone.cloudcare.cn:10100"
-#define API_FORUM   @"http://testing.forum-via-core-stone.cloudcare.cn:10100"
+#define API_LIBRARY    HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 
 #elif PREPROD //预发环境
 #define HTTP_PROTOCOL @"https://"
@@ -26,8 +24,9 @@
 #define API_SHRINE  HTTP_PROTOCOL@"preprod-shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"preprod-forum-via-core-stone.cloudcare.cn"
 #define API_CORE_STONE   HTTP_PROTOCOL@"preprodcore-stone.cloudcare.cn:10100"
-#define API_H5_HOST   HTTP_PROTOCOL@"preprod-profwang-h5.cloudcare.cn:10302"
-#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-profwang-h5.cloudcare.cn:10302"
+#define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
+#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
+#define API_LIBRARY    HTTP_PROTOCOL@"preprod-library.prof.wang"
 
 #else //正式环境
 #define HTTP_PROTOCOL @"https://"
@@ -35,8 +34,9 @@
 #define API_SHRINE  HTTP_PROTOCOL@"shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"forum-via-core-stone.cloudcare.cn"
 #define API_CORE_STONE   HTTP_PROTOCOL@"core-stone.cloudcare.cn:10100"
-#define API_H5_HOST   HTTP_PROTOCOL@"profwang-h5.cloudcare.cn:10302"
-#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"profwang-h5.cloudcare.cn:10302"
+#define API_H5_HOST   HTTP_PROTOCOL@"terms.prof.wang"
+#define API_CC_PLUS_HOST   HTTP_PROTOCOL@"service.cloudcare.cn"
+#define API_LIBRARY    HTTP_PROTOCOL@"library.prof.wang"
 
 #endif
 
@@ -70,7 +70,7 @@
 
 
 //情报列表
-#define PW_issueList       [NSString stringWithFormat:@"%@/v1/issue/list", API_SEVERID]
+#define PW_issueList       API_SEVERID@"/v1/issue/list"
 //情报源添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
 //情报源列表
@@ -94,7 +94,7 @@
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
-#define PW_handbook(ID)     [NSString stringWithFormat:@"%@/handbook/h/:%@",API_H5_HOST,ID]
+#define PW_handbook(ID)     [NSString stringWithFormat:@"%@/handbook/h/:%@",API_LIBRARY,ID]
 #define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/active/list", API_SEVERID]
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
@@ -105,20 +105,23 @@
 #define PW_CurrentTeam    [NSString stringWithFormat:@"%@/v1/auth/team", API_SEVERID]
 #define PW_teamInvite     [NSString stringWithFormat:@"%@/v1/team/account/invite", API_SEVERID]
 #define PW_AddTeam        [NSString stringWithFormat:@"%@/v1/team/add", API_SEVERID]
-#define PW_CancelTeam     [NSString stringWithFormat:@"%@/v1/team/cancel", API_SEVERID]
-#define PW_TeamAccount    [NSString stringWithFormat:@"%@/v1/team/account/list", API_SEVERID]
+#define PW_CancelTeam                  API_SEVERID@"/v1/team/cancel"
+#define PW_TeamAccount                 API_SEVERID@"/v1/team/account/list"
+#define PW_TeamModify                  API_SEVERID@"/v1/team/modify"
+#define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
+#define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@//v1/team/account/%@/owner-transfer", API_SEVERID,str] 
 #pragma mark ========== 我的 ==========
 //添加反馈信息
-#define PW_addFeedback  [NSString stringWithFormat:@"%@/v1/feedback/addt", API_SEVERID]
-#define PW_verifycodeVerify [NSString stringWithFormat:@"%@/v1/account/verifycode/verify", API_SEVERID]
+#define PW_addFeedback                 API_SEVERID@"/v1/feedback/addt"
+#define PW_verifycodeVerify            API_SEVERID@"/v1/account/verifycode/verify"
 
-#define PW_verifycodesend [NSString stringWithFormat:@"%@/v1/account/verifycode/send", API_SEVERID] 
-#define PW_system_message [NSString stringWithFormat:@"%@/v1/system_message/count", API_SEVERID] 
+#define PW_verifycodesend              API_SEVERID@"/v1/account/verifycode/send"
+#define PW_system_message              API_SEVERID@"/v1/system_message/count"
 #pragma mark ========== 常量 ==========
 //获取常量字典
-#define PW_utilsConst [NSString stringWithFormat:@"%@/v1/utils/const", API_SEVERID]
+#define PW_utilsConst                  API_SEVERID@"/v1/utils/const"
 
 #pragma mark ========== 协议 ==========
-#define PW_privacylegal       API_H5_HOST@"/terms/legal"
-#define PW_servicelegal       API_H5_HOST@"/terms/service"
+#define PW_privacylegal                API_H5_HOST@"/terms/legal"
+#define PW_servicelegal                API_H5_HOST@"/terms/service"
 #endif /* PWNetWorkURLs_h */

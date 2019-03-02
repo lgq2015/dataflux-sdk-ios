@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MJRefresh.h>
 #import "NaviBarView.h"
+#import "PWLibraryListNoMoreFootView.h"
 @interface RootViewController : UIViewController
 /**
  *  修改状态栏颜色
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) MJRefreshGifHeader *header;
 @property (nonatomic, strong) MJRefreshBackStateFooter *footer;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
+@property (nonatomic, strong) PWLibraryListNoMoreFootView *footView;
 /** 导航条 */
 @property(nonatomic, strong)NaviBarView *topNavBar;
 /**

@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FillinTeamInforVC : RootViewController
 @property (nonatomic, assign) FillinTeamType type;
+@property (nonatomic, copy) void(^changeSuccess)(void);
+
+@property (nonatomic, assign) NSInteger count;
 @end
 
 NS_ASSUME_NONNULL_END
