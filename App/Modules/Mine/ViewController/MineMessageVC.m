@@ -1,24 +1,27 @@
 //
-//  SetEmailOrPhoneVC.m
+//  MineMessageVC.m
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/2/26.
+//  Created by 胡蕾蕾 on 2019/3/4.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "SetEmailOrPhoneVC.h"
+#import "MineMessageVC.h"
 
-@interface SetEmailOrPhoneVC ()
+@interface MineMessageVC ()
 
 @end
 
-@implementation SetEmailOrPhoneVC
+@implementation MineMessageVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = @"我的消息";
+    [self createUI];
 }
-
+-(void)createUI{
+    
+}
 /*
 #pragma mark - Navigation
 
