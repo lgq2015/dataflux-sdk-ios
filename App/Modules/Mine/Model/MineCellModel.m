@@ -35,4 +35,11 @@
     }
     return self;
 }
+- (instancetype)initWithTitle:(NSString *)title rightIcon:(NSString *)rightIcon{
+    if (self = [super init]) {
+        self.title = title;
+        self.rightIcon = rightIcon;
+    }
+    return self;
+}
 @end

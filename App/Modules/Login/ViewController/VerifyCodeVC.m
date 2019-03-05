@@ -7,6 +7,7 @@
 //
 
 #import "VerifyCodeVC.h"
+#import "PersonalInfoVC.h"
 #import "PWMNView.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "UserManager.h"
@@ -247,8 +248,12 @@
         case VerifyCodeVCTypeUpdateMobile:
             [self updateMobileWithCode:code];
             break;
+        case VerifyCodeVCTypeUpdateMobileNewMobile:
+            [self updateNewMobileWithCode:code];
+            break;
     }
 }
+#pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
     [SVProgressHUD showWithStatus:@"登录中..."];
     NSString *openUDID = [OpenUDID value];
@@ -268,6 +273,7 @@
         }
     }];
 }
+#pragma mark ========== 找回密码 ==========
 - (void)findPasswordWithCode:(NSString *)code{
     NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
@@ -286,6 +292,7 @@
         
     }];
 }
+#pragma mark ========== 我的/修改密码 ==========
 - (void)changePasswordWithCode:(NSString *)code{
     NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
@@ -305,6 +312,7 @@
         
     }];
 }
+#pragma mark ========== 我的/修改邮件 ==========
 - (void)updateEmailWithCode:(NSString *)code{
     //{ "data": { "username": "18236889895", "uType": "mobile", "verificationCode": "123456", "verificationCodeType": "verifycode", "t": "update_email" } }
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_email",@"verificationCodeType":@"verifycode"}};
@@ -314,7 +322,7 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
             bindemail.uuid = uuid;
-            bindemail.isEmail = YES;
+            bindemail.changeType = BindUserInfoTypeEmail;
             bindemail.isFirst = userManager.curUserInfo.email == nil? YES:NO;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
@@ -323,6 +331,7 @@
         
     }];
 }
+#pragma mark ========== 我的/修改手机号 验证旧手机 ==========
 - (void)updateMobileWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_mobile",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
@@ -331,7 +340,7 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
             bindemail.uuid = uuid;
-            bindemail.isEmail = NO;
+            bindemail.changeType = BindUserInfoTypeMobile;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }
@@ -339,6 +348,29 @@
         
     }];
 
+}
+#pragma mark ========== 我的/修改手机号 验证新手机 ==========
+-(void)updateNewMobileWithCode:(NSString *)code{
+    NSDictionary *param = @{@"data":@{@"verificationCode":code,@"uuid":self.uuid}};
+    [PWNetworking requsetHasTokenWithUrl:PW_modify_un withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            userManager.curUserInfo.mobile = self.phoneNumber;
+            KPostNotification(KNotificationUserInfoChange, nil);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                for(UIViewController *temp in self.navigationController.viewControllers) {
+                    if([temp isKindOfClass:[PersonalInfoVC class]]){
+                        [self.navigationController popToViewController:temp animated:YES];
+                    }
+                }
+            });
+        }else{
+            [SVProgressHUD showErrorWithStatus:[response[@"errCode"] transformErrCode]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];

@@ -31,6 +31,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 }
 - (void)createData{
     self.issueList = [NSMutableArray new];
+    
 }
 #pragma mark ========== public method ==========
 

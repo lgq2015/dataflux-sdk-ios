@@ -13,12 +13,14 @@ typedef NS_ENUM(NSUInteger, VerifyCodeVCType){
     VerifyCodeVCTypeChangePassword,
     VerifyCodeVCTypeUpdateEmail,
     VerifyCodeVCTypeUpdateMobile,
+    VerifyCodeVCTypeUpdateMobileNewMobile,
 };
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VerifyCodeVC : RootViewController
 @property (nonatomic, copy) NSString *phoneNumber;
 @property (nonatomic, assign) VerifyCodeVCType type;
+@property (nonatomic, copy) NSString *uuid;
 @end
 
 NS_ASSUME_NONNULL_END

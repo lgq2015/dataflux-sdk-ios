@@ -145,7 +145,8 @@ static NSString *const NoImgTips =@"该图片无法显示";
         self.topStateLab.hidden = YES;
     }
     self.iconImgVie.hidden = _model.type == NewListCellTypeSingleImg?NO:YES;
-    self.timeLab.text = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.model.updatedAt],_model.topic];
+    self.timeLab.text = _model.topic;
+    //[NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.model.updatedAt],_model.topic];
     self.titleLab.text = _model.title;
 
 }

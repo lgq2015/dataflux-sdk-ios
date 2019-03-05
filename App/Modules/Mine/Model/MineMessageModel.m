@@ -9,5 +9,14 @@
 #import "MineMessageModel.h"
 
 @implementation MineMessageModel
-
++(JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
+                                                                  @"messageID": @"id"
+                                                                 }];
+    
+}
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

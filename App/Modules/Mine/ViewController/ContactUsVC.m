@@ -92,22 +92,24 @@
     logoCenter.x = self.view.centerX;
     logoIcon.center = logoCenter;
     
-    UILabel *subPhone = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@"400-882-3320"];
-    [downView addSubview:subPhone];
-    [subPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(96));
-        make.top.mas_equalTo(logoIcon.mas_bottom).offset(Interval(10));
-        make.height.offset(ZOOM_SCALE(17));
-    }];
+//    UILabel *subPhone = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@"400-882-3320"];
+//    [downView addSubview:subPhone];
+//    [subPhone mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.view).offset(Interval(96));
+//        make.top.mas_equalTo(logoIcon.mas_bottom).offset(Interval(10));
+//        make.height.offset(ZOOM_SCALE(17));
+//    }];
     UILabel *zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWBlueColor text:@"上海浦东新区"];
+    zoonLab.textAlignment = NSTextAlignmentCenter;
     [downView addSubview:zoonLab];
     [zoonLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view).offset(-Interval(96));
+        make.right.mas_equalTo(self.view);
+        make.left.mas_equalTo(self.view);
         make.top.mas_equalTo(logoIcon.mas_bottom).offset(Interval(10));
         make.height.offset(ZOOM_SCALE(17));
     }];
     
-    UILabel *addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@"上海市浦东新区科苑路399号张江创新园7号楼"];
+    UILabel *addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@"科苑路399号张江创新园7号楼"];
     [downView addSubview:addressLab];
     addressLab.textAlignment = NSTextAlignmentCenter;
     [addressLab mas_makeConstraints:^(MASConstraintMaker *make) {

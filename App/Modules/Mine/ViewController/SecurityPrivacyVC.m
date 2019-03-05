@@ -78,6 +78,7 @@
             [self.navigationController pushViewController:webView animated:YES];
         }
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 12)];

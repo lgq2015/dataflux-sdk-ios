@@ -73,6 +73,13 @@
     }
     return self;
 }
+- (instancetype)initWithCollectionDictionary:(NSDictionary *)dictionary{
+    if (![dictionary isKindOfClass:[NSDictionary class]]) return nil;
+    if (self = [super init]) {
+        [self setValueWithCollectionJson:dictionary];
+    }
+    return self;
+}
 - (void)setValueWithJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
     self.updatedAt = [NSString getLocalDateFormateUTCDate:[dict stringValueForKey:@"updatedAt" default:@""] formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
@@ -90,7 +97,8 @@
         self.type = NewListCellTypText;
     }
     NSDictionary *topic=dict[@"topic"];
-    self.topic =[topic stringValueForKey:@"title" default:@""];
+//     =[topic stringValueForKey:@"title" default:@""];
+    self.topic = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.updatedAt],[topic stringValueForKey:@"title" default:@""]];
     self.isStarred = NO;
 }
 - (void)setValueWithStickJson:(NSDictionary *)dict{
@@ -112,5 +120,31 @@
         self.type = NewListCellTypText;
     }
     self.isStarred = YES;
+}
+- (void)setValueWithCollectionJson:(NSDictionary *)dict{
+    /*
+     {
+     "createTime": "2019-03-05T03:02:12Z",
+     "entityId": "18",
+     "id": "favo-hAkfFosGZbREJRh9g8NUMj",
+     "summary": "<p>记得第一次玩这个游戏，是5年前上高中那会儿，第一次接触仙剑这类游戏，却让我废寝忘食。直到现在待在家里无聊的时候，还是会拿出来怀念怀念。</p><p>刚进入游戏，看到画面和人物是对这个游戏没有太大",
+     "title": "《仙剑奇侠传4》你为什么是如此的与众不同",
+     "type": "forum",
+     "updateTime": "2019-03-05T03:02:12Z",
+     "url": "http://testing.profwang-h5.cloudcare.cn:10302/forum/a/18"
+     }
+     */
+    self.topic = [[dict stringValueForKey:@"type" default:@""] isEqualToString:@"forum"]?@"topic":@"所属手册";
+    self.title = [dict stringValueForKey:@"title" default:@""];
+    self.url = [dict stringValueForKey:@"url" default:@""];
+    self.favoID = [dict stringValueForKey:@"id" default:@""];
+    self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
+    self.isStarred = NO;
+    if (![self.imageUrl isEqualToString:@""]) {
+        self.type = NewListCellTypeSingleImg;
+        self.cellHeight = ZOOM_SCALE(112)+Interval(30);
+    }else{
+        self.type = NewListCellTypText;
+    }
 }
 @end

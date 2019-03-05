@@ -7,8 +7,10 @@
 //
 
 #import "MessageDetailVC.h"
-
+#import "MineMessageModel.h"
 @interface MessageDetailVC ()
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UILabel *sourceLab;
 
 @end
 
@@ -16,9 +18,106 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = @"消息详情";
+    [self createUI];
+    [self loadMessageDetail];
+    [self setMessageRead];
 }
+- (void)createUI{
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view);
+        make.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).offset(Interval(12));
+    }];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:self.model.title];
+    titleLab.numberOfLines = 0;
+    [self.contentView addSubview:titleLab];
+    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView).offset(Interval(16));
+        make.top.mas_equalTo(self.contentView).offset(Interval(14));
+        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+    }];
+    [self.sourceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView).offset(Interval(16));
+        make.width.offset(ZOOM_SCALE(54));
+        make.height.offset(ZOOM_SCALE(24));
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(10));
+    }];
+    UIColor *color;
+    NSString *type;
+    if ([self.model.messageType isEqualToString:@"team"]) {
+        color = [UIColor colorWithHexString:@"#2EB5F3"];
+        type = @"团队";
+    }else if([self.model.messageType isEqualToString:@"account"]){
+        color = [UIColor colorWithHexString:@"#936AF2"];
+        type = @"账号";
+    }else if([self.model.messageType isEqualToString:@"issue_source"]){
+        color = [UIColor colorWithHexString:@"#3B85F8"];
+        type = @"情报源";
+    }
+    [self.sourceLab setTextColor:color];
+    self.sourceLab.text = type;
+    self.sourceLab.layer.borderColor = color.CGColor;
+    
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
+    [self.contentView addSubview:timeLab];
+    [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.sourceLab);
+        make.left.mas_equalTo(self.sourceLab.mas_right).offset(Interval(16));
+        make.height.offset(ZOOM_SCALE(17));
+    }];
+     timeLab.text = [NSString mineVCDate:self.model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:self.model.content];
+    contentLab.textAlignment = NSTextAlignmentLeft;
+    contentLab.numberOfLines = 0;
+    [self.contentView addSubview:contentLab];
+    [contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(self.sourceLab.mas_bottom).offset(Interval(11));
+        make.bottom.mas_equalTo(self.contentView).offset(-Interval(19));
+    }];
+}
+-(UIView *)contentView{
+    if (!_contentView) {
+        _contentView = [[UIView alloc]init];
+        _contentView.backgroundColor = PWWhiteColor;
+        [self.view addSubview:_contentView];
+    }
+    return _contentView;
+}
+- (void)loadMessageDetail{
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageDetail(self.model.messageID) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
 
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
+}
+- (void)setMessageRead{
+    NSDictionary *param = @{@"data":@{@"system_message_ids":self.model.messageID}};
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageSetRead withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            if (self.refreshTable) {
+                self.refreshTable();
+            }
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+-(UILabel *)sourceLab{
+    if (!_sourceLab) {
+        _sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#2EB5F3"] text:@""];
+        _sourceLab.layer.cornerRadius = 4.;//边框圆角大小
+        _sourceLab.layer.masksToBounds = YES;
+        _sourceLab.layer.borderWidth = 1;//边框宽度
+        _sourceLab.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_sourceLab];
+    }
+    return _sourceLab;
+}
 /*
 #pragma mark - Navigation
 

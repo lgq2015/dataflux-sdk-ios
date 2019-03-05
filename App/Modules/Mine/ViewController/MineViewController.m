@@ -15,6 +15,9 @@
 #import "FeedbackVC.h"
 #import "ContactUsVC.h"
 #import "AboutUsVC.h"
+#import "InformationSourceVC.h"
+#import "MineMessageVC.h"
+#import "MineCollectionVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIImageView *iconImgView;
@@ -29,6 +32,9 @@
 
 @implementation MineViewController
 -(void)viewWillAppear:(BOOL)animated{
+    if (self.unread) {
+        [self getSystemMessagCount];
+    }
     [self getSystemMessagCount];
 }
 - (void)viewDidLoad {
@@ -39,7 +45,12 @@
                                              selector:@selector(judgeIsTeam)
                                                  name:KNotificationTeamStatusChange
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateUser)
+                                                 name:KNotificationUserInfoChange
+                                               object:nil];
     self.dataSource = [NSArray new];
+    [self getSystemMessagCount];
     [self judgeIsTeam];
     [self createUI];
 }
@@ -52,7 +63,16 @@
     }else{
        [self dealWithDataHasTeam:NO];
     }
-    
+}
+- (void)updateUser{
+    [userManager saveChangeUserInfo];
+    NSString *name =  userManager.curUserInfo.username;
+    NSString *mobile = userManager.curUserInfo.mobile;
+    if (name == nil || [name isEqualToString:@""]) {
+        self.userName.text = mobile;
+    }else{
+        self.userName.text = name;
+    }
 }
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithDataHasTeam:(BOOL)hasTeam{
@@ -65,21 +85,28 @@
     MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
     MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
     NSArray *group1;
+    NSArray *group2;
     if (hasTeam) {
         group1 = @[mynews,collection];
+        group2 = @[opinion,contact,encourage,aboutPW];
     }else{
         group1 = @[mynews,infoSource,collection];
+        group2 = @[opinion,encourage,aboutPW];
     }
-    NSArray *group2 = @[opinion,contact,encourage,aboutPW];
     NSArray *group3 = @[setting];
     self.dataSource = @[group1,group2,group3];
     [self.tableView reloadData];
 }
 - (void)getSystemMessagCount{
-    [PWNetworking requsetHasTokenWithUrl:PW_system_message withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             self.unread = [content longValueForKey:@"unread" default:0];
+            if (self.tableView) {
+                NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+                MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+                [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",(long)self.unread]];
+            }
         }
     } failBlock:^(NSError *error) {
         
@@ -115,6 +142,9 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
 }
@@ -191,7 +221,10 @@
             [self.navigationController pushViewController:opinionVC animated:YES];
         }
             break;
-        case MineCellTypeCollect:
+        case MineCellTypeCollect:{
+            MineCollectionVC *collection = [[MineCollectionVC alloc]init];
+            [self.navigationController pushViewController:collection animated: YES];
+        }
             break;
         case MineCellTypeAboutPW:{
             AboutUsVC *aboutVC = [[AboutUsVC alloc]init];
@@ -202,14 +235,17 @@
             [self evaluateSkip];
             break;
         
-        case MineCellTypeInformation:
-            
+        case MineCellTypeInformation:{
+            MineMessageVC *messageVC = [[MineMessageVC alloc]init];
+            [self.navigationController pushViewController:messageVC animated:YES];
+        }
             break;
-        case MineCellTypeInfoSource:
-            
-            break;
+        case MineCellTypeInfoSource:{
+            InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
+            [self.navigationController pushViewController:infoSource animated:YES];
+        }break;
     }
-
+   [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (void)evaluateSkip{
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
@@ -235,9 +271,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
-    [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeBase];
+   
     if (indexPath.section == 0 && indexPath.row == 0) {
-        
+       [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeDot];
+    }else{
+       [cell initWithData:self.dataSource[indexPath.section][indexPath.row] type:MineVCCellTypeBase];
     }
     NSArray *array =self.dataSource[indexPath.section];
     if(indexPath.row == array.count-1){

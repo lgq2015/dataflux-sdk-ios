@@ -33,9 +33,11 @@
  UTC时间转换
  */
 +(NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter;
++ (NSString *)mineVCDate:(NSString *)utcDate formatter:(NSString *)formatter;
 /**
  时间转换
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
-+ (BOOL)validateNumber:(NSString*)number;
+- (BOOL)validateNumber;
+- (NSString *)transformErrCode;
 @end

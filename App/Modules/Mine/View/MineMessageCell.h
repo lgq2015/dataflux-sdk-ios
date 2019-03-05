@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MineMessageModel;
 @interface MineMessageCell : UITableViewCell
+@property (nonatomic, strong) MineMessageModel *model;
 
 @end
 

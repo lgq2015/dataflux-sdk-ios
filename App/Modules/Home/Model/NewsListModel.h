@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, NewListCellType) {
     NewListCellTypText,
     NewListCellTypeFillImg,
 };
+
 /*
  "id": 15,
  "topicId": 1,
@@ -63,10 +64,11 @@ typedef NS_ENUM(NSUInteger, NewListCellType) {
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign) NewListCellType type;
+@property (nonatomic, strong) NSString *favoID;
 
 @property (nonatomic, assign) CGFloat cellHeight;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
 - (instancetype)initWithStickJsonDictionary:(NSDictionary *)dictionary;
-
+- (instancetype)initWithCollectionDictionary:(NSDictionary *)dictionary;
 @end
 

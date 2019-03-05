@@ -10,6 +10,8 @@
 #import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "PWBaseWebVC.h"
+#import "DetectionVersionAlert.h"
+
 @interface AboutUsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
@@ -40,7 +42,7 @@
     }];
     MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:@"服务协议"];
-    MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本"];
+    MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
 //    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们"];
     self.dataSource = [NSMutableArray arrayWithArray:@[service,privacy,newVersion]];
     self.tableView.delegate = self;
@@ -49,6 +51,43 @@
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     [self.view addSubview:self.tableView];
     self.tableView.frame = CGRectMake(0, Interval(86)+ZOOM_SCALE(84), kWidth, self.dataSource.count*45);
+}
+-(void)DetectNewVersion{
+    [SVProgressHUD show];
+    
+    //获取appStore网络版本号
+    [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        NSArray *results = response[@"results"];
+        if (results.count>0) {
+            NSDictionary *dict = results[0];
+            [self judgeTheVersion:dict];
+        }
+        [SVProgressHUD dismiss];
+        
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        
+    }];
+    
+}
+- (void)judgeTheVersion:(NSDictionary *)dict{
+    NSString *releaseNotes = [dict stringValueForKey:@"releaseNotes" default:@""];
+    NSString *version = [dict stringValueForKey:@"version" default:@""];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if ([nowVersion isEqualToString:version]) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+        MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell setDescribeLabText:@"已是最新版本"];
+    }else{
+        DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
+        [alert showInView:[UIApplication sharedApplication].keyWindow];
+        alert.itemClick = ^(){
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
+            [[UIApplication sharedApplication] openURL:url];
+        };
+    }
+    
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -61,11 +100,12 @@
         }
             break;
         case 2:
-            [[AppDelegate shareAppDelegate] DetectNewVersion];
+            [self DetectNewVersion];
             break;
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark ========== UITableViewDataSource ==========
@@ -74,9 +114,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
-    [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeTitle];
     if(indexPath.row ==self.dataSource.count-1){
+        [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypedDescribe];
     cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
+    }else{
+     [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeTitle];
     }
     return cell;
 }

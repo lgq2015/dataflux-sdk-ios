@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChangeCardItem : UIView
+@property (nonatomic, copy) void(^itemClick)(void);
+
+-(instancetype)initWithFrame:(CGRect)frame data:(NSDictionary *)data;
 
 @end
 

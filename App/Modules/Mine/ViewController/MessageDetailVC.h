@@ -9,9 +9,10 @@
 #import "RootViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MineMessageModel;
 @interface MessageDetailVC : RootViewController
-
+@property (nonatomic, copy) void(^refreshTable)(void);
+@property (nonatomic, strong) MineMessageModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

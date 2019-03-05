@@ -46,7 +46,7 @@
                 [weakSelf dealWithType:type];
             };
         }else if(extraBtn.tag == 11){
-            
+          
         }
     };
     [self.view addSubview:scrollPageView];

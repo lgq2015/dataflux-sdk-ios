@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CollectionModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CollectionCell : UITableViewCell
-
+@property (nonatomic, strong) CollectionModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

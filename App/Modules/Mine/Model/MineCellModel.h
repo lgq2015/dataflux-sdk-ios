@@ -24,11 +24,12 @@ typedef NS_ENUM(NSInteger, MineCellType) {
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) MineCellType type;
 @property (nonatomic, strong) NSString *describeText;
+@property (nonatomic, strong) NSString *rightIcon;
 @property (nonatomic, assign) BOOL isOn;
 - (instancetype)initWithTitle:(NSString *)title icon:(NSString *)icon cellType:(MineCellType)type;
 - (instancetype)initWithTitle:(NSString *)title;
 - (instancetype)initWithTitle:(NSString *)title isSwitch:(BOOL)isOn;
 - (instancetype)initWithTitle:(NSString *)title describeText:(NSString *)text;
-
+- (instancetype)initWithTitle:(NSString *)title rightIcon:(NSString *)rightIcon;
 @end
 

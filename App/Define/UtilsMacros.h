@@ -10,7 +10,6 @@
 #ifndef define_h
 #define define_h
 
-#define JPUSH_ID @"e008337585ca5df269038d4f"
 #define APP_ID @"1441939241"
 // iOS 11 以下的评价跳转
 #define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]
@@ -64,7 +63,6 @@
 [View.layer setCornerRadius:(Radius)];\
 [View.layer setMasksToBounds:YES]
 
-//property 属性快速声明 别用宏定义了，使用代码块+快捷键实现吧
 
 // 当前系统版本
 #define CurrentSystemVersion [[UIDevice currentDevice].systemVersion doubleValue]

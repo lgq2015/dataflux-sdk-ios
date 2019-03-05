@@ -8,7 +8,8 @@
 
 #import "BindEmailOrPhoneVC.h"
 #import "PersonalInfoVC.h"
-@interface BindEmailOrPhoneVC ()
+#import "VerifyCodeVC.h"
+@interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
 @property (nonatomic ,strong) UITextField *emailTF;
 @property (nonatomic, strong) UIButton *commitBtn;
 
@@ -26,18 +27,29 @@
     NSString *title;
     NSString *placeholder;
     //_emailTF.placeholder = @"请输入邮箱";
-
-    if (self.isEmail) {
-        if (self.isFirst) {
-            placeholder = @"请输入邮箱";
-        }else{
-            placeholder = @"请输入新邮箱";
-        }
-        title =@"修改手机";
-    }else{
-        title = @"绑定邮箱";
-        placeholder = @"请输入新的手机号";
+    switch (self.changeType) {
+        case BindUserInfoTypeEmail:
+            if (self.isFirst) {
+                placeholder = @"请输入邮箱";
+            }else{
+                placeholder = @"请输入新邮箱";
+            }
+            title = @"绑定邮箱";
+            break;
+        case BindUserInfoTypeName:
+            title =@"修改姓名";
+            if (self.isFirst) {
+                placeholder = @"请输入姓名";
+            }else{
+                placeholder = @"请输入新的姓名";
+            }
+            break;
+        case BindUserInfoTypeMobile:
+            title =@"修改手机";
+            placeholder = @"请输入新的手机号";
+            break;
     }
+
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:title];
     [self.view addSubview:titleLab];
     [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,44 +76,57 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
    
-    RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
-        if (self.isEmail) {
-           return @(value.length>4);
-        }else{
+    if (self.changeType == BindUserInfoTypeEmail) {
+        RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
+                return @(value.length>4);
+        }];
+        RAC(self.commitBtn,enabled) = emailSignal;
+        
+        RAC(self.commitBtn, backgroundColor) = [emailSignal map: ^id (id value){
+            if([value boolValue]){
+                return PWBlueColor;
+            }else{
+                return [UIColor colorWithHexString:@"C7C7CC"];;
+            }
+        }];
+    }else if(self.changeType == BindUserInfoTypeMobile){
+        [self.commitBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        self.emailTF.delegate = self;
+        RACSignal *phoneSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             
-            self.emailTF.text = value;
-            self.temp = value;
-            if (value.length>13) {
-                value = [value substringToIndex:13];
-                self.emailTF.text = [value substringToIndex:13];
-                self.temp = [value substringToIndex:13];
-            }
-//            if (value.length>0) {
-//                if(![self validateNumber:[value substringFromIndex:value.length-1]]){
-//                    value = [value substringToIndex:value.length-1];
-//                    self.emailTF.text = value;
-//                    self.temp = value;
-//                }
-//            }
-            if((value.length == 3 || value.length == 8 )){
-                if (value.length<self.temp.length) {
-                    value =[value substringToIndex:value.length-1];
-                }else{
-                    value = [NSString stringWithFormat:@"%@ ", value];
+                if (value.length>13) {
+                    value = [value substringToIndex:13];
+                    self.emailTF.text = [value substringToIndex:13];
+                    self.temp = [value substringToIndex:13];
                 }
+                if((value.length == 3 || value.length == 8 )){
+                    if (value.length<self.temp.length) {
+                        value =[value substringToIndex:value.length-1];
+                    }else{
+                        value = [NSString stringWithFormat:@"%@ ", value];
+                    }
+                }
+                self.temp = value;
+                self.emailTF.text = value;
+                return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
+        }];
+        RAC(self.commitBtn,enabled) = phoneSignal;
+    }else{
+        RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
+            return @(value.length>1);
+        }];
+        RAC(self.commitBtn,enabled) = emailSignal;
+        
+        RAC(self.commitBtn, backgroundColor) = [emailSignal map: ^id (id value){
+            if([value boolValue]){
+                return PWBlueColor;
+            }else{
+                return [UIColor colorWithHexString:@"C7C7CC"];;
             }
-            return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
-        }
-    }];
-    RAC(self.commitBtn,enabled) = emailSignal;
-    
-    RAC(self.commitBtn, backgroundColor) = [emailSignal map: ^id (id value){
-        if([value boolValue]){
-            return PWBlueColor;
-        }else{
-            return [UIColor colorWithHexString:@"C7C7CC"];;
-        }
-    }];
+        }];
+    }
+   
+   
 }
 -(UITextField *)emailTF{
     if (!_emailTF) {
@@ -125,42 +150,86 @@
     return _commitBtn;
 }
 - (void)commitBtnClick{
+    switch (self.changeType) {
+        case BindUserInfoTypeEmail:
+           [self commitEmailClick];
+            break;
+        case BindUserInfoTypeName:
+            [self commitNameClick];
+            break;
+        case BindUserInfoTypeMobile:
+            [self commitPhoneClick];
+
+            break;
+    }
+   
+}
+- (void)commitEmailClick{
      BOOL isemail = [NSString validateEmail:self.emailTF.text];
     if (isemail) {
         NSDictionary *param = @{@"data":@{@"username":self.emailTF.text,@"uType":@"email",@"uuid":self.uuid}};
         [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
-                for(UIViewController *temp in self.navigationController.viewControllers) {
-                    if([temp isKindOfClass:[PersonalInfoVC class]]){
-                        [self.navigationController popToViewController:temp animated:YES];
-                    }
-                }
                 [iToast alertWithTitleCenter:@"绑定成功"];
+                userManager.curUserInfo.email = self.emailTF.text;
+                KPostNotification(KNotificationUserInfoChange, nil);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    for(UIViewController *temp in self.navigationController.viewControllers) {
+                        if([temp isKindOfClass:[PersonalInfoVC class]]){
+                            [self.navigationController popToViewController:temp animated:YES];
+                        }
+                    }
+                });
             }else if([response[@"message"] isEqualToString:@"Email Exists"]){
-                [iToast alertWithTitleCenter:@"该邮箱号已被绑定"];
+                [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
             }
         } failBlock:^(NSError *error) {
-            
+            [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
+
         }];
     }else{
         [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
     }
  
 }
-- (BOOL)validateNumber:(NSString*)number {
-    BOOL res = YES;
-    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    int i = 0;
-    while (i < number.length) {
-        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
-        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
-        if (range.length == 0) {
-            res = NO;
-            break;
+- (void)commitPhoneClick{
+    NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};
+    [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            VerifyCodeVC *verify = [[VerifyCodeVC alloc]init];
+            verify.type = VerifyCodeVCTypeUpdateMobileNewMobile;
+            verify.isShowCustomNaviBar = YES;
+            verify.phoneNumber =[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+            verify.uuid = self.uuid;
+            [self.navigationController pushViewController:verify animated:YES];
+        }else {
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
         }
-        i++;
-    }
-    return res;
+    } failBlock:^(NSError *error) {
+        [iToast alertWithTitleCenter:@"绑定失败"];
+        
+    }];
+}
+- (void)commitNameClick{
+    [SVProgressHUD show];
+    NSDictionary *param =@{@"data":@{@"name":self.emailTF.text}};
+    [PWNetworking requsetHasTokenWithUrl:PW_accountName withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            userManager.curUserInfo.username = self.emailTF.text;
+            [userManager saveChangeUserInfo];
+            KPostNotification(KNotificationUserInfoChange, nil);
+            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        }
+        [SVProgressHUD dismiss];
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [string validateNumber];
 }
 /*
 #pragma mark - Navigation

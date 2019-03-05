@@ -173,6 +173,7 @@
         [cleanAlert addAction:cancle];
         [self presentViewController:cleanAlert animated:YES completion:nil];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

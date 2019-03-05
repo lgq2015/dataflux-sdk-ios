@@ -11,14 +11,18 @@
 #import "LoginPasswordVC.h"
 #import "SecurityPrivacyVC.h"
 
-@interface SetNewPasswordVC ()
+@interface SetNewPasswordVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
 @property (nonatomic, strong) UIButton *showWordsBtn;
 @end
 
 @implementation SetNewPasswordVC
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
+        
+    }}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
@@ -107,11 +111,13 @@
             if(self.isChange){
             [userManager saveUserInfoLoginStateisChange:NO success:nil];
             [iToast alertWithTitleCenter:@"修改密码成功"];
-                for(UIViewController *temp in self.navigationController.viewControllers) {
-                    if([temp isKindOfClass:[SecurityPrivacyVC class]]){
-                        [self.navigationController popToViewController:temp animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    for(UIViewController *temp in self.navigationController.viewControllers) {
+                        if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+                            [self.navigationController popToViewController:temp animated:YES];
+                        }
                     }
-                }
+                });
             }else{
             [userManager saveUserInfoLoginStateisChange:YES success:nil];
             }
@@ -143,6 +149,8 @@
         
     }];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+        }
         if (self.isChange) {
             for(UIViewController *temp in self.navigationController.viewControllers) {
                 if([temp isKindOfClass:[SecurityPrivacyVC class]]){
@@ -171,6 +179,14 @@
 }
 - (void)confirmClick{
     
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+    return NO;
 }
 /*
 #pragma mark - Navigation

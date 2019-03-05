@@ -187,6 +187,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     [cache setObject:dic forKey:KUserModelCache];
                     NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                     setPWUserID(userID);
+                
                 }
                 
             }
@@ -312,6 +313,12 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)onKick{
     [self logout:nil];
 }
-
-
+#pragma mark ========== 保存更改过的用户信息 ==========
+-(void)saveChangeUserInfo{
+    if (self.curUserInfo) {
+        YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+        NSDictionary *dic = [self.curUserInfo modelToJSONObject];
+        [cache setObject:dic forKey:KUserModelCache];
+    }
+}
 @end

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIImageView *arrowImgView;
 @property (nonatomic, strong) UILabel *describeLab;
+@property (nonatomic, strong) UIImageView *rightImg;
 @end
 @implementation MineViewCell
 
@@ -48,6 +49,11 @@
         case MineVCCellTypeOnlyTitle:
             [self createUIOnlyTitle];
             break;
+        case MineVCCellTypeDot:
+            [self createUIDot];
+            break;
+        case MineVCCellTypeImage:
+            [self createUIImage];
     }
 }
 #pragma mark ========== 有icon、title ==========
@@ -142,11 +148,62 @@
     
     
 }
+- (void)createUIDot{
+   
+    self.iconImgView.image = [UIImage imageNamed:_data.icon];
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.iconImgView.mas_right).offset(10);
+        make.height.offset(22);
+        make.centerY.mas_equalTo(self.iconImgView);
+    }];
+    self.titleLab.text = _data.title;
+    [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.width.offset(16);
+        make.height.offset(16);
+        make.centerY.mas_equalTo(self.iconImgView);
+    }];
+    self.describeLab.hidden = NO;
+    [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+        make.centerY.mas_equalTo(self.titleLab);
+        make.height.offset(20);
+        make.width.offset(20);
+    }];
+    self.describeLab.textColor = PWWhiteColor;
+    self.describeLab.backgroundColor = [UIColor colorWithHexString:@"#FE563E"];
+    self.describeLab.layer.cornerRadius = 10;
+    self.describeLab.layer.masksToBounds = YES;
+    self.describeLab.textAlignment = NSTextAlignmentCenter;
+}
+- (void)createUIImage{
+    _arrowImgView.hidden = NO;
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(Interval(16));
+        make.height.offset(22);
+        make.centerY.mas_equalTo(self.contentView);
+    }];
+    self.titleLab.text = _data.title;
+    [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.width.offset(16);
+        make.height.offset(16);
+        make.centerY.mas_equalTo(self.titleLab);
+    }];
+    [self.rightImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+        make.centerY.mas_equalTo(self.arrowImgView);
+        make.width.height.offset(24);
+    }];
+    self.rightImg.layer.cornerRadius = 12.0f;
+    [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.icon] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+}
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
     if(!_iconImgView){
         _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, 30, 30)];
         CGPoint center = _iconImgView.center;
+        _iconImgView.contentMode =  UIViewContentModeScaleAspectFit;
         center.y = self.center.y;
         _iconImgView.center = center;
         [self addSubview:_iconImgView];
@@ -170,7 +227,14 @@
     }
     return _titleLab;
 }
-
+-(UIImageView *)rightImg{
+    if (!_rightImg) {
+        _rightImg = [[UIImageView alloc]init];
+        _rightImg.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_rightImg];
+    }
+    return _rightImg;
+}
 -(UIImageView *)arrowImgView{
     if (!_arrowImgView) {
         _arrowImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
@@ -194,9 +258,42 @@
 }
 -(void)setDescribeLabText:(NSString *)text{
     if (_describeLab) {
+        if (self.type == MineVCCellTypeDot) {
+            self.describeLab.hidden = NO;
+            if ([text integerValue] == 0) {
+                self.describeLab.hidden = YES;
+            }else if ([text integerValue]<9) {
+                [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+                    make.centerY.mas_equalTo(self.titleLab);
+                    make.height.offset(20);
+                    make.width.offset(20);
+                }];
+                self.describeLab.text = text;
+            }else if([text integerValue]<99){
+                [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+                    make.centerY.mas_equalTo(self.titleLab);
+                    make.height.offset(20);
+                    make.width.offset(25);
+                }];
+                self.describeLab.text = text;
+            }else{
+                self.describeLab.text = @"•••";
+            }
+        }else{
+        self.describeLab.text = text;
+        }
+    }
+    
+}
+-(void)setAlermDescribeLabText:(NSString *)text{
+    if (_describeLab) {
+        self.describeLab.textColor = PWBlueColor;
         self.describeLab.text = text;
     }
 }
+
 -(void)setSwitchBtnisOn:(BOOL)ison{
     [self.switchBtn setOn:ison];
 }

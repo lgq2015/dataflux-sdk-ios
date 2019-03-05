@@ -7,6 +7,8 @@
 //
 
 #import "PasswordVerifyVC.h"
+#import "SetNewPasswordVC.h"
+#import "BindEmailOrPhoneVC.h"
 
 @interface PasswordVerifyVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
@@ -38,6 +40,41 @@
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
+  
+    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(phoneLable.mas_bottom).offset(ZOOM_SCALE(83));
+        make.width.height.offset(ZOOM_SCALE(24));
+    }];
+    [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.showWordsBtn.mas_left);
+        make.centerY.mas_equalTo(self.showWordsBtn);
+        make.height.offset(ZOOM_SCALE(25));
+    }];
+    UIView * line1 = [[UIView alloc]init];
+    line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+    [self.view addSubview:line1];
+    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(phoneLable.mas_left);
+        make.top.mas_equalTo(self.passwordTf.mas_bottom).offset(ZOOM_SCALE(4));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(1));
+    }];
+    UIButton *confirmBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"确认"];
+    [confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:confirmBtn];
+    [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(line1.mas_bottom).offset(Interval(42));
+        make.height.offset(ZOOM_SCALE(47));
+    }];
+    
+    RACSignal *emailSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        return @(value.length>8);
+    }];
+    RAC(confirmBtn,enabled) = emailSignal;
     
 }
 -(UITextField *)passwordTf{
@@ -74,6 +111,75 @@
         self.passwordTf.secureTextEntry = YES;
         self.passwordTf.text = tempPwdStr;
     }
+}
+- (void)confirmBtnClick{
+    switch (self.type) {
+        case PassWordVerifyChangePassword:
+            [self changePassword];
+            break;
+        case PassWordVerifyUpdateEmail:
+            [self updateEmail];
+            break;
+        case PassWordVerifyUpdateMobile:
+            [self updateMobile];
+            break;
+    }
+}
+- (void)changePassword{
+    NSDictionary *param = @{@"data":@{@"oldPassword":self.passwordTf.text}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifyoldpassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+            newPasswordVC.isShowCustomNaviBar = YES;
+            newPasswordVC.isChange = YES;
+            newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+            [self.navigationController pushViewController:newPasswordVC animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)updateEmail{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":self.passwordTf.text,@"verificationCodeType":@"password",@"t":@"update_email"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
+            bind.changeType = BindUserInfoTypeEmail;
+            bind.uuid = response[@"content"][@"uuid"];
+            bind.isShowCustomNaviBar = YES;
+            [self.navigationController pushViewController:bind animated:YES];
+        }else{
+            
+        }
+        [SVProgressHUD dismiss];
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+
+    }];
+}
+- (void)updateMobile{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"update_mobile"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
+            bind.changeType = BindUserInfoTypeMobile;
+            bind.isShowCustomNaviBar = YES;
+            bind.uuid =response[@"content"][@"uuid"];
+            [self.navigationController pushViewController:bind animated:YES];
+        }else{
+            
+        }
+        [SVProgressHUD dismiss];
+
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+
+    }];
 }
 /*
 #pragma mark - Navigation

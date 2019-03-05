@@ -76,4 +76,6 @@ SINGLETON_FOR_HEADER(UserManager)
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess;
 //-(void)judgeIsHaveTeam:(void(^)(BOOL isHave, NSDictionary *content))isHave;
 - (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess;
+-(void)saveChangeUserInfo;
+
 @end

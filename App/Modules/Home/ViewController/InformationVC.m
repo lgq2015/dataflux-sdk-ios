@@ -175,6 +175,7 @@
 - (void)headerRereshing{
     self.newsPage = 1;
     self.newsDatas = [NSMutableArray new];
+    [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
     [self loadRecommendationData];
     [self loadNewsDatas];
@@ -233,8 +234,7 @@
     [self.tableView layoutIfNeeded];
 
     if (page == self.newsPage) {
-        self.footer.state = MJRefreshStateNoMoreData;
-        self.tableView.mj_footer.state= MJRefreshStateNoMoreData;
+        [self showNoMoreDataFooter];
     }else{
         [self.footer endRefreshing];
     }

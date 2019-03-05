@@ -189,6 +189,18 @@
     NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
     return dateString;
 }
++ (NSString *)mineVCDate:(NSString *)utcDate formatter:(NSString *)formatter{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //输入格式
+    [dateFormatter setDateFormat:formatter];
+    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:localTimeZone];
+    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+    //输出格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    return dateString;
+}
 + (NSString *)compareCurrentTime:(NSString *)str
 {
     //把字符串转为NSdate
@@ -221,12 +233,13 @@
     }
     return  result;
 }
-+ (BOOL)validateNumber:(NSString*)number {
+
+- (BOOL)validateNumber {
     BOOL res = YES;
     NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
     int i = 0;
-    while (i < number.length) {
-        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+    while (i < self.length) {
+        NSString * string = [self substringWithRange:NSMakeRange(i, 1)];
         NSRange range = [string rangeOfCharacterFromSet:tmpSet];
         if (range.length == 0) {
             res = NO;
@@ -235,5 +248,10 @@
         i++;
     }
     return res;
+}
+- (NSString *)transformErrCode{
+    NSDictionary *errCode = @{@"home.auth.exceededSendIntervalLimit":@"超过发送间隔限制",@"home.account.mobileExists":@"该手机号码已存在"};
+    
+    return [errCode stringValueForKey:self default:self];
 }
 @end
