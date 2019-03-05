@@ -9,7 +9,15 @@
 #import "PWGradientView.h"
 
 @implementation PWGradientView
++ (Class)layerClass {
+    return [CAGradientLayer class];
+}
 
+- (void)setupCAGradientLayer:(NSArray *)colors locations:(NSArray *)locations {
+    CAGradientLayer *gradient=(CAGradientLayer*)self.layer;
+    gradient.colors = colors;
+    gradient.locations = locations;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

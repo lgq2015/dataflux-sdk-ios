@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class ALAssetsGroup;
 
 @interface PWPhotoGroupCell : UITableViewCell
-
+/**
+ *  显示相册信息
+ *
+ *  @param assetsGroup 相册
+ */
+- (void)bind:(ALAssetsGroup *)assetsGroup;
 @end
 
 NS_ASSUME_NONNULL_END

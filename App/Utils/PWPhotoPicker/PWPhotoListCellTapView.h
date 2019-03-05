@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWPhotoListCellTapView : UIView
-
+//是否选中
+@property (nonatomic, assign) BOOL selected;
+//是否可操作
+@property (nonatomic, assign) BOOL disabled;
 @end
 
 NS_ASSUME_NONNULL_END

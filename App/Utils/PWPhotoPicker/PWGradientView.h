@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWGradientView : UIView
+- (void)setupCAGradientLayer:(NSArray *)colors locations:(NSArray *)locations;
 
 @end
 
