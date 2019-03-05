@@ -155,6 +155,22 @@
     }
     return _noDataView;
 }
+-(void)showNoMoreDataFooter{
+    if (_footer) {
+        self.footer.hidden = YES;
+    }
+    if (_tableView ) {
+        self.tableView.tableFooterView = self.footView;
+    }
+}
+-(void)showLoadFooterView{
+    if (_footer) {
+        self.footer.hidden = NO;
+    }
+    if (_tableView && _footView) {
+        self.tableView.tableFooterView = nil;
+    }
+}
 -(void)removeNoDataImage{
     if (_noDataView) {
         [_noDataView removeFromSuperview];

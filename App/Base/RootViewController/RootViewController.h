@@ -100,5 +100,12 @@
 
 //取消网络请求
 - (void)cancelRequest;
-
+/**
+ *  显示没有更多数据 tableView footer
+ */
+-(void)showNoMoreDataFooter;
+/**
+ * 下拉刷新后 footer 为可加载
+ */
+-(void)showLoadFooterView;
 @end
