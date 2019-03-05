@@ -41,6 +41,5 @@
 -(UIViewController*)getCurrentVC;
 
 -(UIViewController*) getCurrentUIVC;
-//检测当前版本
--(void)DetectNewVersion;
+
 @end

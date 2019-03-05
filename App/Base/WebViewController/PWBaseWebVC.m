@@ -29,9 +29,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSString *newUserAgent = userAgent;
+    if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
+        newUserAgent = [userAgent stringByAppendingString:@"cloudcare"];
+    }
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    
+    self.webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
+    [self.webview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        DLog(@"%@", result);
+    }];
     [self.webview addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     [self.webview addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
-    
     // UIProgressView初始化
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.progressView.frame = CGRectMake(0, 0, self.webview.frame.size.width, 2);
@@ -45,12 +57,7 @@
     [self.webview addSubview:self.progressView];
     // Do any additional setup after loading the view.
 }
--(WKWebView *)webview{
-    if (!_webview) {
-        _webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
-    }
-    return _webview;
-}
+
 - (void)dealloc {
     
     // 最后一步：移除监听
