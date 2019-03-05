@@ -71,7 +71,6 @@
 
 - (void)createTeamUI{
     self.view.backgroundColor = PWBackgroundColor;
-    [self loadTeamMemberInfo];
     self.headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
      WeakSelf;
     self.headerView.itemClick =^(NSInteger tag){
@@ -108,7 +107,12 @@
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self.tableView reloadData];
+    [self loadTeamMemberInfo];
+
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -224,6 +228,7 @@
     if (admin.count>0) {
         [self.teamMemberArray addObjectsFromArray:admin];
     }
+    [self.headerView setTeamNum:[NSString stringWithFormat:@"共%lu人",(unsigned long)self.teamMemberArray.count]];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{

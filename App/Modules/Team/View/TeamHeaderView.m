@@ -132,7 +132,7 @@
 
     UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
     [view addSubview:title];
-    self.memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTextBlackColor text:@""];
+    
     [view addSubview:self.memberNumLab];
     [self.memberNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(title.mas_right).offset(Interval(20));
@@ -166,6 +166,12 @@
         _teamNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(20) textColor:PWWhiteColor text:@""];
     }
     return _teamNameLab;
+}
+-(UILabel *)memberNumLab{
+    if (!_memberNumLab) {
+     _memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTextBlackColor text:@""];
+    }
+    return _memberNumLab;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

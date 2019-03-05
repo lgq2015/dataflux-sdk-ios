@@ -17,6 +17,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_LIBRARY    HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
+#define JPUSH_ID @"e008337585ca5df269038d4f"
 
 #elif PREPROD //预发环境
 #define HTTP_PROTOCOL @"https://"
@@ -27,6 +28,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"preprod-library.prof.wang"
+#define JPUSH_ID @"557856f95bfb15efc965ff99"
 
 #else //正式环境
 #define HTTP_PROTOCOL @"https://"
@@ -37,6 +39,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"service.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"library.prof.wang"
+#define JPUSH_ID @"a0d40a210d0969b07a9c472e"
 
 #endif
 
@@ -83,7 +86,7 @@
 
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
 //情报添加
-#define PW_issueAdd              [NSString stringWithFormat:@"%@/v1/issue/add",API_SEVERID]
+#define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 //文章推荐
 #define PW_recommendation      [NSString stringWithFormat:@"%@/v1/recommendation/list",API_SEVERID]
 
@@ -95,28 +98,38 @@
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
 #define PW_handbook(ID)     [NSString stringWithFormat:@"%@/handbook/h/:%@",API_LIBRARY,ID]
-#define PW_handbookList    [NSString stringWithFormat:@"%@/v1/handbook/active/list", API_SEVERID]
+#define PW_handbookList                API_SEVERID@"/v1/handbook/active/list"
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
 
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 
 #pragma mark ========== 团队 ==========
-#define PW_CurrentTeam    [NSString stringWithFormat:@"%@/v1/auth/team", API_SEVERID]
-#define PW_teamInvite     [NSString stringWithFormat:@"%@/v1/team/account/invite", API_SEVERID]
-#define PW_AddTeam        [NSString stringWithFormat:@"%@/v1/team/add", API_SEVERID]
+#define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
+#define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"
+#define PW_AddTeam                     API_SEVERID@"/v1/team/add"
 #define PW_CancelTeam                  API_SEVERID@"/v1/team/cancel"
 #define PW_TeamAccount                 API_SEVERID@"/v1/team/account/list"
 #define PW_TeamModify                  API_SEVERID@"/v1/team/modify"
 #define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
-#define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@//v1/team/account/%@/owner-transfer", API_SEVERID,str] 
+#define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback                 API_SEVERID@"/v1/feedback/addt"
 #define PW_verifycodeVerify            API_SEVERID@"/v1/account/verifycode/verify"
 
 #define PW_verifycodesend              API_SEVERID@"/v1/account/verifycode/send"
-#define PW_system_message              API_SEVERID@"/v1/system_message/count"
+#define PW_systemMessageCount          API_SEVERID@"/v1/system_message/count"
+#define PW_systemMessageList           API_SEVERID@"/v1/system_message/list"
+#define PW_systemMessageDetail(str)    [NSString stringWithFormat:@"%@/v1/system_message/%@/get", API_SEVERID,str]
+#define PW_systemMessageSetRead        API_SEVERID@"/v1/system_message/set/read"
+#define PW_verifyoldpassword           API_SEVERID@"/v1/auth/verify-old-password"
+//新手机号码 验证码验证
+#define PW_modify_un                   API_SEVERID@"/v1/account/modify_un"
+#define PW_accountName                 API_SEVERID@"/v1/account/modify"
+#define PW_favoritesList               API_SEVERID@"/v1/favorites/list"
+
+#define PW_customerOpenAdmin           API_SHRINE@"/api/resources/action/getWorkGroupMember@workGroupOpenAdmin"
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst                  API_SEVERID@"/v1/utils/const"

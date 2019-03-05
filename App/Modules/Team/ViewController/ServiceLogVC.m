@@ -48,6 +48,9 @@
             if (data.count>0) {
                 [self dealWithData:data];
                 self.pageMaker = [pageInfo longValueForKey:@"pageMarker" default:0];
+                if (data.count<10) {
+                    [self showNoMoreDataFooter];
+                }
             }else{
                 [self showNoDataImage];
             }
@@ -64,12 +67,13 @@
 - (void)headerRereshing{
     self.dataSource = [NSMutableArray new];
     self.pageMaker = 0;
-    self.tableView.tableFooterView = nil;
+    [self showLoadFooterView];
     [self loadTeamNeedData];
 }
 -(void)footerRereshing{
     if (self.pageMaker == 0) {
         [self loadTeamNeedData];
+
     }else{
     [self loadMoreDate];
     }
@@ -83,11 +87,15 @@
             if (data.count>0) {
                 [self dealWithData:data];
                 self.pageMaker = [pageInfo longValueForKey:@"pageMarker" default:0];
+                if (data.count<10) {
+                    [self showNoMoreDataFooter];
+                }
             }else{
                 if (self.dataSource.count == 0) {
                     [self showNoDataImage];
                 }
                 self.tableView.tableFooterView = self.footView;
+                self.footer.hidden = YES;
             }
         }
         [self.footer endRefreshing];
@@ -117,6 +125,7 @@
         }
     }
 }
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
