@@ -16,7 +16,7 @@ static NSUInteger ItemHeight = 136;
 static NSUInteger ItemWidth = 104;
 
 @interface ThinkTankVC ()<PWDraggableItemDelegate,UISearchBarDelegate>
-@property (nonatomic, strong) NSMutableArray *handbookArray;
+@property (nonatomic, strong) NSMutableArray<PWDraggableModel *> *handbookArray;
 
 
 @property (nonatomic, strong) UISearchBar *searchTf;
@@ -43,7 +43,7 @@ static NSUInteger ItemWidth = 104;
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
     if([pwfmdb  pw_isExistTable:tableName]){
-       NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[NSDictionary class] whereFormat:nil];
+       NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:nil];
         if (itemDatas.count>0) {
             self.handbookArray = [NSMutableArray arrayWithArray:itemDatas];
             [self createUI];
@@ -52,7 +52,6 @@ static NSUInteger ItemWidth = 104;
     [self loadDatas];
 }
 - (void)loadDatas{
-    self.handbookArray = [NSMutableArray new];
     [PWNetworking requsetHasTokenWithUrl:PW_handbookList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
@@ -65,28 +64,77 @@ static NSUInteger ItemWidth = 104;
     }];
 }
 - (void)compareWithData:(NSArray *)array{
- 
+    NSMutableArray *handbook = [NSMutableArray new];
+    [array enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSError *error;
+        PWDraggableModel *model = [[PWDraggableModel alloc]initWithDictionary:dict error:&error];
+        model.PWId = nil;
+        [handbook addObject:model];
+    }];
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
     if([pwfmdb  pw_isExistTable:tableName]){
-        NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[NSDictionary class] whereFormat:nil];
+        NSArray *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:nil];
         DLog(@"%@",itemDatas);
-        if (itemDatas>0) {
-            
-           
-            if ([pwfmdb pw_deleteAllDataFromTable:tableName]) {
-//                 [pwfmdb pw_insertTable:tableName dicOrModelArray:itemArray];
-            }
-//            self.handbookArray = [[NSMutableArray alloc]initWithArray:itemArray];
+        if (itemDatas.count==0) {
+            BOOL  is= [pwfmdb pw_insertTable:tableName dicOrModelArray:array];
+            self.handbookArray = [NSMutableArray arrayWithArray:handbook];
             [self createUI];
-        }
+        }else{
+            __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
+            //找到handbook中有,itemDatas中没有的数据
+            [itemDatas enumerateObjectsUsingBlock:^(PWDraggableModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *modelStr = [model toJSONString];
+                __block BOOL isHave = NO;
+                [handbook enumerateObjectsUsingBlock:^(PWDraggableModel *newModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *newModelStr = [newModel toJSONString];
+                    if ([modelStr isEqualToString:newModelStr]) {
+                        isHave = YES;
+                        *stop = YES;
+                    }
+                }];
+                if (!isHave) {
+                    [difObject addObject:model];
+                }
+            }];
+            //找到arr1中有,arr2中没有的数据
+            [itemDatas enumerateObjectsUsingBlock:^(PWDraggableModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *objStr = [obj toJSONString];
+                __block BOOL isHave = NO;
+                [handbook enumerateObjectsUsingBlock:^(PWDraggableModel *newobj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *newobjStr = [newobj toJSONString];
+                    if ([objStr isEqualToString:newobjStr]) {
+                        isHave = YES;
+                        *stop = YES;
+                    }
+                }];
+                if (!isHave) {
+                    [difObject addObject:obj];
+                }
+            }];
+            DLog(@"%@",difObject);
+            if (difObject.count>0) {
+                [difObject enumerateObjectsUsingBlock:^(PWDraggableModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *format =[NSString stringWithFormat:@"where handbookId = '%@'",obj.handbookId];
+                   NSArray *array = [pwfmdb pw_lookupTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:format];
+                    if (array.count==1) {
+                        [pwfmdb pw_updateTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:format];
+                    }else{
+                        [pwfmdb pw_insertTable:tableName dicOrModel:obj];
+                    }
+                }];
+              NSArray *newitemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:nil];
+                [self.handbookArray removeAllObjects];
+                self.handbookArray = [NSMutableArray arrayWithArray:newitemDatas];
+                [self createUI];
+            }
+       }
     }else{
-        
-        NSDictionary *dict = @{@"bucketPath":@"text",@"category":@"text",@"coverImageMobile":@"text",@"id":@"text",@"name":@"text",@"orderNum":@"integer",@"coverImageMobile":@"text"};
-        if ([pwfmdb pw_createTable:tableName dicOrModel:dict primaryKey:@"pid"]) {
-//        BOOL  is= [pwfmdb pw_insertTable:tableName dicOrModelArray:array];
+        NSDictionary *dict = @{@"bucketPath":@"text",@"category":@"text",@"coverImageMobile":@"text",@"handbookId":@"text",@"name":@"text",@"orderNum":@"integer",@"coverImageMobile":@"text",@"PWId":@"text"};
+        if ([pwfmdb pw_createTable:tableName dicOrModel:dict primaryKey:@"PWId"]) {
+          BOOL  is= [pwfmdb pw_insertTable:tableName dicOrModelArray:handbook];
         }
-        self.handbookArray = [NSMutableArray arrayWithArray:array];
+        self.handbookArray = [NSMutableArray arrayWithArray:handbook];
         [self createUI];
     }
 }
@@ -100,8 +148,7 @@ static NSUInteger ItemWidth = 104;
     CGFloat height = ZOOM_SCALE(ItemHeight);
 
     for (NSInteger index = 0; index<self.handbookArray.count; index++) {
-        NSError *error;
-        PWDraggableModel *model = [[PWDraggableModel alloc]initWithDictionary:self.handbookArray[index] error:&error];
+        PWDraggableModel *model = self.handbookArray[index];
         model.orderNum = index;
         NSUInteger X = index % kLineCount;
         NSUInteger Y = index / kLineCount;
@@ -115,6 +162,7 @@ static NSUInteger ItemWidth = 104;
         btn.iconImgVie.image = [UIImage imageNamed:@"icon_book"];
         btn.clickBlock = ^(NSInteger index){
             NSLog(@"点击的是%ld",(long)index);
+            [self loadHandBookDetail:index];
         };
         [[self.mainScrollView viewWithTag:10+index]removeFromSuperview];
         [self.mainScrollView addSubview:btn];
@@ -141,12 +189,53 @@ static NSUInteger ItemWidth = 104;
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     
 }
-#pragma mark ========== PWDraggableItemDelegate ==========
-- (void)dragButton:(PWDraggableItem *)dragButton dragButtons:(NSArray *)dragButtons startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex{
+- (void)loadHandBookDetail:(NSInteger)index{
+    PWDraggableModel *model = self.handbookArray[index];
+    [PWNetworking requsetWithUrl:PW_handbook(model.handbookId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        
+    } failBlock:^(NSError *error) {
+        
+    }];
     
 }
+#pragma mark ========== PWDraggableItemDelegate ==========
+- (void)dragButton:(PWDraggableItem *)dragButton dragButtons:(NSArray *)dragButtons startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex{
+    if (endIndex<startIndex) {
+        [self.handbookArray insertObject:self.handbookArray[startIndex] atIndex:endIndex];
+        [self.handbookArray removeObjectAtIndex:startIndex + 1];
+    }else{
+        [self.handbookArray insertObject:self.handbookArray[startIndex] atIndex:endIndex + 1];
+        [self.handbookArray removeObjectAtIndex:startIndex];
+    }
+    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
+    NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
+    [pwfmdb pw_deleteAllDataFromTable:tableName];
+    [pwfmdb pw_insertTable:tableName dicOrModelArray:self.handbookArray];
+}
 - (void)dragCenter:(CGPoint)point{
-    
+    CGFloat frameHeight = self.mainScrollView.frame.size.height;
+    CGFloat contentHeight = self.mainScrollView.contentSize.height;
+    CGFloat offsetY = self.mainScrollView.contentOffset.y;
+    if (contentHeight<=frameHeight) {
+        return;
+    }
+    int y = offsetY;
+    NSUInteger topY = y%ItemHeight==0?y/ItemHeight-1: offsetY/ItemHeight;
+    NSUInteger bottomY = y%ItemHeight==0?y/ItemHeight+1: offsetY/ItemHeight;
+    if (y>0) {
+        if (point.y-offsetY<0) {
+            [self.mainScrollView setContentOffset:CGPointMake(0, ItemHeight*topY) animated:YES];
+        }
+    }
+    if (point.y-offsetY>frameHeight) {
+        if(y<=0){
+            bottomY = 0;
+        }
+        CGFloat moveY = ItemHeight*(bottomY+1);
+        if (point.y-offsetY>0 && moveY<contentHeight-frameHeight+2*ItemHeight) {
+            [self.mainScrollView setContentOffset:CGPointMake(0, moveY) animated:YES];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
