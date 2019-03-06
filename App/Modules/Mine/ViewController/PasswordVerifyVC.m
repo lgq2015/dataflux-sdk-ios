@@ -123,6 +123,12 @@
         case PassWordVerifyUpdateMobile:
             [self updateMobile];
             break;
+        case PassWordVerifyTypeTeamTransfer:
+            [self teamTransfer];
+            break;
+        case PassWordVerifyTypeTeamDissolve:
+            [self teamDissolve];
+            break;
     }
 }
 - (void)changePassword{
@@ -180,6 +186,86 @@
         [SVProgressHUD dismiss];
 
     }];
+}
+#pragma mark ========== team ==========
+- (void)teamTransfer{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"owner_transfer"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+           
+            NSString * uuid =response[@"content"][@"uuid"];
+            [self doTeamTransfer:uuid];
+        }else{
+            
+        }
+        [SVProgressHUD dismiss];
+        
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        
+    }];
+}
+-(void)teamDissolve{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"team_cancel"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            
+            NSString * uuid =response[@"content"][@"uuid"];
+            [self doteamDissolve:uuid];
+        }else{
+            
+        }
+        [SVProgressHUD dismiss];
+        
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        
+    }];
+}
+- (void)doTeamTransfer:(NSString *)uuid{
+         NSString *uid = self.teamMemberID;
+    NSDictionary *param = @{@"data":@{@"uuid":uuid}};
+        [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            if([response[@"errCode"] isEqualToString:@""]){
+            [SVProgressHUD showSuccessWithStatus:@"转移成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [iToast alertWithTitleCenter:@"登录信息失效"];
+                    [userManager logout:^(BOOL success, NSString *des) {
+                        
+                    }];
+                });
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"转移失败"];
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
+        } failBlock:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+        }];
+}
+-(void)doteamDissolve:(NSString *)uuid{
+    NSDictionary *param = @{@"data":@{@"uuid":uuid}};
+     [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                [SVProgressHUD showSuccessWithStatus:@"解散成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [userManager logout:^(BOOL success, NSString *des) {
+                        
+                    }];
+                });
+               
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"解散失败"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                });
+            }
+        } failBlock:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+        }];
 }
 /*
 #pragma mark - Navigation

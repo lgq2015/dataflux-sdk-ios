@@ -251,6 +251,13 @@
         case VerifyCodeVCTypeUpdateMobileNewMobile:
             [self updateNewMobileWithCode:code];
             break;
+        case VerifyCodeVCTypeTeamDissolve:
+            [self teamDissolveWithCode:code];
+            break;
+        case VerifyCodeVCTypeTeamTransfer:
+            [self teamTransferWithCode:code];
+
+            break;
     }
 }
 #pragma mark ========== 验证码登录 ==========
@@ -372,6 +379,74 @@
     }];
     
 }
+- (void)teamDissolveWithCode:(NSString *)code{
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"team_cancel",@"verificationCodeType":@"verifycode"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
+            [self doteamDissolve:uuid];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)teamTransferWithCode:(NSString *)code{
+    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"owner_transfer",@"verificationCodeType":@"verifycode"}};
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
+            [self doTeamTransfer:uuid];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)doTeamTransfer:(NSString *)uuid{
+    NSString *uid = self.teamMemberID;
+    NSDictionary *param = @{@"data":@{@"uuid":uuid}};
+    [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if([response[@"errCode"] isEqualToString:@""]){
+            [SVProgressHUD showSuccessWithStatus:@"转移成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [iToast alertWithTitleCenter:@"登录信息失效"];
+                [userManager logout:^(BOOL success, NSString *des) {
+                    
+                }];
+            });
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"转移失败"];
+    }];
+}
+-(void)doteamDissolve:(NSString *)uuid{
+    NSDictionary *param = @{@"data":@{@"uuid":uuid}};
+    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            [SVProgressHUD showSuccessWithStatus:@"解散成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [userManager logout:^(BOOL success, NSString *des) {
+                    
+                }];
+            });
+            
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"解散失败"];
+    }];
+}
+
 -(void)viewDidDisappear:(BOOL)animated{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.enable = YES;

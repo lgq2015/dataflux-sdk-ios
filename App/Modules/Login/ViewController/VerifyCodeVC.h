@@ -14,6 +14,8 @@ typedef NS_ENUM(NSUInteger, VerifyCodeVCType){
     VerifyCodeVCTypeUpdateEmail,
     VerifyCodeVCTypeUpdateMobile,
     VerifyCodeVCTypeUpdateMobileNewMobile,
+    VerifyCodeVCTypeTeamDissolve,
+    VerifyCodeVCTypeTeamTransfer,
 };
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *phoneNumber;
 @property (nonatomic, assign) VerifyCodeVCType type;
 @property (nonatomic, copy) NSString *uuid;
+@property (nonatomic, copy) NSString *teamMemberID;
 @end
 
 NS_ASSUME_NONNULL_END

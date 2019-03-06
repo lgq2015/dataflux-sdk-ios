@@ -13,7 +13,7 @@
 #import "TeamInfoModel.h"
 #import "TeamVC.h"
 #import "ChooseAdminVC.h"
-
+#import "ChangeUserInfoVC.h"
 #define AddressTag 15
 #define TradesTag  20
 
@@ -276,19 +276,23 @@
 }
 
 - (void)logoutTeamRequest{
-    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"解散成功"];
-            
-            [userManager logout:^(BOOL success, NSString *des) {
-                
-            }];
-        }else{
-            [SVProgressHUD showErrorWithStatus:@"解散失败"];
-        }
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"解散失败"];
-    }];
+    ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
+    verify.isShowCustomNaviBar = YES;
+    verify.type = ChangeUITTeamDissolve;
+    [self.navigationController pushViewController:verify animated:YES];
+//    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        if ([response[@"errCode"] isEqualToString:@""]) {
+//            [SVProgressHUD showSuccessWithStatus:@"解散成功"];
+//            
+//            [userManager logout:^(BOOL success, NSString *des) {
+//                
+//            }];
+//        }else{
+//            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+//        }
+//    } failBlock:^(NSError *error) {
+//        [SVProgressHUD showErrorWithStatus:@"解散失败"];
+//    }];
 }
 - (void)backBtnClicked{
     if (self.type == FillinTeamTypeIsAdmin) {
