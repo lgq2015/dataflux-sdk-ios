@@ -63,7 +63,7 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)getVerificationCodeType:(CodeType)codeType WithParams:(NSDictionary *)params completion:(codeBlock)completion{
    //验证码
     if (codeType == CodeTypeCode) {
-        [self cheackSmsCountComplete:^(id response) {
+//        [self cheackSmsCountComplete:^(id response) {
             //大于5
 //            NSDictionary *dict = response;
 //            if ([dict[@"count"] integerValue]>=5) {
@@ -79,29 +79,29 @@ SINGLETON_FOR_CLASS(UserManager);
 //                DLog(@"%@",error);
 //
 //            }];
-        }];
+//        }];
     }else{
     //短信请求过多 图片验证
         
     }
     
 }
-#pragma mark ========== 检验短信数量 ==========
--(void)cheackSmsCountComplete:(completeBlock)complete{
-    NSString *deviceId = [OpenUDID value];
-    NSDictionary *param = @{@"deviceId":deviceId};
-    [PWNetworking requsetWithUrl:PW_smsCountUrl withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if (complete) {
-            complete(response);
-        }
-        DLog(@"%@",response);
-    } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
-        if (complete) {
-            complete(error);
-        }
-    }];
-}
+//#pragma mark ========== 检验短信数量 ==========
+//-(void)cheackSmsCountComplete:(completeBlock)complete{
+//    NSString *deviceId = [OpenUDID value];
+//    NSDictionary *param = @{@"deviceId":deviceId};
+//    [PWNetworking requsetWithUrl:PW_smsCountUrl withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+//        if (complete) {
+//            complete(response);
+//        }
+//        DLog(@"%@",response);
+//    } failBlock:^(NSError *error) {
+//        DLog(@"%@",error);
+//        if (complete) {
+//            complete(error);
+//        }
+//    }];
+//}
 #pragma mark ========== 刷新验证图片 ==========
 
 #pragma mark ========== 登录操作 ==========
@@ -202,7 +202,7 @@ SINGLETON_FOR_CLASS(UserManager);
    
     dispatch_group_async(grpupT, queueT, ^{
         dispatch_group_enter(grpupT);
-        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
                 isTeamSuccess = YES;
                 NSDictionary *content = response[@"content"];
@@ -288,8 +288,8 @@ SINGLETON_FOR_CLASS(UserManager);
             completion(YES,nil);
         }
     }
-   
     KPostNotification(KNotificationLoginStateChange, @NO);
+
 }
 -(void)autoLoginToServer:(loginBlock)completion{
     

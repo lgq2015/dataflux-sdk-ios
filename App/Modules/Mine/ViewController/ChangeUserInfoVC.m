@@ -40,6 +40,12 @@
             [self setNaviTitle:@"修改邮箱"];
         }
             break;
+        case ChangeUITTeamDissolve:
+            [self setNaviTitle:@"身份验证"];
+            break;
+        case ChangeUITTeamTransfer:
+            [self setNaviTitle:@"身份验证"];
+            break;
     }
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
     tipLab.numberOfLines = 2;
@@ -89,6 +95,14 @@
                 t = @"update_email";
                 type = VerifyCodeVCTypeUpdateEmail;
                 break;
+            case ChangeUITTeamDissolve:
+                t = @"team_cancel";
+                type =VerifyCodeVCTypeTeamDissolve;
+                break;
+            case ChangeUITTeamTransfer:
+                t = @"owner_transfer";
+                type =VerifyCodeVCTypeTeamTransfer;
+                break;
         }
         [SVProgressHUD show];
         NSDictionary *param = @{@"data":@{@"to":userManager.curUserInfo.mobile,@"t":t}};
@@ -98,6 +112,9 @@
                 codeVC.type = type;
                 codeVC.phoneNumber = userManager.curUserInfo.mobile;
                 codeVC.isShowCustomNaviBar = YES;
+                if (self.type ==ChangeUITTeamTransfer ) {
+                    codeVC.teamMemberID =self.memberID;
+                }
                 [self.navigationController pushViewController:codeVC animated:YES];
             }else{
                 [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
@@ -120,11 +137,21 @@
         case ChangeUITEmail:
             type = PassWordVerifyUpdateEmail;
             break;
+        case ChangeUITTeamDissolve:
+            type =PassWordVerifyTypeTeamDissolve;
+            break;
+        case ChangeUITTeamTransfer:
+            type =PassWordVerifyTypeTeamTransfer;
+
+            break;
     }
     PasswordVerifyVC *pass =[[PasswordVerifyVC alloc]init];
     pass.phoneNumber = userManager.curUserInfo.mobile;
     pass.isShowCustomNaviBar = YES;
     pass.type = type;
+    if (self.type ==ChangeUITTeamTransfer ) {
+        pass.teamMemberID =self.memberID;
+    }
     [self.navigationController pushViewController:pass animated:YES];
 }
 /*

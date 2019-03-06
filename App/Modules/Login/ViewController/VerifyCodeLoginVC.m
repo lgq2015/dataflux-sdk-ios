@@ -64,6 +64,14 @@
         make.right.mas_equalTo(self.phoneTf.mas_right);
         make.height.offset(ZOOM_SCALE(1));
     }];
+    UILabel *phoneTip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机号"];
+    [self.view addSubview:phoneTip];
+    [phoneTip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.bottom.mas_equalTo(self.phoneTf.mas_top).offset(-Interval(5));
+        make.height.offset(ZOOM_SCALE(20));
+    }];
+    
     [self.verifyCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.top.mas_equalTo(line1.mas_bottom).offset(ZOOM_SCALE(42));
@@ -106,8 +114,12 @@
         return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
         //@([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
     }];
+    RACSignal *phoneTipSignal = [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
+        BOOL hidden = value.length>0? NO:YES;
+        return @(hidden);
+    }];
     RAC(self.verifyCodeBtn,enabled) = phoneTf;
-   
+    RAC(phoneTip,hidden) =phoneTipSignal;
     RAC(self.verifyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
         if([value boolValue]){
             return PWBlueColor;
@@ -121,6 +133,7 @@
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _phoneTf.placeholder = @"请输入手机号";
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneTf.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_phoneTf];
     }
     return _phoneTf;

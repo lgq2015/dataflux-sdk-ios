@@ -61,13 +61,17 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(47));
     }];
+    RACSignal *text = [[self.describeTextView rac_textSignal]map:^id(NSString *value) {
+        return @(value.length>0);
+    }];
+    RAC(self.commitBtn,enabled) = text;
 }
 -(UIButton *)commitBtn{
     if (!_commitBtn) {
-        _commitBtn = [[UIButton alloc]init];
-        [_commitBtn setBackgroundColor:PWBlueColor];
-        [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];
-        _commitBtn.layer.cornerRadius = 4.0f;
+        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"提交"];
+//        [_commitBtn setBackgroundColor:PWBlueColor];
+//        [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];
+//        _commitBtn.layer.cornerRadius = 4.0f;
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_commitBtn];
     }
@@ -91,18 +95,21 @@
     return _describeTextView;
 }
 - (void)commitBtnClick{
-    if (self.describeTextView.text.length == 0) {
-        [iToast alertWithTitleCenter:@"请填写您的宝贵意见！"];
-    }else{
+  
+        [SVProgressHUD show];
         NSDictionary *param = @{@"data":@{@"content":self.describeTextView.text}};
         [PWNetworking requsetHasTokenWithUrl:PW_addFeedback withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             if ([response[@"errCode"] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"提交失败"];
             }
         } failBlock:^(NSError *error) {
-            
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:@"提交失败"];
         }];
-    }
+    
 }
 /*
 #pragma mark - Navigation

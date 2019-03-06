@@ -174,7 +174,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                                   id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
                                   if (successBlock) successBlock(response);
                                   if ([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]) {
-                                      KPostNotification(KNotificationLoginStateChange, @NO);
+                                      KPostNotification(KNotificationOnKick, nil);
                                   }
                                   // response中包含服务端返回的内容
                               } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
@@ -227,7 +227,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                                     id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
                                   DLog(@"response = %@",response)
                                     if ([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]) {
-                                        KPostNotification(KNotificationLoginStateChange, @NO);
+                                        KPostNotification(KNotificationOnKick, nil);
                                     }
                                     if (successBlock) successBlock(response);
                                     // response中包含服务端返回的内容

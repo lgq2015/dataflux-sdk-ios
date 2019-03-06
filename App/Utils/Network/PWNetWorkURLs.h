@@ -47,33 +47,29 @@
 
 #pragma mark ========== 登录/注册 ==========
 // 登录接口 密码登录
-#define PW_loginUrl           [NSString stringWithFormat:@"%@/v1/auth/password-login", API_SEVERID]
+#define PW_loginUrl                    API_SEVERID@"/v1/auth/password-login"
 // 发送验证码
-#define PW_sendAuthCodeUrl    [NSString stringWithFormat:@"%@/v1/auth/send-sms", API_SEVERID]
+#define PW_sendAuthCodeUrl             API_SEVERID@"/v1/auth/send-sms"
 // 验证码验证
-#define PW_checkCodeUrl       [NSString stringWithFormat:@"%@/v1/auth/sms-login", API_SEVERID]
-// 设备上短信数量
-#define PW_smsCountUrl        [NSString stringWithFormat:@"%@/v3/auth/sms_count", API_HOST]
-// 当前用户的信息
-#define PW_currentUser  [NSString stringWithFormat:@"%@/v1/auth/account", API_SEVERID]
-// 用户头像
-#define PW_currentUserIcon            [NSString stringWithFormat:@"%@/v3/current_user/icon", API_HOST]
-// 修改密码
-#define PW_changePassword     [NSString stringWithFormat:@"%@/v1/auth/change-password", API_SEVERID]
-// 忘记密码
-#define PW_forgottenPassword     [NSString stringWithFormat:@"%@/v1/auth/forgotten-password", API_SEVERID]
+#define PW_checkCodeUrl                API_SEVERID@"/v1/auth/sms-login"
 
+// 当前用户的信息
+#define PW_currentUser                 API_SEVERID@"/v1/auth/account"
+
+// 修改密码
+#define PW_changePassword              API_SEVERID@"/v1/auth/change-password"
+// 忘记密码
+#define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
 
 
 
 
 #pragma mark ========== 情报 ==========
 //首页News列表   // @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
-#define PW_newsList     [NSString stringWithFormat:@"%@/v1/post?orderBy=updatedAt", API_FORUM]
-
+#define PW_newsList                   API_FORUM@"/v1/post?orderBy=updatedAt"
 
 //情报列表
-#define PW_issueList       API_SEVERID@"/v1/issue/list"
+#define PW_issueList                   API_SEVERID@"/v1/issue/list"
 //情报源添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
 //情报源列表
@@ -88,10 +84,10 @@
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 //文章推荐
-#define PW_recommendation      [NSString stringWithFormat:@"%@/v1/recommendation/list",API_SEVERID]
+#define PW_recommendation               API_SEVERID@"/v1/recommendation/list"
 
 
-
+#define PW_favoritesAdd                 API_SEVERID@"/v1/favorites/add"
 
 #pragma mark ========== 智库 ==========
 //文章详情链接：
@@ -115,7 +111,7 @@
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #pragma mark ========== 我的 ==========
 //添加反馈信息
-#define PW_addFeedback                 API_SEVERID@"/v1/feedback/addt"
+#define PW_addFeedback                 API_SEVERID@"/v1/feedback/add"
 #define PW_verifycodeVerify            API_SEVERID@"/v1/account/verifycode/verify"
 
 #define PW_verifycodesend              API_SEVERID@"/v1/account/verifycode/send"
@@ -130,6 +126,7 @@
 #define PW_favoritesList               API_SEVERID@"/v1/favorites/list"
 
 #define PW_customerOpenAdmin           API_SHRINE@"/api/resources/action/getWorkGroupMember@workGroupOpenAdmin"
+#define PW_favoritesDelete(str)        [NSString stringWithFormat:@"%@/v1/favorites/delete/%@", API_SEVERID,str]
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst                  API_SEVERID@"/v1/utils/const"

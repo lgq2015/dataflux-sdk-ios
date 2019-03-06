@@ -84,15 +84,18 @@
             if (dir)//子路径是个文件
             {
                 
-                NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:fullSubPath];
-   
-                DLog(@"%@%@",fullSubPath,totalSize);
-
+               
             }
         }
     }
 
     }
+    NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:path];
+    
+    DLog(@"%@",totalSize);
+    NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
+    MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+    [cell setDescribeLabText:totalSize];
 }
 -(UIButton *)exitBtn{
     if (!_exitBtn) {
@@ -164,7 +167,13 @@
     }else if(indexPath.row == 2){
         UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:@"确定清理所有缓存" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-            
+         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+            [ClearCacheTool clearCacheWithFilePath:path];
+            NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:path];
+            DLog(@"%@",totalSize);
+            NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
+            MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+            [cell setDescribeLabText:totalSize];
         }];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             

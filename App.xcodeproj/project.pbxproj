@@ -126,6 +126,12 @@
 		4A092DA4222E84C200FB2A35 /* PWGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DA3222E84C200FB2A35 /* PWGradientView.m */; };
 		4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DA3222E84C200FB2A35 /* PWGradientView.m */; };
 		4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DA3222E84C200FB2A35 /* PWGradientView.m */; };
+		4A092DC3222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */; };
+		4A092DC4222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */; };
+		4A092DC5222FC11C00FB2A35 /* VerificationCodeNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */; };
+		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
+		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
+		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
@@ -691,6 +697,10 @@
 		4A092D9E222E841D00FB2A35 /* PWPhotoListCellTapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPhotoListCellTapView.m; sourceTree = "<group>"; };
 		4A092DA2222E84C200FB2A35 /* PWGradientView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWGradientView.h; sourceTree = "<group>"; };
 		4A092DA3222E84C200FB2A35 /* PWGradientView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWGradientView.m; sourceTree = "<group>"; };
+		4A092DC1222FC11A00FB2A35 /* VerificationCodeNetWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerificationCodeNetWork.h; sourceTree = "<group>"; };
+		4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeNetWork.m; sourceTree = "<group>"; };
+		4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZImageCropper.h; sourceTree = "<group>"; };
+		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
 		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
 		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* PWInfoInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInfoInitialView.h; sourceTree = "<group>"; };
@@ -1111,6 +1121,8 @@
 		4A092D83222E6D3B00FB2A35 /* PWPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */,
+				4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */,
 				4A092D84222E6D8900FB2A35 /* PWPhotoPickerViewController.h */,
 				4A092D85222E6D8900FB2A35 /* PWPhotoPickerViewController.m */,
 				4A092D89222E6FB900FB2A35 /* PWPhotoGroupView.h */,
@@ -1518,6 +1530,8 @@
 				4ABF441921BD1F68002AF34E /* PWNetworking.m */,
 				4ABF441B21BD3100002AF34E /* RequestManager */,
 				4ABF441F21BD31E5002AF34E /* Cache */,
+				4A092DC1222FC11A00FB2A35 /* VerificationCodeNetWork.h */,
+				4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2295,6 +2309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A092DC3222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
@@ -2356,6 +2371,7 @@
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* PWInfoSourceModel.m in Sources */,
+				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AB48A1E21F7000B009F9E94 /* ProblemDetailsVC.m in Sources */,
@@ -2575,6 +2591,7 @@
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
 				CA49D23422200F72000F6258 /* NewsWebView.m in Sources */,
 				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
+				4A092DC4222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
 				4A092D87222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
@@ -2603,6 +2620,7 @@
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				CA1CF5E0221ECB3A00D15316 /* MonitorListCell.m in Sources */,
 				4A092CAE2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
+				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -2744,6 +2762,7 @@
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
 				CA49D23522200F73000F6258 /* NewsWebView.m in Sources */,
 				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
+				4A092DC5222FC11C00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,
 				4A092D88222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
@@ -2772,6 +2791,7 @@
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				CA1CF685221ECB5000D15316 /* MonitorListCell.m in Sources */,
 				4A092CAF2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
+				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,

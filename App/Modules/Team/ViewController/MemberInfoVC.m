@@ -9,6 +9,7 @@
 #import "MemberInfoVC.h"
 #import "MemberInfoModel.h"
 #import "TeamVC.h"
+#import "ChangeUserInfoVC.h"
 @interface MemberInfoVC ()
 @property (nonatomic, strong) UIImageView *headerIcon;
 @end
@@ -119,21 +120,25 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)transBtnClick{
-    
-    NSString *uid = self.model.memberID;
-    [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if([response[@"errCode"] isEqualToString:@""]){
-        [SVProgressHUD showSuccessWithStatus:@"转移成功"];
-        KPostNotification(KNotificationTeamStatusChange, @YES);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            });
-        }else{
-            [SVProgressHUD showErrorWithStatus:@"转移失败"];
-        }
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"转移失败"];
-    }];
+    ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
+    verify.isShowCustomNaviBar = YES;
+    verify.type = ChangeUITTeamTransfer;
+    verify.memberID =self.model.memberID;
+    [self.navigationController pushViewController:verify animated:YES];
+//    NSString *uid = self.model.memberID;
+//    [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        if([response[@"errCode"] isEqualToString:@""]){
+//        [SVProgressHUD showSuccessWithStatus:@"转移成功"];
+//        KPostNotification(KNotificationTeamStatusChange, @YES);
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+//            });
+//        }else{
+//            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+//        }
+//    } failBlock:^(NSError *error) {
+//        [SVProgressHUD showErrorWithStatus:@"转移失败"];
+//    }];
 }
 /*
 #pragma mark - Navigation

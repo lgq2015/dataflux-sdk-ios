@@ -26,10 +26,11 @@
         BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
         
         // 4. 以上判断目的是忽略不需要计算的文件
-        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"]){
+        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"] ||[filePath containsString:@"SDWebImageCache"]){
             // 过滤: 1. 文件夹不存在  2. 过滤文件夹  3. 隐藏文件
             continue;
         }
+        DLog(@"%@",filePath);
         // 5. 指定路径，获取这个路径的属性
         NSDictionary *dict = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
         /**
@@ -44,11 +45,11 @@
     //8. 将文件夹大小转换为 M/KB/B
     NSString *totleStr = nil;
     if (totleSize > 1000 * 1000){
-        totleStr = [NSString stringWithFormat:@"%.2fM",totleSize / 1000.00f /1000.00f];
+        totleStr = [NSString stringWithFormat:@"%.1fM",totleSize / 1000.00f /1000.00f];
     }else if (totleSize > 1000){
-        totleStr = [NSString stringWithFormat:@"%.2fKB",totleSize / 1000.00f ];
+        totleStr = [NSString stringWithFormat:@"%.1fKB",totleSize / 1000.00f ];
     }else{
-        totleStr = [NSString stringWithFormat:@"%.2fB",totleSize / 1.00f];
+        totleStr = [NSString stringWithFormat:@"%.1fB",totleSize / 1.00f];
     }
 
     return totleStr;
@@ -59,6 +60,7 @@
     [[SDImageCache sharedImageCache] clearDisk];
     
     [[SDImageCache sharedImageCache] clearMemory];
+    [PWNetworking clearTotalCache];
     //拿到path路径的下一级目录的子文件夹
     NSArray *subPathArr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
     NSString *filePath = nil;
@@ -66,14 +68,17 @@
     for (NSString *subPath in subPathArr)
     {
         filePath = [path stringByAppendingPathComponent:subPath];
-        if ([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]) {
-            continue;
+        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"])) {
+            DLog(@"%@",filePath);
+        }else{
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
+            if (error) {
+                return NO;
+            }
+            DLog(@"%@",filePath);
         }
         //删除子文件夹
-        [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
-        if (error) {
-            return NO;
-        }
+       
     }
     return YES;
 }

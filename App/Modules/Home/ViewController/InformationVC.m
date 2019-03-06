@@ -262,6 +262,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.newsDatas[indexPath.row];
     NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
+    newsweb.style = model.isStarred?WebItemViewStyleNoShare:WebItemViewStyleNormal;
+    newsweb.newsModel = model;
     [self.navigationController pushViewController:newsweb animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

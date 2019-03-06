@@ -292,17 +292,17 @@
 #pragma mark ========== 用户头像选取 ==========
 - (void)icomImgClick{
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
-    [self.myPicker getPhotoAlbumOrTakeAPhotoWithController:self photoBlock:^(UIImage *image) {
-        //回调图片
-        NSData *data = UIImageJPEGRepresentation(image, 0.5);
-        [PWNetworking uploadFileWithUrl:PW_currentUserIcon fileData:data type:@"png" name:@"avatar" mimeType:@"image/jpg/png" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
-            
-        } successBlock:^(id response) {
-            
-        } failBlock:^(NSError *error) {
-            
-        }];
-    }];
+//    [self.myPicker getPhotoAlbumOrTakeAPhotoWithController:self photoBlock:^(UIImage *image) {
+//        //回调图片
+//        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+//        [PWNetworking uploadFileWithUrl:PW_currentUserIcon fileData:data type:@"png" name:@"avatar" mimeType:@"image/jpg/png" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+//
+//        } successBlock:^(id response) {
+//
+//        } failBlock:^(NSError *error) {
+//
+//        }];
+//    }];
 
 }
 - (void)didReceiveMemoryWarning {

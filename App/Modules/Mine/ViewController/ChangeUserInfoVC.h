@@ -13,9 +13,12 @@ typedef NS_ENUM(NSInteger, ChangeUserInfoType) {
     ChangeUITPhoneNumber = 1,
     ChangeUITPassword,
     ChangeUITEmail,
+    ChangeUITTeamDissolve,
+    ChangeUITTeamTransfer,
 };
 @interface ChangeUserInfoVC : RootViewController
 @property (nonatomic, assign) ChangeUserInfoType type;
+@property (nonatomic, copy) NSString *memberID;
 @end
 
 
