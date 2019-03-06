@@ -8,6 +8,7 @@
 
 #import "NewsWebView.h"
 #import "WebItemView.h"
+#import "NewsListModel.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -47,11 +48,31 @@
     
 }
 - (void)shareBtnClick{
+  
     [self.itemView showInView:[UIApplication sharedApplication].keyWindow];
+
+    WeakSelf
     self.itemView.itemClick = ^(NSInteger tag){
-       
+        
+        if(tag == 20){
+    if (self.newsModel != nil) {
+        NSMutableArray *imgs =[NSMutableArray new];
+        if (self.newsModel.imageUrl !=nil) {
+            [imgs addObject:weakSelf.newsModel.imageUrl];
+        }
+        NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
+        NSString *topstr = topic[topic.count-1];
+        NSDictionary *param = @{@"data":@{@"entityId":weakSelf.newsModel.newsID,@"url":weakSelf.newsModel.url,@"title":weakSelf.newsModel.title,@"summary":weakSelf.newsModel.subtitle,@"type":@"forum",@"extras":@{@"imgs":imgs,@"topic":topstr}}};
+        [PWNetworking requsetHasTokenWithUrl:PW_favoritesAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errCode"] isEqualToString:@""]) {
+                [iToast alertWithTitleCenter:@"收藏成功"];
+            }
+        } failBlock:^(NSError *error) {
+            
+        }];
+    }
+        }
     };
-    
   
 }
 - (void)closeBtnClick{
@@ -59,7 +80,7 @@
 }
 - (WebItemView *)itemView{
     if (!_itemView) {
-        _itemView = [[WebItemView alloc]init];
+        _itemView = [[WebItemView alloc]initWithStyle:self.style];
     }
     return _itemView;
 }

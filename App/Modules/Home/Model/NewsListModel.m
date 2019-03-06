@@ -83,7 +83,7 @@
 - (void)setValueWithJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
     self.updatedAt = [NSString getLocalDateFormateUTCDate:[dict stringValueForKey:@"updatedAt" default:@""] formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-    self.subtitle = [dict stringValueForKey:@"content" default:@""];
+    self.subtitle = [dict stringValueForKey:@"summary" default:@""];
     self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
     NSString *newid = [dict stringValueForKey:@"id" default:@""];
     if (newid.length>0) {
@@ -100,6 +100,7 @@
 //     =[topic stringValueForKey:@"title" default:@""];
     self.topic = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.updatedAt],[topic stringValueForKey:@"title" default:@""]];
     self.isStarred = NO;
+    self.newsID = [NSString stringWithFormat:@"%@",dict[@"id"]];
 }
 - (void)setValueWithStickJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
@@ -119,6 +120,7 @@
     }else{
         self.type = NewListCellTypText;
     }
+    self.newsID = [NSString stringWithFormat:@"%@",dict[@"id"]];
     self.isStarred = YES;
 }
 - (void)setValueWithCollectionJson:(NSDictionary *)dict{
@@ -134,11 +136,13 @@
      "url": "http://testing.profwang-h5.cloudcare.cn:10302/forum/a/18"
      }
      */
-    self.topic = [[dict stringValueForKey:@"type" default:@""] isEqualToString:@"forum"]?@"topic":@"所属手册";
+    NSDictionary *extras = dict[@"extras"];
+    self.topic = [extras stringValueForKey:@"topic" default:@"topic"];
     self.title = [dict stringValueForKey:@"title" default:@""];
     self.url = [dict stringValueForKey:@"url" default:@""];
     self.favoID = [dict stringValueForKey:@"id" default:@""];
-    self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
+    NSArray *imgs = extras[@"imgs"];
+    self.imageUrl = imgs.count>0? imgs[0]:@"";
     self.isStarred = NO;
     if (![self.imageUrl isEqualToString:@""]) {
         self.type = NewListCellTypeSingleImg;

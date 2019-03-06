@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef NS_ENUM(NSInteger, WebItemViewStyle){
+    WebItemViewStyleNormal,
+    WebItemViewStyleNoShare
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WebItemView : UIView
 @property (nonatomic, copy) void(^itemClick)(NSInteger tag);
-
+-(instancetype)initWithStyle:(WebItemViewStyle)style;
 - (void)showInView:(UIView *)view;
 
 @end

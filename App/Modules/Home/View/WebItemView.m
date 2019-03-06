@@ -9,9 +9,18 @@
 #import "WebItemView.h"
 @interface WebItemView()
 @property (nonatomic, strong) UIView *contentView;
-
+@property (nonatomic, assign) WebItemViewStyle style;
+@property (nonatomic, assign) CGFloat itemHeight;
 @end
 @implementation WebItemView
+-(instancetype)initWithStyle:(WebItemViewStyle)style{
+    if (self) {
+        self= [super init];
+        self.style = style;
+        [self setupContent];
+    }
+    return self;
+}
 -(instancetype)init{
     if (self) {
         self= [super init];
@@ -24,21 +33,31 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
-    self.contentView.frame = CGRectMake(kWidth-166, -76, 150, 76);
+    if (self.style == WebItemViewStyleNoShare) {
+        self.itemHeight = 38;
+    }else{
+        self.itemHeight = 76;
+    }
+    self.contentView.frame = CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight);
+   
+        self.contentView.frame = CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight);
+    
 }
 -(UIView *)contentView{
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake(kWidth-166, -76, 150, 76)];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.cornerRadius = 8;
         UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
         share.frame = CGRectMake(0, 0, 150, 38);
         share.tag = 10;
         [_contentView addSubview:share];
-        UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":@"收藏"}];
-        collect.frame = CGRectMake(0, 39, 150, 38);
-        collect.tag = 20;
-        [_contentView addSubview:collect];
+        if (self.style == WebItemViewStyleNormal) {
+            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":@"收藏"}];
+            collect.frame = CGRectMake(0, 39, 150, 38);
+            collect.tag = 20;
+            [_contentView addSubview:collect];
+        }
         _contentView.layer.shadowOffset = CGSizeMake(0,2);
         _contentView.layer.shadowColor = [UIColor blackColor].CGColor;
         _contentView.layer.shadowRadius = 8;
@@ -66,19 +85,19 @@
     [view addSubview:self];
     [view addSubview:_contentView];
     
-    [_contentView setFrame:CGRectMake(kWidth-166,12+kTopHeight, 150, 76)];
+    [_contentView setFrame:CGRectMake(kWidth-166,12+kTopHeight, 150, self.itemHeight)];
     
     [UIView animateWithDuration:0.3 animations:^{
         
         self.alpha = 1.0;
         
-        [_contentView setFrame:CGRectMake(kWidth-166, 12+kTopHeight, 150, 76)];
+        [_contentView setFrame:CGRectMake(kWidth-166, 12+kTopHeight, 150, self.itemHeight)];
         
     } completion:nil];
     
 }
 - (void)disMissView{
-    [_contentView setFrame:CGRectMake(kWidth-166, 12+kTopHeight, 150, 76)];
+    [_contentView setFrame:CGRectMake(kWidth-166, 12+kTopHeight, 150, self.itemHeight)];
     [UIView animateWithDuration:0.3f
                      animations:^{
                          self.alpha = 0.0;

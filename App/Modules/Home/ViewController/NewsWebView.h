@@ -7,10 +7,13 @@
 //
 
 #import "PWBaseWebVC.h"
+#import "WebItemView.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class NewsListModel;
 @interface NewsWebView : PWBaseWebVC
+@property (nonatomic, strong) NewsListModel *newsModel;
+@property (nonatomic, assign) WebItemViewStyle style;
 
 @end
 

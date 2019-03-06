@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NewsListModel.h"
+#import "MGSwipeTableCell.h"
 
-@interface PWNewsListCell : UITableViewCell
+@interface PWNewsListCell : MGSwipeTableCell
 @property (nonatomic, strong) NewsListModel *model;
 - (CGFloat)heightForModel:(NewsListModel *)model;
 @end
