@@ -289,8 +289,8 @@ SINGLETON_FOR_CLASS(UserManager);
         }
     }
     KPostNotification(KNotificationLoginStateChange, @NO);
-
 }
+
 -(void)autoLoginToServer:(loginBlock)completion{
     
 }

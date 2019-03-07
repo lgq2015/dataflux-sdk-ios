@@ -18,6 +18,7 @@
 #import <TTTAttributedLabel.h>
 #import "PWBaseWebVC.h"
 #import "BindEmailOrPhoneVC.h"
+#import "TeamSuccessVC.h"
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UILabel *timeLab;
@@ -215,21 +216,24 @@
     }
 }
 - (void)resendCodeBtnClick{
-    //    NSDictionary *param = @{@"data": @{@"to":self.phoneTf.text,@"t":@"login"}};
-    //    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-    //        if ([response[@"errCode"] isEqualToString:@""]) {
-    [self.timer setFireDate:[NSDate distantPast]];
-    self.resendCodeBtn.hidden = YES;
-    self.second = 60;
-    self.timeLab.hidden = NO;
-    UILabel *lab = [self.view viewWithTag:10];
-    lab.hidden = NO;
-    //        }else{
-    //        [iToast alertWithTitleCenter:response[@"message"]];
-    //        }
-    //    } failBlock:^(NSError *error) {
-    //        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
-    //    }];
+    NSString *phone = self.phoneNumber?self.phoneNumber:@"";
+    VerificationCodeNetWork *code  =[[VerificationCodeNetWork alloc]init];
+    NSString *uuidstr = self.uuid ==nil ?self.uuid:@"";
+    [code VerificationCodeWithType:self.type phone:phone uuid:uuidstr successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            [self.timer setFireDate:[NSDate distantPast]];
+            self.resendCodeBtn.hidden = YES;
+            self.second = 60;
+            self.timeLab.hidden = NO;
+            UILabel *lab = [self.view viewWithTag:10];
+            lab.hidden = NO;
+        }else{
+         [iToast alertWithTitleCenter:response[@"message"]];
+        }
+    } failBlock:^(NSError *error) {
+      [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+    }];
+  
 }
 - (void)btnClickWithCode:(NSString *)code{
     switch (self.type) {
@@ -408,13 +412,9 @@
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[@"errCode"] isEqualToString:@""]){
-            [SVProgressHUD showSuccessWithStatus:@"转移成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [iToast alertWithTitleCenter:@"登录信息失效"];
-                [userManager logout:^(BOOL success, NSString *des) {
-                    
-                }];
-            });
+            TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
+            success.isTrans = YES;
+            [self presentViewController:success animated:YES completion:nil];
         }else{
             [SVProgressHUD showErrorWithStatus:@"转移失败"];
         }
@@ -429,13 +429,9 @@
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"解散成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [userManager logout:^(BOOL success, NSString *des) {
-                    
-                }];
-            });
-            
+            TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
+            success.isTrans = NO;
+            [self presentViewController:success animated:YES completion:nil];
         }else{
             [SVProgressHUD showErrorWithStatus:@"解散失败"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

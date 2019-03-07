@@ -12,6 +12,7 @@
 #import "LoginPasswordVC.h"
 #import "OpenUDID.h"
 #import "VerifyCodeVC.h"
+#import "VerificationCodeNetWork.h"
 @interface VerifyCodeLoginVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
@@ -170,8 +171,8 @@
 
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
-    NSDictionary *param = @{@"data": @{@"to":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"t":@"login"}};
-    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+    [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.type = VerifyCodeVCTypeLogin;
@@ -180,20 +181,14 @@
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-        [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:response[@"message"]];
         }
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+        
     }];
 
 }
-//#pragma mark ========== btn渐变背景 ==========
-//-(CAGradientLayer *)backLayer{
-//    if (!_backLayer) {
-//        _backLayer = [self getbackgroundLayerWithFrame:self.loginBtn.frame];
-//    }
-//    return _backLayer;
-//}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return [self validateNumber:string];
 }

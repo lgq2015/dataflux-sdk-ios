@@ -7,16 +7,18 @@
 //
 
 #import "RootViewController.h"
-typedef NS_ENUM(NSUInteger, VerifyCodeVCType){
-    VerifyCodeVCTypeLogin,
-    VerifyCodeVCTypeFindPassword,
-    VerifyCodeVCTypeChangePassword,
-    VerifyCodeVCTypeUpdateEmail,
-    VerifyCodeVCTypeUpdateMobile,
-    VerifyCodeVCTypeUpdateMobileNewMobile,
-    VerifyCodeVCTypeTeamDissolve,
-    VerifyCodeVCTypeTeamTransfer,
-};
+#import "VerificationCodeNetWork.h"
+//
+//typedef NS_ENUM(NSUInteger, VerifyCodeVCType){
+//    VerifyCodeVCTypeLogin,
+//    VerifyCodeVCTypeFindPassword,
+//    VerifyCodeVCTypeChangePassword,
+//    VerifyCodeVCTypeUpdateEmail,
+//    VerifyCodeVCTypeUpdateMobile,
+//    VerifyCodeVCTypeUpdateMobileNewMobile,
+//    VerifyCodeVCTypeTeamDissolve,
+//    VerifyCodeVCTypeTeamTransfer,
+//};
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VerifyCodeVC : RootViewController

@@ -34,7 +34,7 @@
  *  显示没有数据页面
  */
 -(void)showNoDataImage;
-
+-(void)setBackgroundColor:(UIColor *)color;
 /**
  *  移除无数据页面
  */
@@ -108,4 +108,5 @@
  * 下拉刷新后 footer 为可加载
  */
 -(void)showLoadFooterView;
+
 @end

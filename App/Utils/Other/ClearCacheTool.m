@@ -30,7 +30,6 @@
             // 过滤: 1. 文件夹不存在  2. 过滤文件夹  3. 隐藏文件
             continue;
         }
-        DLog(@"%@",filePath);
         // 5. 指定路径，获取这个路径的属性
         NSDictionary *dict = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
         /**
@@ -57,7 +56,10 @@
 
 + (BOOL)clearCacheWithFilePath:(NSString *)path{
     
+    [[SDImageCache sharedImageCache] clearDisk];
     
+    [[SDImageCache sharedImageCache] clearMemory];
+    [PWNetworking clearTotalCache];
     //拿到path路径的下一级目录的子文件夹
     NSArray *subPathArr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
     NSString *filePath = nil;
@@ -65,12 +67,12 @@
     for (NSString *subPath in subPathArr)
     {
         filePath = [path stringByAppendingPathComponent:subPath];
-        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"])) {
+        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"]||[filePath containsString:@"/Caches/Snapshots"])) {
           
         }else{
-            DLog(@"clear = %@",filePath);
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
             if (error) {
+                DLog(@"%@",error);
                 return NO;
             }
           
@@ -78,10 +80,29 @@
         //删除子文件夹
        
     }
-    [[SDImageCache sharedImageCache] clearDisk];
+   
+    return YES;
+}
++ (BOOL)clearWKWebKitCache {
     
-    [[SDImageCache sharedImageCache] clearMemory];
-    [PWNetworking clearTotalCache];
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *path = [cachesPath stringByAppendingPathComponent:@"/WebKit"];
+    //拿到path路径的下一级目录的子文件夹
+    NSArray *subPathArr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+    NSString *filePath = nil;
+    NSError *error = nil;
+    for (NSString *subPath in subPathArr) {
+        filePath = [path stringByAppendingPathComponent:subPath];
+        //        ZYLog(@"%@",filePath);
+        if (![filePath containsString:@"/Caches/Snapshots"]) {
+            //删除子文件夹
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
+        }
+        if (error) {
+            DLog(@"%@",error);
+            return NO;
+        }
+    }
     return YES;
 }
 @end

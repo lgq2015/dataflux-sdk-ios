@@ -61,7 +61,7 @@
 // 忘记密码
 #define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
 
-
+#define PW_sendEmail                   API_SEVERID@"/v1/auth/send-email"
 
 
 #pragma mark ========== 情报 ==========
@@ -93,7 +93,7 @@
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
-#define PW_handbook(ID)     [NSString stringWithFormat:@"%@/handbook/h/:%@",API_LIBRARY,ID]
+#define PW_handbook(ID)     [NSString stringWithFormat:@"%@/v1/handbook/%@/article/list",API_SEVERID,ID]
 #define PW_handbookList                API_SEVERID@"/v1/handbook/active/list"
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]

@@ -39,7 +39,9 @@
         [self drawTopNaviBar];
     }
 }
-
+-(void)setBackgroundColor:(UIColor *)color{
+    self.view.backgroundColor = color;
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }

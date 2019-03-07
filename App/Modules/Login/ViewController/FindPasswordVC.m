@@ -9,6 +9,7 @@
 #import "FindPasswordVC.h"
 #import "SetNewPasswordVC.h"
 #import "VerifyCodeVC.h"
+#import "VerificationCodeNetWork.h"
 
 @interface FindPasswordVC ()
 @property (nonatomic, strong) UITextField *userTf;
@@ -87,8 +88,8 @@
 }
 #pragma mark ========== 获取验证码 ==========
 - (void)veritfyCodeClick{
-    NSDictionary *params = @{@"data":@{@"to":self.userTf.text,@"t":@"forgotten_password"}};
-    [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+    VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+    [code VerificationCodeWithType:VerifyCodeVCTypeFindPassword phone:self.userTf.text uuid:@"" successBlock:^(id response) {
         if([response[@"errCode"] isEqualToString:@""]){
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.isHidenNaviBar = YES;
@@ -100,9 +101,8 @@
             [iToast alertWithTitleCenter:response[@"message"]];
         }
     } failBlock:^(NSError *error) {
-
+        
     }];
-    
 
 }
 
