@@ -10,36 +10,52 @@
 #import "PWDraggableModel.h"
 #import "PWDraggableItem.h"
 #import "PWFMDB.h"
+#import "HandBookArticleVC.h"
+#import "HandbookIndexVC.h"
 
 static NSUInteger kLineCount = 3;
 static NSUInteger ItemHeight = 136;
 static NSUInteger ItemWidth = 104;
 
-@interface ThinkTankVC ()<PWDraggableItemDelegate,UISearchBarDelegate>
+@interface ThinkTankVC ()<PWDraggableItemDelegate>
 @property (nonatomic, strong) NSMutableArray<PWDraggableModel *> *handbookArray;
 
 
-@property (nonatomic, strong) UISearchBar *searchTf;
+@property (nonatomic, strong) UIView *searchView;
 @end
 
 @implementation ThinkTankVC
+-(void)viewWillAppear:(BOOL)animated{
+    self.view.backgroundColor = PWWhiteColor;
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mainScrollView.frame= CGRectMake(0, Interval(28)+ZOOM_SCALE(36), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
     self.mainScrollView.backgroundColor = PWWhiteColor;
-    self.mainScrollView.frame= CGRectMake(0, Interval(64), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
-    [self createUpUI];
     [self dealWithData];
-   
-    
+    [self createUpUI];
+
 }
 
 - (void)createUpUI{
-    self.searchTf.backgroundColor = PWBackgroundColor;
-    self.searchTf.userInteractionEnabled = NO;
-    self.searchTf.placeholder = @"搜索";
+    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_search_gray"]];
+    [self.searchView addSubview:icon];
+    [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.searchView);
+        make.width.height.offset(ZOOM_SCALE(32));
+        make.centerX.mas_equalTo(self.view).offset(-ZOOM_SCALE(21));
+    }];
+    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"搜索"];
+    [self.searchView addSubview:searchLab];
+    [searchLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(icon.mas_right).offset(ZOOM_SCALE(6));
+        make.centerY.mas_equalTo(icon);
+        make.height.offset(ZOOM_SCALE(22));
+    }];
 }
 - (void)dealWithData{
+    
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
     if([pwfmdb  pw_isExistTable:tableName]){
@@ -118,7 +134,7 @@ static NSUInteger ItemWidth = 104;
                     NSString *format =[NSString stringWithFormat:@"where handbookId = '%@'",obj.handbookId];
                    NSArray *array = [pwfmdb pw_lookupTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:format];
                     if (array.count==1) {
-                        [pwfmdb pw_updateTable:tableName dicOrModel:[PWDraggableModel class] whereFormat:format];
+                        [pwfmdb pw_updateTable:tableName dicOrModel:obj whereFormat:format];
                     }else{
                         [pwfmdb pw_insertTable:tableName dicOrModel:obj];
                     }
@@ -149,7 +165,6 @@ static NSUInteger ItemWidth = 104;
 
     for (NSInteger index = 0; index<self.handbookArray.count; index++) {
         PWDraggableModel *model = self.handbookArray[index];
-        model.orderNum = index;
         NSUInteger X = index % kLineCount;
         NSUInteger Y = index / kLineCount;
         PWDraggableItem *btn = [[PWDraggableItem alloc]init];
@@ -171,31 +186,29 @@ static NSUInteger ItemWidth = 104;
     }
     
 }
--(UISearchBar *)searchTf{
-    if (!_searchTf) {
-        _searchTf = [[UISearchBar alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), Interval(36))];
-        [_searchTf setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F1F2F5"]]];
-        //设置背景色
-        [_searchTf setBackgroundColor:[UIColor clearColor]];
-        _searchTf.delegate =self;
-        //设置文本框背景
-        [_searchTf setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"F1F2F5"]] forState:UIControlStateNormal];
-        _searchTf.layer.cornerRadius = 4.0f;
-        _searchTf.layer.masksToBounds = YES;
-        [self.view addSubview:_searchTf];
+-(UIView *)searchView{
+    if (!_searchView) {
+        _searchView = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), ZOOM_SCALE(36))];
+        _searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
+        _searchView.layer.cornerRadius = 4.0f;
+        [self.view addSubview:_searchView];
     }
-    return _searchTf;
+    return _searchView;
 }
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    
-}
+
 - (void)loadHandBookDetail:(NSInteger)index{
+    
     PWDraggableModel *model = self.handbookArray[index];
-    [PWNetworking requsetWithUrl:PW_handbook(model.handbookId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        
-    } failBlock:^(NSError *error) {
-        
-    }];
+    if ([model.category isEqualToString:@"column"]) {
+        HandBookArticleVC *articale = [[HandBookArticleVC alloc]init];
+        articale.model = model;
+        [self.navigationController pushViewController:articale animated:YES];
+    }else{
+        HandbookIndexVC *indexVC = [[HandbookIndexVC alloc]init];
+        indexVC.model = model;
+        [self.navigationController pushViewController:indexVC animated:YES];
+    }
+   
     
 }
 #pragma mark ========== PWDraggableItemDelegate ==========
@@ -209,8 +222,8 @@ static NSUInteger ItemWidth = 104;
     }
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *tableName = [NSString stringWithFormat:@"%@handbook",getPWUserID];
-    [pwfmdb pw_deleteAllDataFromTable:tableName];
-    [pwfmdb pw_insertTable:tableName dicOrModelArray:self.handbookArray];
+    BOOL is = [pwfmdb pw_deleteAllDataFromTable:tableName];
+    BOOL is2 =[pwfmdb pw_insertTable:tableName dicOrModelArray:self.handbookArray];
 }
 - (void)dragCenter:(CGPoint)point{
     CGFloat frameHeight = self.mainScrollView.frame.size.height;

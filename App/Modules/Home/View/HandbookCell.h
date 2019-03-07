@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HandbookModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HandbookCell : UITableViewCell
-
+@property (nonatomic, strong) HandbookModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

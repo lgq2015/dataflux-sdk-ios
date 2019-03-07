@@ -9,6 +9,7 @@
 #import "NewsWebView.h"
 #import "WebItemView.h"
 #import "NewsListModel.h"
+#import "HandbookModel.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -55,14 +56,25 @@
     self.itemView.itemClick = ^(NSInteger tag){
         
         if(tag == 20){
-    if (self.newsModel != nil) {
-        NSMutableArray *imgs =[NSMutableArray new];
-        if (self.newsModel.imageUrl !=nil) {
-            [imgs addObject:weakSelf.newsModel.imageUrl];
-        }
-        NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
-        NSString *topstr = topic[topic.count-1];
-        NSDictionary *param = @{@"data":@{@"entityId":weakSelf.newsModel.newsID,@"url":weakSelf.newsModel.url,@"title":weakSelf.newsModel.title,@"summary":weakSelf.newsModel.subtitle,@"type":@"forum",@"extras":@{@"imgs":imgs,@"topic":topstr}}};
+            NSDictionary *param;
+            if (self.newsModel != nil) {
+                NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
+                NSMutableArray *imgs =[NSMutableArray new];
+                if (self.newsModel.imageUrl !=nil) {
+                    [imgs addObject:weakSelf.newsModel.imageUrl];
+                }
+                NSString *topstr = topic[topic.count-1];
+      param   =@{@"data":@{@"entityId":weakSelf.newsModel.newsID,@"url":weakSelf.newsModel.url,@"title":weakSelf.newsModel.title,@"summary":weakSelf.newsModel.subtitle,@"type":@"forum",@"extras":@{@"imgs":imgs,@"topic":topstr}}};
+            }else if(self.handbookModel !=nil){
+                NSString *topic = weakSelf.handbookModel.handbookName;
+                NSMutableArray *imgs =[NSMutableArray new];
+                if (self.handbookModel.imageUrl !=nil) {
+                    [imgs addObject:weakSelf.handbookModel.imageUrl];
+                }
+                 param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":weakSelf.handbookModel.htmlPath,@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":@{@"imgs":imgs,@"topic":topic}}};
+            }
+       
+        
         [PWNetworking requsetHasTokenWithUrl:PW_favoritesAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"收藏成功"];
@@ -70,7 +82,7 @@
         } failBlock:^(NSError *error) {
             
         }];
-    }
+    
         }
     };
   

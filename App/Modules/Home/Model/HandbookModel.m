@@ -9,5 +9,8 @@
 #import "HandbookModel.h"
 
 @implementation HandbookModel
-
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

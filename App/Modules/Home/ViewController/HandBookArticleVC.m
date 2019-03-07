@@ -7,18 +7,70 @@
 //
 
 #import "HandBookArticleVC.h"
-
-@interface HandBookArticleVC ()
-
+#import "HandbookCell.h"
+#import "NewsWebView.h"
+@interface HandBookArticleVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
 @implementation HandBookArticleVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = self.model.name;
+    [self createUI];
+    [self loadData];
 }
+- (void)createUI{
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
+    self.tableView.rowHeight = ZOOM_SCALE(46)+Interval(82);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
+    [self.tableView registerClass:[HandbookCell class] forCellReuseIdentifier:@"HandbookCell"];
+    [self.view addSubview:self.tableView];
+}
+- (void)loadData{
+    self.dataSource = [NSMutableArray new];
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_handbook(self.model.handbookId) withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            if (content.count>0) {
+                [self.dataSource addObjectsFromArray:content];
+                [self.tableView reloadData];
+                [self showNoMoreDataFooter];
+            }else{
+                [self showNoDataImage];
+            }
+        }
+        
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
 
+    }];
+}
+#pragma mark ========== UITableViewDataSource ==========
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    HandbookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HandbookCell"];
+        NSError *error;
+    HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    cell.model = model;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+#pragma mark ========== UITableViewDelegate ==========
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSError *error;
+    HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.htmlPath];
+    webview.handbookModel = model;
+    [self.navigationController pushViewController:webview animated:YES];
+}
 /*
 #pragma mark - Navigation
 
