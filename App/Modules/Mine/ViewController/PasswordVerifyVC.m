@@ -9,7 +9,7 @@
 #import "PasswordVerifyVC.h"
 #import "SetNewPasswordVC.h"
 #import "BindEmailOrPhoneVC.h"
-
+#import "TeamSuccessVC.h"
 @interface PasswordVerifyVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *showWordsBtn;
@@ -229,19 +229,16 @@
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
         [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if([response[@"errCode"] isEqualToString:@""]){
-            [SVProgressHUD showSuccessWithStatus:@"转移成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [iToast alertWithTitleCenter:@"登录信息失效"];
-                    [userManager logout:^(BOOL success, NSString *des) {
-                        
-                    }];
-                });
+                TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
+                success.isTrans = YES;
+                [self presentViewController:success animated:YES completion:nil];
             }else{
-                [SVProgressHUD showErrorWithStatus:@"转移失败"];
-            }
+            [SVProgressHUD showErrorWithStatus:@"转移失败"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
             });
+            }
+            
         } failBlock:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"转移失败"];
         }];
@@ -250,13 +247,9 @@
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
      [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"解散成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [userManager logout:^(BOOL success, NSString *des) {
-                        
-                    }];
-                });
-               
+                TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
+                success.isTrans = NO;
+                [self presentViewController:success animated:YES completion:nil];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"解散失败"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

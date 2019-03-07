@@ -10,6 +10,7 @@
 #import "VerifyCodeVC.h"
 #import "ChangeCardItem.h"
 #import "PasswordVerifyVC.h"
+#import "VerificationCodeNetWork.h"
 
 #define TagPhoneItem  100  // 右侧图片
 #define TagPasswordItem 200
@@ -104,25 +105,23 @@
                 type =VerifyCodeVCTypeTeamTransfer;
                 break;
         }
-        [SVProgressHUD show];
-        NSDictionary *param = @{@"data":@{@"to":userManager.curUserInfo.mobile,@"t":t}};
-        [PWNetworking requsetHasTokenWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
-                VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
-                codeVC.type = type;
-                codeVC.phoneNumber = userManager.curUserInfo.mobile;
-                codeVC.isShowCustomNaviBar = YES;
-                if (self.type ==ChangeUITTeamTransfer ) {
-                    codeVC.teamMemberID =self.memberID;
-                }
-                [self.navigationController pushViewController:codeVC animated:YES];
-            }else{
-                [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+    VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+    [code VerificationCodeWithType:type phone:@"" uuid:@"" successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
+            codeVC.type = type;
+            codeVC.phoneNumber = userManager.curUserInfo.mobile;
+            codeVC.isShowCustomNaviBar = YES;
+            if (self.type ==ChangeUITTeamTransfer ) {
+                codeVC.teamMemberID =self.memberID;
             }
-            [SVProgressHUD dismiss];
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-       }];
+            [self.navigationController pushViewController:codeVC animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
     
 }
 - (void)itemPassWordClick{

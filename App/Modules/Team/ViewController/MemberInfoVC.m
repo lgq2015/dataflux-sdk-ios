@@ -38,6 +38,8 @@
     icon.layer.cornerRadius =ZOOM_SCALE(110)/2.0;
     NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
     [icon sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+    icon.layer.cornerRadius = ZOOM_SCALE(55);
+    icon.layer.masksToBounds = YES;
     UILabel *memberName = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(16) textColor:PWWhiteColor text:self.model.name];
     memberName.textAlignment = NSTextAlignmentCenter;
     [self.headerIcon addSubview:memberName];

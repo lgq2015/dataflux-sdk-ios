@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TeamSuccessVC : RootViewController
-
+@property (nonatomic, assign) BOOL isTrans;
 @end
 
 NS_ASSUME_NONNULL_END

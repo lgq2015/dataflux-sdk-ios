@@ -212,22 +212,22 @@
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    NSMutableArray *admin = [NSMutableArray new];
+//    NSMutableArray *admin = [NSMutableArray new];
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
-        NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        if ([memberID  isEqualToString:getPWUserID]) {
-            [self.teamMemberArray insertObject:model atIndex:0];
-        }else if(model.isAdmin){
-            [admin addObject:model];
-        }else{
+//        NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//        if ([memberID  isEqualToString:getPWUserID]) {
+//            [self.teamMemberArray insertObject:model atIndex:0];
+//        }else if(model.isAdmin){
+//            [admin addObject:model];
+//        }else{
             [self.teamMemberArray addObject:model];
-        }
+//        }
     }];
-    if (admin.count>0) {
-        [self.teamMemberArray addObjectsFromArray:admin];
-    }
+//    if (admin.count>0) {
+//        [self.teamMemberArray addObjectsFromArray:admin];
+//    }
     [self.headerView setTeamNum:[NSString stringWithFormat:@"共%lu人",(unsigned long)self.teamMemberArray.count]];
     [self.tableView reloadData];
 }
@@ -241,22 +241,21 @@
     return self.teamMemberArray.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
-        return 80;
-    }else{
+  
         return 60;
-    }
+
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row !=0){
-    MemberInfoVC *member = [[MemberInfoVC alloc]init];
-    member.isHidenNaviBar = YES;
-    member.isInfo = YES;
-    member.teamMemberRefresh =^(){
-       [self loadTeamMemberInfo];
-    };
-    member.model = self.teamMemberArray[indexPath.row];
-    [self.navigationController pushViewController:member animated:YES];
+   NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    if (![memberID isEqualToString:getPWUserID]) {
+        MemberInfoVC *member = [[MemberInfoVC alloc]init];
+        member.isHidenNaviBar = YES;
+        member.isInfo = YES;
+        member.teamMemberRefresh =^(){
+            [self loadTeamMemberInfo];
+        };
+        member.model = self.teamMemberArray[indexPath.row];
+        [self.navigationController pushViewController:member animated:YES];
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -265,8 +264,10 @@
     cell.phoneBtn.hidden = indexPath.row == 0?YES:NO;
     cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    if (userManager.teamModel.isAdmin && indexPath.row!=0) {
+    NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    cell.phoneBtn.hidden = YES;
+    if (userManager.teamModel.isAdmin && ![memberID isEqualToString:getPWUserID]) {
+        cell.phoneBtn.hidden = NO;
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             [self delectMember:indexPath.row];
             return NO;
