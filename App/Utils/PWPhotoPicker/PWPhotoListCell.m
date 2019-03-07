@@ -12,6 +12,7 @@
 #import "PWGradientView.h"
 @interface PWPhotoListCell()
 @property (weak, nonatomic) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *camerImg;
 @property (weak, nonatomic) PWPhotoListCellTapView *tapAssetView;
 @property (strong, nonatomic) ALAsset *asset;
 @property (weak, nonatomic) PWGradientView *gradientView;
@@ -19,23 +20,18 @@
 @implementation PWPhotoListCell
 - (void)bind:(ALAsset *)asset selectionFilter:(NSPredicate*)selectionFilter isSelected:(BOOL)isSelected {
     self.asset = asset;
-    UIImageView *imageView;
-    if (self.imageView == nil) {
-        if([asset isKindOfClass:[UIImage class]]){
-            imageView =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width/2, self.bounds.size.height/2)];
-            imageView.center = self.contentView.center;
+   
+   
+        UIImageView *imageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
             [self.contentView addSubview:imageView];
-        }else{
-         imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-            [self.contentView addSubview:imageView];
-        }
+
         self.imageView = imageView;
         
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         self.imageView.layer.cornerRadius = 3;
         self.imageView.clipsToBounds = YES;
         self.backgroundColor = [UIColor whiteColor];
-    }
+
     
     if (!self.tapAssetView) {
         PWPhotoListCellTapView *tapView = [[PWPhotoListCellTapView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
@@ -44,8 +40,11 @@
     }
     
     if ([asset isKindOfClass:[UIImage class]]) {
-        [self.imageView setImage:(UIImage *)asset];
+    
+        [self.camerImg setImage:(UIImage *)asset];
+        self.camerImg.hidden = NO;
     } else {
+        self.camerImg.hidden = YES;
         [self.imageView setImage:[UIImage imageWithCGImage:asset.aspectRatioThumbnail]];
         if ([asset valueForProperty:ALAssetPropertyType] == ALAssetTypeVideo) {
             if (!self.gradientView) {
@@ -78,7 +77,14 @@
     _tapAssetView.disabled = ![selectionFilter evaluateWithObject:asset];
     _tapAssetView.selected = isSelected;
 }
-
+-(UIImageView *)camerImg{
+    if (!_camerImg) {
+        _camerImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width/2, self.bounds.size.height/2)];
+         _camerImg.center = self.contentView.center;
+        [self.contentView addSubview:_camerImg];
+    }
+    return _camerImg;
+}
 - (void)isSelected:(BOOL)isSelected {
     _tapAssetView.selected = isSelected;
 }

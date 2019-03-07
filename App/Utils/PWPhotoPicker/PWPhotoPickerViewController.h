@@ -14,6 +14,7 @@
 @optional
 //选择完成
 - (void)photoPicker:(PWPhotoPickerViewController *)picker didSelectAssets:(NSArray *)assets;
+- (void)photoPicker:(PWPhotoPickerViewController *)picker image:(UIImage *)image;
 
 //点击选中
 - (void)photoPicker:(PWPhotoPickerViewController *)picker didSelectAsset:(ALAsset*)asset;

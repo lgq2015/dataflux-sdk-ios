@@ -275,7 +275,8 @@ static NSTimeInterval   requestTimeout = 60.f;
     __block PWURLSessionTask *session = nil;
     
     AFHTTPSessionManager *manager = [self manager];
-    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Auth-Token"];
+    [manager.requestSerializer setValue:getXAuthToken forHTTPHeaderField:@"X-Core-Stone-Auth-Token"];
+    DLog(@"%@",manager.requestSerializer.HTTPRequestHeaders);
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;

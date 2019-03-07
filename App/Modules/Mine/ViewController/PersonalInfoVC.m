@@ -12,7 +12,7 @@
 #import "MineCellModel.h"
 #import "BindEmailOrPhoneVC.h"
 #import "PWPhotoPickerViewController.h"
-
+#import "PWPhotoOrAlbumImagePicker.h"
 @interface PersonalInfoVC ()<UITableViewDelegate,UITableViewDataSource,PWPhotoPickerProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
@@ -34,8 +34,8 @@
     NSString *emailText = userManager.curUserInfo.email ==nil? @"去绑定":userManager.curUserInfo.email;
     NSString *phoneText = userManager.curUserInfo.mobile ;
     NSString *nameText = userManager.curUserInfo.username==nil? phoneText:userManager.curUserInfo.username;
-    
-    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:userManager.curUserInfo.avatar];
+     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
     MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
     MineCellModel *phone = [[MineCellModel alloc]initWithTitle:@"手机号" describeText:phoneText];
     MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
@@ -56,7 +56,8 @@
     NSString *emailText = userManager.curUserInfo.email ==nil? @"去绑定":userManager.curUserInfo.email;
     NSString *phoneText = userManager.curUserInfo.mobile ;
     NSString *nameText = userManager.curUserInfo.username==nil? phoneText:userManager.curUserInfo.username;
-    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像"];
+     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
     MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
     MineCellModel *phone = [[MineCellModel alloc]initWithTitle:@"手机号" describeText:phoneText];
     MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
@@ -122,64 +123,38 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)photoPicker:(PWPhotoPickerViewController *)picker didSelectAssets:(NSArray *)assets {
-//    [self.photos addObjectsFromArray:assets];
-//    if (assets.count == 1) {
-//        ALAsset *asset = assets[0];
-//        UIImage *tempImg = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-//        self.imageView.image = tempImg;
-//    } else {
-//        CGFloat x = 0;
-//        CGRect frame = CGRectMake(0, 0, 50, 50);
-//        for (int i = 0 ; i < self.photos.count; i++) {
-//            ALAsset *asset = self.photos[i];
-//            UIImage *tempImg = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-//            frame.origin.x = x;
-//            UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-//            [imageView setContentMode:UIViewContentModeScaleAspectFill];
-//            imageView.clipsToBounds = YES;
-//            imageView.image = tempImg;
-//            imageView.tag = i;
-//            imageView.userInteractionEnabled = YES;
-//            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showBig:)]];
-//            [self.scrollView addSubview:imageView];
-//            x += frame.size.width+5;
-//        }
-//        self.scrollView.contentSize = CGSizeMake(55 * self.photos.count, 0);
-//    }
- //   [picker dismissViewControllerAnimated:NO completion:nil];
-    
-    //显示预览
-    //    AJPhotoBrowserViewController *photoBrowserViewController = [[AJPhotoBrowserViewController alloc] initWithPhotos:assets];
-    //    photoBrowserViewController.delegate = self;
-    //    [self presentViewController:photoBrowserViewController animated:YES completion:nil];
-    
-}
-
 - (void)photoPicker:(PWPhotoPickerViewController *)picker didSelectAsset:(ALAsset *)asset {
     NSLog(@"%s",__func__);
 }
 
+- (void)photoPicker:(PWPhotoPickerViewController *)picker image:(UIImage *)image{
+    //shangchuan
+    [SVProgressHUD show];
+     NSData *data = UIImageJPEGRepresentation(image, 0.5);
+    [PWNetworking uploadFileWithUrl:PW_accountAvatar fileData:data type:@"jpg" name:@"files" mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+        DLog(@"%lld",totalBytes);
+    } successBlock:^(id response) {
+        DLog(@"%@",response);
+        if([response[@"errCode"] isEqualToString:@""]){
+            NSDictionary *tags = response[@"content"][@"tags"];
+            userManager.curUserInfo.tags = tags;
+            KPostNotification(KNotificationUserInfoChange, nil);
+            
+        }
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showSuccessWithStatus:@"更改头像成功"];
+    } failBlock:^(NSError *error) {
+        DLog(@"%@",error);
+        [SVProgressHUD showErrorWithStatus:@"上传失败"];
 
+    }];
+
+}
 
 
 
 - (void)photoPickerTapCameraAction:(PWPhotoPickerViewController *)picker {
-//    [self checkCameraAvailability:^(BOOL auth) {
-//        if (!auth) {
-//            NSLog(@"没有访问相机权限");
-//            return;
-//        }
-//
-//        [picker dismissViewControllerAnimated:NO completion:nil];
-//        UIImagePickerController *cameraUI = [UIImagePickerController new];
-//        cameraUI.allowsEditing = NO;
-//        cameraUI.delegate = self;
-//        cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        cameraUI.cameraFlashMode=UIImagePickerControllerCameraFlashModeAuto;
-//
-//        [self presentViewController: cameraUI animated: YES completion:nil];
-//    }];
+    
 }
 
 /*

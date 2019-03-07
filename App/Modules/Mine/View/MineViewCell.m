@@ -196,7 +196,7 @@
         make.width.height.offset(24);
     }];
     self.rightImg.layer.cornerRadius = 12.0f;
-    [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.icon] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+    [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
 }
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{

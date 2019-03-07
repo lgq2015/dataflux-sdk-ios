@@ -127,6 +127,7 @@
 
 #define PW_customerOpenAdmin           API_SHRINE@"/api/resources/action/getWorkGroupMember@workGroupOpenAdmin"
 #define PW_favoritesDelete(str)        [NSString stringWithFormat:@"%@/v1/favorites/delete/%@", API_SEVERID,str]
+#define PW_accountAvatar               API_SEVERID@"/v1/account/avatar"
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst                  API_SEVERID@"/v1/utils/const"

@@ -73,6 +73,8 @@
     }else{
         self.userName.text = name;
     }
+    NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
 }
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithDataHasTeam:(BOOL)hasTeam{
@@ -98,7 +100,7 @@
     [self.tableView reloadData];
 }
 - (void)getSystemMessagCount{
-    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             self.unread = [content longValueForKey:@"unread" default:0];
@@ -134,7 +136,8 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(20));
     }];
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:userManager.curUserInfo.avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+    NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
     self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

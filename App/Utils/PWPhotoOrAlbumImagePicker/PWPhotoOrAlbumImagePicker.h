@@ -25,4 +25,6 @@ typedef void (^PWFileBlock)(NSData *file);
  @param photoBlock 选择图片后的回掉
  */
 - (void)getPhotoAlbumOrTakeAPhotoOrFileWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock fileBlock:(PWFileBlock)fileBlock;
+
+- (void)takeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock;
 @end

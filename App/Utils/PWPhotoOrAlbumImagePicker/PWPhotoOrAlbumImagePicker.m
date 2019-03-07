@@ -29,7 +29,11 @@
     return self;
 }
 
-
+- (void)takeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock{
+    self.photoBlock = photoBlock;
+    self.viewController = controller;
+      [self getAlertActionType:2];
+}
 - (void)getPhotoAlbumOrTakeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock{
     self.photoBlock = photoBlock;
     self.viewController = controller;
@@ -166,7 +170,7 @@
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
     }
     self.picker.delegate = self;
-    self.picker.allowsEditing = YES;          //-> 是否允许选取的图片可以裁剪编辑
+    self.picker.allowsEditing = NO;          //-> 是否允许选取的图片可以裁剪编辑
     self.picker.sourceType = self.sourceType; //-> 媒体来源（相册/相机）
     [self.viewController presentViewController:self.picker animated:YES completion:nil];
 }
@@ -179,8 +183,9 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     // 如果裁剪的图片不符合标准 就会为空，直接使用原图
     image == nil    ?  image = [info objectForKey:UIImagePickerControllerOriginalImage] : nil;
-    self.photoBlock ?  self.photoBlock(image): nil;
+   
     [picker dismissViewControllerAnimated:YES completion:^{
+         self.photoBlock ?  self.photoBlock(image): nil;
         // 这个部分代码 视情况而定
         if (@available(iOS 11.0, *)){
             [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];

@@ -10,14 +10,19 @@
 #import "PWPhotoGroupView.h"
 #import "PWPhotoListView.h"
 #import "PWPhotoListCell.h"
+#import "LZImageCropper.h"
+#import "PWPhotoOrAlbumImagePicker.h"
 
-@interface PWPhotoPickerViewController ()<PWPhotoGroupViewProtocol,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface PWPhotoPickerViewController ()<PWPhotoGroupViewProtocol,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,LZImageCroppingDelegate>
 @property (weak, nonatomic) PWPhotoGroupView *photoGroupView;
 @property (weak, nonatomic) UILabel *titleLabel;
 @property (weak, nonatomic) UIView *navBar;
 @property (weak, nonatomic) UIView *bgMaskView;
 @property (weak, nonatomic) PWPhotoListView *photoListView;
 @property (weak, nonatomic) UIImageView *selectTip;
+@property(nonatomic,strong)    LZImageCropper * cropper;
+@property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
+
 
 @property (nonatomic) BOOL isNotAllowed;
 @property (strong, nonatomic) NSMutableArray *assets;
@@ -292,7 +297,7 @@
     UIAlertView *alert;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
         alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                           message:@"请在iPhone的“设置”-“隐私”-“照片”中，找到波波网更改"
+                                           message:@"请在iPhone的“设置”-“隐私”-“照片”中更改"
                                           delegate:nil
                                  cancelButtonTitle:@"确定"
                                  otherButtonTitles:nil, nil];
@@ -341,13 +346,25 @@
     ALAsset *asset = self.assets[indexPath.row];
     
     //相机按钮处理
-    if ([asset isKindOfClass:[UIImage class]] && _delegate && [_delegate respondsToSelector:@selector(photoPickerTapCameraAction:)]) {
-        [_delegate photoPickerTapCameraAction:self];
+    if ([asset isKindOfClass:[UIImage class]] ) {
+        self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
+        WeakSelf;
+        [self.myPicker takeAPhotoWithController:self photoBlock:^(UIImage *image) {
+            [weakSelf corop:image];
+        }];
         return;
     }
-    if (_delegate && [_delegate respondsToSelector:@selector(photoPicker:didSelectAssets:)]) {
-        [_delegate photoPicker:self didSelectAssets:self.indexPathsForSelectedItems];
-    }
+    self.cropper= [[LZImageCropper alloc]init];
+    //设置代理
+    self.cropper.delegate = self;
+    //设置图片
+    
+    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+    self.cropper.image = image;
+    //设置自定义裁剪区域大小
+    self.cropper.cropSize = CGSizeMake(ZOOM_SCALE(337), ZOOM_SCALE(337));
+    self.cropper.isRound = YES;
+    [self presentViewController:self.cropper animated:YES completion:nil];
 //    //单选
 //    if (!self.multipleSelection && self.indexPathsForSelectedItems.count==1) {
 //        //取消上一个选中
@@ -395,7 +412,18 @@
 //    if (_delegate && [_delegate respondsToSelector:@selector(photoPicker:didSelectAsset:)])
 //        [_delegate photoPicker:self didSelectAsset:asset];
 }
-
+- (void)corop:(UIImage *)img{
+    self.cropper= [[LZImageCropper alloc]init];
+    //设置代理
+    self.cropper.delegate = self;
+    //设置图片
+    
+    self.cropper.image = img;
+    //设置自定义裁剪区域大小
+    self.cropper.cropSize = CGSizeMake(self.view.frame.size.width - 60, (self.view.frame.size.width-60)*960/1280);
+    self.cropper.isRound = YES;
+    [self presentViewController:self.cropper animated:YES completion:nil];
+}
 #pragma mark - Action
 - (void)onPanForSelection:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint point = [gestureRecognizer locationInView:_photoListView];
@@ -412,6 +440,14 @@
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         _lastAccessed = nil;
+    }
+}
+#pragma mark - Delegate
+-(void)lzImageCropping:(LZImageCropper *)cropping didCropImage:(UIImage *)image{
+    [self.navigationController popViewControllerAnimated:NO];
+
+    if ([_delegate respondsToSelector:@selector(photoPicker:image:)]) {
+        [_delegate photoPicker:self image:image];
     }
 }
 - (void)cancelBtnAction:(UIButton *)sender {
