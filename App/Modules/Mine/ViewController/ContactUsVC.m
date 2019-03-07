@@ -120,9 +120,30 @@
 }
 - (void)btnClick:(UIButton *)button{
     if (button.tag == TagPhoneBtn) {
-        
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
+        UIWebView * callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+        [self.view addSubview:callWebview];
     }else{
-        
+        //创建可变的地址字符串对象：
+//        NSMutableString *mailUrl = [[NSMutableString alloc] init];
+//        //添加收件人：
+//        NSArray *toRecipients = @[@"1780575208@qq.com"];
+//        // 注意：如有多个收件人，可以使用componentsJoinedByString方法连接，连接符为@","
+//        [mailUrl appendFormat:@"mailto:%@", toRecipients[0]];
+//        //添加抄送人：
+//        NSArray *ccRecipients = @[@"1780575208@qq.com"];
+//        [mailUrl appendFormat:@"?cc=%@", ccRecipients[0]];
+//        // 添加密送人：
+//        NSArray *bccRecipients = @[@"1780575208@qq.com"];
+//        [mailUrl appendFormat:@"&bcc=%@", bccRecipients[0]];
+//        
+//        //添加邮件主题和邮件内容：
+//        [mailUrl appendString:@"&subject=my email"];
+//        [mailUrl appendString:@"&body=<b>Hello</b> World!"];
+//        //打开地址，这里会跳转至邮件发送界面：
+//        NSString *emailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emailPath]];
     }
 }
 /*
