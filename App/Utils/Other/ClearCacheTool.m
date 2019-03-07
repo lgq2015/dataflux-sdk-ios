@@ -26,7 +26,7 @@
         BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
         
         // 4. 以上判断目的是忽略不需要计算的文件
-        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"] ||[filePath containsString:@"SDWebImageCache"]){
+        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"] ||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"]){
             // 过滤: 1. 文件夹不存在  2. 过滤文件夹  3. 隐藏文件
             continue;
         }
@@ -57,10 +57,7 @@
 
 + (BOOL)clearCacheWithFilePath:(NSString *)path{
     
-    [[SDImageCache sharedImageCache] clearDisk];
     
-    [[SDImageCache sharedImageCache] clearMemory];
-    [PWNetworking clearTotalCache];
     //拿到path路径的下一级目录的子文件夹
     NSArray *subPathArr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
     NSString *filePath = nil;
@@ -68,18 +65,23 @@
     for (NSString *subPath in subPathArr)
     {
         filePath = [path stringByAppendingPathComponent:subPath];
-        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"])) {
-            DLog(@"%@",filePath);
+        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"])) {
+          
         }else{
+            DLog(@"clear = %@",filePath);
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
             if (error) {
                 return NO;
             }
-            DLog(@"%@",filePath);
+          
         }
         //删除子文件夹
        
     }
+    [[SDImageCache sharedImageCache] clearDisk];
+    
+    [[SDImageCache sharedImageCache] clearMemory];
+    [PWNetworking clearTotalCache];
     return YES;
 }
 @end
