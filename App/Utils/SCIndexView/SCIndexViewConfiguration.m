@@ -62,7 +62,7 @@ static inline UIColor *SCGetColor(CGFloat red, CGFloat green, CGFloat blue, CGFl
                            indicatorCornerRadius:10
                         indexItemBackgroundColor:[UIColor clearColor]
                               indexItemTextColor:[UIColor darkGrayColor]
-                indexItemSelectedBackgroundColor:SCGetColor(40, 170, 40, 1)
+                indexItemSelectedBackgroundColor:SCGetColor(42,122,247,1)
                       indexItemSelectedTextColor:[UIColor whiteColor]
                                  indexItemHeight:15
                             indexItemRightMargin:5

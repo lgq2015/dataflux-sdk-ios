@@ -12,7 +12,7 @@
 #import "PWFMDB.h"
 #import "HandBookArticleVC.h"
 #import "HandbookIndexVC.h"
-
+#import "SearchVC.h"
 static NSUInteger kLineCount = 3;
 static NSUInteger ItemHeight = 136;
 static NSUInteger ItemWidth = 104;
@@ -191,11 +191,17 @@ static NSUInteger ItemWidth = 104;
         _searchView = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), ZOOM_SCALE(36))];
         _searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
         _searchView.layer.cornerRadius = 4.0f;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchClick)];
+        [_searchView addGestureRecognizer:tap];
         [self.view addSubview:_searchView];
     }
     return _searchView;
 }
-
+- (void)searchClick{
+    SearchVC *search = [[SearchVC alloc]init];
+    search.isHidenNaviBar = YES;
+    [self.navigationController pushViewController:search animated:YES];
+}
 - (void)loadHandBookDetail:(NSInteger)index{
     
     PWDraggableModel *model = self.handbookArray[index];
@@ -249,6 +255,24 @@ static NSUInteger ItemWidth = 104;
             [self.mainScrollView setContentOffset:CGPointMake(0, moveY) animated:YES];
         }
     }
+}
+-(CATransition *)createTransitionAnimation
+{
+    //切换之前添加动画效果
+    //后面知识: Core Animation 核心动画
+    //不要写成: CATransaction
+    //创建CATransition动画对象
+    CATransition *animation = [CATransition animation];
+    //设置动画的类型:
+    animation.type = @"reveal";
+    //设置动画的方向
+    animation.subtype = kCATransitionFade;
+    //设置动画的持续时间
+    animation.duration = 0.5;
+    //设置动画速率(可变的)
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    //动画添加到切换的过程中
+    return animation;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

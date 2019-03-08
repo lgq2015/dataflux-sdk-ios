@@ -135,4 +135,6 @@
 #pragma mark ========== 协议 ==========
 #define PW_privacylegal                API_H5_HOST@"/terms/legal"
 #define PW_servicelegal                API_H5_HOST@"/terms/service"
+
+#define PW_cloudcare                   API_H5_HOST@"/service/list"
 #endif /* PWNetWorkURLs_h */
