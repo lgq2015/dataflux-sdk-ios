@@ -9,13 +9,14 @@
 #import "PWBaseWebVC.h"
 #import <WebKit/WebKit.h>
 
-@interface PWBaseWebVC ()
+@interface PWBaseWebVC ()<WKNavigationDelegate,WKUIDelegate>
 @property (nonatomic, strong) UIProgressView *progressView;
 @end
 
 @implementation PWBaseWebVC
 - (instancetype)initWithTitle:(NSString *)title andURLString:(nonnull NSString *)urlString{
-     return [self initWithTitle:title andURL:[NSURL URLWithString:urlString]];
+      NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+     return [self initWithTitle:title andURL:[NSURL URLWithString:encodedString]];
 }
 
 - (instancetype)initWithTitle:(NSString *)title andURL:(NSURL *)url{
@@ -25,7 +26,21 @@
     }
     return self;;
 }
-
+-(void)backBtnClicked{
+    if ([self.webview canGoBack]) {
+        //如果有则返回
+        [self.webview goBack];
+        //同时设置返回按钮和关闭按钮为导航栏左边的按钮
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+-(WKWebView *)webview{
+    if (!_webview) {
+        
+    }
+    return _webview;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
@@ -37,8 +52,15 @@
     }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    
-    self.webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
+    WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
+    config.preferences.javaScriptEnabled = YES;
+    config.selectionGranularity = YES;
+
+//    config.userContentController = [[WKUserContentController alloc]init];
+    self.webview = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+
+    self.webview.allowsBackForwardNavigationGestures = YES;
+
     [self.webview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         DLog(@"%@", result);
     }];
@@ -50,11 +72,13 @@
     self.progressView.trackTintColor = [UIColor clearColor]; // 设置进度条的色彩
     self.progressView.progressTintColor = PWBlueColor;
     // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
-   
     [self.webview loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
     [self.view addSubview:self.webview];
     [self.progressView setProgress:0.1 animated:YES];
     [self.webview addSubview:self.progressView];
+    self.webview.UIDelegate = self;
+    self.webview.navigationDelegate = self;
+    
     // Do any additional setup after loading the view.
 }
 
@@ -90,13 +114,42 @@
         }
     } else if ([object isEqual:self.webview] && [keyPath isEqualToString:@"title"]) { // 标题
         
-//        self.title = self.webview.title;
+        self.title = self.webview.title;
     } else { // 其他
         
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
+//-(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+//{
+//    if (!navigationAction.targetFrame.isMainFrame) {
+//        [webView loadRequest:navigationAction.request];
+//    }
+//    return nil;
+//}
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    
+}
 
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
+    
+}
+-(void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
+{
+    //如果是跳转一个新页面
+    if (navigationAction.targetFrame == nil) {
+       
+        [webView loadRequest:navigationAction.request];
+    }
+
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+- (nullable WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures{
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
+    }
+        return nil;
+}
 
 /*
 #pragma mark - Navigation

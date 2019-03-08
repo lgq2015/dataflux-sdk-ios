@@ -10,7 +10,7 @@
 #import "MineMessageCell.h"
 #import "MineMessageModel.h"
 #import "MessageDetailVC.h"
-
+#import "PWBaseWebVC.h"
 @interface MineMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageIndex;
@@ -109,22 +109,27 @@
     NSError *error;
     NSDictionary *dict = self.dataSource[indexPath.row];
     MineMessageModel *model = [[MineMessageModel alloc]initWithDictionary:dict error:&error];
-    cell.model = model;
+        cell.model = model;
     return cell;
 }
 
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MessageDetailVC *detail = [[MessageDetailVC alloc]init];
     NSError *error;
     NSDictionary *dict = self.dataSource[indexPath.row];
     MineMessageModel *model = [[MineMessageModel alloc]initWithDictionary:dict error:&error];
+    if (![model.uri isEqualToString:@""]) {
+        PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.uri];
+        [self.navigationController pushViewController:web animated:YES];
+    }else{
+    MessageDetailVC *detail = [[MessageDetailVC alloc]init];
+   
     detail.model = model;
     detail.refreshTable =^(){
         [self loadData];
     };
     [self.navigationController pushViewController:detail animated:YES];
-    
+    }
 }
 
 @end

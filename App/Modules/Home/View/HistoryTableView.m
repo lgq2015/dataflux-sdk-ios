@@ -7,9 +7,23 @@
 //
 
 #import "HistoryTableView.h"
-
+@interface HistoryTableView()
+@end
 @implementation HistoryTableView
-
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    [self setUpUI];
+}
+- (void)setUpUI{
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

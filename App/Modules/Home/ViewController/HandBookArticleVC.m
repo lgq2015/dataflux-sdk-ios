@@ -70,6 +70,8 @@
     NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.htmlPath];
     webview.handbookModel = model;
     [self.navigationController pushViewController:webview animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
 }
 /*
 #pragma mark - Navigation

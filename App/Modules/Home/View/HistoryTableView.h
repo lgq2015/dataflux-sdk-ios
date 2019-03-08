@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HistoryTableView : UITableView
+@interface HistoryTableView : UIView
 
 @end
 

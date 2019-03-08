@@ -14,6 +14,7 @@
 #import "MineViewController.h"
 #import "TeamVC.h"
 #import "PWTabBar.h"
+#import "CloudCareVC.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
 @end
@@ -45,7 +46,7 @@
      homeVC.isHidenNaviBar= YES;
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
-     UIViewController  *makeFriendVC = [[UIViewController alloc]init];
+    CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"CloudCare" andURLString:PW_cloudcare];
     [self setupChildViewController:makeFriendVC title:@"服务+" imageName:@"icon_serve" seleceImageName:@"icon_serveselect"];
     
     //    MsgViewController *msgVC = [[MsgViewController alloc]init];
