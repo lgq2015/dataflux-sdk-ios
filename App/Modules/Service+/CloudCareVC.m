@@ -9,7 +9,6 @@
 #import "CloudCareVC.h"
 
 @interface CloudCareVC ()
-
 @end
 
 @implementation CloudCareVC
@@ -20,6 +19,7 @@
     [self createUI];
 }
 - (void)createUI{
+
    self.webview.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
    
 }

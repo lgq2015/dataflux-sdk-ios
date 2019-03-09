@@ -49,8 +49,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         case SourceTypeClusterDiagnose:
             [self createSourceTypeCluster];
             break;
-        case SourceTypeHUAWEI:
-            self.title = @"连接华为云";
+        case SourceTypeUcloud:
+            self.title = @"连接Ucloud";
             self.provider = @"huaweicloud";
             [self createSourceTypeYunWithTitle:@"华为云"];
             break;

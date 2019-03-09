@@ -9,8 +9,10 @@
 #import "PWBaseWebVC.h"
 #import <WebKit/WebKit.h>
 
-@interface PWBaseWebVC ()<WKNavigationDelegate,WKUIDelegate>
+@interface PWBaseWebVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) WebViewJavascriptBridge *jsBridge;
+
 @end
 
 @implementation PWBaseWebVC
@@ -50,16 +52,20 @@
     if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
         newUserAgent = [userAgent stringByAppendingString:@"cloudcare"];
     }
+//    if ([userAgent rangeOfString:@"Prof.Wang_iOS"].location == NSNotFound){
+//        newUserAgent = [userAgent stringByAppendingString:@"Prof.Wang_iOS"];
+//    }
+    
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
     config.preferences.javaScriptEnabled = YES;
     config.selectionGranularity = YES;
 
-//    config.userContentController = [[WKUserContentController alloc]init];
     self.webview = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
 
     self.webview.allowsBackForwardNavigationGestures = YES;
+    _jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webview];
 
     [self.webview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         DLog(@"%@", result);
@@ -78,9 +84,21 @@
     [self.webview addSubview:self.progressView];
     self.webview.UIDelegate = self;
     self.webview.navigationDelegate = self;
-    
+    self.webview.scrollView.bounces = NO;
     // Do any additional setup after loading the view.
+    
+    [_jsBridge registerHandler:@"addEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"dataFrom JS : %@",data[@"data"]);
+        
+//responseCallback(@"扫描结果 : www.baidu.com");
+    }];
+    [_jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"dataFrom JS : %@",data[@"data"]);
+        
+        responseCallback(@"扫描结果 : www.baidu.com");
+    }];
 }
+
 
 - (void)dealloc {
     

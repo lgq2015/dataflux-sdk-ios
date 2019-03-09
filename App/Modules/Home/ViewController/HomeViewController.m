@@ -33,21 +33,21 @@
     style.showExtraButton = YES;
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
-    style.extraBtnImageNames =@[@"icon_tools",@"icon_scan"];
+    style.extraBtnImageNames =@[@"icon_scan"];
     style.segmentHeight = kTopHeight+16;
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
-    WeakSelf;
+//    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
-        if (extraBtn.tag == 10) {
-            [self.toolsView showInView:[UIApplication sharedApplication].keyWindow];
-            self.toolsView.itemClick = ^(PWToolType type){
-                [weakSelf dealWithType:type];
-            };
-        }else if(extraBtn.tag == 11){
-          
-        }
+//        if (extraBtn.tag == 10) {
+//            [self.toolsView showInView:[UIApplication sharedApplication].keyWindow];
+//            self.toolsView.itemClick = ^(PWToolType type){
+//                [weakSelf dealWithType:type];
+//            };
+//        }else if(extraBtn.tag == 11){
+//
+//        }
     };
     [self.view addSubview:scrollPageView];
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];

@@ -195,13 +195,15 @@
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
             }
-    }
+        }else{
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+        }
     } failBlock:^(NSError *error) {
 
     }];
 }
 - (void)loadNewsDatas{
-    NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10};
+    NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
@@ -209,6 +211,8 @@
             if (items.count>0) {
                 [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
             }
+        }else{
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
