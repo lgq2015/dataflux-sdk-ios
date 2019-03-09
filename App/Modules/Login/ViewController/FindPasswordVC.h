@@ -9,5 +9,5 @@
 #import "RootViewController.h"
 
 @interface FindPasswordVC : RootViewController
-
+@property (nonatomic, assign) NSString *userAcount;
 @end

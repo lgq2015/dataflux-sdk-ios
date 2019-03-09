@@ -37,6 +37,8 @@
         _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
+        _passwordTf.clearButtonMode=UITextFieldViewModeNever;
+
         [self.view addSubview:_passwordTf];
     }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,6 +103,8 @@
     return _showWordsBtn;
 }
 - (void)confirmBtnClick{
+    if ([self.passwordTf.text validatePassWordForm]) {
+   
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
@@ -127,6 +131,9 @@
     } failBlock:^(NSError *error) {
         
     }];
+    }else{
+        [iToast alertWithTitleCenter:@"密码格式有误"];
+    }
 }
 - (void)pwdTextSwitch:(UIButton *)sender{
     sender.selected = !sender.selected;

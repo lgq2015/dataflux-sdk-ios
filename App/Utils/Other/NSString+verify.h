@@ -12,11 +12,12 @@
 /**
  检验是否为手机号
  */
-+ (BOOL)validateCellPhoneNumber:(NSString *)cellNum;
+- (BOOL)validatePhoneNumber;
+
 /**
  检验密码格式是否正确
  */
-+ (BOOL)validatePassWordForm:(NSString *)password;
+- (BOOL)validatePassWordForm;
 /**
   返回手机型号
  */

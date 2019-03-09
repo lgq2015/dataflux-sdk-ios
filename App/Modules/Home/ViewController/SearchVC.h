@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchVC : RootViewController
-
+@property (nonatomic, copy) NSString *placeHolder;
+@property (nonatomic, strong) NSArray *totalData;
+@property (nonatomic, assign) BOOL isLocal;
 @end
 
 NS_ASSUME_NONNULL_END

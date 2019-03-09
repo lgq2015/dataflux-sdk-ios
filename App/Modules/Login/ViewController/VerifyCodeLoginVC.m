@@ -92,28 +92,29 @@
         make.height.offset(ZOOM_SCALE(20));
     }];
 
-//    RACSignal *phoneTf = [[self.phoneTf rac_textSignal]map:^id(NSString *value) {
-//
-//        return value;
-//    }];
+/*
+ if((value.length == 3 || value.length == 8 )){
+ if (value.length<self.temp.length) {
+ value =[value substringToIndex:value.length-1];
+ }else{
+ value = [NSString stringWithFormat:@"%@ ", value];
+ }
+ }
+ self.phoneTf.text = value;
+ self.temp = value;
+ if (value.length>13) {
+ value = [value substringToIndex:13];
+ self.phoneTf.text = [value substringToIndex:13];
+ self.temp = [value substringToIndex:13];
+ }
+ */
       self.phoneTf.delegate = self;
       RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
-        if((value.length == 3 || value.length == 8 )){
-            if (value.length<self.temp.length) {
-                value =[value substringToIndex:value.length-1];
-            }else{
-                value = [NSString stringWithFormat:@"%@ ", value];
-            }
-        }
-        self.phoneTf.text = value;
-        self.temp = value;
-        if (value.length>13) {
-            value = [value substringToIndex:13];
-            self.phoneTf.text = [value substringToIndex:13];
-            self.temp = [value substringToIndex:13];
-        }
-        return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
-        //@([NSString validateCellPhoneNumber:[value stringByReplacingOccurrencesOfString:@" " withString:@""]]);
+          NSString *num =[value stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+          [self dealTFText:num];
+          
+          return @(num.length == 11);
     }];
     RACSignal *phoneTipSignal = [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
         BOOL hidden = value.length>0? NO:YES;
@@ -128,6 +129,18 @@
             return [UIColor colorWithHexString:@"C7C7CC"];;
         }
     }];
+}
+- (void)dealTFText:(NSString *)text{
+    if (text.length>11) {
+        text = [text substringToIndex:11];
+        self.phoneTf.text = [NSString stringWithFormat:@"%@ %@ %@",[text substringToIndex:3],[text substringWithRange:NSMakeRange(3, 4)],[text substringFromIndex:7]];
+    }else if(text.length>7){
+        self.phoneTf.text = [NSString stringWithFormat:@"%@ %@ %@",[text substringToIndex:3],[text substringWithRange:NSMakeRange(3, 4)],[text substringFromIndex:7]];
+    }else if(text.length>3){
+        self.phoneTf.text = [NSString stringWithFormat:@"%@ %@",[text substringToIndex:3],[text substringFromIndex:3]];
+    }else{
+        self.phoneTf.text = text;
+    }
 }
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
@@ -171,6 +184,7 @@
 
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
+    if ([[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] validateNumber]) {
     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
     [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
@@ -181,12 +195,14 @@
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
         }
     } failBlock:^(NSError *error) {
         
     }];
-
+    }else{
+        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

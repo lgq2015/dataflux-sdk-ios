@@ -259,15 +259,21 @@
 		4AC85709223257C200DAE1F6 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85708223257C200DAE1F6 /* SearchVC.m */; };
 		4AC8570A223257C200DAE1F6 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85708223257C200DAE1F6 /* SearchVC.m */; };
 		4AC8570B223257C200DAE1F6 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85708223257C200DAE1F6 /* SearchVC.m */; };
-		4AC8570E22325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8570D22325A6700DAE1F6 /* EVNCustomSearchBar.m */; };
-		4AC8570F22325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8570D22325A6700DAE1F6 /* EVNCustomSearchBar.m */; };
-		4AC8571022325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8570D22325A6700DAE1F6 /* EVNCustomSearchBar.m */; };
 		4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857122232668200DAE1F6 /* HistoryTableView.m */; };
 		4AC857142232668200DAE1F6 /* HistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857122232668200DAE1F6 /* HistoryTableView.m */; };
 		4AC857152232668200DAE1F6 /* HistoryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857122232668200DAE1F6 /* HistoryTableView.m */; };
 		4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85717223269FB00DAE1F6 /* CloudCareVC.m */; };
 		4AC85719223269FB00DAE1F6 /* CloudCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85717223269FB00DAE1F6 /* CloudCareVC.m */; };
 		4AC8571A223269FB00DAE1F6 /* CloudCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85717223269FB00DAE1F6 /* CloudCareVC.m */; };
+		4AC8571D223278DD00DAE1F6 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8571C223278DD00DAE1F6 /* HistoryCell.m */; };
+		4AC8571E223278DD00DAE1F6 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8571C223278DD00DAE1F6 /* HistoryCell.m */; };
+		4AC8571F223278DD00DAE1F6 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8571C223278DD00DAE1F6 /* HistoryCell.m */; };
+		4AC8573C2233B39900DAE1F6 /* BaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8573B2233B39900DAE1F6 /* BaseTextField.m */; };
+		4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8573B2233B39900DAE1F6 /* BaseTextField.m */; };
+		4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8573B2233B39900DAE1F6 /* BaseTextField.m */; };
+		4AC857412233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
+		4AC857422233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
+		4AC857432233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
@@ -970,12 +976,16 @@
 		4AC8570322323C9200DAE1F6 /* ZLChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLChineseToPinyin.h; sourceTree = "<group>"; };
 		4AC85707223257C200DAE1F6 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		4AC85708223257C200DAE1F6 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
-		4AC8570C22325A6700DAE1F6 /* EVNCustomSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVNCustomSearchBar.h; sourceTree = "<group>"; };
-		4AC8570D22325A6700DAE1F6 /* EVNCustomSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EVNCustomSearchBar.m; sourceTree = "<group>"; };
 		4AC857112232668200DAE1F6 /* HistoryTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTableView.h; sourceTree = "<group>"; };
 		4AC857122232668200DAE1F6 /* HistoryTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTableView.m; sourceTree = "<group>"; };
 		4AC85716223269FB00DAE1F6 /* CloudCareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudCareVC.h; sourceTree = "<group>"; };
 		4AC85717223269FB00DAE1F6 /* CloudCareVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudCareVC.m; sourceTree = "<group>"; };
+		4AC8571B223278DD00DAE1F6 /* HistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		4AC8571C223278DD00DAE1F6 /* HistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		4AC8573A2233B39900DAE1F6 /* BaseTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTextField.h; sourceTree = "<group>"; };
+		4AC8573B2233B39900DAE1F6 /* BaseTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTextField.m; sourceTree = "<group>"; };
+		4AC8573F2233D82000DAE1F6 /* AddSourceItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceItemView.h; sourceTree = "<group>"; };
+		4AC857402233D82000DAE1F6 /* AddSourceItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceItemView.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
@@ -1247,6 +1257,10 @@
 				4AC856E522311E3800DAE1F6 /* HandbookCell.m */,
 				4AC857112232668200DAE1F6 /* HistoryTableView.h */,
 				4AC857122232668200DAE1F6 /* HistoryTableView.m */,
+				4AC8571B223278DD00DAE1F6 /* HistoryCell.h */,
+				4AC8571C223278DD00DAE1F6 /* HistoryCell.m */,
+				4AC8573F2233D82000DAE1F6 /* AddSourceItemView.h */,
+				4AC857402233D82000DAE1F6 /* AddSourceItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1749,8 +1763,6 @@
 		4ABF449C21C0B892002AF34E /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				4AC8570C22325A6700DAE1F6 /* EVNCustomSearchBar.h */,
-				4AC8570D22325A6700DAE1F6 /* EVNCustomSearchBar.m */,
 				4AC8570322323C9200DAE1F6 /* ZLChineseToPinyin.h */,
 				4AC8570222323C9100DAE1F6 /* ZLChineseToPinyin.m */,
 				4A092D26222A765400FB2A35 /* PWLibraryListNoMoreFootView.h */,
@@ -1771,6 +1783,8 @@
 				4AB48AAC221145D7009F9E94 /* PWWeakProxy.m */,
 				4A092C672224D79100FB2A35 /* ClearCacheTool.h */,
 				4A092C682224D79100FB2A35 /* ClearCacheTool.m */,
+				4AC8573A2233B39900DAE1F6 /* BaseTextField.h */,
+				4AC8573B2233B39900DAE1F6 /* BaseTextField.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2478,7 +2492,6 @@
 				4A092CC12227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4ABF437F21B77DE3002AF34E /* UITabBar+CustomBadge.m in Sources */,
 				4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */,
-				4AC8570E22325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */,
 				4AC856FF2231481B00DAE1F6 /* HandbookIndexVC.m in Sources */,
 				4A092D9F222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
@@ -2519,6 +2532,7 @@
 				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
 				4A092DA4222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */,
+				4AC857412233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
 				4AC85709223257C200DAE1F6 /* SearchVC.m in Sources */,
 				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
@@ -2552,11 +2566,13 @@
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4AC856FA223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
+				4AC8573C2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				4A092CF72229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A19550721ABE4D8007ADFCA /* MonitorListCell.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
 				4AB489DB21EF3EF8009F9E94 /* CreateQuestionVC.m in Sources */,
 				4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */,
+				4AC8571D223278DD00DAE1F6 /* HistoryCell.m in Sources */,
 				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
 				4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */,
 				4A092D57222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -2603,6 +2619,7 @@
 				4AC856F8223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA0222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CA92227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
+				4AC8571E223278DD00DAE1F6 /* HistoryCell.m in Sources */,
 				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
@@ -2610,6 +2627,7 @@
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
+				4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
 				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
@@ -2644,7 +2662,6 @@
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
 				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
-				4AC8570F22325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
@@ -2657,6 +2674,7 @@
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
+				4AC857422233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
@@ -2783,6 +2801,7 @@
 				4AC856F9223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA1222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CAA2227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
+				4AC8571F223278DD00DAE1F6 /* HistoryCell.m in Sources */,
 				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
@@ -2790,6 +2809,7 @@
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
+				4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
 				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
@@ -2824,7 +2844,6 @@
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
 				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
-				4AC8571022325A6800DAE1F6 /* EVNCustomSearchBar.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
@@ -2837,6 +2856,7 @@
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
+				4AC857432233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,

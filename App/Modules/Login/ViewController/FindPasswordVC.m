@@ -36,6 +36,8 @@
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _userTf.placeholder = @"请输入手机号/邮箱";
         _userTf.keyboardType = UIKeyboardTypeDefault;
+        _userTf.clearButtonMode=UITextFieldViewModeNever;
+
         [self.view addSubview:_userTf];
     }
     [self.userTf mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,7 +63,12 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     RACSignal *phoneTf= [[self.userTf rac_textSignal] map:^id(NSString *value) {
-        return @(value.length == 11||[NSString validateEmail:self.userTf.text]);
+        if (value.length>0) {
+            tipLab.hidden = NO;
+        }else{
+            tipLab.hidden = YES;
+        }
+        return @([value validatePhoneNumber]||[value validateEmail]);
     }];
     RAC(self.veritfyCodeBtn,enabled) = phoneTf;
     
@@ -72,6 +79,7 @@
             return [UIColor colorWithHexString:@"C7C7CC"];;
         }
     }];
+    self.userTf.text = self.userAcount;
 }
 -(UIButton *)veritfyCodeBtn{
     if(!_veritfyCodeBtn){

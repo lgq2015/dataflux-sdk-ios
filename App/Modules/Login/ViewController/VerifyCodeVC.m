@@ -100,7 +100,7 @@
     }
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(ZOOM_SCALE(25));
-        make.right.mas_equalTo(timeLab.mas_left);
+        make.right.mas_equalTo(timeLab.mas_left).offset(-Interval(5));
         make.centerY.mas_equalTo(timeLab);
     }];
     if (!_codeTfView) {

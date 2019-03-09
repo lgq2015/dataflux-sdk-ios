@@ -30,7 +30,7 @@
         make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+16));
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(53), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"账号密码登录"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(53), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"密码设置"];
     [self.view addSubview:title];
     UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(97), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位\n至少含字母、数字、字符 2 种 组合"];
     subTitle.numberOfLines = 2;
@@ -40,7 +40,7 @@
         make.top.mas_equalTo(subTitle.mas_bottom).offset(Interval(85));
         make.width.height.offset(ZOOM_SCALE(24));
     }];
-    self.showWordsBtn.selected = YES;
+    self.showWordsBtn.selected = NO;
 
     [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -64,6 +64,10 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     RACSignal *phoneTf= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        if(value.length>25){
+            value = [value substringToIndex:25];
+            self.passwordTf.text = value;
+        }
         return @(value.length>=8?YES:NO);
     }];
     RAC(self.confirmBtn,enabled) = phoneTf;
@@ -80,6 +84,8 @@
 -(UITextField *)passwordTf{
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
+        _passwordTf.secureTextEntry = YES;
+        _passwordTf.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_passwordTf];
     }
     return _passwordTf;
@@ -135,6 +141,7 @@
 }
 }
 - (void)confirmBtnClick{
+    if ([self.passwordTf.text validatePassWordForm]) {
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
@@ -144,11 +151,14 @@
             setXAuthToken(response[@"content"][@"authAccessToken"]);
             KPostNotification(KNotificationLoginStateChange, @YES);
         }else{
-            [iToast alertWithTitleCenter:@"message"];
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
         }
     } failBlock:^(NSError *error) {
         
     }];
+    }else{
+        [iToast alertWithTitleCenter:@"密码格式有误"];
+    }
 }
 - (void)skipBtnClick{
 //    [userManager  saveUserInfo];

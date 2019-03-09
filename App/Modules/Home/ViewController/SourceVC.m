@@ -553,7 +553,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         __weak typeof (self) vc = self;
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:NO];
-        }
+         }else{
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+         }
     } failBlock:^(NSError *error) {
     }];
 }

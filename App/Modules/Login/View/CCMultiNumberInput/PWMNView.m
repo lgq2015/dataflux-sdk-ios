@@ -91,11 +91,12 @@
         self.codeString = str2;
         item.inputView.text = str;
         if (self.seletTag == self.count) {
-            self.inputTf.enabled = NO;
+            self.inputTf.frame = CGRectZero;
             if (self.completeBlock) {
                 self.completeBlock(self.codeString);
             }
-            [self codeView_ResignFirstResponder];
+            self.seletTag +=1;
+           self.inputTf.text = @" ";
         }else{
             self.seletTag += 1;
             [self codeViewBecomeFirstResponderWithTag:self.seletTag];
@@ -108,7 +109,7 @@
                 weakSelf.completeBlock(text);
             }
         }];
-        [self codeView_ResignFirstResponder];
+//        [self codeView_ResignFirstResponder];
     }else if(textField.text.length == 1 || textField.text.length == 0){
         if(self.seletTag>1){
         NSString *str = [self.codeString substringToIndex:self.seletTag-2];
@@ -119,6 +120,16 @@
         }else{
             textField.text = @" ";
         }
+    }else {
+        
+        NSString *text = [[textField.text stringByReplacingOccurrencesOfString:@" " withString:@""] substringToIndex:self.count];
+        
+        __weak typeof(self) weakSelf = self;
+        [self setValueWithString:text completed:^(BOOL is) {
+            if (weakSelf.completeBlock) {
+                weakSelf.completeBlock(text);
+            }
+        }];
     }
 }
 //整个控件成为第一响应

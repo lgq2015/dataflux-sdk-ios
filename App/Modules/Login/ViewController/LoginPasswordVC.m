@@ -69,7 +69,6 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
-     
       UIView * line1 = [[UIView alloc]init];
         line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
       [self.view addSubview:line1];
@@ -138,24 +137,26 @@
         make.centerY.mas_equalTo(self.selectBtn);
     }];
 
-    RACSignal *phoneTf = [[self.phoneTf rac_textSignal]map:^id(NSString *value) {
-        
-        if((value.length == 3 || value.length == 8 )){
-            if (value.length<self.temp.length) {
-                value =[value substringToIndex:value.length-1];
-            }else{
-            value = [NSString stringWithFormat:@"%@ ", value];
-            }
+    RACSignal *phoneTf = [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
+        if(value.length>0){
+            phone.hidden = NO;
+        }else{
+            phone.hidden = YES;
         }
-        self.phoneTf.text = value;
-        self.temp = value;
         return value;
     }];
     
-    RACSignal *passwordTf =  [self.passwordTf rac_textSignal];
+    RACSignal *passwordTf =  [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        if(value.length>0){
+            password.hidden = NO;
+        }else{
+            password.hidden = YES;
+        }
+         return value;
+    }];
     RACSignal *btn = RACObserve(self.selectBtn, selected);
     RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
-        return @([phone stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11 && [NSString validatePassWordForm:password] && self.selectBtn.selected);
+        return @(([phone validatePhoneNumber]||[phone validateEmail]) && self.selectBtn.selected && [password validatePassWordForm]);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
@@ -267,6 +268,7 @@
 
 #pragma mark ========== 登录 ==========
 - (void)loginClick{
+    [SVProgressHUD show];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
@@ -280,7 +282,8 @@
     };
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
-        
+        [SVProgressHUD dismiss];
+
     }];
 
 }
@@ -292,6 +295,7 @@
     FindPasswordVC *findVC = [[FindPasswordVC alloc]init];
     findVC.isHidenNaviBar = YES;
     findVC.isShowCustomNaviBar = YES;
+    findVC.userAcount = self.phoneTf.text;
     [self.navigationController pushViewController:findVC animated:YES];
 }
 #pragma mark ========== 验证码登录页面跳转 ==========
@@ -341,6 +345,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

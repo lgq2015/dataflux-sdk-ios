@@ -93,13 +93,14 @@
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
+#define PW_handbookUrl(ID)   [NSString stringWithFormat:@"%@/handbook/h/%@",API_H5_HOST,ID]
 #define PW_handbook(ID)     [NSString stringWithFormat:@"%@/v1/handbook/%@/article/list",API_SEVERID,ID]
 #define PW_handbookList                API_SEVERID@"/v1/handbook/active/list"
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
 
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
-
+#define PW_articleSearch               API_SEVERID@"/v1/handbook/article/search"
 #pragma mark ========== 团队 ==========
 #define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
 #define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"

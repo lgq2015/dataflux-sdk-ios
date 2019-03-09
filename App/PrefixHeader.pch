@@ -21,7 +21,7 @@
 #import <WebViewJavascriptBridge.h>
 #import "UserManager.h"
 #import "PWFMDB.h"
-
+ #import <WebViewJavascriptBridge.h>
 // 布局
 #import "Masonry.h"
 #import "PWCommonCtrl.h"
