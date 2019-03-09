@@ -12,6 +12,7 @@
 @interface RootViewController ()
 @property(nonatomic, strong) UIView *noDataView;
 @property(nonatomic, strong) UILabel *noDataLab;
+@property(nonatomic, strong) UIView *noSearchView;
 @end
 
 @implementation RootViewController
@@ -143,9 +144,43 @@
     }];
     [self.view addSubview:self.noDataView];
 }
+-(void)hideNoSearchView{
+    if (_noSearchView) {
+        self.noSearchView.hidden = YES;
+    }
+    if (_tableView) {
+        _tableView.hidden = NO;
+    }
+}
+-(void)showNoSearchView{
+    [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UITableView class]]) {
+            obj.hidden = YES;
+        }
+    }];
+    self.noSearchView.hidden = NO;
+    [self.view addSubview:self.noSearchView];
+}
+-(UIView *)noSearchView{
+    if (!_noSearchView) {
+        CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
+        _noSearchView = [[UIView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight)];
+        _noSearchView.backgroundColor = PWWhiteColor;
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(111), ZOOM_SCALE(222), ZOOM_SCALE(190))];
+        [image setImage:[UIImage imageNamed:@"no_message"]];
+        image.centerX = self.view.centerX;
+        [_noSearchView addSubview:image];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"暂无搜索结果"];
+        no.textAlignment = NSTextAlignmentCenter;
+        [_noSearchView addSubview:no];
+    }
+    return _noSearchView;
+}
 -(UIView *)noDataView{
     if (!_noDataView) {
-        _noDataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight)];
+        CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
+
+        _noDataView = [[UIView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight)];
         _noDataView.backgroundColor = PWWhiteColor;
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(111), ZOOM_SCALE(222), ZOOM_SCALE(190))];
          [image setImage:[UIImage imageNamed:@"blank_page"]];

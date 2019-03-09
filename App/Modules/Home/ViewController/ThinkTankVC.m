@@ -74,6 +74,8 @@ static NSUInteger ItemWidth = 104;
             if (content.count>0) {
                 [self compareWithData:content];
             }
+        }else{
+            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
         }
     } failBlock:^(NSError *error) {
         
@@ -200,6 +202,7 @@ static NSUInteger ItemWidth = 104;
 - (void)searchClick{
     SearchVC *search = [[SearchVC alloc]init];
     search.isHidenNaviBar = YES;
+    search.placeHolder = @"您好，请问有什么可以帮您？";
     [self.navigationController pushViewController:search animated:YES];
 }
 - (void)loadHandBookDetail:(NSInteger)index{

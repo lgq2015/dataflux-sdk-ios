@@ -108,5 +108,6 @@
  * 下拉刷新后 footer 为可加载
  */
 -(void)showLoadFooterView;
-
+-(void)showNoSearchView;
+-(void)hideNoSearchView;
 @end

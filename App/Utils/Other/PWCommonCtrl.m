@@ -71,12 +71,15 @@
     return alert;
 }
 +(UITextField *)textFieldWithFrame:(CGRect)frame{
+   return  [self textFieldWithFrame:frame font:MediumFONT(16)];
+}
++(UITextField *)textFieldWithFrame:(CGRect)frame font:(UIFont *)font{
     UITextField *tf = [[UITextField alloc]initWithFrame:frame];
-    [tf setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:16]];
+    [tf setFont:font];
     tf.textColor = PWTextBlackColor;
 //    [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
     UILabel *place = [[UILabel alloc]init];
-    place.font = MediumFONT(16);
+    place.font = font;
     place.textColor =PWTextLight;
     place.numberOfLines = 0;
     [place sizeToFit];

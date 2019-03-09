@@ -1,5 +1,5 @@
 //
-//  HistoryTableView.h
+//  HistoryCell.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2019/3/8.
@@ -10,10 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HistoryTableView : UIView
-@property (nonatomic, copy) void(^searchItem)(NSString *search);
+@interface HistoryCell : UITableViewCell
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) void(^delectClick)(void);
 
--(void)reloadHistoryList;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,7 @@
 #import "HandbookModel.h"
 #import "ZLChineseToPinyin.h"
 #import "NewsWebView.h"
-
+#import "SearchVC.h"
 @interface HandbookIndexVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 // 索引标题数组(排序后的出现过的拼音首字母数组)
@@ -21,6 +21,7 @@
 
 // 排序好的结果数组
 @property(nonatomic, strong) NSMutableArray *resultArr;
+@property (nonatomic, strong) NSMutableArray *totalData;
 @end
 
 @implementation HandbookIndexVC
@@ -62,10 +63,20 @@
     if (!_searchView) {
         _searchView = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), ZOOM_SCALE(36))];
         _searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchClick)];
+        [_searchView addGestureRecognizer:tap];
         _searchView.layer.cornerRadius = 4.0f;
         [self.view addSubview:_searchView];
     }
     return _searchView;
+}
+- (void)searchClick{
+    SearchVC *search = [[SearchVC alloc]init];
+    search.isHidenNaviBar = YES;
+    search.placeHolder = @"搜索发现";
+    search.isLocal = YES;
+    search.totalData = self.totalData;
+    [self.navigationController pushViewController:search animated:YES];
 }
 - (void)loadData{
     self.dataSource = [NSMutableArray new];
@@ -86,12 +97,14 @@
     }];
 }
 - (void)dealWithData:(NSArray *)data{
-    
+    self.totalData = [NSMutableArray new];
+    [self.totalData addObjectsFromArray:data];
     self.indexArr = [ZLChineseToPinyin indexWithArray:data Key:@"firstChar"];
     self.dataSource = [ZLChineseToPinyin sortObjectArray:data Key:@"firstChar"];
     self.tableView.sc_indexViewDataSource = self.indexArr.copy;
     [self.tableView reloadData];
 }
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -119,7 +132,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.section][indexPath.row] error:&error];
-    NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.htmlPath];
+    DLog(@"%@",PW_handbookUrl(model.articleId));
+    NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
     webview.handbookModel = model;
     [self.navigationController pushViewController:webview animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
