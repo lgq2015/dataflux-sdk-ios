@@ -195,7 +195,7 @@
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         

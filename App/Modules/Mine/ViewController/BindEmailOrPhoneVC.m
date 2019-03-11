@@ -181,7 +181,7 @@
                     }
                 });
             }else if([response[@"message"] isEqualToString:@"Email Exists"]){
-                [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
             }
         } failBlock:^(NSError *error) {
             [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
@@ -203,7 +203,7 @@
             verify.uuid = self.uuid;
             [self.navigationController pushViewController:verify animated:YES];
         }else {
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"绑定失败"];

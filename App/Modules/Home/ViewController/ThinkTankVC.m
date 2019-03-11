@@ -75,7 +75,7 @@ static NSUInteger ItemWidth = 104;
                 [self compareWithData:content];
             }
         }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         

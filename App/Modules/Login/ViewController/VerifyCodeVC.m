@@ -19,6 +19,8 @@
 #import "PWBaseWebVC.h"
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
+#import "JPUSHService.h"
+
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UILabel *timeLab;
@@ -270,7 +272,9 @@
     NSString *openUDID = [OpenUDID value];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *device_version = [NSString getCurrentDeviceModel];
-    NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":@"191e35f7e06a8f91d83",@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
+    NSString *registrationId = [JPUSHService registrationID];
+
+    NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
         if (success) {
@@ -376,7 +380,7 @@
                 }
             });
         }else{
-            [SVProgressHUD showErrorWithStatus:[response[@"errCode"] transformErrCode]];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         

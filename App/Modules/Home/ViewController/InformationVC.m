@@ -196,7 +196,7 @@
                 [self RecommendationDatas:datas];
             }
         }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
 
@@ -212,7 +212,7 @@
                 [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
             }
         }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {

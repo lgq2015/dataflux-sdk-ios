@@ -205,7 +205,7 @@
                 [self showNoSearchView];
             }
         }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

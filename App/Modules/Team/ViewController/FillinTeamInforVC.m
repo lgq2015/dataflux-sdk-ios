@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray<UITextField *> *tfAry;
 
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, copy) NSString *currentCity;
+@property (nonatomic, copy) NSString *currentProvince;
 @property (nonatomic, copy) NSString *temp;
 @end
 
@@ -122,7 +124,8 @@
 - (void)createBtnViewMember{
     TeamInfoModel *model = userManager.teamModel;
     self.tfAry[0].text =model.name;
-    self.tfAry[1].text = [NSString stringWithFormat:@"%@ %@",model.province,model.city];
+    NSString *city = model.city.length>0?model.city:model.province;
+    self.tfAry[1].text = city;
     self.tfAry[2].text = model.industry;
     self.textView.text = [model.tags stringValueForKey:@"introduction" default:@""];
     self.textView.editable = NO;
@@ -238,8 +241,11 @@
 #pragma mark ========== 团队/管理员 ==========
 - (void)createBtnViewAdmin{
     TeamInfoModel *model = userManager.teamModel;
+    self.currentProvince = model.province;
+    self.currentCity = model.city;
     self.tfAry[0].text =model.name;
-    self.tfAry[1].text = [NSString stringWithFormat:@"%@ %@",model.province,model.city];
+    NSString *city = model.city.length>0?model.city:model.province;
+    self.tfAry[1].text = city;
     self.tfAry[2].text = model.industry;
     self.textView.text = [model.tags stringValueForKey:@"introduction" default:@""];
     UIButton *transferTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
@@ -297,7 +303,7 @@
 - (void)backBtnClicked{
     if (self.type == FillinTeamTypeIsAdmin) {
         TeamInfoModel *model = userManager.teamModel;
-        if ([self.tfAry[0].text isEqualToString:model.name] &&[self.tfAry[1].text isEqualToString: [NSString stringWithFormat:@"%@ %@",model.province,model.city]]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
+        if ([self.tfAry[0].text isEqualToString:model.name] &&[self.currentProvince isEqualToString:model.province] && [self.currentCity isEqualToString:model.city]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             if ([self.tfAry[0].text isEqualToString:@""]) {
@@ -305,9 +311,8 @@
             }else{
                 [SVProgressHUD show];
                 NSDictionary *param ;
-                NSArray *address = [self.tfAry[1].text componentsSeparatedByString:@" "];
-                NSString *province =address[0];
-                NSString *city = address[1];
+                NSString *province =self.currentProvince;
+                NSString *city = self.currentCity;
                 if ([self.tfAry[0].text isEqualToString:model.name]) {
                     param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
                 }else{
@@ -380,10 +385,14 @@
     if (sender.view.tag == AddressTag) {
         ChooseAddressVC *addressVC = [[ChooseAddressVC alloc]init];
         if (self.tfAry[1].text.length>0) {
-            addressVC.currentAddress = self.tfAry[1].text;
+            addressVC.currentCity = self.tfAry[1].text;
+            addressVC.currentProvince = self.currentProvince;
         }
         addressVC.itemClick = ^(NSString *text){
-            self.tfAry[1].text = text;
+            NSArray *address = [text componentsSeparatedByString:@" "];
+            self.currentProvince =address[0];
+            self.currentCity = address[1];
+            self.tfAry[1].text = self.currentCity;
         };
         [self.navigationController pushViewController:addressVC animated:YES];
     }else{

@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChooseAddressVC : RootViewController
 @property (nonatomic, copy) void(^itemClick)(NSString *text);
-@property (nonatomic, copy) NSString *currentAddress;
+@property (nonatomic, copy) NSString *currentCity;
+@property (nonatomic, copy) NSString *currentProvince;
 @end
 
 NS_ASSUME_NONNULL_END

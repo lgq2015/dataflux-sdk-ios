@@ -54,6 +54,12 @@
     }else if([self.model.messageType isEqualToString:@"issue_source"]){
         color = [UIColor colorWithHexString:@"#3B85F8"];
         type = @"情报源";
+    }else if([self.model.messageType isEqualToString:@"service_package"]){
+        color = [UIColor colorWithHexString:@"#3B85F8"];
+        type = @"服务";
+    }else{
+        color = [UIColor colorWithHexString:@"#3B85F8"];
+        type = @"不详";
     }
     [self.sourceLab setTextColor:color];
     self.sourceLab.text = type;

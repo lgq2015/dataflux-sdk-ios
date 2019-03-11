@@ -13,7 +13,7 @@
 #import "UserManager.h"
 #import <TTTAttributedLabel.h>
 #import "PWBaseWebVC.h"
-
+#import "JPUSHService.h"
 @interface LoginPasswordVC ()<TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
@@ -272,11 +272,13 @@
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
+    NSString *registrationId = [JPUSHService registrationID];
+
     NSDictionary *param =@{@"marker":@"mobile",
         @"username":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
         @"password": self.passwordTf.text,
         @"deviceId": openUDID,
-        @"registrationId":@"191e35f7e06a8f91d83",
+        @"registrationId":registrationId,
         @"deviceOSVersion": os_version,
         @"deviceVersion":device_version,
     };

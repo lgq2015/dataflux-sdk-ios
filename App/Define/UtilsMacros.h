@@ -76,7 +76,7 @@
 #else
 #define DLog(...)
 #endif
-
+//#define NSLocalizedString(key,comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 //主题色 导航栏颜色

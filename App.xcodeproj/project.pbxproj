@@ -171,7 +171,6 @@
 		4AB489B321EC6640009F9E94 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* MonitorCell.m */; };
 		4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */; };
 		4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489BB21EDB450009F9E94 /* AddSourceVC.m */; };
-		4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
 		4AB489DB21EF3EF8009F9E94 /* CreateQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB489E421F06B42009F9E94 /* SourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489E321F06B42009F9E94 /* SourceVC.m */; };
@@ -274,6 +273,27 @@
 		4AC857412233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
 		4AC857422233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
 		4AC857432233D82000DAE1F6 /* AddSourceItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857402233D82000DAE1F6 /* AddSourceItemView.m */; };
+		4AC857462235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857452235F7C100DAE1F6 /* HostDiagnosisVC.m */; };
+		4AC857472235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857452235F7C100DAE1F6 /* HostDiagnosisVC.m */; };
+		4AC857482235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857452235F7C100DAE1F6 /* HostDiagnosisVC.m */; };
+		4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */; };
+		4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */; };
+		4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */; };
+		4AC857502236012200DAE1F6 /* ProphetMonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574F2236012200DAE1F6 /* ProphetMonitorVC.m */; };
+		4AC857512236012200DAE1F6 /* ProphetMonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574F2236012200DAE1F6 /* ProphetMonitorVC.m */; };
+		4AC857522236012200DAE1F6 /* ProphetMonitorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8574F2236012200DAE1F6 /* ProphetMonitorVC.m */; };
+		4AC8575522361CDA00DAE1F6 /* ExplainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575422361CDA00DAE1F6 /* ExplainVC.m */; };
+		4AC8575622361CDA00DAE1F6 /* ExplainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575422361CDA00DAE1F6 /* ExplainVC.m */; };
+		4AC8575722361CDA00DAE1F6 /* ExplainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575422361CDA00DAE1F6 /* ExplainVC.m */; };
+		4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575922362C4D00DAE1F6 /* BorderView.m */; };
+		4AC8575B22362C4E00DAE1F6 /* BorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575922362C4D00DAE1F6 /* BorderView.m */; };
+		4AC8575C22362C4E00DAE1F6 /* BorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575922362C4D00DAE1F6 /* BorderView.m */; };
+		4AC8575F22364F0300DAE1F6 /* MoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */; };
+		4AC8576022364F0300DAE1F6 /* MoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */; };
+		4AC8576122364F0300DAE1F6 /* MoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */; };
+		4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
+		4AC857652236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
+		4AC857662236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
@@ -346,7 +366,6 @@
 		CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
 		CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
 		CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
-		CA1CF592221ECB3A00D15316 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
 		CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
 		CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
 		CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -499,7 +518,6 @@
 		CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
 		CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
 		CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
-		CA1CF637221ECB5000D15316 /* InformationSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */; };
 		CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
 		CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
 		CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -818,8 +836,6 @@
 		4AB489B821EDB14B009F9E94 /* InformationSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSourceVC.m; sourceTree = "<group>"; };
 		4AB489BA21EDB450009F9E94 /* AddSourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
 		4AB489BB21EDB450009F9E94 /* AddSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
-		4AB489D321EF07D6009F9E94 /* InformationSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationSourceCell.h; sourceTree = "<group>"; };
-		4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationSourceCell.m; sourceTree = "<group>"; };
 		4AB489D921EF3EF8009F9E94 /* CreateQuestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateQuestionVC.h; sourceTree = "<group>"; };
 		4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQuestionVC.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -986,6 +1002,20 @@
 		4AC8573B2233B39900DAE1F6 /* BaseTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTextField.m; sourceTree = "<group>"; };
 		4AC8573F2233D82000DAE1F6 /* AddSourceItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceItemView.h; sourceTree = "<group>"; };
 		4AC857402233D82000DAE1F6 /* AddSourceItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceItemView.m; sourceTree = "<group>"; };
+		4AC857442235F7C100DAE1F6 /* HostDiagnosisVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostDiagnosisVC.h; sourceTree = "<group>"; };
+		4AC857452235F7C100DAE1F6 /* HostDiagnosisVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostDiagnosisVC.m; sourceTree = "<group>"; };
+		4AC857492235FEE300DAE1F6 /* InformationSourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationSourceCell.h; sourceTree = "<group>"; };
+		4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationSourceCell.m; sourceTree = "<group>"; };
+		4AC8574E2236012200DAE1F6 /* ProphetMonitorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProphetMonitorVC.h; sourceTree = "<group>"; };
+		4AC8574F2236012200DAE1F6 /* ProphetMonitorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProphetMonitorVC.m; sourceTree = "<group>"; };
+		4AC8575322361CDA00DAE1F6 /* ExplainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExplainVC.h; sourceTree = "<group>"; };
+		4AC8575422361CDA00DAE1F6 /* ExplainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExplainVC.m; sourceTree = "<group>"; };
+		4AC8575822362C4D00DAE1F6 /* BorderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorderView.h; sourceTree = "<group>"; };
+		4AC8575922362C4D00DAE1F6 /* BorderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorderView.m; sourceTree = "<group>"; };
+		4AC8575D22364F0300DAE1F6 /* MoreServicesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreServicesVC.h; sourceTree = "<group>"; };
+		4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreServicesVC.m; sourceTree = "<group>"; };
+		4AC857622236646F00DAE1F6 /* AddSourceTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceTipView.h; sourceTree = "<group>"; };
+		4AC857632236646F00DAE1F6 /* AddSourceTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceTipView.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
@@ -1241,12 +1271,12 @@
 				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
 				4AB489B121EC6640009F9E94 /* MonitorCell.h */,
 				4AB489B221EC6640009F9E94 /* MonitorCell.m */,
-				4AB489D321EF07D6009F9E94 /* InformationSourceCell.h */,
-				4AB489D421EF07D6009F9E94 /* InformationSourceCell.m */,
 				4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */,
 				4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */,
 				4AB48A1F21F7282C009F9E94 /* NetworkToolboxView.h */,
 				4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */,
+				4AC857492235FEE300DAE1F6 /* InformationSourceCell.h */,
+				4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */,
 				4AD848E8221FFC06002ADF62 /* WebItemView.h */,
 				4AD848E9221FFC06002ADF62 /* WebItemView.m */,
 				4A092C572222B05300FB2A35 /* TriangleView.h */,
@@ -1261,6 +1291,10 @@
 				4AC8571C223278DD00DAE1F6 /* HistoryCell.m */,
 				4AC8573F2233D82000DAE1F6 /* AddSourceItemView.h */,
 				4AC857402233D82000DAE1F6 /* AddSourceItemView.m */,
+				4AC8575822362C4D00DAE1F6 /* BorderView.h */,
+				4AC8575922362C4D00DAE1F6 /* BorderView.m */,
+				4AC857622236646F00DAE1F6 /* AddSourceTipView.h */,
+				4AC857632236646F00DAE1F6 /* AddSourceTipView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1822,6 +1856,14 @@
 				4AC856FE2231481B00DAE1F6 /* HandbookIndexVC.m */,
 				4AC85707223257C200DAE1F6 /* SearchVC.h */,
 				4AC85708223257C200DAE1F6 /* SearchVC.m */,
+				4AC857442235F7C100DAE1F6 /* HostDiagnosisVC.h */,
+				4AC857452235F7C100DAE1F6 /* HostDiagnosisVC.m */,
+				4AC8574E2236012200DAE1F6 /* ProphetMonitorVC.h */,
+				4AC8574F2236012200DAE1F6 /* ProphetMonitorVC.m */,
+				4AC8575322361CDA00DAE1F6 /* ExplainVC.h */,
+				4AC8575422361CDA00DAE1F6 /* ExplainVC.m */,
+				4AC8575D22364F0300DAE1F6 /* MoreServicesVC.h */,
+				4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2425,7 +2467,9 @@
 				4A092D5C222D535A00FB2A35 /* MessageDetailVC.m in Sources */,
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
+				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
+				4AC857502236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
 				4A092CFF22293A1000FB2A35 /* MemberInfoVC.m in Sources */,
@@ -2433,6 +2477,7 @@
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D48222D303D00FB2A35 /* MineCollectionVC.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
+				4AC8575F22364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4A092CB72227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
@@ -2446,7 +2491,6 @@
 				4A092D52222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
 				4A092C8E2226620100FB2A35 /* DistrictCell.m in Sources */,
-				4AB489D521EF07D6009F9E94 /* InformationSourceCell.m in Sources */,
 				4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */,
 				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
 				4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */,
@@ -2497,6 +2541,7 @@
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4A092D61222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
+				4AC8575522361CDA00DAE1F6 /* ExplainVC.m in Sources */,
 				4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */,
 				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
@@ -2545,6 +2590,7 @@
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
 				4AB48A7D21FC4741009F9E94 /* PPBadgeControl.m in Sources */,
 				4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */,
+				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
@@ -2563,6 +2609,8 @@
 				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
+				4AC857462235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */,
+				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* PWNewsListCell.m in Sources */,
 				4AC856FA223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
@@ -2620,6 +2668,7 @@
 				4A092DA0222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CA92227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4AC8571E223278DD00DAE1F6 /* HistoryCell.m in Sources */,
+				4AC857652236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
@@ -2633,7 +2682,6 @@
 				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */,
-				CA1CF592221ECB3A00D15316 /* InformationSourceCell.m in Sources */,
 				4A092C7E22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */,
 				CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */,
@@ -2643,6 +2691,7 @@
 				4A092CBD2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */,
 				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
+				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
@@ -2659,6 +2708,7 @@
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */,
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4AC857512236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
 				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
@@ -2669,6 +2719,7 @@
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4AC857472235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
@@ -2681,6 +2732,7 @@
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4E222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
+				4AC8575622361CDA00DAE1F6 /* ExplainVC.m in Sources */,
 				4A092CFB2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4AC8570A223257C200DAE1F6 /* SearchVC.m in Sources */,
 				CA1CF5B2221ECB3A00D15316 /* YYFPSLabel.m in Sources */,
@@ -2737,6 +2789,7 @@
 				CA1CF5D5221ECB3A00D15316 /* PWDraggableLibraryView.m in Sources */,
 				CA6D83452224214C00CF577A /* TriangleView.m in Sources */,
 				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
+				4AC8575B22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
 				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
 				4A092D0A222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
@@ -2772,6 +2825,7 @@
 				CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
+				4AC8576022364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
 				CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */,
@@ -2802,6 +2856,7 @@
 				4A092DA1222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CAA2227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4AC8571F223278DD00DAE1F6 /* HistoryCell.m in Sources */,
+				4AC857662236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
@@ -2815,7 +2870,6 @@
 				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */,
-				CA1CF637221ECB5000D15316 /* InformationSourceCell.m in Sources */,
 				4A092C7F22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */,
 				CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */,
@@ -2825,6 +2879,7 @@
 				4A092CBE2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */,
 				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
+				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
@@ -2841,6 +2896,7 @@
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
 				CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */,
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4AC857522236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
 				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
@@ -2851,6 +2907,7 @@
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4AC857482235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
@@ -2863,6 +2920,7 @@
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4F222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
+				4AC8575722361CDA00DAE1F6 /* ExplainVC.m in Sources */,
 				4A092CFC2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4AC8570B223257C200DAE1F6 /* SearchVC.m in Sources */,
 				CA1CF657221ECB5000D15316 /* YYFPSLabel.m in Sources */,
@@ -2919,6 +2977,7 @@
 				CA1CF67A221ECB5000D15316 /* PWDraggableLibraryView.m in Sources */,
 				CA6D83462224214C00CF577A /* TriangleView.m in Sources */,
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
+				4AC8575C22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
 				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
 				4A092D0B222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
@@ -2954,6 +3013,7 @@
 				CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
+				4AC8576122364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
 				CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */,

@@ -44,6 +44,9 @@
     
 }
 - (void)setFistSelect{
+//    [self.districtAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//    }];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     DistrictCell *cell = (DistrictCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:YES];
@@ -57,7 +60,7 @@
     }
     [self.cityAry addObjectsFromArray:dict[@"children"]];
     [self.cityCollectionView reloadData];
-    
+
 }
 - (void)createUI{
     self.tableView.rowHeight =ZOOM_SCALE(50);
@@ -68,7 +71,7 @@
     [self.tableView registerClass:[DistrictCell class] forCellReuseIdentifier:@"DistrictCell"];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.cityCollectionView];
-    if (self.currentAddress == nil || [self.currentAddress isEqualToString:@""]) {
+    if (self.currentCity == nil || [self.currentCity isEqualToString:@""] || [self.currentProvince isEqualToString:@""]) {
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view);
             make.left.mas_equalTo(self.view);
@@ -82,7 +85,8 @@
             make.bottom.mas_equalTo(self.view);
         }];
     }else{
-        self.currentDisLab.text = [NSString stringWithFormat:@"当前选择城市：%@",self.currentAddress];
+        NSString *city = self.currentCity?self.currentCity:self.currentProvince;
+        self.currentDisLab.text = [NSString stringWithFormat:@"当前选择城市：%@",city];
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.currentDisLab.mas_bottom);
             make.left.mas_equalTo(self.view);
@@ -141,7 +145,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     DistrictCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DistrictCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.title = self.districtAry[indexPath.row][@"name"];
+    NSString *name =self.districtAry[indexPath.row][@"name"];
+    cell.title = name;
+    
     self.province = self.districtAry[indexPath.row][@"name"];
     return cell;
 }
@@ -168,7 +174,9 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CityCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CityCell" forIndexPath:indexPath];
-    cell.titleLab.text = self.cityAry[indexPath.row][@"name"];
+    NSString *name =self.cityAry[indexPath.row][@"name"];
+    cell.titleLab.text = name;
+    
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

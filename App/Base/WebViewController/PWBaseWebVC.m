@@ -39,7 +39,11 @@
 }
 -(WKWebView *)webview{
     if (!_webview) {
-        
+        WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
+        config.preferences.javaScriptEnabled = YES;
+        config.selectionGranularity = YES;
+      _webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) configuration:config];
+      _webview.allowsBackForwardNavigationGestures = YES;
     }
     return _webview;
 }
@@ -58,13 +62,10 @@
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
-    config.preferences.javaScriptEnabled = YES;
-    config.selectionGranularity = YES;
+   
 
-    self.webview = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
 
-    self.webview.allowsBackForwardNavigationGestures = YES;
+   
     _jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webview];
 
     [self.webview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
