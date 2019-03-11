@@ -13,6 +13,7 @@
 @interface SourceVC : RootViewController
 @property (nonatomic, assign) SourceType type;
 @property (nonatomic, strong) PWInfoSourceModel *model;
+@property (nonatomic, assign) BOOL isDefault;
 @property (nonatomic, assign) BOOL isAdd;
 @property (nonatomic, copy) void(^RefreshClick)(void);
 @end

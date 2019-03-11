@@ -11,12 +11,10 @@ typedef NS_ENUM(NSUInteger, SourceType) {
     SourceTypeAli = 1,             //阿里云
     SourceTypeAWS,                 //AWS
     SourceTypeTencent,             //腾讯云
-    SourceTypeUcloud,              //华为云
+    SourceTypeUcloud,              //优刻得
     SourceTypeSingleDiagnose,      //主机诊断
     SourceTypeClusterDiagnose,     //集群诊断
     SourceTypeDomainNameDiagnose,  //域名诊断
-    SourceTypeWebsiteSecurityScan, //网站安全扫描
-    SourceTypeURLDiagnose,         //URL 诊断
 };
 typedef NS_ENUM(NSInteger, SourceState) {
     SourceStateNotDetected = 1,        //未开始检测

@@ -18,7 +18,8 @@
     return NO;
 }
 - (BOOL)validatePassWordForm{
-    NSString *pPhone = @"^(?![\\d]+$)(?![a-zA-Z]+$)(?![^\\da-zA-Z]+$).{8,25}$";
+    ///^(?![A-Za-z]+$)(?![\W]+$)(?![0-9]+$)[^\u4e00-\u9fa5]{8,25}$/
+    NSString *pPhone = @"^(?![A-Za-z]+$)(?![\\W_]+$)(?![0-9]+$)[^\u4e00-\u9fa5]{8,25}$";
     NSPredicate *pPhoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pPhone];
     return [pPhoneTest evaluateWithObject:self];
 }
@@ -215,75 +216,5 @@
     }
     return res;
 }
-- (NSString *)transformErrCode{
-    NSDictionary *errCode = @{@"home.auth.exceededSendIntervalLimit":@"超过发送间隔限制",@"home.account.mobileExists":@"手机号码异常",@"home.auth.passwordIncorrect":@"密码错误",@" home.account.alreadyInTeam":@"您已是其它团队成员，请先退出后再尝试创建团队",@"home.auth.unauthorized":@"用户登录信息失效",@"home.auth.passwordIncorrect":@"密码错误",@"home.account.onlyTeamAdminCanOperate":@"只有团队管理员能操作",@"home.account.alreadyInTeam":@"团队已经存在",@"home.account.bindTeamFirst":@"请先绑定团队",@"home.auth.exceededSendIntervalLimit":@"获取验证码过于频繁，请稍后再试"};
-    
-    return [errCode stringValueForKey:self default:self];
-}
+
 @end
-/*
- '500': '服务器异常',
- 'home.auth.passwordIncorrect': '密码错误',
- '401.41': '当前用户不存在',
- 'home.auth.unauthorized': '用户登录信息失效',
- 'home.account.alreadyInTeam': '团队已经存在',
- 'home.account.bindTeamFirst': '请先绑定团队',
- 'home.account.canNotDoubleCall': '不能呼叫',
- 'home.account.doubleCallFailed': '呼叫失败',
- 'home.account.emailExists': '邮箱地址已存在',
- 'home.account.linkExpired': '链接过期',
- 'home.account.mobileExists': '手机号码异常',
- 'home.account.notTheSameTeam': '不是同一个团队',
- 'home.account.onlyTeamAdminCanOperate': '只有团队管理员能操作',
- 'home.account.operationError': '操作错误',
- 'home.account.operationSessionExpired': '身份验证已过期',
- 'home.account.teamAdminCanNotBeRemoved': '管理员账号，不能删除',
- 'home.auth.emailCodeIncorrect': '邮件验证码错误',
- 'home.auth.exceededSendIntervalLimit': '获取验证码过于频繁，请稍后再试',
- 'home.auth.tooManyRequests': '获取验证码过于频繁，请稍后再试',
- 'home.auth.invalidIdentityToken': '身份验证已过期',
- 'home.auth.loginInfoInvalid': '登录信息失效',
- 'home.auth.emailCodeExpired': '验证码失效',
- 'home.auth.smsCodeExpired': '验证码失效',
- 'home.auth.tooManyIncorrectAttempts': '您尝试的错误次数过多，请 {count}s 后再尝试',
- 'home.auth.needLoginAgain': '请再次登录',
- 'home.auth.noSuchAccount': '当前用户不存在',
- 'home.auth.noSuchEmail': '邮箱不存在',
- 'home.auth.noSuchIssueLog': '情报日志不存在',
- 'home.auth.noSuchIssueSource': '情报源不存在',
- 'home.auth.noSuchMobile': '手机号码不存在',
- 'home.auth.noSuchTeam': '团队不存在',
- 'home.auth.passwordRuleIncorrect': '错误的密码规则',
- 'home.auth.smsCodeIncorrect': '验证码错误',
- 'home.auth.unsupportedEmailType': '不支持的邮件类型',
- 'home.auth.unsupportedSMSType': '不支持的短信类型',
- 'home.base.badRequest': '错误的请求',
- 'home.base.notFound': '当前用户不存在',
- 'home.base.genYourlsError': '生成短链错误',
- 'home.base.internalError': '内部错误',
- 'home.base.paramsIncorrect': '参数错误',
- 'home.baseSys.internalError': '内部错误',
- 'home.baseSystem.forbidden': '禁止访问',
- 'home.hdbk.articleNotExists': '文章不存在',
- 'home.hdbk.handbookAlreadyExists': '手册已经存在',
- 'home.hdbk.handbookNotExists': '手册不存在',
- 'home.issue.AlreadyIsClosed': '情报已经关闭',
- 'home.issue.AlreadyIsRecovered': '情报已经恢复',
- 'home.issue.noSuchIssue': '情报不存在',
- 'home.itAsset.noSuchItAsset': '没有相关资产数据',
- 'home.itAsset.noSuchItAssetDumps': '没有相关资产下载链接',
- 'home.recommendation.appVersionNotExists': '无 app 版本信息',
- 'home.recommendation.recommendationAlreadyOnShelves': '推荐位已经发布',
- 'home.recommendation.recommendationAlreadyPushed': '推荐位已推送',
- 'home.recommendation.recommendationNotExists': '推荐位不存在',
- 'home.recommendation.recommendationShelvesStatusIncorrect': '推荐位状态错误',
- 'home.recommendation.unsupportedFileType': '不支持的文件类型',
- 'home.recommendation.unsupportedMode': '推荐位不支持的类型',
- 'home.recommendation.uploadFailed': '上传失败',
- 'home.team.teamNameDuplicate': '团队名称重复',
- 'home.issueSource.noSuchIssueSource': '情报源不存在',
- 'home.team.alreadyInTheTeam': '不能邀请本团队成员',
- 'home.team.canNotInviteYourself': '不能邀请自己',
- 'forum.auth.NoPermission': '没有文章操作权限',
- 'home.issueSource.invalidDomain': '域名格式错误'
- */

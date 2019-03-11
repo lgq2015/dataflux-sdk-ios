@@ -43,5 +43,4 @@
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
 - (BOOL)validateNumber;
-- (NSString *)transformErrCode;
 @end

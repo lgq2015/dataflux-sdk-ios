@@ -64,6 +64,7 @@
         make.height.offset(ZOOM_SCALE(38));
     }];
     icon.image = [UIImage imageNamed:dict[@"icon"]];
+    icon.contentMode = UIViewContentModeScaleAspectFit;
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectZero];
     name.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
     name.text = dict[@"name"];

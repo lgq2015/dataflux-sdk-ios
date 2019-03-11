@@ -75,7 +75,7 @@
                 }
             }
         }else{
-         [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+         [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
         [SVProgressHUD dismiss];
         [self.header endRefreshing];

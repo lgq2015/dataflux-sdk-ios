@@ -31,8 +31,10 @@
         self.type = SourceTypeTencent;
     }else if([dict[@"provider"] isEqualToString:@"aws"]){
         self.type = SourceTypeAWS;
-    }else if([dict[@"provider"] isEqualToString:@"huaweicloud"]){
-        self.type = SourceTypeHUAWEI;
+    }else if([dict[@"provider"] isEqualToString:@"ucloud"]){
+        self.type = SourceTypeUcloud;
+    }else if ([dict[@"provider"] isEqualToString:@"domain"]){
+        self.type = SourceTypeDomainNameDiagnose;
     }
     if (dict[@"credentialJSON"]) {
         self.akId = dict[@"credentialJSON"][@"akId"];

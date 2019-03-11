@@ -46,8 +46,8 @@
         case SourceTypeAli:
             self.imageView.image = [UIImage imageNamed:@"icon_ali"];
             break;
-        case SourceTypeHUAWEI:
-            self.imageView.image = [UIImage imageNamed:@"icon_huawei"];
+        case SourceTypeUcloud:
+            self.imageView.image = [UIImage imageNamed:@"Ucloud"];
             break;
         case SourceTypeAWS:
             self.imageView.image = [UIImage imageNamed:@"icon_aws"];
@@ -55,20 +55,14 @@
         case SourceTypeTencent:
             self.imageView.image = [UIImage imageNamed:@"icon_tencent"];
             break;
-        case SourceTypeURLDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
-            break;
-        case SourceTypeSingleDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
-            break;
         case SourceTypeClusterDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            self.imageView.image = [UIImage imageNamed:@"icon_cluster"];
             break;
         case SourceTypeDomainNameDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+            self.imageView.image = [UIImage imageNamed:@"icon_domain"];
             break;
-        case SourceTypeWebsiteSecurityScan:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali1"];
+        case SourceTypeSingleDiagnose:
+              self.imageView.image = [UIImage imageNamed:@"icon_single"];
             break;
     }
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {

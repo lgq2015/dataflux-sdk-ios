@@ -7,6 +7,8 @@
 //
 
 #import "SourceVC.h"
+#import "AddSourceTipView.h"
+
 #import <TTTAttributedLabel.h>
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
@@ -26,6 +28,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 @property (nonatomic, strong) UIButton  *showWordsBtn;
 
 @property (nonatomic, assign) BOOL isFirstEdit;
+@property (nonatomic, copy) NSString *yunTitle;
 @end
 @implementation SourceVC
 
@@ -33,49 +36,64 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [super viewDidLoad];
     self.TFArray = [NSMutableArray new];
     NSInteger type = self.model?self.model.type:self.type;
+    [self loadTeamProduct];
     [self createUIWithType:type];
-    // Do any additional setup after loading the view.
+
+}
+- (void)loadTeamProduct{
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            NSDictionary *basic_source = content[0];
+            self.isDefault = basic_source[@"isDefault"];
+
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
 }
 - (void)createUIWithType:(SourceType)type{
     switch (type) {
         case SourceTypeAli:
             self.title = @"连接阿里云";
             self.provider = @"aliyun";
+            self.yunTitle = @"阿里云";
             [self createSourceTypeYunWithTitle:@"阿里云"];
             break;
         case SourceTypeSingleDiagnose:
             [self createSourceTypeSingle];
             break;
-        case SourceTypeClusterDiagnose:
-            [self createSourceTypeCluster];
-            break;
         case SourceTypeUcloud:
             self.title = @"连接Ucloud";
-            self.provider = @"huaweicloud";
-            [self createSourceTypeYunWithTitle:@"华为云"];
+            self.provider = @"ucloud";
+            self.yunTitle = @"Ucloud";
+            [self createSourceTypeYunWithTitle:@"Ucloud"];
             break;
         case SourceTypeTencent:
             self.title = @"连接腾讯云";
             self.provider = @"qcloud";
+            self.yunTitle = @"腾讯云";
             [self createSourceTypeYunWithTitle:@"腾讯云"];
             break;
         case SourceTypeAWS:
             self.title = @"连接AWS";
             self.provider = @"aws";
+            self.yunTitle = @"AWS";
             [self createSourceTypeYunWithTitle:@"AWS"];
             break;
-        case SourceTypeURLDiagnose:
-            [self createSourceTypeURL];
-            break;
         case SourceTypeDomainNameDiagnose:
+            self.provider = @"domain";
             [self createSourceTypeDomainName];
             break;
-        case SourceTypeWebsiteSecurityScan:
-            [self createSourceTypeWebsite];
+        case SourceTypeClusterDiagnose:
+            break;
+        default:
             break;
     }
     if (self.isAdd == YES ) {
-        if(type == SourceTypeURLDiagnose ||type == SourceTypeWebsiteSecurityScan||type == SourceTypeClusterDiagnose){
+        if(type == SourceTypeClusterDiagnose){
             [self createNavWithType:NaviTypeAddBack];
         }else{
             [self createNavWithType:NaviTypeAddDone];
@@ -125,7 +143,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 #pragma mark ========== 云系列 ==========
 - (void)createSourceTypeYunWithTitle:(NSString *)title{
   
-        NSString *tips = [NSString stringWithFormat:@"通过授权王教授只读权限，让王教授连接您的云账号，您就可以及时得到%@的诊断情报，发现可能存在的问题并获取专家建议。",title];
+    NSString *tips = [NSString stringWithFormat:@"通过授权王教授只读权限，让王教授连接您的云账号，您就可以及时得到%@的诊断情报，发现可能存在的问题并获取专家建议。",title];
        UIView *tipView = [self tipsViewWithBackImg:@"card" tips:tips];
         [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view).offset(ZOOM_SCALE(12));
@@ -199,7 +217,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if(self.isAdd){
         arrar= @[@{@"title":@"名称",@"tfText":@"请输入名称"},@{@"title":@"Instance ID",@"tfText":@"请输入Instance ID"},@{@"title":@"Hostname",@"tfText":@"请输入Hostname"},@{@"title":@"Host IP",@"tfText":@"请输入Host IP"},@{@"title":@"os",@"tfText":@"请输入os"}];
     }else{
-        arrar= @[@{@"title":@"名称",@"tfText":@"oa-web-02"},@{@"title":@"Instance ID",@"tfText":@"i-vfht5456465"},@{@"title":@"Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Host IP",@"tfText":@"43.114.113.1"},@{@"title":@"os",@"tfText":@"Windows"}];
+        arrar= @[@{@"title":@"情报源名称",@"tfText":@"oa-web-02"},@{@"title":@"ID",@"tfText":@"i-vfht5456465"},@{@"title":@"Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Host IP",@"tfText":@"43.114.113.1"}];
     }
     self.dataSource = [NSMutableArray arrayWithArray:arrar];
     UIView *temp = nil;
@@ -237,12 +255,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
 }
 
-#pragma mark ========== 集群诊断 ==========
+//#pragma mark ========== 集群诊断 ==========
 - (void)createSourceTypeCluster{
     self.title = @"集群诊断";
     NSArray *arrar ;
     if(!self.isAdd){
-        arrar= @[@{@"title":@"名称",@"tfText":@"oa-web-02"},@{@"title":@"Cluster ID",@"tfText":@"i-vfht54564657575797"},@{@"title":@"Cluster Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Cluste IP",@"tfText":@"43.114.113.1"}];
+        arrar= @[@{@"title":@"情报源名称",@"tfText":@"oa-web-02"},@{@"title":@"Cluster ID",@"tfText":@"i-vfht54564657575797"},@{@"title":@"Cluster Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Cluste IP",@"tfText":@"43.114.113.1"}];
         self.dataSource = [NSMutableArray arrayWithArray:arrar];
         UIView *temp = nil;
         for (NSInteger i=0; i<self.dataSource.count; i++) {
@@ -281,8 +299,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 域名诊断 ==========
 - (void)createSourceTypeDomainName{
-    self.title = @"域名诊断";
-    NSString *tfText = self.isAdd?@"请输入需要诊断的域名":@"cloudcare.cn";
+        self.title = @"域名诊断";
+        NSString *tfText = self.isAdd?@"请输入需要诊断的域名":@"cloudcare.cn";
     
         NSString *tips = @"配置您要诊断的域名，及时获取关于域名相关的诊断情报。包括了域名到期时间、SSL证书配置等。";
         UIView *tipView = [self tipsViewWithBackImg:@"card" tips:tips];
@@ -377,25 +395,33 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 -(UIView *)tipView{
     if (!_tipView) {
-        _tipView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(117))];
+        CGFloat height = self.isDefault?ZOOM_SCALE(120):ZOOM_SCALE(60);
+        _tipView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, height)];
         _tipView.backgroundColor = PWWhiteColor;
         [self.view addSubview:_tipView];
         UIView *dot = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(20), 8, 8)];
         dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
         dot.layer.cornerRadius = 4.0f;
         [_tipView addSubview:dot];
-        UILabel *tipLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(13), kWidth-Interval(32), ZOOM_SCALE(40))];
-        tipLab.text = @"    为了您的数据安全，我们只接受您的具有只读权限的子账号 Access Key";
-        tipLab.font =[UIFont fontWithName:@"PingFang-SC-Medium" size:14];
-        tipLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
-        tipLab.numberOfLines = 0;
-        [_tipView addSubview:tipLab];
-        UIView *dot2 = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(65), 8, 8)];
-        dot2.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
-        dot2.layer.cornerRadius = 4.0f;
-        [_tipView addSubview:dot2];
-        self.findHelpLab.frame = CGRectMake(Interval(16), ZOOM_SCALE(59), kWidth-Interval(32), ZOOM_SCALE(40));
+        self.findHelpLab.frame = CGRectMake(Interval(16), ZOOM_SCALE(13), kWidth-Interval(32), ZOOM_SCALE(40));
         [_tipView addSubview:self.findHelpLab];
+       
+        if (self.isDefault) {
+            UIView *dot2 = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(65), 8, 8)];
+            dot2.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
+            dot2.layer.cornerRadius = 4.0f;
+            [_tipView addSubview:dot2];
+            UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"9B9EA0"] text:@"    您当前为免费版本，支持针对 ECS、块存储、OSS、RDS、SLB、VPC、云监控这几类资源进行相关的诊断。"];
+            tipLab.numberOfLines = 0;
+            [_tipView addSubview:tipLab];
+            [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.offset(ZOOM_SCALE(58));
+                make.left.offset(Interval(16));
+                make.right.mas_equalTo(_tipView).offset(-Interval(16));
+            }];
+        }
+       
+       
     }
     return _tipView;
 }
@@ -403,7 +429,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     if (!_findHelpLab) {
         //    Access Key 可在您的阿里云 RAM 账号中找到，详细步骤请点击这里
         NSString *linkText = @"查看帮助 ";
-        NSString *promptText = [NSString stringWithFormat:@"    Access Key 可在您的阿里云 RAM 账号中找到，详细步骤请点击这里%@", linkText];
+        NSString *promptText = [NSString stringWithFormat:@"    Access Key 可在您的%@ RAM 账号中找到，详细步骤请点击这里%@", self.yunTitle,linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _findHelpLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
         _findHelpLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
@@ -413,7 +439,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         _findHelpLab.lineBreakMode = NSLineBreakByCharWrapping;
         _findHelpLab.text = promptText;
         NSDictionary *attributesDic = @{(NSString *)kCTForegroundColorAttributeName : (__bridge id)PWBlueColor.CGColor,
-                                        (NSString *)kCTUnderlineStyleAttributeName : @(YES)
+                                        (NSString *)kCTUnderlineStyleAttributeName : @(NO)
                                         };
         _findHelpLab.linkAttributes = attributesDic;
         _findHelpLab.activeLinkAttributes = attributesDic;
@@ -501,18 +527,18 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)navRightBtnClick:(UIButton *)button{
     if(button.tag == 99){
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        if (self.type != SourceTypeURLDiagnose && self.type != SourceTypeWebsiteSecurityScan) {
-            UIAlertAction *edit = [PWCommonCtrl actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    obj.enabled = YES;
-                }];
-                UITextField *tf = self.TFArray[0];
-                [tf becomeFirstResponder];
-                self.showWordsBtn.enabled =NO;
-                [self createNavWithType:NaviTypeAddDone];
-            }];
-            [alert addAction:edit];
-        }
+//        if (self.type != SourceTypeURLDiagnose && self.type != SourceTypeWebsiteSecurityScan) {
+//            UIAlertAction *edit = [PWCommonCtrl actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//                [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    obj.enabled = YES;
+//                }];
+//                UITextField *tf = self.TFArray[0];
+//                [tf becomeFirstResponder];
+//                self.showWordsBtn.enabled =NO;
+//                [self createNavWithType:NaviTypeAddDone];
+//            }];
+//            [alert addAction:edit];
+//        }
     UIAlertAction *delet = [PWCommonCtrl actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:@"文案产品提供" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -554,27 +580,36 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:NO];
          }else{
-            [iToast alertWithTitleCenter:[response[@"errCode"] transformErrCode]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
          }
     } failBlock:^(NSError *error) {
     }];
 }
 #pragma mark ========== 添加情报源 ==========
 - (void)addIssueSource{
+    if (self.type != SourceTypeDomainNameDiagnose) {
     NSDictionary *param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
         KPostNotification(KNotificationIssueSourceChange,nil);
-        __weak typeof (self) vc = self;
-        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-        [self.navigationController popViewControllerAnimated:YES];
+            AddSourceTipView *tip = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:AddSourceTipTypeSuccess];
+            [self.view removeAllSubviews];
+            [self.view addSubview:tip];
+            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = nil;
+            __weak typeof (self) vc = self;
+            tip.btnClick = ^(){
+            [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+            };
         }else{
         [SVProgressHUD showErrorWithStatus:@"保存失败"];
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
     }];
+    }
 }
 #pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{

@@ -101,6 +101,8 @@
 
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 #define PW_articleSearch               API_SEVERID@"/v1/handbook/article/search"
+
+
 #pragma mark ========== 团队 ==========
 #define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
 #define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"
@@ -110,6 +112,9 @@
 #define PW_TeamModify                  API_SEVERID@"/v1/team/modify"
 #define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
+#define PW_TeamProduct                 API_SEVERID@"/v1/team/product"
+
+
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback                 API_SEVERID@"/v1/feedback/add"
@@ -138,4 +143,5 @@
 #define PW_servicelegal                API_H5_HOST@"/terms/service"
 
 #define PW_cloudcare                   API_H5_HOST@"/service/list"
+#define PW_Safelegal                   API_H5_HOST@"/terms/datasafe"
 #endif /* PWNetWorkURLs_h */
