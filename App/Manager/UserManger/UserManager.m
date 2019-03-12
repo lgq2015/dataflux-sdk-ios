@@ -126,6 +126,7 @@ SINGLETON_FOR_CLASS(UserManager);
             
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
+            [SVProgressHUD dismiss];
 
         }];
     }else{
@@ -160,6 +161,7 @@ SINGLETON_FOR_CLASS(UserManager);
             
         } failBlock:^(NSError *error) {
                 DLog(@"%@",error);
+            [SVProgressHUD dismiss];
         }];
     }
     

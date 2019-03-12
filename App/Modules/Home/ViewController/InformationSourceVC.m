@@ -34,9 +34,17 @@
     NSArray *title = @[@"添加"];
     self.currentPage = 1;
     DLog(@"%d",userManager.teamModel.isAdmin);
-    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){
-    [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+    if(getTeamState){
+        BOOL isadmain = userManager.teamModel.isAdmin;
+        if (isadmain) {
+            [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+        }
+    }else{
+        [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
     }
+//    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){
+//    [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+//    }
     self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -47,6 +55,22 @@
     self.tableView.rowHeight = 100.f;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[InformationSourceCell class] forCellReuseIdentifier:@"InformationSourceCell"];
+}
+- (void)loadTeamProductcompletion:(void(^)(BOOL isDefault))completion{
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            NSDictionary *basic_source = content[0];
+            completion(basic_source[@"isDefault"]);
+        }else{
+        completion(NO);
+        }
+    } failBlock:^(NSError *error) {
+        completion(NO);
+        [SVProgressHUD dismiss];
+    }];
 }
 - (void)loadData{
 
@@ -71,7 +95,7 @@
                  [self removeNoDataImage];
             }else{
                 if (self.currentPage == 1) {
-                    [self showNoDataImage];
+                    [self showNoDataImageView];
                 }
             }
         }else{
@@ -86,6 +110,45 @@
         [self.header endRefreshing];
     }];
 }
+-(void)showNoDataImageView{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.view removeAllSubviews];
+    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
+    contentView.backgroundColor = PWWhiteColor;
+    [self.view addSubview:contentView];
+    
+    UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank_page"]];
+    [contentView addSubview:bgImgview];
+    [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(contentView).offset(Interval(47));
+        make.width.offset(ZOOM_SCALE(222));
+        make.height.offset(ZOOM_SCALE(190));
+        make.centerX.mas_equalTo(contentView);
+    }];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
+    tip.textAlignment = NSTextAlignmentCenter;
+    [contentView addSubview:tip];
+    [tip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
+        make.left.right.mas_equalTo(self.view);
+        make.height.offset(ZOOM_SCALE(22));
+    }];
+    if (PWisTeam) {
+        if(userManager.teamModel.isAdmin){
+            UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"添加"];
+            [contentView addSubview:commitBtn];
+            [commitBtn addTarget:self action:@selector(addInfoSource) forControlEvents:UIControlEventTouchUpInside];
+            [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(contentView).offset(Interval(16));
+                make.right.mas_equalTo(contentView).offset(-Interval(16));
+                make.top.mas_equalTo(tip.mas_bottom).offset(Interval(74));
+                make.height.offset(ZOOM_SCALE(47));
+            }];
+        }
+    }
+    
+}
+
 -(void)headerRereshing{
     self.currentPage = 1;
     [self loadData];
@@ -112,10 +175,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
-    SourceVC *source = [[SourceVC alloc]init];
-    source.model = cell.model;
-    source.isAdd = NO;
-    [self.navigationController pushViewController:source animated:YES];
+    [self loadTeamProductcompletion:^(BOOL isDefault) {
+        SourceVC *source = [[SourceVC alloc]init];
+        source.model = cell.model;
+        source.isAdd = NO;
+        source.isDefault = isDefault;
+        [self.navigationController pushViewController:source animated:YES];
+    }];
+   
 }
 /*
 #pragma mark - Navigation

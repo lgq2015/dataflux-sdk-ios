@@ -47,5 +47,6 @@
 #define setPWhistorySearch(ary)   [kUserDefaults setObject:ary forKey:PW_historySearch]
 #define getPWhistorySearch       [kUserDefaults objectForKey:PW_historySearch]
 
+#define PW_IssueTabName           [NSString stringWithFormat:@"%@issueSource", getPWUserID]
 
 #endif /* NSUserDefaultsMacros_h */

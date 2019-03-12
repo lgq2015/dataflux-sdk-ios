@@ -71,7 +71,7 @@
                 if (self.handbookModel.imageUrl !=nil) {
                     [imgs addObject:weakSelf.handbookModel.imageUrl];
                 }
-                 param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":weakSelf.handbookModel.htmlPath,@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":@{@"imgs":imgs,@"topic":topic}}};
+                 param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":[weakSelf.webUrl absoluteString],@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":@{@"imgs":imgs,@"topic":topic}}};
             }
        
         

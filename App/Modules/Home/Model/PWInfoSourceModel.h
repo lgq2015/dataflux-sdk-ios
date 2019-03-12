@@ -18,8 +18,8 @@ typedef NS_ENUM(NSUInteger, SourceType) {
 };
 typedef NS_ENUM(NSInteger, SourceState) {
     SourceStateNotDetected = 1,        //未开始检测
-    SourceStateDetected,           //已纳入检测
-    SourceStateAbnormal,           //情报源异常
+    SourceStateDetected,               //已纳入检测
+    SourceStateAbnormal,               //情报源异常
 };
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,8 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *scanCheckStatus;
 @property (nonatomic, strong) NSString *provider;
 @property (nonatomic, strong) NSString *teamId;
-@property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *akId;
+@property (nonatomic, strong) NSString *updateTime;
+@property (nonatomic, strong) NSString *issueSourceId;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
 
 @end

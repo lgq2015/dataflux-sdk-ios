@@ -117,7 +117,7 @@ static PWFMDB *jqdb = nil;
         dic = [self modelToDictionary:CLS excludePropertyName:nameArr];
     }
     
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  TEXT PRIMARY KEY,", tableName,primaryKey];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     int keyCount = 0;
     for (NSString *key in dic) {
@@ -141,7 +141,7 @@ static PWFMDB *jqdb = nil;
 }
 - (NSString *)createTable:(NSString *)tableName dictionary:(NSDictionary *)dic excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  TEXT PRIMARY KEY,", tableName,primaryKey];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     int keyCount = 0;
     for (NSString *key in dic) {
@@ -163,7 +163,7 @@ static PWFMDB *jqdb = nil;
 
 - (NSString *)createTable:(NSString *)tableName model:(Class)cls excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
-    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@ TEXT PRIMARY KEY,", tableName,primaryKey];
+    NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@ INTEGER PRIMARY KEY,", tableName,primaryKey];
     
     NSDictionary *dic = [self modelToDictionary:cls excludePropertyName:nameArr];
     int keyCount = 0;

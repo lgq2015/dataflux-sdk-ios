@@ -197,6 +197,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
             }else{
                 model.referenceStr = [reference jsonPrettyStringEncoded];
             }
+            model.PWId = [model.issueId stringByReplacingOccurrencesOfString:@"-" withString:@""];
             [array addObject:model];
         }];
      
@@ -214,7 +215,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 //        }];
     }else{
 
-        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"reference":@"text",@"PWId":@"text"};
+        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"reference":@"text"};
         BOOL isCreate = [pwfmdb pw_createTable:getPWUserID dicOrModel:dict primaryKey:@"PWId"];
         if(isCreate){
        NSArray  *resultMArr = [pwfmdb pw_insertTable:getPWUserID dicOrModelArray:array];

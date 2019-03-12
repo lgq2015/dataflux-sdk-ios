@@ -18,7 +18,7 @@
 }
 - (void)setValueWithJson:(NSDictionary *)dict{
     self.name = dict[@"name"];
-    self.issueId = dict[@"id"];
+    self.issueSourceId = dict[@"id"];
     self.provider = dict[@"provider"];
     if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
         self.state = SourceStateNotDetected;
@@ -35,9 +35,12 @@
         self.type = SourceTypeUcloud;
     }else if ([dict[@"provider"] isEqualToString:@"domain"]){
         self.type = SourceTypeDomainNameDiagnose;
+    }else if ([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
+        self.type = SourceTypeClusterDiagnose;
     }
     if (dict[@"credentialJSON"]) {
         self.akId = dict[@"credentialJSON"][@"akId"];
     }
+    self.updateTime = dict[@"updateTime"];
 }
 @end

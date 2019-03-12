@@ -17,6 +17,7 @@
 #import "IssueListManger.h"
 #import "NewsWebView.h"
 #import "PWFMDB.h"
+#import "IssueSourceManger.h"
 
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
@@ -32,7 +33,9 @@
 @end
 
 @implementation InformationVC
+-(void)viewWillAppear:(BOOL)animated{
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.mj_header = self.header;
@@ -81,6 +84,10 @@
         InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
+        [self.infoboard updateTitle:str];
+    }];
+   
     self.infoboard.itemClick = ^(NSInteger index){
         NSArray *dataSource;
          NSString *title;

@@ -132,7 +132,7 @@
     UIView *subview = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-kTopHeight-ZOOM_SCALE(47-Interval(40)), kWidth, ZOOM_SCALE(47)+Interval(40))];
     subview.backgroundColor = PWWhiteColor;
     [self.view  addSubview:subview];
-    UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"帮我配置"];
+    UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"去购买"];
     [commitBtn addTarget:self action:@selector(commitClick) forControlEvents:UIControlEventTouchUpInside];
     [subview addSubview:commitBtn];
     [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {

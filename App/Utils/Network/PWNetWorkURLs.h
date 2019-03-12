@@ -93,7 +93,7 @@
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
 //handbook详情链接：(嵌套iframe
-#define PW_handbookUrl(ID)   [NSString stringWithFormat:@"%@/handbook/h/%@",API_H5_HOST,ID]
+#define PW_handbookUrl(ID)   [NSString stringWithFormat:@"%@/handbook/h/%@",API_LIBRARY,ID]
 #define PW_handbook(ID)     [NSString stringWithFormat:@"%@/v1/handbook/%@/article/list",API_SEVERID,ID]
 #define PW_handbookList                API_SEVERID@"/v1/handbook/active/list"
 

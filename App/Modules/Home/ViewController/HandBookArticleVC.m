@@ -67,6 +67,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    DLog(@"%@",PW_handbookUrl(model.articleId));
     NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
     webview.handbookModel = model;
     [self.navigationController pushViewController:webview animated:YES];

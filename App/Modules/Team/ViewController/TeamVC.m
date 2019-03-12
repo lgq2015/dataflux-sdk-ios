@@ -79,7 +79,6 @@
             [weakSelf.navigationController pushViewController:invite animated:YES];
         }else if (tag == InfoSourceTag){
             InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
-            infoSource.isFromTeam = YES;
             [weakSelf.navigationController pushViewController:infoSource animated:YES];
         }else if(tag == ServeTag){
             ServiceLogVC *monitor = [[ServiceLogVC alloc]init];

@@ -49,7 +49,7 @@
             make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
             make.right.mas_equalTo(self).offset(-Interval(12));
             make.height.offset(ZOOM_SCALE(30));
-            make.width.offset(ZOOM_SCALE(100));
+            make.width.offset(ZOOM_SCALE(70));
         }];
         [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(Interval(16));
@@ -97,7 +97,7 @@
     if (!_rightBtn) {
         _rightBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_rightBtn setTitle:@"配置情报源" forState:UIControlStateNormal];
+        [_rightBtn setTitle:@"情报源" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_rightBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];

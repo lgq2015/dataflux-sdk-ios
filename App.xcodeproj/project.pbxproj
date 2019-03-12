@@ -294,6 +294,9 @@
 		4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
 		4AC857652236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
 		4AC857662236646F00DAE1F6 /* AddSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857632236646F00DAE1F6 /* AddSourceTipView.m */; };
+		4AC8576A22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
+		4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
+		4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
@@ -1016,6 +1019,8 @@
 		4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreServicesVC.m; sourceTree = "<group>"; };
 		4AC857622236646F00DAE1F6 /* AddSourceTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceTipView.h; sourceTree = "<group>"; };
 		4AC857632236646F00DAE1F6 /* AddSourceTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceTipView.m; sourceTree = "<group>"; };
+		4AC8576822374B7D00DAE1F6 /* IssueSourceManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSourceManger.h; sourceTree = "<group>"; };
+		4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSourceManger.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
@@ -1551,6 +1556,7 @@
 		4A6C2888219D586D0059BB08 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				4AC8576722374B5200DAE1F6 /* IssueSourceManger */,
 				4AB48AC92212BE2D009F9E94 /* IssueListManger */,
 				4ABF448221BFBD9D002AF34E /* UserManger */,
 				4ABF449921C0B82C002AF34E /* AppManager.h */,
@@ -1879,6 +1885,15 @@
 				4AC856F0223147A300DAE1F6 /* SCIndexView.m */,
 			);
 			path = SCIndexView;
+			sourceTree = "<group>";
+		};
+		4AC8576722374B5200DAE1F6 /* IssueSourceManger */ = {
+			isa = PBXGroup;
+			children = (
+				4AC8576822374B7D00DAE1F6 /* IssueSourceManger.h */,
+				4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */,
+			);
+			path = IssueSourceManger;
 			sourceTree = "<group>";
 		};
 		4AE5374521C68B89004CF320 /* PWScrollPageView */ = {
@@ -2631,6 +2646,7 @@
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
 				4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */,
 				4A092D80222E1D2600FB2A35 /* CollectionModel.m in Sources */,
+				4AC8576A22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				4ABF44C621C12784002AF34E /* InformationVC.m in Sources */,
 				4ABF44C921C127B1002AF34E /* ThinkTankVC.m in Sources */,
 				4A092CBC2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
@@ -2805,6 +2821,7 @@
 				CA1CF5E0221ECB3A00D15316 /* MonitorListCell.m in Sources */,
 				4A092CAE2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
+				4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -2993,6 +3010,7 @@
 				CA1CF685221ECB5000D15316 /* MonitorListCell.m in Sources */,
 				4A092CAF2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
+				4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
 				CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,

@@ -447,10 +447,7 @@
     }];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
-    keyboardManager.enable = YES;
-}
+
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{

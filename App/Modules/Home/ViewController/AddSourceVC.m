@@ -15,7 +15,8 @@
 #import "ExplainVC.h"
 #import "MoreServicesVC.h"
 #import "AddSourceTipView.h"
-
+#import "TeamInfoModel.h"
+#import "IssueSourceManger.h"
 @interface AddSourceVC ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) BOOL isDefault;
@@ -31,6 +32,8 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
+  
+    
     [self addNavigationItemWithImageNames:@[@"home_question"] isLeft:NO target:self action:@selector(rightNavClick) tags:@[@10]];
     
     NSArray *array = @[@{@"title":@"连接云服务",@"type":@1,@"datas":@[@{@"icon":@"icon_ali",@"name":@"阿里云",@"sourceType":@1},@{@"icon":@"icon_aws",@"name":@"AWS",@"sourceType":@2},@{@"icon":@"icon_tencent",@"name":@"腾讯云",@"sourceType":@3},@{@"icon":@"Ucloud",@"name":@"Ucloud",@"sourceType":@4},@{@"icon":@"icon_domainname",@"name":@"域名诊断",@"sourceType":@7}]},@{@"title":@"深度诊断",@"type":@2,@"datas":@[@{@"icon":@"icon_single",@"name":@"主机诊断",@"sourceType":@5},@{@"icon":@"icon_cluster",@"name":@"先知监控",@"sourceType":@6}]}];
@@ -89,11 +92,7 @@
 }
 #pragma mark ========== 获取常量表 ==========
 - (void)loadTeamProduct{
-//    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:NO params:@{@"keys":@"issueSourceProvider"} progressBlock:nil successBlock:^(id response) {
-//        DLog(@"%@",response);
-//    } failBlock:^(NSError *error) {
-//        DLog(@"%@",error);
-//    }];
+
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
@@ -110,17 +109,21 @@
     self.isDefault = basic_source[@"isDefault"];
     NSInteger value =[basic_source longValueForKey:@"value" default:1];
     BOOL isteam = getTeamState;
-//    AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
-//    AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
-//    [self.view removeAllSubviews];
-//    [self.view addSubview:tipView];
-//    tipView.btnClick = ^(){
-//        if (isteam) {
-//            
-//        }else{
-//            
-//        }
-//    };
+    NSInteger count = [[IssueSourceManger sharedIssueSourceManger] getBasicIssueSourceCount];
+    if (count>=value) {
+        AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
+        AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
+        [self.view removeAllSubviews];
+        [self.view addSubview:tipView];
+        tipView.btnClick = ^(){
+            if (isteam) {
+                
+            }else{
+                
+            }
+        };
+    }
+
     
 }
 
