@@ -116,11 +116,8 @@
         [self.view removeAllSubviews];
         [self.view addSubview:tipView];
         tipView.btnClick = ^(){
-            if (isteam) {
-                
-            }else{
-                
-            }
+            [self.tabBarController setSelectedIndex:1];
+            [self.navigationController popViewControllerAnimated:NO];
         };
     }
 

@@ -111,11 +111,9 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[@"errCode"];
             if(errCode.length>0){
-                if ([errCode isEqualToString:@"home.auth.passwordIncorrect"]) {
-                    [iToast alertWithTitleCenter:@"账号或密码错误"];
-                }else{
-                    [iToast alertWithTitleCenter:response[@"message"]];
-                }
+        
+          [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+                
             }else{
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
@@ -152,11 +150,9 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,@"");
                 }
-                if([response[@"errCode"] isEqualToString:@"home.auth.smsCodeIncorrect"]){
-                    [SVProgressHUD showErrorWithStatus:@"验证码错误"];
-                }else{
-                [iToast alertWithTitleCenter:response[@"message"]];
-                }
+               
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+                
             }
             
         } failBlock:^(NSError *error) {
@@ -178,7 +174,7 @@ SINGLETON_FOR_CLASS(UserManager);
             NSString *errCode = response[@"errCode"];
             if(errCode.length>0){
                 isUserSuccess = NO;
-                [iToast alertWithTitleCenter:response[@"message"]];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
             }else{
                 isUserSuccess = YES;
                 NSError *error;

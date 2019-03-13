@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 typedef void (^detectTimeStr)(NSString *str);
-
+typedef void (^updateIssueSource)(NSArray *ary);
 @interface IssueSourceManger : NSObject
 //单例
 SINGLETON_FOR_HEADER(IssueSourceManger)
@@ -29,7 +29,18 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  获取basic issueSource count
  */
 - (NSInteger)getBasicIssueSourceCount;
-- (NSString *)getLastDetectionTime;
+/**
+ 获取  首页 检测时间
+ */
+- (void)getLastDetectionTime:(detectTimeStr)strblock;
+/**
+  更新本地 issuesource
+ */
+- (void)updateAllIssueSourceList:(updateIssueSource)aryblock;
+/**
+ 预展示 issuesource
+ */
+- (NSArray *)getIssueSourceList;
 @end
 
 NS_ASSUME_NONNULL_END

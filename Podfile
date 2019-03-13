@@ -20,6 +20,9 @@ target 'App' do
   pod 'IQKeyboardManager'
   pod 'SVProgressHUD'
   pod 'JPush'
+  pod 'LBXScan/UI','~> 2.3'
+  pod 'LBXScan/LBXNative','~> 2.3'
+
 end
 
 target 'AppDev' do

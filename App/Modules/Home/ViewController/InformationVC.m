@@ -34,7 +34,11 @@
 
 @implementation InformationVC
 -(void)viewWillAppear:(BOOL)animated{
-
+    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
+        if (_infoboard) {
+            [self.infoboard updateTitle:str];
+        }
+    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

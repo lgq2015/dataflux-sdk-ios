@@ -11,10 +11,13 @@
 #import "TeamInfoModel.h"
 #import "AddSourceVC.h"
 #import "SourceVC.h"
+#import "IssueSourceManger.h"
+#define TagNoDataImageView  150
 @interface InformationSourceVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger  currentPage;
 
+@property (nonatomic, strong) UIView *nodataView;
 @end
 
 @implementation InformationSourceVC
@@ -23,7 +26,6 @@
     [super viewDidLoad];
     self.title = @"情报源";
     [self createUI];
-    [SVProgressHUD show];
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(headerRereshing)
@@ -48,7 +50,6 @@
     self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.mj_footer = self.footer;
     self.tableView.mj_header = self.header;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
@@ -63,7 +64,8 @@
         if ([response[@"errCode"] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             NSDictionary *basic_source = content[0];
-            completion(basic_source[@"isDefault"]);
+            BOOL isdefault = [basic_source boolValueForKey:@"isDefault" default:NO];
+            completion(isdefault);
         }else{
         completion(NO);
         }
@@ -73,89 +75,92 @@
     }];
 }
 - (void)loadData{
-
-    NSDictionary *param = @{@"pageNumber":[NSNumber numberWithInteger:self.currentPage],@"pageSize":@10};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            NSArray *data = content[@"data"];
-            if (data.count>0) {
-                if (self.currentPage == 1) {
-                    self.dataSource = [NSMutableArray arrayWithArray:data];
-                }else{
-                    [self.dataSource addObjectsFromArray:data];
-                }
-                [self.tableView reloadData];
-                if ([content[@"pageInfo"][@"pageCount"] integerValue]>self.currentPage) {
-                    self.currentPage++;
-                    [self.footer endRefreshing];
-                }else{
-                    self.footer.state = MJRefreshStateNoMoreData;
-                }
-                 [self removeNoDataImage];
-            }else{
-                if (self.currentPage == 1) {
-                    [self showNoDataImageView];
-                }
-            }
+    NSArray *array =  [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+    self.dataSource = [NSMutableArray new];
+    [self.dataSource addObjectsFromArray:array];
+    if (self.dataSource.count>0) {
+        [self.tableView reloadData];
+        self.tableView.tableFooterView = self.footView;
+    }else{
+        [self showNoDataImageView];
+    }
+    [[IssueSourceManger sharedIssueSourceManger] updateAllIssueSourceList:^(NSArray * _Nonnull ary) {
+        if (ary.count>0) {
+            [self hideNoDataImageView];
+            self.dataSource = [NSMutableArray new];
+            [self.dataSource addObjectsFromArray:ary];
+            self.tableView.tableFooterView = self.footView;
+            [self.tableView reloadData];
         }else{
-         [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [self showNoDataImageView];
         }
-        [SVProgressHUD dismiss];
-        [self.header endRefreshing];
-    } failBlock:^(NSError *error) {
-        if (self.currentPage == 1) {
-            [self showNoDataImage];
-        }
-        [self.header endRefreshing];
     }];
+     [self.header endRefreshing];
+}
+-(void)hideNoDataImageView{
+    NSArray *title = @[@"添加"];
+    if(getTeamState){
+        BOOL isadmain = userManager.teamModel.isAdmin;
+        if (isadmain) {
+            [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+        }
+    }else{
+        [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+    }
+    self.nodataView.hidden = YES;
+    self.tableView.hidden = NO;
 }
 -(void)showNoDataImageView{
     self.navigationItem.rightBarButtonItem = nil;
-    [self.view removeAllSubviews];
-    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
-    contentView.backgroundColor = PWWhiteColor;
-    [self.view addSubview:contentView];
-    
-    UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank_page"]];
-    [contentView addSubview:bgImgview];
-    [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(contentView).offset(Interval(47));
-        make.width.offset(ZOOM_SCALE(222));
-        make.height.offset(ZOOM_SCALE(190));
-        make.centerX.mas_equalTo(contentView);
-    }];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
-    tip.textAlignment = NSTextAlignmentCenter;
-    [contentView addSubview:tip];
-    [tip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
-        make.left.right.mas_equalTo(self.view);
-        make.height.offset(ZOOM_SCALE(22));
-    }];
-    if (PWisTeam) {
-        if(userManager.teamModel.isAdmin){
-            UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"添加"];
-            [contentView addSubview:commitBtn];
-            [commitBtn addTarget:self action:@selector(addInfoSource) forControlEvents:UIControlEventTouchUpInside];
-            [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(contentView).offset(Interval(16));
-                make.right.mas_equalTo(contentView).offset(-Interval(16));
-                make.top.mas_equalTo(tip.mas_bottom).offset(Interval(74));
-                make.height.offset(ZOOM_SCALE(47));
-            }];
-        }
+    if (self.tableView) {
+        self.tableView.hidden = YES;
     }
+    self.nodataView.hidden = NO;
     
 }
-
+-(UIView *)nodataView{
+    if (!_nodataView) {
+        _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
+        _nodataView.backgroundColor = PWWhiteColor;
+        [self.view addSubview:_nodataView];
+        
+        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank_page"]];
+        [_nodataView addSubview:bgImgview];
+        [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(_nodataView).offset(Interval(47));
+            make.width.offset(ZOOM_SCALE(222));
+            make.height.offset(ZOOM_SCALE(190));
+            make.centerX.mas_equalTo(_nodataView);
+        }];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
+        tip.textAlignment = NSTextAlignmentCenter;
+        [_nodataView addSubview:tip];
+        [tip mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
+            make.left.right.mas_equalTo(self.view);
+            make.height.offset(ZOOM_SCALE(22));
+        }];
+        if (PWisTeam) {
+            if(userManager.teamModel.isAdmin){
+                UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"添加"];
+                [_nodataView addSubview:commitBtn];
+                [commitBtn addTarget:self action:@selector(addInfoSource) forControlEvents:UIControlEventTouchUpInside];
+                [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(_nodataView).offset(Interval(16));
+                    make.right.mas_equalTo(_nodataView).offset(-Interval(16));
+                    make.top.mas_equalTo(tip.mas_bottom).offset(Interval(74));
+                    make.height.offset(ZOOM_SCALE(47));
+                }];
+            }
+        }
+    }
+    return _nodataView;
+}
 -(void)headerRereshing{
     self.currentPage = 1;
     [self loadData];
 }
--(void)footerRereshing{
-    [self loadData];
-}
+
 - (void)addInfoSource{
     AddSourceVC *addVC = [[AddSourceVC alloc]init];
     [self.navigationController pushViewController:addVC animated:YES];

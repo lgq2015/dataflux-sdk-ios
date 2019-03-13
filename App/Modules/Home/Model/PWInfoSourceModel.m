@@ -36,10 +36,19 @@
     }else if ([dict[@"provider"] isEqualToString:@"domain"]){
         self.type = SourceTypeDomainNameDiagnose;
     }else if ([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
+        self.type = SourceTypeSingleDiagnose;
+    }else if([dict[@"provider"] isEqualToString:@"carrier.corsair"]){
         self.type = SourceTypeClusterDiagnose;
     }
-    if (dict[@"credentialJSON"]) {
+
+     if(dict[@"credentialJSON"]) {
+         if ([dict[@"credentialJSON"] isKindOfClass:NSString.class]) {
+             NSString *credentialJSON =dict[@"credentialJSONstr"];
+             NSDictionary *dict2 = [credentialJSON jsonValueDecoded];
+             self.akId = dict2[@"akId"];
+         }else{
         self.akId = dict[@"credentialJSON"][@"akId"];
+         }
     }
     self.updateTime = dict[@"updateTime"];
 }

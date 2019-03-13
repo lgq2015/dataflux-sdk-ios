@@ -143,7 +143,8 @@
     }];
 }
 - (void)commitClick{
-    
+    [self.tabBarController setSelectedIndex:1];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 /*
 #pragma mark - Navigation

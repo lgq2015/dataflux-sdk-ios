@@ -27,7 +27,7 @@
  */
 + (BOOL)validateEmail:(NSString *)pEmail;
 - (BOOL)validateEmail;
-
+- (BOOL)validateTopLevelDomain;
 /**
  
  时间戳

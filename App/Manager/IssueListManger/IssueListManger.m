@@ -11,6 +11,7 @@
 #import "InfoBoardModel.h"
 #import "PWFMDB.h"
 #import "UserManager.h"
+#import "TeamInfoModel.h"
 
 typedef void (^pageBlock) (NSNumber * pageMarker);
 @interface IssueListManger()
@@ -68,8 +69,12 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
         [self downLoadAllIssueList];
     }else{
         InfoBoardModel *model = infoDatas[0];
-        
-        NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"orderMethod":@"asc",@"pageSize":@100,@"pageMarker":model.pageMaker};
+        NSDictionary *params;
+        if(model.pageMaker == 0){
+        params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"orderMethod":@"asc",@"pageSize":@100};
+        }else{
+        params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"orderMethod":@"asc",@"pageSize":@100,@"pageMarker":model.pageMaker};
+        }
         [self loadIssueListWithParam:params completion:^(NSArray *datas,NSNumber *pageMaker) {
             if(datas.count>0){
                 NSMutableArray *newDatas = [NSMutableArray new];
@@ -314,7 +319,11 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 }
 // 判断首页是否连接
 -(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect{
-    
+    if (PWisTeam && userManager.teamModel.isAdmin == NO) {
+        setConnect(YES);
+        [kUserDefaults synchronize];
+        isConnect(YES);
+    }else{
         NSDictionary *param = @{@"pageNumber":@1,@"pageSize":@1};
         [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[@"errCode"] isEqualToString:@""]) {
@@ -348,6 +357,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
         } failBlock:^(NSError *error) {
            isConnect(NO);
         }];
+    }
 }
 
 

@@ -297,6 +297,9 @@
 		4AC8576A22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
 		4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
 		4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */; };
+		4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
+		4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
+		4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
@@ -388,7 +391,7 @@
 		CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF5A6221ECB3A00D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		CA1CF5A6221ECB3A00D15316 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -540,7 +543,7 @@
 		CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF64B221ECB5000D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		CA1CF64B221ECB5000D15316 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -1021,6 +1024,8 @@
 		4AC857632236646F00DAE1F6 /* AddSourceTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceTipView.m; sourceTree = "<group>"; };
 		4AC8576822374B7D00DAE1F6 /* IssueSourceManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSourceManger.h; sourceTree = "<group>"; };
 		4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSourceManger.m; sourceTree = "<group>"; };
+		4AC8576D2238EBAA00DAE1F6 /* AddIssueSourceTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIssueSourceTipView.h; sourceTree = "<group>"; };
+		4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIssueSourceTipView.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
@@ -1300,6 +1305,8 @@
 				4AC8575922362C4D00DAE1F6 /* BorderView.m */,
 				4AC857622236646F00DAE1F6 /* AddSourceTipView.h */,
 				4AC857632236646F00DAE1F6 /* AddSourceTipView.m */,
+				4AC8576D2238EBAA00DAE1F6 /* AddIssueSourceTipView.h */,
+				4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2352,12 +2359,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
@@ -2484,6 +2493,7 @@
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				4AB48AD522141A0B009F9E94 /* RenderedTextModel.m in Sources */,
+				4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				4AC857502236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
@@ -2708,6 +2718,7 @@
 				CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */,
 				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
+				4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
@@ -2726,7 +2737,7 @@
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857512236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
+				CA1CF5A6221ECB3A00D15316 /* BuildFile in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -2897,6 +2908,7 @@
 				CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */,
 				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
+				4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
@@ -2915,7 +2927,7 @@
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857522236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
+				CA1CF64B221ECB5000D15316 /* BuildFile in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,

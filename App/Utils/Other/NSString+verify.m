@@ -200,7 +200,16 @@
     }
     return  result;
 }
+- (BOOL)validateTopLevelDomain{
+    NSString *lowStr=[self lowercaseString];
 
+    if ([lowStr rangeOfString:@"www."].location != NSNotFound) {
+        return NO;
+    }
+    NSString *pDomainCheck = @"^[a-zA-Z0-9](-?[a-zA-Z0-9]+)*(\\.[a-zA-Z0-9](-?[a-zA-Z0-9]+)*)+$";
+    NSPredicate *pDomainTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pDomainCheck];
+    return [pDomainTest evaluateWithObject:lowStr];
+}
 - (BOOL)validateNumber {
     BOOL res = YES;
     NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];

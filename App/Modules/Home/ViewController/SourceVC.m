@@ -10,6 +10,10 @@
 #import "AddSourceTipView.h"
 #import "TeamInfoModel.h"
 #import <TTTAttributedLabel.h>
+#import "AddIssueSourceTipView.h"
+#import "PWBaseWebVC.h"
+#import "InformationSourceVC.h"
+
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
     NaviTypeAddBack,       //左返回
@@ -26,15 +30,20 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, copy) NSString *provider;
 @property (nonatomic, strong) UIButton  *showWordsBtn;
-
+@property (nonatomic, strong) AddIssueSourceTipView *addTipView;
 @property (nonatomic, assign) BOOL isFirstEdit;
 @property (nonatomic, copy) NSString *yunTitle;
 @end
 @implementation SourceVC
-
+-(void)viewDidAppear:(BOOL)animated{
+    if (_addTipView) {
+        _addTipView.hidden = NO;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.TFArray = [NSMutableArray new];
+    [self.view addSubview:self.mainScrollView];
     NSInteger type = self.model?self.model.type:self.type;
     self.type = type;
     [self createUIWithType:type];
@@ -323,7 +332,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 #pragma mark ========== 域名诊断 ==========
 - (void)createSourceTypeDomainName{
         self.title = @"域名诊断";
-        NSString *tfText = self.isAdd?@"请输入需要诊断的域名":@"cloudcare.cn";
+        NSString *tfText = self.isAdd?@"请输入需要诊断的一级域名":self.model.name;
     
         NSString *tips = @"配置您要诊断的一级域名，及时获取关于域名相关的诊断情报。包括了域名到期时间、SSL证书配置等。";
         UIView *tipView = [self tipsViewWithBackImg:@"card" tips:tips];
@@ -572,44 +581,94 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [self presentViewController:alert animated:YES completion:nil];
     }else if(button.tag == 100){
         if(self.isAdd){
-            [self addIssueSource];
+            [self addIssueSourcejudge];
         }else{
-            [self modifyIssueSource];
+            [self modifyIssueSourcejudge];
         }
     }
 }
 #pragma mark ========== 编辑情报源 ==========
-- (void)modifyIssueSource{
-    NSDictionary *param ;
-    if ([self.TFArray[1].text isEqualToString:self.model.akId]) {
-        param = @{@"data":@{@"name":self.TFArray[0].text}};
-    }else{
-        param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
+- (void)modifyIssueSourcejudge{
+     NSDictionary *param ;
+    if (self.type == SourceTypeAli || self.type ==SourceTypeAWS||self.type ==SourceTypeUcloud||self.type ==SourceTypeTencent) {
+      if ([self.TFArray[1].text isEqualToString:self.model.akId]) {
+             param = @{@"data":@{@"name":self.TFArray[0].text}};
+        }else{
+            param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
+       }
+         [self modifyIssueSourceWithParam:param];
+    }else if(self.type == SourceTypeDomainNameDiagnose){
+        param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
+        [self modifyIssueSourceWithParam:param];
     }
+}
+- (void)modifyIssueSourceWithParam:(NSDictionary *)param{
+    
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-        KPostNotification(KNotificationIssueSourceChange,nil);
          if ([response[@"errCode"] isEqualToString:@""]) {
+         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+         KPostNotification(KNotificationIssueSourceChange,nil);
+
         __weak typeof (self) vc = self;
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:NO];
          }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
          }
     } failBlock:^(NSError *error) {
+        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+
     }];
 }
 #pragma mark ========== 添加情报源 ==========
-- (void)addIssueSource{
-    NSDictionary *param ;
+- (void)addIssueSourcejudge{
+    NSDictionary *param;
+     self.addTipView = [[AddIssueSourceTipView alloc]init];
+    WeakSelf
     if (self.type != SourceTypeDomainNameDiagnose) {
-     param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
+        param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
+        
+        [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
+        self.addTipView.itemClick = ^{
+         [weakSelf addIssueSourcewithparam:param];
+        };
+        self.addTipView.netClick = ^(NSURL *url){
+        PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"《用户数据安全协议》" andURL:url];
+        weakSelf.addTipView.hidden = YES;
+        [weakSelf.navigationController pushViewController:webvc animated:YES];
+        };
     }else{
-      param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"domain":self.TFArray[0].text}}};
+        param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+        }];
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            if( [self.TFArray[0].text validateTopLevelDomain]){
+            [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
+            self.addTipView.itemClick = ^{
+                [weakSelf addIssueSourcewithparam:param];
+            };
+            self.addTipView.netClick = ^(NSURL *url){
+            PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"《用户数据安全协议》" andURL:url];
+            weakSelf.addTipView.hidden = YES;
+            [weakSelf.navigationController pushViewController:webvc animated:YES];
+            };
+            }else{
+                [iToast alertWithTitleCenter:@"域名格式错误"];
+            }
+                
+        }];
+        [alert addAction:cancle];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
     }
+}
+- (void)addIssueSourcewithparam:(NSDictionary *)param{
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"保存成功"];
             KPostNotification(KNotificationIssueSourceChange,nil);
             AddSourceTipView *tip = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:AddSourceTipTypeSuccess];
             [self.view removeAllSubviews];
@@ -619,10 +678,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             __weak typeof (self) vc = self;
             tip.btnClick = ^(){
                 [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-                [self.navigationController popViewControllerAnimated:YES];
+                    for(UIViewController *temp in self.navigationController.viewControllers) {
+                        if([temp isKindOfClass:[InformationSourceVC class]]){
+                            [self.navigationController popToViewController:temp animated:YES];
+                        }}
             };
         }else{
-            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);

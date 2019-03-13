@@ -121,6 +121,7 @@
     if (!([model.uri isEqualToString:@""]|| model.uri == nil)) {
         PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.uri];
         [self.navigationController pushViewController:web animated:YES];
+        [self setMessageRead:model];
     }else{
     MessageDetailVC *detail = [[MessageDetailVC alloc]init];
    
@@ -131,5 +132,14 @@
     [self.navigationController pushViewController:detail animated:YES];
     }
 }
-
+- (void)setMessageRead:(MineMessageModel *)model{
+    NSDictionary *param = @{@"data":@{@"system_message_ids":model.messageID}};
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageSetRead withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errCode"] isEqualToString:@""]) {
+            [self loadData];
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
 @end

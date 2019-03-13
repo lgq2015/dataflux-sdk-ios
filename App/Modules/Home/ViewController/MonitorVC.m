@@ -29,6 +29,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(headerRereshing)
+                                                 name:KNotificationIssueSourceChange
+                                               object:nil];
     [self createUI];
     
 }
@@ -48,12 +52,14 @@
     [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
     self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
    
-    if (self.dataSource>0) {
+    if (self.dataSource.count>0) {
         [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
         [self.tableView reloadData];
+    }else{
+        [self showNoDataImage];
     }
 }
 
