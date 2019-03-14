@@ -141,7 +141,7 @@
                 make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
                 make.right.mas_equalTo(self).offset(-Interval(16));
                 make.height.offset(ZOOM_SCALE(30));
-                make.width.offset(ZOOM_SCALE(100));
+                make.width.offset(ZOOM_SCALE(70));
             }];
             [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(Interval(16));
@@ -151,14 +151,13 @@
             }];
             self.titleLable.text = @"检测时间";
             self.titleLable.hidden = NO;
-            _initializeView.hidden = YES;
-            [_initializeView removeFromSuperview];
-            self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*self.datas.count));
+           
+            self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*5));
         }
         [self.datas removeAllObjects];
         [self.datas addObjectsFromArray:data];
         [self.itemCollectionView reloadData];
-    }
+        }
 }
 - (void)updataDatas:(NSDictionary *)paramsDict{
     [self.datas removeAllObjects];

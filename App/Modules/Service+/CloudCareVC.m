@@ -20,7 +20,7 @@
 }
 - (void)createUI{
 
-   self.webview.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
+   self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
    
 }
 

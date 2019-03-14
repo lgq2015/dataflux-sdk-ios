@@ -17,6 +17,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.2.0)
   - JCore (1.2.6)
   - JPush (3.1.2):
@@ -54,6 +55,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - FMDB
+  - iOS-Echarts
   - IQKeyboardManager
   - JPush
   - JSONModel
@@ -73,6 +75,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - FMDB
+    - iOS-Echarts
     - IQKeyboardManager
     - JCore
     - JPush
@@ -91,6 +94,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
   JPush: d0cead70ba223a6a3b52749899ebda830dfbc49a
@@ -106,6 +110,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 533bc3ff09236e257c45dc76b7d566dfeadace41
+PODFILE CHECKSUM: 8af0cf4d5238875f60e47dc5a264b5f0b46cbd85
 
 COCOAPODS: 1.5.3

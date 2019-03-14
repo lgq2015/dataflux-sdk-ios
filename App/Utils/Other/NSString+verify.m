@@ -19,7 +19,7 @@
 }
 - (BOOL)validatePassWordForm{
     ///^(?![A-Za-z]+$)(?![\W]+$)(?![0-9]+$)[^\u4e00-\u9fa5]{8,25}$/
-    NSString *pPhone = @"^(?![A-Za-z]+$)(?![\\W_]+$)(?![0-9]+$)[^\u4e00-\u9fa5]{8,25}$";
+    NSString *pPhone = @"^(?![A-Za-z]+$)(?![\\W_]+$)(?![0-9]+$)[\x00-\x7F]{8,25}$";
     NSPredicate *pPhoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pPhone];
     return [pPhoneTest evaluateWithObject:self];
 }
@@ -111,12 +111,12 @@
     return deviceModel;
 }
 + (BOOL)validateEmail:(NSString *)pEmail{
-    NSString *pEmailCheck = @"[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+[A-Za-z]{2,4}";
+    NSString *pEmailCheck = @"^[A-Za-z0-9\u4e00-\u9fa5]+([._\\-]*[A-Za-z0-9\u4e00-\u9fa5])*@[A-Za-z0-9_-\u4e00-\u9fa5]+(\\.[A-Za-z0-9_-\u4e00-\u9fa5]+)+$";
     NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
     return [pEmailTest evaluateWithObject:pEmail];
 }
 - (BOOL)validateEmail{
-    NSString *pEmailCheck = @"^[A-Za-z0-9_-\u4e00-\u9fa5]+@[A-Za-z0-9_-\u4e00-\u9fa5]+(\\.[A-Za-z0-9_-\u4e00-\u9fa5]+)+$";
+    NSString *pEmailCheck = @"^[A-Za-z0-9\u4e00-\u9fa5]+([._\\-]*[A-Za-z0-9\u4e00-\u9fa5])*@[A-Za-z0-9_-\u4e00-\u9fa5]+(\\.[A-Za-z0-9_-\u4e00-\u9fa5]+)+$";
     NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
     return [pEmailTest evaluateWithObject:self];
 }
@@ -206,7 +206,7 @@
     if ([lowStr rangeOfString:@"www."].location != NSNotFound) {
         return NO;
     }
-    NSString *pDomainCheck = @"^[a-zA-Z0-9](-?[a-zA-Z0-9]+)*(\\.[a-zA-Z0-9](-?[a-zA-Z0-9]+)*)+$";
+    NSString *pDomainCheck = @"^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
     NSPredicate *pDomainTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pDomainCheck];
     return [pDomainTest evaluateWithObject:lowStr];
 }

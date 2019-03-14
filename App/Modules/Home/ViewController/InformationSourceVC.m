@@ -33,6 +33,14 @@
                                                object:nil];
 }
 - (void)createUI{
+    NSMutableArray *marr = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    NSMutableArray *newMarr = [NSMutableArray arrayWithArray:marr];
+    for (UIViewController *vc in marr) {
+        if ([vc isKindOfClass:[SourceVC class]] || [vc isKindOfClass:[AddSourceVC class]]) {
+            [newMarr removeObject:vc];
+        }
+    }
+    self.navigationController.viewControllers = newMarr;
     NSArray *title = @[@"添加"];
     self.currentPage = 1;
     DLog(@"%d",userManager.teamModel.isAdmin);

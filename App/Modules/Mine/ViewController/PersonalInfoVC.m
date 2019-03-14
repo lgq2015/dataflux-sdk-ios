@@ -93,6 +93,7 @@
         PWPhotoPickerViewController *picker = [[PWPhotoPickerViewController alloc]init];
         picker.assetsFilter = [ALAssetsFilter allPhotos];
         picker.showEmptyGroups = NO;
+        picker.cameraAdd = YES;
         picker.delegate=self;
         picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             return YES;

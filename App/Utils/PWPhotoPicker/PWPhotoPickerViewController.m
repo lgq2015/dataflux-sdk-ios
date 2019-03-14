@@ -239,8 +239,9 @@
     //相机cell
     NSMutableArray *tempList = [[NSMutableArray alloc] init];
     //默认第一个为相机按钮
+    if(self.cameraAdd){
     [tempList addObject:[UIImage imageNamed:@"icon_camera"]];
-    
+    }
     ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
         if (asset) {
             [tempList addObject:asset];
@@ -354,6 +355,12 @@
         }];
         return;
     }
+    if (!self.cameraAdd) {
+        if (_delegate && [_delegate respondsToSelector:@selector(photoPicker:didSelectAsset:)])
+            [self.navigationController popViewControllerAnimated:NO];
+            [_delegate photoPicker:self didSelectAsset:asset];
+            return;
+    }else{
     self.cropper= [[LZImageCropper alloc]init];
     //设置代理
     self.cropper.delegate = self;
@@ -365,6 +372,7 @@
     self.cropper.cropSize = CGSizeMake(ZOOM_SCALE(337), ZOOM_SCALE(337));
     self.cropper.isRound = YES;
     [self presentViewController:self.cropper animated:YES completion:nil];
+    }
 //    //单选
 //    if (!self.multipleSelection && self.indexPathsForSelectedItems.count==1) {
 //        //取消上一个选中

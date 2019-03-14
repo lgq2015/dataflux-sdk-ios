@@ -32,7 +32,19 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 }
 - (void)createData{
     self.issueList = [NSMutableArray new];
-    
+    self.infoDatas = [NSMutableArray new];
+    NSArray *nameArray = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
+    for (NSInteger i=0; i< 5; i++) {
+        InfoBoardModel *model = [InfoBoardModel new];
+        model.type = i;
+        model.subTitle =@"";
+        model.state = PWInfoBoardItemStateRecommend;
+        model.seqAct = 0;
+        model.typeName = nameArray[i];
+        model.messageCount = @"0";
+        model.pageMaker = @0;
+        [self.infoDatas addObject:model];
+    }
 }
 #pragma mark ========== public method ==========
 
@@ -128,9 +140,11 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     NSString *infoTableName = [NSString stringWithFormat:@"%@infoBoard",getPWUserID];
 
     NSArray<InfoBoardModel*> *infoDatas = [pwfmdb pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
-    
-    self.infoDatas = [NSMutableArray arrayWithArray:infoDatas];
+    if (infoDatas.count==0) {
+        return self.infoDatas;
+    }else{
     return infoDatas;
+    }
 }
 #pragma mark ========== private method ==========
 // 判断是否需要全量更新
@@ -254,18 +268,18 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     }
     KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
 }
-
+#pragma mark ========== infoBoard 数据库创建相关 ==========
 // InfoBoard需要的数据处理
 -(void)dealDataForInfoBoardWithPageMaker:(NSNumber *)pageMaker{
   
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *tableName = getPWUserID;
-        NSArray *nameArray = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
+       NSArray *nameArray = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
        NSMutableArray *infoArray = [NSMutableArray new];
         for (NSInteger i=0; i<nameArray.count; i++) {
            NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' AND status !='expired' AND status!='discarded' order by actSeq desc",nameArray[i]];
             NSArray<IssueModel*> *itemDatas = [pwfmdb pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
-            InfoBoardModel *model = [InfoBoardModel new];
+            InfoBoardModel *model = self.infoDatas[i];
 
             if (itemDatas.count>0) {
             __block IssueModel *issue = [[IssueModel alloc]init];
@@ -302,15 +316,9 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                     model.subTitle = dict[@"title"];
                 }
                  model.seqAct = itemDatas[0].actSeq;
-            }else{
-                 model.type = i;
-                 model.subTitle =@"";
-                 model.state = PWInfoBoardItemStateRecommend;
-                 model.seqAct = 0;
             }
             model.messageCount = itemDatas.count>99?@"99+":[NSString stringWithFormat:@"%lu",(unsigned long)itemDatas.count];
             model.pageMaker = pageMaker;
-            model.typeName = nameArray[i];
             [infoArray addObject:model];
         }
          [self createInfoBoardFmdbWithData:infoArray];
@@ -319,7 +327,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 }
 // 判断首页是否连接
 -(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect{
-    if (PWisTeam && userManager.teamModel.isAdmin == NO) {
+    if ([getTeamState isEqualToString:PWisTeam]&& userManager.teamModel.isAdmin == NO) {
         setConnect(YES);
         [kUserDefaults synchronize];
         isConnect(YES);
@@ -362,6 +370,5 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 
 
 
-#pragma mark ========== infoBoard 数据库创建相关 ==========
 
 @end

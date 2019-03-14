@@ -22,6 +22,8 @@
     self.provider = dict[@"provider"];
     if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
         self.state = SourceStateNotDetected;
+    }else if([dict[@"scanCheckStatus"] isEqualToString:@"scanScriptFailed"]){
+        self.state = SourceStateAbnormal;
     }else{
         self.state = SourceStateDetected;
     }

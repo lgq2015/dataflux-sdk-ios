@@ -12,6 +12,7 @@
 #import "ThinkTankVC.h"
 #import "ToolsVC.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "ScanViewController.h"
 
 
 @interface HomeViewController ()
@@ -40,18 +41,17 @@
     // 额外的按钮响应的block
 //    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
-//        if (extraBtn.tag == 10) {
-//            [self.toolsView showInView:[UIApplication sharedApplication].keyWindow];
-//            self.toolsView.itemClick = ^(PWToolType type){
-//                [weakSelf dealWithType:type];
-//            };
-//        }else if(extraBtn.tag == 11){
-//
-//        }
+        ScanViewController *scan = [[ScanViewController alloc]init];
+        scan.isVideoZoom = YES;
+        scan.libraryType = SLT_Native;
+        scan.scanCodeType = SCT_QRCode;
+      
+        [self.navigationController pushViewController:scan animated:YES];
     };
     [self.view addSubview:scrollPageView];
    
 }
+
 - (NSArray *)setupChildVcAndTitle {
     InformationVC *vc1 = [InformationVC new];
     vc1.view.backgroundColor = PWBackgroundColor;

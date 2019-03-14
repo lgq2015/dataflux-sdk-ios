@@ -231,7 +231,6 @@
 		4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
 		4ABF44A921C1029B002AF34E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A821C1029B002AF34E /* HomeViewController.m */; };
 		4ABF44C621C12784002AF34E /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
-		4ABF44C921C127B1002AF34E /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
 		4ABF44D021C20090002AF34E /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
 		4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
@@ -300,6 +299,12 @@
 		4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
 		4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
 		4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */; };
+		4AC85796223A42C500DAE1F6 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85795223A42C500DAE1F6 /* ThinkTankVC.m */; };
+		4AC85797223A42C500DAE1F6 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85795223A42C500DAE1F6 /* ThinkTankVC.m */; };
+		4AC85798223A42C500DAE1F6 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC85795223A42C500DAE1F6 /* ThinkTankVC.m */; };
+		4AC857A0223A439B00DAE1F6 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8579F223A439B00DAE1F6 /* ScanViewController.m */; };
+		4AC857A1223A439B00DAE1F6 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8579F223A439B00DAE1F6 /* ScanViewController.m */; };
+		4AC857A2223A439B00DAE1F6 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8579F223A439B00DAE1F6 /* ScanViewController.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848E7221FA986002ADF62 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E6221FA986002ADF62 /* NewsWebView.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
@@ -391,7 +396,7 @@
 		CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF5A4221ECB3A00D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF5A6221ECB3A00D15316 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		CA1CF5A6221ECB3A00D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -461,7 +466,6 @@
 		CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
-		CA1CF5EC221ECB3A00D15316 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
 		CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
 		CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
@@ -543,7 +547,7 @@
 		CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
 		CA1CF649221ECB5000D15316 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114AC21E449F500E4138B /* ToolsVC.m */; };
 		CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
-		CA1CF64B221ECB5000D15316 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		CA1CF64B221ECB5000D15316 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -613,7 +617,6 @@
 		CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C521C12784002AF34E /* InformationVC.m */; };
-		CA1CF691221ECB5000D15316 /* ThinkTankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44C821C127B1002AF34E /* ThinkTankVC.m */; };
 		CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
 		CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* PWInfoBoard.m */; };
 		CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
@@ -968,8 +971,6 @@
 		4ABF44A821C1029B002AF34E /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		4ABF44C421C12784002AF34E /* InformationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationVC.h; sourceTree = "<group>"; };
 		4ABF44C521C12784002AF34E /* InformationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationVC.m; sourceTree = "<group>"; };
-		4ABF44C721C127B1002AF34E /* ThinkTankVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThinkTankVC.h; sourceTree = "<group>"; };
-		4ABF44C821C127B1002AF34E /* ThinkTankVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThinkTankVC.m; sourceTree = "<group>"; };
 		4ABF44CE21C20090002AF34E /* NSString+verify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+verify.h"; sourceTree = "<group>"; };
 		4ABF44CF21C20090002AF34E /* NSString+verify.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+verify.m"; sourceTree = "<group>"; };
 		4ABF44D421C2080B002AF34E /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
@@ -1026,6 +1027,10 @@
 		4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSourceManger.m; sourceTree = "<group>"; };
 		4AC8576D2238EBAA00DAE1F6 /* AddIssueSourceTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIssueSourceTipView.h; sourceTree = "<group>"; };
 		4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIssueSourceTipView.m; sourceTree = "<group>"; };
+		4AC85794223A42C400DAE1F6 /* ThinkTankVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThinkTankVC.h; sourceTree = "<group>"; };
+		4AC85795223A42C500DAE1F6 /* ThinkTankVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThinkTankVC.m; sourceTree = "<group>"; };
+		4AC8579E223A439B00DAE1F6 /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		4AC8579F223A439B00DAE1F6 /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E5221FA986002ADF62 /* NewsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
@@ -1839,12 +1844,13 @@
 		4ABF44A621C10276002AF34E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4AC8578C223A425D00DAE1F6 /* Scan */,
 				4ABF44A721C1029B002AF34E /* HomeViewController.h */,
 				4ABF44A821C1029B002AF34E /* HomeViewController.m */,
 				4ABF44C421C12784002AF34E /* InformationVC.h */,
 				4ABF44C521C12784002AF34E /* InformationVC.m */,
-				4ABF44C721C127B1002AF34E /* ThinkTankVC.h */,
-				4ABF44C821C127B1002AF34E /* ThinkTankVC.m */,
+				4AC85794223A42C400DAE1F6 /* ThinkTankVC.h */,
+				4AC85795223A42C500DAE1F6 /* ThinkTankVC.m */,
 				4A6114C821E7115900E4138B /* MonitorVC.h */,
 				4A6114C921E7115900E4138B /* MonitorVC.m */,
 				4AB489B721EDB14B009F9E94 /* InformationSourceVC.h */,
@@ -1901,6 +1907,15 @@
 				4AC8576922374B7D00DAE1F6 /* IssueSourceManger.m */,
 			);
 			path = IssueSourceManger;
+			sourceTree = "<group>";
+		};
+		4AC8578C223A425D00DAE1F6 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				4AC8579E223A439B00DAE1F6 /* ScanViewController.h */,
+				4AC8579F223A439B00DAE1F6 /* ScanViewController.m */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		4AE5374521C68B89004CF320 /* PWScrollPageView */ = {
@@ -2362,6 +2377,7 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -2369,6 +2385,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2383,12 +2400,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
@@ -2441,12 +2460,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
@@ -2596,6 +2617,7 @@
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* PWInfoInitialView.m in Sources */,
+				4AC85796223A42C500DAE1F6 /* ThinkTankVC.m in Sources */,
 				4AE9C4F021D362FD003BB9CB /* AccountInfoModel.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
@@ -2651,6 +2673,7 @@
 				4A092D57222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
 				4AB48A7E21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				4A61149E21DF6DA400E4138B /* ChangePasswordVC.m in Sources */,
+				4AC857A0223A439B00DAE1F6 /* ScanViewController.m in Sources */,
 				4A7C4B1521C282DA007730E6 /* iToast.m in Sources */,
 				4AC856E622311E3800DAE1F6 /* HandbookCell.m in Sources */,
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
@@ -2658,7 +2681,6 @@
 				4A092D80222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				4AC8576A22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				4ABF44C621C12784002AF34E /* InformationVC.m in Sources */,
-				4ABF44C921C127B1002AF34E /* ThinkTankVC.m in Sources */,
 				4A092CBC2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
@@ -2704,6 +2726,7 @@
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
+				4AC85797223A42C500DAE1F6 /* ThinkTankVC.m in Sources */,
 				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
@@ -2737,7 +2760,7 @@
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857512236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF5A6221ECB3A00D15316 /* BuildFile in Sources */,
+				CA1CF5A6221ECB3A00D15316 /* (null) in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -2848,12 +2871,12 @@
 				4A092D91222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */,
-				CA1CF5EC221ECB3A00D15316 /* ThinkTankVC.m in Sources */,
 				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
 				CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
 				4AC8576022364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
+				4AC857A1223A439B00DAE1F6 /* ScanViewController.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
 				CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */,
@@ -2894,6 +2917,7 @@
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
+				4AC85798223A42C500DAE1F6 /* ThinkTankVC.m in Sources */,
 				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
@@ -2927,7 +2951,7 @@
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857522236012200DAE1F6 /* ProphetMonitorVC.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
-				CA1CF64B221ECB5000D15316 /* BuildFile in Sources */,
+				CA1CF64B221ECB5000D15316 /* (null) in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -3038,12 +3062,12 @@
 				4A092D92222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */,
-				CA1CF691221ECB5000D15316 /* ThinkTankVC.m in Sources */,
 				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,
 				CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
 				4AC8576122364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
+				4AC857A2223A439B00DAE1F6 /* ScanViewController.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
 				CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */,

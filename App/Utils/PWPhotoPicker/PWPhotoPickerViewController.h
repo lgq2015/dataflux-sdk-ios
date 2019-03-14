@@ -60,5 +60,9 @@
 
 //是否开启多选
 @property (nonatomic, assign) BOOL multipleSelection;
+
+//是否加相机按钮
+@property (nonatomic, assign) BOOL cameraAdd;
+
 @end
 

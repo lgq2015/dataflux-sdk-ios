@@ -677,11 +677,19 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             self.navigationItem.leftBarButtonItem = nil;
             __weak typeof (self) vc = self;
             tip.btnClick = ^(){
+                if(getConnectState == NO){
+                    setIsHideGuide(YES);
+                [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+                InformationSourceVC *source = [[InformationSourceVC alloc]init];
+                [self.navigationController pushViewController:source animated:YES];
+                }else{
                 [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
                     for(UIViewController *temp in self.navigationController.viewControllers) {
                         if([temp isKindOfClass:[InformationSourceVC class]]){
                             [self.navigationController popToViewController:temp animated:YES];
                         }}
+                    
+                }
             };
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];

@@ -23,33 +23,35 @@
     return self;
 }
 -(void)createUI{
-//    NSInteger durationTime = [paramsDict_ integerValueForKey:@"duration" defaultValue:0];
-//    NSString *leftImage = [paramsDict_ stringValueForKey:@"leftImage" defaultValue:@""];
-    //    NSString *rightImage =  [[paramsDict_ dictValueForKey:@"rightBtn" defaultValue:@{}]stringValueForKey:@"image" defaultValue:@""];
-    
-    CGPoint center = self.leftView.center;
-    center.x = self.cycleScrollView.center.x;
-    self.cycleScrollView.center = center;
+
+    [self.leftView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(Interval(26));
+        make.width.height.offset(ZOOM_SCALE(30));
+        make.top.mas_equalTo(self).offset(-ZOOM_SCALE(15));
+    }];
+    [self.cycleScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(Interval(15));
+        make.top.bottom.mas_equalTo(self);
+        make.right.mas_equalTo(self).offset(-Interval(16));
+    }];
     [self bringSubviewToFront:self.leftView];
     
 }
 -(UIImageView *)leftView{
     if (!_leftView) {
-        CGFloat leftView_Size  = ZOOM_SCALE(30);
-        _leftView = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(17),(self.frame.size.height - leftView_Size)/2.0, leftView_Size, leftView_Size)];
-        NSLog(@"%@",NSStringFromCGRect(self.frame));
+        _leftView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_hat"]];
          [self addSubview:_leftView];
     }
     return _leftView;
 }
 -(SDCycleScrollView *)cycleScrollView{
     if (!_cycleScrollView) {
-        _cycleScrollView= [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(ZOOM_SCALE(37), ZOOM_SCALE(10), ZOOM_SCALE(304), ZOOM_SCALE(40)) delegate:self placeholderImage:nil];
+        _cycleScrollView= [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:nil];
         _cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
         _cycleScrollView.onlyDisplayText = YES;
         _cycleScrollView.autoScrollTimeInterval = (float)300/(float)1000;
-        _cycleScrollView.titleLabelTextColor =[UIColor colorWithHexString:@"#333333"];
-        _cycleScrollView.titleLabelTextFont = [UIFont fontWithName:@"PingFangSC-Semibold" size: 16];
+        _cycleScrollView.titleLabelTextColor =PWTitleColor;
+        _cycleScrollView.titleLabelTextFont = MediumFONT(15);
         _cycleScrollView.backgroundColor = [UIColor whiteColor];
         _cycleScrollView.titleLabelBackgroundColor = [UIColor whiteColor];
         _cycleScrollView.titleLabelTextAlignment = NSTextAlignmentLeft;
@@ -58,8 +60,8 @@
     }
     return _cycleScrollView;
 }
--(void)createUIWithImgAndTitleArray:(NSArray *)array{
-    
+-(void)createUIWithTitleArray:(NSArray *)array{
+    self.cycleScrollView.titlesGroup = array;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

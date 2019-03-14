@@ -55,11 +55,17 @@
                                                object:nil];
     [self dealNewsDatas];
     [self judgeIssueConnectState];
+    [self loadTipsData];
     
 }
 - (void)judgeIssueConnectState{
+    BOOL  ishideguide = getIsHideGuide;
     BOOL  isconnect = getConnectState;
-    if(!isconnect){
+    if (ishideguide || isconnect) {
+        self.infoBoardStyle = PWInfoBoardStyleConnected;
+        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [self createUI];
+    }else{
         [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
             self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
             if (isConnect) {
@@ -67,16 +73,10 @@
             }
             [self createUI];
         }];
-      
-    }else{
-        self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
-        [self createUI];
     }
-
 }
 - (void)createUI{
-    CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(534):ZOOM_SCALE(690);
+    CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(524):ZOOM_SCALE(690);
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
@@ -158,7 +158,7 @@
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
-        self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(534));
+        self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
         self.infoboard.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(436));
         self.tableView.tableHeaderView = self.headerView;
     }
@@ -182,6 +182,15 @@
        _notice.backgroundColor = PWWhiteColor;
     }
     return _notice;
+}
+- (void)loadTipsData{
+    [PWNetworking requsetWithUrl:PW_TIPS withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        NSArray *array = response;
+        NSDictionary *dict = array[0];
+        [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+    } failBlock:^(NSError *error) {
+        
+    }];
 }
 - (void)headerRereshing{
     self.newsPage = 1;

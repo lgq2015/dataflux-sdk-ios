@@ -44,9 +44,14 @@
 #define PW_isPersonal @"isPersonal"
 
 #define PW_historySearch @"historySearch"
-#define setPWhistorySearch(ary)   [kUserDefaults setObject:ary forKey:PW_historySearch]
-#define getPWhistorySearch       [kUserDefaults objectForKey:PW_historySearch]
+#define setPWhistorySearch(ary)    [kUserDefaults setObject:ary forKey:PW_historySearch]
+#define getPWhistorySearch         [kUserDefaults objectForKey:PW_historySearch]
 
-#define PW_IssueTabName           [NSString stringWithFormat:@"%@issueSource", getPWUserID]
+#define PW_IssueTabName            [NSString stringWithFormat:@"%@issueSource", getPWUserID]
+
+
+#define PW_IsHideGuide  @"ishideguide"
+#define setIsHideGuide(bool)       [kUserDefaults setBool:bool forKey:PW_IsHideGuide]
+#define getIsHideGuide             [kUserDefaults boolForKey:PW_IsHideGuide]
 
 #endif /* NSUserDefaultsMacros_h */

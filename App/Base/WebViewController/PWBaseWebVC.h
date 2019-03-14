@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWBaseWebVC : RootViewController
-@property (nonatomic,strong) WKWebView *webview;
+@property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic, strong) NSURL *webUrl;
 @property (nonatomic, assign) BOOL isRoot;
 #pragma mark - 初始化方法

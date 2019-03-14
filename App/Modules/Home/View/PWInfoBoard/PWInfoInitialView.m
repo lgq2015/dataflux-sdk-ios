@@ -36,8 +36,8 @@
        self.tipsTitle.text = @"覆盖主流的四大云平台";
        self.tipsContent.text = @"多维度赋予您专业的诊断和分析";
     
-    NSArray *btnImag = @[@"icon_ali",@"icon_aws",@"icon_tencent",@"icon_huawei"];
-    NSArray *iconNames = @[@"阿里云",@"AWS",@"腾讯云",@"华为云"];
+    NSArray *btnImag = @[@"icon_ali",@"icon_aws",@"icon_tencent",@"Ucloud"];
+    NSArray *iconNames = @[@"阿里云",@"AWS",@"腾讯云",@"Ucloud"];
     for (int i=0; i<4; i++) {
         UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(ZOOM_SCALE(22+i*81), ZOOM_SCALE(64), ZOOM_SCALE(56), ZOOM_SCALE(38))];
         imgView.tag = i+10;

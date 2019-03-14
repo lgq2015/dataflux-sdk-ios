@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#define LBXScan_Define_Native  //包含native库
+#define LBXScan_Define_UI     //包含界面库
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 //全局宏
@@ -21,7 +23,7 @@
 #import <WebViewJavascriptBridge.h>
 #import "UserManager.h"
 #import "PWFMDB.h"
- #import <WebViewJavascriptBridge.h>
+#import <WebViewJavascriptBridge.h>
 // 布局
 #import "Masonry.h"
 #import "PWCommonCtrl.h"

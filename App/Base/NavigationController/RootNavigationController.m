@@ -9,6 +9,8 @@
 #import "RootNavigationController.h"
 #import "RootViewController.h"
 #import "PWTransition.h"
+#import "ScanViewController.h"
+
 @interface RootNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, weak) id popDelegate;
 @property (nonatomic,strong) UIPercentDrivenInteractiveTransition *interactivePopTransition;
@@ -90,6 +92,10 @@
         }else{
             [vc.navigationController setNavigationBarHidden:NO animated:animated];
         }
+    }
+    if ([viewController isKindOfClass:[ScanViewController class]]) {
+        ScanViewController * vc = (ScanViewController *)viewController;
+            [vc.navigationController setNavigationBarHidden:YES animated:animated];
     }
     
 }

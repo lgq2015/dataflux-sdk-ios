@@ -12,6 +12,8 @@
 #import "CreateQuestionVC.h"
 #import "ProblemDetailsVC.h"
 #import "IssueModel.h"
+#import "FillinTeamInforVC.h"
+
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
@@ -64,9 +66,15 @@
 }
 
 - (void)navBtnClick:(UIButton *)btn{
+    if([getTeamState isEqualToString:PW_isTeam]){
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
     creatVC.type = self.type;
     [self.navigationController pushViewController:creatVC animated:YES];
+    }else{
+        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+        createTeam.type = FillinTeamTypeAdd;
+        [self.navigationController pushViewController:createTeam animated:YES];
+    }
 }
 
 #pragma mark ========== UITableViewDataSource ==========

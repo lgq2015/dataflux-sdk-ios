@@ -22,7 +22,7 @@ target 'App' do
   pod 'JPush'
   pod 'LBXScan/UI','~> 2.3'
   pod 'LBXScan/LBXNative','~> 2.3'
-
+  pod 'iOS-Echarts'
 end
 
 target 'AppDev' do
@@ -44,6 +44,8 @@ target 'AppDev' do
     pod 'IQKeyboardManager'
     pod 'SVProgressHUD'
     pod 'JPush'
+    pod 'LBXScan/UI','~> 2.3'
+    pod 'LBXScan/LBXNative','~> 2.3'
 end
 
 target 'AppPreMade' do
@@ -65,6 +67,8 @@ target 'AppPreMade' do
     pod 'IQKeyboardManager'
     pod 'SVProgressHUD'
     pod 'JPush'
+    pod 'LBXScan/UI','~> 2.3'
+    pod 'LBXScan/LBXNative','~> 2.3'
 end
 
 

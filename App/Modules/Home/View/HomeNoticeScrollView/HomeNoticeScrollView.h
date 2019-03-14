@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeNoticeScrollView : UIView
+
 /** 创建视图*/
-- (void)createUIWithImgAndTitleArray:(NSArray *)array;
+- (void)createUIWithTitleArray:(NSArray *)array;
 @end

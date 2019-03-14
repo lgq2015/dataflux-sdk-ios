@@ -298,11 +298,17 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
     NSDictionary * teamDic = (NSDictionary *)[cacheteam objectForKey:KTeamModelCache];
-
+    if([getTeamState isEqualToString:PW_isTeam]){
     if (userDic && teamDic) {
         self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
         self.teamModel = [TeamInfoModel modelWithJSON:teamDic];
         return YES;
+    }
+    }else{
+        if (userDic) {
+        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
+        return YES;
+        }
     }
     return NO;
 }

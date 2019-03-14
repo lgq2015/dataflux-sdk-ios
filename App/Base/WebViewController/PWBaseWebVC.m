@@ -29,23 +29,58 @@
     return self;;
 }
 -(void)backBtnClicked{
-    if ([self.webview canGoBack]) {
+    if ([self.webView canGoBack]) {
         //如果有则返回
-        [self.webview goBack];
+        [self.webView goBack];
         //同时设置返回按钮和关闭按钮为导航栏左边的按钮
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
--(WKWebView *)webview{
-    if (!_webview) {
-        WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
+//-(WKWebView *)webView{
+//    if (!_webview) {
+//        WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
+//        config.preferences.javaScriptEnabled = YES;
+//        config.selectionGranularity = YES;
+//      _webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) configuration:config];
+//      _webview.allowsBackForwardNavigationGestures = YES;
+//    }
+//    return _webview;
+//}
+- (WKWebView *)webView {
+    if (!_webView) {
+        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+        // 偏好设置
+        config.preferences = [[WKPreferences alloc] init];
+        config.preferences.minimumFontSize = 10;
         config.preferences.javaScriptEnabled = YES;
-        config.selectionGranularity = YES;
-      _webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) configuration:config];
-      _webview.allowsBackForwardNavigationGestures = YES;
+        config.preferences.javaScriptCanOpenWindowsAutomatically = NO;
+        
+        // 设置cookie
+        config.processPool = [[WKProcessPool alloc] init];
+        NSDictionary *dic = @{@"loginTokenName":getXAuthToken};
+        // 将所有cookie以document.cookie = 'key=value';形式进行拼接
+        NSMutableString *cookie = @"".mutableCopy;
+        
+        if (dic) {
+            for (NSString *key in dic.allKeys) {
+                [cookie appendFormat:@"document.cookie = '%@=%@';\n",key,dic[key]];
+            }
+        }
+        
+        WKUserContentController *userContentController = [[WKUserContentController alloc] init];
+        WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookie injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [userContentController addUserScript:cookieScript];
+        
+        config.userContentController = userContentController;
+        config.selectionGranularity = WKSelectionGranularityDynamic;
+        config.allowsInlineMediaPlayback = YES;
+        config.mediaPlaybackRequiresUserAction = false;
+        
+        CGRect frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
+        _webView = [[WKWebView alloc] initWithFrame:frame configuration:config];
     }
-    return _webview;
+    return _webView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,36 +91,34 @@
     if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
         newUserAgent = [userAgent stringByAppendingString:@"cloudcare"];
     }
-//    if ([userAgent rangeOfString:@"Prof.Wang_iOS"].location == NSNotFound){
-//        newUserAgent = [userAgent stringByAppendingString:@"Prof.Wang_iOS"];
-//    }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
    
-
-
    
-    _jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webview];
+    _jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
 
-    [self.webview evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         DLog(@"%@", result);
     }];
-    [self.webview addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    [self.webview addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
+
+    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     // UIProgressView初始化
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.progressView.frame = CGRectMake(0, 0, self.webview.frame.size.width, 2);
+    self.progressView.frame = CGRectMake(0, 0, self.webView.frame.size.width, 2);
     self.progressView.trackTintColor = [UIColor clearColor]; // 设置进度条的色彩
     self.progressView.progressTintColor = PWBlueColor;
     // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
-    [self.webview loadRequest:[NSURLRequest requestWithURL:self.webUrl]];
-    [self.view addSubview:self.webview];
+    NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
+    [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
+    [self.webView loadRequest:request];
+    [self.view addSubview:self.webView];
     [self.progressView setProgress:0.1 animated:YES];
-    [self.webview addSubview:self.progressView];
-    self.webview.UIDelegate = self;
-    self.webview.navigationDelegate = self;
-    self.webview.scrollView.bounces = NO;
+    [self.webView addSubview:self.progressView];
+    self.webView.UIDelegate = self;
+    self.webView.navigationDelegate = self;
+    self.webView.scrollView.bounces = NO;
     // Do any additional setup after loading the view.
     
     [_jsBridge registerHandler:@"addEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -104,14 +137,14 @@
 - (void)dealloc {
     
     // 最后一步：移除监听
-    [_webview removeObserver:self forKeyPath:@"estimatedProgress"];
-    [_webview removeObserver:self forKeyPath:@"title"];
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [_webView removeObserver:self forKeyPath:@"title"];
 }
 #pragma mark - KVO监听
 // 第三部：完成监听方法
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
-    if ([object isEqual:self.webview] && [keyPath isEqualToString:@"estimatedProgress"]) { // 进度条
+    if ([object isEqual:self.webView] && [keyPath isEqualToString:@"estimatedProgress"]) { // 进度条
         
         CGFloat newprogress = [[change objectForKey:NSKeyValueChangeNewKey] doubleValue];
         NSLog(@"打印测试进度值：%f", newprogress);
@@ -131,14 +164,15 @@
             self.progressView.hidden = NO;
             [self.progressView setProgress:newprogress animated:YES];
         }
-    } else if ([object isEqual:self.webview] && [keyPath isEqualToString:@"title"]) { // 标题
+    } else if ([object isEqual:self.webView] && [keyPath isEqualToString:@"title"]) { // 标题
         
-        self.title = self.webview.title;
+        self.title = self.webView.title;
     } else { // 其他
         
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
+
 //-(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
 //{
 //    if (!navigationAction.targetFrame.isMainFrame) {

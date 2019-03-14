@@ -89,6 +89,7 @@
 
 #define PW_favoritesAdd                 API_SEVERID@"/v1/favorites/add"
 
+#define PW_TIPS                   HTTP_PROTOCOL@"files.cloudcare.cn/home/tips/tips.json"
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
