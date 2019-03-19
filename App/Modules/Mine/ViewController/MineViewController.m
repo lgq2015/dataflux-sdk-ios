@@ -101,7 +101,7 @@
 }
 - (void)getSystemMessagCount{
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             self.unread = [content longValueForKey:@"unread" default:0];
             if (self.tableView) {

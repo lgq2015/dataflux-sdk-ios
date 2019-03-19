@@ -42,7 +42,7 @@
     [SVProgressHUD show];
     NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10,@"ticketType":@"serviceEvent"};
     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {
@@ -81,7 +81,7 @@
 - (void)loadMoreDate{
     NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10,@"ticketType":@"serviceEvent",@"pageMarker":[NSNumber numberWithInteger:self.pageMaker]};
     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {

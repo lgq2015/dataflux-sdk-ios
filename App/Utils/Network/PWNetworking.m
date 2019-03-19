@@ -173,8 +173,11 @@ static NSTimeInterval   requestTimeout = 60.f;
                                   // server error
                                   id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
                                   if (successBlock) successBlock(response);
-                                  if ([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]) {
-                                      KPostNotification(KNotificationOnKick, nil);
+                                  if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
+                                      [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                          KPostNotification(KNotificationOnKick, nil);
+                                      });
                                   }
                                   // response中包含服务端返回的内容
                               } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
@@ -226,7 +229,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                                     // server error
                                     id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
                                   DLog(@"response = %@",response)
-                                    if ([response[@"errCode"] isEqualToString:@"home.auth.unauthorized"]) {
+                                    if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
                                         KPostNotification(KNotificationOnKick, nil);
                                     }
                                     if (successBlock) successBlock(response);

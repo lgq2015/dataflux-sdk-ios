@@ -175,7 +175,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 }
 - (void)loadIssueSourceListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion{
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];
             if (data.count>0) {

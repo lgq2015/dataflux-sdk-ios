@@ -69,13 +69,13 @@ static NSUInteger ItemWidth = 104;
 }
 - (void)loadDatas{
     [PWNetworking requsetHasTokenWithUrl:PW_handbookList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[@"errorCode"] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             if (content.count>0) {
                 [self compareWithData:content];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         

@@ -159,17 +159,16 @@
             break;
         case BindUserInfoTypeMobile:
             [self commitPhoneClick];
-
             break;
     }
    
 }
 - (void)commitEmailClick{
-     BOOL isemail = [NSString validateEmail:self.emailTF.text];
+     BOOL isemail = [self.emailTF.text validateEmail];
     if (isemail) {
         NSDictionary *param = @{@"data":@{@"username":self.emailTF.text,@"uType":@"email",@"uuid":self.uuid}};
         [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"绑定成功"];
                 userManager.curUserInfo.email = self.emailTF.text;
                 KPostNotification(KNotificationUserInfoChange, nil);
@@ -180,8 +179,8 @@
                         }
                     }
                 });
-            }else if([response[@"message"] isEqualToString:@"Email Exists"]){
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            }else{
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         } failBlock:^(NSError *error) {
             [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
@@ -195,7 +194,7 @@
 - (void)commitPhoneClick{
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};
     [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             VerifyCodeVC *verify = [[VerifyCodeVC alloc]init];
             verify.type = VerifyCodeVCTypeUpdateMobileNewMobile;
             verify.isShowCustomNaviBar = YES;
@@ -203,7 +202,7 @@
             verify.uuid = self.uuid;
             [self.navigationController pushViewController:verify animated:YES];
         }else {
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"绑定失败"];
@@ -214,7 +213,7 @@
     [SVProgressHUD show];
     NSDictionary *param =@{@"data":@{@"name":self.emailTF.text}};
     [PWNetworking requsetHasTokenWithUrl:PW_accountName withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             userManager.curUserInfo.username = self.emailTF.text;
             [userManager saveChangeUserInfo];
             KPostNotification(KNotificationUserInfoChange, nil);

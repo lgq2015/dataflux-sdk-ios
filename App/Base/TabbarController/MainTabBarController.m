@@ -14,6 +14,7 @@
 #import "MineViewController.h"
 #import "TeamVC.h"
 #import "PWTabBar.h"
+#import "WEBViewController.h"
 #import "CloudCareVC.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
@@ -46,8 +47,9 @@
      homeVC.isHidenNaviBar= YES;
 
     //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
-    CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"CloudCare" andURLString:PW_cloudcare];
-    [self setupChildViewController:makeFriendVC title:@"服务+" imageName:@"icon_serve" seleceImageName:@"icon_serveselect"];
+    CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
+    makeFriendVC.isHideProgress = YES;
+    [self setupChildViewController:makeFriendVC title:@"服务" imageName:@"icon_serve" seleceImageName:@"icon_serveselect"];
     
     //    MsgViewController *msgVC = [[MsgViewController alloc]init];
     TeamVC *team = [TeamVC new];

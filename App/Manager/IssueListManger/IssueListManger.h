@@ -28,6 +28,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
  */
 - (void)downLoadAllIssueList;
+- (void)doDownLoadAllIssueList;
 /**
   socket 推送需要更新
  */

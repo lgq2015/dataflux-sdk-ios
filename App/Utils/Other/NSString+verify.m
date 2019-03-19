@@ -11,12 +11,7 @@
 
 @implementation NSString (verify)
 
-+ (BOOL)validatePassWordForm:(NSString *)password{
-    if (password.length>8) {
-        return YES;
-    }
-    return NO;
-}
+
 - (BOOL)validatePassWordForm{
     ///^(?![A-Za-z]+$)(?![\W]+$)(?![0-9]+$)[^\u4e00-\u9fa5]{8,25}$/
     NSString *pPhone = @"^(?![A-Za-z]+$)(?![\\W_]+$)(?![0-9]+$)[\x00-\x7F]{8,25}$";
@@ -110,11 +105,7 @@
     if ([deviceModel isEqualToString:@"x86_64"])       return @"Simulator";
     return deviceModel;
 }
-+ (BOOL)validateEmail:(NSString *)pEmail{
-    NSString *pEmailCheck = @"^[A-Za-z0-9\u4e00-\u9fa5]+([._\\-]*[A-Za-z0-9\u4e00-\u9fa5])*@[A-Za-z0-9_-\u4e00-\u9fa5]+(\\.[A-Za-z0-9_-\u4e00-\u9fa5]+)+$";
-    NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
-    return [pEmailTest evaluateWithObject:pEmail];
-}
+
 - (BOOL)validateEmail{
     NSString *pEmailCheck = @"^[A-Za-z0-9\u4e00-\u9fa5]+([._\\-]*[A-Za-z0-9\u4e00-\u9fa5])*@[A-Za-z0-9_-\u4e00-\u9fa5]+(\\.[A-Za-z0-9_-\u4e00-\u9fa5]+)+$";
     NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
@@ -168,6 +159,18 @@
     NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
     return dateString;
 }
++ (NSString *)yearMonthDayDate:(NSString *)utcDate formatter:(NSString *)formatter{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //输入格式
+    [dateFormatter setDateFormat:formatter];
+    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:localTimeZone];
+    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+    //输出格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    return dateString;
+}
 + (NSString *)compareCurrentTime:(NSString *)str
 {
     //把字符串转为NSdate
@@ -188,13 +191,10 @@
     else if((temp = temp/60) <24){
         result = [NSString stringWithFormat:@"%ld小时前",temp];
     }
-    else if((temp = temp/24) <30){
+    else if((temp = temp/24) <7){
         result = [NSString stringWithFormat:@"%ld天前",temp];
     }
-    else if((temp = temp/30) <12){
-        result = [NSString stringWithFormat:@"%ld月前",temp];
-    }
-    else{
+    else {
         temp = temp/12;
         result = [NSString stringWithFormat:@"%ld年前",temp];
     }
@@ -225,5 +225,33 @@
     }
     return res;
 }
-
+- (BOOL)isUrlAddress{
+    NSString *reg =@"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)";
+    NSPredicate *urlPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", reg];
+    return [urlPredicate evaluateWithObject:self];
+}
++ (NSString *)progressLabText:(NSDictionary *)dict{
+    NSString *time = dict[@"updateTime"];
+    NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    NSString *needTime = [NSString compareCurrentTime:local];
+    NSString *subType = dict[@"subType"];
+    __block  NSString *type;
+    
+    if ([subType isEqualToString:@"issueCreated"]) {
+        type = @"情报创建";
+    }else if([subType isEqualToString:@"issueRecovered"]){
+        type = @"情报恢复";
+    }else if([subType isEqualToString:@"issueExpired"]){
+        type = @"情报失效";
+    }else if([subType isEqualToString:@"ticketClosed"]){
+        type = @"专家退出讨论";
+    }else if([subType isEqualToString:@"updateExpertGroups"]){
+        NSDictionary *metaJSON = dict[@"metaJSON"];
+        NSArray *expertGroups = metaJSON[@"expertGroups"];
+        [userManager getExpertNameByKey:expertGroups[0] name:^(NSString *name) {
+            type =[NSString stringWithFormat:@"%@加入讨论",name];
+        }];
+    }
+    return [NSString stringWithFormat:@"%@  %@",needTime,type];
+}
 @end

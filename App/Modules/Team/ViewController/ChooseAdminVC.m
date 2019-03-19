@@ -60,7 +60,7 @@
     
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             [self dealWithDatas:content];
         }

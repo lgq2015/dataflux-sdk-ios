@@ -98,7 +98,7 @@
 - (void)veritfyCodeClick{
     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
     [code VerificationCodeWithType:VerifyCodeVCTypeFindPassword phone:self.userTf.text uuid:@"" successBlock:^(id response) {
-        if([response[@"errCode"] isEqualToString:@""]){
+        if([response[ERROR_CODE] isEqualToString:@""]){
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.isHidenNaviBar = YES;
             codeVC.isShowLiftBack = YES;
@@ -106,7 +106,7 @@
             codeVC.phoneNumber = self.userTf.text;
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         

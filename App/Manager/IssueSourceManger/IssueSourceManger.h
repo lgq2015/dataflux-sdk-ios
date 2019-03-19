@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^detectTimeStr)(NSString *str);
 typedef void (^updateIssueSource)(NSArray *ary);
 @interface IssueSourceManger : NSObject
+
 //单例
 SINGLETON_FOR_HEADER(IssueSourceManger)
 - (instancetype)init NS_UNAVAILABLE;

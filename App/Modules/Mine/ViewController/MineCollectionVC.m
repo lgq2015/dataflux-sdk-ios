@@ -50,7 +50,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"pageSize":@10,@"pageIndex":[NSNumber numberWithInteger:self.page]};
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *data = response[@"content"][@"data"];
             if (data.count == 0) {
                 [self showNoDataImage];
@@ -74,7 +74,7 @@
 - (void)loadMoreData{
     NSDictionary *param = @{@"pageSize":@10,@"pageIndex":[NSNumber numberWithInteger:self.page]};
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *data = response[@"content"][@"data"];
             if(data.count<10){
                 [self showNoMoreDataFooter];
@@ -142,7 +142,7 @@
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(model.favoID) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
 
-        if([response[@"errCode"] isEqualToString:@""]){
+        if([response[ERROR_CODE] isEqualToString:@""]){
             [self loadData];
         }
         [self.header endRefreshing];

@@ -134,7 +134,7 @@
 - (void)changePassword{
     NSDictionary *param = @{@"data":@{@"oldPassword":self.passwordTf.text}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifyoldpassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
             newPasswordVC.isShowCustomNaviBar = YES;
@@ -152,7 +152,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":self.passwordTf.text,@"verificationCodeType":@"password",@"t":@"update_email"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
             bind.changeType = BindUserInfoTypeEmail;
             bind.uuid = response[@"content"][@"uuid"];
@@ -171,7 +171,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"update_mobile"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
             bind.changeType = BindUserInfoTypeMobile;
             bind.isShowCustomNaviBar = YES;
@@ -192,7 +192,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"owner_transfer"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
            
             NSString * uuid =response[@"content"][@"uuid"];
             [self doTeamTransfer:uuid];
@@ -210,7 +210,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"team_cancel"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             
             NSString * uuid =response[@"content"][@"uuid"];
             [self doteamDissolve:uuid];
@@ -228,7 +228,7 @@
          NSString *uid = self.teamMemberID;
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
         [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if([response[@"errCode"] isEqualToString:@""]){
+            if([response[ERROR_CODE] isEqualToString:@""]){
                 TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
                 success.isTrans = YES;
                 [self presentViewController:success animated:YES completion:nil];
@@ -246,7 +246,7 @@
 -(void)doteamDissolve:(NSString *)uuid{
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
      [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
                 success.isTrans = NO;
                 [self presentViewController:success animated:YES completion:nil];

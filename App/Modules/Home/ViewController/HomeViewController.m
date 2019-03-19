@@ -11,7 +11,6 @@
 #import "InformationVC.h"
 #import "ThinkTankVC.h"
 #import "ToolsVC.h"
-#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "ScanViewController.h"
 
 

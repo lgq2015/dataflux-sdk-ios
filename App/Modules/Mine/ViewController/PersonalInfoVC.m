@@ -136,7 +136,7 @@
         DLog(@"%lld",totalBytes);
     } successBlock:^(id response) {
         DLog(@"%@",response);
-        if([response[@"errCode"] isEqualToString:@""]){
+        if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *tags = response[@"content"][@"tags"];
             userManager.curUserInfo.tags = tags;
             KPostNotification(KNotificationUserInfoChange, nil);

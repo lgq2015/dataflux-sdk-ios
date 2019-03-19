@@ -22,7 +22,7 @@
     self.provider = dict[@"provider"];
     if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
         self.state = SourceStateNotDetected;
-    }else if([dict[@"scanCheckStatus"] isEqualToString:@"scanScriptFailed"]){
+    }else if([dict[@"scanCheckStatus"] isEqualToString:@"invalidIssueSource"]){
         self.state = SourceStateAbnormal;
     }else{
         self.state = SourceStateDetected;
@@ -53,5 +53,6 @@
          }
     }
     self.updateTime = dict[@"updateTime"];
+    
 }
 @end

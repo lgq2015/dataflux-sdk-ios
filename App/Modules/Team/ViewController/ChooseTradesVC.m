@@ -37,7 +37,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"keys":@"industry"};
     [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content  =response[@"content"];
             [self.dataSource addObjectsFromArray:content[@"industry"]];
             [self.tableView reloadData];

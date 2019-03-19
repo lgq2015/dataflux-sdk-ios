@@ -77,9 +77,11 @@
 //情报源修改
 #define PW_issueSourceModify(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/modify", API_SEVERID,issueid]
 //情报源详情
-#define PW_issueDetail(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
+//#define PW_issueDetail(issueid)   [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
 
-
+#define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]
+//情报日志详情
+#define PW_issueLog(issueid)       [NSString stringWithFormat:@"%@/v1/issue/%@/log/list", API_SEVERID,issueid]
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
@@ -103,7 +105,10 @@
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 #define PW_articleSearch               API_SEVERID@"/v1/handbook/article/search"
 
-
+#pragma mark ========== 服务 ==========
+#define PW_cloudcare                   API_H5_HOST@"/service/list"
+#define PW_OrderList                   API_SHRINE@"/resources/action/listOrders@customerOpenAdmin"
+//http://testing.shrine-via-core-stone.cloudcare.cn:10100/resources/action/listOrders@customerOpenAdmin,
 #pragma mark ========== 团队 ==========
 #define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
 #define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"
@@ -143,6 +148,5 @@
 #define PW_privacylegal                API_H5_HOST@"/terms/legal"
 #define PW_servicelegal                API_H5_HOST@"/terms/service"
 
-#define PW_cloudcare                   API_H5_HOST@"/service/list"
 #define PW_Safelegal                   API_H5_HOST@"/terms/datasafe"
 #endif /* PWNetWorkURLs_h */

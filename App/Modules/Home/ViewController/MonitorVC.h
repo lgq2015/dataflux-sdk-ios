@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MonitorVC : RootViewController
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 - (id)initWithTitle:(NSString *)title andIssueType:(NSString *)type;
 
 @end

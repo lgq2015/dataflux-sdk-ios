@@ -47,7 +47,6 @@
  "uniqueMarker": "jiagouyun",
  "zip": "200000"
  },
- "errCode": "",
  "message": ""
  }
  */

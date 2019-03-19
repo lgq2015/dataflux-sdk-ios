@@ -187,7 +187,7 @@
     if ([[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] validateNumber]) {
     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
     [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.type = VerifyCodeVCTypeLogin;
             codeVC.isHidenNaviBar = YES;
@@ -195,7 +195,7 @@
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         

@@ -1,29 +1,28 @@
 //
-//  CloudCareVC.m
+//  PWChatVC.m
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/3/8.
+//  Created by 胡蕾蕾 on 2019/3/17.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "CloudCareVC.h"
+#import "PWChatVC.h"
 
-@interface CloudCareVC ()
+@interface PWChatVC ()
+
 @end
 
-@implementation CloudCareVC
+@implementation PWChatVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"CloudCare";
+    self.title = @"讨论";
     [self createUI];
+    // Do any additional setup after loading the view.
 }
 - (void)createUI{
-
-   self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
-   
+//    self.tableVie
 }
-
 /*
 #pragma mark - Navigation
 

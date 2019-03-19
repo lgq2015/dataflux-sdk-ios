@@ -129,7 +129,7 @@
                 break;
         }
         MonitorVC *monitor = [[MonitorVC alloc]initWithTitle:title andIssueType:issueType];
-        monitor.dataSource = dataSource;
+        monitor.dataSource = [[NSMutableArray alloc]initWithArray:dataSource];
         [weakSelf.navigationController pushViewController:monitor animated:YES];
     };
    
@@ -210,13 +210,13 @@
 }
 - (void)loadRecommendationData{
     [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *datas = response[@"content"];
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
 
@@ -225,14 +225,14 @@
 - (void)loadNewsDatas{
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
             if (items.count>0) {
                 [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {

@@ -9,7 +9,6 @@
 #import "VerifyCodeVC.h"
 #import "PersonalInfoVC.h"
 #import "PWMNView.h"
-#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "PasswordSetVC.h"
@@ -222,7 +221,7 @@
     VerificationCodeNetWork *code  =[[VerificationCodeNetWork alloc]init];
     NSString *uuidstr = self.uuid ==nil ?self.uuid:@"";
     [code VerificationCodeWithType:self.type phone:phone uuid:uuidstr successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             [self.timer setFireDate:[NSDate distantPast]];
             self.resendCodeBtn.hidden = YES;
             self.second = 60;
@@ -292,7 +291,7 @@
 - (void)findPasswordWithCode:(NSString *)code{
     NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *authAccessToken = content[@"authAccessToken"];
             setXAuthToken(authAccessToken);
@@ -311,7 +310,7 @@
 - (void)changePasswordWithCode:(NSString *)code{
     NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *authAccessToken = content[@"authAccessToken"];
             setXAuthToken(authAccessToken);
@@ -332,7 +331,7 @@
     //{ "data": { "username": "18236889895", "uType": "mobile", "verificationCode": "123456", "verificationCodeType": "verifycode", "t": "update_email" } }
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_email",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
@@ -350,7 +349,7 @@
 - (void)updateMobileWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_mobile",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             BindEmailOrPhoneVC *bindemail = [[BindEmailOrPhoneVC alloc]init];
@@ -368,7 +367,7 @@
 -(void)updateNewMobileWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"verificationCode":code,@"uuid":self.uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_modify_un withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             userManager.curUserInfo.mobile = self.phoneNumber;
             KPostNotification(KNotificationUserInfoChange, nil);
@@ -380,7 +379,7 @@
                 }
             });
         }else{
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[@"errCode"], @"")];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
@@ -388,9 +387,9 @@
     
 }
 - (void)teamDissolveWithCode:(NSString *)code{
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"team_cancel",@"verificationCodeType":@"verifycode"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":code,@"t":@"team_cancel",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doteamDissolve:uuid];
@@ -402,7 +401,7 @@
 - (void)teamTransferWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"owner_transfer",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doTeamTransfer:uuid];
@@ -415,7 +414,7 @@
     NSString *uid = self.teamMemberID;
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if([response[@"errCode"] isEqualToString:@""]){
+        if([response[ERROR_CODE] isEqualToString:@""]){
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = YES;
             [self presentViewController:success animated:YES completion:nil];
@@ -432,7 +431,7 @@
 -(void)doteamDissolve:(NSString *)uuid{
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = NO;
             [self presentViewController:success animated:YES completion:nil];

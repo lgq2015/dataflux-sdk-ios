@@ -50,18 +50,16 @@
 - (void)addTeamSuccess:(NSNotification *)notification
 {
     self.isHidenNaviBar = YES;
-    NSString *team = getTeamState;
     BOOL isTeam = [notification.object boolValue];
     if (isTeam) {
         [userManager addTeamSuccess:^(BOOL isSuccess) {
             if (isSuccess) {
-                if ([team isEqualToString:PW_isTeam]) {
-                     [self loadTeamMemberInfo];
-                    [self.headerView setTeamName:userManager.teamModel.name];
-                }else{
+             
             [self.view removeAllSubviews];
             [self createTeamUI];
-            }}
+                }else{
+                    [iToast alertWithTitleCenter:@"页面刷新失败"];
+                }
         }];
     }else{
         [self.view removeAllSubviews];
@@ -70,6 +68,7 @@
     }
 
 - (void)createTeamUI{
+    [self.view removeAllSubviews];
     self.view.backgroundColor = PWBackgroundColor;
     self.headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
      WeakSelf;
@@ -85,7 +84,6 @@
             [weakSelf.navigationController pushViewController:monitor animated:YES];
         }else{
             FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
-            fillVC.type = userManager.teamModel.isAdmin == YES? FillinTeamTypeIsAdmin:FillinTeamTypeIsMember;
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
                     if (isSuccess) {
@@ -191,7 +189,7 @@
     
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             [self dealWithDatas:content];
         }
@@ -211,28 +209,19 @@
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-//    NSMutableArray *admin = [NSMutableArray new];
+
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
-//        NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-//        if ([memberID  isEqualToString:getPWUserID]) {
-//            [self.teamMemberArray insertObject:model atIndex:0];
-//        }else if(model.isAdmin){
-//            [admin addObject:model];
-//        }else{
             [self.teamMemberArray addObject:model];
-//        }
+
     }];
-//    if (admin.count>0) {
-//        [self.teamMemberArray addObjectsFromArray:admin];
-//    }
+
     [self.headerView setTeamNum:[NSString stringWithFormat:@"共%lu人",(unsigned long)self.teamMemberArray.count]];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{
     FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
-    fillVC.type = FillinTeamTypeAdd;
     [self.navigationController pushViewController:fillVC animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
@@ -273,9 +262,7 @@
         }];
         button.titleLabel.font = MediumFONT(14);
         button.tag = indexPath.row + DeletBtnTag;
-//        button.callback = ^BOOL(MGSwipeTableCell * _Nonnull cell) {
-//
-//        };
+
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
@@ -288,7 +275,7 @@
         NSString *uid =self.teamMemberArray[row].memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"移除成功"];
                 [self loadTeamMemberInfo];
             }else{

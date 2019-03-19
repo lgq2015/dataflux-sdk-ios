@@ -76,7 +76,7 @@
        
         
         [PWNetworking requsetHasTokenWithUrl:PW_favoritesAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"收藏成功"];
             }
         } failBlock:^(NSError *error) {

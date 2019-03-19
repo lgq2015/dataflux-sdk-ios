@@ -24,7 +24,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"invite_type":@"qrcode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_teamInvite withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSString *rv = [content stringValueForKey:@"rv" default:@""];
             [self dealWithImg:rv];

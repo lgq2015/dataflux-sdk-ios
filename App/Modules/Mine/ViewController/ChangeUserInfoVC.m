@@ -107,7 +107,7 @@
         }
     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
     [code VerificationCodeWithType:type phone:@"" uuid:@"" successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
             codeVC.type = type;
             codeVC.phoneNumber = userManager.curUserInfo.mobile;
@@ -117,7 +117,7 @@
             }
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         

@@ -15,6 +15,8 @@
 #import "AppManager.h"
 #import "IssueListManger.h"
 #import <Zhuge.h>
+#import "PWSocketManager.h"
+
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -61,6 +63,11 @@
 //    DLog(@"设备IMEI ：%@",[OpenUDID value]);
 //
     if([userManager loadUserInfo]){
+        [[PWSocketManager sharedPWSocketManager] connectWithToken:@"" success:^{
+            
+        } fail:^{
+            
+        }];
         //如果有本地数据，先展示TabBar 随后异步自动登录
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
@@ -87,7 +94,7 @@
     BOOL loginSuccess = [notification.object boolValue];
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
-        
+       
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];
@@ -136,7 +143,10 @@
 #pragma mark ========== 配置第三方 ==========
 -(void)configUSharePlatforms{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
-    keyboardManager.enable = YES; // 控制整个功能是否启用
+    keyboardManager.shouldResignOnTouchOutside =YES; // 控制点击背景是否收起键盘
+    keyboardManager.keyboardDistanceFromTextField = 20;
+    [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
+
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setMinimumDismissTimeInterval:2];   
 }

@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"先知监控";
+    self.title = @"先见数据平台";
     [self createUI];
 }
 - (void)createUI{
@@ -28,9 +28,9 @@
     UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, ZOOM_SCALE(1124))];
     contentView.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:contentView];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(13), kWidth-Interval(32), ZOOM_SCALE(25)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"什么是先知监控"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(13), kWidth-Interval(32), ZOOM_SCALE(25)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"什么是先见数据平台"];
     [contentView addSubview:titleLab];
-    UILabel *titleContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"先知监控是指通过在您需诊断的集群环境中安装我们开发的管控节点和探针程序，管控节点通过探针将集群中的主机相关检测指标收集汇总后再上报到王教授的诊断系统进行诊断并产生相关情报。"];
+    UILabel *titleContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"先见数据平台是驻云基于开源监控平台 Prometheus 开发的，针对集群环境，部署在用户的本地用于收集系统和应用相关数据指标的监控服务平台，同时先见数据平台会在用户允许的范围内将部分数据指标上报到王教授的诊断系统进行分析诊断并产生相关情报。"];
     titleContent.numberOfLines = 0;
     [contentView addSubview:titleContent];
     [titleContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -47,14 +47,14 @@
         make.height.offset(ZOOM_SCALE(337));
         make.centerX.mas_equalTo(contentView);
     }];
-    UILabel *mediumTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"怎样开启集群诊断"];
+    UILabel *mediumTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"怎样才能使用先见数据平台？"];
     [contentView addSubview:mediumTitle];
     [mediumTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(prophetImgView.mas_bottom).offset(ZOOM_SCALE(6));
         make.left.mas_equalTo(contentView).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UILabel *mediumContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"如果您需要开启集群诊断，请发服务事件给我们，我们的服务工程师将会帮你部署集群诊断的探针和管控节点。"];
+    UILabel *mediumContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"购买了先见数据平台后，用户如果需要使用先见数据平台并通过王教授进行分析诊断，需要发送服务请求到我们的服务工程师，我们的服务工程师会帮你部署先见数据平台并按照用户需求安装 exporter。"];
     mediumContent.numberOfLines = 0;
     [contentView addSubview:mediumContent];
     [mediumContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,9 +71,11 @@
         make.height.offset(ZOOM_SCALE(25));
     }];
     
-    BorderView *boder = [[BorderView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(624), kWidth, ZOOM_SCALE(46))];
+    BorderView *boder = [[BorderView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(690), kWidth, ZOOM_SCALE(46))];
     boder.backgroundColor = PWWhiteColor;
     [contentView addSubview:boder];
+    
+    
     UILabel *progress1 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextBlackColor text:@"发起服务事件"];
     UILabel *progress2 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextBlackColor text:@"服务工程师部署"];
     UILabel *progress3 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextBlackColor text:@"等待数据上报"];

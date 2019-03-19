@@ -8,6 +8,7 @@
 
 "500"= "服务器异常";
 "401.41"= "当前用户不存在";
+"home.auth.exceededSendIntervalLimit" = "获取验证码过于频繁，请稍后再试";
 "home.account.canNotDoubleCall"= "不能呼叫";
 "home.account.doubleCallFailed"= "呼叫失败";
 "home.account.emailExists"= "邮箱地址已存在";
@@ -66,3 +67,5 @@
 "forum.auth.NoPermission" = "没有文章操作权限";
 "home.issueSource.invalidDomain" = "域名格式错误";
 "home.issueSource.invalidIssueSourceAK" = "";
+"home.base.payloadTooLarge" = "上传文件过大";
+

@@ -119,7 +119,7 @@
     self.titleLab.text = self.model.title;
    
    
-    self.subLab.text = self.model.attrs;
+    self.subLab.text = self.model.issueLog;
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
     if (self.isService) {
         self.triangleView.hidden = YES;
@@ -208,7 +208,7 @@
     [self setModel:model];
     [self layoutIfNeeded];
     CGFloat cellHeight;
-    if ([model.attrs isEqualToString:@""]) {
+    if ([model.issueLog isEqualToString:@""]) {
         cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
     }else{
         cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;

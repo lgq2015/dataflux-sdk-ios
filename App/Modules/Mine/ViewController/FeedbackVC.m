@@ -100,7 +100,7 @@
         NSDictionary *param = @{@"data":@{@"content":self.describeTextView.text}};
         [PWNetworking requsetHasTokenWithUrl:PW_addFeedback withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"提交成功"];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"提交失败"];

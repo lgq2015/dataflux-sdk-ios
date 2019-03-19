@@ -210,7 +210,7 @@
     }else if (button.tag == NavRightBtnTag){
         NSDictionary *params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if([response[@"errCode"] isEqualToString:@""]){
+            if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
                 [self.navigationController popViewControllerAnimated:YES];
             }

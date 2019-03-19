@@ -44,7 +44,7 @@
     self.pageIndex = 1;
     NSDictionary *param = @{@"pageSize":@20,@"pageIndex":@1};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {
                 [self.dataSource addObjectsFromArray:data];
@@ -69,7 +69,7 @@
 -(void)loadMoreData{
     NSDictionary *param = @{@"pageSize":@20,@"pageIndex":[NSNumber numberWithInteger:self.pageIndex]};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             self.pageIndex++;
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {
@@ -135,7 +135,7 @@
 - (void)setMessageRead:(MineMessageModel *)model{
     NSDictionary *param = @{@"data":@{@"system_message_ids":model.messageID}};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageSetRead withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             [self loadData];
         }
     } failBlock:^(NSError *error) {

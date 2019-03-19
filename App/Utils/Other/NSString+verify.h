@@ -25,9 +25,15 @@
 /**
  检验是否为邮箱
  */
-+ (BOOL)validateEmail:(NSString *)pEmail;
 - (BOOL)validateEmail;
+/**
+ 检验是否为一级域名
+ */
 - (BOOL)validateTopLevelDomain;
+/**
+ 检验是否为url链接
+ */
+- (BOOL)isUrlAddress;
 /**
  
  时间戳
@@ -38,9 +44,11 @@
  */
 +(NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter;
 + (NSString *)mineVCDate:(NSString *)utcDate formatter:(NSString *)formatter;
++ (NSString *)yearMonthDayDate:(NSString *)utcDate formatter:(NSString *)formatter;
 /**
  时间转换
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
 - (BOOL)validateNumber;
++ (NSString *)progressLabText:(NSDictionary *)dict;
 @end

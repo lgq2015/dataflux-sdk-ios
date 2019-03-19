@@ -605,7 +605,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)modifyIssueSourceWithParam:(NSDictionary *)param{
     
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-         if ([response[@"errCode"] isEqualToString:@""]) {
+         if ([response[@"errorCode"] isEqualToString:@""]) {
          [SVProgressHUD showSuccessWithStatus:@"保存成功"];
          KPostNotification(KNotificationIssueSourceChange,nil);
 
@@ -668,7 +668,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 - (void)addIssueSourcewithparam:(NSDictionary *)param{
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[@"errorCode"] isEqualToString:@""]) {
             KPostNotification(KNotificationIssueSourceChange,nil);
             AddSourceTipView *tip = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:AddSourceTipTypeSuccess];
             [self.view removeAllSubviews];
@@ -692,7 +692,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             };
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
@@ -702,7 +702,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)delectIssueSource{
     [SVProgressHUD showWithStatus:@"正在删除..."];
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[@"errorCode"] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"删除成功"];
             KPostNotification(KNotificationIssueSourceChange,nil);
             [self.navigationController popViewControllerAnimated:YES];

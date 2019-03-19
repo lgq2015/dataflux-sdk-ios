@@ -40,6 +40,16 @@
     [self judgeVcType];
 }
 - (void)judgeVcType{
+    if (userManager.teamModel == nil) {
+        self.type = FillinTeamTypeAdd;
+      
+    }else if(userManager.teamModel.isAdmin){
+        self.type = FillinTeamTypeIsAdmin;
+      
+    }else{
+        self.type = FillinTeamTypeIsMember;
+       
+    }
     NSArray *itemAry;
     switch (self.type) {
         case FillinTeamTypeAdd:
@@ -147,7 +157,7 @@
         NSString *uid =userManager.curUserInfo.userID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"退出成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [userManager logout:nil];
@@ -185,11 +195,7 @@
         }else{
             self.temp =value;
         }
-//        if (value.length>15) {
-//            [iToast alertWithTitleCenter:@"内容长度超限"];
-//            value = [value substringToIndex:15];
-//            self.tfAry[0].text = value;
-//        }
+
         return value;
     }];
     RACSignal *addressSignal = RACObserve(self.tfAry[1], text);
@@ -211,9 +217,8 @@
 }
 - (void)commitTeamClick{
     NSDictionary *params ;
-    NSArray *address = [self.tfAry[1].text componentsSeparatedByString:@" "];
-    NSString *province =address[0];
-    NSString *city = address[1];
+    NSString *province =self.currentProvince;
+    NSString *city = self.currentCity;
     if (self.textView.text.length>0) {
         params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
     }else{
@@ -222,7 +227,7 @@
     }
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             
             
                     CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
@@ -286,19 +291,7 @@
     verify.isShowCustomNaviBar = YES;
     verify.type = ChangeUITTeamDissolve;
     [self.navigationController pushViewController:verify animated:YES];
-//    [PWNetworking requsetHasTokenWithUrl:PW_CancelTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-//        if ([response[@"errCode"] isEqualToString:@""]) {
-//            [SVProgressHUD showSuccessWithStatus:@"解散成功"];
-//            
-//            [userManager logout:^(BOOL success, NSString *des) {
-//                
-//            }];
-//        }else{
-//            [SVProgressHUD showErrorWithStatus:@"解散失败"];
-//        }
-//    } failBlock:^(NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"解散失败"];
-//    }];
+    
 }
 - (void)backBtnClicked{
     if (self.type == FillinTeamTypeIsAdmin) {
@@ -319,7 +312,7 @@
                     param= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
                 }
                 [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-                    if ([response[@"errCode"] isEqualToString:@""]) {
+                    if ([response[ERROR_CODE] isEqualToString:@""]) {
                         if (self.changeSuccess) {
                             self.changeSuccess();
                         }

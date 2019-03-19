@@ -83,34 +83,17 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
         InfoBoardModel *model = infoDatas[0];
         NSDictionary *params;
         if(model.pageMaker == 0){
-        params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"orderMethod":@"asc",@"pageSize":@100};
+            params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"_latestIssueLogSubType":@"comment",@"orderMethod":@"asc",@"pageSize":@100};
         }else{
-        params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"orderMethod":@"asc",@"pageSize":@100,@"pageMarker":model.pageMaker};
+            params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"actSeq",@"_latestIssueLogLimit":@1,@"_latestIssueLogSubType":@"comment",@"orderMethod":@"asc",@"pageSize":@100,@"pageMarker":model.pageMaker};
         }
         [self loadIssueListWithParam:params completion:^(NSArray *datas,NSNumber *pageMaker) {
             if(datas.count>0){
                 NSMutableArray *newDatas = [NSMutableArray new];
             [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSError *error;
-                IssueModel *model = [[IssueModel alloc]initWithDictionary:obj error:&error];
-                NSArray *logs =  model.latestIssueLogs;
-                if (logs.count>0) {
-                        NSString *logstr = [logs jsonStringEncoded];
-                        model.latestIssueLogsStr =logstr;
-                }
-                NSDictionary *rendered = model.renderedText;
-               if(!rendered){
-                        model.renderedTextStr = @"";
-                }else{
-                    NSString *renderedTextStr = [rendered jsonPrettyStringEncoded];
-                    model.renderedTextStr = renderedTextStr;
-                }
-                    NSDictionary *reference = model.reference;
-                if(!reference){
-                    model.referenceStr = @"";
-                }else{
-                    model.referenceStr = [reference jsonPrettyStringEncoded];
-                }
+
+                IssueModel *model = [[IssueModel alloc]initWithDictionary:obj];
+               
                 [newDatas addObject:model];
                 }];
                 [newDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -159,7 +142,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 // issueList/GET
 - (void)loadIssueListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion{
     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];
             if (data.count>0) {
@@ -196,27 +179,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     if (data.count>0) {
         NSMutableArray *array = [NSMutableArray new];
         [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSError *error;
-            IssueModel *model = [[IssueModel alloc]initWithDictionary:obj error:&error];
-            NSArray *logs =  model.latestIssueLogs;
-            if (logs.count>0) {
-                NSString *logstr = [logs jsonStringEncoded];
-                model.latestIssueLogsStr =logstr;
-            }
-             NSDictionary *rendered = model.renderedText;
-            if(!rendered){
-                model.renderedTextStr = @"";
-            }else{
-                NSString *renderedTextStr = [rendered jsonPrettyStringEncoded];
-                model.renderedTextStr = renderedTextStr;
-            }
-            NSDictionary *reference = model.reference;
-            if(!reference){
-                model.referenceStr = @"";
-            }else{
-                model.referenceStr = [reference jsonPrettyStringEncoded];
-            }
-            model.PWId = [model.issueId stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            IssueModel *model = [[IssueModel alloc]initWithDictionary:obj];
             [array addObject:model];
         }];
      
@@ -234,10 +197,10 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 //        }];
     }else{
 
-        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"reference":@"text"};
+        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"accountId":@"text",@"subType":@"text",@"originInfoJSONStr":@"text",@"subType":@"text"};
         BOOL isCreate = [pwfmdb pw_createTable:getPWUserID dicOrModel:dict primaryKey:@"PWId"];
         if(isCreate){
-       NSArray  *resultMArr = [pwfmdb pw_insertTable:getPWUserID dicOrModelArray:array];
+     NSArray  *resultMArr = [pwfmdb pw_insertTable:getPWUserID dicOrModelArray:array];
 //
             if(resultMArr.count==0){
                 setLastTime([NSDate date]);
@@ -334,7 +297,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
     }else{
         NSDictionary *param = @{@"pageNumber":@1,@"pageSize":@1};
         [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 NSDictionary *content = response[@"content"];
                 NSArray *data = content[@"data"];
                 if (data.count>0) {
@@ -344,7 +307,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
                 }else{
                     NSDictionary *params =@{@"orderBy":@"actSeq",@"orderMethod":@"desc",@"pageSize":@1};
                     [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-                        if ([response[@"errCode"] isEqualToString:@""]) {
+                        if ([response[ERROR_CODE] isEqualToString:@""]) {
                             NSDictionary *content = response[@"content"];
                             NSArray *data = content[@"data"];
                             if (data.count>0) {

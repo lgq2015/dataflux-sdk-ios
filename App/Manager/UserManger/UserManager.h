@@ -36,6 +36,7 @@ SINGLETON_FOR_HEADER(UserManager)
 @property (nonatomic, strong) CurrentUserModel *curUserInfo;
 @property (nonatomic, strong) TeamInfoModel *teamModel;
 @property (nonatomic, assign) UserLoginType loginType;
+@property (nonatomic, strong) NSMutableArray *expertGroups;
 @property (nonatomic, assign) BOOL isLogined;
 /**
  获取验证码
@@ -77,5 +78,5 @@ SINGLETON_FOR_HEADER(UserManager)
 //-(void)judgeIsHaveTeam:(void(^)(BOOL isHave, NSDictionary *content))isHave;
 - (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess;
 -(void)saveChangeUserInfo;
-
+- (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 @end

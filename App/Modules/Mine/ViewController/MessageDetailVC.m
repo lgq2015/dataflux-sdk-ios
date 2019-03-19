@@ -104,7 +104,7 @@
 - (void)setMessageRead{
     NSDictionary *param = @{@"data":@{@"system_message_ids":self.model.messageID}};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageSetRead withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             if (self.refreshTable) {
                 self.refreshTable();
             }

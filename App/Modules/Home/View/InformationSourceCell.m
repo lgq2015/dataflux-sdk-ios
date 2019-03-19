@@ -59,7 +59,7 @@
             self.imageView.image = [UIImage imageNamed:@"icon_cluster"];
             break;
         case SourceTypeDomainNameDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_domain"];
+            self.imageView.image = [UIImage imageNamed:@"icon_domainname"];
             break;
         case SourceTypeSingleDiagnose:
               self.imageView.image = [UIImage imageNamed:@"icon_single"];

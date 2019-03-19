@@ -11,11 +11,13 @@
 
 @interface PWBaseWebVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) WebViewJavascriptBridge *jsBridge;
 
+@property (nonatomic, strong) WebViewJavascriptBridge *jsBridge;
+@property (nonatomic, copy) NSString *baseTitle;
 @end
 
 @implementation PWBaseWebVC
+#pragma mark ========== init ==========
 - (instancetype)initWithTitle:(NSString *)title andURLString:(nonnull NSString *)urlString{
       NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
      return [self initWithTitle:title andURL:[NSURL URLWithString:encodedString]];
@@ -24,29 +26,20 @@
 - (instancetype)initWithTitle:(NSString *)title andURL:(NSURL *)url{
     if (self = [super init]) {
         self.title = title;
+        self.baseTitle = title;
         self.webUrl = url;
     }
-    return self;;
+    return self;
 }
--(void)backBtnClicked{
-    if ([self.webView canGoBack]) {
-        //如果有则返回
-        [self.webView goBack];
-        //同时设置返回按钮和关闭按钮为导航栏左边的按钮
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
+- (instancetype)initWithURL:(NSURL *)url{
+    if (self = [super init]) {
+        self.baseTitle = @"";
+        self.webUrl = url;
     }
+    return self;
 }
-//-(WKWebView *)webView{
-//    if (!_webview) {
-//        WKWebViewConfiguration * config = [[WKWebViewConfiguration alloc]init];
-//        config.preferences.javaScriptEnabled = YES;
-//        config.selectionGranularity = YES;
-//      _webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) configuration:config];
-//      _webview.allowsBackForwardNavigationGestures = YES;
-//    }
-//    return _webview;
-//}
+
+
 - (WKWebView *)webView {
     if (!_webView) {
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
@@ -82,8 +75,19 @@
     }
     return _webView;
 }
+// UIProgressView初始化
+-(UIProgressView *)progressView{
+    if (!_progressView) {
+        _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        _progressView.frame = CGRectMake(0, 0, self.webView.frame.size.width, 2);
+        _progressView.trackTintColor = [UIColor clearColor]; // 设置进度条的色彩
+        _progressView.progressTintColor = PWBlueColor;
+    }
+    return _progressView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
     UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
@@ -95,52 +99,92 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
    
-   
-    _jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
-
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         DLog(@"%@", result);
     }];
 
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
-    // UIProgressView初始化
-    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.progressView.frame = CGRectMake(0, 0, self.webView.frame.size.width, 2);
-    self.progressView.trackTintColor = [UIColor clearColor]; // 设置进度条的色彩
-    self.progressView.progressTintColor = PWBlueColor;
-    // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
+   
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
     [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     [self.webView loadRequest:request];
     [self.view addSubview:self.webView];
+    // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
+    if (self.isHideProgress) {
+        self.progressView.hidden = YES;
+    }else{
     [self.progressView setProgress:0.1 animated:YES];
     [self.webView addSubview:self.progressView];
+    }
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     self.webView.scrollView.bounces = NO;
-    // Do any additional setup after loading the view.
-    
-    [_jsBridge registerHandler:@"addEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"dataFrom JS : %@",data[@"data"]);
-        
-//responseCallback(@"扫描结果 : www.baidu.com");
-    }];
-    [_jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"dataFrom JS : %@",data[@"data"]);
-        
-        responseCallback(@"扫描结果 : www.baidu.com");
-    }];
-}
+   
+    self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dict = [data jsonValueDecoded];
+        DLog(@"%@",dict);
+        [self dealWithDict:dict];
 
+    }];
+    [self.jsBridge callHandler:@"JS Echo" data:nil responseCallback:^(id responseData) {
+        NSLog(@"ObjC received response: %@", responseData);
+    }];
 
-- (void)dealloc {
-    
-    // 最后一步：移除监听
-    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [_webView removeObserver:self forKeyPath:@"title"];
 }
-#pragma mark - KVO监听
+- (void)dealWithDict:(NSDictionary *)dict{
+    NSString *name = dict[@"name"];
+    NSDictionary *extra = dict[@"extra"];
+    if ([name isEqualToString:@"teamView"]) {
+        [self eventOfTeamViewWithExtra:extra];
+    }else if([name isEqualToString:@"open"]){
+        [self eventOfOpenWithExtra:extra];
+    }else if([name isEqualToString:@"bookSuccess"]){
+        [self eventBookSuccess:extra];
+    }else if([name isEqualToString:@"switchToken"]){
+        [self eventSwitchToken:extra];
+    }else if([name isEqualToString:@"teamCreate"]){
+        [self eventTeamCreate:extra];
+    }else if([name isEqualToString:@"call"]){
+        [self eventCall:extra];
+    }
+}
+- (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
+   
+}
+- (void)eventOfOpenWithExtra:(NSDictionary *)extra{
+    
+    
+}
+- (void)eventSwitchToken:(NSDictionary *)extra{
+    
+}
+- (void)eventBookSuccess:(NSDictionary *)extra{
+    
+}
+- (void)eventTeamCreate:(NSDictionary *)extra{
+    
+    
+}
+- (void)eventCall:(NSDictionary *)extra{
+    NSString *phone = [extra stringValueForKey:@"phone" default:@""];
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",phone];
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
+    
+}
+-(void)backBtnClicked{
+    if ([self.webView canGoBack]) {
+        //如果有则返回
+        [self.webView goBack];
+        //同时设置返回按钮和关闭按钮为导航栏左边的按钮
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+#pragma mark ========== KVO监听/进度条/导航title ==========
 // 第三部：完成监听方法
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
@@ -165,21 +209,19 @@
             [self.progressView setProgress:newprogress animated:YES];
         }
     } else if ([object isEqual:self.webView] && [keyPath isEqualToString:@"title"]) { // 标题
+        if ([self.webView canGoBack] ||[self.baseTitle isEqualToString:@""]){
+            self.title = self.webView.title;
+        }else{
+            self.title = self.baseTitle;
+        }
         
-        self.title = self.webView.title;
     } else { // 其他
         
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
-//-(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
-//{
-//    if (!navigationAction.targetFrame.isMainFrame) {
-//        [webView loadRequest:navigationAction.request];
-//    }
-//    return nil;
-//}
+#pragma mark ========== WKNavigationDelegate ==========
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
     
 }
@@ -191,7 +233,7 @@
 {
     //如果是跳转一个新页面
     if (navigationAction.targetFrame == nil) {
-       
+        DLog(@"%@",navigationAction.request);
         [webView loadRequest:navigationAction.request];
     }
 
@@ -203,7 +245,11 @@
     }
         return nil;
 }
-
+- (void)dealloc {
+    // 最后一步：移除监听
+    [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [_webView removeObserver:self forKeyPath:@"title"];
+}
 /*
 #pragma mark - Navigation
 

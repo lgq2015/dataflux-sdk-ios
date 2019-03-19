@@ -63,7 +63,7 @@
          RAC(commitTeam,enabled) = phoneTf;
     }else{
         RACSignal *emailSignal= [[self.codeTF rac_textSignal] map:^id(NSString *value) {
-            return @([NSString validateEmail:value]);
+            return @([value validateEmail]);
         }];
         RAC(commitTeam,enabled) = emailSignal;
     }
@@ -91,14 +91,10 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_teamInvite withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
-        }else if ([response[@"errCode"] isEqualToString:@"home.team.alreadyInTheTeam"]){
-            [iToast alertWithTitleCenter:@"不能邀请本团队成员"];
-        }else if([response[@"errCode"] isEqualToString:@"home.team.canNotInviteYourself"]){
-             [SVProgressHUD showErrorWithStatus:@"邀请失败"];
-        }else if([response[@"errCode"] isEqualToString:@"home.team.alreadyInTeam"]){
-             [SVProgressHUD showErrorWithStatus:@"邀请失败"];
+        }else {
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

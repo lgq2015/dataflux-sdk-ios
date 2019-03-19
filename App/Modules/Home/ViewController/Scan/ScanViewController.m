@@ -10,6 +10,8 @@
 #import "LBXScanVideoZoomView.h"
 #import "PWBaseWebVC.h"
 #import "PWPhotoPickerViewController.h"
+#import "ScanResultVC.h"
+
 
 @interface ScanViewController ()<PWPhotoPickerProtocol>
 @property (nonatomic, strong) LBXScanVideoZoomView *zoomView;
@@ -197,7 +199,7 @@
     
     LBXScanResult *scanResult = array[0];
     
-    NSString*strResult = scanResult.strScanned;
+    NSString *strResult = scanResult.strScanned;
     
     self.scanImage = scanResult.imgScanned;
     
@@ -208,10 +210,7 @@
         return;
     }
     
-    //震动提醒
-    // [LBXScanWrapper systemVibrate];
-    //声音提醒
-    //[LBXScanWrapper systemSound];
+
     
     [self showNextVCWithScanResult:scanResult];
     
@@ -220,22 +219,34 @@
 - (void)popAlertMsgWithScanResult:(NSString*)strResult
 {
     if (!strResult) {
-        
-        strResult = @"识别失败";
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"照片中未识别二维码" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:nil];
+       
+    }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"扫描结果" message:strResult preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
-    __weak __typeof(self) weakSelf = self;
-//    [LBXAlertAction showAlertWithTitle:@"扫码内容" msg:strResult buttonsStatement:@[@"知道了"] chooseBlock:^(NSInteger buttonIdx) {
-//
-//        [weakSelf reStartDevice];
-//    }];
+ 
 }
 
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
-    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"" andURLString:strResult.strScanned];
-    web.isHidenNaviBar = NO;
-    [self.navigationController pushViewController:web animated:YES];
+    if ([strResult.strScanned isUrlAddress]) {
+        ScanResultVC *web = [[ScanResultVC alloc]initWithTitle:@"扫描结果" andURLString:strResult.strScanned];
+        [self.navigationController pushViewController:web animated:YES];
+    }else{
+        
+    }
+   
     
 }
 -(void)photoPicker:(PWPhotoPickerViewController *)picker didSelectAsset:(ALAsset *)asset{

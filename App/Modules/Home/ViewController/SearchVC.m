@@ -192,7 +192,7 @@
     NSDictionary *param = @{@"q":text,@"orderBy":@"desc"};
     [PWNetworking requsetHasTokenWithUrl:PW_articleSearch withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             if (content.count>0) {
                 [self hideNoSearchView];
@@ -205,7 +205,7 @@
                 [self showNoSearchView];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

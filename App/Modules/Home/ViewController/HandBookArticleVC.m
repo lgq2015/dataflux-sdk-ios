@@ -35,7 +35,7 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_handbook(self.model.handbookId) withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             if (content.count>0) {
                 [self.dataSource addObjectsFromArray:content];

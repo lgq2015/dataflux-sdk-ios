@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PWInfoSourceModel.h"
 typedef NS_ENUM(NSUInteger, MonitorListState){
     MonitorListStateWarning,
     MonitorListStateSeriousness,
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *attrs;
+@property (nonatomic, strong) NSString *issueLog;
 @property (nonatomic, strong) NSString *highlight;
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, assign) MonitorListState state;
@@ -30,8 +32,9 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, assign) BOOL isFromUser;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) NSString *issueId;
-@property (nonatomic, strong) NSString *PWId;
 @property (nonatomic, strong) NSString * ticketStatus;
+@property (nonatomic, strong) NSString *accountId;
+@property (nonatomic, assign) SourceType sourceType;
 
 
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;

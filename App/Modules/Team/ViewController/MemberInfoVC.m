@@ -97,7 +97,7 @@
         NSString *uid =self.model.memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
 //            [SVProgressHUD dismiss];
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"移除成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if(self.teamMemberRefresh){
@@ -127,20 +127,7 @@
     verify.type = ChangeUITTeamTransfer;
     verify.memberID =self.model.memberID;
     [self.navigationController pushViewController:verify animated:YES];
-//    NSString *uid = self.model.memberID;
-//    [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-//        if([response[@"errCode"] isEqualToString:@""]){
-//        [SVProgressHUD showSuccessWithStatus:@"转移成功"];
-//        KPostNotification(KNotificationTeamStatusChange, @YES);
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self.navigationController popToRootViewControllerAnimated:YES];
-//            });
-//        }else{
-//            [SVProgressHUD showErrorWithStatus:@"转移失败"];
-//        }
-//    } failBlock:^(NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:@"转移失败"];
-//    }];
+
 }
 /*
 #pragma mark - Navigation

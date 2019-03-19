@@ -30,8 +30,8 @@ SINGLETON_FOR_CLASS(UserManager);
 - (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess
 {
     
-        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+        [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 NSDictionary *content = response[@"content"];
                 if (content.allKeys.count>0) {
                     NSError *error;
@@ -59,60 +59,17 @@ SINGLETON_FOR_CLASS(UserManager);
         }];
     
 }
-#pragma mark ========== 获取短信/图片验证码 ==========
--(void)getVerificationCodeType:(CodeType)codeType WithParams:(NSDictionary *)params completion:(codeBlock)completion{
-   //验证码
-    if (codeType == CodeTypeCode) {
-//        [self cheackSmsCountComplete:^(id response) {
-            //大于5
-//            NSDictionary *dict = response;
-//            if ([dict[@"count"] integerValue]>=5) {
-//                if (completion) {
-//                    completion(CodeStatusNeedImgCode,nil);
-//                }
-//            }else{
-//
-//            }
-//            [PWNetworking requsetWithUrl:PW_sendAuthCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-//                DLog(@"%@",response);
-//            } failBlock:^(NSError *error) {
-//                DLog(@"%@",error);
-//
-//            }];
-//        }];
-    }else{
-    //短信请求过多 图片验证
-        
-    }
-    
-}
-//#pragma mark ========== 检验短信数量 ==========
-//-(void)cheackSmsCountComplete:(completeBlock)complete{
-//    NSString *deviceId = [OpenUDID value];
-//    NSDictionary *param = @{@"deviceId":deviceId};
-//    [PWNetworking requsetWithUrl:PW_smsCountUrl withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-//        if (complete) {
-//            complete(response);
-//        }
-//        DLog(@"%@",response);
-//    } failBlock:^(NSError *error) {
-//        DLog(@"%@",error);
-//        if (complete) {
-//            complete(error);
-//        }
-//    }];
-//}
-#pragma mark ========== 刷新验证图片 ==========
+
 
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            NSString *errCode = response[@"errCode"];
+            NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
         
-          [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+          [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 
             }else{
                 self.isLogined = YES;
@@ -130,7 +87,7 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
                 NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
@@ -151,7 +108,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(NO,@"");
                 }
                
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 
             }
             
@@ -164,6 +121,7 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
+   
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
     dispatch_group_t grpupT = dispatch_group_create();//一个线程组
     __block BOOL isUserSuccess,isTeamSuccess;
@@ -171,10 +129,10 @@ SINGLETON_FOR_CLASS(UserManager);
     dispatch_group_async(grpupT, queueT,^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            NSString *errCode = response[@"errCode"];
+            NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
                 isUserSuccess = NO;
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errCode"], @"")];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }else{
                 isUserSuccess = YES;
                 NSError *error;
@@ -201,7 +159,7 @@ SINGLETON_FOR_CLASS(UserManager);
     dispatch_group_async(grpupT, queueT, ^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[@"errCode"] isEqualToString:@""]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
                 isTeamSuccess = YES;
                 NSDictionary *content = response[@"content"];
                 if (content.allKeys.count>0) {
@@ -231,15 +189,18 @@ SINGLETON_FOR_CLASS(UserManager);
                 if(change){
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
+                if (isSuccess) {
+                    isSuccess(YES);
+                }
             }
         });
         
     });
-    
+    [self loadExperGroups:nil];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count>0) {
                 NSError *error;
@@ -294,6 +255,7 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 加载缓存的用户信息 ==========
 -(BOOL)loadUserInfo{
+    [self loadExperGroups:nil];
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
@@ -312,7 +274,49 @@ SINGLETON_FOR_CLASS(UserManager);
     }
     return NO;
 }
+- (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name{
+    if (self.expertGroups.count == 0) {
+        self.expertGroups = [NSMutableArray new];
+        [self loadExperGroups:^(NSArray *experGroups) {
+            [self.expertGroups addObjectsFromArray:experGroups];
+            if (name) {
+                name([self privateGetExpertNameByKey:key]);
+            }
+        }];
+        
+    }else{
+        if (name) {
+            name([self privateGetExpertNameByKey:key]);
+        }
+    }
+}
 
+- (NSString *)privateGetExpertNameByKey:(NSString *)key{
+    __block NSString *typeName;
+    [self.expertGroups enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([key isEqualToString:obj[@"expertGroup"]]) {
+            *stop = YES;
+            typeName = obj[@"displayName"][@"zh_CN"];
+        }
+    }];
+    return typeName;
+}
+- (void)loadExperGroups:(void (^)(NSArray *experGroups))completion{
+    NSDictionary *param = @{@"keys":@"expertGroups"};
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSArray *expertGroups = content[@"expertGroups"];
+            self.expertGroups = [NSMutableArray new];
+            [self.expertGroups addObjectsFromArray:expertGroups];
+            completion ? completion(expertGroups):nil;
+        }
+        
+    } failBlock:^(NSError *error) {
+       
+        
+    }];
+}
 #pragma mark ========== 被踢下线 ==========
 -(void)onKick{
     [self logout:nil];
