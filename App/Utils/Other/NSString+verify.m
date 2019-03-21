@@ -111,29 +111,7 @@
     NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
     return [pEmailTest evaluateWithObject:self];
 }
-+(NSString *)getNowTimeTimestamp{
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-    
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
-    
-    //设置时区,这个对于时间的处理有时很重要
-    
-    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-    
-    [formatter setTimeZone:timeZone];
-    
-    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
-    
-    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
-    
-    return timeSp;
-    
-}
+
 
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -147,19 +125,8 @@
     NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
     return dateString;
 }
-+ (NSString *)mineVCDate:(NSString *)utcDate formatter:(NSString *)formatter{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //输入格式
-    [dateFormatter setDateFormat:formatter];
-    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
-    [dateFormatter setTimeZone:localTimeZone];
-    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
-    //输出格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
-    return dateString;
-}
-+ (NSString *)yearMonthDayDate:(NSString *)utcDate formatter:(NSString *)formatter{
+
++ (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:formatter];
@@ -195,10 +162,30 @@
         result = [NSString stringWithFormat:@"%ld天前",temp];
     }
     else {
-        temp = temp/12;
-        result = [NSString stringWithFormat:@"%ld年前",temp];
+        if([timeDate isThisYear]){
+        result = [timeDate currentYearTimeStr];
+        }else{
+        result = [timeDate yearMonthDayTimeStr];
+        }
     }
     return  result;
+}
+- (NSString *)accurateTimeStr{
+    //把字符串转为NSdate
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:self];
+    NSString *timeStr;
+    if ([timeDate isToday]) {
+        timeStr = [NSString stringWithFormat:@"今天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isYesterday]){
+        timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isThisYear]){
+        timeStr = [timeDate currentYearHourMinutesTimeStr];
+    }else{
+        timeStr = [timeDate yearMonthDayHourMinutesTimeStr];
+    }
+    return timeStr;
 }
 - (BOOL)validateTopLevelDomain{
     NSString *lowStr=[self lowercaseString];
@@ -209,6 +196,17 @@
     NSString *pDomainCheck = @"^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$";
     NSPredicate *pDomainTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pDomainCheck];
     return [pDomainTest evaluateWithObject:lowStr];
+}
+- (BOOL)timeIntervalAboveThirtySecond{
+    NSTimeInterval now = [[NSDate date]timeIntervalSince1970];
+    double beTime = [self doubleValue];
+    double distanceTime = now - beTime;
+    
+    if (distanceTime < 30){
+        return NO;
+    }else{
+        return YES;
+    }
 }
 - (BOOL)validateNumber {
     BOOL res = YES;
@@ -245,7 +243,10 @@
         type = @"情报失效";
     }else if([subType isEqualToString:@"ticketClosed"]){
         type = @"专家退出讨论";
-    }else if([subType isEqualToString:@"updateExpertGroups"]){
+    }else if([subType isEqualToString:@"issueDiscarded"]){
+        type = @"情报失效";
+    }
+    else if([subType isEqualToString:@"updateExpertGroups"]){
         NSDictionary *metaJSON = dict[@"metaJSON"];
         NSArray *expertGroups = metaJSON[@"expertGroups"];
         [userManager getExpertNameByKey:expertGroups[0] name:^(NSString *name) {
@@ -253,5 +254,14 @@
         }];
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
+}
+- (NSString *)getTimeFromTimestamp{
+    NSTimeInterval interval  =[self doubleValue] / 1000.0;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM-dd\nHH:mm"];
+    NSString *dateString  = [formatter stringFromDate: date];
+    return dateString;
 }
 @end

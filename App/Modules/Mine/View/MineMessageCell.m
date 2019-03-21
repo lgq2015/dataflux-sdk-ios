@@ -72,7 +72,7 @@
     self.sourceLab.text = type;
     self.sourceLab.layer.borderColor = color.CGColor;
     self.triangleView.hidden = _model.isReaded;
-    self.timeLab.text = [NSString getLocalDateFormateUTCDate:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    self.timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
 }
 - (RightTriangleView *)triangleView{
     if (!_triangleView) {

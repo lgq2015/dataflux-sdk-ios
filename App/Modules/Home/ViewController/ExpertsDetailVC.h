@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ExpertsDetailVC : RootViewController
+@property (nonatomic, strong) NSDictionary *data;
 
 @end
 

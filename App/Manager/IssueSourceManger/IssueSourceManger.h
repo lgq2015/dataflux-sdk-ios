@@ -42,6 +42,10 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource
  */
 - (NSArray *)getIssueSourceList;
+/**
+ 预展示 issuesource
+ */
+- (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID;
 @end
 
 NS_ASSUME_NONNULL_END

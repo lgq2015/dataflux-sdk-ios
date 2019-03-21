@@ -228,8 +228,6 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            
-            
                     CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
                     create.btnClick =^(){
                         KPostNotification(KNotificationTeamStatusChange, @YES);

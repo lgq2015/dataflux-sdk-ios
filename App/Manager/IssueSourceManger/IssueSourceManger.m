@@ -45,7 +45,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 
 - (void)getLastDetectionTime:(detectTimeStr)strblock{
     //判断时间间隔
-    if (self.lastRefreshTime == nil) {
+    if (self.lastRefreshTime && ![self.lastRefreshTime timeIntervalAboveThirtySecond]) {
         //小于30s
         self.strBlock =strblock;
         [self getLastDetectionTimeNow];
@@ -75,6 +75,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     }
    
 }
+//  istime  是否是获取首页更新检测时间
 - (void)downLoadAllIssueSourceListWithTypeTime:(BOOL)istime{
     self.currentPage =1;
     self.issueSourceList = [NSMutableArray new];
@@ -112,6 +113,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         [self dealWithData:array isTime:istime];
        
     }
+    self.lastRefreshTime = [NSDate getNowTimeTimestamp];
 }
 - (void)dealWithData:(NSArray *)array isTime:(BOOL)istime{
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
@@ -170,7 +172,8 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     }else{
     NSString *time = array[0][@"updateTime"];
     NSString *local =  [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    self.strBlock ? self.strBlock([NSString compareCurrentTime:local]):nil;
+    NSString *checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@",[NSString compareCurrentTime:local]];
+    self.strBlock ? self.strBlock(checkTime):nil;
     }
 }
 - (void)loadIssueSourceListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion{
@@ -210,6 +213,17 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         completion(datas);
     }];
 }
-
+- (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID{
+    PWFMDB *pwfmdb = [PWFMDB shareDatabase];
+    NSString *whereFormat =[NSString stringWithFormat:@"where id = '%@'",issueSourceID];
+    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT"};
+    NSArray *array = [pwfmdb pw_lookupTable:PW_IssueTabName dicOrModel:dict whereFormat:whereFormat];
+    if (array.count == 0) {
+        return nil;
+    }else{
+        NSString *name = array[0][@"name"];
+        return name;
+    }
+}
 
 @end

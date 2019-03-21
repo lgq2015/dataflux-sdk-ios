@@ -347,7 +347,7 @@
 }
 #pragma mark ========== 我的/修改手机号 验证旧手机 ==========
 - (void)updateMobileWithCode:(NSString *)code{
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_mobile",@"verificationCodeType":@"verifycode"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":code,@"t":@"update_mobile",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];

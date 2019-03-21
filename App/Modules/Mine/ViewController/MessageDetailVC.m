@@ -72,7 +72,7 @@
         make.left.mas_equalTo(self.sourceLab.mas_right).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(17));
     }];
-     timeLab.text = [NSString mineVCDate:self.model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+     timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
     UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:self.model.content];
     contentLab.textAlignment = NSTextAlignmentLeft;
     contentLab.numberOfLines = 0;

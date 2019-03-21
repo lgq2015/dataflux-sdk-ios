@@ -187,6 +187,7 @@ SINGLETON_FOR_CLASS(UserManager);
         dispatch_async(dispatch_get_main_queue(), ^{
             if( isTeamSuccess && isUserSuccess){
                 if(change){
+    
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
                 if (isSuccess) {
@@ -328,5 +329,32 @@ SINGLETON_FOR_CLASS(UserManager);
         NSDictionary *dic = [self.curUserInfo modelToJSONObject];
         [cache setObject:dic forKey:KUserModelCache];
     }
+}
+- (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+    NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
+    if (teamMember) {
+        memberBlock ? memberBlock(YES,teamMember):nil;
+    }else{
+        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSArray *content = response[@"content"];
+                [cache setObject:content forKey:KTeamMemberCacheName];
+                memberBlock ? memberBlock(YES,content):nil;
+            }else{
+                memberBlock ? memberBlock(NO,nil):nil;
+            }
+        } failBlock:^(NSError *error) {
+            memberBlock ? memberBlock(NO,nil):nil;
+
+        }];
+    }
+}
+- (void)setTeamMenber:(NSArray *)memberArray{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+    
+    [cache removeAllObjectsWithBlock:^{
+         [cache setObject:memberArray forKey:KTeamMemberCacheName];
+    }];
 }
 @end

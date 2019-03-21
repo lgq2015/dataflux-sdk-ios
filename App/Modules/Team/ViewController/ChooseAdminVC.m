@@ -57,16 +57,19 @@
     
 }
 - (void)loadTeamMemberInfo{
-    
-    [SVProgressHUD show];
+    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess) {
+           [self dealWithDatas:member];
+        }
+    }];
+  
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             [self dealWithDatas:content];
         }
-        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
+        
     }];
     
 }

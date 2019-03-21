@@ -69,7 +69,7 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[@"errorCode"] isEqualToString:@""]) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             NSDictionary *basic_source = content[0];
             BOOL isdefault = [basic_source boolValueForKey:@"isDefault" default:NO];

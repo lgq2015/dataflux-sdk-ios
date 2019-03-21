@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExpertCell : UICollectionViewCell
 
+@property (nonatomic, assign) BOOL isInvite; //已邀请；
+@property (nonatomic, assign) BOOL isMore;   //更多 类型
+@property (nonatomic, strong) NSDictionary *data;
 @end
 
 NS_ASSUME_NONNULL_END

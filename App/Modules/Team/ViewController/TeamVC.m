@@ -70,7 +70,7 @@
 - (void)createTeamUI{
     [self.view removeAllSubviews];
     self.view.backgroundColor = PWBackgroundColor;
-    self.headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(550)+kStatusBarHeight)];
+   
      WeakSelf;
     self.headerView.itemClick =^(NSInteger tag){
         if (tag == InvateTag) {
@@ -96,7 +96,7 @@
     };
 
     [self.headerView setTeamName:userManager.teamModel.name];
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(58);
@@ -108,8 +108,27 @@
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     [self.tableView reloadData];
+    [self loadTeamProductData];
     [self loadTeamMemberInfo];
 
+}
+- (void)loadTeamProductData{
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            [self.headerView setTeamProduct:content];
+            CGFloat height = ZOOM_SCALE(24)*content.count+Interval(18);
+            self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
+            [self.tableView setTableHeaderView: self.headerView];
+        }else{
+           
+        }
+    } failBlock:^(NSError *error) {
+        
+        [SVProgressHUD dismiss];
+    }];
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -149,6 +168,12 @@
     
     
 }
+-(TeamHeaderView *)headerView{
+    if (!_headerView) {
+     _headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight)];
+    }
+    return _headerView;
+}
 -(UIView *)itemWithData:(NSDictionary *)dict{
     UIView *item = [[UIView alloc]initWithFrame:CGRectZero];
     item.backgroundColor = PWWhiteColor;
@@ -186,16 +211,18 @@
     return _feeLab;
 }
 - (void)loadTeamMemberInfo{
-    
-    [SVProgressHUD show];
+    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess) {
+         [self dealWithDatas:member];
+        }
+    }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
+            [userManager setTeamMenber:content];
             [self dealWithDatas:content];
         }
-        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
     }];
     
 }
@@ -206,15 +233,20 @@
     return _teamMemberArray;
 }
 - (void)dealWithDatas:(NSArray *)content{
+    
+    [userManager setTeamMenber:content];
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-
+    
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
-            [self.teamMemberArray addObject:model];
-
+        if (model.isAdmin) {
+         [self.teamMemberArray insertObject:model atIndex:0];
+        }else{
+         [self.teamMemberArray addObject:model];
+        }
     }];
 
     [self.headerView setTeamNum:[NSString stringWithFormat:@"共%lu人",(unsigned long)self.teamMemberArray.count]];
@@ -249,13 +281,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
     cell.model = self.teamMemberArray[indexPath.row];
-    cell.phoneBtn.hidden = indexPath.row == 0?YES:NO;
     cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    cell.phoneBtn.hidden = YES;
-    if (userManager.teamModel.isAdmin && ![memberID isEqualToString:getPWUserID]) {
-        cell.phoneBtn.hidden = NO;
+    cell.phoneBtn.hidden = NO;
+    if (userManager.teamModel.isAdmin) {
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             [self delectMember:indexPath.row];
             return NO;
@@ -266,6 +296,9 @@
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
+    }
+    if ([memberID isEqualToString:getPWUserID]) {
+        cell.phoneBtn.hidden = YES;
     }
     return cell;
 }

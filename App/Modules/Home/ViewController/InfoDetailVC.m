@@ -12,25 +12,24 @@
 #import "MineCellModel.h"
 #import "NewsWebView.h"
 #import "HandbookModel.h"
+#import "IssueSourceManger.h"
+#import "iOS-Echarts.h"
+#import "EchartTableView.h"
+#import "ExpertsSuggestVC.h"
+#import "TriangleLeft.h"
+
 @interface InfoDetailVC ()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UIBarButtonItem *navRightBtn;
-@property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UIView *upContainerView;
-@property (nonatomic, strong) UILabel *stateLab;
-@property (nonatomic, strong) UIButton *progressBtn;
-@property (nonatomic, strong) UIView *progressView;
-@property (nonatomic, strong) UILabel *timeLab;
+
 @property (nonatomic, strong) UIImageView *typeIcon;
 @property (nonatomic, strong) UILabel *issueNameLab;
-@property (nonatomic, strong) UILabel *contentLab;
-@property (nonatomic, strong) UIImageView *contentImg;
 
-@property (nonatomic, strong) NSMutableArray *progressData;
-
-@property (nonatomic, strong) UIView *subContainerView;
-@property (nonatomic, strong) UIButton *ignoreBtn;
 @property (nonatomic, strong) UIView *suggestion;
 @property (nonatomic, strong) NSMutableArray *handbookAry;
+@property (nonatomic, strong) UIView *echartContenterView;
+@property (nonatomic, strong) PYZoomEchartsView *kEchartView;
+
+@property (nonatomic, strong) NSDictionary *infoDetailDict;
+
 @end
 
 @implementation InfoDetailVC
@@ -38,89 +37,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"情报详情";
-    [self createUI];
+    [self setupView];
+    [self setSubView];
     [self loadInfoDeatil];
 }
 #pragma mark ========== UI ==========
-- (void)createUI{
-    UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
-    [item setTitleTextAttributes:dic forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = item;
-    [self setupView];
-    [self setSubView];
-    [self loadProgressData];
-}
-- (void)setupView{
-    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_upContainerView).offset(Interval(16));
-        make.top.mas_equalTo(_upContainerView).offset(Interval(14));
-        make.right.mas_equalTo(_upContainerView).offset(-Interval(16));
-    }];
-    [self.upContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mainScrollView).offset(Interval(12));
-        make.width.offset(kWidth);
-    }];
-    self.titleLab.text =self.model.title;
-    [self.stateLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.upContainerView).offset(16);
-        make.width.offset(ZOOM_SCALE(54));
-        make.height.offset(ZOOM_SCALE(24));
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(ZOOM_SCALE(10));
-    }];
-    switch (self.model.state) {
-        case MonitorListStateWarning:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.stateLab.text = @"警告";
-            break;
-        case MonitorListStateSeriousness:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"严重";
-            break;
-        case MonitorListStateCommon:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"普通";
-            break;
-        case MonitorListStateRecommend:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已解决";
-            break;
-        case MonitorListStateLoseeEfficacy:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = @"失效";
-            break;
-    }
 
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(ZOOM_SCALE(15));
-        make.centerY.mas_equalTo(self.stateLab);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
-    self.timeLab.text =@"今天  11:50";
-    [self.progressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.timeLab.mas_right).offset(Interval(7));
-        make.centerY.mas_equalTo(self.timeLab);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(kWidth);
-        make.height.offset(1);
-        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(ZOOM_SCALE(1));
-    }];
+- (void)setupView{
     [self.typeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
         make.top.mas_equalTo(self.progressView.mas_bottom).offset(ZOOM_SCALE(13));
         make.width.offset(ZOOM_SCALE(39));
         make.height.offset(ZOOM_SCALE(27));
     }];
-    self.typeIcon.image = [UIImage imageNamed:@"icon_ali"];
     [self.issueNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(11));
         make.centerY.mas_equalTo(self.typeIcon);
         make.height.offset(ZOOM_SCALE(18));
     }];
-    self.issueNameLab.text = @"我的阿里云";
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
         make.top.mas_equalTo(self.typeIcon.mas_bottom);
@@ -134,14 +68,13 @@
     self.contentLab.font = MediumFONT(14);
     self.contentLab.textColor = PWSubTitleColor;
     
-    [self.contentImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
         make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
-        make.height.offset(0);
         make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
     }];
-
+   
 }
 - (void)setSubView{
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -169,6 +102,17 @@
         make.top.mas_equalTo(icon);
         make.right.mas_equalTo(self.subContainerView).offset(-Interval(16));
     }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(goExpertsVC)];
+    [suggestion addGestureRecognizer:tap];
+    TriangleLeft *triangle = [[TriangleLeft alloc]initWithFrame:CGRectZero];
+    [self.subContainerView addSubview:triangle];
+    [triangle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(ZOOM_SCALE(10));
+        make.height.offset(ZOOM_SCALE(18));
+        make.right.mas_equalTo(suggestion.mas_left).offset(1);
+        make.centerY.mas_equalTo(icon);
+    }];
+    [self.subContainerView bringSubviewToFront:suggestion];
     self.suggestion = suggestion;
     UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:self.model.attrs];
     sugLab.numberOfLines = 0;
@@ -198,66 +142,6 @@
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
 #pragma mark ========== UI/INIT ==========
--(UIView *)upContainerView{
-    if (!_upContainerView) {
-        _upContainerView = [[UIView alloc]init];
-        _upContainerView.backgroundColor = PWWhiteColor;
-        [self.mainScrollView addSubview:_upContainerView];
-    }
-    return _upContainerView;
-}
--(UILabel *)titleLab{
-    if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:@""];
-        _titleLab.numberOfLines = 0;
-        [self.upContainerView addSubview:_titleLab];
-    }
-    return _titleLab;
-}
--(UILabel *)contentLab{
-    if (!_contentLab) {
-        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:nil];
-        _contentLab.numberOfLines = 0;
-        [self.upContainerView addSubview:_contentLab];
-    }
-    return _contentLab;
-}
--(UILabel *)timeLab{
-    if (!_timeLab) {
-        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWSubTitleColor text:nil];
-        [self.upContainerView addSubview:_timeLab];
-    }
-    return _timeLab;
-}
--(UILabel *)stateLab{
-    if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(17), ZOOM_SCALE(50), ZOOM_SCALE(24))];
-        _stateLab.textColor = [UIColor whiteColor];
-        _stateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
-        _stateLab.textAlignment = NSTextAlignmentCenter;
-        _stateLab.layer.cornerRadius = 4.0f;
-        _stateLab.layer.masksToBounds = YES;
-        [self.upContainerView addSubview:_stateLab];
-    }
-    return _stateLab;
-}
--(UIButton *)progressBtn{
-    if (!_progressBtn) {
-        _progressBtn = [[UIButton alloc]init];
-        [_progressBtn setTitle:@"情报进展" forState:UIControlStateNormal];
-        _progressBtn.titleLabel.font =MediumFONT(13);
-        [_progressBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
-        [_progressBtn setImage:[UIImage imageNamed:@"icon_nextgray"] forState:UIControlStateNormal];
-        [_progressBtn addTarget:self action:@selector(showProgress:) forControlEvents:UIControlEventTouchUpInside];
-        [_progressBtn sizeToFit];
-        
-        _progressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_progressBtn.imageView.frame.size.width - _progressBtn.frame.size.width + _progressBtn.titleLabel.frame.size.width, 0, 0);
-        
-        _progressBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_progressBtn.titleLabel.frame.size.width - _progressBtn.frame.size.width + _progressBtn.imageView.frame.size.width);
-        [self.upContainerView addSubview:_progressBtn];
-    }
-    return _progressBtn;
-}
 -(UIImageView *)typeIcon{
     if (!_typeIcon) {
         _typeIcon = [[UIImageView alloc]init];
@@ -272,90 +156,32 @@
     }
     return _issueNameLab;
 }
--(UIImageView *)contentImg{
-    if (!_contentImg) {
-        _contentImg = [[UIImageView alloc]init];
-        _contentImg.backgroundColor = PWGrayColor;
-        [self.upContainerView addSubview:_contentImg];
-    }
-    return _contentImg;
-}
--(UIView *)progressView{
-    if (!_progressView) {
-        _progressView = [[UIView alloc]init];
-        _progressView.clipsToBounds = YES;
-        [self.upContainerView addSubview:_progressView];
-    }
-    return _progressView;
-}
 
-#pragma mark ========== subView ==========
--(UIView *)subContainerView{
-    if (!_subContainerView) {
-        _subContainerView = [[UIView alloc]init];
-        _subContainerView.backgroundColor = PWWhiteColor;
-        [self.mainScrollView addSubview:_subContainerView];
+-(UIView *)echartContenterView{
+    if (!_echartContenterView) {
+        _echartContenterView = [[UIView alloc]init];
+        [self.upContainerView addSubview:_echartContenterView];
     }
-    return _subContainerView;
+    return _echartContenterView;
 }
-
-#pragma mark ========== btnClick ==========
-- (void)showProgress:(UIButton *)button{
-    self.progressBtn.selected = !button.selected;
-    [self.view setNeedsUpdateConstraints];
-    if (button.selected) {
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-                
-                make.height.offset(self.progressData.count*ZOOM_SCALE(27)+3);
-            }];
-            [self.progressView layoutIfNeeded];
-            [self.view layoutIfNeeded];
-            
-        }];
-        
-    }else{
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.offset(1);
-            }];
-            [self.progressView layoutIfNeeded];
-            [self.view layoutIfNeeded];
-            
-        }];
-    }
-    
-    CGFloat height =self.model.isFromUser?CGRectGetMaxY(self.ignoreBtn.frame):CGRectGetMaxY(self.subContainerView.frame);
-    self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
-    
-}
-- (void)ignoreBtnClick:(UIButton *)button{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"文案产品提供" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm =[PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"关闭成功"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        } failBlock:^(NSError *error) {
-            
-        }];
-    }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
-    }];
-    [alert addAction:confirm];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-- (void)setupBadges{
-    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
-}
-
 
 #pragma mark ========== BTNCLICK ==========
 - (void)navRightBtnClick{
     
+}
+- (void)setupBadges{
+    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
+}
+- (void)goExpertsVC{
+     ExpertsSuggestVC *experts = [[ExpertsSuggestVC alloc]init];
+    if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
+        NSDictionary *tags = self.infoDetailDict[@"tags"];
+        NSArray *expertGroups = tags[@"expertGroups"];
+        if (expertGroups.count>0) {
+            experts.expertGroups = [NSMutableArray arrayWithArray:expertGroups];
+        }
+    }
+    [self.navigationController pushViewController:experts animated:YES];
 }
 #pragma mark ========== DATA/DEAL ==========
 - (void)loadInfoDeatil{
@@ -364,12 +190,277 @@
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
+            self.infoDetailDict = content;
+            [self loadIssueSourceDetail:content];
             [self dealHandBookViewWith:content];
+            [self dealWithEchartView:content];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
 
     }];
+}
+- (void)loadIssueSourceDetail:(NSDictionary *)dict{
+    NSString *issueSourceID = [dict stringValueForKey:@"issueSourceId" default:@""];
+    NSString *type = [dict stringValueForKey:@"itAssetProvider_cache" default:@""];
+    NSString *icon;
+    if ([type isEqualToString:@"aliyun"]) {
+        icon = @"icon_ali";
+    }else if([type isEqualToString:@"qcloud"]){
+        icon = @"icon_tencent";
+    }else if([type isEqualToString:@"aws"]){
+        icon = @"icon_aws";
+    }else if([type isEqualToString:@"ucloud"]){
+        icon = @"Ucloud";
+    }else if ([type isEqualToString:@"domain"]){
+        icon = @"icon_domainname";
+    }else if ([type isEqualToString:@"carrier.corsairmaster"]){
+        icon = @"icon_cluster";
+    }else if([type isEqualToString:@"carrier.corsair"]){
+        icon =@"icon_single";
+    }
+    self.typeIcon.image = [UIImage imageNamed:icon];
+    NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:issueSourceID];
+    self.issueNameLab.text = name;
+    
+}
+- (void)dealWithEchartView:(NSDictionary *)dict{
+    if ([dict[@"extraJSON"] isKindOfClass:NSDictionary.class]) {
+        NSArray *displayItems = dict[@"extraJSON"][@"displayItems"];
+        for (NSDictionary *dict in displayItems) {
+            if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
+                NSDictionary *data = dict[@"data"];
+                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTextBlackColor text:data[@"title"]];
+                [self.view setNeedsUpdateConstraints];
+                [self.echartContenterView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
+                    make.left.right.mas_equalTo(self.upContainerView);
+                    make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
+                }];
+                [self.echartContenterView addSubview:titleLab];
+                [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
+                    make.top.mas_equalTo(self.echartContenterView);
+                    make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
+                }];
+               
+                NSArray *header = data[@"header"];
+                NSArray *body = data[@"body"];
+                UIView *temp = titleLab;
+                for (NSInteger i=0; i<body.count; i++) {
+                    UIView *table = [self createTableWithData:body[i] header:header];
+                    [table mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.mas_equalTo(temp.mas_bottom).offset(Interval(12));
+                            make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
+                            make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
+                        if (i==body.count-1) {
+                            make.bottom.mas_equalTo(self.echartContenterView).offset(-Interval(12));
+                        }
+                    }];
+
+                    temp = table;
+                }
+                
+              [self.view layoutIfNeeded];
+                CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
+                self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
+            }else {
+                //if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"])
+                [self createEChartLineType:dict[@"data"]];
+            }
+        }
+   }
+}
+-(UIView *)createTableWithData:(NSArray *)date header:(nonnull NSArray *)header{
+    UIView *view = [[UIView alloc]init];
+    view.layer.shadowOffset = CGSizeMake(0,2);
+    view.layer.shadowColor = [UIColor blackColor].CGColor;
+    view.layer.shadowRadius = 8;
+    view.layer.shadowOpacity = 0.06;
+    view.layer.cornerRadius = 6;
+    view.backgroundColor = PWWhiteColor;
+    [self.echartContenterView addSubview:view];
+    UIView *temp = nil;
+    for (NSInteger i=0;i<date.count;i++) {
+        NSString *string = [NSString stringWithFormat:@"%@：%@",header[i],date[i]];
+
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:string];
+        title.numberOfLines = 0;
+        [view addSubview:title];
+        
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
+        //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
+        NSRange range = [string rangeOfString:[NSString stringWithFormat:@"%@：",header[i]]];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        dic[NSForegroundColorAttributeName] = PWTextLight;
+        //赋值
+        [attribut addAttributes:dic range:range];
+        title.attributedText = attribut;
+        
+        [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (temp == nil) {
+                make.top.mas_equalTo(view).offset(Interval(16));
+            }else{
+                make.top.mas_equalTo(temp.mas_bottom).offset(Interval(9));
+            }
+            make.left.mas_equalTo(view).offset(Interval(14));
+            make.right.mas_equalTo(view).offset(-Interval(14));
+            if(i == date.count-1){
+                make.bottom.mas_equalTo(view).offset(-Interval(16));
+            }
+        }];
+        temp = title;
+    }
+    return view;
+}
+- (void)createEChartLineType:(NSDictionary *)data{
+    NSArray *series = data[@"series"];
+    NSMutableArray *lineX  = [NSMutableArray new];
+    NSString *type = data[@"xAxis"][@"type"];
+    if ([type isEqualToString:@"time"]) {
+        NSArray *data = series[0][@"data"];
+        [data enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *time = [NSString stringWithFormat:@"%@",obj[0]];
+            [lineX addObject: [time getTimeFromTimestamp]];
+        }];
+    }
+
+    /** 图表选项 */
+    PYOption *option = [[PYOption alloc] init];
+    //是否启用拖拽重计算特性，默认关闭
+    option.calculable = NO;
+    //数值系列的颜色列表(折线颜色)
+    option.color = @[@"#20BCFC", @"#ff6347"];
+    // 图标背景色
+    // option.backgroundColor = [[PYColor alloc] initWithColor:[UIColor orangeColor]];
+    option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
+        title.textEqual(data[@"title"][@"text"])
+        .subtextEqual(data[@"yAxis"][@"name"]);
+    }]);
+//    option.title.subtext = @"数值";
+    
+    /** 提示框 */
+    PYTooltip *tooltip = [[PYTooltip alloc] init];
+    // 触发类型 默认数据触发
+    tooltip.trigger = @"axis";
+    // 竖线宽度
+    tooltip.axisPointer.lineStyle.width = @1;
+    // 提示框 文字样式设置
+    tooltip.textStyle = [[PYTextStyle alloc] init];
+    tooltip.textStyle.fontSize = @12;
+    // 提示框 显示自定义
+    // tooltip.formatter = @"(function(params){ var res = params[0].name; for (var i = 0, l = params.length; i < l; i++) {res += '<br/>' + params[i].seriesName + ' : ' + params[i].value;}; return res})";
+    // 添加到图标选择中
+    option.tooltip = tooltip;
+//    NSArray *legendAry = data[@"legend"][@"data"];
+//    option.legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
+//        legend.dataEqual(legendAry);
+//    }]);
+
+
+    /** 直角坐标系内绘图网格, 说明见下图 */
+    PYGrid *grid = [[PYGrid alloc] init];
+    // 左上角位置
+    grid.x = @(30);
+    grid.y = @(50);
+    // 右下角位置
+    grid.x2 = @(30);
+   
+
+    // 添加到图标选择中
+    option.grid = grid;
+    
+    /** X轴设置 */
+    PYAxis *xAxis = [[PYAxis  alloc] init];
+    //横轴默认为类目型(就是坐标自己设置)
+    xAxis.type = @"category";
+    // 起始和结束两端空白
+    xAxis.boundaryGap = @(NO);
+    // 分隔线
+    xAxis.splitLine.show = YES;
+    // 坐标轴线
+    xAxis.axisLine.show = YES;
+    // X轴坐标数据
+    xAxis.data = lineX;
+    // 坐标轴小标记
+    xAxis.axisTick = [[PYAxisTick alloc] init];
+    xAxis.axisTick.show = YES;
+    
+    // 添加到图标选择中
+    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil];
+    
+    
+    /** Y轴设置 */
+    PYAxis *yAxis = [[PYAxis alloc] init];
+    yAxis.axisLine.show = YES;
+    // 纵轴默认为数值型(就是坐标系统生成), 改为 @"category" 会有问题, 读者可以自行尝试
+    yAxis.type = @"value";
+    // 分割段数，默认为5
+    
+    // 分割线类型
+    // yAxis.splitLine.lineStyle.type = @"dashed";   //'solid' | 'dotted' | 'dashed' 虚线类型
+    
+    //单位设置,  设置最大值, 最小值
+    // yAxis.axisLabel.formatter = @"{value} k";
+    NSNumber *max = [data[@"yAxis"] numberValueForKey:@"max" default:@100];
+    NSNumber *min = [data[@"yAxis"] numberValueForKey:@"min" default:@0];
+    yAxis.max = max;
+    yAxis.min =min;
+     NSNumber *interval =[data[@"yAxis"] numberValueForKey:@"interval" default:@10];
+     NSInteger interval2 =([max integerValue]-[min integerValue])/[interval integerValue] ;
+    yAxis.splitNumber =[NSNumber numberWithInteger:interval2];
+    //[NSNumber numberWithLong:interval];
+    
+    // 添加到图标选择中  ( y轴更多设置, 自行查看官方文档)
+    option.yAxis = [[NSMutableArray alloc] initWithObjects:yAxis, nil];
+    
+    
+    /** 定义坐标点数组 */
+    NSMutableArray *seriesArr = [NSMutableArray array];
+    for (NSInteger i=0; i<series.count; i++) {
+        NSDictionary *linedata = series[i];
+        NSArray *datas = linedata[@"data"];
+        NSMutableArray *lineY = [NSMutableArray new];
+        [datas enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [lineY addObject:obj[1]];
+        }];
+        /** 第一条折线设置 */
+        PYCartesianSeries *series1 = [[PYCartesianSeries alloc] init];
+        series1.name = linedata[@"name"];
+        // 类型为折线
+        series1.type = linedata[@"type"];
+        // 曲线平滑
+        // series1.smooth = YES;
+        // 坐标点大小
+        series1.symbolSize = @(1.5);
+        // 坐标点样式, 设置连线的宽度
+        series1.itemStyle = [[PYItemStyle alloc] init];
+        series1.itemStyle.normal = [[PYItemStyleProp alloc] init];
+        series1.itemStyle.normal.lineStyle = [[PYLineStyle alloc] init];
+        series1.itemStyle.normal.lineStyle.width = @(1.5);
+        // 添加坐标点 y 轴数据 ( 如果某一点 无数据, 可以传 @"-" 断开连线 如 : @[@"7566", @"-", @"7571"]  )
+        series1.data = lineY;
+        
+        [seriesArr addObject:series1];
+    }
+    
+    [option setSeries:seriesArr];
+    
+    /** 初始化图表 */
+    self.kEchartView = [[PYZoomEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
+    // 添加到 scrollView 上
+    [self.echartContenterView addSubview:self.kEchartView];
+    
+    // 图表选项添加到图表上
+    [self.kEchartView setOption:option];
+     [self.kEchartView loadEcharts];
+    [self.view setNeedsUpdateConstraints];
+    [self.echartContenterView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(300);
+    }];
+    [self.view layoutIfNeeded];
+    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
 - (void)dealHandBookViewWith:(NSDictionary *)dict{
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {
@@ -387,58 +478,8 @@
     CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
-- (void)loadProgressData{
-    self.progressData = [NSMutableArray new];
-     NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,exitExpertGroups,issueDiscarded,updateExpertGroups"};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueLog(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if([response[ERROR_CODE] isEqualToString:@""]){
-            NSDictionary *content = response[@"content"];
-            NSArray *data = content[@"data"];
-            [self.progressData addObjectsFromArray:data];
-            [self dealWithProgressView];
-        }
-    } failBlock:^(NSError *error) {
-        
-    }];
-}
-- (void)dealWithProgressView{
-    DLog(@"progressData = %@",self.progressData);
-    UIView *temp = nil;
-    if (self.progressData.count>0) {
-        for (NSInteger i= 0; i<self.progressData.count; i++) {
-            UIView *dot = [[UIView alloc]init];
-            dot.layer.cornerRadius = 3;
-            dot.backgroundColor = [UIColor colorWithHexString:@"#FFB0B0"];
-            [self.progressView addSubview:dot];
-            if (temp==nil) {
-                [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(self.view).offset(Interval(16));
-                    make.top.mas_equalTo(self.progressView).offset(Interval(12));
-                    make.width.height.offset(6);
-                }];
-            }else{
-                [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(temp);
-                    make.top.mas_equalTo(temp.mas_bottom).offset(Interval(18));
-                    make.width.height.offset(6);
-                }];
-            }
-            UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@""];
-            [self.progressView addSubview:timeLab];
-            [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(dot.mas_right).offset(Interval(3));
-                make.centerY.mas_equalTo(dot);
-                make.height.offset(ZOOM_SCALE(17));
-            }];
-            timeLab.text = [NSString progressLabText:self.progressData[i]];
-            temp = dot;
-        }
-    }
 
-}
--(void)updateViewConstraints{
-    [super updateViewConstraints];
-}
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.handbookAry.count;

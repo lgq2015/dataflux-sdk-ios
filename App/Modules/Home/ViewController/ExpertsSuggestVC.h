@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ExpertsSuggestVC : RootViewController
-
+@property (nonatomic, strong) NSMutableArray *expertGroups;
 @end
 
 NS_ASSUME_NONNULL_END

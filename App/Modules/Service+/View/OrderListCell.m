@@ -28,7 +28,7 @@
     _model = model;
     self.orderNumLab.text = [NSString stringWithFormat:@"订单号：%@",_model.orderId];
     self.orderTitleLab.text = _model.commodityPackageName;
-    NSString *timeStr = [NSString yearMonthDayDate:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    NSString *timeStr = [NSString yearMonthDayDateUTC:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     self.orderTimeLab.text = timeStr;
 }
 -(void)layoutSubviews{

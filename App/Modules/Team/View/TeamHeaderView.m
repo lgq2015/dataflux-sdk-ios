@@ -12,21 +12,23 @@
 @interface TeamHeaderView()
 @property (nonatomic, strong) UILabel *teamNameLab;
 @property (nonatomic, strong) UILabel *memberNumLab;
+@property (nonatomic, strong) UIView  *vipProductView;
 @end
 @implementation TeamHeaderView
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = PWWhiteColor;
+        [self createUI];
     }
     return self;
 }
--(void)setTeamName:(NSString *)teamName{
-    self.teamNameLab.text = teamName;
+-(instancetype)init{
+    if (self = [super init]) {
+        self.backgroundColor = PWWhiteColor;
+    }
+    return self;
 }
--(void)setTeamNum:(NSString *)teamNum{
-    self.memberNumLab.text = teamNum;
-}
--(void)layoutSubviews{
+-(void)createUI{
     UIImageView *headerBg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_header"]];
     headerBg.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(153)+kStatusBarHeight);
     [self addSubview:headerBg];
@@ -97,39 +99,15 @@
         make.centerY.mas_equalTo(vipIcon);
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UIView *vipTemp;
-    NSArray *vipText = @[@"基础诊断情报源上限：3",@"支持记录团队问题",@"支持团队情报讨论",@"主机诊断上限：5",@"先知监控",@"云平台诊断支持",@"企业级托管服务"];
-    for (NSInteger i=0; i<vipText.count; i++) {
-        UIView *dot = [[UIView alloc]init];
-        dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
-        dot.layer.cornerRadius = 4.0f;
-        [self addSubview:dot];
-        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:vipText[i]];
-        [self addSubview:equityLab];
-        if (vipTemp == nil) {
-            [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self).offset(Interval(16));
-                make.top.mas_equalTo(itemView.mas_bottom).offset(Interval(17));
-                make.width.height.offset(ZOOM_SCALE(8));
-            }];
-        }else{
-            [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self).offset(Interval(16));
-                make.top.mas_equalTo(vipTemp.mas_bottom).offset(ZOOM_SCALE(16));
-                make.width.height.offset(ZOOM_SCALE(8));
-            }];
-        }
-        vipTemp = dot;
-        [equityLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(dot.mas_right).offset(Interval(8));
-            make.centerY.mas_equalTo(dot);
-            make.height.offset(ZOOM_SCALE(20));
-        }];
-        
-    }
+    [self.vipProductView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(itemView.mas_bottom);
+        make.left.right.mas_equalTo(self);
+        make.height.offset(1);
+    }];
+    
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
     view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
-
+    
     UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
     [view addSubview:title];
     
@@ -145,9 +123,70 @@
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
         make.height.mas_equalTo(ZOOM_SCALE(48));
+        make.top.mas_equalTo(self.vipProductView.mas_bottom);
     }];
-    
 }
+-(void)setTeamName:(NSString *)teamName{
+    self.teamNameLab.text = teamName;
+}
+-(void)setTeamNum:(NSString *)teamNum{
+    self.memberNumLab.text = teamNum;
+}
+-(void)setTeamProduct:(NSArray *)product{
+   
+    [self setNeedsUpdateConstraints];
+    
+    CGFloat height = ZOOM_SCALE(24)*product.count+Interval(18);
+
+    [self.vipProductView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(height);
+    }];
+    [self.vipProductView layoutIfNeeded];
+    [self layoutIfNeeded];
+    UIView *vipTemp;
+    for (NSDictionary *dict in product)  {
+        NSDictionary *displayString = dict[@"displayString"];
+        UIView *dot = [[UIView alloc]init];
+        dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
+        dot.layer.cornerRadius = 4.0f;
+        [self addSubview:dot];
+        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:[displayString stringValueForKey:@"name" default:@""]];
+        UILabel *equityLab2 =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWBlueColor text:[displayString stringValueForKey:@"value" default:@""]];
+        [self addSubview:equityLab];
+        [self addSubview:equityLab2];
+
+        if (vipTemp == nil) {
+            [dot mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self).offset(Interval(16));
+                make.top.mas_equalTo(self.vipProductView).offset(Interval(17));
+                make.width.height.offset(ZOOM_SCALE(8));
+            }];
+        }else{
+            [dot mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self).offset(Interval(16));
+                make.top.mas_equalTo(vipTemp.mas_bottom).offset(ZOOM_SCALE(16));
+                make.width.height.offset(ZOOM_SCALE(8));
+            }];
+        }
+        vipTemp = dot;
+        [equityLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(dot.mas_right).offset(Interval(8));
+            make.centerY.mas_equalTo(dot);
+            make.height.offset(ZOOM_SCALE(20));
+        }];
+        [equityLab2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(equityLab.mas_right);
+            make.centerY.mas_equalTo(equityLab);
+            make.height.offset(ZOOM_SCALE(20));
+        }];
+        if ([displayString stringValueForKey:@"value" default:@""].length>0) {
+            equityLab.text = [NSString stringWithFormat:@"%@：",[displayString stringValueForKey:@"name" default:@""]];
+        }
+        
+    }
+}
+
+
 -(UIImageView *)itemBtnWithIconName:(NSString *)iconName{
     UIImageView *item = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iconName]];
     item.contentMode = UIViewContentModeScaleToFill;
@@ -172,6 +211,13 @@
      _memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTextBlackColor text:@""];
     }
     return _memberNumLab;
+}
+- (UIView *)vipProductView{
+    if (!_vipProductView) {
+        _vipProductView = [[UIView alloc]init];
+        [self addSubview:_vipProductView];
+    }
+    return _vipProductView;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

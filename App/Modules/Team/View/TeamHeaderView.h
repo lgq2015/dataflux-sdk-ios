@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setTeamName:(NSString *)teamName;
 -(void)setTeamNum:(NSString *)teamNum;
+-(void)setTeamProduct:(NSArray *)product;
 @end
 
 NS_ASSUME_NONNULL_END

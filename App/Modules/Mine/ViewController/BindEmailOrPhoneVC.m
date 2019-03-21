@@ -26,6 +26,7 @@
 - (void)createUI{
     NSString *title;
     NSString *placeholder;
+    NSString *tipTitle;
     //_emailTF.placeholder = @"请输入邮箱";
     switch (self.changeType) {
         case BindUserInfoTypeEmail:
@@ -35,6 +36,7 @@
                 placeholder = @"请输入新邮箱";
             }
             title = @"绑定邮箱";
+            tipTitle = @"邮箱";
             break;
         case BindUserInfoTypeName:
             title =@"修改姓名";
@@ -43,10 +45,12 @@
             }else{
                 placeholder = @"请输入新的姓名";
             }
+            tipTitle = @"姓名";
             break;
         case BindUserInfoTypeMobile:
             title =@"修改手机";
             placeholder = @"请输入新的手机号";
+            tipTitle = @"手机号";
             break;
     }
 
@@ -58,7 +62,15 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
-    
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:tipTitle];
+    [self.view addSubview:tipLab];
+    [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(ZOOM_SCALE(31));
+        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(20));
+    }];
+    tipLab.hidden = YES;
     UIView * line1 = [[UIView alloc]init];
     line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
     [self.view addSubview:line1];
@@ -126,6 +138,13 @@
         }];
     }
    
+    [[self.emailTF rac_textSignal] subscribeNext:^(NSString *x) {
+        if (x.length>0) {
+            tipLab.hidden = NO;
+        }else{
+            tipLab.hidden = YES;
+        }
+    }];
    
 }
 -(UITextField *)emailTF{

@@ -8,6 +8,9 @@
 
 #import "CreateQuestionVC.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#import "IssueExtraCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
 #define NavRightBtnTag  100  // 右侧图片
 
 @interface CreateQuestionVC ()
@@ -16,6 +19,7 @@
 @property (nonatomic, strong) UITextView *describeTextView;
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *navRightBtn;
+@property (nonatomic, strong) NSMutableArray *attachmentArray;
 
 // type = 1 严重 type = 2  警告
 @property (nonatomic, assign) NSString *level;
@@ -30,11 +34,13 @@
     [self createUI];
 }
 - (void)createUI{
+    self.attachmentArray = [NSMutableArray new];
     [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navigationBtnClick:) tags:@[@5]];
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
     self.navigationItem.rightBarButtonItem = item;
     [self.view addSubview:self.mainScrollView];
-    self.mainScrollView.contentSize = CGSizeMake(0, kHeight-kTopHeight);
+    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, kHeight);
     [self.mainScrollView setUserInteractionEnabled:YES];
 
     self.titleView.backgroundColor = PWWhiteColor;
@@ -198,10 +204,10 @@
 }
 - (void)accessoryBtnClick{
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
-    [self.myPicker getPhotoAlbumOrTakeAPhotoOrFileWithController:self photoBlock:^(UIImage *image) {
+    [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
         
-    } fileBlock:^(NSData *file) {
-        
+        NSData *data = UIImageJPEGRepresentation(image, 1);
+        [self upLoadImageWithData:data name:name];
     }];
 }
 - (void)navigationBtnClick:(UIButton *)button{
@@ -219,10 +225,57 @@
         }];
     }
 }
+-(void)upLoadImageWithData:(NSData *)data name:(NSString *)name{
+    double convertedValue = [data length] * 1.0;
+    if (convertedValue>1024*1024*5) {
+        [iToast alertWithTitleCenter:@"文件过大"];
+    }else{
+//    NSString *time = [NSDate getNowTimeTimestamp];
+//    NSDictionary *param = @{@"type":@"attachment",@"subType":@"issueDetailExtra",@"batchId":[NSString stringWithFormat:@"%@%@",time,getPWUserID]};
+//    [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:@"jpg" name:@"files" mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+//        DLog(@"bytesWritten = %lld totalBytes = %lld",bytesWritten,totalBytes);
+//    } successBlock:^(id response) {
+//        DLog(@"response = %@",response);
+//    } failBlock:^(NSError *error) {
+//        DLog(@"error = %@",error);
+//
+//    }];
+    }
+}
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.titleTf resignFirstResponder];
     [self.describeTextView resignFirstResponder];
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.attachmentArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    IssueExtraCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueExtraCell"];
+//    IssueExtraModel *model = [[IssueExtraModel alloc]initWithDictionary:self.attachmentArray[indexPath.row]];
+//    cell.model = model;
+    return cell;
+}
+#pragma mark ========== UITableViewDelegate ==========
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+- (NSString *)calulateImageFileSize:(UIImage *)image {
+    NSData *data = UIImagePNGRepresentation(image);
+    if (!data) {
+        data = UIImageJPEGRepresentation(image, 0.5);//需要改成0.5才接近原图片大小，原因请看下文
+    }
+    double convertedValue = [data length] * 1.0;
+    int multiplyFactor = 0;
+
+    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
+    while (convertedValue > 1024) {
+        convertedValue /= 1024;
+        multiplyFactor++;
+    }
+
+    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
 /*
 #pragma mark - Navigation

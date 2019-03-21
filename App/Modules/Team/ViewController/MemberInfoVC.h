@@ -13,7 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MemberInfoVC : RootViewController
 @property (nonatomic, strong) MemberInfoModel *model;
 @property (nonatomic, assign) BOOL isInfo;
+@property (nonatomic, assign) BOOL isExpert;
 @property (nonatomic, copy) void(^teamMemberRefresh)(void);
+
+@property (nonatomic, strong) NSDictionary *expertDict;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -221,7 +221,30 @@ typedef PWResponseFailBlock PWDownloadFailBlock;
                           progressBlock:(PWUploadProgressBlock)progressBlock
                            successBlock:(PWResponseSuccessBlock)successBlock
                               failBlock:(PWResponseFailBlock)failBlock;
-
+/**
+ *  文件上传
+ *
+ *  @param url              上传文件接口地址
+ *  @param params           长传参数
+ *  @param data             上传文件数据
+ *  @param type             上传文件类型
+ *  @param name             上传文件服务器文件夹名
+ *  @param mimeType         mimeType
+ *  @param progressBlock    上传文件路径
+ *    @param successBlock     成功回调
+ *    @param failBlock        失败回调
+ *
+ *  @return 返回的对象中可取消请求
+ */
++ (PWURLSessionTask *)uploadFileWithUrl:(NSString *)url
+                                  params:(NSDictionary *)params
+                               fileData:(NSData *)data
+                                   type:(NSString *)type
+                                   name:(NSString *)name
+                               mimeType:(NSString *)mimeType
+                          progressBlock:(PWUploadProgressBlock)progressBlock
+                           successBlock:(PWResponseSuccessBlock)successBlock
+                              failBlock:(PWResponseFailBlock)failBlock;
 
 /**
  *  多文件上传

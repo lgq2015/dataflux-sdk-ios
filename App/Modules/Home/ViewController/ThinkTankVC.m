@@ -175,8 +175,11 @@ static NSUInteger ItemWidth = 104;
         btn.lineCount = kLineCount;
         btn.model = model;
         btn.delegate = self;
-        [btn.iconImgVie sd_setImageWithURL:[NSURL URLWithString:model.coverImageMobile] placeholderImage:[UIImage imageNamed:@"icon_book"]];
-        btn.iconImgVie.image = [UIImage imageNamed:@"icon_book"];
+        if (model.coverImageMobile.length>0) {
+            [btn.iconImgVie sd_setImageWithURL:[NSURL URLWithString:model.coverImageMobile] placeholderImage:[UIImage imageNamed:@"icon_book"] options:SDWebImageAllowInvalidSSLCertificates];
+        }else{
+            btn.iconImgVie.image = [UIImage imageNamed:@"icon_book"];
+        }
         btn.clickBlock = ^(NSInteger index){
             NSLog(@"点击的是%ld",(long)index);
             [self loadHandBookDetail:index];

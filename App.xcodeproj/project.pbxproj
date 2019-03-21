@@ -163,6 +163,30 @@
 		4A7599B6223FB1510057BD02 /* PWSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599B5223FB1510057BD02 /* PWSocketManager.m */; };
 		4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599B5223FB1510057BD02 /* PWSocketManager.m */; };
 		4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599B5223FB1510057BD02 /* PWSocketManager.m */; };
+		4A7599D4224116830057BD02 /* NSDate+PWH.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D3224116830057BD02 /* NSDate+PWH.m */; };
+		4A7599D5224116830057BD02 /* NSDate+PWH.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D3224116830057BD02 /* NSDate+PWH.m */; };
+		4A7599D6224116830057BD02 /* NSDate+PWH.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D3224116830057BD02 /* NSDate+PWH.m */; };
+		4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D9224212DC0057BD02 /* EchartTableView.m */; };
+		4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D9224212DC0057BD02 /* EchartTableView.m */; };
+		4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599D9224212DC0057BD02 /* EchartTableView.m */; };
+		4A7599DF22421D270057BD02 /* InfoRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599DE22421D270057BD02 /* InfoRootVC.m */; };
+		4A7599E022421D270057BD02 /* InfoRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599DE22421D270057BD02 /* InfoRootVC.m */; };
+		4A7599E122421D270057BD02 /* InfoRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599DE22421D270057BD02 /* InfoRootVC.m */; };
+		4A7599E422426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E322426B8A0057BD02 /* ExpertsSuggestVC.m */; };
+		4A7599E522426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E322426B8A0057BD02 /* ExpertsSuggestVC.m */; };
+		4A7599E622426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E322426B8A0057BD02 /* ExpertsSuggestVC.m */; };
+		4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
+		4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
+		4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
+		4A7599EE22436EB10057BD02 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */; };
+		4A7599EF22436EB10057BD02 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */; };
+		4A7599F022436EB10057BD02 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */; };
+		4A7599F322437B690057BD02 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F222437B690057BD02 /* ExpertsMoreVC.m */; };
+		4A7599F422437B690057BD02 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F222437B690057BD02 /* ExpertsMoreVC.m */; };
+		4A7599F522437B690057BD02 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F222437B690057BD02 /* ExpertsMoreVC.m */; };
+		4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
+		4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
+		4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -859,6 +883,22 @@
 		4A7599AF223FB0370057BD02 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		4A7599B4223FB1510057BD02 /* PWSocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWSocketManager.h; sourceTree = "<group>"; };
 		4A7599B5223FB1510057BD02 /* PWSocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWSocketManager.m; sourceTree = "<group>"; };
+		4A7599D2224116830057BD02 /* NSDate+PWH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDate+PWH.h"; path = "App/Utils/Other/NSDate+PWH.h"; sourceTree = SOURCE_ROOT; };
+		4A7599D3224116830057BD02 /* NSDate+PWH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSDate+PWH.m"; path = "App/Utils/Other/NSDate+PWH.m"; sourceTree = SOURCE_ROOT; };
+		4A7599D8224212DC0057BD02 /* EchartTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EchartTableView.h; sourceTree = "<group>"; };
+		4A7599D9224212DC0057BD02 /* EchartTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EchartTableView.m; sourceTree = "<group>"; };
+		4A7599DD22421D270057BD02 /* InfoRootVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoRootVC.h; sourceTree = "<group>"; };
+		4A7599DE22421D270057BD02 /* InfoRootVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoRootVC.m; sourceTree = "<group>"; };
+		4A7599E222426B8A0057BD02 /* ExpertsSuggestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertsSuggestVC.h; sourceTree = "<group>"; };
+		4A7599E322426B8A0057BD02 /* ExpertsSuggestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertsSuggestVC.m; sourceTree = "<group>"; };
+		4A7599E7224274BC0057BD02 /* ExpertCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertCell.h; sourceTree = "<group>"; };
+		4A7599E8224274BC0057BD02 /* ExpertCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertCell.m; sourceTree = "<group>"; };
+		4A7599EC22436EB00057BD02 /* ExpertsDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertsDetailVC.h; sourceTree = "<group>"; };
+		4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertsDetailVC.m; sourceTree = "<group>"; };
+		4A7599F122437B680057BD02 /* ExpertsMoreVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertsMoreVC.h; sourceTree = "<group>"; };
+		4A7599F222437B690057BD02 /* ExpertsMoreVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertsMoreVC.m; sourceTree = "<group>"; };
+		4A7599F62243C3A30057BD02 /* TriangleLeft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleLeft.h; sourceTree = "<group>"; };
+		4A7599F72243C3A30057BD02 /* TriangleLeft.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleLeft.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1356,6 +1396,8 @@
 				4AD848E9221FFC06002ADF62 /* WebItemView.m */,
 				4A092C572222B05300FB2A35 /* TriangleView.h */,
 				4A092C582222B05300FB2A35 /* TriangleView.m */,
+				4A7599F62243C3A30057BD02 /* TriangleLeft.h */,
+				4A7599F72243C3A30057BD02 /* TriangleLeft.m */,
 				4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */,
 				4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */,
 				4AC856E422311E3800DAE1F6 /* HandbookCell.h */,
@@ -1374,6 +1416,10 @@
 				4AC8576E2238EBAA00DAE1F6 /* AddIssueSourceTipView.m */,
 				4AC857AD223CCCD000DAE1F6 /* IssueExtraCell.h */,
 				4AC857AE223CCCD000DAE1F6 /* IssueExtraCell.m */,
+				4A7599D8224212DC0057BD02 /* EchartTableView.h */,
+				4A7599D9224212DC0057BD02 /* EchartTableView.m */,
+				4A7599E7224274BC0057BD02 /* ExpertCell.h */,
+				4A7599E8224274BC0057BD02 /* ExpertCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1894,6 +1940,8 @@
 		4ABF449C21C0B892002AF34E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4A7599D2224116830057BD02 /* NSDate+PWH.h */,
+				4A7599D3224116830057BD02 /* NSDate+PWH.m */,
 				4AC8570322323C9200DAE1F6 /* ZLChineseToPinyin.h */,
 				4AC8570222323C9100DAE1F6 /* ZLChineseToPinyin.m */,
 				4A092D26222A765400FB2A35 /* PWLibraryListNoMoreFootView.h */,
@@ -1943,6 +1991,8 @@
 				4AB489DA21EF3EF8009F9E94 /* CreateQuestionVC.m */,
 				4AB489E221F06B42009F9E94 /* SourceVC.h */,
 				4AB489E321F06B42009F9E94 /* SourceVC.m */,
+				4A7599DD22421D270057BD02 /* InfoRootVC.h */,
+				4A7599DE22421D270057BD02 /* InfoRootVC.m */,
 				4AB48A1C21F7000B009F9E94 /* ProblemDetailsVC.h */,
 				4AB48A1D21F7000B009F9E94 /* ProblemDetailsVC.m */,
 				4AC857A3223B583300DAE1F6 /* InfoDetailVC.h */,
@@ -1967,6 +2017,12 @@
 				4AC8575422361CDA00DAE1F6 /* ExplainVC.m */,
 				4AC8575D22364F0300DAE1F6 /* MoreServicesVC.h */,
 				4AC8575E22364F0300DAE1F6 /* MoreServicesVC.m */,
+				4A7599E222426B8A0057BD02 /* ExpertsSuggestVC.h */,
+				4A7599E322426B8A0057BD02 /* ExpertsSuggestVC.m */,
+				4A7599EC22436EB00057BD02 /* ExpertsDetailVC.h */,
+				4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */,
+				4A7599F122437B680057BD02 /* ExpertsMoreVC.h */,
+				4A7599F222437B690057BD02 /* ExpertsMoreVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2637,6 +2693,7 @@
 				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
+				4A7599EE22436EB10057BD02 /* ExpertsDetailVC.m in Sources */,
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
@@ -2692,6 +2749,7 @@
 				4AE5374E21C69B8C004CF320 /* PWCustomLabel.m in Sources */,
 				4A6114AD21E449F500E4138B /* ToolsVC.m in Sources */,
 				4A092CF42229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
+				4A7599DF22421D270057BD02 /* InfoRootVC.m in Sources */,
 				4AC8570422323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */,
@@ -2701,6 +2759,7 @@
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
+				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */,
 				4AC857C6223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
@@ -2728,12 +2787,14 @@
 				4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */,
 				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
+				4A7599D4224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
 				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
 				4AB48A2421F818C0009F9E94 /* ExpertAdviceVC.m in Sources */,
 				4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
+				4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
@@ -2741,6 +2802,7 @@
 				4A092C732225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
+				4A7599F322437B690057BD02 /* ExpertsMoreVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
 				4AC857B4223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */,
@@ -2778,6 +2840,7 @@
 				4AB489BC21EDB450009F9E94 /* AddSourceVC.m in Sources */,
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
+				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				4AB489B921EDB14B009F9E94 /* InformationSourceVC.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4A6114CA21E7115900E4138B /* MonitorVC.m in Sources */,
@@ -2827,6 +2890,7 @@
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
+				4A7599E422426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
@@ -2917,6 +2981,8 @@
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4A7599E022421D270057BD02 /* InfoRootVC.m in Sources */,
+				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857472235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */,
 				4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
@@ -2928,6 +2994,7 @@
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
+				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4E222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
@@ -2946,7 +3013,9 @@
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
 				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
 				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
+				4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */,
 				CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */,
+				4A7599F422437B690057BD02 /* ExpertsMoreVC.m in Sources */,
 				4A092D81222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */,
 				CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */,
@@ -2962,12 +3031,14 @@
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				CA1CF5C3221ECB3A00D15316 /* HomeViewController.m in Sources */,
+				4A7599EF22436EB10057BD02 /* ExpertsDetailVC.m in Sources */,
 				CA1CF5C4221ECB3A00D15316 /* SourceVC.m in Sources */,
 				4A092D62222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF5C6221ECB3A00D15316 /* main.m in Sources */,
 				CA1CF5C7221ECB3A00D15316 /* PWInfoInitialView.m in Sources */,
 				CA1CF5C8221ECB3A00D15316 /* AccountInfoModel.m in Sources */,
+				4A7599D5224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
@@ -3000,6 +3071,7 @@
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */,
+				4A7599E522426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* PWNewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
@@ -3120,6 +3192,8 @@
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4A7599E122421D270057BD02 /* InfoRootVC.m in Sources */,
+				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857482235F7C100DAE1F6 /* HostDiagnosisVC.m in Sources */,
 				4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
@@ -3131,6 +3205,7 @@
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
+				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4F222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
@@ -3149,7 +3224,9 @@
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
 				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,
 				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
+				4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */,
 				CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */,
+				4A7599F522437B690057BD02 /* ExpertsMoreVC.m in Sources */,
 				4A092D82222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */,
 				CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */,
@@ -3165,12 +3242,14 @@
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				CA1CF668221ECB5000D15316 /* HomeViewController.m in Sources */,
+				4A7599F022436EB10057BD02 /* ExpertsDetailVC.m in Sources */,
 				CA1CF669221ECB5000D15316 /* SourceVC.m in Sources */,
 				4A092D63222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF66B221ECB5000D15316 /* main.m in Sources */,
 				CA1CF66C221ECB5000D15316 /* PWInfoInitialView.m in Sources */,
 				CA1CF66D221ECB5000D15316 /* AccountInfoModel.m in Sources */,
+				4A7599D6224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
@@ -3203,6 +3282,7 @@
 				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */,
+				4A7599E622426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */,
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
 				CA1CF683221ECB5000D15316 /* PWNewsListCell.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,

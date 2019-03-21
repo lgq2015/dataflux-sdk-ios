@@ -11,6 +11,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (PWH)
+- (BOOL)isThisYear;
+/**
+ 
+ 时间戳
+ */
++(NSString *)getNowTimeTimestamp;
+
+-(NSString *)currentYearTimeStr;
+-(NSString *)yearMonthDayTimeStr;
+-(NSString *)currentYearHourMinutesTimeStr;
+-(NSString *)hourMinutesTimeStr;
+-(NSString *)yearMonthDayHourMinutesTimeStr;
 
 @end
 

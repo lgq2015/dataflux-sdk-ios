@@ -57,6 +57,31 @@
 - (NaviBarView *)topNavBar {
     return _topNavBar;
 }
+-(void)setIsShowWhiteBack:(BOOL)isShowWhiteBack{
+    _isShowWhiteBack = isShowWhiteBack;
+    if (_isHidenNaviBar == YES) {
+        self.whiteBackBtn.hidden = !_isShowWhiteBack;
+    }
+}
+-(UIButton *)whiteBackBtn{
+    if (!_whiteBackBtn) {
+        
+    
+    _whiteBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [_whiteBackBtn addTarget:self action:@selector(backBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_whiteBackBtn setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
+    _whiteBackBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_whiteBackBtn];
+    [_whiteBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(44);
+        make.top.mas_equalTo(self.view).offset(kTopHeight-44);
+        make.left.mas_equalTo(self.view);
+        make.width.offset(40);
+    }];
+    }
+    return _whiteBackBtn;
+}
 - (void)drawTopNaviBar{
     if (_topNavBar) {
         [_topNavBar removeFromSuperview];
@@ -257,16 +282,16 @@
  *
  *  @return collectionView
  */
-- (UICollectionView *)collectionView
-{
-    if (_collectionView == nil) {
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight) collectionViewLayout:self.layout];
-        _collectionView.backgroundColor=PWWhiteColor;
-        _collectionView.scrollsToTop = YES;
-    }
-    return _collectionView;
-}
+//- (UICollectionView *)collectionView
+//{
+//    if (_collectionView == nil) {
+//        
+//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight) collectionViewLayout:self.layout];
+//        _collectionView.backgroundColor=PWWhiteColor;
+//        _collectionView.scrollsToTop = YES;
+//    }
+//    return _collectionView;
+//}
 -(void)headerRereshing{
     [NSException raise:@"[RootViewController headerRereshing]"
                 format:@"You Must Override This Method."];

@@ -16,6 +16,7 @@
 @interface PWPhotoOrAlbumImagePicker()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic,copy) PWPhotoOrAlbumImagePickerBlock photoBlock;   //-> 回掉
 @property (nonatomic,copy) PWFileBlock fileBlock;
+@property (nonatomic, copy) PWPhotoOrAlbumImageAndNameBlock nameBlock;
 @property (nonatomic,strong) UIImagePickerController *picker; //-> 多媒体选择控制器
 @property (nonatomic,weak) UIViewController  *viewController; //-> 一定是weak 避免循环引用
 @property (nonatomic,assign) NSInteger sourceType;            //-> 媒体来源 （相册/相机）
@@ -34,6 +35,28 @@
     self.viewController = controller;
       [self getAlertActionType:2];
 }
+- (void)getPhotoAlbumTakeAPhotoAndNameWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImageAndNameBlock)photoAndNameBlock{
+    self.nameBlock = photoAndNameBlock;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getAlertActionType:1];
+    }];
+    
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getAlertActionType:2];
+    }];
+    
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertController addAction:cancleAction];
+    // 判断是否支持拍照
+    [self imagePickerControlerIsAvailabelToCamera] ? [alertController addAction:cemeraAction]:nil;
+    [alertController addAction:photoAlbumAction];
+    [self.viewController presentViewController:alertController animated:YES completion:nil];
+}
+
+
 - (void)getPhotoAlbumOrTakeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock{
     self.photoBlock = photoBlock;
     self.viewController = controller;
@@ -180,12 +203,22 @@
 // 点击完成按钮的选取图片的回掉
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     // 获取编辑后的图片
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    NSURL *name = [info objectForKey:UIImagePickerControllerReferenceURL];
+    __block NSString *filename;
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
+        ALAssetRepresentation *representation = [myasset defaultRepresentation];
+        filename = [representation filename];
+    };
+    ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+    [assetslibrary assetForURL:name resultBlock:resultblock failureBlock:nil];
     // 如果裁剪的图片不符合标准 就会为空，直接使用原图
     image == nil    ?  image = [info objectForKey:UIImagePickerControllerOriginalImage] : nil;
    
     [picker dismissViewControllerAnimated:YES completion:^{
          self.photoBlock ?  self.photoBlock(image): nil;
+        self.nameBlock ? self.nameBlock(image,filename):nil;
         // 这个部分代码 视情况而定
         if (@available(iOS 11.0, *)){
             [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];

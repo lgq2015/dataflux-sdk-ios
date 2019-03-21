@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EchartTableView : UIView
-
+-(void)createTableWithData:(NSArray *)date header:(NSArray *)header height:(void(^)(CGFloat height))heightBlock;
 @end
 
 NS_ASSUME_NONNULL_END

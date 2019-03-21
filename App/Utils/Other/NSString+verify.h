@@ -34,21 +34,22 @@
  检验是否为url链接
  */
 - (BOOL)isUrlAddress;
-/**
- 
- 时间戳
- */
-+(NSString *)getNowTimeTimestamp;
+
 /**
  UTC时间转换
  */
-+(NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter;
-+ (NSString *)mineVCDate:(NSString *)utcDate formatter:(NSString *)formatter;
-+ (NSString *)yearMonthDayDate:(NSString *)utcDate formatter:(NSString *)formatter;
++ (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter;
++ (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter;
+- (NSString *)accurateTimeStr;
 /**
  时间转换
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
 - (BOOL)validateNumber;
 + (NSString *)progressLabText:(NSDictionary *)dict;
+- (NSString *)getTimeFromTimestamp;
+/**
+  时间间隔超过30秒
+ */
+- (BOOL)timeIntervalAboveThirtySecond;
 @end

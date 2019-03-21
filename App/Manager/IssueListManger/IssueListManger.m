@@ -124,6 +124,7 @@ typedef void (^pageBlock) (NSNumber * pageMarker);
 
     NSArray<InfoBoardModel*> *infoDatas = [pwfmdb pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
     if (infoDatas.count==0) {
+        [self createData];
         return self.infoDatas;
     }else{
     return infoDatas;

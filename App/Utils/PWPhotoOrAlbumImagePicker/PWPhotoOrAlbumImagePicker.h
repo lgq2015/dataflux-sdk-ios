@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 typedef void (^PWPhotoOrAlbumImagePickerBlock)(UIImage *image);
+typedef void (^PWPhotoOrAlbumImageAndNameBlock)(UIImage *image,NSString *name);
+
 typedef void (^PWFileBlock)(NSData *file);
 
 @interface PWPhotoOrAlbumImagePicker : NSObject
@@ -27,4 +29,5 @@ typedef void (^PWFileBlock)(NSData *file);
 - (void)getPhotoAlbumOrTakeAPhotoOrFileWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock fileBlock:(PWFileBlock)fileBlock;
 
 - (void)takeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock;
+- (void)getPhotoAlbumTakeAPhotoAndNameWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImageAndNameBlock)photoAndNameBlock;
 @end

@@ -77,6 +77,21 @@ SINGLETON_FOR_HEADER(UserManager)
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess;
 //-(void)judgeIsHaveTeam:(void(^)(BOOL isHave, NSDictionary *content))isHave;
 - (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess;
+/**
+ 更改用户信息后需要重新请求
+ */
 -(void)saveChangeUserInfo;
+/**
+ 获取专家名
+ */
 - (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+/**
+    获取team成员
+ */
+- (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock;
+/**
+    team成员缓存
+ */
+- (void)setTeamMenber:(NSArray *)memberArray;
+
 @end

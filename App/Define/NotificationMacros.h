@@ -23,7 +23,7 @@
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
-
+#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWUserID]
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
 #define KTeamModelCache @"KTeamModelCache"

@@ -22,6 +22,8 @@
 @property (nonatomic, strong) MJRefreshBackStateFooter *footer;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) PWLibraryListNoMoreFootView *footView;
+@property(nonatomic, strong) UIButton *whiteBackBtn;
+
 /** 导航条 */
 @property(nonatomic, strong)NaviBarView *topNavBar;
 /**
@@ -57,7 +59,10 @@
  *  是否显示返回按钮,默认情况是YES
  */
 @property (nonatomic, assign) BOOL isShowLiftBack;
-
+/**
+ * 只有在 isHidenNaviBar == YES 的情况下管用 默认NO;
+ */
+@property (nonatomic, assign) BOOL isShowWhiteBack;
 /**
  是否隐藏导航栏
  */

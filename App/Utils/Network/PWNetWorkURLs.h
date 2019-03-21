@@ -91,7 +91,9 @@
 
 #define PW_favoritesAdd                 API_SEVERID@"/v1/favorites/add"
 
-#define PW_TIPS                   HTTP_PROTOCOL@"files.cloudcare.cn/home/tips/tips.json"
+#define PW_TIPS                       HTTP_PROTOCOL@"files.cloudcare.cn/home/tips/tips.json"
+
+#define PW_AdduploaAttachment         API_SEVERID@"/v1/issue/add-upload-attachment"
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
@@ -143,7 +145,8 @@
 #pragma mark ========== 常量 ==========
 //获取常量字典
 #define PW_utilsConst                  API_SEVERID@"/v1/utils/const"
-
+#define PW_ExpertAvatarSmall(str)            [NSString stringWithFormat:@"%@files.cloudcare.cn/profwang/expert/small/%@.png", HTTP_PROTOCOL,str]
+#define PW_ExpertAvatarBig(str)              [NSString stringWithFormat:@"%@files.cloudcare.cn/profwang/expert/big/%@.png", HTTP_PROTOCOL,str]
 #pragma mark ========== 协议 ==========
 #define PW_privacylegal                API_H5_HOST@"/terms/legal"
 #define PW_servicelegal                API_H5_HOST@"/terms/service"

@@ -268,13 +268,14 @@ static NSTimeInterval   requestTimeout = 60.f;
 
 #pragma mark - 文件上传
 + (PWURLSessionTask *)uploadFileWithUrl:(NSString *)url
+                                 params:(NSDictionary *)params
                                fileData:(NSData *)data
                                    type:(NSString *)type
                                    name:(NSString *)name
                                mimeType:(NSString *)mimeType
                           progressBlock:(PWUploadProgressBlock)progressBlock
                            successBlock:(PWResponseSuccessBlock)successBlock
-                              failBlock:(PWResponseFailBlock)failBlock {
+                              failBlock:(PWResponseFailBlock)failBlock{
     __block PWURLSessionTask *session = nil;
     
     AFHTTPSessionManager *manager = [self manager];
@@ -318,6 +319,16 @@ static NSTimeInterval   requestTimeout = 60.f;
     if (session) [[self allTasks] addObject:session];
     
     return session;
+}
++ (PWURLSessionTask *)uploadFileWithUrl:(NSString *)url
+                               fileData:(NSData *)data
+                                   type:(NSString *)type
+                                   name:(NSString *)name
+                               mimeType:(NSString *)mimeType
+                          progressBlock:(PWUploadProgressBlock)progressBlock
+                           successBlock:(PWResponseSuccessBlock)successBlock
+                              failBlock:(PWResponseFailBlock)failBlock {
+    return [self uploadFileWithUrl:url params:nil fileData:data type:type name:name mimeType:type progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 
 #pragma mark - 多文件上传

@@ -63,7 +63,7 @@
 //    DLog(@"设备IMEI ：%@",[OpenUDID value]);
 //
     if([userManager loadUserInfo]){
-        [[PWSocketManager sharedPWSocketManager] connectWithToken:@"" success:^{
+        [[PWSocketManager sharedPWSocketManager] connecSuccess:^{
             
         } fail:^{
             
@@ -94,7 +94,11 @@
     BOOL loginSuccess = [notification.object boolValue];
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
-       
+        [[PWSocketManager sharedPWSocketManager] connecSuccess:^{
+            
+        } fail:^{
+            
+        }];
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];

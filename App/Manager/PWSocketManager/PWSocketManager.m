@@ -25,8 +25,7 @@
     });
     return _sharedManger;
 }
-- (void)connectWithToken:(NSString *)token success:(void (^)())success fail:(void (^)())fail {
-
+- (void)connecSuccess:(void(^)(void))success fail:(void(^)(void))fail{
     NSURL* url = [[NSURL alloc] initWithString:API_CORE_STONE];
     self.manager = [[SocketManager alloc] initWithSocketURL:url config:@{@"log": @NO, @"compress": @NO,@"forceWebsockets":@YES}];
     self.socket = [self.manager defaultSocket];
@@ -53,6 +52,7 @@
     [self.socket on:@"socketio.issueLogAdd" callback:^(NSArray * data, SocketAckEmitter * ack) {
         DLog(@"newissueLogAdd = %@",data);
     }];
+    
     [self.socket connect];
 
 }
