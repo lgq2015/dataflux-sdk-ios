@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于我们";
+    self.title = @"关于王教授";
     [self createUI];
 }
 - (void)createUI{

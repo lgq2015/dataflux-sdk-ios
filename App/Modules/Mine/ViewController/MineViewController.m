@@ -176,6 +176,8 @@
 - (UIImageView *)iconImgView{
     if (!_iconImgView) {
         _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(16), kStatusBarHeight-22+54, ZOOM_SCALE(70), ZOOM_SCALE(70))];
+        _iconImgView.layer.cornerRadius = ZOOM_SCALE(35);
+        _iconImgView.layer.masksToBounds = YES;
         [self.headerView addSubview:_iconImgView];
     }
     return _iconImgView;

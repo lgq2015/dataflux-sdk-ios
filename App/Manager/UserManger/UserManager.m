@@ -227,7 +227,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
-    
+    [kUserDefaults removeObjectForKey:PWLastTime];
     
     self.curUserInfo = nil;
     self.teamModel = nil;

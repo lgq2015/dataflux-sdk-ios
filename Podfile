@@ -48,6 +48,8 @@ target 'AppDev' do
     pod 'JPush'
     pod 'LBXScan/UI','~> 2.3'
     pod 'LBXScan/LBXNative','~> 2.3'
+    pod 'iOS-Echarts'
+    pod 'Socket.IO-Client-Swift', '~> 14.0.0'
 end
 
 target 'AppPreMade' do
@@ -71,6 +73,8 @@ target 'AppPreMade' do
     pod 'JPush'
     pod 'LBXScan/UI','~> 2.3'
     pod 'LBXScan/LBXNative','~> 2.3'
+    pod 'iOS-Echarts'
+    pod 'Socket.IO-Client-Swift', '~> 14.0.0'
 end
 
 

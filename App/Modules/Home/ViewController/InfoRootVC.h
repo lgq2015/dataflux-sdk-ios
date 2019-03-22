@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "MonitorListModel.h"
 #import "TeamInfoModel.h"
+#import "PWChatVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -33,7 +33,7 @@
 }
 - (void)setUpUI{
     
-       self.tipsTitle.text = @"覆盖主流的四大云平台";
+       self.tipsTitle.text = @"覆盖主流四大云平台";
        self.tipsContent.text = @"多维度赋予您专业的诊断和分析";
     
     NSArray *btnImag = @[@"icon_ali",@"icon_aws",@"icon_tencent",@"Ucloud"];

@@ -38,7 +38,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 - (NSInteger)getBasicIssueSourceCount{
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *whereFormat =@"where provider = 'aliyun' or  provider = 'aws' or provider = 'qcloud' or provider= 'ucloud' or provider = 'domain'";
-    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT"};
+    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"scanCheckStartTime":@"TEXT"};
     NSArray *array = [pwfmdb pw_lookupTable:PW_IssueTabName dicOrModel:dict whereFormat:whereFormat];
     return  array.count;
 }
@@ -61,7 +61,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 - (NSArray *)getIssueSourceList{
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *whereFormat =@"";
-    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT"};
+    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT",@"scanCheckStartTime":@"TEXT"};
     NSArray *array = [pwfmdb pw_lookupTable:PW_IssueTabName dicOrModel:dict whereFormat:whereFormat];
     return array;
 }
@@ -100,7 +100,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         if ([pwfmdb pw_isExistTable:PW_IssueTabName]) {
             [self dealWithData:array isTime:istime];
         }else{
-            NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT"};
+            NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT",@"scanCheckStartTime":@"TEXT"};
         BOOL isCreate = [pwfmdb pw_createTable:PW_IssueTabName dicOrModel:dict primaryKey:@"PWId"];
             if (isCreate) {
          NSArray *issuccess =  [pwfmdb pw_insertTable:PW_IssueTabName dicOrModelArray:array];
@@ -108,10 +108,9 @@ typedef void (^loadDataSuccess)(NSArray *datas);
                 istime ? [self getLastDetectionTimeNow]:[self getIssueSourceListprivite];
                 }
             }
-    }
+     }
     }else{
         [self dealWithData:array isTime:istime];
-       
     }
     self.lastRefreshTime = [NSDate getNowTimeTimestamp];
 }
@@ -164,13 +163,16 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 }
 - (void)getLastDetectionTimeNow{
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
-    NSString *whereFormat =@"order by updateTime desc";
-    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT"};
+    NSString *whereFormat =@"order by scanCheckStartTime desc";
+    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT",@"scanCheckStartTime":@"TEXT"};
     NSArray *array = [pwfmdb pw_lookupTable:PW_IssueTabName dicOrModel:dict whereFormat:whereFormat];
     if (array.count == 0) {
         self.strBlock ? self.strBlock(@"尚未进行检测"):nil;
     }else{
-    NSString *time = array[0][@"updateTime"];
+    NSString *time = array[0][@"scanCheckStartTime"];
+        if(time==nil){
+            
+        }
     NSString *local =  [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     NSString *checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@",[NSString compareCurrentTime:local]];
     self.strBlock ? self.strBlock(checkTime):nil;
@@ -216,7 +218,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 - (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID{
     PWFMDB *pwfmdb = [PWFMDB shareDatabase];
     NSString *whereFormat =[NSString stringWithFormat:@"where id = '%@'",issueSourceID];
-    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT"};
+    NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT",@"scanCheckStartTime":@"TEXT"};
     NSArray *array = [pwfmdb pw_lookupTable:PW_IssueTabName dicOrModel:dict whereFormat:whereFormat];
     if (array.count == 0) {
         return nil;

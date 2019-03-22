@@ -167,7 +167,9 @@
 
 #pragma mark ========== BTNCLICK ==========
 - (void)navRightBtnClick{
-    
+    PWChatVC *chat = [[PWChatVC alloc]init];
+    [self.navigationController pushViewController:chat animated:YES];
+
 }
 - (void)setupBadges{
     [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];

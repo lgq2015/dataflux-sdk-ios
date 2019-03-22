@@ -231,6 +231,8 @@
     if (!_rightImg) {
         _rightImg = [[UIImageView alloc]init];
         _rightImg.contentMode = UIViewContentModeScaleAspectFit;
+        _rightImg.layer.cornerRadius  = 12;
+        _rightImg.layer.masksToBounds = YES;
         [self addSubview:_rightImg];
     }
     return _rightImg;

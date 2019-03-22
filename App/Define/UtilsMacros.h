@@ -32,7 +32,10 @@
 //验证码有效时间token key
 #define verifyCode_token @"verifyCode_token"
 
-
+//安全区域顶部
+#define SafeAreaTop_Height  (kTopHeight-64)
+//安全区域底部（iPhone X有）
+#define SafeAreaBottom_Height  (kTabBarHeight-49)
 
 //获取屏幕宽高
 #define kWidth [UIScreen mainScreen].bounds.size.width
@@ -98,6 +101,8 @@
 #define PWTitleColor [UIColor colorWithHexString:@"595860"]
 #define PWSubTitleColor [UIColor colorWithHexString:@"8E8E93"] 
 //颜色
+#define PWChatCellColor  RGBACOLOR(250,250,250,1)
+#define CellLineColor    RGBACOLOR(200,200,200,1)
 
 #define PWClearColor [UIColor clearColor]
 #define PWWhiteColor [UIColor whiteColor]

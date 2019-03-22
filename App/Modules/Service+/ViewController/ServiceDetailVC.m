@@ -19,13 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    self.isShowWhiteBack = YES;
 }
 - (void)createUI{
     self.view.backgroundColor = PWBlueColor;
     if (self.isHidenNaviBar) {
-        self.webView.frame = CGRectMake(0, 0, kWidth, kHeight+1);
+        self.webView.frame = self.view.bounds;
+        DLog(@"self offic = %@",NSStringFromCGPoint(self.webView.scrollView.contentOffset));
+        DLog(@"self frame = %@",NSStringFromCGRect(self.webView.scrollView.frame));
     }
-    
+    [self.view bringSubviewToFront:self.whiteBackBtn];
+
 }
 - (void)eventTeamCreate:(NSDictionary *)extra{
     FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];

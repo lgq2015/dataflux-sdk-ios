@@ -93,7 +93,7 @@
     NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSString *newUserAgent = userAgent;
     if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
-        newUserAgent = [userAgent stringByAppendingString:@"cloudcare"];
+        newUserAgent = [userAgent stringByAppendingString:@"cloudcare;Prof.Wang_iOS"];
     }
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];

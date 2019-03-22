@@ -124,8 +124,10 @@
     RAC(phoneTip,hidden) =phoneTipSignal;
     RAC(self.verifyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
         if([value boolValue]){
+            self.verifyCodeBtn.enabled = YES;
             return PWBlueColor;
         }else{
+            self.verifyCodeBtn.enabled = NO;
             return [UIColor colorWithHexString:@"C7C7CC"];;
         }
     }];
@@ -184,7 +186,7 @@
 
 #pragma mark ========== 获取验证码 ==========
 - (void)getVerifyCode{
-    if ([[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] validateNumber]) {
+    if ([[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
     [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {

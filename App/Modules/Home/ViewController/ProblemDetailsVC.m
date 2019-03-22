@@ -11,6 +11,7 @@
 #import "IssueExtraModel.h"
 #import "PPBadgeView.h"
 #import "PWBaseWebVC.h"
+#import "PWChatVC.h"
 
 @interface ProblemDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -175,8 +176,9 @@
 }
 
 #pragma mark ========== 讨论页跳转 ==========
-- (void)navRightBtnClick:(UIButton *)button{
-    
+- (void)navRightBtnClick{
+    PWChatVC *chat = [[PWChatVC alloc]init];
+    [self.navigationController pushViewController:chat animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
