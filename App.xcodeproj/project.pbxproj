@@ -762,6 +762,16 @@
 		CA6D83462224214C00CF577A /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		CA6D83472224216700CF577A /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		CA6D83482224216800CF577A /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
+		CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
+		CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
+		CAD9CABC2243EBD90063ABFF /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
+		CAD9CABD2243EBDA0063ABFF /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
+		CAD9CABE2243EBDF0063ABFF /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856C82231143200DAE1F6 /* HandBookArticleVC.m */; };
+		CAD9CABF2243EBE00063ABFF /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856C82231143200DAE1F6 /* HandBookArticleVC.m */; };
+		CAD9CAC02243EBE60063ABFF /* TeamSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */; };
+		CAD9CAC12243EBE60063ABFF /* TeamSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */; };
+		CAD9CAC22243EBF00063ABFF /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
+		CAD9CAC32243EBF10063ABFF /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
 		EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B970E690A7749BE7FFE2775D /* libPods-App.a */; };
 /* End PBXBuildFile section */
 
@@ -2689,6 +2699,7 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -2696,6 +2707,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2749,6 +2761,7 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -2756,6 +2769,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3092,6 +3106,7 @@
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759A1C2244B0D40057BD02 /* PWChatFileCell.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */,
+				CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
@@ -3107,6 +3122,7 @@
 				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
 				4AC857422233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
+				CAD9CABE2243EBDF0063ABFF /* HandBookArticleVC.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
@@ -3198,7 +3214,7 @@
 				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
-				4A7599FD224478DD0057BD02 /* HandbookCell.m in Sources */,
+				CAD9CABC2243EBD90063ABFF /* HandbookCell.m in Sources */,
 				4AC857DF223E643300DAE1F6 /* PWChatVC.m in Sources */,
 				CA1CF5E2221ECB3A00D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -3212,9 +3228,11 @@
 				CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				4AC857A6223B583300DAE1F6 /* InfoDetailVC.m in Sources */,
 				CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */,
+				CAD9CAC22243EBF00063ABFF /* PasswordVerifyVC.m in Sources */,
 				CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */,
 				CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */,
 				4A092D91222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
+				CAD9CAC02243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */,
 				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
@@ -3314,6 +3332,7 @@
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759A1D2244B0D40057BD02 /* PWChatFileCell.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */,
+				CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
@@ -3329,6 +3348,7 @@
 				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
 				4AC857432233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
+				CAD9CABF2243EBE00063ABFF /* HandBookArticleVC.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
@@ -3420,7 +3440,7 @@
 				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
-				4A7599FE224478DE0057BD02 /* HandbookCell.m in Sources */,
+				CAD9CABD2243EBDA0063ABFF /* HandbookCell.m in Sources */,
 				4AC857E0223E643300DAE1F6 /* PWChatVC.m in Sources */,
 				CA1CF687221ECB5000D15316 /* CreateQuestionVC.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -3434,9 +3454,11 @@
 				CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				4AC857A7223B583300DAE1F6 /* InfoDetailVC.m in Sources */,
 				CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */,
+				CAD9CAC32243EBF10063ABFF /* PasswordVerifyVC.m in Sources */,
 				CA1CF68D221ECB5000D15316 /* iToast.m in Sources */,
 				CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */,
 				4A092D92222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
+				CAD9CAC12243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */,
 				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,
