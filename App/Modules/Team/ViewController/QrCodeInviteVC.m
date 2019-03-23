@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"扫码加入";
+    self.title = @"二维码邀请";
     [self createUI];
     [self loadQrData];
 }

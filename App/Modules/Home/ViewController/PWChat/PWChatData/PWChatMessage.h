@@ -13,7 +13,7 @@
 #define PWChatVoiceCellId       @"PWChatFileCellId"
 
 
-#define PWChatCellTop           15           //顶部距离cell
+#define PWChatCellTop           8           //顶部距离cell
 #define PWChatCellBottom        15           //底部距离cell
 #define PWChatIconWH            40           //原型头像尺寸
 #define PWChatIconLeft          16           //头像与左边距离
@@ -22,8 +22,8 @@
 #define PWChatDetailRight       10           //详情与右边距离
 #define PWChatTextTop           12           //文本距离详情顶部
 #define PWChatTextBottom        12           //文本距离详情底部
-#define PWChatTextLRS           12           //文本左右短距离
-#define PWChatTextLRB           20           //文本左右长距离
+#define PWChatTextLRS           5           //文本左右短距离
+#define PWChatTextLRB           10           //文本左右长距离
 
 
 
@@ -31,7 +31,7 @@
 #define PWChatAirTop            35           //气泡距离详情顶部
 #define PWChatAirLRS            10           //气泡左右短距离
 #define PWChatAirBottom         10           //气泡距离详情底部
-#define PWChatAirLRB            22           //气泡左右长距离
+#define PWChatAirLRB            10           //气泡左右长距离
 #define PWChatTextFont          17           //内容字号
 
 #define PWChatTextLineSpacing   5            //文本行高
@@ -76,6 +76,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeText =1,
     PWChatMessageTypeImage,
     PWChatMessageTypeFile,
+    PWChatMessageTypeSysterm,
 };
 @interface PWChatMessage : NSObject
 //消息发送方  消息类型  消息对应cell类型
@@ -108,7 +109,8 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 @property (nonatomic, strong) NSString    *fileAddress;
 @property (nonatomic, strong) NSString    *filePath;
 
-
+// 系统消息
+@property (nonatomic, strong) NSString    *systermStr;
 //拓展消息
 @property(nonatomic,strong)NSDictionary *dict;
 @end

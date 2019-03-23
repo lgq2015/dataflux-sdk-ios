@@ -10,7 +10,8 @@
 #import "PWChatKeyBoardInputView.h"
 #import "PWChatBaseCell.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
-
+#import "PWChatDatas.h"
+#import "ExpertsSuggestVC.h"
 //#import "PWImageGroupView.h"
 @interface PWChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
 //承载表单的视图 视图原高度
@@ -34,12 +35,17 @@
     [super viewDidLoad];
     self.title = @"讨论";
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dealWithNewDta)
+                                                 name:KNotificationChatNewDatas
+                                               object:nil];
     [self createUI];
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
 //    self.tableVie
+    [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
+    self.datas = [NSMutableArray new];
     _mInputView = [[PWChatKeyBoardInputView alloc]init];
     _mInputView.delegate = self;
     [self.view addSubview:_mInputView];
@@ -69,7 +75,10 @@
     [_mTableView registerClass:NSClassFromString(@"PWChatTextCell") forCellReuseIdentifier:PWChatTextCellId];
     [_mTableView registerClass:NSClassFromString(@"PWChatImageCell") forCellReuseIdentifier:PWChatImageCellId];
     [_mTableView registerClass:NSClassFromString(@"PWChatFileCell") forCellReuseIdentifier:PWChatVoiceCellId];
-     //  [_mTableView reloadData];
+    [_mTableView reloadData];
+}
+-(void)dealWithNewDta{
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _datas.count==0?0:1;
@@ -121,8 +130,10 @@
     [UIView animateWithDuration:changeTime animations:^{
         self.mBackView.frame = CGRectMake(0, 0, kWidth, height);
         self.mTableView.frame = self.mBackView.bounds;
-//        NSIndexPath *indexPath = [NSIndexPath     indexPathForRow:self.datas.count-1 inSection:0];
-//        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        if (self.datas.count>0) {
+            NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
+            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
     } completion:^(BOOL finished) {
         
     }];
@@ -170,15 +181,15 @@
 
 //发送消息
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
-//
-//    [PWChatDatas sendMessage:dic sessionId:_sessionId messageType:messageType messageBlock:^(SSChatMessagelLayout *layout, NSError *error, NSProgress *progress) {
-//
-//        [self.datas addObject:layout];
-//        [self.mTableView reloadData];
-//        NSIndexPath *indexPath = [NSIndexPath     indexPathForRow:self.datas.count-1 inSection:0];
-//        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-//
-//    }];
+
+    [PWChatDatas sendMessage:dic sessionId:self.issueID messageType:messageType messageBlock:^(PWChatMessagelLayout *layout, NSError *error, NSProgress *progress) {
+        
+        [self.datas addObject:layout];
+        [self.mTableView reloadData];
+        NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
+        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+
+    }];
 }
 
 
@@ -237,11 +248,25 @@
 - (void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath {
     
 }
+-(void)PWChatKeyBordViewBtnClick:(NSInteger)index{
+    
+}
 
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(PWChatMessagelLayout *)layout {
     
 }
-
+- (void)navBtnClick{
+    ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
+    if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
+        NSDictionary *tags = self.infoDetailDict[@"tags"];
+        NSArray *expertGroups = tags[@"expertGroups"];
+        if (expertGroups.count>0) {
+            expert.expertGroups = [NSMutableArray arrayWithArray:expertGroups];
+        }
+    }
+    [self.navigationController pushViewController:expert animated:YES];
+    
+}
 
 
 

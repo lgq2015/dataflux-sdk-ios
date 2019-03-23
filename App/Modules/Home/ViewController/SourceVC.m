@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [self createSourceTypeSingle];
             break;
         case SourceTypeUcloud:
-            self.title = @"连接Ucloud";
+            self.title = @"连接UCloud";
             self.provider = @"ucloud";
             self.yunTitle = @" UCloud UAM ";
              placeArray = @[@{@"title":@"名称",@"tfText":@"请输入情报源名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 UAM 账号的 Public key"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 UAM 账号的 Privite key"}];
@@ -693,6 +693,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             };
         }else{
+            
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {

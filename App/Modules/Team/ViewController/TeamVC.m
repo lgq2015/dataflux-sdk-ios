@@ -70,7 +70,7 @@
 - (void)createTeamUI{
     [self.view removeAllSubviews];
     self.view.backgroundColor = PWBackgroundColor;
-   
+    self.tableView.mj_header = self.header;
      WeakSelf;
     self.headerView.itemClick =^(NSInteger tag){
         if (tag == InvateTag) {
@@ -112,6 +112,9 @@
     [self loadTeamMemberInfo];
 
 }
+- (void)headerRereshing{
+    [self loadTeamProductData];
+}
 - (void)loadTeamProductData{
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -122,11 +125,13 @@
             CGFloat height = ZOOM_SCALE(24)*content.count+Interval(18);
             self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
             [self.tableView setTableHeaderView: self.headerView];
+           
         }else{
            
         }
+         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
-        
+         [self.header endRefreshing];
         [SVProgressHUD dismiss];
     }];
 }

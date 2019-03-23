@@ -228,11 +228,11 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-                    CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
-                    create.btnClick =^(){
-                        KPostNotification(KNotificationTeamStatusChange, @YES);
-                        [self.navigationController popViewControllerAnimated:NO];
-                    };
+                CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
+                create.btnClick =^(){
+                    KPostNotification(KNotificationTeamStatusChange, @YES);
+                    [self.navigationController popViewControllerAnimated:NO];
+                };
             [self presentViewController:create animated:YES completion:nil];  
                 }
         [SVProgressHUD dismiss];

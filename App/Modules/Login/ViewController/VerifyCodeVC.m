@@ -283,7 +283,6 @@
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:@"验证码错误"];
         }
     }];
 }

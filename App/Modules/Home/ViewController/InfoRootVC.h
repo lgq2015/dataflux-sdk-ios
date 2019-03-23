@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *contentLab;
 
 @property (nonatomic, strong) UIView *subContainerView;
+@property (nonatomic, strong) NSDictionary *infoDetailDict;
 
 @property (nonatomic, strong) NSMutableArray *progressData;
 - (void)navRightBtnClick;

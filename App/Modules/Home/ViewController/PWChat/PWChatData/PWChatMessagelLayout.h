@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 //消息布局到CELL的总高度
 @property (nonatomic, assign) CGFloat      cellHeight;
 
-//时间控件的frame
+//姓名控件的frame
 @property (nonatomic, assign) CGRect       nameLabRect;
 //头像控件的frame
 @property (nonatomic, assign) CGRect       headerImgRect;

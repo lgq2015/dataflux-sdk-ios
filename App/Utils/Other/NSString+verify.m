@@ -264,4 +264,20 @@
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;
 }
+- (NSString *)transformedValue:(id)value
+{
+    
+    double convertedValue = [value doubleValue];
+    int multiplyFactor = 0;
+    
+    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
+    
+    while (convertedValue > 1024) {
+        convertedValue /= 1024;
+        multiplyFactor++;
+    }
+    
+    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
+}
+
 @end

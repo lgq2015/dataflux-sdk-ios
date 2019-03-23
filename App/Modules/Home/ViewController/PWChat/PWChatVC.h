@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWChatVC : RootViewController
-
+@property (nonatomic, copy) NSString *issueID;
+@property (nonatomic, strong) NSDictionary *infoDetailDict;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,6 +15,7 @@
     
         _functionView = [[PWChatKeyBordFunctionView alloc]initWithFrame:self.bounds];
         _functionView.delegate = self;
+    
         [self addSubview:_functionView];
         _functionView.userInteractionEnabled = YES;
         

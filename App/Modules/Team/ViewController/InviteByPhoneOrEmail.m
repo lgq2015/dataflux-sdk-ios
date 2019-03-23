@@ -26,7 +26,7 @@
     if (self.isPhone) {
         dict = @{@"title":@"手机号",@"placeholder":@"请输入邀请成员手机号"};
     }else{
-        dict = @{@"title":@"邮箱",@"placeholder":@"请输入邀请成员邮箱账号"};
+        dict = @{@"title":@"邮箱",@"placeholder":@"请输入邀请成员邮箱"};
     }
     UIView *item = [self itemWithData:dict];
     [self.view addSubview:item];
@@ -67,6 +67,7 @@
         }];
         RAC(commitTeam,enabled) = emailSignal;
     }
+//    [self.codeTF becomeFirstResponder];
     
 }
 - (UIView *)itemWithData:(NSDictionary *)dict{

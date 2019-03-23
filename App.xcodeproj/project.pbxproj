@@ -189,8 +189,6 @@
 		4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
 		4A7599FB224478C40057BD02 /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856C82231143200DAE1F6 /* HandBookArticleVC.m */; };
 		4A7599FC224478C50057BD02 /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856C82231143200DAE1F6 /* HandBookArticleVC.m */; };
-		4A7599FD224478DD0057BD02 /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
-		4A7599FE224478DE0057BD02 /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
 		4A759A062244ABC20057BD02 /* PWChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A052244ABC10057BD02 /* PWChatMessage.m */; };
 		4A759A072244ABC20057BD02 /* PWChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A052244ABC10057BD02 /* PWChatMessage.m */; };
 		4A759A082244ABC20057BD02 /* PWChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A052244ABC10057BD02 /* PWChatMessage.m */; };
@@ -218,6 +216,13 @@
 		4A759A312244CC420057BD02 /* PWChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A302244CC410057BD02 /* PWChatKeyBoardInputView.m */; };
 		4A759A322244CC420057BD02 /* PWChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A302244CC410057BD02 /* PWChatKeyBoardInputView.m */; };
 		4A759A332244CC420057BD02 /* PWChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A302244CC410057BD02 /* PWChatKeyBoardInputView.m */; };
+		4A759A372245E82B0057BD02 /* PWChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A362245E82B0057BD02 /* PWChatDatas.m */; };
+		4A759A3A2245F2D00057BD02 /* PWChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A392245F2CF0057BD02 /* PWChatDataModel.m */; };
+		4A759A3B2245F2D00057BD02 /* PWChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A392245F2CF0057BD02 /* PWChatDataModel.m */; };
+		4A759A3C2245F2D00057BD02 /* PWChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A392245F2CF0057BD02 /* PWChatDataModel.m */; };
+		4A759A3F22461A660057BD02 /* PWSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A3E22461A660057BD02 /* PWSystermCell.m */; };
+		4A759A4022461A660057BD02 /* PWSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A3E22461A660057BD02 /* PWSystermCell.m */; };
+		4A759A4122461A660057BD02 /* PWSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A3E22461A660057BD02 /* PWSystermCell.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -958,6 +963,12 @@
 		4A759A2B2244C7B10057BD02 /* PWChatKeyBordFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChatKeyBordFunctionView.m; sourceTree = "<group>"; };
 		4A759A2F2244CC410057BD02 /* PWChatKeyBoardInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWChatKeyBoardInputView.h; sourceTree = "<group>"; };
 		4A759A302244CC410057BD02 /* PWChatKeyBoardInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChatKeyBoardInputView.m; sourceTree = "<group>"; };
+		4A759A352245E82B0057BD02 /* PWChatDatas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWChatDatas.h; sourceTree = "<group>"; };
+		4A759A362245E82B0057BD02 /* PWChatDatas.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChatDatas.m; sourceTree = "<group>"; };
+		4A759A382245F2CF0057BD02 /* PWChatDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWChatDataModel.h; sourceTree = "<group>"; };
+		4A759A392245F2CF0057BD02 /* PWChatDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChatDataModel.m; sourceTree = "<group>"; };
+		4A759A3D22461A660057BD02 /* PWSystermCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWSystermCell.h; sourceTree = "<group>"; };
+		4A759A3E22461A660057BD02 /* PWSystermCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWSystermCell.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1781,6 +1792,8 @@
 				4A759A152244B0BA0057BD02 /* PWChatTextCell.m */,
 				4A759A192244B0D40057BD02 /* PWChatFileCell.h */,
 				4A759A1A2244B0D40057BD02 /* PWChatFileCell.m */,
+				4A759A3D22461A660057BD02 /* PWSystermCell.h */,
+				4A759A3E22461A660057BD02 /* PWSystermCell.m */,
 			);
 			path = PWChatCell;
 			sourceTree = "<group>";
@@ -1792,6 +1805,10 @@
 				4A759A202244B54F0057BD02 /* PWChatMessagelLayout.m */,
 				4A759A042244ABC10057BD02 /* PWChatMessage.h */,
 				4A759A052244ABC10057BD02 /* PWChatMessage.m */,
+				4A759A352245E82B0057BD02 /* PWChatDatas.h */,
+				4A759A362245E82B0057BD02 /* PWChatDatas.m */,
+				4A759A382245F2CF0057BD02 /* PWChatDataModel.h */,
+				4A759A392245F2CF0057BD02 /* PWChatDataModel.m */,
 			);
 			path = PWChatData;
 			sourceTree = "<group>";
@@ -2825,6 +2842,7 @@
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
 				4AC8575F22364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4A092CB72227BE5300FB2A35 /* InviteCardView.m in Sources */,
+				4A759A3F22461A660057BD02 /* PWSystermCell.m in Sources */,
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
@@ -2843,6 +2861,7 @@
 				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
+				4A759A3A2245F2D00057BD02 /* PWChatDataModel.m in Sources */,
 				4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4A092D90222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
@@ -2920,6 +2939,7 @@
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4A7599F322437B690057BD02 /* ExpertsMoreVC.m in Sources */,
+				4A759A372245E82B0057BD02 /* PWChatDatas.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
 				4AC857B4223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */,
@@ -3050,6 +3070,7 @@
 				4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
+				4A759A4022461A660057BD02 /* PWSystermCell.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -3068,6 +3089,7 @@
 				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
 				CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */,
 				CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */,
+				4A759A3B2245F2D00057BD02 /* PWChatDataModel.m in Sources */,
 				4AC857C7223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBD2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */,
@@ -3276,6 +3298,7 @@
 				4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
+				4A759A4122461A660057BD02 /* PWSystermCell.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -3294,6 +3317,7 @@
 				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
 				CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */,
 				CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */,
+				4A759A3C2245F2D00057BD02 /* PWChatDataModel.m in Sources */,
 				4AC857C8223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBE2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */,

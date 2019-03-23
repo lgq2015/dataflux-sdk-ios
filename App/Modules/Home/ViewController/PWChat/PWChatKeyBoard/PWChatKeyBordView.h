@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PWChatKeyBordFunctionView.h"
+
 /**
  底部按钮点击的五种状态
  
@@ -33,8 +34,9 @@ typedef NS_ENUM(NSInteger,PWChatKeyBoardStatus) {
 //点击(+)其他按钮
 -(void)PWChatKeyBordViewBtnClick:(NSInteger)index;
 @end
+
 @interface PWChatKeyBordView : UIView<UIScrollViewDelegate>
-@property(nonatomic,assign)id<PWChatKeyBordViewDelegate,PWChatKeyBordFunctionViewDelegate>delegate;
+@property(nonatomic,weak)id<PWChatKeyBordViewDelegate,PWChatKeyBordFunctionViewDelegate>delegate;
 
 //多功能视图
 @property(nonatomic,strong)PWChatKeyBordFunctionView *functionView;

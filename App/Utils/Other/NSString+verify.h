@@ -52,4 +52,8 @@
   时间间隔超过30秒
  */
 - (BOOL)timeIntervalAboveThirtySecond;
+/**
+ 计算文件大小
+ */
++ (NSString *)transformedValue:(id)value;
 @end

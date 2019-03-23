@@ -28,7 +28,6 @@
 @property (nonatomic, strong) UIView *echartContenterView;
 @property (nonatomic, strong) PYZoomEchartsView *kEchartView;
 
-@property (nonatomic, strong) NSDictionary *infoDetailDict;
 
 @end
 
@@ -168,6 +167,7 @@
 #pragma mark ========== BTNCLICK ==========
 - (void)navRightBtnClick{
     PWChatVC *chat = [[PWChatVC alloc]init];
+    chat.infoDetailDict = self.infoDetailDict;
     [self.navigationController pushViewController:chat animated:YES];
 
 }

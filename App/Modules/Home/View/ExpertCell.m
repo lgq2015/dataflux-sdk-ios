@@ -47,11 +47,19 @@
     if ([avatarName isEqualToString:@"TAM"]) {
         self.nameLab.hidden = YES;
         self.exclusiveLab.hidden = NO;
+        [self.myExpertLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.exclusiveLab.mas_bottom).offset(ZOOM_SCALE(1));
+        }];
+    }else{
+        [self.myExpertLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.nameLab.mas_bottom).offset(ZOOM_SCALE(1));
+        }];
     }
     if (self.isInvite) {
         self.myExpertLab.hidden = NO;
         self.layer.shadowOffset = CGSizeMake(0,10);
         self.layer.shadowRadius = 4;
+        
     }
 }
     
@@ -72,7 +80,7 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
     [self.exclusiveLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.icon.mas_bottom).offset(ZOOM_SCALE(12));
+        make.top.mas_equalTo(self.icon.mas_bottom).offset(ZOOM_SCALE(6));
         make.height.offset(ZOOM_SCALE(24));
         make.width.offset(ZOOM_SCALE(94));
         make.centerX.mas_equalTo(self);

@@ -38,6 +38,7 @@
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
+            self.infoDetailDict = content;
             NSDictionary *accountInfo = content[@"accountInfo"];
             NSString *name = accountInfo[@"name"];
             self.createNameLab.text = [NSString stringWithFormat:@"%@ 创建",name];
@@ -178,6 +179,7 @@
 #pragma mark ========== 讨论页跳转 ==========
 - (void)navRightBtnClick{
     PWChatVC *chat = [[PWChatVC alloc]init];
+     chat.infoDetailDict = self.infoDetailDict;
     [self.navigationController pushViewController:chat animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========

@@ -36,8 +36,8 @@
     [self.socket on:@"hello" callback:^(NSArray* data, SocketAckEmitter* ack) {
         DLog(@"服务器连接成功加入房间:%@",data);
         [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray * data) {
-          NSDictionary *dict = [data[0] jsonValueDecoded];
-            DLog(@"auth = %@",dict);
+        NSDictionary *dict = [data[0] jsonValueDecoded];
+        DLog(@"auth = %@",dict);
         }];
     }];
    

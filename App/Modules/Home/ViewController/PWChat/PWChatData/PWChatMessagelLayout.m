@@ -29,6 +29,9 @@
       case PWChatMessageTypeImage:
            [self setImage];
             break;
+        case PWChatMessageTypeSysterm:
+            
+            break;
     }
     
 }
@@ -38,7 +41,8 @@
 //    _nameLabRect = nameLab.bounds;
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
-    mTextView.attributedText = _message.attTextString;
+    mTextView.font = MediumFONT(17);
+    mTextView.text = _message.textString;
     mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [mTextView sizeToFit];
      _textLabRect = mTextView.bounds;
@@ -57,10 +61,10 @@
         
     }else{
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
-        _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-PWChatTextLRB-textWidth-PWChatTextLRS, self.headerImgRect.origin.y, textWidth+PWChatTextLRB+PWChatTextLRS, textHeight+PWChatTextTop+PWChatTextBottom);
+        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-PWChatIconWH, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+        _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-PWChatTextLRB-textWidth-PWChatTextLRS, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect), textWidth+PWChatTextLRB+PWChatTextLRS, textHeight+PWChatTextTop+PWChatTextBottom);
         
-        _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
+        _imageInsets = UIEdgeInsetsMake(PWChatAirTop, 0, PWChatAirBottom, 0);
         
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;

@@ -68,8 +68,9 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
-        
-          [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+
+//          [iToast alertWithTitleCenter:];
                 
             }else{
                 self.isLogined = YES;
@@ -108,7 +109,8 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(NO,@"");
                 }
                
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+
                 
             }
             

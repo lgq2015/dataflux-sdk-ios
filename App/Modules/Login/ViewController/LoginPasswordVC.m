@@ -181,7 +181,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = @"请输入手机号";
+        _phoneTf.placeholder = @"请输入手机号/邮箱";
         [self.view addSubview:_phoneTf];
         }
     return _phoneTf;

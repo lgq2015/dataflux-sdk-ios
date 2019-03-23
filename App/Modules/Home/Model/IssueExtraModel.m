@@ -23,7 +23,7 @@
     self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
     
     NSNumber *byteSize = [metaJSON numberValueForKey:@"byteSize" default:@0];
-    self.fileSize = [self transformedValue:byteSize];
+    self.fileSize = [NSString transformedValue:byteSize];
     NSString *type =  [self.fileUrl pathExtension];
     if ([type isEqualToString:@"pdf"]) {
         self.fileIcon = @"file_PDF";
@@ -35,23 +35,19 @@
         self.fileIcon = @"file_PPT";
     }else if([type isEqualToString:@"xlsx"]){
         self.fileIcon = @"file_excel";
+    }else if([type isEqualToString:@"key"]){
+        self.fileIcon = @"file_keynote";
+    }else if([type isEqualToString:@"numbers"]){
+        self.fileIcon = @"file_numbers";
+    }else if([type isEqualToString:@"pages"]){
+        self.fileIcon = @"file_pages";
+    }else if([type isEqualToString:@"zip"]){
+        self.fileIcon = @"file_zip";
+    }else if([type isEqualToString:@"rar"]){
+        self.fileIcon = @"file_rar";
     }
 }
-- (NSString *)transformedValue:(id)value
-{
-    
-    double convertedValue = [value doubleValue];
-    int multiplyFactor = 0;
-    
-    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
-    
-    while (convertedValue > 1024) {
-        convertedValue /= 1024;
-        multiplyFactor++;
-    }
-    
-    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
-}
+
 
 
 @end
