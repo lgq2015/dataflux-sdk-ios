@@ -8,8 +8,13 @@
 
 #ifndef PWNetWorkURLs_h
 #define PWNetWorkURLs_h
+
+#define HTTPS_PROTOCOL_STRING @"https://"
+#define HTTP_PROTOCOL_STRING @"http://"
+
 #ifdef DEV //开发环境
-#define HTTP_PROTOCOL @"http://"
+#define HTTPS  NO
+#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
 #define API_SEVERID HTTP_PROTOCOL@"testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  HTTP_PROTOCOL@"testing.shrine-via-core-stone.cloudcare.cn:10100"
 #define API_FORUM   HTTP_PROTOCOL@"testing.forum-via-core-stone.cloudcare.cn:10100"
@@ -20,7 +25,8 @@
 #define JPUSH_ID @"e008337585ca5df269038d4f"
 
 #elif PREPROD //预发环境
-#define HTTP_PROTOCOL @"https://"
+#define HTTPS  YES
+#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
 #define API_SEVERID HTTP_PROTOCOL@"preprod-home-via-core-stone.cloudcare.cn"
 #define API_SHRINE  HTTP_PROTOCOL@"preprod-shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"preprod-forum-via-core-stone.cloudcare.cn"
@@ -31,7 +37,8 @@
 #define JPUSH_ID @"557856f95bfb15efc965ff99"
 
 #else //正式环境
-#define HTTP_PROTOCOL @"https://"
+#define HTTPS  YES
+#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
 #define API_SEVERID HTTP_PROTOCOL@"home-via-core-stone.cloudcare.cn"
 #define API_SHRINE  HTTP_PROTOCOL@"shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"forum-via-core-stone.cloudcare.cn"
