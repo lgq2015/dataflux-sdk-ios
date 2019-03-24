@@ -9,6 +9,7 @@
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "TeamInfoModel.h"
+#import "InformationStatusReadManager.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -234,7 +235,9 @@ SINGLETON_FOR_CLASS(UserManager);
     self.curUserInfo = nil;
     self.teamModel = nil;
     self.isLogined = NO;
-    
+
+    [[InformationStatusReadManager sharedInstance] shutDown];
+
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];

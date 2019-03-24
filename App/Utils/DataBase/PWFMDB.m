@@ -23,6 +23,20 @@
 
 @end
 @implementation PWFMDB
+
+- (FMDatabaseQueue *)dbQueue
+{
+    if (!_dbQueue) {
+        FMDatabaseQueue *fmdb = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
+        self.dbQueue = fmdb;
+        [_db close];
+        self.db = [fmdb valueForKey:@"_db"];
+    }
+    return _dbQueue;
+}
+
+
+
 static PWFMDB *jqdb = nil;
 
 + (instancetype)shareDatabase
@@ -85,6 +99,7 @@ static PWFMDB *jqdb = nil;
         if (self) {
             self.db = fmdb;
             self.dbPath = path;
+            DLog(@"%@",path);
             return self;
         }
     }

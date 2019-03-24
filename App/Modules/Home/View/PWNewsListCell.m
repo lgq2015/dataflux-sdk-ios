@@ -35,7 +35,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.backgroundColor = [UIColor whiteColor];
     self.iconImgVie.hidden = NO;
     self.timeLab.hidden = NO;
-   
+
     [self.iconImgVie mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(Interval(16));
         make.right.mas_equalTo(self).offset(-Interval(16));
@@ -148,6 +148,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
     self.timeLab.text = _model.topic;
     //[NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.model.updatedAt],_model.topic];
     self.titleLab.text = _model.title;
+    self.titleLab.textColor = _model.read?PWReadColor:PWBlackColor;
 
 }
 -(void)layoutSubviews{

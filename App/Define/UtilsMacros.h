@@ -92,6 +92,7 @@
 #define PWTextLight [UIColor colorWithHexString:@"A6A6A6"]
 #define PWBackgroundColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0]
 #define PWTextBlackColor [UIColor colorWithHexString:@"140F26"]
+#define PWReadColor [UIColor colorWithHexString:@"8E8E93"]
 #define PWCancelBtnColor [UIColor colorWithHexString:@"140F26"]
 #define PWDefaultBtnColor [UIColor colorWithHexString:@"0D47A1"]
 #define PWDestructiveBtnColor [UIColor colorWithHexString:@"D50000"]
@@ -158,5 +159,8 @@ shared##className = [[self alloc] init]; \
 }); \
 return shared##className; \
 }
+
+#define PW_DBNAME_INFORMATION @"information.sqlite"
+#define PW_DB_INFORMATION_TABLE_NAME @"information"
 
 #endif /* define_h */

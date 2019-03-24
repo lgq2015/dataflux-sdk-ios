@@ -272,7 +272,7 @@
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
     NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID];
+    NSString *registrationId = [JPUSHService registrationID]?:@"123456789";
 
     NSDictionary *param =@{@"marker":@"mobile",
         @"username":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],

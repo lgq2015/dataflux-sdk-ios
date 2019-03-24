@@ -18,6 +18,7 @@
 #import "NewsWebView.h"
 #import "PWFMDB.h"
 #import "IssueSourceManger.h"
+#import "InformationStatusReadManager.h"
 
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
@@ -56,7 +57,7 @@
     [self dealNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
-    
+
 }
 - (void)judgeIssueConnectState{
     BOOL  ishideguide = getIsHideGuide;
@@ -92,7 +93,7 @@
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
         [self.infoboard updateTitle:str];
     }];
-   
+
     self.infoboard.itemClick = ^(NSInteger index){
         NSArray *dataSource;
          NSString *title;
@@ -133,7 +134,7 @@
         monitor.dataSource = [[NSMutableArray alloc]initWithArray:dataSource];
         [weakSelf.navigationController pushViewController:monitor animated:YES];
     };
-   
+
     self.infoboard.connectClick = ^(){
         AddSourceVC *addVC = [[AddSourceVC alloc]init];
         [weakSelf.navigationController pushViewController:addVC animated:YES];
@@ -190,7 +191,7 @@
         NSDictionary *dict = array[0];
         [self.notice createUIWithTitleArray:@[dict[@"title"]]];
     } failBlock:^(NSError *error) {
-        
+
     }];
 }
 - (void)headerRereshing{
@@ -242,19 +243,25 @@
     }];
 }
 - (void)RecommendationDatas:(NSArray *)array{
-    [array enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NewsListModel *model = [[NewsListModel alloc]initWithStickJsonDictionary:dict];
-        [self.newsDatas insertObject:model atIndex:0];
+    NSMutableArray *recommendDatas = [NSMutableArray new];
+    [array enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *_Nonnull stop) {
+        NewsListModel *model = [[NewsListModel alloc] initWithStickJsonDictionary:dict];
+        [recommendDatas addObject:model];
     }];
+    [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
+
+    [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
 }
 - (void)dealNewsDataWithData:(NSArray *)items andTotalPage:(NSInteger)page{
-    
+
     [items enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
         [self.newsDatas addObject:model];
     }];
+
+    [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
 
@@ -277,8 +284,6 @@
       cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
     }
     cell.model = self.newsDatas[indexPath.row];
-    
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell layoutIfNeeded];
     return cell;
@@ -286,6 +291,11 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.newsDatas[indexPath.row];
+    model.read = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[InformationStatusReadManager sharedInstance] readInformation:model.newsID];
+    });
+    [self.tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:false];
     NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
     newsweb.style = model.isStarred?WebItemViewStyleNoShare:WebItemViewStyleNormal;
     newsweb.newsModel = model;
