@@ -36,10 +36,7 @@
 
 
 - (instancetype)init {
-    NSString *dbName = NSStringFormat(@"%@_%@", getPWUserID, PW_DBNAME_INFORMATION);
-
-    self = [super initWithDBName:dbName];
-    if (self) {
+    if (self = [super init]) {
         [self.getHelper pw_inDatabase:^{
 
             NSString *tableName = PW_DB_INFORMATION_TABLE_NAME;
@@ -56,6 +53,9 @@
     return self;
 }
 
+- (NSString *)getDBName {
+    return NSStringFormat(@"%@_%@", getPWUserID, PW_DBNAME_INFORMATION);
+}
 
 /**
  * 同步已读的数据
