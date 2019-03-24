@@ -134,7 +134,7 @@
     [dateFormatter setTimeZone:localTimeZone];
     NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
     //输出格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
     return dateString;
 }

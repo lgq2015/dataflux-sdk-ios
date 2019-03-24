@@ -135,7 +135,7 @@
         
     }];
     }else{
-        [iToast alertWithTitleCenter:@"密码格式有误"];
+        [iToast alertWithTitleCenter:@"密码格式错误"];
     }
 }
 - (void)pwdTextSwitch:(UIButton *)sender{

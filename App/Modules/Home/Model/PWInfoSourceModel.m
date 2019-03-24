@@ -37,9 +37,9 @@
         self.type = SourceTypeUcloud;
     }else if ([dict[@"provider"] isEqualToString:@"domain"]){
         self.type = SourceTypeDomainNameDiagnose;
-    }else if ([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
+    }else if ([dict[@"provider"] isEqualToString:@"carrier.corsair"]){
         self.type = SourceTypeSingleDiagnose;
-    }else if([dict[@"provider"] isEqualToString:@"carrier.corsair"]){
+    }else if([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
         self.type = SourceTypeClusterDiagnose;
     }
 

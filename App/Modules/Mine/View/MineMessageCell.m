@@ -62,17 +62,20 @@
         color = [UIColor colorWithHexString:@"#3B85F8"];
         type = @"情报源";
     }else if([_model.messageType isEqualToString:@"service_package"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
+        color = RGBACOLOR(85, 220, 117, 1);
+        type = @"服务";
+    }else if([_model.messageType isEqualToString:@"service"]){
+        color = RGBACOLOR(85, 220, 117, 1);
         type = @"服务";
     }else{
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"不详";
+        color = RGBACOLOR(85, 220, 117, 1);
+        type = @"服务";
     }
     [self.sourceLab setTextColor:color];
     self.sourceLab.text = type;
     self.sourceLab.layer.borderColor = color.CGColor;
     self.triangleView.hidden = _model.isReaded;
-    self.timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
+    self.timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
 }
 - (RightTriangleView *)triangleView{
     if (!_triangleView) {

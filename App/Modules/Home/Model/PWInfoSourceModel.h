@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, SourceType) {
     SourceTypeTencent,             //腾讯云
     SourceTypeUcloud,              //优刻得
     SourceTypeSingleDiagnose,      //主机诊断
-    SourceTypeClusterDiagnose,     //集群诊断
+    SourceTypeClusterDiagnose,     //先知
     SourceTypeDomainNameDiagnose,  //域名诊断
 };
 typedef NS_ENUM(NSInteger, SourceState) {

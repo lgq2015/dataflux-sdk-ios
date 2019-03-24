@@ -78,7 +78,7 @@
 }
 - (void)createUI{
 
-    CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(524):ZOOM_SCALE(690);
+    CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
@@ -140,7 +140,7 @@
         [weakSelf.navigationController pushViewController:addVC animated:YES];
     };
     [self.notice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.infoboard.mas_bottom).offset(Interval(10));
+        make.top.mas_equalTo(self.infoboard.mas_bottom).offset(20);
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(60));
     }];

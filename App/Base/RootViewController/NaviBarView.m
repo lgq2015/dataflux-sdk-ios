@@ -34,15 +34,14 @@
     
     self = [super initWithFrame:CGRectMake(0, 0, kWidth, kNavBarHeight)];
     self.backgroundColor = [UIColor clearColor];
-    self.layer.zPosition = 999999;
     
     // 最顶部的状态栏
     _statusBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kNavBarHeight)];
-    _statusBar.backgroundColor = PWBackgroundColor;
+    _statusBar.backgroundColor = [UIColor clearColor];
     [self addSubview:_statusBar];
     
     _navigationBar = [[UIView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kWidth, kNavBarHeight)];
-    _navigationBar.backgroundColor = PWBackgroundColor;
+    _navigationBar.backgroundColor = [UIColor clearColor];
     [self addSubview:_navigationBar];
     
     return self;
@@ -76,19 +75,15 @@
         return;
     
     UIImage *background = [UIImage imageNamed:@"icon_back"];
-    UIImage *backgroundOn = [UIImage imageNamed:@"icon_back"];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setAccessibilityIdentifier:@"TopBackBtn"];
-    button.tag = TagBackBtn;
     [button addTarget:self action:@selector(doBackPrev) forControlEvents:UIControlEventTouchUpInside];
-    
     [button setImage:background forState:UIControlStateNormal];
-    [button setImage:backgroundOn forState:UIControlStateHighlighted];
-    
     button.frame = CGRectMake(0, 0, 60, 44);
     button.contentEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 20);
     [_navigationBar addSubview:button];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doBackPrev)];
+    [self addGestureRecognizer:tap];
     _backBtn = button;
 }
 - (void)addBottomSepLine {
@@ -100,7 +95,22 @@
     line.backgroundColor = [UIColor colorWithRed:230 / 255.0 green:230 / 255.0 blue:230 / 255.0 alpha:1];
     line.tag = kTagLine;
     _lineView = line;
+    _navigationBar.userInteractionEnabled = YES;
     [_navigationBar addSubview:line];
+}
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    UIView *view = [super hitTest:point withEvent:event];
+    if (view == nil){
+        //转换坐标
+        CGPoint tempPoint = [self.backBtn convertPoint:point fromView:self];
+        //判断点击的点是否在按钮区域内
+        if (CGRectContainsPoint(self.backBtn.bounds, tempPoint)){
+            //返回按钮
+            return _backBtn;
+        }
+    }
+    return view;
+   
 }
 - (void)doBackPrev{
     if (_controller)
@@ -136,6 +146,7 @@
     }
     return _titleLabel;
 }
+
 - (void)dealloc {
     if (_rightMenuView) _rightMenuView = nil;
     if (_rightWishBtn) _rightWishBtn = nil;

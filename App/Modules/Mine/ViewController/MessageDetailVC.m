@@ -54,12 +54,15 @@
     }else if([self.model.messageType isEqualToString:@"issue_source"]){
         color = [UIColor colorWithHexString:@"#3B85F8"];
         type = @"情报源";
-    }else if([self.model.messageType isEqualToString:@"service_package"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
+    }else if([_model.messageType isEqualToString:@"service_package"]){
+        color = RGBACOLOR(85, 220, 117, 1);
+        type = @"服务";
+    }else if([_model.messageType isEqualToString:@"service"]){
+        color = RGBACOLOR(85, 220, 117, 1);
         type = @"服务";
     }else{
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"不详";
+        color = RGBACOLOR(85, 220, 117, 1);
+        type = @"服务";
     }
     [self.sourceLab setTextColor:color];
     self.sourceLab.text = type;

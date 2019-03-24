@@ -9,7 +9,7 @@
 #import "PasswordSetVC.h"
 #import "OpenUDID.h"
 #import "JPUSHService.h"
-@interface PasswordSetVC ()
+@interface PasswordSetVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIButton *skipBtn;
 @property (nonatomic, strong) UIButton *showWordsBtn;
 @property (nonatomic, strong) UITextField *passwordTf;
@@ -18,7 +18,11 @@
 @end
 
 @implementation PasswordSetVC
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
+        
+    }}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isHidenNaviBar = YES;
@@ -150,16 +154,28 @@
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             setXAuthToken(response[@"content"][@"authAccessToken"]);
-            KPostNotification(KNotificationLoginStateChange, @YES);
+            [iToast alertWithTitleCenter:@"修改成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                KPostNotification(KNotificationLoginStateChange, @YES);
+            });
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:@"修改失败，请重试"];
+//            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
     }];
     }else{
-        [iToast alertWithTitleCenter:@"密码格式有误"];
+        [iToast alertWithTitleCenter:@"密码格式错误"];
     }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
+    }
+}
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+    return NO;
 }
 - (void)skipBtnClick{
 //    [userManager  saveUserInfo];

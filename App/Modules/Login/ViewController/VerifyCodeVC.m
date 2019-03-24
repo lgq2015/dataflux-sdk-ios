@@ -299,7 +299,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
@@ -319,7 +319,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
@@ -328,7 +328,7 @@
 #pragma mark ========== 我的/修改邮件 ==========
 - (void)updateEmailWithCode:(NSString *)code{
     //{ "data": { "username": "18236889895", "uType": "mobile", "verificationCode": "123456", "verificationCodeType": "verifycode", "t": "update_email" } }
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"update_email",@"verificationCodeType":@"verifycode"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":code,@"t":@"update_email",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
@@ -339,6 +339,8 @@
             bindemail.isFirst = userManager.curUserInfo.email == nil? YES:NO;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
@@ -356,6 +358,8 @@
             bindemail.changeType = BindUserInfoTypeMobile;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
@@ -398,7 +402,7 @@
     }];
 }
 - (void)teamTransferWithCode:(NSString *)code{
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":code,@"t":@"owner_transfer",@"verificationCodeType":@"verifycode"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":code,@"t":@"owner_transfer",@"verificationCodeType":@"verifycode"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];

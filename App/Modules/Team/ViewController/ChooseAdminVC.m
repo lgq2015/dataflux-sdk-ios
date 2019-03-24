@@ -35,7 +35,7 @@
     search.hidesNavigationBarDuringPresentation = NO;
     search.searchBar.layer.cornerRadius = 4.0f;
     search.searchBar.layer.masksToBounds = YES;
-    search.searchBar.placeholder = @"搜索暗提示";
+    search.searchBar.placeholder = @"搜索提示";
     [search.searchBar setBackgroundImage:[UIImage imageWithColor:PWWhiteColor]];
     //设置背景色
     [search.searchBar setBackgroundColor:[UIColor clearColor]];

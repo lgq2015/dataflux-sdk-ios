@@ -148,14 +148,23 @@
         [self eventTeamCreate:extra];
     }else if([name isEqualToString:@"call"]){
         [self eventCall:extra];
+    }else if([name isEqualToString:@"feedback"]){
+        [self eventFeedback];
     }
+    //[0]    (null)    @"name" : @"feedback"
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
-   
+    [self.tabBarController setSelectedIndex:2];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)eventOfOpenWithExtra:(NSDictionary *)extra{
+   
     
-    
+}
+- (void)eventFeedback{
+    [self.tabBarController setSelectedIndex:3];
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    KPostNotification(KNotificationFeedBack,nil);
 }
 - (void)eventSwitchToken:(NSDictionary *)extra{
     

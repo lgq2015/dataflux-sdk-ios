@@ -37,6 +37,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     if(self.isShowCustomNaviBar){
         self.isHidenNaviBar = YES;
+        self.isShowLiftBack = NO;
+
         [self drawTopNaviBar];
     }
 }
@@ -91,8 +93,10 @@
     naviBar.backgroundColor = PWBackgroundColor;
     [self.view addSubview:naviBar];
     self.topNavBar = naviBar;
+    self.topNavBar.userInteractionEnabled = YES;
         // 添加返回按钮
-    [_topNavBar addBackBtn];
+    [self.view bringSubviewToFront:self.topNavBar];
+    [self.topNavBar addBackBtn];
         // 添加底部分割线 - 如果不需要添加,这里处理即可
 //    [_topNavBar addBottomSepLine];
 }

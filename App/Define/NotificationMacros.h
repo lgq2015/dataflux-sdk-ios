@@ -44,4 +44,6 @@
 #define KNotificationNetWorkStateChange @"KNotificationNetWorkStateChange"
 #pragma mark - ——————— 我的 ————————
 #define KNotificationUserInfoChange    @"KNotificationUserInfoChange"
+#define KNotificationFeedBack          @"KNotificationFeedBack"
+
 #endif /* NotificationMacros_h */

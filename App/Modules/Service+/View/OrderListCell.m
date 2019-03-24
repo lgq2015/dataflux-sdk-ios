@@ -32,22 +32,23 @@
     self.orderTimeLab.text = timeStr;
 }
 -(void)layoutSubviews{
-    [self.orderTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
-        make.top.mas_equalTo(self.contentView).offset(Interval(17));
-        make.height.offset(ZOOM_SCALE(17));
-    }];
+  
     [self.orderNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.contentView).offset(Interval(15));
         make.left.mas_equalTo(self.contentView).offset(Interval(16));
-        make.centerY.mas_equalTo(self.orderTimeLab);
+        make.right.mas_equalTo(self.contentView).offset(Interval(-16));
         make.height.offset(ZOOM_SCALE(20));
-        make.right.mas_equalTo(self.orderTimeLab).offset(-Interval(10));
     }];
     [self.orderTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.orderNumLab);
-        make.top.mas_equalTo(self.orderNumLab.mas_bottom);
+        make.top.mas_equalTo(self.orderNumLab.mas_bottom).offset(Interval(19));
         make.height.offset(ZOOM_SCALE(25));
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+    }];
+    [self.orderTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.orderTitleLab);
+        make.height.offset(ZOOM_SCALE(17));
+        make.top.mas_equalTo(self.orderTitleLab.mas_bottom).offset(Interval(5));
     }];
 }
 -(UILabel *)orderNumLab{
