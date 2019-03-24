@@ -33,10 +33,14 @@
     [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:YES params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content  =response[@"content"];
-            self.districtAry = [content mutableArrayValueForKey:@"district"];
-            [self.tableView reloadData];
+            NSArray *district = content[@"district"];
+            if (district.count>0) {
+                self.districtAry = [NSMutableArray arrayWithArray:district];
+                [self.tableView reloadData];
+                [self setFistSelect];
+            }
             [SVProgressHUD dismiss];
-            [self setFistSelect];
+            
         }
     } failBlock:^(NSError *error) {
         

@@ -66,6 +66,6 @@
 "home.team.canNotInviteYourself"= "不能邀请自己";
 "forum.auth.NoPermission" = "没有文章操作权限";
 "home.issueSource.invalidDomain" = "域名格式错误";
-"home.issueSource.invalidIssueSourceAK" = "无效的";
+"home.issueSource.invalidIssueSourceAK" = "秘钥验证失败";
 "home.base.payloadTooLarge" = "上传文件过大";
 

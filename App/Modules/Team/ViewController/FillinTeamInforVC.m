@@ -263,7 +263,7 @@
     if(self.count<2){
         transferTeam.enabled = NO;
     }
-    UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"注销团队"];
+    UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"解散团队"];
     [logoutTeam addTarget:self action:@selector(logoutTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:logoutTeam];
     [logoutTeam mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -72,7 +72,7 @@
     }];
     
     RACSignal *emailSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
-        return @(value.length>8);
+        return @(value.length>7);
     }];
     RAC(confirmBtn,enabled) = emailSignal;
     
@@ -190,14 +190,13 @@
 #pragma mark ========== team ==========
 - (void)teamTransfer{
     [SVProgressHUD show];
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"owner_transfer"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"owner_transfer"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-           
             NSString * uuid =response[@"content"][@"uuid"];
             [self doTeamTransfer:uuid];
         }else{
-            
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
         [SVProgressHUD dismiss];
         
@@ -208,7 +207,7 @@
 }
 -(void)teamDissolve{
     [SVProgressHUD show];
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"team_cancel"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"team_cancel"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             

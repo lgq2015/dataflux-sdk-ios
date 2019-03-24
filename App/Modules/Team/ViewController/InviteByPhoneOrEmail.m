@@ -24,7 +24,7 @@
 - (void)createUI{
     NSDictionary *dict ;
     if (self.isPhone) {
-        dict = @{@"title":@"手机号",@"placeholder":@"请输入邀请成员手机号"};
+        dict = @{@"title":@"手机号",@"placeholder":@"请输入邀请成员手机号码"};
     }else{
         dict = @{@"title":@"邮箱",@"placeholder":@"请输入邀请成员邮箱"};
     }
@@ -63,7 +63,7 @@
          RAC(commitTeam,enabled) = phoneTf;
     }else{
         RACSignal *emailSignal= [[self.codeTF rac_textSignal] map:^id(NSString *value) {
-            return @([value validateEmail]);
+            return @(value.length>0);
         }];
         RAC(commitTeam,enabled) = emailSignal;
     }
@@ -87,6 +87,11 @@
     if (self.isPhone) {
         param = @{@"data":@{@"invite_type":@"mobile",@"invite_id":[self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]}};
     }else{
+        BOOL  isEmail = [self.codeTF.text validateEmail];
+        if (isEmail == NO){
+            [iToast alertWithTitleCenter:@"邮箱格式错误"];
+            return;
+        }
         param = @{@"data":@{@"invite_type":@"email",@"invite_id":self.codeTF.text}};
     }
     [SVProgressHUD show];
@@ -94,6 +99,9 @@
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }else {
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }

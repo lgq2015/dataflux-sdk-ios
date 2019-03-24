@@ -184,9 +184,10 @@
     setPWhistorySearch(self.historyData);
 }
 - (void)searchHandBookWith:(NSString *)text{
-    if (self.isLocal) {
-        [self searchLocalDataWith:text];
-    }else{
+//    if (self.isLocal) {
+//        self.historytableView.hidden = YES;
+//        [self searchLocalDataWith:text];
+//    }else{
     self.historytableView.hidden = YES;
     [SVProgressHUD show];
     NSDictionary *param = @{@"q":text,@"orderBy":@"desc"};
@@ -210,7 +211,7 @@
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
     }];
-    }
+//    }
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

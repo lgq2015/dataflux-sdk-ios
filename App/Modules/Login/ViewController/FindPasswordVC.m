@@ -79,6 +79,7 @@
             return [UIColor colorWithHexString:@"C7C7CC"];;
         }
     }];
+    DLog(@"%@",self.userAcount);
     self.userTf.text = self.userAcount;
 }
 -(UIButton *)veritfyCodeBtn{

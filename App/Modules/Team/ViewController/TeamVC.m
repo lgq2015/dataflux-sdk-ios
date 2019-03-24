@@ -114,6 +114,7 @@
 }
 - (void)headerRereshing{
     [self loadTeamProductData];
+    [self loadTeamProductData];
 }
 - (void)loadTeamProductData{
     [SVProgressHUD show];

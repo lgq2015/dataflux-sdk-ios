@@ -296,6 +296,7 @@
     FindPasswordVC *findVC = [[FindPasswordVC alloc]init];
     findVC.isHidenNaviBar = YES;
     findVC.isShowCustomNaviBar = YES;
+    DLog(@"%@",self.phoneTf.text);
     findVC.userAcount = self.phoneTf.text;
     [self.navigationController pushViewController:findVC animated:YES];
 }

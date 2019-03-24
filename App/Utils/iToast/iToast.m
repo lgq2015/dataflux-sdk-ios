@@ -11,7 +11,7 @@
 
 #define FontSize ([UIFont fontWithName:@"PingFangSC-Light" size: 14])
 static CGFloat sizeSpace = 40.0;
-static CGFloat sizelabel = 15;
+static CGFloat sizelabel = 20;
 #define maxlabel (windowView.frame.size.width - 20.0 * 2)
 
 @interface iToast ()
@@ -73,9 +73,9 @@ static CGFloat sizelabel = 15;
         CGRect textRect = [text boundingRectWithSize:CGSizeMake(maxlabel, kHeight/3) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : [UIFont fontWithName:@"PingFangSC-Light" size: 14]} context:nil];
         
         CGSize textSize = textRect.size;
-        CGFloat labelX = (windowView.frame.size.width - textSize.width) / 2;
+        CGFloat labelX = (windowView.frame.size.width - textSize.width-20-sizelabel) / 2;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;
-        CGFloat labelWidth = textSize.width + sizelabel;
+        CGFloat labelWidth = textSize.width + sizelabel+20;
         CGFloat labelHeight = textSize.height + sizelabel;
         if (iToastPositionCenter == position)
         {
@@ -86,7 +86,7 @@ static CGFloat sizelabel = 15;
             labelY = (windowView.frame.size.height - labelHeight - sizeSpace);
         }
         self.textlabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
-        
+        self.textlabel.layer.cornerRadius = labelHeight/2.0;
         [windowView addSubview:self.button];
         self.button.frame = self.textlabel.frame;
         

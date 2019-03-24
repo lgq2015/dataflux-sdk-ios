@@ -38,7 +38,7 @@
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
-//    WeakSelf;
+    //    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
