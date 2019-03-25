@@ -287,7 +287,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     }
     
     session = [manager POST:url
-                 parameters:nil
+                 parameters:params
   constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
       NSString *fileName = nil;
       

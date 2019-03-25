@@ -18,22 +18,45 @@
 @implementation CreateQuestionCell
 -(void)setTitleWithProgress:(float)progress{
     self.titleLab.text = [NSString stringWithFormat:@"正在上传… (%d%%)",(int)(progress*100)];
+    self.titleLab.hidden = NO;
 }
 -(void)setModel:(CreateQuestionModel *)model{
     _model = model;
-    self.reloadBtn.hidden = YES;
+    switch (_model.type) {
+        case UploadTypeSuccess:
+          self.uploadStateLab.text = @"上传成功";
+          self.uploadStateLab.hidden = NO;
+          self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#9B9EA0"];
+          self.reloadBtn.hidden = YES;
+          self.sizeLab.text = _model.size;
+            break;
+        case UploadTypeError:
+          self.uploadStateLab.text = @"上传失败！";
+          self.uploadStateLab.hidden = NO;
+          self.reloadBtn.hidden = NO;
+          self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];
+            break;
+        case UploadTypeNotStarted:
+          self.uploadStateLab.hidden = YES;
+          self.reloadBtn.hidden = YES;
+            break;
+    }
+    self.iconView.image = _model.image;
 }
 -(void)uploadError{
     self.reloadBtn.hidden = NO;
     self.titleLab.text = self.model.name;
     self.sizeLab.text = self.model.size;
     self.uploadStateLab.text = @"上传失败！";
+    self.uploadStateLab.hidden = NO;
+    self.reloadBtn.hidden = NO;
     self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];
 }
 -(void)completeUpload{
     self.titleLab.text = self.model.name;
     self.sizeLab.text = self.model.size;
     self.uploadStateLab.text = @"上传成功";
+    self.uploadStateLab.hidden = NO;
     self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#9B9EA0"];
 }
 - (void)awakeFromNib {
@@ -50,6 +73,7 @@
 - (UIButton *)reloadBtn{
     if (!_reloadBtn) {
         _reloadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新上传"];
+        _reloadBtn.titleLabel.font = MediumFONT(14);
         [_reloadBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_reloadBtn addTarget:self action:@selector(reloadBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_reloadBtn];
@@ -57,12 +81,13 @@
     return _reloadBtn;
 }
 - (void)reloadBtnClick{
-    if (self.reUpload) {
-        self.reUpload(self.index);
-    }
     self.titleLab.text = @"正在上传…";
     self.uploadStateLab.text = @"";
     self.reloadBtn.hidden = YES;
+    if (self.reUpload) {
+        self.reUpload(self.index);
+    }
+    
 }
 -(void)layoutSubviews{
    
@@ -89,7 +114,7 @@
     [[self.contentView viewWithTag:200] removeFromSuperview];
     [self.contentView addSubview:cancelUpBtn];
     [cancelUpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_offset(self.contentView).offset(-Interval(20));
+        make.right.mas_equalTo(self.contentView).offset(-Interval(20));
         make.width.height.offset(ZOOM_SCALE(26));
         make.centerY.mas_equalTo(self.contentView);
     }];

@@ -108,7 +108,7 @@ static CGFloat sizelabel = 20;
         _textlabel.layer.cornerRadius = 5.0;
         _textlabel.layer.masksToBounds = YES;
         _textlabel.numberOfLines = 0;
-        _textlabel.shadowColor = [UIColor darkGrayColor];
+//        _textlabel.shadowColor = [UIColor darkGrayColor];
         _textlabel.shadowOffset = CGSizeMake(1.0, 1.0);
         _textlabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     }

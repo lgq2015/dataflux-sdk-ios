@@ -93,9 +93,8 @@ SINGLETON_FOR_CLASS(UserManager);
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
-                NSUserDefaults *token = [NSUserDefaults standardUserDefaults];
-                [token setObject:content[@"authAccessToken"] forKey:XAuthToken];
-                [token synchronize];
+                setXAuthToken(content[@"authAccessToken"]);
+                [kUserDefaults synchronize];                
                 BOOL isRegister = [content[@"isRegister"] boolValue];
              if (isRegister) {
                  NSString *changePasswordToken = content[@"changePasswordToken"];
@@ -128,14 +127,13 @@ SINGLETON_FOR_CLASS(UserManager);
    
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
     dispatch_group_t grpupT = dispatch_group_create();//一个线程组
-    __block BOOL isUserSuccess,isTeamSuccess;
+    __block BOOL isUserSuccess,isTeamSuccess = NO;
     
     dispatch_group_async(grpupT, queueT,^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
-                isUserSuccess = NO;
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }else{
                 isUserSuccess = YES;
@@ -154,7 +152,7 @@ SINGLETON_FOR_CLASS(UserManager);
             dispatch_group_leave(grpupT);
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
-            isUserSuccess = NO;
+           
             dispatch_group_leave(grpupT);
         }];
         
@@ -183,7 +181,7 @@ SINGLETON_FOR_CLASS(UserManager);
             }
             dispatch_group_leave(grpupT);
         } failBlock:^(NSError *error) {
-            isTeamSuccess = NO;
+           
             dispatch_group_leave(grpupT);
         }];
     });
@@ -194,7 +192,7 @@ SINGLETON_FOR_CLASS(UserManager);
     
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
-                if (isSuccess) {
+                if (isSuccess && isTeamSuccess) {
                     isSuccess(YES);
                 }
             }
@@ -232,7 +230,8 @@ SINGLETON_FOR_CLASS(UserManager);
     
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
-    
+    [kUserDefaults removeObjectForKey:PWisTeam];
+
     self.curUserInfo = nil;
     self.teamModel = nil;
     self.isLogined = NO;
@@ -337,24 +336,14 @@ SINGLETON_FOR_CLASS(UserManager);
         [cache setObject:dic forKey:KUserModelCache];
     }
 }
+#pragma mark ========== team 相关 ==========
 - (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
     if (teamMember) {
         memberBlock ? memberBlock(YES,teamMember):nil;
     }else{
-        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                NSArray *content = response[@"content"];
-                [cache setObject:content forKey:KTeamMemberCacheName];
-                memberBlock ? memberBlock(YES,content):nil;
-            }else{
-                memberBlock ? memberBlock(NO,nil):nil;
-            }
-        } failBlock:^(NSError *error) {
-            memberBlock ? memberBlock(NO,nil):nil;
-
-        }];
+        memberBlock ? memberBlock(NO,nil):nil;
     }
 }
 - (void)setTeamMenber:(NSArray *)memberArray{
@@ -362,6 +351,22 @@ SINGLETON_FOR_CLASS(UserManager);
     
     [cache removeAllObjectsWithBlock:^{
          [cache setObject:memberArray forKey:KTeamMemberCacheName];
+    }];
+}
+- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+    NSArray *product = (NSArray *)[cache objectForKey:KTeamProductDict];
+    if (product) {
+        productBlock ? productBlock(YES,product):nil;
+    }else{
+        productBlock ? productBlock(NO,nil):nil;
+    }
+        
+}
+- (void)setTeamProduct:(NSArray *)teamProduct{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+    [cache removeAllObjectsWithBlock:^{
+        [cache setObject:teamProduct forKey:KTeamProductDict];
     }];
 }
 @end

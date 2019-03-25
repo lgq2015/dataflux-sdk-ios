@@ -46,6 +46,8 @@
                 placeholder = @"请输入新的姓名";
             }
             tipTitle = @"姓名";
+            self.emailTF.text = userManager.curUserInfo.name;
+            [self.emailTF becomeFirstResponder];
             break;
         case BindUserInfoTypeMobile:
             title =@"修改手机";
@@ -124,6 +126,7 @@
         }];
         RAC(self.commitBtn,enabled) = phoneSignal;
     }else{
+         [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             return @(value.length>1);
         }];
@@ -232,18 +235,22 @@
     [SVProgressHUD show];
     NSDictionary *param =@{@"data":@{@"name":self.emailTF.text}};
     [PWNetworking requsetHasTokenWithUrl:PW_accountName withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            userManager.curUserInfo.username = self.emailTF.text;
+            userManager.curUserInfo.name = self.emailTF.text;
             [userManager saveChangeUserInfo];
             KPostNotification(KNotificationUserInfoChange, nil);
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
-            [self.navigationController popViewControllerAnimated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+              [self.navigationController popViewControllerAnimated:YES];
+            });
+           
         }else{
-            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+            [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }
-        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
+         [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

@@ -27,6 +27,7 @@
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWUserID]
+#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
 #define KTeamModelCache @"KTeamModelCache"

@@ -83,6 +83,7 @@
     }];
 }
 - (void)loadData{
+    //拿本地数据
     NSArray *array =  [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
     self.dataSource = [NSMutableArray new];
     [self.dataSource addObjectsFromArray:array];
@@ -92,6 +93,7 @@
     }else{
         [self showNoDataImageView];
     }
+    //更新数据
     [[IssueSourceManger sharedIssueSourceManger] updateAllIssueSourceList:^(NSArray * _Nonnull ary) {
         if (ary.count>0) {
             [self hideNoDataImageView];

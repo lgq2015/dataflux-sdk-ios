@@ -264,7 +264,7 @@
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;
 }
-- (NSString *)transformedValue:(id)value
++ (NSString *)transformedValue:(id)value
 {
     
     double convertedValue = [value doubleValue];

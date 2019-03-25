@@ -40,7 +40,7 @@
             NSDictionary *content = response[@"content"];
             self.infoDetailDict = content;
             NSDictionary *accountInfo = content[@"accountInfo"];
-            NSString *name = accountInfo[@"name"];
+            NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
             self.createNameLab.text = [NSString stringWithFormat:@"%@ 创建",name];
         }
     } failBlock:^(NSError *error) {

@@ -121,7 +121,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     if (issuelist.count>0) {
     
     __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
-    //找到handbook中有,itemDatas中没有的数据
+    //找到中有,itemDatas中没有的数据
     [issuelist enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
        
         __block BOOL isHave = NO;
@@ -203,7 +203,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
                 completion(self.issueSourceList);
             }
         }else{
-            
+        // error
         }
         
     } failBlock:^(NSError *error) {

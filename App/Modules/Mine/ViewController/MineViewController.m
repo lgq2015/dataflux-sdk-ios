@@ -74,13 +74,8 @@
 }
 - (void)updateUser{
     [userManager saveChangeUserInfo];
-    NSString *name =  userManager.curUserInfo.username;
-    NSString *mobile = userManager.curUserInfo.mobile;
-    if (name == nil || [name isEqualToString:@""]) {
-        self.userName.text = mobile;
-    }else{
-        self.userName.text = name;
-    }
+    self.userName.text= userManager.curUserInfo.name;
+
     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
 }
@@ -103,6 +98,7 @@
         group1 = @[mynews,infoSource,collection];
         group2 = @[opinion,encourage,aboutPW];
     }
+    DLog(@"%@",userManager.curUserInfo);
     NSArray *group3 = @[setting];
     self.dataSource = @[group1,group2,group3];
     [self.tableView reloadData];
@@ -119,7 +115,11 @@
             }
         }
     } failBlock:^(NSError *error) {
-        
+        if (self.tableView) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+            MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+            [cell setDescribeLabText:@"0"];
+        }
     }];
 }
 - (void)createUI{
@@ -131,14 +131,7 @@
         make.centerY.mas_equalTo(self.iconImgView);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    
-    NSString *name =  userManager.curUserInfo.username;
-    NSString *mobile = userManager.curUserInfo.mobile;
-    if (name == nil || [name isEqualToString:@""]) {
-        self.userName.text = mobile;
-    }else{
-        self.userName.text = name;
-    }
+    self.userName.text= userManager.curUserInfo.name;
     [self.personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.userName);
         make.right.mas_equalTo(self.view).offset(-Interval(16));

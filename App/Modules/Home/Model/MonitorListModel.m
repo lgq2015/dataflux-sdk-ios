@@ -59,7 +59,19 @@
     NSDictionary *account_info = issueLogDict[@"account_info"];
     if (account_info.allKeys>0) {
         NSString *account = [account_info stringValueForKey:@"name" default:@""];
-        self.issueLog =[NSString stringWithFormat:@"%@:%@",account,[issueLogDict stringValueForKey:@"content" default:@""]];
+        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+        NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
+        NSString *content;
+        if ([type isEqualToString:@"attachment"]) {
+            content = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
+        }else{
+            content =[issueLogDict stringValueForKey:@"content" default:@""];
+        }
+        if (nickname.length>0) {
+          self.issueLog =[NSString stringWithFormat:@"%@:%@",nickname,content];
+        }else{
+        self.issueLog =[NSString stringWithFormat:@"%@:%@",account,content];
+        }
     }else{
         self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
     }

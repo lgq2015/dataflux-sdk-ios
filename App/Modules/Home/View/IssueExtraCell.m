@@ -23,7 +23,12 @@
 }
 -(void)setModel:(IssueExtraModel *)model{
     _model = model;
+     NSString *type =  [_model.fileUrl pathExtension];
+    if ([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]) {
+        [self.iconView sd_setImageWithURL:[NSURL URLWithString:_model.fileUrl] placeholderImage:[UIImage imageNamed:_model.fileIcon]];
+    }else{
     self.iconView.image = [UIImage imageNamed:_model.fileIcon];
+    }
     self.titleLab.text = _model.fileName;
     if (self.titleLab.text.length>0) {
         [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {

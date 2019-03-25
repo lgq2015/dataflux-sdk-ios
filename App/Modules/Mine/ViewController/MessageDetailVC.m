@@ -86,7 +86,6 @@
         make.top.mas_equalTo(self.sourceLab.mas_bottom).offset(Interval(11));
         make.bottom.mas_equalTo(self.contentView).offset(-Interval(19));
     }];
-    [iToast alertWithTitleCenter:<#(NSString *)#>]
 }
 -(UIView *)contentView{
     if (!_contentView) {

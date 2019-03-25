@@ -93,5 +93,12 @@ SINGLETON_FOR_HEADER(UserManager)
     team成员缓存
  */
 - (void)setTeamMenber:(NSArray *)memberArray;
-
+/**
+    获取teamProduct 缓存
+ */
+- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock;
+/**
+   teamProduct 缓存
+ */
+- (void)setTeamProduct:(NSArray *)teamProduct;
 @end

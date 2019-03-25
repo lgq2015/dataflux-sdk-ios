@@ -13,14 +13,14 @@
 +(void)sendMessage:(NSDictionary *)dict sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
     
     PWChatMessage *message = [PWChatMessage new];
-
+    NSString *time =[NSDate getNowTimeTimestamp];
     message.nameStr = @"今天：";
     switch (messageType) {
         case PWChatMessageTypeText:{
             message.messageFrom = PWChatMessageFromMe;
             message.messageType = PWChatMessageTypeText;
             message.textString = dict[@"text"];
-            message.headerImgurl = userManager.curUserInfo.avatar;
+            message.headerImgurl = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             message.cellString = PWChatTextCellId;
         }
             break;

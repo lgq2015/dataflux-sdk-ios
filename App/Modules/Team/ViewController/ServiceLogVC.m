@@ -8,6 +8,7 @@
 
 #import "ServiceLogVC.h"
 #import "MonitorCell.h"
+#import "InfoDetailVC.h"
 #import "ProblemDetailsVC.h"
 @interface ServiceLogVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -40,8 +41,14 @@
 }
 - (void)loadTeamNeedData{
     [SVProgressHUD show];
-    NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10,@"ticketType":@"serviceEvent"};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+    NSDictionary *params =@{@"_withLatestIssueLog":@YES,
+                            @"orderBy":@"seq",
+                            @"_latestIssueLogLimit":@1,
+                            @"orderMethod":@"desc",
+                            @"pageSize":@10,
+                            @"ticketType":@"serviceEvent",
+                            @"_latestIssueLogSubType":@"comment"};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueGeneralList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
@@ -141,11 +148,18 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
     MonitorListModel *model =self.dataSource[indexPath.row];
-    model.isRead = YES;
-    detailVC.model = self.dataSource[indexPath.row];
-    [self.navigationController pushViewController:detailVC animated:YES];
+     model.isRead = YES;
+    if (model.isFromUser) {
+        ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
+        detailVC.model = model;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else{
+        InfoDetailVC *infodetial = [[InfoDetailVC alloc]init];
+        infodetial.model = model;
+        [self.navigationController pushViewController:infodetial animated:YES];
+    }
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MonitorListModel *model =self.dataSource[indexPath.row];

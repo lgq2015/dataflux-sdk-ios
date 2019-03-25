@@ -21,7 +21,8 @@
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, strong) NSMutableArray<CreateQuestionModel *> *attachmentArray;
-
+@property (nonatomic, copy) NSString *batchId;
+@property (nonatomic, copy) NSString *upBatchId;
 // type = 1 严重 type = 2  警告
 @property (nonatomic, assign) NSString *level;
 @end
@@ -163,8 +164,12 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:CreateQuestionCell.class forCellReuseIdentifier:@"CreateQuestionCell"];
-    self.tableView.frame = CGRectMake(0, CGRectGetMaxY(self.describeTextView.frame)+3, kWidth, self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
-    [self.view addSubview:self.tableView];
+    [self.mainScrollView addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.describeTextView.mas_bottom).offset(20);
+        make.left.right.mas_equalTo(self.view);
+    make.height.offset(self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
+    }];
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
     UIButton *button = [[UIButton alloc]init];
@@ -214,16 +219,29 @@
 - (void)accessoryBtnClick{
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
     [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
-        
-        NSData *data = UIImageJPEGRepresentation(image, 0.5);
-        [self upLoadImageWithData:data name:name tag:self.attachmentArray.count+100];
+        [self upLoadImageWithImage:image name:name tag:self.attachmentArray.count+100];
     }];
 }
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
         [self.navigationController popViewControllerAnimated:YES];
     }else if (button.tag == NavRightBtnTag){
-        NSDictionary *params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
+        NSDictionary *params;
+        if (self.attachmentArray.count>0 && self.batchId !=nil) {
+            NSMutableArray *confirmFormUids = [NSMutableArray new];
+            [self.attachmentArray enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.type == UploadTypeSuccess?[confirmFormUids addObject:obj.fileID]:nil;
+            }];
+            if (confirmFormUids.count>0) {
+                NSDictionary *issueLogForm = @{@"batchId":self.batchId,@"confirmFormUids":confirmFormUids};
+                
+                params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text},@"issueLogForm":issueLogForm};
+            }else{
+              params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
+            }
+        }else{
+        params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
+        }
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
@@ -234,51 +252,87 @@
         }];
     }
 }
--(void)upLoadImageWithData:(NSData *)data name:(NSString *)name tag:(NSInteger)tag{
-    
-    double convertedValue = [data length] * 1.0;
-    __block double totleSize;
-    [self.attachmentArray enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        totleSize+=[obj.fileData length]*1.0;
-    }];
-    if (totleSize>1024*1024*50) {
-        [iToast alertWithTitleCenter:@"文件过大"];
-        return;
-    }
-    if (convertedValue>1024*1024*5) {
-        [iToast alertWithTitleCenter:@"文件过大"];
-    }else{
+-(void)upLoadImageWithImage:(UIImage *)image name:(NSString *)name tag:(NSInteger)tag{
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
    
-    NSString *size =[self calulateImageFileSize:data];
-    //    NSError *error ;
     CreateQuestionModel *model = [[CreateQuestionModel alloc]init];
-    model.name = name;
-    model.fileData = data;
-    model.size = size;
+
     if (self.attachmentArray.count<=tag-100) {
-    [self.attachmentArray addObject:model];
-    [self.tableView reloadData];
-    [self.tableView layoutIfNeeded];
+        double convertedValue = [data length] * 1.0;
+        __block double totleSize;
+        [self.attachmentArray enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSData *data = UIImageJPEGRepresentation(obj.image, 0.5);
+                totleSize+=[data length]*1.0;
+        }];
+        if (totleSize>1024*1024*50) {
+            [iToast alertWithTitleCenter:@"文件过大"];
+            return;
+        }
+        if (convertedValue>1024*1024*10) {
+            [iToast alertWithTitleCenter:@"文件过大"];
+            return;
+        }
+                
+        NSString *size =[self calulateImageFileSize:data];
+        model.name = name;
+        model.image = image;
+        model.size = size;
+        model.fileID = [NSString stringWithFormat:@"%ld",(long)tag];
+        model.type = UploadTypeNotStarted;
+    
+       [self.attachmentArray addObject:model];
+       [self.tableView reloadData];
+       [self updateTableViewFrame];
+    }else{
+        model = self.attachmentArray[tag-100];
     }
-    self.tableView.frame = CGRectMake(0, CGRectGetMaxY(self.describeTextView.frame)+3, kWidth,self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
-        self.mainScrollView.contentSize = CGSizeMake(kWidth, CGRectGetMaxY(self.tableView.frame)+10);
+
     NSIndexPath *index = [NSIndexPath indexPathForRow:tag-100 inSection:0];
     CreateQuestionCell *cell = (CreateQuestionCell *)[self.tableView cellForRowAtIndexPath:index];
     NSString *time = [NSDate getNowTimeTimestamp];
-    NSDictionary *param = @{@"type":@"attachment",@"subType":@"issueDetailExtra",@"batchId":[NSString stringWithFormat:@"%@%@",time,getPWUserID]};
+        if (self.upBatchId==nil) {
+            self.upBatchId = [NSString stringWithFormat:@"%@%@",time,getPWUserID];
+        }
+    NSDictionary *param = @{@"type":@"attachment",@"subType":@"issueDetailExtra",@"batchId":self.upBatchId};
     [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:@"jpg" name:@"files" mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
         DLog(@"bytesWritten = %lld totalBytes = %lld",bytesWritten,totalBytes);
-       float progress = bytesWritten/totalBytes;
-       [cell setTitleWithProgress:progress];
+       float progress = 1.0*bytesWritten/totalBytes;
+        //回到主线程刷新cell进度
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [cell setTitleWithProgress:progress];
+            [cell layoutIfNeeded];
+        });
+      
     } successBlock:^(id response) {
         DLog(@"response = %@",response);
-        model.fileID = @"";
-        [cell completeUpload];
+        NSDictionary *extra_data = response[@"content"][@"extra_data"];
+        self.batchId = [extra_data stringValueForKey:@"batchId" default:@""];
+        model.fileID = [extra_data stringValueForKey:@"formUid" default:@""];
+        model.type = UploadTypeSuccess;
+        dispatch_async(dispatch_get_main_queue(), ^{
+             [cell completeUpload];
+            [cell layoutIfNeeded];
+        });
     } failBlock:^(NSError *error) {
         DLog(@"error = %@",error);
-        [cell uploadError];
+         model.type = UploadTypeError;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [cell uploadError];
+            [cell layoutIfNeeded];
+        });
+       
     }];
-    }
+
+}
+//更新tableView 与 mainScrollView frame
+-(void)updateTableViewFrame{
+    [self.view updateConstraintsIfNeeded];
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+  make.height.offset(self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
+    }];
+    [self.view layoutIfNeeded];
+    CGFloat height = CGRectGetMaxY(self.tableView.frame)+10;
+    self.mainScrollView.contentSize = CGSizeMake(kWidth,height);
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
@@ -295,17 +349,19 @@
     cell.model = self.attachmentArray[indexPath.row];
     cell.reUpload = ^(NSIndexPath *index){
         CreateQuestionModel *model = self.attachmentArray[index.row];
-        [self upLoadImageWithData:model.fileData name:model.name tag:indexPath.row+100];
+        [self upLoadImageWithImage:model.image name:model.name tag:indexPath.row+100];
     };
     cell.removeFile = ^(NSIndexPath *index){
         CreateQuestionModel *model = self.attachmentArray[index.row];
-        NSArray<CreateQuestionModel*> *array = self.attachmentArray;
-        [array enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSMutableArray<CreateQuestionModel*> *array =[NSMutableArray arrayWithArray:self.attachmentArray];
+        [self.attachmentArray enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([model.fileID isEqualToString:obj.fileID]) {
-                [self.attachmentArray removeObjectAtIndex:idx];
+                [array removeObjectAtIndex:idx];
                 *stop = YES;
             }
         }];
+        [self.attachmentArray removeAllObjects];
+        self.attachmentArray = [NSMutableArray arrayWithArray:array];
         [self.tableView reloadData];
     };
     return cell;
@@ -315,10 +371,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (NSString *)calulateImageFileSize:(NSData *)data {
-   // NSData *data = UIImagePNGRepresentation(image);
-//    if (!data) {
-//        data = UIImageJPEGRepresentation(image, 0.5);//需要改成0.5才接近原图片大小，原因请看下文
-//    }
+ 
     double convertedValue = [data length] * 1.0;
     int multiplyFactor = 0;
 

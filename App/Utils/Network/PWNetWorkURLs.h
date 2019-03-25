@@ -77,6 +77,7 @@
 
 //情报列表
 #define PW_issueList                   API_SEVERID@"/v1/issue/list"
+
 //情报源添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
 //情报源列表
@@ -128,6 +129,9 @@
 #define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"
+//服务记录
+#define PW_issueGeneralList    API_SEVERID@"/v1/issue/general-list"
+
 
 
 #pragma mark ========== 我的 ==========

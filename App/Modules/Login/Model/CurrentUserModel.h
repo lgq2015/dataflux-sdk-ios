@@ -48,6 +48,8 @@
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *createTime;
 @property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *nickname;
+@property (nonatomic, strong) NSString *name;
 @end
 /*
  

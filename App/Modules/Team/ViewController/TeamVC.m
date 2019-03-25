@@ -16,6 +16,7 @@
 #import "MemberInfoModel.h"
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
+#import "ServiceLogVC.h"
 
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
@@ -39,13 +40,11 @@
 }
 - (void)judgeIsTeam{
     NSString *team = getTeamState;
-    DLog(@"%@",team);
    if([team isEqualToString:PW_isTeam]){
         [self createTeamUI];
-    }else{
+    }else if([team isEqualToString:PW_isPersonal]){
         [self createPersonalUI];
     }
-
 }
 - (void)addTeamSuccess:(NSNotification *)notification
 {
@@ -54,12 +53,9 @@
     if (isTeam) {
         [userManager addTeamSuccess:^(BOOL isSuccess) {
             if (isSuccess) {
-             
             [self.view removeAllSubviews];
             [self createTeamUI];
-                }else{
-                    [iToast alertWithTitleCenter:@"页面刷新失败"];
-                }
+            }
         }];
     }else{
         [self.view removeAllSubviews];
@@ -114,9 +110,17 @@
 }
 - (void)headerRereshing{
     [self loadTeamProductData];
-    [self loadTeamProductData];
+    [self loadTeamMemberInfo];
 }
 - (void)loadTeamProductData{
+    [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess) {
+         [self.headerView setTeamProduct:member];
+         CGFloat height = ZOOM_SCALE(24)*member.count+Interval(18);
+         self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
+        [self.tableView setTableHeaderView: self.headerView];
+        }
+    }];
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
@@ -126,9 +130,7 @@
             CGFloat height = ZOOM_SCALE(24)*content.count+Interval(18);
             self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
             [self.tableView setTableHeaderView: self.headerView];
-           
-        }else{
-           
+            [userManager setTeamProduct:content];
         }
          [self.header endRefreshing];
     } failBlock:^(NSError *error) {
@@ -138,7 +140,7 @@
 }
 - (void)createPersonalUI{
     self.view.backgroundColor = PWBackgroundColor;
-    NSArray *datas = @[@{@"icon":@"team_infoSource",@"title":@"情报源",@"subTitle":@"开放基础诊断情报源上限为3个，为您提供更多的诊断空间"},@{@"icon":@"team_cooperation",@"title":@"协作",@"subTitle":@"支持邀请成员加入团队，共享情报信息；支持主动记录问题，与成员共同解决"},@{@"icon":@"team_serve",@"title":@"服务",@"subTitle":@"云资源购买优惠，多领域的解决方案，总有一款是你想要的"}];
+    NSArray *datas = @[@{@"icon":@"team_infoSource",@"title":@"情报源",@"subTitle":@"开放基础诊断情报源上限为 3 个，为您提供更多的诊断空间"},@{@"icon":@"team_cooperation",@"title":@"协作",@"subTitle":@"支持邀请成员加入团队，共享情报信息；支持主动记录问题，与团队成员共同解决"},@{@"icon":@"team_serve",@"title":@"服务",@"subTitle":@"云资源购买优惠，多领域的解决方案，总有一款是您想要的"}];
     UIView *temp = nil;
     CGFloat itemHeight = ZOOM_SCALE(74)+Interval(36);
     for (NSInteger i=0; i<datas.count; i++) {
