@@ -160,7 +160,6 @@ shared##className = [[self alloc] init]; \
 return shared##className; \
 }
 
-#define PW_DBNAME_INFORMATION @"information.sqlite"
-#define PW_DB_INFORMATION_TABLE_NAME @"information"
+
 
 #endif /* define_h */

@@ -11,6 +11,8 @@
 #import "TeamInfoModel.h"
 #import "InformationStatusReadManager.h"
 #import "PWSocketManager.h"
+#import "IssueListManger.h"
+#import "HandBookManager.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -238,6 +240,8 @@ SINGLETON_FOR_CLASS(UserManager);
     self.isLogined = NO;
 
     [[InformationStatusReadManager sharedInstance] shutDown];
+    [[IssueListManger sharedIssueListManger] shutDown];
+    [[HandBookManager sharedInstance] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
 
     //    //移除缓存

@@ -457,8 +457,10 @@
 		4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
 		4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
 		6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
+		6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
 		6B6E21641DBD3D514519D671 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
+		6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
 		6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
@@ -470,6 +472,7 @@
 		6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
+		6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
 		6B6E2E0E8D01467759E8F1D4 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */; };
 		6B6E2ED5A02A6EF75F47724F /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */; };
 		6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
@@ -1295,10 +1298,12 @@
 		4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		62C62DFDEDDCCD32D0A33765 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
+		6B6E20F23F0B52D81B1F3467 /* HandBookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandBookManager.h; sourceTree = "<group>"; };
 		6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSqlHelper.m; sourceTree = "<group>"; };
 		6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogModel.h; sourceTree = "<group>"; };
 		6B6E239AFED77AD55CBA88A5 /* InformationStatusReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationStatusReadManager.h; sourceTree = "<group>"; };
 		6B6E26479B84137576BC5358 /* IssueChatDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDataManager.m; sourceTree = "<group>"; };
+		6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookManager.m; sourceTree = "<group>"; };
 		6B6E2909DDC81286E9B84FD7 /* ReadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadStatusModel.h; sourceTree = "<group>"; };
 		6B6E2948803DE38E776FBF2A /* PWFMDB+Simplefy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PWFMDB+Simplefy.h"; sourceTree = "<group>"; };
 		6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationStatusReadManager.m; sourceTree = "<group>"; };
@@ -1795,6 +1800,7 @@
 				6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */,
 				6B6E2948803DE38E776FBF2A /* PWFMDB+Simplefy.h */,
 				6B6E2D3A02750BD79E352166 /* IssueChatDataManager */,
+				6B6E23D786959C2B92752C02 /* HandBookManager */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2457,6 +2463,15 @@
 			path = HomeNoticeScrollView;
 			sourceTree = "<group>";
 		};
+		6B6E23D786959C2B92752C02 /* HandBookManager */ = {
+			isa = PBXGroup;
+			children = (
+				6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */,
+				6B6E20F23F0B52D81B1F3467 /* HandBookManager.h */,
+			);
+			path = HandBookManager;
+			sourceTree = "<group>";
+		};
 		6B6E2D3A02750BD79E352166 /* IssueChatDataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3103,6 +3118,7 @@
 				6B6E2ED5A02A6EF75F47724F /* PWFMDB+Simplefy.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
+				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3337,6 +3353,7 @@
 				6B6E2E0E8D01467759E8F1D4 /* PWFMDB+Simplefy.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
+				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3571,6 +3588,7 @@
 				6B6E288D6E836D2B87B11167 /* PWFMDB+Simplefy.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
+				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -144,16 +144,9 @@
         infodetial.model = model;
         [self.navigationController pushViewController:infodetial animated:YES];
     }
-    
-    PWFMDB *fmdb = [PWFMDB shareDatabase];
-    NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'",model.issueId];
-    NSArray<IssueModel*> *itemDatas = [fmdb pw_lookupTable:getPWUserID dicOrModel:[IssueModel class] whereFormat:whereFormat];
-    if(itemDatas.count>0){
-        itemDatas[0].isRead = YES;
-        [fmdb pw_updateTable:getPWUserID dicOrModel:itemDatas[0] whereFormat:whereFormat];
-        [self.tableView reloadData];
-    }
-   
+    [[IssueListManger sharedIssueListManger] readIssue:model.issueId];
+    [self.tableView reloadData];
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MonitorListModel *model =self.monitorData[indexPath.row];

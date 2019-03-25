@@ -5,7 +5,7 @@
 
 #import "PWFMDB+Simplefy.h"
 
-#define DEFAULT_PRIMARY_KEY @"id"
+#define DEFAULT_PRIMARY_KEY @"pw_default_id"
 
 
 @implementation PWFMDB (Simplefy)

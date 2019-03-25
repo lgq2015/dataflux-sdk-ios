@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseSqlHelper.h"
+
 @class InfoBoardModel;
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^loadDataSuccess)(NSArray *datas,NSNumber *pageMaker);
 
-@interface IssueListManger : NSObject
+@interface IssueListManger : BaseSqlHelper
 @property (nonatomic, strong) NSMutableArray<InfoBoardModel *> *infoDatas;
 
 //单例
@@ -20,6 +21,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
 + (instancetype)new NS_UNAVAILABLE;
 - (id)copy NS_UNAVAILABLE; // 没有遵循协议可以不写
 - (id)mutableCopy NS_UNAVAILABLE; // 没有遵循协议可以不写
+- (void)readIssue:(NSString *)issueId;
+
 /**
  首页展示类型判断
  */
