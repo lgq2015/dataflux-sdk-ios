@@ -6,9 +6,9 @@
 #import "IssueChatDataManager.h"
 #import "IssueLogModel.h"
 
-@interface IssueChatDataManager()
+@interface IssueChatDataManager ()
 
-@property (nonatomic) BOOL isFetching;
+@property(nonatomic) BOOL isFetching;
 
 @end
 
@@ -31,15 +31,21 @@
     self = [super init];
     if (self) {
 
+
     }
 
     return self;
 }
 
+- (NSString *)getDBName {
+    return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_INFORMATION);
+
+}
+
 - (void)fetchAllChatIssueLog:(NSString *)issueId pageKMarker:(long long)pageKMarker callBack:(IssueLogModel *(^)(void))callback {
 
     @synchronized (self) {
-        
+
     }
 
 }

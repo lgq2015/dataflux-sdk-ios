@@ -91,6 +91,12 @@ static PWFMDB *jqdb = nil;
     } else {
         path = [dbPath stringByAppendingPathComponent:dbName];
     }
+
+    NSString *parentPath =  [path stringByDeletingLastPathComponent];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:parentPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:parentPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
     
     FMDatabase *fmdb = [FMDatabase databaseWithPath:path];
     
@@ -298,7 +304,7 @@ static PWFMDB *jqdb = nil;
     
     for (NSString *key in dic) {
         
-        if (![columnArr containsObject:key] || [key isEqualToString:@"PWId"]) {
+        if (![columnArr containsObject:key] ) {
             continue;
         }
         [finalStr appendFormat:@"%@,", key];
@@ -350,7 +356,7 @@ static PWFMDB *jqdb = nil;
     
     for (NSString *key in dic) {
         
-        if (![clomnArr containsObject:key] || [key isEqualToString:@"PWId"]) {
+        if (![clomnArr containsObject:key]) {
             continue;
         }
         [finalStr appendFormat:@"%@ = %@,", key, @"?"];
@@ -533,16 +539,6 @@ static PWFMDB *jqdb = nil;
     [_db open];
 }
 
-- (NSInteger)lastInsertPrimaryKeyId:(NSString *)tableName
-{
-    NSString *sqlstr = [NSString stringWithFormat:@"SELECT * FROM %@ where PWId = (SELECT max(PWId) FROM %@)", tableName, tableName];
-    FMResultSet *set = [_db executeQuery:sqlstr];
-    while ([set next])
-    {
-        return [set longLongIntForColumn:@"PWId"];
-    }
-    return 0;
-}
 - (BOOL)pw_alterTable:(NSString *)tableName dicOrModel:(id)parameters
 {
     return [self pw_alterTable:tableName dicOrModel:parameters excludeName:nil];

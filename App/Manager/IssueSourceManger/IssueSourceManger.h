@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseSqlHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 typedef void (^detectTimeStr)(NSString *str);

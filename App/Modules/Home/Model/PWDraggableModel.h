@@ -23,5 +23,4 @@
 @property (nonatomic, assign) NSInteger orderNum;
 @property (nonatomic, strong) NSString *handbookId;
 @property (nonatomic, strong) NSString *bucketPath;
-@property (nonatomic, strong) NSString *PWId;
 @end
