@@ -55,6 +55,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 }
 - (void)updateAllIssueSourceList:(updateIssueSource)aryblock{
       self.aryBlock = aryblock;
+      self.issueSourceList = [NSMutableArray new];
       [self downLoadAllIssueSourceListWithTypeTime:NO];
     
 }

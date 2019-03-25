@@ -47,7 +47,7 @@
                     [self.tableView reloadData];
                    
                 }else{
-                    if (self.dataSource==0) {
+                    if (self.dataSource.count==0) {
                        [self showNoDataImage];
                     }
                 }
