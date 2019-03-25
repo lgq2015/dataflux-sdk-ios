@@ -37,6 +37,7 @@
 }
 - (void)getPhotoAlbumTakeAPhotoAndNameWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImageAndNameBlock)photoAndNameBlock{
     self.nameBlock = photoAndNameBlock;
+    self.viewController = controller;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

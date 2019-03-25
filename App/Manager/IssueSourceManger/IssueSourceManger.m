@@ -70,11 +70,11 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         [self downLoadAllIssueSourceListWithTypeTime:YES];
     }
 }
-
-- (void)updateAllIssueSourceList:(updateIssueSource)aryblock {
-    self.aryBlock = aryblock;
-    [self downLoadAllIssueSourceListWithTypeTime:NO];
-
+- (void)updateAllIssueSourceList:(updateIssueSource)aryblock{
+      self.aryBlock = aryblock;
+      self.issueSourceList = [NSMutableArray new];
+      [self downLoadAllIssueSourceListWithTypeTime:NO];
+    
 }
 
 - (NSArray *)getIssueSourceListWithoutLock {

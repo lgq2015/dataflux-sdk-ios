@@ -239,7 +239,7 @@
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
             if (items.count>0) {
-                [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
+            [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
@@ -257,7 +257,7 @@
         [recommendDatas addObject:model];
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
-
+   
     [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];

@@ -9,7 +9,7 @@
 #import "iToast.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define FontSize ([UIFont fontWithName:@"PingFangSC-Light" size: 14])
+#define FontSize  MediumFONT(14)
 static CGFloat sizeSpace = 40.0;
 static CGFloat sizelabel = 20;
 #define maxlabel (windowView.frame.size.width - 20.0 * 2)
@@ -70,7 +70,7 @@ static CGFloat sizelabel = 20;
         
         [windowView addSubview:self.textlabel];
         self.textlabel.text = text;
-        CGRect textRect = [text boundingRectWithSize:CGSizeMake(maxlabel, kHeight/3) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : [UIFont fontWithName:@"PingFangSC-Light" size: 14]} context:nil];
+        CGRect textRect = [text boundingRectWithSize:CGSizeMake(maxlabel, kHeight/3) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : FontSize} context:nil];
         
         CGSize textSize = textRect.size;
         CGFloat labelX = (windowView.frame.size.width - textSize.width-20-sizelabel) / 2;

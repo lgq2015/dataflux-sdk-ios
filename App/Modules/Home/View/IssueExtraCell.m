@@ -29,6 +29,7 @@
         [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.contentView).offset(ZOOM_SCALE(5));
             make.left.mas_equalTo(self.iconView.mas_right).offset(Interval(13));
+            make.right.mas_equalTo(self.contentView).offset(-Interval(16));
             make.height.offset(ZOOM_SCALE(20));
         }];
         [self.sizeLab mas_makeConstraints:^(MASConstraintMaker *make) {
