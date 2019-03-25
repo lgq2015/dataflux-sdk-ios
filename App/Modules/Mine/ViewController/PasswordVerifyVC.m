@@ -150,7 +150,7 @@
 }
 - (void)updateEmail{
     [SVProgressHUD show];
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":self.passwordTf.text,@"verificationCodeType":@"password",@"t":@"update_email"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":self.passwordTf.text,@"verificationCodeType":@"password",@"t":@"update_email"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
@@ -169,7 +169,7 @@
 }
 - (void)updateMobile{
     [SVProgressHUD show];
-    NSDictionary *param = @{@"data":@{@"username":userManager.curUserInfo.mobile,@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"update_mobile"}};
+    NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"update_mobile"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];

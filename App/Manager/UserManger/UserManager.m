@@ -10,6 +10,7 @@
 #import "OpenUDID.h"
 #import "TeamInfoModel.h"
 #import "InformationStatusReadManager.h"
+#import "PWSocketManager.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -237,6 +238,7 @@ SINGLETON_FOR_CLASS(UserManager);
     self.isLogined = NO;
 
     [[InformationStatusReadManager sharedInstance] shutDown];
+    [[PWSocketManager sharedPWSocketManager] shutDown];
 
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];

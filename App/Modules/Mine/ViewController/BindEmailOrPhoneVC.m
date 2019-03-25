@@ -186,7 +186,7 @@
      BOOL isemail = [self.emailTF.text validateEmail];
     if (isemail) {
         NSDictionary *param = @{@"data":@{@"username":self.emailTF.text,@"uType":@"email",@"uuid":self.uuid}};
-        [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetHasTokenWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"绑定成功"];
                 userManager.curUserInfo.email = self.emailTF.text;
@@ -212,7 +212,7 @@
 }
 - (void)commitPhoneClick{
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};
-    [PWNetworking requsetWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             VerifyCodeVC *verify = [[VerifyCodeVC alloc]init];
             verify.type = VerifyCodeVCTypeUpdateMobileNewMobile;

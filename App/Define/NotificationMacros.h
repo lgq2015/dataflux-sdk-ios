@@ -20,6 +20,8 @@
 
 //被踢下线
 #define KNotificationOnKick @"KNotificationOnKick"
+//监听重新拉取讨论数据
+#define KNotificationRefetchIssChatDatas @"KNotificationRefetchIssChatDatas"
 
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"

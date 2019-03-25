@@ -226,12 +226,9 @@
 		4A759A4C2247F5060057BD02 /* CreateQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* CreateQuestionCell.m */; };
 		4A759A4D2247F5330057BD02 /* CreateQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* CreateQuestionCell.m */; };
 		4A759A4E2247F5340057BD02 /* CreateQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* CreateQuestionCell.m */; };
-		4A759A702248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */; };
-		4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */; };
-		4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */; };
-		4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A8722489C330057BD02 /* CreateQuestionModel.m */; };
-		4A759A8922489C330057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A8722489C330057BD02 /* CreateQuestionModel.m */; };
-		4A759A8A22489C330057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A8722489C330057BD02 /* CreateQuestionModel.m */; };
+		4A759A512247FB600057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A502247FB600057BD02 /* CreateQuestionModel.m */; };
+		4A759A522247FB600057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A502247FB600057BD02 /* CreateQuestionModel.m */; };
+		4A759A532247FB600057BD02 /* CreateQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A502247FB600057BD02 /* CreateQuestionModel.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -472,12 +469,15 @@
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
 		6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
+		6B6E288D6E836D2B87B11167 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */; };
 		6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
 		6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
 		6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
+		6B6E2E0E8D01467759E8F1D4 /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */; };
+		6B6E2ED5A02A6EF75F47724F /* PWFMDB+Simplefy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */; };
 		6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */; };
@@ -995,9 +995,8 @@
 		4A759A3E22461A660057BD02 /* PWSystermCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWSystermCell.m; sourceTree = "<group>"; };
 		4A759A4A2247F5050057BD02 /* CreateQuestionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateQuestionCell.h; sourceTree = "<group>"; };
 		4A759A4B2247F5060057BD02 /* CreateQuestionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQuestionCell.m; sourceTree = "<group>"; };
-		4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PWFMDB+Simplefy.m"; sourceTree = "<group>"; };
-		4A759A8622489C330057BD02 /* CreateQuestionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateQuestionModel.h; sourceTree = "<group>"; };
-		4A759A8722489C330057BD02 /* CreateQuestionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateQuestionModel.m; sourceTree = "<group>"; };
+		4A759A4F2247FB600057BD02 /* CreateQuestionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateQuestionModel.h; sourceTree = "<group>"; };
+		4A759A502247FB600057BD02 /* CreateQuestionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQuestionModel.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1316,6 +1315,7 @@
 		6B6E2BAC4C5A47FF67AEC631 /* BaseSqlHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSqlHelper.h; sourceTree = "<group>"; };
 		6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadStatusModel.m; sourceTree = "<group>"; };
 		6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogModel.m; sourceTree = "<group>"; };
+		6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PWFMDB+Simplefy.m"; sourceTree = "<group>"; };
 		6B6E2F00B08AB55521115825 /* IssueChatDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDataManager.h; sourceTree = "<group>"; };
 		73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppDev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppPreMade.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1805,8 +1805,11 @@
 				6B6E2BAC4C5A47FF67AEC631 /* BaseSqlHelper.h */,
 				6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */,
 				6B6E2948803DE38E776FBF2A /* PWFMDB+Simplefy.h */,
-				4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */,
+<<<<<<< HEAD
+				6B6E2D34A49416E3BEAB7440 /* PWFMDB+Simplefy.m */,
+=======
 				6B6E2D3A02750BD79E352166 /* IssueChatDataManager */,
+>>>>>>> 5d1e602635c2d6f43d72eaf88479f53a99e06922
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1881,13 +1884,6 @@
 			path = PWImageGroupView;
 			sourceTree = "<group>";
 		};
-		4A759A6E2248882E0057BD02 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		4A7C4B0D21C2820F007730E6 /* iToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1910,7 +1906,6 @@
 				AA4215202FD2BC75048B9D47 /* Frameworks */,
 				CA1CF61F221ECB3A00D15316 /* Info-dev.plist */,
 				CA1CF6C4221ECB5100D15316 /* Info-pre-made.plist */,
-				4A759A6E2248882E0057BD02 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2025,10 +2020,13 @@
 				4AC856E8223121BA00DAE1F6 /* HandbookModel.m */,
 				4AC857B2223CD02900DAE1F6 /* IssueExtraModel.h */,
 				4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */,
+<<<<<<< HEAD
+				4A759A4F2247FB600057BD02 /* CreateQuestionModel.h */,
+				4A759A502247FB600057BD02 /* CreateQuestionModel.m */,
+=======
 				6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */,
 				6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */,
-				4A759A8622489C330057BD02 /* CreateQuestionModel.h */,
-				4A759A8722489C330057BD02 /* CreateQuestionModel.m */,
+>>>>>>> 5d1e602635c2d6f43d72eaf88479f53a99e06922
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2908,7 +2906,6 @@
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4A092D5C222D535A00FB2A35 /* MessageDetailVC.m in Sources */,
-				4A759A702248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
@@ -2932,7 +2929,6 @@
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
-				4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				4A092D04222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				4A092D52222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
@@ -3115,6 +3111,7 @@
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
 				4A759A212244B54F0057BD02 /* PWChatMessagelLayout.m in Sources */,
 				4A7599E422426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */,
+				4A759A512247FB600057BD02 /* CreateQuestionModel.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
@@ -3125,6 +3122,7 @@
 				6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */,
 				6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */,
 				6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */,
+				6B6E2ED5A02A6EF75F47724F /* PWFMDB+Simplefy.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 			);
@@ -3144,7 +3142,6 @@
 				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
 				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
-				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4A7599FB224478C40057BD02 /* HandBookArticleVC.m in Sources */,
@@ -3168,7 +3165,6 @@
 				4A759A0D2244B0720057BD02 /* PWChatBaseCell.m in Sources */,
 				4AC85797223A42C500DAE1F6 /* ThinkTankVC.m in Sources */,
 				4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */,
-				4A759A8922489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
@@ -3351,6 +3347,7 @@
 				CA1CF5EE221ECB3A00D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
+				4A759A522247FB600057BD02 /* CreateQuestionModel.m in Sources */,
 				4AC8576022364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4AC857A1223A439B00DAE1F6 /* ScanViewController.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
@@ -3361,6 +3358,7 @@
 				6B6E21641DBD3D514519D671 /* InformationStatusReadManager.m in Sources */,
 				6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */,
 				6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */,
+				6B6E2E0E8D01467759E8F1D4 /* PWFMDB+Simplefy.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 			);
@@ -3380,7 +3378,6 @@
 				4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
 				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
-				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4A7599FC224478C50057BD02 /* HandBookArticleVC.m in Sources */,
@@ -3404,7 +3401,6 @@
 				4A759A0E2244B0720057BD02 /* PWChatBaseCell.m in Sources */,
 				4AC85798223A42C500DAE1F6 /* ThinkTankVC.m in Sources */,
 				4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */,
-				4A759A8A22489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
@@ -3587,6 +3583,7 @@
 				CA1CF693221ECB5000D15316 /* PWInfoBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
+				4A759A532247FB600057BD02 /* CreateQuestionModel.m in Sources */,
 				4AC8576122364F0300DAE1F6 /* MoreServicesVC.m in Sources */,
 				4AC857A2223A439B00DAE1F6 /* ScanViewController.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
@@ -3597,6 +3594,7 @@
 				6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */,
 				6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */,
 				6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */,
+				6B6E288D6E836D2B87B11167 /* PWFMDB+Simplefy.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 			);

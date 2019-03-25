@@ -164,6 +164,7 @@
     self.tableView.dataSource = self;
     [self.tableView registerClass:CreateQuestionCell.class forCellReuseIdentifier:@"CreateQuestionCell"];
     self.tableView.frame = CGRectMake(0, CGRectGetMaxY(self.describeTextView.frame)+3, kWidth, self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
+    [self.view addSubview:self.tableView];
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
     UIButton *button = [[UIButton alloc]init];

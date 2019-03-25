@@ -9,7 +9,6 @@
 @interface BaseSqlHelper ()
 
 @property(nonatomic, strong) PWFMDB *fmdbHelper;
-@property(nonatomic, strong) NSString *dbName;
 
 @end
 
@@ -17,15 +16,13 @@
 
 }
 
-
-- (instancetype)initWithDBName:(NSString *)dbName {
-    _dbName = dbName;
-    return self;
+-(NSString *)getDBName{
+    return @"";
 }
 
 - (PWFMDB *)getHelper {
     if (!_fmdbHelper) {
-        _fmdbHelper = [[PWFMDB alloc] initWithDBName:_dbName];
+        _fmdbHelper = [[PWFMDB alloc] initWithDBName:[self getDBName]];
     }
     return _fmdbHelper;
 }

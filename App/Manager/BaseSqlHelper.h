@@ -8,7 +8,7 @@
 
 @interface BaseSqlHelper : NSObject
 
-- (instancetype)initWithDBName:(NSString *)dbName;
+- (NSString *)getDBName;
 
 - (PWFMDB *)getHelper;
 

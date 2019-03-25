@@ -18,7 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 - (id)copy NS_UNAVAILABLE; // 没有遵循协议可以不写
 - (id)mutableCopy NS_UNAVAILABLE; // 没有遵循协议可以不写
-- (void)connecSuccess:(void(^)(void))success fail:(void(^)(void))fail;
+- (void)connect;
+
+- (BOOL)isConnect;
+
+- (void)checkForRestart;
+
+- (void)shutDown;
 @end
 
 NS_ASSUME_NONNULL_END
