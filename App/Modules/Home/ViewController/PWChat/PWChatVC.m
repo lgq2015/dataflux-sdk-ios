@@ -12,6 +12,11 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "PWChatDatas.h"
 #import "ExpertsSuggestVC.h"
+#import "IssueChatDataManager.h"
+#import "IssueModel.h"
+#import "IssueLogModel.h"
+#import "PWSocketManager.h"
+
 //#import "PWImageGroupView.h"
 @interface PWChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
 //承载表单的视图 视图原高度
@@ -40,8 +45,59 @@
                                                  name:KNotificationChatNewDatas
                                                object:nil];
     [self createUI];
+
+
+    //获取历史数据
+    NSArray *historyDatas= [[IssueChatDataManager sharedInstance]
+            getChatIssueLogDatas:_issueID pageMarker:-1];
+
+
+    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
+    [[IssueChatDataManager sharedInstance]
+            fetchAllChatIssueLog:_issueID
+                      pageMarker:pageMarker
+                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
+                            //todo get new data
+                            //获取新数据
+                        }];
+
+
+
+
     // Do any additional setup after loading the view.
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onNewIssueChatData:)
+                                                 name:KNotificationChatNewDatas
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onReFetchNewDatas)
+                                                 name:KNotificationReFetchIssChatDatas
+                                               object:nil];
+}
+
+-(void)onReFetchNewDatas{
+    // 重新链接获取数据
+    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
+    [[IssueChatDataManager sharedInstance]
+            fetchAllChatIssueLog:_issueID
+                      pageMarker:pageMarker
+                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
+                            //todo get new data
+                            //获取新数据
+                        }];
+}
+
+- (void)onNewIssueChatData:(NSNotification *)notification {
+    NSDictionary * pass = [notification userInfo];
+    IssueLogModel * model = [[IssueLogModel new] initWithDictionary:pass];
+    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+
+    //todo add to tableView here
+}
+
 - (void)createUI{
 //    self.tableVie
     [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
@@ -54,7 +110,7 @@
     _mBackView.frame = CGRectMake(0, 0, kWidth, _backViewH);
     _mBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.mBackView];
-    
+
     _mTableView = [[UITableView alloc]initWithFrame:_mBackView.bounds style:UITableViewStylePlain];
     _mTableView.dataSource = self;
     _mTableView.delegate = self;
@@ -62,7 +118,7 @@
     _mTableView.backgroundView.backgroundColor = PWChatCellColor;
     [_mBackView addSubview:self.mTableView];
     _mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+
     _mTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _mTableView.scrollIndicatorInsets = _mTableView.contentInset;
     if (@available(iOS 11.0, *)){
@@ -71,14 +127,14 @@
         _mTableView.estimatedSectionHeaderHeight = 0;
         _mTableView.estimatedSectionFooterHeight = 0;
     }
-    
+
     [_mTableView registerClass:NSClassFromString(@"PWChatTextCell") forCellReuseIdentifier:PWChatTextCellId];
     [_mTableView registerClass:NSClassFromString(@"PWChatImageCell") forCellReuseIdentifier:PWChatImageCellId];
     [_mTableView registerClass:NSClassFromString(@"PWChatFileCell") forCellReuseIdentifier:PWChatVoiceCellId];
     [_mTableView reloadData];
 }
 -(void)dealWithNewDta{
-    
+
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _datas.count==0?0:1;
@@ -97,7 +153,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [(PWChatMessagelLayout *)_datas[indexPath.row] cellHeight];
+    return [(PWChatMessagelLayout *)_datas[indexPath.row]cellHeight ];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -125,7 +181,7 @@
 #pragma SSChatKeyBoardInputViewDelegate 底部输入框代理回调
 //点击按钮视图frame发生变化 调整当前列表frame
 -(void)PWChatKeyBoardInputViewHeight:(CGFloat)keyBoardHeight changeTime:(CGFloat)changeTime{
-    
+
     CGFloat height = _backViewH - keyBoardHeight;
     [UIView animateWithDuration:changeTime animations:^{
         self.mBackView.frame = CGRectMake(0, 0, kWidth, height);
@@ -135,16 +191,21 @@
             [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     } completion:^(BOOL finished) {
-        
+
     }];
-    
+
 }
 
 
 //发送文本 列表滚动至底部
 -(void)PWChatKeyBoardInputViewBtnClick:(NSString *)string{
-    
+
     NSDictionary *dic = @{@"text":string};
+
+    //todo 如果未链接状态发送标记失败
+    if([[PWSocketManager sharedPWSocketManager] isConnect ] ){
+
+    }
     [self sendMessage:dic messageType:PWChatMessageTypeText];
 }
 
@@ -154,8 +215,8 @@
 
 //多功能视图点击回调  图片10  视频11  位置12
 -(void)PWChatKeyBoardInputViewBtnClickFunction:(NSInteger)index{
-    
-   
+
+
 //     if(!_mAddImage) _mAddImage = [[SSAddImage alloc]init];
 //
 //        [_mAddImage getImagePickerWithAlertController:self modelType:SSImagePickerModelImage + index-10 pickerBlock:^(SSImagePickerWayStyle wayStyle, SSImagePickerModelType modelType, id object) {
@@ -175,7 +236,7 @@
 //            }
 //        }];
 //
-    
+
 }
 
 
@@ -183,7 +244,7 @@
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
 
     [PWChatDatas sendMessage:dic sessionId:self.issueID messageType:messageType messageBlock:^(PWChatMessagelLayout *layout, NSError *error, NSProgress *progress) {
-        
+
         [self.datas addObject:layout];
         [self.mTableView reloadData];
         NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
@@ -195,7 +256,7 @@
 
 #pragma SSChatBaseCellDelegate 点击图片 点击短视频
 -(void)PWChatImageVideoCellClick:(NSIndexPath *)indexPath layout:(PWChatMessagelLayout *)layout{
-    
+
 //    NSInteger currentIndex = 0;
 //    NSMutableArray *groupItems = [NSMutableArray new];
 //
@@ -246,14 +307,14 @@
 */
 
 - (void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath {
-    
+
 }
 -(void)PWChatKeyBordViewBtnClick:(NSInteger)index{
-    
+
 }
 
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(PWChatMessagelLayout *)layout {
-    
+
 }
 - (void)navBtnClick{
     ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
@@ -265,7 +326,19 @@
         }
     }
     [self.navigationController pushViewController:expert animated:YES];
-    
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onNewIssueChatData:)
+                                                 name:KNotificationChatNewDatas
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onReFetchNewDatas)
+                                                 name:KNotificationReFetchIssChatDatas
+                                               object:nil];
 }
 
 

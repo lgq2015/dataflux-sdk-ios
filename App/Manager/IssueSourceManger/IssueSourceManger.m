@@ -227,9 +227,6 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
     } else {
         NSString *time = array[0][@"scanCheckInQueueTime"];
-        if (time == nil) {
-
-        }
         NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         NSString *checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
         self.strBlock ? self.strBlock(checkTime) : nil;

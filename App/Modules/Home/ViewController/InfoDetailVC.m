@@ -168,6 +168,7 @@
 - (void)navRightBtnClick{
     PWChatVC *chat = [[PWChatVC alloc]init];
     chat.infoDetailDict = self.infoDetailDict;
+    chat.issueID = self.model.issueId;
     [self.navigationController pushViewController:chat animated:YES];
 
 }

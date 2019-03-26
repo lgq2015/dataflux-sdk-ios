@@ -23,18 +23,13 @@
 }
 
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        NSString *tableName = PW_DB_LIBRARY_TABLE_NAME;
+-(void)onDBInit {
+    NSString *tableName = PW_DB_LIBRARY_TABLE_NAME;
 
-        if (![[self getHelper] pw_isExistTable:tableName]) {
-            [[self getHelper] pw_createTable:tableName dicOrModel:[PWDraggableModel class]];
-        }
-
+    if (![[self getHelper] pw_isExistTable:tableName]) {
+        [[self getHelper] pw_createTable:tableName dicOrModel:[PWDraggableModel class]];
     }
 
-    return self;
 }
 
 

@@ -9,6 +9,7 @@
 #import "PWSocketManager.h"
 #import "IssueListManger.h"
 #import "YYReachability.h"
+#import "IssueLogModel.h"
 
 #define ON_EVENT_ISSUE_UPDATE @"socketio.issueUpdate"
 #define ON_EVENT_ISSUE_LOG_ADD @"socketio.issueLogAdd"
@@ -43,11 +44,11 @@ static dispatch_queue_t socket_message_queue() {
 
 - (void)connect {
 
-    
-    [[NSNotificationCenter defaultCenter]postNotificationName:KNotificationRefetchIssChatDatas object:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationReFetchIssChatDatas object:nil];
 
     if (!self.socket || self.socket.status == SocketIOStatusNotConnected
-        || self.socket.status == SocketIOStatusDisconnected) {
+            || self.socket.status == SocketIOStatusDisconnected) {
         [self shutDown];
         [self initSocket];
     }
@@ -57,8 +58,8 @@ static dispatch_queue_t socket_message_queue() {
  * 是否链接
  * @return
  */
--(BOOL)isConnect{
-    return self.socket.status==SocketIOStatusConnected;
+- (BOOL)isConnect {
+    return self.socket.status == SocketIOStatusConnected;
 }
 
 //判断是否需要重新启用
@@ -113,6 +114,13 @@ static dispatch_queue_t socket_message_queue() {
     [self.socket on:@"socketio.issueLogAdd" callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
                 " = %@", data);
+        if (data.count > 0) {
+            NSString *jsonString = data[0];
+            [[NSNotificationCenter defaultCenter]
+                    postNotificationName:KNotificationChatNewDatas
+                                                                object:nil userInfo:[jsonString jsonValueDecoded]];
+        }
+
     }];
 
     [self.socket connect];
