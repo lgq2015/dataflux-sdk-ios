@@ -73,18 +73,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         self.timeLab.text = [NSString stringWithFormat:@"%@   %@",self.model.updatedAt,self.model.source];
     }
 }
-//- (void)createFillImgUI{
-//    self.iconImgVie.hidden = NO;
-//    self.iconImgVie.frame = self.contentView.bounds;
-//    if([self.model.imageUrl isEqualToString:@""]){
-//        self.iconImgVie.frame = CGRectMake(ZOOM_SCALE(155), ZOOM_SCALE(28), ZOOM_SCALE(205), ZOOM_SCALE(90));
-//        self.iconImgVie.image = [UIImage imageNamed:@"loadingImgError"];
-//        self.noImgLab.hidden = NO;
-//    }
-//    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@"loadingImgError"]];
-//    self.timeLab.hidden = YES;
-//    self.titleLab.hidden = YES;
-//}
+
 - (void)createUI{
     self.iconImgVie.hidden = YES;
     self.timeLab.hidden = NO;
@@ -146,10 +135,20 @@ static NSString *const NoImgTips =@"该图片无法显示";
     }
     self.iconImgVie.hidden = _model.type == NewListCellTypeSingleImg?NO:YES;
     self.timeLab.text = _model.topic;
-    //[NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.model.updatedAt],_model.topic];
+   
     self.titleLab.text = _model.title;
     self.titleLab.textColor = _model.read?PWReadColor:PWBlackColor;
-
+    switch (_model.type) {
+        case NewListCellTypeSingleImg:
+            
+            break;
+        case NewListCellTypText:
+       
+            break;
+        default:
+            break;
+    }
+    
 }
 -(void)layoutSubviews{
     self.backgroundColor = [UIColor whiteColor];

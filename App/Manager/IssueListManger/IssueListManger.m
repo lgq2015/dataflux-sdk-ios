@@ -103,7 +103,8 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"accountId": @"text",
                         @"subType": @"text",
                         @"originInfoJSONStr": @"text",
-                        @"subType": @"text"
+                        @"subType": @"text",
+                        @"issueSourceId":@"TEXT",
                 };
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
@@ -147,6 +148,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
 
 - (NSString *)getDBName {
+    DLog(@"getDBName == %@",getPWUserID);
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_ISSUE);
 
 }
@@ -338,7 +340,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                     setLastTime([NSDate date]);
                     [self dealDataForInfoBoardWithPageMaker:pageMaker];
                 } else {
-
+                    
                 }
 //        }];
             } else {
@@ -375,11 +377,9 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         [self.getHelper pw_deleteAllDataFromTable:infoTableName];
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
     } else {
-//        NSDictionary *dict = @{@"type":@"integer",@"state":@"integer",@"typeName":@"text",@"messageCount":@"text",@"subTitle":@"text",@"pageMaker":@"text",@"seqAct":@"integer"};
-//    BOOL isCreate = [pwfmdb pw_createTable:infoTableName dicOrModel:dict primaryKey:@"PWId"];
-//    if (isCreate) {
+
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
-//    }
+
     }
 
     KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
@@ -437,7 +437,10 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
             model.seqAct = itemDatas[0].actSeq;
         }
         model.messageCount = itemDatas.count > 99 ? @"99+" : [NSString stringWithFormat:@"%lu", (unsigned long) itemDatas.count];
-        model.pageMaker = pageMaker;
+        if (pageMaker != nil) {
+          model.pageMaker = pageMaker;
+        }
+        
         [infoArray addObject:model];
     }
     [self createInfoBoardFmdbWithData:infoArray];
@@ -496,5 +499,11 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     }
 }
 
+- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId{
+    NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
+    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
+    [self dealDataForInfoBoardWithPageMaker:nil];
+
+}
 
 @end

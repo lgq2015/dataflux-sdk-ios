@@ -79,6 +79,9 @@
 - (void)createUI{
 
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
+         setIsHideGuide(YES);
+    }
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
@@ -289,11 +292,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
     if (!cell) {
-      cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
+        cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
     }
     cell.model = self.newsDatas[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell layoutIfNeeded];
+
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========
@@ -307,6 +309,7 @@
     NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
     newsweb.style = model.isStarred?WebItemViewStyleNoShare:WebItemViewStyleNormal;
     newsweb.newsModel = model;
+    
     [self.navigationController pushViewController:newsweb animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

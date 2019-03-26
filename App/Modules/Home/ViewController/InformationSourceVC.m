@@ -181,7 +181,7 @@
     self.currentPage = 1;
     [self loadData];
 }
-
+// 添加情报源跳转
 - (void)addInfoSource{
     AddSourceVC *addVC = [[AddSourceVC alloc]init];
     [self.navigationController pushViewController:addVC animated:YES];
@@ -201,14 +201,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self loadTeamProductcompletion:^(BOOL isDefault) {
-        SourceVC *source = [[SourceVC alloc]init];
-        source.model = cell.model;
-        source.isAdd = NO;
-        source.isDefault = isDefault;
-        [self.navigationController pushViewController:source animated:YES];
-    }];
-   
+    if ([getTeamState isEqualToString:PW_isPersonal] || userManager.teamModel.isAdmin==YES) {
+        [self loadTeamProductcompletion:^(BOOL isDefault) {
+            SourceVC *source = [[SourceVC alloc]init];
+            source.model = cell.model;
+            source.isAdd = NO;
+            source.isDefault = isDefault;
+            [self.navigationController pushViewController:source animated:YES];
+        }];
+    }
+
 }
 /*
 #pragma mark - Navigation

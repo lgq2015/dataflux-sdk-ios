@@ -146,14 +146,11 @@ typedef void (^loadDataSuccess)(NSArray *datas);
             if ([self.getHelper pw_isExistTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME]) {
                 [self dealWithData:array isTime:istime];
             } else {
-//            NSDictionary *dict = @{@"provider":@"TEXT",@"name":@"TEXT",@"teamId":@"TEXT",@"scanCheckStatus":@"TEXT",@"provider":@"TEXT",@"teamId":@"TEXT",@"updateTime":@"TEXT",@"id":@"TEXT",@"credentialJSON":@"TEXT",@"credentialJSONstr":@"TEXT",@"scanCheckStartTime":@"TEXT"};
-//        BOOL isCreate = [pwfmdb pw_createTable:PW_IssueTabName dicOrModel:dict primaryKey:@"PWId"];
-//            if (isCreate) {
+
                 NSArray *issuccess = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:array];
                 if (issuccess.count == 0) {
                     istime ? [self getLastDetectionTimeNow] : [self getIssueSourceListprivite];
                 }
-//            }
             }
         }];
 
@@ -171,7 +168,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     if (issuelist.count > 0) {
 
         __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
-        //找到handbook中有,itemDatas中没有的数据
+        //找到数据库中有,新数据中没有的数据
         [issuelist enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *_Nonnull stop) {
 
             __block BOOL isHave = NO;
@@ -188,7 +185,10 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         }];
 
         if (difObject.count > 0) {
-
+            [difObject enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [[IssueListManger sharedIssueListManger]delectIssueWithIsseuSourceID:[obj stringValueForKey:@"id" default:@""]];
+            }];
+            
         }
 
 
@@ -226,12 +226,14 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     if (array.count == 0) {
         self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
     } else {
+        NSString *checkTime;
         NSString *time = array[0][@"scanCheckInQueueTime"];
         if (time == nil) {
-
-        }
+            checkTime = @"尚未进行检测";
+        }else{
         NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        NSString *checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+            checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+        }
         self.strBlock ? self.strBlock(checkTime) : nil;
     }
 }
@@ -260,11 +262,11 @@ typedef void (^loadDataSuccess)(NSArray *datas);
                 completion(self.issueSourceList);
             }
         } else {
-
+          //请求错误
         }
 
-    }                          failBlock:^(NSError *error) {
-
+    } failBlock:^(NSError *error) {
+         //网络请求错误
     }];
 }
 

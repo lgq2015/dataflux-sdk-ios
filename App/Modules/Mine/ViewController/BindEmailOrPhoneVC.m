@@ -128,7 +128,7 @@
     }else{
          [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
-            return @(value.length>1);
+            return @(value.length>0);
         }];
         RAC(self.commitBtn,enabled) = emailSignal;
         

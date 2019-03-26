@@ -78,6 +78,7 @@
     return _tableview;
 }
 - (void)delectAllClick{
+   
     [kUserDefaults removeObjectForKey:PW_historySearch];
     [self reloadHistoryList];
 }

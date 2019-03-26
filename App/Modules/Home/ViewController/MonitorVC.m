@@ -82,6 +82,7 @@
             [self.monitorData addObject:model];
         }];
         [self.tableView reloadData];
+        [self removeNoDataImage];
     }else{
         [self showNoDataImage];
     }
@@ -92,7 +93,7 @@
     CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
     creatVC.type = self.type;
     [self.navigationController pushViewController:creatVC animated:YES];
-    }else{
+    }else if([getTeamState isEqualToString:PW_isPersonal]){
         FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
         [self.navigationController pushViewController:createTeam animated:YES];
     }

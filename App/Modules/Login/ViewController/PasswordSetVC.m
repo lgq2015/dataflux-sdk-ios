@@ -154,19 +154,19 @@
     [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             setXAuthToken(response[@"content"][@"authAccessToken"]);
-            [iToast alertWithTitleCenter:@"修改成功"];
+            [iToast alertWithTitleCenter:@"密码设置成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 KPostNotification(KNotificationLoginStateChange, @YES);
             });
         }else{
-            [iToast alertWithTitleCenter:@"修改失败，请重试"];
+            [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         
     }];
     }else{
-        [iToast alertWithTitleCenter:@"密码格式错误"];
+        [iToast alertWithTitleCenter:@"密码格式有误"];
     }
 }
 - (void)viewWillDisappear:(BOOL)animated {

@@ -266,9 +266,10 @@
               [self.view layoutIfNeeded];
                 CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
                 self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
-            }else {
-                //if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"])
+            }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
                 [self createEChartLineType:dict[@"data"]];
+            }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
+                [self createListType:dict[@"data"]];
             }
         }
    }
@@ -463,6 +464,11 @@
     [self.view layoutIfNeeded];
     CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
+}
+- (void)createListType:(NSDictionary *)dict{
+    NSString *header = [dict stringValueForKey:@"header" default:@""];
+    NSArray *body = dict[@"body"];
+    
 }
 - (void)dealHandBookViewWith:(NSDictionary *)dict{
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {

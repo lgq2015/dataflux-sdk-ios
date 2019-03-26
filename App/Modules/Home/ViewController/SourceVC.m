@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 @property (nonatomic, strong) UIButton  *showWordsBtn;
 @property (nonatomic, strong) AddIssueSourceTipView *addTipView;
 @property (nonatomic, assign) BOOL isFirstEdit;
-@property (nonatomic, copy) NSString *yunTitle;
+@property (nonatomic, strong) IssueSourceConfige *confige;
 @end
 @implementation SourceVC
 -(void)viewDidAppear:(BOOL)animated{
@@ -46,42 +46,28 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [self.view addSubview:self.mainScrollView];
     NSInteger type = self.model?self.model.type:self.type;
     self.type = type;
+    self.confige =  [[IssueSourceConfige alloc]initWithType:self.type];
     [self createUIWithType:type];
 }
 
 - (void)createUIWithType:(SourceType)type{
-    NSArray *placeArray;
+    self.title = self.confige.vcTitle;
+    self.provider = self.confige.vcProvider;
     switch (type) {
         case SourceTypeAli:
-            self.title = @"连接阿里云";
-            self.provider = @"aliyun";
-            self.yunTitle = @"阿里云 RAM ";
-            placeArray = @[@{@"title":@"名称",@"tfText":@"请输入情报源名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 RAM 账号的 Access Key ID"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 RAM 账号的 Access Key Secret"}];
-            [self createSourceTypeYunWithTitle:@"阿里云" array:placeArray];
+            [self createSourceTypeYun];
             break;
         case SourceTypeSingleDiagnose:
             [self createSourceTypeSingle];
             break;
         case SourceTypeUcloud:
-            self.title = @"连接UCloud";
-            self.provider = @"ucloud";
-            self.yunTitle = @" UCloud UAM ";
-             placeArray = @[@{@"title":@"名称",@"tfText":@"请输入情报源名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 UAM 账号的 Public key"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 UAM 账号的 Privite key"}];
-            [self createSourceTypeYunWithTitle:@"Ucloud" array:placeArray];
+            [self createSourceTypeYun];
             break;
         case SourceTypeTencent:
-            self.title = @"连接腾讯云";
-            self.provider = @"qcloud";
-            self.yunTitle = @"腾讯云 CAM ";
-            placeArray = @[@{@"title":@"名称",@"tfText":@"请输入情报源名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 CAM 账号的 Access Key ID"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 CAM 账号的 Access Key Secret"}];
-            [self createSourceTypeYunWithTitle:@"腾讯云" array:placeArray];
+            [self createSourceTypeYun];
             break;
         case SourceTypeAWS:
-            self.title = @"连接AWS";
-            self.provider = @"aws";
-            self.yunTitle = @" AWS IAM ";
-            placeArray = @[@{@"title":@"名称",@"tfText":@"请输入情报源名称"},@{@"title":@"Access Key ID",@"tfText":@"请输入 IAM 账号的 Access Key ID"},@{@"title":@"Access Key Secret",@"tfText":@"请输入 IAM 账号的 Access Key Secret"}];
-            [self createSourceTypeYunWithTitle:@"AWS" array:placeArray];
+            [self createSourceTypeYun];
             break;
         case SourceTypeDomainNameDiagnose:
             self.provider = @"domain";
@@ -106,7 +92,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)createNavWithType:(NaviType)type{
     switch (type) {
         case NaviTypeNormal:
-            if(getTeamState){
+            if([getTeamState isEqualToString:PW_isTeam]){
                 BOOL isadmain = userManager.teamModel.isAdmin;
                 if (isadmain) {
                    [self addNavigationItemWithImageNames:@[@"icon_more"] isLeft:NO target:self action:@selector(navRightBtnClick:) tags:@[@99]];
@@ -172,30 +158,28 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
 }
 #pragma mark ========== 云系列 ==========
-- (void)createSourceTypeYunWithTitle:(NSString *)title array:(NSArray *)placearray{
+- (void)createSourceTypeYun{
   
-    NSString *tips = [NSString stringWithFormat:@"通过授权王教授只读权限，让王教授连接您的云账号，您就可以及时得到%@的诊断情报，发现可能存在的问题并获取专家建议。",title];
-       UIView *tipView = [self tipsViewWithBackImg:@"card" tips:tips];
-        [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+       UIView *tipView = [self tipsViewWithBackImg:@"card" tips:self.confige.topTip];
+      [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view).offset(ZOOM_SCALE(12));
             make.left.mas_equalTo(self.view).offset(Interval(13));
             make.right.mas_equalTo(self.view).offset(Interval(-13));
             make.height.offset(ZOOM_SCALE(110));
         }];
-    NSArray *array ;
-    if (self.isAdd) {
-        array = placearray;
-    }else{
-        array = @[@{@"title":@"名称",@"tfText":self.model.name},@{@"title":@"Access Key ID",@"tfText":self.model.akId},@{@"title":@"Access Key Secret",@"tfText":@"***********"}];
+    if(!self.isAdd){
+        NSMutableArray<IssueTf*> *tfArray = [NSMutableArray arrayWithArray:self.confige.issueTfArray];
+        tfArray[0].text = self.model.name;
+        tfArray[1].text = self.model.akId;
+        tfArray[2].text = @"****************";
     }
+
     
-        
         UIView *temp = nil;
         self.TFArray = [NSMutableArray new];
         temp = tipView;
-        for (NSDictionary *dict in array) {
-            BOOL isSecureTextEntry = self.TFArray.count == array.count-1?YES:NO;
-            UIView *item = [self itemViewWithTitle:dict[@"title"] tag:self.TFArray.count+1 tfText:dict[@"tfText"] secureTextEntry:isSecureTextEntry];
+        for (IssueTf *tf in self.confige.issueTfArray) {
+            UIView *item = [self itemViewWithIssueTF:tf tag:self.TFArray.count+1];
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 if(self.TFArray.count <= 2){
                 make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(12));
@@ -232,13 +216,18 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         self.showWordsBtn.hidden = YES;
         [[akId rac_textSignal] subscribeNext:^(id x) {
             if (self.isFirstEdit) {
-                if (![x isEqualToString:self.model.akId]) {
+                if (![x isEqualToString:self.model.akId] &&[x isEqualToString:@"****************"]) {
                     password.text = @"";
                     self.isFirstEdit = NO;
                     self.showWordsBtn.hidden = NO;
                     self.showWordsBtn.enabled = YES;
                 }
             }
+        }];
+        
+        [[password rac_textSignal] subscribeNext:^(id x) {
+            self.showWordsBtn.hidden = [x isEqualToString:@"****************"]?YES:NO;
+            self.showWordsBtn.enabled = !self.showWordsBtn.hidden;
         }];
     }
 }
@@ -247,14 +236,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     self.title = @"单机诊断";
     NSArray *arrar ;
     if(self.isAdd){
-        arrar= @[@{@"title":@"名称",@"tfText":@"请输入名称"},@{@"title":@"Instance ID",@"tfText":@"请输入Instance ID"},@{@"title":@"Hostname",@"tfText":@"请输入Hostname"},@{@"title":@"Host IP",@"tfText":@"请输入Host IP"},@{@"title":@"os",@"tfText":@"请输入os"}];
-    }else{
-        arrar= @[@{@"title":@"情报源名称",@"tfText":@"oa-web-02"},@{@"title":@"ID",@"tfText":@"i-vfht5456465"},@{@"title":@"Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Host IP",@"tfText":@"43.114.113.1"}];
+       
     }
     self.dataSource = [NSMutableArray arrayWithArray:arrar];
     UIView *temp = nil;
-    for (NSInteger i=0; i<self.dataSource.count; i++) {
-        UIView *item = [self itemViewWithTitle:self.dataSource[i][@"title"] tag:i+1 tfText:self.dataSource[i][@"tfText"] secureTextEntry:NO];
+    for (NSInteger i=0; i<self.confige.issueTfArray.count; i++) {
+        UIView *item = [self itemViewWithIssueTF:self.confige.issueTfArray[i] tag:i+1];
         if (i==0) {
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view).offset(Interval(12));
@@ -290,13 +277,11 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 //#pragma mark ========== 集群诊断 ==========
 - (void)createSourceTypeCluster{
     self.title = @"集群诊断";
-    NSArray *arrar ;
-    if(!self.isAdd){
-        arrar= @[@{@"title":@"情报源名称",@"tfText":@"oa-web-02"},@{@"title":@"Cluster ID",@"tfText":@"i-vfht54564657575797"},@{@"title":@"Cluster Hostname",@"tfText":@"oa-gnldgla"},@{@"title":@"Cluste IP",@"tfText":@"43.114.113.1"}];
-        self.dataSource = [NSMutableArray arrayWithArray:arrar];
+  
+       
         UIView *temp = nil;
-        for (NSInteger i=0; i<self.dataSource.count; i++) {
-            UIView *item = [self itemViewWithTitle:self.dataSource[i][@"title"] tag:i+1 tfText:self.dataSource[i][@"tfText"] secureTextEntry:NO];
+        for (NSInteger i=0; i<self.confige.issueTfArray.count; i++) {
+            UIView *item = [self itemViewWithIssueTF:self.confige.issueTfArray[i] tag:i+1];
             if (i==0) {
                 [item mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(self.view).offset(Interval(12));
@@ -314,7 +299,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                     make.width.offset(kWidth);
                     make.height.offset(ZOOM_SCALE(65));
                 }];
-                if(i<self.dataSource.count-1){
+                if(i<self.confige.issueTfArray.count-1){
                     UIView *line = [[UIView alloc]init];
                     line.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
                     [self.view addSubview:line];
@@ -327,14 +312,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             }
         }
-    }
+    
 }
 #pragma mark ========== 域名诊断 ==========
 - (void)createSourceTypeDomainName{
-        self.title = @"域名诊断";
-        NSString *tfText = self.isAdd?@"请输入需要诊断的一级域名":self.model.name;
-    
-        NSString *tips = @"配置您要诊断的一级域名，及时获取关于域名相关的诊断情报。包括了域名到期时间、SSL证书配置等。";
+        IssueTf *tf = self.confige.issueTfArray[0];
+        tf.text = self.isAdd?@"":self.model.name;
+        NSString *tips = self.confige.topTip;
         UIView *tipView = [self tipsViewWithBackImg:@"card" tips:tips];
         [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view).offset(ZOOM_SCALE(12));
@@ -342,7 +326,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             make.right.mas_equalTo(self.view).offset(Interval(-13));
             make.height.offset(ZOOM_SCALE(110));
         }];
-        UIView *item = [self itemViewWithTitle:@"域名" tag:33 tfText:tfText secureTextEntry:NO];
+        UIView *item = [self itemViewWithIssueTF:tf tag:33];
         [self.view addSubview:item];
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(tipView.mas_bottom).offset(Interval(12));
@@ -352,34 +336,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     
    
 }
-//#pragma mark ========== 网站安全扫描 ==========
-//- (void)createSourceTypeWebsite{
-//    self.title = @"网站安全扫描";
-//
-//        self.successTip = @"已为您发起网站安全扫描配置服务申请";
-//        NSString *tips = @"结合情报大数据、白帽渗透测试实战经验和深度机器学习的全面网站威胁检测，包括漏洞、涉政暴恐色情内容、网页篡改、挂马暗链、垃圾广告等，第一时间助您精准发现您的网站资产和关联资产存在的安全风险，满足合规要求，同时避免遭受品牌形象和经济损失。";
-//        UIView *tipView = [self tipsViewWithBackImg:@"bigcard" tips:tips];
-//        [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.mas_equalTo(self.view).offset(ZOOM_SCALE(12));
-//            make.left.mas_equalTo(self.view).offset(Interval(13));
-//            make.right.mas_equalTo(self.view).offset(Interval(-13));
-//            make.height.offset(ZOOM_SCALE(200));
-//        }];
-//    if (self.isAdd) {
-//        UIButton *allocationBtn = [[UIButton alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(270), kWidth-2*Interval(16), ZOOM_SCALE(47))];
-//        [allocationBtn setTitle:@"帮我配置" forState:UIControlStateNormal];
-//        [allocationBtn setBackgroundColor:PWBlueColor];
-//        allocationBtn.layer.cornerRadius = 4.0f;
-//        [self.view addSubview:allocationBtn];
-//    }else{
-//        UIView *item = [self itemViewWithTitle:@"URL" tag:1 tfText:@"http://www.skghak.com.cn/chart.php" secureTextEntry:NO];
-//        [item mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.mas_equalTo(tipView.mas_bottom).offset(Interval(12));
-//            make.width.offset(kWidth);
-//            make.height.offset(ZOOM_SCALE(65));
-//        }];
-//    }
-//}
+
 
 #pragma mark ========== UI 懒加载 ==========
 -(UIButton *)navRightBtn{
@@ -415,7 +372,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             dot2.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
             dot2.layer.cornerRadius = 4.0f;
             [_tipView addSubview:dot2];
-            NSString *tiptext = [self getsubTip];
+            NSString *tiptext = self.confige.subTip;
             UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"9B9EA0"] text:tiptext];
             tipLab.numberOfLines = 0;
             [_tipView addSubview:tipLab];
@@ -430,31 +387,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
     return _tipView;
 }
-- (NSString *)getsubTip{
-    switch (self.type) {
-        case SourceTypeAli:
-            return @"    您当前为免费版本，支持针对 ECS、块存储、OSS、RDS、SLB、VPC、云监控这几类资源进行相关的诊断。";
-            break;
-        case SourceTypeAWS:
-            return @"    您当前为免费版本，支持针对 EC2、VPC、EBS、ELB、RDS、S3 这几类资源进行相关的诊断。";
-            break;
-        case SourceTypeTencent:
-            return @"    您当前为免费版本，支持针对 CVM、CBS、TencentDB（MySQL / SQLServer）、CLB、VPC 这几类资源进行相关的诊断。";
-            break;
-            break;
-        case SourceTypeUcloud:
-            return @"    您当前为免费版本，支持针对 UHost、UDisk、UNet、UDB、UFile、CLB、UVPC 这几类资源进行相关的诊断。";
-            break;
-       default:
-            return nil;
-            break;
-    }
-}
+
 -(TTTAttributedLabel *)findHelpLab{
     if (!_findHelpLab) {
         //    Access Key 可在您的阿里云 RAM 账号中找到，详细步骤请点击这里
         NSString *linkText = @"查看帮助 ";
-        NSString *promptText = [NSString stringWithFormat:@"    Access Key 可在您的%@账号中找到，详细步骤请点击这里%@", self.yunTitle,linkText];
+        NSString *promptText = [NSString stringWithFormat:@"    Access Key 可在您的%@账号中找到，详细步骤请点击这里%@", self.confige.yunTitle,linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _findHelpLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
         _findHelpLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
@@ -468,7 +406,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                                         };
         _findHelpLab.linkAttributes = attributesDic;
         _findHelpLab.activeLinkAttributes = attributesDic;
-        [_findHelpLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange];
+        [_findHelpLab addLinkToURL:[NSURL URLWithString:self.confige.helpUrl] withRange:linkRange];
     }
     return _findHelpLab;
 }
@@ -513,20 +451,16 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }];
     return view;
 }
-- (UIView *)itemViewWithTitle:(NSString *)title tag:(NSInteger)tag tfText:(NSString *)tfText secureTextEntry:(BOOL )isSecureTextEntry{
+- (UIView *)itemViewWithIssueTF:(IssueTf *)issueTF tag:(NSInteger)tag{
     UIView *item = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(65))];
     [self.view addSubview:item];
     item.backgroundColor = PWWhiteColor;
-    UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20))];
-    titleLab.text = title;
-    titleLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
-    titleLab.textColor = PWTitleColor;
-    
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake (Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20)) font:MediumFONT(14) textColor:PWTitleColor text:issueTF.tfTitle];
     [item addSubview:titleLab];
     UITextField *tf = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(34), kWidth-Interval(32), ZOOM_SCALE(22))];
     tf.tag = tag;
-    tf.secureTextEntry = isSecureTextEntry;
-    if (isSecureTextEntry) {
+    tf.secureTextEntry = issueTF.secureTextEntry;
+    if (issueTF.secureTextEntry) {
         tf.frame = CGRectMake(Interval(16), ZOOM_SCALE(34), kWidth-Interval(64), ZOOM_SCALE(22));
       UIButton  *showWordsBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(337), ZOOM_SCALE(33), ZOOM_SCALE(24), ZOOM_SCALE(24))];
         [showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateNormal];
@@ -537,10 +471,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         self.showWordsBtn = showWordsBtn;
     }
     tf.delegate = self;
-    if (self.isAdd) {
-        tf.placeholder = tfText;
-    }else{
-    tf.text = tfText;
+    tf.placeholder = issueTF.placeHolder;
+    if (!self.isAdd) {
+        tf.text = issueTF.text;
         tf.enabled = NO;
     }
     [item addSubview:tf];
@@ -559,11 +492,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 UITextField *tf = self.TFArray[0];
                 [tf becomeFirstResponder];
                 self.showWordsBtn.enabled =NO;
+        
                 [self createNavWithType:NaviTypeEdit];
         }];
         [alert addAction:edit];
     UIAlertAction *delet = [PWCommonCtrl actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:@"删除情报源将会同时删除关于该情报的所有情报记录，请谨慎操作" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:self.confige.deletAlert preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self delectIssueSource];
         }];
@@ -591,7 +525,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 - (void)modifyIssueSourcejudge{
      NSDictionary *param ;
     if (self.type == SourceTypeAli || self.type ==SourceTypeAWS||self.type ==SourceTypeUcloud||self.type ==SourceTypeTencent) {
-      if ([self.TFArray[1].text isEqualToString:self.model.akId]) {
+      if ([self.TFArray[1].text isEqualToString:self.model.akId] && [self.TFArray[2].text isEqualToString:@"****************"]) {
              param = @{@"data":@{@"name":self.TFArray[0].text}};
         }else{
             param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
@@ -613,7 +547,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:NO];
          }else{
-        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
          }
     } failBlock:^(NSError *error) {
         [SVProgressHUD showSuccessWithStatus:@"保存失败"];
@@ -638,14 +572,16 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [weakSelf.navigationController pushViewController:webvc animated:YES];
         };
     }else{
-        
+        if(![self.TFArray[0].text validateTopLevelDomain]){
+            [iToast alertWithTitleCenter:@"域名格式错误"];
+        }else{
         param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             
         }];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            if( [self.TFArray[0].text validateTopLevelDomain]){
+          
             [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
             self.addTipView.itemClick = ^{
                 [weakSelf addIssueSourcewithparam:param];
@@ -655,16 +591,15 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             weakSelf.addTipView.hidden = YES;
             [weakSelf.navigationController pushViewController:webvc animated:YES];
             };
-            }else{
-                [iToast alertWithTitleCenter:@"域名格式错误"];
-            }
-                
+
         }];
+        
         [alert addAction:cancle];
         [alert addAction:confirm];
         [self presentViewController:alert animated:YES completion:^{
             
         }];
+    }
     }
 }
 - (void)addIssueSourcewithparam:(NSDictionary *)param{
@@ -678,18 +613,19 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             self.navigationItem.leftBarButtonItem = nil;
             __weak typeof (self) vc = self;
             tip.btnClick = ^(){
-                if(getConnectState == NO){
-                    setIsHideGuide(YES);
-                [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+               
+            
+          [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+            __block   BOOL hasInfoSource = NO;
+             for(UIViewController *temp in self.navigationController.viewControllers) {
+                if([temp isKindOfClass:[InformationSourceVC class]]){
+                    hasInfoSource = YES;
+                [self.navigationController popToViewController:temp animated:YES];
+                }
+             }
+                if (hasInfoSource == NO) {
                 InformationSourceVC *source = [[InformationSourceVC alloc]init];
                 [self.navigationController pushViewController:source animated:YES];
-                }else{
-                [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-                    for(UIViewController *temp in self.navigationController.viewControllers) {
-                        if([temp isKindOfClass:[InformationSourceVC class]]){
-                            [self.navigationController popToViewController:temp animated:YES];
-                        }}
-                    
                 }
             };
         }else{
@@ -705,11 +641,21 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [SVProgressHUD showWithStatus:@"正在删除..."];
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[@"errorCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+            [SVProgressHUD showSuccessWithStatus:@"已删除"];
             KPostNotification(KNotificationIssueSourceChange,nil);
             [self.navigationController popViewControllerAnimated:YES];
         }else{
+            if([response[ERROR_CODE] isEqualToString:@"home.issueSource.noSuchIssueSource"]){
+                [SVProgressHUD dismiss];
+                [iToast alertWithTitleCenter:@"情报源不存在"];
+                KPostNotification(KNotificationIssueSourceChange,nil);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+                
+            }else{
             [SVProgressHUD showErrorWithStatus:@"删除失败"];
+            }
         }
         
     } failBlock:^(NSError *error) {
@@ -717,13 +663,14 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }];
 }
 -(void)navLeftBtnClick:(UIButton *)button{
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    
+    DLog(@"%@",url);
+    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"帮助文档" andURL:url];
+    [self.navigationController pushViewController:web animated: YES];
 }
 #pragma mark ========== BtnClick ==========
 - (void)allocationBtnClick:(UIButton *)button{

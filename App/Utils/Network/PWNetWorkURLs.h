@@ -22,8 +22,10 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_LIBRARY    HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
-#define JPUSH_ID @"e008337585ca5df269038d4f"
-
+#define JPUSH_ID            @"e008337585ca5df269038d4f"
+#define QQ_APPKEY           @"1108030178"
+#define WX_APPKEY           @"wx6d7b153b7387b5c4"
+#define DINGDING_APPKEY     @"dingoagikluhqlvit4wovq"
 #elif PREPROD //预发环境
 #define HTTPS  YES
 #define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
@@ -34,7 +36,10 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"preprod-library.prof.wang"
-#define JPUSH_ID @"557856f95bfb15efc965ff99"
+#define JPUSH_ID            @"557856f95bfb15efc965ff99"
+#define QQ_APPKEY           @"1108154997"
+#define WX_APPKEY           @"wx26ac01021209f766"
+#define DINGDING_APPKEY     @"dingoaq9v3khnry2ayokri"
 
 #else //正式环境
 #define HTTPS  YES
@@ -46,8 +51,10 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"service.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"library.prof.wang"
-#define JPUSH_ID @"a0d40a210d0969b07a9c472e"
-
+#define JPUSH_ID           @"a0d40a210d0969b07a9c472e"
+#define QQ_APPKEY          @"1108030042"
+#define WX_APPKEY          @"wx1c3b94b644454727"
+#define DINGDING_APPKEY    @"dingoagfockwplqrickp6y"
 #endif
 
 #define API_HOST [NSString stringWithFormat:@"%@/api", API_SEVERID]
@@ -163,4 +170,6 @@
 #define PW_servicelegal                API_H5_HOST@"/terms/service"
 
 #define PW_Safelegal                   API_H5_HOST@"/terms/datasafe"
+#define PW_ISSUE_HELP(str)                [NSString stringWithFormat:@"%@pre-library.prof.wang/handbook_html/user-help/%@-connect/index.html", HTTP_PROTOCOL,str]
+
 #endif /* PWNetWorkURLs_h */

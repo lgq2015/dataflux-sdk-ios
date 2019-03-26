@@ -249,7 +249,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [[IssueListManger sharedIssueListManger] shutDown];
     [[HandBookManager sharedInstance] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
-
+    [[IssueListManger sharedIssueListManger] createData];
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
@@ -264,8 +264,13 @@ SINGLETON_FOR_CLASS(UserManager);
         if (completion) {
             completion(YES,nil);
         }
+    }else{
+        if (completion) {
+            completion(NO,nil);
+        }
     }
     KPostNotification(KNotificationLoginStateChange, @NO);
+
 }
 
 -(void)autoLoginToServer:(loginBlock)completion{

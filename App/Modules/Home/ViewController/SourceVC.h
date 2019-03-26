@@ -7,13 +7,13 @@
 //
 
 #import "RootViewController.h"
-#import "PWInfoSourceModel.h"
+#import "IssueSourceConfige.h"
 
 
 @interface SourceVC : RootViewController
 @property (nonatomic, assign) SourceType type;
 @property (nonatomic, strong) PWInfoSourceModel *model;
-@property (nonatomic, assign) BOOL isDefault;
+@property (nonatomic, assign) BOOL isDefault; // 下面提示是否显示
 @property (nonatomic, assign) BOOL isAdd;
 @property (nonatomic, copy) void(^RefreshClick)(void);
 @end

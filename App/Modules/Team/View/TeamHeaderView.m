@@ -141,6 +141,7 @@
     [self.vipProductView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.offset(height);
     }];
+    [self.vipProductView removeAllSubviews];
     [self.vipProductView layoutIfNeeded];
     [self layoutIfNeeded];
     UIView *vipTemp;
@@ -149,11 +150,11 @@
         UIView *dot = [[UIView alloc]init];
         dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
         dot.layer.cornerRadius = 4.0f;
-        [self addSubview:dot];
+        [self.vipProductView addSubview:dot];
         UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:[displayString stringValueForKey:@"name" default:@""]];
         UILabel *equityLab2 =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWBlueColor text:[displayString stringValueForKey:@"value" default:@""]];
-        [self addSubview:equityLab];
-        [self addSubview:equityLab2];
+        [self.vipProductView addSubview:equityLab];
+        [self.vipProductView addSubview:equityLab2];
 
         if (vipTemp == nil) {
             [dot mas_makeConstraints:^(MASConstraintMaker *make) {

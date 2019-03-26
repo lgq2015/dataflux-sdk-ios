@@ -44,6 +44,12 @@ SINGLETON_FOR_HEADER(IssueListManger)
  情报分类页数据源获取
  */
 - (NSArray *)getIssueListWithIssueType:(NSString *)type;
+/**
+  切换账号 清空首页infoBoard缓存信息
+ */
+- (void)createData;
+
+- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId;
 @end
 
 NS_ASSUME_NONNULL_END

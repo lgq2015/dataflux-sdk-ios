@@ -99,7 +99,7 @@
         _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_rightBtn setTitle:@"情报源" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-        [_rightBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
+        [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_rightBtn sizeToFit];
         // 重点位置开始

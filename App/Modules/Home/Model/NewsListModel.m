@@ -95,14 +95,11 @@
     if (self.thumbnails.count>0) {
         self.imageUrl = self.thumbnails[0][@"url"];
         self.type = NewListCellTypeSingleImg;
+        self.cellHeight = ZOOM_SCALE(112)+Interval(30);
     }else{
          self.type = NewListCellTypText;
     }
-//    if (![self.imageUrl isEqualToString:@""]) {
-//        self.type = NewListCellTypeSingleImg;
-//    }else{
-//        self.type = NewListCellTypText;
-//    }
+
     NSDictionary *topic=dict[@"topic"];
 //     =[topic stringValueForKey:@"title" default:@""];
     self.topic = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.updatedAt],[topic stringValueForKey:@"title" default:@""]];
@@ -131,18 +128,7 @@
     self.isStarred = YES;
 }
 - (void)setValueWithCollectionJson:(NSDictionary *)dict{
-    /*
-     {
-     "createTime": "2019-03-05T03:02:12Z",
-     "entityId": "18",
-     "id": "favo-hAkfFosGZbREJRh9g8NUMj",
-     "summary": "<p>记得第一次玩这个游戏，是5年前上高中那会儿，第一次接触仙剑这类游戏，却让我废寝忘食。直到现在待在家里无聊的时候，还是会拿出来怀念怀念。</p><p>刚进入游戏，看到画面和人物是对这个游戏没有太大",
-     "title": "《仙剑奇侠传4》你为什么是如此的与众不同",
-     "type": "forum",
-     "updateTime": "2019-03-05T03:02:12Z",
-     "url": "http://testing.profwang-h5.cloudcare.cn:10302/forum/a/18"
-     }
-     */
+   
     NSDictionary *extras = dict[@"extras"];
     self.topic = [extras stringValueForKey:@"topic" default:@"topic"];
     self.title = [dict stringValueForKey:@"title" default:@""];

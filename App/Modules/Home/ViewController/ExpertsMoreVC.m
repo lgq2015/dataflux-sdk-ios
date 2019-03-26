@@ -48,7 +48,7 @@
     
     NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc]initWithString:@"符合 ISO20000、270001 的合格认证"];
     //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-    NSRange range = [@"符合 ISO20000、270001 的合格认证" rangeOfString:@"SO20000、270001"];
+    NSRange range = [@"符合 ISO20000、270001 的合格认证" rangeOfString:@"ISO20000、270001"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[NSForegroundColorAttributeName] = PWTextBlackColor;
     //赋值

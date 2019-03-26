@@ -199,7 +199,7 @@
     IssueExtraModel *model = [[IssueExtraModel alloc]initWithDictionary:self.expireData[indexPath.row]];
     DLog(@"%@",model.fileUrl);
 
-    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURLString:model.fileUrl];
+    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];
     [self.navigationController pushViewController:webView animated:YES];
 }
 /*

@@ -132,8 +132,10 @@
     }
 }
 - (void)changePassword{
+     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"oldPassword":self.passwordTf.text}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifyoldpassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
@@ -142,16 +144,18 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:@"密码错误"];
         }
     } failBlock:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
+
     }];
 }
 - (void)updateEmail{
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":self.passwordTf.text,@"verificationCodeType":@"password",@"t":@"update_email"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
             bind.changeType = BindUserInfoTypeEmail;
@@ -159,9 +163,9 @@
             bind.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bind animated:YES];
         }else{
-            
+            [iToast alertWithTitleCenter:@"密码错误"];
+
         }
-        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
 
@@ -171,6 +175,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"data":@{@"uType":@"mobile",@"verificationCode":[self.passwordTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"verificationCodeType":@"password",@"t":@"update_mobile"}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodeVerify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BindEmailOrPhoneVC *bind = [[BindEmailOrPhoneVC alloc]init];
             bind.changeType = BindUserInfoTypeMobile;
@@ -178,9 +183,9 @@
             bind.uuid =response[@"content"][@"uuid"];
             [self.navigationController pushViewController:bind animated:YES];
         }else{
-            
+            [iToast alertWithTitleCenter:@"密码错误"];
+
         }
-        [SVProgressHUD dismiss];
 
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

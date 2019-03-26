@@ -63,14 +63,20 @@
         NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
         NSString *content;
         if ([type isEqualToString:@"attachment"]) {
-            content = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
+            NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
+             NSString *type =  [fileName pathExtension];
+            if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+                content =@"[图片]";
+            }else{
+                content = [NSString stringWithFormat:@"[文件]%@",fileName];
+            }
         }else{
             content =[issueLogDict stringValueForKey:@"content" default:@""];
         }
         if (nickname.length>0) {
-          self.issueLog =[NSString stringWithFormat:@"%@:%@",nickname,content];
+            self.issueLog =[NSString stringWithFormat:@"%@:  %@",nickname,content];
         }else{
-        self.issueLog =[NSString stringWithFormat:@"%@:%@",account,content];
+            self.issueLog =[NSString stringWithFormat:@"%@: %@",account,content];
         }
     }else{
         self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];

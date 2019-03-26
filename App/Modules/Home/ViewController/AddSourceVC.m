@@ -28,7 +28,7 @@
     [super viewDidLoad];
     self.title = @"添加情报源";
     [self createUI];
-    [self loadTeamProduct];
+  
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
@@ -45,12 +45,8 @@
     viewClould.layer.cornerRadius = 4.0f;
    
     viewClould.itemClick = ^(NSInteger index){
-        SourceVC *source = [[SourceVC alloc]init];
-        [self.navigationController pushViewController:source animated:YES];
         NSDictionary *dict = array[0][@"datas"][index];
-        source.type = [dict[@"sourceType"] intValue];
-        source.isDefault = self.isDefault;
-        source.isAdd = YES;
+        [self loadTeamProductWithClickIndex:[dict[@"sourceType"] intValue]];
     };
     AddSourceItemView *deepView = [[AddSourceItemView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(216)+Interval(24), kWidth-Interval(32), ZOOM_SCALE(137))];
     deepView.data = array[1];
@@ -91,20 +87,20 @@
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 #pragma mark ========== 获取常量表 ==========
-- (void)loadTeamProduct{
+- (void)loadTeamProductWithClickIndex:(NSInteger )index{
 
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
-            [self dealWithData:content];
+            [self dealWithData:content withType:index];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
     }];
 }
-- (void)dealWithData:(NSArray *)content{
+- (void)dealWithData:(NSArray *)content withType:(NSInteger)type{
     NSDictionary *basic_source = content[0];
     self.isDefault = basic_source[@"isDefault"];
     NSInteger value =[basic_source longValueForKey:@"value" default:1];
@@ -116,9 +112,15 @@
         [self.view removeAllSubviews];
         [self.view addSubview:tipView];
         tipView.btnClick = ^(){
-            [self.tabBarController setSelectedIndex:1];
+            [self.tabBarController setSelectedIndex:2];
             [self.navigationController popViewControllerAnimated:NO];
         };
+    }else{
+        SourceVC *source = [[SourceVC alloc]init];
+        [self.navigationController pushViewController:source animated:YES];
+        source.type = type;
+        source.isDefault = self.isDefault;
+        source.isAdd = YES;
     }
 
     

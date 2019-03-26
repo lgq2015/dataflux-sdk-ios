@@ -105,4 +105,6 @@ SINGLETON_FOR_HEADER(UserManager)
    判断是否有team
  */
 -(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave;
+
+-(void)onKick;
 @end

@@ -170,6 +170,9 @@
     return YES;
 }
 - (void)saveHistoryData:(NSString *)text{
+    self.historyData = [NSMutableArray new];
+    NSArray * myArray = getPWhistorySearch;
+    [self.historyData addObjectsFromArray:myArray];
 
     [self.historyData enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isEqualToString:text]) {
