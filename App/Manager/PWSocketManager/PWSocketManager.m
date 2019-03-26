@@ -116,9 +116,24 @@ static dispatch_queue_t socket_message_queue() {
                 " = %@", data);
         if (data.count > 0) {
             NSString *jsonString = data[0];
-            [[NSNotificationCenter defaultCenter]
-                    postNotificationName:KNotificationChatNewDatas
-                                                                object:nil userInfo:[jsonString jsonValueDecoded]];
+            NSDictionary *dic = [jsonString jsonValueDecoded];
+
+            IssueLogModel *model = [[IssueLogModel new] initWithDictionary:dic];
+
+            NSArray *array =
+                    @[@"updateExpertGroups",
+                            @"exitExpertGroups",
+                            @"call",
+                            @"comment"];
+
+            //过滤脏数据
+            if ([array containsObject:model.subType]){
+                [[NSNotificationCenter defaultCenter]
+                        postNotificationName:KNotificationChatNewDatas
+                                      object:nil
+                                    userInfo:dic];
+            }
+
         }
 
     }];
