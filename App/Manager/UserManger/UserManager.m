@@ -126,10 +126,10 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
-   
+    __block BOOL isUserSuccess,isTeamSuccess = NO;
+
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
     dispatch_group_t grpupT = dispatch_group_create();//一个线程组
-    __block BOOL isUserSuccess,isTeamSuccess = NO;
     
     dispatch_group_async(grpupT, queueT,^{
         dispatch_group_enter(grpupT);
@@ -137,6 +137,7 @@ SINGLETON_FOR_CLASS(UserManager);
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                 dispatch_group_leave(grpupT);
             }else{
                 isUserSuccess = YES;
                 NSError *error;
@@ -147,11 +148,11 @@ SINGLETON_FOR_CLASS(UserManager);
                     [cache setObject:dic forKey:KUserModelCache];
                     NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                     setPWUserID(userID);
-                
+                  
                 }
-                
+                dispatch_group_leave(grpupT);
             }
-            dispatch_group_leave(grpupT);
+           
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
            
@@ -180,8 +181,11 @@ SINGLETON_FOR_CLASS(UserManager);
                     setTeamState(PW_isPersonal);
                     [kUserDefaults synchronize];
                 }
+                  dispatch_group_leave(grpupT);
+            }else{
+                  dispatch_group_leave(grpupT);
             }
-            dispatch_group_leave(grpupT);
+          
         } failBlock:^(NSError *error) {
            
             dispatch_group_leave(grpupT);
@@ -194,9 +198,11 @@ SINGLETON_FOR_CLASS(UserManager);
     
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
-                if (isSuccess && isTeamSuccess) {
+                if (isSuccess) {
                     isSuccess(YES);
                 }
+            }else{
+                [iToast alertWithTitleCenter:@"网络异常"];
             }
         });
         

@@ -39,11 +39,20 @@
     [self judgeIsTeam];
 }
 - (void)judgeIsTeam{
+    
     NSString *team = getTeamState;
    if([team isEqualToString:PW_isTeam]){
         [self createTeamUI];
     }else if([team isEqualToString:PW_isPersonal]){
         [self createPersonalUI];
+    }else{
+        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
+            if (isHave) {
+               [self createTeamUI];
+            }else{
+               [self createPersonalUI];
+            }
+        }];
     }
 }
 - (void)addTeamSuccess:(NSNotification *)notification

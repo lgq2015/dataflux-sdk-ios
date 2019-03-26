@@ -101,4 +101,8 @@ SINGLETON_FOR_HEADER(UserManager)
    teamProduct 缓存
  */
 - (void)setTeamProduct:(NSArray *)teamProduct;
+/**
+   判断是否有team
+ */
+-(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave;
 @end
