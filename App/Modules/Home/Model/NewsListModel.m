@@ -85,17 +85,24 @@
     self.updatedAt = [NSString getLocalDateFormateUTCDate:[dict stringValueForKey:@"updatedAt" default:@""] formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     self.subtitle = [dict stringValueForKey:@"summary" default:@""];
     self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
+    self.thumbnails = dict[@"thumbnails"];
     NSString *newid = [dict stringValueForKey:@"id" default:@""];
     if (newid.length>0) {
         self.url = PW_articleDetails(newid);
     }else{
         self.url = @"";
     }
-    if (![self.imageUrl isEqualToString:@""]) {
+    if (self.thumbnails.count>0) {
+        self.imageUrl = self.thumbnails[0][@"url"];
         self.type = NewListCellTypeSingleImg;
     }else{
-        self.type = NewListCellTypText;
+         self.type = NewListCellTypText;
     }
+//    if (![self.imageUrl isEqualToString:@""]) {
+//        self.type = NewListCellTypeSingleImg;
+//    }else{
+//        self.type = NewListCellTypText;
+//    }
     NSDictionary *topic=dict[@"topic"];
 //     =[topic stringValueForKey:@"title" default:@""];
     self.topic = [NSString stringWithFormat:@"%@   %@",[NSString compareCurrentTime:self.updatedAt],[topic stringValueForKey:@"title" default:@""]];

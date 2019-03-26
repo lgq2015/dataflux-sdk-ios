@@ -148,9 +148,10 @@ SINGLETON_FOR_CLASS(UserManager);
                     [cache setObject:dic forKey:KUserModelCache];
                     NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                     setPWUserID(userID);
-                  
+                    dispatch_group_leave(grpupT);
+                }else{
+                  dispatch_group_leave(grpupT);
                 }
-                dispatch_group_leave(grpupT);
             }
            
         } failBlock:^(NSError *error) {
@@ -195,7 +196,7 @@ SINGLETON_FOR_CLASS(UserManager);
         dispatch_async(dispatch_get_main_queue(), ^{
             if( isTeamSuccess && isUserSuccess){
                 if(change){
-    
+                    
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
                 if (isSuccess) {

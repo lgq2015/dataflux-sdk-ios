@@ -44,13 +44,13 @@
 //        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
 //    }else{
         [self initUserManager];
-       self.mainTabBar = [[MainTabBarController alloc]init];
-       self.window.rootViewController = self.mainTabBar;
-      [self.window makeKeyAndVisible];
-      [[UIButton appearance] setExclusiveTouch:YES];
-      if (@available(iOS 11.0, *)){
-        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    }
+//       self.mainTabBar = [[MainTabBarController alloc]init];
+//       self.window.rootViewController = self.mainTabBar;
+//      [self.window makeKeyAndVisible];
+//      [[UIButton appearance] setExclusiveTouch:YES];
+//      if (@available(iOS 11.0, *)){
+//        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+//    }
 //    }
 }
 #pragma mark ========== 初始化网络配置 ==========
