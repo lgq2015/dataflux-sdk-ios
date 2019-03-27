@@ -10,11 +10,7 @@
 #import "FMDB.h"
 #import <objc/runtime.h>
 
-// 数据库中常见的几种类型
-#define SQL_TEXT     @"TEXT" //文本
-#define SQL_INTEGER  @"INTEGER" //int long integer ...
-#define SQL_REAL     @"REAL" //浮点
-#define SQL_BLOB     @"BLOB" //data
+
 @interface PWFMDB ()
 
 @property (nonatomic, strong)NSString *dbPath;

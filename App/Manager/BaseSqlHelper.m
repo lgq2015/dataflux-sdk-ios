@@ -24,14 +24,19 @@
     @synchronized (self) {
         if (!_fmdbHelper) {
             _fmdbHelper = [[PWFMDB alloc] initWithDBName:[self getDBName]];
+            [self onDBInit];
         }
         return _fmdbHelper;
     }
 }
 
+-(void)onDBInit{
+}
+
 
 - (void)shutDown {
     @synchronized (self) {
+        [_fmdbHelper close];
         _fmdbHelper = nil;
     }
 }

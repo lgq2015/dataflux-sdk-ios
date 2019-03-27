@@ -14,6 +14,8 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 #import "MainTabBarController.h"
+#import "PWSocketManager.h"
+
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
 @end
@@ -68,6 +70,8 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+
+    [[PWSocketManager sharedPWSocketManager] checkForRestart];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

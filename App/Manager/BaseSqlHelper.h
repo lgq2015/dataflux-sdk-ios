@@ -13,6 +13,7 @@
 
 #define PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME @"issue_board"
 #define PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME @"issue_source"
+#define PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME @"issue_log"
 #define PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME @"issue_list"
 
 #define PW_DB_INFORMATION_TABLE_NAME @"information"
@@ -23,6 +24,8 @@
 - (NSString *)getDBName;
 
 - (PWFMDB *)getHelper;
+
+- (void)onDBInit;
 
 - (void)shutDown;
 @end

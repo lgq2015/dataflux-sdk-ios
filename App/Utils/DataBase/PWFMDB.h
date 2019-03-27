@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+// 数据库中常见的几种类型
+#define SQL_TEXT     @"TEXT" //文本
+#define SQL_INTEGER  @"INTEGER" //int long integer ...
+#define SQL_REAL     @"REAL" //浮点
+#define SQL_BLOB     @"BLOB" //data
+
 @interface PWFMDB : NSObject
 /**
  单例方法创建数据库, 如果使用shareDatabase创建,则默认在NSDocumentDirectory下创建PWFMDB.sqlite, 但只要使用这三个方法任意一个创建成功, 之后即可使用三个中任意一个方法获得同一个实例,参数可随意或nil

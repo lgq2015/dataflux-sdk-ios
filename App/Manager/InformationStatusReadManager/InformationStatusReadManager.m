@@ -34,27 +34,26 @@
     return _sharedInstance;
 }
 
+-(void)onDBInit {
+    [self.getHelper pw_inDatabase:^{
 
-- (instancetype)init {
-    if (self = [super init]) {
-        [self.getHelper pw_inDatabase:^{
+        NSString *tableName = PW_DB_INFORMATION_TABLE_NAME;
+        if (![self.getHelper pw_isExistTable:tableName]) {
+            NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
+            dict[COL_NAME_NEWS_ID] = @"text";
+            [self.getHelper pw_createTable:PW_DB_INFORMATION_TABLE_NAME dicOrModel:dict];
+        }
+    }];
 
-            NSString *tableName = PW_DB_INFORMATION_TABLE_NAME;
-            if (![self.getHelper pw_isExistTable:tableName]) {
-                NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
-                dict[COL_NAME_NEWS_ID] = @"text";
-                [self.getHelper pw_createTable:PW_DB_INFORMATION_TABLE_NAME dicOrModel:dict];
-            }
-        }];
-
-
-    }
-
-    return self;
 }
 
 - (NSString *)getDBName {
+<<<<<<< HEAD
      DLog(@"%@",getPWUserID);
+=======
+    DLog(@"getPWUserID:%@",getPWUserID)
+    
+>>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_INFORMATION);
 }
 

@@ -36,24 +36,18 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     return _sharedManger;
 }
 
+-(void)onDBInit {
+    [self.getHelper pw_inDatabase:^{
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self.getHelper pw_inDatabase:^{
+        [self creatIssueBoardTable];
+        [self createIssueSourceTable];
+        [self creatIssueListTable];
 
-            [self creatIssueBoardTable];
-            [self createIssueSourceTable];
-            [self creatIssueListTable];
+    }];
 
-        }];
-
-        [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
-                           dicOrModel:@{@"scanCheckInQueueTime": @"TEXT"}];
-
-    }
-
-    return self;
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
+                       dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT}];
+    
 }
 
 - (void)creatIssueBoardTable {
@@ -63,13 +57,13 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
         NSDictionary *params =
                 @{
-                        @"type": @"integer",
-                        @"state": @"integer",
-                        @"typeName": @"text",
-                        @"messageCount": @"text",
-                        @"subTitle": @"text",
-                        @"pageMaker": @"text",
-                        @"seqAct": @"integer"
+                        @"type": SQL_INTEGER,
+                        @"state": SQL_INTEGER,
+                        @"typeName": SQL_TEXT,
+                        @"messageCount": SQL_TEXT,
+                        @"subTitle": SQL_TEXT,
+                        @"pageMaker": SQL_TEXT,
+                        @"seqAct": SQL_INTEGER
                 };
 
         [dict addEntriesFromDictionary:params];
@@ -88,6 +82,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
         NSDictionary *params =
                 @{
+<<<<<<< HEAD
                         @"type": @"text",
                         @"title": @"text",
                         @"content": @"text",
@@ -105,6 +100,24 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"originInfoJSONStr": @"text",
                         @"subType": @"text",
                         @"issueSourceId":@"TEXT",
+=======
+                        @"type": SQL_TEXT,
+                        @"title": SQL_TEXT,
+                        @"content": SQL_TEXT,
+                        @"level": SQL_TEXT,
+                        @"issueId": SQL_TEXT,
+                        @"updateTime": SQL_TEXT,
+                        @"actSeq": SQL_INTEGER,
+                        @"isRead": SQL_INTEGER,
+                        @"status": SQL_TEXT,
+                        @"latestIssueLogsStr": SQL_TEXT,
+                        @"renderedTextStr": SQL_TEXT,
+                        @"origin": SQL_TEXT,
+                        @"accountId": SQL_TEXT,
+                        @"subType": SQL_TEXT,
+                        @"originInfoJSONStr": SQL_TEXT,
+                        @"subType": SQL_TEXT
+>>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
                 };
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
@@ -121,25 +134,25 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     if (![self.getHelper pw_isExistTable:tableName]) {
         NSDictionary *params =
                 @{
-                        @"provider": @"TEXT",
-                        @"name": @"TEXT",
-                        @"teamId": @"TEXT",
-                        @"scanCheckStatus": @"TEXT",
-                        @"provider": @"TEXT",
-                        @"teamId": @"TEXT",
-                        @"updateTime": @"TEXT",
-                        @"id": @"TEXT",
-                        @"credentialJSON": @"TEXT",
-                        @"credentialJSONstr": @"TEXT",
-                        @"scanCheckStartTime": @"TEXT",
-                        @"scanCheckInQueueTime": @"TEXT",
+                        @"provider": SQL_TEXT,
+                        @"name": SQL_TEXT,
+                        @"teamId": SQL_TEXT,
+                        @"scanCheckStatus": SQL_TEXT,
+                        @"provider": SQL_TEXT,
+                        @"teamId": SQL_TEXT,
+                        @"updateTime": SQL_TEXT,
+                        @"id": SQL_TEXT,
+                        @"credentialJSON": SQL_TEXT,
+                        @"credentialJSONstr": SQL_TEXT,
+                        @"scanCheckStartTime": SQL_TEXT,
+                        @"scanCheckInQueueTime": SQL_TEXT,
                 };
 
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
     } else {
 //        NSDictionary * params = @{
-//                @"scanCheckInQueueTime":@"TEXT"
+//                @"scanCheckInQueueTime":SQL_TEXT
 //        };
 //        [[self getHelper] pw_alterTable:tableName dicOrModel:params];
     }
@@ -150,7 +163,6 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 - (NSString *)getDBName {
     DLog(@"getDBName == %@",getPWUserID);
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_ISSUE);
-
 }
 
 - (void)createData {
@@ -345,7 +357,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 //        }];
             } else {
 
-//        NSDictionary *dict = @{@"type":@"text",@"title":@"text",@"content":@"text",@"level":@"text",@"issueId":@"text",@"updateTime":@"text",@"actSeq":@"integer",@"isRead":@"integer",@"status":@"text",@"latestIssueLogsStr":@"text",@"renderedTextStr":@"text",@"origin":@"text",@"accountId":@"text",@"subType":@"text",@"originInfoJSONStr":@"text",@"subType":@"text"};
+//        NSDictionary *dict = @{@"type":SQL_TEXT,@"title":SQL_TEXT,@"content":SQL_TEXT,@"level":SQL_TEXT,@"issueId":SQL_TEXT,@"updateTime":SQL_TEXT,@"actSeq":SQL_INTEGER,@"isRead":SQL_INTEGER,@"status":SQL_TEXT,@"latestIssueLogsStr":SQL_TEXT,@"renderedTextStr":SQL_TEXT,@"origin":SQL_TEXT,@"accountId":SQL_TEXT,@"subType":SQL_TEXT,@"originInfoJSONStr":SQL_TEXT,@"subType":SQL_TEXT};
 //        BOOL isCreate = [pwfmdb pw_createTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:dict primaryKey:@"PWId"];
 //        if(isCreate){
                 NSArray *resultMArr = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModelArray:array];
@@ -377,7 +389,13 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         [self.getHelper pw_deleteAllDataFromTable:infoTableName];
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
     } else {
+<<<<<<< HEAD
 
+=======
+//        NSDictionary *dict = @{@"type":SQL_INTEGER,@"state":SQL_INTEGER,@"typeName":SQL_TEXT,@"messageCount":SQL_TEXT,@"subTitle":SQL_TEXT,@"pageMaker":SQL_TEXT,@"seqAct":SQL_INTEGER};
+//    BOOL isCreate = [pwfmdb pw_createTable:infoTableName dicOrModel:dict primaryKey:@"PWId"];
+//    if (isCreate) {
+>>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
 
     }
