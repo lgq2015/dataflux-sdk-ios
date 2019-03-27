@@ -227,12 +227,12 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
     } else {
         NSString *checkTime;
-        NSString *time = array[0][@"scanCheckInQueueTime"];
-        if (time == nil) {
-            checkTime = @"尚未进行检测";
-        }else{
-        NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
+        if (time.length>0) {
+            NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
             checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+        }else{
+             checkTime = @"尚未进行检测";
         }
         self.strBlock ? self.strBlock(checkTime) : nil;
     }

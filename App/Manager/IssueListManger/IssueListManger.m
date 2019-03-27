@@ -82,25 +82,6 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
         NSDictionary *params =
                 @{
-<<<<<<< HEAD
-                        @"type": @"text",
-                        @"title": @"text",
-                        @"content": @"text",
-                        @"level": @"text",
-                        @"issueId": @"text",
-                        @"updateTime": @"text",
-                        @"actSeq": @"integer",
-                        @"isRead": @"integer",
-                        @"status": @"text",
-                        @"latestIssueLogsStr": @"text",
-                        @"renderedTextStr": @"text",
-                        @"origin": @"text",
-                        @"accountId": @"text",
-                        @"subType": @"text",
-                        @"originInfoJSONStr": @"text",
-                        @"subType": @"text",
-                        @"issueSourceId":@"TEXT",
-=======
                         @"type": SQL_TEXT,
                         @"title": SQL_TEXT,
                         @"content": SQL_TEXT,
@@ -117,7 +98,6 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"subType": SQL_TEXT,
                         @"originInfoJSONStr": SQL_TEXT,
                         @"subType": SQL_TEXT
->>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
                 };
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
@@ -389,13 +369,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         [self.getHelper pw_deleteAllDataFromTable:infoTableName];
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
     } else {
-<<<<<<< HEAD
 
-=======
-//        NSDictionary *dict = @{@"type":SQL_INTEGER,@"state":SQL_INTEGER,@"typeName":SQL_TEXT,@"messageCount":SQL_TEXT,@"subTitle":SQL_TEXT,@"pageMaker":SQL_TEXT,@"seqAct":SQL_INTEGER};
-//    BOOL isCreate = [pwfmdb pw_createTable:infoTableName dicOrModel:dict primaryKey:@"PWId"];
-//    if (isCreate) {
->>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
         [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
 
     }

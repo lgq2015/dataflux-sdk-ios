@@ -48,12 +48,9 @@
 }
 
 - (NSString *)getDBName {
-<<<<<<< HEAD
-     DLog(@"%@",getPWUserID);
-=======
+
     DLog(@"getPWUserID:%@",getPWUserID)
     
->>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_INFORMATION);
 }
 

@@ -72,12 +72,7 @@
     return self;
 }
 
-<<<<<<< HEAD
-- (NSString *)getDBName {
-     DLog(@"%@",getPWUserID);
-    return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_INFORMATION);
-=======
->>>>>>> 0210883f49e03d5a8d117d36db7e4a098921fb41
+
 
 - (PWFMDB *)getHelper {
     return [IssueListManger sharedIssueListManger].getHelper;
