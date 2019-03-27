@@ -14,13 +14,18 @@
     return [@{DEFAULT_PRIMARY_KEY: @"integer"} mutableCopy];
 }
 
-
--(void)pw_createTable:(NSString *)tableName dicOrModel:(id)nameArrpr {
-    [self pw_createTable:tableName dicOrModel:nameArrpr primaryKey:DEFAULT_PRIMARY_KEY];
+- (NSArray *)defaultExcludeKey {
+    return @[ERROR_CODE,ERROR_MSG,CODE];
 }
 
--(void)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(id)nameArrpr {
-    [self pw_createTable:tableName dicOrModel:parameters excludeName:parameters primaryKey:DEFAULT_PRIMARY_KEY];
+
+-(void)pw_createTable:(NSString *)tableName dicOrModel:(id)nameArrpr {
+    [self pw_createTable:tableName dicOrModel:nameArrpr excludeName:self.defaultExcludeKey primaryKey:DEFAULT_PRIMARY_KEY];
+}
+
+-(void)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray*)nameArrpr {
+    [nameArrpr arrayByAddingObjectsFromArray:self.defaultExcludeKey];
+    [self pw_createTable:tableName dicOrModel:parameters excludeName:nameArrpr primaryKey:DEFAULT_PRIMARY_KEY];
 }
 
 @end

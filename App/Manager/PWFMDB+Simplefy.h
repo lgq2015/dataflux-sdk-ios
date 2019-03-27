@@ -10,7 +10,7 @@
 
 - (NSMutableDictionary *)getSimplyFyDefaultTable;
 
-- (void)pw_createTable:(NSString *)tableName dicOrModel:(id)nameArrpr;
+- (void)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters;
 
-- (void)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(id)nameArrpr;
+- (void)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArrpr;
 @end

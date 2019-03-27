@@ -121,3 +121,6 @@
 "home.auth.emailCodeIncorrect"= "邮件验证码错误";
 "home.recommendation.unsupportedFileType"= "不支持的文件类型";
 
+
+"local.err.networkNotAvailable" = "网络不可用";
+"local.err.netWorkError"="网络异常";

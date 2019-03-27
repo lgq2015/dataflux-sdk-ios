@@ -12,6 +12,8 @@
 
 #define APP_ID @"1441939241"
 #define ERROR_CODE @"errorCode"
+#define CODE @"code"
+#define ERROR_MSG @"errorMsg"
 // iOS 11 以下的评价跳转
 #define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]
 // iOS 11 的评价跳转

@@ -139,136 +139,120 @@ static NSTimeInterval   requestTimeout = 60.f;
                         successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
-    NSString *typestr = type == NetworkPostType? @"Post":@"Get";
+    NSString *typestr=@"";
+    switch (type){
+        case NetworkPostType:
+            typestr =  @"POST";
+            break;
+        case NetworkGetType:
+            typestr =  @"GET";
+            break;
+        case NetworkPatchType:
+            typestr =  @"PATCH";
+            break;
+        case NetworkDeleteType:
+            typestr =  @"DELETE";
+            break;
+    }
+
+
+
     if (networkStatus == PWNetworkStatusNotReachable) {
         if (failBlock) failBlock(YQ_ERROR);
         return session;
     }
-    
+
     id responseObj = [[PWCacheManager shareManager] getCacheResponseObjectWithRequestUrl:url params:params];
-    
+
     if (responseObj && cache) {
         if (successBlock) successBlock(responseObj);
     }
+
+    //处理成功请求
+    id success = ^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+        if (successBlock) successBlock(responseObject);
+        DLog(@"method = %@ baseUrl = %@ param = %@ response = %@ header = %@  ", typestr, url, params, responseObject, manager.requestSerializer.HTTPRequestHeaders);
+
+        if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
+
+        [[self allTasks] removeObject:session];
+    };
+
+    //处理失败请求
+    id failure = ^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        DLog(@"method = %@ baseUrl = %@ param = %@ token =%@ error = %@", typestr, url, params, manager.requestSerializer.HTTPRequestHeaders, error);
+        if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+            // server error
+            id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
+
+            if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
+                [userManager logout:^(BOOL success, NSString *des) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [iToast alertWithTitleCenter:@"登录信息失效"];
+
+                    });
+                }];
+            } else {
+                if (successBlock) successBlock(response);
+            }
+            // response中包含服务端返回的内容
+        } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
+            // server throw exception
+            if (failBlock) failBlock(error);
+
+        } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
+            // network error
+            if (failBlock) failBlock(error);
+        }
+
+
+    };
+
+    //处理进度
+    id progress = ^(NSProgress *_Nonnull downloadProgress) {
+        if (progressBlock)
+            progressBlock(downloadProgress.completedUnitCount,
+                    downloadProgress.totalUnitCount);
+
+    };
+
     switch (type) {
-        case NetworkGetType:
-        {   
+        case NetworkGetType: {
             session = [manager GET:url
                         parameters:params
-                          progress:^(NSProgress * _Nonnull downloadProgress) {
-                              if (progressBlock) progressBlock(downloadProgress.completedUnitCount,
-                                                               downloadProgress.totalUnitCount);
-                              
-                          } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                              if (successBlock) successBlock(responseObject);
-                              DLog(@"method = %@ baseUrl = %@ param = %@ response = %@ header = %@  ",typestr,url,params,responseObject,manager.requestSerializer.HTTPRequestHeaders);
-
-                              if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
-                              
-                              [[self allTasks] removeObject:session];
-                              
-                          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                              DLog(@"method = %@ baseUrl = %@ param = %@ token =%@ error = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,error);
-                              if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
-                                  // server error
-                                  id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
-                                  
-                                  if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
-                                      [userManager logout:^(BOOL success, NSString *des) {
-                                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                              [iToast alertWithTitleCenter:@"登录信息失效"];
-                                              
-                                          });}];
-                                  }else{
-                                      if (successBlock) successBlock(response);
-                                  }
-                                  // response中包含服务端返回的内容
-                              } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
-                                  // server throw exception
-                                  if (failBlock) failBlock(error);
-
-                              } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
-                                  // network error
-                                  if (failBlock) failBlock(error);
-                              }
-
-                              
-                          }];
-            
-            if ([self haveSameRequestInTasksPool:session] && !refresh) {
-                //取消新请求
-                [session cancel];
-                return session;
-            }else {
-                //无论是否有旧请求，先执行取消旧请求，反正都需要刷新请求
-                PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
-                if (oldTask) [[self allTasks] removeObject:oldTask];
-                if (session) [[self allTasks] addObject:session];
-                [session resume];
-                return session;
-            }
+                          progress:progress success:success failure:failure];
         }
             break;
-         case NetworkPostType:
-          {  // body传输
-              session = [manager POST:url
-                        parameters:params
-                            progress:^(NSProgress * _Nonnull uploadProgress) {
-                              if (progressBlock) progressBlock(uploadProgress.completedUnitCount,
-                                                        uploadProgress.totalUnitCount);
-                       
-                            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                              if (successBlock) successBlock(responseObject);
-                            DLog(@"method = %@ baseUrl = %@ param = %@ token = %@ response = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,responseObject);
-                              if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
-                       
-                                if ([[self allTasks] containsObject:session]) {
-                                        [[self allTasks] removeObject:session];
-                                 }
-                       
-                            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                DLog(@"method = %@ baseUrl = %@ param = %@ token = %@ error = %@",typestr,url,params,manager.requestSerializer.HTTPRequestHeaders,error);
-                                if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
-                                    // server error
-                                    id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
-                                  DLog(@"response = %@",response)
-                                    if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
-                                        [userManager logout:^(BOOL success, NSString *des) {
-                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                                [iToast alertWithTitleCenter:@"登录信息失效"];
-                                                
-                                            });}];
-                                    }else{
-                                    if (successBlock) successBlock(response);
-                                    }
-                                    // response中包含服务端返回的内容
-                                } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
-                                    // server throw exception
-                                    if (failBlock) failBlock(error);
+        case NetworkPostType: {  // body传输
+            session = [manager POST:url
+                         parameters:params
+                           progress:progress success:success failure:failure];
 
-                                } else if ([error.domain isEqualToString:NSURLErrorDomain]) {
-                                    // network error
-                                    if (failBlock) failBlock(error);
-                                }else{
-                                     if (failBlock) failBlock(error);
-                                }
-                                    [[self allTasks] removeObject:session];
-                    
-                                }];
-    
-                           if ([self haveSameRequestInTasksPool:session] && !refresh) {
-                               [session cancel];
-                               return session;
-                           }else {
-                               PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
-                               if (oldTask) [[self allTasks] removeObject:oldTask];
-                               if (session) [[self allTasks] addObject:session];
-                               [session resume];
-                               return session;
-                           }
         }
+
+        case NetworkPatchType:
+            session = [manager PATCH:url
+                    parameters:params
+                             success:success
+                             failure:failure];
             break;
-        
+        case NetworkDeleteType:
+            session = [manager DELETE:url
+                    parameters:params
+                              success:success
+                              failure:failure];
+            break;
+    }
+
+    if ([self haveSameRequestInTasksPool:session] && !refresh) {
+        [session cancel];
+        return session;
+    } else {
+        PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
+        if (oldTask) [[self allTasks] removeObject:oldTask];
+        if (session) [[self allTasks] addObject:session];
+        [session resume];
+        return session;
     }
     
     
