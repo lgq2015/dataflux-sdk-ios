@@ -42,7 +42,18 @@
     }else if([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
         self.type = SourceTypeClusterDiagnose;
     }
-
+    if (self.type == SourceTypeClusterDiagnose || self.type == SourceTypeSingleDiagnose) {
+        if(dict[@"optionsJSON"]) {
+            if ([dict[@"optionsJSON"] isKindOfClass:NSString.class]) {
+                NSString *optionsJSON =dict[@"optionsJSONStr"];
+                NSDictionary *dict2 = [optionsJSON jsonValueDecoded];
+                self.clusterID = dict2[@"uploaderUid"];
+            }else{
+                self.clusterID = dict[@"optionsJSON"][@"uploaderUid"];
+            }
+        }
+    }
+    
      if(dict[@"credentialJSON"]) {
          if ([dict[@"credentialJSON"] isKindOfClass:NSString.class]) {
              NSString *credentialJSON =dict[@"credentialJSONstr"];

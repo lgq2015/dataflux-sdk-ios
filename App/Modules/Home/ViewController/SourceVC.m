@@ -74,6 +74,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [self createSourceTypeDomainName];
             break;
         case SourceTypeClusterDiagnose:
+            [self createSourceTypeCluster];
             break;
         default:
             break;
@@ -233,12 +234,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 单机诊断 ==========
 - (void)createSourceTypeSingle{
-    self.title = @"单机诊断";
-    NSArray *arrar ;
-    if(self.isAdd){
-       
+  
+   
+    if(!self.isAdd){
+        self.confige.issueTfArray[0].text = self.model.name;
     }
-    self.dataSource = [NSMutableArray arrayWithArray:arrar];
+   
     UIView *temp = nil;
     for (NSInteger i=0; i<self.confige.issueTfArray.count; i++) {
         UIView *item = [self itemViewWithIssueTF:self.confige.issueTfArray[i] tag:i+1];
@@ -274,11 +275,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
 }
 
-//#pragma mark ========== 集群诊断 ==========
+#pragma mark ========== 先知监控 ==========
 - (void)createSourceTypeCluster{
-    self.title = @"集群诊断";
   
-       
+    if (!self.isAdd) {
+        self.confige.issueTfArray[0].text = self.model.name;
+        self.confige.issueTfArray[1].text = self.model.clusterID;
+    }
         UIView *temp = nil;
         for (NSInteger i=0; i<self.confige.issueTfArray.count; i++) {
             UIView *item = [self itemViewWithIssueTF:self.confige.issueTfArray[i] tag:i+1];

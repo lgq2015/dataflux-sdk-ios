@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *provider;
 @property (nonatomic, strong) NSString *teamId;
 @property (nonatomic, strong) NSString *akId;
+@property (nonatomic, strong) NSString *clusterID;
+@property (nonatomic, strong) NSString *clusterHostname;
+@property (nonatomic, strong) NSString *clusteIP;
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *issueSourceId;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;

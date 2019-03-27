@@ -14,7 +14,7 @@
 @property (nonatomic, assign) SourceType type;
 @property (nonatomic, strong) PWInfoSourceModel *model;
 @property (nonatomic, assign) BOOL isDefault; // 下面提示是否显示
-@property (nonatomic, assign) BOOL isAdd;
+@property (nonatomic, assign) BOOL isAdd;  //添加还是 查看详情
 @property (nonatomic, copy) void(^RefreshClick)(void);
 @end
 

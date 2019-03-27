@@ -92,7 +92,8 @@ typedef void (^loadDataSuccess)(NSArray *datas);
                     @"credentialJSON": @"TEXT",
                     @"credentialJSONstr": @"TEXT",
                     @"scanCheckStartTime": @"TEXT",
-                    @"scanCheckInQueueTime": @"TEXT"
+                    @"scanCheckInQueueTime": @"TEXT",
+                    @"optionsJSONStr":@"TEXT"
             };
     NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
     return array;
@@ -138,6 +139,10 @@ typedef void (^loadDataSuccess)(NSArray *datas);
             if (![obj[@"credentialJSON"] isKindOfClass:[NSNull class]]) {
                 NSString *credentialJSON = [obj[@"credentialJSON"] jsonPrettyStringEncoded];
                 [dict setValue:credentialJSON forKey:@"credentialJSONstr"];
+            }
+            if (![obj[@"optionsJSON"] isKindOfClass:[NSNull class]]) {
+                NSString *optionsJSON = [obj[@"optionsJSON"] jsonPrettyStringEncoded];
+                [dict setValue:optionsJSON forKey:@"optionsJSONStr"];
             }
             [array addObject:dict];
         }];

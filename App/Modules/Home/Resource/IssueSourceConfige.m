@@ -51,12 +51,14 @@
             [self createTFArrayWithUcloud];
             break;
         case SourceTypeSingleDiagnose:
-            self.vcTitle = @"连接阿里云";
-            self.vcProvider =@"aliyun";
+            self.vcTitle = @"主机诊断";
+            self.vcProvider =@"carrier.corsair";
+            [self createTFArrayWithSingleDiagnose];
             break;
         case SourceTypeClusterDiagnose:
-            self.vcTitle = @"连接阿里云";
-            self.vcProvider =@"aliyun";
+            self.vcTitle = @"先知监控";
+            self.vcProvider =@"carrier.corsairmaster";
+            [self createTFArrayWithClusterDiagnose];
             break;
         case SourceTypeDomainNameDiagnose:
             self.topTip = @"配置您要诊断的一级域名，及时获取关于域名相关的诊断情报。包括了域名到期时间、SSL证书配置等。";
@@ -138,5 +140,43 @@
     tf3.text = @"";
     tf3.secureTextEntry = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3]];
+}
+- (void)createTFArrayWithClusterDiagnose{
+    IssueTf *tf =[IssueTf new];
+    tf.tfTitle = @"情报源名称";
+    tf.placeHolder = @"请输入情报源名称";
+    tf.text = @"";
+    IssueTf *tf2 =[IssueTf new];
+    tf2.tfTitle = @"Cluster ID";
+    tf2.placeHolder = @"请输入 Cluster ID";
+    tf2.text = @"";
+    IssueTf *tf3 = [IssueTf new];
+    tf3.tfTitle = @"Cluster Hostname";
+    tf3.placeHolder = @"请输入 Cluster Hostname";
+    tf3.text = @"";
+    IssueTf *tf4 = [IssueTf new];
+    tf4.tfTitle = @"Cluste IP";
+    tf4.placeHolder = @"请输入 Cluste IP";
+    tf4.text = @"";
+    self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3,tf4]];
+}
+- (void)createTFArrayWithSingleDiagnose{
+    IssueTf *tf =[IssueTf new];
+    tf.tfTitle = @"情报源名称";
+    tf.placeHolder = @"请输入情报源名称";
+    tf.text = @"";
+    IssueTf *tf2 =[IssueTf new];
+    tf2.tfTitle = @"ID";
+    tf2.placeHolder = @"请输入 ID";
+    tf2.text = @"";
+    IssueTf *tf3 = [IssueTf new];
+    tf3.tfTitle = @"Hostname";
+    tf3.placeHolder = @"请输入 Hostname";
+    tf3.text = @"";
+    IssueTf *tf4 = [IssueTf new];
+    tf4.tfTitle = @"Host IP";
+    tf4.placeHolder = @"请输入 Host IP";
+    tf4.text = @"";
+    self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3,tf4]];
 }
 @end

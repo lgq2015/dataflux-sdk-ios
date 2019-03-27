@@ -87,7 +87,7 @@ static dispatch_queue_t socket_message_queue() {
 
     [self.socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(@"socket connected%@", data[0]);
-        [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
+         [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
             DLog(@"emitWithAck%@", data);
         }];
     }];
