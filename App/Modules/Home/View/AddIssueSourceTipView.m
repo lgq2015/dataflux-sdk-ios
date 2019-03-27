@@ -111,7 +111,7 @@
                                         };
         _protocolLab.linkAttributes = attributesDic;
         _protocolLab.activeLinkAttributes = attributesDic;
-        [_protocolLab addLinkToURL:[NSURL URLWithString:@"testURL"] withRange:linkRange];
+        [_protocolLab addLinkToURL:[NSURL URLWithString:PW_Safelegal] withRange:linkRange];
     }
     return _protocolLab;
 }

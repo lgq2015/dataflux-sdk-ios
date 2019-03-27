@@ -126,13 +126,14 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"credentialJSONstr": SQL_TEXT,
                         @"scanCheckStartTime": SQL_TEXT,
                         @"scanCheckInQueueTime": SQL_TEXT,
+                        @"optionsJSONStr":SQL_TEXT,
                 };
 
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
     } else {
 //        NSDictionary * params = @{
-//                @"scanCheckInQueueTime":SQL_TEXT
+//                @"optionsJSONStr":SQL_TEXT
 //        };
 //        [[self getHelper] pw_alterTable:tableName dicOrModel:params];
     }

@@ -41,10 +41,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(judgeIsTeam)
-                                                 name:KNotificationTeamStatusChange
-                                               object:nil];
+ 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateUser)
                                                  name:KNotificationUserInfoChange
@@ -55,19 +52,11 @@
                                                object:nil];
     self.dataSource = [NSArray new];
     [self getSystemMessagCount];
-    [self judgeIsTeam];
+ 
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
-- (void)judgeIsTeam{
-    NSString *team = getTeamState;
-    DLog(@"%@",team);
-    if([team isEqualToString:PW_isTeam]){
-       [self dealWithDataHasTeam:YES];
-    }else{
-       [self dealWithDataHasTeam:NO];
-    }
-}
+
 - (void)feedBack{
     FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
     [self.navigationController pushViewController:opinionVC animated:NO];
@@ -80,7 +69,7 @@
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
 }
 #pragma mark ========== 界面布局数据处理 ==========
-- (void)dealWithDataHasTeam:(BOOL)hasTeam{
+- (void)dealWithData{
     MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
     MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
     MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
@@ -89,16 +78,8 @@
     MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
     MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
     MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
-    NSArray *group1;
-    NSArray *group2;
-    if (hasTeam) {
-        group1 = @[mynews,collection];
-        group2 = @[opinion,contact,encourage,aboutPW];
-    }else{
-        group1 = @[mynews,infoSource,collection];
-        group2 = @[opinion,encourage,aboutPW];
-    }
-    DLog(@"%@",userManager.curUserInfo);
+    NSArray *group1 =@[mynews,infoSource,collection];
+    NSArray *group2= @[opinion,contact,encourage,aboutPW];
     NSArray *group3 = @[setting];
     self.dataSource = @[group1,group2,group3];
     [self.tableView reloadData];
@@ -123,6 +104,7 @@
     }];
 }
 - (void)createUI{
+    [self dealWithData];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -294,22 +276,6 @@
     //自定义颜色
     view.backgroundColor = PWBackgroundColor;
     return view;
-}
-#pragma mark ========== 用户头像选取 ==========
-- (void)icomImgClick{
-    self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
-//    [self.myPicker getPhotoAlbumOrTakeAPhotoWithController:self photoBlock:^(UIImage *image) {
-//        //回调图片
-//        NSData *data = UIImageJPEGRepresentation(image, 0.5);
-//        [PWNetworking uploadFileWithUrl:PW_currentUserIcon fileData:data type:@"png" name:@"avatar" mimeType:@"image/jpg/png" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
-//
-//        } successBlock:^(id response) {
-//
-//        } failBlock:^(NSError *error) {
-//
-//        }];
-//    }];
-
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -43,14 +43,13 @@
         self.type = SourceTypeClusterDiagnose;
     }
     if (self.type == SourceTypeClusterDiagnose || self.type == SourceTypeSingleDiagnose) {
-        if(dict[@"optionsJSON"]) {
-            if ([dict[@"optionsJSON"] isKindOfClass:NSString.class]) {
+       
+        if ([dict[@"optionsJSONStr"] isKindOfClass:NSString.class]) {
                 NSString *optionsJSON =dict[@"optionsJSONStr"];
                 NSDictionary *dict2 = [optionsJSON jsonValueDecoded];
                 self.clusterID = dict2[@"uploaderUid"];
-            }else{
+        }else{
                 self.clusterID = dict[@"optionsJSON"][@"uploaderUid"];
-            }
         }
     }
     

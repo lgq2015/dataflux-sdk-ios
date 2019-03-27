@@ -175,7 +175,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         tfArray[2].text = @"****************";
     }
 
-    
         UIView *temp = nil;
         self.TFArray = [NSMutableArray new];
         temp = tipView;
@@ -238,6 +237,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
    
     if(!self.isAdd){
         self.confige.issueTfArray[0].text = self.model.name;
+        self.confige.issueTfArray[1].text = self.model.clusterID;
     }
    
     UIView *temp = nil;
@@ -486,6 +486,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 #pragma mark ========== navClick ==========
 - (void)navRightBtnClick:(UIButton *)button{
+    //编辑按钮
     if(button.tag == 99){
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *edit = [PWCommonCtrl actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -499,21 +500,26 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 [self createNavWithType:NaviTypeEdit];
         }];
         [alert addAction:edit];
-    UIAlertAction *delet = [PWCommonCtrl actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:self.confige.deletAlert preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self delectIssueSource];
-        }];
-        UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        [deletAlert addAction:confirm];
-        [deletAlert addAction:cancel];
-        [self presentViewController:deletAlert animated:YES completion:nil];
-        
-    }];
+        if (self.type!=SourceTypeClusterDiagnose) {
+            UIAlertAction *delet = [PWCommonCtrl actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                
+                UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:self.confige.deletAlert preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [self delectIssueSource];
+                }];
+                UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                [deletAlert addAction:confirm];
+                [deletAlert addAction:cancel];
+                [self presentViewController:deletAlert animated:YES completion:nil];
+                
+            }];
+            [alert addAction:delet];
+        }
+ 
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
-    [alert addAction:delet];
+  
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
     }else if(button.tag == 100){
@@ -537,6 +543,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else if(self.type == SourceTypeDomainNameDiagnose){
         param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         [self modifyIssueSourceWithParam:param];
+    }else if(self.type == SourceTypeDomainNameDiagnose){
+        
+    }else if(self.type == SourceTypeSingleDiagnose){
+        
     }
 }
 - (void)modifyIssueSourceWithParam:(NSDictionary *)param{
@@ -671,7 +681,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    DLog(@"%@",url);
     PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"帮助文档" andURL:url];
     [self.navigationController pushViewController:web animated: YES];
 }

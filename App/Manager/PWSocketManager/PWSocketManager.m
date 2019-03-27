@@ -86,12 +86,7 @@ static dispatch_queue_t socket_message_queue() {
     self.socket = [self.manager defaultSocket];
 
     [self.socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
-<<<<<<< HEAD
-        DLog(@"socket connected%@", data[0]);
-         [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
-            DLog(@"emitWithAck%@", data);
-        }];
-=======
+
         if(data.count>0){
             DLog(@"socket connected%@", data[0]);
             if(getXAuthToken){
@@ -100,7 +95,6 @@ static dispatch_queue_t socket_message_queue() {
                 }];
             }
         }
->>>>>>> b8ae3a1c35c84a4d2ce7077ebbc03df334b76447
     }];
 
     [self.socket on:@"connectError" callback:^(NSArray *data, SocketAckEmitter *ack) {
