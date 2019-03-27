@@ -32,7 +32,9 @@ typedef NS_ENUM(NSInteger, PWNetworkStatus) {
 
 typedef NS_ENUM(NSUInteger,NetworkRequestType){
     NetworkGetType = 0,
-    NetworkPostType
+    NetworkPostType =1,
+    NetworkDeleteType =2,
+    NetworkPatchType =3,
 };
 /**
  *  请求任务

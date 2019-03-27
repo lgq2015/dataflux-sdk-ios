@@ -13,6 +13,8 @@
 #import "AddIssueSourceTipView.h"
 #import "PWBaseWebVC.h"
 #import "InformationSourceVC.h"
+#import "PWHttpEngine.h"
+#import "CarrierItemModel.h"
 
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
@@ -87,7 +89,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else{
         [self createNavWithType:NaviTypeNormal];
     }
-    
+
 }
 - (void)createNavWithType:(NaviType)type{
     switch (type) {
@@ -160,7 +162,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 云系列 ==========
 - (void)createSourceTypeYun{
-  
+
        UIView *tipView = [self tipsViewWithBackImg:@"card" tips:self.confige.topTip];
       [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.view).offset(ZOOM_SCALE(12));
@@ -224,7 +226,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             }
         }];
-        
+
         [[password rac_textSignal] subscribeNext:^(id x) {
             self.showWordsBtn.hidden = [x isEqualToString:@"****************"]?YES:NO;
             self.showWordsBtn.enabled = !self.showWordsBtn.hidden;
@@ -233,13 +235,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 单机诊断 ==========
 - (void)createSourceTypeSingle{
-  
-   
+
+
     if(!self.isAdd){
         self.confige.issueTfArray[0].text = self.model.name;
         self.confige.issueTfArray[1].text = self.model.clusterID;
     }
-   
+
     UIView *temp = nil;
     for (NSInteger i=0; i<self.confige.issueTfArray.count; i++) {
         UIView *item = [self itemViewWithIssueTF:self.confige.issueTfArray[i] tag:i+1];
@@ -273,11 +275,14 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             }
         }
     }
+
+    [self bindClusterOrHostView];
+
 }
 
 #pragma mark ========== 先知监控 ==========
 - (void)createSourceTypeCluster{
-  
+
     if (!self.isAdd) {
         self.confige.issueTfArray[0].text = self.model.name;
         self.confige.issueTfArray[1].text = self.model.clusterID;
@@ -315,8 +320,26 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             }
         }
-    
+
+    [self bindClusterOrHostView];
+
 }
+
+- (void)bindClusterOrHostView {
+
+    [[PWHttpEngine sharedInstance] getProbe:self.model.clusterID callBack:^(id o) {
+        CarrierItemModel *data = ((CarrierItemModel *) o);
+        if ([data isSuccess]) {
+            self.TFArray[2].text = data.hostName;
+            self.TFArray[3].text = data.host;
+        } else {
+            [iToast alertWithTitleCenter:data.errorMsg delay:1];
+        }
+
+    }];
+}
+
+
 #pragma mark ========== 域名诊断 ==========
 - (void)createSourceTypeDomainName{
         IssueTf *tf = self.confige.issueTfArray[0];
@@ -336,8 +359,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             make.width.offset(kWidth);
             make.height.offset(ZOOM_SCALE(65));
         }];
-    
-   
+
+
 }
 
 
@@ -369,7 +392,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [_tipView addSubview:dot];
         self.findHelpLab.frame = CGRectMake(Interval(16), ZOOM_SCALE(13), kWidth-Interval(32), ZOOM_SCALE(40));
         [_tipView addSubview:self.findHelpLab];
-       
+
         if (self.isDefault) {
             UIView *dot2 = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(65), 8, 8)];
             dot2.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
@@ -385,8 +408,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 make.right.mas_equalTo(_tipView).offset(-Interval(16));
             }];
         }
-       
-       
+
+
     }
     return _tipView;
 }
@@ -499,13 +522,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 UITextField *tf = self.TFArray[0];
                 [tf becomeFirstResponder];
                 self.showWordsBtn.enabled =NO;
-        
+
                 [self createNavWithType:NaviTypeEdit];
         }];
         [alert addAction:edit];
         if (self.type!=SourceTypeClusterDiagnose) {
             UIAlertAction *delet = [PWCommonCtrl actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                
+
                 UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:self.confige.deletAlert preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     [self delectIssueSource];
@@ -514,15 +537,15 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 [deletAlert addAction:confirm];
                 [deletAlert addAction:cancel];
                 [self presentViewController:deletAlert animated:YES completion:nil];
-                
+
             }];
             [alert addAction:delet];
         }
- 
+
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
+
     }];
-  
+
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
     }else if(button.tag == 100){
@@ -546,30 +569,41 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else if(self.type == SourceTypeDomainNameDiagnose){
         param = @{@"data":@{@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         [self modifyIssueSourceWithParam:param];
-    }else if(self.type == SourceTypeDomainNameDiagnose){
-        
-    }else if(self.type == SourceTypeSingleDiagnose){
-        
+    }else if(self.type == SourceTypeClusterDiagnose||self.type == SourceTypeSingleDiagnose){
+        [[PWHttpEngine sharedInstance] patchProbe:self.model.clusterID
+                                             name:self.TFArray[0].text callBack:^(id o) {
+
+                    BaseReturnModel *data = ((BaseReturnModel *) o) ;
+                    if([data isSuccess]){
+                        [self saveSuccess];
+                    } else{
+                        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+                    }
+
+                }];
+
     }
 }
-- (void)modifyIssueSourceWithParam:(NSDictionary *)param{
-    
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-         if ([response[@"errorCode"] isEqualToString:@""]) {
-         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
-         KPostNotification(KNotificationIssueSourceChange,nil);
 
-        __weak typeof (self) vc = self;
-        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-        [self.navigationController popViewControllerAnimated:NO];
-         }else{
-             if ([response[ERROR_CODE] isEqualToString:@"home.issueSource.invalidIssueSourceAK"]) {
-                 [iToast alertWithTitleCenter:@"密钥验证失败"];
-             }else{
-                 [SVProgressHUD showErrorWithStatus:@"保存失败"];}
-         }
+-(void)saveSuccess{
+    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+    KPostNotification(KNotificationIssueSourceChange,nil);
+    __weak typeof (self) vc = self;
+    [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+
+- (void)modifyIssueSourceWithParam:(NSDictionary *)param{
+
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[@"errorCode"] isEqualToString:@""]) {
+            [self saveSuccess];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        }
     } failBlock:^(NSError *error) {
-        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
 
     }];
 }
@@ -580,7 +614,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     WeakSelf
     if (self.type != SourceTypeDomainNameDiagnose) {
         param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
-        
+
         [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
         self.addTipView.itemClick = ^{
          [weakSelf addIssueSourcewithparam:param];
@@ -597,10 +631,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            
+
         }];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-          
+
             [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
             self.addTipView.itemClick = ^{
                 [weakSelf addIssueSourcewithparam:param];
@@ -612,11 +646,11 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             };
 
         }];
-        
+
         [alert addAction:cancle];
         [alert addAction:confirm];
         [self presentViewController:alert animated:YES completion:^{
-            
+
         }];
     }
     }
@@ -632,8 +666,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             self.navigationItem.leftBarButtonItem = nil;
             __weak typeof (self) vc = self;
             tip.btnClick = ^(){
-               
-            
+
+
           [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
             __block   BOOL hasInfoSource = NO;
              for(UIViewController *temp in self.navigationController.viewControllers) {
@@ -648,38 +682,72 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             };
         }else{
-            
+
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
     }];
 }
+
+
+
+
+
 #pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{
     [SVProgressHUD showWithStatus:@"正在删除..."];
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errorCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"已删除"];
-            KPostNotification(KNotificationIssueSourceChange,nil);
+
+    void (^sourceNotExist)(void) = ^{
+        [SVProgressHUD dismiss];
+        [iToast alertWithTitleCenter:@"情报源不存在"];
+        KPostNotification(KNotificationIssueSourceChange, nil);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            if([response[ERROR_CODE] isEqualToString:@"home.issueSource.noSuchIssueSource"]){
-                [SVProgressHUD dismiss];
-                [iToast alertWithTitleCenter:@"情报源不存在"];
-                KPostNotification(KNotificationIssueSourceChange,nil);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
-                
-            }else{
-            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        });
+    };
+
+    void (^deleteSuccess)(void) = ^{
+        [SVProgressHUD showSuccessWithStatus:@"已删除"];
+        KPostNotification(KNotificationIssueSourceChange, nil);
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+
+
+    if (self.type == SourceTypeSingleDiagnose) {
+        [[PWHttpEngine sharedInstance] deleteProbe:self.model.clusterID callBack:^(id o) {
+            BaseReturnModel *data = ((BaseReturnModel *) o);
+            if ([data isSuccess]) {
+                deleteSuccess();
+            } else {
+                if ([data.errorCode isEqualToString:@"carrier.kodo.issueSourceNotSet"]) {
+                    sourceNotExist();
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                }
+
             }
-        }
-        
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"删除失败"];
-    }];
+        }];
+
+    } else {
+
+        [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errorCode"] isEqualToString:@""]) {
+                deleteSuccess();
+            } else {
+                if ([response[ERROR_CODE] isEqualToString:@"home.issueSource.noSuchIssueSource"]) {
+                    sourceNotExist();
+
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                }
+            }
+
+        }                          failBlock:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        }];
+    }
+
 }
 -(void)navLeftBtnClick:(UIButton *)button{
     [self.navigationController popViewControllerAnimated:YES];
@@ -692,7 +760,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== BtnClick ==========
 - (void)allocationBtnClick:(UIButton *)button{
-    
+
 }
 - (void)pwdTextSwitch:(UIButton *)sender{
     sender.selected = !sender.selected;

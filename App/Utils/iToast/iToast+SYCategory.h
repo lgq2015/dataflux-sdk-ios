@@ -22,4 +22,5 @@
 /// 隐藏iToast
 + (void)hiddenIToast;
 
++ (void)alertWithTitleCenter:(NSString *)title delay:(NSInteger)seconds;
 @end

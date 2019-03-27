@@ -22,6 +22,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_LIBRARY    HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
+#define API_CARRIER_HOST    HTTP_PROTOCOL@"testing.carrier-via-core-stone.cloudcare.cn:10100"
 #define JPUSH_ID            @"e008337585ca5df269038d4f"
 #define QQ_APPKEY           @"1108030178"
 #define WX_APPKEY           @"wx6d7b153b7387b5c4"
@@ -35,6 +36,7 @@
 #define API_CORE_STONE   HTTP_PROTOCOL@"preprodcore-stone.cloudcare.cn:10100"
 #define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
+#define API_CARRIER_HOST    HTTP_PROTOCOL@"preprod-carrier-via-core-stone.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"preprod-library.prof.wang"
 #define JPUSH_ID            @"557856f95bfb15efc965ff99"
 #define QQ_APPKEY           @"1108154997"
@@ -51,6 +53,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"service.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"library.prof.wang"
+#define API_CARRIER_HOST    HTTP_PROTOCOL@"carrier-via-core-stone.cloudcare.cn"
 #define JPUSH_ID           @"a0d40a210d0969b07a9c472e"
 #define QQ_APPKEY          @"1108030042"
 #define WX_APPKEY          @"wx1c3b94b644454727"
@@ -109,6 +112,8 @@
 #define PW_TIPS                       HTTP_PROTOCOL@"files.cloudcare.cn/home/tips/tips.json"
 
 #define PW_AdduploaAttachment         API_SEVERID@"/v1/issue/add-upload-attachment"
+
+#define PW_URL_CARRIER_PROBE          API_CARRIER_HOST@"/v1/probe"
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
@@ -138,6 +143,9 @@
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"
 //服务记录
 #define PW_issueGeneralList    API_SEVERID@"/v1/issue/general-list"
+
+
+
 
 
 
