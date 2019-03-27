@@ -64,7 +64,7 @@ static dispatch_queue_t socket_message_queue() {
 
 //判断是否需要重新启用
 - (void)checkForRestart {
-    if (!getXAuthToken) {
+    if (getXAuthToken) {
         [self connect];
     }
 
@@ -86,29 +86,38 @@ static dispatch_queue_t socket_message_queue() {
     self.socket = [self.manager defaultSocket];
 
     [self.socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
-        DLog(@"socket connected%@", data[0]);
-        [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
-            DLog(@"emitWithAck%@", data);
-        }];
+        if(data.count>0){
+            DLog(@"socket connected%@", data[0]);
+            if(getXAuthToken){
+                [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
+                    DLog(@"emitWithAck%@", data);
+                }];
+            }
+        }
     }];
 
     [self.socket on:@"connectError" callback:^(NSArray *data, SocketAckEmitter *ack) {
-        DLog(@"socket connectError%@", data[0]);
-        [self performSelector:@selector(retryConnect) afterDelay:10];
-
+        if(data.count>0){
+            DLog(@"socket connectError%@", data[0]);
+            [self performSelector:@selector(retryConnect) afterDelay:10];
+        }
     }];
 
     [self.socket on:@"disconnect" callback:^(NSArray *data, SocketAckEmitter *ack) {
-        DLog(@"socket disconnect%@", data[0]);
-
-        [self performSelector:@selector(retryConnect) afterDelay:10];
-
+        if(data.count>0){
+            DLog(@"socket disconnect%@", data[0]);
+            
+            [self performSelector:@selector(retryConnect) afterDelay:10];
+        }
     }];
 
     [self.socket on:ON_EVENT_ISSUE_UPDATE callback:^(NSArray *data, SocketAckEmitter *ack) {
-        DLog(ON_EVENT_ISSUE_UPDATE
-                " = %@", data);
-        [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+        if(data.count>0){
+            DLog(ON_EVENT_ISSUE_UPDATE
+                 " = %@", data);
+            [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+        }
+        
     }];
     [self.socket on:@"socketio.issueLogAdd" callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
