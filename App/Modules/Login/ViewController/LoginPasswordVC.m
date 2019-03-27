@@ -156,7 +156,7 @@
     }];
     RACSignal *btn = RACObserve(self.selectBtn, selected);
     RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
-        return @(([phone validatePhoneNumber]||[phone validateEmail]) && self.selectBtn.selected && [password validatePassWordForm]);
+        return @(([phone validatePhoneNumber]||[phone validateEmail]) && self.selectBtn.selected && password.length>7);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
     RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){

@@ -117,7 +117,7 @@
             setXAuthToken(response[@"content"][@"authAccessToken"]);
             if(self.isChange){
             [userManager saveUserInfoLoginStateisChange:NO success:nil];
-            [iToast alertWithTitleCenter:@"修改密码成功"];
+            [iToast alertWithTitleCenter:@"修改成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     for(UIViewController *temp in self.navigationController.viewControllers) {
                         if([temp isKindOfClass:[SecurityPrivacyVC class]]){
@@ -129,7 +129,7 @@
             [userManager saveUserInfoLoginStateisChange:YES success:nil];
             }
         }else{
-            [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:@"修改失败，请重试"];
         }
     } failBlock:^(NSError *error) {
         

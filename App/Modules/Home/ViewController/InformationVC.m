@@ -79,7 +79,7 @@
 - (void)createUI{
 
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
-    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
+    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
          setIsHideGuide(YES);
     }
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
@@ -210,6 +210,9 @@
     self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
+        [self.infoboard updateTitle:str];
+    }];
     [self loadRecommendationData];
     [self loadNewsDatas];
 }

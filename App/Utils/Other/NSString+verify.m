@@ -241,7 +241,7 @@
         type = @"情报恢复";
     }else if([subType isEqualToString:@"issueExpired"]){
         type = @"情报失效";
-    }else if([subType isEqualToString:@"ticketClosed"]){
+    }else if([subType isEqualToString:@"ticketClosed"] ||[subType isEqualToString:@"exitExpertGroups"]){
         type = @"专家退出讨论";
     }else if([subType isEqualToString:@"issueDiscarded"]){
         type = @"情报失效";

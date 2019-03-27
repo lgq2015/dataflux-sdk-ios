@@ -48,9 +48,8 @@
 
 
     //获取历史数据
-    NSArray *historyDatas= [[IssueChatDataManager sharedInstance]
-            getChatIssueLogDatas:_issueID pageMarker:-1];
-
+   
+    self.datas = [PWChatDatas LoadingMessagesStartWithChat:self.issueID];
 
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
     [[IssueChatDataManager sharedInstance]

@@ -27,13 +27,13 @@
     NSString *type =  [self.fileUrl pathExtension];
     if ([type isEqualToString:@"pdf"]) {
         self.fileIcon = @"file_PDF";
-    }else if([type isEqualToString:@"docx"]){
+    }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
         self.fileIcon = @"file_word";
     }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
         self.fileIcon = @"file_img";
-    }else if([type isEqualToString:@"ppt"]){
+    }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
         self.fileIcon = @"file_PPT";
-    }else if([type isEqualToString:@"xlsx"]){
+    }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
         self.fileIcon = @"file_excel";
     }else if([type isEqualToString:@"key"]){
         self.fileIcon = @"file_keynote";
@@ -45,6 +45,10 @@
         self.fileIcon = @"file_zip";
     }else if([type isEqualToString:@"rar"]){
         self.fileIcon = @"file_rar";
+    }else if([type isEqualToString:@"txt"]){
+        self.fileIcon = @"file_txt";
+    }else{
+        self.fileIcon = @"file";
     }
 }
 

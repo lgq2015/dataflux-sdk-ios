@@ -64,6 +64,9 @@
         [self.header endRefreshing];
         [self.footer endRefreshing];
         [SVProgressHUD dismiss];
+        if(self.dataSource.count == 0){
+            [self showNoNetWorkView];
+        }
     }];
 }
 -(void)loadMoreData{
@@ -87,6 +90,7 @@
     } failBlock:^(NSError *error) {
         [self.header endRefreshing];
         [self.footer endRefreshing];
+        
     }];
 }
 - (void)headerRereshing{

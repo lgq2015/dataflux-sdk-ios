@@ -69,6 +69,9 @@
         [SVProgressHUD dismiss];
         [self.header endRefreshing];
         [self.footer endRefreshing];
+        if(self.dataSource.count == 0){
+            [self showNoNetWorkView];
+        }
     }];
 }
 - (void)loadMoreData{

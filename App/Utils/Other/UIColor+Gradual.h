@@ -1,5 +1,5 @@
 //
-//  GuideCell.h
+//  UIColor+Gradual.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2019/3/27.
@@ -10,9 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GuideCell : UICollectionViewCell
-@property (nonatomic, assign) NSInteger index;
-@property (nonatomic, copy) void(^itemClick)(NSInteger index);
+@interface UIColor (Gradual)
++ (CAGradientLayer *)setGradualChangingColor:(UIView *)view fromColor:(NSString *)fromHexColorStr toColor:(NSString *)toHexColorStr;
 
 @end
 

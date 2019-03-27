@@ -16,6 +16,7 @@
 #import "IssueListManger.h"
 #import <Zhuge.h>
 #import "PWSocketManager.h"
+#import "GuideVC.h"
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -37,13 +38,14 @@
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
-//    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-//       // 引导页
-//        RootViewController *wsCtrl = [[RootViewController alloc]init];
-//        self.window.rootViewController = wsCtrl;
-//        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
-//    }else{
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+       // 引导页
+        GuideVC *wsCtrl = [[GuideVC alloc]init];
+        self.window.rootViewController = wsCtrl;
+        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
+    }else{
         [self initUserManager];
+    }
 //       self.mainTabBar = [[MainTabBarController alloc]init];
 //       self.window.rootViewController = self.mainTabBar;
 //      [self.window makeKeyAndVisible];

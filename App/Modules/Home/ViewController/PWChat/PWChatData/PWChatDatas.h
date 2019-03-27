@@ -37,7 +37,19 @@ typedef void (^MessageBlock)(PWChatMessagelLayout *layout, NSError *error, NSPro
  @return 消息模型布局
  */
 +(PWChatMessagelLayout *)receiveMessage:(NSDictionary *)dic;
-
+/**
+ 请求进入页面前新的聊天内容
+ @param sessionId 传入会话id
+ @return 返回会话对象数组
+ */
++(NSMutableArray *)LoadingMessagesStartWithChat:(NSString *)sessionId;
+/**
+ 处理消息数组 一般进入聊天界面会初始化之前的消息展示
+ 
+ @param sessionId 会话id  凭此去数据库拿消息缓存
+ @return 返回消息模型布局后的数组
+ */
++(NSMutableArray *)receiveMessages:(NSString *)sessionId;
 @end
 
 NS_ASSUME_NONNULL_END

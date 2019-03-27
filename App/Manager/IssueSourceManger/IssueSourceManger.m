@@ -41,12 +41,12 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 }
 
 #pragma mark ------------------ public  ------------------
-
+//首页拉去情报源数据 或刷新情报源 并获取新的检测时间
 - (void)downLoadAllIssueSourceList:(detectTimeStr)strblock {
     self.strBlock = strblock;
     [self downLoadAllIssueSourceListWithTypeTime:YES];
 }
-
+// 获取基础类的 情报源总数
 - (NSInteger)getBasicIssueSourceCount {
 
     __block NSInteger count = 0;
@@ -59,17 +59,16 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     }];
     return count;
 }
-
+// 距离上次刷新首页检测时间 超过三十秒获取数据库里的检测时间 避免数据库多次调用
 - (void)getLastDetectionTime:(detectTimeStr)strblock {
+      self.strBlock = strblock;
     //判断时间间隔
-    if (self.lastRefreshTime && ![self.lastRefreshTime timeIntervalAboveThirtySecond]) {
+    if (self.lastRefreshTime ==nil || [self.lastRefreshTime timeIntervalAboveThirtySecond]) {
         //小于30s
-        self.strBlock = strblock;
         [self getLastDetectionTimeNow];
-    } else {
-        [self downLoadAllIssueSourceListWithTypeTime:YES];
     }
 }
+
 - (void)updateAllIssueSourceList:(updateIssueSource)aryblock{
       self.aryBlock = aryblock;
       self.issueSourceList = [NSMutableArray new];
@@ -241,6 +240,8 @@ typedef void (^loadDataSuccess)(NSArray *datas);
         }
         self.strBlock ? self.strBlock(checkTime) : nil;
     }
+    self.lastRefreshTime = [NSDate getNowTimeTimestamp];
+
 }
 
 - (void)loadIssueSourceListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion {
@@ -297,4 +298,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     return name;
 }
 
+-(void)logout{
+    self.lastRefreshTime = nil;
+}
 @end

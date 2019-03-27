@@ -8,7 +8,8 @@
 
 #import "PWChatDatas.h"
 #import "PWChatDataModel.h"
-
+#import "IssueChatDataManager.h"
+#import "IssueLogModel.h"
 @implementation PWChatDatas
 +(void)sendMessage:(NSDictionary *)dict sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
     
@@ -92,6 +93,20 @@
     return layout;
     
 }
-
-
++(NSMutableArray *)LoadingMessagesStartWithChat:(NSString *)sessionId{
+    NSArray *historyDatas= [[IssueChatDataManager sharedInstance]
+                            getChatIssueLogDatas:sessionId pageMarker:-1];
+    
+    return [NSMutableArray arrayWithArray:historyDatas];
+}
++(NSMutableArray *)receiveMessages:(NSString *)sessionId{
+    NSArray<IssueLogModel *> *historyDatas= [[IssueChatDataManager sharedInstance]
+                            getChatIssueLogDatas:sessionId pageMarker:-1];
+    NSMutableArray *messageDatas = [NSMutableArray new];
+    [historyDatas enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PWChatMessage *message = [PWChatMessage new];
+//        message.messageFrom = obj.origin ==
+    }];
+    return [NSMutableArray arrayWithArray:historyDatas];
+}
 @end

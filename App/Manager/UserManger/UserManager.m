@@ -13,7 +13,7 @@
 #import "PWSocketManager.h"
 #import "IssueListManger.h"
 #import "HandBookManager.h"
-
+#import "IssueSourceManger.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -244,11 +244,12 @@ SINGLETON_FOR_CLASS(UserManager);
     self.curUserInfo = nil;
     self.teamModel = nil;
     self.isLogined = NO;
-
+   
     [[InformationStatusReadManager sharedInstance] shutDown];
     [[IssueListManger sharedIssueListManger] shutDown];
     [[HandBookManager sharedInstance] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
+    [[IssueSourceManger sharedIssueSourceManger] logout];
     [[IssueListManger sharedIssueListManger] createData];
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];

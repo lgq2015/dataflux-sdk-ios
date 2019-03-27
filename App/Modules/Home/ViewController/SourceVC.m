@@ -70,7 +70,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [self createSourceTypeYun];
             break;
         case SourceTypeDomainNameDiagnose:
-            self.provider = @"domain";
             [self createSourceTypeDomainName];
             break;
         case SourceTypeClusterDiagnose:
@@ -116,6 +115,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                     RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
                         __block BOOL isenable = YES;
                         [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            
                             if(obj.text.length==0){
                                 isenable = NO;
                                 *stop = YES;
@@ -440,18 +440,21 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     UIImageView *view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     UILabel *tipLab = [[UILabel alloc]init];
     tipLab.text = tip;
-    tipLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+    tipLab.font = MediumFONT(16);
+    tipLab.bounds = CGRectMake(0, 0, kWidth-Interval(40), 85);
     tipLab.textColor = PWWhiteColor;
     tipLab.textAlignment = NSTextAlignmentLeft;
     tipLab.numberOfLines = 0;
     [view addSubview:tipLab];
+    [tipLab sizeToFit];
+    CGFloat left = (kWidth-Interval(32)-tipLab.frame.size.width)/2.0;
     [self.view addSubview:view];
     [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view).offset(ZOOM_SCALE(15));
-        make.left.mas_equalTo(view).offset(Interval(10));
-        make.right.mas_equalTo(view).offset(Interval(-10));
-        make.bottom.mas_equalTo(view).offset(ZOOM_SCALE(-15));
+        make.left.mas_equalTo(view).offset(left);
+        make.right.mas_equalTo(view).offset(Interval(-left));
     }];
+    
     return view;
 }
 - (UIView *)itemViewWithIssueTF:(IssueTf *)issueTF tag:(NSInteger)tag{
@@ -541,7 +544,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
        }
          [self modifyIssueSourceWithParam:param];
     }else if(self.type == SourceTypeDomainNameDiagnose){
-        param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
+        param = @{@"data":@{@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         [self modifyIssueSourceWithParam:param];
     }else if(self.type == SourceTypeDomainNameDiagnose){
         
@@ -560,7 +563,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
         [self.navigationController popViewControllerAnimated:NO];
          }else{
-        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+             if ([response[ERROR_CODE] isEqualToString:@"home.issueSource.invalidIssueSourceAK"]) {
+                 [iToast alertWithTitleCenter:@"密钥验证失败"];
+             }else{
+                 [SVProgressHUD showErrorWithStatus:@"保存失败"];}
          }
     } failBlock:^(NSError *error) {
         [SVProgressHUD showSuccessWithStatus:@"保存失败"];

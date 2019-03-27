@@ -115,4 +115,6 @@
 -(void)showLoadFooterView;
 -(void)showNoSearchView;
 -(void)hideNoSearchView;
+-(void)showNoNetWorkView;
+-(void)hideNoNetworkView;
 @end

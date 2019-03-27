@@ -104,7 +104,7 @@
     NSDictionary *basic_source = content[0];
     self.isDefault = basic_source[@"isDefault"];
     NSInteger value =[basic_source longValueForKey:@"value" default:1];
-    BOOL isteam = getTeamState;
+    BOOL isteam = [getTeamState isEqualToString:PWisTeam];
     NSInteger count = [[IssueSourceManger sharedIssueSourceManger] getBasicIssueSourceCount];
     if (count>=value) {
         AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
@@ -112,7 +112,11 @@
         [self.view removeAllSubviews];
         [self.view addSubview:tipView];
         tipView.btnClick = ^(){
+            if(isteam){
+            [self.tabBarController setSelectedIndex:1];
+            }else{
             [self.tabBarController setSelectedIndex:2];
+            }
             [self.navigationController popViewControllerAnimated:NO];
         };
     }else{

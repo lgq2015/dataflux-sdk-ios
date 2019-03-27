@@ -12,6 +12,7 @@
 @interface RootViewController ()
 @property(nonatomic, strong) UIView *noDataView;
 @property(nonatomic, strong) UILabel *noDataLab;
+@property(nonatomic, strong) UIView *noNetWordView;
 @property(nonatomic, strong) UIView *noSearchView;
 @end
 
@@ -190,6 +191,23 @@
     self.noSearchView.hidden = NO;
     [self.view addSubview:self.noSearchView];
 }
+-(void)showNoNetWorkView{
+    [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UITableView class]]) {
+            obj.hidden = YES;
+        }
+    }];
+    self.noNetWordView.hidden = NO;
+    [self.view addSubview:self.noNetWordView];
+}
+-(void)hideNoNetworkView{
+    if (_noNetWordView) {
+        self.noSearchView.hidden = YES;
+    }
+    if (_tableView) {
+        _tableView.hidden = NO;
+    }
+}
 -(UIView *)noSearchView{
     if (!_noSearchView) {
         CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
@@ -220,6 +238,22 @@
         [_noDataView addSubview:no];
     }
     return _noDataView;
+}
+-(UIView *)noNetWordView{
+    if (!_noNetWordView) {
+        CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
+        
+        _noNetWordView = [[UIView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight)];
+        _noNetWordView.backgroundColor = PWWhiteColor;
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(36), ZOOM_SCALE(232), ZOOM_SCALE(350))];
+        [image setImage:[UIImage imageNamed:@"no_network"]];
+        image.centerX = self.view.centerX;
+        [_noNetWordView addSubview:image];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(412), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"没有网络"];
+        no.textAlignment = NSTextAlignmentCenter;
+        [_noNetWordView addSubview:no];
+    }
+    return _noNetWordView;
 }
 -(void)showNoMoreDataFooter{
     if (_footer) {

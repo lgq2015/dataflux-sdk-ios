@@ -36,7 +36,7 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  */
 - (void)getLastDetectionTime:(detectTimeStr)strblock;
 /**
-  更新本地 issuesource
+  更新本地 issuesource 重新请求 返回新数据刷新页面
  */
 - (void)updateAllIssueSourceList:(updateIssueSource)aryblock;
 /**
@@ -47,6 +47,11 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource
  */
 - (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID;
+
+/**
+ 退出处理
+ */
+-(void)logout;
 @end
 
 NS_ASSUME_NONNULL_END

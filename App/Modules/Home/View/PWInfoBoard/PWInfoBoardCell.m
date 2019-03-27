@@ -87,7 +87,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
         make.center.mas_equalTo(self.popView);
         make.height.offset(ZOOM_SCALE(14));
     }];
-    self.subtitle.text = self.model.subTitle;
+//    self.subtitle.text = self.model.subTitle;
     NSString *messageCountStr = [NSString stringWithFormat:@"%@",self.model.messageCount];
        self.count.text = messageCountStr;
     

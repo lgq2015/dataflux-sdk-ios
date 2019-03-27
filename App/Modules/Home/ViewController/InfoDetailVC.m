@@ -13,10 +13,10 @@
 #import "NewsWebView.h"
 #import "HandbookModel.h"
 #import "IssueSourceManger.h"
-#import "iOS-Echarts.h"
 #import "EchartTableView.h"
 #import "ExpertsSuggestVC.h"
 #import "TriangleLeft.h"
+#import "EchartView.h"
 
 @interface InfoDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -26,7 +26,6 @@
 @property (nonatomic, strong) UIView *suggestion;
 @property (nonatomic, strong) NSMutableArray *handbookAry;
 @property (nonatomic, strong) UIView *echartContenterView;
-@property (nonatomic, strong) PYZoomEchartsView *kEchartView;
 
 
 @end
@@ -69,8 +68,8 @@
     
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
-        make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
-        make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
+        make.left.mas_equalTo(self.upContainerView);
+        make.right.mas_equalTo(self.upContainerView);
         make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
     }];
    
@@ -230,20 +229,23 @@
 - (void)dealWithEchartView:(NSDictionary *)dict{
     if ([dict[@"extraJSON"] isKindOfClass:NSDictionary.class]) {
         NSArray *displayItems = dict[@"extraJSON"][@"displayItems"];
-        for (NSDictionary *dict in displayItems) {
+        UIView *temp1 = nil;
+        for (NSInteger j=0; j<displayItems.count ;j++) {
+            NSDictionary *dict = displayItems[j];
             if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
                 NSDictionary *data = dict[@"data"];
                 UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTextBlackColor text:data[@"title"]];
                 [self.view setNeedsUpdateConstraints];
-                [self.echartContenterView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
-                    make.left.right.mas_equalTo(self.upContainerView);
-                    make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
-                }];
+
                 [self.echartContenterView addSubview:titleLab];
                 [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
-                    make.top.mas_equalTo(self.echartContenterView);
+                    if (temp1 == nil) {
+                       make.top.mas_equalTo(self.echartContenterView);
+                    }else{
+                        make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(15));
+                    }
+                    
                     make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
                 }];
                
@@ -253,25 +255,40 @@
                 for (NSInteger i=0; i<body.count; i++) {
                     UIView *table = [self createTableWithData:body[i] header:header];
                     [table mas_makeConstraints:^(MASConstraintMaker *make) {
-                            make.top.mas_equalTo(temp.mas_bottom).offset(Interval(12));
-                            make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
+                          make.top.mas_equalTo(temp.mas_bottom).offset(Interval(12));
+                    make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
                             make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
-                        if (i==body.count-1) {
+                        if (i==body.count-1 && j==displayItems.count-1) {
                             make.bottom.mas_equalTo(self.echartContenterView).offset(-Interval(12));
                         }
                     }];
-
                     temp = table;
                 }
-                
-              [self.view layoutIfNeeded];
-                CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
-                self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
+                 temp1 = temp;
+              
             }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
-                [self createEChartLineType:dict[@"data"]];
+//                [self createEChartLineType:dict[@"data"]];
+                EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
+                [self.echartContenterView addSubview:chart];
+                [chart mas_makeConstraints:^(MASConstraintMaker *make) {
+                    if (temp1 == nil) {
+                        make.top.mas_equalTo(self.echartContenterView);
+                    }else{
+                        make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(16));
+                    }
+                    make.left.right.mas_equalTo(self.echartContenterView);
+                    make.height.offset(300);
+                    if (j==displayItems.count-1) {
+                        make.bottom.mas_equalTo(self.echartContenterView);
+                    }
+                   
+                }];
             }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
                 [self createListType:dict[@"data"]];
             }
+            [self.view layoutIfNeeded];
+            CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
+            self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
         }
    }
 }
@@ -317,172 +334,24 @@
     }
     return view;
 }
-- (void)createEChartLineType:(NSDictionary *)data{
-    NSArray *series = data[@"series"];
-    NSMutableArray *lineX  = [NSMutableArray new];
-    NSString *type = data[@"xAxis"][@"type"];
-    if ([type isEqualToString:@"time"]) {
-        NSArray *data = series[0][@"data"];
-        [data enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *time = [NSString stringWithFormat:@"%@",obj[0]];
-            [lineX addObject: [time getTimeFromTimestamp]];
-        }];
-    }
 
-    /** 图表选项 */
-    PYOption *option = [[PYOption alloc] init];
-    //是否启用拖拽重计算特性，默认关闭
-    option.calculable = NO;
-    //数值系列的颜色列表(折线颜色)
-    option.color = @[@"#20BCFC", @"#ff6347"];
-    // 图标背景色
-    // option.backgroundColor = [[PYColor alloc] initWithColor:[UIColor orangeColor]];
-    option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
-        title.textEqual(data[@"title"][@"text"])
-        .subtextEqual(data[@"yAxis"][@"name"]);
-    }]);
-//    option.title.subtext = @"数值";
-    
-    /** 提示框 */
-    PYTooltip *tooltip = [[PYTooltip alloc] init];
-    // 触发类型 默认数据触发
-    tooltip.trigger = @"axis";
-    // 竖线宽度
-    tooltip.axisPointer.lineStyle.width = @1;
-    // 提示框 文字样式设置
-    tooltip.textStyle = [[PYTextStyle alloc] init];
-    tooltip.textStyle.fontSize = @12;
-    // 提示框 显示自定义
-    // tooltip.formatter = @"(function(params){ var res = params[0].name; for (var i = 0, l = params.length; i < l; i++) {res += '<br/>' + params[i].seriesName + ' : ' + params[i].value;}; return res})";
-    // 添加到图标选择中
-    option.tooltip = tooltip;
-//    NSArray *legendAry = data[@"legend"][@"data"];
-//    option.legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-//        legend.dataEqual(legendAry);
-//    }]);
-
-
-    /** 直角坐标系内绘图网格, 说明见下图 */
-    PYGrid *grid = [[PYGrid alloc] init];
-    // 左上角位置
-    grid.x = @(30);
-    grid.y = @(50);
-    // 右下角位置
-    grid.x2 = @(30);
-   
-
-    // 添加到图标选择中
-    option.grid = grid;
-    
-    /** X轴设置 */
-    PYAxis *xAxis = [[PYAxis  alloc] init];
-    //横轴默认为类目型(就是坐标自己设置)
-    xAxis.type = @"category";
-    // 起始和结束两端空白
-    xAxis.boundaryGap = @(NO);
-    // 分隔线
-    xAxis.splitLine.show = YES;
-    // 坐标轴线
-    xAxis.axisLine.show = YES;
-    // X轴坐标数据
-    xAxis.data = lineX;
-    // 坐标轴小标记
-    xAxis.axisTick = [[PYAxisTick alloc] init];
-    xAxis.axisTick.show = YES;
-    
-    // 添加到图标选择中
-    option.xAxis = [[NSMutableArray alloc] initWithObjects:xAxis, nil];
-    
-    
-    /** Y轴设置 */
-    PYAxis *yAxis = [[PYAxis alloc] init];
-    yAxis.axisLine.show = YES;
-    // 纵轴默认为数值型(就是坐标系统生成), 改为 @"category" 会有问题, 读者可以自行尝试
-    yAxis.type = @"value";
-    // 分割段数，默认为5
-    
-    // 分割线类型
-    // yAxis.splitLine.lineStyle.type = @"dashed";   //'solid' | 'dotted' | 'dashed' 虚线类型
-    
-    //单位设置,  设置最大值, 最小值
-    // yAxis.axisLabel.formatter = @"{value} k";
-    NSNumber *max = [data[@"yAxis"] numberValueForKey:@"max" default:@100];
-    NSNumber *min = [data[@"yAxis"] numberValueForKey:@"min" default:@0];
-    yAxis.max = max;
-    yAxis.min =min;
-     NSNumber *interval =[data[@"yAxis"] numberValueForKey:@"interval" default:@10];
-     NSInteger interval2 =([max integerValue]-[min integerValue])/[interval integerValue] ;
-    yAxis.splitNumber =[NSNumber numberWithInteger:interval2];
-    //[NSNumber numberWithLong:interval];
-    
-    // 添加到图标选择中  ( y轴更多设置, 自行查看官方文档)
-    option.yAxis = [[NSMutableArray alloc] initWithObjects:yAxis, nil];
-    
-    
-    /** 定义坐标点数组 */
-    NSMutableArray *seriesArr = [NSMutableArray array];
-    for (NSInteger i=0; i<series.count; i++) {
-        NSDictionary *linedata = series[i];
-        NSArray *datas = linedata[@"data"];
-        NSMutableArray *lineY = [NSMutableArray new];
-        [datas enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [lineY addObject:obj[1]];
-        }];
-        /** 第一条折线设置 */
-        PYCartesianSeries *series1 = [[PYCartesianSeries alloc] init];
-        series1.name = linedata[@"name"];
-        // 类型为折线
-        series1.type = linedata[@"type"];
-        // 曲线平滑
-        // series1.smooth = YES;
-        // 坐标点大小
-        series1.symbolSize = @(1.5);
-        // 坐标点样式, 设置连线的宽度
-        series1.itemStyle = [[PYItemStyle alloc] init];
-        series1.itemStyle.normal = [[PYItemStyleProp alloc] init];
-        series1.itemStyle.normal.lineStyle = [[PYLineStyle alloc] init];
-        series1.itemStyle.normal.lineStyle.width = @(1.5);
-        // 添加坐标点 y 轴数据 ( 如果某一点 无数据, 可以传 @"-" 断开连线 如 : @[@"7566", @"-", @"7571"]  )
-        series1.data = lineY;
-        
-        [seriesArr addObject:series1];
-    }
-    
-    [option setSeries:seriesArr];
-    
-    /** 初始化图表 */
-    self.kEchartView = [[PYZoomEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
-    // 添加到 scrollView 上
-    [self.echartContenterView addSubview:self.kEchartView];
-    
-    // 图表选项添加到图表上
-    [self.kEchartView setOption:option];
-     [self.kEchartView loadEcharts];
-    [self.view setNeedsUpdateConstraints];
-    [self.echartContenterView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.offset(300);
-    }];
-    [self.view layoutIfNeeded];
-    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
-    self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
-}
 - (void)createListType:(NSDictionary *)dict{
-    NSString *header = [dict stringValueForKey:@"header" default:@""];
-    NSArray *body = dict[@"body"];
+//    NSString *header = [dict stringValueForKey:@"header" default:@""];
+//    NSArray *body = dict[@"body"];
     
 }
 - (void)dealHandBookViewWith:(NSDictionary *)dict{
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {
         self.handbookAry = [NSMutableArray new];
         [self.handbookAry addObjectsFromArray:dict[@"reference"][@"articles"]];
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(self.handbookAry.count*45);
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
+        }];
+        [self.tableView reloadData];
     }
+
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.suggestion.mas_bottom).offset(Interval(15));
-        make.width.offset(kWidth);
-        make.height.offset(self.handbookAry.count*45);
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
-    }];
     [self.view layoutIfNeeded];
     CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
