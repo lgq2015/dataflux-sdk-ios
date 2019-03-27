@@ -53,7 +53,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = @"where provider = 'aliyun' or  provider = 'aws' or provider = 'qcloud' or provider= 'ucloud' or provider = 'domain'";
-        NSDictionary *dict = @{@"id": @"TEXT"};
+        NSDictionary *dict = @{@"id": SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         count = array.count;
     }];
@@ -74,27 +74,28 @@ typedef void (^loadDataSuccess)(NSArray *datas);
       self.aryBlock = aryblock;
       self.issueSourceList = [NSMutableArray new];
       [self downLoadAllIssueSourceListWithTypeTime:NO];
-    
+
 }
 
 - (NSArray *)getIssueSourceListWithoutLock {
     NSString *whereFormat = @"";
     NSDictionary *dict =
             @{
-                    @"provider": @"TEXT",
-                    @"name": @"TEXT",
-                    @"teamId": @"TEXT",
-                    @"scanCheckStatus": @"TEXT",
-                    @"provider": @"TEXT",
-                    @"teamId": @"TEXT",
-                    @"updateTime": @"TEXT",
-                    @"id": @"TEXT",
-                    @"credentialJSON": @"TEXT",
-                    @"credentialJSONstr": @"TEXT",
-                    @"scanCheckStartTime": @"TEXT",
-                    @"scanCheckInQueueTime": @"TEXT",
-                    @"optionsJSONStr":@"TEXT"
-            };
+                    @"provider": SQL_TEXT,
+                    @"name": SQL_TEXT,
+                    @"teamId": SQL_TEXT,
+                    @"scanCheckStatus": SQL_TEXT,
+                    @"provider": SQL_TEXT,
+                    @"teamId": SQL_TEXT,
+                    @"updateTime": SQL_TEXT,
+                    @"id": SQL_TEXT,
+                    @"credentialJSON": SQL_TEXT,
+                    @"credentialJSONstr": SQL_TEXT,
+                    @"scanCheckStartTime": SQL_TEXT,
+                    @"scanCheckInQueueTime": SQL_TEXT,
+                    @"optionsJSONStr":SQL_TEXT
+
+    };
     NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
     return array;
 }
@@ -193,7 +194,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
             [difObject enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [[IssueListManger sharedIssueListManger]delectIssueWithIsseuSourceID:[obj stringValueForKey:@"id" default:@""]];
             }];
-            
+
         }
 
 
@@ -226,7 +227,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 
 - (void)getLastDetectionTimeNow {
     NSString *whereFormat = @"order by scanCheckInQueueTime desc";
-    NSDictionary *dict = @{@"scanCheckInQueueTime": @"TEXT"};
+    NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
     NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
     if (array.count == 0) {
         self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
@@ -286,7 +287,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceID];
-        NSDictionary *dict = @{@"name": @"TEXT"};
+        NSDictionary *dict = @{@"name": SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         if (array.count == 0) {
             name = nil;
