@@ -8,6 +8,7 @@
 #import "BaseReturnModel.h"
 #import "CarrierItemModel.h"
 #import "NSString+ErrorCode.h"
+#import "NSDictionary+URL.h"
 
 
 @implementation PWHttpEngine {
@@ -38,13 +39,15 @@
 - (id)pw_createFailBlock:(BaseReturnModel *)model withCallBack:(void (^)(id))callBack {
     return ^(NSError *error) {
 
-        if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+        if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]
+                ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseErrorKey]
+                ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseDataErrorKey]) {
             id response = [NSJSONSerialization
-                    JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]
+                    JSONObjectWithData:error.userInfo[error.domain]
                                options:0 error:nil];
             [model setValueWithDict:response];
 
-        } else if([error.domain isEqualToString:@"com.hyq.YQNetworking.ErrorDomain"]){
+        } else if ([error.domain isEqualToString:@"com.hyq.YQNetworking.ErrorDomain"]) {
             model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_NOT_AVAILABLE;
             model.errorMsg = [model.errorCode toErrString];
         } else {
@@ -82,7 +85,7 @@
     NSDictionary *param = @{@"uploader_uid": uploadId, @"desc": desc};
     BaseReturnModel *model = [BaseReturnModel new];
 
-    return [PWNetworking requsetHasTokenWithUrl:PW_URL_CARRIER_PROBE
+    return [PWNetworking requsetHasTokenWithUrl:NSStringFormat(@"%@%@",PW_URL_CARRIER_PROBE, [param queryString])
                                 withRequestType:NetworkPatchType
                                  refreshRequest:NO
                                           cache:NO
@@ -97,7 +100,6 @@
     NSDictionary *param = @{@"uploader_uid": uploadId};
 
     BaseReturnModel *model = [BaseReturnModel new];
-
 
     return [PWNetworking requsetHasTokenWithUrl:PW_URL_CARRIER_PROBE
                                 withRequestType:NetworkDeleteType

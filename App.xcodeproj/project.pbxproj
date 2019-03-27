@@ -490,9 +490,11 @@
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
 		6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
+		6B6E26DA119DE6C751E5A67C /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
 		6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
 		6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
+		6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */; };
 		6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
@@ -502,6 +504,7 @@
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
+		6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */; };
 		6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */; };
 		6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */; };
@@ -1360,8 +1363,10 @@
 		6B6E2BAC4C5A47FF67AEC631 /* BaseSqlHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSqlHelper.h; sourceTree = "<group>"; };
 		6B6E2C3BC2AE9855C7FF68DB /* PWHttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWHttpEngine.h; sourceTree = "<group>"; };
 		6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadStatusModel.m; sourceTree = "<group>"; };
+		6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URL.h"; sourceTree = "<group>"; };
 		6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogModel.m; sourceTree = "<group>"; };
 		6B6E2F00B08AB55521115825 /* IssueChatDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDataManager.h; sourceTree = "<group>"; };
+		6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URL.m"; sourceTree = "<group>"; };
 		73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppDev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppPreMade.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B970E690A7749BE7FFE2775D /* libPods-App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2218,6 +2223,8 @@
 				4AC857A9223C960700DAE1F6 /* NSDictionary+response.m */,
 				6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */,
 				6B6E2AD9299DB3AEA63DDAD9 /* NSString+ErrorCode.h */,
+				6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */,
+				6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3215,6 +3222,7 @@
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
 				6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */,
 				6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */,
+				6B6E26DA119DE6C751E5A67C /* NSDictionary+URL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3460,6 +3468,7 @@
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
 				6B6E238D7E703151708B8567 /* CarrierItemModel.m in Sources */,
+				6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3705,6 +3714,7 @@
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
 				6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */,
 				6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */,
+				6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

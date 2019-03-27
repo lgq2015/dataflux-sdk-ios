@@ -327,10 +327,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 - (void)bindClusterOrHostView {
 
-    [[self.TFArray[0] rac_textSignal] subscribeNext:^(id x) {
-        self.showWordsBtn.enabled = !self.showWordsBtn.hidden;
-    }];
-    
     [[PWHttpEngine sharedInstance] getProbe:self.model.clusterID callBack:^(id o) {
         CarrierItemModel *data = ((CarrierItemModel *) o);
         if ([data isSuccess]) {
@@ -570,27 +566,41 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else if(self.type == SourceTypeDomainNameDiagnose){
         param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         [self modifyIssueSourceWithParam:param];
-    }else if(self.type == SourceTypeDomainNameDiagnose){
+    }else if(self.type == SourceTypeClusterDiagnose||self.type == SourceTypeSingleDiagnose){
+        [[PWHttpEngine sharedInstance] patchProbe:self.model.clusterID
+                                             name:self.TFArray[0].text callBack:^(id o) {
 
-    }else if(self.type == SourceTypeSingleDiagnose){
+                    BaseReturnModel *data = ((BaseReturnModel *) o) ;
+                    if([data isSuccess]){
+                        [self saveSuccess];
+                    } else{
+                        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+                    }
+
+                }];
 
     }
 }
+
+-(void)saveSuccess{
+    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+    KPostNotification(KNotificationIssueSourceChange,nil);
+    __weak typeof (self) vc = self;
+    [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+
 - (void)modifyIssueSourceWithParam:(NSDictionary *)param{
 
     [PWNetworking requsetHasTokenWithUrl:PW_issueSourceModify(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-         if ([response[@"errorCode"] isEqualToString:@""]) {
-         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
-         KPostNotification(KNotificationIssueSourceChange,nil);
-
-        __weak typeof (self) vc = self;
-        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-        [self.navigationController popViewControllerAnimated:NO];
-         }else{
-        [SVProgressHUD showErrorWithStatus:@"保存失败"];
-         }
+        if ([response[@"errorCode"] isEqualToString:@""]) {
+            [self saveSuccess];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        }
     } failBlock:^(NSError *error) {
-        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
 
     }];
 }
@@ -676,31 +686,65 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         DLog(@"%@",error);
     }];
 }
+
+
+
+
+
 #pragma mark ========== 删除情报源 ==========
 - (void)delectIssueSource{
     [SVProgressHUD showWithStatus:@"正在删除..."];
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[@"errorCode"] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"已删除"];
-            KPostNotification(KNotificationIssueSourceChange,nil);
+
+    void (^sourceNotExist)(void) = ^{
+        [SVProgressHUD dismiss];
+        [iToast alertWithTitleCenter:@"情报源不存在"];
+        KPostNotification(KNotificationIssueSourceChange, nil);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            if([response[ERROR_CODE] isEqualToString:@"home.issueSource.noSuchIssueSource"]){
-                [SVProgressHUD dismiss];
-                [iToast alertWithTitleCenter:@"情报源不存在"];
-                KPostNotification(KNotificationIssueSourceChange,nil);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
+        });
+    };
 
-            }else{
-            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+    void (^deleteSuccess)(void) = ^{
+        [SVProgressHUD showSuccessWithStatus:@"已删除"];
+        KPostNotification(KNotificationIssueSourceChange, nil);
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+
+
+    if (self.type == SourceTypeSingleDiagnose) {
+        [[PWHttpEngine sharedInstance] deleteProbe:self.model.clusterID callBack:^(id o) {
+            BaseReturnModel *data = ((BaseReturnModel *) o);
+            if ([data isSuccess]) {
+                deleteSuccess();
+            } else {
+                if ([data.errorCode isEqualToString:@"carrier.kodo.issueSourceNotSet"]) {
+                    sourceNotExist();
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                }
+
             }
-        }
+        }];
 
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"删除失败"];
-    }];
+    } else {
+
+        [PWNetworking requsetHasTokenWithUrl:PW_issueSourceDelete(self.model.issueSourceId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[@"errorCode"] isEqualToString:@""]) {
+                deleteSuccess();
+            } else {
+                if ([response[ERROR_CODE] isEqualToString:@"home.issueSource.noSuchIssueSource"]) {
+                    sourceNotExist();
+
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                }
+            }
+
+        }                          failBlock:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"删除失败"];
+        }];
+    }
+
 }
 -(void)navLeftBtnClick:(UIButton *)button{
     [self.navigationController popViewControllerAnimated:YES];
