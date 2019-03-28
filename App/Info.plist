@@ -45,9 +45,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>调用相机</string>
+	<string>用于拍摄图片、扫一扫等功能</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>调用相册</string>
+	<string>您可以分享相机胶卷中的照片、将照片保存</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>您可以分享相机胶卷中的照片、将照片保存</string>
 	<key>UILaunchStoryboardName</key>
