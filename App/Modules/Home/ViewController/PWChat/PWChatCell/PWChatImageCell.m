@@ -44,7 +44,9 @@
     UIImageView *btnImgView = [[UIImageView alloc]initWithImage:image];
     btnImgView.frame = CGRectInset(self.mImgView.frame, 0.0f, 0.0f);
     self.mImgView.layer.mask = btnImgView.layer;
-    
+    if (layout.message.image) {
+        self.mImgView.image = layout.message.image;
+    }
 }
 
 

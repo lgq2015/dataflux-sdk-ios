@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class IssueLogModel;
 //cell的一些设置
 #define PWChatTextCellId        @"PWChatTextCellId"
 #define PWChatImageCellId       @"PWChatImageCellId"
@@ -107,12 +108,16 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 //文件 文件类型  文件名字  文件地址
 @property (nonatomic, strong) NSString    *fileName;
 @property (nonatomic, strong) NSString    *fileAddress;
+@property (nonatomic, strong) NSString    *fileSize;
 @property (nonatomic, strong) NSString    *filePath;
+@property (nonatomic, strong) NSString    *fileIcon;
 
 // 系统消息
 @property (nonatomic, strong) NSString    *systermStr;
 //拓展消息
 @property(nonatomic,strong)NSDictionary *dict;
+- (instancetype)initWithIssueLogModel:(IssueLogModel *)model;
+
 @end
 
 

@@ -15,7 +15,7 @@
     
     PWChatMessage *message = [PWChatMessage new];
     NSString *time =[NSDate getNowTimeTimestamp];
-    message.nameStr = @"今天：";
+    message.nameStr =@"今天：";
     switch (messageType) {
         case PWChatMessageTypeText:{
             message.messageFrom = PWChatMessageFromMe;
@@ -29,6 +29,7 @@
             message.messageFrom = PWChatMessageFromMe;
             message.messageType = PWChatMessageTypeImage;
             message.headerImgurl = userManager.curUserInfo.avatar;
+            message.image = dict[@"image"];
             message.cellString = PWChatImageCellId;
         }
             break;
@@ -93,20 +94,36 @@
     return layout;
     
 }
-+(NSMutableArray *)LoadingMessagesStartWithChat:(NSString *)sessionId{
-    NSArray *historyDatas= [[IssueChatDataManager sharedInstance]
-                            getChatIssueLogDatas:sessionId pageMarker:-1];
++(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback {
+    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:sessionId];
+    __block NSMutableArray *newChatArray = nil;
     
-    return [NSMutableArray arrayWithArray:historyDatas];
+    [[IssueChatDataManager sharedInstance]
+     fetchAllChatIssueLog:sessionId
+     pageMarker:pageMarker
+     callBack:^(NSMutableArray<IssueLogModel *> *array) {
+         //todo get new data
+         //获取新数据
+         [array enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            PWChatMessage *chatModel = [[PWChatMessage alloc]initWithIssueLogModel:obj];
+            PWChatMessagelLayout *layout = [[PWChatMessagelLayout alloc]initWithMessage:chatModel];
+            [newChatArray addObject:layout];
+         }];
+         callback?callback(newChatArray):nil;
+     }];
+
 }
 +(NSMutableArray *)receiveMessages:(NSString *)sessionId{
     NSArray<IssueLogModel *> *historyDatas= [[IssueChatDataManager sharedInstance]
                             getChatIssueLogDatas:sessionId pageMarker:-1];
     NSMutableArray *messageDatas = [NSMutableArray new];
     [historyDatas enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        PWChatMessage *message = [PWChatMessage new];
-//        message.messageFrom = obj.origin ==
+       
+        PWChatMessage *chatModel = [[PWChatMessage alloc]initWithIssueLogModel:obj];
+        PWChatMessagelLayout *layout = [[PWChatMessagelLayout alloc]initWithMessage:chatModel];
+        [messageDatas addObject:layout];
+
     }];
-    return [NSMutableArray arrayWithArray:historyDatas];
+    return [NSMutableArray arrayWithArray:messageDatas];
 }
 @end

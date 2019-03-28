@@ -30,7 +30,7 @@
            [self setImage];
             break;
         case PWChatMessageTypeSysterm:
-            
+            [self setSysterm];
             break;
     }
     
@@ -102,12 +102,12 @@
         
     }else{
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
-        _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-imgActualWidth, self.headerImgRect.origin.y, imgActualWidth, imgActualHeight);
+        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-PWChatIconWH, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+        _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-imgActualWidth, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, imgActualWidth, imgActualHeight);
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
     }
-    
+      _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
 }
 - (void)setFile{
     if(_message.messageFrom == PWChatMessageFromOther){
@@ -130,5 +130,8 @@
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;
     }
+}
+- (void)setSysterm{
+    
 }
 @end

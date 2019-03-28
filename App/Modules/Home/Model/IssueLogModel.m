@@ -27,7 +27,7 @@
     self.subType = [dict stringValueForKey:@"subType" default:@""];
     self.id = [dict stringValueForKey:@"id" default:@""];
     self.seq = [dict longLongValueForKey:@"seq" default:0];
-
+    self.createTime =[dict stringValueForKey:@"createTime" default:@""];
     NSDictionary *originInfoJSON = dict[@"originInfoJSON"];
     NSDictionary *metaJson = dict[@"metaJson"];
     NSDictionary *externalDownloadURL = dict[@"externalDownloadURL"];
@@ -35,7 +35,7 @@
 
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";
-    self.externalDownloadURLstr = externalDownloadURL ? [externalDownloadURL jsonPrettyStringEncoded] : @"";
+    self.externalDownloadURLStr = externalDownloadURL ? [externalDownloadURL jsonPrettyStringEncoded] : @"";
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
 
 }

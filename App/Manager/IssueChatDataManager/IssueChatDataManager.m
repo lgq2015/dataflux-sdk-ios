@@ -55,6 +55,7 @@
                     @"metaJsonStr": SQL_TEXT,
                     @"externalDownloadURLStr": SQL_TEXT,
                     @"accountInfoStr": SQL_TEXT,
+                    @"createTime":SQL_TEXT,
             };
 
             [dict addEntriesFromDictionary:params];
@@ -187,6 +188,10 @@
 }
 
 
+- (Class)extracted {
+    return [IssueLogModel class];
+}
+
 /**
  *
  * 上拉获取历史数据 100条数据或获取 最新100条
@@ -208,7 +213,7 @@
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"
                                          " seq DESC LIMIT %d)", table, where, ISSUE_CHAT_PAGE_SIZE);
         NSArray *results = [self.getHelper pw_lookupTable:range
-                                               dicOrModel:[IssueLogModel class]
+                                               dicOrModel:[self extracted]
                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
         [array addObjectsFromArray:results];
     }];

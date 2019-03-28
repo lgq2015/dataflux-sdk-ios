@@ -14,6 +14,7 @@
         self.backgroundColor = PWChatCellColor;
     
         _functionView = [[PWChatKeyBordFunctionView alloc]initWithFrame:self.bounds];
+        
         _functionView.delegate = self;
     
         [self addSubview:_functionView];
@@ -48,7 +49,7 @@
 
 //发送200  多功能点击10+
 -(void)PWChatKeyBordButtonPressed:(NSInteger)index{
-    if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBordViewBtnClick:type:)]){
+    if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBordViewBtnClick:)]){
         [_delegate PWChatKeyBordViewBtnClick:index];
     }
 }

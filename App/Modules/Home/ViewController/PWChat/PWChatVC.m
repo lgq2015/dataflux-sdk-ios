@@ -16,12 +16,14 @@
 #import "IssueModel.h"
 #import "IssueLogModel.h"
 #import "PWSocketManager.h"
+#import "PWPhotoOrAlbumImagePicker.h"
 
 //#import "PWImageGroupView.h"
 @interface PWChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
 //承载表单的视图 视图原高度
 @property (strong, nonatomic) UIView    *mBackView;
 @property (assign, nonatomic) CGFloat   backViewH;
+@property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 
 //表单
 @property(nonatomic,strong)UITableView *mTableView;
@@ -49,21 +51,14 @@
 
     //获取历史数据
    
-    self.datas = [PWChatDatas LoadingMessagesStartWithChat:self.issueID];
-
-    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
-    [[IssueChatDataManager sharedInstance]
-            fetchAllChatIssueLog:_issueID
-                      pageMarker:pageMarker
-                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
-                            //todo get new data
-                            //获取新数据
-                        }];
-
-
-
-
-    // Do any additional setup after loading the view.
+    self.datas = [PWChatDatas receiveMessages:self.issueID];
+    [self.tableView reloadData];
+    // 拉取新数据
+    [PWChatDatas LoadingMessagesStartWithChat:self.issueID callBack:^(NSMutableArray<IssueLogModel *> * array) {
+        array.count>0?[self.datas addObjectsFromArray:array]:nil;
+        [self.tableView reloadData];
+    }];
+   
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -212,29 +207,16 @@
 
 
 
-//多功能视图点击回调  图片10  视频11  位置12
+//多功能视图点击回调  图片10
 -(void)PWChatKeyBoardInputViewBtnClickFunction:(NSInteger)index{
 
-
-//     if(!_mAddImage) _mAddImage = [[SSAddImage alloc]init];
-//
-//        [_mAddImage getImagePickerWithAlertController:self modelType:SSImagePickerModelImage + index-10 pickerBlock:^(SSImagePickerWayStyle wayStyle, SSImagePickerModelType modelType, id object) {
-//
-//            if(index==10){
-//                UIImage *image = (UIImage *)object;
-//                NSLog(@"%@",image);
-//                NSDictionary *dic = @{@"image":image};
-//                [self sendMessage:dic messageType:SSChatMessageTypeImage];
-//            }
-//
-//            else{
-//                NSString *localPath = (NSString *)object;
-//                NSLog(@"%@",localPath);
-//                NSDictionary *dic = @{@"videoLocalPath":localPath};
-//                [self sendMessage:dic messageType:SSChatMessageTypeVideo];
-//            }
-//        }];
-//
+    self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
+    [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
+        [PWChatDatas sendMessage:@{@"image":image} sessionId:self.issueID messageType:PWChatMessageTypeImage messageBlock:^(PWChatMessagelLayout * _Nonnull layout, NSError * _Nonnull error, NSProgress * _Nonnull progress) {
+            [self.datas addObject:layout];
+            [self.mTableView reloadData];
+        }];
+    }];
 
 }
 

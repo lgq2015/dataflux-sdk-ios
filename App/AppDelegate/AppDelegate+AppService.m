@@ -126,9 +126,15 @@
     //展示FPS
     [AppManager showFPS];
 }
+#pragma mark ========== 网络状态监听  ==========
 
-
+- (void)monitorNetworkStatus
+{
+    // 网络状态改变一次, networkStatusWithBlock就会响应一次
+    
+}
 #pragma mark ========== 网络状态变化 ==========
+
 - (void)netWorkStateChange:(NSNotification *)notification
 {
     
@@ -168,11 +174,7 @@
     return YES;
 }
 
-#pragma mark ========== 网络状态监听 ==========
-- (void)monitorNetworkStatus
-{
-   
-}
+
 
 + (AppDelegate *)shareAppDelegate{
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];

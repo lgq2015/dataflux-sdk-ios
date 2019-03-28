@@ -29,6 +29,8 @@
 //    [self initUserManager];
 //    [self initZhuge];
     [self configUSharePlatforms];
+    //网络监听
+    [self monitorNetworkStatus];
     // Override point for customization after application launch.
     //Required
     //notice: 3.0.0 及以后版本注册可以这样写，也可以继续用之前的注册方式

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class IssueLogModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWChatDataModel : NSObject
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *issueID;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithIssueLogModel:(IssueLogModel *)model;
 
 @end
 

@@ -270,8 +270,9 @@
     [SVProgressHUD showWithStatus:@"登录中..."];
     NSString *openUDID = [OpenUDID value];
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID];
+    NSString *device_version =[NSString getCurrentDeviceModel];
+    NSString *registrationId =@"131342424";
+    //[JPUSHService registrationID];
 
     NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
