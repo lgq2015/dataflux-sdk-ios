@@ -7,7 +7,7 @@
 #import "PWChatMessagelLayout.h"
 
 
-@interface IssueLogModel : PWChatMessagelLayout
+@interface IssueLogModel : NSObject
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *subType;

@@ -49,7 +49,8 @@
 
     //获取历史数据
    
-    self.datas = [PWChatDatas LoadingMessagesStartWithChat:self.issueID];
+    NSArray * historyArr = [PWChatDatas LoadingMessagesStartWithChat:self.issueID];
+    DLog(@"%@",historyArr)
 
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
     [[IssueChatDataManager sharedInstance]
@@ -58,6 +59,7 @@
                         callBack:^(NSMutableArray<IssueLogModel *> *array) {
                             //todo get new data
                             //获取新数据
+                            DLog(@"%@",array)
                         }];
 
 

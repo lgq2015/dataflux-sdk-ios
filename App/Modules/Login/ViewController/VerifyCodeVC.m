@@ -268,12 +268,16 @@
 #pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
     [SVProgressHUD showWithStatus:@"登录中..."];
-    NSString *openUDID = [OpenUDID value];
-    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID];
 
-    NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
+    NSMutableDictionary * data = [@{
+            @"username": self.phoneNumber,
+            @"verificationCode": code,
+            @"marker": @"mobile",
+    } mutableCopy];
+
+    [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+
+    NSDictionary *param = @{@"data": data};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
         if (success) {

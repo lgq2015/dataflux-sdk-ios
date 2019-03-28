@@ -32,6 +32,8 @@ typedef void (^codeBlock) (CodeStatus status, NSString * des);
 //单例
 SINGLETON_FOR_HEADER(UserManager)
 
++ (NSDictionary *)getDeviceInfo;
+
 //当前用户
 @property (nonatomic, strong) CurrentUserModel *curUserInfo;
 @property (nonatomic, strong) TeamInfoModel *teamModel;

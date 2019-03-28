@@ -269,19 +269,14 @@
 #pragma mark ========== 登录 ==========
 - (void)loginClick{
     [SVProgressHUD show];
-    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *openUDID = [OpenUDID value];
-    NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID]?:@"123456789";
 
-    NSDictionary *param =@{@"marker":@"mobile",
-        @"username":[self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
-        @"password": self.passwordTf.text,
-        @"deviceId": openUDID,
-        @"registrationId":registrationId,
-        @"deviceOSVersion": os_version,
-        @"deviceVersion":device_version,
-    };
+    NSMutableDictionary *param = [@{@"marker": @"mobile",
+                @"username": [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
+                @"password": self.passwordTf.text,
+        } mutableCopy];
+
+    [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
+
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
