@@ -75,6 +75,8 @@
  */
 - (BOOL)pw_updateTable:(NSString *)tableName dicOrModel:(id)parameters whereFormat:(NSString *)format, ...;
 
+- (NSArray *)pw_lookupTable:(NSString *)tableName dicOrModel:(id)parameters withSql:(NSString *)sqlTable whereFormat:(NSString *)format, ...;
+
 /**
  查找: 根据条件查找表中数据
  

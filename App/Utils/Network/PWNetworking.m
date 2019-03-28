@@ -193,6 +193,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                     });
                 }];
             } else {
+                DLog(@"response == %@",response);
                 if (successBlock) successBlock(response);
             }
             // response中包含服务端返回的内容

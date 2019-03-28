@@ -31,7 +31,7 @@
 - (void)createUI{
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"新密码格式至少包含两种 8-25 位\n大小写字母、数字或字符"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
@@ -105,37 +105,44 @@
 }
 - (void)confirmBtnClick{
     if ([self.passwordTf.text validatePassWordForm]) {
-   
-    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *openUDID = [OpenUDID value];
-    NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID];
 
-    NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile",@"deviceId": openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
-    [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            setXAuthToken(response[@"content"][@"authAccessToken"]);
-            if(self.isChange){
-            [userManager saveUserInfoLoginStateisChange:NO success:nil];
-            [iToast alertWithTitleCenter:@"修改成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    for(UIViewController *temp in self.navigationController.viewControllers) {
-                        if([temp isKindOfClass:[SecurityPrivacyVC class]]){
-                            [self.navigationController popToViewController:temp animated:YES];
+        NSMutableDictionary *data = [@{
+                        @"password": self.passwordTf.text,
+                        @"changePasswordToken": self.changePasswordToken,
+                        @"marker": @"mobile",
+                } mutableCopy];
+
+        [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+        NSDictionary *params = @{@"data":data
+        };
+        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                setXAuthToken(response[@"content"][@"authAccessToken"]);
+                if (self.isChange) {
+                    [userManager saveUserInfoLoginStateisChange:NO success:nil];
+                    [iToast alertWithTitleCenter:@"密码设置成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        for (UIViewController *temp in self.navigationController.viewControllers) {
+                            if ([temp isKindOfClass:[SecurityPrivacyVC class]]) {
+                                [self.navigationController popToViewController:temp animated:YES];
+                            }
                         }
-                    }
-                });
-            }else{
-            [userManager saveUserInfoLoginStateisChange:YES success:nil];
+                    });
+                } else {
+                    [userManager saveUserInfoLoginStateisChange:YES success:nil];
+                }
+            } else {
+                if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                  [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+                }else{
+                [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
+                }
             }
-        }else{
-            [iToast alertWithTitleCenter:@"修改失败，请重试"];
-        }
-    } failBlock:^(NSError *error) {
-        
-    }];
-    }else{
-        [iToast alertWithTitleCenter:@"密码格式错误"];
+        }failBlock:^(NSError *error) {
+
+        }];
+    } else {
+        [iToast alertWithTitleCenter:@"密码格式有误"];
     }
 }
 - (void)pwdTextSwitch:(UIButton *)sender{

@@ -96,6 +96,17 @@
     }else if([getTeamState isEqualToString:PW_isPersonal]){
         FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
         [self.navigationController pushViewController:createTeam animated:YES];
+    }else{
+        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
+            if (isHave) {
+                CreateQuestionVC *creatVC = [[CreateQuestionVC alloc]init];
+                creatVC.type = self.type;
+                [self.navigationController pushViewController:creatVC animated:YES];
+            }else{
+                FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+                [self.navigationController pushViewController:createTeam animated:YES];
+            }
+        }];
     }
 }
 - (UILabel *)tipLab{

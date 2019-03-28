@@ -514,6 +514,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 #pragma mark ========== navClick ==========
 - (void)navRightBtnClick:(UIButton *)button{
+    
     //编辑按钮
     if(button.tag == 99){
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -689,8 +690,24 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 }
             };
         }else{
-
+          if([response[ERROR_CODE] isEqualToString:@"home.issueSource.basicSourceExceedCount"]){
+                BOOL isteam = [getTeamState isEqualToString:PWisTeam];
+                AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
+                AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
+                [self.view removeAllSubviews];
+                [self.view addSubview:tipView];
+                tipView.btnClick = ^(){
+                if(isteam){
+                    [self.tabBarController setSelectedIndex:1];
+                    }else{
+                    [self.tabBarController setSelectedIndex:2];
+                    }
+                    [self.navigationController popViewControllerAnimated:NO];
+                };
+            
+            }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
         }
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
@@ -717,7 +734,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     void (^deleteSuccess)(void) = ^{
         [SVProgressHUD showSuccessWithStatus:@"已删除"];
         KPostNotification(KNotificationIssueSourceChange, nil);
-        [self.navigationController popViewControllerAnimated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             [self.navigationController popViewControllerAnimated:YES];
+        });
     };
 
 

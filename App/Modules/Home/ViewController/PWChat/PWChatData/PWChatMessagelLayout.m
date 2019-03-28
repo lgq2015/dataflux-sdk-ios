@@ -75,18 +75,32 @@
     
 }
 - (void)setImage{
-    UIImage *image = _message.image;
-    CGFloat imgWidth  = CGImageGetWidth(image.CGImage);
-    CGFloat imgHeight = CGImageGetHeight(image.CGImage);
-    CGFloat imgActualHeight = PWChatImageMaxSize;
-    CGFloat imgActualWidth =  PWChatImageMaxSize * imgWidth/imgHeight;
+   __block CGFloat imgActualHeight;
+  __block  CGFloat imgActualWidth;
+    if (_message.image) {
+        UIImage *image = _message.image;
+        CGFloat imgWidth  = CGImageGetWidth(image.CGImage);
+        CGFloat imgHeight = CGImageGetHeight(image.CGImage);
+         imgActualHeight = PWChatImageMaxSize;
+         imgActualWidth =  PWChatImageMaxSize * imgWidth/imgHeight;
+        [self setImageWidth:imgActualWidth Height:imgActualHeight];
+    }else{
+        UIImageView *imageView = [[UIImageView alloc]init];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:_message.imageString] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSLog(@"宽：%f, 高：%f", image.size.width, image.size.height);
+            imgActualHeight = PWChatImageMaxSize;
+            imgActualWidth =  PWChatImageMaxSize * image.size.width/image.size.height;
+            [self setImageWidth:image.size.width Height:image.size.height];
+        }];
+    }
+    
+    
+}
+-(void)setImageWidth:(CGFloat)imgActualWidth Height:(CGFloat)imgActualHeight{
     
     _message.contentMode =  UIViewContentModeScaleAspectFit;
     
-    if(imgActualWidth>PWChatImageMaxSize){
-        imgActualWidth = PWChatImageMaxSize;
-        imgActualHeight = imgActualWidth * imgHeight/imgWidth;
-    }
+    
     if(imgActualWidth<PWChatImageMaxSize*0.25){
         imgActualWidth = PWChatImageMaxSize * 0.25;
         imgActualHeight = PWChatImageMaxSize * 0.8;
@@ -107,7 +121,7 @@
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
     }
-      _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
+    _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
 }
 - (void)setFile{
     if(_message.messageFrom == PWChatMessageFromOther){
@@ -132,6 +146,13 @@
     }
 }
 - (void)setSysterm{
-    
+    UITextView *mTextView = [UITextView new];
+    mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
+    mTextView.font = MediumFONT(17);
+    mTextView.text = _message.systermStr;
+    mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [mTextView sizeToFit];
+    _systermLabRect = mTextView.bounds;
+     _cellHeight = _systermLabRect.size.height + 20;
 }
 @end

@@ -6,6 +6,7 @@
 //  Copyright © 2018年 hll. All rights reserved.
 //
 
+#import <JPush/JPUSHService.h>
 #import "UserManager.h"
 #import "OpenUDID.h"
 #import "TeamInfoModel.h"
@@ -27,6 +28,10 @@ SINGLETON_FOR_CLASS(UserManager);
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onKick)
                                                      name:KNotificationOnKick
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadTeamInfo)
+                                                     name:KNotificationTeamStatusChange
                                                    object:nil];
     }
     return self;
@@ -231,6 +236,12 @@ SINGLETON_FOR_CLASS(UserManager);
         
     }];
 }
+- (void)reloadTeamInfo
+{
+    [self addTeamSuccess:^(BOOL isSuccess) {
+        
+    }];
+}
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -386,4 +397,21 @@ SINGLETON_FOR_CLASS(UserManager);
         [cache setObject:teamProduct forKey:KTeamProductDict];
     }];
 }
+
++(NSDictionary *)getDeviceInfo{
+    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
+    NSString *openUDID = [OpenUDID value];
+    NSString *device_version = [NSString getCurrentDeviceModel];
+    NSString *registrationId = [JPUSHService registrationID];
+#if (TARGET_IPHONE_SIMULATOR)
+    registrationId =@"123456789";
+#endif
+    return @{
+            @"deviceId": openUDID,
+            @"registrationId":registrationId,
+            @"deviceOSVersion": os_version,
+            @"deviceVersion":device_version,
+    };
+}
+
 @end

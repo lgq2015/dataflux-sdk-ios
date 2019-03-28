@@ -231,6 +231,7 @@
                 CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
                 create.btnClick =^(){
                     KPostNotification(KNotificationTeamStatusChange, @YES);
+                    setTeamState(PWisTeam);
                     [self.navigationController popViewControllerAnimated:NO];
                 };
             [self presentViewController:create animated:YES completion:nil];  

@@ -81,6 +81,13 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
+/**
+ * 修改主机诊断、集群诊断属性
+ * @param uploadId
+ * @param desc
+ * @param callback
+ * @return
+ */
 - (PWURLSessionTask *)patchProbe:(NSString *)uploadId name:(NSString *)desc callBack:(void (^)(id))callback {
     NSDictionary *param = @{@"uploader_uid": uploadId, @"desc": desc};
     BaseReturnModel *model = [BaseReturnModel new];
@@ -96,6 +103,12 @@
 }
 
 
+/**
+ * 删除集群诊断
+ * @param uploadId
+ * @param callback
+ * @return
+ */
 - (PWURLSessionTask *)deleteProbe:(NSString *)uploadId callBack:(void (^)(id))callback {
     NSDictionary *param = @{@"uploader_uid": uploadId};
 

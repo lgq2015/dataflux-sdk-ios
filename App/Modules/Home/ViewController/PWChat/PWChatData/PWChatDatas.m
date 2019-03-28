@@ -94,7 +94,7 @@
     return layout;
     
 }
-+(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback {
++(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <PWChatMessagelLayout *> *))callback {
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:sessionId];
     __block NSMutableArray *newChatArray = nil;
     

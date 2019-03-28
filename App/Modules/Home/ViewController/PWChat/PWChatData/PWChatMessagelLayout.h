@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 //文件控件的frame
 @property (nonatomic, assign) CGRect       fileLabRect;
 
-
+@property (nonatomic, assign) CGRect       systermLabRect;
 @end
 
 NS_ASSUME_NONNULL_END

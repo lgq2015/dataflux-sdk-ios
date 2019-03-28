@@ -9,7 +9,7 @@
 #import "InfoRootVC.h"
 
 @interface InfoRootVC ()
-
+@property (nonatomic, strong) UIImageView *arrowImg;
 @end
 
 @implementation InfoRootVC
@@ -68,11 +68,17 @@
         make.centerY.mas_equalTo(self.stateLab);
         make.height.offset(ZOOM_SCALE(18));
     }];
-    self.timeLab.text = [self.model.time accurateTimeStr];
+    self.timeLab.text =[self.model.time accurateTimeStr];
     [self.progressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.timeLab.mas_right).offset(Interval(7));
         make.centerY.mas_equalTo(self.timeLab);
-        make.height.offset(ZOOM_SCALE(18));
+        make.height.offset(ZOOM_SCALE(20));
+    }];
+    [self.arrowImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.progressBtn.mas_right).offset(Interval(3));
+        make.centerY.mas_equalTo(self.progressBtn);
+        make.height.width.offset(ZOOM_SCALE(13));
+
     }];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(kWidth);
@@ -135,10 +141,11 @@
         }
     }
 }
-- (void)showProgress:(UIButton *)button{
-    self.progressBtn.selected = !button.selected;
+- (void)showProgress{
+    self.progressBtn.selected = !self.progressBtn.selected;
     [self.view setNeedsUpdateConstraints];
-    if (button.selected) {
+    if (self.progressBtn.selected) {
+        self.arrowImg.transform = CGAffineTransformMakeRotation(M_PI/2);
         [UIView animateWithDuration:0.3 animations:^{
             [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.offset(self.progressData.count*ZOOM_SCALE(27)+3);
@@ -149,6 +156,7 @@
         }];
         
     }else{
+        self.arrowImg.transform = CGAffineTransformMakeRotation(0);
         [UIView animateWithDuration:0.3 animations:^{
             [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.offset(1);
@@ -216,18 +224,29 @@
         [_progressBtn setTitle:@"情报进展" forState:UIControlStateNormal];
         _progressBtn.titleLabel.font =MediumFONT(13);
         [_progressBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
-        [_progressBtn setImage:[UIImage imageNamed:@"icon_nextgray"] forState:UIControlStateNormal];
-        [_progressBtn addTarget:self action:@selector(showProgress:) forControlEvents:UIControlEventTouchUpInside];
+//        [_progressBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
+//        [_progressBtn setImage:[UIImage imageNamed:@"selectGroup_tip"] forState:UIControlStateSelected];
+        [_progressBtn addTarget:self action:@selector(showProgress) forControlEvents:UIControlEventTouchUpInside];
         [_progressBtn sizeToFit];
-        
-        _progressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_progressBtn.imageView.frame.size.width - _progressBtn.frame.size.width + _progressBtn.titleLabel.frame.size.width, 0, 0);
-        
-        _progressBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_progressBtn.titleLabel.frame.size.width - _progressBtn.frame.size.width + _progressBtn.imageView.frame.size.width);
+
+//        _progressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_progressBtn.imageView.frame.size.width - _progressBtn.frame.size.width + _progressBtn.titleLabel.frame.size.width, 0, 0);
+//
+//        _progressBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_progressBtn.titleLabel.frame.size.width - _progressBtn.frame.size.width + _progressBtn.imageView.frame.size.width);
         [self.upContainerView addSubview:_progressBtn];
     }
     return _progressBtn;
 }
-
+-(UIImageView *)arrowImg{
+    if (!_arrowImg) {
+        _arrowImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_next"]];
+        _arrowImg.contentMode = UIViewContentModeScaleAspectFit;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showProgress)];
+        [_arrowImg addGestureRecognizer:tap];
+        _arrowImg.userInteractionEnabled = YES;
+        [self.upContainerView addSubview:_arrowImg];
+    }
+    return _arrowImg;
+}
 -(UIView *)subContainerView{
     if (!_subContainerView) {
         _subContainerView = [[UIView alloc]init];

@@ -212,9 +212,13 @@
 
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"
                                          " seq DESC LIMIT %d)", table, where, ISSUE_CHAT_PAGE_SIZE);
-        NSArray *results = [self.getHelper pw_lookupTable:range
-                                               dicOrModel:[self extracted]
+
+
+        NSArray<IssueLogModel*> *results = [self.getHelper pw_lookupTable:table
+                                               dicOrModel:[IssueLogModel class] withSql:range
                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
+
+
         [array addObjectsFromArray:results];
     }];
 

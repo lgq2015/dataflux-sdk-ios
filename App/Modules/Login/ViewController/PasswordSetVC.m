@@ -146,26 +146,28 @@
 }
 - (void)confirmBtnClick{
     if ([self.passwordTf.text validatePassWordForm]) {
-    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *openUDID = [OpenUDID value];
-    NSString *device_version = [NSString getCurrentDeviceModel];
-    NSString *registrationId = [JPUSHService registrationID];
-    NSDictionary *params = @{@"data":@{@"password":self.passwordTf.text,@"changePasswordToken":self.changePasswordToken,@"marker":@"mobile", @"deviceId": openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
-    [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            setXAuthToken(response[@"content"][@"authAccessToken"]);
-            [iToast alertWithTitleCenter:@"密码设置成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                KPostNotification(KNotificationLoginStateChange, @YES);
-            });
-        }else{
-            [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
+        NSMutableDictionary * data = [@{@"password": self.passwordTf.text,
+                        @"changePasswordToken": self.changePasswordToken,
+                        @"marker": @"mobile"} mutableCopy];
+        [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+        NSDictionary *params = @{
+                @"data": data
+        };
+        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                setXAuthToken(response[@"content"][@"authAccessToken"]);
+                [iToast alertWithTitleCenter:@"密码设置成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    KPostNotification(KNotificationLoginStateChange, @YES);
+                });
+            } else {
+                [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-        }
-    } failBlock:^(NSError *error) {
-        
-    }];
-    }else{
+            }
+        }                  failBlock:^(NSError *error) {
+
+        }];
+    } else {
         [iToast alertWithTitleCenter:@"密码格式有误"];
     }
 }

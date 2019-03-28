@@ -114,7 +114,7 @@
     desTitleLab.textColor = PWTitleColor;
     [describeView addSubview:desTitleLab];
     if (!_describeTextView) {
-        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入" font:MediumFONT(16)];
+        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入..." font:MediumFONT(16)];
         [describeView addSubview:self.describeTextView];
         [self.describeTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(desTitleLab.mas_bottom).offset(ZOOM_SCALE(6));
@@ -134,7 +134,7 @@
         make.bottom.mas_equalTo(describeView).offset(-Interval(10));
     }];
     UILabel *count = [[UILabel alloc]init];
-    count.text = @"0/250";
+    count.text = @"0/1000";
     count.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     count.textColor = [UIColor colorWithHexString:@"8E8E93"];
     count.textAlignment = NSTextAlignmentRight;
@@ -146,7 +146,7 @@
     }];
    [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
         if (text.length>1000) {
-            text = [text substringToIndex:250];
+            text = [text substringToIndex:1000];
             self.describeTextView.text = text;
         }
         count.text = [NSString stringWithFormat:@"%lu/250",(unsigned long)text.length];
@@ -195,7 +195,7 @@
         lab.textAlignment = NSTextAlignmentLeft;
         [_titleView addSubview:lab];
         self.titleTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(34), ZOOM_SCALE(350), ZOOM_SCALE(22))];
-        self.titleTf.placeholder = @"请输入";
+        self.titleTf.placeholder = @"请输入...";
         [_titleView addSubview:self.titleTf];
         [self.mainScrollView addSubview:_titleView];
     }

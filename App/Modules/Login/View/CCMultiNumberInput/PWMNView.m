@@ -115,8 +115,12 @@
         NSString *str = [self.codeString substringToIndex:self.seletTag-2];
         self.codeString = str;
         self.seletTag -= 1;
+        
         item.inputView.text = @"";
         [self codeViewBecomeFirstResponderWithTag:self.seletTag];
+            if(self.deleteBlock){
+                self.deleteBlock();
+            }
         }else{
             textField.text = @" ";
         }

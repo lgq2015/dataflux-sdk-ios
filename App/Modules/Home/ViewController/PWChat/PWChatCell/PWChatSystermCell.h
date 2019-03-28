@@ -1,8 +1,8 @@
 //
-//  PWSystermCell.h
+//  PWChatSystermCell.h
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/3/23.
+//  Created by 胡蕾蕾 on 2019/3/28.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PWSystermCell : PWChatBaseCell
+@interface PWChatSystermCell : PWChatBaseCell
 
 @end
 

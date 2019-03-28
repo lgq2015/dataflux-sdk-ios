@@ -7,6 +7,7 @@
 //
 
 #import "InviteByPhoneOrEmail.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface InviteByPhoneOrEmail ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *codeTF;
@@ -67,7 +68,9 @@
         }];
         RAC(commitTeam,enabled) = emailSignal;
     }
-//    [self.codeTF becomeFirstResponder];
+    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
+    keyboardManager.enable = NO;
+      [self.codeTF becomeFirstResponder];
     
 }
 - (UIView *)itemWithData:(NSDictionary *)dict{
@@ -130,6 +133,10 @@
         i++;
     }
     return res;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
+    keyboardManager.enable = YES;
 }
 /*
 #pragma mark - Navigation

@@ -49,6 +49,8 @@
     if ([type isEqualToString:@"text"]) {
         self.messageType = PWChatMessageTypeText;
         self.textString = model.content;
+        self.cellString = PWChatTextCellId;
+
     }else if([type isEqualToString:@"attachment"]){
         NSDictionary *externalDownloadURL = [model.externalDownloadURLStr jsonValueDecoded];
         NSString *url = [externalDownloadURL stringValueForKey:@"url" default:@""];
@@ -57,9 +59,12 @@
         if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
             self.messageType = PWChatMessageTypeImage;
             self.imageString = url;
+            self.cellString = PWChatImageCellId;
         }else{
             self.messageType = PWChatMessageTypeFile;
             self.filePath = url;
+            self.cellString = PWChatFileCellId;
+
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
@@ -93,6 +98,8 @@
             self.systermStr = @"您邀请的专家已退出讨论";
         }
         self.messageType = PWChatMessageTypeSysterm;
+        self.cellString = PWChatSystermCellId;
+
     }
 }
 

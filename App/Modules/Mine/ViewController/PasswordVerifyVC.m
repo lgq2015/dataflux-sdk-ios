@@ -144,7 +144,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:@"密码错误"];
+            [iToast alertWithTitleCenter:@"密码错误" delay:0.3];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

@@ -214,6 +214,10 @@
  
 }
 - (void)commitPhoneClick{
+    if (![[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
+        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        return;
+    }
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -224,7 +228,11 @@
             verify.uuid = self.uuid;
             [self.navigationController pushViewController:verify animated:YES];
         }else {
+            if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
+                [iToast alertWithTitleCenter:@"改手机号已被注册"];
+            }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"绑定失败"];

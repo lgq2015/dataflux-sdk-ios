@@ -50,15 +50,25 @@
 
 
     //获取历史数据
-   
-    self.datas = [PWChatDatas receiveMessages:self.issueID];
-    [self.tableView reloadData];
-    // 拉取新数据
-    [PWChatDatas LoadingMessagesStartWithChat:self.issueID callBack:^(NSMutableArray<IssueLogModel *> * array) {
-        array.count>0?[self.datas addObjectsFromArray:array]:nil;
-        [self.tableView reloadData];
-    }];
-   
+  
+    NSArray *array= [PWChatDatas receiveMessages:self.issueID];
+    [self.datas addObjectsFromArray:array];
+    [self.mTableView reloadData];
+    
+    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
+    [[IssueChatDataManager sharedInstance]
+            fetchAllChatIssueLog:_issueID
+                      pageMarker:pageMarker
+                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
+                            //todo get new data
+                            //获取新数据
+                            DLog(@"%@",array)
+                        }];
+
+
+
+
+    // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -124,7 +134,8 @@
 
     [_mTableView registerClass:NSClassFromString(@"PWChatTextCell") forCellReuseIdentifier:PWChatTextCellId];
     [_mTableView registerClass:NSClassFromString(@"PWChatImageCell") forCellReuseIdentifier:PWChatImageCellId];
-    [_mTableView registerClass:NSClassFromString(@"PWChatFileCell") forCellReuseIdentifier:PWChatVoiceCellId];
+    [_mTableView registerClass:NSClassFromString(@"PWChatFileCell") forCellReuseIdentifier:PWChatFileCellId];
+     [_mTableView registerClass:NSClassFromString(@"PWChatSystermCell") forCellReuseIdentifier:PWChatSystermCellId];
     [_mTableView reloadData];
 }
 -(void)dealWithNewDta{

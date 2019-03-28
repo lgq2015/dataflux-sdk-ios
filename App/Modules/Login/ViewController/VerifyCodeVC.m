@@ -113,12 +113,15 @@
         [codeTfView createItem];
         codeTfView.completeBlock = ^(NSString *completeStr){
             self.code = completeStr;
-            if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected) {
+            if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected && self.code.length == 6) {
                 [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可登录哦"];
             }else{
                 [self btnClickWithCode:completeStr];
             }
         };
+//        RACSignal *codeLength =  RACObserve(self.code, length);
+//        RACSignal *selected = RACObserve(self.selectBtn, selected);
+        
         codeTfView.deleteBlock = ^(void){
             self.code = @"";
         };
@@ -219,7 +222,7 @@
 - (void)resendCodeBtnClick{
     NSString *phone = self.phoneNumber?self.phoneNumber:@"";
     VerificationCodeNetWork *code  =[[VerificationCodeNetWork alloc]init];
-    NSString *uuidstr = self.uuid ==nil ?self.uuid:@"";
+    NSString *uuidstr = self.uuid.length>0 ?self.uuid:@"";
     [code VerificationCodeWithType:self.type phone:phone uuid:uuidstr successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             [self.timer setFireDate:[NSDate distantPast]];
@@ -229,7 +232,7 @@
             UILabel *lab = [self.view viewWithTag:10];
             lab.hidden = NO;
         }else{
-         [iToast alertWithTitleCenter:response[@"message"]];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
       [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
@@ -268,13 +271,17 @@
 #pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
     [SVProgressHUD showWithStatus:@"登录中..."];
-    NSString *openUDID = [OpenUDID value];
-    NSString *os_version =  [[UIDevice currentDevice] systemVersion];
-    NSString *device_version =[NSString getCurrentDeviceModel];
-    NSString *registrationId =@"131342424";
-    //[JPUSHService registrationID];
 
-    NSDictionary *param = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile",@"deviceId":openUDID,@"registrationId":registrationId,@"deviceOSVersion": os_version,@"deviceVersion":device_version}};
+
+    NSMutableDictionary * data = [@{
+            @"username": self.phoneNumber,
+            @"verificationCode": code,
+            @"marker": @"mobile",
+    } mutableCopy];
+
+    [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+
+    NSDictionary *param = @{@"data": data};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
         if (success) {
@@ -300,7 +307,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         

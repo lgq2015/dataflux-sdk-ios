@@ -42,7 +42,7 @@ typedef void (^MessageBlock)(PWChatMessagelLayout *layout, NSError *error, NSPro
  @param sessionId 传入会话id
  @param callback 返回会话对象数组
  */
-+(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback;
++(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <PWChatMessagelLayout *> *))callback;
 /**
  处理消息数组 一般进入聊天界面会初始化之前的消息展示
  

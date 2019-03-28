@@ -68,7 +68,7 @@
         }else{
             tipLab.hidden = YES;
         }
-        return @([value validatePhoneNumber]||[value validateEmail]);
+        return @(value.length>0);
     }];
     RAC(self.veritfyCodeBtn,enabled) = phoneTf;
     
@@ -81,6 +81,10 @@
     }];
     DLog(@"%@",self.userAcount);
     self.userTf.text = self.userAcount;
+    if (self.userAcount.length>0) {
+        self.veritfyCodeBtn.enabled = YES;
+        self.veritfyCodeBtn.backgroundColor = PWBlueColor;
+    }
 }
 -(UIButton *)veritfyCodeBtn{
     if(!_veritfyCodeBtn){
@@ -97,22 +101,27 @@
 }
 #pragma mark ========== 获取验证码 ==========
 - (void)veritfyCodeClick{
-    VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
-    [code VerificationCodeWithType:VerifyCodeVCTypeFindPassword phone:self.userTf.text uuid:@"" successBlock:^(id response) {
-        if([response[ERROR_CODE] isEqualToString:@""]){
-            VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
-            codeVC.isHidenNaviBar = YES;
-            codeVC.isShowLiftBack = YES;
-            codeVC.type = VerifyCodeVCTypeFindPassword;
-            codeVC.phoneNumber = self.userTf.text;
-            [self.navigationController pushViewController:codeVC animated:YES];
-        }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-        }
-    } failBlock:^(NSError *error) {
-        
-    }];
+    if ( [self.userTf.text validatePhoneNumber]||[self.userTf.text validateEmail]) {
+        VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+        [code VerificationCodeWithType:VerifyCodeVCTypeFindPassword phone:self.userTf.text uuid:@"" successBlock:^(id response) {
+            if([response[ERROR_CODE] isEqualToString:@""]){
+                VerifyCodeVC *codeVC = [[VerifyCodeVC alloc]init];
+                codeVC.isHidenNaviBar = YES;
+                codeVC.isShowCustomNaviBar = YES;
+                codeVC.type = VerifyCodeVCTypeFindPassword;
+                codeVC.phoneNumber = self.userTf.text;
+                [self.navigationController pushViewController:codeVC animated:YES];
+            }else{
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
+        } failBlock:^(NSError *error) {
+            
+        }];
 
+    }else{
+        [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
+    }
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

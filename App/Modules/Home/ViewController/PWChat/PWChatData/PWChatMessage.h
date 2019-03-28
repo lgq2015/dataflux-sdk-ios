@@ -11,7 +11,8 @@
 //cell的一些设置
 #define PWChatTextCellId        @"PWChatTextCellId"
 #define PWChatImageCellId       @"PWChatImageCellId"
-#define PWChatVoiceCellId       @"PWChatFileCellId"
+#define PWChatFileCellId        @"PWChatFileCellId"
+#define PWChatSystermCellId      @"PWChatSystermCellId"
 
 
 #define PWChatCellTop           8           //顶部距离cell
