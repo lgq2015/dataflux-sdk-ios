@@ -75,14 +75,17 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"Access Key ID";
     tf2.placeHolder = @"请输入 RAM 的  Access Key ID";
     tf2.text = @"";
+    tf2.enable = YES;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"Access Key Secret";
     tf3.placeHolder = @"请输入 RAM 的  Access Key Secret";
     tf3.text = @"";
+    tf3.enable = YES;
     tf3.secureTextEntry = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3]];
 }
@@ -91,6 +94,7 @@
      tf.tfTitle = @"域名诊断";
      tf.placeHolder = @"请输入需要诊断的一级域名";
      tf.text = @"";
+     tf.enable = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf]];
 }
 - (void)createTFArrayWithAWS{
@@ -98,14 +102,17 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"Access Key ID";
     tf2.placeHolder = @"请输入 IAM 的  Access Key ID";
     tf2.text = @"";
+    tf2.enable = YES;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"Access Key Secret";
     tf3.placeHolder = @"请输入 IAM 的  Access Key Secret";
     tf3.text = @"";
+    tf3.enable = YES;
     tf3.secureTextEntry = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3]];
 }
@@ -114,14 +121,17 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"SecretId";
     tf2.placeHolder = @"请输入 CAM 的  SecretId";
     tf2.text = @"";
+    tf2.enable = YES;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"SecretKey";
     tf3.placeHolder = @"请输入 CAM 的  SecretKey";
     tf3.text = @"";
+    tf3.enable = YES;
     tf3.secureTextEntry = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3]];
 }
@@ -130,14 +140,17 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"Public Key";
     tf2.placeHolder = @"请输入 UAM 的  Public Key";
     tf2.text = @"";
+    tf2.enable = YES;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"Private Key";
     tf3.placeHolder = @"请输入 UAM 的  Private Key";
     tf3.text = @"";
+    tf3.enable = YES;
     tf3.secureTextEntry = YES;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3]];
 }
@@ -146,18 +159,22 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"Cluster ID";
-    tf2.placeHolder = @"请输入 Cluster ID";
+    tf2.placeHolder = @"";
     tf2.text = @"";
+    tf2.enable = NO;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"Cluster Hostname";
-    tf3.placeHolder = @"请输入 Cluster Hostname";
+    tf3.placeHolder = @"";
     tf3.text = @"";
+    tf3.enable = NO;
     IssueTf *tf4 = [IssueTf new];
     tf4.tfTitle = @"Cluste IP";
-    tf4.placeHolder = @"请输入 Cluste IP";
+    tf4.placeHolder = @"";
     tf4.text = @"";
+    tf4.enable = NO;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3,tf4]];
 }
 - (void)createTFArrayWithSingleDiagnose{
@@ -165,18 +182,22 @@
     tf.tfTitle = @"情报源名称";
     tf.placeHolder = @"请输入情报源名称";
     tf.text = @"";
+    tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
     tf2.tfTitle = @"ID";
-    tf2.placeHolder = @"请输入 ID";
+    tf2.placeHolder = @"";
     tf2.text = @"";
+    tf2.enable = NO;
     IssueTf *tf3 = [IssueTf new];
     tf3.tfTitle = @"Hostname";
-    tf3.placeHolder = @"请输入 Hostname";
+    tf3.placeHolder = @"";
     tf3.text = @"";
+    tf3.enable = NO;
     IssueTf *tf4 = [IssueTf new];
     tf4.tfTitle = @"Host IP";
-    tf4.placeHolder = @"请输入 Host IP";
+    tf4.placeHolder = @"";
     tf4.text = @"";
+    tf4.enable = NO;
     self.issueTfArray = [NSMutableArray arrayWithArray:@[tf,tf2,tf3,tf4]];
 }
 @end

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSString *tfTitle;
 @property (nonatomic, assign) BOOL secureTextEntry;
+@property (nonatomic, assign) BOOL enable;
 
 @end
 

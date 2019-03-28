@@ -16,6 +16,7 @@
 #import "PWHttpEngine.h"
 #import "CarrierItemModel.h"
 
+#define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
     NaviTypeAddBack,       //左返回
@@ -147,9 +148,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                     RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
                         __block BOOL isenable = YES;
                         [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            if(obj.text.length==0){
-                                isenable = NO;
-                                *stop = YES;
+                            DLog(@"%@%@",obj.text,self.confige.issueTfArray[idx].text);
+                            if(obj.enabled == YES &&(obj.text.length==0||[obj.text isEqualToString: self.confige.issueTfArray[idx].text])){
+                                    isenable = NO;
+                                    *stop = YES;
                             }
                         }];
                         return @(isenable);
@@ -174,7 +176,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         NSMutableArray<IssueTf*> *tfArray = [NSMutableArray arrayWithArray:self.confige.issueTfArray];
         tfArray[0].text = self.model.name;
         tfArray[1].text = self.model.akId;
-        tfArray[2].text = @"****************";
+        tfArray[2].text = ACCESS_KEY;
     }
 
         UIView *temp = nil;
@@ -218,7 +220,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         self.showWordsBtn.hidden = YES;
         [[akId rac_textSignal] subscribeNext:^(id x) {
             if (self.isFirstEdit) {
-                if (![x isEqualToString:self.model.akId] &&[x isEqualToString:@"****************"]) {
+                if (![x isEqualToString:self.model.akId] &&[password.text isEqualToString:ACCESS_KEY]) {
                     password.text = @"";
                     self.isFirstEdit = NO;
                     self.showWordsBtn.hidden = NO;
@@ -228,7 +230,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         }];
 
         [[password rac_textSignal] subscribeNext:^(id x) {
-            self.showWordsBtn.hidden = [x isEqualToString:@"****************"]?YES:NO;
+            self.showWordsBtn.hidden = [x isEqualToString:ACCESS_KEY]?YES:NO;
             self.showWordsBtn.enabled = !self.showWordsBtn.hidden;
         }];
     }
@@ -517,12 +519,12 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *edit = [PWCommonCtrl actionWithTitle:@"编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    obj.enabled = YES;
+                    obj.enabled = self.confige.issueTfArray[idx].enable;
                 }];
                 UITextField *tf = self.TFArray[0];
                 [tf becomeFirstResponder];
                 self.showWordsBtn.enabled =NO;
-
+        
                 [self createNavWithType:NaviTypeEdit];
         }];
         [alert addAction:edit];
@@ -600,10 +602,15 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         if ([response[@"errorCode"] isEqualToString:@""]) {
             [self saveSuccess];
         } else {
+            if([response[ERROR_CODE] isEqualToString:@"home.issueSource.invalidIssueSourceAK"]){
+                 [SVProgressHUD showErrorWithStatus:@"密钥验证失败"];
+            }else{
             [SVProgressHUD showErrorWithStatus:@"保存失败"];
+            }
         }
     } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+       
+        [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
 
     }];
 }
@@ -803,7 +810,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     //设置动画的方向
     animation.subtype = kCATransitionFromBottom;
     //设置动画的持续时间
-    animation.duration = 1;
+    animation.duration = 0.3;
     //设置动画速率(可变的)
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     //动画添加到切换的过程中
