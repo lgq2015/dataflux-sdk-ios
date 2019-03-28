@@ -132,6 +132,8 @@
 - (void)netWorkStateChange:(NSNotification *)notification
 {
     
+    [[PWSocketManager sharedPWSocketManager]checkForRestart];
+    
 }
 
 #pragma mark ========== 友盟 初始化 ==========
