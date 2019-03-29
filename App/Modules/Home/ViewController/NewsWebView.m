@@ -13,6 +13,9 @@
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
+
+@property (nonatomic, assign) BOOL isCollect;
+@property (nonatomic, copy) NSString *favoId;
 @end
 
 @implementation NewsWebView
@@ -20,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    self.style == WebItemViewStyleNormal ?  [self loadCollectState]:nil;
+   
 }
 - (void)createUI{
     UIView *segeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 87, 32)];
@@ -48,15 +53,43 @@
     
     
 }
+- (void)loadCollectState{
+    NSString *entityId;
+    if (self.newsModel) {
+        entityId = self.newsModel.newsID;
+    }
+    if (self.handbookModel) {
+        entityId = self.handbookModel.articleId;
+    }
+    NSDictionary *param = @{@"entityId":entityId};
+    [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+         NSArray *array = response[@"content"][@"data"];
+            if (array.count>0) {
+                self.isCollect = YES;
+                NSDictionary *dict = array[0];
+                self.favoId = [dict stringValueForKey:@"id" default:@""];
+            }
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
 - (void)shareBtnClick{
-  
+    if (self.isCollect == YES) {
+        self.style = WebItemViewStyleCollect;
+    }else{
+        self.style = WebItemViewStyleNormal;
+    }
+    
+     _itemView = [[WebItemView alloc]initWithStyle:self.style];
     [self.itemView showInView:[UIApplication sharedApplication].keyWindow];
 
     WeakSelf
     self.itemView.itemClick = ^(NSInteger tag){
         
-        if(tag == 20){
-            NSDictionary *param;
+        if(tag == 20 && self.style == WebItemViewStyleNormal){
+        NSDictionary *param;
             if (self.newsModel != nil) {
                 NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
                 NSMutableArray *imgs =[NSMutableArray new];
@@ -77,12 +110,27 @@
         
         [PWNetworking requsetHasTokenWithUrl:PW_favoritesAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
+                weakSelf.isCollect = YES;
                 [iToast alertWithTitleCenter:@"收藏成功"];
             }
         } failBlock:^(NSError *error) {
             
         }];
     
+        }else if(tag == 20 && self.style == WebItemViewStyleCollect){
+            [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(weakSelf.favoId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+                
+                if([response[ERROR_CODE] isEqualToString:@""]){
+                    weakSelf.isCollect = NO;
+                    weakSelf.favoId = @"";
+                    [iToast alertWithTitleCenter:@"取消收藏成功"];
+                }else{
+                    [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                }
+            } failBlock:^(NSError *error) {
+              
+            }];
+            
         }
     };
   
@@ -90,12 +138,7 @@
 - (void)closeBtnClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (WebItemView *)itemView{
-    if (!_itemView) {
-        _itemView = [[WebItemView alloc]initWithStyle:self.style];
-    }
-    return _itemView;
-}
+
 /*
 #pragma mark - Navigation
 

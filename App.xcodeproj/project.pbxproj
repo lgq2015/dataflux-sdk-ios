@@ -255,6 +255,9 @@
 		4A759ACA224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AC9224CF0B90057BD02 /* ChangePhoneNumVC.m */; };
 		4A759ACB224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AC9224CF0B90057BD02 /* ChangePhoneNumVC.m */; };
 		4A759ACC224CF0BA0057BD02 /* ChangePhoneNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AC9224CF0B90057BD02 /* ChangePhoneNumVC.m */; };
+		4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
+		4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
+		4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1053,6 +1056,8 @@
 		4A759AC4224CBAD90057BD02 /* PWChatSystermCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWChatSystermCell.m; sourceTree = "<group>"; };
 		4A759AC8224CF0B80057BD02 /* ChangePhoneNumVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneNumVC.h; sourceTree = "<group>"; };
 		4A759AC9224CF0B90057BD02 /* ChangePhoneNumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneNumVC.m; sourceTree = "<group>"; };
+		4A759ACD224DCBF80057BD02 /* UIResponder+FirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+FirstResponder.h"; sourceTree = "<group>"; };
+		4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+FirstResponder.m"; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -2248,6 +2253,8 @@
 				4A759AB5224B6E5A0057BD02 /* UIColor+Gradual.m */,
 				6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */,
 				6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */,
+				4A759ACD224DCBF80057BD02 /* UIResponder+FirstResponder.h */,
+				4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3096,6 +3103,7 @@
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
+				4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759A1B2244B0D40057BD02 /* PWChatFileCell.m in Sources */,
@@ -3356,6 +3364,7 @@
 				CA1CF5AB221ECB3A00D15316 /* ProblemDetailsVC.m in Sources */,
 				CAA389A12247560F007BB5DD /* PWChatDatas.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
+				4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* MonitorCell.m in Sources */,
 				4AC857422233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
@@ -3606,6 +3615,7 @@
 				CA1CF650221ECB5000D15316 /* ProblemDetailsVC.m in Sources */,
 				CAA389A222475610007BB5DD /* PWChatDatas.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
+				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* MonitorCell.m in Sources */,
 				4AC857432233D82000DAE1F6 /* AddSourceItemView.m in Sources */,

@@ -42,6 +42,10 @@
 
         [self.view addSubview:_passwordTf];
     }
+    if(self.isChange){
+        titleLab.text = @"修改密码";
+        _passwordTf.placeholder = @"请输入新密码";
+    }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(87));

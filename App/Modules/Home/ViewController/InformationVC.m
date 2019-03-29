@@ -31,6 +31,7 @@
 @property (nonatomic, assign) NSInteger  newsPage;
 @property (nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
 @property (nonatomic, strong) PWNewsListCell *tempCell;
+@property (nonatomic, strong) NSMutableArray *noticeDatas;
 @end
 
 @implementation InformationVC
@@ -200,6 +201,8 @@
     [PWNetworking requsetWithUrl:PW_TIPS withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSArray *array = response;
         NSDictionary *dict = array[0];
+        self.noticeDatas = [NSMutableArray new];
+        [self.noticeDatas addObjectsFromArray:array];
         [self.notice createUIWithTitleArray:@[dict[@"title"]]];
     } failBlock:^(NSError *error) {
 
@@ -213,6 +216,9 @@
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
         [self.infoboard updateTitle:str];
     }];
+    int x = arc4random() % self.noticeDatas.count;
+     NSDictionary *dict = self.noticeDatas[x];
+      [self.notice createUIWithTitleArray:@[dict[@"title"]]];
     [self loadRecommendationData];
     [self loadNewsDatas];
 }

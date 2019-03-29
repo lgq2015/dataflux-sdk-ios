@@ -9,6 +9,8 @@
 #import "BindEmailOrPhoneVC.h"
 #import "PersonalInfoVC.h"
 #import "VerifyCodeVC.h"
+#import "ChangeUserInfoVC.h"
+
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
 @property (nonatomic ,strong) UITextField *emailTF;
 @property (nonatomic, strong) UIButton *commitBtn;
@@ -128,7 +130,8 @@
     }else{
          [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
-            return @(value.length>0);
+    
+            return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length>0);
         }];
         RAC(self.commitBtn,enabled) = emailSignal;
         
@@ -140,7 +143,7 @@
             }
         }];
     }
-   
+    
     [[self.emailTF rac_textSignal] subscribeNext:^(NSString *x) {
         if (x.length>0) {
             tipLab.hidden = NO;
@@ -149,6 +152,13 @@
         }
     }];
    
+}
+-(void)backBtnClicked{
+    for(UIViewController *temp in self.navigationController.viewControllers) {
+        if([temp isKindOfClass:[ChangeUserInfoVC class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+        }
+    }
 }
 -(UITextField *)emailTF{
     if (!_emailTF) {

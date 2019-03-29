@@ -66,13 +66,13 @@
     self.userName.text= userManager.curUserInfo.name;
 
     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
 }
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithData{
     MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
     MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
-    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"icon_collection" cellType:MineCellTypeCollect];
+    MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"mine_collection" cellType:MineCellTypeCollect];
     MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_opinion" cellType:MineCellTypeOpinion];
     MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_contact" cellType:MineCellTypeContactuUs];
     MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
@@ -108,10 +108,9 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.iconImgView.mas_right).offset(ZOOM_SCALE(30));
-        make.right.mas_equalTo(ZOOM_SCALE(30));
+        make.left.equalTo(self.iconImgView.mas_right).offset(Interval(16));
+        make.right.mas_equalTo(-ZOOM_SCALE(30));
         make.centerY.mas_equalTo(self.iconImgView);
-        make.height.offset(ZOOM_SCALE(25));
     }];
     self.userName.text= userManager.curUserInfo.name;
     [self.personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,7 +119,7 @@
         make.width.height.offset(ZOOM_SCALE(20));
     }];
     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -168,7 +167,8 @@
 - (UILabel *)userName{
     if (!_userName) {
         _userName = [[UILabel alloc]initWithFrame:CGRectZero];
-        _userName.font = [UIFont fontWithName:@"PingFangHK-Medium" size: 24];
+        _userName.font = MediumFONT(18);
+        _userName.numberOfLines = 0;
         _userName.textColor = PWBlackColor;
         _userName.textAlignment = NSTextAlignmentLeft;
         [self.headerView addSubview:_userName];

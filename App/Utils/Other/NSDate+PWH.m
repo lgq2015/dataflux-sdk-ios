@@ -34,13 +34,13 @@
 }
 -(NSString *)currentYearTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"MM-dd";
+    fmt.dateFormat = @"MM月dd日";
     NSString *selfStr = [fmt stringFromDate:self];
     return  selfStr;
 }
 -(NSString *)yearMonthDayTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"yyyy-MM-dd";
+    fmt.dateFormat = @"yyyy年MM月dd日";
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
