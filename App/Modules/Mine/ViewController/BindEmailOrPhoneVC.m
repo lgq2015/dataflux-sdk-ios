@@ -154,10 +154,15 @@
    
 }
 -(void)backBtnClicked{
+    BOOL isHave = NO;
     for(UIViewController *temp in self.navigationController.viewControllers) {
         if([temp isKindOfClass:[ChangeUserInfoVC class]]){
+            isHave =YES;
             [self.navigationController popToViewController:temp animated:YES];
         }
+    }
+    if (isHave == NO) {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 -(UITextField *)emailTF{
@@ -239,13 +244,13 @@
             [self.navigationController pushViewController:verify animated:YES];
         }else {
             if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
-                [iToast alertWithTitleCenter:@"改手机号已被注册"];
+                [iToast alertWithTitleCenter:@"该手机号已被注册"];
             }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         }
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"绑定失败"];
+//        [iToast alertWithTitleCenter:@"绑定失败"];
         
     }];
 }

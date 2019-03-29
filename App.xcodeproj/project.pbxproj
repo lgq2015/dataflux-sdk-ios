@@ -258,6 +258,9 @@
 		4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
 		4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
 		4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */; };
+		4A759AD4224E2A530057BD02 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AD3224E2A520057BD02 /* AddSourceTipVC.m */; };
+		4A759AD5224E2A530057BD02 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AD3224E2A520057BD02 /* AddSourceTipVC.m */; };
+		4A759AD6224E2A530057BD02 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AD3224E2A520057BD02 /* AddSourceTipVC.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1058,6 +1061,8 @@
 		4A759AC9224CF0B90057BD02 /* ChangePhoneNumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneNumVC.m; sourceTree = "<group>"; };
 		4A759ACD224DCBF80057BD02 /* UIResponder+FirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+FirstResponder.h"; sourceTree = "<group>"; };
 		4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+FirstResponder.m"; sourceTree = "<group>"; };
+		4A759AD2224E2A520057BD02 /* AddSourceTipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceTipVC.h; sourceTree = "<group>"; };
+		4A759AD3224E2A520057BD02 /* AddSourceTipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSourceTipVC.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -2312,6 +2317,8 @@
 				4A7599ED22436EB00057BD02 /* ExpertsDetailVC.m */,
 				4A7599F122437B680057BD02 /* ExpertsMoreVC.h */,
 				4A7599F222437B690057BD02 /* ExpertsMoreVC.m */,
+				4A759AD2224E2A520057BD02 /* AddSourceTipVC.h */,
+				4A759AD3224E2A520057BD02 /* AddSourceTipVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3237,6 +3244,7 @@
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* PWInfoBoard.m in Sources */,
+				4A759AD4224E2A530057BD02 /* AddSourceTipVC.m in Sources */,
 				4A759A212244B54F0057BD02 /* PWChatMessagelLayout.m in Sources */,
 				4A7599E422426B8A0057BD02 /* ExpertsSuggestVC.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
@@ -3484,6 +3492,7 @@
 				4A759AAD224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
 				4A092D91222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CAD9CAC02243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
+				4A759AD5224E2A530057BD02 /* AddSourceTipVC.m in Sources */,
 				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF5EB221ECB3A00D15316 /* InformationVC.m in Sources */,
 				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
@@ -3735,6 +3744,7 @@
 				4A759AAE224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
 				4A092D92222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CAD9CAC12243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
+				4A759AD6224E2A530057BD02 /* AddSourceTipVC.m in Sources */,
 				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF690221ECB5000D15316 /* InformationVC.m in Sources */,
 				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,

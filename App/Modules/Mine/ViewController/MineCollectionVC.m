@@ -157,12 +157,22 @@
     }];
     
 }
+- (void)recollectWithModel:(NewsListModel*)model{
+    NSDictionary *param = @{@"id":model.newsID};
+    if ([model.sourceType isEqualToString:@"handbook"]) {
+        [PWNetworking requsetHasTokenWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            
+        } failBlock:^(NSError *error) {
+            
+        }];
+    }
+}
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.dataSource[indexPath.row];
     PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
-
     [self.navigationController pushViewController:newsweb animated:YES];
+  //  [self recollectWithModel:model];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model =self.dataSource[indexPath.row];

@@ -144,6 +144,7 @@
 #define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 #define PW_articleSearch               API_SEVERID@"/v1/handbook/article/search"
 
+#define PW_handbookdetail             API_SEVERID@"/v1/handbook/article/detail"
 #pragma mark ========== 服务 ==========
 #define PW_cloudcare                   API_H5_HOST@"/service/list"
 #define PW_OrderList                   API_SHRINE@"/resources/action/listOrders@customerOpenAdmin"

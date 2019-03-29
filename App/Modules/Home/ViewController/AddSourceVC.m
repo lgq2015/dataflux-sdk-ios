@@ -17,6 +17,8 @@
 #import "AddSourceTipView.h"
 #import "TeamInfoModel.h"
 #import "IssueSourceManger.h"
+#import "AddSourceTipVC.h"
+
 @interface AddSourceVC ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) BOOL isDefault;
@@ -101,24 +103,23 @@
     }];
 }
 - (void)dealWithData:(NSArray *)content withType:(NSInteger)type{
-    NSDictionary *basic_source = content[0];
-    self.isDefault = basic_source[@"isDefault"];
+   __block NSDictionary *basic_source;
+    [content enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if ([[obj stringValueForKey:@"code" default:@""] isEqualToString:@"basic_source"]) {
+        basic_source = obj;
+    }
+    }];
+    
+    BOOL isDefault = [basic_source boolValueForKey:@"isDefault" default:NO];
+    self.isDefault = isDefault;
     NSInteger value =[basic_source longValueForKey:@"value" default:1];
-    BOOL isteam = [getTeamState isEqualToString:PWisTeam];
+    DLog(@"%@",getTeamState);
+  
     NSInteger count = [[IssueSourceManger sharedIssueSourceManger] getBasicIssueSourceCount];
     if (count>=value) {
-        AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
-        AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
-        [self.view removeAllSubviews];
-        [self.view addSubview:tipView];
-        tipView.btnClick = ^(){
-            if(isteam){
-            [self.tabBarController setSelectedIndex:1];
-            }else{
-            [self.tabBarController setSelectedIndex:2];
-            }
-            [self.navigationController popViewControllerAnimated:NO];
-        };
+        AddSourceTipVC *tipVC = [[AddSourceTipVC alloc]init];
+        [self.navigationController pushViewController:tipVC animated:YES];
+
     }else{
         SourceVC *source = [[SourceVC alloc]init];
         [self.navigationController pushViewController:source animated:YES];

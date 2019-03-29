@@ -28,7 +28,9 @@
     CGPoint center = icon.center;
     center.x = self.view.centerX;
     icon.center = center;
-    icon.image = [UIImage imageNamed:@"icon_pws"];
+    icon.image = [UIImage imageNamed:@"144-144"];
+    icon.layer.masksToBounds = YES;
+    icon.layer.cornerRadius = 4;
     [self.view addSubview:icon];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];

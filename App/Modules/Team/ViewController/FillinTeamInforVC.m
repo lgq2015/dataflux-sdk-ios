@@ -231,7 +231,7 @@
                 CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
                 create.btnClick =^(){
                     KPostNotification(KNotificationTeamStatusChange, @YES);
-                    setTeamState(PWisTeam);
+                    setTeamState(PW_isTeam);
                     [self.navigationController popViewControllerAnimated:NO];
                 };
             [self presentViewController:create animated:YES completion:nil];  
@@ -276,7 +276,7 @@
 }
 - (void)logoutTeamClick{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutTeamRequest];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -389,9 +389,13 @@
         [self.navigationController pushViewController:addressVC animated:YES];
     }else{
         ChooseTradesVC *tradesVC = [[ChooseTradesVC alloc]init];
+        if (self.tfAry[2].text.length>0) {
+            tradesVC.trades = self.tfAry[2].text;
+        }
         tradesVC.itemClick=^(NSString * _Nonnull trades){
             self.tfAry[2].text = trades;
         };
+        
         [self.navigationController pushViewController:tradesVC animated:YES];
     }
 }

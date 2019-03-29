@@ -56,7 +56,7 @@
             [self createTFArrayWithSingleDiagnose];
             break;
         case SourceTypeClusterDiagnose:
-            self.vcTitle = @"先知监控";
+            self.vcTitle = @"先见数据平台";
             self.vcProvider =@"carrier.corsairmaster";
             [self createTFArrayWithClusterDiagnose];
             break;

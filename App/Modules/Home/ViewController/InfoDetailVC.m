@@ -55,7 +55,7 @@
     }];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
-        make.top.mas_equalTo(self.typeIcon.mas_bottom);
+        make.top.mas_equalTo(self.typeIcon.mas_bottom).offset(Interval(8));
         make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
     }];
     NSString * htmlString = self.model.content;
@@ -284,7 +284,20 @@
                    
                 }];
             }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
-                [self createListType:dict[@"data"]];
+              UIView *listView = [self createListType:dict[@"data"]];
+                [self.echartContenterView addSubview:listView];
+                [listView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    if (temp1 == nil) {
+                        make.top.mas_equalTo(self.echartContenterView);
+                    }else{
+                        make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(16));
+                    }
+                    make.left.right.mas_equalTo(self.echartContenterView);
+                    make.height.offset(300);
+                    if (j==displayItems.count-1) {
+                        make.bottom.mas_equalTo(self.echartContenterView);
+                    }
+                }];
             }
             [self.view layoutIfNeeded];
             CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
@@ -335,10 +348,46 @@
     return view;
 }
 
-- (void)createListType:(NSDictionary *)dict{
-//    NSString *header = [dict stringValueForKey:@"header" default:@""];
-//    NSArray *body = dict[@"body"];
+- (UIView *)createListType:(NSDictionary *)dict{
     
+    NSString *header = [dict stringValueForKey:@"header" default:@""];
+    NSArray *body = dict[@"body"];
+    UIView *listView = [[UIView alloc]init];
+    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:header];
+    [listView addSubview:headerLab];
+    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(listView).offset(Interval(16));
+        make.top.mas_equalTo(listView);
+        make.right.mas_equalTo(listView).offset(-Interval(16));
+    }];
+    UIView *temp = headerLab;
+    for (NSInteger i=0;i<body.count;i++) {
+        NSString *string = body[i];
+        UIView *dot = [[UIView alloc]init];
+        dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
+        dot.layer.cornerRadius = 4.0f;
+        [listView addSubview:dot];
+        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:string];
+        
+        [listView addSubview:equityLab];
+    
+        [dot mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(listView).offset(Interval(16));
+                make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(16));
+                make.width.height.offset(ZOOM_SCALE(8));
+        }];
+        temp = dot;
+        [equityLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(dot.mas_right).offset(Interval(8));
+            make.centerY.mas_equalTo(dot);
+            make.height.offset(ZOOM_SCALE(20));
+            if (i==body.count-1) {
+              make.bottom.mas_equalTo(listView).offset(-Interval(16));
+            }
+        }];
+    }
+
+    return listView;
 }
 - (void)dealHandBookViewWith:(NSDictionary *)dict{
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {

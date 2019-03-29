@@ -31,4 +31,5 @@ typedef void (^switchBlock)(BOOL isOn);
 -(void)setDescribeLabText:(NSString *)text;
 -(void)setAlermDescribeLabText:(NSString *)text;
 
+-(void)setTeamTradesSelect;
 @end

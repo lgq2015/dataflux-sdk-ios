@@ -36,9 +36,9 @@
 #define getPWseqAct(type)       [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
 
 //个人还是团队
-#define PWisTeam                 [NSString stringWithFormat:@"%@/isTeam", getPWUserID]
-#define setTeamState(str)        [kUserDefaults setObject:str forKey:PWisTeam]
-#define getTeamState             [kUserDefaults objectForKey:PWisTeam]
+#define PWTeamState                 [NSString stringWithFormat:@"%@/isTeam", getPWUserID]
+#define setTeamState(str)        [kUserDefaults setObject:str forKey:PWTeamState]
+#define getTeamState             [kUserDefaults objectForKey:PWTeamState]
 
 #define PW_isTeam @"isTeam"
 #define PW_isPersonal @"isPersonal"

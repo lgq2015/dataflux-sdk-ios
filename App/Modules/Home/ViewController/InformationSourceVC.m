@@ -45,11 +45,16 @@
     self.currentPage = 1;
     DLog(@"%d",userManager.teamModel.isAdmin);
     if(getTeamState){
+        if([getTeamState isEqualToString:PW_isTeam] && userManager.teamModel.isAdmin ){
         BOOL isadmain = userManager.teamModel.isAdmin;
         if (isadmain) {
             [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
         }
+        }else{
+            
+        }
     }else{
+        
         [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
     }
 //    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){

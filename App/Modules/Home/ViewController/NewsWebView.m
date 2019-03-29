@@ -78,8 +78,6 @@
 - (void)shareBtnClick{
     if (self.isCollect == YES) {
         self.style = WebItemViewStyleCollect;
-    }else{
-        self.style = WebItemViewStyleNormal;
     }
     
      _itemView = [[WebItemView alloc]initWithStyle:self.style];

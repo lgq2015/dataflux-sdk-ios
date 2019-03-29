@@ -249,20 +249,21 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
 - (NSArray *)getInfoBoardData {
     NSMutableArray *array = [NSMutableArray new];
-    [self.getHelper pw_inDatabase:^{
-        NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
-
-        NSArray<InfoBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
-
-        if (infoDatas.count == 0) {
-            [self createData];
-
-            [array addObjectsFromArray:self.infoDatas];
-        } else {
-            [array addObjectsFromArray:infoDatas];
-
-        }
-    }];
+    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+    
+    NSArray<InfoBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+    
+    if (infoDatas.count == 0) {
+        [self createData];
+        
+        [array addObjectsFromArray:self.infoDatas];
+    } else {
+        [array addObjectsFromArray:infoDatas];
+        
+    }
+//    [self.getHelper pw_inDatabase:^{
+//       
+//    }];
     return array;
 }
 
@@ -451,7 +452,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
 // 判断首页是否连接
 - (void)judgeIssueConnectState:(void (^)(BOOL isConnect))isConnect {
-    if ([getTeamState isEqualToString:PWisTeam] && userManager.teamModel.isAdmin == NO) {
+    if ([getTeamState isEqualToString:PW_isTeam] && userManager.teamModel.isAdmin == NO) {
         setConnect(YES);
         [kUserDefaults synchronize];
         isConnect(YES);
@@ -496,7 +497,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
     [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
     [self dealDataForInfoBoardWithPageMaker:nil];
-
+   
 }
 
 @end

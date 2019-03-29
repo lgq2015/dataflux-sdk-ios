@@ -26,10 +26,13 @@
         case VerifyCodeVCTypeFindPassword:
             if( [phone validateEmail]){
                 [self getCodeWithEmail:phone];
-            }
-            t = @"forgotten_password";
+                break;
+            }else{
+                  t = @"forgotten_password";
              [self getVerifyCodeWithPhone:phoneText to:t];
-            break;
+                break;
+            }
+            
         case VerifyCodeVCTypeChangePassword:
             t = @"forgotten_password";
             [self getVerifyCodeWithTokenPhone:phoneText to:t];
