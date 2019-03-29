@@ -32,7 +32,7 @@
     style.photoframeAngleStyle = LBXScanViewPhotoframeAngleStyle_Inner;
     
     //扫码框周围4个角绘制的线条宽度
-    style.photoframeLineW = 6;
+    style.photoframeLineW = 4;
     
     //扫码框周围4个角的宽度
     style.photoframeAngleW = 24;
@@ -42,7 +42,7 @@
     
     //扫码框内 动画类型 --线条上下移动
     style.anmiationStyle = LBXScanViewAnimationStyle_LineMove;
-    
+    style.colorAngle = [UIColor colorWithHexString:@"#EDEDED"];
     //线条上下移动图片
     style.animationImage = [UIImage imageNamed:@"CodeScan.bundle/qrcode_scan_light_green"];
     

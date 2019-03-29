@@ -146,7 +146,7 @@
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
 
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD setMinimumDismissTimeInterval:2];   
+    [SVProgressHUD setMinimumDismissTimeInterval:0.5];   
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{

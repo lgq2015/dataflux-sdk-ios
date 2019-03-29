@@ -274,6 +274,9 @@
         }
                 
         NSString *size =[self calulateImageFileSize:data];
+        if (!name) {
+            name = [NSDate getNowTimeTimestamp];
+        }
         model.name = name;
         model.image = image;
         model.size = size;

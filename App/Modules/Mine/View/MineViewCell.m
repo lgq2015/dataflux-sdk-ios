@@ -196,7 +196,15 @@
         make.width.height.offset(24);
     }];
     self.rightImg.layer.cornerRadius = 12.0f;
-    [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:@"icon_defaulthead"]];
+    [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+}
+-(void)setTeamTradesSelect{
+    [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.contentView);
+        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+        make.width.height.offset(19);
+    }];
+    self.iconImgView.image = [UIImage imageNamed:@"team_select"];
 }
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{

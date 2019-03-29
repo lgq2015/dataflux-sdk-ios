@@ -143,7 +143,7 @@
                 }
             }
         }failBlock:^(NSError *error) {
-
+            [iToast alertWithTitleCenter:@"网络异常"];
         }];
     } else {
         [iToast alertWithTitleCenter:@"密码格式有误"];

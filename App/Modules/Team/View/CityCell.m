@@ -36,18 +36,7 @@
 -(void)setCityTitle:(NSString *)cityTitle{
     self.titleLab.text = cityTitle;
 }
-- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
-    UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
-    CGRect rect = [self.titleLab.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, ZOOM_SCALE(40)) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading |NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: MediumFONT(16)} context:nil];
-    if (rect.size.width>=ZOOM_SCALE(80)) {
-        rect.size.width +=15;
-    }else{
-        rect.size.width = ZOOM_SCALE(80);
-    }
-    rect.size.height = ZOOM_SCALE(40);
-    attributes.frame = rect;
-    return attributes;
-}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     self.titleLab.backgroundColor = PWGrayColor;

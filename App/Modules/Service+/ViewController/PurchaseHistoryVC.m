@@ -53,7 +53,7 @@
                 }
             
             }}else{
-            
+             [self showNoDataImage];
         }
     } failBlock:^(NSError *error) {
         

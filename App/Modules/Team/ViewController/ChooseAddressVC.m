@@ -125,7 +125,7 @@
         layout.sectionInset = UIEdgeInsetsMake(10,10,20,10);
         //该方法也可以设置itemSize
 //        layout.itemSize =CGSizeMake(kWidth-2*Interval(16), ZOOM_SCALE(64));
-        layout.estimatedItemSize = CGSizeMake(ZOOM_SCALE(80), ZOOM_SCALE(40));
+        layout.itemSize = CGSizeMake(ZOOM_SCALE(125), ZOOM_SCALE(40));
 
         layout.minimumLineSpacing = 10;
         layout.minimumInteritemSpacing = 10;

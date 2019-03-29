@@ -60,6 +60,9 @@
     if(indexPath.row == self.dataSource.count-1){
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
     }
+    if ([self.trades isEqualToString:displayName[@"zh_CN"]]) {
+        [cell setTeamTradesSelect];
+    }
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

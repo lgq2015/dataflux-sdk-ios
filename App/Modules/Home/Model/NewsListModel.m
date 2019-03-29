@@ -143,5 +143,7 @@
     }else{
         self.type = NewListCellTypText;
     }
+    self.newsID = [dict stringValueForKey:@"entityId" default:@""];
+    self.sourceType = [dict stringValueForKey:@"type" default:@""];
 }
 @end

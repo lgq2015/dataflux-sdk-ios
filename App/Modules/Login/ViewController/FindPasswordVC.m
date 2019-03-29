@@ -112,10 +112,10 @@
                 codeVC.phoneNumber = self.userTf.text;
                 [self.navigationController pushViewController:codeVC animated:YES];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
             }
         } failBlock:^(NSError *error) {
-            
+            [iToast alertWithTitleCenter:@"网络异常"];
         }];
 
     }else{

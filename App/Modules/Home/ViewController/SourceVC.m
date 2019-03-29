@@ -16,7 +16,7 @@
 #import "PWHttpEngine.h"
 #import "CarrierItemModel.h"
 #import "UIResponder+FirstResponder.h"
-
+#import "AddSourceTipVC.h"
 #define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
@@ -145,14 +145,17 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                     [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         RACSignal *TfSignal = [obj rac_textSignal];
                         [signalAry addObject:TfSignal];
+                        if(self.confige.issueTfArray[idx].enable == NO){
+                            obj.textColor = PWSubTitleColor;
+                        }
                     }];
                     RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
-                        __block BOOL isenable = YES;
+                        __block BOOL isenable = NO;
                         [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             DLog(@"%@%@",obj.text,self.confige.issueTfArray[idx].text);
-                            if(obj.enabled == YES &&(obj.text.length==0||[obj.text isEqualToString: self.confige.issueTfArray[idx].text])){
-                                    isenable = NO;
-                                    *stop = YES;
+                            if (self.confige.issueTfArray[idx].enable == YES && obj.text.length>0 &&![obj.text isEqualToString:self.confige.issueTfArray[idx].text]) {
+                                isenable = YES;
+                                *stop = YES;
                             }
                         }];
                         return @(isenable);
@@ -558,6 +561,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [[UIResponder currentFirstResponder] resignFirstResponder];
             [self addIssueSourcejudge];
         }else{
+            [[UIResponder currentFirstResponder] resignFirstResponder];
             [self modifyIssueSourcejudge];
         }
     }
@@ -595,8 +599,11 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [SVProgressHUD showSuccessWithStatus:@"保存成功"];
     KPostNotification(KNotificationIssueSourceChange,nil);
     __weak typeof (self) vc = self;
-    [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
-    [self.navigationController popViewControllerAnimated:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+        [self.navigationController popViewControllerAnimated:NO];
+    });
+   
 }
 
 
@@ -694,20 +701,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             };
         }else{
           if([response[ERROR_CODE] isEqualToString:@"home.issueSource.basicSourceExceedCount"]){
-                BOOL isteam = [getTeamState isEqualToString:PWisTeam];
-                AddSourceTipType type = isteam?AddSourceTipTypeTeam:AddSourceTipTypePersonal;
-                AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
-                [self.view removeAllSubviews];
-                [self.view addSubview:tipView];
-                tipView.btnClick = ^(){
-                if(isteam){
-                    [self.tabBarController setSelectedIndex:1];
-                    }else{
-                    [self.tabBarController setSelectedIndex:2];
-                    }
-                    [self.navigationController popViewControllerAnimated:NO];
-                };
-            
+              AddSourceTipVC *tipVC = [[AddSourceTipVC alloc]init];
+              [self.navigationController pushViewController:tipVC animated:YES];
+              
             }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             }

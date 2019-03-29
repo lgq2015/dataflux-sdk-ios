@@ -74,7 +74,7 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
       //密码登录
-        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -92,11 +92,11 @@ SINGLETON_FOR_CLASS(UserManager);
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
             [SVProgressHUD dismiss];
-
+            [iToast alertWithTitleCenter:@"网络异常"];
         }];
     }else{
       //验证码登录
-        [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
@@ -121,8 +121,9 @@ SINGLETON_FOR_CLASS(UserManager);
             }
             
         } failBlock:^(NSError *error) {
-                DLog(@"%@",error);
             [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:@"网络异常"];
+
         }];
     }
     
@@ -214,7 +215,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [self loadExperGroups:nil];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave{
-    [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count>0) {
@@ -248,7 +249,7 @@ SINGLETON_FOR_CLASS(UserManager);
     
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
-    [kUserDefaults removeObjectForKey:PWisTeam];
+    [kUserDefaults removeObjectForKey:PWTeamState];
 
     self.curUserInfo = nil;
     self.teamModel = nil;
