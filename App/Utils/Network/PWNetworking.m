@@ -230,7 +230,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                            progress:progress success:success failure:failure];
 
         }
-
+            break;
         case NetworkPatchType:
             session = [manager PATCH:url
                     parameters:params
