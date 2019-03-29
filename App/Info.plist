@@ -25,9 +25,11 @@
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
 			<string></string>
+			<key>CFBundleURLName</key>
+			<string>ProfWang</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>prof-wang://</string>
+				<string>prof-wang</string>
 			</array>
 		</dict>
 	</array>

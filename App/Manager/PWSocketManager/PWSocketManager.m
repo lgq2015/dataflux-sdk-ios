@@ -120,7 +120,7 @@ static dispatch_queue_t socket_message_queue() {
         }
         
     }];
-    [self.socket on:@"socketio.issueLogAdd" callback:^(NSArray *data, SocketAckEmitter *ack) {
+    [self.socket on:ON_EVENT_ISSUE_LOG_ADD callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
                 " = %@", data);
         if (data.count > 0) {

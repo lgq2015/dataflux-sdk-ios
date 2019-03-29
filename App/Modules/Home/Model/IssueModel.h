@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *accountId;
+@property (nonatomic, strong) NSString *issueSourceId;
 @property (nonatomic, strong) NSString *level;
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *updateTime;

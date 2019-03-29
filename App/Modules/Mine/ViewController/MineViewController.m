@@ -6,6 +6,7 @@
 //  Copyright © 2018年 hll. All rights reserved.
 //
 
+#import <UserNotifications/UserNotifications.h>
 #import "MineViewController.h"
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "PersonalInfoVC.h"
@@ -92,7 +93,21 @@
             if (self.tableView) {
                 NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
                 MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-                [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",(long)self.unread]];
+
+                long count =(long)self.unread;
+                [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",count]];
+
+                //修改 badge 数量
+                UIBackgroundTaskIdentifier taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+                    [[UIApplication sharedApplication] endBackgroundTask:taskID];
+                }];
+
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+
+                    [[UIApplication sharedApplication] endBackgroundTask:taskID];
+                });
+
             }
         }
     } failBlock:^(NSError *error) {
@@ -100,6 +115,7 @@
             NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
             MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
             [cell setDescribeLabText:@"0"];
+
         }
     }];
 }

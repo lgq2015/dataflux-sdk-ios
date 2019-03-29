@@ -50,6 +50,30 @@
                           channel:@"App Store"
                  apsForProduction:NO
             advertisingIdentifier:nil];
+
+#if TARGET_IPHONE_SIMULATOR
+    return YES;
+#else
+    if ([[UIDevice currentDevice] systemVersion].floatValue > 9.999) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
+
+    } else {
+        UIUserNotificationType types = UIUserNotificationTypeBadge |
+                UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *mySettings =
+                [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+
+#endif
+
     return YES;
 }
 

@@ -15,6 +15,8 @@
 #import "FillinTeamInforVC.h"
 #import "InfoDetailVC.h"
 #import "IssueListManger.h"
+#import "IssueLogModel.h"
+
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
@@ -35,9 +37,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(headerRereshing)
-                                                 name:KNotificationInfoBoardDatasUpdate
+                                             selector:@selector(headerRefreshing:)
+                                                 name:KNotificationNewIssue
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(headerRefreshing:)
+                                                 name:KNotificationChatNewDatas
+                                               object:nil];
+
+
     [self createUI];
     
 }
@@ -68,8 +76,22 @@
         [self showNoDataImage];
     }
 }
-- (void)headerRereshing{
-    self.tipLab.hidden = NO;
+- (void)headerRefreshing:(NSNotification *)notification{
+
+
+    NSDictionary * pass = [notification userInfo];
+    if(pass){
+        IssueLogModel * model = [[IssueLogModel new] initWithDictionary:pass];
+          IssueModel * issueModel=  [[IssueListManger sharedIssueListManger] getIssueDataByData:model.issueId];
+          if(issueModel&& [issueModel.type isEqualToString:self.type ]){
+
+              self.tipLab.hidden = NO;
+          }
+
+    } else{
+
+        self.tipLab.hidden = NO;
+    }
 }
 - (void)reloadData{
     NSArray *dataSource= [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];

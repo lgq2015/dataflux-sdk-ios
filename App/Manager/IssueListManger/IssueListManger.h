@@ -10,6 +10,7 @@
 #import "BaseSqlHelper.h"
 
 @class InfoBoardModel;
+@class IssueModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListManger : BaseSqlHelper
@@ -36,6 +37,9 @@ SINGLETON_FOR_HEADER(IssueListManger)
   socket 推送需要更新
  */
 - (void)newIssueNeedUpdate;
+
+- (IssueModel *)getIssueDataByData:(NSString *)issueId;
+
 /**
  首页infoBoard数据提供
  */

@@ -47,7 +47,7 @@ static PWFMDB *jqdb = nil;
 + (instancetype)shareDatabase:(NSString *)dbName path:(NSString *)dbPath
 {
     if (!jqdb) {
-        
+
         NSString *path;
         if (!dbName) {
             dbName = @"PWFMDB.sqlite";
@@ -93,9 +93,9 @@ static PWFMDB *jqdb = nil;
     if (![[NSFileManager defaultManager] fileExistsAtPath:parentPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:parentPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    
+
     FMDatabase *fmdb = [FMDatabase databaseWithPath:path];
-    
+
     if ([fmdb open]) {
         self = [self init];
         if (self) {
@@ -114,7 +114,7 @@ static PWFMDB *jqdb = nil;
 
 - (BOOL)pw_createTable:(NSString *)tableName dicOrModel:(id)parameters excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
-    
+
     NSDictionary *dic;
     if ([parameters isKindOfClass:[NSDictionary class]]) {
         dic = parameters;
@@ -133,12 +133,12 @@ static PWFMDB *jqdb = nil;
         }
         dic = [self modelToDictionary:CLS excludePropertyName:nameArr];
     }
-    
+
     NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
-    
+
     int keyCount = 0;
     for (NSString *key in dic) {
-        
+
         keyCount++;
         if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:primaryKey]) {
             continue;
@@ -147,10 +147,10 @@ static PWFMDB *jqdb = nil;
             [fieldStr appendFormat:@" %@ %@)", key, dic[key]];
             break;
         }
-        
+
         [fieldStr appendFormat:@" %@ %@,", key, dic[key]];
     }
-    
+
     BOOL creatFlag;
     creatFlag = [_db executeUpdate:fieldStr];
     DLog(@"%@",fieldStr);
@@ -159,10 +159,10 @@ static PWFMDB *jqdb = nil;
 - (NSString *)createTable:(NSString *)tableName dictionary:(NSDictionary *)dic excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
     NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@  INTEGER PRIMARY KEY,", tableName,primaryKey];
-    
+
     int keyCount = 0;
     for (NSString *key in dic) {
-        
+
         keyCount++;
         if ((nameArr && [nameArr containsObject:key]) || [key isEqualToString:primaryKey]) {
             continue;
@@ -171,21 +171,21 @@ static PWFMDB *jqdb = nil;
             [fieldStr appendFormat:@" %@ %@)", key, dic[key]];
             break;
         }
-        
+
         [fieldStr appendFormat:@" %@ %@,", key, dic[key]];
     }
-    
+
     return fieldStr;
 }
 
 - (NSString *)createTable:(NSString *)tableName model:(Class)cls excludeName:(NSArray *)nameArr primaryKey:(NSString *)primaryKey
 {
     NSMutableString *fieldStr = [[NSMutableString alloc] initWithFormat:@"CREATE TABLE %@ (%@ INTEGER PRIMARY KEY,", tableName,primaryKey];
-    
+
     NSDictionary *dic = [self modelToDictionary:cls excludePropertyName:nameArr];
     int keyCount = 0;
     for (NSString *key in dic) {
-        
+
         keyCount++;
         if ([key isEqualToString:primaryKey]) {
             continue;
@@ -194,10 +194,10 @@ static PWFMDB *jqdb = nil;
             [fieldStr appendFormat:@" %@ %@)", key, dic[key]];
             break;
         }
-        
+
         [fieldStr appendFormat:@" %@ %@,", key, dic[key]];
     }
-    
+
     return fieldStr;
 }
 
@@ -208,20 +208,20 @@ static PWFMDB *jqdb = nil;
     unsigned int outCount;
     objc_property_t *properties = class_copyPropertyList(cls, &outCount);
     for (int i = 0; i < outCount; i++) {
-        
+
         NSString *name = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding];
         if ([nameArr containsObject:name]) continue;
-        
+
         NSString *type = [NSString stringWithCString:property_getAttributes(properties[i]) encoding:NSUTF8StringEncoding];
-        
+
         id value = [self propertTypeConvert:type];
         if (value) {
             [mDic setObject:value forKey:name];
         }
-        
+
     }
     free(properties);
-    
+
     return mDic;
 }
 // 获取model的key和value
@@ -230,21 +230,21 @@ static PWFMDB *jqdb = nil;
     NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithCapacity:0];
     unsigned int outCount;
     objc_property_t *properties = class_copyPropertyList([model class], &outCount);
-    
+
     for (int i = 0; i < outCount; i++) {
-        
+
         NSString *name = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding];
         if (![clomnArr containsObject:name]) {
             continue;
         }
-        
+
         id value = [model valueForKey:name];
         if (value) {
             [mDic setObject:value forKey:name];
         }
     }
     free(properties);
-    
+
     return mDic;
 }
 
@@ -260,7 +260,7 @@ static PWFMDB *jqdb = nil;
     } else if ([typeStr hasPrefix:@"Tf"] || [typeStr hasPrefix:@"Td"]){
         resultStr= SQL_REAL;
     }
-    
+
     return resultStr;
 }
 
@@ -268,13 +268,13 @@ static PWFMDB *jqdb = nil;
 - (NSArray *)getColumnArr:(NSString *)tableName db:(FMDatabase *)db
 {
     NSMutableArray *mArr = [NSMutableArray arrayWithCapacity:0];
-    
+
     FMResultSet *resultSet = [db getTableSchema:tableName];
-    
+
     while ([resultSet next]) {
         [mArr addObject:[resultSet stringForColumn:@"name"]];
     }
-     [resultSet close];
+    [resultSet close];
     return mArr;
 }
 #pragma mark - *************** 增删改查
@@ -293,28 +293,28 @@ static PWFMDB *jqdb = nil;
     }else {
         dic = [self getModelPropertyKeyValue:parameters tableName:tableName clomnArr:columnArr];
     }
-    
+
     NSMutableString *finalStr = [[NSMutableString alloc] initWithFormat:@"INSERT INTO %@ (", tableName];
     NSMutableString *tempStr = [NSMutableString stringWithCapacity:0];
     NSMutableArray *argumentsArr = [NSMutableArray arrayWithCapacity:0];
-    
+
     for (NSString *key in dic) {
-        
+
         if (![columnArr containsObject:key] ) {
             continue;
         }
         [finalStr appendFormat:@"%@,", key];
         [tempStr appendString:@"?,"];
-        
+
         [argumentsArr addObject:dic[key]];
     }
-    
+
     [finalStr deleteCharactersInRange:NSMakeRange(finalStr.length-1, 1)];
     if (tempStr.length)
         [tempStr deleteCharactersInRange:NSMakeRange(tempStr.length-1, 1)];
-    
+
     [finalStr appendFormat:@") values (%@)", tempStr];
-    
+
     flag = [_db executeUpdate:finalStr withArgumentsInArray:argumentsArr];
     return flag;
 }
@@ -328,7 +328,7 @@ static PWFMDB *jqdb = nil;
     BOOL flag;
     NSMutableString *finalStr = [[NSMutableString alloc] initWithFormat:@"delete from %@  %@", tableName,where];
     flag = [_db executeUpdate:finalStr];
-    
+
     return flag;
 }
 
@@ -346,25 +346,25 @@ static PWFMDB *jqdb = nil;
     }else {
         dic = [self getModelPropertyKeyValue:parameters tableName:tableName clomnArr:clomnArr];
     }
-    
+
     NSMutableString *finalStr = [[NSMutableString alloc] initWithFormat:@"update %@ set ", tableName];
     NSMutableArray *argumentsArr = [NSMutableArray arrayWithCapacity:0];
-    
+
     for (NSString *key in dic) {
-        
+
         if (![clomnArr containsObject:key]) {
             continue;
         }
         [finalStr appendFormat:@"%@ = %@,", key, @"?"];
         [argumentsArr addObject:dic[key]];
     }
-    
+
     [finalStr deleteCharactersInRange:NSMakeRange(finalStr.length-1, 1)];
     if (where.length) [finalStr appendFormat:@" %@", where];
-    
-    
+
+
     flag =  [_db executeUpdate:finalStr withArgumentsInArray:argumentsArr];
-    
+
     return flag;
 }
 
@@ -480,25 +480,25 @@ static PWFMDB *jqdb = nil;
 // 直接传一个array插入
 - (NSArray *)pw_insertTable:(NSString *)tableName dicOrModelArray:(NSArray *)dicOrModelArray
 {
-    
+
     int errorIndex = 0;
     NSMutableArray *resultMArr = [NSMutableArray arrayWithCapacity:0];
     NSArray *columnArr = [self getColumnArr:tableName db:_db];
     for (id parameters in dicOrModelArray) {
-        
+
         BOOL flag = [self insertTable:tableName dicOrModel:parameters columnArr:columnArr];
         if (!flag) {
             [resultMArr addObject:@(errorIndex)];
         }
         errorIndex++;
     }
-    
+
     return resultMArr;
 }
 
 - (BOOL)pw_deleteTable:(NSString *)tableName
 {
-    
+
     NSString *sqlstr = [NSString stringWithFormat:@"DROP TABLE %@", tableName];
     if (![_db executeUpdate:sqlstr])
     {
@@ -509,31 +509,28 @@ static PWFMDB *jqdb = nil;
 
 - (BOOL)pw_deleteAllDataFromTable:(NSString *)tableName
 {
-    
+
     NSString *sqlstr = [NSString stringWithFormat:@"DELETE FROM %@", tableName];
     if (![_db executeUpdate:sqlstr])
     {
         return NO;
     }
-    
+
     return YES;
 }
 
 - (BOOL)pw_isExistTable:(NSString *)tableName
 {
-    
-    FMResultSet *set = [_db executeQuery:@"SELECT count(*) as 'count' FROM sqlite_master WHERE type ='table' and name = ?", tableName];
-    while ([set next])
-    {
-        NSInteger count = [set intForColumn:@"count"];
-        if (count == 0) {
-            return NO;
-        } else {
-            return YES;
-        }
+
+    FMResultSet *set = [_db executeQuery:@"SELECT count(*) as 'count' FROM sqlite_master "
+                                         "WHERE type ='table' and name = ?", tableName];
+
+    NSInteger count = 0;
+    if ([set next]) {
+        count = [set intForColumn:@"count"];
     }
     [set close];
-    return NO;
+    return count > 0;
 }
 - (NSArray *)pw_columnNameArray:(NSString *)tableName
 {
@@ -542,15 +539,16 @@ static PWFMDB *jqdb = nil;
 
 - (int)pw_tableItemCount:(NSString *)tableName
 {
-    
+
     NSString *sqlstr = [NSString stringWithFormat:@"SELECT count(*) as 'count' FROM %@", tableName];
     FMResultSet *set = [_db executeQuery:sqlstr];
-    while ([set next])
-    {
-        return [set intForColumn:@"count"];
+
+    NSInteger count =0;
+    if ([set next]) {
+        count= [set intForColumn:@"count"];
     }
     [set close];
-    return 0;
+    return count;
 }
 
 - (void)close
@@ -582,7 +580,7 @@ static PWFMDB *jqdb = nil;
                     return;
                 }
             }
-            
+
         } else {
             Class CLS;
             if ([parameters isKindOfClass:[NSString class]]) {
@@ -609,7 +607,7 @@ static PWFMDB *jqdb = nil;
             }
         }
     }];
-    
+
     return flag;
 }
 
@@ -617,7 +615,7 @@ static PWFMDB *jqdb = nil;
 
 - (void)pw_inDatabase:(void(^)(void))block
 {
-    
+
     [[self dbQueue] inDatabase:^(FMDatabase *db) {
         block();
     }];
@@ -625,11 +623,11 @@ static PWFMDB *jqdb = nil;
 
 - (void)pw_inTransaction:(void(^)(BOOL *rollback))block
 {
-    
+
     [[self dbQueue] inTransaction:^(FMDatabase *db, BOOL *rollback) {
         block(rollback);
     }];
-    
+
 }
 
 @end

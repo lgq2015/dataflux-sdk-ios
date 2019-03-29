@@ -34,6 +34,7 @@
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
 
 #define KNotificationInfoBoardDatasUpdate @"KNotificationInfoBoardDatasUpdate"
+#define KNotificationNewIssue @"KNotificationNewIssue"
 
 #pragma mark - ——————— team相关 ————————
 //team创建成功

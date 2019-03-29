@@ -96,8 +96,10 @@
 
 - (void)onNewIssueChatData:(NSNotification *)notification {
     NSDictionary * pass = [notification userInfo];
-    IssueLogModel * model = [[IssueLogModel new] initWithDictionary:pass];
-    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+    IssueLogModel *model = [[IssueLogModel new] initWithDictionary:pass];
+    if ([model.issueId isEqualToString:_issueID]) {
+        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+    }
 
     //todo add to tableView here
 }

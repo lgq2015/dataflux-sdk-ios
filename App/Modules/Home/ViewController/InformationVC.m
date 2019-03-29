@@ -64,7 +64,7 @@
     BOOL  ishideguide = getIsHideGuide;
     BOOL  isconnect = getConnectState;
      NSString *team = getTeamState;
-   
+
     if (ishideguide || isconnect) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
@@ -173,10 +173,16 @@
 }
 -(void)infoBoardDatasUpdate{
 
-      NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
-    if (array.count>0) {
-        [self.infoboard updataDatas:@{@"datas":array}];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (array.count>0) {
+                [self.infoboard updataDatas:@{@"datas":array}];
+            }
+        });
+
+    });
 
 }
 -(PWInfoBoard *)infoboard{
@@ -218,7 +224,7 @@
     [self loadRecommendationData];
     [self loadNewsDatas];
     if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
-        
+
     }
 }
 -(void)footerRereshing{

@@ -22,6 +22,7 @@
     self.level = [dict stringValueForKey:@"level" default:@""];
     self.content = [dict stringValueForKey:@"content" default:@""];
     self.accountId = [dict stringValueForKey:@"originInfoAccountId_cache" default:@""];
+    self.issueSourceId = [dict stringValueForKey:@"issueSourceId" default:@""];
     self.issueId = [dict stringValueForKey:@"id" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.status = [dict stringValueForKey:@"status" default:@""];

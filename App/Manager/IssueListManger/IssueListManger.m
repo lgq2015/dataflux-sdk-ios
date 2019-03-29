@@ -14,6 +14,8 @@
 #import "TeamInfoModel.h"
 #import "PWFMDB+Simplefy.h"
 
+#define ISSUE_SOURCE_FILTER_SELECTION  @" AND (issueSourceId='' OR issueSourceId IN (SELECT id FROM issue_source))"
+
 typedef void (^loadDataSuccess)(NSArray *datas, NSNumber *pageMaker);
 
 typedef void (^pageBlock)(NSNumber *pageMarker);
@@ -36,18 +38,20 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     return _sharedManger;
 }
 
--(void)onDBInit {
+- (void)onDBInit {
     [self.getHelper pw_inDatabase:^{
 
         [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self creatIssueListTable];
 
+
     }];
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
                        dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT}];
-    
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{@"issueSourceId": SQL_TEXT,}];
+
 }
 
 - (void)creatIssueBoardTable {
@@ -87,6 +91,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"content": SQL_TEXT,
                         @"level": SQL_TEXT,
                         @"issueId": SQL_TEXT,
+                        @"issueSourceId": SQL_TEXT,
                         @"updateTime": SQL_TEXT,
                         @"actSeq": SQL_INTEGER,
                         @"isRead": SQL_INTEGER,
@@ -126,7 +131,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         @"credentialJSONstr": SQL_TEXT,
                         @"scanCheckStartTime": SQL_TEXT,
                         @"scanCheckInQueueTime": SQL_TEXT,
-                        @"optionsJSONStr":SQL_TEXT,
+                        @"optionsJSONStr": SQL_TEXT,
                 };
 
         [dict addEntriesFromDictionary:params];
@@ -142,7 +147,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
 
 - (NSString *)getDBName {
-    DLog(@"getDBName == %@",getPWUserID);
+    DLog(@"getDBName == %@", getPWUserID);
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_ISSUE);
 }
 
@@ -219,7 +224,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                         [newDatas addObject:model];
                     }];
                     [newDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
-                        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", model.issueId];
+                        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
                         NSArray *issuemodel = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
                         if (issuemodel.count > 0) {
                             [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
@@ -239,7 +244,8 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 - (NSArray *)getIssueListWithIssueType:(NSString *)type {
     NSMutableArray *array = [NSMutableArray new];
     [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' order by actSeq desc", type];
+
+        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' %@ ORDER by actSeq DESC ", type, ISSUE_SOURCE_FILTER_SELECTION];
         NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
         [array addObjectsFromArray:itemDatas];
     }];
@@ -247,23 +253,37 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     return array;
 }
 
+- (IssueModel *)getIssueDataByData:(NSString *)issueId {
+    __block IssueModel *data = nil;
+    [self.getHelper pw_inDatabase:^{
+        NSArray<IssueModel *> *datas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class]
+                                                          whereFormat:@"WHERE issueId='%@'", issueId];
+        if (datas.count > 0) {
+            data = datas[0];
+        }
+    }];
+
+    return data;
+
+
+}
+
 - (NSArray *)getInfoBoardData {
     NSMutableArray *array = [NSMutableArray new];
-    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
-    
-    NSArray<InfoBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
-    
-    if (infoDatas.count == 0) {
-        [self createData];
-        
-        [array addObjectsFromArray:self.infoDatas];
-    } else {
-        [array addObjectsFromArray:infoDatas];
-        
-    }
-//    [self.getHelper pw_inDatabase:^{
-//       
-//    }];
+    [self.getHelper pw_inDatabase:^{
+        NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+
+        NSArray<InfoBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+
+        if (infoDatas.count == 0) {
+            [self createData];
+
+            [array addObjectsFromArray:self.infoDatas];
+        } else {
+            [array addObjectsFromArray:infoDatas];
+
+        }
+    }];
     return array;
 }
 
@@ -334,7 +354,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                     setLastTime([NSDate date]);
                     [self dealDataForInfoBoardWithPageMaker:pageMaker];
                 } else {
-                    
+
                 }
 //        }];
             } else {
@@ -377,6 +397,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     }
 
     KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
+    KPostNotification(KNotificationNewIssue, @YES);
 
 
 }
@@ -390,7 +411,8 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
     NSMutableArray *infoArray = [NSMutableArray new];
     for (NSInteger i = 0; i < nameArray.count; i++) {
-        NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' AND status !='expired' AND status!='discarded' order by actSeq desc", nameArray[i]];
+        NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' AND status !='expired' AND status!='discarded' AND status!='recovered' %@ ORDER BY actSeq DESC", nameArray[i],
+                        ISSUE_SOURCE_FILTER_SELECTION];
         NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
         InfoBoardModel *model = self.infoDatas[i];
 
@@ -432,9 +454,9 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         }
         model.messageCount = itemDatas.count > 99 ? @"99+" : [NSString stringWithFormat:@"%lu", (unsigned long) itemDatas.count];
         if (pageMaker != nil) {
-          model.pageMaker = pageMaker;
+            model.pageMaker = pageMaker;
         }
-        
+
         [infoArray addObject:model];
     }
     [self createInfoBoardFmdbWithData:infoArray];
@@ -493,11 +515,11 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     }
 }
 
-- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId{
+- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId {
     NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
     [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
     [self dealDataForInfoBoardWithPageMaker:nil];
-   
+
 }
 
 @end
