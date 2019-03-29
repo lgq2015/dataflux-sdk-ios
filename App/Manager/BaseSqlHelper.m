@@ -9,6 +9,7 @@
 @interface BaseSqlHelper ()
 
 @property(nonatomic, strong) PWFMDB *fmdbHelper;
+@property (nonatomic, strong) NSObject *lock;
 
 @end
 
@@ -20,8 +21,19 @@
     return @"PWFMDB.sqlite";
 }
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.lock = [[NSObject alloc] init];
+    }
+
+    return self;
+}
+
+
 - (PWFMDB *)getHelper {
-    @synchronized (self) {
+    @synchronized (self.lock) {
         if (!_fmdbHelper) {
             _fmdbHelper = [[PWFMDB alloc] initWithDBName:[self getDBName]];
             [self onDBInit];
@@ -35,7 +47,7 @@
 
 
 - (void)shutDown {
-    @synchronized (self) {
+    @synchronized (self.lock) {
         [_fmdbHelper close];
         _fmdbHelper = nil;
     }

@@ -13,8 +13,14 @@
 #define HTTP_PROTOCOL_STRING @"http://"
 
 #ifdef DEV //开发环境
-#define HTTPS  NO
-#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
+#define IS_HTTPS  0
+#ifdef IS_HTTPS
+#define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
+#else
+#define HTTP_PROTOCOL HTTP_PROTOCOL
+#endif
+
+#define HTTP_PROTOCOL IS_HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
 #define API_SEVERID HTTP_PROTOCOL@"testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  HTTP_PROTOCOL@"testing.shrine-via-core-stone.cloudcare.cn:10100"
 #define API_FORUM   HTTP_PROTOCOL@"testing.forum-via-core-stone.cloudcare.cn:10100"
@@ -28,8 +34,14 @@
 #define WX_APPKEY           @"wx6d7b153b7387b5c4"
 #define DINGDING_APPKEY     @"dingoagikluhqlvit4wovq"
 #elif PREPROD //预发环境
-#define HTTPS  YES
-#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
+
+#define IS_HTTPS  1
+#ifdef IS_HTTPS
+#define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
+#else
+#define HTTP_PROTOCOL HTTP_PROTOCOL
+#endif
+
 #define API_SEVERID HTTP_PROTOCOL@"preprod-home-via-core-stone.cloudcare.cn"
 #define API_SHRINE  HTTP_PROTOCOL@"preprod-shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"preprod-forum-via-core-stone.cloudcare.cn"
@@ -44,8 +56,13 @@
 #define DINGDING_APPKEY     @"dingoaq9v3khnry2ayokri"
 
 #else //正式环境
-#define HTTPS  YES
-#define HTTP_PROTOCOL HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
+#define IS_HTTPS  1
+#ifdef IS_HTTPS
+#define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
+#else
+#define HTTP_PROTOCOL HTTP_PROTOCOL
+#endif
+
 #define API_SEVERID HTTP_PROTOCOL@"home-via-core-stone.cloudcare.cn"
 #define API_SHRINE  HTTP_PROTOCOL@"shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"forum-via-core-stone.cloudcare.cn"

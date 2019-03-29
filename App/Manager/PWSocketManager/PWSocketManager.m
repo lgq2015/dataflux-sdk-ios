@@ -76,7 +76,7 @@ static dispatch_queue_t socket_message_queue() {
     NSMutableDictionary *opt = [@{
             @"log": @NO,//是否开启LOG
             @"handleQueue": socket_message_queue(),
-            @"secure": @(HTTPS),
+            @"secure": @(IS_HTTPS),
             @"forcePolling": @YES,
             @"forceWebsockets": @YES,
             @"reconnects": @NO
@@ -158,8 +158,7 @@ static dispatch_queue_t socket_message_queue() {
 }
 
 - (void)shutDown {
-    [self.socket off:ON_EVENT_ISSUE_UPDATE];
-    [self.socket off:ON_EVENT_ISSUE_LOG_ADD];
+    [self.socket removeAllHandlers];
     [self.socket disconnect];
     self.socket = nil;
 

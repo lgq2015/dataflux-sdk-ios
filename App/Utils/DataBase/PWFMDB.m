@@ -274,7 +274,7 @@ static PWFMDB *jqdb = nil;
     while ([resultSet next]) {
         [mArr addObject:[resultSet stringForColumn:@"name"]];
     }
-    
+     [resultSet close];
     return mArr;
 }
 #pragma mark - *************** 增删改查
@@ -459,6 +459,8 @@ static PWFMDB *jqdb = nil;
 
     }
 
+    [set close];
+
     return resultMArr;
 }
 
@@ -530,6 +532,7 @@ static PWFMDB *jqdb = nil;
             return YES;
         }
     }
+    [set close];
     return NO;
 }
 - (NSArray *)pw_columnNameArray:(NSString *)tableName
@@ -546,6 +549,7 @@ static PWFMDB *jqdb = nil;
     {
         return [set intForColumn:@"count"];
     }
+    [set close];
     return 0;
 }
 
