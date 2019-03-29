@@ -160,9 +160,8 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.dataSource[indexPath.row];
-    NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
-    newsweb.newsModel = model;
-    newsweb.style = WebItemViewStyleNoShare;
+    PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
+
     [self.navigationController pushViewController:newsweb animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

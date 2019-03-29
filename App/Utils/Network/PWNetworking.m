@@ -185,7 +185,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             // server error
             id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
 
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
+            if (![response[ERROR_CODE] isKindOfClass:[NSNull class]] && [response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
                 [userManager logout:^(BOOL success, NSString *des) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [iToast alertWithTitleCenter:@"登录信息失效"];

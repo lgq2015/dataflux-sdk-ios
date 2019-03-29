@@ -322,6 +322,7 @@
             NSString *authAccessToken = content[@"authAccessToken"];
             setXAuthToken(authAccessToken);
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
+            
             newPasswordVC.isShowCustomNaviBar = YES;
             newPasswordVC.isChange = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];

@@ -118,8 +118,6 @@ SINGLETON_FOR_CLASS(UserManager);
                 }
                
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
-                
             }
             
         } failBlock:^(NSError *error) {

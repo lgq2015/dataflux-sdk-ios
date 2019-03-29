@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, WebItemViewStyle){
     WebItemViewStyleNormal,
-    WebItemViewStyleNoShare
+    WebItemViewStyleNoShare,
+    WebItemViewStyleCollect,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^itemClick)(NSInteger tag);
 -(instancetype)initWithStyle:(WebItemViewStyle)style;
 - (void)showInView:(UIView *)view;
-
 @end
 
 NS_ASSUME_NONNULL_END

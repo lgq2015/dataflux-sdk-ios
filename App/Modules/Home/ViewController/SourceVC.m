@@ -15,6 +15,7 @@
 #import "InformationSourceVC.h"
 #import "PWHttpEngine.h"
 #import "CarrierItemModel.h"
+#import "UIResponder+FirstResponder.h"
 
 #define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
@@ -552,7 +553,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
     }else if(button.tag == 100){
+        
         if(self.isAdd){
+            [[UIResponder currentFirstResponder] resignFirstResponder];
             [self addIssueSourcejudge];
         }else{
             [self modifyIssueSourcejudge];

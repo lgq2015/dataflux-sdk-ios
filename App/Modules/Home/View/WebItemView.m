@@ -7,6 +7,7 @@
 //
 
 #import "WebItemView.h"
+#define CollectionImgTag 200
 @interface WebItemView()
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, assign) WebItemViewStyle style;
@@ -58,6 +59,12 @@
             collect.tag = 20;
             [_contentView addSubview:collect];
         }
+        if (self.style == WebItemViewStyleCollect) {
+            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_canclecollect",@"title":@"取消收藏"}];
+            collect.frame = CGRectMake(0, 39, 150, 38);
+            collect.tag = 20;
+            [_contentView addSubview:collect];
+        }
         _contentView.layer.shadowOffset = CGSizeMake(0,2);
         _contentView.layer.shadowColor = [UIColor blackColor].CGColor;
         _contentView.layer.shadowRadius = 8;
@@ -71,7 +78,7 @@
     UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:data[@"icon"]]];
     icon.frame = CGRectMake(19, 9, 20, 20);
     [view addSubview:icon];
-    UILabel *title =[PWCommonCtrl lableWithFrame:CGRectMake(55, 8, 50, 22) font:[UIFont systemFontOfSize:16] textColor:PWBlackColor text:data[@"title"]];
+    UILabel *title =[PWCommonCtrl lableWithFrame:CGRectMake(55, 8, 80, 22) font:[UIFont systemFontOfSize:16] textColor:PWBlackColor text:data[@"title"]];
     [view addSubview:title];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(itemClick:)];
     [view addGestureRecognizer:tap];
@@ -96,6 +103,7 @@
     } completion:nil];
     
 }
+
 - (void)disMissView{
     [_contentView setFrame:CGRectMake(kWidth-166, 12+kTopHeight, 150, self.itemHeight)];
     [UIView animateWithDuration:0.3f

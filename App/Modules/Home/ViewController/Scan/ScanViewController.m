@@ -55,7 +55,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     //设置扫码后需要扫码图像
-    self.isNeedScanImage = YES;
+//    self.isNeedScanImage = YES;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
