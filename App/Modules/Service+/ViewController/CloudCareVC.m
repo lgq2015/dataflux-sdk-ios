@@ -23,6 +23,26 @@
    
    self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
     [self addNavigationItemWithTitles:@[@"购买记录"] isLeft:NO target:self action:@selector(navRightBtnClick) tags:@[@11]];
+    UIImageView *logo_icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+    UIImageView *logo_text = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_text"]];
+
+
+    self.navigationController.title =@"";
+    self.navigationItem.titleView = [UIView new];
+
+    [self.navigationItem.titleView addSubview:logo_text];
+
+    [logo_text mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.mas_equalTo(self.navigationItem.titleView);
+    }];
+
+    [self.navigationItem.titleView addSubview:logo_icon];
+
+    [logo_icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.navigationItem.titleView);
+        make.right.mas_equalTo(logo_text.mas_left).offset(0);
+
+    }];
 }
 - (void)navRightBtnClick{
     PurchaseHistoryVC *order = [[PurchaseHistoryVC alloc]init];

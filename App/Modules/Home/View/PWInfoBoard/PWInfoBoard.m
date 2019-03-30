@@ -221,6 +221,8 @@
     NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
     if ([seqAct longValue]<cell.model.seqAct && cell.model.state != PWInfoBoardItemStateRecommend &&![cell.model.messageCount isEqualToString:@"0"]) {
         cell.isShow = YES;
+    } else{
+        cell.isShow = NO;
     }
     return cell;
 }
@@ -230,14 +232,10 @@
     if (self.itemClick) {
         self.itemClick(indexPath.row);
     }
-    NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
-    if ([seqAct longValue]<=cell.model.seqAct
-            ||cell.model.state == PWInfoBoardItemStateRecommend
-            ||[cell.model.messageCount isEqualToString:@"0"] ) {
-        seqAct = [NSNumber numberWithLong:cell.model.seqAct];
-        setPWseqAct(seqAct, cell.model.typeName);
-        cell.isShow = NO;
-    }
+
+    NSNumber *seqAct = [NSNumber numberWithLong:cell.model.seqAct];
+    setPWseqAct(seqAct, cell.model.typeName);
+    cell.isShow = NO;
     cell.layer.shadowOffset = CGSizeMake(0,2);
     cell.layer.shadowRadius = 5;
 }

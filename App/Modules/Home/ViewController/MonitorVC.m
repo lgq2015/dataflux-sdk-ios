@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, strong) NSString *pageMaker;
 @property (nonatomic, strong) UILabel *tipLab;
+@property (nonatomic, assign)BOOL needGetFromNet;
 
 @end
 
@@ -91,8 +92,12 @@
         IssueLogModel * model = [[IssueLogModel new] initWithDictionary:pass];
           IssueModel * issueModel=  [[IssueListManger sharedIssueListManger] getIssueDataByData:model.issueId];
           if(issueModel&& [issueModel.type isEqualToString:self.type ]){
-
-              self.tipLab.hidden = NO;
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      self.tipLab.hidden = NO;
+                      self.needGetFromNet =YES;
+                  });
+              });
           }
 
     } else{
@@ -101,21 +106,25 @@
     }
 }
 - (void)reloadData{
-    NSArray *dataSource= [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
+
+
+    NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:dataSource];
-    if (self.dataSource.count>0) {
+    if (self.dataSource.count > 0) {
         [self.monitorData removeAllObjects];
-        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
+        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            MonitorListModel *model = [[MonitorListModel alloc] initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
         [self.tableView reloadData];
         [self removeNoDataImage];
-    }else{
+    } else {
         [self showNoDataImage];
     }
     self.tipLab.hidden = YES;
+
+
 }
 - (void)navBtnClick:(UIButton *)btn{
     if([getTeamState isEqualToString:PW_isTeam]){
