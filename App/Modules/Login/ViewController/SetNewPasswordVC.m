@@ -108,7 +108,7 @@
 }
 - (void)confirmBtnClick{
     if ([self.passwordTf.text validatePassWordForm]) {
-
+        self.confirmBtn.enabled = NO;
         NSMutableDictionary *data = [@{
                         @"password": self.passwordTf.text,
                         @"changePasswordToken": self.changePasswordToken,
@@ -120,6 +120,7 @@
         };
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
+                self.confirmBtn.enabled = YES;
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {
                     [userManager saveUserInfoLoginStateisChange:NO success:nil];
@@ -142,6 +143,7 @@
                 }
             }
         }failBlock:^(NSError *error) {
+            self.confirmBtn.enabled = YES;
             [iToast alertWithTitleCenter:@"网络异常"];
         }];
     } else {

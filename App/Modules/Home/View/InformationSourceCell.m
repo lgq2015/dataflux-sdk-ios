@@ -82,7 +82,8 @@
 
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
-        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(24),  Interval(14), ZOOM_SCALE(60), ZOOM_SCALE(60))];
+        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(8),  Interval(14), ZOOM_SCALE(72), ZOOM_SCALE(46))];
+        _iconImgView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:_iconImgView];
     }
     return _iconImgView;

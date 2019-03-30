@@ -214,6 +214,9 @@
 		4A759AE4224F38B80057BD02 /* PWNewsListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE3224F38B80057BD02 /* PWNewsListImageCell.m */; };
 		4A759AE5224F38B80057BD02 /* PWNewsListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE3224F38B80057BD02 /* PWNewsListImageCell.m */; };
 		4A759AE6224F38B80057BD02 /* PWNewsListImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE3224F38B80057BD02 /* PWNewsListImageCell.m */; };
+		4A759AE9224FA1400057BD02 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE7224FA13E0057BD02 /* Reachability.m */; };
+		4A759AEA224FA1400057BD02 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE7224FA13E0057BD02 /* Reachability.m */; };
+		4A759AEB224FA1400057BD02 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AE7224FA13E0057BD02 /* Reachability.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1036,6 +1039,8 @@
 		4A759AD9224F08C70057BD02 /* PrivacySecurityControls.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacySecurityControls.m; sourceTree = "<group>"; };
 		4A759AE2224F38B70057BD02 /* PWNewsListImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWNewsListImageCell.h; sourceTree = "<group>"; };
 		4A759AE3224F38B80057BD02 /* PWNewsListImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWNewsListImageCell.m; sourceTree = "<group>"; };
+		4A759AE7224FA13E0057BD02 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4A759AE8224FA13F0057BD02 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -2030,6 +2035,8 @@
 		4A95BBE92182AF4100FC2979 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				4A759AE8224FA13F0057BD02 /* Reachability.h */,
+				4A759AE7224FA13E0057BD02 /* Reachability.m */,
 				4ABF446121BE0E97002AF34E /* PWNetWorkURLs.h */,
 				4ABF441821BD1F68002AF34E /* PWNetworking.h */,
 				4ABF441921BD1F68002AF34E /* PWNetworking.m */,
@@ -3098,6 +3105,7 @@
 				4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */,
 				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
+				4A759AE9224FA1400057BD02 /* Reachability.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
 				4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
@@ -3352,6 +3360,7 @@
 				CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */,
 				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
 				CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */,
+				4A759AEA224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */,
 				4AC857C7223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBD2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
@@ -3606,6 +3615,7 @@
 				CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */,
 				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
 				CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */,
+				4A759AEB224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */,
 				4AC857C8223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBE2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,

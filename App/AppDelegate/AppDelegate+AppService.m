@@ -66,7 +66,7 @@
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{
-   
+  
 }
 
 #pragma mark ========== 初始化用户系统 ==========
@@ -140,10 +140,21 @@
 - (void)monitorNetworkStatus
 {
     // 网络状态改变一次, networkStatusWithBlock就会响应一次
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkState) name:kReachabilityChangedNotification object:nil];
+    self.conn = [Reachability reachabilityForInternetConnection];
+    [self.conn startNotifier];
 }
 #pragma mark ========== 网络状态变化 ==========
-
+- (void)netWorkState{
+    Reachability *conn = [Reachability reachabilityForInternetConnection];
+    
+    // 3.判断网络状态
+    if ([conn currentReachabilityStatus] == NotReachable) { // 没有使用wifi, 使用手机自带网络进行上网
+        KPostNotification(KNotificationNetWorkStateChange, nil);
+    }else{
+        KPostNotification(KNotificationNetWorkStateChange, nil);
+    }
+}
 - (void)netWorkStateChange:(NSNotification *)notification
 {
     

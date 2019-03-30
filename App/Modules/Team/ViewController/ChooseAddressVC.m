@@ -31,7 +31,7 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"keys":@"district"};
     [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""] && ![response[ERROR_CODE] isKindOfClass:[NSNull class]]) {
+        if (![response[ERROR_CODE] isKindOfClass:[NSNull class]] &&[response[ERROR_CODE] isEqualToString:@""] ) {
             NSDictionary *content  =response[@"content"];
             NSArray *district = content[@"district"];
             if (district.count>0) {

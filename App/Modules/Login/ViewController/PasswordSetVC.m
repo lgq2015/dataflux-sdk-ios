@@ -154,8 +154,10 @@
                 @"data": data
         };
         [SVProgressHUD show];
+        self.confirmBtn.enabled = NO;
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
+            self.confirmBtn.enabled = YES;
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 [iToast alertWithTitleCenter:@"密码设置成功"];
@@ -168,7 +170,7 @@
             }
         }                  failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
-
+            self.confirmBtn.enabled = YES;
         }];
     } else {
         [iToast alertWithTitleCenter:@"密码格式有误"];

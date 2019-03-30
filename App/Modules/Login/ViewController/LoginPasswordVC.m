@@ -269,7 +269,7 @@
 #pragma mark ========== 登录 ==========
 - (void)loginClick{
     [SVProgressHUD show];
-
+    self.loginBtn.enabled = NO;
     NSMutableDictionary *param = [@{@"marker": @"mobile",
                 @"username": [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                 @"password": self.passwordTf.text,
@@ -280,6 +280,7 @@
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
+        self.loginBtn.enabled = YES;
     }];
 
 }

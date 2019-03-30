@@ -111,19 +111,22 @@
    
 }
 - (void)dealWithSelected:(NSInteger)index{
-    if (index == 1) {
-        self.page1btn.selected = YES;
-        self.page2btn.selected = NO;
-        self.page3btn.selected = NO;
-    }else if (index == 2){
-        self.page1btn.selected = NO;
-        self.page2btn.selected = YES;
-        self.page3btn.selected = NO;
-    }else if(index == 3){
-        self.page1btn.selected = NO;
-        self.page2btn.selected = NO;
-        self.page3btn.selected = YES;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (index == 1) {
+            self.page1btn.selected = YES;
+            self.page2btn.selected = NO;
+            self.page3btn.selected = NO;
+        }else if (index == 2){
+            self.page1btn.selected = NO;
+            self.page2btn.selected = YES;
+            self.page3btn.selected = NO;
+        }else if(index == 3){
+            self.page1btn.selected = NO;
+            self.page2btn.selected = NO;
+            self.page3btn.selected = YES;
+        }
+    });
+    
 }
 #pragma mark ========== UICollectionViewDataSource ==========
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MainTabBarController.h"
+#import "Reachability.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MainTabBarController *mainTabBar;
+@property (strong, nonatomic) Reachability *conn;
 
 
 @end

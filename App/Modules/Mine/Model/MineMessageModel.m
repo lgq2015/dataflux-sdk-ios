@@ -23,7 +23,7 @@
     self.isReaded = [dict boolValueForKey:@"isReaded" default:NO];
     self.messageType = [dict stringValueForKey:@"messageType" default:@""];
     self.title = [dict stringValueForKey:@"title" default:@""];
-    self.messageID = [dict stringValueForKey:@"messageID" default:@""];
+    self.messageID = [dict stringValueForKey:@"id" default:@""];
     self.updateAccountId = [dict stringValueForKey:@"updateAccountId" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.uri = [dict stringValueForKey:@"uri" default:@""];

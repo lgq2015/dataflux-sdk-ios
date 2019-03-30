@@ -51,21 +51,24 @@
         
         // 设置cookie
         config.processPool = [[WKProcessPool alloc] init];
-        NSDictionary *dic = @{@"loginTokenName":getXAuthToken};
-        // 将所有cookie以document.cookie = 'key=value';形式进行拼接
-        NSMutableString *cookie = @"".mutableCopy;
-        
-        if (dic) {
-            for (NSString *key in dic.allKeys) {
-                [cookie appendFormat:@"document.cookie = '%@=%@';\n",key,dic[key]];
+        if (getXAuthToken) {
+            NSDictionary *dic = @{@"loginTokenName":getXAuthToken};
+            // 将所有cookie以document.cookie = 'key=value';形式进行拼接
+            NSMutableString *cookie = @"".mutableCopy;
+            
+            if (dic) {
+                for (NSString *key in dic.allKeys) {
+                    [cookie appendFormat:@"document.cookie = '%@=%@';\n",key,dic[key]];
+                }
             }
+            WKUserContentController *userContentController = [[WKUserContentController alloc] init];
+            WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookie injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+            [userContentController addUserScript:cookieScript];
+            config.userContentController = userContentController;
+
         }
-        
-        WKUserContentController *userContentController = [[WKUserContentController alloc] init];
-        WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookie injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-        [userContentController addUserScript:cookieScript];
-        
-        config.userContentController = userContentController;
+    
+    
         config.selectionGranularity = WKSelectionGranularityDynamic;
         config.allowsInlineMediaPlayback = YES;
         config.mediaPlaybackRequiresUserAction = false;
@@ -107,7 +110,9 @@
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
    
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
-    [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
+    if (getXAuthToken) {
+       [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
+    }
     [self.webView loadRequest:request];
     [self.view addSubview:self.webView];
     // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）

@@ -148,6 +148,8 @@
     }];
 }
 - (void)createPersonalUI{
+    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
+    
     self.view.backgroundColor = PWBackgroundColor;
     NSArray *datas = @[@{@"icon":@"team_infoSource",@"title":@"情报源",@"subTitle":@"开放基础诊断情报源上限为 3 个，为您提供更多的诊断空间"},@{@"icon":@"team_cooperation",@"title":@"协作",@"subTitle":@"支持邀请成员加入团队，共享情报信息；支持主动记录问题，与团队成员共同解决"},@{@"icon":@"team_serve",@"title":@"服务",@"subTitle":@"云资源购买优惠，多领域的解决方案，总有一款是您想要的"}];
     UIView *temp = nil;
@@ -175,7 +177,7 @@
     
     UIButton *createTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"创建团队"];
     [createTeam addTarget:self action:@selector(createTeamClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:createTeam];
+    [self.mainScrollView addSubview:createTeam];
     [createTeam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
@@ -194,7 +196,7 @@
 -(UIView *)itemWithData:(NSDictionary *)dict{
     UIView *item = [[UIView alloc]initWithFrame:CGRectZero];
     item.backgroundColor = PWWhiteColor;
-    [self.view addSubview:item];
+    [self.mainScrollView addSubview:item];
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(9), Interval(9), ZOOM_SCALE(30), ZOOM_SCALE(30))];
     icon.image = [UIImage imageNamed:dict[@"icon"]];
     [item addSubview:icon];
