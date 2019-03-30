@@ -28,10 +28,10 @@
     self.id = [dict stringValueForKey:@"id" default:@""];
     self.seq = [dict longLongValueForKey:@"seq" default:0];
     self.createTime =[dict stringValueForKey:@"createTime" default:@""];
-    NSDictionary *originInfoJSON = dict[@"originInfoJSON"];
-    NSDictionary *metaJson = dict[@"metaJson"];
-    NSDictionary *externalDownloadURL = dict[@"externalDownloadURL"];
-    NSDictionary *accountInfo = dict[@"accountInfo"];
+    NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict,@"originInfoJSON");
+    NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJson");
+    NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
+    NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"accountInfo");
 
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";

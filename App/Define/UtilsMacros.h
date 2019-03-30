@@ -143,8 +143,11 @@
 #define ITTDPRINTMETHODNAME() ITTDPRINT(@"%s", __PRETTY_FUNCTION__)
 
 //获取获取字典类型
-#define PWSafeValueForKey(dic,key) \
-(ISNOTNSNULL([dic valueForKey:key])?[dic valueForKey:key]:nil)
+#define PWSafeDictionaryVal(dic,key) \
+([dic[key] isKindOfClass:[NSDictionary class]]?dic[key]:nil)
+
+#define PWSafeArrayVal(dic,key) \
+([dic[key] isKindOfClass:[NSArray class]]?dic[key]:nil)
 
 
 

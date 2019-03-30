@@ -160,9 +160,9 @@
     return  [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueId)
                                  withRequestType:NetworkGetType
                                   refreshRequest:NO cache:NO params:nil
-                                   progressBlock:nil successBlock:^(id response) {
-
-    } failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+                                   progressBlock:nil
+                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
     
 }
 

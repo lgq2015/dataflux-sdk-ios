@@ -12,12 +12,11 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
     if (self = [super init]) {
-        [self setValueWithDict:dict];
+        [self setValueWithLocalDict:dict];
     }
     return self;
 }
-- (void)setValueWithDict:(NSDictionary *)dict{
-    [super setValueWithDict:dict];
+- (void)setValueWithLocalDict:(NSDictionary *)dict{
     self.type = [dict stringValueForKey:@"type" default:@""];
     self.title = [dict stringValueForKey:@"title" default:@""];
     self.level = [dict stringValueForKey:@"level" default:@""];
@@ -37,15 +36,22 @@
         self.latestIssueLogsStr =logstr;
     }
 
-    NSDictionary *rendered = dict[@"renderedText"];
+    NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered?[rendered jsonPrettyStringEncoded]:@"";
 
-    NSDictionary *originInfoJSON = dict[@"originInfoJSON"];
+    NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict,@"originInfoJSON");
     if (originInfoJSON) {
 
     }
     self.originInfoJSONStr =originInfoJSON?[originInfoJSON jsonPrettyStringEncoded]:@"";
     self.isRead = NO;
+
+}
+
+-(void)setValueWithDict:(NSDictionary *)dict {
+    [super setValueWithDict:dict];
+    NSDictionary *content = dict[@"content"];
+    [self setValueWithLocalDict:content];
 
 }
 

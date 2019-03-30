@@ -231,7 +231,9 @@
         self.itemClick(indexPath.row);
     }
     NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
-    if ([seqAct longValue]<=cell.model.seqAct &&cell.model.state != PWInfoBoardItemStateRecommend &&![cell.model.messageCount isEqualToString:@"0"] ) {
+    if ([seqAct longValue]<=cell.model.seqAct
+            ||cell.model.state == PWInfoBoardItemStateRecommend
+            ||[cell.model.messageCount isEqualToString:@"0"] ) {
         seqAct = [NSNumber numberWithLong:cell.model.seqAct];
         setPWseqAct(seqAct, cell.model.typeName);
         cell.isShow = NO;

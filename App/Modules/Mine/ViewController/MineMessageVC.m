@@ -112,7 +112,7 @@
     MineMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineMessageCell"];
     NSDictionary *dict = self.dataSource[indexPath.row];
     MineMessageModel *model = [MineMessageModel new];
-    [model setValueWithDict:dict];
+    [model setLocalValueWithDict:dict];
     cell.model = model;
     return cell;
 }
@@ -121,7 +121,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dict = self.dataSource[indexPath.row];
     MineMessageModel *model = [MineMessageModel new];
-    [model setValueWithDict:dict];
+    [model setLocalValueWithDict:dict];
     if (!([model.uri isEqualToString:@""]|| model.uri == nil)) {
         PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.uri];
         [self.navigationController pushViewController:web animated:YES];

@@ -11,8 +11,7 @@
 @implementation MineMessageModel
 
 
-- (void)setValueWithDict:(NSDictionary *)dict {
-    [super setValueWithDict:dict];
+- (void)setLocalValueWithDict:(NSDictionary *)dict {
 
     self.accountId = [dict stringValueForKey:@"accountId" default:@""];
     self.content = [dict stringValueForKey:@"content" default:@""];
@@ -27,6 +26,14 @@
     self.updateAccountId = [dict stringValueForKey:@"updateAccountId" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.uri = [dict stringValueForKey:@"uri" default:@""];
+}
+
+
+-(void)setValueWithDict:(NSDictionary *)dict{
+    [super setValueWithDict:dict];
+    NSDictionary *content = dict[@"content"];
+    [self setLocalValueWithDict:content];
+
 }
 
 

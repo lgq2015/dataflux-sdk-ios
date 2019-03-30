@@ -118,13 +118,13 @@
             [SVProgressHUD dismiss];
             IssueModel *data = (IssueModel *) o;
             if (data.isSuccess) {
-                MonitorListModel* monitorListModel=  [[MonitorListModel alloc] initWithJsonDictionary:data];
+                MonitorListModel *monitorListModel = [[MonitorListModel alloc] initWithJsonDictionary:data];
 
-                InfoRootVC * control;
+                InfoRootVC *control;
                 if ([data.origin isEqualToString:@"user"]) {
-                    control=[InfoDetailVC new];
+                    control = [ProblemDetailsVC new];
                 } else {
-                    control=[ProblemDetailsVC new];
+                    control = [InfoDetailVC new];
                 }
                 control.model = monitorListModel;
 
@@ -146,6 +146,8 @@
         webView.style = WebItemViewStyleNormal;
         [self.navigationController pushViewController:webView animated:YES];
     }
+
+    [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
 
 
 }

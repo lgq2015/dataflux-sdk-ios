@@ -84,6 +84,8 @@
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
     setRemoteNotificationData(userInfo);
+    [kUserDefaults synchronize];
+
 }
 
 
@@ -105,8 +107,8 @@
     }];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [JPUSHService setBadge:0];
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
 

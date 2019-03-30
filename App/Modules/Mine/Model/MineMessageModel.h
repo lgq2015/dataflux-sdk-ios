@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *updateAccountId;
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *uri;
+
+- (void)setLocalValueWithDict:(NSDictionary *)dict;
 @end
 
 NS_ASSUME_NONNULL_END
