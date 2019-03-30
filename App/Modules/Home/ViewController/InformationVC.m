@@ -27,6 +27,7 @@
 #import "IssueModel.h"
 #import "InfoDetailVC.h"
 #import "ProblemDetailsVC.h"
+#import "NewGuidanceView.h"
 
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
@@ -49,6 +50,14 @@
             [self.infoboard updateTitle:str];
         }
     }];
+    if(self.infoBoardStyle == PWInfoBoardStyleConnected){
+        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+            NewGuidanceView *guid = [[NewGuidanceView alloc]init];
+            [guid showInView:[UIApplication sharedApplication].keyWindow];
+            
+            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+        }
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -187,7 +196,14 @@
    
 }
 - (void)createUI{
-
+    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
+        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+            NewGuidanceView *guid = [[NewGuidanceView alloc]init];
+            [guid showInView:[UIApplication sharedApplication].keyWindow];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+    }
+    }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
@@ -270,6 +286,7 @@
 }
 -(void)infoBoardStyleUpdate{
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
+        self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];

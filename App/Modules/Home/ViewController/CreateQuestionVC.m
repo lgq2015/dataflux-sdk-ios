@@ -12,6 +12,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "CreateQuestionCell.h"
 #import "CreateQuestionModel.h"
+#import "UIResponder+FirstResponder.h"
+
 #define NavRightBtnTag  100  // 右侧图片
 
 @interface CreateQuestionVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -217,6 +219,7 @@
     return _navRightBtn;
 }
 - (void)accessoryBtnClick{
+      [[UIResponder currentFirstResponder] resignFirstResponder];
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
     [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
         [self upLoadImageWithImage:image name:name tag:self.attachmentArray.count+100];

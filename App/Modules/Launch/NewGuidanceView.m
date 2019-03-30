@@ -20,9 +20,9 @@
 }
 - (void)setupContent{
     self.frame = CGRectMake(0, 0, kWidth, kHeight);
-    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     self.userInteractionEnabled = YES;
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
+   
     //kTopHeight+16
     UIImageView *infoSourceImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"home_first1"]];
     [self addSubview:infoSourceImg];
@@ -35,10 +35,10 @@
     UIImageView *contentImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"home_firsttext"]];
     [self addSubview:contentImg];
     [contentImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(contentImg.mas_bottom).offset(6);
+        make.top.mas_equalTo(infoSourceImg.mas_bottom).offset(6);
         make.right.mas_equalTo(self).offset(-22);
         make.width.offset(ZOOM_SCALE(327));
-        make.height.offset(ZOOM_SCALE(37));
+        make.height.offset(ZOOM_SCALE(245));
     }];
     UIImageView *subBtn = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"home_firstsubbtn"]];
     [self addSubview:subBtn];
@@ -48,6 +48,8 @@
         make.height.offset(ZOOM_SCALE(95));
         make.bottom.mas_equalTo(self).offset(-60-kTabBarHeight);
     }];
+    subBtn.userInteractionEnabled = YES;
+     [subBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
     
 }
 - (void)showInView:(UIView *)view{

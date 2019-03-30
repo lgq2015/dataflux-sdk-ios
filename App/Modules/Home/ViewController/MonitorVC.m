@@ -16,6 +16,7 @@
 #import "InfoDetailVC.h"
 #import "IssueListManger.h"
 #import "IssueLogModel.h"
+#import "CreateQueGuideView.h"
 
 @interface MonitorVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) MonitorCell *tempCell;
@@ -74,6 +75,12 @@
         [self.tableView reloadData];
     }else{
         [self showNoDataImage];
+    }
+    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
+        CreateQueGuideView *guid = [[CreateQueGuideView alloc]init];
+        [guid showInView:[UIApplication sharedApplication].keyWindow];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
 }
 - (void)headerRefreshing:(NSNotification *)notification{

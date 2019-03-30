@@ -220,6 +220,12 @@
 		4A759AEE224FD4A20057BD02 /* NewGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* NewGuidanceView.m */; };
 		4A759AEF224FD4A20057BD02 /* NewGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* NewGuidanceView.m */; };
 		4A759AF0224FD4A30057BD02 /* NewGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* NewGuidanceView.m */; };
+		4A759AF3224FF2490057BD02 /* CreateQueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */; };
+		4A759AF4224FF2490057BD02 /* CreateQueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */; };
+		4A759AF5224FF2490057BD02 /* CreateQueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */; };
+		4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
+		4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
+		4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1046,6 +1052,10 @@
 		4A759AE8224FA13F0057BD02 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4A759AEC224FD4A10057BD02 /* NewGuidanceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewGuidanceView.h; sourceTree = "<group>"; };
 		4A759AED224FD4A10057BD02 /* NewGuidanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewGuidanceView.m; sourceTree = "<group>"; };
+		4A759AF1224FF2490057BD02 /* CreateQueGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateQueGuideView.h; sourceTree = "<group>"; };
+		4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQueGuideView.m; sourceTree = "<group>"; };
+		4A759AF6224FF5930057BD02 /* UpTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpTriangle.h; sourceTree = "<group>"; };
+		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1638,6 +1648,8 @@
 				4A759AAB224B3F8B0057BD02 /* IssueSourceView.m */,
 				4A759AAF224B61AB0057BD02 /* EchartView.h */,
 				4A759AB0224B61AB0057BD02 /* EchartView.m */,
+				4A759AF6224FF5930057BD02 /* UpTriangle.h */,
+				4A759AF7224FF5930057BD02 /* UpTriangle.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2621,6 +2633,8 @@
 				6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */,
 				4A759AEC224FD4A10057BD02 /* NewGuidanceView.h */,
 				4A759AED224FD4A10057BD02 /* NewGuidanceView.m */,
+				4A759AF1224FF2490057BD02 /* CreateQueGuideView.h */,
+				4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -3099,6 +3113,7 @@
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
+				4A759AF3224FF2490057BD02 /* CreateQueGuideView.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */,
@@ -3272,6 +3287,7 @@
 				6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
+				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
@@ -3355,6 +3371,7 @@
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4A759A9E224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */,
+				4A759AF4224FF2490057BD02 /* CreateQueGuideView.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
 				4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8922489C330057BD02 /* CreateQuestionModel.m in Sources */,
@@ -3528,6 +3545,7 @@
 				6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
+				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
@@ -3611,6 +3629,7 @@
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4A759A9F224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */,
+				4A759AF5224FF2490057BD02 /* CreateQueGuideView.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
 				4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8A22489C330057BD02 /* CreateQuestionModel.m in Sources */,
@@ -3784,6 +3803,7 @@
 				6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
+				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
