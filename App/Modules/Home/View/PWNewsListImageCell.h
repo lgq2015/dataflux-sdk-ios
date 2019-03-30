@@ -6,12 +6,14 @@
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "PWNewsListCell.h"
+#import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class NewsListModel;
+@interface PWNewsListImageCell : MGSwipeTableCell
 
-@interface PWNewsListImageCell : PWNewsListCell
-
+@property (nonatomic, strong) NewsListModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

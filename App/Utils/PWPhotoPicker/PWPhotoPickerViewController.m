@@ -295,21 +295,23 @@
     self.isNotAllowed = YES;
     self.selectTip.hidden = YES;
     self.titleLabel.text = @"无权限访问相册";
-    UIAlertView *alert;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
-        alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                           message:@"请在iPhone的“设置”-“隐私”-“照片”中更改"
-                                          delegate:nil
-                                 cancelButtonTitle:@"确定"
-                                 otherButtonTitles:nil, nil];
-    } else {
-        alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                           message:@"请先允许访问照片"
-                                          delegate:self
-                                 cancelButtonTitle:@"取消"
-                                 otherButtonTitles:@"前往", nil];
-    }
-    [alert show];
+//    NSString *tipTitle = self.sourceType == 2? @"请开启照片权限":@"请开启相机权限";
+//    NSString *tipMessage = type == 2?@"可依次进入[设置-隐私-照片]，允许访问手机相册":@"可依次进入[设置-隐私]中，允许访问相机";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请开启照片权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }];
+    UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:@"去开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // 无权限 引导去开启
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication]canOpenURL:url]) {
+            [[UIApplication sharedApplication]openURL:url];
+        }
+    }];
+    
+    [alertController addAction:cancle];
+    [alertController addAction:comfirmAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 #pragma mark - uicollectionDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

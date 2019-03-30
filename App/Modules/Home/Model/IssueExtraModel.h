@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *fileIcon;
 @property (nonatomic, strong) NSString *fileSize;
+@property (nonatomic, strong) NSString *fileType;
 @property (nonatomic, strong) NSString *expireTime;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 

@@ -11,6 +11,7 @@
 #import "PWBaseWebVC.h"
 #import "PWPhotoPickerViewController.h"
 #import "ScanResultVC.h"
+#import "PrivacySecurityControls.h"
 
 
 @interface ScanViewController ()<PWPhotoPickerProtocol>
@@ -56,6 +57,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     //设置扫码后需要扫码图像
 //    self.isNeedScanImage = YES;
+    PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
+    [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeAVCaptureDevice controller:self];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];

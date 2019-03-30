@@ -243,6 +243,7 @@ typedef PWResponseFailBlock PWDownloadFailBlock;
                                fileData:(NSData *)data
                                    type:(NSString *)type
                                    name:(NSString *)name
+                               fileName:(NSString *)fileName
                                mimeType:(NSString *)mimeType
                           progressBlock:(PWUploadProgressBlock)progressBlock
                            successBlock:(PWResponseSuccessBlock)successBlock

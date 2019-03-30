@@ -266,6 +266,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                                fileData:(NSData *)data
                                    type:(NSString *)type
                                    name:(NSString *)name
+                               fileName:(NSString *)fileName
                                mimeType:(NSString *)mimeType
                           progressBlock:(PWUploadProgressBlock)progressBlock
                            successBlock:(PWResponseSuccessBlock)successBlock
@@ -283,16 +284,19 @@ static NSTimeInterval   requestTimeout = 60.f;
     session = [manager POST:url
                  parameters:params
   constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-      NSString *fileName = nil;
+    
       
       NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
       formatter.dateFormat = @"yyyyMMddHHmmss";
       
       NSString *day = [formatter stringFromDate:[NSDate date]];
-      
-      fileName = [NSString stringWithFormat:@"%@.%@",day,type];
-      
-      [formData appendPartWithFileData:data name:name fileName:fileName mimeType:mimeType];
+      NSString *fileName2;
+      if(!fileName){
+      fileName2 = [NSString stringWithFormat:@"%@.%@",day,type];
+      }else{
+      fileName2 = fileName;
+      }
+      [formData appendPartWithFileData:data name:name fileName:fileName2 mimeType:mimeType];
       
   } progress:^(NSProgress * _Nonnull uploadProgress) {
       if (progressBlock) progressBlock (uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
@@ -322,7 +326,7 @@ static NSTimeInterval   requestTimeout = 60.f;
                           progressBlock:(PWUploadProgressBlock)progressBlock
                            successBlock:(PWResponseSuccessBlock)successBlock
                               failBlock:(PWResponseFailBlock)failBlock {
-    return [self uploadFileWithUrl:url params:nil fileData:data type:type name:name mimeType:type progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
+    return [self uploadFileWithUrl:url params:nil fileData:data type:type name:name fileName:nil mimeType:type progressBlock:progressBlock successBlock:successBlock failBlock:failBlock];
 }
 
 #pragma mark - 多文件上传

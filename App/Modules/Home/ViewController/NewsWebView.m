@@ -78,6 +78,10 @@
 - (void)shareBtnClick{
     if (self.isCollect == YES) {
         self.style = WebItemViewStyleCollect;
+    }else{
+        if (self.style !=WebItemViewStyleNoShare) {
+            self.style = WebItemViewStyleNormal;
+        }
     }
     
      _itemView = [[WebItemView alloc]initWithStyle:self.style];
@@ -91,18 +95,21 @@
             if (self.newsModel != nil) {
                 NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
                 NSMutableArray *imgs =[NSMutableArray new];
-                if (self.newsModel.imageUrl !=nil) {
+                if (self.newsModel.imageUrl.length>0) {
                     [imgs addObject:weakSelf.newsModel.imageUrl];
                 }
                 NSString *topstr = topic[topic.count-1];
-      param   =@{@"data":@{@"entityId":weakSelf.newsModel.newsID,@"url":weakSelf.newsModel.url,@"title":weakSelf.newsModel.title,@"summary":weakSelf.newsModel.subtitle,@"type":@"forum",@"extras":@{@"imgs":imgs,@"topic":topstr}}};
+                NSDictionary *extras = imgs.count>0?@{@"imgs":imgs,@"topic":topstr}:@{@"topic":topstr};
+      param   =@{@"data":@{@"entityId":weakSelf.newsModel.newsID,@"url":weakSelf.newsModel.url,@"title":weakSelf.newsModel.title,@"summary":weakSelf.newsModel.subtitle,@"type":@"forum",@"extras":extras}};
             }else if(self.handbookModel !=nil){
                 NSString *topic = weakSelf.handbookModel.handbookName;
                 NSMutableArray *imgs =[NSMutableArray new];
-                if (self.handbookModel.imageUrl !=nil) {
+                if (self.handbookModel.imageUrl.length>0) {
                     [imgs addObject:weakSelf.handbookModel.imageUrl];
                 }
-                 param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":[weakSelf.webUrl absoluteString],@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":@{@"imgs":imgs,@"topic":topic}}};
+                NSDictionary *extras = imgs.count>0?@{@"imgs":imgs,@"topic":topic}:@{@"topic":topic};
+
+                 param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":[weakSelf.webUrl absoluteString],@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":extras}};
             }
        
         

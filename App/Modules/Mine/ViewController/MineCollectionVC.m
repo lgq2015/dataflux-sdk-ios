@@ -10,6 +10,7 @@
 #import "NewsListModel.h"
 #import "NewsWebView.h"
 #import "PWNewsListCell.h"
+#import "PWNewsListImageCell.h"
 
 #define DeletBtnTag 200
 
@@ -40,6 +41,7 @@
     [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
     self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
     [self.view addSubview:self.tableView];
+    [self.tableView registerClass:[PWNewsListImageCell class] forCellReuseIdentifier:@"PWNewsListImageCell"];
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, Interval(12))];
     header.backgroundColor = PWBackgroundColor;
     self.tableView.tableHeaderView = header;
@@ -119,24 +121,42 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{ PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
-    if (!cell) {
-        cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
+{   UITableViewCell *cell;
+    NewsListModel *model = self.dataSource[indexPath.row];
+    if (model.type == NewListCellTypText) {
+    PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
+     cell.model = self.dataSource[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell layoutIfNeeded];
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            [self delectCollection:indexPath.row];
+            return NO;
+        }];
+        button.titleLabel.font = MediumFONT(14);
+        
+        [button centerIconOverTextWithSpacing:5];
+        cell.rightButtons = @[button];
+        cell.delegate = self;
+        return cell;
+    }else{
+     PWNewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListImageCell"];
+       cell.model = self.dataSource[indexPath.row];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell layoutIfNeeded];
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            [self delectCollection:indexPath.row];
+            return NO;
+        }];
+        button.titleLabel.font = MediumFONT(14);
+        
+        [button centerIconOverTextWithSpacing:5];
+        cell.rightButtons = @[button];
+        cell.delegate = self;
+        return cell;
     }
-    cell.model = self.dataSource[indexPath.row];
-
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell layoutIfNeeded];
-    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-        [self delectCollection:indexPath.row];
-        return NO;
-    }];
-    button.titleLabel.font = MediumFONT(14);
    
-    [button centerIconOverTextWithSpacing:5];
-    cell.rightButtons = @[button];
-    cell.delegate = self;
-    return cell;
+
     
 }
 - (void)delectCollection:(NSInteger)index{
