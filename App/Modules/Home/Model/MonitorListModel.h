@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, strong) NSString * ticketStatus;
 @property (nonatomic, strong) NSString *accountId;
 @property (nonatomic, assign) SourceType sourceType;
+@property (nonatomic, assign) BOOL isInvalidIssue;
 
 
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;

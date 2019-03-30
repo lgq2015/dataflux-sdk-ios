@@ -80,7 +80,9 @@
         make.left.right.mas_equalTo(self.view);
         make.width.offset(kWidth);
     }];
-    [self setSuggestSubView];
+    if(!self.model.isInvalidIssue){
+        [self setSuggestSubView];
+    }
 }
 
 -(void)setSuggestSubView{

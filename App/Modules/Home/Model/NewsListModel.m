@@ -85,7 +85,10 @@
     self.updatedAt = [NSString getLocalDateFormateUTCDate:[dict stringValueForKey:@"updatedAt" default:@""] formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     self.subtitle = [dict stringValueForKey:@"summary" default:@""];
     self.imageUrl = [dict stringValueForKey:@"picUrl" default:@""];
-    self.thumbnails = dict[@"thumbnails"];
+    if([dict objectForKey:@"thumbnails"]!= [NSNull null]){
+     self.thumbnails = [dict mutableArrayValueForKey:@"thumbnails"];
+    }
+    
     NSString *newid = [dict stringValueForKey:@"id" default:@""];
     if (newid.length>0) {
         self.url = PW_articleDetails(newid);

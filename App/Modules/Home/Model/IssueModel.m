@@ -35,16 +35,32 @@
         NSString *logstr = [logs jsonStringEncoded];
         self.latestIssueLogsStr =logstr;
     }
-   
+
     NSDictionary *rendered = dict[@"renderedText"];
     self.renderedTextStr = rendered?[rendered jsonPrettyStringEncoded]:@"";
-    
+
     NSDictionary *originInfoJSON = dict[@"originInfoJSON"];
     if (originInfoJSON) {
-        
+
     }
     self.originInfoJSONStr =originInfoJSON?[originInfoJSON jsonPrettyStringEncoded]:@"";
     self.isRead = NO;
+
+}
+
+
+-(void)checkInvalidIssue{
+
+    if ([self.subType isEqualToString:@"buildInCheck"]
+            && ![self.originInfoJSONStr isEqualToString:@""] ) {
+        NSDictionary *dict = [self.originInfoJSONStr jsonValueDecoded];
+        NSString *checkKey = [dict stringValueForKey:@"checkKey" default:@""];
+        if ([checkKey isEqualToString:@"invalidIssueSource"]) {
+            self.title =@"情报源异常";
+            self.isInvalidIssue =YES;
+        }
+    }
+
 }
 
 @end
