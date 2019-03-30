@@ -78,6 +78,10 @@
 //    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 //    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
+
+    [JPUSHService setBadge:0];
+    [JPUSHService resetBadge];
+
     return YES;
 }
 
@@ -106,7 +110,6 @@
     }];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [JPUSHService setBadge:0];
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });

@@ -42,13 +42,16 @@
 - (void)loadTeamNeedData{
     [SVProgressHUD show];
     NSDictionary *params =@{@"_withLatestIssueLog":@YES,
-                            @"orderBy":@"seq",
+                            @"orderBy":@"actSeq",
                             @"_latestIssueLogLimit":@1,
                             @"orderMethod":@"desc",
                             @"pageSize":@10,
                             @"ticketType":@"serviceEvent",
                             @"_latestIssueLogSubType":@"comment"};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueGeneralList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_issueGeneralList
+                         withRequestType:NetworkGetType
+                          refreshRequest:NO cache:NO
+                                  params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
@@ -89,8 +92,17 @@
     }
 }
 - (void)loadMoreDate{
-    NSDictionary *params =@{@"_withLatestIssueLog":@YES,@"orderBy":@"seq",@"_latestIssueLogLimit":@1,@"orderMethod":@"desc",@"pageSize":@10,@"ticketType":@"serviceEvent",@"pageMarker":[NSNumber numberWithInteger:self.pageMaker]};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+    NSDictionary *params =@{
+            @"_withLatestIssueLog":@YES,
+            @"orderBy":@"actSeq",
+            @"_latestIssueLogLimit":@1,
+            @"orderMethod":@"desc",
+            @"pageSize":@10,
+            @"ticketType":@"serviceEvent",
+            @"pageMarker":[NSNumber numberWithInteger:self.pageMaker]};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType
+                          refreshRequest:NO cache:NO params:params
+                           progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];

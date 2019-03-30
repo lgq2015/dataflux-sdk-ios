@@ -26,10 +26,10 @@
     self.dataSource = [NSMutableArray arrayWithArray:@[@1,@2,@3]];
     self.guideCollection.frame = CGRectMake(0, 0, kWidth, kHeight);
     [self createUI];
-    
+
 }
 - (void)createUI{
-   
+
     [self.page2btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.width.offset(ZOOM_SCALE(30));
@@ -48,7 +48,7 @@
         make.bottom.offset(-ZOOM_SCALE(95)-kTabBarHeight+49);
         make.left.mas_equalTo(self.page2btn.mas_right).offset(ZOOM_SCALE(15));
     }];
- 
+
 
 }
 
@@ -66,7 +66,7 @@
         _guideCollection.showsHorizontalScrollIndicator = NO;
         [_guideCollection registerClass:GuideCell.class forCellWithReuseIdentifier:@"GuideCell"];
         [self.view addSubview:_guideCollection];
-        
+
     }
     return _guideCollection;
 }
@@ -105,28 +105,27 @@
     return _page3btn;
 }
 - (void)btnClick:(UIButton *)button{
-   
+
     [self dealWithSelected:button.tag];
     [self.guideCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:button.tag-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-   
+
 }
 - (void)dealWithSelected:(NSInteger)index{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (index == 1) {
-            self.page1btn.selected = YES;
-            self.page2btn.selected = NO;
-            self.page3btn.selected = NO;
-        }else if (index == 2){
-            self.page1btn.selected = NO;
-            self.page2btn.selected = YES;
-            self.page3btn.selected = NO;
-        }else if(index == 3){
-            self.page1btn.selected = NO;
-            self.page2btn.selected = NO;
-            self.page3btn.selected = YES;
-        }
-    });
-    
+
+    if (index == 1) {
+        self.page1btn.selected = YES;
+        self.page2btn.selected = NO;
+        self.page3btn.selected = NO;
+    }else if (index == 2){
+        self.page1btn.selected = NO;
+        self.page2btn.selected = YES;
+        self.page3btn.selected = NO;
+    }else if(index == 3){
+        self.page1btn.selected = NO;
+        self.page2btn.selected = NO;
+        self.page3btn.selected = YES;
+    }
+
 }
 #pragma mark ========== UICollectionViewDataSource ==========
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -145,15 +144,13 @@
     return cell;
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    // 获取当前显示的cell的下标
-    NSIndexPath *firstIndexPath = [[self.guideCollection indexPathsForVisibleItems] firstObject];
-    // 赋值给记录当前坐标的变量
 
-    [self dealWithSelected:firstIndexPath.row+1];
-    
-    // 更新底部的数据
-    // ...
+    CGRect visibleRect = (CGRect) {.origin = self.guideCollection.contentOffset, .size = self.guideCollection.bounds.size};
+    CGPoint visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect));
+    NSIndexPath *visibleIndexPath = [self.guideCollection indexPathForItemAtPoint:visiblePoint];
+    [self dealWithSelected:visibleIndexPath.row + 1];
 }
+
 
 
 /*
