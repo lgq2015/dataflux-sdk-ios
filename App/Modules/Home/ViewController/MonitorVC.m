@@ -66,7 +66,7 @@
     [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
     self.tableView.tableFooterView = self.footView;
     self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
-   
+    self.tableView.mj_header = self.header;
     if (self.dataSource.count>0) {
         [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
@@ -82,6 +82,10 @@
         
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
+}
+-(void)headerRereshing{
+    [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+    [self.header endRefreshing];
 }
 - (void)headerRefreshing:(NSNotification *)notification{
 

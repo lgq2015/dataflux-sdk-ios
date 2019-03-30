@@ -157,7 +157,6 @@
         self.confirmBtn.enabled = NO;
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
-            self.confirmBtn.enabled = YES;
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 [iToast alertWithTitleCenter:@"密码设置成功"];
@@ -165,6 +164,7 @@
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 });
             } else {
+                self.confirmBtn.enabled = YES;
                 [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }

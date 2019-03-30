@@ -16,7 +16,6 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 @property(nonatomic, assign) NSInteger currentPage;
 @property(nonatomic, copy) detectTimeStr strBlock;   //-> 回掉
 @property(nonatomic, copy) updateIssueSource aryBlock; //
-@property(nonatomic, copy) NSString *lastRefreshTime; //上次更新时间
 @end
 
 @implementation IssueSourceManger
@@ -62,11 +61,7 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 // 距离上次刷新首页检测时间 超过三十秒获取数据库里的检测时间 避免数据库多次调用
 - (void)getLastDetectionTime:(detectTimeStr)strblock {
       self.strBlock = strblock;
-    //判断时间间隔
-    if (self.lastRefreshTime ==nil || [self.lastRefreshTime timeIntervalAboveThirtySecond]) {
-        //小于30s
-        [self getLastDetectionTimeNow];
-    }
+     [self getLastDetectionTimeNow];
 }
 
 - (void)updateAllIssueSourceList:(updateIssueSource)aryblock{

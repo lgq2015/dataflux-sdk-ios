@@ -273,6 +273,19 @@
         make.top.mas_equalTo(transferTeam.mas_bottom).offset(Interval(20));
         make.height.offset(ZOOM_SCALE(47));
     }];
+    RACSignal *nameSignal = [[self.tfAry[0] rac_textSignal]map:^id(NSString *value) {
+        if ([self textLength:value]>30) {
+            [iToast alertWithTitleCenter:@"内容长度超限"];
+            value = [value substringToIndex:self.temp.length];
+            self.tfAry[0].text = value;
+        }else{
+            self.temp =value;
+        }
+        
+        return value;
+    }];
+ 
+
 }
 - (void)logoutTeamClick{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];

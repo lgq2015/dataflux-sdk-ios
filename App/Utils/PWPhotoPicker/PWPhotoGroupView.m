@@ -10,7 +10,9 @@
 #import "PWPhotoGroupCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PWPhotoPickerViewController.h"
-
+#import "PrivacySecurityControls.h"
+#import <Photos/PhotosDefines.h>
+#import <Photos/PHPhotoLibrary.h>
 @interface PWPhotoGroupView()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
@@ -74,9 +76,12 @@
     
     ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
         //没权限
-        [self showNotAllowed];
+    //    [self showNotAllowed];
     };
-    
+    PHAuthorizationStatus authStatusAlbm  = [PHPhotoLibrary authorizationStatus];                         // 相册授权
+    if (authStatusAlbm == 1 || authStatusAlbm ==2) {
+        [self showNotAllowed];
+    }
     //显示的相册
     NSUInteger type = ALAssetsGroupSavedPhotos | ALAssetsGroupPhotoStream |
     ALAssetsGroupLibrary | ALAssetsGroupAlbum | ALAssetsGroupEvent |

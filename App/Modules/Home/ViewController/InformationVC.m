@@ -45,11 +45,15 @@
 
 @implementation InformationVC
 -(void)viewWillAppear:(BOOL)animated{
-    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
+    
+    NSString *lastRefreshTime = [IssueSourceManger sharedIssueSourceManger].lastRefreshTime;
+    if (lastRefreshTime ==nil || [lastRefreshTime timeIntervalAboveThirtySecond]) {
+      [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
         if (_infoboard) {
             [self.infoboard updateTitle:str];
         }
     }];
+    }
     if(self.infoBoardStyle == PWInfoBoardStyleConnected){
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
             NewGuidanceView *guid = [[NewGuidanceView alloc]init];

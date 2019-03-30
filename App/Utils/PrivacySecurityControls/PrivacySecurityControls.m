@@ -84,7 +84,7 @@
             if (type == PrivacyTypePHPhotoLibrary) {
                 [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
                     if (status == PHAuthorizationStatusAuthorized) { //授权成功
-                      
+                        
                     }
                 }];
             }else{

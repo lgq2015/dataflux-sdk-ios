@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^detectTimeStr)(NSString *str);
 typedef void (^updateIssueSource)(NSArray *ary);
 @interface IssueSourceManger : NSObject
+@property(nonatomic, copy) NSString *lastRefreshTime; //上次更新时间
 
 //单例
 SINGLETON_FOR_HEADER(IssueSourceManger)

@@ -206,7 +206,7 @@
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.width.height.offset(19);
     }];
-    self.iconImgView.image = [UIImage imageNamed:@"team_select"];
+    self.iconImgView.image = [UIImage imageNamed:@"team_success"];
 }
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{

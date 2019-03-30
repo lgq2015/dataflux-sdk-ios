@@ -215,12 +215,14 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSURL *name = [info objectForKey:UIImagePickerControllerReferenceURL];
     __block NSString *filename;
+    if(self.sourceType == 2){
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
         ALAssetRepresentation *representation = [myasset defaultRepresentation];
         filename = [representation filename];
     };
     ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
     [assetslibrary assetForURL:name resultBlock:resultblock failureBlock:nil];
+    }
     // 如果裁剪的图片不符合标准 就会为空，直接使用原图
     image == nil    ?  image = [info objectForKey:UIImagePickerControllerOriginalImage] : nil;
    
