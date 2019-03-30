@@ -686,7 +686,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             tip.btnClick = ^(){
 
 
-          [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
+                [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
             __block   BOOL hasInfoSource = NO;
              for(UIViewController *temp in self.navigationController.viewControllers) {
                 if([temp isKindOfClass:[InformationSourceVC class]]){

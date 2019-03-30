@@ -300,7 +300,7 @@
     }
 }
 -(void)infoBoardDatasUpdate{
-    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
+    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString *_Nonnull str) {
         if (_infoboard) {
             [self.infoboard updateTitle:str];
         }

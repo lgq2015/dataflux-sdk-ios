@@ -38,8 +38,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
-    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone?NO:YES;
-    
+    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
 //    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];

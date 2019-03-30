@@ -113,6 +113,7 @@
 }
 #pragma mark ========== title 、 switch ==========
 - (void)createUISwitch{
+   
     _arrowImgView.hidden = NO;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(18);
@@ -124,7 +125,14 @@
         make.right.mas_offset(-18);
         make.centerY.mas_equalTo(self.titleLab);
     }];
+    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
     [self.switchBtn setOn:self.data.isOn];
+    if (isSwitch) {
+        [self.switchBtn setOn:NO];
+        self.switchBtn.enabled = NO;
+        [self.switchBtn setTintColor:PWTextLight];
+        [self.switchBtn setThumbTintColor:PWTextLight];
+    }
     [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
 - (void)createUIDescribe{
@@ -147,7 +155,6 @@
         make.height.offset(20);
     }];
     self.describeLab.text = _data.describeText;
-    
     
 }
 - (void)createUIDot{
