@@ -308,7 +308,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
             if (data.count > 0) {
                 [self.issueList addObjectsFromArray:data];
                 NSDictionary *pageInfo = content[@"pageInfo"];
-                long pageMarker = [pageInfo longValueForKey:@"pageMarker" default:0];
+                long pageMarker = [pageInfo longValueForKey:@"pageMarker" default:1];
                 NSNumber *pageMarker1 = [NSNumber numberWithLong:pageMarker];
                 NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
                 [params addEntriesFromDictionary:param];
@@ -317,7 +317,15 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                     completion(datas, pageMaker);
                 }];
             } else {
-                completion(self.issueList, param[@"pageMarker"]);
+                NSNumber *pageMarker2;
+                if([[param allKeys] containsObject:@"pageMarker"]){
+                  long pageMarker1 = [param longValueForKey:@"pageMarker" default:1];
+                   pageMarker2 = [NSNumber numberWithLong:pageMarker1];
+                }else{
+                    pageMarker2 = @1;
+                }
+                
+                completion(self.issueList, pageMarker2);
             }
         } else {
 

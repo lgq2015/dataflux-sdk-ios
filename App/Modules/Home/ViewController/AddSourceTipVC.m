@@ -9,6 +9,7 @@
 #import "AddSourceTipVC.h"
 #import "AddSourceTipView.h"
 #import "AddSourceVC.h"
+#import "MainTabBarController.h"
 
 @interface AddSourceTipVC ()
 
@@ -27,18 +28,28 @@
     AddSourceTipView *tipView = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:type];
     [self.view addSubview:tipView];
     tipView.btnClick = ^(){
+        DLog(@"count = %lu",self.navigationController.viewControllers.count);
+        WeakSelf
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;UIViewController *controller = app.window.rootViewController;
+        MainTabBarController *rvc = (MainTabBarController *)controller;
         if(isteam){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tabBarController setSelectedIndex:1];
-            });
+            
+            [rvc setSelectedIndex:1];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        
         }else{
-            [self.tabBarController setSelectedIndex:2];
-            [self.navigationController popViewControllerAnimated:NO];
+           
+            [rvc setSelectedIndex:2];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         }
     };
 }
 -(void)backBtnClicked{
-    
+    for(UIViewController *temp in self.navigationController.viewControllers) {
+        if([temp isKindOfClass:[AddSourceVC class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+        }
+    }
 }
 /*
 #pragma mark - Navigation

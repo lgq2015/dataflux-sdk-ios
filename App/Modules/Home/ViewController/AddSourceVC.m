@@ -38,7 +38,7 @@
     
     [self addNavigationItemWithImageNames:@[@"home_question"] isLeft:NO target:self action:@selector(rightNavClick) tags:@[@10]];
     
-    NSArray *array = @[@{@"title":@"连接云服务",@"type":@1,@"datas":@[@{@"icon":@"icon_ali",@"name":@"阿里云",@"sourceType":@1},@{@"icon":@"icon_aws",@"name":@"AWS",@"sourceType":@2},@{@"icon":@"icon_tencent",@"name":@"腾讯云",@"sourceType":@3},@{@"icon":@"Ucloud",@"name":@"UCloud",@"sourceType":@4},@{@"icon":@"icon_domainname",@"name":@"域名诊断",@"sourceType":@7}]},@{@"title":@"深度诊断",@"type":@2,@"datas":@[@{@"icon":@"icon_single",@"name":@"主机诊断",@"sourceType":@5},@{@"icon":@"icon_cluster",@"name":@"先见数据平台",@"sourceType":@6}]}];
+    NSArray *array = @[@{@"title":@"云平台诊断",@"type":@1,@"datas":@[@{@"icon":@"icon_ali",@"name":@"阿里云",@"sourceType":@1},@{@"icon":@"icon_aws",@"name":@"AWS",@"sourceType":@2},@{@"icon":@"icon_tencent",@"name":@"腾讯云",@"sourceType":@3},@{@"icon":@"Ucloud",@"name":@"UCloud",@"sourceType":@4},@{@"icon":@"icon_domainname",@"name":@"域名诊断",@"sourceType":@7}]},@{@"title":@"深度诊断",@"type":@2,@"datas":@[@{@"icon":@"icon_single",@"name":@"主机诊断",@"sourceType":@5},@{@"icon":@"icon_cluster",@"name":@"先见数据平台",@"sourceType":@6}]}];
     
     AddSourceItemView *viewClould = [[AddSourceItemView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), ZOOM_SCALE(216))];
     viewClould.data = array[0];

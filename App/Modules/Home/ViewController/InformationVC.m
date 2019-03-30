@@ -279,7 +279,11 @@
     }
 }
 -(void)infoBoardDatasUpdate{
-
+    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
+        if (_infoboard) {
+            [self.infoboard updateTitle:str];
+        }
+    }];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
 

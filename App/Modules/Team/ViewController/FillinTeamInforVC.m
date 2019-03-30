@@ -323,9 +323,6 @@
                     
                     [SVProgressHUD dismiss];
                 }];
-                
-                
-                
             }
         }
         
@@ -399,7 +396,7 @@
         [self.navigationController pushViewController:tradesVC animated:YES];
     }
 }
--(NSUInteger)textLength:(NSString *) text{
+-(NSUInteger)textLength:(NSString *)text{
     
     NSUInteger asciiLength = 0;
     

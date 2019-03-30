@@ -277,7 +277,7 @@
         if (!name) {
             name = [NSDate getNowTimeTimestamp];
         }
-        model.name = name;
+        model.name = [NSString stringWithFormat:@"%@.jpg",name];
         model.image = image;
         model.size = size;
         model.fileID = [NSString stringWithFormat:@"%ld",(long)tag];
