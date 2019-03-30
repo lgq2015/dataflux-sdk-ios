@@ -86,7 +86,7 @@
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"《用户数据安全协议》" andURL:url];
+    PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"用户数据安全协议" andURL:url];
     [self.navigationController pushViewController:webvc animated:YES];
 }
 /*

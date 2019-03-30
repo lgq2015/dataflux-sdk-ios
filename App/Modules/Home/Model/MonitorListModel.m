@@ -83,7 +83,7 @@
     }else{
         self.isFromUser = NO;
     }
-    
+    self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     self.issueId = model.issueId;
     self.accountId = model.accountId;

@@ -118,8 +118,20 @@
 
 }
 - (void)headerRereshing{
-    [self loadTeamProductData];
-    [self loadTeamMemberInfo];
+    if ([getTeamState isEqualToString:PW_isPersonal]) {
+        [userManager addTeamSuccess:^(BOOL isSuccess) {
+            self.isHidenNaviBar = YES;
+            if (isSuccess) {
+                [self.view removeAllSubviews];
+                [self createTeamUI];
+            }
+            [self.header endRefreshing];
+        }];
+        [self.header endRefreshing];
+    }else{
+        [self loadTeamProductData];
+        [self loadTeamMemberInfo];
+    }
 }
 - (void)loadTeamProductData{
     [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
@@ -131,7 +143,7 @@
         }
     }];
     [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
@@ -149,7 +161,8 @@
 }
 - (void)createPersonalUI{
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
-    
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    self.mainScrollView.mj_header = self.header;
     self.view.backgroundColor = PWBackgroundColor;
     NSArray *datas = @[@{@"icon":@"team_infoSource",@"title":@"情报源",@"subTitle":@"开放基础诊断情报源上限为 3 个，为您提供更多的诊断空间"},@{@"icon":@"team_cooperation",@"title":@"协作",@"subTitle":@"支持邀请成员加入团队，共享情报信息；支持主动记录问题，与团队成员共同解决"},@{@"icon":@"team_serve",@"title":@"服务",@"subTitle":@"云资源购买优惠，多领域的解决方案，总有一款是您想要的"}];
     UIView *temp = nil;
@@ -160,7 +173,7 @@
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.view).offset(Interval(16));
                 make.right.mas_equalTo(self.view).offset(-Interval(16));
-                make.top.mas_equalTo(self.view).offset(kTopHeight-20);
+                make.top.mas_equalTo(self.mainScrollView).offset(kTopHeight-20);
                 make.height.offset(itemHeight);
             }];
             temp = item;

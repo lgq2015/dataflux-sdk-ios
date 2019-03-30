@@ -116,6 +116,7 @@
         [PWNetworking requsetHasTokenWithUrl:PW_favoritesAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 weakSelf.isCollect = YES;
+                weakSelf.favoId = response[@"content"][@"id"];
                 [iToast alertWithTitleCenter:@"收藏成功"];
             }
         } failBlock:^(NSError *error) {

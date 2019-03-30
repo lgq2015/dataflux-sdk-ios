@@ -154,6 +154,7 @@
 
 - (void)judgeIssueConnectState{
     NSString  *ishideguide = getIsHideGuide;
+    
     if ([ishideguide isEqualToString:PW_IsHideGuide]) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
@@ -307,11 +308,17 @@
 }
 - (void)loadTipsData{
     [PWNetworking requsetWithUrl:PW_TIPS withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        NSArray *array = response;
-        NSDictionary *dict = array[0];
-        self.noticeDatas = [NSMutableArray new];
-        [self.noticeDatas addObjectsFromArray:array];
-        [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+        if([response isKindOfClass:NSArray.class]){
+            NSArray *array = response;
+            if (array.count>0) {
+                NSDictionary *dict = array[0];
+                self.noticeDatas = [NSMutableArray new];
+                [self.noticeDatas addObjectsFromArray:array];
+                [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+            }
+           
+        }
+        
     } failBlock:^(NSError *error) {
 
     }];
@@ -321,6 +328,7 @@
     self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+    [self infoBoardDatasUpdate];
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
         [self.infoboard updateTitle:str];
     }];

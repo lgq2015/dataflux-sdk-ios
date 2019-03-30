@@ -296,7 +296,6 @@
                         make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(16));
                     }
                     make.left.right.mas_equalTo(self.echartContenterView);
-                    make.height.offset(300);
                     if (j==displayItems.count-1) {
                         make.bottom.mas_equalTo(self.echartContenterView);
                     }
@@ -356,14 +355,14 @@
     NSString *header = [dict stringValueForKey:@"header" default:@""];
     NSArray *body = dict[@"body"];
     UIView *listView = [[UIView alloc]init];
-    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:header];
-    [listView addSubview:headerLab];
-    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(listView).offset(Interval(16));
-        make.top.mas_equalTo(listView);
-        make.right.mas_equalTo(listView).offset(-Interval(16));
-    }];
-    UIView *temp = headerLab;
+//    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:header];
+//    [listView addSubview:headerLab];
+//    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(listView).offset(Interval(16));
+//        make.top.mas_equalTo(listView);
+//        make.right.mas_equalTo(listView).offset(-Interval(16));
+//    }];
+    UIView *temp = nil;
     for (NSInteger i=0;i<body.count;i++) {
         NSString *string = body[i];
         UIView *dot = [[UIView alloc]init];
@@ -376,7 +375,11 @@
     
         [dot mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(listView).offset(Interval(16));
+            if (temp == nil) {
+                make.top.mas_equalTo(listView).offset(5);
+            }else{
                 make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(16));
+            }
                 make.width.height.offset(ZOOM_SCALE(8));
         }];
         temp = dot;

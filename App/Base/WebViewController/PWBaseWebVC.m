@@ -51,7 +51,7 @@
         
         // 设置cookie
         config.processPool = [[WKProcessPool alloc] init];
-        if (getXAuthToken) {
+        if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
             NSDictionary *dic = @{@"loginTokenName":getXAuthToken};
             // 将所有cookie以document.cookie = 'key=value';形式进行拼接
             NSMutableString *cookie = @"".mutableCopy;
@@ -110,7 +110,7 @@
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
    
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
-    if (getXAuthToken) {
+    if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
        [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     }
     [self.webView loadRequest:request];

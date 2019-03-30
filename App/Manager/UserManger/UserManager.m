@@ -74,14 +74,20 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
       //密码登录
-        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
+                if (completion) {
+                    completion(NO,nil);
+                }
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+                
 //          [iToast alertWithTitleCenter:];
                 
             }else{
+                if (completion) {
+                    completion(YES,nil);
+                }
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
@@ -91,6 +97,9 @@ SINGLETON_FOR_CLASS(UserManager);
             
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
+            if (completion) {
+                completion(NO,nil);
+            }
             [SVProgressHUD dismiss];
             [iToast alertWithTitleCenter:@"网络异常"];
         }];
@@ -122,6 +131,9 @@ SINGLETON_FOR_CLASS(UserManager);
             
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
+            if (completion) {
+                completion(NO,@"");
+            }
             [iToast alertWithTitleCenter:@"网络异常"];
 
         }];
