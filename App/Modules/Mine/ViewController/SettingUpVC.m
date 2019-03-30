@@ -15,14 +15,21 @@
 #import "AboutUsVC.h"
 #import "SecurityPrivacyVC.h"
 #import "ClearCacheTool.h"
-
+#import "PrivacySecurityControls.h"
 @interface SettingUpVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)  UIButton *exitBtn;
 @end
 
 @implementation SettingUpVC
-
+-(void)viewDidAppear:(BOOL)animated{
+     BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone?NO:YES;
+    if (self.tableView) {
+        NSIndexPath *index= [NSIndexPath indexPathForRow:0 inSection:0];
+        __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+        [cell setSwitchBtnisOn:isSwitch];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
@@ -31,11 +38,12 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
+    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone?NO:YES;
     
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
 //    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:NO];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];
     NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
@@ -120,11 +128,15 @@
     [alert addAction:confim];
     [self presentViewController:alert animated:YES completion:nil];
 }
-- (void)showSwitchChangeAlert:(NSInteger)row{
-    
+- (void)showSwitchChangeAlert:(NSInteger)row isOn:(BOOL)isOn{
+    if(isOn){
+        PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
+        [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeUserNotification controller:self];
+    }else{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        
+        PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
+        [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeUserNotification controller:self];
     }];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
    __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -134,6 +146,7 @@
     [alert addAction:confirm];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
+}
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -148,9 +161,9 @@
         }else if(indexPath.row == 1){
             [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeSwitch];
             cell.switchChange = ^(BOOL isOn){
-                if(!isOn){
-                    [self showSwitchChangeAlert:indexPath.row];
-                }
+                
+                    [self showSwitchChangeAlert:indexPath.row isOn:isOn];
+                
             };
         }else{
             [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypedDescribe];

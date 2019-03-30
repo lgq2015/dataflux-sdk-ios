@@ -51,7 +51,9 @@
 
 
 #define PW_IsHideGuide  @"ishideguide"
-#define setIsHideGuide(bool)       [kUserDefaults setBool:bool forKey:PW_IsHideGuide]
-#define getIsHideGuide             [kUserDefaults boolForKey:PW_IsHideGuide]
+#define setIsHideGuide(str)       [kUserDefaults setObject:str forKey:PW_IsHideGuide]
+#define getIsHideGuide             [kUserDefaults objectForKey:PW_IsHideGuide]
+
+#define PW_IsNotConnect  @"PW_IsNotConnect"
 
 #endif /* NSUserDefaultsMacros_h */

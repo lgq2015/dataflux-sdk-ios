@@ -638,7 +638,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
          [weakSelf addIssueSourcewithparam:param];
         };
         self.addTipView.netClick = ^(NSURL *url){
-        PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"《用户数据安全协议》" andURL:url];
+        PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"用户数据安全协议" andURL:url];
         weakSelf.addTipView.hidden = YES;
         [weakSelf.navigationController pushViewController:webvc animated:YES];
         };
@@ -658,7 +658,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 [weakSelf addIssueSourcewithparam:param];
             };
             self.addTipView.netClick = ^(NSURL *url){
-            PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"《用户数据安全协议》" andURL:url];
+            PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"用户数据安全协议" andURL:url];
             weakSelf.addTipView.hidden = YES;
             [weakSelf.navigationController pushViewController:webvc animated:YES];
             };
@@ -780,7 +780,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"帮助文档" andURL:url];
+    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"查看帮助" andURL:url];
     [self.navigationController pushViewController:web animated: YES];
 }
 #pragma mark ========== BtnClick ==========

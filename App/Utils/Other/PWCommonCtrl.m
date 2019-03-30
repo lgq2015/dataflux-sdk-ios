@@ -7,6 +7,7 @@
 //
 
 #import "PWCommonCtrl.h"
+#import "BaseTextField.h"
 
 @implementation PWCommonCtrl
 +(UIButton *)buttonWithFrame:(CGRect)frame type:(PWButtonType)type text:(NSString *)text{
@@ -72,6 +73,27 @@
 }
 +(UITextField *)textFieldWithFrame:(CGRect)frame{
    return  [self textFieldWithFrame:frame font:MediumFONT(16)];
+}
++(UITextField *)passwordTextFieldWithFrame:(CGRect)frame{
+    return  [self passwordTextFieldWithFrame:frame font:MediumFONT(16)];
+}
++(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font{
+    BaseTextField *tf = [[BaseTextField alloc]initWithFrame:frame];
+    [tf setFont:font];
+    tf.textColor = PWTextBlackColor;
+    //    [tf setValue:PWCancelBtnColor forKeyPath:@"_placeholderLabel.textColor"];
+    UILabel *place = [[UILabel alloc]init];
+    place.font = font;
+    place.textColor =PWTextLight;
+    place.numberOfLines = 0;
+    [place sizeToFit];
+    tf.secureTextEntry = YES;
+    [tf addSubview:place];
+    [tf setValue:place forKey:@"_placeholderLabel"];
+    
+    tf.clearButtonMode=UITextFieldViewModeWhileEditing;
+    tf.textAlignment = NSTextAlignmentLeft;
+    return tf;
 }
 +(UITextField *)textFieldWithFrame:(CGRect)frame font:(UIFont *)font{
     UITextField *tf = [[UITextField alloc]initWithFrame:frame];

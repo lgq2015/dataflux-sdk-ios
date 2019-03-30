@@ -61,36 +61,42 @@
     [self loadTipsData];
 }
 - (void)judgeIssueConnectState{
-    BOOL  ishideguide = getIsHideGuide;
-    
-    BOOL  isconnect = getConnectState;
-    __block  BOOL  isAdmin = YES;
-    NSString *team = getTeamState;
-    if([team isEqualToString:PW_isTeam]){
-        isAdmin =userManager.teamModel.isAdmin;
-    }else if([team isEqualToString:PW_isPersonal]){
-        isAdmin = YES;
-    }
-    if (ishideguide || isconnect || isAdmin == NO) {
+    NSString  *ishideguide = getIsHideGuide;
+    if ([ishideguide isEqualToString:PW_IsHideGuide]) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         [self createUI];
     }else{
-        [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
-            self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
-            if (isConnect) {
-                [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
-            }
+        __block  BOOL  isAdmin = YES;
+        NSString *team = getTeamState;
+        if([team isEqualToString:PW_isTeam]){
+            isAdmin =userManager.teamModel.isAdmin;
+        }else if([team isEqualToString:PW_isPersonal]){
+            isAdmin = YES;
+        }
+        if (isAdmin == NO) {
+            self.infoBoardStyle =PWInfoBoardStyleConnected;
+            [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
             [self createUI];
-        }];
+        }else{
+            [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
+                self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
+                if (isConnect) {
+                    [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
+                    [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+                }else{
+                    ishideguide == nil?setIsHideGuide(PW_IsNotConnect):nil;
+                }
+                [self createUI];
+            }];
+        }
     }
+   
 }
 - (void)createUI{
 
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
-    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
-         setIsHideGuide(YES);
-    }
+
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
@@ -231,8 +237,14 @@
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];
     [self loadRecommendationData];
     [self loadNewsDatas];
-    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
+        [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
 
+            if (isConnect) {
+            [self infoBoardStyleUpdate];
+            setIsHideGuide(PW_IsHideGuide);
+            }
+        }];
     }
 }
 -(void)footerRereshing{
@@ -259,7 +271,7 @@
 }
 - (void)loadNewsDatas{
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
-    [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];

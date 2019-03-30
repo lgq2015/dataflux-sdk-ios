@@ -79,7 +79,7 @@
 }
 -(UITextField *)passwordTf{
     if (!_passwordTf) {
-        _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
+        _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
         [self.view addSubview:_passwordTf];

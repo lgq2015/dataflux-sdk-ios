@@ -87,7 +87,7 @@
 }
 -(UITextField *)passwordTf{
     if (!_passwordTf) {
-        _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
+        _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_passwordTf];
@@ -153,7 +153,9 @@
         NSDictionary *params = @{
                 @"data": data
         };
-        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD show];
+        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 [iToast alertWithTitleCenter:@"密码设置成功"];
@@ -165,6 +167,7 @@
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         }                  failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
 
         }];
     } else {

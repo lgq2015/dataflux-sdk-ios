@@ -35,8 +35,7 @@
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
-        _passwordTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _passwordTf.secureTextEntry = YES;
+        _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.placeholder = @"请输入密码";
         _passwordTf.clearButtonMode=UITextFieldViewModeNever;
 
@@ -119,7 +118,7 @@
         [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
         NSDictionary *params = @{@"data":data
         };
-        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {

@@ -139,7 +139,6 @@ static NSTimeInterval   requestTimeout = 60.f;
                         successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
-    refresh = YES;
     NSString *typestr=@"";
     switch (type){
         case NetworkPostType:

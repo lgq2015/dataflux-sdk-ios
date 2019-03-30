@@ -8,6 +8,8 @@
 
 #import "MineViewCell.h"
 #import "MineCellModel.h"
+#import "PrivacySecurityControls.h"
+
 @interface MineViewCell()
 @property (nonatomic, assign) MineVCCellType type;
 @property (nonatomic, strong) UIImageView *iconImgView;
@@ -305,7 +307,8 @@
 }
 
 -(void)setSwitchBtnisOn:(BOOL)ison{
-    [self.switchBtn setOn:ison];
+  
+//    [self.switchBtn setOn:ison];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

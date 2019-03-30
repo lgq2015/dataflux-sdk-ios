@@ -26,5 +26,7 @@ typedef NS_ENUM(NSInteger, PWButtonType) {
 +(UITextField *)textFieldWithFrame:(CGRect)frame font:(UIFont *)font;
 +(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder font:(UIFont *)font;
 +(UILabel *)lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text;
++(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font;
++(UITextField *)passwordTextFieldWithFrame:(CGRect)frame;
 @end
 
