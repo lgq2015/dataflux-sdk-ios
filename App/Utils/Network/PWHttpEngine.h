@@ -16,4 +16,7 @@
 
 - (PWURLSessionTask *)deleteProbe:(NSString *)uploadId callBack:(void (^)(id))callback;
 
+- (PWURLSessionTask *)getMessageDetail:(NSString *)entityId callBack:(void (^)(id))callback;
+
+- (PWURLSessionTask *)getIssueDetail:(NSString *)issueId callBack:(void (^)(id))callback;
 @end

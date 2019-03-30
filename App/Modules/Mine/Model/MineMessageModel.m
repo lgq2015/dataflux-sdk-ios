@@ -9,14 +9,25 @@
 #import "MineMessageModel.h"
 
 @implementation MineMessageModel
-+(JSONKeyMapper *)keyMapper{
-    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{
-                                                                  @"messageID": @"id"
-                                                                 }];
-    
+
+
+- (void)setValueWithDict:(NSDictionary *)dict {
+    [super setValueWithDict:dict];
+
+    self.accountId = [dict stringValueForKey:@"accountId" default:@""];
+    self.content = [dict stringValueForKey:@"content" default:@""];
+    self.createTime = [dict stringValueForKey:@"createTime" default:@""];
+    self.createTime = [dict stringValueForKey:@"createTime" default:@""];
+    self.createAccountId = [dict stringValueForKey:@"createAccountId" default:@""];
+    self.isDeleted = [dict boolValueForKey:@"isDeleted" default:NO];
+    self.isReaded = [dict boolValueForKey:@"isReaded" default:NO];
+    self.messageType = [dict stringValueForKey:@"messageType" default:@""];
+    self.title = [dict stringValueForKey:@"title" default:@""];
+    self.messageID = [dict stringValueForKey:@"messageID" default:@""];
+    self.updateAccountId = [dict stringValueForKey:@"updateAccountId" default:@""];
+    self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
+    self.uri = [dict stringValueForKey:@"uri" default:@""];
 }
-+(BOOL)propertyIsOptional:(NSString*)propertyName
-{
-    return YES;
-}
+
+
 @end

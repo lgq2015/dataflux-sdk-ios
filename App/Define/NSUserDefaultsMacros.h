@@ -56,4 +56,9 @@
 
 #define PW_IsNotConnect  @"PW_IsNotConnect"
 
+
+#define  REMOTE_NOTIFICATION_JSPUSH_EXTRA @"jpush_notification_extra"
+#define setRemoteNotificationData(data)       [kUserDefaults setObject:data forKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA]
+#define getRemoteNotificationData            [kUserDefaults objectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA]
+
 #endif /* NSUserDefaultsMacros_h */

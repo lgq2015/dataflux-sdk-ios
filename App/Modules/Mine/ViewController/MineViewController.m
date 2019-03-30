@@ -96,18 +96,6 @@
 
                 long count =(long)self.unread;
                 [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",count]];
-
-                //修改 badge 数量
-                UIBackgroundTaskIdentifier taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-                    [[UIApplication sharedApplication] endBackgroundTask:taskID];
-                }];
-
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
-
-                    [[UIApplication sharedApplication] endBackgroundTask:taskID];
-                });
-
             }
         }
     } failBlock:^(NSError *error) {

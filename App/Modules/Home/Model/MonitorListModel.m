@@ -24,6 +24,10 @@
     return self;
 }
 - (void)setValueWithModel:(IssueModel *)model{
+
+    [model checkInvalidIssue];
+    self.isInvalidIssue = model.isInvalidIssue;
+
     if ([model.level isEqualToString:@"danger"]) {
         self.state = MonitorListStateSeriousness;
     }else if([model.level isEqualToString:@"warning"]){
@@ -45,16 +49,8 @@
         self.highlight = [dict stringValueForKey:@"highlight" default:@""];
         self.attrs = [dict stringValueForKey:@"suggestion" default:@""];
     }else{
-        if ([model.subType isEqualToString:@"buildInCheck"] && ![model.originInfoJSONStr isEqualToString:@""] ) {
-            NSDictionary *dict = [model.originInfoJSONStr jsonValueDecoded];
-            NSString *checkKey = [dict stringValueForKey:@"checkKey" default:@""];
-            if ([checkKey isEqualToString:@"invalidIssueSource"]) {
-                self.title =@"情报源异常";
-            }
-        }else{
         self.title = model.title;
         self.content = model.content;
-        }
     }
     NSDictionary *account_info = issueLogDict[@"account_info"];
     if (account_info.allKeys>0) {

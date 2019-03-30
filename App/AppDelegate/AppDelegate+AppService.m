@@ -17,6 +17,7 @@
 #import <Zhuge.h>
 #import "PWSocketManager.h"
 #import "GuideVC.h"
+#import "LaunchVC.h"
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -34,18 +35,34 @@
                                                object:nil];
 }
 
+-(void)initSVProgressHUD{
+    [SVProgressHUD setCornerRadius:8];
+    [SVProgressHUD setSuccessImage:[UIImage imageNamed:@"pw_toast_hub_ic_success"]];
+    [SVProgressHUD setErrorImage:[UIImage imageNamed:@"pw_toast_hub_ic_fail"]];
+    [SVProgressHUD setMinimumSize:CGSizeMake(110,110)];
+    [SVProgressHUD setImageViewSize:CGSizeMake(40,40)];
+    [SVProgressHUD setFont:RegularFONT(15)];
+
+}
+
 #pragma mark ========== 初始化window ==========
 -(void)initWindow{
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = PWWhiteColor;
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
-       // 引导页
-        GuideVC *wsCtrl = [[GuideVC alloc]init];
-        self.window.rootViewController = wsCtrl;
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
-    }else{
-        [self initUserManager];
-    }
+    //Launch 页面显示
+    self.window.rootViewController = [LaunchVC new];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+            // 引导页
+            GuideVC *wsCtrl = [[GuideVC alloc]init];
+            self.window.rootViewController = wsCtrl;
+            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"isFirst"];
+        }else{
+            [self initUserManager];
+        }
+    });
+
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{

@@ -151,8 +151,22 @@
 }
 
 - (void)judgeIssueConnectState{
+<<<<<<< .merge_file_yC2vX3
     NSString  *ishideguide = getIsHideGuide;
     if ([ishideguide isEqualToString:PW_IsHideGuide]) {
+=======
+    BOOL  ishideguide = getIsHideGuide;
+
+    BOOL  isconnect = getConnectState;
+    __block  BOOL  isAdmin = YES;
+    NSString *team = getTeamState;
+    if([team isEqualToString:PW_isTeam]){
+        isAdmin =userManager.teamModel.isAdmin;
+    }else if([team isEqualToString:PW_isPersonal]){
+        isAdmin = YES;
+    }
+    if (ishideguide || isconnect || isAdmin == NO) {
+>>>>>>> .merge_file_WFEiAa
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         [self createUI];

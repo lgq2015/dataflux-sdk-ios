@@ -9,6 +9,8 @@
 #import "CarrierItemModel.h"
 #import "NSString+ErrorCode.h"
 #import "NSDictionary+URL.h"
+#import "MineMessageModel.h"
+#import "IssueModel.h"
 
 
 @implementation PWHttpEngine {
@@ -123,6 +125,49 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+
+
+
+/**
+ * 加载消息详情
+ * @param messageId
+ * @param callback
+ * @return
+ */
+
+- (PWURLSessionTask *)getMessageDetail:(NSString *)messageId callBack:(void (^)(id))callback {
+
+    MineMessageModel* model = [MineMessageModel new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_systemMessageDetail(messageId) withRequestType:NetworkGetType
+                                 refreshRequest:NO cache:NO params:nil progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+
+
+/**
+ * 获取情报详情
+ * @param issueId
+ * @param callback
+ * @return
+ */
+-(PWURLSessionTask *)getIssueDetail:(NSString *)issueId callBack:(void (^)(id))callback {
+
+    IssueModel* model = [IssueModel new];
+
+    return  [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueId)
+                                 withRequestType:NetworkGetType
+                                  refreshRequest:NO cache:NO params:nil
+                                   progressBlock:nil successBlock:^(id response) {
+
+    } failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+    
+}
+
+
+
 
 
 @end

@@ -20,7 +20,6 @@
     [super viewDidLoad];
     self.title = @"消息详情";
     [self createUI];
-    [self loadMessageDetail];
     [self setMessageRead];
 }
 - (void)createUI{
@@ -96,13 +95,13 @@
     return _contentView;
 }
 - (void)loadMessageDetail{
-    [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageDetail(self.model.messageID) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        [SVProgressHUD dismiss];
-
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-    }];
+//    [SVProgressHUD show];
+//    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageDetail(self.model.messageID) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+//        [SVProgressHUD dismiss];
+//
+//    } failBlock:^(NSError *error) {
+//        [SVProgressHUD dismiss];
+//    }];
 }
 - (void)setMessageRead{
     NSDictionary *param = @{@"data":@{@"system_message_ids":self.model.messageID}};

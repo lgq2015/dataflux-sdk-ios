@@ -21,13 +21,6 @@
 #import "InformationStatusReadManager.h"
 #import "PWNewsListImageCell.h"
 #import "TeamInfoModel.h"
-#import "PWHttpEngine.h"
-#import "MineMessageModel.h"
-#import "MessageDetailVC.h"
-#import "IssueModel.h"
-#import "InfoDetailVC.h"
-#import "ProblemDetailsVC.h"
-
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -66,127 +59,38 @@
     [self dealNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
-    [self dealWithNotificationData];
-
-
 }
-
--(void)dealWithNotificationData{
-    NSDictionary * userInfo= getRemoteNotificationData;
-
-    NSString *title = [userInfo valueForKey:@"content"]; //标题
-    NSDictionary *extras = [userInfo valueForKey:@"extras"];//服务端定义的字段
-
-    NSString *msgType = [extras stringValueForKey:@"msgType" default:@""];  //消息类型
-
-    if([msgType isEqualToString:@"system_message"]){
-        if([extras containsObjectForKey:@"entityId"]){
-            NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-
-            [SVProgressHUD show];
-            [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
-                [SVProgressHUD dismiss];
-                MineMessageModel*data = (MineMessageModel*)o;
-                if(data.isSuccess){
-                    MessageDetailVC *detail = [[MessageDetailVC alloc]init];
-                    detail.model = data;
-                    [self.navigationController pushViewController:detail animated:YES];
-
-                } else{
-                    [iToast alertWithTitleCenter:data.errorCode];
-                }
-            }];
-
-
-        } else if([extras containsObjectForKey:@"uri"]){
-            NSString *uri = [extras stringValueForKey:@"uri" default:@""];
-            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
-            [self.navigationController pushViewController:webView animated:YES];
-        }
-
-    } else if([msgType isEqualToString:@"issue_engine_finish"]){
-        //暂时只停留在首页
-
-    } else if([msgType isEqualToString:@"issue_engine_count"]){
-        //暂时只停留在首页
-
-    }else if([msgType isEqualToString:@"issue_add"]){
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-        [SVProgressHUD show];
-
-        [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
-            [SVProgressHUD dismiss];
-            IssueModel *data = (IssueModel *) o;
-            if (data.isSuccess) {
-                MonitorListModel* monitorListModel=  [[MonitorListModel alloc] initWithJsonDictionary:data];
-
-                InfoRootVC * control;
-                if ([data.origin isEqualToString:@"user"]) {
-                    control=[InfoDetailVC new];
-                } else {
-                    control=[ProblemDetailsVC new];
-                }
-                control.model = monitorListModel;
-
-                [self.navigationController pushViewController:control animated:YES];
-
-            } else {
-                [iToast alertWithTitleCenter:data.errorCode];
-            }
-        }];
-
-
-    }else if([msgType isEqualToString:@"recommendation"]){
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-        NSString *summary = [extras stringValueForKey:@"summary" default:@""];
-        NSString *url = [extras stringValueForKey:@"url" default:@""];
-
-        NewsWebView *webView=  [[NewsWebView alloc] initWithTitle:title andURLString:url];
-        webView.newsModel.newsID = entityId;
-        webView.style = WebItemViewStyleNormal;
-        [self.navigationController pushViewController:webView animated:YES];
-    }
-
-
-}
-
 - (void)judgeIssueConnectState{
-    NSString  *ishideguide = getIsHideGuide;
-    if ([ishideguide isEqualToString:PW_IsHideGuide]) {
+    BOOL  ishideguide = getIsHideGuide;
+    
+    BOOL  isconnect = getConnectState;
+    __block  BOOL  isAdmin = YES;
+    NSString *team = getTeamState;
+    if([team isEqualToString:PW_isTeam]){
+        isAdmin =userManager.teamModel.isAdmin;
+    }else if([team isEqualToString:PW_isPersonal]){
+        isAdmin = YES;
+    }
+    if (ishideguide || isconnect || isAdmin == NO) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         [self createUI];
     }else{
-        __block  BOOL  isAdmin = YES;
-        NSString *team = getTeamState;
-        if([team isEqualToString:PW_isTeam]){
-            isAdmin =userManager.teamModel.isAdmin;
-        }else if([team isEqualToString:PW_isPersonal]){
-            isAdmin = YES;
-        }
-        if (isAdmin == NO) {
-            self.infoBoardStyle =PWInfoBoardStyleConnected;
-            [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
+        [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
+            self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
+            if (isConnect) {
+                [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+            }
             [self createUI];
-        }else{
-            [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
-                self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
-                if (isConnect) {
-                    [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
-                    [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
-                }else{
-                    ishideguide == nil?setIsHideGuide(PW_IsNotConnect):nil;
-                }
-                [self createUI];
-            }];
-        }
+        }];
     }
-   
 }
 - (void)createUI{
 
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
-
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
+         setIsHideGuide(YES);
+    }
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
@@ -327,14 +231,8 @@
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];
     [self loadRecommendationData];
     [self loadNewsDatas];
-    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
-        [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
+    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
 
-            if (isConnect) {
-            [self infoBoardStyleUpdate];
-            setIsHideGuide(PW_IsHideGuide);
-            }
-        }];
     }
 }
 -(void)footerRereshing{
@@ -361,7 +259,7 @@
 }
 - (void)loadNewsDatas{
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
-    [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
@@ -384,7 +282,7 @@
         [recommendDatas addObject:model];
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
-
+   
     [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
@@ -408,7 +306,7 @@
             self.newsPage++;
         }
     }else{
-
+        
     }
 
 }
@@ -424,7 +322,7 @@
             cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
         }
         cell.model = self.newsDatas[indexPath.row];
-
+        
         return cell;
     }else{
         PWNewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListImageCell"];
@@ -432,10 +330,10 @@
             cell = [[PWNewsListImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListImageCell"];
         }
         cell.model = self.newsDatas[indexPath.row];
-
+        
         return cell;
     }
-
+    
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

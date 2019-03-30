@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseReturnModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IssueModel : NSObject
+@interface IssueModel : BaseReturnModel 
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *title;
@@ -32,8 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *originInfoJSONStr;   // 异常情报处理  后台返回缺失，前端自己处理
 @property (nonatomic, assign) BOOL isRead;                   // 数据库存储已读状态
 
+@property (nonatomic, assign)BOOL isInvalidIssue; //异常情报源，这个
+
+
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
+- (void)checkInvalidIssue;
 @end
 
 NS_ASSUME_NONNULL_END
