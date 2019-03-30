@@ -16,6 +16,8 @@
 //初始化服务
 -(void)initService;
 
+- (void)initSVProgressHUD;
+
 //初始化 window
 -(void)initWindow;
 -(void)configUSharePlatforms;

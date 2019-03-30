@@ -110,18 +110,18 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineMessageCell"];
-    NSError *error;
     NSDictionary *dict = self.dataSource[indexPath.row];
-    MineMessageModel *model = [[MineMessageModel alloc]initWithDictionary:dict error:&error];
-        cell.model = model;
+    MineMessageModel *model = [MineMessageModel new];
+    [model setValueWithDict:dict];
+    cell.model = model;
     return cell;
 }
 
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSError *error;
     NSDictionary *dict = self.dataSource[indexPath.row];
-    MineMessageModel *model = [[MineMessageModel alloc]initWithDictionary:dict error:&error];
+    MineMessageModel *model = [MineMessageModel new];
+    [model setValueWithDict:dict];
     if (!([model.uri isEqualToString:@""]|| model.uri == nil)) {
         PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.uri];
         [self.navigationController pushViewController:web animated:YES];

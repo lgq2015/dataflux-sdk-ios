@@ -21,6 +21,13 @@
 #import "InformationStatusReadManager.h"
 #import "PWNewsListImageCell.h"
 #import "TeamInfoModel.h"
+#import "PWHttpEngine.h"
+#import "MineMessageModel.h"
+#import "MessageDetailVC.h"
+#import "IssueModel.h"
+#import "InfoDetailVC.h"
+#import "ProblemDetailsVC.h"
+
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -59,10 +66,93 @@
     [self dealNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
+    [self dealWithNotificationData];
+
+
 }
+
+-(void)dealWithNotificationData{
+    NSDictionary * userInfo= getRemoteNotificationData;
+
+    NSString *title = [userInfo valueForKey:@"content"]; //标题
+    NSDictionary *extras = [userInfo valueForKey:@"extras"];//服务端定义的字段
+
+    NSString *msgType = [extras stringValueForKey:@"msgType" default:@""];  //消息类型
+
+    if([msgType isEqualToString:@"system_message"]){
+        if([extras containsObjectForKey:@"entityId"]){
+            NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+
+            [SVProgressHUD show];
+            [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
+                [SVProgressHUD dismiss];
+                MineMessageModel*data = (MineMessageModel*)o;
+                if(data.isSuccess){
+                    MessageDetailVC *detail = [[MessageDetailVC alloc]init];
+                    detail.model = data;
+                    [self.navigationController pushViewController:detail animated:YES];
+
+                } else{
+                    [iToast alertWithTitleCenter:data.errorCode];
+                }
+            }];
+
+
+        } else if([extras containsObjectForKey:@"uri"]){
+            NSString *uri = [extras stringValueForKey:@"uri" default:@""];
+            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
+            [self.navigationController pushViewController:webView animated:YES];
+        }
+
+    } else if([msgType isEqualToString:@"issue_engine_finish"]){
+        //暂时只停留在首页
+
+    } else if([msgType isEqualToString:@"issue_engine_count"]){
+        //暂时只停留在首页
+
+    }else if([msgType isEqualToString:@"issue_add"]){
+        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        [SVProgressHUD show];
+
+        [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
+            [SVProgressHUD dismiss];
+            IssueModel *data = (IssueModel *) o;
+            if (data.isSuccess) {
+                MonitorListModel* monitorListModel=  [[MonitorListModel alloc] initWithJsonDictionary:data];
+
+                InfoRootVC * control;
+                if ([data.origin isEqualToString:@"user"]) {
+                    control=[InfoDetailVC new];
+                } else {
+                    control=[ProblemDetailsVC new];
+                }
+                control.model = monitorListModel;
+
+                [self.navigationController pushViewController:control animated:YES];
+
+            } else {
+                [iToast alertWithTitleCenter:data.errorCode];
+            }
+        }];
+
+
+    }else if([msgType isEqualToString:@"recommendation"]){
+        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        NSString *summary = [extras stringValueForKey:@"summary" default:@""];
+        NSString *url = [extras stringValueForKey:@"url" default:@""];
+
+        NewsWebView *webView=  [[NewsWebView alloc] initWithTitle:title andURLString:url];
+        webView.newsModel.newsID = entityId;
+        webView.style = WebItemViewStyleNormal;
+        [self.navigationController pushViewController:webView animated:YES];
+    }
+
+
+}
+
 - (void)judgeIssueConnectState{
     BOOL  ishideguide = getIsHideGuide;
-    
+
     BOOL  isconnect = getConnectState;
     __block  BOOL  isAdmin = YES;
     NSString *team = getTeamState;
@@ -282,7 +372,7 @@
         [recommendDatas addObject:model];
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
-   
+
     [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
@@ -306,7 +396,7 @@
             self.newsPage++;
         }
     }else{
-        
+
     }
 
 }
@@ -322,7 +412,7 @@
             cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
         }
         cell.model = self.newsDatas[indexPath.row];
-        
+
         return cell;
     }else{
         PWNewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListImageCell"];
@@ -330,10 +420,10 @@
             cell = [[PWNewsListImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListImageCell"];
         }
         cell.model = self.newsDatas[indexPath.row];
-        
+
         return cell;
     }
-    
+
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

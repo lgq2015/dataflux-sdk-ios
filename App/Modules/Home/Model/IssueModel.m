@@ -17,6 +17,7 @@
     return self;
 }
 - (void)setValueWithDict:(NSDictionary *)dict{
+    [super setValueWithDict:dict];
     self.type = [dict stringValueForKey:@"type" default:@""];
     self.title = [dict stringValueForKey:@"title" default:@""];
     self.level = [dict stringValueForKey:@"level" default:@""];

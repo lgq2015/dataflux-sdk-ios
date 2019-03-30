@@ -142,6 +142,10 @@
 //打印当前方法名
 #define ITTDPRINTMETHODNAME() ITTDPRINT(@"%s", __PRETTY_FUNCTION__)
 
+//获取获取字典类型
+#define PWSafeValueForKey(dic,key) \
+(ISNOTNSNULL([dic valueForKey:key])?[dic valueForKey:key]:nil)
+
 
 
 

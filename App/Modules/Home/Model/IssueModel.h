@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseReturnModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IssueModel : NSObject
+@interface IssueModel : BaseReturnModel 
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *title;

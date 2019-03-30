@@ -7,6 +7,7 @@
 //
 
 #import "JSONModel.h"
+#import "BaseReturnModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /*
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  "updateTime": "2019-03-02T10:32:18Z"
  }
  */
-@interface MineMessageModel : JSONModel
+@interface MineMessageModel : BaseReturnModel
 @property (nonatomic, strong) NSString *accountId;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *createAccountId;
