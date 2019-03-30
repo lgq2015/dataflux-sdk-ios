@@ -75,14 +75,17 @@
 
 #endif
 
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+//    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+//    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+
+
+    [JPUSHService setBadge:0];
+    [JPUSHService resetBadge];
 
     return YES;
 }
 
-- (void)networkDidReceiveMessage:(NSNotification *)notification {
-    NSDictionary * userInfo = [notification userInfo];
+- (void)networkDidReceiveMessage:(NSDictionary *)userInfo {
     setRemoteNotificationData(userInfo);
     [kUserDefaults synchronize];
 
@@ -107,7 +110,6 @@
     }];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [JPUSHService setBadge:0];
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] endBackgroundTask:taskID];
     });
@@ -156,9 +158,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
+
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+            //程序运行时收到通知，先弹出消息框
+        }
     }
     else {
         // 本地通知
+        [self networkDidReceiveMessage:userInfo];
+
     }
     completionHandler();  // 系统要求执行这个方法
 
@@ -173,6 +181,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     else {
         // 本地通知
+        [self networkDidReceiveMessage:userInfo];
+
     }
 
 }
