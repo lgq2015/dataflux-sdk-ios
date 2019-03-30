@@ -19,7 +19,8 @@
 #import "PWFMDB.h"
 #import "IssueSourceManger.h"
 #import "InformationStatusReadManager.h"
-
+#import "PWNewsListImageCell.h"
+#import "TeamInfoModel.h"
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -58,14 +59,19 @@
     [self dealNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
-
 }
 - (void)judgeIssueConnectState{
     BOOL  ishideguide = getIsHideGuide;
+    
     BOOL  isconnect = getConnectState;
-     NSString *team = getTeamState;
-
-    if (ishideguide || isconnect) {
+    __block  BOOL  isAdmin = YES;
+    NSString *team = getTeamState;
+    if([team isEqualToString:PW_isTeam]){
+        isAdmin =userManager.teamModel.isAdmin;
+    }else if([team isEqualToString:PW_isPersonal]){
+        isAdmin = YES;
+    }
+    if (ishideguide || isconnect || isAdmin == NO) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
         [self createUI];
@@ -82,7 +88,7 @@
 - (void)createUI{
 
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
-    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
+    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
          setIsHideGuide(YES);
     }
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
@@ -157,6 +163,8 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
+    [self.tableView registerClass:[PWNewsListImageCell class] forCellReuseIdentifier:@"PWNewsListImageCell"];
+
     self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
     [self.view addSubview:self.tableView];
 
@@ -285,32 +293,47 @@
         NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
         [self.newsDatas addObject:model];
     }];
-
-    [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
-    [self.tableView reloadData];
-    [self.tableView layoutIfNeeded];
-
-    if (page == self.newsPage) {
-        [self showNoMoreDataFooter];
+    if (self.newsDatas.count>0) {
+        [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
+        [self.tableView reloadData];
+        [self.tableView layoutIfNeeded];
+        if (page == self.newsPage) {
+            [self showNoMoreDataFooter];
+        }else{
+            [self.footer endRefreshing];
+        }
+        if (page>self.newsPage) {
+            self.newsPage++;
+        }
     }else{
-        [self.footer endRefreshing];
+        
     }
-    if (page>self.newsPage) {
-        self.newsPage++;
-    }
+
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.newsDatas.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
-    if (!cell) {
-        cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
+    NewsListModel *model = self.newsDatas[indexPath.row];
+    if (model.type == NewListCellTypText) {
+        PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
+        if (!cell) {
+            cell = [[PWNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListCell"];
+        }
+        cell.model = self.newsDatas[indexPath.row];
+        
+        return cell;
+    }else{
+        PWNewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListImageCell"];
+        if (!cell) {
+            cell = [[PWNewsListImageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PWNewsListImageCell"];
+        }
+        cell.model = self.newsDatas[indexPath.row];
+        
+        return cell;
     }
-    cell.model = self.newsDatas[indexPath.row];
-
-    return cell;
+    
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -320,15 +343,19 @@
         [[InformationStatusReadManager sharedInstance] readInformation:model.newsID];
     });
     [self.tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:false];
+    if( model.isStarred){
+      PWBaseWebVC *webVC = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
+      [self.navigationController pushViewController:webVC animated:YES];
+    }else{
     NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
-    newsweb.style = model.isStarred?WebItemViewStyleNoShare:WebItemViewStyleNormal;
+    newsweb.style = WebItemViewStyleNormal;
     newsweb.newsModel = model;
-    
     [self.navigationController pushViewController:newsweb animated:YES];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model =self.newsDatas[indexPath.row];
-    if (model.cellHeight == 0 || !model.cellHeight) {
+    if (model.cellHeight == 0 || !model.cellHeight || model.type == NewListCellTypText) {
         CGFloat cellHeight = [self.tempCell heightForModel:self.newsDatas[indexPath.row]];
         // 缓存给model
         model.cellHeight = cellHeight;

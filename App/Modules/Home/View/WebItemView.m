@@ -37,7 +37,7 @@
     if (self.style == WebItemViewStyleNoShare) {
         self.itemHeight = 38;
     }else{
-        self.itemHeight = 76;
+        self.itemHeight = 38;
     }
     self.contentView.frame = CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight);
    
@@ -49,19 +49,19 @@
         _contentView = [[UIView alloc]initWithFrame:CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.cornerRadius = 8;
-        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
-        share.frame = CGRectMake(0, 0, 150, 38);
-        share.tag = 10;
-        [_contentView addSubview:share];
+//        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
+//        share.frame = CGRectMake(0, 0, 150, 38);
+//        share.tag = 10;
+//        [_contentView addSubview:share];
         if (self.style == WebItemViewStyleNormal) {
             UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":@"收藏"}];
-            collect.frame = CGRectMake(0, 39, 150, 38);
+            collect.frame = CGRectMake(0, 0, 150, 38);
             collect.tag = 20;
             [_contentView addSubview:collect];
         }
         if (self.style == WebItemViewStyleCollect) {
             UIView *collect = [self dropItemWithData:@{@"icon":@"icon_canclecollect",@"title":@"取消收藏"}];
-            collect.frame = CGRectMake(0, 39, 150, 38);
+            collect.frame = CGRectMake(0, 0, 150, 38);
             collect.tag = 20;
             [_contentView addSubview:collect];
         }

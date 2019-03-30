@@ -42,11 +42,11 @@
         make.top.mas_equalTo(icon.mas_bottom).offset(Interval(15));
         make.height.offset(ZOOM_SCALE(20));
     }];
-    MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
+//    MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:@"服务协议"];
     MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
 //    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们"];
-    self.dataSource = [NSMutableArray arrayWithArray:@[service,privacy,newVersion]];
+    self.dataSource = [NSMutableArray arrayWithArray:@[privacy,newVersion]];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
@@ -94,15 +94,17 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
-        case 0:
-            break;
-        case 1:{
+        case 0:{
             PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"服务协议" andURLString:PW_servicelegal];
             [self.navigationController pushViewController:webView animated:YES];
         }
             break;
+        case 1:{
+             [self DetectNewVersion];
+        }
+            break;
         case 2:
-            [self DetectNewVersion];
+          
             break;
         default:
             break;

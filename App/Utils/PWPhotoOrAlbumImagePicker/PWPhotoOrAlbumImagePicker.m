@@ -131,15 +131,22 @@
     // 获取不同媒体类型下的授权类型
     NSInteger cameragranted = [self AVAuthorizationStatusIsGranted];
     // 如果确定未授权 cameragranted ==0 弹框提示；如果确定已经授权 cameragranted == 1；如果第一次触发授权 cameragranted == 2，这里不处理
+    NSString *tipTitle = self.sourceType == 2? @"请开启照片权限":@"请开启相机权限";
+    NSString *tipMessage = type == 2?@"可依次进入[设置-隐私-照片]，允许访问手机相册":@"可依次进入[设置-隐私]中，允许访问相机";
     if (cameragranted == 0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请到设置-隐私-相机/相册中打开授权设置" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *comfirmAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tipTitle message:tipMessage preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        }];
+        UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:@"去开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             // 无权限 引导去开启
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication]canOpenURL:url]) {
                 [[UIApplication sharedApplication]openURL:url];
             }
         }];
+       
+        [alertController addAction:cancle];
         [alertController addAction:comfirmAction];
         [self.viewController presentViewController:alertController animated:YES completion:nil];
     }else if (cameragranted == 1) {

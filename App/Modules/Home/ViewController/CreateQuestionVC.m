@@ -149,7 +149,7 @@
             text = [text substringToIndex:1000];
             self.describeTextView.text = text;
         }
-        count.text = [NSString stringWithFormat:@"%lu/250",(unsigned long)text.length];
+        count.text = [NSString stringWithFormat:@"%lu/1000",(unsigned long)text.length];
     }];
     RACSignal *describeTextView = [self.describeTextView rac_textSignal];
     RACSignal *titleSignal = [self.titleTf rac_textSignal];
@@ -297,7 +297,7 @@
             self.upBatchId = [NSString stringWithFormat:@"%@%@",time,getPWUserID];
         }
     NSDictionary *param = @{@"type":@"attachment",@"subType":@"issueDetailExtra",@"batchId":self.upBatchId};
-    [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:@"jpg" name:@"files" mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+    [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:@"jpg" name:@"files" fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
         DLog(@"bytesWritten = %lld totalBytes = %lld",bytesWritten,totalBytes);
        float progress = 1.0*bytesWritten/totalBytes;
         //回到主线程刷新cell进度

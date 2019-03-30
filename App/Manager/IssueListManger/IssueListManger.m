@@ -322,7 +322,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         } else {
 
         }
-    }                          failBlock:^(NSError *error) {
+    }                 failBlock:^(NSError *error) {
 
     }];
 }
@@ -451,6 +451,8 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                 model.subTitle = dict[@"title"];
             }
             model.seqAct = itemDatas[0].actSeq;
+        }else{
+            model.state = PWInfoBoardItemStateRecommend;
         }
         model.messageCount = itemDatas.count > 99 ? @"99+" : [NSString stringWithFormat:@"%lu", (unsigned long) itemDatas.count];
         if (pageMaker != nil) {

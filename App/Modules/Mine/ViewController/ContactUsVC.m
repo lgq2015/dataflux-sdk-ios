@@ -37,54 +37,74 @@
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(33));
     }];
-    UIButton *phoneBtn = [[UIButton alloc]init];
-    [phoneBtn setBackgroundImage:[UIImage imageNamed:@"icon_csm"] forState:UIControlStateNormal];
-    phoneBtn.tag = TagPhoneBtn;
-    [phoneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *phoneBtn = [[UIButton alloc]init];
+//    [phoneBtn setBackgroundImage:[UIImage imageNamed:@"icon_csm"] forState:UIControlStateNormal];
+//    phoneBtn.tag = TagPhoneBtn;
+//    [phoneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:phoneBtn];
+//    [phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.view).offset(Interval(100));
+//        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(25));
+//        make.width.height.offset(ZOOM_SCALE(50));
+//    }];
+//    UIButton *emailBtn = [[UIButton alloc]init];
+//    [emailBtn setBackgroundImage:[UIImage imageNamed:@"mine_email"] forState:UIControlStateNormal];
+//    [self.view addSubview:emailBtn];
+//    [emailBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    emailBtn.tag = TagEmailBtn;
+//    [emailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.mas_equalTo(self.view).offset(-Interval(100));
+//        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(25));
+//        make.width.height.offset(ZOOM_SCALE(50));
+//    }];
+    
+//    UILabel *phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@"拨打电话"];
+//    phoneLab.textAlignment = NSTextAlignmentCenter;
+//    [self.view addSubview:phoneLab];
+//    [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(phoneBtn.mas_left);
+//        make.top.mas_equalTo(phoneBtn.mas_bottom).offset(Interval(12));
+//        make.width.offset(ZOOM_SCALE(50));
+//        make.height.offset(ZOOM_SCALE(17));
+//    }];
+//    UILabel *emailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@"发送邮件"];
+//    emailLab.textAlignment = NSTextAlignmentCenter;
+//    [self.view addSubview:emailLab];
+//    [emailLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(emailBtn.mas_left);
+//        make.top.mas_equalTo(emailBtn.mas_bottom).offset(Interval(12));
+//        make.width.offset(ZOOM_SCALE(50));
+//        make.height.offset(ZOOM_SCALE(17));
+//    }];
+    UILabel *subTip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWSubTitleColor text:@"服务格言：\n对客户负责，是我们始终的态度"];
+    [self.view addSubview:subTip];
+    subTip.textAlignment = NSTextAlignmentCenter;
+    subTip.numberOfLines = 0;
+    [subTip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(12));
+        make.width.offset(ZOOM_SCALE(50));
+    }];
+    UIButton *phoneBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"400-882-3320"];
+    [phoneBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
     [self.view addSubview:phoneBtn];
     [phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(100));
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(25));
-        make.width.height.offset(ZOOM_SCALE(50));
+        make.top.mas_equalTo(subTip.mas_bottom).offset(Interval(20));
+        make.left.mas_equalTo(self.view).offset(Interval(30));
+        make.right.mas_equalTo(self.view).offset(-Interval(30));
+        make.height.offset(30);
     }];
-    UIButton *emailBtn = [[UIButton alloc]init];
-    [emailBtn setBackgroundImage:[UIImage imageNamed:@"mine_email"] forState:UIControlStateNormal];
-    [self.view addSubview:emailBtn];
-    [emailBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    emailBtn.tag = TagEmailBtn;
-    [emailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view).offset(-Interval(100));
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(25));
-        make.width.height.offset(ZOOM_SCALE(50));
-    }];
-    
-    UILabel *phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@"拨打电话"];
-    phoneLab.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:phoneLab];
-    [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(phoneBtn.mas_left);
-        make.top.mas_equalTo(phoneBtn.mas_bottom).offset(Interval(12));
-        make.width.offset(ZOOM_SCALE(50));
-        make.height.offset(ZOOM_SCALE(17));
-    }];
-    UILabel *emailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@"发送邮件"];
-    emailLab.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:emailLab];
-    [emailLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(emailBtn.mas_left);
-        make.top.mas_equalTo(emailBtn.mas_bottom).offset(Interval(12));
-        make.width.offset(ZOOM_SCALE(50));
-        make.height.offset(ZOOM_SCALE(17));
-    }];
+    phoneBtn.tag = TagPhoneBtn;
+    [phoneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     UIView *downView = [[UIView alloc]init];
     downView.backgroundColor = PWBackgroundColor;
     [self.view addSubview:downView];
     [downView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(emailLab.mas_bottom).offset(Interval(40));
+        make.top.mas_equalTo(phoneBtn.mas_bottom).offset(Interval(60));
         make.width.offset(kWidth);
         make.bottom.mas_equalTo(self.view);
     }];
-    
+   
     UIImageView *logoIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mine_logo"]];
     [downView addSubview:logoIcon];
     logoIcon.frame = CGRectMake(0, Interval(13), ZOOM_SCALE(32), ZOOM_SCALE(32));
@@ -99,7 +119,7 @@
 //        make.top.mas_equalTo(logoIcon.mas_bottom).offset(Interval(10));
 //        make.height.offset(ZOOM_SCALE(17));
 //    }];
-    UILabel *zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWBlueColor text:@"上海浦东新区"];
+    UILabel *zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWBlueColor text:@"上海（总部）"];
     zoonLab.textAlignment = NSTextAlignmentCenter;
     [downView addSubview:zoonLab];
     [zoonLab mas_makeConstraints:^(MASConstraintMaker *make) {

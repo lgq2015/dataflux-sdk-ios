@@ -81,6 +81,7 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
     self.timeLab.text = self.model.updateTime;
+    self.timeLab.hidden = YES;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

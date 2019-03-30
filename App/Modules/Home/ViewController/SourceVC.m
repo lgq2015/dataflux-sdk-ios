@@ -614,7 +614,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [self saveSuccess];
         } else {
             if([response[ERROR_CODE] isEqualToString:@"home.issueSource.invalidIssueSourceAK"]){
-                 [SVProgressHUD showErrorWithStatus:@"密钥验证失败"];
+                 [iToast alertWithTitleCenter:@"密钥验证失败"];
             }else{
             [SVProgressHUD showErrorWithStatus:@"保存失败"];
             }
