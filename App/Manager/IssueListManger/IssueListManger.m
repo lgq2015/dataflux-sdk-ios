@@ -467,9 +467,11 @@
 }
 
 - (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId {
-    NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
-    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
-    [self refreshIssueBoardDatas];
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
+        [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
+        [self refreshIssueBoardDatas];
+    }];
 
 }
 

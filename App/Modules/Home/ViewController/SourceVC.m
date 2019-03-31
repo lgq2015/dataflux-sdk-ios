@@ -17,6 +17,9 @@
 #import "CarrierItemModel.h"
 #import "UIResponder+FirstResponder.h"
 #import "AddSourceTipVC.h"
+#import "IssueSourceManger.h"
+#import "IssueListManger.h"
+
 #define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
     NaviTypeNormal = 0,    //左返回，右更多
@@ -538,7 +541,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
                 UIAlertController *deletAlert = [UIAlertController alertControllerWithTitle:nil message:self.confige.deletAlert preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    [self delectIssueSource];
+                    [self deleteIssueSource];
                 }];
                 UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                 [deletAlert addAction:confirm];
@@ -714,28 +717,33 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 
 
-
+-(void)deleteAndRefreshDB{
+    KPostNotification(KNotificationIssueSourceChange, nil);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[IssueListManger sharedIssueListManger] deleteIssueWithIssueSourceID:self.model.issueSourceId];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+}
 
 
 #pragma mark ========== 删除情报源 ==========
-- (void)delectIssueSource{
+- (void)deleteIssueSource{
     [SVProgressHUD showWithStatus:@"正在删除..."];
 
     void (^sourceNotExist)(void) = ^{
         [SVProgressHUD dismiss];
         [iToast alertWithTitleCenter:@"情报源不存在"];
-        KPostNotification(KNotificationIssueSourceChange, nil);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [self deleteAndRefreshDB];
+
     };
 
     void (^deleteSuccess)(void) = ^{
         [SVProgressHUD showSuccessWithStatus:@"已删除"];
         KPostNotification(KNotificationIssueSourceChange, nil);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [self.navigationController popViewControllerAnimated:YES];
-        });
+        [self deleteAndRefreshDB];
+
     };
 
 

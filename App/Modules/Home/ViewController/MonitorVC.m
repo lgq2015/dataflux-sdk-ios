@@ -228,9 +228,6 @@
 
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [kNotificationCenter removeObserver:self];
-}
 /*
 #pragma mark - Navigation
 

@@ -205,6 +205,16 @@
 
 }
 
+
+- (void)deleteIssueSourceById:(NSString *)issueSourceId {
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceId];
+        [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME whereFormat:whereFormat];
+    }];
+
+}
+
+
 - (void)logout {
     self.lastRefreshTime = nil;
 }

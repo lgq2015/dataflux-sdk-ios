@@ -51,6 +51,8 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
 
 - (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
 
+- (void)deleteIssueSourceById:(NSString *)issueSourceId;
+
 /**
  退出处理
  */
