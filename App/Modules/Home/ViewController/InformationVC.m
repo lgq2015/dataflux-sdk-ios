@@ -45,10 +45,11 @@
 
 @implementation InformationVC
 -(void)viewWillAppear:(BOOL)animated{
-    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
-        if (_infoboard) {
-            [self.infoboard updateTitle:str];
-        }
+
+
+    [[IssueSourceManger sharedIssueSourceManger] checkToGetDetectionStatement:^(NSString *string) {
+        [_infoboard updateTitle:string];
+
     }];
     if(self.infoBoardStyle == PWInfoBoardStyleConnected){
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
@@ -217,9 +218,6 @@
         InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        [self.infoboard updateTitle:str];
-    }];
 
     self.infoboard.itemClick = ^(NSInteger index){
         NSArray *dataSource;
@@ -296,15 +294,12 @@
     }
 }
 -(void)infoBoardDatasUpdate{
-    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString *_Nonnull str) {
-        if (_infoboard) {
-            [self.infoboard updateTitle:str];
-        }
-    }];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
+        NSString *tilte=[[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.infoboard updateTitle:tilte];
             if (array.count>0) {
                 [self.infoboard updataDatas:@{@"datas":array}];
             }
@@ -350,9 +345,7 @@
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
     [self infoBoardDatasUpdate];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        [self.infoboard updateTitle:str];
-    }];
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
     int x = arc4random() % self.noticeDatas.count;
      NSDictionary *dict = self.noticeDatas[x];
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];

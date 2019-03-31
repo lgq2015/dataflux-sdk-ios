@@ -53,13 +53,13 @@
         }
     }
     
-     if(dict[@"credentialJSON"]) {
-         if ([dict[@"credentialJSON"] isKindOfClass:NSString.class]) {
-             NSString *credentialJSON =dict[@"credentialJSONstr"];
+     if(dict[@"credentialJSONStr"]) {
+         if ([dict[@"credentialJSONStr"] isKindOfClass:NSString.class]) {
+             NSString *credentialJSON =dict[@"credentialJSONStr"];
              NSDictionary *dict2 = [credentialJSON jsonValueDecoded];
              self.akId = dict2[@"akId"];
          }else{
-        self.akId = dict[@"credentialJSON"][@"akId"];
+        self.akId = dict[@"credentialJSONStr"][@"akId"];
          }
     }
     self.updateTime = dict[@"updateTime"];

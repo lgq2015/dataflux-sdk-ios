@@ -8,14 +8,13 @@
 
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
+#import "PWHttpEngine.h"
+#import "IssueSourceListModel.h"
+#import "BaseReturnModel.h"
 
-typedef void (^loadDataSuccess)(NSArray *datas);
+#define ISSUE_SOURCE_PAGE_SIZE 100
 
 @interface IssueSourceManger ()
-@property(nonatomic, strong) NSMutableArray *issueSourceList;
-@property(nonatomic, assign) NSInteger currentPage;
-@property(nonatomic, copy) detectTimeStr strBlock;   //-> 回掉
-@property(nonatomic, copy) updateIssueSource aryBlock; //
 @property(nonatomic, copy) NSString *lastRefreshTime; //上次更新时间
 @end
 
@@ -41,38 +40,102 @@ typedef void (^loadDataSuccess)(NSArray *datas);
 }
 
 #pragma mark ------------------ public  ------------------
-//首页拉去情报源数据 或刷新情报源 并获取新的检测时间
-- (void)downLoadAllIssueSourceList:(detectTimeStr)strblock {
-    self.strBlock = strblock;
-    [self downLoadAllIssueSourceListWithTypeTime:YES];
+
+- (void)downLoadAllIssueSourceList:(void (^)(BaseReturnModel *))callBackStatus {
+    NSMutableArray *allDatas = [NSMutableArray new];
+
+    [self getIssueAllSourceByPage:1 alldatas:allDatas lastDataStatus:^(BaseReturnModel *model) {
+        if (model.isSuccess) {
+
+            [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+
+                if (!rollback) {
+                    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
+
+                    [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:allDatas];
+                }
+            }];
+
+        }
+        if(callBackStatus){
+            callBackStatus(model);
+        }
+
+    }];
 }
+
+- (void)downLoadAllIssueSourceList {
+    [self downLoadAllIssueSourceList:nil];
+}
+
 // 获取基础类的 情报源总数
 - (NSInteger)getBasicIssueSourceCount {
 
     __block NSInteger count = 0;
 
     [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = @"where provider = 'aliyun' or  provider = 'aws' or provider = 'qcloud' or provider= 'ucloud' or provider = 'domain'";
+        NSString *whereFormat = @"WHERE provider = 'aliyun' OR  provider = 'aws' OR provider = 'qcloud' OR provider= 'ucloud' OR provider = 'domain'";
         NSDictionary *dict = @{@"id": SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         count = array.count;
     }];
     return count;
 }
-// 距离上次刷新首页检测时间 超过三十秒获取数据库里的检测时间 避免数据库多次调用
-- (void)getLastDetectionTime:(detectTimeStr)strblock {
-      self.strBlock = strblock;
-    //判断时间间隔
-    if (self.lastRefreshTime ==nil || [self.lastRefreshTime timeIntervalAboveThirtySecond]) {
-        //小于30s
-        [self getLastDetectionTimeNow];
+
+/**
+ * 返回检测描述
+ * @return
+ */
+- (NSString *)getLastDetectionTimeStatement {
+
+    NSString *whereFormat = @"ORDER BY scanCheckInQueueTime DESC";
+    NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
+    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
+    if (array.count == 0) {
+        return @"尚未进行检测";
+    } else {
+        NSString *checkTime;
+        NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
+        if (time.length > 0) {
+            NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+        } else {
+            checkTime = @"尚未进行检测";
+        }
+        return checkTime;
     }
+
 }
 
-- (void)updateAllIssueSourceList:(updateIssueSource)aryblock{
-      self.aryBlock = aryblock;
-      self.issueSourceList = [NSMutableArray new];
-      [self downLoadAllIssueSourceListWithTypeTime:NO];
+
+/**
+ * 从 page 开始获取到所有数据
+ * @param page
+ * @param allData
+ * @param callBackStatus
+ */
+- (void)getIssueAllSourceByPage:(NSInteger)page alldatas:(NSMutableArray *)allData lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus {
+
+    [[PWHttpEngine sharedInstance] getIssueSource:page page:ISSUE_SOURCE_PAGE_SIZE callBack:^(id o) {
+
+        IssueSourceListModel *listModel = (IssueSourceListModel *) o;
+        if (listModel.isSuccess) {
+            [allData addObjectsFromArray:listModel.list];
+
+            if (listModel.list.count < ISSUE_SOURCE_PAGE_SIZE) {
+
+                callBackStatus(listModel);
+
+            } else {
+                [[PWHttpEngine sharedInstance] getIssueSource:page + 1 page:ISSUE_SOURCE_PAGE_SIZE callBack:callBackStatus];
+            }
+
+        } else {
+            callBackStatus(listModel);
+        }
+
+
+    }];
 
 }
 
@@ -84,17 +147,14 @@ typedef void (^loadDataSuccess)(NSArray *datas);
                     @"name": SQL_TEXT,
                     @"teamId": SQL_TEXT,
                     @"scanCheckStatus": SQL_TEXT,
-                    @"provider": SQL_TEXT,
-                    @"teamId": SQL_TEXT,
                     @"updateTime": SQL_TEXT,
                     @"id": SQL_TEXT,
-                    @"credentialJSON": SQL_TEXT,
-                    @"credentialJSONstr": SQL_TEXT,
+                    @"credentialJSONStr": SQL_TEXT,
                     @"scanCheckStartTime": SQL_TEXT,
                     @"scanCheckInQueueTime": SQL_TEXT,
-                    @"optionsJSONStr":SQL_TEXT
+                    @"optionsJSONStr": SQL_TEXT
 
-    };
+            };
     NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
     return array;
 }
@@ -107,181 +167,6 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     return datas;
 }
 
-#pragma mark ------------------ privite ------------------
-
-- (void)getIssueSourceListprivite {
-    NSArray *array = [self getIssueSourceListWithoutLock];
-    if (array.count > 0) {
-        self.aryBlock ? self.aryBlock(array) : nil;
-    } else {
-        self.aryBlock ? self.aryBlock(@[]) : nil;
-    }
-
-}
-
-//  istime  是否是获取首页更新检测时间
-- (void)downLoadAllIssueSourceListWithTypeTime:(BOOL)istime {
-    self.currentPage = 1;
-    self.issueSourceList = [NSMutableArray new];
-    NSDictionary *param = @{@"pageSize": @100, @"pageNumber": [NSNumber numberWithInteger:self.currentPage]};
-
-    [self loadIssueSourceListWithParam:param completion:^(NSArray *_Nonnull datas) {
-        [self dealDataWith:datas isTime:istime];
-    }];
-}
-
-- (void)dealDataWith:(NSArray *)datas isTime:(BOOL)istime {
-    NSMutableArray *array = [NSMutableArray new];
-
-    if (datas.count > 0) {
-        [datas enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:obj];
-            if (![obj[@"credentialJSON"] isKindOfClass:[NSNull class]]) {
-                NSString *credentialJSON = [obj[@"credentialJSON"] jsonPrettyStringEncoded];
-                [dict setValue:credentialJSON forKey:@"credentialJSONstr"];
-            }
-            if (![obj[@"optionsJSON"] isKindOfClass:[NSNull class]]) {
-                NSString *optionsJSON = [obj[@"optionsJSON"] jsonPrettyStringEncoded];
-                [dict setValue:optionsJSON forKey:@"optionsJSONStr"];
-            }
-            [array addObject:dict];
-        }];
-
-        [self.getHelper pw_inDatabase:^{
-            if ([self.getHelper pw_isExistTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME]) {
-                [self dealWithData:array isTime:istime];
-            } else {
-
-                NSArray *issuccess = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:array];
-                if (issuccess.count == 0) {
-                    istime ? [self getLastDetectionTimeNow] : [self getIssueSourceListprivite];
-                }
-            }
-        }];
-
-
-    } else {
-        [self.getHelper pw_inDatabase:^{
-            [self dealWithData:array isTime:istime];
-        }];
-    }
-    self.lastRefreshTime = [NSDate getNowTimeTimestamp];
-}
-
-- (void)dealWithData:(NSArray *)array isTime:(BOOL)istime {
-    NSArray *issuelist = [self getIssueSourceListWithoutLock];
-    if (issuelist.count > 0) {
-
-        __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
-        //找到数据库中有,新数据中没有的数据
-        [issuelist enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *_Nonnull stop) {
-
-            __block BOOL isHave = NO;
-            [array enumerateObjectsUsingBlock:^(NSDictionary *newDict, NSUInteger idx, BOOL *_Nonnull stop) {
-
-                if ([dict[@"id"] isEqualToString:newDict[@"id"]]) {
-                    isHave = YES;
-                    *stop = YES;
-                }
-            }];
-            if (!isHave) {
-                [difObject addObject:dict];
-            }
-        }];
-
-        if (difObject.count > 0) {
-            [difObject enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [[IssueListManger sharedIssueListManger]delectIssueWithIsseuSourceID:[obj stringValueForKey:@"id" default:@""]];
-            }];
-
-        }
-
-
-        [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
-        NSArray *issuccess = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:array];
-        if (issuccess.count == 0) {
-            istime ? [self getLastDetectionTimeNow] : [self getIssueSourceListprivite];
-        }
-
-
-    } else {
-        if (array.count == 0) {
-            self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
-        } else {
-
-            NSArray *issuccess = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:array];
-            if (issuccess) {
-                istime ? [self getLastDetectionTimeNow] : [self getIssueSourceListprivite];
-            }
-
-        }
-
-    }
-//    if (array.count>0) {
-//        self.aryBlock ? self.aryBlock(array) :nil;
-//    }else{
-//        self.aryBlock ? self.aryBlock(@[]) :nil;
-//    }
-}
-
-- (void)getLastDetectionTimeNow {
-    NSString *whereFormat = @"order by scanCheckInQueueTime desc";
-    NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
-    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
-    if (array.count == 0) {
-        self.strBlock ? self.strBlock(@"尚未进行检测") : nil;
-    } else {
-        NSString *checkTime;
-        NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
-        if (time.length>0) {
-            NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-            checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
-        }else{
-             checkTime = @"尚未进行检测";
-        }
-        self.strBlock ? self.strBlock(checkTime) : nil;
-    }
-    self.lastRefreshTime = [NSDate getNowTimeTimestamp];
-
-}
-
-- (void)loadIssueSourceListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion {
-    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            NSArray *data = content[@"data"];
-            if (data.count > 0) {
-                [self.issueSourceList addObjectsFromArray:data];
-                NSDictionary *pageInfo = content[@"pageInfo"];
-                long totalCount = [pageInfo longValueForKey:@"totalCount" default:0];
-
-                if (totalCount > self.issueSourceList.count) {
-                    self.currentPage++;
-                    NSDictionary *params = @{@"pageSize": @100, @"pageNumber": [NSNumber numberWithInteger:self.currentPage]};
-                    [self loadNextIssueSourceListWithParam:params completion:^(NSArray *_Nonnull datas) {
-                        completion(datas);
-                    }];
-                } else {
-                    completion(self.issueSourceList);
-                }
-
-            } else {
-                completion(self.issueSourceList);
-            }
-        } else {
-          //请求错误
-        }
-
-    } failBlock:^(NSError *error) {
-         //网络请求错误
-    }];
-}
-
-- (void)loadNextIssueSourceListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion {
-    [self loadIssueSourceListWithParam:param completion:^(NSArray *_Nonnull datas) {
-        completion(datas);
-    }];
-}
 
 - (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID {
     __block NSString *name = @"";
@@ -299,7 +184,23 @@ typedef void (^loadDataSuccess)(NSArray *datas);
     return name;
 }
 
--(void)logout{
+/**
+ * 页面刷新时间小于30秒则不起效
+ * @param time
+ */
+- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime {
+    if (self.lastRefreshTime && ![self.lastRefreshTime timeIntervalAboveThirtySecond]) {
+
+
+    } else {
+        getTime([self getLastDetectionTimeStatement]);
+        self.lastRefreshTime = [NSDate getNowTimeTimestamp];
+
+    }
+
+}
+
+- (void)logout {
     self.lastRefreshTime = nil;
 }
 @end

@@ -125,7 +125,7 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     self.webView.scrollView.bounces = NO;
-   
+
     self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dict = [data jsonValueDecoded];

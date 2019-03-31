@@ -11,6 +11,8 @@
 #import "NSDictionary+URL.h"
 #import "MineMessageModel.h"
 #import "IssueModel.h"
+#import "IssueSourceModel.h"
+#import "IssueSourceListModel.h"
 
 
 @implementation PWHttpEngine {
@@ -164,6 +166,18 @@
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                        failBlock:[self pw_createFailBlock:model withCallBack:callback]];
     
+}
+
+
+- (PWURLSessionTask *)getIssueSource:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback {
+    NSDictionary *param = @{
+            @"pageSize": @(pageSize), @"pageNumber": @(page)};
+    IssueSourceListModel* model = [IssueSourceListModel new];
+
+    return  [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType
+                                  refreshRequest:YES cache:NO params:param progressBlock:nil
+                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
 

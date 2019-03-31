@@ -34,10 +34,8 @@
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
     [[IssueListManger sharedIssueListManger] doDownLoadAllIssueList];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        
-    }];
-   
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
     NSString *path = [extra stringValueForKey:@"path" default:@""];

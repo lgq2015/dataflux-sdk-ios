@@ -53,7 +53,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
  */
 - (void)createData;
 
-- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId;
+- (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId;
 @end
 
 NS_ASSUME_NONNULL_END

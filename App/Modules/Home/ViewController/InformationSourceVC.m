@@ -12,6 +12,8 @@
 #import "AddSourceVC.h"
 #import "SourceVC.h"
 #import "IssueSourceManger.h"
+#import "BaseReturnModel.h"
+
 #define TagNoDataImageView  150
 @interface InformationSourceVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -99,18 +101,11 @@
         [self showNoDataImageView];
     }
     //更新数据
-    [[IssueSourceManger sharedIssueSourceManger] updateAllIssueSourceList:^(NSArray * _Nonnull ary) {
-        if (ary.count>0) {
-            [self hideNoDataImageView];
-            self.dataSource = [NSMutableArray new];
-            [self.dataSource addObjectsFromArray:ary];
-            self.tableView.tableFooterView = self.footView;
-            [self.tableView reloadData];
-        }else{
-            [self showNoDataImageView];
-        }
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
+        [self.header endRefreshing];
+        [iToast alertWithTitleCenter:model.errorMsg delay:1];
+
     }];
-     [self.header endRefreshing];
 }
 -(void)hideNoDataImageView{
     NSArray *title = @[@"添加"];

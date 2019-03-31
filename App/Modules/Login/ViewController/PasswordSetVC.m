@@ -155,7 +155,7 @@
         };
         [SVProgressHUD show];
         self.confirmBtn.enabled = NO;
-        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             self.confirmBtn.enabled = YES;
             if ([response[ERROR_CODE] isEqualToString:@""]) {

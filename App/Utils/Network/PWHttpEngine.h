@@ -19,4 +19,6 @@
 - (PWURLSessionTask *)getMessageDetail:(NSString *)entityId callBack:(void (^)(id))callback;
 
 - (PWURLSessionTask *)getIssueDetail:(NSString *)issueId callBack:(void (^)(id))callback;
+
+- (PWURLSessionTask *)getIssueSource:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback;
 @end
