@@ -53,10 +53,10 @@
             [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
         }
         }else{
-            
+
         }
     }else{
-        
+
         [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
     }
 //    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){
@@ -91,19 +91,36 @@
 }
 - (void)loadData{
     //拿本地数据
-    NSArray *array =  [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+    NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
     self.dataSource = [NSMutableArray new];
     [self.dataSource addObjectsFromArray:array];
-    if (self.dataSource.count>0) {
+    if (self.dataSource.count > 0) {
         [self.tableView reloadData];
         self.tableView.tableFooterView = self.footView;
-    }else{
+    } else {
         [self showNoDataImageView];
     }
+
     //更新数据
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
         [self.header endRefreshing];
-        [iToast alertWithTitleCenter:model.errorMsg delay:1];
+        if (!model.isSuccess) {
+            [iToast alertWithTitleCenter:model.errorMsg delay:1];
+        } else {
+            NSArray *ary = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+
+            if (ary.count > 0) {
+                [self hideNoDataImageView];
+                self.dataSource = [NSMutableArray new];
+                [self.dataSource addObjectsFromArray:ary];
+                self.tableView.tableFooterView = self.footView;
+                [self.tableView reloadData];
+            } else {
+                [self showNoDataImageView];
+            }
+
+        }
+
 
     }];
 }
@@ -126,14 +143,14 @@
         self.tableView.hidden = YES;
     }
     self.nodataView.hidden = NO;
-    
+
 }
 -(UIView *)nodataView{
     if (!_nodataView) {
         _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
         _nodataView.backgroundColor = PWWhiteColor;
         [self.view addSubview:_nodataView];
-        
+
         UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank_page"]];
         [_nodataView addSubview:bgImgview];
         [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,7 +190,7 @@
                 make.height.offset(ZOOM_SCALE(47));
             }];
         }
-            
+
     }
     return _nodataView;
 }
@@ -193,7 +210,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InformationSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationSourceCell"];
-    
+
     cell.model = [[PWInfoSourceModel alloc]initWithJsonDictionary:self.dataSource[indexPath.row]];
     return cell;
 }

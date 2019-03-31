@@ -49,11 +49,12 @@
 
             [self.getHelper pw_inTransaction:^(BOOL *rollback) {
 
-                if (!rollback) {
-                    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
 
-                    [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:allDatas];
-                }
+                [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
+
+                [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:allDatas];
+
+                rollback=NO;
             }];
 
         }
@@ -116,7 +117,7 @@
  */
 - (void)getIssueAllSourceByPage:(NSInteger)page alldatas:(NSMutableArray *)allData lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus {
 
-    [[PWHttpEngine sharedInstance] getIssueSource:page page:ISSUE_SOURCE_PAGE_SIZE callBack:^(id o) {
+    [[PWHttpEngine sharedInstance] getIssueSource:ISSUE_SOURCE_PAGE_SIZE page:page callBack:^(id o) {
 
         IssueSourceListModel *listModel = (IssueSourceListModel *) o;
         if (listModel.isSuccess) {
@@ -127,7 +128,7 @@
                 callBackStatus(listModel);
 
             } else {
-                [[PWHttpEngine sharedInstance] getIssueSource:page + 1 page:ISSUE_SOURCE_PAGE_SIZE callBack:callBackStatus];
+                [[PWHttpEngine sharedInstance] getIssueSource:ISSUE_SOURCE_PAGE_SIZE page:page + 1 callBack:callBackStatus];
             }
 
         } else {

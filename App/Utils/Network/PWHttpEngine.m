@@ -13,6 +13,7 @@
 #import "IssueModel.h"
 #import "IssueSourceModel.h"
 #import "IssueSourceListModel.h"
+#import "IssueListModel.h"
 
 
 @implementation PWHttpEngine {
@@ -176,6 +177,28 @@
 
     return  [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType
                                   refreshRequest:YES cache:NO params:param progressBlock:nil
+                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+
+
+
+-(PWURLSessionTask *)getIssueList:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback{
+
+    NSDictionary *params =
+            @{@"_withLatestIssueLog": @YES,
+                    @"orderBy": @"actSeq",
+                    @"_latestIssueLogLimit": @1,
+                    @"_latestIssueLogSubType": @"comment",
+                    @"orderMethod": @"asc",
+                    @"pageSize": @(page)
+            };
+
+
+
+    IssueListModel * model = [IssueListModel new];
+    return  [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType
+                                  refreshRequest:YES cache:NO params:params progressBlock:nil
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                        failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }

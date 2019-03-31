@@ -20,7 +20,7 @@
 
     NSArray *array = PWSafeArrayVal(content, @"data");
     [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [self.list addObject:[[IssueSourceModel alloc] initWithDictionary:dict]];
+        [self.list addObject:[[IssueSourceModel alloc] initWithDictionary:obj]];
     }];
 
 

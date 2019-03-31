@@ -136,11 +136,6 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
-    } else {
-//        NSDictionary * params = @{
-//                @"optionsJSONStr":SQL_TEXT
-//        };
-//        [[self getHelper] pw_alterTable:tableName dicOrModel:params];
     }
 
 }
@@ -204,6 +199,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
 
         NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+        //判断是否初始化
         if (infoDatas.count == 0) {
             [self downLoadAllIssueList];
         } else {
