@@ -54,11 +54,11 @@
 
                 [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModelArray:allDatas];
 
-                rollback=NO;
+                rollback = NO;
             }];
 
         }
-        if(callBackStatus){
+        if (callBackStatus) {
             callBackStatus(model);
         }
 
@@ -89,22 +89,26 @@
  */
 - (NSString *)getLastDetectionTimeStatement {
 
-    NSString *whereFormat = @"ORDER BY scanCheckInQueueTime DESC";
-    NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
-    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
-    if (array.count == 0) {
-        return @"尚未进行检测";
-    } else {
-        NSString *checkTime;
-        NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
-        if (time.length > 0) {
-            NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-            checkTime = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+    __block NSString *statement = @"";
+
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = @"ORDER BY scanCheckInQueueTime DESC";
+        NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
+        if (array.count == 0) {
+            statement = @"尚未进行检测";
         } else {
-            checkTime = @"尚未进行检测";
+            NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
+            if (time.length > 0) {
+                NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+                statement = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+            } else {
+                statement = @"尚未进行检测";
+            }
         }
-        return checkTime;
-    }
+    }];
+
+    return statement;
 
 }
 

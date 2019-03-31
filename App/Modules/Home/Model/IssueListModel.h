@@ -8,4 +8,6 @@
 
 
 @interface IssueListModel : BaseReturnModel
+
+@property (nonatomic, strong) NSMutableArray * list;
 @end

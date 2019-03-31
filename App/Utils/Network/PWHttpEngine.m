@@ -183,21 +183,24 @@
 
 
 
--(PWURLSessionTask *)getIssueList:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback{
+-(PWURLSessionTask *)getIssueList:(NSInteger)pageSize pageMarker:(long long)pageMarker callBack:(void (^)(id))callback{
 
-    NSDictionary *params =
-            @{@"_withLatestIssueLog": @YES,
-                    @"orderBy": @"actSeq",
-                    @"_latestIssueLogLimit": @1,
-                    @"_latestIssueLogSubType": @"comment",
-                    @"orderMethod": @"asc",
-                    @"pageSize": @(page)
-            };
+    NSMutableDictionary *params =
+            [@{@"_withLatestIssueLog": @YES,
+                                @"orderBy": @"actSeq",
+                                @"_latestIssueLogLimit": @1,
+                                @"_latestIssueLogSubType": @"comment",
+                                @"orderMethod": @"asc",
+                                @"pageSize": @(pageSize)
+                        } mutableCopy];
 
 
+    if(pageMarker>0){
+        [params addEntriesFromDictionary:@{@"pageMarker":@(pageMarker)}];
+    }
 
     IssueListModel * model = [IssueListModel new];
-    return  [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType
+    return  [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType
                                   refreshRequest:YES cache:NO params:params progressBlock:nil
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                        failBlock:[self pw_createFailBlock:model withCallBack:callback]];

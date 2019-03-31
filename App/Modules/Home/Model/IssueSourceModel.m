@@ -27,10 +27,10 @@
     self.teamId = [dict stringValueForKey:@"teamId" default:@""];
     self.scanCheckStatus = [dict stringValueForKey:@"scanCheckStatus" default:@""];
     self.id = [dict stringValueForKey:@"id" default:@""];
-    self.credentialJSONStr = [dict stringValueForKey:@"credentialJSONStr" default:@""];
+    self.credentialJSONStr = [PWSafeDictionaryVal(dict, @"credentialJSON") jsonStringEncoded];
     self.scanCheckStartTime = [dict stringValueForKey:@"scanCheckStartTime" default:@""];
     self.scanCheckInQueueTime = [dict stringValueForKey:@"scanCheckInQueueTime" default:@""];
-    self.optionsJSONStr = [dict stringValueForKey:@"optionsJSONStr" default:@""];
+    self.optionsJSONStr =  [PWSafeDictionaryVal(dict, @"optionsJSONS")jsonStringEncoded];
 
 
 }

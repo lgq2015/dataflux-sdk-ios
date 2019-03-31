@@ -42,19 +42,19 @@
     [super viewDidLoad];
     self.title = @"讨论";
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dealWithNewDta)
-                                                 name:KNotificationChatNewDatas
-                                               object:nil];
+    [kNotificationCenter addObserver:self
+                            selector:@selector(dealWithNewDta)
+                                name:KNotificationChatNewDatas
+                              object:nil];
     [self createUI];
 
 
     //获取历史数据
-  
+
     NSArray *array= [PWChatDatas receiveMessages:self.issueID];
     [self.datas addObjectsFromArray:array];
     [self.mTableView reloadData];
-    
+
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
     [[IssueChatDataManager sharedInstance]
             fetchAllChatIssueLog:_issueID

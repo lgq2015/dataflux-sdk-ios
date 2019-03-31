@@ -167,7 +167,7 @@
     
     if ([ishideguide isEqualToString:PW_IsHideGuide]) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
         [self createUI];
     }else{
         __block  BOOL  isAdmin = YES;
@@ -186,7 +186,7 @@
                 self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
                 if (isConnect) {
                     [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
-                    [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+                    [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
                 }else{
                     ishideguide == nil?setIsHideGuide(PW_IsNotConnect):nil;
                 }
@@ -285,7 +285,7 @@
 -(void)infoBoardStyleUpdate{
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
         self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
@@ -343,9 +343,9 @@
     self.newsPage = 1;
     self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
-    [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
-    [self infoBoardDatasUpdate];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+//    [self infoBoardDatasUpdate];
+//    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
     int x = arc4random() % self.noticeDatas.count;
      NSDictionary *dict = self.noticeDatas[x];
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];

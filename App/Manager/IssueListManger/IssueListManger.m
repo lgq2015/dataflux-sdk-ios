@@ -13,17 +13,17 @@
 #import "UserManager.h"
 #import "TeamInfoModel.h"
 #import "PWFMDB+Simplefy.h"
+#import "PWHttpEngine.h"
+#import "IssueListModel.h"
+#import "IssueSourceManger.h"
+#import "BaseReturnModel.h"
 
 #define ISSUE_SOURCE_FILTER_SELECTION  @" AND (issueSourceId='' OR issueSourceId IN (SELECT id FROM issue_source))"
 #define ISSUE_LIST_PAGE_SIZE  100
 
-typedef void (^loadDataSuccess)(NSArray *datas, NSNumber *pageMaker);
-
-typedef void (^pageBlock)(NSNumber *pageMarker);
 
 @interface IssueListManger ()
-@property(nonatomic, strong) NSMutableArray *issueList;
-@property(nonatomic, copy) NSString *tableName;
+@property(nonatomic, assign) BOOL isFetching;
 @end
 
 @implementation IssueListManger
@@ -52,6 +52,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
                        dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT}];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{@"issueSourceId": SQL_TEXT,}];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{@"credentialJSONStr": SQL_TEXT,}];
 
 }
 
@@ -147,7 +148,6 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 }
 
 - (void)createData {
-    self.issueList = [NSMutableArray new];
     self.infoDatas = [NSMutableArray new];
     NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
     for (NSInteger i = 0; i < 5; i++) {
@@ -158,74 +158,29 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
         model.seqAct = 0;
         model.typeName = nameArray[i];
         model.messageCount = @"0";
-        model.pageMaker = @0;
+//        model.pageMaker = @0;
         [self.infoDatas addObject:model];
     }
 }
 
 #pragma mark ========== public method ==========
 
-// 全量更新/会判断是否需要更新
-- (void)downLoadAllIssueList {
-    if ([getPWUserID isEqualToString:@""] || self.tableName == nil) {
-        if ([userManager loadUserInfo]) {
-            self.tableName = [userManager.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        }
-    }
-    [self doDownLoadAllIssueList];
-}
 
-- (void)doDownLoadAllIssueList {
-    BOOL update = [self isNeedUpdateAll];
-    if (update) {
-        NSDictionary *params = @{@"_withLatestIssueLog": @YES, @"orderBy": @"actSeq", @"_latestIssueLogLimit": @1, @"orderMethod": @"asc", @"pageSize": @100};
-        self.issueList = [NSMutableArray new];
+/**
+ * 根据 pageMarker
+ * @param pageMaker
+ */
+- (void)fetchAllIssueWithPageMarker:(long long)pageMaker allDatas:(NSMutableArray *)allDatas
+                     lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus {
+    [[PWHttpEngine sharedInstance] getIssueList:ISSUE_LIST_PAGE_SIZE pageMarker:pageMaker callBack:^(id o) {
+        IssueListModel *listModel = (IssueListModel *) o;
 
-        if ([self.getHelper pw_isExistTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]) {
-            [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
-        }
+        if (listModel.isSuccess) {
 
-        [self loadIssueListWithParam:params completion:^(NSArray *datas, NSNumber *pageMaker) {
-            [self dealWithIssueData:self.issueList pageMaker:pageMaker];
-        }];
-    }
-}
-
-// 更新 issueList
-- (void)newIssueNeedUpdate {
-    self.issueList = [NSMutableArray new];
-
-    [self.getHelper pw_inDatabase:^{
-        NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
-
-        NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
-        //判断是否初始化
-        if (infoDatas.count == 0) {
-            [self downLoadAllIssueList];
-        } else {
-            InfoBoardModel *model = infoDatas[0];
-            NSMutableDictionary *params = [
-                    @{@"_withLatestIssueLog": @YES,
-                            @"orderBy": @"actSeq",
-                    @"_latestIssueLogLimit": @1,
-                    @"_latestIssueLogSubType": @"comment",
-                    @"orderMethod": @"asc",
-                    @"pageSize": @ISSUE_LIST_PAGE_SIZE
-            } mutableCopy];
-            if (model.pageMaker >0) {
-                [params addEntriesFromDictionary:@{@"pageMarker": model.pageMaker}];
-            }
-
-            [self loadIssueListWithParam:params completion:^(NSArray *datas, NSNumber *pageMaker) {
-                if (datas.count > 0) {
-                    NSMutableArray *newDatas = [NSMutableArray new];
-                    [datas enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-
-                        IssueModel *issueModel = [[IssueModel alloc] initWithDictionary:obj];
-
-                        [newDatas addObject:issueModel];
-                    }];
-                    [newDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+            [allDatas addObjectsFromArray:listModel.list];
+            if (listModel.list.count < ISSUE_LIST_PAGE_SIZE) {
+                [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                    [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
                         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
                         NSArray *issuemodel = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
                         if (issuemodel.count > 0) {
@@ -234,50 +189,101 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                             [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
                         }
                     }];
-                    [self dealDataForInfoBoardWithPageMaker:pageMaker];
-                }
 
+
+                    [self refreshIssueBoardDatas];
+                    setLastTime([NSDate date]);
+                    if (callBackStatus == nil) {
+                        KPostNotification(KNotificationNewIssue, @YES);
+                    }
+
+                    rollback = NO;
+
+                }];
+
+            } else {
+                long long lastPageMaker = ((IssueModel *) [allDatas lastObject]).actSeq;
+                [self fetchAllIssueWithPageMarker:lastPageMaker allDatas:allDatas lastDataStatus:callBackStatus];
+            }
+
+        }
+
+        if (callBackStatus != nil) {
+            callBackStatus(listModel);
+        }
+        _isFetching = NO;
+
+
+    }];
+
+}
+
+- (void)fetchIssueList:(BOOL)check {
+    [self fetchIssueList:nil check:check];
+
+}
+
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus check:(BOOL)check {
+    if (_isFetching) {
+        return;
+    }
+
+    _isFetching = YES;
+
+    if (check) {
+        BOOL update = [self isNeedUpdateAll];
+        if (update) {
+            [self.getHelper pw_inDatabase:^{
+                if ([self.getHelper pw_isExistTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]) {
+                    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
+                }
             }];
         }
-    }];
+    }
 
-}
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
 
-
-// issueList/GET
-- (void)loadIssueListWithParam:(NSDictionary *)param completion:(loadDataSuccess)completion {
-    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            NSArray *data = content[@"data"];
-            [self.issueList addObjectsFromArray:data];
-            if (data.count < ISSUE_LIST_PAGE_SIZE) {
-
-                NSNumber *pageMarker2;
-                if ([[param allKeys] containsObject:@"pageMarker"]) {
-                    long pageMarker1 = [param longValueForKey:@"pageMarker" default:1];
-                    pageMarker2 = [NSNumber numberWithLong:pageMarker1];
-                } else {
-                    pageMarker2 = @1;
-                }
-
-                completion(self.issueList, pageMarker2);
-            } else {
-                NSDictionary *pageInfo = content[@"pageInfo"];
-                long long pageMarker = [pageInfo longLongValueForKey:@"pageMarker" default:1];
-                NSNumber *pageMarker1 = @(pageMarker);
-                NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-                [params addEntriesFromDictionary:param];
-                [params setValue:pageMarker1 forKey:@"pageMarker"];
-                [self loadIssueListWithParam:params completion:completion];
-            }
+        if (model.isSuccess) {
+            NSMutableArray *allDatas = [NSMutableArray new];
+            long long lastPagerMaker = [self getLastPageMarker];
+            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas lastDataStatus:callBackStatus];
         } else {
-
+            callBackStatus(model);
         }
-    }                          failBlock:^(NSError *error) {
 
     }];
+
+
 }
+
+- (BOOL)isInfoBoardInit {
+    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+
+    NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+    //判断是否初始化
+    return infoDatas.count == 0;
+}
+
+
+/**
+ * 获取最好条数据的marker
+ * @return
+ */
+- (long long)getLastPageMarker {
+    __block long long seqAct = 0;
+
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = @"ORDER BY seqAct DESC";
+        NSDictionary *dict = @{@"seqAct": SQL_INTEGER};
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
+        if (array.count > 0) {
+            seqAct = [array[0] longLongValueForKey:@"seqAct" default:0];
+        }
+    }];
+    return seqAct;
+
+}
+
 
 - (NSArray *)getIssueListWithIssueType:(NSString *)type {
     NSMutableArray *array = [NSMutableArray new];
@@ -338,57 +344,10 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 }
 
 
-
-
-#pragma mark ========== 数据库==========
-
-//数据库存储
-- (void)dealWithIssueData:(NSArray *)data pageMaker:(NSNumber *)pageMaker {
-    DLog(@"%@", data);
-
-    [self.getHelper pw_inDatabase:^{
-        if (data.count > 0) {
-            NSMutableArray *array = [NSMutableArray new];
-            [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                IssueModel *model = [[IssueModel alloc] initWithDictionary:obj];
-                [array addObject:model];
-            }];
-
-            NSArray *resultMArr = [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModelArray:array];
-            if (resultMArr.count == 0) {
-                setLastTime([NSDate date]);
-            }
-
-        }
-        [self dealDataForInfoBoardWithPageMaker:pageMaker];
-
-    }];
-
-}
-
-- (void)createInfoBoardFmdbWithData:(NSArray *)array {
-
-    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
-
-    if ([self.getHelper pw_isExistTable:infoTableName]) {
-        [self.getHelper pw_deleteAllDataFromTable:infoTableName];
-        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
-    } else {
-
-        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:array];
-
-    }
-
-    KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
-    KPostNotification(KNotificationNewIssue, @YES);
-
-
-}
-
 #pragma mark ========== infoBoard 数据库创建相关 ==========
 
 // InfoBoard需要的数据处理
-- (void)dealDataForInfoBoardWithPageMaker:(NSNumber *)pageMaker {
+- (void)refreshIssueBoardDatas {
 
     NSString *tableName = PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME;
     NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
@@ -435,18 +394,24 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
                 model.subTitle = dict[@"title"];
             }
             model.seqAct = itemDatas[0].actSeq;
-        }else{
+        } else {
             model.state = PWInfoBoardItemStateRecommend;
         }
         model.messageCount = itemDatas.count > 99 ? @"99+" : [NSString stringWithFormat:@"%lu", (unsigned long) itemDatas.count];
-        if (pageMaker != nil) {
-            model.pageMaker = pageMaker;
-        }
-
         [infoArray addObject:model];
     }
-    [self createInfoBoardFmdbWithData:infoArray];
 
+    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+
+    if ([self.getHelper pw_isExistTable:infoTableName]) {
+        [self.getHelper pw_deleteAllDataFromTable:infoTableName];
+        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:infoArray];
+    } else {
+
+        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:infoArray];
+
+    }
+    KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
 }
 
 - (void)readIssue:(NSString *)issueId {
@@ -504,7 +469,7 @@ typedef void (^pageBlock)(NSNumber *pageMarker);
 - (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId {
     NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
     [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
-    [self dealDataForInfoBoardWithPageMaker:nil];
+    [self refreshIssueBoardDatas];
 
 }
 

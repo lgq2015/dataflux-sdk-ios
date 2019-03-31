@@ -116,7 +116,7 @@ static dispatch_queue_t socket_message_queue() {
         if(data.count>0){
             DLog(ON_EVENT_ISSUE_UPDATE
                  " = %@", data);
-            [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+            [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
         }
         
     }];
@@ -137,7 +137,7 @@ static dispatch_queue_t socket_message_queue() {
 
             //过滤脏数据
             if ([array containsObject:model.subType]){
-                [[NSNotificationCenter defaultCenter]
+                [kNotificationCenter
                         postNotificationName:KNotificationChatNewDatas
                                       object:nil
                                     userInfo:dic];

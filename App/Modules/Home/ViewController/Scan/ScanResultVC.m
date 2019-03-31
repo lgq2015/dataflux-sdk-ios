@@ -33,7 +33,7 @@
         [self.tabBarController setSelectedIndex:2];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
-    [[IssueListManger sharedIssueListManger] doDownLoadAllIssueList];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
 
 }
