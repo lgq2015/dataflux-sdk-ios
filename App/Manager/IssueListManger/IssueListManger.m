@@ -490,10 +490,10 @@
 
 
 -(void)clearAllIssueData{
-    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:nil];
-    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME whereFormat:nil];
-    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME whereFormat:nil];
-    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME whereFormat:nil];
+    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
+    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME ];
+    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME ];
+    [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME ];
 
 
 }
