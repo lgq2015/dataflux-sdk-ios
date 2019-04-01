@@ -50,6 +50,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
+    self.tableView.bounces = NO;
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     [self.view addSubview:self.tableView];
     self.tableView.frame = CGRectMake(0, Interval(86)+ZOOM_SCALE(84), kWidth, self.dataSource.count*45);
