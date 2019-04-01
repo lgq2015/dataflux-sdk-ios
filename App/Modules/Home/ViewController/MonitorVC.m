@@ -83,6 +83,7 @@
 
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
+    [self headerRereshing];
 }
 -(void)headerRereshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
