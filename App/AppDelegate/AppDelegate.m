@@ -78,10 +78,6 @@
 //    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 //    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
-
-    [JPUSHService setBadge:0];
-    [JPUSHService resetBadge];
-
     return YES;
 }
 
@@ -123,6 +119,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
     [[PWSocketManager sharedPWSocketManager] checkForRestart];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
