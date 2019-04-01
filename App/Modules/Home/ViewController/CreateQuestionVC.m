@@ -247,6 +247,8 @@
         }else{
         params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
         }
+        [SVProgressHUD show];
+
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];

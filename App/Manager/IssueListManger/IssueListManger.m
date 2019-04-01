@@ -50,9 +50,14 @@
     }];
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
-                       dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT}];
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{@"issueSourceId": SQL_TEXT,}];
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{@"credentialJSONStr": SQL_TEXT,}];
+                       dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT,
+                       }];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
+                       dicOrModel:@{@"isVirtual": SQL_INTEGER,
+                       }];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
+            @"issueSourceId": SQL_TEXT,
+            @"credentialJSONStr": SQL_TEXT,}];
 
 }
 
@@ -133,6 +138,7 @@
                         @"scanCheckStartTime": SQL_TEXT,
                         @"scanCheckInQueueTime": SQL_TEXT,
                         @"optionsJSONStr": SQL_TEXT,
+                        @"isVirtual": SQL_INTEGER,
                 };
 
         [dict addEntriesFromDictionary:params];

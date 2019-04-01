@@ -20,6 +20,7 @@
 @property (nonatomic, strong)NSString *scanCheckStartTime;
 @property (nonatomic, strong)NSString *scanCheckInQueueTime;
 @property (nonatomic, strong)NSString *optionsJSONStr;
+@property (nonatomic, assign)BOOL isVirtual;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 @end

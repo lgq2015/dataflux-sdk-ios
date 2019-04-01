@@ -157,7 +157,9 @@
                     @"credentialJSONStr": SQL_TEXT,
                     @"scanCheckStartTime": SQL_TEXT,
                     @"scanCheckInQueueTime": SQL_TEXT,
-                    @"optionsJSONStr": SQL_TEXT
+                    @"optionsJSONStr": SQL_TEXT,
+                    @"isVirtual": SQL_INTEGER,
+
 
             };
     NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];

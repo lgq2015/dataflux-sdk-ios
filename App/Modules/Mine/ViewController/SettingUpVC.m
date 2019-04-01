@@ -95,7 +95,7 @@
     UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[UserManager sharedUserManager]logout:^(BOOL success, NSString *des) {
-      
+
                 }];
             }];
     [alert addAction:cancel];

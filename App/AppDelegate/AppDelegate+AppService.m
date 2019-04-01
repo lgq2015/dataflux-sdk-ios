@@ -42,6 +42,7 @@
     [SVProgressHUD setMinimumSize:CGSizeMake(110,110)];
     [SVProgressHUD setImageViewSize:CGSizeMake(40,40)];
     [SVProgressHUD setFont:RegularFONT(15)];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
 
 }
 
