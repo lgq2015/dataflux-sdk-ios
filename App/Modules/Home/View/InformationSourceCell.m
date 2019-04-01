@@ -22,7 +22,7 @@
     self.layer.cornerRadius = 4.0;
     [super setFrame:frame];
 }
--(void)setModel:(PWInfoSourceModel *)model{
+-(void)setModel:(IssueSourceViewModel *)model{
     _model = model;
     
     switch (_model.state) {

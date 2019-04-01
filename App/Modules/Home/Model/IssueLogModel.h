@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PWChatMessagelLayout.h"
+#import "IssueChatMessagelLayout.h"
 
 
 @interface IssueLogModel : NSObject

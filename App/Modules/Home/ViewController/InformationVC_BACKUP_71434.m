@@ -6,12 +6,12 @@
 //  Copyright © 2018年 hll. All rights reserved.
 //
 
-#import "InformationVC.h"
-#import "PWInfoBoard.h"
+#import "HomeViewIssueIndexVC.h"
+#import "IssueBoard.h"
 #import "HomeNoticeScrollView.h"
-#import "PWNewsListCell.h"
-#import "MonitorVC.h"
-#import "InformationSourceVC.h"
+#import "NewsListCell.h"
+#import "IssueListVC.h"
+#import "IssueSourceListVC.h"
 #import "AddSourceVC.h"
 #import "UserManager.h"
 #import "IssueListManger.h"
@@ -19,14 +19,14 @@
 #import "PWFMDB.h"
 #import "IssueSourceManger.h"
 #import "InformationStatusReadManager.h"
-#import "PWNewsListImageCell.h"
+#import "NewsListImageCell.h"
 #import "TeamInfoModel.h"
 #import "PWHttpEngine.h"
 #import "MineMessageModel.h"
 #import "MessageDetailVC.h"
 #import "IssueModel.h"
-#import "InfoDetailVC.h"
-#import "ProblemDetailsVC.h"
+#import "IssueDetailVC.h"
+#import "IssueProblemDetailsVC.h"
 
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;

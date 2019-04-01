@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PWInfoSourceModel.h"
+#import "IssueSourceViewModel.h"
 #import "IssueTf.h"
 
 @interface IssueSourceConfige : NSObject

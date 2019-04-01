@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PWInfoSourceModel.h"
+#import "IssueSourceViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InformationSourceCell : UITableViewCell
-@property (nonatomic, strong) PWInfoSourceModel *model;
+@property (nonatomic, strong) IssueSourceViewModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

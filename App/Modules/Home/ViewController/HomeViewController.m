@@ -8,8 +8,8 @@
 
 #import "HomeViewController.h"
 #import "PWScrollPageView.h"
-#import "InformationVC.h"
-#import "ThinkTankVC.h"
+#import "HomeViewIssueIndexVC.h"
+#import "LibraryVC.h"
 #import "ToolsVC.h"
 #import "ScanViewController.h"
 
@@ -52,11 +52,11 @@
 }
 
 - (NSArray *)setupChildVcAndTitle {
-    InformationVC *vc1 = [InformationVC new];
+    HomeViewIssueIndexVC *vc1 = [HomeViewIssueIndexVC new];
     vc1.view.backgroundColor = PWBackgroundColor;
     vc1.title = @"情报";
     
-    ThinkTankVC *vc2 = [ThinkTankVC new];
+    LibraryVC *vc2 = [LibraryVC new];
     vc2.view.backgroundColor = PWBackgroundColor;
     vc2.title = @"手册";
    

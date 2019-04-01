@@ -12,7 +12,7 @@
 #import "HandbookModel.h"
 #import "ZLChineseToPinyin.h"
 #import "NewsWebView.h"
-#import "SearchVC.h"
+#import "LibrarySearchVC.h"
 @interface HandbookIndexVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 // 索引标题数组(排序后的出现过的拼音首字母数组)
@@ -71,7 +71,7 @@
     return _searchView;
 }
 - (void)searchClick{
-    SearchVC *search = [[SearchVC alloc]init];
+    LibrarySearchVC *search = [[LibrarySearchVC alloc]init];
     search.isHidenNaviBar = YES;
     search.placeHolder = @"搜索发现";
     search.isLocal = YES;

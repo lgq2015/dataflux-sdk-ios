@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PWInfoSourceModel.h"
+#import "IssueSourceViewModel.h"
 typedef NS_ENUM(NSUInteger, MonitorListState){
     MonitorListStateWarning,
     MonitorListStateSeriousness,

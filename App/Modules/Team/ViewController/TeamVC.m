@@ -10,7 +10,7 @@
 #import "FillinTeamInforVC.h"
 #import "TeamHeaderView.h"
 #import "TeamInfoModel.h"
-#import "InformationSourceVC.h"
+#import "IssueSourceListVC.h"
 #import "InviteMembersVC.h"
 #import "ServiceLogVC.h"
 #import "MemberInfoModel.h"
@@ -82,7 +82,7 @@
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [weakSelf.navigationController pushViewController:invite animated:YES];
         }else if (tag == InfoSourceTag){
-            InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
+            IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
             [weakSelf.navigationController pushViewController:infoSource animated:YES];
         }else if(tag == ServeTag){
             ServiceLogVC *monitor = [[ServiceLogVC alloc]init];
