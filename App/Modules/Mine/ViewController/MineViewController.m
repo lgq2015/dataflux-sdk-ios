@@ -33,9 +33,6 @@
 
 @implementation MineViewController
 -(void)viewWillAppear:(BOOL)animated{
-    if (self.unread) {
-        [self getSystemMessagCount];
-    }
     [self getSystemMessagCount];
 }
 - (void)viewDidLoad {

@@ -26,6 +26,7 @@
     }else{
         [self createSingleImgUI];
     }
+    self.timeLab.hidden = YES;
 }
 - (void)createTextUI{
     self.iconImgVie.hidden = YES;
@@ -50,6 +51,7 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
     self.timeLab.text = self.model.updateTime;
+    self.timeLab.hidden = YES;
 }
 - (void)createSingleImgUI{
     self.iconImgVie.hidden = NO;

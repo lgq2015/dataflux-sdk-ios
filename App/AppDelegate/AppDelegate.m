@@ -51,7 +51,20 @@
                           channel:@"App Store"
                  apsForProduction:NO
             advertisingIdentifier:nil];
-
+    if( [getUserNotificationSettings isEqualToString:PWRegister]){
+        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            NSLog(@"Requesting permission for push notifications..."); // iOS 8
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
+                                                    UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound categories:nil];
+            [UIApplication.sharedApplication registerUserNotificationSettings:settings];
+        } else {
+            NSLog(@"Registering device for push notifications..."); // iOS 7 and earlier
+            [UIApplication.sharedApplication registerForRemoteNotificationTypes:
+             UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
+             UIRemoteNotificationTypeSound];
+        }
+    }
 #if TARGET_IPHONE_SIMULATOR
     return YES;
 #else
@@ -79,8 +92,7 @@
 //    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
 
-    [JPUSHService setBadge:0];
-    [JPUSHService resetBadge];
+   
 
     return YES;
 }
@@ -93,6 +105,8 @@
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+   
+   
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
@@ -123,8 +137,9 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    KPostNotification(KNotificationAppResignActive, nil);
+    [JPUSHService resetBadge];    KPostNotification(KNotificationAppResignActive, nil);
     [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -135,7 +150,7 @@
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
+    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
     [JPUSHService registerDeviceToken:deviceToken];
     

@@ -66,8 +66,14 @@
     if (canNoti == YES ) {
         return NO;
     }else{
+        if(getUserNotificationSettings == nil){
         BOOL userNoti =  [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+            userNoti == YES?setUserNotificationSettings(PWRegister):setUserNotificationSettings(PWUnRegister);
         return userNoti;
+        }else{
+             BOOL userNoti =  [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+            return [getUserNotificationSettings isEqualToString:PWRegister];
+        }
     }
 }
 - (void)switchBtnUpdate{
@@ -119,12 +125,14 @@
               [self privacySecurityControlsAlert];
            
         }else{
-             [[UIApplication sharedApplication] registerForRemoteNotifications];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+               setUserNotificationSettings(PWRegister);
         }
     }else{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+         setUserNotificationSettings(PWUnRegister);
     }];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
    __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];

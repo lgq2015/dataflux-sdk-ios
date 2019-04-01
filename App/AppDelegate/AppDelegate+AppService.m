@@ -79,7 +79,7 @@
         //如果有本地数据，先展示TabBar 随后异步自动登录
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-        [self DetectNewVersion];
+         [self DetectNewVersion];
         //自动登录
 //        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
 //            if (success) {
@@ -103,6 +103,7 @@
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
         [[PWSocketManager sharedPWSocketManager] connect];
+         [self DetectNewVersion];
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];

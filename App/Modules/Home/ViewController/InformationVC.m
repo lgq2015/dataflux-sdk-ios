@@ -386,6 +386,8 @@
             NSArray *datas = response[@"content"];
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
+            }else{
+                [self RecommendationDatas:nil];
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];

@@ -255,9 +255,7 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
