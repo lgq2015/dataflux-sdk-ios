@@ -75,6 +75,7 @@
                                              selector:@selector(infoBoardStyleUpdate)
                                                  name:KNotificationIssueSourceChange
                                                object:nil];
+    self.newsDatas = [NSMutableArray new];
     [self loadNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
@@ -209,6 +210,7 @@
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
+   
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
     NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
@@ -391,23 +393,25 @@
 }
 - (void)loadNewsDatas{
   
-    
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        [self loadRecommendationData];
+       
 
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
             if (items.count>0) {
             [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
+            self.newsPage == 2? [self loadRecommendationData]:nil;
+
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            self.newsPage == 1? [self loadRecommendationData]:nil;
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
-        [self loadRecommendationData];
+        self.newsPage == 1? [self loadRecommendationData]:nil;
         [self.header endRefreshing];
         [self.footer endRefreshing];
     }];
