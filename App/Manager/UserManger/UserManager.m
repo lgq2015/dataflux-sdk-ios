@@ -296,9 +296,9 @@ SINGLETON_FOR_CLASS(UserManager);
 
 }
 
--(void)autoLoginToServer:(loginBlock)completion{
-    
-}
+//-(void)autoLoginToServer:(loginBlock)completion{
+//    
+//}
 #pragma mark ========== 加载缓存的用户信息 ==========
 -(BOOL)loadUserInfo{
     [self loadExperGroups:nil];
