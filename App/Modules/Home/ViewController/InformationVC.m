@@ -75,7 +75,8 @@
                                              selector:@selector(infoBoardStyleUpdate)
                                                  name:KNotificationIssueSourceChange
                                                object:nil];
-    [self dealNewsDatas];
+    self.newsDatas = [NSMutableArray new];
+    [self loadNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
     [self dealWithNotificationData];
@@ -209,6 +210,7 @@
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
+   
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
     NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
@@ -348,7 +350,6 @@
 }
 - (void)headerRereshing{
     self.newsPage = 1;
-    self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
 //    [self infoBoardDatasUpdate];
@@ -375,19 +376,13 @@
 -(void)footerRereshing{
     [self loadNewsDatas];
 }
-- (void)dealNewsDatas{
-    self.newsDatas = [NSMutableArray new];
-    [self loadRecommendationData];
-    [self loadNewsDatas];
-}
+
 - (void)loadRecommendationData{
     [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *datas = response[@"content"];
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
-            }else{
-                [self RecommendationDatas:nil];
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -397,22 +392,30 @@
     }];
 }
 - (void)loadNewsDatas{
+  
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+       
+
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
             if (items.count>0) {
             [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
+            self.newsPage == 2? [self loadRecommendationData]:nil;
+
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            self.newsPage == 1? [self loadRecommendationData]:nil;
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
+        self.newsPage == 1? [self loadRecommendationData]:nil;
         [self.header endRefreshing];
         [self.footer endRefreshing];
     }];
+    
 }
 - (void)RecommendationDatas:(NSArray *)array{
     NSMutableArray *recommendDatas = [NSMutableArray new];
@@ -428,12 +431,17 @@
 }
 - (void)dealNewsDataWithData:(NSArray *)items andTotalPage:(NSInteger)page{
     NSArray *newsArray= [items copy];
+    NSMutableArray *newsDatas = [NSMutableArray new];
     [newsArray enumerateObjectsUsingBlock:^(id dict, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([dict isKindOfClass:NSDictionary.class]) {
             NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
-            [self.newsDatas addObject:model];
+            [newsDatas addObject:model];
         }
     }];
+    if (self.newsPage == 1) {
+        [self.newsDatas removeAllObjects];
+    }
+    [self.newsDatas addObjectsFromArray:newsDatas];
     if (self.newsDatas.count>0) {
         [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
         [self.tableView reloadData];

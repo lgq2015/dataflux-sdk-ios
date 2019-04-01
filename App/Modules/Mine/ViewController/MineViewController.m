@@ -34,6 +34,7 @@
 @implementation MineViewController
 -(void)viewWillAppear:(BOOL)animated{
     [self getSystemMessagCount];
+    [self updateUser];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
