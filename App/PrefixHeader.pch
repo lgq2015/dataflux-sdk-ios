@@ -9,12 +9,34 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#define LBXScan_Define_Native  //包含native库
+#define LBXScan_Define_UI     //包含界面库
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 //全局宏
 #import "UtilsMacros.h"
+#import "NotificationMacros.h"
+#import "NSUserDefaultsMacros.h"
+#import "PWNetworking.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "NSString+verify.h"
+#import <WebViewJavascriptBridge.h>
+#import "UserManager.h"
+#import "PWFMDB.h"
+#import <WebViewJavascriptBridge.h>
+#import "NSDate+PWH.h"
+#import "PWHttpEngine.h"
+#import "BaseReturnModel.h"
+
 // 布局
 #import "Masonry.h"
+#import "PWCommonCtrl.h"
 #import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import <YYKit.h>
+#import "iToast+SYCategory.h"
+#import "AppDelegate.h"
+#import "AppDelegate+AppService.h"
+#import <SVProgressHUD.h>
 
 #endif /* PrefixHeader_pch */

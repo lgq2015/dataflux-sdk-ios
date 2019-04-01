@@ -2,3 +2,8 @@
 *.xcodeproj/xcuserdata/
 Pods/Pods.xcodeproj/xcuserdata/
 *.xcodeproj/project.xcworkspace/xcuserdata/
+.DS_Store
+#CocoaPods
+Pods
+!Podfile
+!Podfile.lock

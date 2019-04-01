@@ -8,7 +8,7 @@
 
 #import "UIFont+runtime.h"
 #import <objc/runtime.h>
-#define MyUIScreen  360 // UI设计原型图的手机尺寸宽度(6), 6p的--414
+#define MyUIScreen  375.0 // UI设计原型图的手机尺寸宽度(6), 6p的--414
 
 @implementation UIFont (runtime)
 + (void)load {
@@ -26,7 +26,7 @@
 
 + (UIFont *)adjustFont:(CGFloat)fontSize {
     UIFont *newFont = nil;
-    newFont = [UIFont adjustFont:fontSize * [UIScreen mainScreen].bounds.size.width/MyUIScreen];
+    newFont = [UIFont adjustFont:fontSize];//* [UIScreen mainScreen].bounds.size.width/MyUIScreen
     return newFont;
 }
 + (UIFont *)fontWithName:(NSString *)fontName adjustSize:(CGFloat)fontSize{
