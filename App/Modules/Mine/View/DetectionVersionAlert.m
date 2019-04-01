@@ -28,7 +28,8 @@
     self.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake((kWidth-ZOOM_SCALE(300))/2.0, ZOOM_SCALE(132), ZOOM_SCALE(300), ZOOM_SCALE(363))];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake((kWidth-ZOOM_SCALE(300))/2.0, ZOOM_SCALE(132)+kTopHeight-64, ZOOM_SCALE(300), ZOOM_SCALE(363))];
+        
         [self addSubview:_contentView];
         UIImageView *back = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mine_newVersion"]];
         [_contentView addSubview:back];

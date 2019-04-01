@@ -18,7 +18,7 @@
 #import "PWSocketManager.h"
 #import "GuideVC.h"
 #import "LaunchVC.h"
-
+#import "DetectionVersionAlert.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -78,17 +78,17 @@
         //如果有本地数据，先展示TabBar 随后异步自动登录
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-        
+        [self DetectNewVersion];
         //自动登录
-        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
-            if (success) {
-                DLog(@"自动登录成功");
-                // [MBProgressHUD showSuccessMessage:@"自动登录成功"];
-                KPostNotification(KNotificationAutoLoginSuccess, nil);
-            }else{
-//                [MBProgressHUD showErrorMessage:NSStringFormat(@"自动登录失败：%@",des)];
-            }
-        }];
+//        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
+//            if (success) {
+//                DLog(@"自动登录成功");
+//                // [MBProgressHUD showSuccessMessage:@"自动登录成功"];
+//                KPostNotification(KNotificationAutoLoginSuccess, nil);
+//            }else{
+////                [MBProgressHUD showErrorMessage:NSStringFormat(@"自动登录失败：%@",des)];
+//            }
+//        }];
     }else{
         KPostNotification(KNotificationLoginStateChange, @NO)
     }
@@ -251,61 +251,39 @@
     return superVC;
 }
 -(void)DetectNewVersion{
-    //检查新版本 更新
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // 耗时的操作
-        
-        //获取本地版本号
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-//        NSString *build = [infoDictionary objectForKey:@"CFBundleVersion"];
-        NSString *nowVersion = [NSString stringWithFormat:@"%@", version];
-        
-        //获取appStore网络版本号
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID]];
-        NSString * file =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-        
-        NSRange substr = [file rangeOfString:@"\"version\":\""];
-        NSString *appStoreVersion;
-        if (substr.length==0) {
-            appStoreVersion = @"";
-        }else{
-        NSRange range1 = NSMakeRange(substr.location+substr.length,10);
-        //    NSRange substr2 =[file rangeOfString:@"\"" options:nil range:range1];
-        NSRange substr2 = [file rangeOfString:@"\"" options:NSCaseInsensitiveSearch  range:range1];
-        NSRange range2 = NSMakeRange(substr.location+substr.length, substr2.location-substr.location-substr.length);
-           appStoreVersion =[file substringWithRange:range2];
+  
+    
+    //获取appStore网络版本号
+    [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        NSArray *results = response[@"results"];
+        if (results.count>0) {
+            NSDictionary *dict = results[0];
+            [self judgeTheVersion:dict];
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 更新界面
-            //如果不一样去更新
-            if(![nowVersion isEqualToString:appStoreVersion])
-            {
-                [self showAlertisNew:NO];
-            }else{
-                [self showAlertisNew:YES];
-            }
-            
-            
-        });
-    });
+        
+    } failBlock:^(NSError *error) {
+      
+        
+    }];
+    
+
 }
-- (void)showAlertisNew:(BOOL)isNew{
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    NSString *message = isNew == YES? @"已是最新版本！":@"检测有最新版本";
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    if (isNew == YES) {
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:cancle];
-    }else{
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *update = [PWCommonCtrl actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+- (void)judgeTheVersion:(NSDictionary *)dict{
+    NSString *releaseNotes = [dict stringValueForKey:@"releaseNotes" default:@""];
+    NSString *version = [dict stringValueForKey:@"version" default:@""];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if ([nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
+        DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
+        [alert showInView:[UIApplication sharedApplication].keyWindow];
+        alert.itemClick = ^(){
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
-        }];
-        [alert addAction:cancle];
-        [alert addAction:update];
+        };
     }
-    [window.rootViewController presentViewController:alert animated:YES completion:nil];
+//    if (![nowVersion isEqualToString:version]) {
+    
+//    }
+
 }
 @end

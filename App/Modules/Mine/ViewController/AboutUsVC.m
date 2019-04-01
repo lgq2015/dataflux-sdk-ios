@@ -59,12 +59,12 @@
     
     //获取appStore网络版本号
     [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
         NSArray *results = response[@"results"];
         if (results.count>0) {
             NSDictionary *dict = results[0];
             [self judgeTheVersion:dict];
         }
-        [SVProgressHUD dismiss];
         
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -77,8 +77,8 @@
     NSString *version = [dict stringValueForKey:@"version" default:@""];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if ([nowVersion isEqualToString:version]) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    if ([nowVersion compare:version options:NSNumericSearch] == NSOrderedDescending) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
         MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell setDescribeLabText:@"已是最新版本"];
     }else{
@@ -89,7 +89,6 @@
             [[UIApplication sharedApplication] openURL:url];
         };
     }
-    
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
