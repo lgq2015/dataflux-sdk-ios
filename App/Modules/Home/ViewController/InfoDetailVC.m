@@ -364,7 +364,7 @@
 //    }];
     UIView *temp = nil;
     for (NSInteger i=0;i<body.count;i++) {
-        NSString *string = body[i];
+        NSString *string = [body[i]stringValue];
         UIView *dot = [[UIView alloc]init];
         dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
         dot.layer.cornerRadius = 4.0f;
