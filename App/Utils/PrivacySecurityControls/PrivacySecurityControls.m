@@ -20,11 +20,11 @@
     NSString *tipMessage;
     NSString *goBtnTitle = @"去开启";
     switch (type) {
-        case PrivacyTypeAVCaptureDevice:
+        case PrivacyTypePHPhotoLibrary:
             tipTitle = @"请开启照片权限";
             tipMessage = @"可依次进入[设置-隐私-照片]，允许访问手机相册";
             break;
-        case PrivacyTypePHPhotoLibrary:
+        case PrivacyTypeAVCaptureDevice:
             tipTitle = @"请开启相机权限";
             tipMessage= @"可依次进入[设置-隐私]中，允许访问相机";
             break;

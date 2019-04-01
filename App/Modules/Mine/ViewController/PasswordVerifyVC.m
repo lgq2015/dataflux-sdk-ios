@@ -219,7 +219,7 @@
             NSString * uuid =response[@"content"][@"uuid"];
             [self doteamDissolve:uuid];
         }else{
-            
+           [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
         [SVProgressHUD dismiss];
         

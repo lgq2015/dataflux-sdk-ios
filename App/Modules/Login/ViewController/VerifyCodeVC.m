@@ -413,6 +413,8 @@
             NSDictionary *content = response[@"content"];
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doteamDissolve:uuid];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         

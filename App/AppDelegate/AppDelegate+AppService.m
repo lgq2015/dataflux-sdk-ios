@@ -284,7 +284,9 @@
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     if ([nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
         DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
-        [alert showInView:[UIApplication sharedApplication].keyWindow];
+       
+           [alert showInView:[UIApplication sharedApplication].keyWindow];
+        
         alert.itemClick = ^(){
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
