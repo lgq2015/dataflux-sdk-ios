@@ -28,8 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *typeName;
 @property (nonatomic, strong) NSString *messageCount;
 @property (nonatomic, strong) NSString *subTitle;
-@property (nonatomic, strong) NSNumber *pageMaker;
-@property (nonatomic, assign) long seqAct;
+@property (nonatomic, assign) long long seqAct;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
 @end
 

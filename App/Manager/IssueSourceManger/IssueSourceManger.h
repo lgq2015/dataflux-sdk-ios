@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
 
+@class BaseReturnModel;
+
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^detectTimeStr)(NSString *str);
-typedef void (^updateIssueSource)(NSArray *ary);
 @interface IssueSourceManger : NSObject
 @property(nonatomic, copy) NSString *lastRefreshTime; //上次更新时间
 
 //单例
 SINGLETON_FOR_HEADER(IssueSourceManger)
+
+- (void)downLoadAllIssueSourceList:(void (^)(BaseReturnModel *))callBackStatus;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 - (id)copy NS_UNAVAILABLE; // 没有遵循协议可以不写
@@ -26,20 +29,18 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
 /**
  每次打开app更新情报源列表
  */
-- (void)downLoadAllIssueSourceList:(detectTimeStr)strblock;
+- (void)downLoadAllIssueSourceList;
 
 /**
  获取basic issueSource count
  */
 - (NSInteger)getBasicIssueSourceCount;
+
 /**
  获取  首页 检测时间
  */
-- (void)getLastDetectionTime:(detectTimeStr)strblock;
-/**
-  更新本地 issuesource 重新请求 返回新数据刷新页面
- */
-- (void)updateAllIssueSourceList:(updateIssueSource)aryblock;
+- (NSString *)getLastDetectionTimeStatement;
+
 /**
  预展示 issuesource
  */
@@ -48,6 +49,10 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource
  */
 - (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID;
+
+- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
+
+- (void)deleteIssueSourceById:(NSString *)issueSourceId;
 
 /**
  退出处理

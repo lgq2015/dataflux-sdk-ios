@@ -45,15 +45,13 @@
 
 @implementation InformationVC
 -(void)viewWillAppear:(BOOL)animated{
-    
-    NSString *lastRefreshTime = [IssueSourceManger sharedIssueSourceManger].lastRefreshTime;
-    if (lastRefreshTime ==nil || [lastRefreshTime timeIntervalAboveThirtySecond]) {
-      [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString * _Nonnull str) {
-        if (_infoboard) {
-            [self.infoboard updateTitle:str];
-        }
+
+
+    [[IssueSourceManger sharedIssueSourceManger] checkToGetDetectionStatement:^(NSString *string) {
+        [_infoboard updateTitle:string];
+
     }];
-    }
+    
     if(self.infoBoardStyle == PWInfoBoardStyleConnected){
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
             NewGuidanceView *guid = [[NewGuidanceView alloc]init];
@@ -170,7 +168,7 @@
     
     if ([ishideguide isEqualToString:PW_IsHideGuide]) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
         [self createUI];
     }else{
         __block  BOOL  isAdmin = YES;
@@ -189,7 +187,7 @@
                 self.infoBoardStyle = isConnect?PWInfoBoardStyleConnected:PWInfoBoardStyleNotConnected;
                 if (isConnect) {
                     [ishideguide isEqualToString:PW_IsNotConnect]?setIsHideGuide(PW_IsHideGuide):nil;
-                    [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+                    [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
                 }else{
                     ishideguide == nil?setIsHideGuide(PW_IsNotConnect):nil;
                 }
@@ -221,9 +219,6 @@
         InformationSourceVC *infosourceVC = [[InformationSourceVC alloc]init];
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        [self.infoboard updateTitle:str];
-    }];
 
     self.infoboard.itemClick = ^(NSInteger index){
         NSArray *dataSource;
@@ -291,7 +286,7 @@
 -(void)infoBoardStyleUpdate{
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
+        [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
         self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
@@ -300,15 +295,12 @@
     }
 }
 -(void)infoBoardDatasUpdate{
-    [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTime:^(NSString *_Nonnull str) {
-        if (_infoboard) {
-            [self.infoboard updateTitle:str];
-        }
-    }];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
+        NSString *tilte=[[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.infoboard updateTitle:tilte];
             if (array.count>0) {
                 [self.infoboard updataDatas:@{@"datas":array}];
             }
@@ -352,11 +344,9 @@
     self.newsPage = 1;
     self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
-    [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
-    [self infoBoardDatasUpdate];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        [self.infoboard updateTitle:str];
-    }];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+//    [self infoBoardDatasUpdate];
+//    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
     int x = arc4random() % self.noticeDatas.count;
      NSDictionary *dict = self.noticeDatas[x];
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];

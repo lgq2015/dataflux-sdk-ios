@@ -22,19 +22,16 @@
 @end
 
 @implementation SettingUpVC
--(void)viewDidAppear:(BOOL)animated{
-     BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone?NO:YES;
-    if (self.tableView) {
-        NSIndexPath *index= [NSIndexPath indexPathForRow:0 inSection:0];
-        __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-        [cell setSwitchBtnisOn:isSwitch];
-    }
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
     [self createUI];
     [self calculateStorage];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(switchBtnUpdate)
+                                                 name:KNotificationAppResignActive
+                                               object:nil];
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
@@ -42,7 +39,7 @@
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
 //    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:!isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];
     NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
@@ -63,40 +60,18 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
 }
+- (void)switchBtnUpdate{
+    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+    if (self.tableView) {
+        NSIndexPath *index= [NSIndexPath indexPathForRow:1 inSection:0];
+        __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+        [cell setSwitchBtnisOn:!isSwitch];
+    }
+}
 - (void)calculateStorage{
-//    int totalSize = 0;
-//
-//    // 构建需要计算大小的文件或文件夹的路径，这里以Documents为例
+
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-//
-//    [clear]
-    // 1.获得文件夹管理者
-//    NSFileManager *mgr = [NSFileManager defaultManager];
-//    DLog(@"%@",mgr);
-//    // 2.检测路径的合理性
-//    BOOL dir = NO;
-//    BOOL exits = [mgr fileExistsAtPath:path isDirectory:&dir];
-//    if(exits){
-//    if (dir)//文件夹, 遍历文件夹里面的所有文件
-//    {
-//        //这个方法能获得这个文件夹下面的所有子路径(直接\间接子路径),包括子文件夹下面的所有文件及文件夹
-//        NSArray *subPaths = [mgr subpathsAtPath:path];
-//        for (NSString *subPath in subPaths)
-//        {
-//            //拼成全路径
-//            NSString *fullSubPath = [path stringByAppendingPathComponent:subPath];
-//
-//            BOOL dir = NO;
-//            [mgr fileExistsAtPath:fullSubPath isDirectory:&dir];
-//            if (dir)//子路径是个文件
-//            {
-//
-//
-//            }
-//        }
-//    }
-//
-//    }
+
     NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:path];
     
     DLog(@"%@",totalSize);

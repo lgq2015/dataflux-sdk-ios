@@ -136,7 +136,7 @@
                             }
                                failBlock:^(NSError *error) {
                                    //fixme 中英文翻译问题
-                                   callback(NO, @"网络请求失败");
+                                   callback(NO,  @"网络请求失败");
                                }];
 }
 

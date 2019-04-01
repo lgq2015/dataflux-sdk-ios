@@ -33,11 +33,9 @@
         [self.tabBarController setSelectedIndex:2];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
-    [[IssueListManger sharedIssueListManger] doDownLoadAllIssueList];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(NSString * _Nonnull str) {
-        
-    }];
-   
+    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
     NSString *path = [extra stringValueForKey:@"path" default:@""];

@@ -11,6 +11,7 @@
 
 @class InfoBoardModel;
 @class IssueModel;
+@class BaseReturnModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListManger : BaseSqlHelper
@@ -28,15 +29,15 @@ SINGLETON_FOR_HEADER(IssueListManger)
  首页展示类型判断
  */
 -(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect;
+
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
+
+
  */
-- (void)downLoadAllIssueList;
-- (void)doDownLoadAllIssueList;
-/**
-  socket 推送需要更新
- */
-- (void)newIssueNeedUpdate;
+- (void)fetchIssueList:(BOOL)check;
+
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus check:(BOOL)check;
 
 - (IssueModel *)getIssueDataByData:(NSString *)issueId;
 
@@ -53,7 +54,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
  */
 - (void)createData;
 
-- (void)delectIssueWithIsseuSourceID:(NSString *)issueSourceId;
+- (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId;
 @end
 
 NS_ASSUME_NONNULL_END

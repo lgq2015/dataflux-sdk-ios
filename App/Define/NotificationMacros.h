@@ -48,4 +48,6 @@
 #define KNotificationUserInfoChange    @"KNotificationUserInfoChange"
 #define KNotificationFeedBack          @"KNotificationFeedBack"
 
+#define KNotificationAppResignActive @"KNotificationAppResignActive"
+
 #endif /* NotificationMacros_h */

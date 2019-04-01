@@ -125,14 +125,9 @@
         make.right.mas_offset(-18);
         make.centerY.mas_equalTo(self.titleLab);
     }];
-    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+   
     [self.switchBtn setOn:self.data.isOn];
-    if (isSwitch) {
-        [self.switchBtn setOn:NO];
-        self.switchBtn.enabled = NO;
-        [self.switchBtn setTintColor:PWTextLight];
-        [self.switchBtn setThumbTintColor:PWTextLight];
-    }
+   
     [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
 - (void)createUIDescribe{
@@ -315,7 +310,7 @@
 
 -(void)setSwitchBtnisOn:(BOOL)ison{
   
-//    [self.switchBtn setOn:ison];
+    [self.switchBtn setOn:ison];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

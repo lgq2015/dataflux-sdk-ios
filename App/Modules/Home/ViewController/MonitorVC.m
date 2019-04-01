@@ -22,7 +22,6 @@
 @property (nonatomic, strong) MonitorCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
 @property (nonatomic, copy) NSString *type;
-@property (nonatomic, strong) NSString *pageMaker;
 @property (nonatomic, strong) UILabel *tipLab;
 @property (nonatomic, assign)BOOL needGetFromNet;
 
@@ -38,22 +37,22 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(headerRefreshing:)
-                                                 name:KNotificationNewIssue
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(headerRefreshing:)
-                                                 name:KNotificationChatNewDatas
-                                               object:nil];
+    [kNotificationCenter addObserver:self
+                            selector:@selector(headerRefreshing:)
+                                name:KNotificationNewIssue
+                              object:nil];
+    [kNotificationCenter addObserver:self
+                            selector:@selector(headerRefreshing:)
+                                name:KNotificationChatNewDatas
+                              object:nil];
 
 
     [self createUI];
-    
+
 }
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-   
+
     [self addNavigationItemWithTitles:@[@"创建问题"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
     self.monitorData = [NSMutableArray new];
     [self.view addSubview:self.tableView];
@@ -67,6 +66,7 @@
     [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
     self.tableView.tableFooterView = self.footView;
     self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
+
     self.tableView.mj_header = self.header;
     if (self.dataSource.count>0) {
         [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -80,12 +80,12 @@
     if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
         CreateQueGuideView *guid = [[CreateQueGuideView alloc]init];
         [guid showInView:[UIApplication sharedApplication].keyWindow];
-        
+
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
 }
 -(void)headerRereshing{
-    [[IssueListManger sharedIssueListManger] newIssueNeedUpdate];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
     [self.header endRefreshing];
 }
 - (void)headerRefreshing:(NSNotification *)notification{
@@ -104,29 +104,46 @@
               });
           }
 
-    } else{
+    } else {
 
         self.tipLab.hidden = NO;
     }
 }
-- (void)reloadData{
 
+- (void)reloadData {
+    void (^reloadDataBase)(void) = ^{
+        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
+        [self.dataSource removeAllObjects];
+        [self.dataSource addObjectsFromArray:dataSource];
+        if (self.dataSource.count > 0) {
+            [self.monitorData removeAllObjects];
+            [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                MonitorListModel *model = [[MonitorListModel alloc] initWithJsonDictionary:obj];
+                [self.monitorData addObject:model];
+            }];
+            [self.tableView reloadData];
+            [self removeNoDataImage];
+        } else {
+            [self showNoDataImage];
+        }
+        self.tipLab.hidden = YES;
+    };
 
-    NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
-    [self.dataSource removeAllObjects];
-    [self.dataSource addObjectsFromArray:dataSource];
-    if (self.dataSource.count > 0) {
-        [self.monitorData removeAllObjects];
-        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            MonitorListModel *model = [[MonitorListModel alloc] initWithJsonDictionary:obj];
-            [self.monitorData addObject:model];
-        }];
-        [self.tableView reloadData];
-        [self removeNoDataImage];
-    } else {
-        [self showNoDataImage];
+    if(_needGetFromNet){
+        [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+            if(model.isSuccess){
+                reloadDataBase();
+            } else{
+                [iToast alertWithTitleCenter:model.errorMsg];
+            }
+            _needGetFromNet =NO;
+        } check:NO];
+
+    } else{
+        reloadDataBase();
     }
-    self.tipLab.hidden = YES;
+
+
 
 
 }
@@ -213,8 +230,9 @@
     } else {
         return model.cellHeight;
     }
-   
+
 }
+
 /*
 #pragma mark - Navigation
 

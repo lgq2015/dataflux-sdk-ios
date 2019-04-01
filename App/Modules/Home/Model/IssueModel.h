@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *updateTime;
 @property (nonatomic, strong) NSString *status;
-@property (nonatomic, assign) long actSeq;
+@property (nonatomic, assign) long long actSeq;
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString * ticketStatus;
 @property (nonatomic, strong) NSString *subType;
