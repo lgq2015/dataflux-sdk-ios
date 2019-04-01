@@ -79,7 +79,6 @@
     [self loadTipsData];
     [self dealWithNotificationData];
 
-
 }
 
 -(void)dealWithNotificationData{

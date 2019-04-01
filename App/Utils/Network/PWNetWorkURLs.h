@@ -46,7 +46,7 @@
 #define API_SEVERID HTTP_PROTOCOL@"preprod-home-via-core-stone.cloudcare.cn"
 #define API_SHRINE  HTTP_PROTOCOL@"preprod-shrine-via-core-stone.cloudcare.cn"
 #define API_FORUM   HTTP_PROTOCOL@"preprod-forum-via-core-stone.cloudcare.cn"
-#define API_CORE_STONE   HTTP_PROTOCOL@"preprodcore-stone.cloudcare.cn:10100"
+#define API_CORE_STONE   HTTP_PROTOCOL@"preprod-core-stone.cloudcare.cn"
 #define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
 #define API_CARRIER_HOST    HTTP_PROTOCOL@"preprod-carrier-via-core-stone.cloudcare.cn"

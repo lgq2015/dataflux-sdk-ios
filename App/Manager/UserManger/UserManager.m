@@ -266,13 +266,17 @@ SINGLETON_FOR_CLASS(UserManager);
     self.curUserInfo = nil;
     self.teamModel = nil;
     self.isLogined = NO;
-   
+
+    [[IssueListManger sharedIssueListManger] clearAllIssueData];
+
     [[InformationStatusReadManager sharedInstance] shutDown];
     [[IssueListManger sharedIssueListManger] shutDown];
     [[HandBookManager sharedInstance] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
     [[IssueSourceManger sharedIssueSourceManger] logout];
     [[IssueListManger sharedIssueListManger] createData];
+
+
     //    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];

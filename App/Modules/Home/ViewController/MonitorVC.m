@@ -85,8 +85,11 @@
     }
 }
 -(void)headerRereshing{
-    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-    [self.header endRefreshing];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+
+        [self reloadData];
+        [self.header endRefreshing];
+    } check:NO];
 }
 - (void)headerRefreshing:(NSNotification *)notification{
 

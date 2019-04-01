@@ -20,13 +20,21 @@
     self.name = dict[@"name"];
     self.issueSourceId = dict[@"id"];
     self.provider = dict[@"provider"];
-    if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
-        self.state = SourceStateNotDetected;
-    }else if([dict[@"scanCheckStatus"] isEqualToString:@"invalidIssueSource"]){
-        self.state = SourceStateAbnormal;
-    }else{
+
+    BOOL isVirtual = [dict boolValueForKey:@"isVirtual" default:NO];
+
+    if(isVirtual){
         self.state = SourceStateDetected;
+    } else{
+        if ([dict[@"scanCheckStatus"] isEqualToString:@"neverStarted"]) {
+            self.state = SourceStateNotDetected;
+        }else if([dict[@"scanCheckStatus"] isEqualToString:@"invalidIssueSource"]){
+            self.state = SourceStateAbnormal;
+        }else{
+            self.state = SourceStateDetected;
+        }
     }
+
     if ([dict[@"provider"] isEqualToString:@"aliyun"]) {
         self.type = SourceTypeAli;
     }else if([dict[@"provider"] isEqualToString:@"qcloud"]){
