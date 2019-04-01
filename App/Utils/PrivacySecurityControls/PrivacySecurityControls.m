@@ -56,7 +56,9 @@
     if (cameragranted == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tipTitle message:tipMessage preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
+            if (self.refuseBlock) {
+                self.refuseBlock();
+            }
         }];
         UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:goBtnTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             // 无权限 引导去开启

@@ -47,7 +47,7 @@
         if ([dict[@"optionsJSONStr"] isKindOfClass:NSString.class]) {
                 NSString *optionsJSON =dict[@"optionsJSONStr"];
                 NSDictionary *dict2 = [optionsJSON jsonValueDecoded];
-                self.clusterID = dict2[@"uploaderUid"];
+                self.clusterID = [dict2 stringValueForKey:@"uploaderUid" default:@""];
         }else{
                 self.clusterID = dict[@"optionsJSON"][@"uploaderUid"];
         }

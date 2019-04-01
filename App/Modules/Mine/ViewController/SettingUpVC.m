@@ -35,11 +35,11 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
-    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+    BOOL isSwitch=  [self checkNotification];
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
 //    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:!isSwitch];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];
     NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
@@ -59,13 +59,23 @@
         make.right.mas_equalTo(self.view).offset(-16);
         make.height.offset(ZOOM_SCALE(47));
     }];
+   
+}
+- (BOOL)checkNotification{
+    BOOL canNoti=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+    if (canNoti == YES ) {
+        return NO;
+    }else{
+        BOOL userNoti =  [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+        return userNoti;
+    }
 }
 - (void)switchBtnUpdate{
-    BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+    BOOL isSwitch = [self checkNotification];
     if (self.tableView) {
         NSIndexPath *index= [NSIndexPath indexPathForRow:1 inSection:0];
         __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-        [cell setSwitchBtnisOn:!isSwitch];
+            [cell setSwitchBtnisOn:isSwitch];
     }
 }
 - (void)calculateStorage{
@@ -104,13 +114,17 @@
 }
 - (void)showSwitchChangeAlert:(NSInteger)row isOn:(BOOL)isOn{
     if(isOn){
-        PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
-        [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeUserNotification controller:self];
+         BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+        if (isSwitch) {
+              [self privacySecurityControlsAlert];
+           
+        }else{
+             [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
     }else{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
-        [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeUserNotification controller:self];
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     }];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
    __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -121,6 +135,16 @@
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }
+}
+- (void)privacySecurityControlsAlert{
+    PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
+    privacy.refuseBlock = ^(){
+        NSIndexPath *index= [NSIndexPath indexPathForRow:1 inSection:0];
+        BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+        __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+        [cell setSwitchBtnisOn:!isSwitch];
+    };
+    [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypeUserNotification controller:self];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

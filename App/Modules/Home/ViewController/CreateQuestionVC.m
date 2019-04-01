@@ -229,6 +229,7 @@
     if (button.tag == 5) {
         [self.navigationController popViewControllerAnimated:YES];
     }else if (button.tag == NavRightBtnTag){
+        self.navigationItem.rightBarButtonItem.enabled = NO;
         NSDictionary *params;
         if (self.attachmentArray.count>0 && self.batchId !=nil) {
             NSMutableArray *confirmFormUids = [NSMutableArray new];
@@ -249,9 +250,12 @@
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
                 [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                self.navigationItem.rightBarButtonItem.enabled = YES;
+
             }
         } failBlock:^(NSError *error) {
-            
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
     }
 }

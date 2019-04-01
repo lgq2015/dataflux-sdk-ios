@@ -347,9 +347,13 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
 //    [self infoBoardDatasUpdate];
 //    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+    if(self.noticeDatas.count>0){
     int x = arc4random() % self.noticeDatas.count;
      NSDictionary *dict = self.noticeDatas[x];
       [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+    }else{
+        [self loadTipsData];
+    }
     [self loadRecommendationData];
     [self loadNewsDatas];
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {

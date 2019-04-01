@@ -28,6 +28,7 @@
                                                  name:KNotificationUserInfoChange
                                                object:nil];
     [self createUI];
+    [self loadUserInfo];
 }
 - (void)createUI{
     self.dataSource = [NSMutableArray new];
@@ -71,6 +72,21 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
+- (void)loadUserInfo{
+    [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response isKindOfClass:NSDictionary.class] && [response[@"content"] isKindOfClass:NSDictionary.class]) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSError *error;
+               CurrentUserModel *model  = [[CurrentUserModel alloc]initWithDictionary:response[@"content"] error:&error];
+                userManager.curUserInfo = model;
+                [self updateUser];
+                [userManager saveChangeUserInfo];
+            }
+        }
+    } failBlock:^(NSError *error) {
+        
+    }];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     
@@ -85,6 +101,8 @@
     }
     if (userManager.curUserInfo.email ==nil && indexPath.row == 3) {
         [cell setAlermDescribeLabText:@"去绑定"];
+    }else if(indexPath.row == 3){
+        [cell setDescribeLabText:userManager.curUserInfo.email];
     }
     return cell;
 }

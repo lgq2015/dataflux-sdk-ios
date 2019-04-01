@@ -108,5 +108,5 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 -(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave;
 
--(void)onKick;
+- (void)onKick;
 @end

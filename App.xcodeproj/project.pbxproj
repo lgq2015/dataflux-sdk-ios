@@ -1097,7 +1097,6 @@
 		4AB48A2621F83B0C009F9E94 /* TeamVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamVC.m; sourceTree = "<group>"; };
 		4AB48A2921F86331009F9E94 /* IgnoreListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreListVC.h; sourceTree = "<group>"; };
 		4AB48A2A21F86331009F9E94 /* IgnoreListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IgnoreListVC.m; sourceTree = "<group>"; };
-		4AB48A2F21F88348009F9E94 /* HomeEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeEnum.h; sourceTree = "<group>"; };
 		4AB48A3021F9A93A009F9E94 /* InfoBoardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoBoardModel.h; sourceTree = "<group>"; };
 		4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoBoardModel.m; sourceTree = "<group>"; };
 		4AB48A3321F9B26A009F9E94 /* PWInfoSourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWInfoSourceModel.h; sourceTree = "<group>"; };
@@ -2101,7 +2100,6 @@
 		4AB48A2C21F86D63009F9E94 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				4AB48A2F21F88348009F9E94 /* HomeEnum.h */,
 				4A759A9B224A155C0057BD02 /* IssueSourceConfige.h */,
 				4A759A9C224A155C0057BD02 /* IssueSourceConfige.m */,
 				4A759AA0224A2D700057BD02 /* IssueTf.h */,

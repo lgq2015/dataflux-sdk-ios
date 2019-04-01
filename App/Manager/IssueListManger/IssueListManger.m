@@ -16,7 +16,6 @@
 #import "PWHttpEngine.h"
 #import "IssueListModel.h"
 #import "IssueSourceManger.h"
-#import "BaseReturnModel.h"
 
 #define ISSUE_SOURCE_FILTER_SELECTION  @" AND (issueSourceId='' OR issueSourceId IN (SELECT id FROM issue_source))"
 #define ISSUE_LIST_PAGE_SIZE  100

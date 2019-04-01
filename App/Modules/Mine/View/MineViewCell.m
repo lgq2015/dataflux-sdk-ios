@@ -297,6 +297,7 @@
             }
         }else{
         self.describeLab.text = text;
+        self.describeLab.textColor = [UIColor colorWithHexString:@"8E8E93"];
         }
     }
     

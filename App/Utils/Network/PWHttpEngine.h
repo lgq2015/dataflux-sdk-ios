@@ -23,5 +23,8 @@
 - (PWURLSessionTask *)getIssueSource:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback;
 
 - (PWURLSessionTask *)getIssueList:(NSInteger)pageSize pageMarker:(long long)pageMarker callBack:(void (^)(id))callback;
-
+/**
+  获取用户信息
+ */
+- (PWURLSessionTask *)getUserInfoCallBack:(void (^)(id))callback;
 @end

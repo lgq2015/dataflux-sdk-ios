@@ -12,10 +12,11 @@ typedef NS_ENUM (NSInteger, PrivacyType){
     PrivacyTypePHPhotoLibrary,
     PrivacyTypeUserNotification,
 };
-NS_ASSUME_NONNULL_BEGIN
 
 @interface PrivacySecurityControls : NSObject
+@property (nonatomic, copy) void(^refuseBlock)(void);
+
 - (NSInteger)getPrivacyStatusIsGrantedWithType:(PrivacyType)type controller:(UIViewController *)controller;
 @end
 
-NS_ASSUME_NONNULL_END
+
