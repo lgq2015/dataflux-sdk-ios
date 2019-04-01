@@ -134,7 +134,10 @@
         [kAppWindow.layer addAnimation:anima forKey:@"revealAnimation"];
     }
     //展示FPS
+#ifdef DEBUG //开发环境
     [AppManager showFPS];
+#endif
+
 }
 #pragma mark ========== 网络状态监听  ==========
 

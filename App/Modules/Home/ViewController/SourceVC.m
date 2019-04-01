@@ -561,7 +561,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }else if(button.tag == 100){
         
         if(self.isAdd){
-            [[UIResponder currentFirstResponder] resignFirstResponder];
+         //   [[UIResponder currentFirstResponder] resignFirstResponder];
             [self addIssueSourcejudge];
         }else{
             [[UIResponder currentFirstResponder] resignFirstResponder];
@@ -634,6 +634,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
      self.addTipView = [[AddIssueSourceTipView alloc]init];
     WeakSelf
     if (self.type != SourceTypeDomainNameDiagnose) {
+          [[UIResponder currentFirstResponder] resignFirstResponder];
         param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
 
         [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
@@ -649,6 +650,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         if(![self.TFArray[0].text validateTopLevelDomain]){
             [iToast alertWithTitleCenter:@"域名格式错误"];
         }else{
+            [[UIResponder currentFirstResponder] resignFirstResponder];
         param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
