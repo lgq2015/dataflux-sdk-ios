@@ -1,5 +1,5 @@
 //
-//  InfoBoardModel.h
+//  IssueBoardModel.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2019/1/24.
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, PWInfoBoardItemState) {
 };
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InfoBoardModel : NSObject
+@interface IssueBoardModel : NSObject
 @property (nonatomic, assign) PWInfoType type;
 @property (nonatomic, assign) PWInfoBoardItemState state;
 @property (nonatomic, strong) NSString *typeName;

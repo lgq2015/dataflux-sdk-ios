@@ -1,5 +1,5 @@
 //
-//  IssueExtraModel.h
+//  IssueActtachmentModel.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2019/3/16.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IssueExtraModel : NSObject
+@interface IssueActtachmentModel : NSObject
 @property (nonatomic, strong) NSString *fileUrl;
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *fileIcon;

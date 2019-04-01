@@ -44,7 +44,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     
     return self;
 }
--(void)setModel:(InfoBoardModel *)model{
+-(void)setModel:(IssueBoardModel *)model{
     _model = model;
     [self setupUI];
 }

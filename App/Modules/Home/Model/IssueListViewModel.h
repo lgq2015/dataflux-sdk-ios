@@ -1,5 +1,5 @@
 //
-//  MonitorListModel.h
+//  IssueListViewModel.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2018/11/27.
@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 };
 
 @class IssueModel;
-@interface MonitorListModel : NSObject
+@interface IssueListViewModel : NSObject
 @property (nonatomic, strong) NSDictionary *dictionary;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;

@@ -1,5 +1,5 @@
 //
-//  PWDraggableModel.h
+//  LibraryModel.h
 //  App
 //
 //  Created by 胡蕾蕾 on 2018/12/6.
@@ -16,7 +16,7 @@
  "name": "手册1",
  "orderNum": 1
  */
-@interface PWDraggableModel : JSONModel
+@interface LibraryModel : JSONModel
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, strong) NSString *coverImageMobile;

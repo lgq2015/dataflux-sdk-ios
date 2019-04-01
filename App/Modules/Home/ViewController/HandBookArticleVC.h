@@ -7,11 +7,11 @@
 //
 
 #import "RootViewController.h"
-#import "PWDraggableModel.h"
+#import "LibraryModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HandBookArticleVC : RootViewController
-@property (nonatomic, strong) PWDraggableModel *model;
+@property (nonatomic, strong) LibraryModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,7 @@
 
 #import "MonitorVC.h"
 #import "MonitorCell.h"
-#import "MonitorListModel.h"
+#import "IssueListViewModel.h"
 #import "CreateQuestionVC.h"
 #import "ProblemDetailsVC.h"
 #import "IssueModel.h"
@@ -70,7 +70,7 @@
     self.tableView.mj_header = self.header;
     if (self.dataSource.count>0) {
         [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            MonitorListModel *model = [[MonitorListModel alloc]initWithJsonDictionary:obj];
+            IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
         [self.tableView reloadData];
@@ -122,7 +122,7 @@
         if (self.dataSource.count > 0) {
             [self.monitorData removeAllObjects];
             [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                MonitorListModel *model = [[MonitorListModel alloc] initWithJsonDictionary:obj];
+                IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
                 [self.monitorData addObject:model];
             }];
             [self.tableView reloadData];
@@ -208,7 +208,7 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.monitorData[indexPath.row];
+    IssueListViewModel *model =self.monitorData[indexPath.row];
     model.isRead = YES;
     if (model.isFromUser) {
         ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
@@ -224,7 +224,7 @@
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.monitorData[indexPath.row];
+    IssueListViewModel *model =self.monitorData[indexPath.row];
     if (model.cellHeight == 0 || !model.cellHeight) {
         CGFloat cellHeight = [self.tempCell heightForModel:self.monitorData[indexPath.row]];
         // 缓存给model

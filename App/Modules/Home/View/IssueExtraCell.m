@@ -7,7 +7,7 @@
 //
 
 #import "IssueExtraCell.h"
-#import "IssueExtraModel.h"
+#import "IssueActtachmentModel.h"
 
 @interface IssueExtraCell()
 @property (nonatomic, strong) UIImageView *iconView;
@@ -21,7 +21,7 @@
     [super awakeFromNib];
     // Initialization code
 }
--(void)setModel:(IssueExtraModel *)model{
+-(void)setModel:(IssueActtachmentModel *)model{
     _model = model;
      NSString *type =  [_model.fileUrl pathExtension];
     if ([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]) {

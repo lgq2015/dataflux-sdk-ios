@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@class MonitorListModel;
+@class IssueListViewModel;
 @interface MonitorCell : UITableViewCell
-@property (nonatomic, strong) MonitorListModel *model;
+@property (nonatomic, strong) IssueListViewModel *model;
 @property (nonatomic, assign) BOOL isService;
 - (CGFloat)heightForModel:(NSDictionary *)model;
 @end

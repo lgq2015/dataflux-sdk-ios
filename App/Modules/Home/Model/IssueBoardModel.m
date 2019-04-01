@@ -1,14 +1,14 @@
 //
-//  InfoBoardModel.m
+//  IssueBoardModel.m
 //  App
 //
 //  Created by 胡蕾蕾 on 2019/1/24.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "InfoBoardModel.h"
+#import "IssueBoardModel.h"
 
-@implementation InfoBoardModel
+@implementation IssueBoardModel
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary{
     if (![dictionary isKindOfClass:[NSDictionary class]]) return nil;
     if (self = [super init]) {

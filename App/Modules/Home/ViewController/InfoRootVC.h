@@ -7,14 +7,14 @@
 //
 
 #import "RootViewController.h"
-#import "MonitorListModel.h"
+#import "IssueListViewModel.h"
 #import "TeamInfoModel.h"
 #import "PWChatVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InfoRootVC : RootViewController
-@property (nonatomic, strong) MonitorListModel *model;
+@property (nonatomic, strong) IssueListViewModel *model;
 @property (nonatomic, strong) UIBarButtonItem *navRightBtn;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIView *upContainerView;

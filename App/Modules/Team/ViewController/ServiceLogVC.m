@@ -137,7 +137,7 @@
 - (void)dealWithData:(NSArray *)data{
     if (data>0) {
         [data enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-            MonitorListModel *model = [[MonitorListModel alloc]initWithDictionary:dict];
+            IssueListViewModel *model = [[IssueListViewModel alloc]initWithDictionary:dict];
             [self.dataSource addObject:model];
         }];
         [self.tableView reloadData];
@@ -163,7 +163,7 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.dataSource[indexPath.row];
+    IssueListViewModel *model =self.dataSource[indexPath.row];
      model.isRead = YES;
     if (model.isFromUser) {
         ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
@@ -177,7 +177,7 @@
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.dataSource[indexPath.row];
+    IssueListViewModel *model =self.dataSource[indexPath.row];
     if (model.cellHeight == 0 || !model.cellHeight) {
         CGFloat cellHeight = [self.tempCell heightForModel:self.dataSource[indexPath.row]];
         // 缓存给model

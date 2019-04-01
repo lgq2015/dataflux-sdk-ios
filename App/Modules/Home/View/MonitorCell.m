@@ -7,7 +7,7 @@
 //
 
 #import "MonitorCell.h"
-#import "MonitorListModel.h"
+#import "IssueListViewModel.h"
 #import "RightTriangleView.h"
 @interface MonitorCell ()
 @property (nonatomic, strong) UILabel *titleLab;
@@ -83,7 +83,7 @@
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
-- (void)setModel:(MonitorListModel *)model{
+- (void)setModel:(IssueListViewModel *)model{
     _model = model;
     switch (self.model.state) {
         case MonitorListStateWarning:
@@ -203,7 +203,7 @@
     }
     return _stateLab;
 }
-- (CGFloat)heightForModel:(MonitorListModel *)model{
+- (CGFloat)heightForModel:(IssueListViewModel *)model{
     [self layoutSubviews];
     [self setModel:model];
     [self layoutIfNeeded];

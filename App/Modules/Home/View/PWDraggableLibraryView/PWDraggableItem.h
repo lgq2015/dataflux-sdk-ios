@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PWDraggableModel.h"
+#import "LibraryModel.h"
 
 
 typedef void (^DisplayBlock)(NSInteger index);
@@ -45,7 +45,7 @@ typedef void (^DisplayBlock)(NSInteger index);
 @property (nonatomic, strong) UILabel *upTitleLab;
 @property (nonatomic, strong) UILabel *subTitleLab;
 @property (nonatomic, strong) UIImageView *iconImgVie;
-@property (nonatomic, strong) PWDraggableModel *model;
+@property (nonatomic, strong) LibraryModel *model;
 @property (nonatomic, copy) DisplayBlock clickBlock;
 
 @end

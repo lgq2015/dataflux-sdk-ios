@@ -245,7 +245,7 @@
 		4AB48A2121F7282C009F9E94 /* NetworkToolboxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2021F7282C009F9E94 /* NetworkToolboxView.m */; };
 		4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2621F83B0C009F9E94 /* TeamVC.m */; };
 		4AB48A2B21F86331009F9E94 /* IgnoreListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A2A21F86331009F9E94 /* IgnoreListVC.m */; };
-		4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
+		4AB48A3221F9A93A009F9E94 /* IssueBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* IssueBoardModel.m */; };
 		4AB48A3521F9B26A009F9E94 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		4AB48A5221FB01E8009F9E94 /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A5121FB01E8009F9E94 /* PersonalInfoVC.m */; };
 		4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7321FC473E009F9E94 /* UITabBarItem+PPBadgeView.m */; };
@@ -262,7 +262,7 @@
 		4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
 		4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
-		4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* IssueListViewModel.m */; };
 		4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437521B76B6D002AF34E /* MainTabBarController.m */; };
 		4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
@@ -277,7 +277,7 @@
 		4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AD21B8BACE002AF34E /* PWGridView.m */; };
 		4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
 		4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
-		4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		4ABF43C321B8BB1D002AF34E /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
 		4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
 		4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441D21BD3146002AF34E /* PWNetworking+RequestManager.m */; };
@@ -348,9 +348,9 @@
 		4AC857AF223CCCD000DAE1F6 /* IssueExtraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857AE223CCCD000DAE1F6 /* IssueExtraCell.m */; };
 		4AC857B0223CCCD000DAE1F6 /* IssueExtraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857AE223CCCD000DAE1F6 /* IssueExtraCell.m */; };
 		4AC857B1223CCCD000DAE1F6 /* IssueExtraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857AE223CCCD000DAE1F6 /* IssueExtraCell.m */; };
-		4AC857B4223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */; };
-		4AC857B5223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */; };
-		4AC857B6223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */; };
+		4AC857B4223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueActtachmentModel.m */; };
+		4AC857B5223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueActtachmentModel.m */; };
+		4AC857B6223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B3223CD02A00DAE1F6 /* IssueActtachmentModel.m */; };
 		4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
 		4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
 		4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
@@ -618,10 +618,10 @@
 		CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
 		CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */; };
 		CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
-		CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		CA1CF5A1221ECB3A00D15316 /* IssueListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* IssueListViewModel.m */; };
 		CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A5121FB01E8009F9E94 /* PersonalInfoVC.m */; };
 		CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
-		CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
+		CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* IssueBoardModel.m */; };
 		CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF5A8221ECB3A00D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -637,7 +637,7 @@
 		CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
 		CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		CA1CF5B6221ECB3A00D15316 /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
-		CA1CF5B7221ECB3A00D15316 /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
 		CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
 		CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
@@ -756,10 +756,10 @@
 		CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44CF21C20090002AF34E /* NSString+verify.m */; };
 		CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C50F21D4E1B1003BB9CB /* PrimaryCompanyModel.m */; };
 		CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44A121C0FD7E002AF34E /* UserInfo.m */; };
-		CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* MonitorListModel.m */; };
+		CA1CF646221ECB5000D15316 /* IssueListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF426221ACDCBE002AF34E /* IssueListViewModel.m */; };
 		CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A5121FB01E8009F9E94 /* PersonalInfoVC.m */; };
 		CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374D21C69B8C004CF320 /* PWCustomLabel.m */; };
-		CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */; };
+		CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3121F9A93A009F9E94 /* IssueBoardModel.m */; };
 		CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
 		CA1CF64D221ECB5000D15316 /* PWInfoSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */; };
 		CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375021C6A143004CF320 /* UIView+PWFrame.m */; };
@@ -775,7 +775,7 @@
 		CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
 		CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		CA1CF65B221ECB5000D15316 /* PWInfoBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* PWInfoBoardCell.m */; };
-		CA1CF65C221ECB5000D15316 /* PWDraggableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */; };
+		CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
 		CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
 		CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
@@ -1102,8 +1102,8 @@
 		4AB48A2621F83B0C009F9E94 /* TeamVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamVC.m; sourceTree = "<group>"; };
 		4AB48A2921F86331009F9E94 /* IgnoreListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreListVC.h; sourceTree = "<group>"; };
 		4AB48A2A21F86331009F9E94 /* IgnoreListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IgnoreListVC.m; sourceTree = "<group>"; };
-		4AB48A3021F9A93A009F9E94 /* InfoBoardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoBoardModel.h; sourceTree = "<group>"; };
-		4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoBoardModel.m; sourceTree = "<group>"; };
+		4AB48A3021F9A93A009F9E94 /* IssueBoardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueBoardModel.h; sourceTree = "<group>"; };
+		4AB48A3121F9A93A009F9E94 /* IssueBoardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueBoardModel.m; sourceTree = "<group>"; };
 		4AB48A3321F9B26A009F9E94 /* PWInfoSourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWInfoSourceModel.h; sourceTree = "<group>"; };
 		4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInfoSourceModel.m; sourceTree = "<group>"; };
 		4AB48A5021FB01E8009F9E94 /* PersonalInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalInfoVC.h; sourceTree = "<group>"; };
@@ -1138,8 +1138,8 @@
 		4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeCardItem.m; sourceTree = "<group>"; };
 		4AB48AE7221D4AE9009F9E94 /* FeedbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackVC.h; sourceTree = "<group>"; };
 		4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackVC.m; sourceTree = "<group>"; };
-		4ABF426121ACDCBE002AF34E /* MonitorListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonitorListModel.h; sourceTree = "<group>"; };
-		4ABF426221ACDCBE002AF34E /* MonitorListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonitorListModel.m; sourceTree = "<group>"; };
+		4ABF426121ACDCBE002AF34E /* IssueListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueListViewModel.h; sourceTree = "<group>"; };
+		4ABF426221ACDCBE002AF34E /* IssueListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueListViewModel.m; sourceTree = "<group>"; };
 		4ABF437421B76B6D002AF34E /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainTabBarController.h; path = App/Base/TabbarController/MainTabBarController.h; sourceTree = SOURCE_ROOT; };
 		4ABF437521B76B6D002AF34E /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainTabBarController.m; path = App/Base/TabbarController/MainTabBarController.m; sourceTree = SOURCE_ROOT; };
 		4ABF437621B76B6D002AF34E /* PWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWTabBar.h; path = App/Base/TabbarController/PWTabBar.h; sourceTree = SOURCE_ROOT; };
@@ -1168,8 +1168,8 @@
 		4ABF43B121B8BACE002AF34E /* PWGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWGridView.h; sourceTree = "<group>"; };
 		4ABF43B221B8BACE002AF34E /* ItemContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemContentCell.h; sourceTree = "<group>"; };
 		4ABF43B321B8BACE002AF34E /* GridViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewItem.h; sourceTree = "<group>"; };
-		4ABF43C121B8BB1D002AF34E /* PWDraggableModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDraggableModel.h; sourceTree = "<group>"; };
-		4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDraggableModel.m; sourceTree = "<group>"; };
+		4ABF43C121B8BB1D002AF34E /* LibraryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryModel.h; sourceTree = "<group>"; };
+		4ABF43C221B8BB1D002AF34E /* LibraryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryModel.m; sourceTree = "<group>"; };
 		4ABF43FB21B8FD88002AF34E /* LoginPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginPasswordVC.h; sourceTree = "<group>"; };
 		4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginPasswordVC.m; sourceTree = "<group>"; };
 		4ABF441821BD1F68002AF34E /* PWNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWNetworking.h; sourceTree = "<group>"; };
@@ -1249,8 +1249,8 @@
 		4AC857A9223C960700DAE1F6 /* NSDictionary+response.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+response.m"; sourceTree = "<group>"; };
 		4AC857AD223CCCD000DAE1F6 /* IssueExtraCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueExtraCell.h; sourceTree = "<group>"; };
 		4AC857AE223CCCD000DAE1F6 /* IssueExtraCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueExtraCell.m; sourceTree = "<group>"; };
-		4AC857B2223CD02900DAE1F6 /* IssueExtraModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueExtraModel.h; sourceTree = "<group>"; };
-		4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueExtraModel.m; sourceTree = "<group>"; };
+		4AC857B2223CD02900DAE1F6 /* IssueActtachmentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueActtachmentModel.h; sourceTree = "<group>"; };
+		4AC857B3223CD02A00DAE1F6 /* IssueActtachmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueActtachmentModel.m; sourceTree = "<group>"; };
 		4AC857B7223D045800DAE1F6 /* WEBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEBViewController.h; sourceTree = "<group>"; };
 		4AC857B8223D045800DAE1F6 /* WEBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEBViewController.m; sourceTree = "<group>"; };
 		4AC857C4223D0CA500DAE1F6 /* PurchaseHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseHistoryVC.h; sourceTree = "<group>"; };
@@ -2127,24 +2127,24 @@
 		4ABF426021ACDC90002AF34E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4ABF426121ACDCBE002AF34E /* MonitorListModel.h */,
-				4ABF426221ACDCBE002AF34E /* MonitorListModel.m */,
-				4ABF43C121B8BB1D002AF34E /* PWDraggableModel.h */,
-				4ABF43C221B8BB1D002AF34E /* PWDraggableModel.m */,
+				4ABF426121ACDCBE002AF34E /* IssueListViewModel.h */,
+				4ABF426221ACDCBE002AF34E /* IssueListViewModel.m */,
+				4ABF43C121B8BB1D002AF34E /* LibraryModel.h */,
+				4ABF43C221B8BB1D002AF34E /* LibraryModel.m */,
 				4ABF447C21BF8C2D002AF34E /* GridViewModel.h */,
 				4ABF447D21BF8C2D002AF34E /* GridViewModel.m */,
 				4A61144821DCAE6C00E4138B /* NewsListModel.h */,
 				4A61144921DCAE6C00E4138B /* NewsListModel.m */,
-				4AB48A3021F9A93A009F9E94 /* InfoBoardModel.h */,
-				4AB48A3121F9A93A009F9E94 /* InfoBoardModel.m */,
+				4AB48A3021F9A93A009F9E94 /* IssueBoardModel.h */,
+				4AB48A3121F9A93A009F9E94 /* IssueBoardModel.m */,
 				4AB48A3321F9B26A009F9E94 /* PWInfoSourceModel.h */,
 				4AB48A3421F9B26A009F9E94 /* PWInfoSourceModel.m */,
 				4AB48AA22201C0B4009F9E94 /* IssueModel.h */,
 				4AB48AA32201C0B4009F9E94 /* IssueModel.m */,
 				4AC856E7223121BA00DAE1F6 /* HandbookModel.h */,
 				4AC856E8223121BA00DAE1F6 /* HandbookModel.m */,
-				4AC857B2223CD02900DAE1F6 /* IssueExtraModel.h */,
-				4AC857B3223CD02A00DAE1F6 /* IssueExtraModel.m */,
+				4AC857B2223CD02900DAE1F6 /* IssueActtachmentModel.h */,
+				4AC857B3223CD02A00DAE1F6 /* IssueActtachmentModel.m */,
 				6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */,
 				6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */,
 				4A759A8622489C330057BD02 /* CreateQuestionModel.h */,
@@ -3169,7 +3169,7 @@
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* NewGuidanceView.m in Sources */,
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
-				4ABF426321ACDCBE002AF34E /* MonitorListModel.m in Sources */,
+				4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */,
 				4AB48A5221FB01E8009F9E94 /* PersonalInfoVC.m in Sources */,
 				4AC857AA223C960700DAE1F6 /* NSDictionary+response.m in Sources */,
 				4A092C9822268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
@@ -3178,7 +3178,7 @@
 				4A092CF42229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				4AC8570422323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
-				4AB48A3221F9A93A009F9E94 /* InfoBoardModel.m in Sources */,
+				4AB48A3221F9A93A009F9E94 /* IssueBoardModel.m in Sources */,
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* PWInfoSourceModel.m in Sources */,
@@ -3215,7 +3215,7 @@
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
 				4A7599D4224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4A19548E21A7F7BF007ADFCA /* PWInfoBoardCell.m in Sources */,
-				4ABF43C321B8BB1D002AF34E /* PWDraggableModel.m in Sources */,
+				4ABF43C321B8BB1D002AF34E /* LibraryModel.m in Sources */,
 				4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
@@ -3229,7 +3229,7 @@
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
-				4AC857B4223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */,
+				4AC857B4223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
@@ -3427,7 +3427,7 @@
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
-				4AC857B5223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */,
+				4AC857B5223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */,
 				4A7599B1223FB0370057BD02 /* text.swift in Sources */,
 				4A759AEF224FD4A20057BD02 /* NewGuidanceView.m in Sources */,
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
@@ -3437,7 +3437,7 @@
 				4A092D58222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
 				4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4A759AA3224A2D700057BD02 /* IssueTf.m in Sources */,
-				CA1CF5A1221ECB3A00D15316 /* MonitorListModel.m in Sources */,
+				CA1CF5A1221ECB3A00D15316 /* IssueListViewModel.m in Sources */,
 				4AC857AB223C960700DAE1F6 /* NSDictionary+response.m in Sources */,
 				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB82227BE5300FB2A35 /* InviteCardView.m in Sources */,
@@ -3445,7 +3445,7 @@
 				4A759ACB224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857B0223CCCD000DAE1F6 /* IssueExtraCell.m in Sources */,
-				CA1CF5A5221ECB3A00D15316 /* InfoBoardModel.m in Sources */,
+				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -3479,7 +3479,7 @@
 				CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */,
 				CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */,
 				CA1CF5B6221ECB3A00D15316 /* PWInfoBoardCell.m in Sources */,
-				CA1CF5B7221ECB3A00D15316 /* PWDraggableModel.m in Sources */,
+				CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */,
 				4AC8570522323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
 				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
@@ -3689,7 +3689,7 @@
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
-				4AC857B6223CD02A00DAE1F6 /* IssueExtraModel.m in Sources */,
+				4AC857B6223CD02A00DAE1F6 /* IssueActtachmentModel.m in Sources */,
 				4A7599B2223FB0370057BD02 /* text.swift in Sources */,
 				4A759AF0224FD4A30057BD02 /* NewGuidanceView.m in Sources */,
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
@@ -3699,7 +3699,7 @@
 				4A092D59222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
 				4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4A759AA4224A2D700057BD02 /* IssueTf.m in Sources */,
-				CA1CF646221ECB5000D15316 /* MonitorListModel.m in Sources */,
+				CA1CF646221ECB5000D15316 /* IssueListViewModel.m in Sources */,
 				4AC857AC223C960700DAE1F6 /* NSDictionary+response.m in Sources */,
 				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB92227BE5300FB2A35 /* InviteCardView.m in Sources */,
@@ -3707,7 +3707,7 @@
 				4A759ACC224CF0BA0057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4AC857B1223CCCD000DAE1F6 /* IssueExtraCell.m in Sources */,
-				CA1CF64A221ECB5000D15316 /* InfoBoardModel.m in Sources */,
+				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -3741,7 +3741,7 @@
 				CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */,
 				CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */,
 				CA1CF65B221ECB5000D15316 /* PWInfoBoardCell.m in Sources */,
-				CA1CF65C221ECB5000D15316 /* PWDraggableModel.m in Sources */,
+				CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */,
 				4AC8570622323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
 				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,

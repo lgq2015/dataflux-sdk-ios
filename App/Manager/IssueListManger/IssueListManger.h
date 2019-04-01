@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
 
-@class InfoBoardModel;
+@class IssueBoardModel;
 @class IssueModel;
 @class BaseReturnModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListManger : BaseSqlHelper
-@property (nonatomic, strong) NSMutableArray<InfoBoardModel *> *infoDatas;
+@property (nonatomic, strong) NSMutableArray<IssueBoardModel *> *infoDatas;
 
 //单例
 SINGLETON_FOR_HEADER(IssueListManger)

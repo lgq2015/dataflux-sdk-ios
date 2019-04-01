@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class IssueExtraModel;
+@class IssueActtachmentModel;
 @interface IssueExtraCell : UITableViewCell
-@property (nonatomic, strong) IssueExtraModel *model;
+@property (nonatomic, strong) IssueActtachmentModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

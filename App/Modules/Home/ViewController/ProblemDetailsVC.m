@@ -8,7 +8,7 @@
 
 #import "ProblemDetailsVC.h"
 #import "IssueExtraCell.h"
-#import "IssueExtraModel.h"
+#import "IssueActtachmentModel.h"
 #import "PPBadgeView.h"
 #import "PWBaseWebVC.h"
 #import "PWChatVC.h"
@@ -190,14 +190,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueExtraCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueExtraCell"];
-    IssueExtraModel *model = [[IssueExtraModel alloc]initWithDictionary:self.expireData[indexPath.row]];
+    IssueActtachmentModel *model = [[IssueActtachmentModel alloc]initWithDictionary:self.expireData[indexPath.row]];
     cell.model = model;
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    IssueExtraModel *model = [[IssueExtraModel alloc]initWithDictionary:self.expireData[indexPath.row]];
+    IssueActtachmentModel *model = [[IssueActtachmentModel alloc]initWithDictionary:self.expireData[indexPath.row]];
     DLog(@"%@",model.fileUrl);
 
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];

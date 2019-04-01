@@ -8,7 +8,7 @@
 
 #import <MapKit/MapKit.h>
 #import "ThinkTankVC.h"
-#import "PWDraggableModel.h"
+#import "LibraryModel.h"
 #import "PWDraggableItem.h"
 #import "PWFMDB.h"
 #import "HandBookArticleVC.h"
@@ -20,7 +20,7 @@ static NSUInteger ItemHeight = 136;
 static NSUInteger ItemWidth = 104;
 
 @interface ThinkTankVC ()<PWDraggableItemDelegate>
-@property (nonatomic, strong) NSMutableArray<PWDraggableModel *> *handbookArray;
+@property (nonatomic, strong) NSMutableArray<LibraryModel *> *handbookArray;
 
 
 @property (nonatomic, strong) UIView *searchView;
@@ -79,7 +79,7 @@ static NSUInteger ItemWidth = 104;
     NSMutableArray *handbook = [NSMutableArray new];
     [array enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
-        PWDraggableModel *model = [[PWDraggableModel alloc]initWithDictionary:dict error:&error];
+        LibraryModel *model = [[LibraryModel alloc]initWithDictionary:dict error:&error];
         [handbook addObject:model];
     }];
 
@@ -93,10 +93,10 @@ static NSUInteger ItemWidth = 104;
     } else {
         __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
         //找到handbook中有,itemDatas中没有的数据
-        [itemDatas enumerateObjectsUsingBlock:^(PWDraggableModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+        [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
             NSString *modelStr = [model toJSONString];
             __block BOOL isHave = NO;
-            [handbook enumerateObjectsUsingBlock:^(PWDraggableModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
+            [handbook enumerateObjectsUsingBlock:^(LibraryModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
                 NSString *newModelStr = [newModel toJSONString];
                 if ([modelStr isEqualToString:newModelStr]) {
                     isHave = YES;
@@ -108,10 +108,10 @@ static NSUInteger ItemWidth = 104;
             }
         }];
         //找到arr1中有,arr2中没有的数据
-        [itemDatas enumerateObjectsUsingBlock:^(PWDraggableModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSString *objStr = [obj toJSONString];
             __block BOOL isHave = NO;
-            [handbook enumerateObjectsUsingBlock:^(PWDraggableModel *newobj, NSUInteger idx, BOOL *_Nonnull stop) {
+            [handbook enumerateObjectsUsingBlock:^(LibraryModel *newobj, NSUInteger idx, BOOL *_Nonnull stop) {
                 NSString *newobjStr = [newobj toJSONString];
                 if ([objStr isEqualToString:newobjStr]) {
                     isHave = YES;
@@ -151,7 +151,7 @@ static NSUInteger ItemWidth = 104;
     CGFloat height = ZOOM_SCALE(ItemHeight);
 
     for (NSInteger index = 0; index<self.handbookArray.count; index++) {
-        PWDraggableModel *model = self.handbookArray[index];
+        LibraryModel *model = self.handbookArray[index];
         NSUInteger X = index % kLineCount;
         NSUInteger Y = index / kLineCount;
         PWDraggableItem *btn = [[PWDraggableItem alloc]init];
@@ -195,7 +195,7 @@ static NSUInteger ItemWidth = 104;
 }
 - (void)loadHandBookDetail:(NSInteger)index{
     
-    PWDraggableModel *model = self.handbookArray[index];
+    LibraryModel *model = self.handbookArray[index];
     if ([model.category isEqualToString:@"column"]) {
         HandBookArticleVC *articale = [[HandBookArticleVC alloc]init];
         articale.model = model;

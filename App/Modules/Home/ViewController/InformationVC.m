@@ -129,7 +129,7 @@
             [SVProgressHUD dismiss];
             IssueModel *data = (IssueModel *) o;
             if (data.isSuccess) {
-                MonitorListModel *monitorListModel = [[MonitorListModel alloc] initWithJsonDictionary:data];
+                IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
 
                 InfoRootVC *control;
                 if ([data.origin isEqualToString:@"user"]) {

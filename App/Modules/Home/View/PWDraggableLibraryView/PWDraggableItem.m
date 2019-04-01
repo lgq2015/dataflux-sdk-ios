@@ -51,7 +51,7 @@ static CGFloat kDuration = .3f;
     return self;
 }
 
--(void)setModel:(PWDraggableModel *)model{
+-(void)setModel:(LibraryModel *)model{
 
     _model = model;
     [self createUI];
