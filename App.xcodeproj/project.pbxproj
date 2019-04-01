@@ -226,6 +226,9 @@
 		4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
 		4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
 		4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
+		4A759B3122522E160057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
+		4A759B3222522E160057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
+		4A759B3322522E170057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1065,6 +1068,8 @@
 		4A759AF2224FF2490057BD02 /* CreateQueGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateQueGuideView.m; sourceTree = "<group>"; };
 		4A759AF6224FF5930057BD02 /* UpTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpTriangle.h; sourceTree = "<group>"; };
 		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
+		4A759B2F22522E150057BD02 /* PWNewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWNewsListEmptyView.h; sourceTree = "<group>"; };
+		4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWNewsListEmptyView.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1618,6 +1623,8 @@
 				4A19548621A7F7BE007ADFCA /* PWInfoBoard */,
 				4A61144621DCAE4000E4138B /* PWNewsListCell.h */,
 				4A61144521DCAE4000E4138B /* PWNewsListCell.m */,
+				4A759B2F22522E150057BD02 /* PWNewsListEmptyView.h */,
+				4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */,
 				4A759AE2224F38B70057BD02 /* PWNewsListImageCell.h */,
 				4A759AE3224F38B80057BD02 /* PWNewsListImageCell.m */,
 				4AB489B121EC6640009F9E94 /* MonitorCell.h */,
@@ -3335,6 +3342,7 @@
 				6B6E22495AF751FE668ECAD1 /* InformationSourceVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* CreateQuestionVC.m in Sources */,
+				4A759B3122522E160057BD02 /* PWNewsListEmptyView.m in Sources */,
 				6B6E2D128A3CDB9307318A6D /* SourceVC.m in Sources */,
 				6B6E2F42FE5940B3E0F7D2A4 /* InfoRootVC.m in Sources */,
 				6B6E231AB4C7681921EC9732 /* ProblemDetailsVC.m in Sources */,
@@ -3596,6 +3604,7 @@
 				6B6E298F9C67A7A822B4E38B /* InformationSourceVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* CreateQuestionVC.m in Sources */,
+				4A759B3222522E160057BD02 /* PWNewsListEmptyView.m in Sources */,
 				6B6E2FC4DFCDDA647155A7CA /* SourceVC.m in Sources */,
 				6B6E200F04E0C0E74B82BA19 /* InfoRootVC.m in Sources */,
 				6B6E20AD099D1E01A1FFE5E6 /* ProblemDetailsVC.m in Sources */,
@@ -3857,6 +3866,7 @@
 				6B6E2DF77819B44BC42F1A62 /* InformationSourceVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
 				6B6E294462FC47A01BC49067 /* CreateQuestionVC.m in Sources */,
+				4A759B3322522E170057BD02 /* PWNewsListEmptyView.m in Sources */,
 				6B6E2C5A6F38B0F90D9BFA36 /* SourceVC.m in Sources */,
 				6B6E2251AAC28C5027550FB2 /* InfoRootVC.m in Sources */,
 				6B6E2D737D68A3B67320DCBE /* ProblemDetailsVC.m in Sources */,

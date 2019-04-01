@@ -62,4 +62,7 @@
 #define setRemoteNotificationData(data)       [kUserDefaults setObject:data forKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA]
 #define getRemoteNotificationData            [kUserDefaults objectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA]
 
+#define NewVersionUpdateAlert  @"NewVersionUpdateAlert"
+#define setNewVersionDict(dict)        [kUserDefaults setObject:dict forKey:NewVersionUpdateAlert]
+#define getNewVersionDict              [kUserDefaults objectForKey:NewVersionUpdateAlert]
 #endif /* NSUserDefaultsMacros_h */

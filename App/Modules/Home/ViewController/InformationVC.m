@@ -28,7 +28,7 @@
 #import "InfoDetailVC.h"
 #import "ProblemDetailsVC.h"
 #import "NewGuidanceView.h"
-
+#import "PWNewsListEmptyView.h"
 @interface InformationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *infoDatas;
 @property (nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
 @property (nonatomic, strong) PWNewsListCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *noticeDatas;
+@property (nonatomic, strong) PWNewsListEmptyView *noDataView;
 @end
 
 @implementation InformationVC
@@ -322,6 +323,12 @@
     }
     return _notice;
 }
+- (PWNewsListEmptyView *)noDataView{
+    if (!_noDataView) {
+        _noDataView = [[PWNewsListEmptyView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
+    }
+    return _noDataView;
+}
 - (void)loadTipsData{
     [PWNetworking requsetWithUrl:PW_TIPS withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if([response isKindOfClass:NSArray.class]){
@@ -418,10 +425,12 @@
     [self.tableView layoutIfNeeded];
 }
 - (void)dealNewsDataWithData:(NSArray *)items andTotalPage:(NSInteger)page{
-
-    [items enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
-        [self.newsDatas addObject:model];
+    NSArray *newsArray= [items copy];
+    [newsArray enumerateObjectsUsingBlock:^(id dict, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([dict isKindOfClass:NSDictionary.class]) {
+            NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
+            [self.newsDatas addObject:model];
+        }
     }];
     if (self.newsDatas.count>0) {
         [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
@@ -436,7 +445,7 @@
             self.newsPage++;
         }
     }else{
-
+        self.tableView.tableFooterView = self.noDataView;
     }
 
 }

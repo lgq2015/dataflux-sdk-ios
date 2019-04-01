@@ -275,6 +275,10 @@
 - (void)judgeTheVersion:(NSDictionary *)dict{
     NSString *releaseNotes = [dict stringValueForKey:@"releaseNotes" default:@""];
     NSString *version = [dict stringValueForKey:@"version" default:@""];
+    NSDictionary *dict1 =getNewVersionDict;
+    NSMutableDictionary *versionDict  =[NSMutableDictionary dictionaryWithDictionary:dict1];
+    BOOL setversion = [versionDict boolValueForKey:version default:NO];
+    if (!setversion) {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     if ([nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
@@ -284,6 +288,9 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         };
+    }
+        [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
+        setNewVersionDict(versionDict);
     }
 //    if (![nowVersion isEqualToString:version]) {
     
