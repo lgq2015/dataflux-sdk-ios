@@ -55,6 +55,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (void)createData;
 
 - (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId;
+
+- (void)clearAllIssueData;
 @end
 
 NS_ASSUME_NONNULL_END

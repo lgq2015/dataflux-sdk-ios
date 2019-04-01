@@ -13,6 +13,8 @@
 #import "CreateQuestionCell.h"
 #import "CreateQuestionModel.h"
 #import "UIResponder+FirstResponder.h"
+#import "PWSocketManager.h"
+#import "IssueListManger.h"
 
 #define NavRightBtnTag  100  // 右侧图片
 
@@ -249,6 +251,12 @@
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
                 [self.navigationController popViewControllerAnimated:YES];
+
+                if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+                    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+
+                }
+
             }
         } failBlock:^(NSError *error) {
             

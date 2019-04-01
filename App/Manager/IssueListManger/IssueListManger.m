@@ -207,11 +207,11 @@
             }
 
         }
+        _isFetching = NO;
 
         if (callBackStatus != nil) {
             callBackStatus(listModel);
         }
-        _isFetching = NO;
 
 
     }];
@@ -223,6 +223,11 @@
 
 }
 
+/**
+ *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会
+ * @param callBackStatus
+ * @param check
+ */
 - (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus check:(BOOL)check {
     if (_isFetching) {
         return;
@@ -273,11 +278,11 @@
     __block long long seqAct = 0;
 
     [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = @"ORDER BY seqAct DESC";
-        NSDictionary *dict = @{@"seqAct": SQL_INTEGER};
-        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
+        NSString *whereFormat = @"ORDER BY actSeq DESC";
+        NSDictionary *dict = @{@"actSeq": SQL_INTEGER};
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         if (array.count > 0) {
-            seqAct = [array[0] longLongValueForKey:@"seqAct" default:0];
+            seqAct = [array[0] longLongValueForKey:@"actSeq" default:0];
         }
     }];
     return seqAct;
@@ -414,13 +419,21 @@
     KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
 }
 
+/**
+ * 查看 issue
+ * @param issueId
+ */
 - (void)readIssue:(NSString *)issueId {
-    NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
-    NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-    if (itemDatas.count > 0) {
-        itemDatas[0].isRead = YES;
-        [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0] whereFormat:whereFormat];
-    }
+
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
+        NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        if (itemDatas.count > 0) {
+            itemDatas[0].isRead = YES;
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0] whereFormat:whereFormat];
+        }
+    }];
+
 }
 
 // 判断首页是否连接
@@ -472,6 +485,16 @@
         [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
         [self refreshIssueBoardDatas];
     }];
+
+}
+
+
+-(void)clearAllIssueData{
+    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:nil];
+    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME whereFormat:nil];
+    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME whereFormat:nil];
+    [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME whereFormat:nil];
+
 
 }
 
