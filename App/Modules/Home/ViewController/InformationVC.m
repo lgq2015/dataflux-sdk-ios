@@ -75,7 +75,7 @@
                                              selector:@selector(infoBoardStyleUpdate)
                                                  name:KNotificationIssueSourceChange
                                                object:nil];
-    [self dealNewsDatas];
+    [self loadNewsDatas];
     [self judgeIssueConnectState];
     [self loadTipsData];
     [self dealWithNotificationData];
@@ -374,17 +374,7 @@
 -(void)footerRereshing{
     [self loadNewsDatas];
 }
-- (void)dealNewsDatas{
-    self.newsDatas = [NSMutableArray new];
-    dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//
-    dispatch_sync(queueT, ^{
-        [self loadNewsDatas];
-    });
-    dispatch_sync(queueT, ^{
-        [self loadRecommendationData];
-    });
-    
-}
+
 - (void)loadRecommendationData{
     [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -400,8 +390,12 @@
     }];
 }
 - (void)loadNewsDatas{
+  
+    
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [self loadRecommendationData];
+
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
             NSArray *items = data[@"items"];
@@ -413,9 +407,11 @@
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
+        [self loadRecommendationData];
         [self.header endRefreshing];
         [self.footer endRefreshing];
     }];
+    
 }
 - (void)RecommendationDatas:(NSArray *)array{
     NSMutableArray *recommendDatas = [NSMutableArray new];
