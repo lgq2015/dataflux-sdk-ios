@@ -348,7 +348,6 @@
 }
 - (void)headerRereshing{
     self.newsPage = 1;
-    self.newsDatas = [NSMutableArray new];
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
 //    [self infoBoardDatasUpdate];
@@ -377,8 +376,14 @@
 }
 - (void)dealNewsDatas{
     self.newsDatas = [NSMutableArray new];
-    [self loadRecommendationData];
-    [self loadNewsDatas];
+    dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//
+    dispatch_sync(queueT, ^{
+        [self loadNewsDatas];
+    });
+    dispatch_sync(queueT, ^{
+        [self loadRecommendationData];
+    });
+    
 }
 - (void)loadRecommendationData{
     [PWNetworking requsetWithUrl:PW_recommendation withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -386,8 +391,6 @@
             NSArray *datas = response[@"content"];
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
-            }else{
-                [self RecommendationDatas:nil];
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -428,12 +431,17 @@
 }
 - (void)dealNewsDataWithData:(NSArray *)items andTotalPage:(NSInteger)page{
     NSArray *newsArray= [items copy];
+    NSMutableArray *newsDatas = [NSMutableArray new];
     [newsArray enumerateObjectsUsingBlock:^(id dict, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([dict isKindOfClass:NSDictionary.class]) {
             NewsListModel *model = [[NewsListModel alloc]initWithJsonDictionary:dict];
-            [self.newsDatas addObject:model];
+            [newsDatas addObject:model];
         }
     }];
+    if (self.newsPage == 1) {
+        [self.newsDatas removeAllObjects];
+    }
+    [self.newsDatas addObjectsFromArray:newsDatas];
     if (self.newsDatas.count>0) {
         [InformationStatusReadManager.sharedInstance setReadStatus:self.newsDatas];
         [self.tableView reloadData];

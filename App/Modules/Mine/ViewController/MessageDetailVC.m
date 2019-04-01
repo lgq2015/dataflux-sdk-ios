@@ -76,12 +76,13 @@
     }];
      timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
     UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:self.model.content];
-    NSString *regex_http = @"<a href=(?:.*?)>(.*?)<\\/a>";
-     NSString *labelText = [contentLab.text copy];
+    contentLab.numberOfLines = 0;
+//    NSString *regex_http = @"<a href=(?:.*?)>(.*?)<\\/a>";
+//     NSString *labelText = [contentLab.text copy];
 //    NSArray *results = [regular matchesInString:regex_http options:0 range:NSMakeRange(0, checkString.length)];
 // matchesInString:regex_http options:0 range:NSMakeRange(0, checkString.length)];
 
-     labelText = [labelText stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
+  //   labelText = [labelText stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
 //    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[self.model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
 //    contentLab.attributedText = attrStr;
 //    //如果想要改变文字的字体,请在设置attributedText之后设置
