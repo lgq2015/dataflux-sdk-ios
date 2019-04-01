@@ -140,7 +140,6 @@ static NSTimeInterval   requestTimeout = 60.f;
                         successBlock:(PWResponseSuccessBlock)successBlock
                            failBlock:(PWResponseFailBlock)failBlock {
     __block PWURLSessionTask *session = nil;
-    refresh = YES;
     NSString *typestr=@"";
     switch (type){
         case NetworkPostType:
@@ -247,17 +246,17 @@ static NSTimeInterval   requestTimeout = 60.f;
             break;
     }
 
-    if ([self haveSameRequestInTasksPool:session] && !refresh) {
-        [session cancel];
-        return session;
-    } else {
-        PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
-        if (oldTask) [[self allTasks] removeObject:oldTask];
-        if (session) [[self allTasks] addObject:session];
-        [session resume];
-        return session;
-    }
-    
+//    if ([self haveSameRequestInTasksPool:session] && !refresh) {
+//        [session cancel];
+//        return session;
+//    } else {
+//        PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
+//        if (oldTask) [[self allTasks] removeObject:oldTask];
+//        if (session) [[self allTasks] addObject:session];
+//        [session resume];
+//    }
+    return session;
+
     
 }
 
