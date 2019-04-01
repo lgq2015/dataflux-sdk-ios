@@ -253,7 +253,9 @@
             long long lastPagerMaker = [self getLastPageMarker];
             [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas lastDataStatus:callBackStatus];
         } else {
-            callBackStatus(model);
+            if(callBackStatus){
+                callBackStatus(model);
+            }
         }
 
     }];
