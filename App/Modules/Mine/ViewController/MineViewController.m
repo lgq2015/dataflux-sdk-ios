@@ -16,7 +16,7 @@
 #import "FeedbackVC.h"
 #import "ContactUsVC.h"
 #import "AboutUsVC.h"
-#import "InformationSourceVC.h"
+#import "IssueSourceListVC.h"
 #import "MineMessageVC.h"
 #import "MineCollectionVC.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -231,7 +231,7 @@
         }
             break;
         case MineCellTypeInfoSource:{
-            InformationSourceVC *infoSource = [[InformationSourceVC alloc]init];
+            IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
             [self.navigationController pushViewController:infoSource animated:YES];
         }break;
     }

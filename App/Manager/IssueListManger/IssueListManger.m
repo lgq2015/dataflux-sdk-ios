@@ -8,7 +8,7 @@
 
 #import "IssueListManger.h"
 #import "IssueModel.h"
-#import "InfoBoardModel.h"
+#import "IssueBoardModel.h"
 #import "PWFMDB.h"
 #import "UserManager.h"
 #import "TeamInfoModel.h"
@@ -156,7 +156,7 @@
     self.infoDatas = [NSMutableArray new];
     NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
     for (NSInteger i = 0; i < 5; i++) {
-        InfoBoardModel *model = [InfoBoardModel new];
+        IssueBoardModel *model = [IssueBoardModel new];
         model.type = i;
         model.subTitle = @"";
         model.state = PWInfoBoardItemStateRecommend;
@@ -271,7 +271,7 @@
 - (BOOL)isInfoBoardInit {
     NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
 
-    NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+    NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[IssueBoardModel class] whereFormat:nil];
     //判断是否初始化
     return infoDatas.count == 0;
 }
@@ -329,7 +329,7 @@
     [self.getHelper pw_inDatabase:^{
         NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
 
-        NSArray<InfoBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[InfoBoardModel class] whereFormat:nil];
+        NSArray<IssueBoardModel *> *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[IssueBoardModel class] whereFormat:nil];
 
         if (infoDatas.count == 0) {
             [self createData];
@@ -369,7 +369,7 @@
                                                            "AND status!='discarded' AND status!='recovered' %@ ORDER BY actSeq DESC", nameArray[i],
                         ISSUE_SOURCE_FILTER_SELECTION];
         NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
-        InfoBoardModel *model = self.infoDatas[i];
+        IssueBoardModel *model = self.infoDatas[i];
 
         if (itemDatas.count > 0) {
             __block IssueModel *issue = [[IssueModel alloc] init];
