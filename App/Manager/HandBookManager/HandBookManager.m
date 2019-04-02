@@ -4,7 +4,7 @@
 //
 
 #import "HandBookManager.h"
-#import "PWDraggableModel.h"
+#import "LibraryModel.h"
 #import "PWFMDB+Simplefy.h"
 
 
@@ -27,7 +27,7 @@
     NSString *tableName = PW_DB_LIBRARY_TABLE_NAME;
 
     if (![[self getHelper] pw_isExistTable:tableName]) {
-        [[self getHelper] pw_createTable:tableName dicOrModel:[PWDraggableModel class]];
+        [[self getHelper] pw_createTable:tableName dicOrModel:[LibraryModel class]];
     }
 
 }
@@ -49,7 +49,7 @@
 
     [self.getHelper pw_inTransaction:(void (^)(BOOL *)) ^{
 
-        [datas enumerateObjectsUsingBlock:^(PWDraggableModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
+        [datas enumerateObjectsUsingBlock:^(LibraryModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
             NSString *where = @"WHERE handbookId='%@'";
             NSString *handbookId = newModel.handbookId;
             newModel.orderNum = idx;
@@ -66,15 +66,15 @@
     }];
 }
 
-- (NSMutableArray<PWDraggableModel*> *)getHandBooks {
+- (NSMutableArray<LibraryModel*> *)getHandBooks {
 
     NSMutableArray *array = [NSMutableArray new];
     NSString *tableName = PW_DB_LIBRARY_TABLE_NAME;
 
     [self.getHelper pw_inDatabase:^{
-        NSArray<PWDraggableModel *> *itemDatas =
+        NSArray<LibraryModel *> *itemDatas =
                 [self.getHelper pw_lookupTable:tableName
-                                    dicOrModel:[PWDraggableModel class]
+                                    dicOrModel:[LibraryModel class]
                                    whereFormat:@" order by orderNum asc"];
         [array addObjectsFromArray:itemDatas];
     }];

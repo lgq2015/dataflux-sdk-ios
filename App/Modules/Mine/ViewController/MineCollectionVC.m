@@ -9,15 +9,15 @@
 #import "MineCollectionVC.h"
 #import "NewsListModel.h"
 #import "NewsWebView.h"
-#import "PWNewsListCell.h"
-#import "PWNewsListImageCell.h"
+#import "NewsListCell.h"
+#import "NewsListImageCell.h"
 
 #define DeletBtnTag 200
 
 @interface MineCollectionVC ()<UITableViewDelegate, UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) NSMutableArray<NewsListModel *> *dataSource;
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic, strong) PWNewsListCell *tempCell;
+@property (nonatomic, strong) NewsListCell *tempCell;
 
 @end
 
@@ -38,10 +38,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    [self.tableView registerClass:[PWNewsListCell class] forCellReuseIdentifier:@"PWNewsListCell"];
-    self.tempCell = [[PWNewsListCell alloc] initWithStyle:0 reuseIdentifier:@"PWNewsListCell"];
+    [self.tableView registerClass:[NewsListCell class] forCellReuseIdentifier:@"NewsListCell"];
+    self.tempCell = [[NewsListCell alloc] initWithStyle:0 reuseIdentifier:@"NewsListCell"];
     [self.view addSubview:self.tableView];
-    [self.tableView registerClass:[PWNewsListImageCell class] forCellReuseIdentifier:@"PWNewsListImageCell"];
+    [self.tableView registerClass:[NewsListImageCell class] forCellReuseIdentifier:@"NewsListImageCell"];
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, Interval(12))];
     header.backgroundColor = PWBackgroundColor;
     self.tableView.tableHeaderView = header;
@@ -124,7 +124,7 @@
 {   UITableViewCell *cell;
     NewsListModel *model = self.dataSource[indexPath.row];
     if (model.type == NewListCellTypText) {
-    PWNewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListCell"];
+    NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
      cell.model = self.dataSource[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
@@ -139,7 +139,7 @@
         cell.delegate = self;
         return cell;
     }else{
-     PWNewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PWNewsListImageCell"];
+     NewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListImageCell"];
        cell.model = self.dataSource[indexPath.row];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

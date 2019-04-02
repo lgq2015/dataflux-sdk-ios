@@ -7,13 +7,13 @@
 //
 
 #import "ServiceLogVC.h"
-#import "MonitorCell.h"
-#import "InfoDetailVC.h"
-#import "ProblemDetailsVC.h"
+#import "IssueCell.h"
+#import "IssueDetailVC.h"
+#import "IssueProblemDetailsVC.h"
 @interface ServiceLogVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageMaker;
-@property (nonatomic, strong) MonitorCell *tempCell;
+@property (nonatomic, strong) IssueCell *tempCell;
 
 @end
 
@@ -36,8 +36,8 @@
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     self.tableView.estimatedRowHeight = 44;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    [self.tableView registerClass:[MonitorCell class] forCellReuseIdentifier:@"MonitorCell"];
-    self.tempCell = [[MonitorCell alloc] initWithStyle:0 reuseIdentifier:@"MonitorCell"];
+    [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
+    self.tempCell = [[IssueCell alloc] initWithStyle:0 reuseIdentifier:@"IssueCell"];
 }
 - (void)loadTeamNeedData{
     [SVProgressHUD show];
@@ -137,7 +137,7 @@
 - (void)dealWithData:(NSArray *)data{
     if (data>0) {
         [data enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-            MonitorListModel *model = [[MonitorListModel alloc]initWithDictionary:dict];
+            IssueListViewModel *model = [[IssueListViewModel alloc]initWithDictionary:dict];
             [self.dataSource addObject:model];
         }];
         [self.tableView reloadData];
@@ -154,7 +154,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonitorCell"];
+    IssueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueCell"];
     cell.isService = YES;
     cell.model = self.dataSource[indexPath.row];
     cell.backgroundColor = PWWhiteColor;
@@ -163,21 +163,21 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.dataSource[indexPath.row];
+    IssueListViewModel *model =self.dataSource[indexPath.row];
      model.isRead = YES;
     if (model.isFromUser) {
-        ProblemDetailsVC *detailVC = [[ProblemDetailsVC alloc]init];
+        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
         detailVC.model = model;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
-        InfoDetailVC *infodetial = [[InfoDetailVC alloc]init];
+        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
         infodetial.model = model;
         [self.navigationController pushViewController:infodetial animated:YES];
     }
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MonitorListModel *model =self.dataSource[indexPath.row];
+    IssueListViewModel *model =self.dataSource[indexPath.row];
     if (model.cellHeight == 0 || !model.cellHeight) {
         CGFloat cellHeight = [self.tempCell heightForModel:self.dataSource[indexPath.row]];
         // 缓存给model

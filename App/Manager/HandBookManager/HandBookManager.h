@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
 
-@class PWDraggableModel;
+@class LibraryModel;
 
 
 @interface HandBookManager : BaseSqlHelper
@@ -14,5 +14,5 @@
 
 - (void)cacheHandBooks:(NSArray *)datas;
 
-- (NSMutableArray<PWDraggableModel*> *)getHandBooks;
+- (NSMutableArray<LibraryModel*> *)getHandBooks;
 @end

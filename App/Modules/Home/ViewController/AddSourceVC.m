@@ -8,12 +8,12 @@
 
 #import "AddSourceVC.h"
 #import "AddSourceCell.h"
-#import "SourceVC.h"
+#import "IssueSourceDetailVC.h"
 #import "AddSourceItemView.h"
 #import "HostDiagnosisVC.h"
-#import "ProphetMonitorVC.h"
-#import "ExplainVC.h"
-#import "MoreServicesVC.h"
+#import "ClusterDiagnosisVC.h"
+#import "IssueSourceHelperVC.h"
+#import "AddIssueSourceMoreServicesVC.h"
 #import "AddSourceTipView.h"
 #import "TeamInfoModel.h"
 #import "IssueSourceManger.h"
@@ -60,7 +60,7 @@
             HostDiagnosisVC *host = [[HostDiagnosisVC alloc]init];
             [self.navigationController pushViewController:host animated:YES];
         }else{
-            ProphetMonitorVC *prophet = [[ProphetMonitorVC alloc]init];
+            ClusterDiagnosisVC *prophet = [[ClusterDiagnosisVC alloc]init];
             [self.navigationController pushViewController:prophet animated:YES];
         }
     };
@@ -81,11 +81,11 @@
     }];
 }
 - (void)rightNavClick{
-    ExplainVC *explain = [[ExplainVC alloc]init];
+    IssueSourceHelperVC *explain = [[IssueSourceHelperVC alloc]init];
     [self.navigationController pushViewController:explain animated:YES];
 }
 - (void)moreBtnClick{
-    MoreServicesVC *moreVC = [[MoreServicesVC alloc]init];
+    AddIssueSourceMoreServicesVC *moreVC = [[AddIssueSourceMoreServicesVC alloc]init];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 #pragma mark ========== 获取常量表 ==========
@@ -121,7 +121,7 @@
         [self.navigationController pushViewController:tipVC animated:YES];
 
     }else{
-        SourceVC *source = [[SourceVC alloc]init];
+        IssueSourceDetailVC *source = [[IssueSourceDetailVC alloc]init];
         [self.navigationController pushViewController:source animated:YES];
         source.type = type;
         source.isDefault = self.isDefault;

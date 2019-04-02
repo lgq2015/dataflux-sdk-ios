@@ -22,7 +22,7 @@
     self.layer.cornerRadius = 4.0;
     [super setFrame:frame];
 }
--(void)setModel:(PWInfoSourceModel *)model{
+-(void)setModel:(IssueSourceViewModel *)model{
     _model = model;
     
     switch (_model.state) {
@@ -44,29 +44,36 @@
     }
     switch (_model.type) {
         case SourceTypeAli:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_ali_big"];
             break;
         case SourceTypeUcloud:
-            self.imageView.image = [UIImage imageNamed:@"Ucloud"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_ucloud_big"];
             break;
         case SourceTypeAWS:
-            self.imageView.image = [UIImage imageNamed:@"icon_aws"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_aws_big"];
             break;
         case SourceTypeTencent:
-            self.imageView.image = [UIImage imageNamed:@"icon_tencent"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_tencent_big"];
             break;
         case SourceTypeClusterDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_cluster"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_foresight_big"];
             break;
         case SourceTypeDomainNameDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_domainname"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_domainname_big"];
             break;
         case SourceTypeSingleDiagnose:
-              self.imageView.image = [UIImage imageNamed:@"icon_single"];
+              self.iconImgView.image = [UIImage imageNamed:@"icon_mainframe_big"];
             break;
     }
+    self.iconImgView.centerY = self.contentView.centerY;
+    [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(Interval(8));
+        make.width.offset(ZOOM_SCALE(72));
+        make.height.offset(ZOOM_SCALE(46));
+        make.centerY.mas_equalTo(self);
+    }];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).offset(Interval(19));
+        make.top.mas_equalTo(self).offset(Interval(17));
         make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(17));
         make.height.offset(ZOOM_SCALE(25));
         make.right.mas_equalTo(self).offset(-10);
@@ -82,8 +89,7 @@
 
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
-        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(8),  Interval(14), ZOOM_SCALE(72), ZOOM_SCALE(46))];
-        _iconImgView.contentMode = UIViewContentModeScaleAspectFill;
+        _iconImgView = [[UIImageView alloc]init];
         [self addSubview:_iconImgView];
     }
     return _iconImgView;

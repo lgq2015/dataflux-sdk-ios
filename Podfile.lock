@@ -18,7 +18,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - iOS-Echarts (1.4.4)
-  - IQKeyboardManager (6.2.0)
+  - IQKeyboardManager (6.2.1)
   - JCore (1.2.6)
   - JPush (3.1.2):
     - JCore (~> 1.2.6)
@@ -57,23 +57,23 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - FMDB
-  - iOS-Echarts
-  - IQKeyboardManager
-  - JPush
-  - JSONModel
+  - FMDB (~> 2.7.5)
+  - iOS-Echarts (~> 1.4.4)
+  - IQKeyboardManager (~> 6.2.0)
+  - JPush (~> 3.1.2)
+  - JSONModel (~> 1.8.0)
   - LBXScan/LBXNative (~> 2.3)
   - LBXScan/UI (~> 2.3)
-  - Masonry
-  - MJRefresh
+  - Masonry (~> 1.1.0)
+  - MJRefresh (~> 3.1.15.7)
   - ReactiveCocoa (= 2.0)
   - SDWebImage (~> 3.8)
   - Socket.IO-Client-Swift (~> 14.0.0)
-  - SVProgressHUD
-  - TTTAttributedLabel
+  - SVProgressHUD (~> 2.2.5)
+  - TTTAttributedLabel (~> 2.0.0)
   - WebViewJavascriptBridge (~> 6.0)
-  - YYKit
-  - Zhugeio
+  - YYKit (~> 1.0.9)
+  - Zhugeio (~> 3.2.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -101,7 +101,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
-  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
+  IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
   JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
   JPush: d0cead70ba223a6a3b52749899ebda830dfbc49a
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
@@ -118,6 +118,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 1e5abe72d66adb7e4d1d8d9a67c453d74678d708
+PODFILE CHECKSUM: 4747bc832c754a0f02cd9e209ddbf02bb8326ea1
 
 COCOAPODS: 1.5.3

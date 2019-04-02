@@ -206,7 +206,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             // network error
             if (failBlock) failBlock(error);
         }
-
+           [[self allTasks] removeObject:session];
 
     };
 
@@ -246,15 +246,15 @@ static NSTimeInterval   requestTimeout = 60.f;
             break;
     }
 
-//    if ([self haveSameRequestInTasksPool:session] && !refresh) {
-//        [session cancel];
-//        return session;
-//    } else {
-//        PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
-//        if (oldTask) [[self allTasks] removeObject:oldTask];
-//        if (session) [[self allTasks] addObject:session];
-//        [session resume];
-//    }
+    if ([self haveSameRequestInTasksPool:session] && !refresh) {
+        [session cancel];
+        return session;
+    } else {
+        PWURLSessionTask *oldTask = [self cancleSameRequestInTasksPool:session];
+        if (oldTask) [[self allTasks] removeObject:oldTask];
+        if (session) [[self allTasks] addObject:session];
+        [session resume];
+    }
     return session;
 
     
