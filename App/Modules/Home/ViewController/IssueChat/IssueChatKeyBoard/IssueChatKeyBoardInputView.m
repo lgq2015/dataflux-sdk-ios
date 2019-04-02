@@ -59,7 +59,7 @@
    
         _mTextView.backgroundColor = [UIColor whiteColor];
         _mTextView.returnKeyType = UIReturnKeySend;
-        _mTextView.font = MediumFONT(17);
+        _mTextView.font = RegularFONT(17);
         _mTextView.textColor = PWTextBlackColor;
         _mTextView.showsHorizontalScrollIndicator = NO;
         _mTextView.showsVerticalScrollIndicator = NO;

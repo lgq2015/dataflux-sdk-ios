@@ -1812,6 +1812,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A759B3E225379E50057BD02 /* DataAdapter */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
 				4A092D83222E6D3B00FB2A35 /* PWPhotoPicker */,
@@ -1999,6 +2000,13 @@
 				4A759AD9224F08C70057BD02 /* PrivacySecurityControls.m */,
 			);
 			path = PrivacySecurityControls;
+			sourceTree = "<group>";
+		};
+		4A759B3E225379E50057BD02 /* DataAdapter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataAdapter;
 			sourceTree = "<group>";
 		};
 		4A7C4B0D21C2820F007730E6 /* iToast */ = {

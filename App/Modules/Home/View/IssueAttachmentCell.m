@@ -61,14 +61,14 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTextBlackColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;
 }
 -(UILabel *)sizeLab{
     if (!_sizeLab) {
-        _sizeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@""];
+        _sizeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
         [self.contentView addSubview:_sizeLab];
     }
     return _sizeLab;

@@ -47,7 +47,7 @@
         make.height.offset(ZOOM_SCALE(22));
     }];
     UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), kTopHeight+ZOOM_SCALE(50), kWidth, ZOOM_SCALE(37))];
-    titleLab.font = BOLDFONT(26);
+    titleLab.font = MediumFONT(26);
     titleLab.text = @"账号密码登录";
     titleLab.textColor = PWTextBlackColor;
     titleLab.textAlignment = NSTextAlignmentLeft;
@@ -55,7 +55,7 @@
   
     UILabel *phone = [[UILabel alloc]init];
     phone.text = @"手机号/邮箱";
-    phone.font = MediumFONT(14);
+    phone.font = RegularFONT(14);
     phone.textColor = PWSubTitleColor;
     [self.view addSubview:phone];
     [phone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,7 +80,7 @@
     }];
     UILabel *password = [[UILabel alloc]init];
     password.text = @"密码";
-    password.font = MediumFONT(14);
+    password.font = RegularFONT(14);
     password.textColor = PWSubTitleColor;
     [self.view addSubview:password];
     [password mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -171,7 +171,7 @@
     if (!_findWordsBtn) {
         _findWordsBtn = [[UIButton alloc]init];
         [_findWordsBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-        _findWordsBtn.titleLabel.font = MediumFONT(14);
+        _findWordsBtn.titleLabel.font = RegularFONT(14);
         [_findWordsBtn addTarget:self action:@selector(findWordClick) forControlEvents:UIControlEventTouchUpInside];
         [_findWordsBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
         [self.view addSubview:_findWordsBtn];
@@ -194,7 +194,7 @@
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
         _agreementLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
-        _agreementLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _agreementLab.font = RegularFONT(14);
         _agreementLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
         _agreementLab.numberOfLines = 1;
         _agreementLab.delegate = self;
@@ -259,7 +259,7 @@
         _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [_verifyCodeBtn setTitle:@"验证码登录" forState:UIControlStateNormal];
         [_verifyCodeBtn addTarget:self action:@selector(verifyCodeClick) forControlEvents:UIControlEventTouchUpInside];
-        _verifyCodeBtn.titleLabel.font = MediumFONT(16);
+        _verifyCodeBtn.titleLabel.font = RegularFONT(16);
         [_verifyCodeBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
         [self.view addSubview:_verifyCodeBtn];
     }

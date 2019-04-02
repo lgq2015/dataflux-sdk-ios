@@ -32,7 +32,7 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(127));
     }];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:@"在云平台诊断与深度的主机诊断和先知监控基础之上，如果您希望进一步拓展诊断内容的覆盖范围，我们还为您提供了更多定制化专业化的诊断选项。"];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWWhiteColor text:@"在云平台诊断与深度的主机诊断和先知监控基础之上，如果您希望进一步拓展诊断内容的覆盖范围，我们还为您提供了更多定制化专业化的诊断选项。"];
     tip.numberOfLines = 0;
     [self.mainScrollView addSubview:tip];
     [tip mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -56,14 +56,14 @@
         make.width.offset(ZOOM_SCALE(56));
         make.height.offset(ZOOM_SCALE(38));
     }];
-    UILabel *titlenet = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"网站安全扫描"];
+    UILabel *titlenet = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"网站安全扫描"];
     [subCotentView addSubview:titlenet];
     [titlenet mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(Interval(18));
         make.centerY.mas_equalTo(icon);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UILabel *netContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWSubTitleColor text:@"结合情报大数据、白帽渗透测试实战经验和深度机器学习的全面网站威胁检测，包括漏洞、涉政暴恐色情内容、网页篡改、挂马暗链、垃圾广告等，第一时间助您精准发现您的网站资产和关联资产存在的安全风险，满足合规要求，同时避免遭受品牌形象和经济损失。"];
+    UILabel *netContent = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWSubTitleColor text:@"结合情报大数据、白帽渗透测试实战经验和深度机器学习的全面网站威胁检测，包括漏洞、涉政暴恐色情内容、网页篡改、挂马暗链、垃圾广告等，第一时间助您精准发现您的网站资产和关联资产存在的安全风险，满足合规要求，同时避免遭受品牌形象和经济损失。"];
     netContent.numberOfLines = 0;
     [subCotentView addSubview:netContent];
     [netContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,14 +78,14 @@
         make.width.offset(ZOOM_SCALE(56));
         make.height.offset(ZOOM_SCALE(38));
     }];
-    UILabel *titleurl = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"网站安全扫描"];
+    UILabel *titleurl = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"网站安全扫描"];
     [subCotentView addSubview:titleurl];
     [titleurl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(iconUrl.mas_right).offset(Interval(18));
         make.centerY.mas_equalTo(iconUrl);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UILabel *urlContent = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWSubTitleColor text:@"为您检测您的 URL 在多个地域下的访问速度，及时发现可能存在的访问故障，帮助您避免业务遭受影响。"];
+    UILabel *urlContent = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWSubTitleColor text:@"为您检测您的 URL 在多个地域下的访问速度，及时发现可能存在的访问故障，帮助您避免业务遭受影响。"];
     urlContent.numberOfLines = 0;
     [subCotentView addSubview:urlContent];
     [urlContent mas_makeConstraints:^(MASConstraintMaker *make) {

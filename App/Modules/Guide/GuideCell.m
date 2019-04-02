@@ -62,7 +62,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(63)+kTopHeight-64, kWidth, ZOOM_SCALE(42)) font:BOLDFONT(30) textColor:PWWhiteColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(63)+kTopHeight-64, kWidth, ZOOM_SCALE(42)) font:MediumFONT(30) textColor:PWWhiteColor text:@""];
         _titleLab.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_titleLab];
     }
@@ -70,7 +70,7 @@
 }
 -(UILabel *)subTitleLab{
     if (!_subTitleLab) {
-        _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(115)+kTopHeight-64, kWidth, ZOOM_SCALE(28)) font:MediumFONT(20) textColor:PWWhiteColor text:@""];
+        _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(115)+kTopHeight-64, kWidth, ZOOM_SCALE(28)) font:RegularFONT(20) textColor:PWWhiteColor text:@""];
         _subTitleLab.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_subTitleLab];
     }
@@ -79,7 +79,7 @@
 -(UIButton *)beginBtn{
     if (!_beginBtn) {
         _beginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(63)-kTabBarHeight+49, kWidth, ZOOM_SCALE(25)) type:PWButtonTypeWord text:@"立即开启"];
-        _beginBtn.titleLabel.font = BOLDFONT(18);
+        _beginBtn.titleLabel.font = MediumFONT(18);
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateNormal];
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateSelected];
         [_beginBtn addTarget:self action:@selector(beginBtnClick:) forControlEvents:UIControlEventTouchUpInside];

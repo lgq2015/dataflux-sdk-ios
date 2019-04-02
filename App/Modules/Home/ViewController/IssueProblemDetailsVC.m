@@ -88,7 +88,7 @@
             make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
             make.width.offset(kWidth);
         }];
-        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"附件"];
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"附件"];
         [self.subContainerView addSubview:title];
         [self.subContainerView addSubview:self.tableView];
         self.tableView.backgroundColor = PWWhiteColor;
@@ -134,7 +134,7 @@
 #pragma mark ========== subView ==========
 -(UILabel *)createNameLab{
     if (!_createNameLab) {
-        _createNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWSubTitleColor text:nil];
+        _createNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:nil];
         [self.upContainerView addSubview:_createNameLab];
     }
     return _createNameLab;

@@ -55,7 +55,7 @@
             [_contentView addSubview:icon];
             UILabel *name = [[UILabel alloc]init];
             name.text = nameAry[i];
-            name.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+            name.font =  RegularFONT(16);
             name.textColor = PWTextBlackColor;
             name.tag = i+51;
             icon.userInteractionEnabled = YES;

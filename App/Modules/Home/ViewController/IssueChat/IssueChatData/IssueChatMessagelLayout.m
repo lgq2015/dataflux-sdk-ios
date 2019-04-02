@@ -36,12 +36,12 @@
     
 }
 - (void)setText{
-//    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:MediumFONT(12) textColor:PWWhiteColor text:_message.nameStr];
+//    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
 //    [nameLab sizeToFit];
 //    _nameLabRect = nameLab.bounds;
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
-    mTextView.font = MediumFONT(17);
+    mTextView.font = RegularFONT(17);
     mTextView.text = _message.textString;
     mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [mTextView sizeToFit];
@@ -148,7 +148,7 @@
 - (void)setSysterm{
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
-    mTextView.font = MediumFONT(17);
+    mTextView.font = RegularFONT(17);
     mTextView.text = _message.systermStr;
     mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [mTextView sizeToFit];

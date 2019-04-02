@@ -71,7 +71,7 @@
         }];
         UILabel *title = [[UILabel alloc]init];
         title.text = dict[@"title"];
-        title.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:18];
+        title.font = RegularFONT(18);
         title.textColor = PWTextBlackColor;
         [self addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +82,7 @@
         }];
         UILabel *subTitle = [[UILabel alloc]init];
         subTitle.text = dict[@"subTitle"];
-        subTitle.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+        subTitle.font =   RegularFONT(13);
         subTitle.textColor = [UIColor colorWithHexString:@"8E8E93"];
         [self addSubview:subTitle];
         [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +100,7 @@
     if (!_tipsContent) {
       _tipsContent = [[UILabel alloc]initWithFrame:CGRectMake(Interval(10), ZOOM_SCALE(148), ZOOM_SCALE(300), ZOOM_SCALE(27))];
       _tipsContent.numberOfLines = 1;
-      _tipsContent.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+      _tipsContent.font =   RegularFONT(16);
       _tipsContent.textColor = PWTextBlackColor;
       [self addSubview:_tipsContent];
     }
@@ -109,7 +109,7 @@
 -(UILabel *)tipsTitle{
     if (!_tipsTitle) {
         _tipsTitle = [[UILabel alloc]initWithFrame:CGRectMake(Interval(10), ZOOM_SCALE(19), ZOOM_SCALE(296), ZOOM_SCALE(27))];
-        _tipsTitle.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:18];
+        _tipsTitle.font =  RegularFONT(18);
         [self addSubview:_tipsTitle];
     }
     return _tipsTitle;

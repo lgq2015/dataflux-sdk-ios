@@ -188,7 +188,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 - (UILabel *)title{
     if (!_title) {
         _title = [[UILabel alloc]initWithFrame:CGRectZero];
-        _title.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        _title.font = RegularFONT(18);
         _title.textColor =  [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1/1.0];
         [self addSubview:_title];
     }

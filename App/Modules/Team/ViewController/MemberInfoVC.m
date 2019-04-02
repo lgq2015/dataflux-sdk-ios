@@ -115,7 +115,7 @@
 }
 -(UILabel *)memberName{
     if (!_memberName) {
-       _memberName = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(16) textColor:PWWhiteColor text:@""];
+       _memberName = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:@""];
         _memberName.textAlignment = NSTextAlignmentCenter;
         [self.headerIcon addSubview:_memberName];
     }
@@ -123,7 +123,7 @@
 }
 -(UILabel *)subTitleLab{
     if (!_subTitleLab) {
-        _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWWhiteColor text:@""];
+        _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWWhiteColor text:@""];
         _subTitleLab.numberOfLines = 0;
         _subTitleLab.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:_subTitleLab];

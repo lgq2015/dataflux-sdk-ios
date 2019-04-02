@@ -51,7 +51,7 @@
         _cycleScrollView.onlyDisplayText = YES;
         _cycleScrollView.autoScrollTimeInterval = (float)300/(float)1000;
         _cycleScrollView.titleLabelTextColor =PWTitleColor;
-        _cycleScrollView.titleLabelTextFont = MediumFONT(15);
+        _cycleScrollView.titleLabelTextFont = RegularFONT(15);
         _cycleScrollView.backgroundColor = [UIColor whiteColor];
         _cycleScrollView.titleLabelBackgroundColor = [UIColor whiteColor];
         _cycleScrollView.titleLabelTextAlignment = NSTextAlignmentLeft;

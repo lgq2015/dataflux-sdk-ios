@@ -98,7 +98,7 @@
 }
 -(UILabel *)nameLab{
     if (!_nameLab) {
-        _nameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextBlackColor text:@""];
+        _nameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextBlackColor text:@""];
         _nameLab.numberOfLines = 0;
         _nameLab.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_nameLab];
@@ -107,7 +107,7 @@
 }
 -(UILabel *)myExpertLab{
     if (!_myExpertLab) {
-        _myExpertLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(10) textColor:[UIColor colorWithHexString:@"#2A7AF7"] text:@"已邀请"];
+        _myExpertLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#2A7AF7"] text:@"已邀请"];
         _myExpertLab.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_myExpertLab];
     }
@@ -115,7 +115,7 @@
 }
 -(UILabel *)exclusiveLab{
     if (!_exclusiveLab) {
-        _exclusiveLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:[UIColor colorWithHexString:@"#FFC163"] text:@"我的专属顾问"];
+        _exclusiveLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#FFC163"] text:@"我的专属顾问"];
         _exclusiveLab.textAlignment = NSTextAlignmentCenter;
         _exclusiveLab.layer.borderWidth = 1;//边框宽度
         _exclusiveLab.layer.borderColor = [UIColor colorWithHexString:@"#FFC163"].CGColor;

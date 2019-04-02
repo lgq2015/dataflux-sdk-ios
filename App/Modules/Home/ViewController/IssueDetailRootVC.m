@@ -129,7 +129,7 @@
                     make.width.height.offset(6);
                 }];
             }
-            UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:@""];
+            UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:@""];
             [self.progressView addSubview:timeLab];
             [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(dot.mas_right).offset(Interval(3));
@@ -184,7 +184,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@""];
         _titleLab.numberOfLines = 0;
         [self.upContainerView addSubview:_titleLab];
     }
@@ -192,7 +192,7 @@
 }
 -(UILabel *)contentLab{
     if (!_contentLab) {
-        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:nil];
+        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:nil];
         _contentLab.backgroundColor = PWWhiteColor;
         _contentLab.numberOfLines = 0;
         [self.upContainerView addSubview:_contentLab];
@@ -201,7 +201,7 @@
 }
 -(UILabel *)timeLab{
     if (!_timeLab) {
-        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWSubTitleColor text:nil];
+        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:nil];
         [self.upContainerView addSubview:_timeLab];
     }
     return _timeLab;
@@ -210,7 +210,7 @@
     if (!_stateLab) {
         _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(17), ZOOM_SCALE(50), ZOOM_SCALE(24))];
         _stateLab.textColor = [UIColor whiteColor];
-        _stateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _stateLab.font =  RegularFONT(14);
         _stateLab.textAlignment = NSTextAlignmentCenter;
         _stateLab.layer.cornerRadius = 4.0f;
         _stateLab.layer.masksToBounds = YES;
@@ -222,7 +222,7 @@
     if (!_progressBtn) {
         _progressBtn = [[UIButton alloc]init];
         [_progressBtn setTitle:@"情报进展" forState:UIControlStateNormal];
-        _progressBtn.titleLabel.font =MediumFONT(13);
+        _progressBtn.titleLabel.font =RegularFONT(13);
         [_progressBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
 //        [_progressBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
 //        [_progressBtn setImage:[UIImage imageNamed:@"selectGroup_tip"] forState:UIControlStateSelected];

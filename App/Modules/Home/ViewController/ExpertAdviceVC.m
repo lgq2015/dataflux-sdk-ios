@@ -24,7 +24,7 @@
 - (void)createUI{
     UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(16, 14, kWidth, ZOOM_SCALE(22))];
     tip.text = @"邀请专家加入到您的讨论中";
-    tip.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+    tip.font =  RegularFONT(16);
     tip.textColor = PWTitleColor;
     [self.view addSubview:tip];
     

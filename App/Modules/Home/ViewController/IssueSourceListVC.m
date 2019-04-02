@@ -159,7 +159,7 @@
             make.height.offset(ZOOM_SCALE(190));
             make.centerX.mas_equalTo(_nodataView);
         }];
-        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
         tip.textAlignment = NSTextAlignmentCenter;
         [_nodataView addSubview:tip];
         [tip mas_makeConstraints:^(MASConstraintMaker *make) {

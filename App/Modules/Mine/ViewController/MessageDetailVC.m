@@ -28,7 +28,7 @@
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).offset(Interval(12));
     }];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:self.model.title];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:self.model.title];
     titleLab.numberOfLines = 0;
     [self.contentView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +67,7 @@
     self.sourceLab.text = type;
     self.sourceLab.layer.borderColor = color.CGColor;
     
-    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
     [self.contentView addSubview:timeLab];
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.sourceLab);
@@ -75,7 +75,7 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
      timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
-    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:self.model.content];
+    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:self.model.content];
     contentLab.numberOfLines = 0;
 //    NSString *regex_http = @"<a href=(?:.*?)>(.*?)<\\/a>";
 //     NSString *labelText = [contentLab.text copy];
@@ -86,7 +86,7 @@
 //    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[self.model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
 //    contentLab.attributedText = attrStr;
 //    //如果想要改变文字的字体,请在设置attributedText之后设置
-//    contentLab.font = MediumFONT(14);
+//    contentLab.font = RegularFONT(14);
 //    contentLab.textAlignment = NSTextAlignmentLeft;
 //    contentLab.numberOfLines = 0;
 //    contentLab.textColor = PWTitleColor;
@@ -129,7 +129,7 @@
 }
 -(UILabel *)sourceLab{
     if (!_sourceLab) {
-        _sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#2EB5F3"] text:@""];
+        _sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#2EB5F3"] text:@""];
         _sourceLab.layer.cornerRadius = 4.;//边框圆角大小
         _sourceLab.layer.masksToBounds = YES;
         _sourceLab.layer.borderWidth = 1;//边框宽度

@@ -86,14 +86,14 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@""];
         [self addSubview:_titleLab];
     }
     return _titleLab;
 }
 -(UILabel *)sourceLab{
     if (!_sourceLab) {
-        _sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#2EB5F3"] text:@""];
+        _sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#2EB5F3"] text:@""];
         _sourceLab.layer.cornerRadius = 4.;//边框圆角大小
         _sourceLab.layer.masksToBounds = YES;
         _sourceLab.layer.borderWidth = 1;//边框宽度
@@ -104,7 +104,7 @@
 }
 -(UILabel *)timeLab{
     if (!_timeLab) {
-        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
+        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
         [self addSubview:_timeLab];
     }
     return _timeLab;

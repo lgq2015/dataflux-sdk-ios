@@ -213,14 +213,14 @@
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(9), Interval(9), ZOOM_SCALE(30), ZOOM_SCALE(30))];
     icon.image = [UIImage imageNamed:dict[@"icon"]];
     [item addSubview:icon];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:dict[@"title"]];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:dict[@"title"]];
     [item addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(Interval(8));
         make.centerY.mas_equalTo(icon);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:dict[@"subTitle"]];
+    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:dict[@"subTitle"]];
     subTitle.numberOfLines = 2;
     
     [item addSubview:subTitle];
@@ -322,7 +322,7 @@
             [self delectMember:indexPath.row];
             return NO;
         }];
-        button.titleLabel.font = MediumFONT(14);
+        button.titleLabel.font = RegularFONT(14);
         button.tag = indexPath.row + DeletBtnTag;
 
         [button centerIconOverTextWithSpacing:5];

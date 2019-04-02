@@ -48,7 +48,7 @@
             [self setNaviTitle:@"身份验证"];
             break;
     }
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:MediumFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:RegularFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
     tipLab.numberOfLines = 2;
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];

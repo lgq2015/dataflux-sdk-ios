@@ -352,7 +352,7 @@
     if (!_cancleButton) {
         _cancleButton = [[UIButton alloc]init];
         [_cancleButton setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancleButton.titleLabel setFont:MediumFONT(18)];
+        [_cancleButton.titleLabel setFont:RegularFONT(18)];
         [_cancleButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_cancleButton addTarget:self action:@selector(cancleButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }

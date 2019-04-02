@@ -63,7 +63,7 @@
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
    
     self.contentLab.attributedText = attrStr;
-    self.contentLab.font = MediumFONT(14);
+    self.contentLab.font = RegularFONT(14);
     self.contentLab.textColor = PWSubTitleColor;
     
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,7 +86,7 @@
 }
 
 -(void)setSuggestSubView{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"建议"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"建议"];
     [self.subContainerView addSubview:title];
     UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"professor"]];
     icon.frame = CGRectMake(Interval(16), ZOOM_SCALE(55), ZOOM_SCALE(60), ZOOM_SCALE(60));
@@ -114,7 +114,7 @@
     }];
     [self.subContainerView bringSubviewToFront:suggestion];
     self.suggestion = suggestion;
-    UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:self.model.attrs];
+    UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWWhiteColor text:self.model.attrs];
     sugLab.numberOfLines = 0;
     sugLab.textColor = PWWhiteColor;
     [suggestion addSubview:sugLab];
@@ -151,7 +151,7 @@
 }
 -(UILabel *)issueNameLab{
     if (!_issueNameLab) {
-        _issueNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWSubTitleColor text:nil];
+        _issueNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:nil];
         [self.upContainerView addSubview:_issueNameLab];
     }
     return _issueNameLab;
@@ -237,7 +237,7 @@
             NSDictionary *dict = displayItems[j];
             if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
                 NSDictionary *data = dict[@"data"];
-                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTextBlackColor text:data[@"title"]];
+                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:data[@"title"]];
                 [self.view setNeedsUpdateConstraints];
 
                 [self.echartContenterView addSubview:titleLab];
@@ -320,7 +320,7 @@
     for (NSInteger i=0;i<date.count;i++) {
         NSString *string = [NSString stringWithFormat:@"%@：%@",header[i],date[i]];
 
-        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:string];
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:string];
         title.numberOfLines = 0;
         [view addSubview:title];
         
@@ -355,7 +355,7 @@
     NSString *header = [dict stringValueForKey:@"header" default:@""];
     NSArray *body = dict[@"body"];
     UIView *listView = [[UIView alloc]init];
-//    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTextColor text:header];
+//    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:header];
 //    [listView addSubview:headerLab];
 //    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.mas_equalTo(listView).offset(Interval(16));
@@ -364,12 +364,12 @@
 //    }];
     UIView *temp = nil;
     for (NSInteger i=0;i<body.count;i++) {
-        NSString *string = [body[i]stringValue];
+        NSString *string =  [body[i] isKindOfClass:[NSString class]]?body[i]:((NSNumber *)body[i]).description;
         UIView *dot = [[UIView alloc]init];
         dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
         dot.layer.cornerRadius = 4.0f;
         [listView addSubview:dot];
-        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:string];
+        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:string];
         
         [listView addSubview:equityLab];
     

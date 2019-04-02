@@ -28,7 +28,7 @@
 //    UIView *item = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(65))];
 //    [self addSubview:item];
 //    item.backgroundColor = PWWhiteColor;
-//    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake (Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20)) font:MediumFONT(14) textColor:PWTitleColor text:issueTF.tfTitle];
+//    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake (Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:issueTF.tfTitle];
 //    [item addSubview:titleLab];
 //    UITextField *tf = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(34), kWidth-Interval(32), ZOOM_SCALE(22))];
 //    tf.tag = tag;

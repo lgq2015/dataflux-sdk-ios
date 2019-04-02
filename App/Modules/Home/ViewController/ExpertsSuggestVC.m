@@ -27,7 +27,7 @@
 - (void)createUI{
     DLog(@"teamModel == %@",userManager.teamModel);
     self.dataSource = [NSMutableArray new];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), kWidth-Interval(32), ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"邀请专家加入到您的讨论中"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), kWidth-Interval(32), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"邀请专家加入到您的讨论中"];
     [self.view addSubview:tipLab];
     NSMutableArray *array = userManager.expertGroups;
     if (userManager.teamModel !=nil) {
