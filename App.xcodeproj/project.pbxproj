@@ -229,6 +229,12 @@
 		4A759B3122522E160057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
 		4A759B3222522E160057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
 		4A759B3322522E170057BD02 /* PWNewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */; };
+		4A759B36225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B35225341AA0057BD02 /* NSDictionary+ReplacingNull.m */; };
+		4A759B37225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B35225341AA0057BD02 /* NSDictionary+ReplacingNull.m */; };
+		4A759B38225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B35225341AA0057BD02 /* NSDictionary+ReplacingNull.m */; };
+		4A759B3B225348AB0057BD02 /* BaseAnalysisModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3A225348AB0057BD02 /* BaseAnalysisModel.m */; };
+		4A759B3C225348AB0057BD02 /* BaseAnalysisModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3A225348AB0057BD02 /* BaseAnalysisModel.m */; };
+		4A759B3D225348AB0057BD02 /* BaseAnalysisModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3A225348AB0057BD02 /* BaseAnalysisModel.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1070,6 +1076,10 @@
 		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
 		4A759B2F22522E150057BD02 /* PWNewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWNewsListEmptyView.h; sourceTree = "<group>"; };
 		4A759B3022522E150057BD02 /* PWNewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWNewsListEmptyView.m; sourceTree = "<group>"; };
+		4A759B34225341AA0057BD02 /* NSDictionary+ReplacingNull.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ReplacingNull.h"; sourceTree = "<group>"; };
+		4A759B35225341AA0057BD02 /* NSDictionary+ReplacingNull.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ReplacingNull.m"; sourceTree = "<group>"; };
+		4A759B39225348AB0057BD02 /* BaseAnalysisModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseAnalysisModel.h; sourceTree = "<group>"; };
+		4A759B3A225348AB0057BD02 /* BaseAnalysisModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseAnalysisModel.m; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -2284,6 +2294,10 @@
 				6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */,
 				4A759ACD224DCBF80057BD02 /* UIResponder+FirstResponder.h */,
 				4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */,
+				4A759B34225341AA0057BD02 /* NSDictionary+ReplacingNull.h */,
+				4A759B35225341AA0057BD02 /* NSDictionary+ReplacingNull.m */,
+				4A759B39225348AB0057BD02 /* BaseAnalysisModel.h */,
+				4A759B3A225348AB0057BD02 /* BaseAnalysisModel.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3311,6 +3325,7 @@
 				6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */,
 				6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */,
 				6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */,
+				4A759B36225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
@@ -3365,6 +3380,7 @@
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
+				4A759B3B225348AB0057BD02 /* BaseAnalysisModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3573,6 +3589,7 @@
 				6B6E21641DBD3D514519D671 /* InformationStatusReadManager.m in Sources */,
 				6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */,
 				6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */,
+				4A759B37225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
@@ -3627,6 +3644,7 @@
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
+				4A759B3C225348AB0057BD02 /* BaseAnalysisModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3835,6 +3853,7 @@
 				6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */,
 				6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */,
 				6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */,
+				4A759B38225341AA0057BD02 /* NSDictionary+ReplacingNull.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
@@ -3889,6 +3908,7 @@
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
+				4A759B3D225348AB0057BD02 /* BaseAnalysisModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,25 +44,25 @@
     }
     switch (_model.type) {
         case SourceTypeAli:
-            self.imageView.image = [UIImage imageNamed:@"icon_ali"];
+            self.imageView.image = [UIImage imageNamed:@"icon_ali_big"];
             break;
         case SourceTypeUcloud:
-            self.imageView.image = [UIImage imageNamed:@"Ucloud"];
+            self.imageView.image = [UIImage imageNamed:@"icon_ucloud_big"];
             break;
         case SourceTypeAWS:
-            self.imageView.image = [UIImage imageNamed:@"icon_aws"];
+            self.imageView.image = [UIImage imageNamed:@"icon_aws_big"];
             break;
         case SourceTypeTencent:
-            self.imageView.image = [UIImage imageNamed:@"icon_tencent"];
+            self.imageView.image = [UIImage imageNamed:@"icon_tencent_big"];
             break;
         case SourceTypeClusterDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_cluster"];
+            self.imageView.image = [UIImage imageNamed:@"icon_foresight_big"];
             break;
         case SourceTypeDomainNameDiagnose:
-            self.imageView.image = [UIImage imageNamed:@"icon_domainname"];
+            self.imageView.image = [UIImage imageNamed:@"icon_domainname_big"];
             break;
         case SourceTypeSingleDiagnose:
-              self.imageView.image = [UIImage imageNamed:@"icon_single"];
+              self.imageView.image = [UIImage imageNamed:@"icon_mainframe_big"];
             break;
     }
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
