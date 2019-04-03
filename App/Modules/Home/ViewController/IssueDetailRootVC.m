@@ -20,10 +20,10 @@
     [self createUI];
 }
 - (void)createUI{
-//    UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
-//    NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
-//    [item setTitleTextAttributes:dic forState:UIControlStateNormal];
-//    self.navigationItem.rightBarButtonItem = item;
+    UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
+    [item setTitleTextAttributes:dic forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = item;
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
@@ -184,7 +184,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@""];
         _titleLab.numberOfLines = 0;
         [self.upContainerView addSubview:_titleLab];
     }
@@ -192,7 +192,7 @@
 }
 -(UILabel *)contentLab{
     if (!_contentLab) {
-        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:nil];
+        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWSubTitleColor text:nil];
         _contentLab.backgroundColor = PWWhiteColor;
         _contentLab.numberOfLines = 0;
         [self.upContainerView addSubview:_contentLab];

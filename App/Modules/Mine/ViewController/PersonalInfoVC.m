@@ -13,6 +13,8 @@
 #import "BindEmailOrPhoneVC.h"
 #import "PWPhotoPickerViewController.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#import "UIImage+fixOrientation.h"
+
 @interface PersonalInfoVC ()<UITableViewDelegate,UITableViewDataSource,PWPhotoPickerProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 

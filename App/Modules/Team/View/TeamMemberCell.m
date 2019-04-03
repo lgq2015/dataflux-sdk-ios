@@ -31,16 +31,18 @@
         make.width.height.mas_equalTo(ZOOM_SCALE(40));
         make.centerY.mas_equalTo(self.contentView);
     }];
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(13));
-        make.height.offset(ZOOM_SCALE(22));
-        make.centerY.mas_equalTo(self.iconImgView);
-    }];
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(36));
         make.centerY.mas_equalTo(self.contentView);
     }];
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(13));
+        make.height.offset(ZOOM_SCALE(22));
+        make.right.mas_equalTo(self.phoneBtn.mas_left).offset(-Interval(10));
+        make.centerY.mas_equalTo(self.iconImgView);
+    }];
+   
    
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(1);

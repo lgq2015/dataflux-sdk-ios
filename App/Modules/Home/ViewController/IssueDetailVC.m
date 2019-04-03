@@ -114,7 +114,7 @@
     }];
     [self.subContainerView bringSubviewToFront:suggestion];
     self.suggestion = suggestion;
-    UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWWhiteColor text:self.model.attrs];
+    UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(17) textColor:PWWhiteColor text:self.model.attrs];
     sugLab.numberOfLines = 0;
     sugLab.textColor = PWWhiteColor;
     [suggestion addSubview:sugLab];
@@ -177,7 +177,7 @@
     [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
 }
 - (void)goExpertsVC{
-    return;
+   
      ExpertsSuggestVC *experts = [[ExpertsSuggestVC alloc]init];
     if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
         NSDictionary *tags = self.infoDetailDict[@"tags"];
@@ -237,7 +237,7 @@
             NSDictionary *dict = displayItems[j];
             if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
                 NSDictionary *data = dict[@"data"];
-                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:data[@"title"]];
+                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:data[@"title"]];
                 [self.view setNeedsUpdateConstraints];
 
                 [self.echartContenterView addSubview:titleLab];
@@ -320,7 +320,7 @@
     for (NSInteger i=0;i<date.count;i++) {
         NSString *string = [NSString stringWithFormat:@"%@：%@",header[i],date[i]];
 
-        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:string];
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextColor text:string];
         title.numberOfLines = 0;
         [view addSubview:title];
         

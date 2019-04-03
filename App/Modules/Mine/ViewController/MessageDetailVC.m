@@ -28,7 +28,7 @@
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).offset(Interval(12));
     }];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:self.model.title];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:self.model.title];
     titleLab.numberOfLines = 0;
     [self.contentView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,7 +75,7 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
      timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
-    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:self.model.content];
+    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:self.model.content];
     contentLab.numberOfLines = 0;
 //    NSString *regex_http = @"<a href=(?:.*?)>(.*?)<\\/a>";
 //     NSString *labelText = [contentLab.text copy];

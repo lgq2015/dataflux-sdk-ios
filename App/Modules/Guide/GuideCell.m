@@ -78,7 +78,7 @@
 }
 -(UIButton *)beginBtn{
     if (!_beginBtn) {
-        _beginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(63)-kTabBarHeight+49, kWidth, ZOOM_SCALE(25)) type:PWButtonTypeWord text:@"立即开启"];
+        _beginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(63)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(25)) type:PWButtonTypeWord text:@"立即开启"];
         _beginBtn.titleLabel.font = MediumFONT(18);
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateNormal];
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateSelected];

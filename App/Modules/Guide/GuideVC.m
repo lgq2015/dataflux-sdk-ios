@@ -34,18 +34,18 @@
         make.centerX.mas_equalTo(self.view);
         make.width.offset(ZOOM_SCALE(30));
         make.height.offset(ZOOM_SCALE(8));
-        make.bottom.offset(-ZOOM_SCALE(95)-kTabBarHeight+49);
+        make.bottom.offset(-ZOOM_SCALE(95)-SafeAreaBottom_Height);
     }];
     [self.page1btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(ZOOM_SCALE(30));
         make.height.offset(ZOOM_SCALE(8));
-        make.bottom.offset(-ZOOM_SCALE(95)-kTabBarHeight+49);
+        make.bottom.offset(-ZOOM_SCALE(95)-SafeAreaBottom_Height);
         make.right.mas_equalTo(self.page2btn.mas_left).offset(-ZOOM_SCALE(15));
     }];
     [self.page3btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(ZOOM_SCALE(30));
         make.height.offset(ZOOM_SCALE(8));
-        make.bottom.offset(-ZOOM_SCALE(95)-kTabBarHeight+49);
+        make.bottom.offset(-ZOOM_SCALE(95)-SafeAreaBottom_Height);
         make.left.mas_equalTo(self.page2btn.mas_right).offset(ZOOM_SCALE(15));
     }];
 

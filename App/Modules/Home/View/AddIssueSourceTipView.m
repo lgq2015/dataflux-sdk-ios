@@ -26,7 +26,7 @@
     self.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake((kWidth-ZOOM_SCALE(270))/2.0, ZOOM_SCALE(149), ZOOM_SCALE(270), ZOOM_SCALE(308))];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake((kWidth-ZOOM_SCALE(270))/2.0, ZOOM_SCALE(149)+kTopHeight-64, ZOOM_SCALE(270), ZOOM_SCALE(308))];
         [self addSubview:_contentView];
         _contentView.layer.cornerRadius = 8.0;
         _contentView.backgroundColor = PWWhiteColor;
