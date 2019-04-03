@@ -1488,6 +1488,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B9ECA7422544F6600BAC47A /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
 		3F34F2B0D556CBC0BA511C11 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,6 +1819,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B9ECA7422544F6600BAC47A /* New Group1 */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
 				4A092D83222E6D3B00FB2A35 /* PWPhotoPicker */,
@@ -2977,7 +2985,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -2994,7 +3002,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3003,7 +3011,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3020,7 +3028,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3065,7 +3073,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3082,7 +3090,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
