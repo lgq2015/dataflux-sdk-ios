@@ -64,7 +64,7 @@
         }
     });
     //是否显示控制器名称
-    [self isShowVCName:NO];
+    [self isShowVCName:YES];
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{

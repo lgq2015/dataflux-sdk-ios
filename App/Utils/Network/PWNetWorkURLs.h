@@ -199,6 +199,6 @@
 #define PW_servicelegal                API_H5_HOST@"/terms/service"
 
 #define PW_Safelegal                   API_H5_HOST@"/terms/datasafe"
-
+#define PW_fouctionIntro               API_SEVERID@"/v1/app/version/list"
 
 #endif /* PWNetWorkURLs_h */

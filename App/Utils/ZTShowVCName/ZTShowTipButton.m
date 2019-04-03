@@ -22,6 +22,7 @@
         _tipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _tipBtn.frame = CGRectMake(10, 30, 200, 30);
         _tipBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _tipBtn.userInteractionEnabled = NO;
         [_tipBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     }
     return _tipBtn;
