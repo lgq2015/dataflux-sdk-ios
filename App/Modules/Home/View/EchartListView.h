@@ -1,8 +1,8 @@
 //
-//  EchartTableView.h
+//  EchartListView.h
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/3/20.
+//  Created by 胡蕾蕾 on 2019/4/3.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EchartTableView : UIView
+@interface EchartListView : UIView
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end
 

@@ -17,6 +17,8 @@
 #import "ExpertsSuggestVC.h"
 #import "TriangleLeft.h"
 #import "EchartView.h"
+#import "EchartTableView.h"
+#import "EchartListView.h"
 
 @interface IssueDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -168,7 +170,6 @@
 #pragma mark ========== BTNCLICK ==========
 - (void)navRightBtnClick{
     IssueChatVC *chat = [[IssueChatVC alloc]init];
-    chat.infoDetailDict = self.infoDetailDict;
     chat.issueID = self.model.issueId;
     [self.navigationController pushViewController:chat animated:YES];
 
@@ -234,166 +235,51 @@
         NSArray *displayItems = dict[@"extraJSON"][@"displayItems"];
         UIView *temp1 = nil;
         for (NSInteger j=0; j<displayItems.count ;j++) {
-            NSDictionary *dict = displayItems[j];
-            if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
-                NSDictionary *data = dict[@"data"];
-                UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:data[@"title"]];
-                [self.view setNeedsUpdateConstraints];
-
-                [self.echartContenterView addSubview:titleLab];
-                [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
+            if ([displayItems[j] isKindOfClass:NSDictionary.class]){
+                NSDictionary *dict = displayItems[j];
+                UIView *chartView = [self createChartViewWithDict:dict];
+                 [self.view setNeedsUpdateConstraints];
+                [chartView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.mas_equalTo(self.echartContenterView);
                     if (temp1 == nil) {
-                       make.top.mas_equalTo(self.echartContenterView);
+                        make.top.mas_equalTo(self.echartContenterView);
                     }else{
                         make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(15));
                     }
-                    
-                    make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
-                }];
-               
-                NSArray *header = data[@"header"];
-                NSArray *body = data[@"body"];
-                UIView *temp = titleLab;
-                for (NSInteger i=0; i<body.count; i++) {
-                    UIView *table = [self createTableWithData:body[i] header:header];
-                    [table mas_makeConstraints:^(MASConstraintMaker *make) {
-                          make.top.mas_equalTo(temp.mas_bottom).offset(Interval(12));
-                    make.left.mas_equalTo(self.echartContenterView).offset(Interval(16));
-                            make.right.mas_equalTo(self.echartContenterView).offset(-Interval(16));
-                        if (i==body.count-1 && j==displayItems.count-1) {
-                            make.bottom.mas_equalTo(self.echartContenterView).offset(-Interval(12));
-                        }
-                    }];
-                    temp = table;
-                }
-                 temp1 = temp;
-              
-            }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
-//                [self createEChartLineType:dict[@"data"]];
-                EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
-                [self.echartContenterView addSubview:chart];
-                [chart mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (temp1 == nil) {
-                        make.top.mas_equalTo(self.echartContenterView);
-                    }else{
-                        make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(16));
+                    if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
+                        make.height.offset(300);
                     }
-                    make.left.right.mas_equalTo(self.echartContenterView);
-                    make.height.offset(300);
                     if (j==displayItems.count-1) {
-                        make.bottom.mas_equalTo(self.echartContenterView);
-                    }
-                   
-                }];
-            }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
-              UIView *listView = [self createListType:dict[@"data"]];
-                [self.echartContenterView addSubview:listView];
-                [listView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (temp1 == nil) {
-                        make.top.mas_equalTo(self.echartContenterView);
-                    }else{
-                        make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(16));
-                    }
-                    make.left.right.mas_equalTo(self.echartContenterView);
-                    if (j==displayItems.count-1) {
-                        make.bottom.mas_equalTo(self.echartContenterView);
+                        make.bottom.mas_equalTo(self.echartContenterView).offset(-Interval(12));
                     }
                 }];
+                temp1 = chartView;
             }
             [self.view layoutIfNeeded];
             CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
             self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
         }
+        
    }
 }
--(UIView *)createTableWithData:(NSArray *)date header:(nonnull NSArray *)header{
-    UIView *view = [[UIView alloc]init];
-    view.layer.shadowOffset = CGSizeMake(0,2);
-    view.layer.shadowColor = [UIColor blackColor].CGColor;
-    view.layer.shadowRadius = 8;
-    view.layer.shadowOpacity = 0.06;
-    view.layer.cornerRadius = 6;
-    view.backgroundColor = PWWhiteColor;
-    [self.echartContenterView addSubview:view];
-    UIView *temp = nil;
-    for (NSInteger i=0;i<date.count;i++) {
-        NSString *string = [NSString stringWithFormat:@"%@：%@",header[i],date[i]];
 
-        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextColor text:string];
-        title.numberOfLines = 0;
-        [view addSubview:title];
-        
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
-        //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [string rangeOfString:[NSString stringWithFormat:@"%@：",header[i]]];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        dic[NSForegroundColorAttributeName] = PWTextLight;
-        //赋值
-        [attribut addAttributes:dic range:range];
-        title.attributedText = attribut;
-        
-        [title mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (temp == nil) {
-                make.top.mas_equalTo(view).offset(Interval(16));
-            }else{
-                make.top.mas_equalTo(temp.mas_bottom).offset(Interval(9));
-            }
-            make.left.mas_equalTo(view).offset(Interval(14));
-            make.right.mas_equalTo(view).offset(-Interval(14));
-            if(i == date.count-1){
-                make.bottom.mas_equalTo(view).offset(-Interval(16));
-            }
-        }];
-        temp = title;
+- (UIView *)createChartViewWithDict:(NSDictionary *)dict{
+    if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
+        NSDictionary *data = dict[@"data"];
+        EchartTableView *tableChart = [[EchartTableView alloc]initWithDict:data];
+        [self.echartContenterView addSubview:tableChart];
+        return tableChart;
+    }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
+        EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
+        [self.echartContenterView addSubview:chart];
+        return chart;
+    }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
+        EchartListView *listView = [[EchartListView alloc]initWithDict:dict[@"data"]];
+        [self.echartContenterView addSubview:listView];
+        return listView;
+    }else{
+        return nil;
     }
-    return view;
-}
-
-- (UIView *)createListType:(NSDictionary *)dict{
-    
-    NSString *header = [dict stringValueForKey:@"header" default:@""];
-    NSArray *body = dict[@"body"];
-    UIView *listView = [[UIView alloc]init];
-//    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:header];
-//    [listView addSubview:headerLab];
-//    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(listView).offset(Interval(16));
-//        make.top.mas_equalTo(listView);
-//        make.right.mas_equalTo(listView).offset(-Interval(16));
-//    }];
-    UIView *temp = nil;
-    for (NSInteger i=0;i<body.count;i++) {
-        NSString *string =  [body[i] isKindOfClass:[NSString class]]?body[i]:((NSNumber *)body[i]).description;
-        UIView *dot = [[UIView alloc]init];
-        dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
-        dot.layer.cornerRadius = 4.0f;
-        [listView addSubview:dot];
-        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:string];
-        
-        [listView addSubview:equityLab];
-    
-        [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(listView).offset(Interval(16));
-            if (temp == nil) {
-                make.top.mas_equalTo(listView).offset(5);
-            }else{
-                make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(16));
-            }
-                make.width.height.offset(ZOOM_SCALE(8));
-        }];
-        temp = dot;
-        [equityLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(dot.mas_right).offset(Interval(8));
-            make.centerY.mas_equalTo(dot);
-            make.height.offset(ZOOM_SCALE(20));
-            if (i==body.count-1) {
-              make.bottom.mas_equalTo(listView).offset(-Interval(16));
-            }
-        }];
-    }
-
-    return listView;
 }
 - (void)dealHandBookViewWith:(NSDictionary *)dict{
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {
@@ -405,8 +291,6 @@
         }];
         [self.tableView reloadData];
     }
-
-    
     [self.view layoutIfNeeded];
     CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);

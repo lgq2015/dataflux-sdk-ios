@@ -224,14 +224,9 @@
         [_progressBtn setTitle:@"情报进展" forState:UIControlStateNormal];
         _progressBtn.titleLabel.font =RegularFONT(13);
         [_progressBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
-//        [_progressBtn setImage:[UIImage imageNamed:@"icon_next"] forState:UIControlStateNormal];
-//        [_progressBtn setImage:[UIImage imageNamed:@"selectGroup_tip"] forState:UIControlStateSelected];
         [_progressBtn addTarget:self action:@selector(showProgress) forControlEvents:UIControlEventTouchUpInside];
         [_progressBtn sizeToFit];
 
-//        _progressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_progressBtn.imageView.frame.size.width - _progressBtn.frame.size.width + _progressBtn.titleLabel.frame.size.width, 0, 0);
-//
-//        _progressBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_progressBtn.titleLabel.frame.size.width - _progressBtn.frame.size.width + _progressBtn.imageView.frame.size.width);
         [self.upContainerView addSubview:_progressBtn];
     }
     return _progressBtn;
