@@ -7,6 +7,8 @@
 //
 
 #import "LZImageCropper.h"
+#import "UIImage+fixOrientation.h"
+
 @interface LZImageCropper ()<UIScrollViewDelegate>{
     CGFloat _selfHeight;
     CGFloat _selfWidth;
@@ -40,7 +42,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _selfWidth = self.view.frame.size.width;
     _selfHeight = self.view.frame.size.height;
-    
+     UIImage  *fixImage = [self.image fixOrientation];
+    self.image = fixImage;
     [self createUI];
     [self setupData];
     
