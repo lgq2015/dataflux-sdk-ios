@@ -61,7 +61,7 @@ static NSTimeInterval cacheTime = 7 * 24 * 60 * 60;
         NSString *directoryPath = nil;
         directoryPath = [[NSUserDefaults standardUserDefaults] objectForKey:cacheDirKey];
         if (!directoryPath) {
-            directoryPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"YQNetworking"] stringByAppendingPathComponent:@"networkCache"];
+            directoryPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"PWNetworking"] stringByAppendingPathComponent:@"networkCache"];
             [[NSUserDefaults standardUserDefaults] setObject:directoryPath forKey:cacheDirKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }

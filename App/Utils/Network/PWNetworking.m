@@ -10,6 +10,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "PWNetworking+RequestManager.h"
 #import "PWCacheManager.h"
+#import "HLSafeMutableArray.h"
 
 #define YQ_ERROR_IMFORMATION @"网络出现错误，请检查网络连接"
 
@@ -99,7 +100,7 @@ static NSTimeInterval   requestTimeout = 60.f;
 + (NSMutableArray *)allTasks {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (requestTasksPool == nil) requestTasksPool = [NSMutableArray array];
+        if (requestTasksPool == nil) requestTasksPool = [HLSafeMutableArray array];
     });
     
     return requestTasksPool;
@@ -196,6 +197,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             } else {
                 DLog(@"response == %@",response);
                 if (successBlock) successBlock(response);
+                if (cache) [[PWCacheManager shareManager] cacheResponseObject:response requestUrl:url params:params];
             }
             // response中包含服务端返回的内容
         } else if ([error.domain isEqualToString:NSCocoaErrorDomain]) {
