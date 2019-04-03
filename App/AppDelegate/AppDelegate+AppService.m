@@ -63,7 +63,8 @@
             [self initUserManager];
         }
     });
-
+    //是否显示控制器名称
+    [self isShowVCName:NO];
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{
@@ -199,7 +200,14 @@
     return YES;
 }
 
-
+#pragma mark ===========是否显示控制器名称 ========
+- (void)isShowVCName:(BOOL)isShow{
+    if (isShow){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"zt_showvcname"];
+    }else{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"zt_showvcname"];
+    }
+}
 
 + (AppDelegate *)shareAppDelegate{
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
