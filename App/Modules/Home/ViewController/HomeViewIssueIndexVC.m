@@ -352,8 +352,7 @@
     self.newsPage = 1;
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-//    [self infoBoardDatasUpdate];
-//    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+    
     if(self.noticeDatas.count>0){
     int x = arc4random() % self.noticeDatas.count;
      NSDictionary *dict = self.noticeDatas[x];
@@ -383,12 +382,15 @@
             NSArray *datas = response[@"content"];
             if (datas.count>0) {
                 [self RecommendationDatas:datas];
+            }else{
+                self.newsDatas.count==0?self.tableView.tableFooterView = self.noDataView :nil;
             }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            self.newsDatas.count==0?self.tableView.tableFooterView = self.noDataView :nil;
         }
     } failBlock:^(NSError *error) {
-
+      self.newsDatas.count==0?self.tableView.tableFooterView = self.noDataView :nil;
     }];
 }
 - (void)loadNewsDatas{
@@ -424,7 +426,7 @@
         [recommendDatas addObject:model];
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
-
+    
     [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
