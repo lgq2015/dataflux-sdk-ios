@@ -28,6 +28,7 @@
     [self initWindow];
 //    [self initUserManager];
 //    [self initZhuge];
+//    [self initUMeng];
     [self initSVProgressHUD];
     [self configUSharePlatforms];
     //网络监听
