@@ -46,7 +46,7 @@
         }];
     }else{
         [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
+            make.top.mas_equalTo(self).offset(ZOOM_SCALE(6));
             make.right.mas_equalTo(self).offset(-Interval(12));
             make.height.offset(ZOOM_SCALE(30));
             make.width.offset(ZOOM_SCALE(70));
@@ -138,7 +138,7 @@
             self.style = style;
             [self.initializeView removeFromSuperview];
             [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(self).offset(ZOOM_SCALE(12));
+                make.top.mas_equalTo(self).offset(ZOOM_SCALE(6));
                 make.right.mas_equalTo(self).offset(-Interval(16));
                 make.height.offset(ZOOM_SCALE(30));
                 make.width.offset(ZOOM_SCALE(70));

@@ -61,13 +61,13 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             if (content.count == 0 || content == nil){
+                [self showNoDataImage];
                 return ;
             }
             for(NSDictionary *dic in content){
                 NSError * error = nil;
                 FounctionIntroductionModel *model = [[FounctionIntroductionModel alloc] initWithDictionary:dic error:&error];
                 [self.dataArr addObject:model];
-                
             }
             [self.tab reloadData];
         }else{
@@ -75,6 +75,9 @@
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
+        if(self.dataArr.count == 0){
+            [self showNoNetWorkView];
+        }
     }];
 }
 
