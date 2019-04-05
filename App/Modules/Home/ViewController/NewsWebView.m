@@ -10,7 +10,7 @@
 #import "WebItemView.h"
 #import "NewsListModel.h"
 #import "HandbookModel.h"
-#import <UShareUI/UShareUI.h>
+#import "ZYSocialUIManager.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -147,25 +147,12 @@
 }
 
 - (void)popShareUI{
-    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_DingDing)]];
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-        [self shareWebPageToPlatformType:platformType];
+    [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
+        NSLog(@"%lu",sharePlatformType);
     }];
 }
 
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType{
-    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:_newsModel.title descr:_newsModel.subtitle thumImage:[UIImage imageNamed:@"pw_launch_ic_logo"]];
-    shareObject.webpageUrl =_newsModel.url;
-    messageObject.shareObject = shareObject;
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
-        if (error) {
-            NSLog(@"************Share fail with error %@*********",error);
-        }else{
-            NSLog(@"response data is %@",data);
-        }
-    }];
-}
+
 
 
 @end

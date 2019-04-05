@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		1DE47111EAD1F5FA60C6E174 /* libPods-AppPreMade.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */; };
+		2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
+		2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
+		2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
 		2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
@@ -911,6 +932,15 @@
 
 /* Begin PBXFileReference section */
 		145E84BB150616B018992938 /* Pods-AppDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.debug.xcconfig"; sourceTree = "<group>"; };
+		2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTOpenUrl.m; sourceTree = "<group>"; };
+		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
+		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
+		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
+		2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
+		2B52110B2257CF7C004DA56D /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
+		2B52110C2257CF7C004DA56D /* zysocial_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qq.png; sourceTree = "<group>"; };
+		2B52110D2257CF7C004DA56D /* zysocial_qzone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qzone.png; sourceTree = "<group>"; };
+		2B52110E2257CF7C004DA56D /* zysocial_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat.png; sourceTree = "<group>"; };
 		2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZTSwizzling.m"; sourceTree = "<group>"; };
 		2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTShowTipButton.h; sourceTree = "<group>"; };
 		2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZTSwizzling.h"; sourceTree = "<group>"; };
@@ -1531,6 +1561,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B5210FE2257CA5F004DA56D /* ZTShareView */ = {
+			isa = PBXGroup;
+			children = (
+				2B5211092257CF7C004DA56D /* ZTShareImage */,
+				2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */,
+				2B5211012257CA5F004DA56D /* ZTOpenUrl.h */,
+				2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */,
+				2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */,
+			);
+			path = ZTShareView;
+			sourceTree = "<group>";
+		};
+		2B5211092257CF7C004DA56D /* ZTShareImage */ = {
+			isa = PBXGroup;
+			children = (
+				2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */,
+				2B52110B2257CF7C004DA56D /* zysocial_dingding.png */,
+				2B52110C2257CF7C004DA56D /* zysocial_qq.png */,
+				2B52110D2257CF7C004DA56D /* zysocial_qzone.png */,
+				2B52110E2257CF7C004DA56D /* zysocial_wechat.png */,
+			);
+			path = ZTShareImage;
+			sourceTree = "<group>";
+		};
 		2B9ECBE92254509D00BAC47A /* ZTShowVCName */ = {
 			isa = PBXGroup;
 			children = (
@@ -1866,6 +1920,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B5210FE2257CA5F004DA56D /* ZTShareView */,
 				2B9ECBE92254509D00BAC47A /* ZTShowVCName */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
@@ -2923,6 +2978,7 @@
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
 				4AE537A921CC9206004CF320 /* frame-12@2x.png in Resources */,
+				2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
 				4AE537AC21CC9206004CF320 /* frame-18@2x.png in Resources */,
@@ -2931,12 +2987,15 @@
 				4AE537A421CC9206004CF320 /* frame-11@2x.png in Resources */,
 				4AE537B621CC9206004CF320 /* frame-16@2x.png in Resources */,
 				4AE5379F21CC9206004CF320 /* frame-7@2x.png in Resources */,
+				2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				4A95BB92217DAD6100FC2979 /* LaunchScreen.storyboard in Resources */,
 				4AE537AD21CC9206004CF320 /* frame-23@2x.png in Resources */,
 				4AE537BA21CC9206004CF320 /* frame-4@2x.png in Resources */,
 				4AE537A721CC9206004CF320 /* frame-21@2x.png in Resources */,
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
+				2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
@@ -2950,6 +3009,7 @@
 				4AE537B521CC9206004CF320 /* frame-6@2x.png in Resources */,
 				4AE537B121CC9206004CF320 /* frame-19@2x.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
+				2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2967,6 +3027,7 @@
 				CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */,
 				CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */,
 				CA1CF600221ECB3A00D15316 /* frame-12@2x.png in Resources */,
+				2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */,
 				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
 				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
@@ -2975,12 +3036,15 @@
 				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
 				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
 				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
+				2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF608221ECB3A00D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF609221ECB3A00D15316 /* frame-23@2x.png in Resources */,
 				CA1CF60A221ECB3A00D15316 /* frame-4@2x.png in Resources */,
 				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
+				2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
@@ -2994,6 +3058,7 @@
 				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
+				2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3011,6 +3076,7 @@
 				CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */,
 				CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */,
 				CA1CF6A5221ECB5000D15316 /* frame-12@2x.png in Resources */,
+				2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */,
 				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
 				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
@@ -3019,12 +3085,15 @@
 				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
 				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
 				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
+				2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF6AD221ECB5000D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF6AE221ECB5000D15316 /* frame-23@2x.png in Resources */,
 				CA1CF6AF221ECB5000D15316 /* frame-4@2x.png in Resources */,
 				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
+				2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
@@ -3038,6 +3107,7 @@
 				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
 				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
+				2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3208,6 +3278,7 @@
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
+				2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
@@ -3348,6 +3419,7 @@
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
+				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4ABF43B621B8BACE002AF34E /* LibraryDraggableLibraryView.m in Sources */,
 				4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */,
@@ -3477,6 +3549,7 @@
 				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092CA32227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8C222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F8223147A300DAE1F6 /* SCIndexView.m in Sources */,
@@ -3617,6 +3690,7 @@
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
+				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
@@ -3746,6 +3820,7 @@
 				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092CA42227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8D222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F9223147A300DAE1F6 /* SCIndexView.m in Sources */,
@@ -3886,6 +3961,7 @@
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
+				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
