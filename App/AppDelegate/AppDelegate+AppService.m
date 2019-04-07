@@ -19,8 +19,8 @@
 #import "GuideVC.h"
 #import "LaunchVC.h"
 #import "DetectionVersionAlert.h"
-#import <UMShare/UMShare.h>
-#import <UMCommon/UMConfigure.h>
+#import <WXApi.h>
+#import <DTShareKit/DTOpenKit.h>
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -172,9 +172,7 @@
 
 #pragma mark ========== 友盟 初始化 ==========
 -(void)initUMeng{
-//    [UMConfigure setLogEnabled:YES];
-    [UMConfigure initWithAppkey:@"5c341aeff1f5560fda001094" channel:@"App Store"];
-    [self configUSharePlatforms];
+
 }
 #pragma mark ========== 配置第三方 ==========
 -(void)configUSharePlatforms{
@@ -185,11 +183,10 @@
 
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setMinimumDismissTimeInterval:0.5];
-    //分享配置
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WX_APPKEY appSecret:nil redirectURL:nil];
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxc6dd2c96785f2902" appSecret:@"6a93e8bad05edec946aa430226f33c6f" redirectURL:nil];
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQ_APPKEY appSecret:nil redirectURL:nil];
-    [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_DingDing appKey:DINGDING_APPKEY appSecret:nil redirectURL:nil];
+    //分享
+    [WXApi registerApp:WX_APPKEY];
+    self.tencentOAuth =  [[TencentOAuth alloc] initWithAppId:QQ_APPKEY andDelegate:nil];
+    [DTOpenAPI registerApp:DINGDING_APPKEY];
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{
@@ -199,21 +196,13 @@
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
-    if (!result) {
-        // 其他如支付等SDK的回调
-    }
-    return result;
+    return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
 {
-    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
-    if (!result) {
-        // 其他如支付等SDK的回调
-    }
-    return result;
+    return YES;
 }
 
 #pragma mark ===========是否显示控制器名称 ========

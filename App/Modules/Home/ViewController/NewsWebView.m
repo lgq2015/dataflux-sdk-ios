@@ -11,6 +11,7 @@
 #import "NewsListModel.h"
 #import "HandbookModel.h"
 #import "ZYSocialUIManager.h"
+#import "ZYSocialManager.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -143,12 +144,15 @@
   
 }
 - (void)closeBtnClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popShareUI];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)popShareUI{
     [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
-        NSLog(@"%lu",sharePlatformType);
+        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:@"【爆款直降 盛夏特惠】【29.9免邮 限量买3免1】清新持久自然GUCCMI香水"descr:@"我在京东发现了一个不错的商品，赶快来看看吧。" thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+        manager.webpageUrl = @"https://www.baidu.com";
+        [manager shareToPlatform:sharePlatformType];
     }];
 }
 

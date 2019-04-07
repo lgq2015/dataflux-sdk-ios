@@ -24,14 +24,10 @@ target 'App' do
   pod 'LBXScan/LBXNative','~> 2.3'
   pod 'iOS-Echarts','~> 1.4.4'
   pod 'Socket.IO-Client-Swift', '~> 14.0.0'
-  #友盟-分享
-  pod 'UMCCommon', '~> 2.0.1'
-  pod 'UMCSecurityPlugins', '~> 1.0.6'
-  pod 'UMCShare/UI'
-  pod 'UMCShare/Social/ReducedWeChat'
-  pod 'UMCShare/Social/ReducedQQ'
-  pod 'UMCShare/Social/DingDing'
-  pod 'UMCCommonLog', '~> 1.0.0'
+  #分享
+  pod 'WechatOpenSDK', '~> 1.8.4'
+  pod 'Tencent_Open_SDK', '~> 1.0.3'
+  pod 'MCDingTalk', '~> 1.0.1'
 end
 
 target 'AppDev' do
@@ -57,14 +53,10 @@ target 'AppDev' do
     pod 'LBXScan/LBXNative','~> 2.3'
     pod 'iOS-Echarts','~> 1.4.4'
     pod 'Socket.IO-Client-Swift', '~> 14.0.0'
-    #友盟-分享
-    pod 'UMCCommon', '~> 2.0.1'
-    pod 'UMCSecurityPlugins', '~> 1.0.6'
-    pod 'UMCShare/UI'
-    pod 'UMCShare/Social/ReducedWeChat'
-    pod 'UMCShare/Social/ReducedQQ'
-    pod 'UMCShare/Social/DingDing'
-    pod 'UMCCommonLog', '~> 1.0.0'
+    #分享
+    pod 'WechatOpenSDK', '~> 1.8.4'
+    pod 'Tencent_Open_SDK', '~> 1.0.3'
+    pod 'MCDingTalk', '~> 1.0.1'
 end
 
 target 'AppPreMade' do
@@ -91,13 +83,9 @@ target 'AppPreMade' do
     pod 'iOS-Echarts','~> 1.4.4'
     pod 'Socket.IO-Client-Swift', '~> 14.0.0'
     #友盟-分享
-    pod 'UMCCommon', '~> 2.0.1'
-    pod 'UMCSecurityPlugins', '~> 1.0.6'
-    pod 'UMCShare/UI'
-    pod 'UMCShare/Social/ReducedWeChat'
-    pod 'UMCShare/Social/ReducedQQ'
-    pod 'UMCShare/Social/DingDing'
-    pod 'UMCCommonLog', '~> 1.0.0'
+    pod 'WechatOpenSDK', '~> 1.8.4'
+    pod 'Tencent_Open_SDK', '~> 1.0.3'
+    pod 'MCDingTalk', '~> 1.0.1'
 end
 
 

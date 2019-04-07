@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MainTabBarController.h"
 #import "Reachability.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MainTabBarController *mainTabBar;
 @property (strong, nonatomic) Reachability *conn;
+@property (nonatomic, strong)TencentOAuth *tencentOAuth;
 
 
 @end

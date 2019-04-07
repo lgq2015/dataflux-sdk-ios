@@ -56,6 +56,9 @@
 		2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
+		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
+		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -957,6 +960,8 @@
 		2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZTUtil.m"; sourceTree = "<group>"; };
 		2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZTCategory.h"; sourceTree = "<group>"; };
 		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
+		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
+		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -1567,6 +1572,8 @@
 				2B5211092257CF7C004DA56D /* ZTShareImage */,
 				2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */,
 				2B5211012257CA5F004DA56D /* ZTOpenUrl.h */,
+				2BE9F166225A4B4300C33669 /* ZYSocialManager.h */,
+				2BE9F167225A4B4300C33669 /* ZYSocialManager.m */,
 				2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */,
 				2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */,
 			);
@@ -3125,8 +3132,6 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3135,8 +3140,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3155,8 +3158,6 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3165,8 +3166,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3221,8 +3220,6 @@
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3231,8 +3228,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3521,6 +3516,7 @@
 				6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */,
 				6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */,
 				6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E28B415D4B40427B36E26 /* ExpertsSuggestVC.m in Sources */,
 				6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */,
 				6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */,
@@ -3792,6 +3788,7 @@
 				6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */,
 				6B6E208E675F7914200AD103 /* IssueSourceHelperVC.m in Sources */,
 				6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */,
 				6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */,
 				6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */,
@@ -4063,6 +4060,7 @@
 				6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */,
 				6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */,
 				6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E296AC76922097B333F5F /* ExpertsSuggestVC.m in Sources */,
 				6B6E2D9097F2353A0AAD7BF9 /* ExpertsDetailVC.m in Sources */,
 				6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */,
