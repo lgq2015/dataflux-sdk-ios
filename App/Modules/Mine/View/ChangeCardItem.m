@@ -37,7 +37,7 @@
     if (phone.length==11) {
         phone =[NSString stringWithFormat:@"%@******%@",[phone substringToIndex:3],[phone substringFromIndex:9]];
     }
-    UILabel *phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:[UIColor colorWithHexString:@"595860"] text:phone];
+    UILabel *phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:[UIColor colorWithHexString:@"595860"] text:phone];
     [self addSubview:phoneLab];
     [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(Interval(26));

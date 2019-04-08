@@ -22,7 +22,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, ZOOM_SCALE(88), self.height) font:MediumFONT(16) textColor:PWRedColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, ZOOM_SCALE(88), self.height) font:RegularFONT(16) textColor:PWRedColor text:@""];
         _titleLab.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleLab];
     }

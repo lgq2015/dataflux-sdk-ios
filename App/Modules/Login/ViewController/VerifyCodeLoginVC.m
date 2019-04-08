@@ -38,13 +38,13 @@
         make.height.offset(ZOOM_SCALE(22));
     }];
       UILabel  *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(53)+kStatusBarHeight, kWidth, ZOOM_SCALE(37))];
-      titleLab.font = BOLDFONT(26);
+      titleLab.font = MediumFONT(26);
       titleLab.text = @"您好，";
       titleLab.textColor = PWTextBlackColor;
       titleLab.textAlignment = NSTextAlignmentLeft;
      [self.view addSubview:titleLab];
      UILabel  *titleLab2 = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(101)+kStatusBarHeight, kWidth, ZOOM_SCALE(37))];
-     titleLab2.font = BOLDFONT(26);
+     titleLab2.font = MediumFONT(26);
      titleLab2.text = @"欢迎来到王教授";
      titleLab2.textColor = PWTextBlackColor;
      titleLab2.textAlignment = NSTextAlignmentLeft;
@@ -65,7 +65,7 @@
         make.right.mas_equalTo(self.phoneTf.mas_right);
         make.height.offset(ZOOM_SCALE(1));
     }];
-    UILabel *phoneTip = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机号"];
+    UILabel *phoneTip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机号"];
     [self.view addSubview:phoneTip];
     [phoneTip mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -81,7 +81,7 @@
     }];
     UILabel *tip = [[UILabel alloc]init];
     tip.text = @"未注册的手机，验证后即完成注册";
-    tip.font = MediumFONT(14);
+    tip.font = RegularFONT(14);
     tip.textColor = [UIColor colorWithHexString:@"8E8E93"];
     tip.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tip];
@@ -159,7 +159,7 @@
         _passwordBtn = [[UIButton alloc]init];
         [_passwordBtn setTitle:@"密码登录" forState:UIControlStateNormal];
         [_passwordBtn addTarget:self action:@selector(passwordBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _passwordBtn.titleLabel.font = MediumFONT(16);
+        _passwordBtn.titleLabel.font = RegularFONT(16);
         [_passwordBtn setTitleColor:PWTextColor forState:UIControlStateNormal];
         [self.view addSubview:_passwordBtn];
     }

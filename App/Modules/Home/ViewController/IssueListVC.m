@@ -175,7 +175,7 @@
 - (UILabel *)tipLab{
     if (!_tipLab) {
         NSString *string =@"您有新情报，点击刷新";
-        _tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30)) font:MediumFONT(14) textColor:PWBlueColor text:string];
+        _tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30)) font:RegularFONT(14) textColor:PWBlueColor text:string];
         _tipLab.textAlignment = NSTextAlignmentCenter;
         _tipLab.backgroundColor = [UIColor colorWithHexString:@"#D3E4F5"];
         [self.view addSubview:_tipLab];

@@ -62,7 +62,7 @@
         make.top.mas_equalTo(self.view).offset(Interval(56));
         make.width.height.offset(ZOOM_SCALE(145));
     }];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(95)+ZOOM_SCALE(145), kWidth, ZOOM_SCALE(48)) font:MediumFONT(16) textColor:PWTitleColor text:@"成员扫描此二维码即可加入团队\n二维码 30 分钟内有效"];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(95)+ZOOM_SCALE(145), kWidth, ZOOM_SCALE(48)) font:RegularFONT(16) textColor:PWTitleColor text:@"成员扫描此二维码即可加入团队\n二维码 30 分钟内有效"];
     tip.numberOfLines = 2;
     tip.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tip];

@@ -79,9 +79,9 @@
 }
 - (void)shareBtnClick{
     if (self.isCollect == YES) {
-        self.style = WebItemViewStyleCollect;
+        self.style = WebItemViewStyleCollected;
     }else{
-        if (self.style !=WebItemViewStyleNoShare) {
+        if (self.style !=WebItemViewStyleNoCollect) {
             self.style = WebItemViewStyleNormal;
         }
     }
@@ -92,7 +92,7 @@
     WeakSelf
     self.itemView.itemClick = ^(NSInteger tag){
         
-        if(tag == 20 && self.style == WebItemViewStyleNormal){
+        if(tag == CollectionBtnTag && self.style == WebItemViewStyleNormal){
         NSDictionary *param;
             if (self.newsModel != nil) {
                 NSArray *topic = [weakSelf.newsModel.topic componentsSeparatedByString:@" "];
@@ -125,7 +125,7 @@
             
         }];
     
-        }else if(tag == 20 && self.style == WebItemViewStyleCollect){
+        }else if(tag == CollectionBtnTag && self.style == WebItemViewStyleCollected){
             [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(weakSelf.favoId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
                 
                 if([response[ERROR_CODE] isEqualToString:@""]){
@@ -138,6 +138,11 @@
             } failBlock:^(NSError *error) {
               
             }];
+            
+        }else if(tag == ShareBtnTag){
+        //分享btn点击方法
+        
+            
             
         }
     };

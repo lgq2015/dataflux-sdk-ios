@@ -146,7 +146,7 @@
 }
 -(UITextField *)searchTF{
     if (!_searchTF) {
-        _searchTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:MediumFONT(14)];
+        _searchTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(14)];
         _searchTF.delegate = self;
     }
     return  _searchTF;

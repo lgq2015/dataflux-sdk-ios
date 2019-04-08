@@ -33,7 +33,7 @@
         make.centerX.mas_equalTo(self.view);
         make.width.height.offset(ZOOM_SCALE(80));
     }];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(24) textColor:PWTextBlackColor text:@"恭喜您创建团队成功！"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:@"恭喜您创建团队成功！"];
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];
     
@@ -43,7 +43,7 @@
         make.right.mas_equalTo(self.view);
         make.height.offset(ZOOM_SCALE(33));
     }];
-//    UILabel *inviteLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:@"现在就去邀请小伙伴加入团队吧"];
+//    UILabel *inviteLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"现在就去邀请小伙伴加入团队吧"];
 //    [self.view addSubview:inviteLab];
 //    [inviteLab mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -68,7 +68,7 @@
 //            }
 //        }];
 //        imgView.tag = [btnTag[i] integerValue];
-//        UILabel *name = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWTitleColor text:iconName[i]];
+//        UILabel *name = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:iconName[i]];
 //        name.textAlignment = NSTextAlignmentCenter;
 //        [self.view addSubview:name];
 //        [name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,7 +102,7 @@
         _skipBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [_skipBtn setTitle:@"跳过" forState:UIControlStateNormal];
         [_skipBtn addTarget:self action:@selector(skipBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _skipBtn.titleLabel.font = MediumFONT(16);
+        _skipBtn.titleLabel.font = RegularFONT(16);
         [_skipBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [self.view addSubview:_skipBtn];
     }

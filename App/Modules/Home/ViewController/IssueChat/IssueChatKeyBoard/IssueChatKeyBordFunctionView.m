@@ -88,7 +88,7 @@
                 UILabel *lab = [UILabel new];
                 lab.bounds = CGRectMake(0, 0, 80, 20);
                 lab.text = titles[j];
-                lab.font = MediumFONT(15);
+                lab.font = RegularFONT(15);
                 lab.textColor = [UIColor grayColor];
                 lab.textAlignment = NSTextAlignmentCenter;
                 [lab sizeToFit];

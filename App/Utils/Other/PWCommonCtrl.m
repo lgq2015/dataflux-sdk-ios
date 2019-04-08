@@ -72,10 +72,10 @@
     return alert;
 }
 +(UITextField *)textFieldWithFrame:(CGRect)frame{
-   return  [self textFieldWithFrame:frame font:MediumFONT(16)];
+   return  [self textFieldWithFrame:frame font:RegularFONT(16)];
 }
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame{
-    return  [self passwordTextFieldWithFrame:frame font:MediumFONT(16)];
+    return  [self passwordTextFieldWithFrame:frame font:RegularFONT(16)];
 }
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font{
     BaseTextField *tf = [[BaseTextField alloc]initWithFrame:frame];

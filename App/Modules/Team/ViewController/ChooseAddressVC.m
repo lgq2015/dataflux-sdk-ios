@@ -109,7 +109,7 @@
 }
 -(UILabel *)currentDisLab{
     if (!_currentDisLab) {
-        _currentDisLab = [PWCommonCtrl lableWithFrame:CGRectMake(-1, -1, kWidth+2, ZOOM_SCALE(44)) font:MediumFONT(16) textColor:PWTextBlackColor text:@""];
+        _currentDisLab = [PWCommonCtrl lableWithFrame:CGRectMake(-1, -1, kWidth+2, ZOOM_SCALE(44)) font:RegularFONT(16) textColor:PWTextBlackColor text:@""];
         _currentDisLab.backgroundColor = PWWhiteColor;
         _currentDisLab.layer.borderWidth = 1;//边框宽度
         _currentDisLab.layer.borderColor = [UIColor colorWithHexString:@"#C7C7CC"].CGColor;

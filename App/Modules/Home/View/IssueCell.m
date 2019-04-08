@@ -138,7 +138,7 @@
 }
 -(UILabel *)serviceLab{
     if (!_serviceLab) {
-        _serviceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:@""];
+        _serviceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:@""];
         _serviceLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_serviceLab];
     }
@@ -155,7 +155,7 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _timeLab.font = RegularFONT(14);
         _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
         [self addSubview:_timeLab];
     }
@@ -164,7 +164,7 @@
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        _titleLab.font = RegularFONT(16);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.textColor = [UIColor colorWithRed:36/255.0 green:41/255.0 blue:44/255.0 alpha:1/1.0];
         _titleLab.numberOfLines = 0;
@@ -175,7 +175,7 @@
 - (UILabel *)warningLab{
     if (!_warningLab) {
         _warningLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _warningLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:20];
+        _warningLab.font = RegularFONT(20);
         _warningLab.textAlignment = NSTextAlignmentRight;
         _warningLab.textColor = PWBlueColor;
         [self addSubview:_warningLab];
@@ -185,7 +185,7 @@
 -(UILabel *)subLab{
     if (!_subLab) {
         _subLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _subLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+        _subLab.font = RegularFONT(12);
         _subLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
         [self addSubview:_subLab];
     }
@@ -195,7 +195,7 @@
     if (!_stateLab) {
         _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(17), ZOOM_SCALE(50), ZOOM_SCALE(24))];
         _stateLab.textColor = [UIColor whiteColor];
-        _stateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _stateLab.font =  RegularFONT(14);
         _stateLab.textAlignment = NSTextAlignmentCenter;
         _stateLab.layer.cornerRadius = 4.0f;
         _stateLab.layer.masksToBounds = YES;

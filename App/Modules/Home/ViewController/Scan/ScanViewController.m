@@ -71,7 +71,7 @@
     [self.view addSubview:topView];
     UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"取消"];
     [cancle setTitleColor:PWWhiteColor forState:UIControlStateNormal];
-    cancle.titleLabel.font = MediumFONT(16);
+    cancle.titleLabel.font = RegularFONT(16);
     [cancle addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:cancle];
     [cancle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,7 +79,7 @@
         make.bottom.mas_equalTo(topView).offset(-Interval(19));
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWWhiteColor text:@"扫一扫"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWWhiteColor text:@"扫一扫"];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [topView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,7 +90,7 @@
     }];
     UIButton *album =[PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"相册"];
     [album setTitleColor:PWWhiteColor forState:UIControlStateNormal];
-    album.titleLabel.font = MediumFONT(16);
+    album.titleLabel.font = RegularFONT(16);
     [album addTarget:self action:@selector(albumBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:album];
     [album mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +100,7 @@
     }];
 }
 - (void)drawTipLab{
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWTextBlackColor text:@"扫描团队二维码以加入团队"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"扫描团队二维码以加入团队"];
     tipLab.textAlignment = NSTextAlignmentCenter;
     tipLab.backgroundColor = [UIColor colorWithHexString:@"#EDEDED"];
     tipLab.layer.masksToBounds = YES;

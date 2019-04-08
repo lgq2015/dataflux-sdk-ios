@@ -13,6 +13,8 @@
 #import "BindEmailOrPhoneVC.h"
 #import "PWPhotoPickerViewController.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#import "UIImage+fixOrientation.h"
+
 @interface PersonalInfoVC ()<UITableViewDelegate,UITableViewDataSource,PWPhotoPickerProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
@@ -149,10 +151,12 @@
 
 - (void)photoPicker:(PWPhotoPickerViewController *)picker image:(UIImage *)image{
     //shangchuan
-    [SVProgressHUD show];
+
+  
      NSData *data = UIImageJPEGRepresentation(image, 1);
     [PWNetworking uploadFileWithUrl:PW_accountAvatar fileData:data type:@"jpg" name:@"files" mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
         DLog(@"%lld",totalBytes);
+          [SVProgressHUD show];
     } successBlock:^(id response) {
         DLog(@"%@",response);
         if([response[ERROR_CODE] isEqualToString:@""]){

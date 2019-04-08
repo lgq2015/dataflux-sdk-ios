@@ -28,9 +28,9 @@
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
    
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"忘记密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"忘记密码"];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(84)+kTopHeight, ZOOM_SCALE(150), ZOOM_SCALE(20)) font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(84)+kTopHeight, ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
     [self.view addSubview:tipLab];
     if (!_userTf) {
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];

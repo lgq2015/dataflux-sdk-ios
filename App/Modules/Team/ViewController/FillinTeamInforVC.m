@@ -107,7 +107,7 @@
         make.right.mas_equalTo(self.view);
         make.height.offset(ZOOM_SCALE(100));
     }];
-    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:MediumFONT(14) textColor:PWTitleColor text:@"团队介绍"];
+    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
     [textItem addSubview:titel];
     
     [textItem addSubview:self.textView];
@@ -352,7 +352,7 @@
 #pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
-        _textView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请简单介绍一下您的团队" font:MediumFONT(16)];
+        _textView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请简单介绍一下您的团队" font:RegularFONT(16)];
     }
     return _textView;
 }
@@ -360,7 +360,7 @@
     UIView *item = [[UIView alloc]init];
     item.backgroundColor = PWWhiteColor;
     [self.view addSubview:item];
-    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:MediumFONT(14) textColor:PWTitleColor text:dict[@"title"]];
+    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:dict[@"title"]];
     [item addSubview:titel];
     UITextField *itemTF = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), Interval(14)+ZOOM_SCALE(20), kWidth-Interval(32), ZOOM_SCALE(22))];
     itemTF.placeholder = dict[@"placeholder"];

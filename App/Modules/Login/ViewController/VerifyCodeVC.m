@@ -54,13 +54,13 @@
 - (void)createUI{
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17)+kTopHeight, 250, ZOOM_SCALE(37))];
     title.text = @"输入验证码";
-    title.font = BOLDFONT(26);
+    title.font = MediumFONT(26);
     title.textColor = PWTextBlackColor;
     [self.view addSubview:title];
     UILabel *subTitle = [[UILabel alloc]init];
     subTitle.textColor = PWTitleColor;
     subTitle.text = @"验证码已发送至";
-    subTitle.font = MediumFONT(18);
+    subTitle.font = RegularFONT(18);
     [self.view addSubview:subTitle];
     [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(Interval(6));
@@ -70,7 +70,7 @@
     }];
     UILabel *phoneLab = [[UILabel alloc]init];
     phoneLab.text = [NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
-    phoneLab.font = MediumFONT(18);
+    phoneLab.font = RegularFONT(18);
     [self.view addSubview:phoneLab];
     [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(title);
@@ -78,7 +78,7 @@
         make.height.offset(ZOOM_SCALE(25));
         make.width.offset(ZOOM_SCALE(150));
     }];
-    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTitleColor text:@"后重发"];
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTitleColor text:@"后重发"];
     timeLab.tag = 10;
     [self.view addSubview:timeLab];
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -96,7 +96,7 @@
     }];
     self.resendCodeBtn.hidden = YES;
     if (!_timeLab) {
-        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWBlueColor text:@"60S"];
+        _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWBlueColor text:@"60S"];
         [self.view addSubview:_timeLab];
     }
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +172,7 @@
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
         _agreementLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
-        _agreementLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _agreementLab.font = RegularFONT(14);
         _agreementLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
         _agreementLab.numberOfLines = 1;
         _agreementLab.delegate = self;

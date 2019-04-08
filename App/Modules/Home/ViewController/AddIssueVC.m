@@ -63,7 +63,7 @@
     }];
     UILabel *leve = [[UILabel alloc]init];
     leve.text = @"严重程度";
-    leve.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+    leve.font = RegularFONT(16);
     leve.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
     [levelView addSubview:leve];
     [leve mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -114,11 +114,11 @@
     }];
     UILabel *desTitleLab =[[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(8), 100, ZOOM_SCALE(20))];
     desTitleLab.text = @"描述";
-    desTitleLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    desTitleLab.font = RegularFONT(14);
     desTitleLab.textColor = PWTitleColor;
     [describeView addSubview:desTitleLab];
     if (!_describeTextView) {
-        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入..." font:MediumFONT(16)];
+        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入..." font:RegularFONT(16)];
         [describeView addSubview:self.describeTextView];
         [self.describeTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(desTitleLab.mas_bottom).offset(ZOOM_SCALE(6));
@@ -139,7 +139,7 @@
     }];
     UILabel *count = [[UILabel alloc]init];
     count.text = @"0/1000";
-    count.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+    count.font = RegularFONT(13);
     count.textColor = [UIColor colorWithHexString:@"8E8E93"];
     count.textAlignment = NSTextAlignmentRight;
     [describeView addSubview:count];
@@ -179,7 +179,7 @@
     UIButton *button = [[UIButton alloc]init];
     [button setTitleColor:PWWhiteColor forState:UIControlStateSelected];
     [button setTitleColor:color forState:UIControlStateNormal];
-    button.titleLabel.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    button.titleLabel.font =  RegularFONT(14);
     button.layer.cornerRadius = 4.;//边框圆角大小
     button.layer.masksToBounds = YES;
     button.layer.borderWidth = 1;//边框宽度
@@ -194,7 +194,7 @@
         _titleView.backgroundColor = PWWhiteColor;
         UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(8), ZOOM_SCALE(40), ZOOM_SCALE(20))];
         lab.text = @"标题";
-        lab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        lab.font = RegularFONT(14);
         lab.textColor = PWTitleColor;
         lab.textAlignment = NSTextAlignmentLeft;
         [_titleView addSubview:lab];
@@ -211,7 +211,7 @@
         _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
         [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
         [_navRightBtn addTarget:self action:@selector(navigationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _navRightBtn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        _navRightBtn.titleLabel.font = RegularFONT(16);
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:PWGrayColor forState:UIControlStateDisabled];
         _navRightBtn.tag = NavRightBtnTag;

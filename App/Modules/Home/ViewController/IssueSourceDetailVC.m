@@ -380,7 +380,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
         [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _navRightBtn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        _navRightBtn.titleLabel.font = RegularFONT(16);
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_navRightBtn setTitleColor:PWGrayColor forState:UIControlStateDisabled];
         _navRightBtn.tag = 100;
@@ -408,7 +408,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             dot2.layer.cornerRadius = 4.0f;
             [_tipView addSubview:dot2];
             NSString *tiptext = self.confige.subTip;
-            UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"9B9EA0"] text:tiptext];
+            UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"9B9EA0"] text:tiptext];
             tipLab.numberOfLines = 0;
             [_tipView addSubview:tipLab];
             [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -430,7 +430,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         NSString *promptText = [NSString stringWithFormat:@"    Access Key 可在您的%@账号中找到，详细步骤请点击这里%@", self.confige.yunTitle,linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _findHelpLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
-        _findHelpLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _findHelpLab.font = RegularFONT(14);
         _findHelpLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
         _findHelpLab.numberOfLines = 0;
         _findHelpLab.delegate = self;
@@ -457,13 +457,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         }];
         UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(167), kWidth, ZOOM_SCALE(25))];
         tip.textAlignment = NSTextAlignmentCenter;
-        tip.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:18];
+        tip.font = RegularFONT(18);
         tip.textColor = PWTextBlackColor;
         tip.text =self.successTip;
         [_successView addSubview:tip];
         UILabel *subTip = [[UILabel alloc]init];
         subTip.text = @"您可以在首页的提醒分类中查看到发起的申请在线与我们的服务人员沟通，也可以直接拨打400XXXXXXX电话咨询我们的在线客服";
-        subTip.font =[UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        subTip.font =RegularFONT(14);
         [_successView addSubview:subTip];
     }
     return _successView;
@@ -472,7 +472,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     UIImageView *view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     UILabel *tipLab = [[UILabel alloc]init];
     tipLab.text = tip;
-    tipLab.font = MediumFONT(16);
+    tipLab.font = RegularFONT(16);
     tipLab.bounds = CGRectMake(0, 0, kWidth-Interval(40), 85);
     tipLab.textColor = PWWhiteColor;
     tipLab.textAlignment = NSTextAlignmentLeft;
@@ -493,7 +493,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     UIView *item = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(65))];
     [self.view addSubview:item];
     item.backgroundColor = PWWhiteColor;
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake (Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20)) font:MediumFONT(14) textColor:PWTitleColor text:issueTF.tfTitle];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake (Interval(16), ZOOM_SCALE(8), 200, ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:issueTF.tfTitle];
     [item addSubview:titleLab];
     UITextField *tf = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(34), kWidth-Interval(32), ZOOM_SCALE(22))];
     tf.tag = tag;

@@ -40,6 +40,7 @@
     }
     
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
+    
     NSError *error;
     NSProgress *pre = [[NSProgress alloc]init];
     messageBlock(layout,error,pre);
@@ -96,7 +97,7 @@
 }
 +(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:sessionId];
-    __block NSMutableArray *newChatArray = nil;
+    __block NSMutableArray *newChatArray = [NSMutableArray new];
     
     [[IssueChatDataManager sharedInstance]
      fetchAllChatIssueLog:sessionId

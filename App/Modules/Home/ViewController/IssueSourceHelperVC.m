@@ -25,7 +25,7 @@
     UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
     contentView.backgroundColor = PWWhiteColor;
     [self.view addSubview:contentView];
-    UILabel *lable = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"王教授通过连接用户提供的云平台或者主机等来源，获取诊断所需的基础数据，从而基于这些基础数据来运行诊断程序，得出诊断结果，为用户推送诊断情报。"];
+    UILabel *lable = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"王教授通过连接用户提供的云平台或者主机等来源，获取诊断所需的基础数据，从而基于这些基础数据来运行诊断程序，得出诊断结果，为用户推送诊断情报。"];
     lable.numberOfLines = 0;
     [contentView addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -35,7 +35,7 @@
     }];
 
     
-    UILabel *lable2 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"这些为王教授提供诊断所需的基础数据的来源，我们统称为情报源。"];
+    UILabel *lable2 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"这些为王教授提供诊断所需的基础数据的来源，我们统称为情报源。"];
     lable2.numberOfLines = 0;
     [contentView addSubview:lable2];
     [lable2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -43,7 +43,7 @@
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
     }];
-    UILabel *lable3 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTitleColor text:@"王教授采集基础数据都是采用只读的方式，绝不会影响用户情报源上系统及应用的正常运转。"];
+    UILabel *lable3 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"王教授采集基础数据都是采用只读的方式，绝不会影响用户情报源上系统及应用的正常运转。"];
     lable3.numberOfLines = 0;
     [contentView addSubview:lable3];
     [lable3 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +67,7 @@
         NSString *promptText = [NSString stringWithFormat:@"我们也承诺绝不会泄露这些基础数据，也不会将这些数据用做任何商业用途，详情请查看%@", linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _secureProtocolLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
-        _secureProtocolLab.font = MediumFONT(16);
+        _secureProtocolLab.font = RegularFONT(16);
         _secureProtocolLab.textColor = PWTitleColor;
         _secureProtocolLab.numberOfLines = 0;
         _secureProtocolLab.delegate = self;

@@ -217,7 +217,7 @@
         [image setImage:[UIImage imageNamed:@"no_message"]];
         image.centerX = self.view.centerX;
         [_noSearchView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"暂无搜索结果"];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"暂无搜索结果"];
         no.textAlignment = NSTextAlignmentCenter;
         [_noSearchView addSubview:no];
     }
@@ -233,7 +233,7 @@
          [image setImage:[UIImage imageNamed:@"blank_page"]];
         image.centerX = self.view.centerX;
         [_noDataView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"暂无列表"];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"暂无列表"];
         no.textAlignment = NSTextAlignmentCenter;
         [_noDataView addSubview:no];
     }
@@ -249,7 +249,7 @@
         [image setImage:[UIImage imageNamed:@"no_network"]];
         image.centerX = self.view.centerX;
         [_noNetWordView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(412), kWidth, ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTitleColor text:@"没有网络"];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(412), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"没有网络"];
         no.textAlignment = NSTextAlignmentCenter;
         [_noNetWordView addSubview:no];
     }
@@ -444,7 +444,7 @@
         btn.frame = CGRectMake(0, 0, 40, 30);
         [btn setTitle:title forState:UIControlStateNormal];
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:16];
+        btn.titleLabel.font = RegularFONT(16);
         [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         btn.tag = [tags[i++] integerValue];
         [btn sizeToFit];

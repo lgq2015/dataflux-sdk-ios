@@ -36,7 +36,7 @@
         make.height.offset(ZOOM_SCALE(210));
         make.centerX.mas_equalTo(contentView);
     }];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机端不支持开启单机诊断，请前往 Web端（https://prof.wang) 进行操作"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机端不支持开启单机诊断，请前往 Web端（https://prof.wang) 进行操作"];
     tipLab.numberOfLines = 2;
     tipLab.textAlignment = NSTextAlignmentCenter;
     [contentView addSubview:tipLab];
@@ -47,14 +47,14 @@
         make.centerX.mas_equalTo(contentView);
     }];
     
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"什么是主机诊断"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"什么是主机诊断"];
     [contentView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(23));
         make.left.mas_equalTo(Interval(16));
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:[UIColor colorWithHexString:@"#595860"] text:@"主机诊断是指通过在您需诊断的主机上安装我们开发的探针程序，通过探针程序收集主机的相关检测指标并上报到王教授的诊断系统进行诊断并产生相关情报。"];
+    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:[UIColor colorWithHexString:@"#595860"] text:@"主机诊断是指通过在您需诊断的主机上安装我们开发的探针程序，通过探针程序收集主机的相关检测指标并上报到王教授的诊断系统进行诊断并产生相关情报。"];
     contentLab.numberOfLines = 0;
     [contentView addSubview:contentLab];
     [contentLab mas_makeConstraints:^(MASConstraintMaker *make) {

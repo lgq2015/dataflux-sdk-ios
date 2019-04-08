@@ -35,7 +35,7 @@
     [self.view addSubview:icon];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    UILabel *versonLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:[NSString stringWithFormat:@"王教授 %@",version]];
+    UILabel *versonLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:[NSString stringWithFormat:@"王教授 %@",version]];
     versonLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:versonLab];
     [versonLab mas_makeConstraints:^(MASConstraintMaker *make) {

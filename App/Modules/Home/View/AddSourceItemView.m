@@ -66,7 +66,7 @@
     icon.image = [UIImage imageNamed:dict[@"icon"]];
     icon.contentMode = UIViewContentModeScaleAspectFit;
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectZero];
-    name.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    name.font = RegularFONT(14);
     name.text = dict[@"name"];
     name.textAlignment = NSTextAlignmentCenter;
     if ([self.data[@"type"] isEqual:@1]) {
@@ -101,7 +101,7 @@
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), ZOOM_SCALE(12), 200, ZOOM_SCALE(25))];
         _titleLab.textAlignment = NSTextAlignmentLeft;
-        _titleLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:18];
+        _titleLab.font = RegularFONT(18);
         _titleLab.textColor = PWTextBlackColor;
         [self addSubview:_titleLab];
     }

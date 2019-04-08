@@ -66,11 +66,11 @@
 #define setNewVersionDict(dict)        [kUserDefaults setObject:dict forKey:NewVersionUpdateAlert]
 #define getNewVersionDict              [kUserDefaults objectForKey:NewVersionUpdateAlert]
 
-
+// 通知设置
 #define UserNotificationSettings  @"UserNotificationSettings"
 #define setUserNotificationSettings(str)        [kUserDefaults setObject:str forKey:UserNotificationSettings]
 #define getUserNotificationSettings             [kUserDefaults objectForKey:UserNotificationSettings]
-
+//
 #define PWRegister       @"PWRegister"
 #define PWUnRegister     @"PWUnRegister"
 

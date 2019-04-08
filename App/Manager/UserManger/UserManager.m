@@ -134,7 +134,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if (completion) {
                 completion(NO,@"");
             }
-            [iToast alertWithTitleCenter:@"网络异常"];
+            [error errorToast];
 
         }];
     }
@@ -361,8 +361,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }
         
     } failBlock:^(NSError *error) {
-       
-        
+        [error errorToast];
     }];
 }
 #pragma mark ========== 被踢下线 ==========

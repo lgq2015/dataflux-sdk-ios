@@ -31,7 +31,7 @@
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict,@"originInfoJSON");
     NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJson");
     NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
-    NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"accountInfo");
+    NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
 
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";
