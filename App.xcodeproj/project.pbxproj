@@ -14,21 +14,6 @@
 		2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
-		2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
-		2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
-		2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
-		2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
-		2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
-		2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
-		2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
-		2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
-		2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
-		2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
-		2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
-		2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
-		2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
-		2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
-		2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
 		2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
@@ -59,6 +44,24 @@
 		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
+		2BE9F179225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */; };
+		2BE9F17A225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */; };
+		2BE9F17B225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */; };
+		2BE9F17C225AF9CD00C33669 /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F174225AF9CD00C33669 /* zysocial_wechat.png */; };
+		2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F174225AF9CD00C33669 /* zysocial_wechat.png */; };
+		2BE9F17E225AF9CD00C33669 /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F174225AF9CD00C33669 /* zysocial_wechat.png */; };
+		2BE9F17F225AF9CD00C33669 /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F175225AF9CD00C33669 /* zysocial_qzone.png */; };
+		2BE9F180225AF9CD00C33669 /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F175225AF9CD00C33669 /* zysocial_qzone.png */; };
+		2BE9F181225AF9CD00C33669 /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F175225AF9CD00C33669 /* zysocial_qzone.png */; };
+		2BE9F182225AF9CD00C33669 /* zysocial_system.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F176225AF9CD00C33669 /* zysocial_system.png */; };
+		2BE9F183225AF9CD00C33669 /* zysocial_system.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F176225AF9CD00C33669 /* zysocial_system.png */; };
+		2BE9F184225AF9CD00C33669 /* zysocial_system.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F176225AF9CD00C33669 /* zysocial_system.png */; };
+		2BE9F185225AF9CD00C33669 /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F177225AF9CD00C33669 /* zysocial_qq.png */; };
+		2BE9F186225AF9CD00C33669 /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F177225AF9CD00C33669 /* zysocial_qq.png */; };
+		2BE9F187225AF9CD00C33669 /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F177225AF9CD00C33669 /* zysocial_qq.png */; };
+		2BE9F188225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
+		2BE9F189225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
+		2BE9F18A225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -939,11 +942,6 @@
 		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
 		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
 		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
-		2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
-		2B52110B2257CF7C004DA56D /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
-		2B52110C2257CF7C004DA56D /* zysocial_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qq.png; sourceTree = "<group>"; };
-		2B52110D2257CF7C004DA56D /* zysocial_qzone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qzone.png; sourceTree = "<group>"; };
-		2B52110E2257CF7C004DA56D /* zysocial_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat.png; sourceTree = "<group>"; };
 		2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZTSwizzling.m"; sourceTree = "<group>"; };
 		2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTShowTipButton.h; sourceTree = "<group>"; };
 		2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZTSwizzling.h"; sourceTree = "<group>"; };
@@ -962,6 +960,12 @@
 		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
 		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
 		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
+		2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
+		2BE9F174225AF9CD00C33669 /* zysocial_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat.png; sourceTree = "<group>"; };
+		2BE9F175225AF9CD00C33669 /* zysocial_qzone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qzone.png; sourceTree = "<group>"; };
+		2BE9F176225AF9CD00C33669 /* zysocial_system.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_system.png; sourceTree = "<group>"; };
+		2BE9F177225AF9CD00C33669 /* zysocial_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qq.png; sourceTree = "<group>"; };
+		2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -1583,11 +1587,12 @@
 		2B5211092257CF7C004DA56D /* ZTShareImage */ = {
 			isa = PBXGroup;
 			children = (
-				2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */,
-				2B52110B2257CF7C004DA56D /* zysocial_dingding.png */,
-				2B52110C2257CF7C004DA56D /* zysocial_qq.png */,
-				2B52110D2257CF7C004DA56D /* zysocial_qzone.png */,
-				2B52110E2257CF7C004DA56D /* zysocial_wechat.png */,
+				2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */,
+				2BE9F177225AF9CD00C33669 /* zysocial_qq.png */,
+				2BE9F175225AF9CD00C33669 /* zysocial_qzone.png */,
+				2BE9F176225AF9CD00C33669 /* zysocial_system.png */,
+				2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */,
+				2BE9F174225AF9CD00C33669 /* zysocial_wechat.png */,
 			);
 			path = ZTShareImage;
 			sourceTree = "<group>";
@@ -2985,24 +2990,23 @@
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
 				4AE537A921CC9206004CF320 /* frame-12@2x.png in Resources */,
-				2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
 				4AE537AC21CC9206004CF320 /* frame-18@2x.png in Resources */,
 				4AE5379D21CC9206004CF320 /* frame-2@2x.png in Resources */,
 				2B9ECC28225494A400BAC47A /* FounctionIntroCell.xib in Resources */,
+				2BE9F17F225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				4AE537A421CC9206004CF320 /* frame-11@2x.png in Resources */,
 				4AE537B621CC9206004CF320 /* frame-16@2x.png in Resources */,
 				4AE5379F21CC9206004CF320 /* frame-7@2x.png in Resources */,
-				2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
-				2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
+				2BE9F179225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
 				4A95BB92217DAD6100FC2979 /* LaunchScreen.storyboard in Resources */,
 				4AE537AD21CC9206004CF320 /* frame-23@2x.png in Resources */,
 				4AE537BA21CC9206004CF320 /* frame-4@2x.png in Resources */,
+				2BE9F188225AF9CD00C33669 /* zysocial_dingding.png in Resources */,
 				4AE537A721CC9206004CF320 /* frame-21@2x.png in Resources */,
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
-				2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
@@ -3011,12 +3015,14 @@
 				4AE537AE21CC9206004CF320 /* frame-1@2x.png in Resources */,
 				4AE537A221CC9206004CF320 /* frame-13@2x.png in Resources */,
 				4A95BB8D217DAD6100FC2979 /* Main.storyboard in Resources */,
+				2BE9F182225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				4AE5379E21CC9206004CF320 /* frame-17@2x.png in Resources */,
 				4AE537A521CC9206004CF320 /* frame-14@2x.png in Resources */,
 				4AE537B521CC9206004CF320 /* frame-6@2x.png in Resources */,
 				4AE537B121CC9206004CF320 /* frame-19@2x.png in Resources */,
+				2BE9F185225AF9CD00C33669 /* zysocial_qq.png in Resources */,
+				2BE9F17C225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
-				2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3034,24 +3040,23 @@
 				CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */,
 				CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */,
 				CA1CF600221ECB3A00D15316 /* frame-12@2x.png in Resources */,
-				2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */,
 				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
 				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
 				CA1CF604221ECB3A00D15316 /* frame-2@2x.png in Resources */,
 				2B9ECC2B225494F800BAC47A /* FounctionIntroCell.xib in Resources */,
+				2BE9F180225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
 				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
 				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
-				2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
-				2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
+				2BE9F17A225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF608221ECB3A00D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF609221ECB3A00D15316 /* frame-23@2x.png in Resources */,
 				CA1CF60A221ECB3A00D15316 /* frame-4@2x.png in Resources */,
+				2BE9F189225AF9CD00C33669 /* zysocial_dingding.png in Resources */,
 				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
-				2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
@@ -3060,12 +3065,14 @@
 				CA1CF612221ECB3A00D15316 /* frame-1@2x.png in Resources */,
 				CA1CF613221ECB3A00D15316 /* frame-13@2x.png in Resources */,
 				CA1CF614221ECB3A00D15316 /* Main.storyboard in Resources */,
+				2BE9F183225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				CA1CF615221ECB3A00D15316 /* frame-17@2x.png in Resources */,
 				CA1CF616221ECB3A00D15316 /* frame-14@2x.png in Resources */,
 				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
+				2BE9F186225AF9CD00C33669 /* zysocial_qq.png in Resources */,
+				2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
-				2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3083,24 +3090,23 @@
 				CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */,
 				CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */,
 				CA1CF6A5221ECB5000D15316 /* frame-12@2x.png in Resources */,
-				2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */,
 				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
 				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
 				CA1CF6A9221ECB5000D15316 /* frame-2@2x.png in Resources */,
 				2B9ECC2C225494F900BAC47A /* FounctionIntroCell.xib in Resources */,
+				2BE9F181225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
 				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
 				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
-				2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
-				2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
+				2BE9F17B225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF6AD221ECB5000D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF6AE221ECB5000D15316 /* frame-23@2x.png in Resources */,
 				CA1CF6AF221ECB5000D15316 /* frame-4@2x.png in Resources */,
+				2BE9F18A225AF9CD00C33669 /* zysocial_dingding.png in Resources */,
 				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
-				2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
@@ -3109,12 +3115,14 @@
 				CA1CF6B7221ECB5000D15316 /* frame-1@2x.png in Resources */,
 				CA1CF6B8221ECB5000D15316 /* frame-13@2x.png in Resources */,
 				CA1CF6B9221ECB5000D15316 /* Main.storyboard in Resources */,
+				2BE9F184225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				CA1CF6BA221ECB5000D15316 /* frame-17@2x.png in Resources */,
 				CA1CF6BB221ECB5000D15316 /* frame-14@2x.png in Resources */,
 				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
 				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
+				2BE9F187225AF9CD00C33669 /* zysocial_qq.png in Resources */,
+				2BE9F17E225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
-				2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

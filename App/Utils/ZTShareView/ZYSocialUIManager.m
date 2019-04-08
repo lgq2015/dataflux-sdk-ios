@@ -243,7 +243,7 @@
         if (self.isDing == YES) {
             [_imageArr addObject:@"zysocial_dingding"];
         }
-        [_imageArr addObject:@"zysocial_dingding"];
+        [_imageArr addObject:@"zysocial_system"];
     }
     return _imageArr;
 }

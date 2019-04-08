@@ -154,7 +154,7 @@
         NSString *title = !weakself.newsModel ? weakself.handbookModel.title : weakself.newsModel.title;
         NSString *descr = !weakself.newsModel ? weakself.handbookModel.summary : @"";
         NSString *url = !weakself.newsModel ? weakself.handbookModel.htmlPath : weakself.newsModel.url;
-        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"144-144"]];
         manager.webpageUrl = url;
         manager.showVC = weakself;
         [manager shareToPlatform:sharePlatformType];
