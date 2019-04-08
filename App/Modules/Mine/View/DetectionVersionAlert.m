@@ -60,13 +60,15 @@
             make.left.mas_equalTo(_contentView).offset(ZOOM_SCALE(42));
             make.height.offset(ZOOM_SCALE(22));
         }];
-        UILabel *releaseNotesLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:self.releaseNotes];
-        releaseNotesLab.numberOfLines = 0;
+        UITextView *releaseNotesLab = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"" font:RegularFONT(16)];
+        releaseNotesLab.textColor = PWTextBlackColor;
+        releaseNotesLab.text = self.releaseNotes;
         [_contentView addSubview:releaseNotesLab];
         [releaseNotesLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(_contentView).offset(ZOOM_SCALE(42));
             make.top.mas_equalTo(update.mas_bottom).offset(ZOOM_SCALE(9));
             make.right.mas_equalTo(_contentView).offset(-ZOOM_SCALE(16));
+            make.bottom.mas_equalTo(_contentView).offset(-ZOOM_SCALE(11)-45);
         }];
         UIView *line = [[UIView alloc]init];
         line.backgroundColor = [UIColor colorWithHexString:@"#DDDDDD"];
