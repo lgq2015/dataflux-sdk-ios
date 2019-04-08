@@ -36,9 +36,11 @@
     
 }
 - (void)setText{
-//    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
-//    [nameLab sizeToFit];
-//    _nameLabRect = nameLab.bounds;
+    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
+    [nameLab sizeToFit];
+    _nameLabRect = nameLab.bounds;
+    CGFloat nameWidth  = _nameLabRect.size.width;
+
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
     mTextView.font = RegularFONT(17);
@@ -61,7 +63,7 @@
         
     }else{
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-PWChatIconWH, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconLeft-nameWidth, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-PWChatTextLRB-textWidth-PWChatTextLRS, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect), textWidth+PWChatTextLRB+PWChatTextLRS, textHeight+PWChatTextTop+PWChatTextBottom);
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, 0, PWChatAirBottom, 0);
@@ -75,29 +77,33 @@
     
 }
 - (void)setImage{
-   __block CGFloat imgActualHeight;
-  __block  CGFloat imgActualWidth;
-    if (_message.image) {
-        UIImage *image = _message.image;
-        CGFloat imgWidth  = CGImageGetWidth(image.CGImage);
-        CGFloat imgHeight = CGImageGetHeight(image.CGImage);
-         imgActualHeight = PWChatImageMaxSize;
-         imgActualWidth =  PWChatImageMaxSize * imgWidth/imgHeight;
-        [self setImageWidth:imgActualWidth Height:imgActualHeight];
-    }else{
-        UIImageView *imageView = [[UIImageView alloc]init];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:_message.imageString] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            NSLog(@"宽：%f, 高：%f", image.size.width, image.size.height);
-            imgActualHeight = PWChatImageMaxSize;
-            imgActualWidth =  PWChatImageMaxSize * image.size.width/image.size.height;
-            [self setImageWidth:image.size.width Height:image.size.height];
-        }];
-    }
-    
+//   __block CGFloat imgActualHeight;
+//  __block  CGFloat imgActualWidth;
+//    if (_message.image) {
+//        UIImage *image = _message.image;
+//        CGFloat imgWidth  = CGImageGetWidth(image.CGImage);
+//        CGFloat imgHeight = CGImageGetHeight(image.CGImage);
+//         imgActualHeight = PWChatImageMaxSize;
+//         imgActualWidth =  PWChatImageMaxSize * imgWidth/imgHeight;
+//        [self setImageWidth:imgActualWidth Height:imgActualHeight];
+//    }else{
+//        UIImageView *imageView = [[UIImageView alloc]init];
+//        [imageView sd_setImageWithURL:[NSURL URLWithString:_message.imageString] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            NSLog(@"宽：%f, 高：%f", image.size.width, image.size.height);
+//            imgActualHeight = PWChatImageMaxSize;
+//            imgActualWidth =  PWChatImageMaxSize * image.size.width/image.size.height;
+//            [self setImageWidth:image.size.width Height:image.size.height];
+//        }];
+//    }
+    [self setImageWidth:ZOOM_SCALE(140) Height:ZOOM_SCALE(102)];
+
     
 }
 -(void)setImageWidth:(CGFloat)imgActualWidth Height:(CGFloat)imgActualHeight{
-    
+    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
+    [nameLab sizeToFit];
+    _nameLabRect = nameLab.bounds;
+    CGFloat nameWidth  = _nameLabRect.size.width;
     _message.contentMode =  UIViewContentModeScaleAspectFit;
     
     
@@ -116,7 +122,7 @@
         
     }else{
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-PWChatIconWH, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+        _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-nameWidth, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-imgActualWidth, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, imgActualWidth, imgActualHeight);
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
@@ -144,6 +150,8 @@
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;
     }
+    _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
+
 }
 - (void)setSysterm{
     UITextView *mTextView = [UITextView new];

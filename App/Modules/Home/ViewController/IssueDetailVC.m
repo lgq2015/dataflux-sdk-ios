@@ -203,7 +203,7 @@
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-
+        [error errorToast];
     }];
 }
 - (void)loadIssueSourceDetail:(NSDictionary *)dict{

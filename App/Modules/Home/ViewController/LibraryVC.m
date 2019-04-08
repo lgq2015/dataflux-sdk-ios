@@ -72,7 +72,7 @@ static NSUInteger ItemWidth = 104;
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
-        
+        [error errorToast];
     }];
 }
 - (void)compareWithData:(NSArray *)array{

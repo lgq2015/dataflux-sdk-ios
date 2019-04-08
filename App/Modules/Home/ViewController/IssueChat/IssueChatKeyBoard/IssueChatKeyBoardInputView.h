@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 #define PWChatKeyBoardInputViewH      67     //输入部分的高度
-#define PWChatKeyBordBottomHeight     258    //底部视图的高度
+#define PWChatKeyBordBottomHeight     200   //底部视图的高度
 
 //键盘总高度
 #define PWChatKeyBordHeight   PWChatKeyBoardInputViewH + PWChatKeyBordBottomHeight

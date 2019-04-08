@@ -345,7 +345,7 @@
         }
         
     } failBlock:^(NSError *error) {
-
+        [error errorToast];
     }];
 }
 - (void)headerRereshing{
@@ -391,6 +391,7 @@
         }
     } failBlock:^(NSError *error) {
       self.newsDatas.count==0?self.tableView.tableFooterView = self.noDataView :nil;
+        [error errorToast];
     }];
 }
 - (void)loadNewsDatas{
@@ -413,6 +414,7 @@
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
+        [error errorToast];
         self.newsPage == 1? [self loadRecommendationData]:nil;
         [self.header endRefreshing];
         [self.footer endRefreshing];
@@ -495,8 +497,10 @@
     });
     [self.tableView reloadRow:indexPath.row inSection:indexPath.section withRowAnimation:false];
     if( model.isStarred){
-      PWBaseWebVC *webVC = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
-      [self.navigationController pushViewController:webVC animated:YES];
+        NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
+        newsweb.style = WebItemViewStyleNoCollect;
+        newsweb.newsModel = model;
+        [self.navigationController pushViewController:newsweb animated:YES];
     }else{
     NewsWebView *newsweb = [[NewsWebView alloc]initWithTitle:model.title andURLString:model.url];
     newsweb.style = WebItemViewStyleNormal;

@@ -7,7 +7,8 @@
 //
 
 #import "WebItemView.h"
-#define CollectionImgTag 200
+
+
 @interface WebItemView()
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, assign) WebItemViewStyle style;
@@ -34,10 +35,10 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
-    if (self.style == WebItemViewStyleNoShare) {
+    if (self.style == WebItemViewStyleNoCollect) {
         self.itemHeight = 38;
     }else{
-        self.itemHeight = 38;
+        self.itemHeight = 76;
     }
     self.contentView.frame = CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight);
    
@@ -49,20 +50,20 @@
         _contentView = [[UIView alloc]initWithFrame:CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.cornerRadius = 8;
-//        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
-//        share.frame = CGRectMake(0, 0, 150, 38);
-//        share.tag = 10;
-//        [_contentView addSubview:share];
+        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
+        share.frame = CGRectMake(0, 0, 150, 38);
+        share.tag = ShareBtnTag;
+        [_contentView addSubview:share];
         if (self.style == WebItemViewStyleNormal) {
             UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":@"收藏"}];
-            collect.frame = CGRectMake(0, 0, 150, 38);
-            collect.tag = 20;
+            collect.frame = CGRectMake(0, 38, 150, 38);
+            collect.tag = CollectionBtnTag;
             [_contentView addSubview:collect];
         }
-        if (self.style == WebItemViewStyleCollect) {
+        if (self.style == WebItemViewStyleCollected) {
             UIView *collect = [self dropItemWithData:@{@"icon":@"icon_canclecollect",@"title":@"取消收藏"}];
-            collect.frame = CGRectMake(0, 0, 150, 38);
-            collect.tag = 20;
+            collect.frame = CGRectMake(0, 38, 150, 38);
+            collect.tag = CollectionBtnTag;
             [_contentView addSubview:collect];
         }
         _contentView.layer.shadowOffset = CGSizeMake(0,2);
