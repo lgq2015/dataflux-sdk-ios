@@ -71,7 +71,13 @@
         make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
         make.height.offset(ZOOM_SCALE(47));
     }];
+    @weakify(self)
     RACSignal *passwordSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        @strongify(self);
+        if (value.length > 25){
+            self.passwordTf.text = [self.passwordTf.text substringToIndex:25];
+            [iToast alertWithTitleCenter:@"内容长度超限"];
+        }
         return @(value.length>7);
     }];
     RAC(self.confirmBtn,enabled) = passwordSignal;
@@ -219,5 +225,7 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)dealloc{
+    NSLog(@"---%s",__func__);
+}
 @end

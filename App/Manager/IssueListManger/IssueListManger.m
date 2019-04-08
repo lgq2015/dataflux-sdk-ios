@@ -261,6 +261,7 @@
             if(callBackStatus){
                 callBackStatus(model);
             }
+            _isFetching=NO;
         }
 
     }];
@@ -365,7 +366,7 @@
     NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
     NSMutableArray *infoArray = [NSMutableArray new];
     for (NSInteger i = 0; i < nameArray.count; i++) {
-        NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@' AND status !='expired' "
+        NSString *whereFormat = [NSString stringWithFormat:@"where type = '%@'"
                                                            "AND status!='discarded' AND status!='recovered' %@ ORDER BY actSeq DESC", nameArray[i],
                         ISSUE_SOURCE_FILTER_SELECTION];
         NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];

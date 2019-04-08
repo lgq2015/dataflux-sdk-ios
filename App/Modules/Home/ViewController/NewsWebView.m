@@ -10,6 +10,8 @@
 #import "WebItemView.h"
 #import "NewsListModel.h"
 #import "HandbookModel.h"
+#import "ZYSocialUIManager.h"
+#import "ZYSocialManager.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -147,17 +149,22 @@
   
 }
 - (void)closeBtnClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popShareUI];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)popShareUI{
+    __weak typeof(self) weakself = self;
+    [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
+        NSString *title = !weakself.newsModel ? weakself.handbookModel.title : weakself.newsModel.title;
+        NSString *descr = !weakself.newsModel ? weakself.handbookModel.summary : @"";
+        NSString *url = !weakself.newsModel ? weakself.handbookModel.htmlPath : weakself.newsModel.url;
+        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+        manager.webpageUrl = url;
+        manager.showVC = weakself;
+        [manager shareToPlatform:sharePlatformType];
+    }];
 }
-*/
+
 
 @end

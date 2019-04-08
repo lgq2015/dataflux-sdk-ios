@@ -37,7 +37,7 @@
     }
     if ([model.status isEqualToString:@"recovered"]) {
         self.state =MonitorListStateRecommend;
-    }else if ([model.status isEqualToString:@"expired"] || [model.status isEqualToString:@"discarded"]){
+    }else if ([model.status isEqualToString:@"discarded"]){
         self.state = MonitorListStateLoseeEfficacy;
     }
     NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];

@@ -19,6 +19,8 @@
 #import "GuideVC.h"
 #import "LaunchVC.h"
 #import "DetectionVersionAlert.h"
+#import <WXApi.h>
+#import <DTShareKit/DTOpenKit.h>
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -63,7 +65,8 @@
             [self initUserManager];
         }
     });
-
+    //是否显示控制器名称
+    [self isShowVCName:YES];
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{
@@ -169,7 +172,7 @@
 
 #pragma mark ========== 友盟 初始化 ==========
 -(void)initUMeng{
-  
+
 }
 #pragma mark ========== 配置第三方 ==========
 -(void)configUSharePlatforms{
@@ -179,7 +182,11 @@
     [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
 
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD setMinimumDismissTimeInterval:0.5];   
+    [SVProgressHUD setMinimumDismissTimeInterval:0.5];
+    //分享
+    [WXApi registerApp:WX_APPKEY];
+    self.tencentOAuth =  [[TencentOAuth alloc] initWithAppId:QQ_APPKEY andDelegate:nil];
+    [DTOpenAPI registerApp:DINGDING_APPKEY];
 }
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{
@@ -189,7 +196,6 @@
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    
     return YES;
 }
 
@@ -199,7 +205,14 @@
     return YES;
 }
 
-
+#pragma mark ===========是否显示控制器名称 ========
+- (void)isShowVCName:(BOOL)isShow{
+    if (isShow){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"zt_showvcname"];
+    }else{
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"zt_showvcname"];
+    }
+}
 
 + (AppDelegate *)shareAppDelegate{
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];

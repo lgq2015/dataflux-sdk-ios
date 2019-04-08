@@ -11,6 +11,7 @@
 #import "MineCellModel.h"
 #import "PWBaseWebVC.h"
 #import "DetectionVersionAlert.h"
+#import "FounctionIntroductionVC.h"
 
 @interface AboutUsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -45,8 +46,9 @@
 //    MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:@"服务协议"];
     MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
+    MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
 //    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们"];
-    self.dataSource = [NSMutableArray arrayWithArray:@[privacy,newVersion]];
+    self.dataSource = [NSMutableArray arrayWithArray:@[privacy,newVersion,founctionIntro]];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
@@ -104,7 +106,7 @@
         }
             break;
         case 2:
-          
+            [self.navigationController pushViewController:[FounctionIntroductionVC new] animated:YES];
             break;
         default:
             break;

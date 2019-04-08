@@ -33,7 +33,7 @@
     }];
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
-        make.width.height.offset(ZOOM_SCALE(36));
+        make.height.width.offset(ZOOM_SCALE(36));
         make.centerY.mas_equalTo(self.contentView);
     }];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -96,13 +96,18 @@
 -(UIButton *)phoneBtn{
     if (!_phoneBtn) {
         _phoneBtn = [[UIButton alloc]init];
-        [_phoneBtn setBackgroundImage:[UIImage imageNamed:@"team_phone"] forState:UIControlStateNormal];
+        _phoneBtn.userInteractionEnabled = YES;
+        [_phoneBtn setImage:[UIImage imageNamed:@"team_phone"] forState:UIControlStateNormal];
         [_phoneBtn addTarget:self action:@selector(phoneClick) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_phoneBtn];
     }
     return _phoneBtn;
 }
 - (void)phoneClick{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
+    [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
+}
+- (void)btnClickedOperations{
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",self.model.mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];

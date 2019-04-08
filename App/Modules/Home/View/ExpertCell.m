@@ -90,7 +90,7 @@
     if (!_icon) {
         _icon = [[UIImageView alloc]init];
         _icon.layer.masksToBounds = YES;
-        _icon.contentMode =  UIViewContentModeScaleAspectFill;
+        _icon.contentMode =  UIViewContentModeRedraw;
         _icon.layer.cornerRadius = 36.0f;
         [self addSubview:_icon];
     }
