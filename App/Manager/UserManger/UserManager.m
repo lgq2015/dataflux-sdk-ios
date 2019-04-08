@@ -358,9 +358,12 @@ SINGLETON_FOR_CLASS(UserManager);
             self.expertGroups = [NSMutableArray new];
             [self.expertGroups addObjectsFromArray:expertGroups];
             completion ? completion(expertGroups):nil;
+        }else{
+           completion ? completion(nil):nil;
         }
         
     } failBlock:^(NSError *error) {
+        completion ? completion(nil):nil;
         [error errorToast];
     }];
 }

@@ -308,9 +308,6 @@
         [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
         setNewVersionDict(versionDict);
     }
-//    if (![nowVersion isEqualToString:version]) {
-    
-//    }
 
 }
 @end

@@ -29,14 +29,24 @@
     self.dataSource = [NSMutableArray new];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), kWidth-Interval(32), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"邀请专家加入到您的讨论中"];
     [self.view addSubview:tipLab];
-    NSMutableArray *array = userManager.expertGroups;
-    if (userManager.teamModel !=nil) {
+    [SVProgressHUD show];
+    [userManager loadExperGroups:^(NSArray *experGroups) {
+        [SVProgressHUD dismiss];
+        if (experGroups.count>0) {
+            [self dealWithExperGroups:experGroups];
+        }
+    }];
+    
+}
+- (void)dealWithExperGroups:(NSArray *)experGroups{
+    
+    if (experGroups !=nil &&experGroups.count>0) {
         NSDictionary *tags =userManager.teamModel.tags;
         NSDictionary *product = tags[@"product"];
         NSString *managed = [product stringValueForKey:@"managed" default:@""];
         NSString *support = [product stringValueForKey:@"support" default:@""];
-        [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-          __block  BOOL isHave = NO;
+        [experGroups enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            __block  BOOL isHave = NO;
             NSArray *managedAry =obj[@"managed"];
             NSArray *supportAry = obj[@"support"];
             [managedAry enumerateObjectsUsingBlock:^(NSString *manaobj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -55,13 +65,16 @@
             }
             isHave == YES? [self.dataSource addObject:obj]:nil;
         }];
+        NSArray *more = @[@"more"];
+        [self.dataSource addObject:more];
+        [self.expertCollection reloadData];
+        self.expertCollection.delegate = self;
+    }else{
+    
     }
     
-
-     NSArray *more = @[@"more"];
-    [self.dataSource addObject:more];
-    [self.expertCollection reloadData];
-    self.expertCollection.delegate = self;
+    
+   
 }
 - (UICollectionView *)expertCollection{
     if (!_expertCollection) {
