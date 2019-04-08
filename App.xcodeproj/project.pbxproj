@@ -280,18 +280,18 @@
 		4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
-		4A759B4722544C730057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4622544C730057BD02 /* UIImage+fixOrientation.m */; };
-		4A759B4822544C730057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4622544C730057BD02 /* UIImage+fixOrientation.m */; };
-		4A759B4922544C730057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4622544C730057BD02 /* UIImage+fixOrientation.m */; };
-		4A759B4D225481450057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4C225481440057BD02 /* HLSafeMutableArray.m */; };
-		4A759B4E225481450057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4C225481440057BD02 /* HLSafeMutableArray.m */; };
-		4A759B4F225481450057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B4C225481440057BD02 /* HLSafeMutableArray.m */; };
 		4A759B522254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
 		4A759B532254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
 		4A759B542254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
-		4A759B5D225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B5C225AE8FC0057BD02 /* NSError+CommonToast.m */; };
-		4A759B5E225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B5C225AE8FC0057BD02 /* NSError+CommonToast.m */; };
-		4A759B5F225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B5C225AE8FC0057BD02 /* NSError+CommonToast.m */; };
+		4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
+		4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
+		4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -1160,14 +1160,14 @@
 		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
 		4A759B2F22522E150057BD02 /* NewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListEmptyView.h; sourceTree = "<group>"; };
 		4A759B3022522E150057BD02 /* NewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListEmptyView.m; sourceTree = "<group>"; };
-		4A759B4522544C730057BD02 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
-		4A759B4622544C730057BD02 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
-		4A759B4B225481440057BD02 /* HLSafeMutableArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLSafeMutableArray.h; sourceTree = "<group>"; };
-		4A759B4C225481440057BD02 /* HLSafeMutableArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLSafeMutableArray.m; sourceTree = "<group>"; };
 		4A759B502254B6A20057BD02 /* EchartListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EchartListView.h; sourceTree = "<group>"; };
 		4A759B512254B6A20057BD02 /* EchartListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EchartListView.m; sourceTree = "<group>"; };
-		4A759B5B225AE8FC0057BD02 /* NSError+CommonToast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+CommonToast.h"; sourceTree = "<group>"; };
-		4A759B5C225AE8FC0057BD02 /* NSError+CommonToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommonToast.m"; sourceTree = "<group>"; };
+		4A759B61225B0AFB0057BD02 /* NSError+CommonToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+CommonToast.h"; sourceTree = "<group>"; };
+		4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommonToast.m"; sourceTree = "<group>"; };
+		4A759B67225B0B080057BD02 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
+		4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLSafeMutableArray.m; sourceTree = "<group>"; };
+		4A759B6E225B0B130057BD02 /* HLSafeMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLSafeMutableArray.h; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1949,6 +1949,9 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A759B6C225B0B130057BD02 /* SafeMutableArray */,
+				4A759B66225B0B080057BD02 /* UIImage+fixOrientation */,
+				4A759B60225B0AFB0057BD02 /* NSError+CommonToast */,
 				2B5210FE2257CA5F004DA56D /* ZTShareView */,
 				2B9ECBE92254509D00BAC47A /* ZTShowVCName */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
@@ -2140,38 +2143,31 @@
 			path = PrivacySecurityControls;
 			sourceTree = "<group>";
 		};
-		4A759B3E225379E50057BD02 /* DataAdapter */ = {
+		4A759B60225B0AFB0057BD02 /* NSError+CommonToast */ = {
 			isa = PBXGroup;
 			children = (
+				4A759B61225B0AFB0057BD02 /* NSError+CommonToast.h */,
+				4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */,
 			);
-			path = DataAdapter;
+			path = "NSError+CommonToast";
 			sourceTree = "<group>";
 		};
-		4A759B4422544C3F0057BD02 /* UIImage+fixOrientation */ = {
+		4A759B66225B0B080057BD02 /* UIImage+fixOrientation */ = {
 			isa = PBXGroup;
 			children = (
-				4A759B4522544C730057BD02 /* UIImage+fixOrientation.h */,
-				4A759B4622544C730057BD02 /* UIImage+fixOrientation.m */,
+				4A759B67225B0B080057BD02 /* UIImage+fixOrientation.h */,
+				4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */,
 			);
 			path = "UIImage+fixOrientation";
 			sourceTree = "<group>";
 		};
-		4A759B4A2254808D0057BD02 /* SafeMutableArray */ = {
+		4A759B6C225B0B130057BD02 /* SafeMutableArray */ = {
 			isa = PBXGroup;
 			children = (
-				4A759B4B225481440057BD02 /* HLSafeMutableArray.h */,
-				4A759B4C225481440057BD02 /* HLSafeMutableArray.m */,
+				4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */,
+				4A759B6E225B0B130057BD02 /* HLSafeMutableArray.h */,
 			);
 			path = SafeMutableArray;
-			sourceTree = "<group>";
-		};
-		4A759B55225AE7D80057BD02 /* NSError+CommonToast */ = {
-			isa = PBXGroup;
-			children = (
-				4A759B5B225AE8FC0057BD02 /* NSError+CommonToast.h */,
-				4A759B5C225AE8FC0057BD02 /* NSError+CommonToast.m */,
-			);
-			path = "NSError+CommonToast";
 			sourceTree = "<group>";
 		};
 		4A7C4B0D21C2820F007730E6 /* iToast */ = {
@@ -3183,7 +3179,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3200,7 +3196,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3209,7 +3205,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3226,7 +3222,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3271,7 +3267,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3288,7 +3284,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3369,7 +3365,6 @@
 				2B9ECC19225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
 				4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */,
-				4A759B4722544C730057BD02 /* UIImage+fixOrientation.m in Sources */,
 				4A092D95222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
 				2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */,
@@ -3418,7 +3413,6 @@
 				4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */,
 				4AC857CD223D1A2100DAE1F6 /* OrderListModel.m in Sources */,
 				4A092D9F222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
-				4A759B5D225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */,
 				4A759ADA224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4A092D61222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
@@ -3520,6 +3514,7 @@
 				4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */,
 				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
@@ -3550,14 +3545,15 @@
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
 				6B6E26D8FDBAEEC6BFEC1739 /* IssueChatFileCell.m in Sources */,
 				6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */,
+				4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */,
 				6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */,
-				4A759B4D225481450057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
 				6B6E22AF17266A5900D40334 /* HomeViewController.m in Sources */,
 				6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
+				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */,
@@ -3645,7 +3641,6 @@
 				2B9ECC1A225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
-				4A759B4822544C730057BD02 /* UIImage+fixOrientation.m in Sources */,
 				4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
 				2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */,
@@ -3694,7 +3689,6 @@
 				4A759ADB224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
-				4A759B5E225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
@@ -3796,6 +3790,7 @@
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
@@ -3826,14 +3821,15 @@
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
 				6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */,
 				6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */,
+				4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */,
 				6B6E20646B3AB3460999FB95 /* ScanViewController.m in Sources */,
-				4A759B4E225481450057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
 				6B6E279062CF87E37FE1DBF4 /* HomeViewController.m in Sources */,
 				6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
+				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */,
@@ -3921,7 +3917,6 @@
 				2B9ECC1B225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
-				4A759B4922544C730057BD02 /* UIImage+fixOrientation.m in Sources */,
 				4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
 				2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */,
@@ -3970,7 +3965,6 @@
 				4A759ADC224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
-				4A759B5F225AE8FC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
@@ -4072,6 +4066,7 @@
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
@@ -4102,14 +4097,15 @@
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
 				6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */,
 				6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */,
+				4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */,
 				6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */,
-				4A759B4F225481450057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
 				6B6E21B78A8409F6DE2539F3 /* HomeViewController.m in Sources */,
 				6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,
+				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
 				6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */,
