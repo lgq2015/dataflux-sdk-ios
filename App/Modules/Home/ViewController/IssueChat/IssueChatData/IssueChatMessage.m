@@ -36,6 +36,7 @@
         NSString *userID = [account_info stringValueForKey:@"id" default:@""];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
             self.messageFrom = PWChatMessageFromMe;
+            self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             self.nameStr = [time accurateTimeStr];
         }else{
             self.messageFrom = PWChatMessageFromOther;
@@ -64,7 +65,7 @@
             self.messageType = PWChatMessageTypeFile;
             self.filePath = url;
             self.cellString = PWChatFileCellId;
-
+          
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
@@ -90,13 +91,20 @@
         }
         
     }else{
+        NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
-        if ([subType isEqualToString:@"updateExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已加入讨论";
+        
+        if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
+            [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
+                if ([subType isEqualToString:@"updateExpertGroups"]) {
+                    self.systermStr =[NSString stringWithFormat:@"您邀请的%@专家已加入讨论",name];
+                }
+                if ([subType isEqualToString:@"exitExpertGroups"]) {
+                    self.systermStr =[NSString stringWithFormat:@"您邀请的%@专家已退出讨论",name];
+                }
+            }];
         }
-        if ([subType isEqualToString:@"exitExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已退出讨论";
-        }
+       
         self.messageType = PWChatMessageTypeSysterm;
         self.cellString = PWChatSystermCellId;
 

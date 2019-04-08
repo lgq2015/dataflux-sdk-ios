@@ -40,7 +40,7 @@
 #define PWChatTextRowSpacing    0            //文本间距
 
 #define PWChatFileWidth                 ZOOM_SCALE(248)
-#define PWChatFileHeight                ZOOM_SCALE(84)
+#define PWChatFileHeight                ZOOM_SCALE(64)
 
 //文本颜色
 #define PWChatTextColor        PWTextBlackColor

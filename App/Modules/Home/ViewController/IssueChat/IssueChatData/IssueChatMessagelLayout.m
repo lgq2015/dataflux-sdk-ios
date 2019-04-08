@@ -130,16 +130,12 @@
     _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
 }
 - (void)setFile{
+    _fileLabRect = CGRectMake(0, 0,PWChatFileWidth , PWChatFileHeight);
     if(_message.messageFrom == PWChatMessageFromOther){
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _nameLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
-        _backImgButtonRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, PWChatFileWidth+PWChatTextLRB+PWChatTextLRS, PWChatFileHeight+PWChatTextTop+PWChatTextBottom);
-        
-        _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRB, PWChatAirBottom, PWChatAirLRS);
-        
-        _fileLabRect.origin.x = PWChatTextLRB;
-        _fileLabRect.origin.y = PWChatTextTop;
-        
+        _backImgButtonRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, PWChatFileWidth, PWChatFileHeight);
+    
     }else{
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));

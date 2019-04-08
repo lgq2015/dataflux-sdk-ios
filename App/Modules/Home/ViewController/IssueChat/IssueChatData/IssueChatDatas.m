@@ -23,6 +23,12 @@
             message.textString = dict[@"text"];
             message.headerImgurl = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             message.cellString = PWChatTextCellId;
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:dict[@"text"] callBack:^(id response) {
+                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                if (data.isSuccess) {
+                    
+                }
+            }];
         }
             break;
         case PWChatMessageTypeImage:{

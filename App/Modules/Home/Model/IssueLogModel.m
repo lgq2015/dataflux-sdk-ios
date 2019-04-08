@@ -29,7 +29,7 @@
     self.seq = [dict longLongValueForKey:@"seq" default:0];
     self.createTime =[dict stringValueForKey:@"createTime" default:@""];
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict,@"originInfoJSON");
-    NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJson");
+    NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJSON");
     NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
     NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
 
