@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <YYKit.h>
 
 typedef NS_ENUM(NSInteger, PWButtonType) {
     PWButtonTypeWord = 0,         //文字按钮
@@ -28,5 +29,6 @@ typedef NS_ENUM(NSInteger, PWButtonType) {
 +(UILabel *)lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text;
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font;
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame;
++(YYLabel *)zy_lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text;
 @end
 

@@ -332,7 +332,9 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];

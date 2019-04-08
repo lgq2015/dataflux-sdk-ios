@@ -40,6 +40,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.0)
   - ReactiveCocoa/RACExtensions (2.0):
     - ReactiveCocoa/Core
+  - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - MCDingTalk (~> 1.0.1)
   - MJRefresh (~> 3.1.15.7)
   - ReactiveCocoa (= 2.0)
+  - RegexKitLite (~> 4.0)
   - SDWebImage (~> 3.8)
   - Socket.IO-Client-Swift (~> 14.0.0)
   - SVProgressHUD (~> 2.2.5)
@@ -95,6 +97,7 @@ SPEC REPOS:
     - MCDingTalk
     - MJRefresh
     - ReactiveCocoa
+    - RegexKitLite
     - SDWebImage
     - Socket.IO-Client-Swift
     - Starscream
@@ -119,6 +122,7 @@ SPEC CHECKSUMS:
   MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
@@ -130,6 +134,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 2bdc2e8c5f2030b4adcab0634a1af6b9af9ca81d
+PODFILE CHECKSUM: dbc9db9f0ac1e8fa8072f709026bdba6905a015c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
