@@ -144,19 +144,22 @@
   
 }
 - (void)closeBtnClick{
-//    [self popShareUI];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popShareUI];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)popShareUI{
+    __weak typeof(self) weakself = self;
     [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
-        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:@"【爆款直降 盛夏特惠】【29.9免邮 限量买3免1】清新持久自然GUCCMI香水"descr:@"我在京东发现了一个不错的商品，赶快来看看吧。" thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
-        manager.webpageUrl = @"https://www.baidu.com";
+        NSString *title = !weakself.newsModel ? weakself.handbookModel.title : weakself.newsModel.title;
+        NSString *descr = !weakself.newsModel ? weakself.handbookModel.summary : @"";
+        NSString *url = !weakself.newsModel ? weakself.handbookModel.htmlPath : weakself.newsModel.url;
+        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+        manager.webpageUrl = url;
+        manager.showVC = weakself;
         [manager shareToPlatform:sharePlatformType];
     }];
 }
-
-
 
 
 @end

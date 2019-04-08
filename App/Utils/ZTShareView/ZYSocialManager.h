@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZYSocialManager : NSObject
 @property (nonatomic,strong)NSString *webpageUrl;
+@property (nonatomic,strong)UIViewController *showVC;
 - (instancetype)initWithTitle:(NSString *)title descr:(NSString *)descr thumImage:(UIImage *)thumImage;
 - (void)shareToPlatform:(SharePlatformType)type;
 @end

@@ -63,6 +63,15 @@
         mediaMessage.mediaObject=webObject;
         sendMessageReq.message = mediaMessage;
         [DTOpenAPI sendReq:sendMessageReq];
+    }else if (type == System_PlatformType){
+        NSURL *shareUrl = [NSURL URLWithString:_webpageUrl];
+        NSArray *activityItems = @[_title,
+                                   _thumImage,
+                                   shareUrl]; // 必须要提供url 才会显示分享标签否则只显示图片
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]
+                                                initWithActivityItems:activityItems
+                                                applicationActivities:nil];
+        [self.showVC presentViewController:activityVC animated:YES completion:nil];
     }
     
 }

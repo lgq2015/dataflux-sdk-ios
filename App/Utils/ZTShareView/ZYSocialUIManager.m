@@ -144,11 +144,11 @@
 #pragma mark - Click点击分享
 -(void)shareNewClick:(UIButton *)btn{
     NSString * titleStr = _titleArr[btn.tag - 401];
-    if ([titleStr isEqualToString:@"微信朋友圈"]) {
+    if ([titleStr isEqualToString:@"朋友圈"]) {
         self.sharePlatformType = WechatTimeLine_PlatformType;
-    }else if ([titleStr isEqualToString:@"微信好友"]){
+    }else if ([titleStr isEqualToString:@"微信"]){
         self.sharePlatformType = WechatSession_PlatformType;
-    }else if ([titleStr isEqualToString:@"QQ好友"]){
+    }else if ([titleStr isEqualToString:@"QQ"]){
         self.sharePlatformType = QQ_PlatformType;
     }else if ([titleStr isEqualToString:@"QQ空间"]){
         self.sharePlatformType = Qzone_PlatformType;
@@ -214,17 +214,18 @@
     if (!_titleArr) {
         _titleArr = [[NSMutableArray alloc]init];
         if (self.isWX == YES) {
-            [_titleArr addObject:@"微信好友"];
-            [_titleArr addObject:@"微信朋友圈"];
+            [_titleArr addObject:@"微信"];
+            [_titleArr addObject:@"朋友圈"];
         }
         if (self.isQQ == YES) {
-            [_titleArr addObject:@"QQ好友"];
+            [_titleArr addObject:@"QQ"];
             [_titleArr addObject:@"QQ空间"];
             
         }
         if (self.isDing == YES) {
             [_titleArr addObject:@"钉钉"];
         }
+        [_titleArr addObject:@"系统分享"];
     }
     return _titleArr;
 }
@@ -242,14 +243,15 @@
         if (self.isDing == YES) {
             [_imageArr addObject:@"zysocial_dingding"];
         }
+        [_imageArr addObject:@"zysocial_dingding"];
     }
     return _imageArr;
 }
 -(void)testInit{
     if (!_titleArr) {
-        [self.titleArr addObject:@"微信好友"];
-        [self.titleArr addObject:@"微信朋友圈"];
-        [self.titleArr addObject:@"QQ好友"];
+        [self.titleArr addObject:@"微信"];
+        [self.titleArr addObject:@"朋友圈"];
+        [self.titleArr addObject:@"QQ"];
         [self.titleArr addObject:@"QQ空间"];
         [self.titleArr addObject:@"钉钉"];
         
