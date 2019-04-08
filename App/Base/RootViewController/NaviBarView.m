@@ -139,7 +139,7 @@
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, kWidth - 120, 44)];
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.font = BOLDFONT(18);
+        _titleLabel.font = MediumFONT(18);
         _titleLabel.textColor = PWTextBlackColor;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_navigationBar addSubview:_titleLabel];

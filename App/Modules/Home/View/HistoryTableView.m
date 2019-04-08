@@ -55,7 +55,7 @@
         _historyFooterView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
         UIButton *button = [PWCommonCtrl buttonWithFrame:CGRectMake(0, ZOOM_SCALE(5), ZOOM_SCALE(120), ZOOM_SCALE(20)) type:PWButtonTypeWord text:@"清空搜索历史"];
         [button setTitleColor:PWTitleColor forState:UIControlStateNormal];
-        button.titleLabel.font = MediumFONT(14);
+        button.titleLabel.font = RegularFONT(14);
         [button addTarget:self action:@selector(delectAllClick) forControlEvents:UIControlEventTouchUpInside];
         button.centerX = self.centerX;
         [_historyFooterView addSubview:button];

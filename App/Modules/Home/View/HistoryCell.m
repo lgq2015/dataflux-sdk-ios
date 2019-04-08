@@ -53,7 +53,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@""];
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;

@@ -7,6 +7,8 @@
 //
 
 #import "LZImageCropper.h"
+#import "UIImage+fixOrientation.h"
+
 @interface LZImageCropper ()<UIScrollViewDelegate>{
     CGFloat _selfHeight;
     CGFloat _selfWidth;
@@ -40,7 +42,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _selfWidth = self.view.frame.size.width;
     _selfHeight = self.view.frame.size.height;
-    
+     UIImage  *fixImage = [self.image fixOrientation];
+    self.image = fixImage;
     [self createUI];
     [self setupData];
     
@@ -352,7 +355,7 @@
     if (!_cancleButton) {
         _cancleButton = [[UIButton alloc]init];
         [_cancleButton setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancleButton.titleLabel setFont:MediumFONT(18)];
+        [_cancleButton.titleLabel setFont:RegularFONT(18)];
         [_cancleButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_cancleButton addTarget:self action:@selector(cancleButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }

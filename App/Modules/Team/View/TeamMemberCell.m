@@ -31,16 +31,18 @@
         make.width.height.mas_equalTo(ZOOM_SCALE(40));
         make.centerY.mas_equalTo(self.contentView);
     }];
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(13));
-        make.height.offset(ZOOM_SCALE(22));
-        make.centerY.mas_equalTo(self.iconImgView);
-    }];
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.height.width.offset(ZOOM_SCALE(36));
         make.centerY.mas_equalTo(self.contentView);
     }];
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(13));
+        make.height.offset(ZOOM_SCALE(22));
+        make.right.mas_equalTo(self.phoneBtn.mas_left).offset(-Interval(10));
+        make.centerY.mas_equalTo(self.iconImgView);
+    }];
+   
    
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(1);
@@ -58,7 +60,7 @@
 }
 -(UILabel *)adminLab{
     if (!_adminLab) {
-        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(10) textColor:PWWhiteColor text:@"管理员"];
+        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@"管理员"];
         _adminLab.textAlignment = NSTextAlignmentCenter;
         _adminLab.layer.cornerRadius = 2.0f;
         _adminLab.layer.masksToBounds = YES;
@@ -86,7 +88,7 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:[UIColor colorWithHexString:@"#373D41"] text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:[UIColor colorWithHexString:@"#373D41"] text:@""];
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;

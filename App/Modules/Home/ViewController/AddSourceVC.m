@@ -69,7 +69,7 @@
     moreBtn.layer.cornerRadius = 4.0f;
     moreBtn.backgroundColor = PWWhiteColor;
     [moreBtn setTitle:@"更多诊断服务" forState:UIControlStateNormal];
-    moreBtn.titleLabel.font = MediumFONT(18);
+    moreBtn.titleLabel.font = RegularFONT(18);
     [moreBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(moreBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:moreBtn];

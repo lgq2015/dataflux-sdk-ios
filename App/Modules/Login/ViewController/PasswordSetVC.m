@@ -34,9 +34,9 @@
         make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+16));
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(53), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"密码设置"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(53), ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"密码设置"];
     [self.view addSubview:title];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(97), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位\n至少含字母、数字、字符 2 种 组合"];
+    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kStatusBarHeight+Interval(97), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位\n至少含字母、数字、字符 2 种 组合"];
     subTitle.numberOfLines = 2;
     [self.view addSubview:subTitle];
     [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,7 +99,7 @@
         _skipBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         [_skipBtn setTitle:@"跳过" forState:UIControlStateNormal];
         [_skipBtn addTarget:self action:@selector(skipBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _skipBtn.titleLabel.font = MediumFONT(16);
+        _skipBtn.titleLabel.font = RegularFONT(16);
         [_skipBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
         [self.view addSubview:_skipBtn];
     }

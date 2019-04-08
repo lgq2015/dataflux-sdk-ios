@@ -65,7 +65,7 @@
 }
 -(UILabel *)uploadStateLab{
     if (!_uploadStateLab) {
-        _uploadStateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#9B9EA0"] text:@""];
+        _uploadStateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#9B9EA0"] text:@""];
         [self.contentView addSubview:_uploadStateLab];
     }
     return _uploadStateLab;
@@ -73,7 +73,7 @@
 - (UIButton *)reloadBtn{
     if (!_reloadBtn) {
         _reloadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新上传"];
-        _reloadBtn.titleLabel.font = MediumFONT(14);
+        _reloadBtn.titleLabel.font = RegularFONT(14);
         [_reloadBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_reloadBtn addTarget:self action:@selector(reloadBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_reloadBtn];
@@ -139,14 +139,14 @@
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTextBlackColor text:@""];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;
 }
 -(UILabel *)sizeLab{
     if (!_sizeLab) {
-        _sizeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:PWSubTitleColor text:@""];
+        _sizeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
         [self.contentView addSubview:_sizeLab];
     }
     return _sizeLab;

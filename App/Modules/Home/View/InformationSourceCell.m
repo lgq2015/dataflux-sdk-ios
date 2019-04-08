@@ -97,7 +97,7 @@
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:18];
+        _titleLab.font = RegularFONT(18);
         _titleLab.textColor = PWTextBlackColor;
         [self addSubview:_titleLab];
     }
@@ -106,7 +106,7 @@
 -(UILabel *)stateLab{
     if (!_stateLab) {
         _stateLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _stateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _stateLab.font =  RegularFONT(14);
         _stateLab.layer.cornerRadius = 4.;//边框圆角大小
         _stateLab.layer.masksToBounds = YES;
         _stateLab.layer.borderWidth = 1;//边框宽度

@@ -33,7 +33,7 @@
     shadeView.alpha = 0.4;
     [bigAvatarImgView addSubview:shadeView];
     NSString *expertNameStr = self.data[@"displayName"][@"zh_CN"];
-    UILabel *expertName = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWWhiteColor text:expertNameStr];
+    UILabel *expertName = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWWhiteColor text:expertNameStr];
     [self.view addSubview:expertName];
     __block NSString *profileStr = @"证书";
     NSArray *profileAry = self.data[@"profile"][@"tags"];
@@ -44,7 +44,7 @@
         profileStr = [profileStr stringByAppendingString:[NSString stringWithFormat:@"/%@",name]];
     }];
     self.profilesStr = profileStr;
-    UILabel *profileLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:profileStr];
+    UILabel *profileLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWWhiteColor text:profileStr];
     profileLab.numberOfLines = 0;
     [self.view addSubview:profileLab];
     

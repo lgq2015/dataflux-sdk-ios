@@ -53,21 +53,21 @@
 }
 -(UILabel *)orderNumLab{
     if (!_orderNumLab) {
-        _orderNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:@""];
+        _orderNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:@""];
         [self.contentView addSubview:_orderNumLab];
     }
     return _orderNumLab;
 }
 -(UILabel *)orderTimeLab{
     if (!_orderTimeLab) {
-        _orderTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
+        _orderTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
         [self.contentView addSubview:_orderTimeLab];
     }
     return _orderTimeLab;
 }
 -(UILabel *)orderTitleLab{
     if (!_orderTitleLab) {
-        _orderTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@""];
+        _orderTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@""];
         [self.contentView addSubview:_orderTitleLab];
     }
     return _orderTitleLab;

@@ -24,7 +24,7 @@
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
     navView.backgroundColor = PWWhiteColor;
     [self.view addSubview:navView];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [navView addSubview:titleLab];
     UIView *line = [[UIView alloc]init];
@@ -50,7 +50,7 @@
         make.height.with.offset(ZOOM_SCALE(80));
         make.centerX.mas_equalTo(contentView);
     }];
-    UILabel *tip1 = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
+    UILabel *tip1 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
     tip1.textAlignment = NSTextAlignmentCenter;
     [contentView addSubview:tip1];
     [tip1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,7 +85,7 @@
         NSString *promptText = [NSString stringWithFormat:@"您的购买预约已经提交成功\n我们会尽快安排客服人员与您联系\n您也可以直接拨打%@咨询",linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _tipsLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
-        _tipsLab.font = MediumFONT(14);
+        _tipsLab.font = RegularFONT(14);
         _tipsLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
         _tipsLab.numberOfLines = 0;
         _tipsLab.delegate = self;

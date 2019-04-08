@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		1DE47111EAD1F5FA60C6E174 /* libPods-AppPreMade.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */; };
+		2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
+		2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */; };
+		2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110B2257CF7C004DA56D /* zysocial_dingding.png */; };
+		2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110C2257CF7C004DA56D /* zysocial_qq.png */; };
+		2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110D2257CF7C004DA56D /* zysocial_qzone.png */; };
+		2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
+		2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
+		2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B52110E2257CF7C004DA56D /* zysocial_wechat.png */; };
 		2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
@@ -35,6 +56,9 @@
 		2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
+		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
+		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -256,6 +280,18 @@
 		4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
+		4A759B522254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
+		4A759B532254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
+		4A759B542254B6A20057BD02 /* EchartListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B512254B6A20057BD02 /* EchartListView.m */; };
+		4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */; };
+		4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */; };
+		4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
+		4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
+		4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */; };
 		4A7C4B1521C282DA007730E6 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B8021C61201007730E6 /* SetNewPasswordVC.m */; };
@@ -911,6 +947,15 @@
 
 /* Begin PBXFileReference section */
 		145E84BB150616B018992938 /* Pods-AppDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.debug.xcconfig"; sourceTree = "<group>"; };
+		2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTOpenUrl.m; sourceTree = "<group>"; };
+		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
+		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
+		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
+		2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
+		2B52110B2257CF7C004DA56D /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
+		2B52110C2257CF7C004DA56D /* zysocial_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qq.png; sourceTree = "<group>"; };
+		2B52110D2257CF7C004DA56D /* zysocial_qzone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qzone.png; sourceTree = "<group>"; };
+		2B52110E2257CF7C004DA56D /* zysocial_wechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat.png; sourceTree = "<group>"; };
 		2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZTSwizzling.m"; sourceTree = "<group>"; };
 		2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTShowTipButton.h; sourceTree = "<group>"; };
 		2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZTSwizzling.h"; sourceTree = "<group>"; };
@@ -927,6 +972,8 @@
 		2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZTUtil.m"; sourceTree = "<group>"; };
 		2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZTCategory.h"; sourceTree = "<group>"; };
 		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
+		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
+		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -1113,6 +1160,14 @@
 		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
 		4A759B2F22522E150057BD02 /* NewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListEmptyView.h; sourceTree = "<group>"; };
 		4A759B3022522E150057BD02 /* NewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListEmptyView.m; sourceTree = "<group>"; };
+		4A759B502254B6A20057BD02 /* EchartListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EchartListView.h; sourceTree = "<group>"; };
+		4A759B512254B6A20057BD02 /* EchartListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EchartListView.m; sourceTree = "<group>"; };
+		4A759B61225B0AFB0057BD02 /* NSError+CommonToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+CommonToast.h"; sourceTree = "<group>"; };
+		4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+CommonToast.m"; sourceTree = "<group>"; };
+		4A759B67225B0B080057BD02 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
+		4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLSafeMutableArray.m; sourceTree = "<group>"; };
+		4A759B6E225B0B130057BD02 /* HLSafeMutableArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLSafeMutableArray.h; sourceTree = "<group>"; };
 		4A7C4B1121C282DA007730E6 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		4A7C4B1221C282DA007730E6 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		4A7C4B1321C282DA007730E6 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
@@ -1531,6 +1586,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B5210FE2257CA5F004DA56D /* ZTShareView */ = {
+			isa = PBXGroup;
+			children = (
+				2B5211092257CF7C004DA56D /* ZTShareImage */,
+				2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */,
+				2B5211012257CA5F004DA56D /* ZTOpenUrl.h */,
+				2BE9F166225A4B4300C33669 /* ZYSocialManager.h */,
+				2BE9F167225A4B4300C33669 /* ZYSocialManager.m */,
+				2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */,
+				2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */,
+			);
+			path = ZTShareView;
+			sourceTree = "<group>";
+		};
+		2B5211092257CF7C004DA56D /* ZTShareImage */ = {
+			isa = PBXGroup;
+			children = (
+				2B52110A2257CF7C004DA56D /* zysocial_wechat_timeline.png */,
+				2B52110B2257CF7C004DA56D /* zysocial_dingding.png */,
+				2B52110C2257CF7C004DA56D /* zysocial_qq.png */,
+				2B52110D2257CF7C004DA56D /* zysocial_qzone.png */,
+				2B52110E2257CF7C004DA56D /* zysocial_wechat.png */,
+			);
+			path = ZTShareImage;
+			sourceTree = "<group>";
+		};
 		2B9ECBE92254509D00BAC47A /* ZTShowVCName */ = {
 			isa = PBXGroup;
 			children = (
@@ -1725,6 +1806,8 @@
 				4A759AB0224B61AB0057BD02 /* EchartView.m */,
 				4A759AF6224FF5930057BD02 /* UpTriangle.h */,
 				4A759AF7224FF5930057BD02 /* UpTriangle.m */,
+				4A759B502254B6A20057BD02 /* EchartListView.h */,
+				4A759B512254B6A20057BD02 /* EchartListView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1866,6 +1949,10 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4A759B6C225B0B130057BD02 /* SafeMutableArray */,
+				4A759B66225B0B080057BD02 /* UIImage+fixOrientation */,
+				4A759B60225B0AFB0057BD02 /* NSError+CommonToast */,
+				2B5210FE2257CA5F004DA56D /* ZTShareView */,
 				2B9ECBE92254509D00BAC47A /* ZTShowVCName */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
@@ -2054,6 +2141,33 @@
 				4A759AD9224F08C70057BD02 /* PrivacySecurityControls.m */,
 			);
 			path = PrivacySecurityControls;
+			sourceTree = "<group>";
+		};
+		4A759B60225B0AFB0057BD02 /* NSError+CommonToast */ = {
+			isa = PBXGroup;
+			children = (
+				4A759B61225B0AFB0057BD02 /* NSError+CommonToast.h */,
+				4A759B62225B0AFB0057BD02 /* NSError+CommonToast.m */,
+			);
+			path = "NSError+CommonToast";
+			sourceTree = "<group>";
+		};
+		4A759B66225B0B080057BD02 /* UIImage+fixOrientation */ = {
+			isa = PBXGroup;
+			children = (
+				4A759B67225B0B080057BD02 /* UIImage+fixOrientation.h */,
+				4A759B68225B0B080057BD02 /* UIImage+fixOrientation.m */,
+			);
+			path = "UIImage+fixOrientation";
+			sourceTree = "<group>";
+		};
+		4A759B6C225B0B130057BD02 /* SafeMutableArray */ = {
+			isa = PBXGroup;
+			children = (
+				4A759B6D225B0B130057BD02 /* HLSafeMutableArray.m */,
+				4A759B6E225B0B130057BD02 /* HLSafeMutableArray.h */,
+			);
+			path = SafeMutableArray;
 			sourceTree = "<group>";
 		};
 		4A7C4B0D21C2820F007730E6 /* iToast */ = {
@@ -2923,6 +3037,7 @@
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
 				4AE537A921CC9206004CF320 /* frame-12@2x.png in Resources */,
+				2B5211182257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
 				4AE537AC21CC9206004CF320 /* frame-18@2x.png in Resources */,
@@ -2931,12 +3046,15 @@
 				4AE537A421CC9206004CF320 /* frame-11@2x.png in Resources */,
 				4AE537B621CC9206004CF320 /* frame-16@2x.png in Resources */,
 				4AE5379F21CC9206004CF320 /* frame-7@2x.png in Resources */,
+				2B52111B2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B52110F2257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				4A95BB92217DAD6100FC2979 /* LaunchScreen.storyboard in Resources */,
 				4AE537AD21CC9206004CF320 /* frame-23@2x.png in Resources */,
 				4AE537BA21CC9206004CF320 /* frame-4@2x.png in Resources */,
 				4AE537A721CC9206004CF320 /* frame-21@2x.png in Resources */,
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
+				2B5211152257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
@@ -2950,6 +3068,7 @@
 				4AE537B521CC9206004CF320 /* frame-6@2x.png in Resources */,
 				4AE537B121CC9206004CF320 /* frame-19@2x.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
+				2B5211122257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2967,6 +3086,7 @@
 				CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */,
 				CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */,
 				CA1CF600221ECB3A00D15316 /* frame-12@2x.png in Resources */,
+				2B5211192257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */,
 				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
 				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
@@ -2975,12 +3095,15 @@
 				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
 				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
 				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
+				2B52111C2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B5211102257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF608221ECB3A00D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF609221ECB3A00D15316 /* frame-23@2x.png in Resources */,
 				CA1CF60A221ECB3A00D15316 /* frame-4@2x.png in Resources */,
 				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
+				2B5211162257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
@@ -2994,6 +3117,7 @@
 				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
+				2B5211132257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3011,6 +3135,7 @@
 				CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */,
 				CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */,
 				CA1CF6A5221ECB5000D15316 /* frame-12@2x.png in Resources */,
+				2B52111A2257CF7C004DA56D /* zysocial_qzone.png in Resources */,
 				CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */,
 				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
 				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
@@ -3019,12 +3144,15 @@
 				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
 				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
 				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
+				2B52111D2257CF7C004DA56D /* zysocial_wechat.png in Resources */,
+				2B5211112257CF7C004DA56D /* zysocial_wechat_timeline.png in Resources */,
 				CA1CF6AD221ECB5000D15316 /* LaunchScreen.storyboard in Resources */,
 				CA1CF6AE221ECB5000D15316 /* frame-23@2x.png in Resources */,
 				CA1CF6AF221ECB5000D15316 /* frame-4@2x.png in Resources */,
 				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
+				2B5211172257CF7C004DA56D /* zysocial_qq.png in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
@@ -3038,6 +3166,7 @@
 				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
 				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
+				2B5211142257CF7C004DA56D /* zysocial_dingding.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3050,13 +3179,11 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3065,13 +3192,11 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3080,13 +3205,11 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3095,13 +3218,11 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3146,13 +3267,11 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
-				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3161,13 +3280,11 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3208,6 +3325,7 @@
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
+				2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
@@ -3308,6 +3426,7 @@
 				4ABF43C321B8BB1D002AF34E /* LibraryModel.m in Sources */,
 				4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
+				4A759B522254B6A20057BD02 /* EchartListView.m in Sources */,
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
 				4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
@@ -3348,6 +3467,7 @@
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
+				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4ABF43B621B8BACE002AF34E /* LibraryDraggableLibraryView.m in Sources */,
 				4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */,
@@ -3394,6 +3514,7 @@
 				4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */,
 				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
@@ -3424,6 +3545,7 @@
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
 				6B6E26D8FDBAEEC6BFEC1739 /* IssueChatFileCell.m in Sources */,
 				6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */,
+				4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */,
 				6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */,
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
@@ -3431,6 +3553,7 @@
 				6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
+				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */,
@@ -3449,6 +3572,7 @@
 				6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */,
 				6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */,
 				6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E28B415D4B40427B36E26 /* ExpertsSuggestVC.m in Sources */,
 				6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */,
 				6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */,
@@ -3477,6 +3601,7 @@
 				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092CA32227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8C222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F8223147A300DAE1F6 /* SCIndexView.m in Sources */,
@@ -3577,6 +3702,7 @@
 				CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */,
 				CA1CF5B6221ECB3A00D15316 /* IssueBoardCell.m in Sources */,
 				CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */,
+				4A759B532254B6A20057BD02 /* EchartListView.m in Sources */,
 				4AC8570522323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
 				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
@@ -3617,6 +3743,7 @@
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
+				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
@@ -3663,6 +3790,7 @@
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
@@ -3693,6 +3821,7 @@
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
 				6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */,
 				6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */,
+				4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */,
 				6B6E20646B3AB3460999FB95 /* ScanViewController.m in Sources */,
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
@@ -3700,6 +3829,7 @@
 				6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
+				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */,
@@ -3718,6 +3848,7 @@
 				6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */,
 				6B6E208E675F7914200AD103 /* IssueSourceHelperVC.m in Sources */,
 				6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */,
 				6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */,
 				6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */,
@@ -3746,6 +3877,7 @@
 				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092CA42227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8D222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F9223147A300DAE1F6 /* SCIndexView.m in Sources */,
@@ -3846,6 +3978,7 @@
 				CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */,
 				CA1CF65B221ECB5000D15316 /* IssueBoardCell.m in Sources */,
 				CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */,
+				4A759B542254B6A20057BD02 /* EchartListView.m in Sources */,
 				4AC8570622323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
 				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,
@@ -3886,6 +4019,7 @@
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
+				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
@@ -3932,6 +4066,7 @@
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
@@ -3962,6 +4097,7 @@
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
 				6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */,
 				6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */,
+				4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */,
 				6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */,
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
@@ -3969,6 +4105,7 @@
 				6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,
+				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
 				6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */,
@@ -3987,6 +4124,7 @@
 				6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */,
 				6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */,
 				6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */,
+				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,
 				6B6E296AC76922097B333F5F /* ExpertsSuggestVC.m in Sources */,
 				6B6E2D9097F2353A0AAD7BF9 /* ExpertsDetailVC.m in Sources */,
 				6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */,

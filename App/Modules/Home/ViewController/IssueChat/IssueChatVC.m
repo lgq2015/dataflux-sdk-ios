@@ -54,16 +54,21 @@
     NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
     [self.datas addObjectsFromArray:array];
     [self.mTableView reloadData];
-
-    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
-    [[IssueChatDataManager sharedInstance]
-            fetchAllChatIssueLog:_issueID
-                      pageMarker:pageMarker
-                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
-                            //todo get new data
-                            //获取新数据
-                            DLog(@"%@",array)
-                        }];
+    [IssueChatDatas LoadingMessagesStartWithChat:_issueID callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
+        if (array.count>0) {
+            [self.datas addObjectsFromArray:array];
+            [self.mTableView reloadData];
+        }
+    }];
+//    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
+//    [[IssueChatDataManager sharedInstance]
+//            fetchAllChatIssueLog:_issueID
+//                      pageMarker:pageMarker
+//                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
+//                            //todo get new data
+//                            //获取新数据
+//                            DLog(@"%@",array)
+//                        }];
 
 
 

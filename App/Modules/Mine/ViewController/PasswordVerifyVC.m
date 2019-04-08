@@ -23,9 +23,9 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120),ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"密码验证"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120),ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"密码验证"];
     [self.view addSubview:title];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTitleColor text:@"您的登录账号为"];
+    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTitleColor text:@"您的登录账号为"];
     [self.view addSubview:subTitle];
     [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(Interval(7));
@@ -33,7 +33,7 @@
         make.height.offset(ZOOM_SCALE(25));
     }];
     NSString *phone = [NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
-    UILabel *phoneLable = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:phone];
+    UILabel *phoneLable = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:phone];
     [self.view addSubview:phoneLable];
     [phoneLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(subTitle.mas_bottom).offset(Interval(6));

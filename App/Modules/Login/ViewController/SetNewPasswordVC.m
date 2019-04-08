@@ -29,9 +29,9 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:BOLDFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:MediumFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {

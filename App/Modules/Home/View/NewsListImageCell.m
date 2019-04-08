@@ -91,7 +91,7 @@
         _topStateLab.text = @"置顶";
         _topStateLab.backgroundColor = PWWhiteColor;
         _topStateLab.textColor = [UIColor colorWithHexString:@"6F85FF"];
-        _topStateLab.font =  [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+        _topStateLab.font =   RegularFONT(14);
         _topStateLab.textAlignment = NSTextAlignmentCenter;
         _topStateLab.layer.cornerRadius = 4.0f;
         _topStateLab.layer.masksToBounds = YES;
@@ -125,7 +125,7 @@
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _titleLab.textColor = PWTextBlackColor;
         _titleLab.numberOfLines = 2;
-        _titleLab.font = MediumFONT(18);
+        _titleLab.font = RegularFONT(18);
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;

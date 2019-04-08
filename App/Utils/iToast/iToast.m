@@ -9,7 +9,7 @@
 #import "iToast.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define FontSize  MediumFONT(14)
+#define FontSize  RegularFONT(14)
 static CGFloat sizeSpace = 40.0;
 static CGFloat sizelabel = 20;
 #define maxlabel (windowView.frame.size.width - 20.0 * 2)

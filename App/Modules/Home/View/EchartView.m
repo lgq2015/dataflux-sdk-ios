@@ -68,7 +68,7 @@
     /** 直角坐标系内绘图网格, 说明见下图 */
     PYGrid *grid = [[PYGrid alloc] init];
     // 左上角位置
-    grid.x = @(30);
+    grid.x = @(40);
     grid.y = @(50);
     // 右下角位置
     grid.x2 = @(30);

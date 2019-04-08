@@ -224,7 +224,7 @@
 }
 -(UILabel *)describeLab{
     if (!_describeLab) {
-        _describeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@""];
+        _describeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@""];
         _describeLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_describeLab];
     }
@@ -233,7 +233,7 @@
 -(UILabel *)titleLab{
     if(!_titleLab){
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.font = MediumFONT(16);
+        _titleLab.font = RegularFONT(16);
         _titleLab.textColor = PWTextBlackColor;
         [self addSubview:_titleLab];
     }

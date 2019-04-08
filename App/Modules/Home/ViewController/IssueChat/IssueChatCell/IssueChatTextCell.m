@@ -14,7 +14,7 @@
     
     self.mTextView = [UITextView new];
     self.mTextView.backgroundColor = [UIColor clearColor];
-    self.mTextView.font = MediumFONT(17);
+    self.mTextView.font = RegularFONT(17);
     self.mTextView.textColor = PWTextBlackColor;
     self.mTextView.editable = NO;
     self.mTextView.scrollEnabled = NO;

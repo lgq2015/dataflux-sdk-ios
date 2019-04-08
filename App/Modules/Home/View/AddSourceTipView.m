@@ -31,7 +31,7 @@
         make.centerX.mas_equalTo(self);
     }];
     NSString *tipStr = self.type == AddSourceTipTypeSuccess?@"添加成功":@"您添加的云平台诊断情报源数量已达上限";
-    UILabel *titlelab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:tipStr];
+    UILabel *titlelab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:tipStr];
     titlelab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:titlelab];
  
@@ -43,7 +43,7 @@
     
     if (self.type != AddSourceTipTypeTeam) {
         NSString *subStr = self.type == AddSourceTipTypeSuccess?@"我们将在几分钟内开始为您诊断":@"升级团队即可添加更多情报源";
-        UILabel *subtitle = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:subStr];
+        UILabel *subtitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:subStr];
         subtitle.textAlignment = NSTextAlignmentCenter;
         [self addSubview:subtitle];
         [subtitle mas_makeConstraints:^(MASConstraintMaker *make) {

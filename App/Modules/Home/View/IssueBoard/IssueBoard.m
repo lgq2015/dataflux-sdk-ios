@@ -100,7 +100,7 @@
         [_rightBtn setTitle:@"情报源" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
-        _rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _rightBtn.titleLabel.font = RegularFONT(14);
         [_rightBtn sizeToFit];
         // 重点位置开始
         _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_rightBtn.imageView.frame.size.width - _rightBtn.frame.size.width + _rightBtn.titleLabel.frame.size.width, 0, 0);

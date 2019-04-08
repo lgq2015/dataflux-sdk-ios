@@ -29,6 +29,7 @@ PODS:
   - LBXScan/UI (2.3):
     - LBXScan/Types (~> 2.2)
   - Masonry (1.1.0)
+  - MCDingTalk (1.0.1)
   - MJRefresh (3.1.15.7)
   - ReactiveCocoa (2.0):
     - ReactiveCocoa/Core (= 2.0)
@@ -46,25 +47,10 @@ PODS:
     - Starscream (~> 3.0.6)
   - Starscream (3.0.6)
   - SVProgressHUD (2.2.5)
+  - Tencent_Open_SDK (1.0.3)
   - TTTAttributedLabel (2.0.0)
-  - UMCCommon (2.0.1)
-  - UMCCommonLog (1.0.0)
-  - UMCSecurityPlugins (1.0.6)
-  - UMCShare/Core (6.9.5):
-    - UMCCommon
-  - UMCShare/Social/DingDing (6.9.5):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/ReducedQQ (6.9.5):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/Social/ReducedWeChat (6.9.5):
-    - UMCCommon
-    - UMCShare/Core
-  - UMCShare/UI (6.9.5):
-    - UMCCommon
-    - UMCShare/Core
   - WebViewJavascriptBridge (6.0.3)
+  - WechatOpenSDK (1.8.4)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -82,20 +68,16 @@ DEPENDENCIES:
   - LBXScan/LBXNative (~> 2.3)
   - LBXScan/UI (~> 2.3)
   - Masonry (~> 1.1.0)
+  - MCDingTalk (~> 1.0.1)
   - MJRefresh (~> 3.1.15.7)
   - ReactiveCocoa (= 2.0)
   - SDWebImage (~> 3.8)
   - Socket.IO-Client-Swift (~> 14.0.0)
   - SVProgressHUD (~> 2.2.5)
+  - Tencent_Open_SDK (~> 1.0.3)
   - TTTAttributedLabel (~> 2.0.0)
-  - UMCCommon (~> 2.0.1)
-  - UMCCommonLog (~> 1.0.0)
-  - UMCSecurityPlugins (~> 1.0.6)
-  - UMCShare/Social/DingDing
-  - UMCShare/Social/ReducedQQ
-  - UMCShare/Social/ReducedWeChat
-  - UMCShare/UI
   - WebViewJavascriptBridge (~> 6.0)
+  - WechatOpenSDK (~> 1.8.4)
   - YYKit (~> 1.0.9)
   - Zhugeio (~> 3.2.3)
 
@@ -110,18 +92,17 @@ SPEC REPOS:
     - JSONModel
     - LBXScan
     - Masonry
+    - MCDingTalk
     - MJRefresh
     - ReactiveCocoa
     - SDWebImage
     - Socket.IO-Client-Swift
     - Starscream
     - SVProgressHUD
+    - Tencent_Open_SDK
     - TTTAttributedLabel
-    - UMCCommon
-    - UMCCommonLog
-    - UMCSecurityPlugins
-    - UMCShare
     - WebViewJavascriptBridge
+    - WechatOpenSDK
     - YYKit
     - Zhugeio
 
@@ -135,21 +116,20 @@ SPEC CHECKSUMS:
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Tencent_Open_SDK: 6172e25b71ad99ca4d260c27cf1eb04ca6311c1a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
-  UMCCommon: 0263a057a2e1ae1da4c8308541e56904a493ce13
-  UMCCommonLog: 05a2d5de21858e3d870551562cff405c1366d244
-  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
-  UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
+  WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: bed025843b583a2d73128fe647d7db826033637c
+PODFILE CHECKSUM: 2bdc2e8c5f2030b4adcab0634a1af6b9af9ca81d
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.5.3

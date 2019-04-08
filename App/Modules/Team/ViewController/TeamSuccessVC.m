@@ -84,7 +84,7 @@
         make.centerX.mas_equalTo(contentView);
     }];
     NSString *tipstr = self.isTrans?@"转移成功":@"解散成功";
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:tipstr];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:tipstr];
     [contentView addSubview:tipLab];
     tipLab.textAlignment = NSTextAlignmentCenter;
     [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +93,7 @@
         make.height.offset(ZOOM_SCALE(25));
     }];
     
-    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@""];
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@""];
     [contentView addSubview:timeLab];
     timeLab.textAlignment = NSTextAlignmentCenter;
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -48,7 +48,7 @@ static NSUInteger ItemWidth = 104;
         make.width.height.offset(ZOOM_SCALE(32));
         make.centerX.mas_equalTo(self.view).offset(-ZOOM_SCALE(21));
     }];
-    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"搜索"];
+    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"搜索"];
     [self.searchView addSubview:searchLab];
     [searchLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(ZOOM_SCALE(6));
@@ -72,7 +72,7 @@ static NSUInteger ItemWidth = 104;
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
-        
+        [error errorToast];
     }];
 }
 - (void)compareWithData:(NSArray *)array{

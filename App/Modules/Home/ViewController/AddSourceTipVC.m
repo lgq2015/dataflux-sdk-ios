@@ -44,13 +44,7 @@
         }
     };
 }
--(void)backBtnClicked{
-    for(UIViewController *temp in self.navigationController.viewControllers) {
-        if([temp isKindOfClass:[AddSourceVC class]]){
-            [self.navigationController popToViewController:temp animated:YES];
-        }
-    }
-}
+
 /*
 #pragma mark - Navigation
 

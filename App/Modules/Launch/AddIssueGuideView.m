@@ -35,7 +35,7 @@
         make.width.offset(ZOOM_SCALE(240));
         make.height.offset(ZOOM_SCALE(50));
     }];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWWhiteColor text:@"在这里创建问题，以情报形式与您的团队共同解决"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWWhiteColor text:@"在这里创建问题，以情报形式与您的团队共同解决"];
     tipLab.numberOfLines = 2;
     tipLab.backgroundColor = PWBlueColor;
     

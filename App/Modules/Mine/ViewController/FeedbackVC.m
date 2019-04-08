@@ -39,7 +39,7 @@
     
     UILabel *count = [[UILabel alloc]init];
     count.text = @"0/1000";
-    count.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+    count.font = RegularFONT(13);
     count.textColor = [UIColor colorWithHexString:@"8E8E93"];
     count.textAlignment = NSTextAlignmentRight;
     [self.describeView addSubview:count];
@@ -88,8 +88,8 @@
 }
 -(UITextView *)describeTextView{
     if (!_describeTextView) {
-        _describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"我们很重视您的宝贵建议，请在此输入。" font:MediumFONT(14)];
-//        _describeTextView.font =MediumFONT(14);
+        _describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"我们很重视您的宝贵建议，请在此输入。" font:RegularFONT(14)];
+//        _describeTextView.font =RegularFONT(14);
         [self.describeView addSubview:_describeTextView];
     }
     return _describeTextView;

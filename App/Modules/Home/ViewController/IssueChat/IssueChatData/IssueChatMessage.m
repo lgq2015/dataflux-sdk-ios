@@ -101,6 +101,11 @@
         self.cellString = PWChatSystermCellId;
 
     }
+    if(self.messageFrom == PWChatMessageFromSystem){
+        self.messageType = PWChatMessageTypeSysterm;
+
+        self.cellString = PWChatSystermCellId;
+    }
 }
 
 @end

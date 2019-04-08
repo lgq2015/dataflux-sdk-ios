@@ -132,7 +132,7 @@
             [self delectCollection:indexPath.row];
             return NO;
         }];
-        button.titleLabel.font = MediumFONT(14);
+        button.titleLabel.font = RegularFONT(14);
         
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
@@ -148,7 +148,7 @@
             [self delectCollection:indexPath.row];
             return NO;
         }];
-        button.titleLabel.font = MediumFONT(14);
+        button.titleLabel.font = RegularFONT(14);
         
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];

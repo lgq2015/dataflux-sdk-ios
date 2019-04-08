@@ -169,7 +169,7 @@
 - (UILabel *)userName{
     if (!_userName) {
         _userName = [[UILabel alloc]initWithFrame:CGRectZero];
-        _userName.font = MediumFONT(18);
+        _userName.font = RegularFONT(18);
         _userName.numberOfLines = 0;
         _userName.textColor = PWBlackColor;
         _userName.textAlignment = NSTextAlignmentLeft;

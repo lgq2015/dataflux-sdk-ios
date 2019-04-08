@@ -34,7 +34,7 @@
     shadeView.alpha = 0.4;
     [bigAvatarImgView addSubview:shadeView];
     
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(20) textColor:PWWhiteColor text:@"CloudCare 服务专家团队"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(20) textColor:PWWhiteColor text:@"CloudCare 服务专家团队"];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [self.mainScrollView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,9 +69,9 @@
     for (NSInteger i=0; i<subTitleAry.count; i++) {
         UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iconAry[i]]];
         [self.mainScrollView addSubview:icon];
-        UILabel *itemTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:titleAry[i]];
+        UILabel *itemTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:titleAry[i]];
         [self.mainScrollView addSubview:itemTitleLab];
-        UILabel *subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWSubTitleColor text:@""];
+        UILabel *subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@""];
         [self.mainScrollView addSubview:subTitleLab];
         [icon mas_makeConstraints:^(MASConstraintMaker *make) {
             if (temp == nil) {
@@ -95,7 +95,7 @@
         subTitleLab.attributedText = subTitleAry[i];
         temp = icon;
     }
-    UILabel *detailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:@"为您提供云时代最优质的 IT 服务，是我们的使命。\n\n汇集网络、安全、监控、运维等各领域的技术顾问，以及在 SAP、Oracle 等大型企业级应用软件多年经验沉淀的领域专家。\n\n全面覆盖您在 IT 实践过程中所可能遇到的场景，协助您处理相关问题，让您的 IT 再无后顾之优。"];
+    UILabel *detailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:@"为您提供云时代最优质的 IT 服务，是我们的使命。\n\n汇集网络、安全、监控、运维等各领域的技术顾问，以及在 SAP、Oracle 等大型企业级应用软件多年经验沉淀的领域专家。\n\n全面覆盖您在 IT 实践过程中所可能遇到的场景，协助您处理相关问题，让您的 IT 再无后顾之优。"];
     detailLab.numberOfLines = 0;
     [self.mainScrollView addSubview:detailLab];
     [detailLab mas_makeConstraints:^(MASConstraintMaker *make) {

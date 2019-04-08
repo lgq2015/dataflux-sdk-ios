@@ -34,7 +34,7 @@
         make.centerY.mas_equalTo(self);
     }];
     
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:dict[@"title"]];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:dict[@"title"]];
     [self addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(Interval(16));

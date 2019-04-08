@@ -71,7 +71,7 @@
             temp = item;
         }
         item.tag = 15+i;
-        UILabel *name = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTitleColor text:btnName[i]];
+        UILabel *name = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWTitleColor text:btnName[i]];
         name.textAlignment = NSTextAlignmentCenter;
         [self addSubview:name];
         [name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,7 +92,7 @@
         make.centerY.mas_equalTo(itemView);
         make.width.height.offset(ZOOM_SCALE(24));
     }];
-    UILabel *vipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:@"尊享权益"];
+    UILabel *vipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"尊享权益"];
     [itemView addSubview:vipLab];
     [vipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(vipIcon.mas_right).offset(Interval(3));
@@ -108,7 +108,7 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
     view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
     
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:MediumFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
     [view addSubview:title];
     
     [view addSubview:self.memberNumLab];
@@ -151,8 +151,8 @@
         dot.backgroundColor = [UIColor colorWithHexString:@"72A2EE"];
         dot.layer.cornerRadius = 4.0f;
         [self.vipProductView addSubview:dot];
-        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWTitleColor text:[displayString stringValueForKey:@"name" default:@""]];
-        UILabel *equityLab2 =[PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(14) textColor:PWBlueColor text:[displayString stringValueForKey:@"value" default:@""]];
+        UILabel *equityLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:[displayString stringValueForKey:@"name" default:@""]];
+        UILabel *equityLab2 =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWBlueColor text:[displayString stringValueForKey:@"value" default:@""]];
         [self.vipProductView addSubview:equityLab];
         [self.vipProductView addSubview:equityLab2];
 
@@ -203,13 +203,13 @@
 }
 - (UILabel *)teamNameLab{
     if (!_teamNameLab) {
-        _teamNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(20) textColor:PWWhiteColor text:@""];
+        _teamNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(20) textColor:PWWhiteColor text:@""];
     }
     return _teamNameLab;
 }
 -(UILabel *)memberNumLab{
     if (!_memberNumLab) {
-     _memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(13) textColor:PWTextBlackColor text:@""];
+     _memberNumLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWTextBlackColor text:@""];
     }
     return _memberNumLab;
 }
