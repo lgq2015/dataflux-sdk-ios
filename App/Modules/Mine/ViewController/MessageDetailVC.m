@@ -77,7 +77,6 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
      timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
-    self.model.content = @"你暗红色的上来就是历史上的，就是了手机类似，耸了耸肩了，<a href=\"http://www.baidu.com\" target=\"_blank\">[快件查询页面]</a>深蓝色就事论事";
     [self.contentView addSubview:self.contentLab];
     //去掉A标签后的文本
     NSString *zt_content = [self.model.content zt_convertLinkTextString];

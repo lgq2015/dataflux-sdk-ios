@@ -141,6 +141,8 @@
     YYLabel *lable = [[YYLabel alloc]initWithFrame:frame];
     lable.attributedText = [text zt_convertLink:font textColor:color];
     lable.numberOfLines = 0;
+    lable.font = font;
+    lable.textColor = color;
     return lable;
 }
 
