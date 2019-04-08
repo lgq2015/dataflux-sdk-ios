@@ -9,6 +9,7 @@
 #define zt_right_margin 20.0
 #define zt_maxDesH 150.0
 #import "FounctionIntroCell.h"
+#import "NSString+Regex.h"
 @interface FounctionIntroCell()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentLabelWidthCons;
 @property (weak, nonatomic) IBOutlet UIButton *moreBtn;
@@ -47,11 +48,7 @@
 
 //获取描述文本高度
 - (CGFloat)getHeightFromString:(NSString *)string{
-    CGSize infoSize = CGSizeMake(kWidth - zt_margin - zt_right_margin, MAXFLOAT);
-    NSDictionary *dic = @{NSFontAttributeName : _descLab.font};
-    CGRect infoRect =   [string boundingRectWithSize:infoSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
-    CGFloat height = ceil(infoRect.size.height);
-    return height;
+    return [string zt_getHeight:_descLab.font width:kWidth - zt_margin - zt_right_margin];
 }
 
 - (IBAction)moreClick:(UIButton *)sender {

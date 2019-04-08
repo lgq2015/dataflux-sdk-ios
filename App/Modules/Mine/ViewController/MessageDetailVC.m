@@ -8,10 +8,12 @@
 
 #import "MessageDetailVC.h"
 #import "MineMessageModel.h"
+#import "NSString+Regex.h"
+#import "PWBaseWebVC.h"
 @interface MessageDetailVC ()
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UILabel *sourceLab;
-
+@property (nonatomic, strong) YYLabel *contentLab;
 @end
 
 @implementation MessageDetailVC
@@ -75,28 +77,20 @@
         make.height.offset(ZOOM_SCALE(17));
     }];
      timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
-    UILabel *contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:self.model.content];
-    contentLab.numberOfLines = 0;
-//    NSString *regex_http = @"<a href=(?:.*?)>(.*?)<\\/a>";
-//     NSString *labelText = [contentLab.text copy];
-//    NSArray *results = [regular matchesInString:regex_http options:0 range:NSMakeRange(0, checkString.length)];
-// matchesInString:regex_http options:0 range:NSMakeRange(0, checkString.length)];
-
-  //   labelText = [labelText stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
-//    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[self.model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
-//    contentLab.attributedText = attrStr;
-//    //如果想要改变文字的字体,请在设置attributedText之后设置
-//    contentLab.font = RegularFONT(14);
-//    contentLab.textAlignment = NSTextAlignmentLeft;
-//    contentLab.numberOfLines = 0;
-//    contentLab.textColor = PWTitleColor;
-    [self.contentView addSubview:contentLab];
-    [contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.model.content = @"你暗红色的上来就是历史上的，就是了手机类似，耸了耸肩了，<a href=\"http://www.baidu.com\" target=\"_blank\">[快件查询页面]</a>深蓝色就事论事";
+    [self.contentView addSubview:self.contentLab];
+    //去掉A标签后的文本
+    NSString *zt_content = [self.model.content zt_convertLinkTextString];
+    //去掉A标签后的文本高度
+    CGFloat contentLabH = [zt_content zt_getHeight:self.contentLab.font width:kWidth - 32];
+    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.top.mas_equalTo(self.sourceLab.mas_bottom).offset(Interval(11));
         make.bottom.mas_equalTo(self.contentView).offset(-Interval(19));
+        make.height.mas_equalTo(contentLabH);
     }];
+    
 }
 -(UIView *)contentView{
     if (!_contentView) {
@@ -138,14 +132,21 @@
     }
     return _sourceLab;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (YYLabel *)contentLab{
+    if (!_contentLab){
+        _contentLab = [PWCommonCtrl zy_lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:self.model.content];
+        WeakSelf
+        _contentLab.highlightTapAction = ^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect){
+            text = [text attributedSubstringFromRange:range];
+            NSDictionary *dic = text.attributes;
+            YYTextHighlight *user = [dic valueForKey:@"YYTextHighlight"];
+            NSString *linkUrl = [user.userInfo valueForKey:@"linkUrl"];
+            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:text.string andURLString:linkUrl];
+            [weakSelf.navigationController pushViewController:webView animated:YES];
+        };
+    }
+    return _contentLab;
 }
-*/
+
 
 @end
