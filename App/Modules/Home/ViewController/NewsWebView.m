@@ -125,8 +125,8 @@
         }];
     
         }else if(tag == CollectionBtnTag && self.style == WebItemViewStyleCollected){
+            [weakSelf controlClickTimes];
             [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(weakSelf.favoId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-                
                 if([response[ERROR_CODE] isEqualToString:@""]){
                     weakSelf.isCollect = NO;
                     weakSelf.favoId = @"";
@@ -147,7 +147,7 @@
 - (void)closeBtnClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+#pragma mark ---分享---
 - (void)popShareUI{
     __weak typeof(self) weakself = self;
     [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
@@ -160,7 +160,13 @@
         [manager shareToPlatform:sharePlatformType];
     }];
 }
-
+#pragma mark --避免按钮点击多次----
+- (void)controlClickTimes{
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    });
+}
 
 @end
 
