@@ -182,6 +182,8 @@
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _phoneTf.placeholder = @"请输入手机号/邮箱";
+        _phoneTf.autocorrectionType = UITextAutocorrectionTypeNo; // 关闭键盘联想
+        _phoneTf.spellCheckingType = UITextSpellCheckingTypeNo;// 禁用拼写检查
         [self.view addSubview:_phoneTf];
         }
     return _phoneTf;

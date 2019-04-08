@@ -8,6 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		1DE47111EAD1F5FA60C6E174 /* libPods-AppPreMade.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */; };
+		2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
+		2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
+		2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
+		2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBED2254509D00BAC47A /* ZTShowTipButton.m */; };
+		2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBED2254509D00BAC47A /* ZTShowTipButton.m */; };
+		2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBED2254509D00BAC47A /* ZTShowTipButton.m */; };
+		2B9ECC19225476B100BAC47A /* FounctionIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC17225476B100BAC47A /* FounctionIntroductionVC.m */; };
+		2B9ECC1A225476B100BAC47A /* FounctionIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC17225476B100BAC47A /* FounctionIntroductionVC.m */; };
+		2B9ECC1B225476B100BAC47A /* FounctionIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC17225476B100BAC47A /* FounctionIntroductionVC.m */; };
+		2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC18225476B100BAC47A /* FounctionIntroductionVC.xib */; };
+		2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC18225476B100BAC47A /* FounctionIntroductionVC.xib */; };
+		2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC18225476B100BAC47A /* FounctionIntroductionVC.xib */; };
+		2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */; };
+		2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */; };
+		2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */; };
+		2B9ECC27225494A400BAC47A /* FounctionIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC25225494A400BAC47A /* FounctionIntroCell.m */; };
+		2B9ECC28225494A400BAC47A /* FounctionIntroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC26225494A400BAC47A /* FounctionIntroCell.xib */; };
+		2B9ECC29225494AD00BAC47A /* FounctionIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC25225494A400BAC47A /* FounctionIntroCell.m */; };
+		2B9ECC2A225494AE00BAC47A /* FounctionIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC25225494A400BAC47A /* FounctionIntroCell.m */; };
+		2B9ECC2B225494F800BAC47A /* FounctionIntroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC26225494A400BAC47A /* FounctionIntroCell.xib */; };
+		2B9ECC2C225494F900BAC47A /* FounctionIntroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B9ECC26225494A400BAC47A /* FounctionIntroCell.xib */; };
+		2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */; };
+		2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */; };
+		2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */; };
+		2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -884,6 +911,22 @@
 
 /* Begin PBXFileReference section */
 		145E84BB150616B018992938 /* Pods-AppDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.debug.xcconfig"; sourceTree = "<group>"; };
+		2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZTSwizzling.m"; sourceTree = "<group>"; };
+		2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTShowTipButton.h; sourceTree = "<group>"; };
+		2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZTSwizzling.h"; sourceTree = "<group>"; };
+		2B9ECBED2254509D00BAC47A /* ZTShowTipButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTShowTipButton.m; sourceTree = "<group>"; };
+		2B9ECC16225476B100BAC47A /* FounctionIntroductionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FounctionIntroductionVC.h; sourceTree = "<group>"; };
+		2B9ECC17225476B100BAC47A /* FounctionIntroductionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FounctionIntroductionVC.m; sourceTree = "<group>"; };
+		2B9ECC18225476B100BAC47A /* FounctionIntroductionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FounctionIntroductionVC.xib; sourceTree = "<group>"; };
+		2B9ECC1F225482BE00BAC47A /* FounctionIntroductionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FounctionIntroductionModel.h; sourceTree = "<group>"; };
+		2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FounctionIntroductionModel.m; sourceTree = "<group>"; };
+		2B9ECC24225494A400BAC47A /* FounctionIntroCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FounctionIntroCell.h; sourceTree = "<group>"; };
+		2B9ECC25225494A400BAC47A /* FounctionIntroCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FounctionIntroCell.m; sourceTree = "<group>"; };
+		2B9ECC26225494A400BAC47A /* FounctionIntroCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FounctionIntroCell.xib; sourceTree = "<group>"; };
+		2B9ECC2D225496D800BAC47A /* NSObject+ZTUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZTUtil.h"; sourceTree = "<group>"; };
+		2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZTUtil.m"; sourceTree = "<group>"; };
+		2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZTCategory.h"; sourceTree = "<group>"; };
+		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -1488,6 +1531,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B9ECBE92254509D00BAC47A /* ZTShowVCName */ = {
+			isa = PBXGroup;
+			children = (
+				2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */,
+				2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */,
+				2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */,
+				2B9ECBED2254509D00BAC47A /* ZTShowTipButton.m */,
+			);
+			path = ZTShowVCName;
+			sourceTree = "<group>";
+		};
 		3F34F2B0D556CBC0BA511C11 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,6 +1866,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B9ECBE92254509D00BAC47A /* ZTShowVCName */,
 				4A759AD7224F08950057BD02 /* PrivacySecurityControls */,
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
 				4A092D83222E6D3B00FB2A35 /* PWPhotoPicker */,
@@ -2284,6 +2339,10 @@
 				6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */,
 				4A759ACD224DCBF80057BD02 /* UIResponder+FirstResponder.h */,
 				4A759ACE224DCBF80057BD02 /* UIResponder+FirstResponder.m */,
+				2B9ECC2D225496D800BAC47A /* NSObject+ZTUtil.h */,
+				2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */,
+				2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */,
+				2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2406,6 +2465,9 @@
 				4A092C722225306B00FB2A35 /* BindEmailOrPhoneVC.m */,
 				4A092D5A222D535A00FB2A35 /* MessageDetailVC.h */,
 				4A092D5B222D535A00FB2A35 /* MessageDetailVC.m */,
+				2B9ECC16225476B100BAC47A /* FounctionIntroductionVC.h */,
+				2B9ECC17225476B100BAC47A /* FounctionIntroductionVC.m */,
+				2B9ECC18225476B100BAC47A /* FounctionIntroductionVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2423,6 +2485,9 @@
 				4A092D51222D318C00FB2A35 /* MineMessageCell.m */,
 				4A092D5F222E1BEA00FB2A35 /* CollectionCell.h */,
 				4A092D60222E1BEA00FB2A35 /* CollectionCell.m */,
+				2B9ECC24225494A400BAC47A /* FounctionIntroCell.h */,
+				2B9ECC25225494A400BAC47A /* FounctionIntroCell.m */,
+				2B9ECC26225494A400BAC47A /* FounctionIntroCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2436,6 +2501,8 @@
 				4A092D56222D38FF00FB2A35 /* MineMessageModel.m */,
 				4A092D7E222E1D2600FB2A35 /* CollectionModel.h */,
 				4A092D7F222E1D2600FB2A35 /* CollectionModel.m */,
+				2B9ECC1F225482BE00BAC47A /* FounctionIntroductionModel.h */,
+				2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2802,7 +2869,7 @@
 					};
 					CA1CF57B221ECB3A00D15316 = {
 						LastSwiftMigration = 1010;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2860,6 +2927,7 @@
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
 				4AE537AC21CC9206004CF320 /* frame-18@2x.png in Resources */,
 				4AE5379D21CC9206004CF320 /* frame-2@2x.png in Resources */,
+				2B9ECC28225494A400BAC47A /* FounctionIntroCell.xib in Resources */,
 				4AE537A421CC9206004CF320 /* frame-11@2x.png in Resources */,
 				4AE537B621CC9206004CF320 /* frame-16@2x.png in Resources */,
 				4AE5379F21CC9206004CF320 /* frame-7@2x.png in Resources */,
@@ -2870,6 +2938,7 @@
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
+				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
 				4AE537A621CC9206004CF320 /* frame-27@2x.png in Resources */,
 				4A95BB8F217DAD6100FC2979 /* Assets.xcassets in Resources */,
@@ -2902,6 +2971,7 @@
 				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
 				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
 				CA1CF604221ECB3A00D15316 /* frame-2@2x.png in Resources */,
+				2B9ECC2B225494F800BAC47A /* FounctionIntroCell.xib in Resources */,
 				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
 				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
 				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
@@ -2912,6 +2982,7 @@
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
+				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
 				CA1CF610221ECB3A00D15316 /* frame-27@2x.png in Resources */,
 				CA1CF611221ECB3A00D15316 /* Assets.xcassets in Resources */,
@@ -2944,6 +3015,7 @@
 				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
 				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
 				CA1CF6A9221ECB5000D15316 /* frame-2@2x.png in Resources */,
+				2B9ECC2C225494F900BAC47A /* FounctionIntroCell.xib in Resources */,
 				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
 				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
 				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
@@ -2954,6 +3026,7 @@
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
+				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
 				CA1CF6B5221ECB5000D15316 /* frame-27@2x.png in Resources */,
 				CA1CF6B6221ECB5000D15316 /* Assets.xcassets in Resources */,
@@ -2977,11 +3050,13 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2990,11 +3065,13 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3003,11 +3080,13 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3016,11 +3095,13 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3065,11 +3146,13 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/UMCCommonLog/UMCommonLog/UMCommonLog.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3078,11 +3161,13 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMCommonLog.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3135,6 +3220,7 @@
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
+				2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				4A759A9D224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
@@ -3158,10 +3244,12 @@
 				4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4A092D90222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
+				2B9ECC19225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
 				4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */,
 				4A092D95222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
+				2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				4A759ACA224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4A092D4D222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
@@ -3188,10 +3276,12 @@
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */,
+				2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				4AC857C6223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A759AA7224B16B50057BD02 /* GuideCell.m in Sources */,
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */,
+				2B9ECC27225494A400BAC47A /* FounctionIntroCell.m in Sources */,
 				4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
@@ -3302,6 +3392,8 @@
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */,
+				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
@@ -3397,6 +3489,7 @@
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
+				2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4A759A9E224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
@@ -3420,10 +3513,12 @@
 				4AC857C7223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBD2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */,
+				2B9ECC1A225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
+				2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
@@ -3450,10 +3545,12 @@
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA8224B16B50057BD02 /* GuideCell.m in Sources */,
+				2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* IssueSourceViewModel.m in Sources */,
 				CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
+				2B9ECC29225494AD00BAC47A /* FounctionIntroCell.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
@@ -3564,6 +3661,8 @@
 				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
 				CA1CF5EE221ECB3A00D15316 /* IssueBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
+				2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
@@ -3659,6 +3758,7 @@
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
+				2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
 				4A759A9F224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
@@ -3682,10 +3782,12 @@
 				4AC857C8223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A092CBE2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */,
+				2B9ECC1B225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
 				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
+				2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
@@ -3712,10 +3814,12 @@
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA9224B16B50057BD02 /* GuideCell.m in Sources */,
+				2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* IssueSourceViewModel.m in Sources */,
 				CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
+				2B9ECC2A225494AE00BAC47A /* FounctionIntroCell.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
@@ -3826,6 +3930,8 @@
 				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,
 				CA1CF693221ECB5000D15316 /* IssueBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
+				2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
@@ -4151,7 +4257,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4163,7 +4269,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = development_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -4179,8 +4285,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"COCOAPODS=1",
@@ -4192,7 +4298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distribution_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

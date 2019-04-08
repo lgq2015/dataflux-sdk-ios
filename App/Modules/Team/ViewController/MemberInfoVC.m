@@ -137,6 +137,10 @@
     return _subTitleLab;
 }
 - (void)callPhone{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
+    [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
+}
+- (void)btnClickedOperations{
     NSString *mobile = self.isExpert? @"400-882-3320":self.model.mobile;
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];

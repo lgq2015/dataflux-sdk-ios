@@ -47,6 +47,23 @@ PODS:
   - Starscream (3.0.6)
   - SVProgressHUD (2.2.5)
   - TTTAttributedLabel (2.0.0)
+  - UMCCommon (2.0.1)
+  - UMCCommonLog (1.0.0)
+  - UMCSecurityPlugins (1.0.6)
+  - UMCShare/Core (6.9.5):
+    - UMCCommon
+  - UMCShare/Social/DingDing (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedQQ (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/UI (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
   - WebViewJavascriptBridge (6.0.3)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -71,6 +88,13 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift (~> 14.0.0)
   - SVProgressHUD (~> 2.2.5)
   - TTTAttributedLabel (~> 2.0.0)
+  - UMCCommon (~> 2.0.1)
+  - UMCCommonLog (~> 1.0.0)
+  - UMCSecurityPlugins (~> 1.0.6)
+  - UMCShare/Social/DingDing
+  - UMCShare/Social/ReducedQQ
+  - UMCShare/Social/ReducedWeChat
+  - UMCShare/UI
   - WebViewJavascriptBridge (~> 6.0)
   - YYKit (~> 1.0.9)
   - Zhugeio (~> 3.2.3)
@@ -93,6 +117,10 @@ SPEC REPOS:
     - Starscream
     - SVProgressHUD
     - TTTAttributedLabel
+    - UMCCommon
+    - UMCCommonLog
+    - UMCSecurityPlugins
+    - UMCShare
     - WebViewJavascriptBridge
     - YYKit
     - Zhugeio
@@ -114,10 +142,14 @@ SPEC CHECKSUMS:
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  UMCCommon: 0263a057a2e1ae1da4c8308541e56904a493ce13
+  UMCCommonLog: 05a2d5de21858e3d870551562cff405c1366d244
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
+  UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 0d69c8697c185f9528a0dc4130988b27754410c4
+PODFILE CHECKSUM: bed025843b583a2d73128fe647d7db826033637c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
