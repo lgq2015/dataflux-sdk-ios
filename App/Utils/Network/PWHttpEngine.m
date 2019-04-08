@@ -152,8 +152,8 @@
 
 /**
  * 获取情报详情
- * @param issueId
- * @param callback
+ * @param issueId 情报id
+ * @param callback 
  * @return
  */
 -(PWURLSessionTask *)getIssueDetail:(NSString *)issueId callBack:(void (^)(id))callback {
@@ -207,7 +207,18 @@
 }
 
 
-
+- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueLogAdd(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 
 
 @end

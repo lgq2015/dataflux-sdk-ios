@@ -17,6 +17,7 @@
 #import "IssueLogModel.h"
 #import "PWSocketManager.h"
 #import "PWPhotoOrAlbumImagePicker.h"
+#import "HLSafeMutableArray.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -27,7 +28,7 @@
 
 //表单
 @property(nonatomic,strong)UITableView *mTableView;
-@property(nonatomic,strong)NSMutableArray *datas;
+@property(nonatomic,strong)HLSafeMutableArray *datas;
 
 //底部输入框 携带表情视图和多功能视图
 @property(nonatomic,strong)IssueChatKeyBoardInputView *mInputView;
@@ -54,10 +55,13 @@
     NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
     [self.datas addObjectsFromArray:array];
     [self.mTableView reloadData];
+    [self scrollToBottom];
+
     [IssueChatDatas LoadingMessagesStartWithChat:_issueID callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
         if (array.count>0) {
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
+            [self scrollToBottom];
         }
     }];
 //    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
@@ -75,7 +79,12 @@
 
     // Do any additional setup after loading the view.
 }
-
+- (void)scrollToBottom{
+    if (self.datas.count>0) {
+        NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
+        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
 -(void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNewIssueChatData:)
@@ -105,14 +114,24 @@
     if ([model.issueId isEqualToString:_issueID]) {
         [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     }
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.datas removeAllObjects];
+        NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
+        [self.datas addObjectsFromArray:array];
+        [self.mTableView reloadData];
+        if (self.datas.count>0) {
+            NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
+            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    });
+   
     //todo add to tableView here
 }
 
 - (void)createUI{
 //    self.tableVie
     [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
-    self.datas = [NSMutableArray new];
+    self.datas = [HLSafeMutableArray new];
     _mInputView = [[IssueChatKeyBoardInputView alloc]init];
     _mInputView.delegate = self;
     [self.view addSubview:_mInputView];
@@ -146,7 +165,7 @@
     [_mTableView reloadData];
 }
 -(void)dealWithNewDta{
-
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _datas.count==0?0:1;
@@ -198,10 +217,8 @@
     [UIView animateWithDuration:changeTime animations:^{
         self.mBackView.frame = CGRectMake(0, 0, kWidth, height);
         self.mTableView.frame = self.mBackView.bounds;
-        if (self.datas.count>0) {
-            NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
-            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        }
+        [self scrollToBottom];
+
     } completion:^(BOOL finished) {
 
     }];
@@ -233,6 +250,8 @@
         [IssueChatDatas sendMessage:@{@"image":image} sessionId:self.issueID messageType:PWChatMessageTypeImage messageBlock:^(IssueChatMessagelLayout * _Nonnull layout, NSError * _Nonnull error, NSProgress * _Nonnull progress) {
             [self.datas addObject:layout];
             [self.mTableView reloadData];
+            [self scrollToBottom];
+
         }];
     }];
 
@@ -243,11 +262,10 @@
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
 
     [IssueChatDatas sendMessage:dic sessionId:self.issueID messageType:messageType messageBlock:^(IssueChatMessagelLayout *layout, NSError *error, NSProgress *progress) {
-
+        NSIndexPath *index = [NSIndexPath indexPathForRow:self.datas.count inSection:0];
         [self.datas addObject:layout];
         [self.mTableView reloadData];
-        NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
-        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self scrollToBottom];
 
     }];
 }
@@ -306,10 +324,10 @@
 */
 
 - (void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath {
-
+   
 }
 -(void)PWChatKeyBordViewBtnClick:(NSInteger)index{
-
+   
 }
 
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout {

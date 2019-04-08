@@ -24,7 +24,7 @@
 
 - (PWURLSessionTask *)getIssueList:(NSInteger)pageSize pageMarker:(long long)pageMarker callBack:(void (^)(id))callback;
 /**
-  获取用户信息
+ * @param text 讨论 文本
  */
-- (PWURLSessionTask *)getUserInfoCallBack:(void (^)(id))callback;
+- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback;
 @end

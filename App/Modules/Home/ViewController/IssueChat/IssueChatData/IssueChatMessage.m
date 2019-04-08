@@ -41,6 +41,19 @@
         }else{
             self.messageFrom = PWChatMessageFromOther;
             self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
+            [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+                if (isSuccess) {
+                    [member enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isKindOfClass:NSDictionary.class]) {
+                            if(  [[(NSDictionary *)obj stringValueForKey:@"id" default:@""] isEqualToString:userID]){
+                                NSDictionary *tags =PWSafeDictionaryVal(obj,@"tags");
+                            self.headerImgurl = [tags stringValueForKey:@"pwAvatar" default:@""];
+                                *stop = YES;
+                            }
+                        }
+                    }];
+                }
+            }];
         }
         
     }else{

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UILabel   *mNameLab;
 @property(nonatomic, strong) UIButton  *mBackImgButton;
 
+
 @property(nonatomic, strong) NSIndexPath         *indexPath;
 //文本消息
 @property(nonatomic, strong) UITextView     *mTextView;
