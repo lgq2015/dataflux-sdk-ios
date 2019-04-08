@@ -10,7 +10,6 @@
 #import "WebItemView.h"
 #import "NewsListModel.h"
 #import "HandbookModel.h"
-#import "ZYSocialUIManager.h"
 #import "ZYSocialManager.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
@@ -140,17 +139,13 @@
             }];
             
         }else if(tag == ShareBtnTag){
-        //分享btn点击方法
-        
-            
-            
+            [weakSelf popShareUI];
         }
     };
   
 }
 - (void)closeBtnClick{
-    [self popShareUI];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)popShareUI{
@@ -168,3 +163,4 @@
 
 
 @end
+

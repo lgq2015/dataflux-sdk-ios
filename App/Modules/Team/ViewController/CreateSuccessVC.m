@@ -7,19 +7,22 @@
 //
 
 #import "CreateSuccessVC.h"
+#import "ZYSocialManager.h"
+#import "TeamInfoModel.h"
 #define WeChatBtnTag  100
 #define QQBtnTag      200
 #define DingBtnTag    300
 
 @interface CreateSuccessVC ()
 @property (nonatomic, strong) UIButton *skipBtn;
-
+@property (nonatomic, strong)NSString *shareUrl;
 @end
 
 @implementation CreateSuccessVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self requestShareUrl];
     [self createUI];
 }
 - (void)createUI{
@@ -85,21 +88,14 @@
 }
 -(UIImageView *)inviteBtnWithDict:(NSDictionary *)dict{
     UIImageView *item = [[UIImageView alloc]initWithImage:[UIImage imageNamed:dict[@"name"]]];
+    item.userInteractionEnabled = YES;
     item.contentMode = UIViewContentModeScaleToFill;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(inviteBtnClick:)];
     [item addGestureRecognizer:tap];
     return item;
 }
 -(void)inviteBtnClick:(UITapGestureRecognizer *)tap{
-    //TODO:zhantao
-    if (tap.view.tag == WeChatBtnTag) {
-        
-    }else if(tap.view.tag == QQBtnTag){
-        
-    }else if(tap.view.tag == DingBtnTag){
-        
-    }
-    
+    [self popShareUI:tap.view.tag];
 }
 -(UIButton *)skipBtn{
     if (!_skipBtn) {
@@ -118,14 +114,42 @@
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ---请求分享链接---
+- (void)requestShareUrl{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"data":@{@"invite_type":@"qrcode"}};
+    WeakSelf
+    [PWNetworking requsetHasTokenWithUrl:PW_teamInvite withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSString *rv = [content stringValueForKey:@"rv" default:@""];
+            weakSelf.shareUrl = rv;
+        }
+        [SVProgressHUD dismiss];
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+    }];
 }
-*/
+- (void)popShareUI:(NSInteger)btnTag{
+    __weak typeof(self) weakself = self;
+    NSString *titleDesc = @"团队邀请您加入，加入团队后您可以共享团队数据和信息，并与团队成员进行协作";
+    NSString *title = [NSString stringWithFormat:@"%@ %@",userManager.teamModel.name,titleDesc];
+    ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:@"" thumImage:[UIImage imageNamed:@"144-144"]];
+    manager.webpageUrl = weakself.shareUrl;
+    manager.showVC = weakself;
+    switch (btnTag) {
+        case WeChatBtnTag:
+            [manager shareToPlatform:WechatSession_PlatformType];
+            break;
+        case QQBtnTag:
+            [manager shareToPlatform:QQ_PlatformType];
+            break;
+        case DingBtnTag:
+            [manager shareToPlatform:Dingding_PlatformType];
+            break;
+        default:
+            break;
+    }
+}
 
 @end
