@@ -144,8 +144,8 @@
   
 }
 - (void)closeBtnClick{
-    [self popShareUI];
-//    [self.navigationController popViewControllerAnimated:YES];
+//    [self popShareUI];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)popShareUI{
