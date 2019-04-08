@@ -505,5 +505,9 @@
 
 
 }
+-(void)shutDown{
+    [super shutDown];
+    _isFetching = NO;
+}
 
 @end
