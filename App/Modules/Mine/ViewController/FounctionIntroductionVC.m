@@ -22,6 +22,7 @@
     self.title = @"功能介绍";
 
     [self requesetData];
+    self.tab.tableFooterView = [UIView new];
     [self.tab registerNib:[FounctionIntroCell cellWithNib] forCellReuseIdentifier:[FounctionIntroCell cellReuseIdentifier]];
 
 }

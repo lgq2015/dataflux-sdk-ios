@@ -197,7 +197,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     IssueAttachmentModel *model = [[IssueAttachmentModel alloc]initWithDictionary:self.expireData[indexPath.row]];
     DLog(@"%@",model.fileUrl);
-
+    NSString *ext = [model.fileUrl pathExtension];
+    if ([ext isEqualToString:@"csv"]
+        || [ext isEqualToString:@"zip"]
+        || [ext isEqualToString:@"rar"]){
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        return;
+    }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];
     [self.navigationController pushViewController:webView animated:YES];
 }
