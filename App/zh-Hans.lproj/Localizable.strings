@@ -125,3 +125,6 @@
 "local.err.networkNotAvailable" = "网络不可用";
 "local.err.netWorkError"="网络异常";
 "您的专属云顾问" = "您的专属云顾问";
+
+"isseu.detail.accountInfo.user" = "成员";
+"isseu.detail.accountInfo.staff" = "专家";

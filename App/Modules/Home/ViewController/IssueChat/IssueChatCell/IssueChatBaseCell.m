@@ -44,10 +44,14 @@
     _mBackImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _mBackImgButton.backgroundColor =  [PWChatCellColor colorWithAlphaComponent:0.4];
     _mBackImgButton.tag = 50;
+    _mBackImgButton.layer.cornerRadius = 4;
+    _mBackImgButton.layer.masksToBounds = YES;
     [self.contentView addSubview:_mBackImgButton];
     [_mBackImgButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    //菊花转
+    _mIndicator = [UIActivityIndicatorView new];
+    [self.contentView addSubview:_mIndicator];
 }
 -(void)setLayout:(IssueChatMessagelLayout *)layout{
     _layout = layout;
@@ -56,11 +60,29 @@
       
         
     }else{
+
     self.mNameLab.text = layout.message.nameStr;
     self.mNameLab.frame = layout.nameLabRect;
     self.mHeaderImgBtn.frame = layout.headerImgRect;
     [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
+        if (layout.message.messageFrom == PWChatMessageFromStaff) {
+            [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"expert_defaulticon"]];
+
+            self.mExpertLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"CloudCare 服务"];
+            [self.contentView addSubview:_mExpertLab];
+            [self.mExpertLab sizeToFit];
+            self.mExpertLab.backgroundColor = RGBACOLOR(209, 225, 255, 1);
+            self.mExpertLab.layer.cornerRadius = 2;
+            self.mExpertLab.layer.masksToBounds = YES;
+            self.mExpertLab.textAlignment = NSTextAlignmentCenter;
+          CGRect rect = self.mExpertLab.bounds;
+            self.mExpertLab.frame = CGRectMake(layout.expertLabRect.origin.x, layout.expertLabRect.origin.y, rect.size.width+5, layout.expertLabRect.size.height);
+            _mExpertLab.hidden = NO;
+
+        }else{
+            _mExpertLab.hidden = YES;
+        }
     }
 }
 

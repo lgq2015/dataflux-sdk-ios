@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface IssueChatBaseCell : UITableViewCell
 -(void)initPWChatCellUserInterface;
-
+-(void)showIndicator;
 
 @property(nonatomic,assign)id<PWChatBaseCellDelegate> delegate;
 @property(nonatomic, strong) IssueChatMessagelLayout  *layout;
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UIButton  *mHeaderImgBtn;
 @property(nonatomic, strong) UILabel   *mNameLab;
 @property(nonatomic, strong) UIButton  *mBackImgButton;
-
+@property(nonatomic, strong) UILabel   *mExpertLab;
 
 @property(nonatomic, strong) NSIndexPath         *indexPath;
 //文本消息
@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *mFileView;
 //系统消息
 @property (nonatomic, strong) UILabel *mSystermLab;
+//发消息的菊花转
+@property (nonatomic, strong) UIActivityIndicatorView *mIndicator;
 
 @end
 

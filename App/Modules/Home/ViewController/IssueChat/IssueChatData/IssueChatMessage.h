@@ -64,7 +64,8 @@
 typedef NS_ENUM(NSInteger, PWChatMessageFrom) {
     PWChatMessageFromMe    = 1,
     PWChatMessageFromOther = 2,
-    PWChatMessageFromSystem
+    PWChatMessageFromSystem,
+    PWChatMessageFromStaff,
 };
 
 

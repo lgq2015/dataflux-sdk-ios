@@ -27,4 +27,11 @@
  * @param text 讨论 文本
  */
 - (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback;
+/**
+* @param issueid issueID
+* @param expertGroup 专家
+* @param content 预约电话沟通功能
+*/
+- (PWURLSessionTask *)issueTicketOpenWithIssueid:(NSString *)issueid expertGroup:(NSString *)expertGroup content:(NSString *)content callBack:(void (^)(id))callback;
+
 @end

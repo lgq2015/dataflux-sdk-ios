@@ -544,7 +544,6 @@
 		6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
 		6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
-		6B6E240AEBEFA91F6302924E /* ExpertAdviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A11C71DD5EA36C32ADF /* ExpertAdviceVC.m */; };
 		6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2188F811955A7DCCF384 /* ToolsVC.m */; };
 		6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
@@ -557,7 +556,6 @@
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
-		6B6E263452B4A05DF215E42A /* ExpertAdviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A11C71DD5EA36C32ADF /* ExpertAdviceVC.m */; };
 		6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
 		6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
@@ -613,7 +611,6 @@
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2AFE43A95D1FED215D99 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
 		6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
-		6B6E2B15016EC0C1424A42E5 /* ExpertAdviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A11C71DD5EA36C32ADF /* ExpertAdviceVC.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
 		6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E269CB1332A74C7EFD5A4 /* IssueChatImageCell.m */; };
@@ -1442,7 +1439,6 @@
 		4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		62C62DFDEDDCCD32D0A33765 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
-		6B6E20256EA842983ECB1ABB /* ExpertAdviceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertAdviceVC.h; sourceTree = "<group>"; };
 		6B6E206D33FC79F101DB0167 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		6B6E2077A5A8C8441B8F7EB4 /* IssueProblemDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueProblemDetailsVC.h; sourceTree = "<group>"; };
 		6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibrarySearchVC.m; sourceTree = "<group>"; };
@@ -1509,7 +1505,6 @@
 		6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatSystermCell.m; sourceTree = "<group>"; };
 		6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewIssueIndexVC.m; sourceTree = "<group>"; };
 		6B6E29F0B051337D2E55A205 /* ClusterDiagnosisVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterDiagnosisVC.h; sourceTree = "<group>"; };
-		6B6E2A11C71DD5EA36C32ADF /* ExpertAdviceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertAdviceVC.m; sourceTree = "<group>"; };
 		6B6E2A1FF928D06D9093D65A /* IssueChatMessagelLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatMessagelLayout.h; sourceTree = "<group>"; };
 		6B6E2A36B4B1CE63DB1D6C8A /* IssueProblemDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueProblemDetailsVC.m; sourceTree = "<group>"; };
 		6B6E2A59CF51997F2D6ECAE9 /* IssueChatDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDatas.h; sourceTree = "<group>"; };
@@ -2754,8 +2749,6 @@
 				6B6E2A36B4B1CE63DB1D6C8A /* IssueProblemDetailsVC.m */,
 				6B6E2F391B62A1B0AE0D961B /* IssueDetailVC.h */,
 				6B6E20F36B75EF48D9623907 /* IssueDetailVC.m */,
-				6B6E20256EA842983ECB1ABB /* ExpertAdviceVC.h */,
-				6B6E2A11C71DD5EA36C32ADF /* ExpertAdviceVC.m */,
 				6B6E219BA3FC613B341070F3 /* ToolsVC.h */,
 				6B6E2188F811955A7DCCF384 /* ToolsVC.m */,
 				6B6E290FF524A1DA8BA0EA3A /* NewsWebView.h */,
@@ -3578,7 +3571,6 @@
 				6B6E2F42FE5940B3E0F7D2A4 /* IssueDetailRootVC.m in Sources */,
 				6B6E231AB4C7681921EC9732 /* IssueProblemDetailsVC.m in Sources */,
 				6B6E22185DE052360D956855 /* IssueDetailVC.m in Sources */,
-				6B6E240AEBEFA91F6302924E /* ExpertAdviceVC.m in Sources */,
 				6B6E20AA5CDE84A1F4CDB90B /* ToolsVC.m in Sources */,
 				6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */,
 				6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */,
@@ -3855,7 +3847,6 @@
 				6B6E200F04E0C0E74B82BA19 /* IssueDetailRootVC.m in Sources */,
 				6B6E20AD099D1E01A1FFE5E6 /* IssueProblemDetailsVC.m in Sources */,
 				6B6E2F1E8220A677193C368D /* IssueDetailVC.m in Sources */,
-				6B6E263452B4A05DF215E42A /* ExpertAdviceVC.m in Sources */,
 				6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */,
 				6B6E233BD4BDD2FB28CC1471 /* NewsWebView.m in Sources */,
 				6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */,
@@ -4132,7 +4123,6 @@
 				6B6E2251AAC28C5027550FB2 /* IssueDetailRootVC.m in Sources */,
 				6B6E2D737D68A3B67320DCBE /* IssueProblemDetailsVC.m in Sources */,
 				6B6E2898C39F53C880196012 /* IssueDetailVC.m in Sources */,
-				6B6E2B15016EC0C1424A42E5 /* ExpertAdviceVC.m in Sources */,
 				6B6E27631A6099819A86B2ED /* ToolsVC.m in Sources */,
 				6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */,
 				6B6E23018BA988522794E257 /* HandBookArticleVC.m in Sources */,

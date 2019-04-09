@@ -35,7 +35,10 @@
         NSString *logstr = [logs jsonStringEncoded];
         self.latestIssueLogsStr =logstr;
     }
-
+    NSDictionary *tags = PWSafeArrayVal(dict, @"tags");
+    if (tags) {
+        self.tagsStr = [tags jsonStringEncoded];
+    }
     NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered?[rendered jsonPrettyStringEncoded]:@"";
 

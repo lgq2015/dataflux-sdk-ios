@@ -18,6 +18,8 @@
 #import "PWSocketManager.h"
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "HLSafeMutableArray.h"
+#import "ExpertsMoreVC.h"
+#import "TeamInfoModel.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -29,6 +31,8 @@
 //表单
 @property(nonatomic,strong)UITableView *mTableView;
 @property(nonatomic,strong)HLSafeMutableArray *datas;
+@property(nonatomic,strong)HLSafeMutableArray *uploadDatas;
+
 
 //底部输入框 携带表情视图和多功能视图
 @property(nonatomic,strong)IssueChatKeyBoardInputView *mInputView;
@@ -114,7 +118,13 @@
     if ([model.issueId isEqualToString:_issueID]) {
         [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if(self.uploadDatas.count>0){
+        IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
+        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+        [self.datas addObject:layout];
+        [self.mTableView reloadData];
+    }else{
+     dispatch_async(dispatch_get_main_queue(), ^{
         [self.datas removeAllObjects];
         NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
         [self.datas addObjectsFromArray:array];
@@ -124,7 +134,7 @@
             [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     });
-   
+    }
     //todo add to tableView here
 }
 
@@ -334,16 +344,25 @@
 
 }
 - (void)navBtnClick{
-    ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-    if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
-        NSDictionary *tags = self.infoDetailDict[@"tags"];
-        NSArray *expertGroups = tags[@"expertGroups"];
-        if (expertGroups.count>0) {
-            expert.expertGroups = [NSMutableArray arrayWithArray:expertGroups];
-        }
+   
+    NSDictionary *tags =userManager.teamModel.tags;
+    NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
+    if (product ==nil) {
+        [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
+        return;
     }
+   
+    ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
+    expert.issueid = self.issueID;
+     if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
+         NSDictionary *tags = self.infoDetailDict[@"tags"];
+         NSArray *expertGroups = tags[@"expertGroups"];
+         if (expertGroups.count>0) {
+             expert.selectExpertGroups = [NSMutableArray arrayWithArray:expertGroups];
+         }
+     }
     [self.navigationController pushViewController:expert animated:YES];
-
+  
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

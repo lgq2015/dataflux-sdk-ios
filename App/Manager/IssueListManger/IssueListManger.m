@@ -113,6 +113,10 @@
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
 
+    }else{
+//        NSDictionary *alertParams = @{@"tagsStr":SQL_TEXT};
+//    
+//        [self.getHelper pw_alterTable:tableName dicOrModel:alertParams];
     }
 
 }

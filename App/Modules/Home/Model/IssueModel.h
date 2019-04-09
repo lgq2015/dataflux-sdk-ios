@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *renderedTextStr;     // 可能有可能无 有就显示
 @property (nonatomic, strong) NSString *originInfoJSONStr;   // 异常情报处理  后台返回缺失，前端自己处理
 @property (nonatomic, assign) BOOL isRead;                   // 数据库存储已读状态
-
+@property (nonatomic, strong) NSString *tagsStr;         // 专家列表
 @property (nonatomic, assign)BOOL isInvalidIssue; //异常情报源，这个
 
 
