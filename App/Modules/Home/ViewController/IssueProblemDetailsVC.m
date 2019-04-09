@@ -37,10 +37,14 @@
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
+            NSDictionary *content = PWSafeDictionaryVal(response,@"content");
             self.infoDetailDict = content;
-            NSDictionary *accountInfo = content[@"accountInfo"];
+            NSDictionary *accountInfo =PWSafeDictionaryVal(content, @"accountInfo");
             NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
+            
+            if ([name isKindOfClass:NSNull.class]||name ==nil || [name isEqualToString:@""]) {
+                self.model.isFromUser?name= NSLocalizedString(@"isseu.detail.accountInfo.user", @""):NSLocalizedString(@"isseu.detail.accountInfo.staff", @"");
+            }
             self.createNameLab.text = [NSString stringWithFormat:@"%@ 创建",name];
         }
     } failBlock:^(NSError *error) {
@@ -176,13 +180,7 @@
     [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
 }
 
-#pragma mark ========== 讨论页跳转 ==========
-- (void)navRightBtnClick{
-    IssueChatVC *chat = [[IssueChatVC alloc]init];
-     chat.infoDetailDict = self.infoDetailDict;
-     chat.issueID = self.model.issueId;
-    [self.navigationController pushViewController:chat animated:YES];
-}
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.expireData.count;
