@@ -161,7 +161,7 @@
                 _address = [content stringValueForKey:@"address" default:@""];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString([response stringValueForKey:@"errorCode" default:@""], @"")];
             self.contactUSType = Normal_Type;
         }
         [self createUI];
@@ -175,7 +175,7 @@
     [PWNetworking requsetHasTokenWithUrl:PW_CMSCall withRequestType:NetworkPostType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if (![response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            [SVProgressHUD showErrorWithStatus:[response stringValueForKey:@"message" default:@""]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
