@@ -23,6 +23,21 @@
 @property (nonatomic, strong)UIImageView *logoIcon;
 @property (nonatomic, strong)UILabel *zoonLab;
 @property (nonatomic, strong)UILabel *addressLab;
+@property (nonatomic, strong) NSString *avatar;
+/*"avatar": null,
+ "mobile": "13300000016",
+ "email": "13300000016@sina.com",
+ "realName": "销售王九",
+ "workGroupName": "销售运营",
+ "address": "上海市浦东新区科苑路399号张江创新园7号楼上海市浦东新区科苑路399号张江创新园7号楼上海市浦东新区科苑路399号张江创新园7号楼",
+ "province": "上海",
+ "city": "上海"
+ */
+@property (nonatomic, strong) NSString *realName;
+@property (nonatomic, strong) NSString *mobile;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *city;
+@property (nonatomic, strong) NSString *address;
 @end
 
 @implementation ContactUsVC
@@ -113,35 +128,17 @@
     
     [self.addressLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.zoonLab.mas_bottom).offset(Interval(10));
-        make.height.offset(ZOOM_SCALE(17));
-        make.width.offset(kWidth);
+        make.left.mas_equalTo(self.view).offset(Interval(16));
+//        make.height.offset(ZOOM_SCALE(17));
+        make.width.offset(kWidth - 32);
     }];
 }
 - (void)btnClick:(UIButton *)button{
     if (button.tag == TagPhoneBtn) {
-//        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
-//        UIWebView * callWebview = [[UIWebView alloc] init];
-//        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-//        [self.view addSubview:callWebview];
         [self requesetCMSCall];
     }else{
-        //创建可变的地址字符串对象：
         NSMutableString *mailUrl = [[NSMutableString alloc] init];
-        //添加收件人：
-        NSArray *toRecipients = @[@"1780575208@qq.com"];
-        // 注意：如有多个收件人，可以使用componentsJoinedByString方法连接，连接符为@","
-        [mailUrl appendFormat:@"mailto:%@", toRecipients[0]];
-        //添加抄送人：
-        NSArray *ccRecipients = @[@"1780575208@qq.com"];
-        [mailUrl appendFormat:@"?cc=%@", ccRecipients[0]];
-        // 添加密送人：
-        NSArray *bccRecipients = @[@"1780575208@qq.com"];
-        [mailUrl appendFormat:@"&bcc=%@", bccRecipients[0]];
-        
-        //添加邮件主题和邮件内容：
-        [mailUrl appendString:@"&subject=my email"];
-        [mailUrl appendString:@"&body=<b>Hello</b> World!"];
-        //打开地址，这里会跳转至邮件发送界面：
+        [mailUrl appendFormat:@"mailto:%@", _email];
         NSString *emailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emailPath]];
     }
@@ -149,37 +146,46 @@
 #pragma mark 请求
 - (void)requesetContactUserData{
     [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_ContactUS withRequestType:NetworkPostType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    NSDictionary *params = @{@"platform":@"IOS"};
+    [PWNetworking requsetHasTokenWithUrl:PW_ContactUS withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSLog(@"zhangtao----%@",response);
+        if ([response[CODE]integerValue] == 200) {
+            self.contactUSType = VIP_Type;
+            NSDictionary *content = response[@"content"];
+            if (content){
+                _avatar =[content stringValueForKey:@"avatar" default:@""];
+                _realName = [content stringValueForKey:@"realName" default:@""];
+                _mobile = [content stringValueForKey:@"mobile" default:@""];
+                _email = [content stringValueForKey:@"email" default:@""];
+                _city = [content stringValueForKey:@"city" default:@""];
+                _address = [content stringValueForKey:@"address" default:@""];
+            }
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
-            self.contactUSType = VIP_Type;
-            [self createUI];
+            self.contactUSType = Normal_Type;
         }
+        [self createUI];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [error errorToast];
     }];
 }
 - (void)requesetCMSCall{
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_CMSCall withRequestType:NetworkPostType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            
-        }else{
+        if (![response[ERROR_CODE] isEqualToString:@""]) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        
+        [error errorToast];
     }];
 }
 #pragma mark ---lazy-----
 - (UIButton *)noPicPhoneBtn{
     if (!_noPicPhoneBtn){
-        _noPicPhoneBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"400-882-3320"];
+        _noPicPhoneBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:_mobile == nil ? @"400-882-3320" : _mobile];
         [_noPicPhoneBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         _noPicPhoneBtn.tag = TagPhoneBtn;
         [_noPicPhoneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -207,7 +213,7 @@
 - (UIImageView *)iconImg{
     if (!_iconImg){
         _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, Interval(28), ZOOM_SCALE(160), ZOOM_SCALE(160))];
-        _iconImg.image = [UIImage imageNamed:@"mine_contacticon"];
+        [_iconImg sd_setImageWithURL:[NSURL URLWithString:_avatar == nil ? @"" : _avatar] placeholderImage:[UIImage imageNamed:@"mine_contacticon"]];
         CGPoint center = _iconImg.center;
         center.x = self.view.centerX;
         _iconImg.center = center;
@@ -216,7 +222,7 @@
 }
 - (UILabel *)titleLab{
     if (!_titleLab){
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:@"王教授"];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:_realName == nil ? @"王教授" : _realName];
         _titleLab.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLab;
@@ -262,15 +268,16 @@
 }
 - (UILabel *)zoonLab{
     if (!_zoonLab){
-        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"上海（总部）"];
+        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? @"上海 (总部)" : _city];
         _zoonLab.textAlignment = NSTextAlignmentCenter;
     }
     return _zoonLab;
 }
 - (UILabel *)addressLab{
     if (!_addressLab){
-        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:@"科苑路399号张江创新园7号楼"];
+        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:_address == nil ? @"科苑路399号张江创新园7号楼" : _address];
         _addressLab.textAlignment = NSTextAlignmentCenter;
+        _addressLab.numberOfLines = 0;
     }
     return _addressLab;
 }
