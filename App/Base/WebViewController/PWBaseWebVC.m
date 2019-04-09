@@ -64,8 +64,11 @@
             WKUserContentController *userContentController = [[WKUserContentController alloc] init];
             WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookie injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
             [userContentController addUserScript:cookieScript];
+            //给webview添加scalesPageToFit功能
+            NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
+            WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+            [userContentController addUserScript:wkUScript];
             config.userContentController = userContentController;
-
         }
     
     

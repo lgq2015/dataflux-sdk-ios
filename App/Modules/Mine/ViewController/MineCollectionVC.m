@@ -180,19 +180,37 @@
 - (void)recollectWithModel:(NewsListModel*)model{
     NSDictionary *param = @{@"id":model.newsID};
     if ([model.sourceType isEqualToString:@"handbook"]) {
+        [SVProgressHUD show];
         [PWNetworking requsetHasTokenWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            
+            [SVProgressHUD dismiss];
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
+                [self.navigationController pushViewController:newsweb animated:YES];
+            }else{
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
         } failBlock:^(NSError *error) {
-            
+            [SVProgressHUD dismiss];
+        }];
+    }else if ([model.sourceType isEqualToString:@"forum"]) {
+        [SVProgressHUD show];
+        [PWNetworking requsetHasTokenWithUrl:PW_articelForumclick withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
+                [self.navigationController pushViewController:newsweb animated:YES];
+            }else{
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
+        } failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
         }];
     }
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.dataSource[indexPath.row];
-    PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
-    [self.navigationController pushViewController:newsweb animated:YES];
-  //  [self recollectWithModel:model];
+    [self recollectWithModel:model];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model =self.dataSource[indexPath.row];

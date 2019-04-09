@@ -203,5 +203,6 @@
 #define PW_fouctionIntro               API_SEVERID@"/v1/app/version/list"
 #define PW_ContactUS                   API_SHRINE@"/resources/action/getWorkGroupMember@workGroupOpenAdmin"
 #define PW_CMSCall                     API_SEVERID@"/v1/utils/csm-call"
+#define PW_articelForumclick           API_FORUM@"/v1/post"
 #endif /* PWNetWorkURLs_h */
 
