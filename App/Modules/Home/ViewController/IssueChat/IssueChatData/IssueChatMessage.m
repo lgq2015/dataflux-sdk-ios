@@ -24,6 +24,10 @@
 }
 - (void)setValueWithModel:(IssueLogModel *)model{
     self.textColor = PWTextBlackColor;
+    if([model.origin isEqualToString:@"me"]){
+        [self setUserSendIssueLog:model];
+        return;
+    }
     if ([model.origin isEqualToString:@"user"]) {
         NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
         NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
@@ -77,6 +81,7 @@
     }else if([model.origin isEqualToString:@"bizSystem"]){
         self.messageFrom = PWChatMessageFromSystem;
     }
+    
     NSString *type = model.type;
     if ([type isEqualToString:@"text"]) {
         self.messageType = PWChatMessageTypeText;
@@ -146,5 +151,31 @@
         self.cellString = PWChatSystermCellId;
     }
 }
-
+- (void)setUserSendIssueLog:(IssueLogModel *)model{
+    NSString *createTime = model.updateTime;
+    NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    self.messageFrom = PWChatMessageFromMe;
+    self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    self.nameStr = [time accurateTimeStr];
+    self.messageType = PWChatMessageTypeText;
+    
+    if (model.imageData) {
+        self.messageType = PWChatMessageTypeImage;
+        self.cellString = PWChatImageCellId;
+        self.image = [UIImage imageWithData:model.imageData];
+    }
+    if (model.text) {
+        self.textString = model.text;
+        self.messageType = PWChatMessageTypeText;
+        self.cellString = PWChatTextCellId;
+    }
+    if (model.fileName) {
+        self.messageType = PWChatMessageTypeFile;
+        self.cellString = PWChatFileCellId;
+        self.fileName = model.fileName;
+    }
+    self.sendError = model.sendError;
+    self.isSend = YES;
+    self.model = model;
+}
 @end

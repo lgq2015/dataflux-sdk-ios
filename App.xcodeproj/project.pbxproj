@@ -2880,8 +2880,8 @@
 		6B6E2D3A02750BD79E352166 /* IssueChatDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				6B6E26479B84137576BC5358 /* IssueChatDataManager.m */,
 				6B6E2F00B08AB55521115825 /* IssueChatDataManager.h */,
+				6B6E26479B84137576BC5358 /* IssueChatDataManager.m */,
 			);
 			path = IssueChatDataManager;
 			sourceTree = "<group>";

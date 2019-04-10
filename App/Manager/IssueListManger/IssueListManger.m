@@ -55,8 +55,10 @@
                        dicOrModel:@{@"isVirtual": SQL_INTEGER,
                        }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
+            @"tagsStr":SQL_TEXT,
             @"issueSourceId": SQL_TEXT,
-            @"credentialJSONStr": SQL_TEXT,}];
+            @"credentialJSONStr": SQL_TEXT,
+            }];
 
 }
 
@@ -108,15 +110,10 @@
                         @"accountId": SQL_TEXT,
                         @"subType": SQL_TEXT,
                         @"originInfoJSONStr": SQL_TEXT,
-                        @"subType": SQL_TEXT
                 };
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
 
-    }else{
-//        NSDictionary *alertParams = @{@"tagsStr":SQL_TEXT};
-//    
-//        [self.getHelper pw_alterTable:tableName dicOrModel:alertParams];
     }
 
 }
@@ -183,7 +180,7 @@
                      lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus {
     [[PWHttpEngine sharedInstance] getIssueList:ISSUE_LIST_PAGE_SIZE pageMarker:pageMaker callBack:^(id o) {
         IssueListModel *listModel = (IssueListModel *) o;
-
+        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@",[self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
         if (listModel.isSuccess) {
 
             [allDatas addObjectsFromArray:listModel.list];

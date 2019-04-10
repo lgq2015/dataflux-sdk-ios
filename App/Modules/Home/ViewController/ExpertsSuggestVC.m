@@ -11,10 +11,14 @@
 #import "TeamInfoModel.h"
 #import "ExpertsDetailVC.h"
 #import "ExpertsMoreVC.h"
+#import "IssueListManger.h"
+#import "IssueModel.h"
 
 @interface ExpertsSuggestVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView *expertCollection;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *selectExpertGroups;
+
 @end
 
 @implementation ExpertsSuggestVC
@@ -25,6 +29,15 @@
     [self createUI];
 }
 - (void)createUI{
+    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.issueid];
+    NSDictionary *issueTags = model.tagsStr.length>0?[model.tagsStr jsonValueDecoded]:nil;
+    
+    if (issueTags) {
+        NSArray *expertGroups =PWSafeArrayVal(issueTags, @"expertGroups");
+        if (expertGroups.count>0) {
+            self.selectExpertGroups = [NSMutableArray arrayWithArray:expertGroups];
+        }
+    }
     DLog(@"teamModel == %@",userManager.teamModel);
     self.dataSource = [NSMutableArray new];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), kWidth-Interval(32), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"邀请专家加入到您的讨论中"];

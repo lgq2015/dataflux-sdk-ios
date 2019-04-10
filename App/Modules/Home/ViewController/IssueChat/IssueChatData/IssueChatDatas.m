@@ -11,32 +11,33 @@
 #import "IssueChatDataManager.h"
 #import "IssueLogModel.h"
 @implementation IssueChatDatas
-+(void)sendMessage:(NSDictionary *)dict sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
-    
-    IssueChatMessage *message = [IssueChatMessage new];
-    NSString *time =[NSDate getNowTimeTimestamp];
-    message.nameStr =@"今天：";
++(void)sendMessage:(IssueLogModel *)model sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
+
     switch (messageType) {
         case PWChatMessageTypeText:{
-            message.messageFrom = PWChatMessageFromMe;
-            message.messageType = PWChatMessageTypeText;
-            message.textString = dict[@"text"];
-            message.headerImgurl = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-            message.cellString = PWChatTextCellId;
-            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:dict[@"text"] callBack:^(id response) {
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text callBack:^(id response) {
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    
+                    messageBlock?messageBlock(model,UploadTypeSuccess,1):nil;
+                }else{
+                    messageBlock?messageBlock(model,UploadTypeError,1):nil;
                 }
             }];
         }
             break;
         case PWChatMessageTypeImage:{
-            message.messageFrom = PWChatMessageFromMe;
-            message.messageType = PWChatMessageTypeImage;
-            message.headerImgurl = userManager.curUserInfo.avatar;
-            message.image = dict[@"image"];
-            message.cellString = PWChatImageCellId;
+           
+            NSDictionary *param = @{@"type":@"attachment",@"subType":@"comment"};
+            [PWNetworking uploadFileWithUrl:PW_issueUploadAttachment(sessionId) params:param fileData:model.imageData type:@"jpg" name:@"files" fileName:model.imageName mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+                float progress = 1.0*bytesWritten/totalBytes;
+                messageBlock(model,UploadTypeNotStarted,progress);
+
+            } successBlock:^(id response) {
+                messageBlock(model,UploadTypeSuccess,1);
+            } failBlock:^(NSError *error) {
+                messageBlock(model,UploadTypeError,0);
+
+            }];
         }
             break;
     
@@ -45,11 +46,10 @@
             break;
     }
     
-    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
+//    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
     
-    NSError *error;
-    NSProgress *pre = [[NSProgress alloc]init];
-    messageBlock(layout,error,pre);
+   
+   
 }
 +(IssueChatMessagelLayout *)receiveMessage:(NSDictionary *)dic{
     return [IssueChatDatas getMessageWithDic:dic];

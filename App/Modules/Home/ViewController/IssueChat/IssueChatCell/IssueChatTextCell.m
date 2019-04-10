@@ -42,7 +42,25 @@
     self.mTextView.text = layout.message.textString;
     self.mTextView.textColor = layout.message.textColor;
     self.mIndicator.hidden = YES;
-
+    self.retryBtn.hidden = YES;
+    if (layout.message.isSend && !layout.message.sendError) {
+        [self.mIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.mBackImgButton);
+            make.right.mas_equalTo(self.mBackImgButton.mas_left).offset(-5);
+        }];
+        self.mIndicator.hidden = NO;
+        self.mIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.mIndicator startAnimating];
+    }else if(layout.message.isSend && layout.message.sendError){
+        [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
+//        [_retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+        [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.mBackImgButton);
+            make.right.mas_equalTo(self.mBackImgButton.mas_left).offset(-5);
+            make.width.height.offset(ZOOM_SCALE(30));
+        }];
+        self.retryBtn.hidden = NO;
+    }
 }
 -(void)showIndicator{
     [self.mIndicator startAnimating];

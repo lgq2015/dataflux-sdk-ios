@@ -31,7 +31,6 @@
 //表单
 @property(nonatomic,strong)UITableView *mTableView;
 @property(nonatomic,strong)HLSafeMutableArray *datas;
-@property(nonatomic,strong)HLSafeMutableArray *uploadDatas;
 
 
 //底部输入框 携带表情视图和多功能视图
@@ -118,23 +117,8 @@
     if ([model.issueId isEqualToString:_issueID]) {
         [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     }
-    if(self.uploadDatas.count>0){
-        IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
-        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
-        [self.datas addObject:layout];
-        [self.mTableView reloadData];
-    }else{
-     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.datas removeAllObjects];
-        NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
-        [self.datas addObjectsFromArray:array];
-        [self.mTableView reloadData];
-        if (self.datas.count>0) {
-            NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:self.datas.count-1 inSection:0];
-            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        }
-    });
-    }
+        [self updateTableView];
+    
     //todo add to tableView here
 }
 
@@ -257,30 +241,90 @@
 
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
     [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
-        [IssueChatDatas sendMessage:@{@"image":image} sessionId:self.issueID messageType:PWChatMessageTypeImage messageBlock:^(IssueChatMessagelLayout * _Nonnull layout, NSError * _Nonnull error, NSProgress * _Nonnull progress) {
-            [self.datas addObject:layout];
-            [self.mTableView reloadData];
-            [self scrollToBottom];
+        IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        logModel.imageData = data;
+        if (!name) {
+            name = [NSDate getNowTimeTimestamp];
+        }
+        logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
+        logModel.issueId = self.issueID;
+        logModel.id = [NSDate getNowTimeTimestamp];
+        IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
+        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+        [self.datas addObject:layout];
+        [self.mTableView reloadData];
+        [self scrollToBottom];
+         [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
+        [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:PWChatMessageTypeImage messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
+            if (type == UploadTypeSuccess) {
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
+            }else if(type == UploadTypeError){
+                logModel.sendError = YES;
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+                [self updateTableView];
+            }
 
         }];
     }];
 
 }
-
+-(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
+    model.sendError = NO;
+    PWChatMessageType type = model.text?PWChatMessageTypeText:PWChatMessageTypeImage;
+     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+    [self updateTableView];
+//    NSData *data =model.imageData? (NSData*)model.imageData:nil;
+//    model.imageData =data;
+    [IssueChatDatas sendMessage:model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model1, UploadType type, float progress) {
+        if (type == UploadTypeSuccess) {
+          [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model1 deleteCache:YES];
+        }else if(type == UploadTypeError){
+            model1.sendError = YES;
+          [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model1 deleteCache:NO];
+            [self updateTableView];
+        }
+        }];
+   
+}
 
 //发送消息
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
+    IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
 
-    [IssueChatDatas sendMessage:dic sessionId:self.issueID messageType:messageType messageBlock:^(IssueChatMessagelLayout *layout, NSError *error, NSProgress *progress) {
-        NSIndexPath *index = [NSIndexPath indexPathForRow:self.datas.count inSection:0];
-        [self.datas addObject:layout];
-        [self.mTableView reloadData];
-        [self scrollToBottom];
+    logModel.text = dic[@"text"];
+    logModel.issueId = self.issueID;
+    logModel.id = [NSDate getNowTimeTimestamp];
+    IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
+    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+    [self.datas addObject:layout];
+    [self.mTableView reloadData];
+    [self scrollToBottom];
+     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
+    [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:PWChatMessageTypeText messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
+        if (type == UploadTypeSuccess) {
+          [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
+        }else if(type == UploadTypeError){
+            logModel.sendError = YES;
+            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+            [self updateTableView];
+        }
+//        NSIndexPath *index = [NSIndexPath indexPathForRow:self.datas.count inSection:0];
+//        [self.datas addObject:layout]; [self.mTableView reloadData];
+      //  [self scrollToBottom];
 
     }];
 }
 
-
+- (void)updateTableView{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.datas removeAllObjects];
+        NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
+        [self.datas addObjectsFromArray:array];
+        [self.mTableView reloadData];
+        [self scrollToBottom];
+    });
+}
 #pragma SSChatBaseCellDelegate 点击图片 点击短视频
 -(void)PWChatImageVideoCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
 
@@ -341,28 +385,26 @@
 }
 
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout {
-
+    
 }
 - (void)navBtnClick{
-   
-    NSDictionary *tags =userManager.teamModel.tags;
-    NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
-    if (product ==nil) {
-        [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
-        return;
-    }
-   
-    ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-    expert.issueid = self.issueID;
-     if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
-         NSDictionary *tags = self.infoDetailDict[@"tags"];
-         NSArray *expertGroups = tags[@"expertGroups"];
-         if (expertGroups.count>0) {
-             expert.selectExpertGroups = [NSMutableArray arrayWithArray:expertGroups];
-         }
-     }
-    [self.navigationController pushViewController:expert animated:YES];
-  
+    [SVProgressHUD show];
+    [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+        [SVProgressHUD dismiss];
+        if (isSuccess) {
+            if ([getTeamState isEqualToString:PW_isTeam]) {
+                NSDictionary *tags =userManager.teamModel.tags;
+                NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
+                if (product ==nil) {
+                    [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
+                    return;
+                }
+                ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
+                expert.issueid = self.issueID;
+                [self.navigationController pushViewController:expert animated:YES];
+            }
+        }
+    }];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

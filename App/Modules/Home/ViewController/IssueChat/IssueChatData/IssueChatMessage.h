@@ -89,7 +89,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 
 //会话id
 @property (nonatomic, strong) NSString    *sessionId;
-
+@property (nonatomic, assign) BOOL isSend;
 //消息是否发送失败
 @property (nonatomic, assign) BOOL sendError;
 
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 @property (nonatomic, strong) NSString    *fileSize;
 @property (nonatomic, strong) NSString    *filePath;
 @property (nonatomic, strong) NSString    *fileIcon;
-
+@property (nonatomic, strong) IssueLogModel *model;
 // 系统消息
 @property (nonatomic, strong) NSString    *systermStr;
 //拓展消息

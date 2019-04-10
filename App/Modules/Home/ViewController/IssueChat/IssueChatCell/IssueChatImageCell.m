@@ -47,6 +47,33 @@
     if (layout.message.image) {
         self.mImgView.image = layout.message.image;
     }
+    self.mIndicator.hidden = YES;
+    self.sendLab.hidden = YES;
+    if (layout.message.isSend && !layout.message.sendError) {
+        [self.mIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(self.mBackImgButton);
+            make.centerY.mas_equalTo(self.mBackImgButton.centerY).offset(-10);
+        }];
+        self.mIndicator.hidden = NO;
+        self.sendLab.hidden = NO;
+        [self.sendLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.mIndicator.mas_bottom).offset(10);
+            make.centerX.mas_equalTo(self.mIndicator);
+        }];
+        self.mIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.mIndicator startAnimating];
+    }else if(layout.message.isSend && layout.message.sendError){
+        [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
+//        [self.retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+//        CGFloat offset = 10;
+//        self.retryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.retryBtn.imageView.frame.size.width, -self.retryBtn.imageView.frame.size.height-offset/2, 0);
+//        self.retryBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.retryBtn.titleLabel.intrinsicContentSize.height-offset/2, 0, 0, -self.retryBtn.titleLabel.intrinsicContentSize.width);
+        [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(self.mBackImgButton);
+            make.width.height.offset(ZOOM_SCALE(30));
+        }];
+        self.retryBtn.hidden = NO;
+    }
 }
 
 

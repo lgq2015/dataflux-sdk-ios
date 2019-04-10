@@ -67,6 +67,17 @@
             }
 
         }];
+        
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
+              @"imageData":SQL_BLOB,
+              @"fileData": SQL_BLOB,
+              @"text": SQL_TEXT,
+              @"fileName":SQL_TEXT,
+              @"fileType":SQL_TEXT,
+              @"imageName":SQL_TEXT,
+              @"sendError":SQL_INTEGER,
+    }];
+        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@",[self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME]);
 
     }
 
@@ -156,8 +167,7 @@
                                                           issueId, newModel.id];
         if (results.count > 0) {
             [self.getHelper pw_updateTable:table dicOrModel:newModel whereFormat:whereSql, issueId, newModel.id];
-
-        } else {
+        }else{
             [self.getHelper pw_insertTable:table dicOrModel:newModel];
         }
     }];

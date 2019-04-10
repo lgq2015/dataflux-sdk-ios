@@ -39,5 +39,15 @@
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
 
 }
-
+- (instancetype)initSendIssueLogDefaultLogModel{
+    if (self = [super init]) {
+        [self createSendIssueLogDefaultLogModel];
+    }
+    return self;
+}
+- (void)createSendIssueLogDefaultLogModel{
+    self.origin = @"me";
+    self.updateTime = [[NSDate date] getNowUTCTimeStr];
+    self.sendError = NO;
+}
 @end

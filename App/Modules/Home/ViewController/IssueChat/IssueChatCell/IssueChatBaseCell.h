@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "IssueChatMessagelLayout.h"
-
+@class IssueLogModel;
 @protocol PWChatBaseCellDelegate <NSObject>
 //点击头像
 -(void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath;
 
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;
-
+-(void)PWChatRetryClickWithModel:(IssueLogModel *)model;
 //点击cell图片和短视频
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout; 
 NS_ASSUME_NONNULL_BEGIN
@@ -47,7 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *mSystermLab;
 //发消息的菊花转
 @property (nonatomic, strong) UIActivityIndicatorView *mIndicator;
-
+@property (nonatomic, strong) UILabel *sendLab;
+@property (nonatomic, strong) UIButton *retryBtn;
 @end
 
 NS_ASSUME_NONNULL_END
