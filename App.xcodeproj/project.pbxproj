@@ -65,6 +65,9 @@
 		2BFEF2FC225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FD225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FE225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
+		2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -983,6 +986,8 @@
 		2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
 		2BFEF2FA225B4572008A0233 /* NSString+Regex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Regex.h"; sourceTree = "<group>"; };
 		2BFEF2FB225B4572008A0233 /* NSString+Regex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = "<group>"; };
+		2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+title.h"; sourceTree = "<group>"; };
+		2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+title.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -2469,6 +2474,8 @@
 				2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */,
 				2BFEF2FA225B4572008A0233 /* NSString+Regex.h */,
 				2BFEF2FB225B4572008A0233 /* NSString+Regex.m */,
+				2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */,
+				2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3501,6 +3508,7 @@
 				4A092D43222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
+				2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */,
@@ -3778,6 +3786,7 @@
 				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
+				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
@@ -4055,6 +4064,7 @@
 				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
+				2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
