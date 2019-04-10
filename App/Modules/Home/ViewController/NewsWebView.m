@@ -10,7 +10,6 @@
 #import "WebItemView.h"
 #import "NewsListModel.h"
 #import "HandbookModel.h"
-#import "ZYSocialUIManager.h"
 #import "ZYSocialManager.h"
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
@@ -126,8 +125,8 @@
         }];
     
         }else if(tag == CollectionBtnTag && self.style == WebItemViewStyleCollected){
+            [weakSelf controlClickTimes];
             [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(weakSelf.favoId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-                
                 if([response[ERROR_CODE] isEqualToString:@""]){
                     weakSelf.isCollect = NO;
                     weakSelf.favoId = @"";
@@ -140,31 +139,34 @@
             }];
             
         }else if(tag == ShareBtnTag){
-        //分享btn点击方法
-        
-            
-            
+            [weakSelf popShareUI];
         }
     };
   
 }
 - (void)closeBtnClick{
-    [self popShareUI];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
+#pragma mark ---分享---
 - (void)popShareUI{
     __weak typeof(self) weakself = self;
     [[ZYSocialUIManager shareInstance] showWithPlatformSelectionBlock:^(SharePlatformType sharePlatformType) {
         NSString *title = !weakself.newsModel ? weakself.handbookModel.title : weakself.newsModel.title;
         NSString *descr = !weakself.newsModel ? weakself.handbookModel.summary : @"";
         NSString *url = !weakself.newsModel ? weakself.handbookModel.htmlPath : weakself.newsModel.url;
-        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
+        ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"144-144"]];
         manager.webpageUrl = url;
         manager.showVC = weakself;
         [manager shareToPlatform:sharePlatformType];
     }];
 }
-
+#pragma mark --避免按钮点击多次----
+- (void)controlClickTimes{
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    });
+}
 
 @end
+

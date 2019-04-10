@@ -27,8 +27,8 @@
 -(void)setLayout:(IssueChatMessagelLayout *)layout{
     [super setLayout:layout];
     UIColor *color;
-    if (layout.message.messageFrom ==PWChatMessageFromSystem ) {
-        color = PWBlueColor;
+    if (layout.message.messageFrom ==PWChatMessageFromStaff) {
+        color = RGBACOLOR(78, 135, 252, 1);
     }else{
         color = PWWhiteColor;
     }
@@ -40,10 +40,13 @@
     
     self.mTextView.frame = self.layout.textLabRect;
     self.mTextView.text = layout.message.textString;
-    
+    self.mTextView.textColor = layout.message.textColor;
+    self.mIndicator.hidden = YES;
 
 }
-
+-(void)showIndicator{
+    [self.mIndicator startAnimating];
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -46,11 +46,15 @@
     }else if([team isEqualToString:PW_isPersonal]){
         [self createPersonalUI];
     }else{
-        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
-            if (isHave) {
-               [self createTeamUI];
+        [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+            if (isSuccess) {
+                if([team isEqualToString:PW_isTeam]){
+                    [self createTeamUI];
+                }else if([team isEqualToString:PW_isPersonal]){
+                    [self createPersonalUI];
+                }
             }else{
-               [self createPersonalUI];
+             
             }
         }];
     }

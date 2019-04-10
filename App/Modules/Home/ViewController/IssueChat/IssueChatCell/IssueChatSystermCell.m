@@ -10,10 +10,18 @@
 
 @implementation IssueChatSystermCell
 -(void)initPWChatCellUserInterface{
-    self.mSystermLab.frame = self.layout.systermLabRect;
-    self.mSystermLab.frame = CGRectMake(0, 5, self.layout.systermLabRect.size.width+20, self.layout.systermLabRect.size.height+10);
-    self.mSystermLab.center = self.center;
-    self.mSystermLab.text = self.layout.message.systermStr;
+    self.mSystermLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
+    self.mSystermLab.textAlignment = NSTextAlignmentCenter;
+    [self.contentView addSubview:self.mSystermLab];
+    [self.mSystermLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.mas_equalTo(self.contentView);
+        make.centerY.mas_equalTo(self.contentView);
+    }];
+}
+-(void)setLayout:(IssueChatMessagelLayout *)layout{
+    self.mSystermLab.frame = layout.systermLabRect;
+    self.mSystermLab.text = layout.message.systermStr;
+
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

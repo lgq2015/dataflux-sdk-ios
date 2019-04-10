@@ -121,6 +121,12 @@
 //情报日志详情
 #define PW_issueLog(issueid)       [NSString stringWithFormat:@"%@/v1/issue/%@/log/list", API_SEVERID,issueid]
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
+//情报日志添加
+#define PW_issueLogAdd(issueid)  [NSString stringWithFormat:@"%@/v1/issue/%@/log/add", API_SEVERID,issueid]
+//情报日志 上传附件
+#define PW_issueUploadAttachment(issueid) [NSString stringWithFormat:@"%@/v1/issue/%@/log/upload-attachment", API_SEVERID,issueid]
+//开启工单
+#define PW_issueTicketOpen(issueid)   [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/open", API_SEVERID,issueid]
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 //文章推荐
@@ -200,5 +206,8 @@
 
 #define PW_Safelegal                   API_H5_HOST@"/terms/datasafe"
 #define PW_fouctionIntro               API_SEVERID@"/v1/app/version/list"
-
+#define PW_ContactUS                   API_SHRINE@"/resources/action/getWorkGroupMember@workGroupOpenAdmin"
+#define PW_CMSCall                     API_SEVERID@"/v1/utils/csm-call"
+#define PW_articelForumclick           API_FORUM@"/v1/post"
 #endif /* PWNetWorkURLs_h */
+

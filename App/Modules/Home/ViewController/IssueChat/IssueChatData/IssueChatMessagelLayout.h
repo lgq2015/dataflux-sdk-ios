@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGRect       nameLabRect;
 //头像控件的frame
 @property (nonatomic, assign) CGRect       headerImgRect;
+//专家标识控件的frame
+@property (nonatomic, assign) CGRect      expertLabRect;
 //背景按钮的frame
 @property (nonatomic, assign) CGRect       backImgButtonRect;
 //背景按钮图片的拉伸膜是和保护区域

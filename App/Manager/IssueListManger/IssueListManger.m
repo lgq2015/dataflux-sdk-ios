@@ -113,6 +113,10 @@
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
 
+    }else{
+//        NSDictionary *alertParams = @{@"tagsStr":SQL_TEXT};
+//    
+//        [self.getHelper pw_alterTable:tableName dicOrModel:alertParams];
     }
 
 }
@@ -504,6 +508,10 @@
     [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME ];
 
 
+}
+-(void)shutDown{
+    [super shutDown];
+    _isFetching = NO;
 }
 
 @end

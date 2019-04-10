@@ -8,7 +8,7 @@
 
 #import "PWCommonCtrl.h"
 #import "BaseTextField.h"
-
+#import "NSString+Regex.h"
 @implementation PWCommonCtrl
 +(UIButton *)buttonWithFrame:(CGRect)frame type:(PWButtonType)type text:(NSString *)text{
     UIButton *button = [[UIButton alloc]initWithFrame:frame];
@@ -137,4 +137,13 @@
     lable.text = text;
     return lable;
 }
++(YYLabel *)zy_lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text{
+    YYLabel *lable = [[YYLabel alloc]initWithFrame:frame];
+    lable.attributedText = [text zt_convertLink:font textColor:color];
+    lable.numberOfLines = 0;
+    lable.font = font;
+    lable.textColor = color;
+    return lable;
+}
+
 @end

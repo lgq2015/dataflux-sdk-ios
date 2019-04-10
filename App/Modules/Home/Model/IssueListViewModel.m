@@ -41,6 +41,7 @@
         self.state = MonitorListStateLoseeEfficacy;
     }
     NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];
+    
     NSDictionary *issueLogDict =latestIssueLogs[0];
     if (![model.renderedTextStr isEqualToString:@""]) {
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
@@ -83,6 +84,7 @@
     }else{
         self.isFromUser = NO;
     }
+    
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     self.issueId = model.issueId;

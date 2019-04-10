@@ -226,7 +226,7 @@ SINGLETON_FOR_CLASS(UserManager);
     });
     [self loadExperGroups:nil];
 }
--(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave{
+-(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
@@ -242,9 +242,13 @@ SINGLETON_FOR_CLASS(UserManager);
                 isHave(NO,nil);
             }
             
+        }else{
+            isHave(NO,nil);
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
-        
+        isHave(NO,nil);
+        [error errorToast];
     }];
 }
 - (void)reloadTeamInfo
@@ -358,9 +362,12 @@ SINGLETON_FOR_CLASS(UserManager);
             self.expertGroups = [NSMutableArray new];
             [self.expertGroups addObjectsFromArray:expertGroups];
             completion ? completion(expertGroups):nil;
+        }else{
+           completion ? completion(nil):nil;
         }
         
     } failBlock:^(NSError *error) {
+        completion ? completion(nil):nil;
         [error errorToast];
     }];
 }

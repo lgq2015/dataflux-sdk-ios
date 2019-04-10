@@ -8,7 +8,8 @@
 
 #import "ExpertsDetailVC.h"
 #import "MemberInfoVC.h"
-
+#import "IssueChatVC.h"
+#import "ExpertsSuggestVC.h"
 @interface ExpertsDetailVC ()
 @property (nonatomic, strong) NSString *profilesStr;
 @end
@@ -23,7 +24,7 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
-    NSString *avatarName = self.data[@"expertGroup"];
+    NSString *avatarName = [self.data stringValueForKey:@"expertGroup" default:@""];
     NSURL *avatarUrl = [NSURL URLWithString:PW_ExpertAvatarBig(avatarName)];
     UIImageView *bigAvatarImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kWidth*3/4.0+kTopHeight-64)];
     [bigAvatarImgView sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@""]];
@@ -32,7 +33,8 @@
     shadeView.backgroundColor = PWBlackColor;
     shadeView.alpha = 0.4;
     [bigAvatarImgView addSubview:shadeView];
-    NSString *expertNameStr = self.data[@"displayName"][@"zh_CN"];
+    NSDictionary *displayName = PWSafeDictionaryVal(self.data, @"displayName");
+    NSString *expertNameStr = [displayName stringValueForKey:@"zh_CN" default:@""];
     UILabel *expertName = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWWhiteColor text:expertNameStr];
     [self.view addSubview:expertName];
     __block NSString *profileStr = @"证书";
@@ -41,7 +43,8 @@
     [profileAry enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSDictionary *displayName = obj[@"displayName"];
         NSString *name = [displayName stringValueForKey:@"zh_CN" default:@""];
-        profileStr = [profileStr stringByAppendingString:[NSString stringWithFormat:@"/%@",name]];
+      profileStr=  idx==0?name:[profileStr stringByAppendingString:[NSString stringWithFormat:@"/%@",name]];
+        
     }];
     self.profilesStr = profileStr;
     UILabel *profileLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWWhiteColor text:profileStr];
@@ -63,6 +66,8 @@
     [inviteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#FFC163"]] forState:UIControlStateNormal];
      [inviteBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"#FFC163"]] forState:UIControlStateHighlighted];
     [self.view addSubview:inviteBtn];
+    [inviteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    inviteBtn.tag = 200;
     [inviteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(bigAvatarImgView.mas_bottom).offset(Interval(51));
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -71,6 +76,7 @@
     }];
     
     UIButton *callBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"预约电话沟通"];
+    callBtn.tag = 100;
     [self.view addSubview:callBtn];
     [callBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(inviteBtn.mas_bottom).offset(Interval(30));
@@ -79,17 +85,50 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     [self.view bringSubviewToFront:self.whiteBackBtn];
-    [callBtn addTarget:self action:@selector(callBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [callBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
 
 }
-- (void)callBtnClick{
-    NSString *avatarName = self.data[@"expertGroup"];
-    NSDictionary *expert = @{@"name":self.data[@"displayName"][@"zh_CN"],@"url":PW_ExpertAvatarSmall(avatarName),@"content":self.profilesStr};
-    MemberInfoVC *infoVC = [[MemberInfoVC alloc]init];
-    infoVC.isHidenNaviBar = YES;
-    infoVC.expertDict = expert;
-    infoVC.isExpert = YES;
-    [self.navigationController pushViewController:infoVC animated:YES];
+
+- (void)btnClick:(UIButton *)button{
+    NSString *avatarName = [self.data stringValueForKey:@"expertGroup" default:@""];
+    NSDictionary *displayName = PWSafeDictionaryVal(self.data, @"displayName");
+    NSString *expertNameStr = [displayName stringValueForKey:@"zh_CN" default:@""];
+    NSString *content = nil;
+    if (button.tag == 100) {
+      content = [NSString stringWithFormat:@"请%@尽快与我进行电话沟通",expertNameStr];
+    }
+    [SVProgressHUD show];
+    [[PWHttpEngine sharedInstance] issueTicketOpenWithIssueid:self.issueid expertGroup:avatarName content:content callBack:^(id response) {
+        [SVProgressHUD dismiss];
+        BaseReturnModel *data = ((BaseReturnModel *) response) ;
+        if (data.isSuccess) {
+            NSMutableArray *marr = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+            BOOL isHaveChat = NO;
+            for (UIViewController *vc in marr) {
+                
+                if ([vc isKindOfClass:[IssueChatVC class]]) {
+                    isHaveChat = YES;
+                    [self.navigationController popToViewController:vc animated:YES];
+                    break;
+                }
+                
+            }
+            if (isHaveChat ==NO) {
+                [self.navigationController pushViewController:[IssueChatVC new] animated:YES];
+                NSMutableArray *delect = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+
+               for (UIViewController *vc in self.navigationController.viewControllers) {
+                if ([vc isKindOfClass:[ExpertsDetailVC class]] || [vc isKindOfClass:ExpertsSuggestVC.class]) {
+                    [delect removeObject:vc];
+                }
+               }
+                self.navigationController.viewControllers = delect;
+            }
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(data.errorCode, @"")];
+        }
+    }];
+    
 }
 /*
 #pragma mark - Navigation

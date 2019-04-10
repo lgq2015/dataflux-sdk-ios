@@ -19,7 +19,8 @@
 #import "EchartView.h"
 #import "EchartTableView.h"
 #import "EchartListView.h"
-
+#import "FillinTeamInforVC.h"
+#import "ExpertsMoreVC.h"
 @interface IssueDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIImageView *typeIcon;
@@ -168,34 +169,50 @@
 }
 
 #pragma mark ========== BTNCLICK ==========
-- (void)navRightBtnClick{
-    IssueChatVC *chat = [[IssueChatVC alloc]init];
-    chat.issueID = self.model.issueId;
-    [self.navigationController pushViewController:chat animated:YES];
 
-}
 - (void)setupBadges{
     [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
 }
 - (void)goExpertsVC{
+    [SVProgressHUD show];
+    [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+        [SVProgressHUD dismiss];
+        if (isSuccess) {
+            if ([getTeamState isEqualToString:PW_isTeam]) {
+                NSDictionary *tags =userManager.teamModel.tags;
+                NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
+                if (product ==nil) {
+                    [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
+                    return;
+                }
 
-     ExpertsSuggestVC *experts = [[ExpertsSuggestVC alloc]init];
-    if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
-        NSDictionary *tags = self.infoDetailDict[@"tags"];
-        NSArray *expertGroups = tags[@"expertGroups"];
-        if (expertGroups.count>0) {
-            experts.expertGroups = [NSMutableArray arrayWithArray:expertGroups];
+                ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
+                expert.issueid = self.model.issueId;
+                if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
+                    NSDictionary *tags = self.infoDetailDict[@"tags"];
+                    NSArray *expertGroups = tags[@"expertGroups"];
+                    if (expertGroups.count>0) {
+                        expert.selectExpertGroups = [NSMutableArray arrayWithArray:expertGroups];
+                    }
+                }
+                [self.navigationController pushViewController:expert animated:YES];
+            }else if([getTeamState isEqualToString:PW_isPersonal]){
+                [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
+            }
+        }else{
+
         }
-    }
-    [self.navigationController pushViewController:experts animated:YES];
+    }];
+
 }
+
 #pragma mark ========== DATA/DEAL ==========
 - (void)loadInfoDeatil{
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
             self.infoDetailDict = content;
             [self loadIssueSourceDetail:content];
             [self dealHandBookViewWith:content];

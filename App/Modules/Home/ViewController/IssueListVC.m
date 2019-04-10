@@ -160,14 +160,18 @@
         FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
         [self.navigationController pushViewController:createTeam animated:YES];
     }else{
-        [userManager judgeIsHaveTeam:^(BOOL isHave, NSDictionary *content) {
-            if (isHave) {
-                AddIssueVC *creatVC = [[AddIssueVC alloc]init];
-                creatVC.type = self.type;
-                [self.navigationController pushViewController:creatVC animated:YES];
+        [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+            if (isSuccess) {
+                if([getTeamState isEqualToString:PW_isTeam]){
+                    AddIssueVC *creatVC = [[AddIssueVC alloc]init];
+                    creatVC.type = self.type;
+                    [self.navigationController pushViewController:creatVC animated:YES];
+                }else if([getTeamState isEqualToString:PW_isPersonal]){
+                    FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+                    [self.navigationController pushViewController:createTeam animated:YES];
+                }
             }else{
-                FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-                [self.navigationController pushViewController:createTeam animated:YES];
+              
             }
         }];
     }

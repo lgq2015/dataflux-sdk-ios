@@ -106,7 +106,11 @@ SINGLETON_FOR_HEADER(UserManager)
 /**
    判断是否有team
  */
--(void)judgeIsHaveTeam:(void(^)(BOOL isHave,NSDictionary *content))isHave;
+-(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave;
+/**
+   获取专家组
+ */
+- (void)loadExperGroups:(void (^)(NSArray *experGroups))completion;
 
 - (void)onKick;
 @end

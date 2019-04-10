@@ -30,15 +30,20 @@
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), kWidth-Interval(32), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"邀请专家加入到您的讨论中"];
     [self.view addSubview:tipLab];
     NSMutableArray *array = userManager.expertGroups;
-    if (userManager.teamModel !=nil) {
+    [self dealWithExperGroups:array];
+    
+}
+- (void)dealWithExperGroups:(NSArray *)experGroups{
+    
+    if (experGroups !=nil &&experGroups.count>0) {
         NSDictionary *tags =userManager.teamModel.tags;
-        NSDictionary *product = tags[@"product"];
+        NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
         NSString *managed = [product stringValueForKey:@"managed" default:@""];
         NSString *support = [product stringValueForKey:@"support" default:@""];
-        [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-          __block  BOOL isHave = NO;
-            NSArray *managedAry =obj[@"managed"];
-            NSArray *supportAry = obj[@"support"];
+        [experGroups enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            __block  BOOL isHave = NO;
+            NSArray *managedAry =PWSafeArrayVal(obj, @"managed");
+            NSArray *supportAry =PWSafeArrayVal(obj,@"support");
             [managedAry enumerateObjectsUsingBlock:^(NSString *manaobj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([manaobj isEqualToString:managed]) {
                     isHave = YES;
@@ -55,13 +60,16 @@
             }
             isHave == YES? [self.dataSource addObject:obj]:nil;
         }];
+        NSArray *more = @[@"more"];
+        [self.dataSource addObject:more];
+        [self.expertCollection reloadData];
+        self.expertCollection.delegate = self;
+    }else{
+    
     }
     
-
-     NSArray *more = @[@"more"];
-    [self.dataSource addObject:more];
-    [self.expertCollection reloadData];
-    self.expertCollection.delegate = self;
+    
+   
 }
 - (UICollectionView *)expertCollection{
     if (!_expertCollection) {
@@ -93,15 +101,14 @@
   
     NSDictionary *data = self.dataSource[indexPath.row];
     __block BOOL isInvite = NO;
-    if(_expertGroups && _expertGroups.count>0){
-        [self.expertGroups enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if(_selectExpertGroups && _selectExpertGroups.count>0){
+        [self.selectExpertGroups enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if([obj isEqualToString:[data stringValueForKey:@"expertGroup" default:@""]]){
                 isInvite = YES;
                 *stop = YES;
             }
         }];
     }
-    cell.isMore = NO;
     cell.isInvite = isInvite;
     cell.data = data;
     }else{
@@ -110,9 +117,14 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+     ExpertCell *cell =(ExpertCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (cell.isInvite) {
+        return;
+    }
     if (indexPath.row != self.dataSource.count-1) {
         ExpertsDetailVC *detailVC = [[ExpertsDetailVC alloc]init];
         detailVC.data = self.dataSource[indexPath.row];
+        detailVC.issueid = self.issueid;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
         ExpertsMoreVC *moreVC = [[ExpertsMoreVC alloc]init];
@@ -121,6 +133,9 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
     ExpertCell *cell = (ExpertCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (cell.isInvite) {
+        return;
+    }
     cell.layer.shadowOffset = CGSizeMake(0,1);
     cell.layer.shadowRadius = 1;
 }

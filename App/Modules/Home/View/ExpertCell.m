@@ -33,6 +33,8 @@
         self.nameLab.hidden = NO;
         self.myExpertLab.hidden = YES;
         self.exclusiveLab.hidden = YES;
+        self.icon.image = [UIImage imageNamed:@"expert_more"];
+        self.icon.contentMode = UIViewContentModeCenter;      
     }
 }
 -(void)setData:(NSDictionary *)data{
@@ -40,9 +42,13 @@
     self.myExpertLab.hidden = YES;
     self.exclusiveLab.hidden = YES;
     self.nameLab.hidden = NO;
-    NSString *avatarName = _data[@"expertGroup"];
+    NSString *avatarName = [_data stringValueForKey:@"expertGroup" default:@""];
+
     NSURL *avatarUrl = [NSURL URLWithString:PW_ExpertAvatarSmall(avatarName)];
-    [self.icon sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@""]];
+   
+        [self.icon sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"expert_defaulticon"]];
+    
+    
     self.nameLab.text = _data[@"displayName"][@"zh_CN"];
     if ([avatarName isEqualToString:@"TAM"]) {
         self.nameLab.hidden = YES;
@@ -59,7 +65,6 @@
         self.myExpertLab.hidden = NO;
         self.layer.shadowOffset = CGSizeMake(0,10);
         self.layer.shadowRadius = 4;
-        
     }
 }
     
@@ -67,7 +72,7 @@
     self.backgroundColor = PWWhiteColor;
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.width.offset(ZOOM_SCALE(72));
-        make.top.mas_equalTo(self).offset(ZOOM_SCALE(11));
+        make.top.mas_equalTo(self).offset(ZOOM_SCALE(9));
         make.centerX.mas_equalTo(self);
     }];
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,6 +97,7 @@
         _icon.layer.masksToBounds = YES;
         _icon.contentMode =  UIViewContentModeRedraw;
         _icon.layer.cornerRadius = 36.0f;
+        _icon.backgroundColor = PWWhiteColor;
         [self addSubview:_icon];
     }
     return _icon;

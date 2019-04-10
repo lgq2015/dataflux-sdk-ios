@@ -47,8 +47,7 @@
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:@"服务协议"];
     MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
     MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
-//    MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们"];
-    self.dataSource = [NSMutableArray arrayWithArray:@[privacy,newVersion,founctionIntro]];
+    self.dataSource = [NSMutableArray arrayWithArray:@[founctionIntro,privacy,newVersion]];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
@@ -71,7 +70,7 @@
         
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        
+        [error errorToast];
     }];
     
 }
@@ -80,8 +79,8 @@
     NSString *version = [dict stringValueForKey:@"version" default:@""];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if ([nowVersion compare:version options:NSNumericSearch] == NSOrderedDescending) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    if ([version compare:nowVersion  options:NSNumericSearch] == NSOrderedAscending) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
         MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell setDescribeLabText:@"已是最新版本"];
     }else{
@@ -97,16 +96,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:{
+            [self.navigationController pushViewController:[FounctionIntroductionVC new] animated:YES];
+        }
+            break;
+        case 1:{
             PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"服务协议" andURLString:PW_servicelegal];
             [self.navigationController pushViewController:webView animated:YES];
         }
             break;
-        case 1:{
-             [self DetectNewVersion];
-        }
-            break;
         case 2:
-            [self.navigationController pushViewController:[FounctionIntroductionVC new] animated:YES];
+             [self DetectNewVersion];
             break;
         default:
             break;

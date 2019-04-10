@@ -23,6 +23,7 @@
     
 }
 - (void)setValueWithModel:(IssueLogModel *)model{
+    self.textColor = PWTextBlackColor;
     if ([model.origin isEqualToString:@"user"]) {
         NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
         NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
@@ -36,13 +37,44 @@
         NSString *userID = [account_info stringValueForKey:@"id" default:@""];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
             self.messageFrom = PWChatMessageFromMe;
+            self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             self.nameStr = [time accurateTimeStr];
         }else{
             self.messageFrom = PWChatMessageFromOther;
             self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
+            [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+                if (isSuccess) {
+                    [member enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isKindOfClass:NSDictionary.class]) {
+                            if(  [[(NSDictionary *)obj stringValueForKey:@"id" default:@""] isEqualToString:userID]){
+                                NSDictionary *tags =PWSafeDictionaryVal(obj,@"tags");
+                            self.headerImgurl = [tags stringValueForKey:@"pwAvatar" default:@""];
+                                *stop = YES;
+                            }
+                        }
+                    }];
+                }
+            }];
         }
         
-    }else{
+    }else if([model.origin isEqualToString:@"staff"]){
+        self.textColor = PWWhiteColor;
+        self.messageFrom = PWChatMessageFromStaff;
+        if (model.accountInfoStr.length>0) {
+            NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
+            NSDictionary *tags = PWSafeDictionaryVal(account_info, @"tags");
+            NSString *scoutAvatar = [tags stringValueForKey:@"scoutAvatar" default:@""];
+            self.headerImgurl = scoutAvatar;
+            NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+            if ([nickname isEqualToString:@""]) {
+                NSString *name = [account_info stringValueForKey:@"name" default:@""];
+                nickname = name;
+            }
+            NSString *createTime = model.createTime;
+            NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
+        }
+    }else if([model.origin isEqualToString:@"bizSystem"]){
         self.messageFrom = PWChatMessageFromSystem;
     }
     NSString *type = model.type;
@@ -64,7 +96,7 @@
             self.messageType = PWChatMessageTypeFile;
             self.filePath = url;
             self.cellString = PWChatFileCellId;
-
+          
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
@@ -90,20 +122,27 @@
         }
         
     }else{
+        NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
-        if ([subType isEqualToString:@"updateExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已加入讨论";
+        
+        if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
+            [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
+                if ([subType isEqualToString:@"updateExpertGroups"]) {
+                    
+                    self.systermStr = [NSString stringWithFormat:@"您邀请的%@已加入讨论",name];
+                }
+                if ([subType isEqualToString:@"exitExpertGroups"]) {
+                    self.systermStr =[NSString stringWithFormat:@"您邀请的%@已退出讨论",name];
+                }
+            }];
         }
-        if ([subType isEqualToString:@"exitExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已退出讨论";
-        }
+       
         self.messageType = PWChatMessageTypeSysterm;
         self.cellString = PWChatSystermCellId;
 
     }
     if(self.messageFrom == PWChatMessageFromSystem){
         self.messageType = PWChatMessageTypeSysterm;
-
         self.cellString = PWChatSystermCellId;
     }
 }
