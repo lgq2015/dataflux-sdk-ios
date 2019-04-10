@@ -571,14 +571,17 @@ static PWFMDB *jqdb = nil;
     [self pw_inTransaction:^(BOOL *rollback) {
         if ([parameters isKindOfClass:[NSDictionary class]]) {
             for (NSString *key in parameters) {
-                if ([nameArr containsObject:key]) {
-                    continue;
+                if (![_db columnExists:key inTableWithName:tableName]){
+                    flag = [_db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD COLUMN %@ %@", tableName, key, parameters[key]]];
+                    if (!flag) {
+                        *rollback = YES;
+                        return;
+                    }
+
                 }
-                flag = [_db executeUpdate:[NSString stringWithFormat:@"ALTER TABLE %@ ADD COLUMN %@ %@", tableName, key, parameters[key]]];
-                if (!flag) {
-                    *rollback = YES;
-                    return;
-                }
+//                if ([nameArr containsObject:key]) {
+//                    continue;
+//                }
             }
 
         } else {
