@@ -30,7 +30,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 @interface IssueSourceDetailVC ()<UITextFieldDelegate,TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSMutableArray<UITextField *> *TFArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) UIView *successView;
 @property (nonatomic, copy) NSString *successTip;
 @property (nonatomic, strong) TTTAttributedLabel *findHelpLab;
 @property (nonatomic, strong) UIView *tipView;
@@ -445,29 +444,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
     return _findHelpLab;
 }
--(UIView *)successView{
-    if (!_successView) {
-        _successView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
-        UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_succeed"]];
-        [_successView addSubview:img];
-        [img mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(_successView).offset(Interval(55));
-            make.width.height.offset(ZOOM_SCALE(80));
-            make.centerX.mas_equalTo(_successView.centerX);
-        }];
-        UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(167), kWidth, ZOOM_SCALE(25))];
-        tip.textAlignment = NSTextAlignmentCenter;
-        tip.font = RegularFONT(18);
-        tip.textColor = PWTextBlackColor;
-        tip.text =self.successTip;
-        [_successView addSubview:tip];
-        UILabel *subTip = [[UILabel alloc]init];
-        subTip.text = @"您可以在首页的提醒分类中查看到发起的申请在线与我们的服务人员沟通，也可以直接拨打400XXXXXXX电话咨询我们的在线客服";
-        subTip.font =RegularFONT(14);
-        [_successView addSubview:subTip];
-    }
-    return _successView;
-}
+
 - (UIImageView *)tipsViewWithBackImg:(NSString *)imageName tips:(NSString *)tip{
     UIImageView *view = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
     UILabel *tipLab = [[UILabel alloc]init];

@@ -91,23 +91,14 @@
 }
 #pragma mark ========== BTNCLICK ==========
 - (void)navRightBtnClick{
-    [SVProgressHUD show];
-    [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
-        [SVProgressHUD dismiss];
-        if (isSuccess) {
-            if ([getTeamState isEqualToString:PW_isTeam]) {
-                IssueChatVC *chat = [[IssueChatVC alloc]init];
-                chat.issueID = self.model.issueId;
-                chat.infoDetailDict = self.infoDetailDict;
-                [self.navigationController pushViewController:chat animated:YES];
-            }else if([getTeamState isEqualToString:PW_isPersonal]){
-                [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
-            }
-        }else{
-            
+       if ([getTeamState isEqualToString:PW_isTeam]) {
+            IssueChatVC *chat = [[IssueChatVC alloc]init];
+            chat.issueID = self.model.issueId;
+            chat.infoDetailDict = self.infoDetailDict;
+            [self.navigationController pushViewController:chat animated:YES];
+        }else if([getTeamState isEqualToString:PW_isPersonal]){
+            [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
         }
-    }];
-    
 }
 
 - (void)loadProgressData{

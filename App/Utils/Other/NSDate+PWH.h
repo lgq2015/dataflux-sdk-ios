@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)hourMinutesTimeStr;
 -(NSString *)yearMonthDayHourMinutesTimeStr;
 
+-(NSString *)getNowUTCTimeStr;
 @end
 
 NS_ASSUME_NONNULL_END

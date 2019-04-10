@@ -192,7 +192,7 @@
 -(UIButton *)resendCodeBtn{
     if (!_resendCodeBtn) {
         _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新发送"];
-        [_resendCodeBtn setTitleColor:[UIColor colorWithHexString:@"D50000"] forState:UIControlStateNormal];
+        [_resendCodeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_resendCodeBtn addTarget:self action:@selector(resendCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_resendCodeBtn];
     }
@@ -307,6 +307,8 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
             if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
                 [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
             }else{
@@ -355,8 +357,9 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-            
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
 
         }
     } failBlock:^(NSError *error) {
@@ -376,7 +379,8 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-           
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             
         }
@@ -401,10 +405,13 @@
                 }
             });
         }else{
+           
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
-
+        [error errorToast];
     }];
     
 }
@@ -416,6 +423,8 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doteamDissolve:uuid];
         }else{
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
@@ -430,12 +439,13 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doTeamTransfer:uuid];
         }else{
-           
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            [self.codeTfView setItemEmpty];
+            [self.codeTfView codeView_showWarnState];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
 
         }
     } failBlock:^(NSError *error) {
-        
+        [error errorToast];
     }];
 }
 - (void)doTeamTransfer:(NSString *)uuid{
@@ -453,7 +463,7 @@
             [self.navigationController popToRootViewControllerAnimated:YES];
         });
     } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"转移失败"];
+        [error errorToast];
     }];
 }
 -(void)doteamDissolve:(NSString *)uuid{
@@ -470,7 +480,7 @@
             });
         }
     } failBlock:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"解散失败"];
+       [error errorToast];
     }];
 }
 

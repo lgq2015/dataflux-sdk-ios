@@ -185,16 +185,8 @@
                     [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
                     return;
                 }
-                
                 ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
                 expert.issueid = self.model.issueId;
-                if ([self.infoDetailDict[@"tags"] isKindOfClass:NSDictionary.class]) {
-                    NSDictionary *tags = self.infoDetailDict[@"tags"];
-                    NSArray *expertGroups = tags[@"expertGroups"];
-                    if (expertGroups.count>0) {
-                        expert.selectExpertGroups = [NSMutableArray arrayWithArray:expertGroups];
-                    }
-                }
                 [self.navigationController pushViewController:expert animated:YES];
             }else if([getTeamState isEqualToString:PW_isPersonal]){
                 [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
@@ -213,7 +205,6 @@
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
-            self.infoDetailDict = content;
             [self loadIssueSourceDetail:content];
             [self dealHandBookViewWith:content];
             [self dealWithEchartView:content];
