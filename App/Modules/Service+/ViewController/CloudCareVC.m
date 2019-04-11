@@ -55,7 +55,7 @@
     ServiceDetailVC *detailVC = [[ServiceDetailVC alloc]initWithURL:[NSURL URLWithString:url]];
     detailVC.hideTitleWhenScroll = hideTitleWhenScroll;
     if (isOverLayTitleBar) {
-        detailVC.isHidenNaviBar = YES;
+        detailVC.isShowCustomNaviBar = YES;
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }

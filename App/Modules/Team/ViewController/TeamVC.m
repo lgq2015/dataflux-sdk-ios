@@ -17,25 +17,23 @@
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
 #import "ServiceLogVC.h"
-
+#import "UIViewController+ChangeNavBarColor.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
-
 @property (nonatomic, strong) TeamHeaderView *headerView;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @end
 
 @implementation TeamVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addTeamSuccess:)
                                                  name:KNotificationTeamStatusChange
                                                object:nil];
-    self.isHidenNaviBar = YES;
+    self.isHidenNaviBar = NO;
     [self judgeIsTeam];
 }
 - (void)judgeIsTeam{
@@ -364,14 +362,13 @@
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ====导航栏的显示和隐藏====
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
 }
-*/
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self zt_changeNavColorStart];
+    [self scrollViewDidScroll:self.tableView];
+}
 @end

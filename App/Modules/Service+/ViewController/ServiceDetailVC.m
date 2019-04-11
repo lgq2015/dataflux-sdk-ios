@@ -9,8 +9,9 @@
 #import "ServiceDetailVC.h"
 #import "FillinTeamInforVC.h"
 #import "BookSuccessVC.h"
-
-@interface ServiceDetailVC ()
+#import "ServiceDetailVC+ChangeNavColor.h"
+//#import "UIViewController+ChangeNavBarColor.h"
+@interface ServiceDetailVC ()<UIScrollViewDelegate>
 
 @end
 
@@ -20,6 +21,9 @@
     [super viewDidLoad];
     [self createUI];
     self.isShowWhiteBack = YES;
+    self.webView.scrollView.bounces = YES;
+    self.webView.scrollView.delegate = self;
+    self.webView.scrollView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0);
 }
 - (void)createUI{
     self.view.backgroundColor = PWBlueColor;
@@ -29,7 +33,12 @@
         DLog(@"self frame = %@",NSStringFromCGRect(self.webView.scrollView.frame));
     }
     [self.view bringSubviewToFront:self.whiteBackBtn];
-
+    if (self.isShowCustomNaviBar){
+        [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
+        self.topNavBar.backgroundColor = [UIColor clearColor];
+        [self.view bringSubviewToFront:self.topNavBar];
+        [self.topNavBar addBottomSepLine];
+    }
 }
 - (void)eventTeamCreate:(NSDictionary *)extra{
     FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
@@ -39,14 +48,10 @@
     BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
     [self presentViewController:successVC animated:YES completion:nil];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ====导航栏的显示和隐藏====
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
 }
-*/
 
 @end
