@@ -80,9 +80,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,nil);
                 }
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-                
-//          [iToast alertWithTitleCenter:];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
                 
             }else{
                 if (completion) {
@@ -117,9 +115,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     if (completion) {
                         completion(YES,changePasswordToken);
                     }
-                    [self saveUserInfoLoginStateisChange:NO success:nil];
+                    [self saveUserInfoLoginStateisChange:NO];
                 }else{
-                    [self saveUserInfoLoginStateisChange:YES success:nil];
+                    [self saveUserInfoLoginStateisChange:YES];
                 }
             }else{
                 if (completion) {
@@ -141,7 +139,7 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 #pragma mark ========== 储存用户信息 ==========
--(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
+-(void)saveUserInfoLoginStateisChange:(BOOL)change{
     __block BOOL isUserSuccess,isTeamSuccess = NO;
 
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
@@ -164,6 +162,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     [cache setObject:dic forKey:KUserModelCache];
                     NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                     setPWUserID(userID);
+                    [kUserDefaults synchronize];
                     dispatch_group_leave(grpupT);
                 }else{
                   dispatch_group_leave(grpupT);
@@ -183,7 +182,7 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 isTeamSuccess = YES;
-                NSDictionary *content = response[@"content"];
+                NSDictionary *content =PWSafeDictionaryVal(response, @"content");
                 if (content.allKeys.count>0) {
                     NSError *error;
                     self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
@@ -212,11 +211,7 @@ SINGLETON_FOR_CLASS(UserManager);
         dispatch_async(dispatch_get_main_queue(), ^{
             if( isTeamSuccess && isUserSuccess){
                 if(change){
-                    
                     KPostNotification(KNotificationLoginStateChange, @YES);
-                }
-                if (isSuccess) {
-                    isSuccess(YES);
                 }
             }else{
                 [iToast alertWithTitleCenter:@"网络异常"];
@@ -229,7 +224,7 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
+            NSDictionary *content =PWSafeDictionaryVal(response, @"content");
             if (content.allKeys.count>0) {
                 NSError *error;
                 self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
@@ -408,13 +403,19 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
         productBlock ? productBlock(NO,nil):nil;
     }
-        
+    
 }
 - (void)setTeamProduct:(NSArray *)teamProduct{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
     [cache removeAllObjectsWithBlock:^{
         [cache setObject:teamProduct forKey:KTeamProductDict];
     }];
+}
+- (void)setXCoreStoneAuthToken:(NSString *)token{
+//    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+//    [cache removeAllObjectsWithBlock:^{
+//        [cache setObject:teamProduct forKey:KTeamProductDict];
+//    }];
 }
 
 +(NSDictionary *)getDeviceInfo{

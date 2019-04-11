@@ -19,6 +19,7 @@
 #import "AddSourceTipVC.h"
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
+#import "IssueSourceSubTipView.h"
 
 #define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
@@ -184,7 +185,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         tfArray[1].text = self.model.akId;
         tfArray[2].text = ACCESS_KEY;
     }
-
         UIView *temp = nil;
         self.TFArray = [NSMutableArray new];
         temp = tipView;
@@ -243,8 +243,8 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 #pragma mark ========== 单机诊断 ==========
 - (void)createSourceTypeSingle{
-
-
+    
+    
     if(!self.isAdd){
         self.confige.issueTfArray[0].text = self.model.name;
         self.confige.issueTfArray[1].text = self.model.clusterID;
@@ -368,16 +368,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             make.height.offset(ZOOM_SCALE(65));
         }];
 
-
 }
 
 
 #pragma mark ========== UI 懒加载 ==========
 -(UIButton *)navRightBtn{
     if (!_navRightBtn) {
-        _navRightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
-        [_navRightBtn setTitle:@"添加" forState:UIControlStateNormal];
+        _navRightBtn =[PWCommonCtrl buttonWithFrame:CGRectMake(0, 0, 40, 30) type:PWButtonTypeWord text:@"添加"];
         [_navRightBtn addTarget:self action:@selector(navRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _navRightBtn.titleLabel.font = RegularFONT(16);
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
@@ -498,7 +495,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 #pragma mark ========== navClick ==========
 - (void)navRightBtnClick:(UIButton *)button{
-    
     //编辑按钮
     if(button.tag == 99){
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

@@ -90,7 +90,7 @@
 }
 #pragma mark ========== 获取常量表 ==========
 - (void)loadTeamProductWithClickIndex:(NSInteger )index{
-
+    
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
@@ -100,6 +100,7 @@
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [error errorToast];
     }];
 }
 - (void)dealWithData:(NSArray *)content withType:(NSInteger)type{

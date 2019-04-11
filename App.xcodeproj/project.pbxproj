@@ -192,6 +192,9 @@
 		4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
 		4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
+		4A402302225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
+		4A402303225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
+		4A402304225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
 		4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
@@ -1077,6 +1080,8 @@
 		4A19548C21A7F7BE007ADFCA /* IssueBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoard.h; sourceTree = "<group>"; };
 		4A19549021A7FEDE007ADFCA /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		4A19549121A8060D007ADFCA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4A402300225F29CC00783079 /* IssueSourceSubTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSourceSubTipView.h; sourceTree = "<group>"; };
+		4A402301225F29CC00783079 /* IssueSourceSubTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSourceSubTipView.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
 		4A61144621DCAE4000E4138B /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
 		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
@@ -1757,6 +1762,7 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4A4022FF225F1B7F00783079 /* IssueSourceAddView */,
 				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* LibraryView */,
 				4ABF43AC21B8BACE002AF34E /* PWGridView */,
@@ -1828,6 +1834,15 @@
 				4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */,
 			);
 			path = IssueBoard;
+			sourceTree = "<group>";
+		};
+		4A4022FF225F1B7F00783079 /* IssueSourceAddView */ = {
+			isa = PBXGroup;
+			children = (
+				4A402300225F29CC00783079 /* IssueSourceSubTipView.h */,
+				4A402301225F29CC00783079 /* IssueSourceSubTipView.m */,
+			);
+			path = IssueSourceAddView;
 			sourceTree = "<group>";
 		};
 		4A6114AE21E4B29C00E4138B /* GestureLock */ = {
@@ -3374,6 +3389,7 @@
 				4ABF442221BD320E002AF34E /* PWCacheManager.m in Sources */,
 				4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */,
 				4A092D95222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
+				4A402302225F29CC00783079 /* IssueSourceSubTipView.m in Sources */,
 				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
 				2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				4A759ACA224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
@@ -3650,6 +3666,7 @@
 				CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4AC857702238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
+				4A402303225F29CC00783079 /* IssueSourceSubTipView.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
 				2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
@@ -3926,6 +3943,7 @@
 				CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */,
 				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				4AC857712238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
+				4A402304225F29CC00783079 /* IssueSourceSubTipView.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
 				2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,

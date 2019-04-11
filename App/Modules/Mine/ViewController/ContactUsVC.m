@@ -115,7 +115,7 @@
         }else if(self.contactUSType == VIP_Type){
             make.top.mas_equalTo(self.phoneBtn.mas_bottom).offset(Interval(60));
         }
-        make.width.offset(kWidth);
+        make.left.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view);
     }];
    
@@ -151,7 +151,7 @@
         [SVProgressHUD dismiss];
         if ([response[CODE]integerValue] == 200) {
             self.contactUSType = VIP_Type;
-            NSDictionary *content = response[@"content"];
+            NSDictionary *content =PWSafeArrayVal(response, @"content");
             if (content){
                 _avatar =[content stringValueForKey:@"avatar" default:@""];
                 _realName = [content stringValueForKey:@"realName" default:@""];
