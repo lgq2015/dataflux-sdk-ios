@@ -229,6 +229,7 @@
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
                 CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
+                create.groupName = self.tfAry[0].text;
                 create.btnClick =^(){
                     KPostNotification(KNotificationTeamStatusChange, @YES);
                     setTeamState(PW_isTeam);
