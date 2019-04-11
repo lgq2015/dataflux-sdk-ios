@@ -118,7 +118,7 @@
        self.searchController.active = NO;
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
-        member.isInfo = NO;
+        member.type = PWMemberViewTypeTrans;
         member.teamMemberRefresh =^(){
             [self loadTeamMemberInfo];
         };

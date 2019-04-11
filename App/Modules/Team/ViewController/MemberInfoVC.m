@@ -45,25 +45,33 @@
         make.height.offset(ZOOM_SCALE(22));
         make.left.right.mas_equalTo(self.view);
     }];
-    if (self.isExpert) {
-        NSString *name = self.expertDict[@"name"];
-        self.memberName.text = name;
-        NSString *iconUrl = self.expertDict[@"url"];
-        [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-        NSString *subTitle = self.expertDict[@"content"];
-        self.subTitleLab.text = subTitle;
-        [self createBtnExpert];
+    switch (self.type) {
+        case PWMemberViewTypeTeamMember:{
+            NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
+            [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+            self.memberName.text = self.model.name;
+             [self createBtnPhone];
+        }
+            break;
+        case PWMemberViewTypeExpert:{
+            NSString *name = self.expertDict[@"name"];
+            self.memberName.text = name;
+            NSString *iconUrl = self.expertDict[@"url"];
+            [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+            [self createBtnExpert];
+        }
+            break;
+        case PWMemberViewTypeTrans:{
+            NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
+            [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+            self.memberName.text = self.model.name;
+            [self createBtnTrans];
+        }
+            break;
+        
+    }
 
-    }else{
-    NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-    self.memberName.text = self.model.name;
-    if (self.isInfo) {
-        [self createBtnPhone];
-    }else{
-        [self createBtnTrans];
-    }
-    }
+    
     [self.view bringSubviewToFront:self.whiteBackBtn];
 }
 -(void)createBtnExpert{
@@ -141,7 +149,7 @@
     [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
 }
 - (void)btnClickedOperations{
-    NSString *mobile = self.isExpert? @"400-882-3320":self.model.mobile;
+    NSString *mobile = self.type==PWMemberViewTypeExpert? @"400-882-3320":self.model.mobile;
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
@@ -190,11 +198,21 @@
 }
 
 - (void)transBtnClick{
-    ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
-    verify.isShowCustomNaviBar = YES;
-    verify.type = ChangeUITTeamTransfer;
-    verify.memberID =self.model.memberID;
-    [self.navigationController pushViewController:verify animated:YES];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"*转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n*操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认转移" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
+        verify.isShowCustomNaviBar = YES;
+        verify.type = ChangeUITTeamTransfer;
+        verify.memberID =self.model.memberID;
+        [self.navigationController pushViewController:verify animated:YES];
+    }];
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+   
 
 }
 /*

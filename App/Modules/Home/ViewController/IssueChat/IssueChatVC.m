@@ -21,7 +21,8 @@
 #import "ExpertsMoreVC.h"
 #import "TeamInfoModel.h"
 #import "PWImageGroupView.h"
-
+#import "MemberInfoVC.h"
+#import "MemberInfoModel.h"
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
 //承载表单的视图 视图原高度
@@ -204,7 +205,7 @@
 }
 
 
-#pragma SSChatKeyBoardInputViewDelegate 底部输入框代理回调
+#pragma PWChatKeyBoardInputViewDelegate 底部输入框代理回调
 //点击按钮视图frame发生变化 调整当前列表frame
 -(void)PWChatKeyBoardInputViewHeight:(CGFloat)keyBoardHeight changeTime:(CGFloat)changeTime{
 
@@ -288,7 +289,30 @@
         }];
    
 }
+-(void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+    MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
 
+    if(layout.message.messageFrom == PWChatMessageFromMe){
+        return;
+    }else if(layout.message.messageFrom == PWChatMessageFromOther){
+        iconVC.type = PWMemberViewTypeTeamMember;
+        [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
+            if (member) {
+                NSError *error;
+                MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
+                iconVC.model = model;
+            }else{
+                return;
+            }
+        }];
+    }else if (layout.message.messageFrom == PWChatMessageFromStaff){
+        iconVC.type = PWMemberViewTypeExpert;
+        NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
+        iconVC.expertDict = @{@"name":name,@"url":layout.message.headerImgurl};
+    }
+    iconVC.isShowCustomNaviBar = YES;
+    [self.navigationController pushViewController:iconVC animated:YES];
+}
 //发送消息
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
@@ -383,9 +407,7 @@
 }
 */
 
-- (void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath {
-   
-}
+
 -(void)PWChatKeyBordViewBtnClick:(NSInteger)index{
    
 }

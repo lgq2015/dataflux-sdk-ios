@@ -102,10 +102,12 @@
     }
 }
 - (void)iconPressed{
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatHeaderImgCellClick:layout:)]){
+        [self.delegate PWChatHeaderImgCellClick:self.indexPath layout:self.layout];
+    }
 }
 - (void)buttonPressed:(UIButton *)button{
-    
+   
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

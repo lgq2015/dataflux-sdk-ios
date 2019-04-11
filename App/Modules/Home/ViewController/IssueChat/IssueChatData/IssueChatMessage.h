@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 @property (nonatomic, assign) BOOL isSend;
 //消息是否发送失败
 @property (nonatomic, assign) BOOL sendError;
-
+@property (nonatomic, strong) NSString *memberId;
 //头像
 @property (nonatomic, strong) NSString    *headerImgurl;
 @property (nonatomic, strong) NSString    *nameStr;

@@ -7,13 +7,17 @@
 //
 
 #import "RootViewController.h"
+typedef NS_ENUM(NSInteger, PWMemberViewType) {
+    PWMemberViewTypeTeamMember = 1,
+    PWMemberViewTypeExpert,
+    PWMemberViewTypeTrans,
+};
 @class MemberInfoModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MemberInfoVC : RootViewController
 @property (nonatomic, strong) MemberInfoModel *model;
-@property (nonatomic, assign) BOOL isInfo;
-@property (nonatomic, assign) BOOL isExpert;
+@property (nonatomic, assign) PWMemberViewType type;
 @property (nonatomic, copy) void(^teamMemberRefresh)(void);
 
 @property (nonatomic, strong) NSDictionary *expertDict;

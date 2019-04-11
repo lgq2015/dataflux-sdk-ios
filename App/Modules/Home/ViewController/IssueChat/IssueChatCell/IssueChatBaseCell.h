@@ -11,7 +11,7 @@
 @class IssueLogModel;
 @protocol PWChatBaseCellDelegate <NSObject>
 //点击头像
--(void)PWChatHeaderImgCellClick:(NSInteger)index indexPath:(NSIndexPath *)indexPath;
+-(void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
 
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;

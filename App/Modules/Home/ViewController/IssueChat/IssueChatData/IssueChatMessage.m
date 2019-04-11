@@ -39,6 +39,7 @@
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
         NSString *userID = [account_info stringValueForKey:@"id" default:@""];
+        self.memberId = userID;
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
             self.messageFrom = PWChatMessageFromMe;
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
@@ -46,17 +47,10 @@
         }else{
             self.messageFrom = PWChatMessageFromOther;
             self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
-            [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-                if (isSuccess) {
-                    [member enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if ([obj isKindOfClass:NSDictionary.class]) {
-                            if(  [[(NSDictionary *)obj stringValueForKey:@"id" default:@""] isEqualToString:userID]){
-                                NSDictionary *tags =PWSafeDictionaryVal(obj,@"tags");
-                            self.headerImgurl = [tags stringValueForKey:@"pwAvatar" default:@""];
-                                *stop = YES;
-                            }
-                        }
-                    }];
+            [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
+                if (member) {
+                    NSDictionary *tags =PWSafeDictionaryVal(member,@"tags");
+                    self.headerImgurl = [tags stringValueForKey:@"pwAvatar" default:@""];
                 }
             }];
         }
@@ -129,11 +123,12 @@
     }else{
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
-        
+        if ([subType isEqualToString:@"exitExpertGroups"]) {
+            self.systermStr =@"您邀请的专家已退出讨论";
+        }
         if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
             [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
                 if ([subType isEqualToString:@"updateExpertGroups"]) {
-                    
                     self.systermStr = [NSString stringWithFormat:@"您邀请的%@已加入讨论",name];
                 }
                 if ([subType isEqualToString:@"exitExpertGroups"]) {
@@ -141,7 +136,7 @@
                 }
             }];
         }
-       
+        
         self.messageType = PWChatMessageTypeSysterm;
         self.cellString = PWChatSystermCellId;
 
