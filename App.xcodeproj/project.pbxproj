@@ -497,6 +497,21 @@
 		4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6638E225F2E6500E551B9 /* PWImageGroupView.m */; };
 		4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6638E225F2E6500E551B9 /* PWImageGroupView.m */; };
 		4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6638E225F2E6500E551B9 /* PWImageGroupView.m */; };
+		4AF6639D225F747600E551B9 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66393225F747600E551B9 /* SVRadialGradientLayer.m */; };
+		4AF6639E225F747600E551B9 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66393225F747600E551B9 /* SVRadialGradientLayer.m */; };
+		4AF6639F225F747600E551B9 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66393225F747600E551B9 /* SVRadialGradientLayer.m */; };
+		4AF663A0225F747600E551B9 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66396225F747600E551B9 /* SVProgressAnimatedView.m */; };
+		4AF663A1225F747600E551B9 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66396225F747600E551B9 /* SVProgressAnimatedView.m */; };
+		4AF663A2225F747600E551B9 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66396225F747600E551B9 /* SVProgressAnimatedView.m */; };
+		4AF663A3225F747600E551B9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66399225F747600E551B9 /* SVProgressHUD.m */; };
+		4AF663A4225F747600E551B9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66399225F747600E551B9 /* SVProgressHUD.m */; };
+		4AF663A5225F747600E551B9 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF66399225F747600E551B9 /* SVProgressHUD.m */; };
+		4AF663A6225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6639A225F747600E551B9 /* SVIndefiniteAnimatedView.m */; };
+		4AF663A7225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6639A225F747600E551B9 /* SVIndefiniteAnimatedView.m */; };
+		4AF663A8225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF6639A225F747600E551B9 /* SVIndefiniteAnimatedView.m */; };
+		4AF663A9225F747600E551B9 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6639B225F747600E551B9 /* SVProgressHUD.bundle */; };
+		4AF663AA225F747600E551B9 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6639B225F747600E551B9 /* SVProgressHUD.bundle */; };
+		4AF663AB225F747600E551B9 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6639B225F747600E551B9 /* SVProgressHUD.bundle */; };
 		6B6E200F04E0C0E74B82BA19 /* IssueDetailRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2812C47E1EF95C09CBFA /* IssueDetailRootVC.m */; };
 		6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */; };
 		6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
@@ -1452,6 +1467,16 @@
 		4AF66389225F2DCA00E551B9 /* PWImageGroupItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWImageGroupItem.m; path = App/Modules/Home/View/IssueSourceAddView/PWImageGroupItem.m; sourceTree = SOURCE_ROOT; };
 		4AF6638D225F2E6500E551B9 /* PWImageGroupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PWImageGroupView.h; path = App/Modules/Home/View/IssueSourceAddView/PWImageGroupView.h; sourceTree = SOURCE_ROOT; };
 		4AF6638E225F2E6500E551B9 /* PWImageGroupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWImageGroupView.m; path = App/Modules/Home/View/IssueSourceAddView/PWImageGroupView.m; sourceTree = SOURCE_ROOT; };
+		4AF66393225F747600E551B9 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		4AF66394225F747600E551B9 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		4AF66395225F747600E551B9 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		4AF66396225F747600E551B9 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		4AF66397225F747600E551B9 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		4AF66398225F747600E551B9 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		4AF66399225F747600E551B9 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		4AF6639A225F747600E551B9 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		4AF6639B225F747600E551B9 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		4AF6639C225F747600E551B9 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		62C62DFDEDDCCD32D0A33765 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
 		6B6E206D33FC79F101DB0167 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -1990,6 +2015,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4AF66392225F747600E551B9 /* SVProgressHUD */,
 				4A759B6C225B0B130057BD02 /* SafeMutableArray */,
 				4A759B66225B0B080057BD02 /* UIImage+fixOrientation */,
 				4A759B60225B0AFB0057BD02 /* NSError+CommonToast */,
@@ -2758,6 +2784,23 @@
 			path = HomeNoticeScrollView;
 			sourceTree = "<group>";
 		};
+		4AF66392225F747600E551B9 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				4AF66393225F747600E551B9 /* SVRadialGradientLayer.m */,
+				4AF66394225F747600E551B9 /* SVIndefiniteAnimatedView.h */,
+				4AF66395225F747600E551B9 /* SVProgressHUD.h */,
+				4AF66396225F747600E551B9 /* SVProgressAnimatedView.m */,
+				4AF66397225F747600E551B9 /* SVProgressHUD-Prefix.pch */,
+				4AF66398225F747600E551B9 /* SVRadialGradientLayer.h */,
+				4AF66399225F747600E551B9 /* SVProgressHUD.m */,
+				4AF6639A225F747600E551B9 /* SVIndefiniteAnimatedView.m */,
+				4AF6639B225F747600E551B9 /* SVProgressHUD.bundle */,
+				4AF6639C225F747600E551B9 /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		6B6E213300922D047134A345 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3104,6 +3147,7 @@
 				2BE9F185225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17C225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
+				4AF663A9225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3154,6 +3198,7 @@
 				2BE9F186225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
+				4AF663AA225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3204,6 +3249,7 @@
 				2BE9F187225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17E225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
+				4AF663AB225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3220,7 +3266,6 @@
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3228,7 +3273,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3246,7 +3290,6 @@
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3254,7 +3297,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3308,7 +3350,6 @@
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -3316,7 +3357,6 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3528,6 +3568,7 @@
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */,
+				4AF663A6225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4AC856FA223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4AC857E3223F4A6B00DAE1F6 /* ServiceDetailVC.m in Sources */,
@@ -3566,6 +3607,7 @@
 				6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */,
 				6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
+				4AF6639D225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
@@ -3610,6 +3652,7 @@
 				6B6E2227FD9A9B351409F7C2 /* LibrarySearchVC.m in Sources */,
 				6B6E2284726714D0C5C3FE6E /* HostDiagnosisVC.m in Sources */,
 				6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */,
+				4AF663A3225F747600E551B9 /* SVProgressHUD.m in Sources */,
 				6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */,
 				6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
@@ -3617,6 +3660,7 @@
 				6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */,
 				6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */,
 				6B6E247AD1C1857E2253AA88 /* AddSourceTipVC.m in Sources */,
+				4AF663A0225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */,
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
@@ -3807,6 +3851,7 @@
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
+				4AF663A7225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4A092CAE2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
@@ -3845,6 +3890,7 @@
 				6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */,
 				6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
+				4AF6639E225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
@@ -3889,6 +3935,7 @@
 				6B6E2E37A646DA4521036A2D /* LibrarySearchVC.m in Sources */,
 				6B6E2096165EA44EBEF7A40B /* HostDiagnosisVC.m in Sources */,
 				6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */,
+				4AF663A4225F747600E551B9 /* SVProgressHUD.m in Sources */,
 				6B6E208E675F7914200AD103 /* IssueSourceHelperVC.m in Sources */,
 				6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
@@ -3896,6 +3943,7 @@
 				6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */,
 				6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */,
 				6B6E2BF32AB1BEFA3DA7ADDE /* AddSourceTipVC.m in Sources */,
+				4AF663A1225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */,
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
@@ -4086,6 +4134,7 @@
 				CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
+				4AF663A8225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4A092CAF2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
@@ -4124,6 +4173,7 @@
 				6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */,
 				6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
+				4AF6639F225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
@@ -4168,6 +4218,7 @@
 				6B6E26B6B14359570F63DD0F /* LibrarySearchVC.m in Sources */,
 				6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */,
 				6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */,
+				4AF663A5225F747600E551B9 /* SVProgressHUD.m in Sources */,
 				6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */,
 				6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,
@@ -4175,6 +4226,7 @@
 				6B6E2D9097F2353A0AAD7BF9 /* ExpertsDetailVC.m in Sources */,
 				6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */,
 				6B6E29E505B6D2E250140FC3 /* AddSourceTipVC.m in Sources */,
+				4AF663A2225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */,
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,

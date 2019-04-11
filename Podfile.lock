@@ -47,7 +47,6 @@ PODS:
   - Socket.IO-Client-Swift (14.0.0):
     - Starscream (~> 3.0.6)
   - Starscream (3.0.6)
-  - SVProgressHUD (2.2.5)
   - Tencent_Open_SDK (1.0.3)
   - TTTAttributedLabel (2.0.0)
   - WebViewJavascriptBridge (6.0.3)
@@ -75,7 +74,6 @@ DEPENDENCIES:
   - RegexKitLite (~> 4.0)
   - SDWebImage (~> 3.8)
   - Socket.IO-Client-Swift (~> 14.0.0)
-  - SVProgressHUD (~> 2.2.5)
   - Tencent_Open_SDK (~> 1.0.3)
   - TTTAttributedLabel (~> 2.0.0)
   - WebViewJavascriptBridge (~> 6.0)
@@ -101,7 +99,6 @@ SPEC REPOS:
     - SDWebImage
     - Socket.IO-Client-Swift
     - Starscream
-    - SVProgressHUD
     - Tencent_Open_SDK
     - TTTAttributedLabel
     - WebViewJavascriptBridge
@@ -126,7 +123,6 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Tencent_Open_SDK: 6172e25b71ad99ca4d260c27cf1eb04ca6311c1a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
@@ -134,6 +130,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: dbc9db9f0ac1e8fa8072f709026bdba6905a015c
+PODFILE CHECKSUM: 9a54a22e798f5947887965d55eac666b5775ff4d
 
 COCOAPODS: 1.5.3
