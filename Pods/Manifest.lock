@@ -14,9 +14,26 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - JSONModel (1.7.0)
+  - CocoaLumberjack/Core (3.5.2)
+  - CocoaLumberjack/Swift (3.5.2):
+    - CocoaLumberjack/Core
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - iOS-Echarts (1.4.4)
+  - IQKeyboardManager (6.2.0)
+  - JCore (1.2.6)
+  - JPush (3.1.2):
+    - JCore (~> 1.2.6)
+  - JSONModel (1.8.0)
+  - LBXScan/LBXNative (2.3):
+    - LBXScan/Types (~> 2.2)
+  - LBXScan/Types (2.3)
+  - LBXScan/UI (2.3):
+    - LBXScan/Types (~> 2.2)
   - Masonry (1.1.0)
-  - MJRefresh (3.1.15.3)
+  - MCDingTalk (1.0.1)
+  - MJRefresh (3.1.15.7)
   - ReactiveCocoa (2.0):
     - ReactiveCocoa/Core (= 2.0)
     - ReactiveCocoa/no-arc (= 2.0)
@@ -26,35 +43,103 @@ PODS:
   - ReactiveCocoa/no-arc (2.0)
   - ReactiveCocoa/RACExtensions (2.0):
     - ReactiveCocoa/Core
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
+  - RegexKitLite (4.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - Socket.IO-Client-Swift (14.0.0):
+    - Starscream (~> 3.0.6)
+  - Starscream (3.0.6)
+  - SVProgressHUD (2.2.5)
+  - Tencent_Open_SDK (1.0.3)
+  - TTTAttributedLabel (2.0.0)
+  - WebViewJavascriptBridge (6.0.3)
+  - WechatOpenSDK (1.8.4)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+  - Zhugeio (3.2.3):
+    - Zhugeio/Zhugeio (= 3.2.3)
+  - Zhugeio/Zhugeio (3.2.3)
 
 DEPENDENCIES:
-  - AFNetworking
-  - JSONModel
-  - Masonry
-  - MJRefresh
+  - AFNetworking (~> 3.0)
+  - CocoaLumberjack/Swift (~> 3.5.2)
+  - FMDB (~> 2.7.5)
+  - iOS-Echarts (~> 1.4.4)
+  - IQKeyboardManager (~> 6.2.0)
+  - JPush (~> 3.1.2)
+  - JSONModel (~> 1.8.0)
+  - LBXScan/LBXNative (~> 2.3)
+  - LBXScan/UI (~> 2.3)
+  - Masonry (~> 1.1.0)
+  - MCDingTalk (~> 1.0.1)
+  - MJRefresh (~> 3.1.15.7)
   - ReactiveCocoa (= 2.0)
-  - SDWebImage
+  - RegexKitLite (~> 4.0)
+  - SDWebImage (~> 3.8)
+  - Socket.IO-Client-Swift (~> 14.0.0)
+  - SVProgressHUD (~> 2.2.5)
+  - Tencent_Open_SDK (~> 1.0.3)
+  - TTTAttributedLabel (~> 2.0.0)
+  - WebViewJavascriptBridge (~> 6.0)
+  - WechatOpenSDK (~> 1.8.4)
+  - YYKit (~> 1.0.9)
+  - Zhugeio (~> 3.2.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - CocoaLumberjack
+    - FMDB
+    - iOS-Echarts
+    - IQKeyboardManager
+    - JCore
+    - JPush
     - JSONModel
+    - LBXScan
     - Masonry
+    - MCDingTalk
     - MJRefresh
     - ReactiveCocoa
+    - RegexKitLite
     - SDWebImage
+    - Socket.IO-Client-Swift
+    - Starscream
+    - SVProgressHUD
+    - Tencent_Open_SDK
+    - TTTAttributedLabel
+    - WebViewJavascriptBridge
+    - WechatOpenSDK
+    - YYKit
+    - Zhugeio
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
+  CocoaLumberjack: 118bf4a820efc641f79fa487b75ed928dccfae23
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
+  JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
+  JPush: d0cead70ba223a6a3b52749899ebda830dfbc49a
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
+  LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Tencent_Open_SDK: 6172e25b71ad99ca4d260c27cf1eb04ca6311c1a
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
+  WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 3f736ea344ce93f84e5546c319d1055bba6c8844
+PODFILE CHECKSUM: 7b1e2491ba583d9be46c50b6ae806e50575972c5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
