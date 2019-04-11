@@ -255,10 +255,11 @@
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
-            [userManager setTeamMenber:content];
+            [userManager setTeamMember:content];
             [self dealWithDatas:content];
         }
     } failBlock:^(NSError *error) {
+        [error errorToast];
     }];
     
 }
@@ -270,7 +271,7 @@
 }
 - (void)dealWithDatas:(NSArray *)content{
     
-    [userManager setTeamMenber:content];
+    [userManager setTeamMember:content];
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
@@ -304,17 +305,16 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    if (![memberID isEqualToString:getPWUserID]) {
+ 
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
-        member.isInfo = YES;
+        member.type = PWMemberViewTypeTeamMember;
         member.teamMemberRefresh =^(){
             [self loadTeamMemberInfo];
         };
         member.model = self.teamMemberArray[indexPath.row];
         [self.navigationController pushViewController:member animated:YES];
-    }
+   
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];

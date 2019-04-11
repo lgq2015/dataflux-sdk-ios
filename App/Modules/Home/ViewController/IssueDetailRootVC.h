@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)navRightBtnClick;
 - (void)showProgress:(UIButton *)button;
 -(void)updateViewConstraints;
+- (void)updateUI;
 @end
 
 NS_ASSUME_NONNULL_END

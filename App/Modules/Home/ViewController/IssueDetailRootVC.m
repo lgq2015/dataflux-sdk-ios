@@ -42,28 +42,7 @@
         make.height.offset(ZOOM_SCALE(24));
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(ZOOM_SCALE(10));
     }];
-    switch (self.model.state) {
-        case MonitorListStateWarning:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.stateLab.text = @"警告";
-            break;
-        case MonitorListStateSeriousness:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"严重";
-            break;
-        case MonitorListStateCommon:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"普通";
-            break;
-        case MonitorListStateRecommend:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已解决";
-            break;
-        case MonitorListStateLoseeEfficacy:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = @"失效";
-            break;
-    }
+    [self stateLabUI];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab.mas_right).offset(ZOOM_SCALE(15));
         make.centerY.mas_equalTo(self.stateLab);
@@ -86,7 +65,37 @@
         make.height.offset(1);
         make.top.mas_equalTo(self.stateLab.mas_bottom).offset(ZOOM_SCALE(1));
     }];
-   
+
+    [self loadProgressData];
+}
+- (void)stateLabUI{
+    switch (self.model.state) {
+        case MonitorListStateWarning:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
+            self.stateLab.text = @"警告";
+            break;
+        case MonitorListStateSeriousness:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
+            self.stateLab.text = @"严重";
+            break;
+        case MonitorListStateCommon:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
+            self.stateLab.text = @"普通";
+            break;
+        case MonitorListStateRecommend:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
+            self.stateLab.text = @"已解决";
+            break;
+        case MonitorListStateLoseeEfficacy:
+            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+            self.stateLab.text = @"失效";
+            break;
+    }
+}
+- (void)updateUI{
+    self.titleLab.text =self.model.title;
+    self.timeLab.text =[self.model.time accurateTimeStr];
+    [self stateLabUI];
     [self loadProgressData];
 }
 #pragma mark ========== BTNCLICK ==========
@@ -117,11 +126,12 @@
 }
 - (void)dealWithProgressView{
     DLog(@"progressData = %@",self.progressData);
+    [self.progressView removeAllSubviews];
     UIView *temp = nil;
     if (self.progressData.count>0) {
         for (NSInteger i= 0; i<self.progressData.count; i++) {
             UIView *dot = [[UIView alloc]init];
-            dot.layer.cornerRadius = 3;
+            dot.layer.cornerRadius = 3; dot.tag = 100+i;
             dot.backgroundColor = [UIColor colorWithHexString:@"#FFB0B0"];
             [self.progressView addSubview:dot];
             if (temp==nil) {
@@ -138,6 +148,7 @@
                 }];
             }
             UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:@""];
+           
             [self.progressView addSubview:timeLab];
             [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(dot.mas_right).offset(Interval(3));
@@ -154,9 +165,10 @@
     [self.view setNeedsUpdateConstraints];
     if (self.progressBtn.selected) {
         self.arrowImg.transform = CGAffineTransformMakeRotation(M_PI/2);
+        CGFloat height = self.progressData.count*ZOOM_SCALE(27)+3;
         [UIView animateWithDuration:0.3 animations:^{
             [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.offset(self.progressData.count*ZOOM_SCALE(27)+3);
+                make.height.offset(height);
             }];
             [self.progressView layoutIfNeeded];
             [self.view layoutIfNeeded];

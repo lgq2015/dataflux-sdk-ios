@@ -94,7 +94,7 @@ SINGLETON_FOR_HEADER(UserManager)
 /**
     team成员缓存
  */
-- (void)setTeamMenber:(NSArray *)memberArray;
+- (void)setTeamMember:(NSArray *)memberArray;
 /**
     获取teamProduct 缓存
  */
@@ -112,5 +112,9 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (void)loadExperGroups:(void (^)(NSArray *experGroups))completion;
 
+/**
+   获取TeamMemberInfo
+ */
+- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock;
 - (void)onKick;
 @end

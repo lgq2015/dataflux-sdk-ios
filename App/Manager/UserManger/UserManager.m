@@ -80,7 +80,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,nil);
                 }
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+             [iToast alertWithTitleCenter:@"账号或密码错误"];
                 
             }else{
                 if (completion) {
@@ -90,7 +90,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
-                [self saveUserInfoLoginStateisChange:YES success:nil];
+                [self saveUserInfoLoginStateisChange:YES];
             }
             
         } failBlock:^(NSError *error) {
@@ -99,7 +99,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 completion(NO,nil);
             }
             [SVProgressHUD dismiss];
-            [iToast alertWithTitleCenter:@"网络异常"];
+            [error errorToast];
         }];
     }else{
       //验证码登录
@@ -388,9 +388,8 @@ SINGLETON_FOR_CLASS(UserManager);
         memberBlock ? memberBlock(NO,nil):nil;
     }
 }
-- (void)setTeamMenber:(NSArray *)memberArray{
+- (void)setTeamMember:(NSArray *)memberArray{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
-    
     [cache removeAllObjectsWithBlock:^{
          [cache setObject:memberArray forKey:KTeamMemberCacheName];
     }];
@@ -410,6 +409,46 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache removeAllObjectsWithBlock:^{
         [cache setObject:teamProduct forKey:KTeamProductDict];
     }];
+}
+- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock{
+    if (memberId==nil || [memberId isEqualToString:@""]) {
+        memberBlock? memberBlock(nil):nil;
+    }
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+    NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
+   __block NSDictionary *memberDict = nil;
+    if (teamMember) {
+        [teamMember enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSDictionary.class]) {
+                if( [[obj stringValueForKey:@"id" default:@""] isEqualToString:memberId]){
+                    memberDict = obj;
+                    *stop = YES;
+                }
+            }
+        }];
+        memberBlock? memberBlock(memberDict):nil;
+    }else{
+        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSArray *content =PWSafeArrayVal(response, @"content");
+                [userManager setTeamMember:content];
+                [content enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isKindOfClass:NSDictionary.class]) {
+                        if( [[obj stringValueForKey:@"id" default:@""] isEqualToString:memberId]){
+                            memberDict = obj;
+                            *stop = YES;
+                        }
+                    }
+                }];
+                memberBlock? memberBlock(memberDict):nil;
+            }else{
+                memberBlock? memberBlock(nil):nil;
+            }
+        } failBlock:^(NSError *error) {
+            memberBlock? memberBlock(nil):nil;
+        }];
+    }
+   
 }
 - (void)setXCoreStoneAuthToken:(NSString *)token{
 //    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
