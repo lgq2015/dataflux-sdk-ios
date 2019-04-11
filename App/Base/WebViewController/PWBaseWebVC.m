@@ -116,7 +116,8 @@
     if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
        [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     }
-    [self.webView loadRequest:request];
+    //对文件格式做兼容处理
+    [self dealFileFormat:request];
     [self.view addSubview:self.webView];
     // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
     if (self.isHideProgress) {
@@ -267,14 +268,46 @@
     [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [_webView removeObserver:self forKeyPath:@"title"];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark =========对乱码文件的兼容处理======
+- (void)dealFileFormat:(NSMutableURLRequest *)request{
+    NSString *lastName =[[self.webUrl.absoluteString lastPathComponent] lowercaseString];
+    NSString *path =self.webUrl.absoluteString;
+    NSLog(@"zhangtao----%@",path);
+    if ([lastName containsString:@".txt"]){
+        NSStringEncoding * usedEncoding = nil;
+        NSURL *url = self.webUrl;
+        NSString *body = [NSString stringWithContentsOfURL:url usedEncoding:usedEncoding error:nil];
+        if (!body)
+        {
+            //如果之前不能解码，现在使用GBK解码
+            body = [NSString stringWithContentsOfURL:url encoding:0x80000632 error:nil];
+        }
+        if (!body) {
+            //再使用GB18030解码
+            body = [NSString stringWithContentsOfURL:url encoding:0x80000631 error:nil];
+        }
+        if (body) {
+            NSString* responseStr = [NSString stringWithFormat:
+                                     @"<HTML>"
+                                     "<head>"
+                                     "<title>Text View</title>"
+                                     "</head>"
+                                     "<BODY>"
+                                     "<pre>"
+                                     "%@"
+                                     "</pre>"
+                                     "</BODY>"
+                                     "</HTML>",
+                                     body];
+            [self.webView loadHTMLString:responseStr baseURL:nil];
+        }
+        else {
+            [self.webView loadRequest:request];
+        }
+    }
+    else{
+        [self.webView loadRequest:request];
+    }
 }
-*/
 
 @end
