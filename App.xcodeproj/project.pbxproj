@@ -191,7 +191,6 @@
 		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
-		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
 		4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
@@ -547,6 +546,7 @@
 		6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
 		6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
+		6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2188F811955A7DCCF384 /* ToolsVC.m */; };
 		6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
@@ -555,10 +555,12 @@
 		6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
 		6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
+		6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
+		6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
 		6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
@@ -655,7 +657,6 @@
 		6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */; };
 		CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
-		CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
 		CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -793,7 +794,6 @@
 		CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379321CC9204004CF320 /* frame-19@2x.png */; };
 		CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378A21CC9202004CF320 /* frame-8@2x.png */; };
 		CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
-		CA1CF624221ECB5000D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
 		CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -1072,8 +1072,6 @@
 		4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeNetWork.m; sourceTree = "<group>"; };
 		4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZImageCropper.h; sourceTree = "<group>"; };
 		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
-		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
-		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* IssueBoardInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoardInitialView.h; sourceTree = "<group>"; };
 		4A19548821A7F7BE007ADFCA /* IssueBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoard.m; sourceTree = "<group>"; };
 		4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoardCell.m; sourceTree = "<group>"; };
@@ -1496,6 +1494,7 @@
 		6B6E279ABDD933179C7571A1 /* ScanResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultVC.m; sourceTree = "<group>"; };
 		6B6E279B88172BC2B3835339 /* AddSourceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
 		6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookManager.m; sourceTree = "<group>"; };
+		6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLogFormatter.m; sourceTree = "<group>"; };
 		6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ErrorCode.m"; sourceTree = "<group>"; };
 		6B6E2812C47E1EF95C09CBFA /* IssueDetailRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDetailRootVC.m; sourceTree = "<group>"; };
 		6B6E2863DA063BDD899A7E86 /* IssueChatFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatFileCell.h; sourceTree = "<group>"; };
@@ -1515,6 +1514,7 @@
 		6B6E2A59CF51997F2D6ECAE9 /* IssueChatDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDatas.h; sourceTree = "<group>"; };
 		6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationStatusReadManager.m; sourceTree = "<group>"; };
 		6B6E2AD9299DB3AEA63DDAD9 /* NSString+ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ErrorCode.h"; sourceTree = "<group>"; };
+		6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLogFormatter.h; sourceTree = "<group>"; };
 		6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsMoreVC.m; sourceTree = "<group>"; };
 		6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDatas.m; sourceTree = "<group>"; };
 		6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyBordView.m; sourceTree = "<group>"; };
@@ -1753,8 +1753,8 @@
 		4A19546F21A7A445007ADFCA /* LocalLog */ = {
 			isa = PBXGroup;
 			children = (
-				4A19547121A7A445007ADFCA /* LogManager.h */,
-				4A19547021A7A445007ADFCA /* LogManager.m */,
+				6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */,
+				6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */,
 			);
 			path = LocalLog;
 			sourceTree = "<group>";
@@ -3329,7 +3329,6 @@
 			files = (
 				4A092DC3222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
-				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
@@ -3597,6 +3596,7 @@
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
+				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3605,7 +3605,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */,
-				CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */,
 				CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */,
 				CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */,
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
@@ -3874,6 +3873,7 @@
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
+				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3882,7 +3882,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */,
-				CA1CF624221ECB5000D15316 /* LogManager.m in Sources */,
 				CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */,
 				CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */,
 				4A092D97222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
@@ -4151,6 +4150,7 @@
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
+				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

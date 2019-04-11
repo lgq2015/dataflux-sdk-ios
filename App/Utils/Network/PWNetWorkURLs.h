@@ -12,15 +12,14 @@
 #define HTTPS_PROTOCOL_STRING @"https://"
 #define HTTP_PROTOCOL_STRING @"http://"
 
-#ifdef DEV //开发环境
+#if DEV //开发环境
 #define IS_HTTPS  0
-#ifdef IS_HTTPS
+#if IS_HTTPS
 #define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
 #else
-#define HTTP_PROTOCOL HTTP_PROTOCOL
+#define HTTP_PROTOCOL HTTP_PROTOCOL_STRING
 #endif
 
-#define HTTP_PROTOCOL IS_HTTPS?HTTPS_PROTOCOL_STRING:HTTP_PROTOCOL_STRING
 #define API_SEVERID HTTP_PROTOCOL@"testing.home-via-core-stone.cloudcare.cn:10100"
 #define API_SHRINE  HTTP_PROTOCOL@"testing.shrine-via-core-stone.cloudcare.cn:10100"
 #define API_FORUM   HTTP_PROTOCOL@"testing.forum-via-core-stone.cloudcare.cn:10100"
@@ -37,10 +36,10 @@
 #elif PREPROD //预发环境
 
 #define IS_HTTPS  1
-#ifdef IS_HTTPS
+#if IS_HTTPS
 #define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
 #else
-#define HTTP_PROTOCOL HTTP_PROTOCOL
+#define HTTP_PROTOCOL HTTP_PROTOCOL_STRING
 #endif
 
 #define API_SEVERID HTTP_PROTOCOL@"preprod-home-via-core-stone.cloudcare.cn"
@@ -59,10 +58,10 @@
 
 #else //正式环境
 #define IS_HTTPS  1
-#ifdef IS_HTTPS
+#if IS_HTTPS
 #define HTTP_PROTOCOL HTTPS_PROTOCOL_STRING
 #else
-#define HTTP_PROTOCOL HTTP_PROTOCOL
+#define HTTP_PROTOCOL HTTP_PROTOCOL_STRING
 #endif
 
 #define API_SEVERID HTTP_PROTOCOL@"home-via-core-stone.cloudcare.cn"

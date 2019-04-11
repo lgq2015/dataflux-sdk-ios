@@ -85,7 +85,6 @@ static NSUInteger ItemWidth = 104;
 
 
     NSArray *itemDatas = [[HandBookManager sharedInstance] getHandBooks];
-    DLog(@"%@", itemDatas);
     if (itemDatas.count == 0) {
         [[HandBookManager sharedInstance] cacheHandBooks:handbook];
         self.handbookArray = [NSMutableArray arrayWithArray:handbook];

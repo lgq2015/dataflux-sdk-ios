@@ -182,7 +182,7 @@ static NSTimeInterval   requestTimeout = 60.f;
 
     //处理失败请求
     id failure = ^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
-        DLog(@"method = %@ baseUrl = %@ param = %@ token =%@ error = %@", typestr, url, params, manager.requestSerializer.HTTPRequestHeaders, error);
+        DLogE(@"method = %@ baseUrl = %@ param = %@ token =%@ error = %@", typestr, url, params, manager.requestSerializer.HTTPRequestHeaders, error);
         if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
             // server error
             id response = [NSJSONSerialization JSONObjectWithData:error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] options:0 error:nil];
