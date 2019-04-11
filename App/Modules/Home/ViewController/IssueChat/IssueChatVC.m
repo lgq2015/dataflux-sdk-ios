@@ -20,6 +20,7 @@
 #import "HLSafeMutableArray.h"
 #import "ExpertsMoreVC.h"
 #import "TeamInfoModel.h"
+#import "PWImageGroupView.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -326,43 +327,48 @@
     });
 }
 #pragma SSChatBaseCellDelegate 点击图片 点击短视频
--(void)PWChatImageVideoCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+-(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
 
-//    NSInteger currentIndex = 0;
-//    NSMutableArray *groupItems = [NSMutableArray new];
-//
-//    for(int i=0;i<self.datas.count;++i){
-//
-//        NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
-//        IssueChatBaseCell *cell = [_mTableView cellForRowAtIndexPath:ip];
-//        IssueChatMessagelLayout *mLayout = self.datas[i];
-//
-//        PWImageGroupItem *item = [PWImageGroupItem new];
-//        if(mLayout.message.messageType == PWChatMessageTypeImage){
-//            item.imageType = PWImageGroupImage;
-//            item.fromImgView = cell.mImgView;
-//            item.fromImage = mLayout.message.image;
-//        }
-//        else continue;
-//
-//        item.contentMode = mLayout.message.contentMode;
-//        item.itemTag = groupItems.count + 10;
-//        if([mLayout isEqual:layout])currentIndex = groupItems.count;
-//        [groupItems addObject:item];
-//
-//    }
-//
-//    SSImageGroupView *imageGroupView = [[SSImageGroupView alloc]initWithGroupItems:groupItems currentIndex:currentIndex];
-//    [self.navigationController.view addSubview:imageGroupView];
-//
-//    __block SSImageGroupView *blockView = imageGroupView;
-//    blockView.dismissBlock = ^{
-//        [blockView removeFromSuperview];
-//        blockView = nil;
-//    };
-//
-//    [self.mInputView SetSSChatKeyBoardInputViewEndEditing];
-//}
+    NSInteger currentIndex = 0;
+    NSMutableArray *groupItems = [NSMutableArray new];
+
+    for(int i=0;i<self.datas.count;++i){
+
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+        IssueChatBaseCell *cell = [_mTableView cellForRowAtIndexPath:ip];
+        IssueChatMessagelLayout *mLayout = self.datas[i];
+
+        PWImageGroupItem *item = [PWImageGroupItem new];
+        if(mLayout.message.messageType == PWChatMessageTypeImage){
+            item.imageType = PWImageGroupImage;
+            item.fromImgView = cell.mImgView;
+            if(mLayout.message.image){
+                item.fromImage = mLayout.message.image;
+            }else{
+               item.fromImageStr = mLayout.message.imageString;
+            }
+           ;
+        }
+        else continue;
+
+        item.contentMode = mLayout.message.contentMode;
+        item.itemTag = groupItems.count + 10;
+        if([mLayout isEqual:layout])currentIndex = groupItems.count;
+        [groupItems addObject:item];
+
+    }
+
+    PWImageGroupView *imageGroupView = [[PWImageGroupView alloc]initWithGroupItems:groupItems currentIndex:currentIndex];
+    [self.navigationController.view addSubview:imageGroupView];
+
+    __block PWImageGroupView *blockView = imageGroupView;
+    blockView.dismissBlock = ^{
+        [blockView removeFromSuperview];
+        blockView = nil;
+    };
+
+    [self.mInputView SetPWChatKeyBoardInputViewEndEditing];
+
 
 }
 
