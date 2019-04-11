@@ -129,7 +129,6 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     self.webView.scrollView.bounces = NO;
-
     self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dict = [data jsonValueDecoded];
@@ -232,7 +231,10 @@
         }else{
             self.title = self.baseTitle;
         }
-        
+        //做个兼容处理
+        if (self.isShowCustomNaviBar){
+            self.topNavBar.titleLabel.text = self.title;
+        }
     } else { // 其他
         
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -309,5 +311,11 @@
         [self.webView loadRequest:request];
     }
 }
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    //    UIImageView *shadowImg = [self seekLineImageViewOn:self.navigationController.navigationBar];
+//    //    self.navigationController.navigationBar.hidden = offsetY <= 0 ? YES : NO;
+//    NSLog(@"offsetY-----%f",offsetY);
+//}
 
 @end

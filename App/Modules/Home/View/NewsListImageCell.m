@@ -61,7 +61,11 @@
     [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
                                  forHTTPHeaderField:@"Accept"];
     //字符串编码
-    self.model.imageUrl = [self.model.imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    self.model.imageUrl = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)self.model.imageUrl,
+                                                              (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                              NULL,kCFStringEncodingUTF8));
     [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
     if (self.model.isStarred) {
         self.timeLab.hidden = YES;

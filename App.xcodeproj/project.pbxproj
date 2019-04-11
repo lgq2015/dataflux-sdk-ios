@@ -68,6 +68,12 @@
 		2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
 		2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
 		2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF383225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF384225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF385225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
+		2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
+		2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -985,6 +991,10 @@
 		2BFEF2FB225B4572008A0233 /* NSString+Regex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = "<group>"; };
 		2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+title.h"; sourceTree = "<group>"; };
 		2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+title.m"; sourceTree = "<group>"; };
+		2BFEF381225F20A3008A0233 /* UIViewController+ChangeNavBarColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ChangeNavBarColor.h"; sourceTree = "<group>"; };
+		2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ChangeNavBarColor.m"; sourceTree = "<group>"; };
+		2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ServiceDetailVC+ChangeNavColor.h"; sourceTree = "<group>"; };
+		2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ServiceDetailVC+ChangeNavColor.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -2471,6 +2481,8 @@
 				2BFEF2FB225B4572008A0233 /* NSString+Regex.m */,
 				2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */,
 				2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */,
+				2BFEF381225F20A3008A0233 /* UIViewController+ChangeNavBarColor.h */,
+				2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2508,6 +2520,8 @@
 				4AC857E2223F4A6B00DAE1F6 /* ServiceDetailVC.m */,
 				4AC857F0223F6EAF00DAE1F6 /* BookSuccessVC.h */,
 				4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */,
+				2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */,
+				2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3194,7 +3208,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3211,7 +3225,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3220,7 +3234,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3237,7 +3251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3282,7 +3296,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3299,7 +3313,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3352,6 +3366,7 @@
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
+				2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				4A759A9D224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
@@ -3556,6 +3571,7 @@
 				6B6E2E85F33B2B48D353BCA1 /* IssueChatMessage.m in Sources */,
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
+				2BFEF383225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
@@ -3629,6 +3645,7 @@
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
+				2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -3833,6 +3850,7 @@
 				6B6E224B48BF721E1F076A95 /* IssueChatMessage.m in Sources */,
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
+				2BFEF384225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
@@ -3906,6 +3924,7 @@
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
+				2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -4110,6 +4129,7 @@
 				6B6E2F908B1F3B11902D9102 /* IssueChatMessage.m in Sources */,
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
+				2BFEF385225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
