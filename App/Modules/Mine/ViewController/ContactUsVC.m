@@ -24,15 +24,6 @@
 @property (nonatomic, strong)UILabel *zoonLab;
 @property (nonatomic, strong)UILabel *addressLab;
 @property (nonatomic, strong) NSString *avatar;
-/*"avatar": null,
- "mobile": "13300000016",
- "email": "13300000016@sina.com",
- "realName": "销售王九",
- "workGroupName": "销售运营",
- "address": "上海市浦东新区科苑路399号张江创新园7号楼上海市浦东新区科苑路399号张江创新园7号楼上海市浦东新区科苑路399号张江创新园7号楼",
- "province": "上海",
- "city": "上海"
- */
 @property (nonatomic, strong) NSString *realName;
 @property (nonatomic, strong) NSString *mobile;
 @property (nonatomic, strong) NSString *email;
@@ -129,19 +120,29 @@
     [self.addressLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.zoonLab.mas_bottom).offset(Interval(10));
         make.left.mas_equalTo(self.view).offset(Interval(16));
-//        make.height.offset(ZOOM_SCALE(17));
         make.width.offset(kWidth - 32);
     }];
 }
 - (void)btnClick:(UIButton *)button{
     if (button.tag == TagPhoneBtn) {
-        [self requesetCMSCall];
+        if (self.contactUSType == VIP_Type){
+            [self requesetCMSCall];
+        }else if (self.contactUSType == Normal_Type){
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
+            [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
+        }
     }else{
         NSMutableString *mailUrl = [[NSMutableString alloc] init];
         [mailUrl appendFormat:@"mailto:%@", _email];
         NSString *emailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emailPath]];
     }
+}
+- (void)btnClickedOperations{
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
 }
 #pragma mark 请求
 - (void)requesetContactUserData{
@@ -161,7 +162,6 @@
                 _address = [content stringValueForKey:@"address" default:@""];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString([response stringValueForKey:@"errorCode" default:@""], @"")];
             self.contactUSType = Normal_Type;
         }
         [self createUI];
@@ -175,7 +175,7 @@
     [PWNetworking requsetHasTokenWithUrl:PW_CMSCall withRequestType:NetworkPostType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if (![response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showErrorWithStatus:[response stringValueForKey:@"message" default:@""]];
+            [SVProgressHUD showErrorWithStatus:@"拨打失败"];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

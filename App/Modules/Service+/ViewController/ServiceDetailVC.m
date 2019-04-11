@@ -23,7 +23,7 @@
     self.isShowWhiteBack = YES;
     self.webView.scrollView.bounces = YES;
     self.webView.scrollView.delegate = self;
-    self.webView.scrollView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0);
+    self.webView.scrollView.contentInset = UIEdgeInsetsMake(-kStatusBarHeight, 0, 0, 0);
 }
 - (void)createUI{
     self.view.backgroundColor = PWBlueColor;
@@ -53,5 +53,4 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
 }
-
 @end
