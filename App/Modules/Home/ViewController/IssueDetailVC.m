@@ -185,10 +185,7 @@
                     [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
                     return;
                 }
-<<<<<<< HEAD
-=======
 
->>>>>>> bc6012ba76534920f69d4500cd0a7e5b1430e7ae
                 ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
                 expert.issueid = self.model.issueId;
                 [self.navigationController pushViewController:expert animated:YES];

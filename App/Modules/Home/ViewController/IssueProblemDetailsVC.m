@@ -12,16 +12,12 @@
 #import "PPBadgeView.h"
 #import "PWBaseWebVC.h"
 #import "IssueChatVC.h"
-<<<<<<< HEAD
 #import "IssueListManger.h"
-@interface IssueProblemDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
-=======
 #import <QuickLook/QuickLook.h>
 #import <AFNetworking.h>
 #import "QLPreviewController+title.h"
 #define ZY_AttachmentPreview @"ZY_AttachmentPreview"
 @interface IssueProblemDetailsVC ()<UITableViewDelegate, UITableViewDataSource,QLPreviewControllerDataSource,UIDocumentInteractionControllerDelegate>
->>>>>>> bc6012ba76534920f69d4500cd0a7e5b1430e7ae
 
 
 @property (nonatomic, strong) UIButton *ignoreBtn;
