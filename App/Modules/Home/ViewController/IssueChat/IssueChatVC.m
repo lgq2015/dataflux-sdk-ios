@@ -121,6 +121,9 @@
                         callBack:^(NSMutableArray<IssueLogModel *> *array) {
                             //todo get new data
                             //获取新数据
+                            if(array.count>0){
+                               [self updateTableView];
+                            }
                         }];
 }
 
@@ -249,7 +252,7 @@
 
 
 
-//多功能视图点击回调  图片10
+#pragma mark ========== 发送图片 ==========
 -(void)PWChatKeyBoardInputViewBtnClickFunction:(NSInteger)index{
 
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
@@ -263,25 +266,49 @@
         logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
         logModel.issueId = self.issueID;
         logModel.id = [NSDate getNowTimeTimestamp];
-        IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
-        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+        [[PWSocketManager sharedPWSocketManager] checkForRestart];
+        if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+            [self dealSocketNotConnectWithModel:logModel];
+            
+        }else{
+            [self sendMessageWithModel:logModel messageType:PWChatMessageTypeImage];
+        }
+    }];
+    
+}
+- (void)dealSocketNotConnectWithModel:(IssueLogModel *)model{
+    model.sendError = YES;
+    IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
+    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+    [self.datas addObject:layout];
+    [self.mTableView reloadData];
+    [self scrollToBottom];
+}
+#pragma mark ========== Socket已连接 正常发送消息 ==========
+- (void)sendMessageWithModel:(IssueLogModel *)logModel messageType:(PWChatMessageType)type{
+    IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
+    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.datas addObject:layout];
         [self.mTableView reloadData];
         [self scrollToBottom];
-         [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
-        [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:PWChatMessageTypeImage messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
-            if (type == UploadTypeSuccess) {
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
-            }else if(type == UploadTypeError){
-                logModel.sendError = YES;
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
-                [self updateTableView];
-            }
-
-        }];
+    });
+   
+    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
+    [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
+        if (type == UploadTypeSuccess) {
+            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
+        }else if(type == UploadTypeError){
+            logModel.sendError = YES;
+            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
+            [self updateTableView];
+        }
+        
     }];
-
 }
+
+#pragma mark ========== fileCellClick ==========
 -(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout{
     NSString *ext = [layout.message.filePath pathExtension];
     if ([ext isEqualToString:@"csv"]
@@ -293,9 +320,14 @@
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
     [self.navigationController pushViewController:webView animated:YES];
 }
+#pragma mark ========== 重发 ==========
 -(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
+    [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+    
+    }else{
     model.sendError = NO;
-
+   
     PWChatMessageType type = model.text?PWChatMessageTypeText:PWChatMessageTypeImage;
     if(model.imageData){
         UIImage *image = [UIImage imageWithData:model.imageData];
@@ -304,8 +336,6 @@
     }
      [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     [self updateTableView];
-    
-//    model.imageData =data;
     [IssueChatDatas sendMessage:model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model1, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
           [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model1 deleteCache:YES];
@@ -315,6 +345,7 @@
             [self updateTableView];
         }
         }];
+    }
    
 }
 -(void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
@@ -343,30 +374,16 @@
 }
 //发送消息
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
+    [[PWSocketManager sharedPWSocketManager] checkForRestart];
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
-
     logModel.text = dic[@"text"];
     logModel.issueId = self.issueID;
     logModel.id = [NSDate getNowTimeTimestamp];
-    IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
-    IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
-    [self.datas addObject:layout];
-    [self.mTableView reloadData];
-    [self scrollToBottom];
-     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
-    [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:PWChatMessageTypeText messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
-        if (type == UploadTypeSuccess) {
-          [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
-        }else if(type == UploadTypeError){
-            logModel.sendError = YES;
-            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
-            [self updateTableView];
-        }
-//        NSIndexPath *index = [NSIndexPath indexPathForRow:self.datas.count inSection:0];
-//        [self.datas addObject:layout]; [self.mTableView reloadData];
-      //  [self scrollToBottom];
-
-    }];
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        [self dealSocketNotConnectWithModel:logModel];
+    }else{
+        [self sendMessageWithModel:logModel messageType:PWChatMessageTypeText];
+    }
 }
 
 - (void)updateTableView{
@@ -418,10 +435,7 @@
         [blockView removeFromSuperview];
         blockView = nil;
     };
-
     [self.mInputView SetPWChatKeyBoardInputViewEndEditing];
-
-
 }
 
 

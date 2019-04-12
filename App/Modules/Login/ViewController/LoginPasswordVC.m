@@ -14,6 +14,8 @@
 #import <TTTAttributedLabel.h>
 #import "PWBaseWebVC.h"
 #import "JPUSHService.h"
+#define phoneLabTag  55
+#define passwordLabTag 66
 @interface LoginPasswordVC ()<TTTAttributedLabelDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
@@ -50,6 +52,8 @@
     [self.view addSubview:titleLab];
   
     UILabel *phone = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"手机号/邮箱"];
+    phone.tag = phoneLabTag;
+    phone.hidden = YES;
     [self.view addSubview:phone];
     [phone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -72,6 +76,8 @@
         make.height.offset(ZOOM_SCALE(1));
     }];
     UILabel *password = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"密码"];
+    password.tag = passwordLabTag;
+    password.hidden = YES;
     [self.view addSubview:password];
     [password mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -282,10 +288,21 @@
 
 #pragma mark ========== <UITextFieldDelegate> ==========
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (textField == self.phoneTf) {
+        [self.view viewWithTag:phoneLabTag].hidden = NO;
+    }else{
+        [self.view viewWithTag:passwordLabTag].hidden = NO;
+
+    }
     
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (textField == self.phoneTf) {
+        [self.view viewWithTag:phoneLabTag].hidden = textField.text.length>0? NO:YES;
+    }else{
+        [self.view viewWithTag:passwordLabTag].hidden = textField.text.length>0? NO:YES;
+
+    }
 }
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label

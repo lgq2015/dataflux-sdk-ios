@@ -13,6 +13,8 @@
 #import "OpenUDID.h"
 #import "VerifyCodeVC.h"
 #import "VerificationCodeNetWork.h"
+#define phoneLabTag  55
+
 @interface VerifyCodeLoginVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
@@ -66,6 +68,8 @@
         make.height.offset(ZOOM_SCALE(1));
     }];
     UILabel *phoneTip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"手机号"];
+    phoneTip.tag = phoneLabTag;
+    phoneTip.hidden = YES;
     [self.view addSubview:phoneTip];
     [phoneTip mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -111,17 +115,11 @@
       self.phoneTf.delegate = self;
       RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
           NSString *num =[value stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
           [self dealTFText:num];
-          
           return @(num.length == 11);
     }];
-    RACSignal *phoneTipSignal = [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
-        BOOL hidden = value.length>0? NO:YES;
-        return @(hidden);
-    }];
+   
     RAC(self.verifyCodeBtn,enabled) = phoneTf;
-    RAC(phoneTip,hidden) =phoneTipSignal;
     RAC(self.verifyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
         if([value boolValue]){
             self.verifyCodeBtn.enabled = YES;
@@ -156,8 +154,7 @@
 }
 -(UIButton *)passwordBtn{
     if (!_passwordBtn) {
-        _passwordBtn = [[UIButton alloc]init];
-        [_passwordBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+        _passwordBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"密码登录"];
         [_passwordBtn addTarget:self action:@selector(passwordBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _passwordBtn.titleLabel.font = RegularFONT(16);
         [_passwordBtn setTitleColor:PWTextColor forState:UIControlStateNormal];
@@ -167,13 +164,9 @@
 }
 -(UIButton *)verifyCodeBtn{
     if(!_verifyCodeBtn){
-        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_verifyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"获取验证码"];
         [_verifyCodeBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
-        [_verifyCodeBtn setBackgroundColor:PWBlueColor];
         _verifyCodeBtn.enabled = NO;
-        _verifyCodeBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _verifyCodeBtn.layer.masksToBounds = YES;
         [self.view addSubview:_verifyCodeBtn];
     }
     return _verifyCodeBtn;
@@ -210,7 +203,13 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return [self validateNumber:string];
 }
-
+#pragma mark ========== <UITextFieldDelegate> ==========
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+        [self.view viewWithTag:phoneLabTag].hidden = NO;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+        [self.view viewWithTag:phoneLabTag].hidden = textField.text.length>0? NO:YES;
+}
 - (BOOL)validateNumber:(NSString*)number {
     BOOL res = YES;
     NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
