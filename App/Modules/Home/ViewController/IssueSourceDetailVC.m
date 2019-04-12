@@ -848,6 +848,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 #pragma mark ---UITextFieldDelegate---
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (!self.isAdd){
+        //25 为clearbtn的宽度
         CGSize size =[textField.text sizeWithAttributes:@{NSFontAttributeName:textField.font}];
         if (size.width > kWidth-Interval(32) - 25){
             textField.textAlignment = NSTextAlignmentRight;
