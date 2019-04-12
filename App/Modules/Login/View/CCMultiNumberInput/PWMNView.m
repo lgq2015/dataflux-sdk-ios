@@ -56,6 +56,7 @@
     }];
     self.seletTag = 1;
     self.isWarning = YES;
+    if (self.deleteBlock) self.deleteBlock();
     [self codeView_BecomeFirstResponder];
 }
 #pragma mark ========== private method ==========

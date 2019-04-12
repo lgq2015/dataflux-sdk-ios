@@ -473,9 +473,10 @@
 {
     
 }
-
-- (void)dealloc
-{   [SVProgressHUD dismiss];
+-(void)viewDidDisappear:(BOOL)animated{
+    [SVProgressHUD dismiss];
+}
+- (void)dealloc{
     [self cancelRequest];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

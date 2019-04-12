@@ -334,9 +334,10 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -408,7 +409,11 @@
            
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+            }else{
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
         }
     } failBlock:^(NSError *error) {
         [error errorToast];

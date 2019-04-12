@@ -48,9 +48,9 @@
     }else{
         [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
             if (isSuccess) {
-                if([team isEqualToString:PW_isTeam]){
+                if([getTeamState isEqualToString:PW_isTeam]){
                     [self createTeamUI];
-                }else if([team isEqualToString:PW_isPersonal]){
+                }else if([getTeamState isEqualToString:PW_isPersonal]){
                     [self createPersonalUI];
                 }
             }else{
@@ -305,16 +305,20 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
- 
-        MemberInfoVC *member = [[MemberInfoVC alloc]init];
-        member.isHidenNaviBar = YES;
+    NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+      MemberInfoVC *member = [[MemberInfoVC alloc]init];
+      member.isHidenNaviBar = YES;
+    if ([memberID isEqualToString:getPWUserID]) {
+         member.type = PWMemberViewTypeMe;
+    }else{
         member.type = PWMemberViewTypeTeamMember;
         member.teamMemberRefresh =^(){
             [self loadTeamMemberInfo];
         };
         member.model = self.teamMemberArray[indexPath.row];
-        [self.navigationController pushViewController:member animated:YES];
-   
+       
+    }
+     [self.navigationController pushViewController:member animated:YES];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];

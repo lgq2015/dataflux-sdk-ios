@@ -69,9 +69,6 @@
 -(UIButton *)commitBtn{
     if (!_commitBtn) {
         _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"提交"];
-//        [_commitBtn setBackgroundColor:PWBlueColor];
-//        [_commitBtn setTitle:@"提交" forState:UIControlStateNormal];
-//        _commitBtn.layer.cornerRadius = 4.0f;
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_commitBtn];
     }
@@ -102,7 +99,7 @@
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"提交成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }else{

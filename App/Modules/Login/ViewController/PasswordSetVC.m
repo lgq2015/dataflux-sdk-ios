@@ -83,7 +83,7 @@
             return [UIColor colorWithHexString:@"C7C7CC"];;
         }
     }];
-    
+    [self.passwordTf becomeFirstResponder];
 }
 -(UITextField *)passwordTf{
     if (!_passwordTf) {
@@ -154,7 +154,6 @@
                 @"data": data
         };
         [SVProgressHUD show];
-        self.confirmBtn.enabled = NO;
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -164,13 +163,12 @@
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 });
             } else {
-                self.confirmBtn.enabled = YES;
                 [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
 //            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         }                  failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
-            self.confirmBtn.enabled = YES;
+            [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
         }];
     } else {
         [iToast alertWithTitleCenter:@"密码格式有误"];

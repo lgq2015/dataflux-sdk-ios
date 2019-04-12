@@ -68,7 +68,12 @@
             [self createBtnTrans];
         }
             break;
-        
+        case PWMemberViewTypeMe:{
+            NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+            [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+            self.memberName.text = userManager.curUserInfo.name;
+        }
+            break;
     }
 
     
@@ -174,7 +179,7 @@
 //            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"移除成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if(self.teamMemberRefresh){
                         self.teamMemberRefresh();
                     }

@@ -14,7 +14,7 @@
 #import <TTTAttributedLabel.h>
 #import "PWBaseWebVC.h"
 #import "JPUSHService.h"
-@interface LoginPasswordVC ()<TTTAttributedLabelDelegate>
+@interface LoginPasswordVC ()<TTTAttributedLabelDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *phoneTf;
 
@@ -46,17 +46,10 @@
         make.top.mas_equalTo(self.view).offset(Interval(kStatusBarHeight+16));
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), kTopHeight+ZOOM_SCALE(50), kWidth, ZOOM_SCALE(37))];
-    titleLab.font = MediumFONT(26);
-    titleLab.text = @"账号密码登录";
-    titleLab.textColor = PWTextBlackColor;
-    titleLab.textAlignment = NSTextAlignmentLeft;
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+ZOOM_SCALE(50), kWidth, ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"账号密码登录"];
     [self.view addSubview:titleLab];
   
-    UILabel *phone = [[UILabel alloc]init];
-    phone.text = @"手机号/邮箱";
-    phone.font = RegularFONT(14);
-    phone.textColor = PWSubTitleColor;
+    UILabel *phone = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"手机号/邮箱"];
     [self.view addSubview:phone];
     [phone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -78,10 +71,7 @@
         make.right.mas_equalTo(self.phoneTf.mas_right);
         make.height.offset(ZOOM_SCALE(1));
     }];
-    UILabel *password = [[UILabel alloc]init];
-    password.text = @"密码";
-    password.font = RegularFONT(14);
-    password.textColor = PWSubTitleColor;
+    UILabel *password = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"密码"];
     [self.view addSubview:password];
     [password mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -136,36 +126,12 @@
         make.height.offset(ZOOM_SCALE(20));
         make.centerY.mas_equalTo(self.selectBtn);
     }];
-
-    RACSignal *phoneTf = [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
-        if(value.length>0){
-            phone.hidden = NO;
-        }else{
-            phone.hidden = YES;
-        }
-        return value;
-    }];
     
-    RACSignal *passwordTf =  [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
-        if(value.length>0){
-            password.hidden = NO;
-        }else{
-            password.hidden = YES;
-        }
-         return value;
-    }];
     RACSignal *btn = RACObserve(self.selectBtn, selected);
-    RACSignal * validEmailSignal = [RACSignal combineLatest:@[phoneTf,passwordTf,btn] reduce:^id(NSString * phone,NSString * password){
+    RACSignal * validEmailSignal = [RACSignal combineLatest:@[[self.phoneTf rac_textSignal],[self.passwordTf rac_textSignal],btn] reduce:^id(NSString * phone,NSString * password){
         return @((phone.length>0) && self.selectBtn.selected && password.length>7);
     }];
     RAC(self.loginBtn,enabled) = validEmailSignal;
-    RAC(self.loginBtn, backgroundColor) = [validEmailSignal map: ^id (id value){
-        if([value boolValue]){
-            return PWBlueColor;
-        }else{
-            return [UIColor colorWithHexString:@"C7C7CC"];
-        }
-    }];
 }
 -(UIButton *)findWordsBtn{
     if (!_findWordsBtn) {
@@ -182,6 +148,7 @@
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _phoneTf.placeholder = @"请输入手机号/邮箱";
+        _phoneTf.delegate = self;
         _phoneTf.autocorrectionType = UITextAutocorrectionTypeNo; // 关闭键盘联想
         _phoneTf.spellCheckingType = UITextSpellCheckingTypeNo;// 禁用拼写检查
         [self.view addSubview:_phoneTf];
@@ -215,13 +182,9 @@
 }
 -(UIButton *)loginBtn{
     if(!_loginBtn){
-        _loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44)) type:PWButtonTypeContain text:@"登录"];
         [_loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-        [_loginBtn setBackgroundColor:PWBlueColor];
         _loginBtn.enabled = NO;
-        _loginBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _loginBtn.layer.masksToBounds = YES;
         [self.view addSubview:_loginBtn];
     }
     return _loginBtn;
@@ -241,6 +204,7 @@
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
+        _passwordTf.delegate = self;
         _passwordTf.placeholder = @"请输入密码";
         [self.view addSubview:_passwordTf];
         }
@@ -258,8 +222,7 @@
 }
 -(UIButton *)verifyCodeBtn{
     if (!_verifyCodeBtn) {
-        _verifyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_verifyCodeBtn setTitle:@"验证码登录" forState:UIControlStateNormal];
+        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"验证码登录"];
         [_verifyCodeBtn addTarget:self action:@selector(verifyCodeClick) forControlEvents:UIControlEventTouchUpInside];
         _verifyCodeBtn.titleLabel.font = RegularFONT(16);
         [_verifyCodeBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
@@ -271,7 +234,6 @@
 #pragma mark ========== 登录 ==========
 - (void)loginClick{
     [SVProgressHUD show];
-    self.loginBtn.enabled = NO;
     NSMutableDictionary *param = [@{@"marker": @"mobile",
                 @"username": [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                 @"password": self.passwordTf.text,
@@ -282,7 +244,6 @@
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
-        self.loginBtn.enabled = YES;
     }];
 
 }
@@ -300,7 +261,6 @@
 }
 #pragma mark ========== 验证码登录页面跳转 ==========
 - (void)verifyCodeClick{
-
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark ========== 密码可见/不可见 ==========
@@ -319,13 +279,14 @@
         self.passwordTf.text = tempPwdStr;
     }
 }
-//#pragma mark ========== btn渐变背景 ==========
-//-(CAGradientLayer *)backLayer{
-//    if (!_backLayer) {
-//        _backLayer = [self getbackgroundLayerWithFrame:self.loginBtn.frame];
-//    }
-//    return _backLayer;
-//}
+
+#pragma mark ========== <UITextFieldDelegate> ==========
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+}
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{

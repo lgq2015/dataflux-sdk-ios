@@ -131,7 +131,7 @@
     // 获取不同媒体类型下的授权类型
     NSInteger cameragranted = [self AVAuthorizationStatusIsGranted];
     // 如果确定未授权 cameragranted ==0 弹框提示；如果确定已经授权 cameragranted == 1；如果第一次触发授权 cameragranted == 2，这里不处理
-    NSString *tipTitle = self.sourceType == 2? @"请开启照片权限":@"请开启相机权限";
+    NSString *tipTitle = self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary? @"请开启照片权限":@"请开启相机权限";
     NSString *tipMessage = type == 2?@"可依次进入[设置-隐私-照片]，允许访问手机相册":@"可依次进入[设置-隐私]中，允许访问相机";
     if (cameragranted == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tipTitle message:tipMessage preferredStyle:UIAlertControllerStyleAlert];

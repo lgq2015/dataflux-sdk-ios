@@ -170,7 +170,7 @@
     if (!_userName) {
         _userName = [[UILabel alloc]initWithFrame:CGRectZero];
         _userName.font = RegularFONT(18);
-        _userName.numberOfLines = 0;
+        _userName.numberOfLines = 1;
         _userName.textColor = PWBlackColor;
         _userName.textAlignment = NSTextAlignmentLeft;
         [self.headerView addSubview:_userName];

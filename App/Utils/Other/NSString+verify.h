@@ -34,7 +34,10 @@
  检验是否为url链接
  */
 - (BOOL)isUrlAddress;
-
+/**
+  检验是否含有特殊字符
+ */
+-(BOOL)validateSpecialCharacter;
 /**
  UTC时间转换
  */

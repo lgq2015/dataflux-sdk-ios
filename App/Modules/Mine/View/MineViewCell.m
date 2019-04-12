@@ -145,6 +145,7 @@
     }];
     self.describeLab.hidden = NO;
     [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.titleLab.mas_right).offset(10);
         make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
         make.centerY.mas_equalTo(self.titleLab);
         make.height.offset(20);

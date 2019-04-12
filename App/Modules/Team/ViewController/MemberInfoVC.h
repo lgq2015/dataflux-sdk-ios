@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 typedef NS_ENUM(NSInteger, PWMemberViewType) {
     PWMemberViewTypeTeamMember = 1,
+    PWMemberViewTypeMe,
     PWMemberViewTypeExpert,
     PWMemberViewTypeTrans,
 };

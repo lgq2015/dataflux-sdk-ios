@@ -203,8 +203,10 @@
 - (void)commitEmailClick{
      BOOL isemail = [self.emailTF.text validateEmail];
     if (isemail) {
+        [SVProgressHUD show];
         NSDictionary *param = @{@"data":@{@"username":self.emailTF.text,@"uType":@"email",@"uuid":self.uuid}};
         [PWNetworking requsetHasTokenWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"绑定成功"];
                 userManager.curUserInfo.email = self.emailTF.text;
@@ -220,8 +222,8 @@
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         } failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
             [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
-
         }];
     }else{
         [iToast alertWithTitleCenter:@"请输入正确的邮箱"];

@@ -111,7 +111,12 @@
     NSPredicate *pEmailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pEmailCheck];
     return [pEmailTest evaluateWithObject:self];
 }
-
+-(BOOL)validateSpecialCharacter{
+  //  /^[a-zA-Z0-9-_\s\u4e00-\u9fa5]+$/
+    NSString *specialCharacter = @"^[a-zA-Z0-9-_\\s\u4e00-\u9fa5]+$";
+    NSPredicate *pTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",specialCharacter];
+    return [pTest evaluateWithObject:self];
+}
 
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
