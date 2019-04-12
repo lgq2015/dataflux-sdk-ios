@@ -30,6 +30,7 @@
 //    [self initZhuge];
 //    [self initUMeng];
     [self initSVProgressHUD];
+    [self configLog];
     [self configUSharePlatforms];
     //网络监听
     [self monitorNetworkStatus];
@@ -168,7 +169,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional
-    DLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+    DDLogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){

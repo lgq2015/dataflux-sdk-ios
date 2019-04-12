@@ -133,7 +133,7 @@
 - (void)popShareUI:(NSInteger)btnTag{
     __weak typeof(self) weakself = self;
     NSString *titleDesc = @"团队邀请您加入，加入团队后您可以共享团队数据和信息，并与团队成员进行协作";
-    NSString *title = [NSString stringWithFormat:@"%@ %@",userManager.teamModel.name,titleDesc];
+    NSString *title = [NSString stringWithFormat:@"%@ %@",self.groupName,titleDesc];
     ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:@"" thumImage:[UIImage imageNamed:@"144-144"]];
     manager.webpageUrl = weakself.shareUrl;
     manager.showVC = weakself;

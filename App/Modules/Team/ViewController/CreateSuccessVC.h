@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateSuccessVC : RootViewController
 @property (nonatomic, copy) void(^btnClick)(void);
-
+@property (nonatomic, copy) NSString *groupName;
 @end
 
 NS_ASSUME_NONNULL_END

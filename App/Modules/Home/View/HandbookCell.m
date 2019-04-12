@@ -61,6 +61,11 @@
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.centerY.mas_equalTo(self.contentView);
     }];
+    self.model.imageUrl = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)self.model.imageUrl,
+                                                              (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                              NULL,kCFStringEncodingUTF8));
     [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageWithColor:PWBackgroundColor]];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentView).offset(Interval(20));

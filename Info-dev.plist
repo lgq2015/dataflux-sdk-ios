@@ -66,7 +66,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20190401.2124</string>
+	<string>20190411.1602</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -134,6 +134,8 @@
 	<string>您可以分享相机胶卷中的照片、将照片保存</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>您可以分享相机胶卷中的照片、将照片保存</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

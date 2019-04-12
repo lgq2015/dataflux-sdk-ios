@@ -32,8 +32,6 @@
 -(void)setUpTabBar{
     //设置背景色 去掉分割线
     [self setValue:[PWTabBar new] forKey:@"tabBar"];
-//    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
-    [self.tabBar setBackgroundImage:[UIImage new]];
     //通过这两个参数来调整badge位置
     [self.tabBar setTabIconWidth:30];
     [self.tabBar setBadgeTop:ZOOM_SCALE(6)];

@@ -19,6 +19,7 @@
 #import "GuideVC.h"
 #import "LaunchVC.h"
 #import "DetectionVersionAlert.h"
+#import "PWLogFormatter.h"
 #import <WXApi.h>
 #import <DTShareKit/DTOpenKit.h>
 @implementation AppDelegate (AppService)
@@ -65,8 +66,10 @@
             [self initUserManager];
         }
     });
+#if DEBUG
     //是否显示控制器名称
     [self isShowVCName:YES];
+#endif
 }
 #pragma mark ========== 初始化网络配置 ==========
 -(void)NetWorkConfig{
@@ -93,7 +96,10 @@
 ////                [MBProgressHUD showErrorMessage:NSStringFormat(@"自动登录失败：%@",des)];
 //            }
 //        }];
+
+
     }else{
+        DLogE("Can't get UserInfo")
         KPostNotification(KNotificationLoginStateChange, @NO)
     }
 
@@ -312,4 +318,27 @@
     }
 
 }
+
+-(void)configLog {
+
+
+    NSURL *dirUrl = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    NSString *path = [dirUrl.path stringByAppendingPathComponent:@"pwlog"];
+
+    PWLogFormatter *logFormatter = [[PWLogFormatter alloc] init];
+
+    [[DDTTYLogger sharedInstance] setLogFormatter:logFormatter];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+    DDLogFileManagerDefault *fileManagerDefault = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:path];
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] initWithLogFileManager:fileManagerDefault];
+    fileLogger.maximumFileSize=20*1024*1024;
+    fileLogger.rollingFrequency = 60 * 60 * 24;
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [fileLogger setLogFormatter:logFormatter];
+
+    [DDLog addLogger:fileLogger];
+
+}
+
 @end

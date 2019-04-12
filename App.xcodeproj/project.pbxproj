@@ -65,6 +65,15 @@
 		2BFEF2FC225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FD225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FE225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
+		2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */; };
+		2BFEF383225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF384225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF385225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */; };
+		2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
+		2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
+		2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
 		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
@@ -188,7 +197,6 @@
 		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
-		4A19547221A7A445007ADFCA /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
 		4A19548E21A7F7BF007ADFCA /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
 		4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
@@ -568,6 +576,7 @@
 		6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
 		6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
+		6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2188F811955A7DCCF384 /* ToolsVC.m */; };
 		6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
@@ -576,10 +585,12 @@
 		6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
 		6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
+		6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
+		6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
 		6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
@@ -676,7 +687,6 @@
 		6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */; };
 		CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
-		CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
 		CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -814,7 +824,6 @@
 		CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5379321CC9204004CF320 /* frame-19@2x.png */; };
 		CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE5378A21CC9202004CF320 /* frame-8@2x.png */; };
 		CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
-		CA1CF624221ECB5000D15316 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19547021A7A445007ADFCA /* LogManager.m */; };
 		CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */; };
 		CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE0221A4739009F9E94 /* NaviBarView.m */; };
 		CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -1004,6 +1013,12 @@
 		2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
 		2BFEF2FA225B4572008A0233 /* NSString+Regex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Regex.h"; sourceTree = "<group>"; };
 		2BFEF2FB225B4572008A0233 /* NSString+Regex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = "<group>"; };
+		2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+title.h"; sourceTree = "<group>"; };
+		2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "QLPreviewController+title.m"; sourceTree = "<group>"; };
+		2BFEF381225F20A3008A0233 /* UIViewController+ChangeNavBarColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ChangeNavBarColor.h"; sourceTree = "<group>"; };
+		2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ChangeNavBarColor.m"; sourceTree = "<group>"; };
+		2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ServiceDetailVC+ChangeNavColor.h"; sourceTree = "<group>"; };
+		2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ServiceDetailVC+ChangeNavColor.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
 		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
@@ -1091,8 +1106,6 @@
 		4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeNetWork.m; sourceTree = "<group>"; };
 		4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZImageCropper.h; sourceTree = "<group>"; };
 		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
-		4A19547021A7A445007ADFCA /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
-		4A19547121A7A445007ADFCA /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
 		4A19548721A7F7BE007ADFCA /* IssueBoardInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoardInitialView.h; sourceTree = "<group>"; };
 		4A19548821A7F7BE007ADFCA /* IssueBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoard.m; sourceTree = "<group>"; };
 		4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoardCell.m; sourceTree = "<group>"; };
@@ -1531,6 +1544,7 @@
 		6B6E279ABDD933179C7571A1 /* ScanResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultVC.m; sourceTree = "<group>"; };
 		6B6E279B88172BC2B3835339 /* AddSourceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
 		6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookManager.m; sourceTree = "<group>"; };
+		6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLogFormatter.m; sourceTree = "<group>"; };
 		6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ErrorCode.m"; sourceTree = "<group>"; };
 		6B6E2812C47E1EF95C09CBFA /* IssueDetailRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDetailRootVC.m; sourceTree = "<group>"; };
 		6B6E2863DA063BDD899A7E86 /* IssueChatFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatFileCell.h; sourceTree = "<group>"; };
@@ -1550,6 +1564,7 @@
 		6B6E2A59CF51997F2D6ECAE9 /* IssueChatDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDatas.h; sourceTree = "<group>"; };
 		6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationStatusReadManager.m; sourceTree = "<group>"; };
 		6B6E2AD9299DB3AEA63DDAD9 /* NSString+ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ErrorCode.h"; sourceTree = "<group>"; };
+		6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLogFormatter.h; sourceTree = "<group>"; };
 		6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsMoreVC.m; sourceTree = "<group>"; };
 		6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDatas.m; sourceTree = "<group>"; };
 		6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyBordView.m; sourceTree = "<group>"; };
@@ -1788,8 +1803,8 @@
 		4A19546F21A7A445007ADFCA /* LocalLog */ = {
 			isa = PBXGroup;
 			children = (
-				4A19547121A7A445007ADFCA /* LogManager.h */,
-				4A19547021A7A445007ADFCA /* LogManager.m */,
+				6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */,
+				6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */,
 			);
 			path = LocalLog;
 			sourceTree = "<group>";
@@ -2526,6 +2541,10 @@
 				2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */,
 				2BFEF2FA225B4572008A0233 /* NSString+Regex.h */,
 				2BFEF2FB225B4572008A0233 /* NSString+Regex.m */,
+				2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */,
+				2BFEF349225E0A54008A0233 /* QLPreviewController+title.m */,
+				2BFEF381225F20A3008A0233 /* UIViewController+ChangeNavBarColor.h */,
+				2BFEF382225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2563,6 +2582,8 @@
 				4AC857E2223F4A6B00DAE1F6 /* ServiceDetailVC.m */,
 				4AC857F0223F6EAF00DAE1F6 /* BookSuccessVC.h */,
 				4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */,
+				2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */,
+				2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3391,7 +3412,6 @@
 			files = (
 				4A092DC3222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
-				4A19547221A7A445007ADFCA /* LogManager.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
@@ -3415,6 +3435,7 @@
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
+				2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				4A759A9D224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
@@ -3565,6 +3586,7 @@
 				4A092D43222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
+				2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */,
@@ -3623,6 +3645,7 @@
 				6B6E2E85F33B2B48D353BCA1 /* IssueChatMessage.m in Sources */,
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
+				2BFEF383225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
@@ -3665,6 +3688,7 @@
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
+				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3673,7 +3697,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */,
-				CA1CF57F221ECB3A00D15316 /* LogManager.m in Sources */,
 				CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */,
 				CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */,
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
@@ -3698,6 +3721,7 @@
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
+				2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -3848,6 +3872,7 @@
 				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
+				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
@@ -3906,6 +3931,7 @@
 				6B6E224B48BF721E1F076A95 /* IssueChatMessage.m in Sources */,
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
+				2BFEF384225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
@@ -3948,6 +3974,7 @@
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
+				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3956,7 +3983,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */,
-				CA1CF624221ECB5000D15316 /* LogManager.m in Sources */,
 				CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */,
 				CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */,
 				4A092D97222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
@@ -3981,6 +4007,7 @@
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
+				2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
 				2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -4131,6 +4158,7 @@
 				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
 				CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
+				2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
@@ -4189,6 +4217,7 @@
 				6B6E2F908B1F3B11902D9102 /* IssueChatMessage.m in Sources */,
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
+				2BFEF385225F20A3008A0233 /* UIViewController+ChangeNavBarColor.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
@@ -4231,6 +4260,7 @@
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
+				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4404,6 +4434,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -4452,6 +4483,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -4495,6 +4527,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -4524,6 +4557,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"COCOAPODS=1",
 					"DEV=1",
@@ -4552,6 +4586,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -4581,6 +4616,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"COCOAPODS=1",
 					"PREPROD=1",

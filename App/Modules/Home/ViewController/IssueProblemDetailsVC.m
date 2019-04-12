@@ -12,12 +12,20 @@
 #import "PPBadgeView.h"
 #import "PWBaseWebVC.h"
 #import "IssueChatVC.h"
+<<<<<<< HEAD
 #import "IssueListManger.h"
 @interface IssueProblemDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
+=======
+#import <QuickLook/QuickLook.h>
+#import <AFNetworking.h>
+#import "QLPreviewController+title.h"
+#define ZY_AttachmentPreview @"ZY_AttachmentPreview"
+@interface IssueProblemDetailsVC ()<UITableViewDelegate, UITableViewDataSource,QLPreviewControllerDataSource,UIDocumentInteractionControllerDelegate>
+>>>>>>> bc6012ba76534920f69d4500cd0a7e5b1430e7ae
 
 
 @property (nonatomic, strong) UIButton *ignoreBtn;
-
+@property (copy, nonatomic)NSURL *fileURL; //文件路径
 @property (nonatomic, strong) NSMutableArray *expireData;
 @property (nonatomic, strong) UILabel *createNameLab;
 @end
@@ -206,25 +214,92 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     IssueAttachmentModel *model = [[IssueAttachmentModel alloc]initWithDictionary:self.expireData[indexPath.row]];
-    DLog(@"%@",model.fileUrl);
+    DLog(@"fileUrl----%@",model.fileUrl);
     NSString *ext = [model.fileUrl pathExtension];
     if ([ext isEqualToString:@"csv"]
-        || [ext isEqualToString:@"zip"]
-        || [ext isEqualToString:@"rar"]){
+        || [ext isEqualToString:@"rar"]
+        || [ext isEqualToString:@"zip"]){
         [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
         return;
+    }else if( [ext isEqualToString:@"txt"]){//下载后用QL预览
+        [self previewInternet:model.fileUrl];
+    }else{
+        PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];
+        [self.navigationController pushViewController:webView animated:YES];
     }
-    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];
-    [self.navigationController pushViewController:webView animated:YES];
+   
+   
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ----预览网络文件-----
+- (void)previewInternet:(NSString *)urlStr{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSString *fileName = [urlStr lastPathComponent]; //获取文件名称
+    NSURL *URL = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURL *url =[self cachePath:fileName];
+    //判断是否存在
+    if([self isFileExist:fileName]) {
+        [self presentQLViewController:url];
+    }else {
+        NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CGFloat value = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
+                NSString *valueStr = [NSString stringWithFormat:@"%.2f",value];
+                [SVProgressHUD showProgress:[valueStr floatValue]];
+            });
+            
+        } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+            return url;
+        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            [SVProgressHUD dismiss];
+            [self presentQLViewController:url];
+        }];
+        [downloadTask resume];
+    }
+    
 }
-*/
+//判断文件是否已经在沙盒中存在
+-(BOOL) isFileExist:(NSString *)fileName{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *filePath = [[path stringByAppendingPathComponent:ZY_AttachmentPreview] stringByAppendingPathComponent:fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL result = [fileManager fileExistsAtPath:filePath];
+    return result;
+}
+//获取附件路径URL
+- (NSURL *)cachePath:(NSString *)fileUrlStr{
+    NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *filePath = [path stringByAppendingPathComponent:ZY_AttachmentPreview];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:filePath]){
+        [fileManager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSURL *url = [[cachesDirectoryURL URLByAppendingPathComponent:ZY_AttachmentPreview] URLByAppendingPathComponent:fileUrlStr];
+    DLog(@"fileLocalPath-----%@",url);
+    return url;
+}
+//跳转到预览界面
+- (void)presentQLViewController:(NSURL *)filePath{
+    self.fileURL = filePath;
+    QLPreviewController *vc  =  [[QLPreviewController alloc]  init];
+    vc.dataSource  = self;
+    vc.qltitle = @"附件";
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc refreshCurrentPreviewItem];
+}
 
+#pragma mark - QLPreviewControllerDataSource
+-(id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
+    return self.fileURL;
+}
+
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)previewController{
+    return 1;
+}
 @end

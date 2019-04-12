@@ -10,6 +10,8 @@
 #ifndef define_h
 #define define_h
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #define APP_ID @"1441939241"
 #define ERROR_CODE @"errorCode"
 #define CODE @"code"
@@ -77,11 +79,21 @@
 
 //-------------------打印日志-------------------------
 //DEBUG  模式下打印日志,当前行
-#ifdef DEBUG
-#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#if DEV
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#elif PREPROD
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #else
-#define DLog(...)
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
+
+
+#define DLog(fmt, ...) DDLogDebug((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define DLogV(fmt, ...) DDLogVerbose((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define DLogI(fmt, ...) DDLogInfo((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define DLogE(fmt, ...) DDLogError((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define DLogW(fmt, ...) DDLogWarn((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
 //#define NSLocalizedString(key,comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
