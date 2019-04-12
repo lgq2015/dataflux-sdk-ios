@@ -10,6 +10,7 @@
 #import "MineMessageModel.h"
 #import "NSString+Regex.h"
 #import "PWBaseWebVC.h"
+#import "CloudCareVC.h"
 @interface MessageDetailVC ()
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UILabel *sourceLab;
@@ -140,8 +141,15 @@
             NSDictionary *dic = text.attributes;
             YYTextHighlight *user = [dic valueForKey:@"YYTextHighlight"];
             NSString *linkUrl = [user.userInfo valueForKey:@"linkUrl"];
-            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:text.string andURLString:linkUrl];
-            [weakSelf.navigationController pushViewController:webView animated:YES];
+            if ([text.string containsString:@"立即购买"]){
+                CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
+                makeFriendVC.isHideProgress = YES;
+                [weakSelf.navigationController pushViewController:makeFriendVC animated:YES];
+
+            }else{
+                PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:text.string andURLString:linkUrl];
+                [weakSelf.navigationController pushViewController:webView animated:YES];
+            }
         };
     }
     return _contentLab;

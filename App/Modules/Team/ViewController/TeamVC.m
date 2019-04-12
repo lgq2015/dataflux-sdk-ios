@@ -17,7 +17,7 @@
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
 #import "ServiceLogVC.h"
-#import "UIViewController+ChangeNavBarColor.h"
+#import "TeamVC+ChangeNavColor.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) UILabel *feeLab;
@@ -33,8 +33,11 @@
                                              selector:@selector(addTeamSuccess:)
                                                  name:KNotificationTeamStatusChange
                                                object:nil];
-    self.isHidenNaviBar = NO;
+    
     [self judgeIsTeam];
+    if (self.isShowCustomNaviBar){
+        [self initTopNavBar];
+    }
 }
 - (void)judgeIsTeam{
     
@@ -64,18 +67,18 @@
     if (isTeam) {
         [userManager addTeamSuccess:^(BOOL isSuccess) {
             if (isSuccess) {
-            [self.view removeAllSubviews];
+            [self zt_removeAllSubview];
             [self createTeamUI];
             }
         }];
     }else{
-        [self.view removeAllSubviews];
+        [self zt_removeAllSubview];
         [self createPersonalUI];
     }
     }
 
 - (void)createTeamUI{
-    [self.view removeAllSubviews];
+    [self zt_removeAllSubview];
     self.view.backgroundColor = PWBackgroundColor;
     self.tableView.mj_header = self.header;
      WeakSelf;
@@ -124,7 +127,7 @@
         [userManager addTeamSuccess:^(BOOL isSuccess) {
             self.isHidenNaviBar = YES;
             if (isSuccess) {
-                [self.view removeAllSubviews];
+                [self zt_removeAllSubview];
                 [self createTeamUI];
             }
             [self.header endRefreshing];
@@ -367,12 +370,25 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 #pragma mark ====导航栏的显示和隐藏====
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self zt_changeNavColorStart];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.view bringSubviewToFront:self.topNavBar];
     [self scrollViewDidScroll:self.tableView];
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self zt_changeColor:[UIColor whiteColor] scrolllView:self.tableView];
+}
+- (void)initTopNavBar{
+    self.topNavBar.titleLabel.text = @"团队";
+    self.topNavBar.backBtn.hidden = YES;
+    [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
+    [self.topNavBar addBottomSepLine];
+}
+- (void)zt_removeAllSubview{
+    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![obj isKindOfClass:[NaviBarView class]]){
+            [obj removeFromSuperview];
+        }
+    }];
 }
 @end
