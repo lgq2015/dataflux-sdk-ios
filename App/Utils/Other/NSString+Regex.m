@@ -29,7 +29,7 @@
         for (NSArray *array in array_http) {
             // 获得链接显示文字的range，用来设置下划线
             NSRange range = [labelText rangeOfString:array[1]];
-            [aStr setColor:[UIColor blueColor] range:range];
+            [aStr setColor:PWDefaultBtnColor range:range];
             // 高亮状态
             YYTextHighlight *highlight = [YYTextHighlight new];
             [highlight setBackgroundBorder:highlightBorder];
