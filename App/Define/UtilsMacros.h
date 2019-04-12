@@ -108,7 +108,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #define PWTextBlackColor [UIColor colorWithHexString:@"140F26"]
 #define PWReadColor [UIColor colorWithHexString:@"8E8E93"]
 #define PWCancelBtnColor [UIColor colorWithHexString:@"140F26"]
-#define PWDefaultBtnColor [UIColor colorWithHexString:@"0D47A1"]
+#define PWDefaultBtnColor [UIColor colorWithHexString:@"007aff"] 
 #define PWDestructiveBtnColor [UIColor colorWithHexString:@"D50000"]
 #define textColorNormalState [UIColor colorWithHexString:@"8E8E93"]
 #define textColorWarningState [UIColor colorWithHexString:@"D50000"]

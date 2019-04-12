@@ -818,14 +818,22 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     //动画添加到切换的过程中
     return animation;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ---UITextFieldDelegate---
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (!self.isAdd){
+        //25 为clearbtn的宽度
+        CGSize size =[textField.text sizeWithAttributes:@{NSFontAttributeName:textField.font}];
+        if (size.width > kWidth-Interval(32) - 25){
+            textField.textAlignment = NSTextAlignmentRight;
+        }
+    }
+    return YES;
 }
-*/
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (!self.isAdd){
+        textField.textAlignment = NSTextAlignmentLeft;
+    }
+}
 
 @end

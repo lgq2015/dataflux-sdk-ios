@@ -1,14 +1,14 @@
 //
-//  ServiceDetailVC+ChangeNavColor.m
+//  TeamVC+ChangeNavColor.m
 //  App
 //
-//  Created by tao on 2019/4/11.
+//  Created by tao on 2019/4/12.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "ServiceDetailVC+ChangeNavColor.h"
+#import "TeamVC+ChangeNavColor.h"
 
-@implementation ServiceDetailVC (ChangeNavColor)
+@implementation TeamVC (ChangeNavColor)
 - (void)changeColor:(UIColor *)color scrolllView:(UIScrollView *)scrollView criticalValue:(CGFloat)value {
     CGFloat offsetY = scrollView.contentOffset.y;
     DLog(@"offsetY-----%f",offsetY);
@@ -18,18 +18,12 @@
         self.topNavBar.backgroundColor = [color colorWithAlphaComponent:alpha];
         // 字体颜色
         self.topNavBar.titleLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:alpha];
-        // 返回按钮颜色
-        self.topNavBar.backBtn.alpha = alpha;
         // 分割线
         self.topNavBar.lineView.alpha = alpha;
-        // 白色返回按钮
-        self.whiteBackBtn.alpha = 1 - alpha;
     }else{
         self.topNavBar.backgroundColor = [UIColor clearColor];
         self.topNavBar.titleLabel.textColor = [UIColor clearColor];
-        self.topNavBar.backBtn.alpha = 0.01;
         self.topNavBar.lineView.alpha = 0.01;
-        self.whiteBackBtn.alpha = 1.0;
     }
 }
 - (void)zt_changeColor:(UIColor *)color scrolllView:(UIScrollView *)scrollView {

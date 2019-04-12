@@ -34,10 +34,7 @@
     }
     [self.view bringSubviewToFront:self.whiteBackBtn];
     if (self.isShowCustomNaviBar){
-        [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
-        self.topNavBar.backgroundColor = [UIColor clearColor];
-        [self.view bringSubviewToFront:self.topNavBar];
-        [self.topNavBar addBottomSepLine];
+        [self initTopNavBar];
     }
 }
 - (void)eventTeamCreate:(NSDictionary *)extra{
@@ -52,5 +49,11 @@
 #pragma mark ====导航栏的显示和隐藏====
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
+}
+- (void)initTopNavBar{
+    [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
+    self.topNavBar.backgroundColor = [UIColor clearColor];
+    [self.view bringSubviewToFront:self.topNavBar];
+    [self.topNavBar addBottomSepLine];
 }
 @end
