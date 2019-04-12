@@ -160,8 +160,9 @@
     RACSignal *state = RACObserve(seriousBtn, selected);
     RACSignal *state2 = RACObserve(waringBtn, selected);
 
-    RACSignal * navBtnSignal = [RACSignal combineLatest:@[describeTextView,titleSignal,state,state2] reduce:^id(NSString * title,NSString * content){
-        return @(title.length>0 && content.length>0 && self.level.length>0);
+    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,state,state2] reduce:^id(NSString * title,NSString * content){
+        NSString *describe = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
+        return @(title.length>0 && describe.length>0 && self.level.length>0);
     }];
     RAC(self.navRightBtn,enabled) = navBtnSignal;
     self.tableView.rowHeight = ZOOM_SCALE(60)+Interval(30);

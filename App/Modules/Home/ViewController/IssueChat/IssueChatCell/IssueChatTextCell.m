@@ -62,9 +62,7 @@
         self.retryBtn.hidden = NO;
     }
 }
--(void)showIndicator{
-    [self.mIndicator startAnimating];
-}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

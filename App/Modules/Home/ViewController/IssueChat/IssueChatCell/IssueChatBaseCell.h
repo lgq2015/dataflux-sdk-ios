@@ -15,6 +15,7 @@
 
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;
+-(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 -(void)PWChatRetryClickWithModel:(IssueLogModel *)model;
 //点击cell图片和短视频
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout; 
@@ -23,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface IssueChatBaseCell : UITableViewCell
 -(void)initPWChatCellUserInterface;
--(void)showIndicator;
 
 @property(nonatomic,assign)id<PWChatBaseCellDelegate> delegate;
 @property(nonatomic, strong) IssueChatMessagelLayout  *layout;

@@ -193,6 +193,10 @@
     mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [mTextView sizeToFit];
     _systermLabRect = mTextView.bounds;
-     _cellHeight = _systermLabRect.size.height;
+    _cellHeight = _systermLabRect.size.height;
+    if ([_message.systermStr isEqualToString:@"在这里讨论该情报"]) {
+        _cellHeight = _systermLabRect.size.height+Interval(28);
+
+    }
 }
 @end

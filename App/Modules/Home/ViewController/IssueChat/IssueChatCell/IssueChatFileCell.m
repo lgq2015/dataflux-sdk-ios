@@ -34,6 +34,8 @@
     self.mFileView.backgroundColor = PWWhiteColor;
     self.mBackImgButton.frame = layout.backImgButtonRect;
     self.mFileView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(fileTap)];
+    [self.mFileView addGestureRecognizer:tap];
     [self.mBackImgButton addSubview:self.mFileView];
     UIImageView *fileIconImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:layout.message.fileIcon]];
     fileIconImgView.tag = 22;
@@ -66,8 +68,15 @@
         make.right.mas_equalTo(self.mFileView).offset(-Interval(5));
     }];
 }
+-(void)fileTap{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatFileCellClick:layout:)]){
+        [self.delegate PWChatFileCellClick:self.indexPath layout:self.layout];
+    }
+}
 - (void)buttonPressed:(UIButton *)button{
-   
+    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatFileCellClick:layout:)]){
+        [self.delegate PWChatFileCellClick:self.indexPath layout:self.layout];
+    }
 }
 -(UIImageView *)fileIcon{
     if (_fileIcon) {

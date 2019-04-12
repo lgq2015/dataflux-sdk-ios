@@ -23,6 +23,7 @@
 #import "PWImageGroupView.h"
 #import "MemberInfoVC.h"
 #import "MemberInfoModel.h"
+#import "PWBaseWebVC.h"
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
 //承载表单的视图 视图原高度
@@ -67,6 +68,16 @@
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
             [self scrollToBottom];
+        }else{
+            if (self.datas.count == 0) {
+                IssueChatMessage *message = [IssueChatMessage new];
+                message.messageType = PWChatMessageTypeSysterm;
+                message.cellString = PWChatSystermCellId;
+                message.systermStr = @"在这里讨论该情报";
+                IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
+                [self.datas addObject:layout];
+                 [self.mTableView reloadData];
+            }
         }
     }];
 //    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
@@ -271,12 +282,29 @@
     }];
 
 }
+-(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout{
+    NSString *ext = [layout.message.filePath pathExtension];
+    if ([ext isEqualToString:@"csv"]
+        || [ext isEqualToString:@"zip"]
+        || [ext isEqualToString:@"rar"]){
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        return;
+    }
+    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
+    [self.navigationController pushViewController:webView animated:YES];
+}
 -(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
     model.sendError = NO;
+
     PWChatMessageType type = model.text?PWChatMessageTypeText:PWChatMessageTypeImage;
+    if(model.imageData){
+        UIImage *image = [UIImage imageWithData:model.imageData];
+        NSData *newData =  UIImageJPEGRepresentation(image, 0.5);
+        model.imageData = newData;
+    }
      [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     [self updateTableView];
-//    NSData *data =model.imageData? (NSData*)model.imageData:nil;
+    
 //    model.imageData =data;
     [IssueChatDatas sendMessage:model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model1, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
@@ -292,8 +320,8 @@
 -(void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
     MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
 
-    if(layout.message.messageFrom == PWChatMessageFromMe){
-        return;
+    if(layout.message.messageFrom == PWChatMessageFromMe ){
+        iconVC.type = PWMemberViewTypeMe;
     }else if(layout.message.messageFrom == PWChatMessageFromOther){
         iconVC.type = PWMemberViewTypeTeamMember;
         [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {

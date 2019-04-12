@@ -19,8 +19,8 @@
             }
         }
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = PWChatCellColor;
-        self.contentView.backgroundColor = PWChatCellColor;
+        self.backgroundColor = PWBackgroundColor;
+        self.contentView.backgroundColor = PWBackgroundColor;
         [self initPWChatCellUserInterface];
     }
     return self;

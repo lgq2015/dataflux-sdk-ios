@@ -36,7 +36,7 @@
                 messageBlock(model,UploadTypeSuccess,1);
             } failBlock:^(NSError *error) {
                 messageBlock(model,UploadTypeError,0);
-
+                [error errorToast];
             }];
         }
             break;
