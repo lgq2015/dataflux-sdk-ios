@@ -46,7 +46,8 @@
     CGSize infoSize = CGSizeMake(width, MAXFLOAT);
     NSDictionary *dic = @{NSFontAttributeName : zt_font};
     CGRect infoRect =   [self boundingRectWithSize:infoSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
-    CGFloat height = ceil(infoRect.size.height);
+    //1.0 解决返回的高度是小数时，布局显示会有误差
+    CGFloat height = ceil(infoRect.size.height) + 1.0;
     return height;
 }
 - (NSString *)zt_convertLinkTextString{
