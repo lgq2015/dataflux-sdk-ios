@@ -152,7 +152,7 @@
         [SVProgressHUD dismiss];
         if ([response[CODE]integerValue] == 200) {
             self.contactUSType = VIP_Type;
-            NSDictionary *content =PWSafeArrayVal(response, @"content");
+            NSDictionary *content =PWSafeDictionaryVal(response, @"content");
             if (content){
                 _avatar =[content stringValueForKey:@"avatar" default:@""];
                 _realName = [content stringValueForKey:@"realName" default:@""];
