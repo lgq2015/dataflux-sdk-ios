@@ -279,7 +279,7 @@
     DLog(@"fileLocalPath-----%@",url);
     return url;
 }
-//跳转到预览界面
+//跳转到QL预览界面
 - (void)presentQLViewController:(NSURL *)filePath{
     self.fileURL = filePath;
     QLPreviewController *vc  =  [[QLPreviewController alloc]  init];
@@ -288,6 +288,19 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:vc animated:YES];
     [vc refreshCurrentPreviewItem];
+}
+//跳转到Docuement预览界面
+- (void)presentDocumentViewController:(NSURL *)filePath{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"文件无法预览，是否使用第三方打开" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIDocumentInteractionController *vc = [UIDocumentInteractionController interactionControllerWithURL:filePath];
+        vc.delegate = self;
+        [vc presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+    }];
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:confirm];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - QLPreviewControllerDataSource

@@ -22,6 +22,8 @@
 #import "PWLogFormatter.h"
 #import <WXApi.h>
 #import <DTShareKit/DTOpenKit.h>
+#import <JPUSHService.h>
+#import "OpenUDID.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -36,6 +38,8 @@
                                              selector:@selector(netWorkStateChange:)
                                                  name:KNotificationNetWorkStateChange
                                                object:nil];
+    //监听JPush注册成功
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jPushNetworkDidLogin:) name:kJPFNetworkDidLoginNotification object:nil];
 }
 
 -(void)initSVProgressHUD{
@@ -199,6 +203,23 @@
 #pragma mark ========== 诸葛io 初始化 ==========
 -(void)initZhuge{
     
+}
+#pragma mark ========== Jpush 注册成功 ==========
+- (void)jPushNetworkDidLogin:(NSNotification *)notification {
+    NSString *registrationId = [JPUSHService registrationID];
+    NSString *openUDID = [OpenUDID value];
+    //给后台发绑定请求
+    NSDictionary *params = @{
+                             @"deviceId": openUDID,
+                             @"registrationId":registrationId
+                             };
+    [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        DLog(@"绑定成功----");
+    } failBlock:^(NSError *error) {
+        DLog(@"绑定失败----");
+    }];
+    //注销通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kJPFNetworkDidLoginNotification object:nil];
 }
 #pragma mark ========== OpenURL 回调 ==========
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
