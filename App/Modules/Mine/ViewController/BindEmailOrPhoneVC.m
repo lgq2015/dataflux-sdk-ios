@@ -10,7 +10,7 @@
 #import "PersonalInfoVC.h"
 #import "VerifyCodeVC.h"
 #import "ChangeUserInfoVC.h"
-
+#define tipLabTag 88
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
 @property (nonatomic ,strong) UITextField *emailTF;
 @property (nonatomic, strong) UIButton *commitBtn;
@@ -29,7 +29,6 @@
     NSString *title;
     NSString *placeholder;
     NSString *tipTitle;
-    //_emailTF.placeholder = @"请输入邮箱";
     switch (self.changeType) {
         case BindUserInfoTypeEmail:
             if (self.isFirst) {
@@ -59,6 +58,7 @@
     }
 
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:title];
+    
     [self.view addSubview:titleLab];
     [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -67,6 +67,8 @@
         make.height.offset(ZOOM_SCALE(25));
     }];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:tipTitle];
+    tipLab.tag = tipLabTag;
+    tipLab.hidden = YES;
     [self.view addSubview:tipLab];
     [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
@@ -98,16 +100,9 @@
         }];
         RAC(self.commitBtn,enabled) = emailSignal;
         
-        RAC(self.commitBtn, backgroundColor) = [emailSignal map: ^id (id value){
-            if([value boolValue]){
-                return PWBlueColor;
-            }else{
-                return [UIColor colorWithHexString:@"C7C7CC"];;
-            }
-        }];
     }else if(self.changeType == BindUserInfoTypeMobile){
         [self.commitBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-        self.emailTF.delegate = self;
+        self.emailTF.keyboardType = UIKeyboardTypeNumberPad;
         RACSignal *phoneSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             
                 if (value.length>13) {
@@ -128,30 +123,22 @@
         }];
         RAC(self.commitBtn,enabled) = phoneSignal;
     }else{
+        [[self.emailTF rac_textSignal] subscribeNext:^(NSString *x) {
+            NSInteger len = [x charactorNumber];
+            if (len>30) {
+                [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+              x=[x subStringWithLength:30];
+                self.emailTF.text = x;
+            }
+        }];
+        
          [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
     
             return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length>0);
         }];
         RAC(self.commitBtn,enabled) = emailSignal;
-        
-        RAC(self.commitBtn, backgroundColor) = [emailSignal map: ^id (id value){
-            if([value boolValue]){
-                return PWBlueColor;
-            }else{
-                return [UIColor colorWithHexString:@"C7C7CC"];;
-            }
-        }];
     }
-    
-    [[self.emailTF rac_textSignal] subscribeNext:^(NSString *x) {
-        if (x.length>0) {
-            tipLab.hidden = NO;
-        }else{
-            tipLab.hidden = YES;
-        }
-    }];
-   
 }
 -(void)backBtnClicked{
     BOOL isHave = NO;
@@ -168,6 +155,7 @@
 -(UITextField *)emailTF{
     if (!_emailTF) {
         _emailTF = [PWCommonCtrl textFieldWithFrame:CGRectZero];
+        _emailTF.delegate = self;
         _emailTF.keyboardType = UIKeyboardTypeDefault;
         [self.view addSubview:_emailTF];
     }
@@ -175,13 +163,9 @@
 }
 -(UIButton *)commitBtn{
     if(!_commitBtn){
-        _commitBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_commitBtn setTitle:@"确定" forState:UIControlStateNormal];
+        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44)) type:PWButtonTypeContain text:@"确定"];
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [_commitBtn setBackgroundColor:PWBlueColor];
         _commitBtn.enabled = NO;
-        _commitBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _commitBtn.layer.masksToBounds = YES;
         [self.view addSubview:_commitBtn];
     }
     return _commitBtn;
@@ -278,8 +262,24 @@
          [SVProgressHUD showErrorWithStatus:@"修改失败"];
     }];
 }
+#pragma mark ========== <UITextFieldDelegate> ==========
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(self.changeType == BindUserInfoTypeMobile){
     return [string validateNumber];
+    }else if(self.changeType == BindUserInfoTypeName){
+        if ([string isEqualToString:@""]) {
+            return YES;
+        }
+    return [string validateSpecialCharacter];
+    }
+    return YES;
+}
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self.view viewWithTag:tipLabTag].hidden = NO;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.view viewWithTag:tipLabTag].hidden = textField.text.length>0? NO:YES;
 }
 /*
 #pragma mark - Navigation

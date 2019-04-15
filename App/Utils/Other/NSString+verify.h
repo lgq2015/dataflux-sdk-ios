@@ -59,4 +59,7 @@
  计算文件大小
  */
 + (NSString *)transformedValue:(id)value;
+
+- (NSUInteger )charactorNumber;
+-(NSString *)subStringWithLength:(NSInteger )count;
 @end

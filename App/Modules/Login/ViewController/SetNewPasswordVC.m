@@ -36,9 +36,8 @@
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
-        _passwordTf.placeholder = @"请输入密码";
-        _passwordTf.clearButtonMode=UITextFieldViewModeNever;
-
+        _passwordTf.placeholder = @"请输入新密码";
+        _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
         [self.view addSubview:_passwordTf];
     }
     if(self.isChange){
@@ -76,7 +75,7 @@
         @strongify(self);
         if (value.length > 25){
             self.passwordTf.text = [self.passwordTf.text substringToIndex:25];
-            [iToast alertWithTitleCenter:@"内容长度超限"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
         }
         return @(value.length>7);
     }];
@@ -88,6 +87,7 @@
             return [UIColor colorWithHexString:@"C7C7CC"];
         }
     }];
+    [self.passwordTf becomeFirstResponder];
 }
 -(UIButton *)confirmBtn{
     if(!_confirmBtn){
@@ -144,6 +144,9 @@
             } else {
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
                   [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                         [self naviSkip];
+                    });
                 }else{
                 [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
                 }
@@ -171,6 +174,21 @@
         tf.text = tempPwdStr;
     }
 }
+- (void)naviSkip{
+    if (self.isChange) {
+        for(UIViewController *temp in self.navigationController.viewControllers) {
+            if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+                [self.navigationController popToViewController:temp animated:YES];
+            }
+        }
+    }else{
+        for(UIViewController *temp in self.navigationController.viewControllers) {
+            if([temp isKindOfClass:[LoginPasswordVC class]]){
+                [self.navigationController popToViewController:temp animated:YES];
+            }
+        }
+    }
+}
 -(void)backBtnClicked{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -179,19 +197,7 @@
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
         }
-        if (self.isChange) {
-            for(UIViewController *temp in self.navigationController.viewControllers) {
-                if([temp isKindOfClass:[SecurityPrivacyVC class]]){
-                    [self.navigationController popToViewController:temp animated:YES];
-                }
-            }
-        }else{
-        for(UIViewController *temp in self.navigationController.viewControllers) {
-            if([temp isKindOfClass:[LoginPasswordVC class]]){
-                [self.navigationController popToViewController:temp animated:YES];
-            }
-        }
-        }
+        [self naviSkip];
     }];
     [alert addAction:cancle];
     [alert addAction:confirm];

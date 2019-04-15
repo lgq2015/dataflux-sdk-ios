@@ -311,6 +311,8 @@
             [self.codeTfView codeView_showWarnState];
             if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
                 [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+            }else if([response[ERROR_CODE] isEqualToString:@"home.auth.emailCodeIncorrect"]){
+                 [SVProgressHUD showErrorWithStatus:@"验证码错误"];
             }else{
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
             }
@@ -382,11 +384,11 @@
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-            
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+
         }
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"网络异常"];
+        [error errorToast];
     }];
 
 }
@@ -430,8 +432,11 @@
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-        }
+            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+            }else{
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            }        }
     } failBlock:^(NSError *error) {
         
     }];
@@ -446,8 +451,11 @@
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+            }else{
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
         }
     } failBlock:^(NSError *error) {
         [error errorToast];

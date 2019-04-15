@@ -71,6 +71,7 @@
         if(value.length>25){
             value = [value substringToIndex:25];
             self.passwordTf.text = value;
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
         }
         return @(value.length>=8?YES:NO);
     }];
@@ -89,7 +90,7 @@
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
-        _passwordTf.clearButtonMode=UITextFieldViewModeNever;
+        _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
         [self.view addSubview:_passwordTf];
     }
     return _passwordTf;

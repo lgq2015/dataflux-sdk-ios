@@ -284,5 +284,24 @@
     
     return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
-
+//获取字符串的字节数
+- (NSUInteger )charactorNumber
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* da = [self dataUsingEncoding:enc];
+    return [da length];
+}
+//切割字符串
+-(NSString *)subStringWithLength:(NSInteger )count
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* data = [self dataUsingEncoding:enc];
+    NSData * subData;
+    if (data.length%2 == 0) {
+        subData = [data subdataWithRange:NSMakeRange(0, count)];
+    }else{
+        subData = [data subdataWithRange:NSMakeRange(0, count - 1)];
+    }
+    return [[NSString alloc] initWithData:subData encoding:enc];
+}
 @end

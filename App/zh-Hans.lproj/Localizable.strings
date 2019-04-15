@@ -128,3 +128,5 @@
 
 "isseu.detail.accountInfo.user" = "成员";
 "isseu.detail.accountInfo.staff" = "专家";
+
+"home.auth.passwordLength.scaleOut" = "内容长度超限";

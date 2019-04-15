@@ -10,8 +10,8 @@
 #import "SetNewPasswordVC.h"
 #import "VerifyCodeVC.h"
 #import "VerificationCodeNetWork.h"
-
-@interface FindPasswordVC ()
+#define phoneLabTag 99
+@interface FindPasswordVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *userTf;
 
 @property (nonatomic, strong) UIButton *veritfyCodeBtn;
@@ -31,10 +31,13 @@
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"忘记密码"];
     [self.view addSubview:titleLab];
     UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(84)+kTopHeight, ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
+    tipLab.hidden = YES;
+    tipLab.tag =phoneLabTag;
     [self.view addSubview:tipLab];
     if (!_userTf) {
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _userTf.placeholder = @"请输入手机号/邮箱";
+        _userTf.delegate = self;
         _userTf.keyboardType = UIKeyboardTypeDefault;
         _userTf.clearButtonMode=UITextFieldViewModeNever;
 
@@ -63,22 +66,11 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     RACSignal *phoneTf= [[self.userTf rac_textSignal] map:^id(NSString *value) {
-        if (value.length>0) {
-            tipLab.hidden = NO;
-        }else{
-            tipLab.hidden = YES;
-        }
+
         return @(value.length>0);
     }];
     RAC(self.veritfyCodeBtn,enabled) = phoneTf;
     
-    RAC(self.veritfyCodeBtn, backgroundColor) = [phoneTf map: ^id (id value){
-        if([value boolValue]){
-            return PWBlueColor;
-        }else{
-            return [UIColor colorWithHexString:@"C7C7CC"];;
-        }
-    }];
     DLog(@"%@",self.userAcount);
     self.userTf.text = self.userAcount;
     if (self.userAcount.length>0) {
@@ -88,13 +80,9 @@
 }
 -(UIButton *)veritfyCodeBtn{
     if(!_veritfyCodeBtn){
-        _veritfyCodeBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_veritfyCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        _veritfyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"获取验证码"];
         [_veritfyCodeBtn addTarget:self action:@selector(veritfyCodeClick) forControlEvents:UIControlEventTouchUpInside];
-        [_veritfyCodeBtn setBackgroundColor:PWBlueColor];
         _veritfyCodeBtn.enabled = NO;
-        _veritfyCodeBtn.layer.cornerRadius = ZOOM_SCALE(5);
-        _veritfyCodeBtn.layer.masksToBounds = YES;
         [self.view addSubview:_veritfyCodeBtn];
     }
     return _veritfyCodeBtn;
@@ -112,7 +100,11 @@
                 codeVC.phoneNumber = self.userTf.text;
                 [self.navigationController pushViewController:codeVC animated:YES];
             }else{
-                [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
+                if ([response[ERROR_CODE] isEqualToString:@"home.auth.exceededSendIntervalLimit"]) {
+                    [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                }else{
+                    [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
+                }
             }
         } failBlock:^(NSError *error) {
             [iToast alertWithTitleCenter:@"网络异常"];
@@ -123,7 +115,13 @@
     }
     
 }
-
+#pragma mark ========== <UITextFieldDelegate> ==========
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self.view viewWithTag:phoneLabTag].hidden = NO;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.view viewWithTag:phoneLabTag].hidden = textField.text.length>0? NO:YES;
+}
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
     [self.userTf resignFirstResponder];
