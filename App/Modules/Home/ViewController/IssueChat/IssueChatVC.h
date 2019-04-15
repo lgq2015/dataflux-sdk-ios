@@ -7,12 +7,13 @@
 //
 
 #import "RootViewController.h"
-
+@class IssueListViewModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueChatVC : RootViewController
-@property (nonatomic, copy) NSString *issueID;
 @property (nonatomic, strong) NSDictionary *infoDetailDict;
+@property (nonatomic, strong) IssueListViewModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

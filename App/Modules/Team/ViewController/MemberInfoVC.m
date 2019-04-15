@@ -72,6 +72,9 @@
             NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = userManager.curUserInfo.name;
+            if (userManager.teamModel.isAdmin) {
+                 self.subTitleLab.text = @"管理员";
+            }
         }
             break;
     }
@@ -92,6 +95,7 @@
 }
 - (void)createBtnPhone{
     UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"拨打电话(%@)",self.model.mobile]];
+
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +105,8 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     if (userManager.teamModel.isAdmin) {
-        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:[NSString stringWithFormat:@"移除成员"]];
+        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
+        [delectTeam setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:delectTeam];
         [delectTeam mas_makeConstraints:^(MASConstraintMaker *make) {

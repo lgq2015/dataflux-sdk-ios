@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, strong) NSMutableArray<CreateQuestionModel *> *attachmentArray;
 @property (nonatomic, copy) NSString *batchId;
+
 @property (nonatomic, copy) NSString *upBatchId;
 // type = 1 严重 type = 2  警告
 @property (nonatomic, assign) NSString *level;
@@ -230,7 +231,16 @@
 }
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
-        [self.navigationController popViewControllerAnimated:YES];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消本次创建问题吗？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+        }];
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert addAction:cancle];
+        [alert addAction:confirm];
+        [self presentViewController:alert animated:YES completion:nil];
     }else if (button.tag == NavRightBtnTag){
         self.navigationItem.rightBarButtonItem.enabled = NO;
         NSDictionary *params;

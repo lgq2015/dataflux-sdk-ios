@@ -45,21 +45,9 @@
         self.codeTF.keyboardType = UIKeyboardTypeNumberPad;
         self.codeTF.delegate = self;
         RACSignal *phoneTf= [[self.codeTF rac_textSignal] map:^id(NSString *value) {
-            if((value.length == 3 || value.length == 8 )){
-                if (value.length<self.temp.length) {
-                    value =[value substringToIndex:value.length-1];
-                }else{
-                    value = [NSString stringWithFormat:@"%@ ", value];
-                }
-            }
-            self.codeTF.text = value;
-            self.temp = value;
-            if (value.length>13) {
-                value = [value substringToIndex:13];
-                self.codeTF.text = [value substringToIndex:13];
-                self.temp = [value substringToIndex:13];
-            }
-            return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length == 11);
+            NSString *num =[value stringByReplacingOccurrencesOfString:@" " withString:@""];
+            [self dealTFText:num];
+            return @(num.length == 11);
         }];
          RAC(commitTeam,enabled) = phoneTf;
     }else{
@@ -72,6 +60,18 @@
     keyboardManager.enable = NO;
       [self.codeTF becomeFirstResponder];
     
+}
+- (void)dealTFText:(NSString *)text{
+    if (text.length>11) {
+        text = [text substringToIndex:11];
+        self.codeTF.text = [NSString stringWithFormat:@"%@ %@ %@",[text substringToIndex:3],[text substringWithRange:NSMakeRange(3, 4)],[text substringFromIndex:7]];
+    }else if(text.length>7){
+        self.codeTF.text = [NSString stringWithFormat:@"%@ %@ %@",[text substringToIndex:3],[text substringWithRange:NSMakeRange(3, 4)],[text substringFromIndex:7]];
+    }else if(text.length>3){
+        self.codeTF.text = [NSString stringWithFormat:@"%@ %@",[text substringToIndex:3],[text substringFromIndex:3]];
+    }else{
+        self.codeTF.text = text;
+    }
 }
 - (UIView *)itemWithData:(NSDictionary *)dict{
     UIView *item = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, ZOOM_SCALE(65))];
@@ -88,6 +88,11 @@
 - (void)commitTeamClick{
     NSDictionary *param ;
     if (self.isPhone) {
+        BOOL  is = [self.codeTF.text validatePhoneNumber];
+        if (is == NO){
+            [iToast alertWithTitleCenter:@"手机号错误"];
+            return;
+        }
         param = @{@"data":@{@"invite_type":@"mobile",@"invite_id":[self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]}};
     }else{
         BOOL  isEmail = [self.codeTF.text validateEmail];
@@ -116,7 +121,12 @@
     
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    return [self validateNumber:string];
+    if (self.isPhone) {
+        return [self validateNumber:string];
+
+    }else{
+        return YES;
+    }
 }
 
 - (BOOL)validateNumber:(NSString*)number {

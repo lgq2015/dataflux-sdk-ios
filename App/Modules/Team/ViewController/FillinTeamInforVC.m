@@ -189,7 +189,7 @@
     
     RACSignal *nameSignal = [[self.tfAry[0] rac_textSignal]map:^id(NSString *value) {
         if ([self textLength:value]>30) {
-            [iToast alertWithTitleCenter:@"内容长度超限"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
             value = [value substringToIndex:self.temp.length];
             self.tfAry[0].text = value;
         }else{
@@ -204,7 +204,7 @@
     
     [[self.tfAry[2] rac_textSignal] map:^id(NSString *value) {
         if (value.length>250) {
-            [iToast alertWithTitleCenter:@"内容长度超限"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
             value = [value substringToIndex:250];
         }
         self.tfAry[2].text = value;
@@ -276,7 +276,7 @@
     }];
     RACSignal *nameSignal = [[self.tfAry[0] rac_textSignal]map:^id(NSString *value) {
         if ([self textLength:value]>30) {
-            [iToast alertWithTitleCenter:@"内容长度超限"];
+             [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
             value = [value substringToIndex:self.temp.length];
             self.tfAry[0].text = value;
         }else{

@@ -10,6 +10,7 @@
 #import "MemberInfoVC.h"
 #import "IssueChatVC.h"
 #import "ExpertsSuggestVC.h"
+#import "IssueListViewModel.h"
 @interface ExpertsDetailVC ()
 @property (nonatomic, strong) NSString *profilesStr;
 @end
@@ -98,7 +99,7 @@
       content = [NSString stringWithFormat:@"请%@尽快与我进行电话沟通",expertNameStr];
     }
     [SVProgressHUD show];
-    [[PWHttpEngine sharedInstance] issueTicketOpenWithIssueid:self.issueid expertGroup:avatarName content:content callBack:^(id response) {
+    [[PWHttpEngine sharedInstance] issueTicketOpenWithIssueid:self.model.issueId expertGroup:avatarName content:content callBack:^(id response) {
         [SVProgressHUD dismiss];
         BaseReturnModel *data = ((BaseReturnModel *) response) ;
         if (data.isSuccess) {
@@ -114,7 +115,9 @@
                 
             }
             if (isHaveChat ==NO) {
-                [self.navigationController pushViewController:[IssueChatVC new] animated:YES];
+                IssueChatVC *chat = [[IssueChatVC alloc]init];
+                chat.model = self.model;
+                [self.navigationController pushViewController:chat animated:YES];
                 NSMutableArray *delect = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
 
                for (UIViewController *vc in self.navigationController.viewControllers) {

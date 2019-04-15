@@ -81,7 +81,7 @@
 -(TTTAttributedLabel *)tipsLab{
     if (!_tipsLab) {
         //    Access Key 可在您的阿里云 RAM 账号中找到，详细步骤请点击这里
-        NSString *linkText = @"400-882-3320";
+        NSString *linkText = @"4008823320";
         NSString *promptText = [NSString stringWithFormat:@"您的购买预约已经提交成功\n我们会尽快安排客服人员与您联系\n您也可以直接拨打%@咨询",linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _tipsLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];

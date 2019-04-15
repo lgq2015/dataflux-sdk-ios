@@ -102,7 +102,7 @@
 - (void)navRightBtnClick{
        if ([getTeamState isEqualToString:PW_isTeam]) {
             IssueChatVC *chat = [[IssueChatVC alloc]init];
-            chat.issueID = self.model.issueId;
+            chat.model = self.model;
             chat.infoDetailDict = self.infoDetailDict;
             [self.navigationController pushViewController:chat animated:YES];
         }else if([getTeamState isEqualToString:PW_isPersonal]){

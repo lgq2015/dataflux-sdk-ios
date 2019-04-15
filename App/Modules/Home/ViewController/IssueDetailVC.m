@@ -177,7 +177,6 @@
     [SVProgressHUD show];
     [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
         [SVProgressHUD dismiss];
-        if (isSuccess) {
             if ([getTeamState isEqualToString:PW_isTeam]) {
                 NSDictionary *tags =userManager.teamModel.tags;
                 NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
@@ -185,16 +184,12 @@
                     [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
                     return;
                 }
-
                 ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-                expert.issueid = self.model.issueId;
+                expert.model = self.model;
                 [self.navigationController pushViewController:expert animated:YES];
             }else if([getTeamState isEqualToString:PW_isPersonal]){
-                [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
+             [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
             }
-        }else{
-
-        }
     }];
 
 }

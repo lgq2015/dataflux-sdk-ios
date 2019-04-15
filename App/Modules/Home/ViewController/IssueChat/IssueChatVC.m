@@ -7,6 +7,7 @@
 //
 
 #import "IssueChatVC.h"
+#import "IssueListViewModel.h"
 #import "IssueChatKeyBoardInputView.h"
 #import "IssueChatBaseCell.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
@@ -29,6 +30,7 @@
 //承载表单的视图 视图原高度
 @property (strong, nonatomic) UIView    *mBackView;
 @property (assign, nonatomic) CGFloat   backViewH;
+@property (nonatomic, copy) NSString *issueID;
 @property (nonatomic,strong) PWPhotoOrAlbumImagePicker *myPicker;
 
 //表单
@@ -57,7 +59,7 @@
 
 
     //获取历史数据
-
+    self.issueID = self.model.issueId;
     NSArray *array= [IssueChatDatas receiveMessages:self.issueID];
     [self.datas addObjectsFromArray:array];
     [self.mTableView reloadData];
@@ -140,7 +142,10 @@
 
 - (void)createUI{
 //    self.tableVie
-    [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
+    if(self.model.state != MonitorListStateRecommend){
+        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
+
+    }
     self.datas = [HLSafeMutableArray new];
     _mInputView = [[IssueChatKeyBoardInputView alloc]init];
     _mInputView.delegate = self;
@@ -266,10 +271,8 @@
         logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
         logModel.issueId = self.issueID;
         logModel.id = [NSDate getNowTimeTimestamp];
-        [[PWSocketManager sharedPWSocketManager] checkForRestart];
         if(![[PWSocketManager sharedPWSocketManager] isConnect]){
             [self dealSocketNotConnectWithModel:logModel];
-            
         }else{
             [self sendMessageWithModel:logModel messageType:PWChatMessageTypeImage];
         }
@@ -289,11 +292,10 @@
 - (void)sendMessageWithModel:(IssueLogModel *)logModel messageType:(PWChatMessageType)type{
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:logModel];
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.datas addObject:layout];
-        [self.mTableView reloadData];
-        [self scrollToBottom];
-    });
+    [self.datas addObject:layout];
+    [self.mTableView reloadData];
+    [self scrollToBottom];
+   
    
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
     [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
@@ -322,7 +324,6 @@
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
-    [[PWSocketManager sharedPWSocketManager] checkForRestart];
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
     
     }else{
@@ -374,7 +375,6 @@
 }
 //发送消息
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
-    [[PWSocketManager sharedPWSocketManager] checkForRestart];
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
     logModel.text = dic[@"text"];
     logModel.issueId = self.issueID;
@@ -470,7 +470,7 @@
                     return;
                 }
                 ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-                expert.issueid = self.issueID;
+                expert.model = self.model;
                 [self.navigationController pushViewController:expert animated:YES];
             }
         }

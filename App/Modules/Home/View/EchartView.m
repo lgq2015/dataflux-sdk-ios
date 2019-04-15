@@ -21,9 +21,10 @@
     return self;
 }
 - (void)setupEchartWithDict:(NSDictionary *)data{
-    NSArray *series = data[@"series"];
+    NSArray *series = PWSafeArrayVal(data, data);
     NSMutableArray *lineX  = [NSMutableArray new];
-    NSString *type = data[@"xAxis"][@"type"];
+    NSDictionary *xAxisDict = PWSafeDictionaryVal(data, @"xAxis");
+    NSString *type = [xAxisDict stringValueForKey:@"type" default:@""];
     if ([type isEqualToString:@"time"]) {
         NSArray *data = series[0][@"data"];
         [data enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -81,6 +82,7 @@
     PYAxis *xAxis = [[PYAxis  alloc] init];
     //横轴默认为类目型(就是坐标自己设置)
     xAxis.type = @"category";
+    xAxis.name =  [xAxisDict stringValueForKey:@"name" default:@""];
     // 起始和结束两端空白
     xAxis.boundaryGap = @(NO);
     // 分隔线

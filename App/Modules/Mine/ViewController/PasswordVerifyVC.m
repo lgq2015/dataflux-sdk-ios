@@ -72,6 +72,11 @@
     }];
     
     RACSignal *emailSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
+        if(value.length>25){
+            value = [value substringToIndex:25];
+            self.passwordTf.text = value;
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+        }
         return @(value.length>7);
     }];
     RAC(confirmBtn,enabled) = emailSignal;
@@ -201,7 +206,11 @@
             NSString * uuid =response[@"content"][@"uuid"];
             [self doTeamTransfer:uuid];
         }else{
+            if ([response[ERROR_CODE] isEqualToString:@"home.auth.passwordIncorrect"]) {
+                [iToast alertWithTitleCenter:@"密码错误"];
+            }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
         }
         [SVProgressHUD dismiss];
         

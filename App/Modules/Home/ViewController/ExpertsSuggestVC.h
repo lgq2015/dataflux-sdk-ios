@@ -7,11 +7,12 @@
 //
 
 #import "RootViewController.h"
-
+@class IssueListViewModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ExpertsSuggestVC : RootViewController
-@property (nonatomic, copy) NSString *issueid;
+@property (nonatomic, strong) IssueListViewModel *model;
+
 @property (nonatomic, strong) NSMutableArray *expertGroups;
 
 @end

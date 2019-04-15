@@ -79,6 +79,7 @@
     
 }
 - (void)commitClick{
+    
      UIImageWriteToSavedPhotosAlbum(self.qrImgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {

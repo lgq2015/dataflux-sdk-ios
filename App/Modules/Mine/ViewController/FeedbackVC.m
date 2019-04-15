@@ -49,11 +49,15 @@
         make.bottom.mas_equalTo(self.describeView).offset(-Interval(10));
     }];
     [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
-        if (text.length>1000) {
-            text = [text substringToIndex:1000];
+       
+        NSInteger len = [text charactorNumber];
+        if (len>2000) {
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+            text=[text subStringWithLength:2000];
             self.describeTextView.text = text;
+            len = [text charactorNumber];
         }
-        count.text = [NSString stringWithFormat:@"%lu/1000",(unsigned long)text.length];
+        count.text = [NSString stringWithFormat:@"%ld/1000",len/2];
     }];
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.describeView.mas_bottom).offset(Interval(35));

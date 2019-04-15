@@ -90,7 +90,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
-                [self saveUserInfoLoginStateisChange:YES];
+                [self saveUserInfoLoginStateisChange:YES success:nil];
             }
             
         } failBlock:^(NSError *error) {
@@ -115,9 +115,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     if (completion) {
                         completion(YES,changePasswordToken);
                     }
-                    [self saveUserInfoLoginStateisChange:NO];
+                    [self saveUserInfoLoginStateisChange:NO success:nil];
                 }else{
-                    [self saveUserInfoLoginStateisChange:YES];
+                    [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
             }else{
                 if (completion) {
@@ -139,7 +139,7 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 #pragma mark ========== 储存用户信息 ==========
--(void)saveUserInfoLoginStateisChange:(BOOL)change{
+-(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
     __block BOOL isUserSuccess,isTeamSuccess = NO;
 
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
@@ -213,7 +213,9 @@ SINGLETON_FOR_CLASS(UserManager);
                 if(change){
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 }
+                isSuccess? isSuccess(YES):nil;
             }else{
+                isSuccess? isSuccess(NO):nil;
                 [iToast alertWithTitleCenter:@"网络异常"];
             }
         });

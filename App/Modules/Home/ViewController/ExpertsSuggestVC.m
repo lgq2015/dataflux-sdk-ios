@@ -13,11 +13,12 @@
 #import "ExpertsMoreVC.h"
 #import "IssueListManger.h"
 #import "IssueModel.h"
-
+#import "IssueListViewModel.h"
 @interface ExpertsSuggestVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView *expertCollection;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *selectExpertGroups;
+@property (nonatomic, copy) NSString *issueID;
 
 @end
 
@@ -26,10 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"专家建议";
+    self.issueID = self.model.issueId;
     [self createUI];
 }
 - (void)createUI{
-    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.issueid];
+    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.issueID];
     NSDictionary *issueTags = model.tagsStr.length>0?[model.tagsStr jsonValueDecoded]:nil;
     
     if (issueTags) {
@@ -137,7 +139,7 @@
     if (indexPath.row != self.dataSource.count-1) {
         ExpertsDetailVC *detailVC = [[ExpertsDetailVC alloc]init];
         detailVC.data = self.dataSource[indexPath.row];
-        detailVC.issueid = self.issueid;
+        detailVC.model = self.model;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
         ExpertsMoreVC *moreVC = [[ExpertsMoreVC alloc]init];
