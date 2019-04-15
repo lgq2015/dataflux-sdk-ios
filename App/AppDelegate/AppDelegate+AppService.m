@@ -39,7 +39,7 @@
                                                  name:KNotificationNetWorkStateChange
                                                object:nil];
     //监听JPush注册成功
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jPushNetworkDidLogin:) name:kJPFNetworkDidLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jPushNetworkDidLogin:) name:kJPFNetworkDidLoginNotification object:nil];
 }
 
 -(void)initSVProgressHUD{
