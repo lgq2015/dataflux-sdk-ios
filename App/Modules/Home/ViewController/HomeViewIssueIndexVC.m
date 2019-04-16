@@ -364,7 +364,6 @@
     [self loadNewsDatas];
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
         [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
-
             if (isConnect) {
             [self infoBoardStyleUpdate];
             setIsHideGuide(PW_IsHideGuide);

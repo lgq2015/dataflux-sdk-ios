@@ -14,16 +14,20 @@
 #import "TeamVC.h"
 #import "ChooseAdminVC.h"
 #import "ChangeUserInfoVC.h"
+#import "UITextField+HLLHelper.h"
+
 #define AddressTag 15
 #define TradesTag  20
 
-@interface FillinTeamInforVC ()<UIGestureRecognizerDelegate>
+@interface FillinTeamInforVC ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray<UITextField *> *tfAry;
-
+@property (nonatomic, assign) FillinTeamType type;
+@property (nonatomic, strong) TeamFillConfige *mConfige;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, copy) NSString *currentCity;
 @property (nonatomic, copy) NSString *currentProvince;
 @property (nonatomic, copy) NSString *temp;
+@property (nonatomic, strong) UILabel *countLab;
 @end
 
 @implementation FillinTeamInforVC
@@ -40,36 +44,14 @@
     [self judgeVcType];
 }
 - (void)judgeVcType{
-    if (userManager.teamModel == nil) {
-        self.type = FillinTeamTypeAdd;
-      
-    }else if(userManager.teamModel.isAdmin){
-        self.type = FillinTeamTypeIsAdmin;
-      
-    }else{
-        self.type = FillinTeamTypeIsMember;
-       
-    }
-    NSArray *itemAry;
-    switch (self.type) {
-        case FillinTeamTypeAdd:
-            self.title = @"填写团队信息";
-            itemAry = @[@{@"title":@"团队名称",@"placeholder":@"请输入您的团队名称（必填）",@"enabled":@YES,@"showArrow":@NO},@{@"title":@"所在地",@"placeholder":@"请选择您的团队所在区域（必选）",@"enabled":@NO,@"showArrow":@YES},@{@"title":@"行业",@"placeholder":@"请选择您的团队所属行业（必选）",@"enabled":@NO,@"showArrow":@YES}];
-            break;
-        case FillinTeamTypeIsAdmin:
-            self.title = @"团队管理";
-             itemAry = @[@{@"title":@"团队名称",@"placeholder":@"请输入您的团队名称（必填）",@"enabled":@YES,@"showArrow":@NO},@{@"title":@"所在地",@"placeholder":@"请选择您的团队所在区域（必选）",@"enabled":@NO,@"showArrow":@YES},@{@"title":@"行业",@"placeholder":@"请选择您的团队所属行业（必选）",@"enabled":@NO,@"showArrow":@YES}];
-            break;
-        case FillinTeamTypeIsMember:
-            self.title = @"团队管理";
-            itemAry = @[@{@"title":@"团队名称",@"placeholder":@"请输入您的团队名称（必填）",@"enabled":@NO,@"showArrow":@NO},@{@"title":@"所在地",@"placeholder":@"请选择您的团队所在区域（必选）",@"enabled":@NO,@"showArrow":@NO},@{@"title":@"行业",@"placeholder":@"请选择您的团队所属行业（必选）",@"enabled":@NO,@"showArrow":@NO}];
-            break;
-    }
-    [self createUIWithData:itemAry];
+    self.mConfige = [[TeamFillConfige alloc]init];
+    self.title = self.mConfige.title;
+    self.currentCity = self.mConfige.currentCity;
+    self.currentProvince = self.mConfige.currentProvince;
+    [self createUIWithDatas:self.mConfige.teamTfArray];
 }
 
-- (void)createUIWithData:(NSArray *)itemAry{
-   
+- (void)createUIWithDatas:(NSArray<TeamTF *>*)itemAry{
     UIView *temp = nil;
     CGFloat height = Interval(23)+ZOOM_SCALE(42);
     for (NSInteger i=0;i<itemAry.count ;i++) {
@@ -105,19 +87,47 @@
         make.top.mas_equalTo(temp.mas_bottom).offset(Interval(2));
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
-        make.height.offset(ZOOM_SCALE(100));
+        make.height.offset(ZOOM_SCALE(130));
     }];
-    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
-    [textItem addSubview:titel];
+   
+        UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
+        [textItem addSubview:titel];
     
-    [textItem addSubview:self.textView];
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(titel.mas_bottom);
-        make.right.mas_equalTo(self.view).offset(-Interval(12));
-        make.left.mas_equalTo(self.view).offset(Interval(12));
-        make.bottom.mas_equalTo(textItem).offset(-Interval(8));
-    }];
-    switch (self.type) {
+
+        [textItem addSubview:self.textView];
+        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(titel.mas_bottom);
+            make.right.mas_equalTo(self.view).offset(-Interval(12));
+            make.left.mas_equalTo(self.view).offset(Interval(12));
+            make.bottom.mas_equalTo(textItem).offset(-Interval(25));
+        }];
+    if (!_countLab) {
+        _countLab = [PWCommonCtrl lableWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(13) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"0/250"];
+        _countLab.textAlignment = NSTextAlignmentRight;
+         [textItem addSubview:_countLab];
+    }
+    self.textView.text = self.mConfige.describeStr;
+    if (!self.mConfige.showDescribe) {
+        textItem.hidden = YES;
+    }else{
+        [[self.textView rac_textSignal] subscribeNext:^(NSString *text) {
+            UITextRange *selectedRange = [self.textView markedTextRange];
+            //获取高亮部分
+            UITextPosition *pos = [self.textView positionFromPosition:selectedRange.start offset:0];
+            if (!pos) {
+                NSInteger len = [text charactorNumber];
+                if (len>500) {
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+                    text=[text subStringWithLength:500];
+                    self.textView.text = text;
+                    len = [text charactorNumber];
+                }
+                _countLab.text = [NSString stringWithFormat:@"%ld/250",len/2];
+            }
+        }];
+    }
+    self.tfAry[0].delegate = self;
+    switch (self.mConfige.type) {
         case FillinTeamTypeAdd:
             [self createBtnViewAdd];
             break;
@@ -132,12 +142,6 @@
 }
 #pragma mark ========== 团队/个人 ==========
 - (void)createBtnViewMember{
-    TeamInfoModel *model = userManager.teamModel;
-    self.tfAry[0].text =model.name;
-    NSString *city = model.city.length>0?model.city:model.province;
-    self.tfAry[1].text = city;
-    self.tfAry[2].text = model.industry;
-    self.textView.text = [model.tags stringValueForKey:@"introduction" default:@""];
     self.textView.editable = NO;
     UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"退出团队"];
     [commitTeam addTarget:self action:@selector(exictTeamClick) forControlEvents:UIControlEventTouchUpInside];
@@ -187,30 +191,13 @@
         make.height.offset(ZOOM_SCALE(47));
     }];
     
-    RACSignal *nameSignal = [[self.tfAry[0] rac_textSignal]map:^id(NSString *value) {
-        if ([self textLength:value]>30) {
-            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
-            value = [value substringToIndex:self.temp.length];
-            self.tfAry[0].text = value;
-        }else{
-            self.temp =value;
-        }
-
-        return value;
-    }];
+    self.tfAry[0].hll_limitTextLength = 30;
     RACSignal *addressSignal = RACObserve(self.tfAry[1], text);
     RACSignal *tradesSignal =  RACObserve(self.tfAry[2], text);
     
-    
-    [[self.tfAry[2] rac_textSignal] map:^id(NSString *value) {
-        if (value.length>250) {
-            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
-            value = [value substringToIndex:250];
-        }
-        self.tfAry[2].text = value;
-        return value;
-    }];
-    RACSignal *btnSignal = [RACSignal combineLatest:@[nameSignal,addressSignal,tradesSignal] reduce:^id(NSString * name,NSString * address,NSString *trades){
+    RACSignal *btnSignal = [RACSignal combineLatest:@[[self.tfAry[0] rac_textSignal],addressSignal,tradesSignal] reduce:^id(NSString * name,NSString * address,NSString *trades){
+        NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        name = [name stringByTrimmingCharactersInSet:set];
         return @(name.length>0 && self.tfAry[1].text.length>0 &&self.tfAry[2].text.length>0);
     }];
     RAC(commitTeam,enabled) = btnSignal;
@@ -219,10 +206,13 @@
     NSDictionary *params ;
     NSString *province =self.currentProvince;
     NSString *city = self.currentCity;
+    NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *name = [self.tfAry[0].text stringByTrimmingCharactersInSet:set];
+    
     if (self.textView.text.length>0) {
-        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+        params= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
     }else{
-        params= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
+        params= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
         
     }
     [SVProgressHUD show];
@@ -236,23 +226,28 @@
                     [self.navigationController popViewControllerAnimated:NO];
                 };
             [self presentViewController:create animated:YES completion:nil];  
-                }
+        }else{
+            if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                KPostNotification(KNotificationTeamStatusChange, @YES);
+                setTeamState(PW_isTeam);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:NO];
+                });
+            }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            }
+        }
         [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
+        [error errorToast];
     }];
     
 }
 #pragma mark ========== 团队/管理员 ==========
 - (void)createBtnViewAdmin{
-    TeamInfoModel *model = userManager.teamModel;
-    self.currentProvince = model.province;
-    self.currentCity = model.city;
-    self.tfAry[0].text =model.name;
-    NSString *city = model.city.length>0?model.city:model.province;
-    self.tfAry[1].text = city;
-    self.tfAry[2].text = model.industry;
-    self.textView.text = [model.tags stringValueForKey:@"introduction" default:@""];
+
     UIButton *transferTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
     [transferTeam addTarget:self action:@selector(transferClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:transferTeam];
@@ -274,18 +269,7 @@
         make.top.mas_equalTo(transferTeam.mas_bottom).offset(Interval(20));
         make.height.offset(ZOOM_SCALE(47));
     }];
-    RACSignal *nameSignal = [[self.tfAry[0] rac_textSignal]map:^id(NSString *value) {
-        if ([self textLength:value]>30) {
-             [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
-            value = [value substringToIndex:self.temp.length];
-            self.tfAry[0].text = value;
-        }else{
-            self.temp =value;
-        }
-        
-        return value;
-    }];
- 
+    self.tfAry[0].hll_limitTextLength = 30;
 
 }
 - (void)logoutTeamClick{
@@ -307,12 +291,14 @@
     
 }
 - (void)backBtnClicked{
-    if (self.type == FillinTeamTypeIsAdmin) {
+    if (self.mConfige.type == FillinTeamTypeIsAdmin) {
         TeamInfoModel *model = userManager.teamModel;
         if ([self.tfAry[0].text isEqualToString:model.name] &&[self.currentProvince isEqualToString:model.province] && [self.currentCity isEqualToString:model.city]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            if ([self.tfAry[0].text isEqualToString:@""]) {
+            NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+             NSString *name = [self.tfAry[0].text stringByTrimmingCharactersInSet:set];
+            if ([name isEqualToString:@""]) {
                 [iToast alertWithTitleCenter:@"团队名称不能为空"];
             }else{
                 [SVProgressHUD show];
@@ -320,9 +306,9 @@
                 NSString *province =self.currentProvince;
                 NSString *city = self.currentCity;
                 if ([self.tfAry[0].text isEqualToString:model.name]) {
-                    param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+                    param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":[self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]}}};
                 }else{
-                    param= @{@"data":@{@"name":self.tfAry[0].text,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
+                    param= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
                 }
                 [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
                     if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -334,8 +320,8 @@
                     [SVProgressHUD dismiss];
                     
                 } failBlock:^(NSError *error) {
-                    
                     [SVProgressHUD dismiss];
+                    [error errorToast];
                 }];
             }
         }
@@ -353,21 +339,22 @@
 #pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
-        _textView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请简单介绍一下您的团队" font:RegularFONT(16)];
+        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队" font:RegularFONT(16)];
     }
     return _textView;
 }
-- (UIView *)itemWithData:(NSDictionary *)dict{
+
+- (UIView *)itemWithData:(TeamTF *)teamTf{
     UIView *item = [[UIView alloc]init];
     item.backgroundColor = PWWhiteColor;
     [self.view addSubview:item];
-    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:dict[@"title"]];
+    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:teamTf.title];
     [item addSubview:titel];
     UITextField *itemTF = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), Interval(14)+ZOOM_SCALE(20), kWidth-Interval(32), ZOOM_SCALE(22))];
-    itemTF.placeholder = dict[@"placeholder"];
-    BOOL enabled = [dict boolValueForKey:@"enabled" default:YES];
-    BOOL showArrow = [dict boolValueForKey:@"showArrow" default:NO];
-    [itemTF setEnabled:enabled];
+    itemTF.placeholder = teamTf.placeholder;
+    itemTF.enabled = teamTf.enabled;
+    itemTF.text = teamTf.text;
+    BOOL showArrow = teamTf.showArrow;
     [item addSubview:itemTF];
     [self.tfAry addObject:itemTF];
     if (showArrow) {
@@ -410,22 +397,14 @@
         [self.navigationController pushViewController:tradesVC animated:YES];
     }
 }
--(NSUInteger)textLength:(NSString *)text{
-    
-    NSUInteger asciiLength = 0;
-    
-    for (NSUInteger i = 0; i < text.length; i++) {
-        
-        
-        unichar uc = [text characterAtIndex: i];
-        
-        asciiLength += isascii(uc) ? 1 : 2;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.tfAry[0]) {
+        if (![string isEqualToString:@""]) {
+            return [string validateSpecialCharacter];
+        }
     }
     
-    NSUInteger unicodeLength = asciiLength;
-    
-    return unicodeLength;
-    
+    return YES;
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -435,9 +414,7 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
     return NO;
 }
--(void)viewDidDisappear:(BOOL)animated{
-    [SVProgressHUD dismiss];
-}
+
 /*
 #pragma mark - Navigation
 

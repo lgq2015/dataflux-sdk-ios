@@ -119,13 +119,15 @@
                 self.tableView.tableFooterView = self.footView;
                 self.footer.hidden = YES;
             }
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
         [self.footer endRefreshing];
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
         [self.header endRefreshing];
         [self.footer endRefreshing];
-        
+        [error errorToast];
     }];
 }
 -(NSMutableArray *)dataSource{

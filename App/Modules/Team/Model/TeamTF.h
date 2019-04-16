@@ -11,7 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TeamTF : NSObject
-
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *placeholder;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) BOOL enabled;
+@property (nonatomic, assign) BOOL showArrow;
 @end
 
 NS_ASSUME_NONNULL_END
