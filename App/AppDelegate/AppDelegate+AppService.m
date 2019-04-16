@@ -188,8 +188,9 @@
 -(void)configUSharePlatforms{
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager];
     keyboardManager.shouldResignOnTouchOutside =YES; // 控制点击背景是否收起键盘
-    keyboardManager.keyboardDistanceFromTextField = 20;
-    [[IQKeyboardManager sharedManager] setToolbarManageBehaviour:IQAutoToolbarByPosition];
+    keyboardManager.keyboardDistanceFromTextField = 25;
+
+    keyboardManager.enableAutoToolbar = NO;
 
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setMinimumDismissTimeInterval:0.5];
