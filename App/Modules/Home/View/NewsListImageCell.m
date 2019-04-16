@@ -66,7 +66,7 @@
                                                               (CFStringRef)self.model.imageUrl,
                                                               (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
                                                               NULL,kCFStringEncodingUTF8));
-    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageWithColor:PWBackgroundColor]];
     if (self.model.isStarred) {
         self.timeLab.hidden = YES;
         self.topStateLab.hidden =NO;
