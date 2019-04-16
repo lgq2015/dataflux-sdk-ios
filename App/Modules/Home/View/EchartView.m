@@ -21,7 +21,7 @@
     return self;
 }
 - (void)setupEchartWithDict:(NSDictionary *)data{
-    NSArray *series = PWSafeArrayVal(data, data);
+    NSArray *series = PWSafeArrayVal(data, @"series");
     NSMutableArray *lineX  = [NSMutableArray new];
     NSDictionary *xAxisDict = PWSafeDictionaryVal(data, @"xAxis");
     NSString *type = [xAxisDict stringValueForKey:@"type" default:@""];
@@ -131,11 +131,16 @@
         NSArray *datas = linedata[@"data"];
         NSMutableArray *lineY = [NSMutableArray new];
         [datas enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj[1] isKindOfClass:NSNull.class]) {
+                [lineY addObject:@"-"];
+            }else{
             [lineY addObject:obj[1]];
+            }
         }];
         /** 第一条折线设置 */
         PYCartesianSeries *series1 = [[PYCartesianSeries alloc] init];
-        series1.name = linedata[@"name"];
+        NSString *name =[linedata stringValueForKey:@"name" default:@""];
+        series1.name = name;
         // 类型为折线
         series1.type = linedata[@"type"];
         // 曲线平滑
