@@ -17,6 +17,18 @@
 		2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
+		2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
+		2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
+		2B84E42522658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */; };
+		2B84E42622658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */; };
+		2B84E42722658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */; };
+		2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */; };
+		2B84E42C2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */; };
+		2B84E42D2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */; };
+		2B84E42E2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */; };
+		2B84E42F2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */; };
+		2B84E4302265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */; };
 		2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
 		2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */; };
@@ -998,6 +1010,12 @@
 		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
 		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
 		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
+		2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTHandBookNoPicCell.h; sourceTree = "<group>"; };
+		2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTHandBookNoPicCell.m; sourceTree = "<group>"; };
+		2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTHandBookNoPicCell.xib; sourceTree = "<group>"; };
+		2B84E4282265D6C9008E7B29 /* ZTHandBookHasPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTHandBookHasPicCell.h; sourceTree = "<group>"; };
+		2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTHandBookHasPicCell.m; sourceTree = "<group>"; };
+		2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTHandBookHasPicCell.xib; sourceTree = "<group>"; };
 		2B9ECBEA2254509D00BAC47A /* UIViewController+ZTSwizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZTSwizzling.m"; sourceTree = "<group>"; };
 		2B9ECBEB2254509D00BAC47A /* ZTShowTipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTShowTipButton.h; sourceTree = "<group>"; };
 		2B9ECBEC2254509D00BAC47A /* UIViewController+ZTSwizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZTSwizzling.h"; sourceTree = "<group>"; };
@@ -1903,6 +1921,12 @@
 				4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */,
 				4A19548B21A7F7BE007ADFCA /* IssueBoardCell.h */,
 				4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */,
+				2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */,
+				2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */,
+				2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */,
+				2B84E4282265D6C9008E7B29 /* ZTHandBookHasPicCell.h */,
+				2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */,
+				2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */,
 			);
 			path = IssueBoard;
 			sourceTree = "<group>";
@@ -3163,6 +3187,7 @@
 				2B9ECC28225494A400BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F17F225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				4AE537A421CC9206004CF320 /* frame-11@2x.png in Resources */,
+				2B84E42E2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */,
 				4AE537B621CC9206004CF320 /* frame-16@2x.png in Resources */,
 				4AE5379F21CC9206004CF320 /* frame-7@2x.png in Resources */,
 				2BE9F179225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
@@ -3183,6 +3208,7 @@
 				4A95BB8D217DAD6100FC2979 /* Main.storyboard in Resources */,
 				2BE9F182225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				4AE5379E21CC9206004CF320 /* frame-17@2x.png in Resources */,
+				2B84E42522658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				4AE537A521CC9206004CF320 /* frame-14@2x.png in Resources */,
 				4AE537B521CC9206004CF320 /* frame-6@2x.png in Resources */,
 				4AE537B121CC9206004CF320 /* frame-19@2x.png in Resources */,
@@ -3214,6 +3240,7 @@
 				2B9ECC2B225494F800BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F180225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				CA1CF605221ECB3A00D15316 /* frame-11@2x.png in Resources */,
+				2B84E42F2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */,
 				CA1CF606221ECB3A00D15316 /* frame-16@2x.png in Resources */,
 				CA1CF607221ECB3A00D15316 /* frame-7@2x.png in Resources */,
 				2BE9F17A225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
@@ -3234,6 +3261,7 @@
 				CA1CF614221ECB3A00D15316 /* Main.storyboard in Resources */,
 				2BE9F183225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				CA1CF615221ECB3A00D15316 /* frame-17@2x.png in Resources */,
+				2B84E42622658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				CA1CF616221ECB3A00D15316 /* frame-14@2x.png in Resources */,
 				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
@@ -3265,6 +3293,7 @@
 				2B9ECC2C225494F900BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F181225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
 				CA1CF6AA221ECB5000D15316 /* frame-11@2x.png in Resources */,
+				2B84E4302265D6C9008E7B29 /* ZTHandBookHasPicCell.xib in Resources */,
 				CA1CF6AB221ECB5000D15316 /* frame-16@2x.png in Resources */,
 				CA1CF6AC221ECB5000D15316 /* frame-7@2x.png in Resources */,
 				2BE9F17B225AF9CD00C33669 /* zysocial_wechat_timeline.png in Resources */,
@@ -3285,6 +3314,7 @@
 				CA1CF6B9221ECB5000D15316 /* Main.storyboard in Resources */,
 				2BE9F184225AF9CD00C33669 /* zysocial_system.png in Resources */,
 				CA1CF6BA221ECB5000D15316 /* frame-17@2x.png in Resources */,
+				2B84E42722658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				CA1CF6BB221ECB5000D15316 /* frame-14@2x.png in Resources */,
 				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
 				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
@@ -3512,6 +3542,7 @@
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
+				2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */,
@@ -3590,6 +3621,7 @@
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
 				4AB48A7D21FC4741009F9E94 /* PPBadgeControl.m in Sources */,
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
+				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
@@ -3801,6 +3833,7 @@
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
+				2B84E42C2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA8224B16B50057BD02 /* GuideCell.m in Sources */,
@@ -3879,6 +3912,7 @@
 				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
 				4A092D87222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
+				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
@@ -4090,6 +4124,7 @@
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
+				2B84E42D2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA9224B16B50057BD02 /* GuideCell.m in Sources */,
@@ -4168,6 +4203,7 @@
 				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,
 				4A092D88222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
+				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
