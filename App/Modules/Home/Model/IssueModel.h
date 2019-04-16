@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *level;
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString *updateTime;
+@property (nonatomic, strong) NSString *createTime;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, assign) long long actSeq;
+@property (nonatomic, assign) long long seq;
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString * ticketStatus;
 @property (nonatomic, strong) NSString *subType;
@@ -34,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isRead;                   // 数据库存储已读状态
 @property (nonatomic, strong) NSString *tagsStr;         // 专家列表
 @property (nonatomic, assign)BOOL isInvalidIssue; //异常情报源，这个
+@property (nonatomic, assign)BOOL issueLogRead;
+@property (nonatomic, assign)long long lastIssueLogSeq;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

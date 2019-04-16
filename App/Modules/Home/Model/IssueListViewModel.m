@@ -78,7 +78,7 @@
     }else{
         self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
     }
-    self.time = [NSString getLocalDateFormateUTCDate:model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    self.time = [NSString getLocalDateFormateUTCDate:model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
         self.isFromUser = YES;
     }else{

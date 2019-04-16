@@ -33,58 +33,6 @@
     return _sharedInstance;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self.getHelper pw_inDatabase:^{
-            NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-            NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
-
-            NSDictionary *params = @{
-                    @"type": SQL_TEXT,
-                    @"subType": SQL_TEXT,
-                    @"content": SQL_TEXT,
-                    @"subType": SQL_TEXT,
-                    @"updateTime": SQL_TEXT,
-                    @"sendStatus": SQL_INTEGER,
-                    @"issueId": SQL_TEXT,
-                    @"id": SQL_TEXT,
-                    @"seq": SQL_INTEGER,
-                    @"origin": SQL_TEXT,
-                    @"originInfoJSONStr": SQL_TEXT,
-                    @"metaJsonStr": SQL_TEXT,
-                    @"externalDownloadURLStr": SQL_TEXT,
-                    @"accountInfoStr": SQL_TEXT,
-                    @"createTime":SQL_TEXT,
-            };
-
-            [dict addEntriesFromDictionary:params];
-
-            if (![self.getHelper pw_isExistTable:tableName]) {
-
-                [self.getHelper pw_createTable:tableName dicOrModel:dict];
-
-            }
-
-        }];
-        
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-              @"imageData":SQL_BLOB,
-              @"fileData": SQL_BLOB,
-              @"text": SQL_TEXT,
-              @"fileName":SQL_TEXT,
-              @"fileType":SQL_TEXT,
-              @"imageName":SQL_TEXT,
-              @"sendError":SQL_INTEGER,
-    }];
-        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@",[self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME]);
-
-    }
-
-    return self;
-}
-
-
 
 - (PWFMDB *)getHelper {
     return [IssueListManger sharedIssueListManger].getHelper;

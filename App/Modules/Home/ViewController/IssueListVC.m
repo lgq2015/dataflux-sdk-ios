@@ -90,7 +90,7 @@
 
         [self reloadData];
         [self.header endRefreshing];
-    } check:NO];
+    }                                           getAllDatas:NO];
 }
 - (void)headerRefreshing:(NSNotification *)notification{
 
@@ -135,13 +135,13 @@
 
     if(_needGetFromNet){
         [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-            if(model.isSuccess){
+            if (model.isSuccess) {
                 reloadDataBase();
-            } else{
+            } else {
                 [iToast alertWithTitleCenter:model.errorMsg];
             }
-            _needGetFromNet =NO;
-        } check:NO];
+            _needGetFromNet = NO;
+        }                                           getAllDatas:NO];
 
     } else{
         reloadDataBase();

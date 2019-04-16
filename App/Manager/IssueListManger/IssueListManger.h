@@ -35,9 +35,9 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 
  */
-- (void)fetchIssueList:(BOOL)check;
+- (void)fetchIssueList:(BOOL)getAllDatas;
 
-- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus check:(BOOL)check;
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas;
 
 - (IssueModel *)getIssueDataByData:(NSString *)issueId;
 

@@ -52,12 +52,12 @@
         [_infoboard updateTitle:string];
 
     }];
-    
+
     if(self.infoBoardStyle == PWInfoBoardStyleConnected){
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
             HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc]init];
             [guid showInView:[UIApplication sharedApplication].keyWindow];
-            
+
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
         }
     }
@@ -166,7 +166,7 @@
 
 - (void)judgeIssueConnectState{
     NSString  *ishideguide = getIsHideGuide;
-    
+
     if ([ishideguide isEqualToString:PW_IsHideGuide]) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
         [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
@@ -196,21 +196,21 @@
             }];
         }
     }
-   
+
 }
 - (void)createUI{
     if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
             HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc]init];
             [guid showInView:[UIApplication sharedApplication].keyWindow];
-        
+
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
     }
     }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected?ZOOM_SCALE(530):ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
-   
+
     [self.headerView addSubview:self.infoboard];
     [self.headerView addSubview:self.notice];
     NSArray *array = [[IssueListManger sharedIssueListManger] getInfoBoardData];
@@ -288,7 +288,7 @@
 -(void)infoBoardStyleUpdate{
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected ) {
         self.infoBoardStyle = PWInfoBoardStyleConnected;
-        [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+        [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas":array}];
         self.headerView.frame =CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
@@ -341,36 +341,39 @@
                 [self.noticeDatas addObjectsFromArray:array];
                 [self.notice createUIWithTitleArray:@[dict[@"title"]]];
             }
-           
+
         }
-        
+
     } failBlock:^(NSError *error) {
         [error errorToast];
     }];
 }
-- (void)headerRereshing{
+
+- (void)headerRereshing {
     self.newsPage = 1;
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-    
-    if(self.noticeDatas.count>0){
-    int x = arc4random() % self.noticeDatas.count;
-     NSDictionary *dict = self.noticeDatas[x];
-      [self.notice createUIWithTitleArray:@[dict[@"title"]]];
-    }else{
+
+    if (self.noticeDatas.count > 0) {
+        int x = arc4random() % self.noticeDatas.count;
+        NSDictionary *dict = self.noticeDatas[x];
+        [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+    } else {
         [self loadTipsData];
     }
     [self loadRecommendationData];
     [self loadNewsDatas];
+
     if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
         [[IssueListManger sharedIssueListManger] judgeIssueConnectState:^(BOOL isConnect) {
 
             if (isConnect) {
-            [self infoBoardStyleUpdate];
-            setIsHideGuide(PW_IsHideGuide);
+                [self infoBoardStyleUpdate];
+                setIsHideGuide(PW_IsHideGuide);
             }
         }];
     }
+
 }
 -(void)footerRereshing{
     [self loadNewsDatas];
@@ -395,10 +398,10 @@
     }];
 }
 - (void)loadNewsDatas{
-  
+
     NSDictionary *param = @{@"page":[NSNumber numberWithInteger:self.newsPage],@"pageSize":@10,@"isStarred":@YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-       
+
 
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data=response[@"data"];
@@ -419,7 +422,7 @@
         [self.header endRefreshing];
         [self.footer endRefreshing];
     }];
-    
+
 }
 - (void)RecommendationDatas:(NSArray *)array{
     NSMutableArray *recommendDatas = [NSMutableArray new];
@@ -428,7 +431,7 @@
         [recommendDatas addObject:model];
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
-    
+
     [self.newsDatas insertObjects:recommendDatas atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
