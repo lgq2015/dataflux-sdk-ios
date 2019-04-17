@@ -42,7 +42,7 @@
 - (void)loadTeamNeedData{
     [SVProgressHUD show];
     NSDictionary *params =@{@"_withLatestIssueLog":@YES,
-                            @"orderBy":@"actSeq",
+                            @"orderBy":@"seq",
                             @"_latestIssueLogLimit":@1,
                             @"orderMethod":@"desc",
                             @"pageSize":@10,
@@ -94,7 +94,7 @@
 - (void)loadMoreDate{
     NSDictionary *params =@{
             @"_withLatestIssueLog":@YES,
-            @"orderBy":@"actSeq",
+            @"orderBy":@"seq",
             @"_latestIssueLogLimit":@1,
             @"orderMethod":@"desc",
             @"pageSize":@10,
