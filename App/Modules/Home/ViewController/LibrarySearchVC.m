@@ -60,9 +60,12 @@
     self.tableView.frame = CGRectMake(0, kTopHeight, kWidth, kHeight-kTopHeight);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
+    if (!self.isLocal){
+        self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    }
     [self.tableView registerNib:[ZTHandBookNoPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
     [self.tableView registerNib:[ZTHandBookHasPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+    [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     [self.searchTF becomeFirstResponder];
@@ -227,19 +230,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
-    if ([model.imageUrl isEqualToString:@""]) {
-        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.isSearch = YES;
-        cell.model = model;
+    if (self.isLocal){//速查表搜索
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        NSError *error;
+        HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+        cell.textLabel.text = model.title;
         return cell;
     }else{
-        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.isSearch = YES;
-        cell.model = model;
-        return cell;
+        if ([model.imageUrl isEqualToString:@""]) {
+            ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.isSearch = YES;
+            cell.model = model;
+            return cell;
+        }else{
+            ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.isSearch = YES;
+            cell.model = model;
+            return cell;
+        }
     }
+    
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -255,16 +267,20 @@
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
     CGFloat height = 0.0;
-    if ([model.imageUrl isEqualToString:@""]) {
-        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
-        cell.isSearch = YES;
-        height = [cell caculateRowHeight:model];
+    if (self.isLocal){
+        return 50.0;
     }else{
-        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
-        cell.isSearch = YES;
-        height = [cell caculateRowHeight:model];
+        if ([model.imageUrl isEqualToString:@""]) {
+            ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+            cell.isSearch = YES;
+            height = [cell caculateRowHeight:model];
+        }else{
+            ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+            cell.isSearch = YES;
+            height = [cell caculateRowHeight:model];
+        }
+        return height + seperatorLineH;
     }
-    return height + seperatorLineH;
 }
 
 @end
