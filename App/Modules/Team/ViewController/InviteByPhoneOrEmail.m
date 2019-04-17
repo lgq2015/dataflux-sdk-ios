@@ -47,7 +47,7 @@
         RACSignal *phoneTf= [[self.codeTF rac_textSignal] map:^id(NSString *value) {
             NSString *num =[value stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self dealTFText:num];
-            return @(num.length == 11);
+            return @(num.length >= 11);
         }];
          RAC(commitTeam,enabled) = phoneTf;
     }else{
@@ -72,6 +72,7 @@
     }else{
         self.codeTF.text = text;
     }
+   
 }
 - (UIView *)itemWithData:(NSDictionary *)dict{
     UIView *item = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, ZOOM_SCALE(65))];
@@ -88,7 +89,8 @@
 - (void)commitTeamClick{
     NSDictionary *param ;
     if (self.isPhone) {
-        BOOL  is = [self.codeTF.text validatePhoneNumber];
+        NSString *phone = [self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        BOOL  is = [phone validatePhoneNumber];
         if (is == NO){
             [iToast alertWithTitleCenter:@"手机号错误"];
             return;

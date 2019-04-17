@@ -11,6 +11,10 @@
 #import "HandbookModel.h"
 #import "HandbookCell.h"
 #import "NewsWebView.h"
+#import "ZTHandBookNoPicCell.h"
+#import "ZTHandBookHasPicCell.h"
+#import "UITableViewCell+ZTCategory.h"
+#define seperatorLineH 4.0
 @interface LibrarySearchVC ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
@@ -54,11 +58,11 @@
     NSArray * myArray = getPWhistorySearch;
     [self.historyData addObjectsFromArray:myArray];
     self.tableView.frame = CGRectMake(0, kTopHeight, kWidth, kHeight-kTopHeight);
-    self.tableView.rowHeight = ZOOM_SCALE(46)+Interval(82);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    [self.tableView registerClass:[HandbookCell class] forCellReuseIdentifier:@"HandbookCell"];
+    [self.tableView registerNib:[ZTHandBookNoPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+    [self.tableView registerNib:[ZTHandBookHasPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
     [self.searchTF becomeFirstResponder];
@@ -221,12 +225,21 @@
     return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HandbookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HandbookCell"];
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
-    cell.model = model;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if ([model.imageUrl isEqualToString:@""]) {
+        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.isSearch = YES;
+        cell.model = model;
+        return cell;
+    }else{
+        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.isSearch = YES;
+        cell.model = model;
+        return cell;
+    }
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -238,14 +251,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSError *error;
+    HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    CGFloat height = 0.0;
+    if ([model.imageUrl isEqualToString:@""]) {
+        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+        cell.isSearch = YES;
+        height = [cell caculateRowHeight:model];
+    }else{
+        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+        cell.isSearch = YES;
+        height = [cell caculateRowHeight:model];
+    }
+    return height + seperatorLineH;
 }
-*/
 
 @end

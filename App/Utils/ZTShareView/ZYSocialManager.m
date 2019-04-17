@@ -20,7 +20,11 @@
 - (instancetype)initWithTitle:(NSString *)title descr:(NSString *)descr thumImage:(UIImage *)thumImage{
     if (self = [super init]){
         _title = title;
-        _descr = descr;
+        if (descr == nil || descr.length == 0) {
+            _descr = @"\u3000";
+        }else{
+            _descr = descr;
+        }
         _thumImage = thumImage;
     }
     return self;

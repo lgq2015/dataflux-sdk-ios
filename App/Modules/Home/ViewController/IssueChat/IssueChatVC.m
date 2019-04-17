@@ -325,7 +325,7 @@
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
-    
+        [[PWSocketManager sharedPWSocketManager] checkForRestart];
     }else{
     model.sendError = NO;
    

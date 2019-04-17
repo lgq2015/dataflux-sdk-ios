@@ -150,18 +150,21 @@
     NSDictionary *params = @{@"platform":@"IOS"};
     [PWNetworking requsetHasTokenWithUrl:PW_ContactUS withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
-        if ([response[CODE]integerValue] == 200) {
-            self.contactUSType = VIP_Type;
+        NSString *errorCode = [response stringValueForKey:ERROR_CODE default:@""];
+        if ([errorCode isEqualToString:@""]) {
             NSDictionary *content =PWSafeDictionaryVal(response, @"content");
-            if (content){
+            if (content){//已绑定cms
+                self.contactUSType = VIP_Type;
                 _avatar =[content stringValueForKey:@"avatar" default:@""];
                 _realName = [content stringValueForKey:@"realName" default:@""];
                 _mobile = [content stringValueForKey:@"mobile" default:@""];
                 _email = [content stringValueForKey:@"email" default:@""];
                 _city = [content stringValueForKey:@"city" default:@""];
                 _address = [content stringValueForKey:@"address" default:@""];
+            }else{//没有绑定cms
+                self.contactUSType = Normal_Type;
             }
-        }else{
+        }else{//没有找到
             self.contactUSType = Normal_Type;
         }
         [self createUI];

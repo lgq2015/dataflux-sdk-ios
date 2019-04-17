@@ -113,6 +113,14 @@
 }
 -(BOOL)validateSpecialCharacter{
   //  /^[a-zA-Z0-9-_\s\u4e00-\u9fa5]+$/
+    NSString *other = @"➋➌➍➎➏➐➑➒";     //九宫格的输入值
+
+   
+    if([other rangeOfString:self].location != NSNotFound){
+        return YES;
+    }
+    
+    
     NSString *specialCharacter = @"^[a-zA-Z0-9-_\\s\u4e00-\u9fa5]+$";
     NSPredicate *pTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",specialCharacter];
     return [pTest evaluateWithObject:self];
@@ -297,11 +305,11 @@
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData* data = [self dataUsingEncoding:enc];
     NSData * subData;
-    if (data.length%2 == 0) {
         subData = [data subdataWithRange:NSMakeRange(0, count)];
-    }else{
-        subData = [data subdataWithRange:NSMakeRange(0, count - 1)];
+    if (![[NSString alloc] initWithData:subData encoding:enc]) {
+         subData = [data subdataWithRange:NSMakeRange(0, count-1)];
     }
+    
     return [[NSString alloc] initWithData:subData encoding:enc];
 }
 @end

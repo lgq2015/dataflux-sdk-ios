@@ -8,7 +8,7 @@
 
 #import "FeedbackVC.h"
 
-@interface FeedbackVC ()
+@interface FeedbackVC ()<UITextViewDelegate>
 @property (nonatomic, strong) UIView *describeView;
 @property (nonatomic, strong) UITextView *describeTextView;
 
@@ -50,15 +50,23 @@
     }];
     [[self.describeTextView rac_textSignal] subscribeNext:^(NSString *text) {
        
-        NSInteger len = [text charactorNumber];
-        if (len>2000) {
-            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
-            text=[text subStringWithLength:2000];
-            self.describeTextView.text = text;
-            len = [text charactorNumber];
+
+        UITextRange *selectedRange = [self.describeTextView markedTextRange];
+        //获取高亮部分
+        UITextPosition *pos = [self.describeTextView positionFromPosition:selectedRange.start offset:0];
+        if (!pos) {
+            NSInteger len = [text charactorNumber];
+            if (len>2000) {
+                [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+                text=[text subStringWithLength:2000];
+                self.describeTextView.text = text;
+                len = [text charactorNumber];
+            }
+            count.text = [NSString stringWithFormat:@"%ld/1000",len/2];
         }
-        count.text = [NSString stringWithFormat:@"%ld/1000",len/2];
     }];
+    self.describeTextView.delegate = self;
+//    self.describeTextView.hll_limitTextLength = 2000;
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.describeView.mas_bottom).offset(Interval(35));
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -98,7 +106,8 @@
 - (void)commitBtnClick{
   
         [SVProgressHUD show];
-        NSDictionary *param = @{@"data":@{@"content":self.describeTextView.text}};
+        NSString *describeStr =self.describeTextView.text;;
+        NSDictionary *param = @{@"data":@{@"content":describeStr}};
         [PWNetworking requsetHasTokenWithUrl:PW_addFeedback withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -115,6 +124,13 @@
         }];
     
 }
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//
+//    if (![text isEqualToString:@""]) {
+//     return [text validateSpecialCharacter];
+//    }
+//    return YES;
+//}
 /*
 #pragma mark - Navigation
 

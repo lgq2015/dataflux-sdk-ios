@@ -10,6 +10,8 @@
 #import "PersonalInfoVC.h"
 #import "VerifyCodeVC.h"
 #import "ChangeUserInfoVC.h"
+#import "UITextField+HLLHelper.h"
+
 #define tipLabTag 88
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
 @property (nonatomic ,strong) UITextField *emailTF;
@@ -123,15 +125,8 @@
         }];
         RAC(self.commitBtn,enabled) = phoneSignal;
     }else{
-        [[self.emailTF rac_textSignal] subscribeNext:^(NSString *x) {
-            NSInteger len = [x charactorNumber];
-            if (len>30) {
-                [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
-              x=[x subStringWithLength:30];
-                self.emailTF.text = x;
-            }
-        }];
-        
+
+        self.emailTF.hll_limitTextLength = 30;
          [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
     
@@ -268,10 +263,9 @@
     if(self.changeType == BindUserInfoTypeMobile){
     return [string validateNumber];
     }else if(self.changeType == BindUserInfoTypeName){
-        if ([string isEqualToString:@""]) {
-            return YES;
+        if (![string isEqualToString:@""]) {
+          return [string validateSpecialCharacter];
         }
-    return [string validateSpecialCharacter];
     }
     return YES;
 }

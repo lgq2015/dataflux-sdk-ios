@@ -9,6 +9,10 @@
 #import "HandBookArticleVC.h"
 #import "HandbookCell.h"
 #import "NewsWebView.h"
+#import "ZTHandBookNoPicCell.h"
+#import "ZTHandBookHasPicCell.h"
+#import "UITableViewCell+ZTCategory.h"
+#define seperatorLineH 4.0
 @interface HandBookArticleVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
@@ -23,12 +27,16 @@
 }
 - (void)createUI{
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
-    self.tableView.rowHeight = ZOOM_SCALE(46)+Interval(82);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    [self.tableView registerClass:[HandbookCell class] forCellReuseIdentifier:@"HandbookCell"];
     [self.view addSubview:self.tableView];
+    UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, Interval(12))];
+    header.backgroundColor = PWBackgroundColor;
+    self.tableView.tableHeaderView = header;
+    [self.tableView registerNib:[ZTHandBookNoPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+    [self.tableView registerNib:[ZTHandBookHasPicCell cellWithNib] forCellReuseIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+
 }
 - (void)loadData{
     self.dataSource = [NSMutableArray new];
@@ -56,12 +64,21 @@
     return self.dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HandbookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HandbookCell"];
-        NSError *error;
+    NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
-    cell.model = model;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if ([model.imageUrl isEqualToString:@""]) {
+        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+        cell.isSearch = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.model = model;
+        return cell;
+    }else{
+        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.isSearch = NO;
+        cell.model = model;
+        return cell;
+    }
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -71,17 +88,22 @@
     NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
     webview.handbookModel = model;
     [self.navigationController pushViewController:webview animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSError *error;
+    HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    CGFloat height = 0.0;
+    if ([model.imageUrl isEqualToString:@""]) {
+        ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
+        cell.isSearch = NO;
+        height = [cell caculateRowHeight:model];
+    }else{
+        ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
+        cell.isSearch = NO;
+        height = [cell caculateRowHeight:model];
+    }
+    return height + seperatorLineH;
 }
-*/
 
 @end

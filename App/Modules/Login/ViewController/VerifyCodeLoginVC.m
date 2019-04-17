@@ -116,7 +116,7 @@
       RACSignal *phoneTf= [[self.phoneTf rac_textSignal] map:^id(NSString *value) {
           NSString *num =[value stringByReplacingOccurrencesOfString:@" " withString:@""];
           [self dealTFText:num];
-          return @(num.length == 11);
+          return @(num.length >= 11);
     }];
    
     RAC(self.verifyCodeBtn,enabled) = phoneTf;
