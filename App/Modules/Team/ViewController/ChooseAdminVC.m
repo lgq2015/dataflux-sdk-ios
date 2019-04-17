@@ -115,6 +115,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
        self.searchController.active = NO;
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
@@ -128,10 +129,15 @@
 }
 #pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
     NSString *inputStr = searchController.searchBar.text ;
     if (self.results.count > 0) {
         [self.results removeAllObjects];
+    }
+    //排除直接点击searchbar显示问题
+    if (inputStr == nil || inputStr.length == 0){
+        [self.results addObjectsFromArray:self.teamMemberArray];
+        [self.tableView reloadData];
+        return;
     }
     [self.teamMemberArray enumerateObjectsUsingBlock:^(MemberInfoModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *mobile = obj.mobile;
@@ -162,14 +168,8 @@
     
     return img;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.searchController.active = NO;
 }
-*/
-
 @end
