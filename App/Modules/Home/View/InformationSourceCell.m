@@ -64,6 +64,9 @@
         case SourceTypeSingleDiagnose:
               self.iconImgView.image = [UIImage imageNamed:@"icon_mainframe_big"];
             break;
+        case SourceTypeMessageDock:
+            self.iconImgView.image = [UIImage imageNamed:@"message_dock"];
+            break;
     }
     self.iconImgView.centerY = self.contentView.centerY;
     [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -20,6 +20,7 @@
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
 #import "IssueSourceSubTipView.h"
+#import "UITextField+HLLHelper.h"
 
 #define ACCESS_KEY @"****************"
 typedef NS_ENUM(NSUInteger ,NaviType){
@@ -123,7 +124,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                         __block BOOL isenable = YES;
                         [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             
-                            if(obj.text.length==0){
+                            if([obj.text removeFrontBackBlank].length==0){
                                 isenable = NO;
                                 *stop = YES;
                             }
@@ -153,15 +154,19 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                         }
                     }];
                     RACSignal * navBtnSignal = [RACSignal combineLatest:signalAry reduce:^id{
-                        __block BOOL isenable = NO;
+                        __block BOOL isenable = YES;
+                        __block BOOL isChange = NO;
                         [self.TFArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                             DLog(@"%@%@",obj.text,self.confige.issueTfArray[idx].text);
-                            if (self.confige.issueTfArray[idx].enable == YES && obj.text.length>0 &&![obj.text isEqualToString:self.confige.issueTfArray[idx].text]) {
-                                isenable = YES;
+                            if (self.confige.issueTfArray[idx].enable == YES && [obj.text removeFrontBackBlank].length ==0) {
+                                isenable = NO;
                                 *stop = YES;
                             }
+                            if (![obj.text isEqualToString:self.confige.issueTfArray[idx].text]) {
+                                isChange = YES;
+                            }
                         }];
-                        return @(isenable);
+                        return @(isenable &&isChange);
                     }];
                     RAC(self.navRightBtn,enabled) = navBtnSignal;
                 }
@@ -240,10 +245,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             self.showWordsBtn.enabled = !self.showWordsBtn.hidden;
         }];
     }
+    self.TFArray[0].hll_limitTextLength = 30;
 }
 #pragma mark ========== 单机诊断 ==========
 - (void)createSourceTypeSingle{
-    
     
     if(!self.isAdd){
         self.confige.issueTfArray[0].text = self.model.name;
@@ -547,13 +552,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
      NSDictionary *param ;
     if (self.type == SourceTypeAli || self.type ==SourceTypeAWS||self.type ==SourceTypeUcloud||self.type ==SourceTypeTencent) {
       if ([self.TFArray[1].text isEqualToString:self.model.akId] && [self.TFArray[2].text isEqualToString:@"****************"]) {
-             param = @{@"data":@{@"name":self.TFArray[0].text}};
+             param = @{@"data":@{@"name":[self.TFArray[0].text removeFrontBackBlank]}};
         }else{
-            param = @{@"data":@{@"name":self.TFArray[0].text,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
+            param = @{@"data":@{@"name":[self.TFArray[0].text removeFrontBackBlank],@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text}}};
        }
          [self modifyIssueSourceWithParam:param];
     }else if(self.type == SourceTypeDomainNameDiagnose){
-        param = @{@"data":@{@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
+        param = @{@"data":@{@"name":[self.TFArray[0].text removeFrontBackBlank],@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
         [self modifyIssueSourceWithParam:param];
     }else if(self.type == SourceTypeClusterDiagnose||self.type == SourceTypeSingleDiagnose){
         [[PWHttpEngine sharedInstance] patchProbe:self.model.clusterID
@@ -608,7 +613,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     WeakSelf
     if (self.type != SourceTypeDomainNameDiagnose) {
           [[UIResponder currentFirstResponder] resignFirstResponder];
-        param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":self.TFArray[0].text}};
+        param = @{@"data":@{@"provider":self.provider,@"credentialJSON":@{@"akId":self.TFArray[1].text,@"akSecret":self.TFArray[2].text},@"name":[self.TFArray[0].text removeFrontBackBlank]}};
 
         [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
         self.addTipView.itemClick = ^{
@@ -624,7 +629,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [iToast alertWithTitleCenter:@"域名格式错误"];
         }else{
             [[UIResponder currentFirstResponder] resignFirstResponder];
-        param = @{@"data":@{@"provider":self.provider,@"name":self.TFArray[0].text,@"optionsJSON":@{@"domain":self.TFArray[0].text}}};
+        param = @{@"data":@{@"provider":self.provider,@"name":[self.TFArray[0].text removeFrontBackBlank],@"optionsJSON":@{@"domain":[self.TFArray[0].text removeFrontBackBlank]}}};
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 
@@ -687,7 +692,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             }
         }
     } failBlock:^(NSError *error) {
-        DLog(@"%@",error);
+        [error errorToast];
     }];
 }
 

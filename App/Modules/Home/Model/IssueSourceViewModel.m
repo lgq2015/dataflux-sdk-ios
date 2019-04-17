@@ -34,21 +34,23 @@
             self.state = SourceStateDetected;
         }
     }
-
-    if ([dict[@"provider"] isEqualToString:@"aliyun"]) {
+    NSString *provider = [dict stringValueForKey:@"provider" default:@""];
+    if ([provider isEqualToString:@"aliyun"]) {
         self.type = SourceTypeAli;
-    }else if([dict[@"provider"] isEqualToString:@"qcloud"]){
+    }else if([provider isEqualToString:@"qcloud"]){
         self.type = SourceTypeTencent;
-    }else if([dict[@"provider"] isEqualToString:@"aws"]){
+    }else if([provider isEqualToString:@"aws"]){
         self.type = SourceTypeAWS;
-    }else if([dict[@"provider"] isEqualToString:@"ucloud"]){
+    }else if([provider isEqualToString:@"ucloud"]){
         self.type = SourceTypeUcloud;
-    }else if ([dict[@"provider"] isEqualToString:@"domain"]){
+    }else if ([provider isEqualToString:@"domain"]){
         self.type = SourceTypeDomainNameDiagnose;
-    }else if ([dict[@"provider"] isEqualToString:@"carrier.corsair"]){
+    }else if ([provider isEqualToString:@"carrier.corsair"]){
         self.type = SourceTypeSingleDiagnose;
-    }else if([dict[@"provider"] isEqualToString:@"carrier.corsairmaster"]){
+    }else if([provider isEqualToString:@"carrier.corsairmaster"]){
         self.type = SourceTypeClusterDiagnose;
+    }else if([provider isEqualToString:@"carrier.alert"]){
+        self.type = SourceTypeMessageDock;
     }
     if (self.type == SourceTypeClusterDiagnose || self.type == SourceTypeSingleDiagnose) {
        

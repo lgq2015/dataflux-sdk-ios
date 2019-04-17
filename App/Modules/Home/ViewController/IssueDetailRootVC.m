@@ -8,16 +8,20 @@
 
 #import "IssueDetailRootVC.h"
 #import "FillinTeamInforVC.h"
-
+#import "IssueListManger.h"
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
 @end
 
 @implementation IssueDetailRootVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
+    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
+    [self updateUI];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.progressData = [NSMutableArray new];
     [self createUI];
 }
 - (void)createUI{
@@ -80,7 +84,7 @@
             break;
         case MonitorListStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"普通";
+            self.stateLab.text = @"一般";
             break;
         case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
@@ -111,12 +115,12 @@
 }
 
 - (void)loadProgressData{
-    self.progressData = [NSMutableArray new];
-    NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,exitExpertGroups,issueDiscarded,updateExpertGroups"};
+    NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,exitExpertGroups,updateExpertGroups"};
     [PWNetworking requsetHasTokenWithUrl:PW_issueLog(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];
+            [self.progressData removeAllObjects];
             [self.progressData addObjectsFromArray:data];
             [self dealWithProgressView];
         }

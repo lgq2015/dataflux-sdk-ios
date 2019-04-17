@@ -96,7 +96,7 @@
             break;
         case MonitorListStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"普通";
+            self.stateLab.text = @"一般";
             break;
         case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];

@@ -88,6 +88,10 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 /**
+ 获取情报源名称
+ */
+- (void)getissueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+/**
     获取team成员
  */
 - (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock;

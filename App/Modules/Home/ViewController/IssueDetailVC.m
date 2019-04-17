@@ -64,11 +64,11 @@
     NSString * htmlString = self.model.content;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
-   
+    
     self.contentLab.attributedText = attrStr;
     self.contentLab.font = RegularFONT(14);
     self.contentLab.textColor = PWSubTitleColor;
-    
+   
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
         make.left.mas_equalTo(self.upContainerView);
@@ -127,6 +127,12 @@
         make.right.mas_equalTo(suggestion).offset(-13);
         make.bottom.mas_equalTo(suggestion.bottom).offset(-9);
     }];
+    if (self.model.attrs.length == 0) {
+        title.hidden = YES;
+        suggestion.hidden = YES;
+        icon.hidden = YES;
+        triangle.hidden = YES;
+    }
     self.tableView.backgroundColor = PWWhiteColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -134,10 +140,15 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (self.model.attrs.length == 0) {
+        make.top.mas_equalTo(self.subContainerView);
+        make.bottom.mas_equalTo(self.subContainerView.mas_bottom);
+        }else{
         make.top.mas_equalTo(self.suggestion.mas_bottom).offset(Interval(15));
+        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
+        }
         make.width.offset(kWidth);
         make.height.offset(self.handbookAry.count*45);
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(5));
     }];
     [self.view layoutIfNeeded];
     CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
@@ -198,12 +209,14 @@
 - (void)loadInfoDeatil{
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        [SVProgressHUD dismiss];
+       
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
             [self loadIssueSourceDetail:content];
             [self dealHandBookViewWith:content];
             [self dealWithEchartView:content];
+        }else{
+             [SVProgressHUD dismiss];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -214,6 +227,23 @@
     NSString *issueSourceID = [dict stringValueForKey:@"issueSourceId" default:@""];
     NSString *type = [dict stringValueForKey:@"itAssetProvider_cache" default:@""];
     NSString *icon;
+    NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:issueSourceID];
+    self.issueNameLab.text = name;
+    if (self.model.isInvalidIssue) {
+        [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
+            self.contentLab.text = [NSString stringWithFormat:@"您的 %@ %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
+        }];
+    }
+    if ([type isEqualToString:@"carrier.corsairmaster"]){
+        icon = @"icon_cluster";
+        self.typeIcon.image = [UIImage imageNamed:icon];
+        if([name isEqualToString:@""] || name == nil){
+            [self loadIssueSuperSourceDetail:issueSourceID issueProvider:type];
+        }else{
+            [SVProgressHUD dismiss];
+        }
+        return;
+    }
     if ([type isEqualToString:@"aliyun"]) {
         icon = @"icon_ali";
     }else if([type isEqualToString:@"qcloud"]){
@@ -224,15 +254,14 @@
         icon = @"Ucloud";
     }else if ([type isEqualToString:@"domain"]){
         icon = @"icon_domainname";
-    }else if ([type isEqualToString:@"carrier.corsairmaster"]){
-        icon = @"icon_cluster";
     }else if([type isEqualToString:@"carrier.corsair"]){
         icon =@"icon_single";
+    }else if([type isEqualToString:@"carrier.alert"]){
+        self.issueNameLab.text = @"消息坞";
+        icon = @"message_docks";
     }
     self.typeIcon.image = [UIImage imageNamed:icon];
-    NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:issueSourceID];
-    self.issueNameLab.text = name;
-    
+    [SVProgressHUD dismiss];
 }
 - (void)dealWithEchartView:(NSDictionary *)dict{
     if ([dict[@"extraJSON"] isKindOfClass:NSDictionary.class]) {
@@ -266,7 +295,34 @@
 
    }
 }
-
+#pragma mark ========== 请求一级情报源详情 获取情报源名称 ==========
+- (void)loadIssueSuperSourceDetail:(NSString *)issueSourceId issueProvider:(NSString *)provider{
+    NSDictionary *param = @{@"id":issueSourceId};
+    [SVProgressHUD show];
+    [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSArray *data = PWSafeArrayVal(content, @"data");
+            if (data.count>0) {
+                if ([data[0] isKindOfClass:NSDictionary.class]) {
+                    NSDictionary *dict = data[0];
+                   self.issueNameLab.text = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:[dict stringValueForKey:@"parentId" default:@""]];
+                    if (self.model.isInvalidIssue) {
+                        [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
+                            self.contentLab.text = [NSString stringWithFormat:@"您的 %@ %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.issueNameLab.text];
+                        }];
+                    }
+                }
+            }
+        }else{
+        [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [error errorToast];
+    }];
+}
 - (UIView *)createChartViewWithDict:(NSDictionary *)dict{
     if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
         NSDictionary *data = dict[@"data"];

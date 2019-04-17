@@ -324,6 +324,8 @@ SINGLETON_FOR_CLASS(UserManager);
     return NO;
 }
 - (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name{
+//    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+//    NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
     if (self.expertGroups.count == 0) {
         self.expertGroups = [NSMutableArray new];
         [self loadExperGroups:^(NSArray *experGroups) {
@@ -338,6 +340,49 @@ SINGLETON_FOR_CLASS(UserManager);
             name([self privateGetExpertNameByKey:key]);
         }
     }
+}
+- (void)getissueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name{
+    NSString *nameStr = [self privateGetissueSourceNameByKey:key];
+    if ([nameStr isEqualToString:@""]) {
+        [self loadIssueSourceName:^(NSArray *experGroups) {
+            name? name([self privateGetissueSourceNameByKey:key]):nil;
+        }];
+    }else{
+         name? name([self privateGetissueSourceNameByKey:key]):nil;
+    }
+}
+- (NSString *)privateGetissueSourceNameByKey:(NSString *)key{
+    YYCache *cache = [[YYCache alloc]initWithName:KUtilsConstCacheName];
+    NSArray *issueSourceName = (NSArray *)[cache objectForKey:KIssueSourceNameModelCache];
+    __block NSString *typeName = @"";
+    if(issueSourceName.count>0){
+        [issueSourceName enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([key isEqualToString:[obj stringValueForKey:@"provider" default:@""]]) {
+                NSDictionary *displayName = PWSafeDictionaryVal(obj, @"displayName");
+                typeName = [displayName stringValueForKey:@"zh_CN" default:@""];
+            }
+        }];
+    }
+    return typeName;
+}
+- (void)loadIssueSourceName:(void (^)(NSArray *IssueSourceNames))completion{
+    NSDictionary *param = @{@"keys":@"issueSourceProvider"};
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSArray *IssueSourceName =PWSafeArrayVal(content, @"issueSourceProvider");
+            YYCache *cache = [[YYCache alloc]initWithName:KUtilsConstCacheName];
+            [cache setObject:IssueSourceName forKey:KIssueSourceNameModelCache];
+
+            completion ? completion(IssueSourceName):nil;
+        }else{
+            completion ? completion(nil):nil;
+        }
+        
+    } failBlock:^(NSError *error) {
+        completion ? completion(nil):nil;
+        [error errorToast];
+    }];
 }
 
 - (NSString *)privateGetExpertNameByKey:(NSString *)key{
@@ -354,8 +399,8 @@ SINGLETON_FOR_CLASS(UserManager);
     NSDictionary *param = @{@"keys":@"expertGroups"};
     [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            NSArray *expertGroups = content[@"expertGroups"];
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSArray *expertGroups =PWSafeArrayVal(content, @"expertGroups");
             self.expertGroups = [NSMutableArray new];
             [self.expertGroups addObjectsFromArray:expertGroups];
             completion ? completion(expertGroups):nil;
