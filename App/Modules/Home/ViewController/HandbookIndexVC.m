@@ -118,7 +118,6 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    SectionItem *sectionItem = self.tableViewDataSource[indexPath.section];
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:self.dataSource[indexPath.section][indexPath.row] error:&error];
     cell.textLabel.text = model.title;
