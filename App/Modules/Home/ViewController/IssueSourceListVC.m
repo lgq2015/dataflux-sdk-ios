@@ -18,6 +18,7 @@
 @interface IssueSourceListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger  currentPage;
+@property (nonatomic, assign) BOOL isLoading;
 
 @property (nonatomic, strong) UIView *nodataView;
 @end
@@ -92,6 +93,10 @@
 - (void)loadData{
     //拿本地数据
 
+    if (_isLoading)return;
+
+    _isLoading = YES;
+
     [self loadFromDB];
 
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
@@ -101,6 +106,8 @@
         } else {
             [self loadFromDB];
         }
+
+        _isLoading = NO;
     }];
 
     //更新数据
@@ -114,6 +121,8 @@
             self.dataSource = [array mutableCopy];
             if (self.dataSource.count > 0) {
                 [self hideNoDataImageView];
+                DLog(@"reload")
+
                 [self.tableView reloadData];
                 self.tableView.tableFooterView = self.footView;
             } else {
@@ -206,13 +215,14 @@
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
+    DLog(@"list count");
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InformationSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationSourceCell"];
 
+    DLog(@"list cell");
     cell.model = [[IssueSourceViewModel alloc]initWithJsonDictionary:self.dataSource[indexPath.row]];
     return cell;
 }
