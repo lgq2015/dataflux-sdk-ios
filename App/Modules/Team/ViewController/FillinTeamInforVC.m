@@ -149,7 +149,11 @@
     [commitTeam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
+        if (!self.mConfige.showDescribe) {
+            make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78)-ZOOM_SCALE(130));
+        }else{
         make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78));
+        }
         make.height.offset(ZOOM_SCALE(47));
     }];
 }
@@ -206,8 +210,8 @@
     NSDictionary *params ;
     NSString *province =self.currentProvince;
     NSString *city = self.currentCity;
-    NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *name = [self.tfAry[0].text stringByTrimmingCharactersInSet:set];
+    
+    NSString *name = [self.tfAry[0].text removeFrontBackBlank];
     
     if (self.textView.text.length>0) {
         params= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};

@@ -126,7 +126,6 @@
         };
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                self.confirmBtn.enabled = YES;
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {
                     [userManager saveUserInfoLoginStateisChange:NO success:nil];
@@ -139,6 +138,7 @@
                         }
                     });
                 } else {
+                    self.confirmBtn.enabled = YES;
                     [userManager saveUserInfoLoginStateisChange:YES success:nil];
                 }
             } else {

@@ -62,4 +62,8 @@
 
 - (NSUInteger )charactorNumber;
 -(NSString *)subStringWithLength:(NSInteger )count;
+/**
+  前后空格去除
+ */
+- (NSString *)removeFrontBackBlank;
 @end

@@ -198,8 +198,18 @@
                     }
                 });
             }else{
+                if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                    [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        for(UIViewController *temp in self.navigationController.viewControllers) {
+                            if([temp isKindOfClass:[ChangeUserInfoVC class]]){
+                                [self.navigationController popToViewController:temp animated:YES];
+                            }
+                        }
+                    });
+                }else{
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+                }}
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
             [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
@@ -208,6 +218,9 @@
         [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
     }
  
+}
+- (void)naviSkip{
+    
 }
 - (void)commitPhoneClick{
     if (![[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {

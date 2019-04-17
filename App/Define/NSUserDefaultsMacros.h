@@ -15,7 +15,7 @@
 #define setXAuthToken(str)      [kUserDefaults setObject:str forKey:XAuthToken]
 #define getXAuthToken           [kUserDefaults objectForKey:XAuthToken]
 
-//首页是否展示未连接状态
+////首页是否展示未连接状态
 #define PWConnect               [NSString stringWithFormat:@"%@/isConnect", getPWUserID]
 #define setConnect(bool)        [kUserDefaults setBool:bool forKey:PWConnect]
 #define getConnectState         [kUserDefaults boolForKey:PWConnect]
@@ -49,7 +49,7 @@
 
 #define PW_IssueTabName            [NSString stringWithFormat:@"%@issueSource", getPWUserID]
 
-
+//首页是否展示未连接状态
 #define PW_IsHideGuide  @"ishideguide"
 #define setIsHideGuide(str)       [kUserDefaults setObject:str forKey:PW_IsHideGuide]
 #define getIsHideGuide             [kUserDefaults objectForKey:PW_IsHideGuide]

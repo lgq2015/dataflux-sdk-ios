@@ -265,6 +265,8 @@
         [userManager getExpertNameByKey:expertGroups[0] name:^(NSString *name) {
             type =[NSString stringWithFormat:@"%@加入讨论",name];
         }];
+    }else if([subType isEqualToString:@"issueLevelChanged"]){
+      return @"情报等级变更为一般";
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
 }
@@ -311,5 +313,10 @@
     }
     
     return [[NSString alloc] initWithData:subData encoding:enc];
+}
+- (NSString *)removeFrontBackBlank{
+    NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *str = [self stringByTrimmingCharactersInSet:set];
+    return str;
 }
 @end

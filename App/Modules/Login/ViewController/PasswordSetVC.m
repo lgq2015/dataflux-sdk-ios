@@ -164,9 +164,14 @@
                     KPostNotification(KNotificationLoginStateChange, @YES);
                 });
             } else {
+                if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
+                   [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        KPostNotification(KNotificationLoginStateChange, @YES);
+                    });
+                }else{
                 [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
-//            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+                }            }
         }                  failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
             [iToast alertWithTitleCenter:@"密码设置失败，请重试"];

@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, SourceType) {
     SourceTypeSingleDiagnose,      //主机诊断
     SourceTypeClusterDiagnose,     //先知
     SourceTypeDomainNameDiagnose,  //域名诊断
+    SourceTypeMessageDock,         //消息坞
 };
 typedef NS_ENUM(NSInteger, SourceState) {
     SourceStateNotDetected = 1,        //未开始检测

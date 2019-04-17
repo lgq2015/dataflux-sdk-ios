@@ -69,11 +69,8 @@
     name.font = RegularFONT(14);
     name.text = dict[@"name"];
     name.textAlignment = NSTextAlignmentCenter;
-    if ([self.data[@"type"] isEqual:@1]) {
-        name.textColor = PWTitleColor;
-    }else{
-        name.textColor = [UIColor colorWithHexString:@"8E8E93"];
-    }
+    
+    name.textColor = [UIColor colorWithHexString:@"#595860"];
     [item addSubview:name];
     [name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(item).offset(ZOOM_SCALE(57));

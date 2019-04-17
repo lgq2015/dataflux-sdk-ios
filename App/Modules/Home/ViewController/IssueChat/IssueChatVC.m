@@ -279,6 +279,7 @@
     }];
     
 }
+#pragma mark ========== Socket未连接 保存失败消息 ==========
 - (void)dealSocketNotConnectWithModel:(IssueLogModel *)model{
     model.sendError = YES;
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
@@ -349,6 +350,7 @@
     }
    
 }
+#pragma mark ========== 用户名片图片查看 ==========
 -(void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
     MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
 
@@ -373,7 +375,8 @@
     iconVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:iconVC animated:YES];
 }
-//发送消息
+
+#pragma mark ========== 发送消息 ==========
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
     logModel.text = dic[@"text"];
@@ -395,7 +398,7 @@
         [self scrollToBottom];
     });
 }
-#pragma SSChatBaseCellDelegate 点击图片 点击短视频
+#pragma mark ========== 点击图片 查看图片 ==========
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
 
     NSInteger currentIndex = 0;
@@ -457,6 +460,7 @@
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout {
     
 }
+#pragma mark ========== 邀请专家 ==========
 - (void)navBtnClick{
     [SVProgressHUD show];
     [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {

@@ -50,4 +50,9 @@
 
 #define KNotificationAppResignActive @"KNotificationAppResignActive"
 
+#pragma mark ========== 常量 ==========
+#define KUtilsConstCacheName      @"KUtilsConstCacheName"
+
+#define KIssueSourceNameModelCache @"KIssueSourceNameModelCache"
+
 #endif /* NotificationMacros_h */
