@@ -29,7 +29,7 @@
     setXAuthToken(token);
     [userManager saveUserInfoLoginStateisChange:NO success:^(BOOL isSuccess) {
         KPostNotification(KNotificationTeamStatusChange,@YES);
-        KPostNotification(KNotificationIssueSourceChange,nil);
+        KPostNotification(KNotificationConnectStateCheck,nil);
         [self.tabBarController setSelectedIndex:2];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];

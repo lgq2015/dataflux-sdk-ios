@@ -166,7 +166,7 @@
                                    progressBlock:nil
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                        failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-    
+
 }
 
 
@@ -187,12 +187,13 @@
 
     NSMutableDictionary *params =
             [@{@"_withLatestIssueLog": @YES,
-                                @"orderBy": @"actSeq",
-                                @"_latestIssueLogLimit": @1,
-                                @"_latestIssueLogSubType": @"comment",
-                                @"orderMethod": @"asc",
-                                @"pageSize": @(pageSize)
-                        } mutableCopy];
+                    @"orderBy": @"actSeq",
+                    @"_latestIssueLogLimit": @1,
+                    @"_latestIssueLogSubType": @"comment",
+                    @"orderMethod": @"asc",
+                    @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
+                    @"pageSize": @(pageSize)
+            } mutableCopy];
 
 
     if(pageMarker>0){

@@ -174,6 +174,16 @@
     return datas;
 }
 
+- (NSInteger)getIssueSourceCount {
+    __block NSInteger count = 0;
+    [[self getHelper] pw_inDatabase:^{
+        count = [[self getHelper] pw_tableItemCount:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
+    }];
+
+    return count;
+
+}
+
 
 - (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID {
     __block NSString *name = @"";
@@ -208,10 +218,13 @@
 }
 
 
-- (void)deleteIssueSourceById:(NSString *)issueSourceId {
-    [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceId];
-        [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME whereFormat:whereFormat];
+- (void)deleteIssueSourceById:(NSArray *)issueSourceIds {
+    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+        [issueSourceIds enumerateObjectsUsingBlock:^(NSString *issueSourceId, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceId];
+            [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME whereFormat:whereFormat];
+        }];
+
     }];
 
 }

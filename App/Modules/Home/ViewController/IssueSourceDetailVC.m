@@ -578,7 +578,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 -(void)saveSuccess{
     [SVProgressHUD showSuccessWithStatus:@"保存成功"];
-    KPostNotification(KNotificationIssueSourceChange,nil);
+    KPostNotification(KNotificationInfoBoardDatasUpdate,nil);
     __weak typeof (self) vc = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [vc.navigationController.view.layer addAnimation:[self createTransitionAnimation] forKey:nil];
@@ -617,7 +617,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
         [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
         self.addTipView.itemClick = ^{
-         [weakSelf addIssueSourcewithparam:param];
+            [weakSelf addIssueSourceWithParam:param];
         };
         self.addTipView.netClick = ^(NSURL *url){
         PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"用户数据安全协议" andURL:url];
@@ -638,7 +638,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
             [self.addTipView showInView:[UIApplication sharedApplication].keyWindow];
             self.addTipView.itemClick = ^{
-                [weakSelf addIssueSourcewithparam:param];
+                [weakSelf addIssueSourceWithParam:param];
             };
             self.addTipView.netClick = ^(NSURL *url){
             PWBaseWebVC *webvc = [[PWBaseWebVC alloc]initWithTitle:@"用户数据安全协议" andURL:url];
@@ -656,10 +656,10 @@ typedef NS_ENUM(NSUInteger ,NaviType){
     }
     }
 }
-- (void)addIssueSourcewithparam:(NSDictionary *)param{
+- (void)addIssueSourceWithParam:(NSDictionary *)param{
     [PWNetworking requsetHasTokenWithUrl:PW_addIssueSource withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[@"errorCode"] isEqualToString:@""]) {
-            KPostNotification(KNotificationIssueSourceChange,nil);
+            KPostNotification(KNotificationConnectStateCheck,nil);
             AddSourceTipView *tip = [[AddSourceTipView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12)) type:AddSourceTipTypeSuccess];
             [self.view removeAllSubviews];
             [self.view addSubview:tip];
@@ -698,10 +698,9 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
 
 -(void)deleteAndRefreshDB{
-    KPostNotification(KNotificationIssueSourceChange, nil);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[IssueSourceManger sharedIssueSourceManger] deleteIssueSourceById:self.model.issueSourceId];
-        [[IssueListManger sharedIssueListManger] deleteIssueWithIssueSourceID:self.model.issueSourceId];
+        [[IssueSourceManger sharedIssueSourceManger] deleteIssueSourceById:@[self.model.issueSourceId]];
+        [[IssueListManger sharedIssueListManger] deleteIssueWithIssueSourceID:@[self.model.issueSourceId]];
     });
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:YES];
@@ -722,7 +721,6 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
     void (^deleteSuccess)(void) = ^{
         [SVProgressHUD showSuccessWithStatus:@"已删除"];
-        KPostNotification(KNotificationIssueSourceChange, nil);
         [self deleteAndRefreshDB];
 
     };

@@ -10,8 +10,10 @@
 #import "IssueListManger.h"
 #import "YYReachability.h"
 #import "IssueLogModel.h"
+#import "IssueSourceManger.h"
 
 #define ON_EVENT_ISSUE_UPDATE @"socketio.issueUpdate"
+#define ON_EVENT_ISSUE_SOURCE_UPDATE @"socketio.issueSourceUpdate"
 #define ON_EVENT_ISSUE_LOG_ADD @"socketio.issueLogAdd"
 
 static dispatch_queue_t socket_message_queue() {
@@ -87,36 +89,62 @@ static dispatch_queue_t socket_message_queue() {
 
     [self.socket on:@"connect" callback:^(NSArray *data, SocketAckEmitter *ack) {
 
-        if(data.count>0){
+        if (data.count > 0) {
             DLog(@"socket connected%@", data[0]);
-            if(getXAuthToken){
+            if (getXAuthToken) {
                 [[self.socket emitWithAck:@"auth" with:@[getXAuthToken]] timingOutAfter:0 callback:^(NSArray *data) {
-                    DLog(@"emitWithAck%@", data);
+                    if (data.count > 0) {
+                        DLog(@"emitWithAck%@", data);
+                        NSString *jsonString = data[0];
+                        NSDictionary *dic = [jsonString jsonValueDecoded];
+                        NSInteger code = [dic integerValueForKey:@"error" default:0];
+                        if (code == 200) {
+                            [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+                                
+                            } getAllDatas:NO];
+
+                        }
+
+                    }
                 }];
             }
         }
     }];
 
     [self.socket on:@"connectError" callback:^(NSArray *data, SocketAckEmitter *ack) {
-        if(data.count>0){
+        if (data.count > 0) {
             DLog(@"socket connectError%@", data[0]);
             [self performSelector:@selector(retryConnect) afterDelay:10];
         }
     }];
 
     [self.socket on:@"disconnect" callback:^(NSArray *data, SocketAckEmitter *ack) {
-        if(data.count>0){
+        if (data.count > 0) {
             DLog(@"socket disconnect%@", data[0]);
-            
+
             [self performSelector:@selector(retryConnect) afterDelay:10];
         }
     }];
 
     [self.socket on:ON_EVENT_ISSUE_UPDATE callback:^(NSArray *data, SocketAckEmitter *ack) {
-        if(data.count>0){
+        if (data.count > 0) {
             DLog(ON_EVENT_ISSUE_UPDATE
-                 " = %@", data);
+                    " = %@", data);
             [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+        }
+
+    }];
+    
+    [self.socket on:ON_EVENT_ISSUE_SOURCE_UPDATE callback:^(NSArray *data, SocketAckEmitter *ack) {
+        if (data.count > 0) {
+            DLog(ON_EVENT_ISSUE_SOURCE_UPDATE" = %@", data);
+            NSString *jsonString = data[0];
+            NSDictionary *dic = [jsonString jsonValueDecoded];
+            NSArray* arr= [dic mutableArrayValueForKey:@"deletedIssueSourceIds"];
+            [[IssueListManger sharedIssueListManger] deleteIssueWithIssueSourceID:arr];
+            [[IssueSourceManger sharedIssueSourceManger] deleteIssueSourceById:arr];
+
+
         }
         
     }];
@@ -136,7 +164,7 @@ static dispatch_queue_t socket_message_queue() {
                             @"comment"];
 
             //过滤脏数据
-            if ([array containsObject:model.subType]){
+            if ([array containsObject:model.subType]) {
                 [kNotificationCenter
                         postNotificationName:KNotificationChatNewDatas
                                       object:nil

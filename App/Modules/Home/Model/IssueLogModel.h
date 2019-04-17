@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *fileType;
 @property (nonatomic, strong) NSData *fileData;
+@property (nonatomic, assign) BOOL dataCheckFlag;
 
 
 //@property (nonatomic,strong) NSDictionary* originInfoJSON;

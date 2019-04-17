@@ -18,6 +18,7 @@
 @interface IssueSourceListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger  currentPage;
+@property (nonatomic, assign) BOOL isLoading;
 
 @property (nonatomic, strong) UIView *nodataView;
 @end
@@ -31,7 +32,7 @@
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(headerRereshing)
-                                                 name:KNotificationIssueSourceChange
+                                                 name:KNotificationInfoBoardDatasUpdate
                                                object:nil];
 }
 - (void)createUI{
@@ -91,39 +92,48 @@
 }
 - (void)loadData{
     //拿本地数据
-    NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
-    self.dataSource = [NSMutableArray new];
-    [self.dataSource addObjectsFromArray:array];
-    if (self.dataSource.count > 0) {
-        [self.tableView reloadData];
-        self.tableView.tableFooterView = self.footView;
-    } else {
-        [self showNoDataImageView];
-    }
 
-    //更新数据
+    if (_isLoading)return;
+
+    _isLoading = YES;
+
+    [self loadFromDB];
+
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
         [self.header endRefreshing];
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg delay:1];
         } else {
-            NSArray *ary = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+            [self loadFromDB];
+        }
 
-            if (ary.count > 0) {
+        _isLoading = NO;
+    }];
+
+    //更新数据
+
+}
+
+- (void)loadFromDB {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+        dispatch_sync_on_main_queue(^{
+            self.dataSource = [array mutableCopy];
+            if (self.dataSource.count > 0) {
                 [self hideNoDataImageView];
-                self.dataSource = [NSMutableArray new];
-                [self.dataSource addObjectsFromArray:ary];
-                self.tableView.tableFooterView = self.footView;
+                DLog(@"reload")
+
                 [self.tableView reloadData];
+                self.tableView.tableFooterView = self.footView;
             } else {
                 [self showNoDataImageView];
             }
 
-        }
+        });
 
-
-    }];
+    });
 }
+
 -(void)hideNoDataImageView{
     NSArray *title = @[@"添加"];
     if([getTeamState isEqualToString:PW_isTeam]){
@@ -205,12 +215,14 @@
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    DLog(@"list count");
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InformationSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationSourceCell"];
 
+    DLog(@"list cell");
     cell.model = [[IssueSourceViewModel alloc]initWithJsonDictionary:self.dataSource[indexPath.row]];
     return cell;
 }

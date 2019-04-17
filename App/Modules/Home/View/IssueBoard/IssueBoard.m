@@ -34,7 +34,7 @@
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict{
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
-    
+
     if (self.style == PWInfoBoardStyleNotConnected) {
         self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
@@ -61,7 +61,7 @@
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
-        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*5));
+        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82 * 5));
     }
     
 }
