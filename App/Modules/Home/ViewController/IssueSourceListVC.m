@@ -31,7 +31,7 @@
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(headerRereshing)
-                                                 name:KNotificationIssueSourceChange
+                                                 name:KNotificationInfoBoardDatasUpdate
                                                object:nil];
 }
 - (void)createUI{
@@ -91,39 +91,40 @@
 }
 - (void)loadData{
     //拿本地数据
-    NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
-    self.dataSource = [NSMutableArray new];
-    [self.dataSource addObjectsFromArray:array];
-    if (self.dataSource.count > 0) {
-        [self.tableView reloadData];
-        self.tableView.tableFooterView = self.footView;
-    } else {
-        [self showNoDataImageView];
-    }
 
-    //更新数据
+    [self loadFromDB];
+
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
         [self.header endRefreshing];
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg delay:1];
         } else {
-            NSArray *ary = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+            [self loadFromDB];
+        }
+    }];
 
-            if (ary.count > 0) {
+    //更新数据
+
+}
+
+- (void)loadFromDB {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+        dispatch_sync_on_main_queue(^{
+            self.dataSource = [array mutableCopy];
+            if (self.dataSource.count > 0) {
                 [self hideNoDataImageView];
-                self.dataSource = [NSMutableArray new];
-                [self.dataSource addObjectsFromArray:ary];
-                self.tableView.tableFooterView = self.footView;
                 [self.tableView reloadData];
+                self.tableView.tableFooterView = self.footView;
             } else {
                 [self showNoDataImageView];
             }
 
-        }
+        });
 
-
-    }];
+    });
 }
+
 -(void)hideNoDataImageView{
     NSArray *title = @[@"添加"];
     if([getTeamState isEqualToString:PW_isTeam]){
@@ -205,6 +206,7 @@
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
     return self.dataSource.count;
 }
 

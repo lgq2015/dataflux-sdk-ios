@@ -10,8 +10,10 @@
 #import "IssueListManger.h"
 #import "YYReachability.h"
 #import "IssueLogModel.h"
+#import "IssueSourceManger.h"
 
 #define ON_EVENT_ISSUE_UPDATE @"socketio.issueUpdate"
+#define ON_EVENT_ISSUE_SOURCE_UPDATE @"socketio.issueSourceUpdate"
 #define ON_EVENT_ISSUE_LOG_ADD @"socketio.issueLogAdd"
 
 static dispatch_queue_t socket_message_queue() {
@@ -97,7 +99,10 @@ static dispatch_queue_t socket_message_queue() {
                         NSDictionary *dic = [jsonString jsonValueDecoded];
                         NSInteger code = [dic integerValueForKey:@"error" default:0];
                         if (code == 200) {
-                            [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
+                            [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+                                
+                            } getAllDatas:NO];
+
                         }
 
                     }
@@ -128,6 +133,20 @@ static dispatch_queue_t socket_message_queue() {
             [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
         }
 
+    }];
+    
+    [self.socket on:ON_EVENT_ISSUE_SOURCE_UPDATE callback:^(NSArray *data, SocketAckEmitter *ack) {
+        if (data.count > 0) {
+            DLog(ON_EVENT_ISSUE_SOURCE_UPDATE" = %@", data);
+            NSString *jsonString = data[0];
+            NSDictionary *dic = [jsonString jsonValueDecoded];
+            NSArray* arr= [dic mutableArrayValueForKey:@"deletedIssueSourceIds"];
+            [[IssueListManger sharedIssueListManger] deleteIssueWithIssueSourceID:arr];
+            [[IssueSourceManger sharedIssueSourceManger] deleteIssueSourceById:arr];
+
+
+        }
+        
     }];
     [self.socket on:ON_EVENT_ISSUE_LOG_ADD callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD

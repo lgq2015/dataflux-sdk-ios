@@ -28,7 +28,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
 /**
  首页展示类型判断
  */
--(void)judgeIssueConnectState:(void(^)(BOOL isConnect))isConnect;
+-(BOOL)judgeIssueConnectState;
 
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
@@ -44,7 +44,10 @@ SINGLETON_FOR_HEADER(IssueListManger)
 /**
  首页infoBoard数据提供
  */
-- (NSArray *)getInfoBoardData;
+- (NSArray *)getIssueBoardData;
+
+- (BOOL)isInfoBoardInit;
+
 /**
  情报分类页数据源获取
  */
@@ -54,7 +57,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
  */
 - (void)createData;
 
-- (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId;
+- (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds ;
 
 - (void)clearAllIssueData;
 @end

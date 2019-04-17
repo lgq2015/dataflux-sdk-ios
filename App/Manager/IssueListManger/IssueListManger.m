@@ -214,7 +214,6 @@
 
 
 - (NSString *)getDBName {
-    DLog(@"getDBName == %@", getPWUserID);
     return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_ISSUE);
 }
 
@@ -334,7 +333,7 @@
 
         if (model.isSuccess) {
             NSMutableArray *allDatas = [NSMutableArray new];
-            long long lastPagerMaker = [self getLastPageMarker];
+            long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
             [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
                                lastDataStatus:callBackStatus clearCache:needGetAllData];;
         } else {
@@ -350,11 +349,11 @@
 }
 
 - (BOOL)isInfoBoardInit {
-    NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
-
-    NSArray *infoDatas = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[IssueBoardModel class] whereFormat:nil];
-    //判断是否初始化
-    return infoDatas.count == 0;
+    __block BOOL isInit = NO;
+    [self.getHelper pw_inDatabase:^{
+        isInit = [self.getHelper pw_tableItemCount:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME] == 0;
+    }];
+    return isInit;
 }
 
 
@@ -415,7 +414,7 @@
 }
 
 
-- (NSArray *)getInfoBoardData {
+- (NSArray *)getIssueBoardData {
     NSMutableArray *array = [NSMutableArray new];
     [self.getHelper pw_inDatabase:^{
         NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
@@ -533,53 +532,42 @@
 
 }
 
+- (NSInteger)getIssueCount {
+    __block NSInteger count = 0;
+    [[self getHelper] pw_inDatabase:^{
+        count = [[self getHelper] pw_tableItemCount:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
+    }];
+    return count;
+}
+
+
 // 判断首页是否连接
-- (void)judgeIssueConnectState:(void (^)(BOOL isConnect))isConnect {
-    if ([getTeamState isEqualToString:PW_isTeam] && userManager.teamModel.isAdmin == NO) {
-        setConnect(YES);
-        [kUserDefaults synchronize];
-        isConnect(YES);
+- (BOOL)judgeIssueConnectState {
+    if ([getIsHideGuide isEqualToString:PW_IsHideGuide] ||
+            [getTeamState isEqualToString:PW_isTeam] && !userManager.teamModel.isAdmin) {
+        return YES;
     } else {
-        NSDictionary *param = @{@"pageNumber": @1, @"pageSize": @1};
-        [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                NSDictionary *content = response[@"content"];
-                NSArray *data = content[@"data"];
-                if (data.count > 0) {
-                    setConnect(YES);
-                    [kUserDefaults synchronize];
-                    isConnect(YES);
-                } else {
-                    NSDictionary *params = @{@"orderBy": @"actSeq", @"orderMethod": @"desc", @"pageSize": @1};
-                    [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-                        if ([response[ERROR_CODE] isEqualToString:@""]) {
-                            NSDictionary *content = response[@"content"];
-                            NSArray *data = content[@"data"];
-                            if (data.count > 0) {
-                                setConnect(YES);
-                                [kUserDefaults synchronize];
-                                isConnect(YES);
-                            } else {
-                                isConnect(NO);
-                            }
-                        }
-                    }                          failBlock:^(NSError *error) {
-                        isConnect(NO);
-                    }];
-                }
-            } else {
-                isConnect(NO);
-            }
-        }                          failBlock:^(NSError *error) {
-            isConnect(NO);
-        }];
+        NSInteger sourceCount = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceCount];
+        if (sourceCount > 0) {
+            return YES;
+
+        } else {
+            NSInteger issueCount = [self getIssueCount];
+            return issueCount > 0;
+        }
     }
 }
 
-- (void)deleteIssueWithIssueSourceID:(NSString *)issueSourceId {
-    [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
-        [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
+- (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds {
+    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+
+        [sourceIds enumerateObjectsUsingBlock:^(NSString *issueSourceId, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
+            [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
+        }];
+
+        rollback = NO;
+
         [self refreshIssueBoardDatas];
     }];
 

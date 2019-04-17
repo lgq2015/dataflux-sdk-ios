@@ -32,6 +32,7 @@
 #define KUserModelCache @"KUserModelCache"
 #define KTeamModelCache @"KTeamModelCache"
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
+#define KNotificationConnectStateCheck @"KNotificationConnectStateCheck"
 
 #define KNotificationInfoBoardDatasUpdate @"KNotificationInfoBoardDatasUpdate"
 #define KNotificationNewIssue @"KNotificationNewIssue"

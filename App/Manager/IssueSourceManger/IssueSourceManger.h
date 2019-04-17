@@ -45,6 +45,9 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource
  */
 - (NSArray *)getIssueSourceList;
+
+- (NSInteger)getIssueSourceCount;
+
 /**
  预展示 issuesource
  */
@@ -52,7 +55,7 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
 
 - (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
 
-- (void)deleteIssueSourceById:(NSString *)issueSourceId;
+- (void)deleteIssueSourceById:(NSArray *)issueSourceIds;
 
 /**
  退出处理
