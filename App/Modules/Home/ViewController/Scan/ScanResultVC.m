@@ -22,7 +22,7 @@
     [self createUI];
 }
 - (void)createUI{
-    
+
 }
 -(void)eventSwitchToken:(NSDictionary *)extra{
     NSString *token = [extra stringValueForKey:@"token" default:@""];
@@ -33,8 +33,14 @@
         [self.tabBarController setSelectedIndex:2];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
-    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-    [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList];
+
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+        KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
+
+        if (!model.isSuccess) {
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+    }];
 
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{

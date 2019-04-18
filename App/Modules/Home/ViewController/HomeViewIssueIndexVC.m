@@ -177,24 +177,30 @@
         if (isConnect) {
             setIsHideGuide(PW_IsHideGuide);
         }
+        [self createUI];
     };
 
     BOOL isInit = [[IssueListManger sharedIssueListManger] isInfoBoardInit];
     if (isInit) {
-        [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+        [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
             if (model.isSuccess) {
                 setUpStyle();
-                [self createUI];
-
+                complete();
             } else {
+                //fixme 此处可以添加错误重试页面，进行重试
                 [iToast alertWithTitleCenter:model.errorMsg];
             }
-        }                                           getAllDatas:YES];
-        complete();
+
+        }];
+
     } else {
         setUpStyle();
-        [self createUI];
-        [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
+        [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+            if (model.isSuccess) {
+                [self infoBoardDatasUpdate];
+            }
+
+        }];
         complete();
     }
 
