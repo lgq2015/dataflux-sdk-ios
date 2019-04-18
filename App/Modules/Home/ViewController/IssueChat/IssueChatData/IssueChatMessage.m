@@ -89,7 +89,7 @@
         
         if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
             self.messageType = PWChatMessageTypeImage;
-            self.imageString = url;
+            self.imageString = [url imageTransStr];
             self.cellString = PWChatImageCellId;
         }else{
             self.messageType = PWChatMessageTypeFile;

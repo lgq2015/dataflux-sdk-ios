@@ -24,6 +24,16 @@
 #import <DTShareKit/DTOpenKit.h>
 #import <JPUSHService.h>
 #import "OpenUDID.h"
+#import "MineMessageModel.h"
+#import "IssueModel.h"
+#import "MessageDetailVC.h"
+#import "PWBaseWebVC.h"
+#import "IssueListViewModel.h"
+#import "IssueDetailRootVC.h"
+#import "NewsWebView.h"
+#import "IssueProblemDetailsVC.h"
+#import "NewsListModel.h"
+#import "IssueDetailVC.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -107,7 +117,88 @@
     }
 
 }
+- (void)dealWithNotification:(NSDictionary *)userInfo{
+    NSString *title = [userInfo valueForKey:@"content"]; //标题
+    NSDictionary *extras = [userInfo valueForKey:@"extras"];//服务端定义的字段
+    
+    NSString *msgType = [extras stringValueForKey:@"msgType" default:@""];  //消息类型
+    
+    if ([msgType isEqualToString:@"system_message"]) {
+        if ([extras containsObjectForKey:@"uri"] && ![[extras stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
+            NSString *uri = [extras stringValueForKey:@"uri" default:@""];
+            PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
+            [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+            
+        } else if ([extras containsObjectForKey:@"entityId"]) {
+            NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+            
+            [SVProgressHUD show];
+            [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
+                [SVProgressHUD dismiss];
+                MineMessageModel *data = (MineMessageModel *) o;
+                if (data.isSuccess) {
+                    MessageDetailVC *detail = [[MessageDetailVC alloc] init];
+                    detail.model = data;
+                    [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
+                } else {
+                    [iToast alertWithTitleCenter:data.errorCode];
+                }
+            }];
+        }
+        
+    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
+        //暂时只停留在首页
+        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
+        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
+        [maintabbar setSelectedIndex:0];
+    } else if ([msgType isEqualToString:@"issue_engine_count"]) {
+        //暂时只停留在首页
+        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
+        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
+        [maintabbar setSelectedIndex:0];
+    } else if ([msgType isEqualToString:@"issue_add"]) {
+        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        [SVProgressHUD show];
+        
+        [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
+            [SVProgressHUD dismiss];
+            IssueModel *data = (IssueModel *) o;
+            if (data.isSuccess) {
+                IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+                
+                IssueDetailRootVC *control;
+                if ([data.origin isEqualToString:@"user"]) {
+                    control = [IssueProblemDetailsVC new];
+                } else {
+                    control = [IssueDetailVC new];
+                }
+                control.model = monitorListModel;
+                
+                [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
 
+            } else {
+                [iToast alertWithTitleCenter:data.errorCode];
+            }
+        }];
+        
+        
+    } else if ([msgType isEqualToString:@"recommendation"]) {
+        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        NSString *summary = [extras stringValueForKey:@"summary" default:@""];
+        NSString *url = [extras stringValueForKey:@"url" default:@""];
+        NSString *title = [extras stringValueForKey:@"title" default:@""];
+        NewsListModel *model = [NewsListModel new];
+        model.newsID = entityId;
+        model.title = title;
+        model.subtitle = summary;
+        model.url = url;
+        NewsWebView *webView = [[NewsWebView alloc] initWithTitle:title andURLString:url];
+        webView.newsModel = model;
+        webView.style = WebItemViewStyleNoCollect;
+        [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+    }
+    
+}
 #pragma mark ========== 登录状态处理 ==========
 - (void)loginStateChange:(NSNotification *)notification
 {
@@ -324,7 +415,8 @@
     if (!setversion) {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if ([nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
+       
+    if (![version isEqualToString:@""] && [nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
         DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
        
            [alert showInView:[UIApplication sharedApplication].keyWindow];

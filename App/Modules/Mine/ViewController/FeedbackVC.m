@@ -73,7 +73,10 @@
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(47));
     }];
+    self.describeTextView.delegate = self;
+
     RACSignal *text = [[self.describeTextView rac_textSignal]map:^id(NSString *value) {
+        
         return @(value.length>0);
     }];
     RAC(self.commitBtn,enabled) = text;
@@ -124,13 +127,10 @@
         }];
     
 }
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-//
-//    if (![text isEqualToString:@""]) {
-//     return [text validateSpecialCharacter];
-//    }
-//    return YES;
-//}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+
+    return ![text stringContainsEmoji];
+}
 /*
 #pragma mark - Navigation
 

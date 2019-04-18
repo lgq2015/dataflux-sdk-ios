@@ -108,8 +108,12 @@
                 if (self.handbookModel.imageUrl.length>0) {
                     [imgs addObject:weakSelf.handbookModel.imageUrl];
                 }
-                NSDictionary *extras = imgs.count>0?@{@"imgs":imgs,@"topic":topic}:@{@"topic":topic};
-
+                NSDictionary *extras = nil;
+                if (self.fromvc == FromVCHandBookIndex){//从速查表进来，不传图片
+                    extras = @{@"topic":topic};
+                }else{
+                    extras = imgs.count>0?@{@"imgs":imgs,@"topic":topic}:@{@"topic":topic};
+                }
                  param   =@{@"data":@{@"entityId":weakSelf.handbookModel.articleId,@"url":[weakSelf.webUrl absoluteString],@"title":weakSelf.handbookModel.title,@"summary":weakSelf.handbookModel.summary,@"type":@"handbook",@"extras":extras}};
             }
        
