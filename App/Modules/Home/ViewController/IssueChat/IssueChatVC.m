@@ -117,16 +117,9 @@
 -(void)onReFetchNewDatas{
     // 重新链接获取数据
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
-    [[IssueChatDataManager sharedInstance]
-            fetchAllChatIssueLog:_issueID
-                      pageMarker:pageMarker
-                        callBack:^(NSMutableArray<IssueLogModel *> *array) {
-                            //todo get new data
-                            //获取新数据
-                            if(array.count>0){
-                               [self updateTableView];
-                            }
-                        }];
+    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:_issueID callBack:^(IssueLogListModel *model) {
+        
+    }];
 }
 
 - (void)onNewIssueChatData:(NSNotification *)notification {

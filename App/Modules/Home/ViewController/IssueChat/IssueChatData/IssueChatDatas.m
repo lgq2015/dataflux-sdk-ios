@@ -104,20 +104,10 @@
 +(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
     long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:sessionId];
     __block NSMutableArray *newChatArray = [NSMutableArray new];
-    
-    [[IssueChatDataManager sharedInstance]
-     fetchAllChatIssueLog:sessionId
-     pageMarker:pageMarker
-     callBack:^(NSMutableArray<IssueLogModel *> *array) {
-         //todo get new data
-         //获取新数据
-         [array enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:obj];
-            IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
-            [newChatArray addObject:layout];
-         }];
-         callback?callback(newChatArray):nil;
-     }];
+
+    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:sessionId callBack:^(IssueLogListModel *model) {
+
+    }];
 
 }
 +(NSMutableArray *)receiveMessages:(NSString *)sessionId{

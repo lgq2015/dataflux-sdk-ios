@@ -17,6 +17,7 @@
 #import "IssueListModel.h"
 #import "IssueSourceManger.h"
 #import "PWSocketManager.h"
+#import "IssueChatDataManager.h"
 
 #define ISSUE_LIST_PAGE_SIZE  100
 
@@ -350,13 +351,13 @@
 }
 
 
--(void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus{
+- (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus {
 
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
         [[PWSocketManager sharedPWSocketManager] connect];
 
-    } getAllDatas:YES];
+    }                                           getAllDatas:YES];
 
 }
 
@@ -556,7 +557,7 @@
 // 判断首页是否连接
 - (BOOL)judgeIssueConnectState {
     if ([getIsHideGuide isEqualToString:PW_IsHideGuide] ||
-            [getTeamState isEqualToString:PW_isTeam] && !userManager.teamModel.isAdmin) {
+            ([getTeamState isEqualToString:PW_isTeam] && !userManager.teamModel.isAdmin)) {
         return YES;
     } else {
         NSInteger sourceCount = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceCount];
@@ -568,6 +569,27 @@
             return issueCount > 0;
         }
     }
+}
+
+- (long long)getLastIssueLogSeqFromIssue:(NSString *)issueId {
+    __block long long seq = 1L;
+
+    [self.getHelper pw_inDatabase:^{
+        NSDictionary *dic = @{@"lastIssueLogSeq": SQL_INTEGER};
+        NSString *whereFormat = [NSString stringWithFormat:@"WHERE issueId = '%@' ORDER BY lastIssueLogSeq DESC LIMIT 1",
+                                                           issueId];
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                                             dicOrModel:dic whereFormat:whereFormat];
+        if (array.count > 0) {
+            seq = [array[0] longLongValueForKey:@"lastIssueLogSeq" default:1];
+        }
+    }];
+    return seq;
+}
+
+
+- (BOOL)checkIssueLastStatus:(NSString *)issueId {
+    return [self getLastIssueLogSeqFromIssue:issueId] <= [[IssueChatDataManager sharedInstance] getLastIssueLogSeqFromIssueLog:issueId];
 }
 
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds {

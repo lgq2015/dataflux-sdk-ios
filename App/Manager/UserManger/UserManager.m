@@ -15,6 +15,8 @@
 #import "IssueListManger.h"
 #import "HandBookManager.h"
 #import "IssueSourceManger.h"
+#import "IssueChatDataManager.h"
+
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -266,9 +268,10 @@ SINGLETON_FOR_CLASS(UserManager);
     self.teamModel = nil;
     self.isLogined = NO;
 
-    [[IssueListManger sharedIssueListManger] clearAllIssueData];
+//    [[IssueListManger sharedIssueListManger] clearAllIssueData];
 
     [[InformationStatusReadManager sharedInstance] shutDown];
+    [[IssueChatDataManager sharedInstance] shutDown];
     [[IssueListManger sharedIssueListManger] shutDown];
     [[HandBookManager sharedInstance] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];

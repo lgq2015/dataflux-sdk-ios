@@ -575,6 +575,7 @@
 		6B6E2251AAC28C5027550FB2 /* IssueDetailRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2812C47E1EF95C09CBFA /* IssueDetailRootVC.m */; };
 		6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B8CDBE037075EEE0072 /* IssueChatBaseCell.m */; };
 		6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
+		6B6E2268E758B6FE148C1078 /* BaseListReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */; };
 		6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B8CDBE037075EEE0072 /* IssueChatBaseCell.m */; };
 		6B6E2284726714D0C5C3FE6E /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
 		6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */; };
@@ -600,6 +601,7 @@
 		6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2188F811955A7DCCF384 /* ToolsVC.m */; };
+		6B6E2463E35C68771B98DCA4 /* BaseListReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */; };
 		6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
 		6B6E247AD1C1857E2253AA88 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */; };
 		6B6E24C5C342CB66D622D511 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
@@ -609,6 +611,7 @@
 		6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
+		6B6E25EA6E5A8E29AF07EEBB /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
 		6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
 		6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
@@ -641,6 +644,7 @@
 		6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
 		6B6E28B415D4B40427B36E26 /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
 		6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
+		6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
 		6B6E28C6D5584444F4D46187 /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
 		6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */; };
@@ -690,11 +694,13 @@
 		6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
 		6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C2D3CD112469EF49F0B /* ScanViewController.m */; };
 		6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */; };
+		6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
 		6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */; };
 		6B6E2E37A646DA4521036A2D /* LibrarySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */; };
 		6B6E2E85F33B2B48D353BCA1 /* IssueChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E265814A874D256AF5F56 /* IssueChatMessage.m */; };
 		6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */; };
 		6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */; };
+		6B6E2E96763550DBD26FD3FE /* BaseListReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */; };
 		6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E2F1E8220A677193C368D /* IssueDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E20F36B75EF48D9623907 /* IssueDetailVC.m */; };
 		6B6E2F367D1AE927F4ADF821 /* HandbookIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25221972ECF638142FC3 /* HandbookIndexVC.m */; };
@@ -1551,6 +1557,7 @@
 		6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWHttpEngine.m; sourceTree = "<group>"; };
 		6B6E238DC1A5877776F89F1C /* LaunchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchVC.h; sourceTree = "<group>"; };
 		6B6E239AFED77AD55CBA88A5 /* InformationStatusReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationStatusReadManager.h; sourceTree = "<group>"; };
+		6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogListModel.m; sourceTree = "<group>"; };
 		6B6E243DEBD6CDF05812520A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		6B6E24481601F546E06BB546 /* CarrierItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarrierItemModel.h; sourceTree = "<group>"; };
 		6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchVC.m; sourceTree = "<group>"; };
@@ -1573,6 +1580,7 @@
 		6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarrierItemModel.m; sourceTree = "<group>"; };
 		6B6E270F54D0301125C8BF69 /* IssueListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueListModel.m; sourceTree = "<group>"; };
 		6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterDiagnosisVC.m; sourceTree = "<group>"; };
+		6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListReturnModel.m; sourceTree = "<group>"; };
 		6B6E2774D6F85C939EECE784 /* IssueChatBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatBaseCell.h; sourceTree = "<group>"; };
 		6B6E279ABDD933179C7571A1 /* ScanResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultVC.m; sourceTree = "<group>"; };
 		6B6E279B88172BC2B3835339 /* AddSourceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
@@ -1580,6 +1588,7 @@
 		6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLogFormatter.m; sourceTree = "<group>"; };
 		6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ErrorCode.m"; sourceTree = "<group>"; };
 		6B6E2812C47E1EF95C09CBFA /* IssueDetailRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDetailRootVC.m; sourceTree = "<group>"; };
+		6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogListModel.h; sourceTree = "<group>"; };
 		6B6E2863DA063BDD899A7E86 /* IssueChatFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatFileCell.h; sourceTree = "<group>"; };
 		6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceModel.m; sourceTree = "<group>"; };
 		6B6E28F8DB0A218F6629EC70 /* IssueChatTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatTextCell.h; sourceTree = "<group>"; };
@@ -1621,6 +1630,7 @@
 		6B6E2D4B41D723CAC6B2D614 /* IssueListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListVC.h; sourceTree = "<group>"; };
 		6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsSuggestVC.m; sourceTree = "<group>"; };
 		6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyBordFunctionView.m; sourceTree = "<group>"; };
+		6B6E2D989814AAC24D22D341 /* BaseListReturnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListReturnModel.h; sourceTree = "<group>"; };
 		6B6E2DFBB81F2190ED5BA9D7 /* IssueSourceListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceListModel.h; sourceTree = "<group>"; };
 		6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
 		6B6E2E222EE3D262B69AC3E5 /* AddIssueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIssueVC.h; sourceTree = "<group>"; };
@@ -2023,6 +2033,8 @@
 				4A6C2877219C1B6F0059BB08 /* WebViewController */,
 				6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */,
 				6B6E2B813786893A2987D808 /* BaseReturnModel.h */,
+				6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */,
+				6B6E2D989814AAC24D22D341 /* BaseListReturnModel.h */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2453,6 +2465,8 @@
 				6B6E2DFBB81F2190ED5BA9D7 /* IssueSourceListModel.h */,
 				6B6E270F54D0301125C8BF69 /* IssueListModel.m */,
 				6B6E20E3ACBEC20ECB30944C /* IssueListModel.h */,
+				6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */,
+				6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3745,6 +3759,8 @@
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
 				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
+				6B6E25EA6E5A8E29AF07EEBB /* IssueLogListModel.m in Sources */,
+				6B6E2E96763550DBD26FD3FE /* BaseListReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4036,6 +4052,8 @@
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
 				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
+				6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */,
+				6B6E2463E35C68771B98DCA4 /* BaseListReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4327,6 +4345,8 @@
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
 				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
+				6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */,
+				6B6E2268E758B6FE148C1078 /* BaseListReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

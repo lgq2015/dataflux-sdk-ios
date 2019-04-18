@@ -9,8 +9,10 @@
 #import "PWFMDB+Simplefy.h"
 #import "IssueListManger.h"
 #import "NSString+ErrorCode.h"
+#import "IssueLogListModel.h"
 
-#define ISSUE_CHAT_PAGE_SIZE 100
+#define ISSUE_CHAT_PAGE_SIZE 8
+#define ISSUE_CHAT_LASTEST_MAX_SIZE 10
 
 @interface IssueChatDataManager ()
 
@@ -38,65 +40,54 @@
     return [IssueListManger sharedIssueListManger].getHelper;
 }
 
-- (void)fetchAllChatIssueLog:(NSString *)issueId pageMarker:(long long)pageMarker
-                    callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback {
+- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback {
     if (_isFetching)return;
 
     _isFetching = YES;
     NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
-    [self fetchChatIssueLog:issueId withDatas:array pageMarker:pageMarker
-                   callBack:^(BOOL b, NSString *errorCode) {
-                       _isFetching = NO;
-                       [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-                           [self cacheChatIssueLogDatasToDB:issueId datas:array];
-                           callback(array);
-                       }];
-                   }];
+    [self fetchLatestChatIssueLog:issueId withDatas:array maxSize:0 callBack:callback];
 
 
 }
 
-- (void)fetchChatIssueLog:(NSString *)issueId withDatas:(NSMutableArray<IssueLogModel *> *)allDatas
-               pageMarker:(long long)pageMarker callBack:(void (^)(BOOL, NSString *errorCode))callback {
-    NSDictionary *param = @{
-            @"pageSize": @ISSUE_CHAT_PAGE_SIZE,
-            @"type": @"attachment,bizPoint,text",
-            @"subType": @"exitExpertGroups,updateExpertGroups,call,comment",
-            @"_withAttachmentExternalDownloadURL": @YES,
-            @"pageMarker": @(pageMarker),
-            @"_attachmentExternalDownloadURLOSSExpires": [NSNumber numberWithInt:3600]};
+/**
+ * 拉取消息
+ * @param issueId
+ * @param allDatas
+ * @param pageMarker
+ * @param callback
+ */
+- (void)fetchLatestChatIssueLog:(NSString *)issueId withDatas:(NSMutableArray<IssueLogModel *> *)allDatas maxSize:(NSInteger)maxSize callBack:(void (^)(IssueLogListModel *))callback {
 
-    [PWNetworking requsetHasTokenWithUrl:PW_issueLog(issueId) withRequestType:NetworkGetType
-                          refreshRequest:NO
-                                   cache:NO
-                                  params:param
-                           progressBlock:nil
-                            successBlock:^(id response) {
-                                NSString *errorCode = response[ERROR_CODE];
-                                if ([response[ERROR_CODE] isEqualToString:@""]) {
-                                    NSDictionary *content = response[@"content"];
-                                    NSArray *data = content[@"data"];
+    [[PWHttpEngine sharedInstance]
+            getChatIssueLog:ISSUE_CHAT_PAGE_SIZE
+                    issueId:issueId
+                 pageMarker:0 orderMethod:@"desc"
+                   callBack:^(id o) {
+                       IssueLogListModel *listModel = (IssueLogListModel *) o;
+                       if (listModel.isSuccess) {
 
-                                    [data enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                        IssueLogModel *model = [[IssueLogModel alloc] initWithDictionary:obj];
-                                        [allDatas addObject:model];
-                                    }];
+                           [allDatas addObjectsFromArray:listModel.list];
 
-
-                                    if (data.count < ISSUE_CHAT_PAGE_SIZE) {
-                                        callback(YES, @"");
-                                    } else {
-                                        [self fetchChatIssueLog:issueId withDatas:allDatas
-                                                     pageMarker:pageMarker callBack:callback];
-                                    }
-                                } else {
-                                    callback(NO, [errorCode toErrString]);
-                                }
-                            }
-                               failBlock:^(NSError *error) {
-                                   //fixme 中英文翻译问题
-                                   callback(NO,  @"网络请求失败");
+                           if (listModel.list.count < ISSUE_CHAT_PAGE_SIZE|| allDatas.count > ISSUE_CHAT_LASTEST_MAX_SIZE) {
+                               
+                               [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                                   [self cacheChatIssueLogDatasToDB:issueId datas:allDatas];
                                }];
+                           } else {
+                               [self fetchLatestChatIssueLog:issueId withDatas:allDatas maxSize:0 callBack:callback];
+                           }
+                       } else {
+
+                           [iToast alertWithTitleCenter:listModel.errorMsg];
+                       }
+
+                       _isFetching = NO;
+                       callback(listModel);
+
+
+                   }];
+
 }
 
 /**
@@ -115,7 +106,7 @@
                                                           issueId, newModel.id];
         if (results.count > 0) {
             [self.getHelper pw_updateTable:table dicOrModel:newModel whereFormat:whereSql, issueId, newModel.id];
-        }else{
+        } else {
             [self.getHelper pw_insertTable:table dicOrModel:newModel];
         }
     }];
@@ -172,15 +163,31 @@
                                          " seq DESC LIMIT %d)", table, where, ISSUE_CHAT_PAGE_SIZE);
 
 
-        NSArray<IssueLogModel*> *results = [self.getHelper pw_lookupTable:table
-                                               dicOrModel:[IssueLogModel class] withSql:range
-                                              whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
+        NSArray<IssueLogModel *> *results = [self.getHelper pw_lookupTable:table
+                                                                dicOrModel:[IssueLogModel class] withSql:range
+                                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
 
 
         [array addObjectsFromArray:results];
     }];
 
     return array;
+}
+
+
+- (long long)getLastIssueLogSeqFromIssueLog:(NSString *)issueId {
+    __block long long seq = 1L;
+
+    [self.getHelper pw_inDatabase:^{
+        NSDictionary *dic = @{@"seq": SQL_INTEGER};
+        NSString *whereFormat = [NSString stringWithFormat:@"WHERE issueId = '%@' ORDER BY seq DESC LIMIT 1 ", issueId];
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
+                                             dicOrModel:dic whereFormat:whereFormat];
+        if (array.count > 0) {
+            seq = [array[0] longLongValueForKey:@"seq" default:1];
+        }
+    }];
+    return seq;
 }
 
 
@@ -202,6 +209,10 @@
         }
     }];
     return seq;
+}
+
+- (void)shutDown {
+    _isFetching = NO;
 }
 
 

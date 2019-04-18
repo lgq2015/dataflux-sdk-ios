@@ -155,7 +155,7 @@ static dispatch_queue_t socket_message_queue() {
             NSString *jsonString = data[0];
             NSDictionary *dic = [jsonString jsonValueDecoded];
 
-            IssueLogModel *model = [[IssueLogModel new] initWithDictionary:dic];
+            IssueLogModel *issueLogModel = [[IssueLogModel new] initWithDictionary:dic];
 
             NSArray *array =
                     @[@"updateExpertGroups",
@@ -164,7 +164,10 @@ static dispatch_queue_t socket_message_queue() {
                             @"comment"];
 
             //过滤脏数据
-            if ([array containsObject:model.subType]) {
+            if ([array containsObject:issueLogModel.subType]) {
+                IssueModel * issueModel = [[IssueListManger sharedIssueListManger] getIssueDataByData:issueLogModel.issueId];
+
+
                 [kNotificationCenter
                         postNotificationName:KNotificationChatNewDatas
                                       object:nil

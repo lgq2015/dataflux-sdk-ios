@@ -7,12 +7,13 @@
 #import "BaseSqlHelper.h"
 
 @class IssueLogModel;
+@class IssueLogListModel;
 
 
 @interface IssueChatDataManager : NSObject 
 + (instancetype)sharedInstance;
 
-- (void)fetchAllChatIssueLog:(NSString *)issueId pageMarker:(long long)pageMarker callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback;
+- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback;
 
 - (void)cacheChatIssueLogDatasToDB:(NSString *)issueId datas:(NSArray<IssueLogModel *> *)datas;
 
@@ -20,5 +21,9 @@
 
 - (NSArray *)getChatIssueLogDatas:(NSString *)issueId pageMarker:(long long)pageMarker;
 
+- (long long)getLastIssueLogSeqFromIssueLog:(NSString *)issueId;
+
 - (long long)getLastChatIssueLogMarker:(NSString *)issueId;
+
+- (void)shutDown;
 @end
