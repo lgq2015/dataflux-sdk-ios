@@ -48,4 +48,6 @@
 
 //是否显示控制器名称在当前界面上
 - (void)isShowVCName:(BOOL)isShow;
+//处理推送
+- (void)dealWithNotification:(NSDictionary *)userInfo;
 @end

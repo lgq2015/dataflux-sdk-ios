@@ -86,8 +86,10 @@
                                     if (data.count < ISSUE_CHAT_PAGE_SIZE) {
                                         callback(YES, @"");
                                     } else {
+                                        long long lastPageMaker = pageMarker;
+                                        lastPageMaker ++;
                                         [self fetchChatIssueLog:issueId withDatas:allDatas
-                                                     pageMarker:pageMarker callBack:callback];
+                                                     pageMarker:lastPageMaker callBack:callback];
                                     }
                                 } else {
                                     callback(NO, [errorCode toErrString]);

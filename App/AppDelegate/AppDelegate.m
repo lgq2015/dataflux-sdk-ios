@@ -161,19 +161,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [JPUSHService registerDeviceToken:deviceToken];
     
 }
-
+// ios 7.0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
 
-
+ 
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+      [self dealWithNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional
     DDLogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
-
+#pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
+//后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
 
     NSDictionary * userInfo = response.notification.request.content.userInfo;
@@ -181,39 +183,45 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         [JPUSHService handleRemoteNotification:userInfo];
 
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-            //程序运行时收到通知，先弹出消息框
+            //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
+        }else{
+       
+              [self dealWithNotification:userInfo];
         }
     }
     else {
         // 本地通知
-        [self networkDidReceiveMessage:userInfo];
+     //   [self networkDidReceiveMessage:userInfo];
 
     }
     completionHandler();  // 系统要求执行这个方法
 
 
 }
-
+// 前台通知  需求：不对前台通知进行处理
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
 
-    NSDictionary * userInfo = notification.request.content.userInfo;
-    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        [JPUSHService handleRemoteNotification:userInfo];
-    }
-    else {
-        // 本地通知
-        [self networkDidReceiveMessage:userInfo];
-
-    }
+//    NSDictionary * userInfo = notification.request.content.userInfo;
+//    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+//        [JPUSHService handleRemoteNotification:userInfo];
+//    }
+//    else {
+//        // 本地通知
+//     //   [self networkDidReceiveMessage:userInfo];
+//
+//    }
+//    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
 
 }
-
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
+#pragma mark ========== ios12 以上 ==========
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification  API_AVAILABLE(ios(10.0)){
 
     if (notification) {
         //从通知界面直接进入应用
+        
     }else{
         //从通知设置界面进入应用
+        
     }
 
 

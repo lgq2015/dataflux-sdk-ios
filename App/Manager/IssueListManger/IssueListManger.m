@@ -544,7 +544,7 @@
 // 判断首页是否连接
 - (BOOL)judgeIssueConnectState {
     if ([getIsHideGuide isEqualToString:PW_IsHideGuide] ||
-            [getTeamState isEqualToString:PW_isTeam] && !userManager.teamModel.isAdmin) {
+           ( [getTeamState isEqualToString:PW_isTeam] && !userManager.teamModel.isAdmin)) {
         return YES;
     } else {
         NSInteger sourceCount = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceCount];

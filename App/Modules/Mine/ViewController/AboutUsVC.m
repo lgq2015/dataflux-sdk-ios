@@ -79,6 +79,10 @@
     NSString *version = [dict stringValueForKey:@"version" default:@""];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if ([version isEqualToString:@""]) {
+        [iToast alertWithTitle:NSLocalizedString(@"local.err.netWorkError", @"")];
+        return;
+    }
     if ([version compare:nowVersion  options:NSNumericSearch] == NSOrderedAscending) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
         MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
