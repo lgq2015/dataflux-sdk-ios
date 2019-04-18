@@ -7,7 +7,7 @@
 //
 
 #import "QrCodeInviteVC.h"
-
+#import "PrivacySecurityControls.h"
 @interface QrCodeInviteVC ()
 @property (nonatomic, strong) UIImageView *qrImgView;
 @end
@@ -79,8 +79,11 @@
     
 }
 - (void)commitClick{
-    
-     UIImageWriteToSavedPhotosAlbum(self.qrImgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
+    NSInteger index = [privacy getPrivacyStatusIsGrantedWithType:PrivacyTypePHPhotoLibrary controller:self];
+    if (index == 1){
+            UIImageWriteToSavedPhotosAlbum(self.qrImgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
 }
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     if(error){
@@ -109,14 +112,18 @@
     CGImageRelease(bitmapImage);
     return [UIImage imageWithCGImage:scaledImage];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)showOpenPhotoAuth{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请开启相册权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:confirm];
+
+    UIAlertAction *open = [UIAlertAction actionWithTitle:@"去开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }];
+    [alert addAction:open];
+    [self presentViewController:alert animated:YES completion:nil];
 }
-*/
-
 @end

@@ -17,7 +17,7 @@
     // Initialization code
 }
 - (void)setTitle:(NSString *)title{
-    self.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
+//    self.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
     self.titleLab.text = title;
 }
 -(UILabel *)titleLab{
