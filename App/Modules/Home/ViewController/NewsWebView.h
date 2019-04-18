@@ -8,6 +8,10 @@
 
 #import "PWBaseWebVC.h"
 #import "WebItemView.h"
+typedef NS_ENUM(NSInteger, FromVC){//从哪个控制器进来的
+    FromVCHandBookArticle,
+    FromVCHandBookIndex,
+};
 NS_ASSUME_NONNULL_BEGIN
 @class NewsListModel;
 @class HandbookModel;
@@ -15,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NewsWebView : PWBaseWebVC
 @property (nonatomic, strong) NewsListModel *newsModel;
 @property (nonatomic, assign) WebItemViewStyle style;
+@property (nonatomic, assign) FromVC fromvc;
 @property (nonatomic, strong) HandbookModel *handbookModel;
 @end
 

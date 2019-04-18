@@ -49,4 +49,15 @@
     [super touchesCancelled:touches withEvent:event];
     self.titleLab.backgroundColor = PWWhiteColor;
 }
+- (void)setSelected:(BOOL)selected{
+    if (selected) {
+        self.titleLab.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
+        self.layer.borderColor = [UIColor colorWithHexString:@"#2A7AF7"].CGColor;
+    }else{
+        self.titleLab.textColor = PWTitleColor;
+        self.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
+        self.layer.borderColor = [UIColor colorWithHexString:@"#C7C7CC"].CGColor;
+    }
+}
+
 @end

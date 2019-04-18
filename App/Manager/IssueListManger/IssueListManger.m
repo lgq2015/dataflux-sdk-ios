@@ -16,6 +16,7 @@
 #import "PWHttpEngine.h"
 #import "IssueListModel.h"
 #import "IssueSourceManger.h"
+#import "PWSocketManager.h"
 
 #define ISSUE_LIST_PAGE_SIZE  100
 
@@ -345,6 +346,17 @@
 
     }];
 
+
+}
+
+
+-(void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus{
+
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+        callBackStatus(model);
+        [[PWSocketManager sharedPWSocketManager] connect];
+
+    } getAllDatas:YES];
 
 }
 

@@ -134,6 +134,7 @@
     DLog(@"%@",PW_handbookUrl(model.articleId));
     NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
     webview.handbookModel = model;
+    webview.fromvc = FromVCHandBookIndex;
     [self.navigationController pushViewController:webview animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 

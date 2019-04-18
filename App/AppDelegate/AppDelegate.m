@@ -126,8 +126,10 @@
     }];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+            [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        });
     });
 
 }
