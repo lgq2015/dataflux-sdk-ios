@@ -235,7 +235,7 @@
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
-        icon = @"icon_cluster";
+        icon = @"icon_foresight_small";
         self.typeIcon.image = [UIImage imageNamed:icon];
         if([name isEqualToString:@""] || name == nil){
             [self loadIssueSuperSourceDetail:issueSourceID issueProvider:type];
@@ -245,17 +245,17 @@
         return;
     }
     if ([type isEqualToString:@"aliyun"]) {
-        icon = @"icon_ali";
+        icon = @"icon_alis";
     }else if([type isEqualToString:@"qcloud"]){
-        icon = @"icon_tencent";
+        icon = @"icon_tencent_small";
     }else if([type isEqualToString:@"aws"]){
-        icon = @"icon_aws";
+        icon = @"icon_aws_small";
     }else if([type isEqualToString:@"ucloud"]){
-        icon = @"Ucloud";
+        icon = @"icon_tencent_small";
     }else if ([type isEqualToString:@"domain"]){
-        icon = @"icon_domainname";
+        icon = @"icon_mainframe_small";
     }else if([type isEqualToString:@"carrier.corsair"]){
-        icon =@"icon_single";
+        icon =@"icon_domainname_small";
     }else if([type isEqualToString:@"carrier.alert"]){
         self.issueNameLab.text = @"消息坞";
         icon = @"message_docks";
