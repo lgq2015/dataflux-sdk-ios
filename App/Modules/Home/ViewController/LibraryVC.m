@@ -82,8 +82,6 @@ static NSUInteger ItemWidth = 104;
         LibraryModel *model = [[LibraryModel alloc]initWithDictionary:dict error:&error];
         [handbook addObject:model];
     }];
-
-
     NSArray *itemDatas = [[HandBookManager sharedInstance] getHandBooks];
     if (itemDatas.count == 0) {
         [[HandBookManager sharedInstance] cacheHandBooks:handbook];
@@ -91,13 +89,13 @@ static NSUInteger ItemWidth = 104;
         [self createUI];
     } else {
         __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
-        //找到handbook中有,itemDatas中没有的数据
+        //新数据中有，老数据没有
         [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSString *modelStr = [model toJSONString];
+            NSString *oldID = model.handbookId;
             __block BOOL isHave = NO;
             [handbook enumerateObjectsUsingBlock:^(LibraryModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
-                NSString *newModelStr = [newModel toJSONString];
-                if ([modelStr isEqualToString:newModelStr]) {
+                NSString *newID = newModel.handbookId;
+                if ([oldID isEqualToString:newID]) {
                     isHave = YES;
                     *stop = YES;
                 }
@@ -106,13 +104,13 @@ static NSUInteger ItemWidth = 104;
                 [difObject addObject:model];
             }
         }];
-        //找到arr1中有,arr2中没有的数据
-        [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            NSString *objStr = [obj toJSONString];
+        //老数据中有，新数据没有
+        [handbook enumerateObjectsUsingBlock:^(LibraryModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            NSString *newID = obj.handbookId;
             __block BOOL isHave = NO;
-            [handbook enumerateObjectsUsingBlock:^(LibraryModel *newobj, NSUInteger idx, BOOL *_Nonnull stop) {
-                NSString *newobjStr = [newobj toJSONString];
-                if ([objStr isEqualToString:newobjStr]) {
+            [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *oldObj, NSUInteger idx, BOOL *_Nonnull stop) {
+                NSString *oldID = oldObj.handbookId;
+                if ([newID isEqualToString:oldID]) {
                     isHave = YES;
                     *stop = YES;
                 }
@@ -130,15 +128,7 @@ static NSUInteger ItemWidth = 104;
             [self createUI];
         }
     }
-//    }
-//    else{
-//        NSDictionary *dict = @{@"bucketPath":@"text",@"category":@"text",@"coverImageMobile":@"text",@"handbookId":@"text",@"name":@"text",@"orderNum":@"integer",@"coverImageMobile":@"text",@"PWId":@"text"};
-//        if ([pwfmdb pw_createTable:tableName dicOrModel:dict primaryKey:@"PWId"]) {
-//          BOOL  is= [pwfmdb pw_insertTable:tableName dicOrModelArray:handbook];
-//        }
-//        self.handbookArray = [NSMutableArray arrayWithArray:handbook];
-//        [self createUI];
-//    }
+
 }
 - (void)createUI{
     self.view.backgroundColor = PWWhiteColor;
