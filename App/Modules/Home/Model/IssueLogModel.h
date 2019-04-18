@@ -7,7 +7,7 @@
 #import "IssueChatMessagelLayout.h"
 
 
-@interface IssueLogModel : NSObject
+@interface IssueLogModel : NSObject 
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *subType;

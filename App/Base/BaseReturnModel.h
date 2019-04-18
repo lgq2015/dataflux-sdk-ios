@@ -16,6 +16,8 @@
 @property(nonatomic, strong) NSString *errorCode;
 @property(nonatomic, strong) NSString *errorMsg;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
+
 - (void)setValueWithDict:(NSDictionary *)dict;
 
 - (BOOL)isSuccess;

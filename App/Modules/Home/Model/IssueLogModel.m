@@ -13,12 +13,12 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
     if (self = [super init]) {
-        [self setValueWithDict:dict];
+        [self setValueWithLocalDict:dict];
     }
     return self;
 }
 
-- (void)setValueWithDict:(NSDictionary *)dict {
+- (void)setValueWithLocalDict:(NSDictionary *)dict {
     self.type = [dict stringValueForKey:@"type" default:@""];
     self.content = [dict stringValueForKey:@"content" default:@""];
     self.issueId = [dict stringValueForKey:@"issueId" default:@""];
