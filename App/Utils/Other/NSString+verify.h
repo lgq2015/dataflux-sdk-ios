@@ -66,4 +66,12 @@
   前后空格去除
  */
 - (NSString *)removeFrontBackBlank;
+/**
+   网络图片url编码处理
+ */
+- (NSString *)imageTransStr;
+/**
+  是否含有emoji
+ */
+-(BOOL)stringContainsEmoji;
 @end
