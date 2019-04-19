@@ -15,7 +15,7 @@
 
 - (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback;
 
-- (void)cacheChatIssueLogDatasToDB:(NSString *)issueId datas:(NSArray<IssueLogModel *> *)datas;
+- (void)cacheChatIssueLogDatasToDB:(NSArray<IssueLogModel *> *)datas;
 
 - (void)insertChatIssueLogDataToDB:(NSString *)issueId data:(IssueLogModel *)data deleteCache:(BOOL)deleteCache;
 
