@@ -28,6 +28,7 @@ static NSUInteger ItemWidth = 104;
 
 @implementation LibraryVC
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.view.backgroundColor = PWWhiteColor;
 
 }
@@ -37,7 +38,6 @@ static NSUInteger ItemWidth = 104;
     self.mainScrollView.backgroundColor = PWWhiteColor;
     [self dealWithData];
     [self createUpUI];
-
 }
 
 - (void)createUpUI{
@@ -88,45 +88,46 @@ static NSUInteger ItemWidth = 104;
         self.handbookArray = [NSMutableArray arrayWithArray:handbook];
         [self createUI];
     } else {
-        __block NSMutableArray *difObject = [NSMutableArray arrayWithCapacity:5];
-        //新数据中有，老数据没有
-        [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+        __block NSMutableArray *oldArrs = [itemDatas mutableCopy];
+        //itemDatas为老数据  handbook为新数据
+        [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *model, NSUInteger oldIndex, BOOL *_Nonnull stop) {
             NSString *oldID = model.handbookId;
             __block BOOL isHave = NO;
             [handbook enumerateObjectsUsingBlock:^(LibraryModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
                 NSString *newID = newModel.handbookId;
                 if ([oldID isEqualToString:newID]) {
+                    //直接替换（更新数据）
+                    [oldArrs replaceObjectAtIndex:oldIndex withObject:newModel];
                     isHave = YES;
                     *stop = YES;
                 }
             }];
-            if (!isHave) {
-                [difObject addObject:model];
+            if (!isHave) {//老数据中有，新数据没有（删除数据）
+                [oldArrs removeObject:model];
             }
         }];
-        //老数据中有，新数据没有
         [handbook enumerateObjectsUsingBlock:^(LibraryModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
             NSString *newID = obj.handbookId;
             __block BOOL isHave = NO;
             [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *oldObj, NSUInteger idx, BOOL *_Nonnull stop) {
                 NSString *oldID = oldObj.handbookId;
-                if ([newID isEqualToString:oldID]) {
+                if ([newID isEqualToString:oldID]) {//这里就不在替换，因为前面已经替换过了
                     isHave = YES;
                     *stop = YES;
                 }
             }];
-            if (!isHave) {
-                [difObject addObject:obj];
+            if (!isHave) {//新数据中有，老数据没有，有新的数据加入（添加数据）
+                [oldArrs addObject:obj];
             }
         }];
-        DLog(@"%@", difObject);
-        if (difObject.count > 0) {
-            [[HandBookManager sharedInstance] cacheHandBooks:difObject];
-            NSArray *newitemDatas = [[HandBookManager sharedInstance] getHandBooks];
-            [self.handbookArray removeAllObjects];
-            self.handbookArray = [NSMutableArray arrayWithArray:newitemDatas];
-            [self createUI];
-        }
+        DLog(@"oldArrs----%@", oldArrs);
+        DLog(@"handbook----%@", handbook);
+        [[HandBookManager sharedInstance] deleteAllHandBooks];
+        [[HandBookManager sharedInstance] cacheHandBooks:oldArrs];
+        NSArray *newitemDatas = [[HandBookManager sharedInstance] getHandBooks];
+        [self.handbookArray removeAllObjects];
+        self.handbookArray = [NSMutableArray arrayWithArray:newitemDatas];
+        [self createUI];
     }
 
 }
