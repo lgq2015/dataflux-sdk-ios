@@ -152,6 +152,7 @@
         _emailTF = [PWCommonCtrl textFieldWithFrame:CGRectZero];
         _emailTF.delegate = self;
         _emailTF.keyboardType = UIKeyboardTypeDefault;
+        _emailTF.spellCheckingType = UITextSpellCheckingTypeNo;// 禁用拼写检查
         [self.view addSubview:_emailTF];
     }
     return _emailTF;

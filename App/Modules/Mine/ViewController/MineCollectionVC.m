@@ -52,8 +52,24 @@
     [SVProgressHUD show];
     NSDictionary *param = @{@"pageSize":@10,@"pageIndex":[NSNumber numberWithInteger:self.page]};
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *data = response[@"content"][@"data"];
+            //content 内容为nil,安全处理
+            NSDictionary *contentDic = PWSafeDictionaryVal(response, @"content");
+            if (!contentDic){
+                [self showNoDataImage];
+                [self.header endRefreshing];
+                [self.footer endRefreshing];
+                return ;
+            }
+            //data 内容为nil,安全处理
+            NSArray *data = PWSafeArrayVal(contentDic, @"data");
+            if (!data){
+                [self showNoDataImage];
+                [self.header endRefreshing];
+                [self.footer endRefreshing];
+                return ;
+            }
             if (data.count == 0) {
                 [self showNoDataImage];
             }else if(data.count<10){
@@ -64,7 +80,6 @@
                 self.page ++;
             }
         }
-        [SVProgressHUD dismiss];
         [self.header endRefreshing];
         [self.footer endRefreshing];
     } failBlock:^(NSError *error) {

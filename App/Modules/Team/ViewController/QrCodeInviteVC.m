@@ -89,7 +89,11 @@
     if(error){
         [SVProgressHUD showErrorWithStatus:@"保存失败"];
     }else{
-        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        if (self.qrImgView.image){
+            [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        }
     }
 }
 - (UIImage *)createNonInterpolatedUIImageFormCIImage:(CIImage *)image withSize:(CGFloat) size

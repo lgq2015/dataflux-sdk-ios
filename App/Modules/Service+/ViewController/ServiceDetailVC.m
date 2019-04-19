@@ -21,6 +21,7 @@
     [super viewDidLoad];
     [self createUI];
     self.isShowWhiteBack = YES;
+    [self.whiteBackBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     self.webView.scrollView.bounces = YES;
    self.webView.scrollView.delegate = self;
     if (@available(iOS 11.0, *)) {
@@ -52,6 +53,7 @@
 - (void)initTopNavBar{
     [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
     self.topNavBar.backgroundColor = [UIColor clearColor];
+    [self.topNavBar.backBtn setImage:[UIImage imageNamed:@"close_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.topNavBar];
     [self.topNavBar addBottomSepLine];
 }

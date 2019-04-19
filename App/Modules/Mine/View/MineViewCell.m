@@ -151,7 +151,10 @@
         make.height.offset(20);
     }];
     self.describeLab.text = _data.describeText;
-    
+    //设置优先级(titleLab、describeLab 都没有设置width，为了防止一方长度过长，影响另一方的显示)
+    [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.describeLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+
 }
 - (void)createUIDot{
    

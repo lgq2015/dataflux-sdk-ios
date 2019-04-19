@@ -29,7 +29,7 @@
 @property (nonatomic, strong) PWMNView *codeTfView;
 @property (nonatomic, strong) UIButton *selectBtn;
 @property (nonatomic, strong) TTTAttributedLabel *agreementLab;
-
+@property (nonatomic, assign) NSTimeInterval timestamp; //用于记录用户进入后台的时间戳
 @end
 
 @implementation VerifyCodeVC
@@ -49,7 +49,8 @@
         self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
     }
-   
+    //对前后台状态进行监听
+    [self observeApplicationActionNotification];
 }
 - (void)createUI{
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17)+kTopHeight, 250, ZOOM_SCALE(37))];
@@ -508,18 +509,35 @@
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];
 }
--(void)dealloc{
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [self.timer invalidate];
-    NSLog(@"%s", __func__);
+    self.timer = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    DLog(@"%s", __func__);
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark =======倒计时切换到后台，再次进入同步倒计时时间==========
+- (void)observeApplicationActionNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name: UIApplicationDidEnterBackgroundNotification object:nil];
 }
-*/
-
+- (void)applicationDidEnterBackground {
+    _timestamp = [NSDate date].timeIntervalSince1970;
+    self.timer.fireDate = [NSDate distantFuture];
+}
+- (void)applicationDidBecomeActive {
+    //获取在后台躲了多久时间
+    NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970-_timestamp;
+    _timestamp = 0;
+    NSTimeInterval ret = self.second-timeInterval;
+    if (ret>0) {
+        self.second = ret;
+        _timer.fireDate = [NSDate date];
+    } else {
+        self.second = 0;
+        _timer.fireDate = [NSDate date];
+        [self timerRun];
+    }
+}
 @end
