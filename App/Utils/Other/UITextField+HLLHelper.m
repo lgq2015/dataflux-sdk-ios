@@ -38,12 +38,15 @@
     if (markedTextLength == 0) {
         NSInteger len = [contentText charactorNumber];
         if (len > self.hll_limitTextLength) {
+            NSString *rsStr = [contentText subStringWithLength:self.hll_limitTextLength];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                textField.text = rsStr;
+            });
             [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
             // 此方法用于在字符串的一个range范围内，返回此range范围内完整的字符串的range.(eg:😈)
         
-            NSString *rsStr = [contentText subStringWithLength:self.hll_limitTextLength];
-            
-            textField.text = rsStr;
+           
+//            [textField becomeFirstResponder];
         }
     }
 }
