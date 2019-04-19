@@ -102,6 +102,8 @@
 - (void)networkDidReceiveMessage:(NSDictionary *)userInfo {
     setRemoteNotificationData(userInfo);
     [kUserDefaults synchronize];
+    KPostNotification(KNotificationNewRemoteNoti, nil);
+    DLog(@"networkDidReceiveMessage userInfo = %@",userInfo);
 
 }
 
@@ -166,10 +168,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // ios 7.0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
 
- 
+    DLog(@"didReceiveRemote userInfo = %@",userInfo);
+
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-      [self dealWithNotification:userInfo];
+    
+    if (application.applicationState !=UIApplicationStateActive) {
+        if([userManager loadUserInfo]){
+        setRemoteNotificationData(userInfo);
+        [kUserDefaults synchronize];
+        KPostNotification(KNotificationNewRemoteNoti, nil);
+        }
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -179,7 +189,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
-
+    
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
@@ -187,8 +197,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
-       
-              [self dealWithNotification:userInfo];
+            DDLogDebug(@"didReceive userInfo = %@",userInfo);
+            setRemoteNotificationData(userInfo);
+            [kUserDefaults synchronize];
+            KPostNotification(KNotificationNewRemoteNoti, nil);
+            
         }
     }
     else {
@@ -217,7 +230,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 #pragma mark ========== ios12 以上 ==========
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification  API_AVAILABLE(ios(10.0)){
-
+    DLog(@"jpushNotificationCenter openSettingsForNotification");
     if (notification) {
         //从通知界面直接进入应用
         

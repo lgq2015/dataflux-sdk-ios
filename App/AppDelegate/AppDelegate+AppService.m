@@ -118,19 +118,21 @@
 
 }
 - (void)dealWithNotification:(NSDictionary *)userInfo{
-    NSString *title = [userInfo valueForKey:@"content"]; //标题
-    NSDictionary *extras = [userInfo valueForKey:@"extras"];//服务端定义的字段
+
+    NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
+    NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
     
-    NSString *msgType = [extras stringValueForKey:@"msgType" default:@""];  //消息类型
+    NSString *title = [alert valueForKey:@"title"]; //标题
+    NSString *msgType = [userInfo stringValueForKey:@"msgType" default:@""];  //消息类型
     
     if ([msgType isEqualToString:@"system_message"]) {
-        if ([extras containsObjectForKey:@"uri"] && ![[extras stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
-            NSString *uri = [extras stringValueForKey:@"uri" default:@""];
+        if ([userInfo containsObjectForKey:@"uri"] && ![[userInfo stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
+            NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
             PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
             [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
             
-        } else if ([extras containsObjectForKey:@"entityId"]) {
-            NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        } else if ([userInfo containsObjectForKey:@"entityId"]) {
+            NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
             
             [SVProgressHUD show];
             [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
@@ -157,7 +159,7 @@
         MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
         [maintabbar setSelectedIndex:0];
     } else if ([msgType isEqualToString:@"issue_add"]) {
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
+        NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         [SVProgressHUD show];
         
         [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
@@ -183,10 +185,10 @@
         
         
     } else if ([msgType isEqualToString:@"recommendation"]) {
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-        NSString *summary = [extras stringValueForKey:@"summary" default:@""];
-        NSString *url = [extras stringValueForKey:@"url" default:@""];
-        NSString *title = [extras stringValueForKey:@"title" default:@""];
+        NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+        NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
+        NSString *url = [userInfo stringValueForKey:@"url" default:@""];
+        NSString *title = [userInfo stringValueForKey:@"title" default:@""];
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;

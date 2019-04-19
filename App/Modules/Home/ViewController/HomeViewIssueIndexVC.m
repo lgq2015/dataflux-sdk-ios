@@ -91,6 +91,7 @@
 }
 
 - (void)dealWithNotificationData {
+    DLog(@"dealWithNotificationData");
     NSDictionary *userInfo = getRemoteNotificationData;
     AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate dealWithNotification:userInfo];
