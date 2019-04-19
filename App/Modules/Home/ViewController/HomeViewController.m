@@ -44,8 +44,7 @@
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
         scan.scanCodeType = SCT_QRCode;
-      
-        [self.navigationController pushViewController:scan animated:YES];
+        [self presentViewController:scan animated:YES completion:nil];
     };
     [self.view addSubview:scrollPageView];
    

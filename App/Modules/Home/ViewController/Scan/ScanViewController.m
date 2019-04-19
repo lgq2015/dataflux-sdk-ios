@@ -114,7 +114,7 @@
     }];
 }
 - (void)cancelBtnClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)albumBtnClick{
     PWPhotoPickerViewController *photo = [[PWPhotoPickerViewController alloc]init];
