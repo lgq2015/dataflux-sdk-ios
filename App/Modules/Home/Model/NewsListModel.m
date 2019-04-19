@@ -111,6 +111,7 @@
 }
 - (void)setValueWithStickJson:(NSDictionary *)dict{
     self.title = [dict stringValueForKey:@"title" default:@""];
+    self.position  =[dict longValueForKey:@"position" default:1];
     NSString *time = [dict stringValueForKey:@"onShelvesTime" default:@""];
     if(time.length>19){
         time = [time substringToIndex:19];
