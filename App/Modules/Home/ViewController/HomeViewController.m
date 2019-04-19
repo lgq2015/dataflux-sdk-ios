@@ -12,7 +12,7 @@
 #import "LibraryVC.h"
 #import "ToolsVC.h"
 #import "ScanViewController.h"
-
+#import "RootNavigationController.h"
 
 @interface HomeViewController ()
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
@@ -44,7 +44,8 @@
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
         scan.scanCodeType = SCT_QRCode;
-        [self presentViewController:scan animated:YES completion:nil];
+        RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
+        [self presentViewController:nav animated:YES completion:nil];
     };
     [self.view addSubview:scrollPageView];
    
