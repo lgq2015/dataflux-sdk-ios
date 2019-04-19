@@ -237,7 +237,8 @@
         cell.textLabel.text = model.title;
         return cell;
     }else{
-        if ([model.imageUrl isEqualToString:@""]) {
+        if ([model.imageUrl isEqualToString:@""] ||
+            [model.handbookCategory isEqualToString:@"handbook"]) {
             ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.isSearch = YES;
@@ -270,7 +271,8 @@
     if (self.isLocal){
         return 50.0;
     }else{
-        if ([model.imageUrl isEqualToString:@""]) {
+        if ([model.imageUrl isEqualToString:@""] ||
+            [model.handbookCategory isEqualToString:@"handbook"]) {
             ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
             cell.isSearch = YES;
             height = [cell caculateRowHeight:model];

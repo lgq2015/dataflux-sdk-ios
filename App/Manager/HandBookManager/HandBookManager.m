@@ -66,6 +66,16 @@
     }];
 }
 
+/**
+ * 清空所有数据
+ */
+- (void)deleteAllHandBooks{
+    NSString *tableName = PW_DB_LIBRARY_TABLE_NAME;
+    [self.getHelper pw_inTransaction:(void (^)(BOOL *)) ^{
+        [self.getHelper pw_deleteAllDataFromTable:tableName];
+    }];
+}
+
 - (NSMutableArray<LibraryModel*> *)getHandBooks {
 
     NSMutableArray *array = [NSMutableArray new];
