@@ -11,7 +11,7 @@
 #import "LoginPasswordVC.h"
 #import "SecurityPrivacyVC.h"
 #import "JPUSHService.h"
-
+#import "changeUserInfoVC.h"
 @interface SetNewPasswordVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
@@ -177,7 +177,7 @@
 - (void)naviSkip{
     if (self.isChange) {
         for(UIViewController *temp in self.navigationController.viewControllers) {
-            if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+            if([temp isKindOfClass:[ChangeUserInfoVC class]]){
                 [self.navigationController popToViewController:temp animated:YES];
             }
         }

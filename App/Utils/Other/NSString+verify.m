@@ -266,7 +266,7 @@
             type =[NSString stringWithFormat:@"%@加入讨论",name];
         }];
     }else if([subType isEqualToString:@"issueLevelChanged"]){
-      return @"情报等级变更为一般";
+           type =  @"情报等级变更为一般";
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
 }
