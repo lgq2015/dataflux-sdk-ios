@@ -21,7 +21,9 @@
 }
 - (void)createUI{
    
-   self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight);
+    [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).offset(-kTabBarHeight);
+    }];
     [self addNavigationItemWithTitles:@[@"购买记录"] isLeft:NO target:self action:@selector(navRightBtnClick) tags:@[@11]];
     UIImageView *logo_icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
     UIImageView *logo_text = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_text"]];
@@ -53,6 +55,7 @@
     BOOL hideTitleWhenScroll = extra[@"hideTitleWhenScroll"];
     BOOL isOverLayTitleBar = extra[@"isOverLayTitleBar"];
     ServiceDetailVC *detailVC = [[ServiceDetailVC alloc]initWithURL:[NSURL URLWithString:url]];
+    detailVC.isHidenNaviBar = YES;
     detailVC.hideTitleWhenScroll = hideTitleWhenScroll;
     if (isOverLayTitleBar) {
         detailVC.isShowCustomNaviBar = YES;

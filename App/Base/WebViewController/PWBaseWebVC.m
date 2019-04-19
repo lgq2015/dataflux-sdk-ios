@@ -17,6 +17,9 @@
 @end
 
 @implementation PWBaseWebVC
+-(void)viewWillAppear:(BOOL)animated{
+    
+}
 #pragma mark ========== init ==========
 - (instancetype)initWithTitle:(NSString *)title andURLString:(nonnull NSString *)urlString{
       NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -95,7 +98,16 @@
     [super viewDidLoad];
     
     // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    UIWebView *webView = [[UIWebView alloc]init];
+//    if (self.isHidenNaviBar) {
+//        [self.navigationController setNavigationBarHidden:YES animated:NO];
+//        DLog(@"self.view.frame ==%@",NSStringFromCGRect(self.view.frame));
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//        webView.frame = window.bounds;
+//        DLog(@"webV%@",NSStringFromCGRect(webView.frame));
+//    }else{
+//        webView.frame = self.view.bounds;
+//    }
     NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSString *newUserAgent = userAgent;
     if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
@@ -119,6 +131,9 @@
     //对文件格式做兼容处理
     [self dealFileFormat:request];
     [self.view addSubview:self.webView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.left.bottom.mas_equalTo(self.view);
+    }];
     // 设置初始的进度，防止用户进来就懵逼了（微信大概也是一开始设置的10%的默认值）
     if (self.isHideProgress) {
         self.progressView.hidden = YES;
