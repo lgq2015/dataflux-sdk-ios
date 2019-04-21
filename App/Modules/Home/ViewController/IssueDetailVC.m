@@ -310,7 +310,7 @@
                    self.issueNameLab.text = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:[dict stringValueForKey:@"parentId" default:@""]];
                     if (self.model.isInvalidIssue) {
                         [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
-                            self.contentLab.text = [NSString stringWithFormat:@"您的 %@ %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.issueNameLab.text];
+                            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.issueNameLab.text];
                         }];
                     }
                 }

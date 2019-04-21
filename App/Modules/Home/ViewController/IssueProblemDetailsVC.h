@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueProblemDetailsVC : IssueDetailRootVC
+@property (nonatomic, copy) void(^refreshClick)(void);
 
 @end
 

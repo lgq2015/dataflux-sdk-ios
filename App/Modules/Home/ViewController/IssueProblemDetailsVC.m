@@ -166,12 +166,14 @@
         [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"关闭成功"];
+                self.refreshClick?self.refreshClick():nil;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }else{
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 if ([response[ERROR_CODE] isEqualToString:@"home.issue.AlreadyIsRecovered"]) {
+                    self.refreshClick?self.refreshClick():nil;
                  IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
                     self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
                     self.ignoreBtn.hidden = YES;

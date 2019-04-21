@@ -63,6 +63,7 @@
 }
 - (void)dealTFText:(NSString *)text{
     if (text.length>11) {
+        [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
         text = [text substringToIndex:11];
         self.codeTF.text = [NSString stringWithFormat:@"%@ %@ %@",[text substringToIndex:3],[text substringWithRange:NSMakeRange(3, 4)],[text substringFromIndex:7]];
     }else if(text.length>7){

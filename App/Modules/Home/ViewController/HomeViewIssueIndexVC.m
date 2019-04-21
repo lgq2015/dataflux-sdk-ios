@@ -77,6 +77,10 @@
                                              selector:@selector(issueBoardSetConnectView)
                                                  name:KNotificationConnectStateCheck
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dealWithNotificationData)
+                                                 name:KNotificationNewRemoteNoti
+                                               object:nil];
     [self judgeIssueConnectState:^{
         self.newsDatas = [NSMutableArray new];
         [self loadNewsDatas];
@@ -84,92 +88,14 @@
         [self dealWithNotificationData];
 
     }];
-
-
 }
 
 - (void)dealWithNotificationData {
-
+    DLog(@"dealWithNotificationData");
     NSDictionary *userInfo = getRemoteNotificationData;
-
-    DLog(@"%@",userInfo);
-//    NSDictionary *userInfo = [notification object];;
-
-    NSString *title = [userInfo valueForKey:@"content"]; //标题
-    NSDictionary *extras = [userInfo valueForKey:@"extras"];//服务端定义的字段
-
-    NSString *msgType = [extras stringValueForKey:@"msgType" default:@""];  //消息类型
-
-    if ([msgType isEqualToString:@"system_message"]) {
-        if ([extras containsObjectForKey:@"entityId"]) {
-            NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-
-            [SVProgressHUD show];
-            [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
-                [SVProgressHUD dismiss];
-                MineMessageModel *data = (MineMessageModel *) o;
-                if (data.isSuccess) {
-                    MessageDetailVC *detail = [[MessageDetailVC alloc] init];
-                    detail.model = data;
-                    [self.navigationController pushViewController:detail animated:YES];
-
-                } else {
-                    [iToast alertWithTitleCenter:data.errorCode];
-                }
-            }];
-
-
-        } else if ([extras containsObjectForKey:@"uri"]) {
-            NSString *uri = [extras stringValueForKey:@"uri" default:@""];
-            PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
-            [self.navigationController pushViewController:webView animated:YES];
-        }
-
-    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
-        //暂时只停留在首页
-
-    } else if ([msgType isEqualToString:@"issue_engine_count"]) {
-        //暂时只停留在首页
-
-    } else if ([msgType isEqualToString:@"issue_add"]) {
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-        [SVProgressHUD show];
-
-        [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
-            [SVProgressHUD dismiss];
-            IssueModel *data = (IssueModel *) o;
-            if (data.isSuccess) {
-                IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
-
-                IssueDetailRootVC *control;
-                if ([data.origin isEqualToString:@"user"]) {
-                    control = [IssueProblemDetailsVC new];
-                } else {
-                    control = [IssueDetailVC new];
-                }
-                control.model = monitorListModel;
-
-                [self.navigationController pushViewController:control animated:YES];
-
-            } else {
-                [iToast alertWithTitleCenter:data.errorCode];
-            }
-        }];
-
-
-    } else if ([msgType isEqualToString:@"recommendation"]) {
-        NSString *entityId = [extras stringValueForKey:@"entityId" default:@""];
-        NSString *summary = [extras stringValueForKey:@"summary" default:@""];
-        NSString *url = [extras stringValueForKey:@"url" default:@""];
-
-        NewsWebView *webView = [[NewsWebView alloc] initWithTitle:title andURLString:url];
-        webView.newsModel.newsID = entityId;
-        webView.style = WebItemViewStyleNormal;
-        [self.navigationController pushViewController:webView animated:YES];
-    }
-
+    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate dealWithNotification:userInfo];
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
-
 
 }
 
@@ -450,9 +376,16 @@
         NewsListModel *model = [[NewsListModel alloc] initWithStickJsonDictionary:dict];
         [recommendDatas addObject:model];
     }];
-    [InformationStatusReadManager.sharedInstance setReadStatus:recommendDatas];
+    NSArray *result = [recommendDatas sortedArrayUsingComparator:^NSComparisonResult(NewsListModel *obj1,   NewsListModel *obj2) {
 
-    [self.newsDatas insertObjects:recommendDatas atIndex:0];
+
+        return [[NSNumber numberWithLong:obj1.position] compare:[NSNumber numberWithLong:obj2.position]]; //升序
+
+    }];
+    DLog(@"result = %@",result);
+    [InformationStatusReadManager.sharedInstance setReadStatus:result];
+
+    [self.newsDatas insertObjects:result atIndex:0];
     [self.tableView reloadData];
     [self.tableView layoutIfNeeded];
 }

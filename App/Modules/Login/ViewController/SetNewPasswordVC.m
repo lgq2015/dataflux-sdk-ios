@@ -11,7 +11,7 @@
 #import "LoginPasswordVC.h"
 #import "SecurityPrivacyVC.h"
 #import "JPUSHService.h"
-
+#import "changeUserInfoVC.h"
 @interface SetNewPasswordVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
@@ -177,7 +177,7 @@
 - (void)naviSkip{
     if (self.isChange) {
         for(UIViewController *temp in self.navigationController.viewControllers) {
-            if([temp isKindOfClass:[SecurityPrivacyVC class]]){
+            if([temp isKindOfClass:[ChangeUserInfoVC class]]){
                 [self.navigationController popToViewController:temp animated:YES];
             }
         }
@@ -190,11 +190,11 @@
     }
 }
 -(void)backBtnClicked{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
         }
         [self naviSkip];

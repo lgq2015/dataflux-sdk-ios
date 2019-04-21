@@ -21,17 +21,17 @@
     [super viewDidLoad];
     [self createUI];
     self.isShowWhiteBack = YES;
+    [self.whiteBackBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     self.webView.scrollView.bounces = YES;
-    self.webView.scrollView.delegate = self;
-    self.webView.scrollView.contentInset = UIEdgeInsetsMake(-kStatusBarHeight, 0, 0, 0);
+   self.webView.scrollView.delegate = self;
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 - (void)createUI{
-    self.view.backgroundColor = PWBlueColor;
-    if (self.isHidenNaviBar) {
-        self.webView.frame = self.view.bounds;
-        DLog(@"self offic = %@",NSStringFromCGPoint(self.webView.scrollView.contentOffset));
-        DLog(@"self frame = %@",NSStringFromCGRect(self.webView.scrollView.frame));
-    }
+
     [self.view bringSubviewToFront:self.whiteBackBtn];
     if (self.isShowCustomNaviBar){
         [self initTopNavBar];
@@ -53,6 +53,7 @@
 - (void)initTopNavBar{
     [self.topNavBar setFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
     self.topNavBar.backgroundColor = [UIColor clearColor];
+    [self.topNavBar.backBtn setImage:[UIImage imageNamed:@"close_blue"] forState:UIControlStateNormal];
     [self.view bringSubviewToFront:self.topNavBar];
     [self.topNavBar addBottomSepLine];
 }

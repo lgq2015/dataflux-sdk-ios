@@ -102,6 +102,8 @@
 - (void)networkDidReceiveMessage:(NSDictionary *)userInfo {
     setRemoteNotificationData(userInfo);
     [kUserDefaults synchronize];
+    KPostNotification(KNotificationNewRemoteNoti, nil);
+    DLog(@"networkDidReceiveMessage userInfo = %@",userInfo);
 
 }
 
@@ -166,10 +168,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // ios 7.0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
 
- 
+    DLog(@"didReceiveRemote userInfo = %@",userInfo);
+
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-      [self dealWithNotification:userInfo];
+
+    if (application.applicationState !=UIApplicationStateActive) {
+        if([userManager loadUserInfo]){
+        setRemoteNotificationData(userInfo);
+        [kUserDefaults synchronize];
+        KPostNotification(KNotificationNewRemoteNoti, nil);
+        }
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -189,7 +199,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
-            [self dealWithNotification:userInfo];
+            DDLogDebug(@"didReceive userInfo = %@",userInfo);
+            setRemoteNotificationData(userInfo);
+            [kUserDefaults synchronize];
+            KPostNotification(KNotificationNewRemoteNoti, nil);
+
         }
     }
     else {
@@ -218,7 +232,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 #pragma mark ========== ios12 以上 ==========
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification  API_AVAILABLE(ios(10.0)){
-
+    DLog(@"jpushNotificationCenter openSettingsForNotification");
     if (notification) {
         //从通知界面直接进入应用
         

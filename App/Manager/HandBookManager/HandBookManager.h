@@ -13,6 +13,7 @@
 + (instancetype)sharedInstance;
 
 - (void)cacheHandBooks:(NSArray *)datas;
+- (void)deleteAllHandBooks;
 
 - (NSMutableArray<LibraryModel*> *)getHandBooks;
 @end

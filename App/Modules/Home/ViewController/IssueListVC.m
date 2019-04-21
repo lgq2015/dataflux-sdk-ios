@@ -199,6 +199,9 @@
     if (model.isFromUser) {
         IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
         detailVC.model = self.monitorData[indexPath.row];
+        detailVC.refreshClick = ^(){
+            [self headerRereshing];
+        };
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
         IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];

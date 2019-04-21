@@ -37,7 +37,7 @@
 
 #define KNotificationInfoBoardDatasUpdate @"KNotificationInfoBoardDatasUpdate"
 #define KNotificationNewIssue @"KNotificationNewIssue"
-
+#define KNotificationNewRemoteNoti @"KNotificationNewRemoteNoti"
 #pragma mark - ——————— team相关 ————————
 //team创建成功
 #define KNotificationTeamStatusChange  @"KNotificationTeamStatusChange"

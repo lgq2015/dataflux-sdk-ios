@@ -68,6 +68,7 @@ typedef NS_ENUM(NSUInteger, NewListCellType) {
 @property (nonatomic, strong) NSString *favoID;
 @property (nonatomic, strong) NSArray *thumbnails;
 @property (nonatomic, strong) NSString *sourceType;
+@property (nonatomic, assign) long position;
 @property (nonatomic) BOOL read;
 
 @property (nonatomic, assign) CGFloat cellHeight;

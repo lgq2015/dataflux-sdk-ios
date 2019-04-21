@@ -206,7 +206,7 @@
     if ([lowStr rangeOfString:@"www."].location != NSNotFound) {
         return NO;
     }
-    NSString *pDomainCheck = @"^[a-zA-Z0-9](-?[a-zA-Z0-9]+)*(\\.[a-zA-Z0-9](-?[a-zA-Z0-9]+)*)+$";
+    NSString *pDomainCheck = @"^(?=^.{3,255}\\$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\\$";
     NSPredicate *pDomainTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pDomainCheck];
     return [pDomainTest evaluateWithObject:lowStr];
 }
@@ -266,7 +266,7 @@
             type =[NSString stringWithFormat:@"%@加入讨论",name];
         }];
     }else if([subType isEqualToString:@"issueLevelChanged"]){
-      return @"情报等级变更为一般";
+           type =  @"情报等级变更为一般";
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
 }

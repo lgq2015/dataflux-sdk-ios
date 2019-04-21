@@ -44,7 +44,7 @@
     }
     switch (_model.type) {
         case SourceTypeAli:
-            self.iconImgView.image = [UIImage imageNamed:@"icon_ali_big"];
+            self.iconImgView.image = [UIImage imageNamed:@"icon_alib"];
             break;
         case SourceTypeUcloud:
             self.iconImgView.image = [UIImage imageNamed:@"icon_ucloud_big"];
