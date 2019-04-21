@@ -12,6 +12,7 @@
 #import "IssueLogModel.h"
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
+#import "AddIssueLogReturnModel.h"
 
 @implementation IssueChatDatas
 +(void)sendMessage:(IssueLogModel *)model sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
@@ -19,11 +20,12 @@
     switch (messageType) {
         case PWChatMessageTypeText:{
             [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text callBack:^(id response) {
-                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
-                    messageBlock?messageBlock(model,UploadTypeSuccess,1):nil;
-                }else{
-                    messageBlock?messageBlock(model,UploadTypeError,1):nil;
+                    model.id = data.id;
+                    messageBlock ? messageBlock(model, UploadTypeSuccess, 1) : nil;
+                } else {
+                    messageBlock ? messageBlock(model, UploadTypeError, 1) : nil;
                 }
             }];
         }
@@ -106,19 +108,13 @@
 }
 
 + (void)LoadingMessagesStartWithChat:(NSString *)issueId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
-    __block NSMutableArray *newChatArray = [NSMutableArray new];
 
     BOOL endDataComplete = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueId];
     long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
     void (^bindView)(void) = ^{
         NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:lastCheckSeq];
-
-        [array enumerateObjectsUsingBlock:^(IssueLogModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:obj];
-            IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
-            [newChatArray addObject:layout];
-        }];
+        NSMutableArray *newChatArray = [self bindArray:array];
         callback ? callback(newChatArray) : nil;
     };
 
@@ -142,16 +138,17 @@
     }
 
 }
-+(NSMutableArray *)receiveMessages:(NSString *)sessionId{
-    NSArray<IssueLogModel *> *historyDatas= [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:sessionId startSeq:-1 endSeq:0];
-    NSMutableArray *messageDatas = [NSMutableArray new];
-    [historyDatas enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-       
-        IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:obj];
-        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
-        [messageDatas addObject:layout];
 
++(NSMutableArray *)bindArray:(NSArray *)array{
+     NSMutableArray *newChatArray = [NSMutableArray new];
+
+    [array enumerateObjectsUsingBlock:^(IssueLogModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:obj];
+        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
+        [newChatArray addObject:layout];
     }];
-    return [NSMutableArray arrayWithArray:messageDatas];
+
+    return newChatArray;
 }
+
 @end

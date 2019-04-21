@@ -42,5 +42,7 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
+- (NSString *)createLastIssueLogJsonString;
+
 - (instancetype)initSendIssueLogDefaultLogModel;
 @end

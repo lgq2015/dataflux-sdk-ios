@@ -662,6 +662,7 @@
 		6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */; };
 		6B6E29EBB975D7946CE96343 /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
+		6B6E2A15E3B9033201251096 /* AddIssueLogReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */; };
 		6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */; };
 		6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
 		6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */; };
@@ -674,7 +675,9 @@
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
 		6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E269CB1332A74C7EFD5A4 /* IssueChatImageCell.m */; };
+		6B6E2B83A13C8E2AAB95BB66 /* AddIssueLogReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */; };
 		6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */; };
+		6B6E2BADF44FE5AB7A16DBE4 /* AddIssueLogReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */; };
 		6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B8CDBE037075EEE0072 /* IssueChatBaseCell.m */; };
 		6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */; };
 		6B6E2BF32AB1BEFA3DA7ADDE /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */; };
@@ -1566,6 +1569,7 @@
 		6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatVC.m; sourceTree = "<group>"; };
 		6B6E246A1711FD530AF274CA /* HandbookIndexVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandbookIndexVC.h; sourceTree = "<group>"; };
 		6B6E248CE399BB4C2495D1F0 /* IssueSourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceModel.h; sourceTree = "<group>"; };
+		6B6E2509D7E531858F7A4058 /* AddIssueLogReturnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIssueLogReturnModel.h; sourceTree = "<group>"; };
 		6B6E250B899A7687AE65005B /* HandBookArticleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandBookArticleVC.h; sourceTree = "<group>"; };
 		6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceListModel.m; sourceTree = "<group>"; };
 		6B6E25221972ECF638142FC3 /* HandbookIndexVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandbookIndexVC.m; sourceTree = "<group>"; };
@@ -1597,6 +1601,7 @@
 		6B6E290FF524A1DA8BA0EA3A /* NewsWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
 		6B6E2948803DE38E776FBF2A /* PWFMDB+Simplefy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PWFMDB+Simplefy.h"; sourceTree = "<group>"; };
 		6B6E294BA6C3DA964E5312AD /* IssueDetailRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDetailRootVC.h; sourceTree = "<group>"; };
+		6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIssueLogReturnModel.m; sourceTree = "<group>"; };
 		6B6E298B6311361707A04794 /* IssueChatKeyBoardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatKeyBoardInputView.h; sourceTree = "<group>"; };
 		6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatSystermCell.m; sourceTree = "<group>"; };
 		6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewIssueIndexVC.m; sourceTree = "<group>"; };
@@ -2467,6 +2472,8 @@
 				6B6E20E3ACBEC20ECB30944C /* IssueListModel.h */,
 				6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */,
 				6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */,
+				6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */,
+				6B6E2509D7E531858F7A4058 /* AddIssueLogReturnModel.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3761,6 +3768,7 @@
 				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
 				6B6E25EA6E5A8E29AF07EEBB /* IssueLogListModel.m in Sources */,
 				6B6E2E96763550DBD26FD3FE /* BaseListReturnModel.m in Sources */,
+				6B6E2B83A13C8E2AAB95BB66 /* AddIssueLogReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4054,6 +4062,7 @@
 				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
 				6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */,
 				6B6E2463E35C68771B98DCA4 /* BaseListReturnModel.m in Sources */,
+				6B6E2A15E3B9033201251096 /* AddIssueLogReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4347,6 +4356,7 @@
 				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
 				6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */,
 				6B6E2268E758B6FE148C1078 /* BaseListReturnModel.m in Sources */,
+				6B6E2BADF44FE5AB7A16DBE4 /* AddIssueLogReturnModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

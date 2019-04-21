@@ -178,25 +178,34 @@ static dispatch_queue_t socket_message_queue() {
 
             //过滤脏数据
             if ([array containsObject:issueLogModel.subType]) {
-                IssueModel * issueModel = [[IssueListManger sharedIssueListManger] getIssueDataByData:issueLogModel.issueId];
 
-                BOOL endCompleteData = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueModel.issueId];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    IssueModel * issueModel = [[IssueListManger sharedIssueListManger] getIssueDataByData:issueLogModel.issueId];
 
-                issueLogModel.dataCheckFlag = !endCompleteData
+                    BOOL endCompleteData = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueModel.issueId];
 
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
+                    issueLogModel.dataCheckFlag = !endCompleteData;
 
-                [kNotificationCenter
-                        postNotificationName:KNotificationChatNewDatas
-                                      object:nil
-                                    userInfo:dic];
+                    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
 
-                if(issueModel){
-                    [IssueListManger sharedInstance] upla
+                    if(issueModel){
+                        [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
-                            //todo 更新首页标记
-                            //todo 更新情报详情 讨论字符的样式，更新情报列表对应情报的标记
-                }
+                        //todo 更新首页标记
+                        //todo 更新情报详情 讨论字符的样式，更新情报列表对应情报的标记
+
+                    }
+                    dispatch_sync_on_main_queue(^{
+                        [kNotificationCenter
+                                postNotificationName:KNotificationChatNewDatas
+                                              object:nil
+                                            userInfo:dic];
+
+                    });
+
+                });
+
+
             }
 
         }

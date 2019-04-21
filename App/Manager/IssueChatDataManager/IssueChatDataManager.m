@@ -11,8 +11,7 @@
 #import "NSString+ErrorCode.h"
 #import "IssueLogListModel.h"
 
-#define ISSUE_CHAT_PAGE_SIZE 8
-#define ISSUE_CHAT_LASTEST_MAX_SIZE 10
+#define ISSUE_CHAT_LATEST_MAX_SIZE 10
 
 @interface IssueChatDataManager ()
 
@@ -40,6 +39,11 @@
     return [IssueListManger sharedIssueListManger].getHelper;
 }
 
+/**
+ * 拉取最近的讨论内容
+ * @param issueId
+ * @param callback
+ */
 - (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback {
     if (_isFetching)return;
 
@@ -81,7 +85,7 @@
                            }
 
                            if (listModel.list.count < ISSUE_CHAT_PAGE_SIZE
-                                   || allDatas.count > ISSUE_CHAT_LASTEST_MAX_SIZE || containMarker) {
+                                   || allDatas.count > ISSUE_CHAT_LATEST_MAX_SIZE || containMarker) {
 
                                [self.getHelper pw_inTransaction:^(BOOL *rollback) {
                                    [self flagLastUpdateIssueDatas:allDatas];  //标记每个issue 中需要追加数据的标记
@@ -118,7 +122,7 @@
         NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
 
         NSString *sqlTable = [NSString stringWithFormat:
-                @"SELECT seq,dataCheckFlag FROM %@ %@ ORDER BY seq DESC LIMIT %i", tableName,
+                @"(SELECT seq,dataCheckFlag FROM %@ %@ ORDER BY seq DESC LIMIT %i)", tableName,
                 where, ISSUE_CHAT_PAGE_SIZE];
         NSArray *array = [self.getHelper pw_lookupTable:tableName
                                              dicOrModel:@{@"seq": SQL_INTEGER}
@@ -297,9 +301,9 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-        NSString *where = NSStringFormat(@"WHERE issueId='%@' ", issueId);
-        if (startSeq == -1L) {
-            [where stringByAppendingFormat:@" AND seq < %lli AND seq>0  AND seq >%lli", startSeq, endSeq];
+        NSString *where = NSStringFormat(@"WHERE issueId='%@' AND seq >%lli ", issueId, endSeq);
+        if (startSeq > 0) {
+            where= [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
         }
 
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"

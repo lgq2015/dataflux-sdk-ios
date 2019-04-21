@@ -321,7 +321,7 @@
 }
 
 /**
- *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会
+ *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
  * @param callBackStatus
  * @param getAllDatas
  */
@@ -536,9 +536,25 @@
 
 - (void)updateIssueLogInIssue:(NSString *)issueId data:(IssueLogModel *)data {
     [self.getHelper pw_inDatabase:^{
-        NSString *sql = @"WHERE ";
-        [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
-                            dicOrModel:<#(id)parameters#> whereFormat:@""];
+        NSString *sql = @"WHERE issueId='%@'";
+        NSString *table = PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME;
+        NSArray *array = [self.getHelper pw_lookupTable:table
+                                             dicOrModel:@{@"seq": SQL_INTEGER}
+                                            whereFormat:sql, issueId];
+
+        if (array.count > 0) {
+            NSDictionary *dic = @{
+                    @"lastIssueLogSeq": @(data.seq),
+                    @"latestIssueLogsStr": [data createLastIssueLogJsonString],
+                    @"isRead": @(0),
+                    @"issueLogRead": @(0),
+            };
+
+            [self.getHelper pw_updateTable:table dicOrModel:dic
+                               whereFormat:sql, issueId];
+
+        }
+
     }];
 
 }
@@ -559,6 +575,22 @@
         }
     }];
 
+}
+
+/**
+ * 获取讨论已读状态
+ * @param issueId
+ * @return
+ */
+- (BOOL)getIssueLogReadStatus:(NSString *)issueId {
+    __block BOOL isRead = NO;
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
+        NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
+        isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+    }];
+    return isRead;
 }
 
 - (NSInteger)getIssueCount {

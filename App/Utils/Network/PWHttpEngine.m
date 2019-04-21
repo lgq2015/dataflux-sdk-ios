@@ -16,6 +16,7 @@
 #import "IssueListModel.h"
 #import "IssueLogModel.h"
 #import "IssueLogListModel.h"
+#import "AddIssueLogReturnModel.h"
 
 
 @implementation PWHttpEngine {
@@ -245,7 +246,7 @@
 
 
 - (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback{
-    BaseReturnModel *model = [BaseReturnModel new];
+    AddIssueLogReturnModel *model = [AddIssueLogReturnModel new];
     NSDictionary *param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
     return [PWNetworking requsetHasTokenWithUrl:PW_issueLogAdd(issueid)
                                 withRequestType:NetworkPostType

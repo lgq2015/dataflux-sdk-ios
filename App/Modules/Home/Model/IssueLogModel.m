@@ -39,6 +39,40 @@
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
 
 }
+
+-(NSString *)createLastIssueLogJsonString{
+
+    NSMutableDictionary *dic = [@{
+            @"type":self.type,
+            @"content":self.content,
+            @"issueId":self.issueId,
+            @"updateTime":self.updateTime,
+            @"origin":self.origin,
+            @"subType":self.subType,
+            @"id":self.id,
+            @"seq":@(self.seq),
+            @"createTime":self.createTime,
+    }mutableCopy];
+
+    NSDictionary *originInfoJSON = [self.originInfoJSONStr jsonValueDecoded];
+    NSDictionary *metaJson = [self.metaJsonStr jsonValueDecoded];
+    NSDictionary *externalDownloadURL = [self.externalDownloadURLStr jsonValueDecoded];
+    NSDictionary *accountInfo = [self.accountInfoStr jsonValueDecoded];
+    if(originInfoJSON){
+        [dic addEntriesFromDictionary:originInfoJSON];
+    }
+    if(metaJson){
+        [dic addEntriesFromDictionary:metaJson];
+    }
+    if(externalDownloadURL){
+        [dic addEntriesFromDictionary:externalDownloadURL];
+    }
+    if(accountInfo){
+        [dic addEntriesFromDictionary:accountInfo];
+    }
+    return [@[dic] jsonStringEncoded];
+}
+
 - (instancetype)initSendIssueLogDefaultLogModel{
     if (self = [super init]) {
         [self createSendIssueLogDefaultLogModel];

@@ -58,7 +58,13 @@
 }
 - (void)loadIssueDetailExtra{
     self.expireData = [NSMutableArray new];
-    NSDictionary *param = @{@"pageSize": @100,@"type":@"attachment",@"subType":@"issueDetailExtra",@"_withAttachmentExternalDownloadURL":@YES,@"_attachmentExternalDownloadURLOSSExpires":[NSNumber numberWithInt:3600]};
+    NSDictionary *param = @{@"pageSize": @100,
+            @"type":@"attachment",
+            @"subType":@"issueDetailExtra",
+            @"_withAttachmentExternalDownloadURL":@YES,
+            @"_attachmentExternalDownloadURLOSSExpires":@(3600),
+            @"issueId":self.model.issueId
+    };
     [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];

@@ -115,7 +115,12 @@
 }
 
 - (void)loadProgressData{
-    NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,exitExpertGroups,updateExpertGroups"};
+    NSDictionary *param = @{
+            @"pageSize": @100,
+            @"type":@"keyPoint,bizPoint",
+            @"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,"
+                       "issueDiscarded,exitExpertGroups,updateExpertGroups",
+                       @"issueId":self.model.issueId};
     [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];

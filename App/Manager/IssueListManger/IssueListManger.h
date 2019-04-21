@@ -28,6 +28,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 - (void)readIssue:(NSString *)issueId;
 
+- (BOOL)getIssueLogReadStatus:(NSString *)issueId;
+
 /**
  首页展示类型判断
  */
