@@ -199,7 +199,7 @@ static dispatch_queue_t socket_message_queue() {
                         [kNotificationCenter
                                 postNotificationName:KNotificationChatNewDatas
                                               object:nil
-                                            userInfo:dic];
+                                            userInfo:@{@"updateView":@(YES)}];
 
                     });
 

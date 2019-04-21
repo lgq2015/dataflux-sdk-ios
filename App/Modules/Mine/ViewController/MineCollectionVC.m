@@ -120,12 +120,12 @@
     [self.tableView reloadData];
 
 }
-- (void)headerRereshing{
+- (void)headerRefreshing{
     self.page = 1;
     [self showLoadFooterView];
     [self loadData];
 }
--(void)footerRereshing{
+-(void)footerRefreshing{
     
     [self loadMoreData];
     

@@ -275,7 +275,7 @@
                     [self refreshIssueBoardDatas];
                     setLastTime([NSDate date]);
                     if (callBackStatus == nil) {
-                        KPostNotification(KNotificationNewIssue, @YES);
+                        KPostNotification(KNotificationNewIssue, nil);
                     }
                     rollback = NO;
 

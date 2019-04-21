@@ -93,13 +93,13 @@
         
     }];
 }
-- (void)headerRereshing{
+- (void)headerRefreshing{
     self.dataSource = [NSMutableArray new];
     self.pageIndex = 1;
     [self showLoadFooterView];
     [self loadData];
 }
--(void)footerRereshing{
+-(void)footerRefreshing{
     
    [self loadMoreData];
     

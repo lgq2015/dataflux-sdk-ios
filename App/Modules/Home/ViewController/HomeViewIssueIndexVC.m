@@ -301,7 +301,7 @@
     }];
 }
 
-- (void)headerRereshing {
+- (void)headerRefreshing {
     self.newsPage = 1;
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
@@ -319,7 +319,7 @@
 
 }
 
-- (void)footerRereshing {
+- (void)footerRefreshing {
     [self loadNewsDatas];
 }
 

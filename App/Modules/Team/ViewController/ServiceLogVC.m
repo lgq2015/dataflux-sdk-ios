@@ -77,13 +77,13 @@
         }
     }];
 }
-- (void)headerRereshing{
+- (void)headerRefreshing{
     self.dataSource = [NSMutableArray new];
     self.pageMaker = 0;
     [self showLoadFooterView];
     [self loadTeamNeedData];
 }
--(void)footerRereshing{
+-(void)footerRefreshing{
     if (self.pageMaker == 0) {
         [self loadTeamNeedData];
 

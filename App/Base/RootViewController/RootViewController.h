@@ -30,8 +30,8 @@
  *  下拉刷新
  */
 - (void)setRefreshHeader;
-- (void)headerRereshing;
-- (void)footerRereshing;
+- (void)headerRefreshing;
+- (void)footerRefreshing;
 /**
  *  显示没有数据页面
  */

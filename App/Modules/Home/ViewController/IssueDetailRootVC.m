@@ -9,6 +9,8 @@
 #import "IssueDetailRootVC.h"
 #import "FillinTeamInforVC.h"
 #import "IssueListManger.h"
+#import "UIBarButtonItem+Badge.h"
+
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
 @end
@@ -28,7 +30,6 @@
     UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
     [item setTitleTextAttributes:dic forState:UIControlStateNormal];
-    self.navigationItem.rightBarButtonItem = item;
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));

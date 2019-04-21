@@ -122,7 +122,7 @@
     [self loadTeamMemberInfo];
 
 }
-- (void)headerRereshing{
+- (void)headerRefreshing{
     if ([getTeamState isEqualToString:PW_isPersonal]) {
         [userManager addTeamSuccess:^(BOOL isSuccess) {
             self.isHidenNaviBar = YES;

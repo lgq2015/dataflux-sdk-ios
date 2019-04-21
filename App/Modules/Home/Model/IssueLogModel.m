@@ -59,16 +59,16 @@
     NSDictionary *externalDownloadURL = [self.externalDownloadURLStr jsonValueDecoded];
     NSDictionary *accountInfo = [self.accountInfoStr jsonValueDecoded];
     if(originInfoJSON){
-        [dic addEntriesFromDictionary:originInfoJSON];
+        dic[@"originInfoJSON"] =originInfoJSON;
     }
     if(metaJson){
-        [dic addEntriesFromDictionary:metaJson];
+        dic[@"metaJSON"] =metaJson;
     }
     if(externalDownloadURL){
-        [dic addEntriesFromDictionary:externalDownloadURL];
+        dic[@"externalDownloadURL"] =externalDownloadURL;
     }
     if(accountInfo){
-        [dic addEntriesFromDictionary:accountInfo];
+        dic[@"account_info"] =accountInfo;
     }
     return [@[dic] jsonStringEncoded];
 }
