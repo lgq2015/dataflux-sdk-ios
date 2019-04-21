@@ -10,6 +10,9 @@
 #import "IssueChatDataModel.h"
 #import "IssueChatDataManager.h"
 #import "IssueLogModel.h"
+#import "IssueListManger.h"
+#import "IssueLogListModel.h"
+
 @implementation IssueChatDatas
 +(void)sendMessage:(IssueLogModel *)model sessionId:(NSString *)sessionId messageType:(PWChatMessageType)messageType messageBlock:(MessageBlock)messageBlock{
 
@@ -101,18 +104,46 @@
     return layout;
     
 }
-+(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
-    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:sessionId];
+
++ (void)LoadingMessagesStartWithChat:(NSString *)issueId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
     __block NSMutableArray *newChatArray = [NSMutableArray new];
 
-    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:sessionId callBack:^(IssueLogListModel *model) {
+    BOOL endDataComplete = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueId];
+    long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
-    }];
+    void (^bindView)(void) = ^{
+        NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:lastCheckSeq];
+
+        [array enumerateObjectsUsingBlock:^(IssueLogModel *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:obj];
+            IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
+            [newChatArray addObject:layout];
+        }];
+        callback ? callback(newChatArray) : nil;
+    };
+
+
+    if (!endDataComplete || lastCheckSeq > 0) {
+
+        long long pageMarker = !endDataComplete? 0 :lastCheckSeq;
+
+        [[IssueChatDataManager sharedInstance] fetchHistory:issueId
+                                                 pageMarker:pageMarker callBack:^(IssueLogListModel *model) {
+            if(model.isSuccess){
+                bindView();
+            } else{
+                [iToast alertWithTitleCenter:model.errorMsg];
+            }
+            
+        }];
+
+    } else {
+        bindView();
+    }
 
 }
 +(NSMutableArray *)receiveMessages:(NSString *)sessionId{
-    NSArray<IssueLogModel *> *historyDatas= [[IssueChatDataManager sharedInstance]
-                            getChatIssueLogDatas:sessionId pageMarker:-1];
+    NSArray<IssueLogModel *> *historyDatas= [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:sessionId startSeq:-1 endSeq:0];
     NSMutableArray *messageDatas = [NSMutableArray new];
     [historyDatas enumerateObjectsUsingBlock:^(IssueLogModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
        

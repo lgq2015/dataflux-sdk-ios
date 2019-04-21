@@ -109,24 +109,23 @@
                                                  name:KNotificationChatNewDatas
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onReFetchNewDatas)
-                                                 name:KNotificationReFetchIssChatDatas
+                                             selector:@selector(onReConnect)
+                                                 name:KNotificationSocketConnecting
                                                object:nil];
 }
 
--(void)onReFetchNewDatas{
+-(void)onReConnect{
     // 重新链接获取数据
-    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
-    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:_issueID callBack:^(IssueLogListModel *model) {
-        
-    }];
+//    long long pageMarker = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:_issueID];
+//    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:_issueID callBack:^(IssueLogListModel *model) {
+//
+//    }];
 }
 
 - (void)onNewIssueChatData:(NSNotification *)notification {
     NSDictionary * pass = [notification userInfo];
     IssueLogModel *model = [[IssueLogModel new] initWithDictionary:pass];
     if ([model.issueId isEqualToString:_issueID]) {
-        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     }
         [self updateTableView];
     
@@ -481,8 +480,8 @@
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onReFetchNewDatas)
-                                                 name:KNotificationReFetchIssChatDatas
+                                             selector:@selector(onReConnect)
+                                                 name:KNotificationSocketConnecting
                                                object:nil];
 }
 

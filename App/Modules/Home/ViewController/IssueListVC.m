@@ -115,40 +115,22 @@
 }
 
 - (void)reloadData {
-    void (^reloadDataBase)(void) = ^{
-        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
-        [self.dataSource removeAllObjects];
-        [self.dataSource addObjectsFromArray:dataSource];
-        if (self.dataSource.count > 0) {
-            [self.monitorData removeAllObjects];
-            [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
-                [self.monitorData addObject:model];
-            }];
-            [self.tableView reloadData];
-            [self removeNoDataImage];
-        } else {
-            [self showNoDataImage];
-        }
-        self.tipLab.hidden = YES;
-    };
 
-    if(_needGetFromNet){
-        [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-            if (model.isSuccess) {
-                reloadDataBase();
-            } else {
-                [iToast alertWithTitleCenter:model.errorMsg];
-            }
-            _needGetFromNet = NO;
-        }                                           getAllDatas:NO];
-
-    } else{
-        reloadDataBase();
+    NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
+    [self.dataSource removeAllObjects];
+    [self.dataSource addObjectsFromArray:dataSource];
+    if (self.dataSource.count > 0) {
+        [self.monitorData removeAllObjects];
+        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
+            [self.monitorData addObject:model];
+        }];
+        [self.tableView reloadData];
+        [self removeNoDataImage];
+    } else {
+        [self showNoDataImage];
     }
-
-
-
+    self.tipLab.hidden = YES;
 
 }
 - (void)navBtnClick:(UIButton *)btn{

@@ -4,7 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BaseReturnModel.h"
 #import "BaseListReturnModel.h"
+
 
 
 @interface IssueLogListModel : BaseListReturnModel

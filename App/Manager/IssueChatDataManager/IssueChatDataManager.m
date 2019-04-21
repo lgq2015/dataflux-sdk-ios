@@ -45,7 +45,7 @@
 
     _isFetching = YES;
     NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
-    [self fetchLatestChatIssueLog:issueId withDatas:array callBack:callback];
+    [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:callback];
 
 
 }
@@ -57,12 +57,13 @@
  * @param pageMarker
  * @param callback
  */
-- (void)fetchLatestChatIssueLog:(NSString *)issueId withDatas:(NSMutableArray<IssueLogModel *> *)allDatas callBack:(void (^)(IssueLogListModel *))callback {
+- (void)fetchLatestChatIssueLog:(NSString *)issueId withDatas:(NSMutableArray<IssueLogModel *> *)allDatas
+                     pageMarker:(long long)pageMarker callBack:(void (^)(IssueLogListModel *))callback {
 
     [[PWHttpEngine sharedInstance]
             getChatIssueLog:ISSUE_CHAT_PAGE_SIZE
                     issueId:issueId
-                 pageMarker:0 orderMethod:@"desc"
+                 pageMarker:pageMarker orderMethod:@"desc"
                    callBack:^(id o) {
                        IssueLogListModel *listModel = (IssueLogListModel *) o;
                        if (listModel.isSuccess) {
@@ -88,7 +89,7 @@
                                    rollback = NO;
                                }];
                            } else {
-                               [self fetchLatestChatIssueLog:issueId withDatas:allDatas callBack:callback];
+                               [self fetchLatestChatIssueLog:issueId withDatas:allDatas pageMarker:allDatas.lastObject.seq callBack:callback];
                            }
                        } else {
 
@@ -108,7 +109,7 @@
     __block long long seq = 0L;
 
     [self.getHelper pw_inDatabase:^{
-        NSString *where = [NSString stringWithFormat:@"WHERE issueId='%@'"];;
+        NSString *where = [NSString stringWithFormat:@"WHERE issueId='%@'", issueId];
         if (pageMarker > 0) {
             where = [where stringByAppendingFormat:@"AND seq < '%lli' OR seq='%lli' AND seq>0",
                                                    pageMarker, pageMarker];
@@ -125,7 +126,7 @@
                                             whereFormat:@"WHERE dataCheckFlag=1"];
 
         if (array.count) {
-            seq= [array[0] longLongValueForKey:@"seq" default:0];
+            seq = [array[0] longLongValueForKey:@"seq" default:0];
         }
     }];
     return seq;
@@ -163,6 +164,12 @@
 
 }
 
+/**
+ * 拉取历史
+ * @param issueId
+ * @param pageMarker
+ * @param callback
+ */
 - (void)fetchHistory:(NSString *)issueId pageMarker:(long long)pageMarker callBack:(void (^)(IssueLogListModel *))callback {
 
     [[PWHttpEngine sharedInstance] getChatIssueLog:ISSUE_CHAT_PAGE_SIZE issueId:issueId
@@ -281,18 +288,18 @@
  *
  * 上拉获取历史数据 100条数据或获取 最新100条
  * @param issueId
- * @param pageMarker -1
+ * @param startSeq -1
  * @return
  */
-- (NSArray *)getChatIssueLogDatas:(NSString *)issueId pageMarker:(long long)pageMarker {
+- (NSArray *)getChatIssueLogDatas:(NSString *)issueId startSeq:(long long)startSeq endSeq:(long long)endSeq {
 
     NSMutableArray *array = [NSMutableArray new];
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
         NSString *where = NSStringFormat(@"WHERE issueId='%@' ", issueId);
-        if (pageMarker == -1L) {
-            [where stringByAppendingFormat:@" AND seq < %lli AND seq>0 ", pageMarker];
+        if (startSeq == -1L) {
+            [where stringByAppendingFormat:@" AND seq < %lli AND seq>0  AND seq >%lli", startSeq, endSeq];
         }
 
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"

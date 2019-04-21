@@ -15,6 +15,7 @@
 #import "IssueSourceListModel.h"
 #import "IssueListModel.h"
 #import "IssueLogModel.h"
+#import "IssueLogListModel.h"
 
 
 @implementation PWHttpEngine {
@@ -221,13 +222,17 @@
                 @"orderMethod": orderMethod,
                 @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
 
-    if(pageMarker>0){
-        [param addEntriesFromDictionary:@{@"pageMarker":@(pageMarker)}];
+    if (pageMarker > 0) {
+        [param addEntriesFromDictionary:@{@"pageMarker": @(pageMarker)}];
     }
 
-    IssueLogModel *model = [IssueLogModel new];
+    if (issueId.length > 0) {
+        [param addEntriesFromDictionary:@{@"issueId": issueId}];
+    }
 
-    return [PWNetworking requsetHasTokenWithUrl:PW_issueLog(issueId) withRequestType:NetworkGetType
+    IssueLogListModel *model = [IssueLogListModel new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType
                           refreshRequest:NO
                                    cache:NO
                                   params:param

@@ -18,6 +18,9 @@
 #import "IssueSourceManger.h"
 #import "PWSocketManager.h"
 #import "IssueChatDataManager.h"
+#import "IssueLogListModel.h"
+#import "IssueLogModel.h"
+
 
 #define ISSUE_LIST_PAGE_SIZE  100
 
@@ -355,8 +358,10 @@
 
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
-        [[PWSocketManager sharedPWSocketManager] connect];
 
+        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(IssueLogListModel *model) {
+            [[PWSocketManager sharedPWSocketManager] connect];
+        }];
     }                                           getAllDatas:YES];
 
 }
@@ -527,6 +532,17 @@
     }
     KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
 }
+
+
+- (void)updateIssueLogInIssue:(NSString *)issueId data:(IssueLogModel *)data {
+    [self.getHelper pw_inDatabase:^{
+        NSString *sql = @"WHERE ";
+        [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                            dicOrModel:<#(id)parameters#> whereFormat:@""];
+    }];
+
+}
+
 
 /**
  * 查看 issue

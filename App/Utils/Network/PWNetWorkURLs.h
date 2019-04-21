@@ -118,7 +118,7 @@
 
 #define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]
 //情报日志详情
-#define PW_issueLog(issueid)       [NSString stringWithFormat:@"%@/v1/issue/%@/log/list", API_SEVERID,issueid]
+#define PW_issueLog       [NSString stringWithFormat:@"%@/v1/issue/log/list", API_SEVERID]
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
 //情报日志添加
 #define PW_issueLogAdd(issueid)  [NSString stringWithFormat:@"%@/v1/issue/%@/log/add", API_SEVERID,issueid]

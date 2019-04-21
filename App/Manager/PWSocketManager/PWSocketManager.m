@@ -11,10 +11,14 @@
 #import "YYReachability.h"
 #import "IssueLogModel.h"
 #import "IssueSourceManger.h"
+#import "IssueChatDataManager.h"
+#import "IssueLogListModel.h"
+#import "IssueModel.h"
 
 #define ON_EVENT_ISSUE_UPDATE @"socketio.issueUpdate"
 #define ON_EVENT_ISSUE_SOURCE_UPDATE @"socketio.issueSourceUpdate"
 #define ON_EVENT_ISSUE_LOG_ADD @"socketio.issueLogAdd"
+
 
 static dispatch_queue_t socket_message_queue() {
     static dispatch_queue_t queue;
@@ -28,6 +32,8 @@ static dispatch_queue_t socket_message_queue() {
 @interface PWSocketManager ()
 @property(strong, nonatomic) SocketManager *manager;
 @property(strong, nonatomic) SocketIOClient *socket;
+@property(assign, nonatomic) BOOL isAuthed;
+
 
 
 @end
@@ -47,12 +53,15 @@ static dispatch_queue_t socket_message_queue() {
 - (void)connect {
 
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationReFetchIssChatDatas object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationSocketConnecting object:nil];
 
-    if (!self.socket || self.socket.status == SocketIOStatusNotConnected
-            || self.socket.status == SocketIOStatusDisconnected) {
+    DLog(@"try to connecting...")
+
+    if (![self isConnect]) {
         [self shutDown];
         [self initSocket];
+    } else{
+        DLog(@"already connected")
     }
 }
 
@@ -61,7 +70,11 @@ static dispatch_queue_t socket_message_queue() {
  * @return
  */
 - (BOOL)isConnect {
-    return self.socket.status == SocketIOStatusConnected;
+    if(self.socket){
+        return self.socket.status == SocketIOStatusConnected&&_isAuthed;
+    } else{
+        return NO;
+    }
 }
 
 //判断是否需要重新启用
@@ -99,10 +112,10 @@ static dispatch_queue_t socket_message_queue() {
                         NSDictionary *dic = [jsonString jsonValueDecoded];
                         NSInteger code = [dic integerValueForKey:@"error" default:0];
                         if (code == 200) {
-                            [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-                                
-                            } getAllDatas:NO];
-
+                            _isAuthed = YES;
+                            [self tryFetchIssueLog];
+                        } else{
+                            _isAuthed  =NO;
                         }
 
                     }
@@ -134,7 +147,7 @@ static dispatch_queue_t socket_message_queue() {
         }
 
     }];
-    
+
     [self.socket on:ON_EVENT_ISSUE_SOURCE_UPDATE callback:^(NSArray *data, SocketAckEmitter *ack) {
         if (data.count > 0) {
             DLog(ON_EVENT_ISSUE_SOURCE_UPDATE" = %@", data);
@@ -146,7 +159,7 @@ static dispatch_queue_t socket_message_queue() {
 
 
         }
-        
+
     }];
     [self.socket on:ON_EVENT_ISSUE_LOG_ADD callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
@@ -167,11 +180,23 @@ static dispatch_queue_t socket_message_queue() {
             if ([array containsObject:issueLogModel.subType]) {
                 IssueModel * issueModel = [[IssueListManger sharedIssueListManger] getIssueDataByData:issueLogModel.issueId];
 
+                BOOL endCompleteData = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueModel.issueId];
+
+                issueLogModel.dataCheckFlag = !endCompleteData
+
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
 
                 [kNotificationCenter
                         postNotificationName:KNotificationChatNewDatas
                                       object:nil
                                     userInfo:dic];
+
+                if(issueModel){
+                    [IssueListManger sharedInstance] upla
+
+                            //todo 更新首页标记
+                            //todo 更新情报详情 讨论字符的样式，更新情报列表对应情报的标记
+                }
             }
 
         }
@@ -181,10 +206,45 @@ static dispatch_queue_t socket_message_queue() {
     [self.socket connect];
 }
 
+/**
+ * 尝试获取讨论消息内容
+ */
+-(void)tryFetchIssueLog{
+
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+        if(model.isSuccess){
+            [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil
+                                                                  callBack:^(IssueLogListModel *issueLogListModel) {
+
+                if(issueLogListModel.isSuccess){
+
+                    [kNotificationCenter
+                            postNotificationName:KNotificationFetchComplete
+                                          object:nil];
+
+                } else{
+                    [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+
+                }
+
+            }];
+
+
+        } else{
+            [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+
+        }
+
+    } getAllDatas:NO];
+
+}
+
 - (void)retryConnect {
 
     if ([YYReachability new].isReachable) {
-        [self checkForRestart];
+        if (self.socket.status != SocketIOStatusConnecting && ![self isConnect]) {
+            [self checkForRestart];
+        }
     }
 }
 

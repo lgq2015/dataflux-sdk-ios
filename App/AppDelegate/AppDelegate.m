@@ -184,11 +184,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
 
+        DLog(@"%@", userInfo);
+
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
-       
-              [self dealWithNotification:userInfo];
+            [self dealWithNotification:userInfo];
         }
     }
     else {
@@ -225,8 +226,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         //从通知设置界面进入应用
         
     }
-
-
+    DLog(@"%@", notification);
 }
 
 

@@ -44,10 +44,10 @@ typedef void (^MessageBlock)(IssueLogModel *model, UploadType type, float progre
 +(IssueChatMessagelLayout *)receiveMessage:(NSDictionary *)dic;
 /**
  请求进入页面前新的聊天内容
- @param sessionId 传入会话id
+ @param issueId 传入会话id
  @param callback 返回会话对象数组
  */
-+(void)LoadingMessagesStartWithChat:(NSString *)sessionId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback;
++(void)LoadingMessagesStartWithChat:(NSString *)issueId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback;
 /**
  处理消息数组 一般进入聊天界面会初始化之前的消息展示
  

@@ -116,7 +116,7 @@
 
 - (void)loadProgressData{
     NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,exitExpertGroups,updateExpertGroups"};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueLog(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];
