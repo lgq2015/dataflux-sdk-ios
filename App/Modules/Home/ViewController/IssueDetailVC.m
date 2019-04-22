@@ -231,7 +231,7 @@
     self.issueNameLab.text = name;
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-            self.contentLab.text = [NSString stringWithFormat:@"您的 %@ %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
+            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
