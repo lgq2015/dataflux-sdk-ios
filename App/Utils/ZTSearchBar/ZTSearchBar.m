@@ -66,7 +66,7 @@
 - (UIButton *)centerBtn{
     if (!_centerBtn){
         _centerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_centerBtn setImage:[UIImage imageNamed:@"zt3_icon_search_gray"] forState:UIControlStateNormal];
+        [_centerBtn setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
         [_centerBtn setTitle:@"搜索" forState:UIControlStateNormal];
         _centerBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [_centerBtn setTitleColor:[UIColor colorWithHexString:@"#8E8E93"] forState:UIControlStateNormal];
@@ -81,7 +81,7 @@
     if (!_leftSearchBtn){
         _leftSearchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftSearchBtn.frame = CGRectMake(0, 0, leftSearchBtnW, self.tf.bounds.size.height);
-        [_leftSearchBtn setImage:[UIImage imageNamed:@"zt3_icon_search_gray"] forState:UIControlStateNormal];
+        [_leftSearchBtn setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
     }
     return _leftSearchBtn;
 }
