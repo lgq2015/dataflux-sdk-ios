@@ -129,7 +129,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
         });
     });
@@ -149,6 +149,8 @@
     KPostNotification(KNotificationAppResignActive, nil);
     [[PWSocketManager sharedPWSocketManager] checkForRestart];
     [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
+    
+
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -167,15 +169,27 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 // ios 7.0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-
-    DLog(@"didReceiveRemote userInfo = %@",userInfo);
-
+    NSInteger currentNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    if (currentNumber>0) {
+        currentNumber--;
+    }
+     [UIApplication sharedApplication].applicationIconBadgeNumber = currentNumber;
+     [JPUSHService setBadge:currentNumber];
+    DLog(@"didReceiveRemote userInfo = %@",userInfo)
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
     
     if (application.applicationState !=UIApplicationStateActive) {
         if([userManager loadUserInfo]){
-        setRemoteNotificationData(userInfo);
+        NSMutableDictionary *resultDic = [[NSMutableDictionary alloc]initWithDictionary:userInfo];
+        for (NSString *key in resultDic.allKeys) {
+        if ([[resultDic objectForKey:key] isEqual:[NSNull null]]) {
+                [resultDic setValue:@"" forKey:key];
+            }
+        }
+        NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
+        
+        setRemoteNotificationData(resultDic);
         [kUserDefaults synchronize];
         KPostNotification(KNotificationNewRemoteNoti, nil);
         }
@@ -189,7 +203,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
-    
+    NSInteger currentNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    if (currentNumber>0) {
+        currentNumber--;
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = currentNumber;
+    [JPUSHService setBadge:currentNumber];
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
@@ -198,9 +217,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
             DDLogDebug(@"didReceive userInfo = %@",userInfo);
-            setRemoteNotificationData(userInfo);
-            [kUserDefaults synchronize];
-            KPostNotification(KNotificationNewRemoteNoti, nil);
+            if([userManager loadUserInfo]){
+                NSMutableDictionary *resultDic = [[NSMutableDictionary alloc]initWithDictionary:userInfo];
+                for (NSString *key in resultDic.allKeys) {
+                    if ([[resultDic objectForKey:key] isEqual:[NSNull null]]) {
+                        [resultDic setValue:@"" forKey:key];
+                    }
+                }
+                setRemoteNotificationData(resultDic);
+                [kUserDefaults synchronize];
+                KPostNotification(KNotificationNewRemoteNoti, nil);
+            }
             
         }
     }
