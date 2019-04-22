@@ -69,8 +69,21 @@
         make.width.offset(kWidth-Interval(32));
         make.height.offset(ZOOM_SCALE(25));
     }];
+    
     UILabel *phoneLab = [[UILabel alloc]init];
-    phoneLab.text = [NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
+    if([self.phoneNumber validatePhoneNumber]){
+         phoneLab.text =[NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
+    }else{
+        NSArray *emailary = [self.phoneNumber componentsSeparatedByString:@"@"];
+        if ([emailary[0] isKindOfClass:NSString.class]) {
+            NSString *  email= emailary[0];
+            if(email.length>3){
+             phoneLab.text = [NSString stringWithFormat:@"%@...%@@%@",[email substringToIndex:2],[email substringFromIndex:email.length-1],emailary[1]];
+            }else{
+             phoneLab.text = self.phoneNumber;
+            }
+        }
+    }
     phoneLab.font = RegularFONT(18);
     [self.view addSubview:phoneLab];
     [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
