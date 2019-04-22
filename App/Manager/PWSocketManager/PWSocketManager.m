@@ -191,13 +191,17 @@ static dispatch_queue_t socket_message_queue() {
                     if(issueModel){
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
-                        //todo 更新首页标记
+
+                        [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
+                                                                                  updateTime:issueLogModel.updateTime];
 
                     }
                     dispatch_sync_on_main_queue(^{
-                        [kNotificationCenter
-                                postNotificationName:KNotificationChatNewDatas
-                                              object:nil
+
+                        [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
+                                            userInfo:nil];
+
+                        [kNotificationCenter postNotificationName:KNotificationChatNewDatas object:nil
                                             userInfo:@{@"updateView":@(YES)}];
 
                     });

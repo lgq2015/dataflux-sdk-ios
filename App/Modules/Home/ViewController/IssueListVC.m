@@ -200,7 +200,6 @@
         infodetial.model = model;
         [self.navigationController pushViewController:infodetial animated:YES];
     }
-    [[IssueListManger sharedIssueListManger] readIssue:model.issueId];
     [self.tableView reloadData];
 
 }

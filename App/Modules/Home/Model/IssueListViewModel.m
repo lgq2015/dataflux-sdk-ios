@@ -87,6 +87,7 @@
     
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
+    self.issueLogRead = model.issueLogRead && model.seq > 0;
     self.issueId = model.issueId;
     self.accountId = model.accountId;
 }

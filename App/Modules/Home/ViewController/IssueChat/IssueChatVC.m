@@ -86,7 +86,8 @@
         }
     }];
 
-    // Do any additional setup after loading the view.
+    //为了识别，在重连的时候是否需要,重新获取新的数据
+    [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 }
 - (void)scrollToBottom{
     [self scrollToBottom:YES];
@@ -614,6 +615,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationChatNewDatas object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationSocketConnecting object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationFetchComplete object:nil];
+
+    //为了让讨论界面移除未读标记
+    [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 
 
 }
