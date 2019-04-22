@@ -123,8 +123,13 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,@"");
                 }
+                if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
+                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+                    [SVProgressHUD showErrorWithStatus:toast];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+                }
                
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
             }
             
         } failBlock:^(NSError *error) {
@@ -257,7 +262,12 @@ SINGLETON_FOR_CLASS(UserManager);
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
     
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+            //            [[UIApplication sharedApplication] endBackgroundTask:taskID];
+        });
+    });
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
     [kUserDefaults removeObjectForKey:PWTeamState];

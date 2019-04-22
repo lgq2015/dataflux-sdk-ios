@@ -95,9 +95,8 @@
     NSDictionary *userInfo = getRemoteNotificationData;
     AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate dealWithNotification:userInfo];
-    [kUserDefaults setObject:nil forKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
-
+    [kUserDefaults synchronize];
 }
 
 - (void)judgeIssueConnectState:(void (^)(void))complete {

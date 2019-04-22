@@ -321,15 +321,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else if([response[ERROR_CODE] isEqualToString:@"home.auth.emailCodeIncorrect"]){
-                 [SVProgressHUD showErrorWithStatus:@"验证码错误"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -350,10 +342,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -374,10 +363,7 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -396,16 +382,14 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
     }];
 
 }
+
 #pragma mark ========== 我的/修改手机号 验证新手机 ==========
 -(void)updateNewMobileWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"verificationCode":code,@"uuid":self.uuid}};
@@ -422,14 +406,7 @@
                 }
             });
         }else{
-           
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -444,15 +421,10 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doteamDissolve:uuid];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }        }
+            [self dealWithError:response];
+        }
     } failBlock:^(NSError *error) {
-        
+        [error errorToast];
     }];
 }
 - (void)teamTransferWithCode:(NSString *)code{
@@ -463,13 +435,7 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doTeamTransfer:uuid];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -551,6 +517,17 @@
         self.second = 0;
         _timer.fireDate = [NSDate date];
         [self timerRun];
+    }
+}
+- (void)dealWithError:(NSDictionary *)response{
+    [self.codeTfView setItemEmpty];
+    [self.codeTfView codeView_showWarnState];
+    
+    if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
+        NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+        [SVProgressHUD showErrorWithStatus:toast];
+    }else{
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
     }
 }
 @end

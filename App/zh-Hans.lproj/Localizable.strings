@@ -118,7 +118,7 @@
 "home.auth.loginInfoInvalid"= "登录信息失效";
 "home.account.emailExists"= "该邮箱已被绑定";
 "ff.scheduler.config_center_request_error"= "请求错误";
-"home.auth.emailCodeIncorrect"= "邮件验证码错误";
+"home.auth.emailCodeIncorrect"= "验证码错误";
 "home.recommendation.unsupportedFileType"= "不支持的文件类型";
 
 
