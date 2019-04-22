@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1DE47111EAD1F5FA60C6E174 /* libPods-AppPreMade.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A03937B71F98610BD17AB927 /* libPods-AppPreMade.a */; };
+		2B03D039226D646200FBDB74 /* ZTSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B03D037226D646200FBDB74 /* ZTSearchBar.m */; };
+		2B03D03A226D646200FBDB74 /* ZTSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B03D037226D646200FBDB74 /* ZTSearchBar.m */; };
+		2B03D03B226D646200FBDB74 /* ZTSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B03D037226D646200FBDB74 /* ZTSearchBar.m */; };
 		2B24273F22608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
 		2B24274022608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
 		2B24274122608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
@@ -1013,6 +1016,8 @@
 
 /* Begin PBXFileReference section */
 		145E84BB150616B018992938 /* Pods-AppDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.debug.xcconfig"; sourceTree = "<group>"; };
+		2B03D037226D646200FBDB74 /* ZTSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTSearchBar.m; sourceTree = "<group>"; };
+		2B03D038226D646200FBDB74 /* ZTSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTSearchBar.h; sourceTree = "<group>"; };
 		2B24273D22608137005A45D0 /* TeamVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamVC+ChangeNavColor.h"; sourceTree = "<group>"; };
 		2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TeamVC+ChangeNavColor.m"; sourceTree = "<group>"; };
 		2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTOpenUrl.m; sourceTree = "<group>"; };
@@ -1693,6 +1698,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B03D036226D646200FBDB74 /* ZTSearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				2B03D038226D646200FBDB74 /* ZTSearchBar.h */,
+				2B03D037226D646200FBDB74 /* ZTSearchBar.m */,
+			);
+			path = ZTSearchBar;
+			sourceTree = "<group>";
+		};
 		2B5210FE2257CA5F004DA56D /* ZTShareView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2092,6 +2106,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B03D036226D646200FBDB74 /* ZTSearchBar */,
 				4AF66392225F747600E551B9 /* SVProgressHUD */,
 				4A759B6C225B0B130057BD02 /* SafeMutableArray */,
 				4A759B66225B0B080057BD02 /* UIImage+fixOrientation */,
@@ -3355,7 +3370,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3370,7 +3385,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3379,7 +3394,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3394,7 +3409,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3439,7 +3454,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -3454,7 +3469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3711,6 +3726,7 @@
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
+				2B03D039226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
 				6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */,
@@ -4005,6 +4021,7 @@
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
+				2B03D03A226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
@@ -4299,6 +4316,7 @@
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
+				2B03D03B226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
 				6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */,
