@@ -363,4 +363,11 @@
     }];
     return returnValue;
 }
+- (NSString *)imageTransStr{
+ return    (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)self,
+                                                              (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                              NULL,kCFStringEncodingUTF8));
+}
 @end
