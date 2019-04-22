@@ -22,8 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"购买记录";
-    [self loadData];
     [self createUI];
+    [self loadData];
+
 }
 - (void)loadData{
     
@@ -53,10 +54,16 @@
                 }
             
             }}else{
-             [self showNoDataImage];
+                if (self.dataSource.count==0) {
+                    [self showNoNetWorkView];
+                }
         }
     } failBlock:^(NSError *error) {
-        
+        if (self.dataSource.count ==0) {
+            [self showNoNetWorkView];
+        }else{
+            [error errorToast];
+        }
     }];
 }
 - (void)createUI{
