@@ -141,7 +141,7 @@
 }
 -(MJRefreshGifHeader *)header{
     if (!_header) {
-        _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+        _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
         NSMutableArray *araray = [NSMutableArray new];
         for (int i =0; i<30; i++) {
             NSString *imgName = [NSString stringWithFormat:@"frame-%d@2x.png",i];
@@ -158,7 +158,7 @@
 }
 -(MJRefreshBackStateFooter *)footer{
     if (!_footer) {
-        _footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+        _footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
     }
     return _footer;
 }
@@ -330,13 +330,13 @@
 //    }
 //    return _collectionView;
 //}
--(void)headerRereshing{
-    [NSException raise:@"[RootViewController headerRereshing]"
+-(void)headerRefreshing{
+    [NSException raise:@"[RootViewController headerRefreshing]"
                 format:@"You Must Override This Method."];
 }
 
--(void)footerRereshing{
-    [NSException raise:@"[RootViewController footerRereshing]"
+-(void)footerRefreshing{
+    [NSException raise:@"[RootViewController footerRefreshing]"
                 format:@"You Must Override This Method."];
 }
 

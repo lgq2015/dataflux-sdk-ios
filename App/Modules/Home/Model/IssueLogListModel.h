@@ -1,5 +1,5 @@
 //
-// Created by Brandon on 2019-03-31.
+// Created by Brandon on 2019-04-18.
 // Copyright (c) 2019 hll. All rights reserved.
 //
 
@@ -8,7 +8,7 @@
 #import "BaseListReturnModel.h"
 
 
-@interface IssueSourceListModel : BaseListReturnModel
 
+@interface IssueLogListModel : BaseListReturnModel
 
 @end

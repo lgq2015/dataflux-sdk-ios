@@ -14,6 +14,9 @@
 #import "IssueSourceModel.h"
 #import "IssueSourceListModel.h"
 #import "IssueListModel.h"
+#import "IssueLogModel.h"
+#import "IssueLogListModel.h"
+#import "AddIssueLogReturnModel.h"
 
 
 @implementation PWHttpEngine {
@@ -208,8 +211,42 @@
 }
 
 
+- (PWURLSessionTask *)getChatIssueLog:(NSInteger)pageSize issueId:(NSString *)issueId
+        pageMarker:(long long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id))callback {
+
+    NSMutableDictionary *param = [@{
+                @"pageSize": @(pageSize),
+                @"type": @"attachment,bizPoint,text",
+                @"subType": @"exitExpertGroups,updateExpertGroups,call,comment",
+                @"_withAttachmentExternalDownloadURL": @YES,
+                @"orderBy": @"seq",
+                @"orderMethod": orderMethod,
+                @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
+
+    if (pageMarker > 0) {
+        [param addEntriesFromDictionary:@{@"pageMarker": @(pageMarker)}];
+    }
+
+    if (issueId.length > 0) {
+        [param addEntriesFromDictionary:@{@"issueId": issueId}];
+    }
+
+    IssueLogListModel *model = [IssueLogListModel new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType
+                          refreshRequest:NO
+                                   cache:NO
+                                  params:param
+                           progressBlock:nil
+                            successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                               failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+
+
+
 - (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback{
-    BaseReturnModel *model = [BaseReturnModel new];
+    AddIssueLogReturnModel *model = [AddIssueLogReturnModel new];
     NSDictionary *param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
     return [PWNetworking requsetHasTokenWithUrl:PW_issueLogAdd(issueid)
                                 withRequestType:NetworkPostType

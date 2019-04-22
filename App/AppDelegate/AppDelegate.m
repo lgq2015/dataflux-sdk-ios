@@ -129,7 +129,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
         });
     });
@@ -178,7 +178,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DLog(@"didReceiveRemote userInfo = %@",userInfo)
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-    
+
     if (application.applicationState !=UIApplicationStateActive) {
         if([userManager loadUserInfo]){
         NSMutableDictionary *resultDic = [[NSMutableDictionary alloc]initWithDictionary:userInfo];
@@ -203,15 +203,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
-    NSInteger currentNumber = [UIApplication sharedApplication].applicationIconBadgeNumber;
-    if (currentNumber>0) {
-        currentNumber--;
-    }
-    [UIApplication sharedApplication].applicationIconBadgeNumber = currentNumber;
-    [JPUSHService setBadge:currentNumber];
+
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
+
+        DLog(@"%@", userInfo);
 
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
@@ -265,8 +262,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         //从通知设置界面进入应用
         
     }
-
-
+    DLog(@"%@", notification);
 }
 
 

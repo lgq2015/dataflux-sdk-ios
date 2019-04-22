@@ -31,7 +31,7 @@
     [self createUI];
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(headerRereshing)
+                                             selector:@selector(headerRefreshing)
                                                  name:KNotificationInfoBoardDatasUpdate
                                                object:nil];
 }
@@ -204,7 +204,7 @@
     }
     return _nodataView;
 }
--(void)headerRereshing{
+-(void)headerRefreshing{
     self.currentPage = 1;
     [self loadData];
 }

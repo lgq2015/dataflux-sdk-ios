@@ -9,6 +9,7 @@
 #import "IssueDetailRootVC.h"
 #import "FillinTeamInforVC.h"
 #import "IssueListManger.h"
+
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
 @end
@@ -27,8 +28,8 @@
 - (void)createUI{
     UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
-    [item setTitleTextAttributes:dic forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = item;
+    [item setTitleTextAttributes:dic forState:UIControlStateNormal];
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
@@ -115,8 +116,13 @@
 }
 
 - (void)loadProgressData{
-    NSDictionary *param = @{@"pageSize": @100,@"type":@"keyPoint,bizPoint",@"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,exitExpertGroups,updateExpertGroups"};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueLog(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    NSDictionary *param = @{
+            @"pageSize": @100,
+            @"type":@"keyPoint,bizPoint",
+            @"subType":@"issueCreated,issueRecovered,issueExpired,issueLevelChanged,"
+                       "issueDiscarded,exitExpertGroups,updateExpertGroups",
+                       @"issueId":self.model.issueId};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];

@@ -12,6 +12,7 @@
 @class IssueBoardModel;
 @class IssueModel;
 @class BaseReturnModel;
+@class IssueLogModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListManger : BaseSqlHelper
@@ -23,12 +24,18 @@ SINGLETON_FOR_HEADER(IssueListManger)
 + (instancetype)new NS_UNAVAILABLE;
 - (id)copy NS_UNAVAILABLE; // 没有遵循协议可以不写
 - (id)mutableCopy NS_UNAVAILABLE; // 没有遵循协议可以不写
+- (void)updateIssueLogInIssue:(NSString *)issueId data:(IssueLogModel *)data;
+
 - (void)readIssue:(NSString *)issueId;
+
+- (BOOL)getIssueLogReadStatus:(NSString *)issueId;
 
 /**
  首页展示类型判断
  */
 -(BOOL)judgeIssueConnectState;
+
+- (void)updateIssueBoardGetMsgTime:(NSString *)type;
 
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
@@ -58,6 +65,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
   切换账号 清空首页infoBoard缓存信息
  */
 - (void)createData;
+
+- (BOOL)checkIssueLastStatus:(NSString *)issueId;
 
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds ;
 

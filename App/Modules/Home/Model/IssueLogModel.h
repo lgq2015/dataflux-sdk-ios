@@ -7,7 +7,7 @@
 #import "IssueChatMessagelLayout.h"
 
 
-@interface IssueLogModel : NSObject
+@interface IssueLogModel : NSObject 
 
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *subType;
@@ -41,6 +41,8 @@
 //@property (nonatomic,strong) NSDictionary* accountInfo;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+
+- (NSString *)createLastIssueLogJsonString;
 
 - (instancetype)initSendIssueLogDefaultLogModel;
 @end

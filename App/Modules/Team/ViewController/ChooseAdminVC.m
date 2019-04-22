@@ -10,10 +10,12 @@
 #import "MemberInfoModel.h"
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
-@interface ChooseAdminVC ()<UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchBarDelegate>
+#import "ZTSearchBar.h"
+@interface ChooseAdminVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NSMutableArray *results;
+@property (nonatomic, strong) ZTSearchBar *ztsearchbar;
 @end
 
 @implementation ChooseAdminVC
@@ -27,25 +29,9 @@
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
-    UISearchController *search = [[UISearchController alloc]initWithSearchResultsController:nil];
-    // 设置结果更新代理
-    search.searchResultsUpdater = self;
-    // 因为在当前控制器展示结果, 所以不需要这个透明视图
-    search.dimsBackgroundDuringPresentation = NO;
-    search.hidesNavigationBarDuringPresentation = NO;
-    search.searchBar.layer.cornerRadius = 4.0f;
-    search.searchBar.layer.masksToBounds = YES;
-    search.searchBar.placeholder = @"搜索提示";
-    [search.searchBar setBackgroundImage:[UIImage imageWithColor:PWWhiteColor]];
-    //设置背景色
-    [search.searchBar setBackgroundColor:[UIColor clearColor]];
-    //设置文本框背景
-   [search.searchBar setSearchFieldBackgroundImage:[self GetImageWithColor:[UIColor colorWithHexString:@"F1F2F5"] andHeight:36] forState:UIControlStateNormal];
-
-    self.searchController = search;
-    // 将searchBar赋值给tableView的tableHeaderView
-  
-    self.tableView.tableHeaderView = search.searchBar;
+    _ztsearchbar = [[ZTSearchBar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
+    _ztsearchbar.backgroundColor = PWWhiteColor;
+    self.tableView.tableHeaderView = _ztsearchbar;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-50);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -54,7 +40,11 @@
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.view addSubview:self.tableView];
     [self.tableView reloadData];
-    
+    //对搜索框中输入的内容进行监听
+    __weak typeof(self) zt_weakSelf = self;
+    [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
+        [zt_weakSelf updateSearchResultsForSearchBar:zt_weakSelf.ztsearchbar];
+    }];
 }
 - (void)loadTeamMemberInfo{
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
@@ -95,7 +85,7 @@
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.searchController.active) {
+    if ([self.ztsearchbar.tf isFirstResponder]) {
         
         return self.results.count ;
     }
@@ -104,7 +94,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
-    if (self.searchController.active ) {
+    if ([self.ztsearchbar.tf isFirstResponder]) {
         cell.model = self.results[indexPath.row];
     } else {
        cell.model = self.teamMemberArray[indexPath.row];
@@ -116,7 +106,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-       self.searchController.active = NO;
+        [self.ztsearchbar.tf resignFirstResponder];
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
         member.type = PWMemberViewTypeTrans;
@@ -128,8 +118,8 @@
     
 }
 #pragma mark - UISearchResultsUpdating
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *inputStr = searchController.searchBar.text ;
+- (void)updateSearchResultsForSearchBar:(ZTSearchBar *)searchBar{
+    NSString *inputStr = searchBar.tf.text ;
     if (self.results.count > 0) {
         [self.results removeAllObjects];
     }
@@ -146,13 +136,13 @@
         if (mobile != nil &&[mobile rangeOfString:inputStr].location != NSNotFound) {
             [self.results addObject:obj];
         }else if(name !=nil &&[name rangeOfString:inputStr].location != NSNotFound){
-             [self.results addObject:obj];
+            [self.results addObject:obj];
         }else if(email !=nil &&[email rangeOfString:inputStr].location !=NSNotFound){
             [self.results addObject:obj];
         }
     }];
     DLog(@"%lu",(unsigned long)self.results.count);
-     [self.tableView reloadData];
+    [self.tableView reloadData];
 }
 - (UIImage*)GetImageWithColor:(UIColor*)color andHeight:(CGFloat)height
 {
@@ -170,6 +160,6 @@
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.searchController.active = NO;
+    [self.ztsearchbar.tf resignFirstResponder];
 }
 @end

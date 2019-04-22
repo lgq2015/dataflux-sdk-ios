@@ -13,12 +13,12 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
     if (self = [super init]) {
-        [self setValueWithDict:dict];
+        [self setValueWithLocalDict:dict];
     }
     return self;
 }
 
-- (void)setValueWithDict:(NSDictionary *)dict {
+- (void)setValueWithLocalDict:(NSDictionary *)dict {
     self.type = [dict stringValueForKey:@"type" default:@""];
     self.content = [dict stringValueForKey:@"content" default:@""];
     self.issueId = [dict stringValueForKey:@"issueId" default:@""];
@@ -39,6 +39,40 @@
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
 
 }
+
+-(NSString *)createLastIssueLogJsonString{
+
+    NSMutableDictionary *dic = [@{
+            @"type":self.type,
+            @"content":self.content,
+            @"issueId":self.issueId,
+            @"updateTime":self.updateTime,
+            @"origin":self.origin,
+            @"subType":self.subType,
+            @"id":self.id,
+            @"seq":@(self.seq),
+            @"createTime":self.createTime,
+    }mutableCopy];
+
+    NSDictionary *originInfoJSON = [self.originInfoJSONStr jsonValueDecoded];
+    NSDictionary *metaJson = [self.metaJsonStr jsonValueDecoded];
+    NSDictionary *externalDownloadURL = [self.externalDownloadURLStr jsonValueDecoded];
+    NSDictionary *accountInfo = [self.accountInfoStr jsonValueDecoded];
+    if(originInfoJSON){
+        dic[@"originInfoJSON"] =originInfoJSON;
+    }
+    if(metaJson){
+        dic[@"metaJSON"] =metaJson;
+    }
+    if(externalDownloadURL){
+        dic[@"externalDownloadURL"] =externalDownloadURL;
+    }
+    if(accountInfo){
+        dic[@"account_info"] =accountInfo;
+    }
+    return [@[dic] jsonStringEncoded];
+}
+
 - (instancetype)initSendIssueLogDefaultLogModel{
     if (self = [super init]) {
         [self createSendIssueLogDefaultLogModel];

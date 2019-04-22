@@ -30,7 +30,10 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
-    self.tableView.frame = CGRectMake(0, Interval(12),kWidth, kHeight-kTopHeight-Interval(12));
+    self.tableView.frame = CGRectMake(0, 0,kWidth, kHeight-kTopHeight-Interval(12));
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, Interval(12))];
+    header.backgroundColor = PWBackgroundColor;
+    self.tableView.tableHeaderView = header;
 }
 - (void)loadTradesData{
     self.dataSource = [NSMutableArray new];

@@ -301,7 +301,7 @@
     }];
 }
 
-- (void)headerRereshing {
+- (void)headerRefreshing {
     self.newsPage = 1;
     [self showLoadFooterView];
     [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
@@ -318,7 +318,7 @@
 
 }
 
-- (void)footerRereshing {
+- (void)footerRefreshing {
     [self loadNewsDatas];
 }
 
@@ -376,9 +376,9 @@
         [recommendDatas addObject:model];
     }];
     NSArray *result = [recommendDatas sortedArrayUsingComparator:^NSComparisonResult(NewsListModel *obj1,   NewsListModel *obj2) {
-        
+
         return [[NSNumber numberWithLong:obj1.position] compare:[NSNumber numberWithLong:obj2.position]]; //升序
-        
+
     }];
     [InformationStatusReadManager.sharedInstance setReadStatus:result];
 

@@ -11,6 +11,15 @@
 
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    if (![dict isKindOfClass:[NSDictionary class]]) return nil;
+    if (self = [super init]) {
+        [self setValueWithDict:dict];
+    }
+    return self;
+}
+
+
 - (void)setValueWithDict:(NSDictionary *)dict {
     self.errorCode = [dict stringValueForKey:ERROR_CODE default:@""];
     self.errorMsg = [self.errorCode toErrString];

@@ -145,6 +145,7 @@
         self.messageType = PWChatMessageTypeSysterm;
         self.cellString = PWChatSystermCellId;
     }
+    self.model =model;
 }
 - (void)setUserSendIssueLog:(IssueLogModel *)model{
     NSString *createTime = model.updateTime;

@@ -23,7 +23,6 @@
 @property (nonatomic, strong) NSMutableArray *monitorData;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, strong) UILabel *tipLab;
-@property (nonatomic, assign)BOOL needGetFromNet;
 
 @end
 
@@ -38,11 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [kNotificationCenter addObserver:self
-                            selector:@selector(headerRefreshing:)
+                            selector:@selector(onNewIssueUpdate:)
                                 name:KNotificationNewIssue
                               object:nil];
     [kNotificationCenter addObserver:self
-                            selector:@selector(headerRefreshing:)
+                            selector:@selector(onNewIssueUpdate:)
                                 name:KNotificationChatNewDatas
                               object:nil];
 
@@ -61,7 +60,7 @@
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    self.tableView.estimatedRowHeight = 44;
+    self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
     self.tableView.tableFooterView = self.footView;
@@ -83,72 +82,47 @@
 
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
- 
+
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+
 }
--(void)headerRereshing{
+-(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
 
         [self reloadData];
         [self.header endRefreshing];
-    }                                           getAllDatas:NO];
+    }                                           getAllDatas:YES];
 }
-- (void)headerRefreshing:(NSNotification *)notification{
-
-
-    NSDictionary * pass = [notification userInfo];
-    if(pass){
-        IssueLogModel * model = [[IssueLogModel new] initWithDictionary:pass];
-          IssueModel * issueModel=  [[IssueListManger sharedIssueListManger] getIssueDataByData:model.issueId];
-          if(issueModel&& [issueModel.type isEqualToString:self.type ]){
-              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      self.tipLab.hidden = NO;
-                      self.needGetFromNet =YES;
-                  });
-              });
-          }
-
+- (void)onNewIssueUpdate:(NSNotification *)notification{
+    NSDictionary *pass = [notification userInfo];
+    if ([pass boolValueForKey:@"updateView" default:NO]) {
+        [self reloadData];
     } else {
 
-        self.tipLab.hidden = NO;
+        NSArray *types = [pass mutableArrayValueForKey:@"types"];
+        if ([types containsObject:self.type]) {
+            self.tipLab.hidden = NO;
+        }
     }
 }
 
 - (void)reloadData {
-    void (^reloadDataBase)(void) = ^{
-        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
-        [self.dataSource removeAllObjects];
-        [self.dataSource addObjectsFromArray:dataSource];
-        if (self.dataSource.count > 0) {
-            [self.monitorData removeAllObjects];
-            [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
-                [self.monitorData addObject:model];
-            }];
-            [self.tableView reloadData];
-            [self removeNoDataImage];
-        } else {
-            [self showNoDataImage];
-        }
-        self.tipLab.hidden = YES;
-    };
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
 
-    if(_needGetFromNet){
-        [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-            if (model.isSuccess) {
-                reloadDataBase();
-            } else {
-                [iToast alertWithTitleCenter:model.errorMsg];
-            }
-            _needGetFromNet = NO;
-        }                                           getAllDatas:NO];
-
-    } else{
-        reloadDataBase();
+    NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
+    self.dataSource = [dataSource mutableCopy];
+    if (self.dataSource.count > 0) {
+        [self.monitorData removeAllObjects];
+        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
+            [self.monitorData addObject:model];
+        }];
+        [self.tableView reloadData];
+        [self removeNoDataImage];
+    } else {
+        [self showNoDataImage];
     }
-
-
-
+    self.tipLab.hidden = YES;
 
 }
 - (void)navBtnClick:(UIButton *)btn{
@@ -218,7 +192,7 @@
         IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
         detailVC.model = self.monitorData[indexPath.row];
         detailVC.refreshClick = ^(){
-            [self headerRereshing];
+            [self headerRefreshing];
         };
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{

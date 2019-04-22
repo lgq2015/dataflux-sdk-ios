@@ -27,6 +27,7 @@
     self.issueId = [dict stringValueForKey:@"id" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.createTime = [dict stringValueForKey:@"createTime" default:@""];
+    self.localUpdateTime = self.createTime;
     self.status = [dict stringValueForKey:@"status" default:@""];
     self.actSeq = [dict longValueForKey:@"actSeq" default:0];
     self.seq = [dict longValueForKey:@"seq" default:0];

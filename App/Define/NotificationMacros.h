@@ -15,13 +15,14 @@
 #define KNotificationLoginStateChange @"loginStateChange"
 
 #define KNotificationChatNewDatas     @"KNotificationChatNewDatas"
+#define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
 
 //被踢下线
 #define KNotificationOnKick @"KNotificationOnKick"
 //监听重新拉取讨论数据
-#define KNotificationReFetchIssChatDatas @"KNotificationRefetchIssChatDatas"
+#define KNotificationSocketConnecting @"KNotificationRefetchIssChatDatas"
 
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"

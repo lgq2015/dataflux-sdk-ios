@@ -7,18 +7,29 @@
 #import "BaseSqlHelper.h"
 
 @class IssueLogModel;
+@class IssueLogListModel;
+
+#define ISSUE_CHAT_PAGE_SIZE 100
 
 
 @interface IssueChatDataManager : NSObject 
 + (instancetype)sharedInstance;
 
-- (void)fetchAllChatIssueLog:(NSString *)issueId pageMarker:(long long)pageMarker callBack:(void (^)(NSMutableArray <IssueLogModel *> *))callback;
+- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback;
 
-- (void)cacheChatIssueLogDatasToDB:(NSString *)issueId datas:(NSArray<IssueLogModel *> *)datas;
+- (long long)getLastDataCheckSeqInOnPage:(NSString *)issueId pageMarker:(long long)pageMarker;
+
+- (void)fetchHistory:(NSString *)issueId pageMarker:(long long)pageMarker callBack:(void (^)(IssueLogListModel *))callback;
+
+- (void)cacheChatIssueLogDatasToDB:(NSArray<IssueLogModel *> *)datas;
 
 - (void)insertChatIssueLogDataToDB:(NSString *)issueId data:(IssueLogModel *)data deleteCache:(BOOL)deleteCache;
 
-- (NSArray *)getChatIssueLogDatas:(NSString *)issueId pageMarker:(long long)pageMarker;
+- (NSArray *)getChatIssueLogDatas:(NSString *)issueId startSeq:(long long)startSeq endSeq:(long long)endSeq;
+
+- (long long)getLastIssueLogSeqFromIssueLog:(NSString *)issueId;
 
 - (long long)getLastChatIssueLogMarker:(NSString *)issueId;
+
+- (void)shutDown;
 @end
