@@ -192,7 +192,7 @@
     [self.view addSubview:self.noSearchView];
 }
 -(void)showNoNetWorkView{
-    [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
+    [self.view.subviews enumerateObjectsUsingBlock:^(UIView * obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITableView class]]) {
             obj.hidden = YES;
         }

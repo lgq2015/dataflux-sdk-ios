@@ -64,6 +64,8 @@
             }else{
                 [self showNoDataImage];
             }
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
         [self.header endRefreshing];
         [SVProgressHUD dismiss];

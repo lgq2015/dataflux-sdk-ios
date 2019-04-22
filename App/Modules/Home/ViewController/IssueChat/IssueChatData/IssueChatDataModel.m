@@ -64,25 +64,31 @@
         NSDictionary *metaJSON = dict[@"metaJSON"];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
-        if ([type isEqualToString:@"pdf"]) {
-            self.fileIcon = @"file_PDF";
-        }else if([type isEqualToString:@"docx"]){
-            self.fileIcon = @"file_word";
-        }else if([type isEqualToString:@"ppt"]){
-            self.fileIcon = @"file_PPT";
-        }else if([type isEqualToString:@"xlsx"]){
-            self.fileIcon = @"file_excel";
-        }else if([type isEqualToString:@"key"]){
-            self.fileIcon = @"file_keynote";
-        }else if([type isEqualToString:@"numbers"]){
-            self.fileIcon = @"file_numbers";
-        }else if([type isEqualToString:@"pages"]){
-            self.fileIcon = @"file_pages";
-        }else if([type isEqualToString:@"zip"]){
-            self.fileIcon = @"file_zip";
-        }else if([type isEqualToString:@"rar"]){
-            self.fileIcon = @"file_rar";
-        }
+            if ([type isEqualToString:@"pdf"]) {
+                self.fileIcon = @"file_PDF";
+            }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
+                self.fileIcon = @"file_word";
+            }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+                self.fileIcon = @"file_img";
+            }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
+                self.fileIcon = @"file_PPT";
+            }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
+                self.fileIcon = @"file_excel";
+            }else if([type isEqualToString:@"key"]){
+                self.fileIcon = @"file_keynote";
+            }else if([type isEqualToString:@"numbers"]){
+                self.fileIcon = @"file_numbers";
+            }else if([type isEqualToString:@"pages"]){
+                self.fileIcon = @"file_pages";
+            }else if([type isEqualToString:@"zip"]){
+                self.fileIcon = @"file_zip";
+            }else if([type isEqualToString:@"rar"]){
+                self.fileIcon = @"file_rar";
+            }else if([type isEqualToString:@"txt"]){
+                self.fileIcon = @"file_txt";
+            }else{
+                self.fileIcon = @"file";
+            }
         }
        
     }else{
