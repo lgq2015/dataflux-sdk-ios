@@ -10,7 +10,7 @@
 #import "FillinTeamInforVC.h"
 #import "BookSuccessVC.h"
 #import "ServiceDetailVC+ChangeNavColor.h"
-//#import "UIViewController+ChangeNavBarColor.h"
+#import "ZYPayWayUIManager.h"
 @interface ServiceDetailVC ()<UIScrollViewDelegate>
 
 @end
@@ -42,8 +42,12 @@
     [self.navigationController pushViewController:createTeam animated:YES];
 }
 -(void)eventBookSuccess:(NSDictionary *)extra{
-    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
-    [self presentViewController:successVC animated:YES completion:nil];
+    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
+        NSLog(@"---==");
+    }];
+    //弹出支付方式界面
+//    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
+//    [self presentViewController:successVC animated:YES completion:nil];
 }
 
 #pragma mark ====导航栏的显示和隐藏====

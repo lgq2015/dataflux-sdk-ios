@@ -20,6 +20,9 @@
 		2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
 		2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */; };
+		2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
+		2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
+		2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
 		2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
@@ -1024,6 +1027,8 @@
 		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
 		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
 		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
+		2B53530C226DBE6900A4AC22 /* ZYPayWayUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYPayWayUIManager.h; sourceTree = "<group>"; };
+		2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYPayWayUIManager.m; sourceTree = "<group>"; };
 		2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTHandBookNoPicCell.h; sourceTree = "<group>"; };
 		2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTHandBookNoPicCell.m; sourceTree = "<group>"; };
 		2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTHandBookNoPicCell.xib; sourceTree = "<group>"; };
@@ -1734,6 +1739,15 @@
 			path = ZTShareImage;
 			sourceTree = "<group>";
 		};
+		2B53530B226DBE3400A4AC22 /* ZTPayWayView */ = {
+			isa = PBXGroup;
+			children = (
+				2B53530C226DBE6900A4AC22 /* ZYPayWayUIManager.h */,
+				2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */,
+			);
+			path = ZTPayWayView;
+			sourceTree = "<group>";
+		};
 		2B9ECBE92254509D00BAC47A /* ZTShowVCName */ = {
 			isa = PBXGroup;
 			children = (
@@ -2106,6 +2120,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B53530B226DBE3400A4AC22 /* ZTPayWayView */,
 				2B03D036226D646200FBDB74 /* ZTSearchBar */,
 				4AF66392225F747600E551B9 /* SVProgressHUD */,
 				4A759B6C225B0B130057BD02 /* SafeMutableArray */,
@@ -3709,6 +3724,7 @@
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */,
 				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
@@ -4004,6 +4020,7 @@
 				CA1CF5EE221ECB3A00D15316 /* IssueBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
@@ -4299,6 +4316,7 @@
 				CA1CF693221ECB5000D15316 /* IssueBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
+				2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
