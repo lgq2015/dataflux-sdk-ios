@@ -11,7 +11,7 @@
 #import "NSString+ErrorCode.h"
 #import "IssueLogListModel.h"
 
-#define ISSUE_CHAT_LATEST_MAX_SIZE 10
+#define ISSUE_CHAT_LATEST_MAX_SIZE 1000
 
 @interface IssueChatDataManager ()
 
@@ -79,6 +79,7 @@
                                long long lastSeq = [self getLastIssueLogSeqFromIssueLog:nil];
                                if (lastSeq == allDatas.firstObject.seq) {
                                    callback(listModel);
+                                   return;
                                }
 
                                containMarker = [self containMarker:nil pageMarker:allDatas.lastObject.seq];
@@ -153,16 +154,12 @@
         }
     }];
 
-    NSMutableArray *datas = [NSMutableArray new];
 
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString *key, IssueLogModel *value, BOOL *stop) {
         BOOL contain = [self containWithoutLock:key pageMarker:value.seq];
         if (!contain) {
             value.dataCheckFlag = YES;
         }
-
-        [datas addObject:value];
-
     }];
 
 
@@ -182,7 +179,8 @@
                                               IssueLogListModel *data = (IssueLogListModel *) o;
                                               if (data.isSuccess) {
                                                   if (data.list.count >= ISSUE_CHAT_PAGE_SIZE) {
-                                                      BOOL contain = [self containMarker:issueId pageMarker:pageMarker];
+                                                      BOOL contain = [self containMarker:issueId
+                                                              pageMarker:((IssueLogModel *)data.list.lastObject).seq];
                                                       if (!contain) {
                                                           ((IssueLogModel *) data.list.lastObject).dataCheckFlag = YES;
                                                       }
@@ -193,9 +191,11 @@
                                                   [self cacheChatIssueLogDatasToDB:data.list];
 
                                                   if (pageMarker > 0) {
+
+                                                      NSString *sql= [NSString stringWithFormat:@"WHERE issueId='%@' AND seq='%lli' ",issueId,pageMarker];
                                                       [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
-                                                                          dicOrModel:@{@"dataCheckFlag": @(0)}
-                                                                         whereFormat:@"issueId='@' AND seq='%lli'", issueId, pageMarker];
+                                                                          dicOrModel:@{@"dataCheckFlag": @(NO)}
+                                                                         whereFormat:sql];
                                                   }
 
                                                   rollback = NO;

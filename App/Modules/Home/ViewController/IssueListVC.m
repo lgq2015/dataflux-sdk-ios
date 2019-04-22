@@ -82,25 +82,32 @@
 
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
- 
+
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+
 }
 -(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
 
         [self reloadData];
         [self.header endRefreshing];
-    }                                           getAllDatas:NO];
+    }                                           getAllDatas:YES];
 }
 - (void)onNewIssueUpdate:(NSNotification *)notification{
-    NSDictionary * pass = [notification userInfo];
-    if([pass boolValueForKey:@"updateView" default:NO]){
+    NSDictionary *pass = [notification userInfo];
+    if ([pass boolValueForKey:@"updateView" default:NO]) {
         [self reloadData];
     } else {
-        self.tipLab.hidden = NO;
+
+        NSArray *types = [pass mutableArrayValueForKey:@"types"];
+        if ([types containsObject:self.type]) {
+            self.tipLab.hidden = NO;
+        }
     }
 }
 
 - (void)reloadData {
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
 
     NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
     self.dataSource = [dataSource mutableCopy];

@@ -35,6 +35,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
  */
 -(BOOL)judgeIssueConnectState;
 
+- (void)updateIssueBoardGetMsgTime:(NSString *)type;
+
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
 

@@ -192,7 +192,6 @@ static dispatch_queue_t socket_message_queue() {
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
                         //todo 更新首页标记
-                        //todo 更新情报详情 讨论字符的样式，更新情报列表对应情报的标记
 
                     }
                     dispatch_sync_on_main_queue(^{

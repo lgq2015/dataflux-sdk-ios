@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)BOOL isInvalidIssue; //异常情报源，这个
 @property (nonatomic, assign)BOOL issueLogRead;
 @property (nonatomic, assign)long long lastIssueLogSeq;
+@property (nonatomic, strong)NSString *localUpdateTime;
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

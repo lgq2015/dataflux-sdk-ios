@@ -8,6 +8,8 @@
 
 #import "IssueBoard.h"
 #import "IssueBoardInitialView.h"
+#import "IssueListManger.h"
+
 @interface IssueBoard ()<UICollectionViewDelegate,UICollectionViewDataSource,PWInfoInitialViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datas;
 @property (nonatomic, strong) NSDictionary *headRightBtn;
@@ -218,12 +220,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     IssueBoardCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndexPath:indexPath];
     cell.model = self.datas[indexPath.row];
-    NSNumber *seqAct =  getPWseqAct(cell.model.typeName);
-    if ([seqAct longValue]<cell.model.seqAct && cell.model.state != PWInfoBoardItemStateRecommend &&![cell.model.messageCount isEqualToString:@"0"]) {
-        cell.isShow = YES;
-    } else{
-        cell.isShow = NO;
-    }
+    cell.isShow = !cell.model.read;
     return cell;
 }
 #pragma mark ========== UICollectionViewDelegate ==========
@@ -233,8 +230,9 @@
         self.itemClick(indexPath.row);
     }
 
-    NSNumber *seqAct = [NSNumber numberWithLong:cell.model.seqAct];
-    setPWseqAct(seqAct, cell.model.typeName);
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:cell.model.typeName];
+
+    cell.model.read=YES;
     cell.isShow = NO;
     cell.layer.shadowOffset = CGSizeMake(0,2);
     cell.layer.shadowRadius = 5;

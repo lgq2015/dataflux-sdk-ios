@@ -91,6 +91,16 @@
             @"dataCheckFlag": SQL_INTEGER,
     }];
 
+
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME dicOrModel:@{
+            @"getMsgTime": SQL_TEXT,
+            @"lastMsgTime": SQL_TEXT,
+    }];
+
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
+            @"localUpdateTime": SQL_TEXT,
+    }];
+
 }
 
 - (void)creatIssueBoardTable {
@@ -230,7 +240,7 @@
         model.type = i;
         model.subTitle = @"";
         model.state = PWInfoBoardItemStateRecommend;
-        model.seqAct = 0;
+        model.read = YES;
         model.typeName = nameArray[i];
         model.messageCount = @"0";
 //        model.pageMaker = @0;
@@ -264,8 +274,14 @@
 
                     [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
                         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
-                        NSArray *issuemodel = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-                        if (issuemodel.count > 0) {
+                        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+                        if (array.count > 0) {
+                            IssueModel *cacheModel = array[0];
+                            if(cacheModel.lastIssueLogSeq<model.lastIssueLogSeq){
+                                model.localUpdateTime = model.updateTime;
+                                model.isRead = NO;
+                                model.issueLogRead = NO;
+                            }
                             [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
                         } else {
                             [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
@@ -275,7 +291,11 @@
                     [self refreshIssueBoardDatas];
                     setLastTime([NSDate date]);
                     if (callBackStatus == nil) {
-                        KPostNotification(KNotificationNewIssue, nil);
+
+                        [kNotificationCenter
+                                postNotificationName:KNotificationNewIssue
+                                              object:nil
+                                            userInfo:@{@"types": [self getUnReadType]}];
                     }
                     rollback = NO;
 
@@ -298,6 +318,38 @@
 }
 
 /**
+ * 更新已读的时间
+ */
+-(void)updateIssueBoardGetMsgTime:(NSString *)type{
+    [self.getHelper pw_inDatabase:^{
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                             dicOrModel:@{@"lastMsgTime": SQL_TEXT} whereFormat:@"WHERE typeName='%@'", type];
+        if (array.count > 0) {
+            NSString *lastMsgTime = [array[0] stringValueForKey:@"lastMsgTime" default:@""];
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                dicOrModel:@{@"getMsgTime": lastMsgTime} whereFormat:@"WHERE typeName='%@'", type];
+        }
+
+    }];
+}
+/**
+ * 获取未读的类型
+ * @return
+ */
+-(NSArray *)getUnReadType{
+    NSMutableArray *typeArr = [NSMutableArray new];
+
+    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                         dicOrModel:@{@"typeName": SQL_TEXT} whereFormat:@"WHERE getMsgTime < lastMsgTime"];
+    for (NSDictionary *dic in array) {
+        [typeArr addObject:[dic stringValueForKey:@"typeName" default:@""]];
+    }
+
+
+    return typeArr;
+}
+
+/**
  * 合并已读数据
  * @param allDatas
  */
@@ -307,10 +359,19 @@
         [cacheArr enumerateObjectsUsingBlock:^(IssueModel *cacheModel, NSUInteger idx, BOOL *_Nonnull stop) {
 
             if ([newModel.issueId isEqualToString:cacheModel.issueId]) {
-                newModel.isRead = cacheModel.isRead;
-                newModel.issueLogRead = cacheModel.issueLogRead;
-            }
+                if(newModel.lastIssueLogSeq<=cacheModel.lastIssueLogSeq){
+                    newModel.isRead = cacheModel.isRead;
+                    newModel.issueLogRead = cacheModel.issueLogRead;
+                    if (cacheModel.localUpdateTime.length > 0) {
+                        newModel.localUpdateTime = cacheModel.localUpdateTime;
+                    } else {
+                        newModel.localUpdateTime = cacheModel.createTime;
+                    }
+                } else{
+                    newModel.localUpdateTime = cacheModel.updateTime;
+                }
 
+            }
         }];
     }];
 }
@@ -434,6 +495,7 @@
 
 - (NSArray *)getIssueBoardData {
     NSMutableArray *array = [NSMutableArray new];
+
     [self.getHelper pw_inDatabase:^{
         NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
 
@@ -446,6 +508,18 @@
         } else {
             [array addObjectsFromArray:infoDatas];
 
+            for(IssueBoardModel *model in infoDatas){
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+                NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+                [dateFormatter setTimeZone:localTimeZone];
+                NSDate *getMsgTime = [dateFormatter dateFromString:model.getMsgTime];
+                NSDate *lasMsgTime = [dateFormatter dateFromString:model.lastMsgTime];
+
+                model.read = !((!getMsgTime||[getMsgTime compare:lasMsgTime] == NSOrderedAscending)
+                    &&model.state!=PWInfoBoardItemStateRecommend);
+
+            }
         }
     }];
     return array;
@@ -513,6 +587,12 @@
                 model.subTitle = dict[@"title"];
             }
             model.seqAct = itemDatas[0].actSeq;
+            NSString *updateSql = [NSString stringWithFormat:@"where type = '%@'"
+                                                               "AND status!='discarded' AND status!='recovered' ORDER BY localUpdateTime DESC", nameArray[i]];
+            NSArray *updateArrays = [self.getHelper pw_lookupTable:tableName dicOrModel:@{@"localUpdateTime":SQL_TEXT} whereFormat:updateSql];
+            if (updateArrays.count > 0) {
+                model.lastMsgTime = [updateArrays[0] stringValueForKey:@"localUpdateTime" default:@""];
+            }
         } else {
             model.state = PWInfoBoardItemStateRecommend;
         }
@@ -522,15 +602,18 @@
 
     NSString *infoTableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
 
-    if ([self.getHelper pw_isExistTable:infoTableName]) {
-        [self.getHelper pw_deleteAllDataFromTable:infoTableName];
-        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:infoArray];
-    } else {
+    [infoArray enumerateObjectsUsingBlock:^(IssueBoardModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+        NSString *whereFormat = [NSString stringWithFormat:@"where typeName = '%@' ", model.typeName];
+        NSArray *array = [self.getHelper pw_lookupTable:infoTableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        if (array.count > 0) {
+            [self.getHelper pw_updateTable:infoTableName dicOrModel:model whereFormat:whereFormat];
+        } else {
+            [self.getHelper pw_insertTable:infoTableName dicOrModel:model];
+        }
+    }];
 
-        [self.getHelper pw_insertTable:infoTableName dicOrModelArray:infoArray];
 
-    }
-    KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
+    KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
 }
 
 

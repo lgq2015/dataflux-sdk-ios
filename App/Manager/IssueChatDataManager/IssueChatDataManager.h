@@ -9,7 +9,7 @@
 @class IssueLogModel;
 @class IssueLogListModel;
 
-#define ISSUE_CHAT_PAGE_SIZE 8
+#define ISSUE_CHAT_PAGE_SIZE 100
 
 
 @interface IssueChatDataManager : NSObject 

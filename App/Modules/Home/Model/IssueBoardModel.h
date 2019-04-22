@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *messageCount;
 @property (nonatomic, strong) NSString *subTitle;
 @property (nonatomic, assign) long long seqAct;
+@property (nonatomic, strong) NSString* getMsgTime;
+@property (nonatomic, strong) NSString* lastMsgTime;
+@property (nonatomic, assign) BOOL read;
 - (instancetype)initWithJsonDictionary:(NSDictionary *)dictionary;
 @end
 

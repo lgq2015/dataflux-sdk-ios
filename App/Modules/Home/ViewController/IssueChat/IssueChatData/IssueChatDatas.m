@@ -110,10 +110,10 @@
 + (void)LoadingMessagesStartWithChat:(NSString *)issueId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
 
     BOOL endDataComplete = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueId];
-    long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
+    __block long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
-    void (^bindView)(void) = ^{
-        NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:lastCheckSeq];
+    void (^bindView)(long long) = ^void(long long newLastCheckSeq){
+        NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
         NSMutableArray *newChatArray = [self bindArray:array];
         callback ? callback(newChatArray) : nil;
     };
@@ -122,11 +122,13 @@
     if (!endDataComplete || lastCheckSeq > 0) {
 
         long long pageMarker = !endDataComplete? 0 :lastCheckSeq;
-
         [[IssueChatDataManager sharedInstance] fetchHistory:issueId
                                                  pageMarker:pageMarker callBack:^(IssueLogListModel *model) {
             if(model.isSuccess){
-                bindView();
+                //重新获取最后一页需要请求的标记位置
+                long long newLastCheckSeq =[[IssueChatDataManager sharedInstance]
+                        getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
+                bindView(newLastCheckSeq);
             } else{
                 [iToast alertWithTitleCenter:model.errorMsg];
             }
@@ -134,7 +136,7 @@
         }];
 
     } else {
-        bindView();
+        bindView(lastCheckSeq);
     }
 
 }
