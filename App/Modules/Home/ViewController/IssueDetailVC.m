@@ -67,7 +67,7 @@
     
     self.contentLab.attributedText = attrStr;
     self.contentLab.font = RegularFONT(14);
-    self.contentLab.textColor = PWSubTitleColor;
+    self.contentLab.textColor = PWTitleColor;
    
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));

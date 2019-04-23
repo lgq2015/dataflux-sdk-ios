@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"问题详情";
-     [self setupView];
+    [self setupView];
     [self loadIssueDetailExtra];
     [self loadInfoDeatil];
 }
@@ -58,6 +58,7 @@
 }
 - (void)loadIssueDetailExtra{
     self.expireData = [NSMutableArray new];
+    DLog(@"self.model.issueId = %@",self.model.issueId);
     NSDictionary *param = @{@"pageSize": @100,
             @"type":@"attachment",
             @"subType":@"issueDetailExtra",

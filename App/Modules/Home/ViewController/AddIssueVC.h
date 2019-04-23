@@ -10,6 +10,8 @@
 
 @interface AddIssueVC : RootViewController
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) void(^refresh)(void);
+
 @end
 
 

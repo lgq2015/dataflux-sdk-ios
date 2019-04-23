@@ -17,13 +17,16 @@
 @implementation IssueDetailRootVC
 -(void)viewWillAppear:(BOOL)animated{
     IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-    [self updateUI];
+    if (model) {
+        self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
+        [self updateUI];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressData = [NSMutableArray new];
     [self createUI];
+    DLog(@"self.model == %@",self.model.issueId);
 }
 - (void)createUI{
     UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
