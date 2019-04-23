@@ -224,7 +224,7 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"rar"]
         || [ext isEqualToString:@"zip"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }else if( [ext isEqualToString:@"txt"]){//下载后用QL预览
         [self previewInternet:model.fileUrl];

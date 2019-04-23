@@ -455,7 +455,7 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"zip"]
         || [ext isEqualToString:@"rar"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
