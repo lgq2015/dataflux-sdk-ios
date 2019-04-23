@@ -10,8 +10,9 @@
 #import "IssueCell.h"
 #import "IssueDetailVC.h"
 #import "IssueProblemDetailsVC.h"
+#import "HLSafeMutableArray.h"
 @interface ServiceLogVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) HLSafeMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageMaker;
 @property (nonatomic, strong) IssueCell *tempCell;
 
@@ -135,7 +136,7 @@
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
-        _dataSource = [NSMutableArray new];
+        _dataSource = [HLSafeMutableArray new];
     }
     return _dataSource;
 }

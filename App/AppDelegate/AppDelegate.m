@@ -106,6 +106,12 @@
     DLog(@"networkDidReceiveMessage userInfo = %@",userInfo);
 
 }
+-(void)resetBageNumber{
+    UILocalNotification *clearEpisodeNotification = [[UILocalNotification  alloc]init];
+    clearEpisodeNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(1*1)];
+    clearEpisodeNotification.applicationIconBadgeNumber = -1;
+     [[UIApplication sharedApplication] scheduleLocalNotification:clearEpisodeNotification];
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -123,16 +129,17 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     //修改 badge 数量
-    UIBackgroundTaskIdentifier taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [[UIApplication sharedApplication] endBackgroundTask:taskID];
-    }];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-            [[UIApplication sharedApplication] endBackgroundTask:taskID];
-        });
-    });
+//    UIBackgroundTaskIdentifier taskID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+//        [[UIApplication sharedApplication] endBackgroundTask:taskID];
+//    }];
+//
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//            [[UIApplication sharedApplication] endBackgroundTask:taskID];
+//        });
+//    });
+   
 
 }
 
@@ -187,8 +194,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 [resultDic setValue:@"" forKey:key];
             }
         }
-        NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
-        
         setRemoteNotificationData(resultDic);
         [kUserDefaults synchronize];
         KPostNotification(KNotificationNewRemoteNoti, nil);
