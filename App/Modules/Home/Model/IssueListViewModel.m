@@ -62,7 +62,7 @@
         if ([type isEqualToString:@"attachment"]) {
             NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
              NSString *type =  [fileName pathExtension];
-            if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+            if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
                 content =@"[图片]";
             }else{
                 content = [NSString stringWithFormat:@"[文件]%@",fileName];

@@ -16,7 +16,7 @@
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;
 -(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
--(void)PWChatRetryClickWithModel:(IssueLogModel *)model;
+-(void)PWChatRetryClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 //点击cell图片和短视频
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout; 
 NS_ASSUME_NONNULL_BEGIN

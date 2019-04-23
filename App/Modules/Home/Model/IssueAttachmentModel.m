@@ -30,7 +30,7 @@
         self.fileIcon = @"file_PDF";
     }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
         self.fileIcon = @"file_word";
-    }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+    }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
         self.fileIcon = @"file_img";
     }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
         self.fileIcon = @"file_PPT";
