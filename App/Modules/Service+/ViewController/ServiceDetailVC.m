@@ -11,6 +11,7 @@
 #import "BookSuccessVC.h"
 #import "ServiceDetailVC+ChangeNavColor.h"
 #import "ZYPayWayUIManager.h"
+#import <AlipaySDK/AlipaySDK.h>
 @interface ServiceDetailVC ()<UIScrollViewDelegate>
 
 @end
@@ -44,12 +45,37 @@
 -(void)eventBookSuccess:(NSDictionary *)extra{
     [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
         DLog(@"支付方式----%ld",selectPayWayType);
+        switch (selectPayWayType) {
+            case Zhifubao_PayWayType:
+                [self requestSign];
+                break;
+            case ContactSale_PayWayType:
+                DLog(@"联系销售");
+                break;
+            default:
+                break;
+        }
     }];
     //弹出支付方式界面
 //    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
 //    [self presentViewController:successVC animated:YES completion:nil];
 }
-
+#pragma mark ====获取订单签名======
+- (void)requestSign{
+    //请求
+    NSString *appScheme = @"";
+    NSString *orderString = @"";
+    #if DEV //开发环境
+    appScheme = @"prof-wang-dev";
+    #elif PREPROD //预发环境
+    appScheme = @"prof-wang-pre";
+    #else //正式环境
+    appScheme = @"prof-wang";
+    #endif
+    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+    }];
+}
 #pragma mark ====导航栏的显示和隐藏====
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];
