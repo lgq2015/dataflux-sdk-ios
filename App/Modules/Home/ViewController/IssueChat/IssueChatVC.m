@@ -99,8 +99,8 @@
  */
 -(void)scrollToBottom:(BOOL)force{
     if (self.datas.count > 0) {
-        //经过测试会有 92 的左右的固定偏移量
-        BOOL isBottom = self.mTableView.contentOffset.y + 92 >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
+        //经过测试会有 96 的左右的固定偏移量
+        BOOL isBottom = self.mTableView.contentOffset.y + 96  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
 
         if (force || isBottom) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];

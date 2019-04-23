@@ -22,7 +22,7 @@
     self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
     [self updateUI];
 
-    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.5];
+    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.1];
 
 
 }

@@ -533,7 +533,7 @@
     if (lastTime == nil) {
         return YES;
     } else {
-        return ![NSDate date].isToday;
+        return !lastTime.isToday;
     }
 }
 
