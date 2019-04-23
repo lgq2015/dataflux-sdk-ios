@@ -4,11 +4,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZhugeIOBaseEventHelper.h"
 
 
-@interface ZhugeIOBaseEventHelper : NSObject
+@interface ZhugeIOMineHelper : ZhugeIOBaseEventHelper
 
-@property (strong, nonatomic) NSString * category;
+
 
 
 @end

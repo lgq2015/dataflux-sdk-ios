@@ -295,6 +295,7 @@
 - (void)initZhuge:(NSDictionary *)launchOptions {
     Zhuge*zhuge = [Zhuge sharedInstance];
     [zhuge startWithAppKey:ZHUGE_APPKEY launchOptions:launchOptions];
+    [[zhuge config] setDebug:YES];
 }
 #pragma mark ========== Jpush 注册成功 ==========
 - (void)jPushNetworkDidLogin:(NSNotification *)notification {
