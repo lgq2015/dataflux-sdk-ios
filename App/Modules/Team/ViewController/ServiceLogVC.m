@@ -57,6 +57,7 @@
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {
+                [self.dataSource removeAllObjects];
                 [self dealWithData:data];
                 self.pageMaker = [pageInfo longValueForKey:@"pageMarker" default:0];
                 if (data.count<10) {
@@ -142,7 +143,6 @@
 }
 - (void)dealWithData:(NSArray *)data{
     if (data>0) {
-        [self.dataSource removeAllObjects];
         [data enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
             IssueListViewModel *model = [[IssueListViewModel alloc]initWithDictionary:dict];
             [self.dataSource addObject:model];

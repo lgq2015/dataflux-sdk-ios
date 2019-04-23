@@ -30,8 +30,10 @@
     [userManager saveUserInfoLoginStateisChange:NO success:^(BOOL isSuccess) {
         KPostNotification(KNotificationTeamStatusChange,@YES);
         KPostNotification(KNotificationConnectStateCheck,nil);
-        [self.tabBarController setSelectedIndex:2];
-        [self.navigationController popToRootViewControllerAnimated:NO];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+        [tabViewController setSelectedIndex:2];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
@@ -49,8 +51,10 @@
         FillinTeamInforVC *teamvc = [[FillinTeamInforVC alloc]init];
         [self.navigationController pushViewController:teamvc animated:YES];
     }else if([path isEqualToString:@"index"]){
-        [self.tabBarController setSelectedIndex:2];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+        [tabViewController setSelectedIndex:2];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 /*

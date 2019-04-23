@@ -216,7 +216,7 @@
                 PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
                 [self.navigationController pushViewController:newsweb animated:YES];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"home.hdbk.articleNotExists", @"")];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
