@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIButton *surePayBtn;
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, copy)PayWayBlock payWayBlock;
+@property (nonatomic, strong)UIButton *selectedPayWayBtn; //选中的支付按钮
 @end
 @implementation ZYPayWayUIManager
 + (instancetype)shareInstance{
@@ -135,23 +136,26 @@
     [UIView commitAnimations];
 }
 
-#pragma mark - Click点击分享
--(void)shareNewClick:(UIButton *)btn{
-//    NSString * titleStr = _titleArr[btn.tag - 401];
-//    if ([titleStr isEqualToString:@"朋友圈"]) {
-//        self.sharePlatformType = WechatTimeLine_PlatformType;
-//    }else if ([titleStr isEqualToString:@"微信"]){
-//        self.sharePlatformType = WechatSession_PlatformType;
-//    }else if ([titleStr isEqualToString:@"QQ"]){
-//        self.sharePlatformType = QQ_PlatformType;
-//    }else if ([titleStr isEqualToString:@"QQ空间"]){
-//        self.sharePlatformType = Qzone_PlatformType;
-//    }else if ([titleStr isEqualToString:@"钉钉"]){
-//        self.sharePlatformType = Dingding_PlatformType;
-//    }else{
-//        self.sharePlatformType = System_PlatformType;
-//    }
-//    _shareBlock(self.sharePlatformType);
+#pragma mark -  按钮交互事件
+-(void)payWayBtnClick:(UIButton *)btn{
+    if (btn.tag != _selectedPayWayBtn.tag){
+        _selectedPayWayBtn.selected = NO;
+        btn.selected = !btn.selected;
+        _selectedPayWayBtn = btn;
+    }
+   
+}
+- (void)sureBtnClick:(UIButton *)btn{
+    switch (_selectedPayWayBtn.tag) {
+        case 100:
+            DLog(@"选择了支付宝");
+            break;
+        case 101:
+            DLog(@"选择了联系销售");
+            break;
+        default:
+            break;
+    }
     [self dismiss];
 }
 
@@ -209,10 +213,13 @@
         _zhifubaoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_zhifubaoBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
         [_zhifubaoBtn setBackgroundImage:[UIImage imageWithColor:[UIColor blueColor]] forState:UIControlStateSelected];
+        _zhifubaoBtn.tag = 100;
+        [_zhifubaoBtn addTarget:self action:@selector(payWayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _zhifubaoBtn.selected = YES;
+        _selectedPayWayBtn =_zhifubaoBtn;
         //TODO:zhangtao
         _zhifubaoBtn.layer.cornerRadius = 10;
         _zhifubaoBtn.layer.masksToBounds = YES;
-        _zhifubaoBtn.selected = YES;
     }
     return _zhifubaoBtn;
 }
@@ -220,7 +227,10 @@
     if (!_contactsaleBtn){
         _contactsaleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_contactsaleBtn setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
+        [_contactsaleBtn setBackgroundImage:[UIImage imageWithColor:[UIColor blueColor]] forState:UIControlStateSelected];
         [_contactsaleBtn setImage:[UIImage imageWithColor:[UIColor blueColor]] forState:UIControlStateSelected];
+        _contactsaleBtn.tag = 101;
+        [_contactsaleBtn addTarget:self action:@selector(payWayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         //TODO:zhangtao
         _contactsaleBtn.layer.cornerRadius = 10;
         _contactsaleBtn.layer.masksToBounds = YES;
@@ -236,6 +246,8 @@
         _surePayBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         [_surePayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_surePayBtn setTitle:@"￥1000，000  去支付" forState:UIControlStateNormal];
+        [_surePayBtn addTarget:self action:@selector(sureBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return _surePayBtn;
 }
