@@ -21,6 +21,8 @@
 #import "EchartListView.h"
 #import "FillinTeamInforVC.h"
 #import "ExpertsMoreVC.h"
+#import "IssueListManger.h"
+
 @interface IssueDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIImageView *typeIcon;

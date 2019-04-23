@@ -42,7 +42,7 @@
                               object:nil];
     [kNotificationCenter addObserver:self
                             selector:@selector(onNewIssueUpdate:)
-                                name:KNotificationChatNewDatas
+                                name:KNotificationUpdateIssueList
                               object:nil];
 
 
@@ -203,7 +203,6 @@
         infodetial.model = model;
         [self.navigationController pushViewController:infodetial animated:YES];
     }
-    [[IssueListManger sharedIssueListManger] readIssue:model.issueId];
     [self.tableView reloadData];
 
 }
@@ -220,6 +219,12 @@
     }
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
+}
+
 
 /*
 #pragma mark - Navigation

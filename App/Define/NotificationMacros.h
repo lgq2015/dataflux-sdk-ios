@@ -14,7 +14,9 @@
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
 
-#define KNotificationChatNewDatas     @"KNotificationChatNewDatas"
+#define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
+#define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
+#define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"

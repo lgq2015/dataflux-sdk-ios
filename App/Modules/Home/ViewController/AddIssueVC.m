@@ -293,7 +293,8 @@
                
             }
         } failBlock:^(NSError *error) {
-            
+            [SVProgressHUD dismiss];
+            [error errorToast];
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
     }

@@ -9,6 +9,8 @@
 #import "IssueDetailRootVC.h"
 #import "FillinTeamInforVC.h"
 #import "IssueListManger.h"
+#import "PPBadgeView.h"
+#import "IssueModel.h"
 
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
@@ -17,21 +19,31 @@
 @implementation IssueDetailRootVC
 -(void)viewWillAppear:(BOOL)animated{
     IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-    if (model) {
-        self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-        [self updateUI];
-    }
+    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
+    [self updateUI];
+
+    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.5];
+
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressData = [NSMutableArray new];
     [self createUI];
-    DLog(@"self.model == %@",self.model.issueId);
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setReadFlag:)   //read= NO
+                                                 name:KNotificationUpdateIssueDetail
+                                               object:nil];
+
+
 }
 - (void)createUI{
     UIBarButtonItem *item =   [[UIBarButtonItem alloc]initWithTitle:@"讨论" style:UIBarButtonItemStylePlain target:self action:@selector(navRightBtnClick)];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:PWBlueColor forKey:NSForegroundColorAttributeName];
     self.navigationItem.rightBarButtonItem = item;
+
+
     [item setTitleTextAttributes:dic forState:UIControlStateNormal];
     self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,7 +87,24 @@
     }];
 
     [self loadProgressData];
+
 }
+
+-(void)setReadFlagWith:(NSDictionary * )params {
+    [self setReadFlag:[params boolValueForKey:@"read" default:YES]];
+
+}
+
+-(void)setReadFlag:(BOOL )read{
+    if(!read){
+        [self.navigationItem.rightBarButtonItem pp_setBadgeHeight:10];
+        [self.navigationItem.rightBarButtonItem pp_moveBadgeWithX:-6 Y:6];
+        [self.navigationItem.rightBarButtonItem pp_showBadge];
+    } else{
+        [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
+    }
+}
+
 - (void)stateLabUI{
     switch (self.model.state) {
         case MonitorListStateWarning:
@@ -116,6 +145,18 @@
         }else if([getTeamState isEqualToString:PW_isPersonal]){
             [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
         }
+       
+    [[IssueListManger sharedIssueListManger] readIssueLog:self.model.issueId];
+    [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+
+    [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+                                     userInfo:@{@"updateView":@(YES)}];
+
 }
 
 - (void)loadProgressData{
@@ -294,6 +335,8 @@
     }
     return _progressView;
 }
+
+
 /*
 #pragma mark - Navigation
 

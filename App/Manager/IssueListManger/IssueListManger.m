@@ -617,6 +617,11 @@
 }
 
 
+/**
+ * 
+ * @param issueId
+ * @param data
+ */
 - (void)updateIssueLogInIssue:(NSString *)issueId data:(IssueLogModel *)data {
     [self.getHelper pw_inDatabase:^{
         NSString *sql = @"WHERE issueId='%@'";
@@ -651,13 +656,50 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
-        NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                dicOrModel:[IssueModel class] whereFormat:whereFormat];
         if (itemDatas.count > 0) {
             itemDatas[0].isRead = YES;
-            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0] whereFormat:whereFormat];
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0]
+                               whereFormat:whereFormat];
         }
     }];
 
+}
+
+/**
+ * 查看讨论
+ * @param issueId
+ */
+-(void)readIssueLog:(NSString *)issueId{
+    [self.getHelper pw_inDatabase:^{
+        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
+        NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        if (itemDatas.count > 0) {
+            itemDatas[0].issueLogRead = YES;
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0]
+                               whereFormat:whereFormat];
+        }
+    }];
+}
+
+/**
+ * 更新未读消息时间
+ * @param type
+ * @param updateTime
+ */
+-(void)updateIssueBoardLastMsgTime:(NSString *)type updateTime:(NSString *)updateTime{
+    [self.getHelper pw_inDatabase:^{
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                             dicOrModel:@{@"lastMsgTime": SQL_TEXT}
+                                             whereFormat:@"WHERE typeName='%@'", type];
+        if (array.count > 0) {
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                dicOrModel:@{@"lastMsgTime": updateTime} whereFormat:@"WHERE typeName='%@'", type];
+        }
+
+    }];
 }
 
 /**
@@ -702,6 +744,11 @@
     }
 }
 
+/**
+ * 获取在 issue 中，最后一条 issuelog 的 seq
+ * @param issueId
+ * @return
+ */
 - (long long)getLastIssueLogSeqFromIssue:(NSString *)issueId {
     __block long long seq = 1L;
 
@@ -719,10 +766,19 @@
 }
 
 
+/**
+ * 检测尾部数据是否已经完整
+ * @param issueId
+ * @return
+ */
 - (BOOL)checkIssueLastStatus:(NSString *)issueId {
     return [self getLastIssueLogSeqFromIssue:issueId] <= [[IssueChatDataManager sharedInstance] getLastIssueLogSeqFromIssueLog:issueId];
 }
 
+/**
+ * 根据情报源删除情报
+ * @param sourceIds
+ */
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds {
     [self.getHelper pw_inTransaction:^(BOOL *rollback) {
 
