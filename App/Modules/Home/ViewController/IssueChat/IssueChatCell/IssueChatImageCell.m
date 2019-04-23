@@ -36,7 +36,11 @@
     
     
     self.mImgView.frame = self.mBackImgButton.bounds;
-    [self.mImgView sd_setImageWithURL:[NSURL URLWithString:layout.message.imageString]];
+    [self.mImgView sd_setImageWithURL:[NSURL URLWithString:layout.message.imageString] placeholderImage:[UIImage imageNamed:@""] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error) {
+            
+        }
+    }];
     self.mImgView.contentMode = self.layout.message.contentMode;
     
     
