@@ -13,7 +13,6 @@
 @property (weak, nonatomic) PWContentView *contentView;
 
 @property (weak, nonatomic) UIViewController *parentViewController;
-@property (strong, nonatomic) NSArray *childVcs;
 @property (strong, nonatomic) NSArray *titlesArray;
 
 @end

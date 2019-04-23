@@ -11,6 +11,8 @@
 #import "PWContentView.h"
 @interface PWScrollPageView : UIView
 typedef void(^ExtraBtnOnClick)(UIButton *extraBtn);
+@property (strong, nonatomic) NSArray *childVcs;
+
 @property (copy, nonatomic) ExtraBtnOnClick extraBtnOnClick;
 - (instancetype)initWithFrame:(CGRect)frame segmentStyle:(PWSegmentStyle *)segmentStyle childVcs:(NSArray *)childVcs parentViewController:(UIViewController *)parentViewController;
 
