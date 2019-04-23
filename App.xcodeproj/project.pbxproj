@@ -23,6 +23,21 @@
 		2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
 		2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
 		2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
+		2B535313226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
+		2B535314226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
+		2B535315226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
+		2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
+		2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
+		2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
+		2B535321226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */; };
+		2B535322226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */; };
+		2B535323226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */; };
+		2B535327226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */; };
+		2B535328226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */; };
+		2B535329226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */; };
+		2B53532A226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
+		2B53532B226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
+		2B53532C226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
 		2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
@@ -1029,6 +1044,14 @@
 		2B5211022257CA5F004DA56D /* ZYSocialUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialUIManager.h; sourceTree = "<group>"; };
 		2B53530C226DBE6900A4AC22 /* ZYPayWayUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYPayWayUIManager.h; sourceTree = "<group>"; };
 		2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYPayWayUIManager.m; sourceTree = "<group>"; };
+		2B535311226EE3DD00A4AC22 /* OrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListVC.h; sourceTree = "<group>"; };
+		2B535312226EE3DD00A4AC22 /* OrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
+		2B53531B226EEB4F00A4AC22 /* ZTOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTOrderListCell.h; sourceTree = "<group>"; };
+		2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTOrderListCell.m; sourceTree = "<group>"; };
+		2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTOrderListCell.xib; sourceTree = "<group>"; };
+		2B535324226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTOrderListExceptNotPayStatusCell.h; sourceTree = "<group>"; };
+		2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTOrderListExceptNotPayStatusCell.m; sourceTree = "<group>"; };
+		2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTOrderListExceptNotPayStatusCell.xib; sourceTree = "<group>"; };
 		2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTHandBookNoPicCell.h; sourceTree = "<group>"; };
 		2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTHandBookNoPicCell.m; sourceTree = "<group>"; };
 		2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTHandBookNoPicCell.xib; sourceTree = "<group>"; };
@@ -2680,6 +2703,8 @@
 				4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */,
 				2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */,
 				2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */,
+				2B535311226EE3DD00A4AC22 /* OrderListVC.h */,
+				2B535312226EE3DD00A4AC22 /* OrderListVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2698,6 +2723,12 @@
 			children = (
 				4AC857D1223D1A4500DAE1F6 /* OrderListCell.h */,
 				4AC857D2223D1A4500DAE1F6 /* OrderListCell.m */,
+				2B53531B226EEB4F00A4AC22 /* ZTOrderListCell.h */,
+				2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */,
+				2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */,
+				2B535324226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.h */,
+				2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */,
+				2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3225,6 +3256,7 @@
 				4AE537AA21CC9206004CF320 /* frame-3@2x.png in Resources */,
 				4AE537B421CC9206004CF320 /* frame-9@2x.png in Resources */,
 				4AE537B321CC9206004CF320 /* frame-24@2x.png in Resources */,
+				2B53532A226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				4AE537A021CC9206004CF320 /* frame-0@2x.png in Resources */,
 				4AE537AB21CC9206004CF320 /* frame-28@2x.png in Resources */,
 				4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */,
@@ -3267,6 +3299,7 @@
 				2BE9F17C225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
 				4AF663A9225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2B535321226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3278,6 +3311,7 @@
 				CA1CF5F8221ECB3A00D15316 /* frame-3@2x.png in Resources */,
 				CA1CF5F9221ECB3A00D15316 /* frame-9@2x.png in Resources */,
 				CA1CF5FA221ECB3A00D15316 /* frame-24@2x.png in Resources */,
+				2B53532B226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				CA1CF5FB221ECB3A00D15316 /* frame-0@2x.png in Resources */,
 				CA1CF5FC221ECB3A00D15316 /* frame-28@2x.png in Resources */,
 				CA1CF5FD221ECB3A00D15316 /* Localizable.strings in Resources */,
@@ -3320,6 +3354,7 @@
 				2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
 				4AF663AA225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2B535322226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3331,6 +3366,7 @@
 				CA1CF69D221ECB5000D15316 /* frame-3@2x.png in Resources */,
 				CA1CF69E221ECB5000D15316 /* frame-9@2x.png in Resources */,
 				CA1CF69F221ECB5000D15316 /* frame-24@2x.png in Resources */,
+				2B53532C226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				CA1CF6A0221ECB5000D15316 /* frame-0@2x.png in Resources */,
 				CA1CF6A1221ECB5000D15316 /* frame-28@2x.png in Resources */,
 				CA1CF6A2221ECB5000D15316 /* Localizable.strings in Resources */,
@@ -3373,6 +3409,7 @@
 				2BE9F17E225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
 				4AF663AB225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2B535323226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3610,6 +3647,7 @@
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
 				4A092CC12227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
@@ -3771,6 +3809,7 @@
 				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
+				2B535327226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */,
 				4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2D128A3CDB9307318A6D /* IssueSourceDetailVC.m in Sources */,
@@ -3779,6 +3818,7 @@
 				6B6E22185DE052360D956855 /* IssueDetailVC.m in Sources */,
 				6B6E20AA5CDE84A1F4CDB90B /* ToolsVC.m in Sources */,
 				6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */,
+				2B535313226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */,
 				6B6E2F367D1AE927F4ADF821 /* HandbookIndexVC.m in Sources */,
 				6B6E2227FD9A9B351409F7C2 /* LibrarySearchVC.m in Sources */,
@@ -3906,6 +3946,7 @@
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* IssueCell.m in Sources */,
@@ -4067,6 +4108,7 @@
 				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
+				2B535328226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */,
 				4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2FC4DFCDDA647155A7CA /* IssueSourceDetailVC.m in Sources */,
@@ -4075,6 +4117,7 @@
 				6B6E2F1E8220A677193C368D /* IssueDetailVC.m in Sources */,
 				6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */,
 				6B6E233BD4BDD2FB28CC1471 /* NewsWebView.m in Sources */,
+				2B535314226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */,
 				6B6E27B421ACBADB501FF6E3 /* HandbookIndexVC.m in Sources */,
 				6B6E2E37A646DA4521036A2D /* LibrarySearchVC.m in Sources */,
@@ -4202,6 +4245,7 @@
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* IssueCell.m in Sources */,
@@ -4363,6 +4407,7 @@
 				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
+				2B535329226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */,
 				4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2C5A6F38B0F90D9BFA36 /* IssueSourceDetailVC.m in Sources */,
@@ -4371,6 +4416,7 @@
 				6B6E2898C39F53C880196012 /* IssueDetailVC.m in Sources */,
 				6B6E27631A6099819A86B2ED /* ToolsVC.m in Sources */,
 				6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */,
+				2B535315226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				6B6E23018BA988522794E257 /* HandBookArticleVC.m in Sources */,
 				6B6E269B81B53508574A58FE /* HandbookIndexVC.m in Sources */,
 				6B6E26B6B14359570F63DD0F /* LibrarySearchVC.m in Sources */,

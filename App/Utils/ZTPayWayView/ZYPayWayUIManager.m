@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIButton *closeBtn;
 @property (nonatomic, copy)PayWayBlock payWayBlock;
 @property (nonatomic, strong)UIButton *selectedPayWayBtn; //选中的支付按钮
+@property (nonatomic, assign)SelectPayWayType selectPayWayType;
 @end
 @implementation ZYPayWayUIManager
 + (instancetype)shareInstance{
@@ -148,17 +149,17 @@
 - (void)sureBtnClick:(UIButton *)btn{
     switch (_selectedPayWayBtn.tag) {
         case 100:
-            DLog(@"选择了支付宝");
+            self.selectPayWayType = Zhifubao_PayWayType;
             break;
         case 101:
-            DLog(@"选择了联系销售");
+            self.selectPayWayType = ContactSale_PayWayType;
             break;
         default:
             break;
     }
+    _payWayBlock(self.selectPayWayType);
     [self dismiss];
 }
-
 #pragma mark --lazy--
 -(UIWindow *)window{
     if (!_window) {
@@ -259,4 +260,5 @@
     }
     return _closeBtn;
 }
+
 @end

@@ -9,8 +9,6 @@
 #import "CloudCareVC.h"
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
-#import "ZYPayWayUIManager.h"
-
 @interface CloudCareVC ()
 @end
 
@@ -48,11 +46,8 @@
     }];
 }
 - (void)navRightBtnClick{
-//    PurchaseHistoryVC *order = [[PurchaseHistoryVC alloc]init];
-//    [self.navigationController pushViewController:order animated:YES];
-    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
-        NSLog(@"---==");
-    }];
+    PurchaseHistoryVC *order = [[PurchaseHistoryVC alloc]init];
+    [self.navigationController pushViewController:order animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];

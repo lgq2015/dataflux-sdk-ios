@@ -43,7 +43,7 @@
 }
 -(void)eventBookSuccess:(NSDictionary *)extra{
     [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
-        NSLog(@"---==");
+        DLog(@"支付方式----%ld",selectPayWayType);
     }];
     //弹出支付方式界面
 //    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
