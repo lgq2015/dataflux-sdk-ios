@@ -34,6 +34,7 @@
 #import "IssueProblemDetailsVC.h"
 #import "NewsListModel.h"
 #import "IssueDetailVC.h"
+#import "HomeViewController.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -150,11 +151,17 @@
         [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
         MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
         [maintabbar setSelectedIndex:0];
+        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+        }
     } else if ([msgType isEqualToString:@"issue_engine_count"]) {
         //暂时只停留在首页
         [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
         MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
         [maintabbar setSelectedIndex:0];
+        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+        }
     } else if ([msgType isEqualToString:@"issue_add"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         [SVProgressHUD show];
