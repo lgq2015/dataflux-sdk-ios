@@ -98,6 +98,7 @@
 }
 #pragma mark ====内部事件===========
 - (void)cancelClick:(UIButton *)sender{
+    _tf.text = @"";
     [_tf resignFirstResponder];
 }
 
@@ -117,7 +118,6 @@
         }];
         [self.tf mas_updateConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.cancelBtn.mas_left);
-            make.left.mas_equalTo(self);
         }];
         [self layoutIfNeeded];
     }];
