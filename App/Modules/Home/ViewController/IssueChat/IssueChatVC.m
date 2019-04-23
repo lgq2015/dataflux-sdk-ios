@@ -405,6 +405,7 @@
         logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
         logModel.issueId = self.issueID;
         logModel.id = [NSDate getNowTimeTimestamp];
+        logModel.sendError = NO;
         if(![[PWSocketManager sharedPWSocketManager] isConnect]){
             [self dealSocketNotConnectWithModel:logModel];
         }else{
@@ -460,28 +461,32 @@
     [self.navigationController pushViewController:webView animated:YES];
 }
 #pragma mark ========== 重发 ==========
--(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
+-(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
     if (![[PWSocketManager sharedPWSocketManager] isConnect]) {
         [[PWSocketManager sharedPWSocketManager] checkForRestart];
     } else {
-        model.sendError = NO;
+        layout.message.model.sendError = NO;
 
-        PWChatMessageType type = model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
-        if (model.imageData) {
-            UIImage *image = [UIImage imageWithData:model.imageData];
+        PWChatMessageType type =layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
+        if (layout.message.model.imageData) {
+            UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
             NSData *newData = UIImageJPEGRepresentation(image, 0.5);
-            model.imageData = newData;
+            layout.message.model.imageData = newData;
         }
-        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
-
+        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
+        layout.message.sendError = NO;
         [self.mTableView reloadData];
-        [IssueChatDatas sendMessage:model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
+        [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
             if (type == UploadTypeSuccess) {
+                  layout.message.model.id = newModel.id;
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
             } else if (type == UploadTypeError) {
+                layout.message.model.id = newModel.id;
+                layout.message.model.sendError = YES;
                 newModel.sendError = YES;
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
             }
+            layout.message.isSend = NO;
             [self.mTableView reloadData];
         }];
     }
@@ -519,6 +524,7 @@
     logModel.text = dic[@"text"];
     logModel.issueId = self.issueID;
     logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.sendError = NO;
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
         [self dealSocketNotConnectWithModel:logModel];
     }else{
