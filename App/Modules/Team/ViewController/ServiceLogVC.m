@@ -76,11 +76,12 @@
         [SVProgressHUD dismiss];
         if(self.dataSource.count == 0){
             [self showNoNetWorkView];
+        }else{
+            [error errorToast];
         }
     }];
 }
 - (void)headerRefreshing{
-    self.dataSource = [NSMutableArray new];
     self.pageMaker = 0;
     [self showLoadFooterView];
     [self loadTeamNeedData];
@@ -140,6 +141,7 @@
 }
 - (void)dealWithData:(NSArray *)data{
     if (data>0) {
+        [self.dataSource removeAllObjects];
         [data enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
             IssueListViewModel *model = [[IssueListViewModel alloc]initWithDictionary:dict];
             [self.dataSource addObject:model];
