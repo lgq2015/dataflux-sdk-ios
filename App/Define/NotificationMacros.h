@@ -56,5 +56,7 @@
 #define KUtilsConstCacheName      @"KUtilsConstCacheName"
 
 #define KIssueSourceNameModelCache @"KIssueSourceNameModelCache"
+//支付宝支付回调
+#define KZhifubaoPayResult @"KZhifubaoPayResult"
 
 #endif /* NotificationMacros_h */

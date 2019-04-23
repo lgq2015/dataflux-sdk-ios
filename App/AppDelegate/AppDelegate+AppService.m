@@ -322,6 +322,7 @@
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             DLog(@"支付宝result = %@",resultDic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
         }];
         // 授权跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
@@ -339,6 +340,7 @@
                 }
             }
             DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
         }];
     }
     return YES;

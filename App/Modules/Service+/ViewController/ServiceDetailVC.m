@@ -30,6 +30,8 @@
     } else {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    //监听支付回调结果事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zhifubaoCallBack:) name:KZhifubaoPayResult object:nil];
 }
 - (void)createUI{
 
@@ -73,8 +75,21 @@
     appScheme = @"prof-wang";
     #endif
     [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-        NSLog(@"reslut = %@",resultDic);
+        DLog(@"ServiceDetailVC支付宝结果 = %@",resultDic);
+        int statusCode = [resultDic[@"resultStatus"]  intValue];
+        if (statusCode == 9000){
+            DLog(@"支付成功");
+        }
+        else{
+            DLog(@"支付失败")
+        }
     }];
+}
+#pragma mark ===通知支付回调处理=====
+- (void)zhifubaoCallBack:(NSNotification *)notif{
+    NSDictionary *dic = [notif object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    DLog(@"收到的回调结果---%@",dic);
 }
 #pragma mark ====导航栏的显示和隐藏====
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
