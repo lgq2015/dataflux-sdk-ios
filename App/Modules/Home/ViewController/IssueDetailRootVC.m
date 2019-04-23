@@ -22,7 +22,8 @@
     self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
     [self updateUI];
 
-    [self setReadFlag:model.issueLogRead];
+    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.5];
+
 
 }
 - (void)viewDidLoad {
@@ -30,11 +31,9 @@
     self.progressData = [NSMutableArray new];
     [self createUI];
 
-    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(self.model.issueLogRead&&self.model)} afterDelay:0.5];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setReadFlag:)   //read= NO
-                                                 name:KNotificationChatNewDatas
+                                                 name:KNotificationUpdateIssueDetail
                                                object:nil];
 
 
@@ -154,9 +153,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationChatNewDatas object:nil];
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
-    [kNotificationCenter postNotificationName:KNotificationChatNewDatas object:nil
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                      userInfo:@{@"updateView":@(YES)}];
 
 }

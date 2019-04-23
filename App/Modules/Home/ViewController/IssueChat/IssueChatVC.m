@@ -112,7 +112,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNewIssueChatData:)
-                                                 name:KNotificationChatNewDatas
+                                                 name:KNotificationNewIssueLog
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onReConnect)
@@ -612,10 +612,6 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationChatNewDatas object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationSocketConnecting object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationFetchComplete object:nil];
-
     //为了让讨论界面移除未读标记
     [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 

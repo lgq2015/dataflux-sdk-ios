@@ -201,8 +201,16 @@ static dispatch_queue_t socket_message_queue() {
                         [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
                                             userInfo:nil];
 
-                        [kNotificationCenter postNotificationName:KNotificationChatNewDatas object:nil
+                        [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                             userInfo:@{@"updateView":@(YES)}];
+
+                        [kNotificationCenter postNotificationName:KNotificationUpdateIssueDetail object:nil
+                                                         userInfo:@{@"updateView":@(YES)}];
+
+                        [kNotificationCenter
+                                postNotificationName:KNotificationNewIssueLog
+                                              object:nil
+                                            userInfo:dic];
 
                     });
 

@@ -42,7 +42,7 @@
                               object:nil];
     [kNotificationCenter addObserver:self
                             selector:@selector(onNewIssueUpdate:)
-                                name:KNotificationChatNewDatas
+                                name:KNotificationUpdateIssueList
                               object:nil];
 
 
@@ -216,6 +216,12 @@
     }
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
+}
+
 
 /*
 #pragma mark - Navigation
