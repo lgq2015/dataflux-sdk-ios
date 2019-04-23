@@ -12,6 +12,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
     if (self = [super init]) {
+        _issueLogRead = YES;
         [self setValueWithLocalDict:dict];
     }
     return self;
