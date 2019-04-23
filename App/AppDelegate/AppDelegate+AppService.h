@@ -23,8 +23,9 @@
 -(void)configUSharePlatforms;
 //初始化 UMeng
 -(void)initUMeng;
+
 //初始化 zhuge
--(void)initZhuge;
+- (void)initZhuge:(NSDictionary *)launchOptions;
 //初始化用户系统
 -(void)initUserManager;
 

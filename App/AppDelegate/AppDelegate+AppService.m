@@ -291,8 +291,10 @@
     [DTOpenAPI registerApp:DINGDING_APPKEY];
 }
 #pragma mark ========== 诸葛io 初始化 ==========
--(void)initZhuge{
-    
+
+- (void)initZhuge:(NSDictionary *)launchOptions {
+    Zhuge*zhuge = [Zhuge sharedInstance];
+    [zhuge startWithAppKey:ZHUGE_APPKEY launchOptions:launchOptions];
 }
 #pragma mark ========== Jpush 注册成功 ==========
 - (void)jPushNetworkDidLogin:(NSNotification *)notification {
