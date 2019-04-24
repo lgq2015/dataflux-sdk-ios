@@ -460,14 +460,11 @@
         return;
     }
     IssueLogModel *logModel = layout.message.model;
-    NSString *issueId = logModel.id;
-    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+    NSString *issueLogId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueLogId callBack:^(id o) {
         IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
         if(model.isSuccess){
             if (model.externalDownloadURL) {
-                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
-                layout.message.model = logModel;
                 PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
                 [self.navigationController pushViewController:webView animated:YES];
             }
