@@ -27,6 +27,7 @@
 #import "PWBaseWebVC.h"
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
+#import "IssueLogAttachmentUrl.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -464,8 +465,24 @@
         [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }
-    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
-    [self.navigationController pushViewController:webView animated:YES];
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
+                layout.message.model = logModel;
+                PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
+                [self.navigationController pushViewController:webView animated:YES];
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorCode];
+        }
+
+    }];
+   
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
@@ -583,6 +600,26 @@
     [self.mInputView SetPWChatKeyBoardInputViewEndEditing];
 }
 
+#pragma mark ========== 图片链接异常 ==========
+-(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
+                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
+               
+                layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
+                [self.mTableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorCode];
+        }
+
+    }];
+}
 
 /*
 #pragma mark - Navigation
