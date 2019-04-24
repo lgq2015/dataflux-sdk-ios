@@ -38,7 +38,15 @@
                 messageBlock(model,UploadTypeNotStarted,progress);
 
             } successBlock:^(id response) {
-                messageBlock(model,UploadTypeSuccess,1);
+                if([response[ERROR_CODE] isEqualToString:@""]){
+                    NSDictionary *content =PWSafeDictionaryVal(response, @"content");
+                    NSDictionary *data = PWSafeDictionaryVal(content, @"data");
+                    NSString *idStr = [data stringValueForKey:@"id" default:@""];
+                    model.id = idStr;
+                    messageBlock(model,UploadTypeSuccess,1);
+                }else{
+                    messageBlock(model,UploadTypeError,0);
+                }
             } failBlock:^(NSError *error) {
                 messageBlock(model,UploadTypeError,0);
                 [error errorToast];

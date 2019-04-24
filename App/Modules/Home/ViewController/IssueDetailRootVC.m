@@ -151,7 +151,7 @@
         }else if([getTeamState isEqualToString:PW_isPersonal]){
             [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
         }
-       
+
     [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
 
 }
