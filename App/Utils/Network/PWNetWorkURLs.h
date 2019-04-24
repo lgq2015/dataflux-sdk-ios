@@ -126,6 +126,8 @@
 #define PW_issueUploadAttachment(issueid) [NSString stringWithFormat:@"%@/v1/issue/%@/log/upload-attachment", API_SEVERID,issueid]
 //开启工单
 #define PW_issueTicketOpen(issueid)   [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/open", API_SEVERID,issueid]
+#define PW_heartBeat  API_SEVERID@"/v1/auth/heartbeat"
+
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 //文章推荐
