@@ -649,6 +649,7 @@
                     @"latestIssueLogsStr": [data createLastIssueLogJsonString],
                     @"isRead": @(0),
                     @"issueLogRead": @(0),
+                    @"localUpdateTime": data.updateTime,
             };
 
             [self.getHelper pw_updateTable:table dicOrModel:dic
