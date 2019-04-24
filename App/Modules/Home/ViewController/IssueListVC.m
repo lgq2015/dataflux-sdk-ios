@@ -60,7 +60,11 @@
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
-    self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
+    if (@available(iOS 11.0, *)){
+        self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
+    } else{
+        self.tableView.estimatedRowHeight = 44;
+    }
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
     self.tableView.tableFooterView = self.footView;

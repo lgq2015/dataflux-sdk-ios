@@ -90,25 +90,17 @@
     [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 }
 - (void)scrollToBottom{
-    [self scrollToBottom:YES];
-}
-
-/**
- *
- * @param force YES 强制到底部，NO 如果已经在底部则滑动到底部，如果不是则不做处理
- */
--(void)scrollToBottom:(BOOL)force{
     if (self.datas.count > 0) {
-        //经过测试会有 96 的左右的固定偏移量
-        BOOL isBottom = self.mTableView.contentOffset.y + 96  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
 
-        if (force || isBottom) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];
-            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        }
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];
+        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-
 }
+
+-(BOOL)checkIsEnd{
+    return self.mTableView.contentOffset.y  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNewIssueChatData:)
@@ -152,8 +144,11 @@
 
         if(!hasSame){
             [self.datas addObject:layout];
+            BOOL isEnd= [self checkIsEnd];
             [self.mTableView reloadData];
-            [self scrollToBottom:NO];
+            if(isEnd){
+                [self scrollToBottom];
+            }
         }
 
 
@@ -166,6 +161,7 @@
         BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:_issueID];
         if (!read) {
             long long seq = 0;
+            //不会有空数据的情况
             if (self.datas.count > 0) {
                 seq = ((IssueChatMessagelLayout *)self.datas.lastObject).message.model.seq;
 
@@ -183,10 +179,13 @@
                 }];
 
                 [self.datas addObjectsFromArray:newChatArray];
+                BOOL isEnd= [self checkIsEnd];
                 [self.mTableView reloadData];
-            }
 
-            [self scrollToBottom:NO];
+                if(isEnd){
+                    [self scrollToBottom];
+                }
+            }
         }
     }
 
