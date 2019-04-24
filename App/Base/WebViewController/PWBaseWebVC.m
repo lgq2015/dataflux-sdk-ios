@@ -95,40 +95,39 @@
     [super viewDidLoad];
     // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
     UIWebView *webView = [[UIWebView alloc]init];
+   
+
+    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSString *newUserAgent = userAgent;
+    if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
+        newUserAgent = [userAgent stringByAppendingString:@"cloudcare;Prof.Wang_iOS"];
+    }
+
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        DLog(@"%@", result);
+    }];
     if (self.isHidenNaviBar) {
         [self.navigationController setNavigationBarHidden:YES animated:NO];
         self.webView.frame = self.view.bounds;
     }else{
         self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     }
-    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    NSString *newUserAgent = userAgent;
-    if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
-        newUserAgent = [userAgent stringByAppendingString:@"cloudcare;Prof.Wang_iOS"];
-    }
-    
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-   
-    [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-        DLog(@"%@", result);
-    }];
-    [self.view addSubview:self.webView];
-//    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.right.left.bottom.mas_equalTo(self.view);
-//    }];
+
    
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
     if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
        [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     }
+    
     [self dealWithProgressView];
-    if (@available(iOS 11.0, *)) {
-        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
+
     //对文件格式做兼容处理
     [self dealFileFormat:request];
-   
+    [self.view addSubview:self.webView];
+
     self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dict = [data jsonValueDecoded];
@@ -139,7 +138,9 @@
     [self.jsBridge callHandler:@"JS Echo" data:nil responseCallback:^(id responseData) {
         NSLog(@"ObjC received response: %@", responseData);
     }];
-
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 }
 - (void)dealWithProgressView{
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];

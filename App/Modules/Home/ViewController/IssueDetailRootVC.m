@@ -18,12 +18,7 @@
 @end
 
 @implementation IssueDetailRootVC
--(void)viewWillAppear:(BOOL)animated{
-    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-    [self updateUI];
 
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressData = [NSMutableArray new];

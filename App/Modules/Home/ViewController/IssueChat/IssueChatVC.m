@@ -611,10 +611,7 @@
                 layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
                 [self.mTableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
             }
-        }else{
-            [iToast alertWithTitleCenter:model.errorCode];
         }
-
     }];
 }
 
