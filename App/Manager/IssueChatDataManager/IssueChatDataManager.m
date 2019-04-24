@@ -11,7 +11,7 @@
 #import "NSString+ErrorCode.h"
 #import "IssueLogListModel.h"
 
-#define ISSUE_CHAT_LATEST_MAX_SIZE 10
+#define ISSUE_CHAT_LATEST_MAX_SIZE 1000
 
 @interface IssueChatDataManager ()
 
