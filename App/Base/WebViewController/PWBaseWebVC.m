@@ -77,9 +77,7 @@
         config.mediaPlaybackRequiresUserAction = false;
         
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
-        if (@available(iOS 11.0, *)) {
-            _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
+       
     }
     return _webView;
 }
@@ -119,13 +117,15 @@
 //    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.right.left.bottom.mas_equalTo(self.view);
 //    }];
-    [self dealWithProgressView];
-    
+   
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
     if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
        [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     }
-    
+    [self dealWithProgressView];
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     //对文件格式做兼容处理
     [self dealFileFormat:request];
    
