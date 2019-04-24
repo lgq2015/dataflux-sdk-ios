@@ -472,7 +472,6 @@
         if(model.isSuccess){
             if (model.externalDownloadURL) {
                 logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
                 layout.message.model = logModel;
                 PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
                 [self.navigationController pushViewController:webView animated:YES];
