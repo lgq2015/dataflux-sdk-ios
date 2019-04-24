@@ -98,6 +98,36 @@
 		2BE9F188225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
 		2BE9F189225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
 		2BE9F18A225AF9CD00C33669 /* zysocial_dingding.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */; };
+		2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */; };
+		2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */; };
+		2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */; };
+		2BF9F77E2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77D2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m */; };
+		2BF9F77F2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77D2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m */; };
+		2BF9F7802270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F77D2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m */; };
+		2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78222702F2100C9B0C3 /* OrderStatusModel.m */; };
+		2BF9F78422702F2100C9B0C3 /* OrderStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78222702F2100C9B0C3 /* OrderStatusModel.m */; };
+		2BF9F78522702F2100C9B0C3 /* OrderStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78222702F2100C9B0C3 /* OrderStatusModel.m */; };
+		2BF9F7902270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78F2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m */; };
+		2BF9F7912270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78F2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m */; };
+		2BF9F7922270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F78F2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m */; };
+		2BF9F79622707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79422707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m */; };
+		2BF9F79722707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79422707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m */; };
+		2BF9F79822707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79422707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m */; };
+		2BF9F79922707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79522707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib */; };
+		2BF9F79A22707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79522707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib */; };
+		2BF9F79B22707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79522707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib */; };
+		2BF9F79F22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79D22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m */; };
+		2BF9F7A022707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79D22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m */; };
+		2BF9F7A122707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F79D22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m */; };
+		2BF9F7A222707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79E22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib */; };
+		2BF9F7A322707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79E22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib */; };
+		2BF9F7A422707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BF9F79E22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib */; };
+		2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7A62270815700C9B0C3 /* ZTDeleteLabel.m */; };
+		2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7A62270815700C9B0C3 /* ZTDeleteLabel.m */; };
+		2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7A62270815700C9B0C3 /* ZTDeleteLabel.m */; };
+		2BF9F7B52270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */; };
+		2BF9F7B62270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */; };
+		2BF9F7B72270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */; };
 		2BFEF2FC225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FD225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
 		2BFEF2FE225B4572008A0233 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF2FB225B4572008A0233 /* NSString+Regex.m */; };
@@ -1085,6 +1115,24 @@
 		2BE9F176225AF9CD00C33669 /* zysocial_system.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_system.png; sourceTree = "<group>"; };
 		2BE9F177225AF9CD00C33669 /* zysocial_qq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_qq.png; sourceTree = "<group>"; };
 		2BE9F178225AF9CD00C33669 /* zysocial_dingding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_dingding.png; sourceTree = "<group>"; };
+		2BF9F77722700FE000C9B0C3 /* OrderStatusVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStatusVC.h; sourceTree = "<group>"; };
+		2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStatusVC.m; sourceTree = "<group>"; };
+		2BF9F77C2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTTopCustomTabHeaderView.h; sourceTree = "<group>"; };
+		2BF9F77D2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTTopCustomTabHeaderView.m; sourceTree = "<group>"; };
+		2BF9F78122702F2100C9B0C3 /* OrderStatusModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStatusModel.h; sourceTree = "<group>"; };
+		2BF9F78222702F2100C9B0C3 /* OrderStatusModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStatusModel.m; sourceTree = "<group>"; };
+		2BF9F78E2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RootViewController+ZYChangeNavColor.h"; sourceTree = "<group>"; };
+		2BF9F78F2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RootViewController+ZYChangeNavColor.m"; sourceTree = "<group>"; };
+		2BF9F79322707BAA00C9B0C3 /* OrderStatusWithNumAndTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStatusWithNumAndTime.h; sourceTree = "<group>"; };
+		2BF9F79422707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStatusWithNumAndTime.m; sourceTree = "<group>"; };
+		2BF9F79522707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStatusWithNumAndTime.xib; sourceTree = "<group>"; };
+		2BF9F79C22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStatusWithMoneyCell.h; sourceTree = "<group>"; };
+		2BF9F79D22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStatusWithMoneyCell.m; sourceTree = "<group>"; };
+		2BF9F79E22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderStatusWithMoneyCell.xib; sourceTree = "<group>"; };
+		2BF9F7A52270815700C9B0C3 /* ZTDeleteLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTDeleteLabel.h; sourceTree = "<group>"; };
+		2BF9F7A62270815700C9B0C3 /* ZTDeleteLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTDeleteLabel.m; sourceTree = "<group>"; };
+		2BF9F7B32270898F00C9B0C3 /* OrderStatusStepCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderStatusStepCell.h; sourceTree = "<group>"; };
+		2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderStatusStepCell.m; sourceTree = "<group>"; };
 		2BFEF2FA225B4572008A0233 /* NSString+Regex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Regex.h"; sourceTree = "<group>"; };
 		2BFEF2FB225B4572008A0233 /* NSString+Regex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = "<group>"; };
 		2BFEF348225E0A54008A0233 /* QLPreviewController+title.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QLPreviewController+title.h"; sourceTree = "<group>"; };
@@ -2712,6 +2760,10 @@
 				2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */,
 				2B535311226EE3DD00A4AC22 /* OrderListVC.h */,
 				2B535312226EE3DD00A4AC22 /* OrderListVC.m */,
+				2BF9F77722700FE000C9B0C3 /* OrderStatusVC.h */,
+				2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */,
+				2BF9F78E2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.h */,
+				2BF9F78F2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2721,6 +2773,8 @@
 			children = (
 				4AC857CB223D1A2100DAE1F6 /* OrderListModel.h */,
 				4AC857CC223D1A2100DAE1F6 /* OrderListModel.m */,
+				2BF9F78122702F2100C9B0C3 /* OrderStatusModel.h */,
+				2BF9F78222702F2100C9B0C3 /* OrderStatusModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2736,6 +2790,18 @@
 				2B535324226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.h */,
 				2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */,
 				2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */,
+				2BF9F77C2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.h */,
+				2BF9F77D2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m */,
+				2BF9F79322707BAA00C9B0C3 /* OrderStatusWithNumAndTime.h */,
+				2BF9F79422707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m */,
+				2BF9F79522707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib */,
+				2BF9F79C22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.h */,
+				2BF9F79D22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m */,
+				2BF9F79E22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib */,
+				2BF9F7A52270815700C9B0C3 /* ZTDeleteLabel.h */,
+				2BF9F7A62270815700C9B0C3 /* ZTDeleteLabel.m */,
+				2BF9F7B32270898F00C9B0C3 /* OrderStatusStepCell.h */,
+				2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3266,6 +3332,7 @@
 				2B53532A226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				4AE537A021CC9206004CF320 /* frame-0@2x.png in Resources */,
 				4AE537AB21CC9206004CF320 /* frame-28@2x.png in Resources */,
+				2BF9F7A222707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */,
 				4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */,
 				4AE537A121CC9206004CF320 /* frame-26@2x.png in Resources */,
 				4AE537B721CC9206004CF320 /* frame-22@2x.png in Resources */,
@@ -3273,6 +3340,7 @@
 				4AE537AF21CC9206004CF320 /* frame-20@2x.png in Resources */,
 				4AE537B921CC9206004CF320 /* frame-10@2x.png in Resources */,
 				4AE537AC21CC9206004CF320 /* frame-18@2x.png in Resources */,
+				2BF9F79922707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */,
 				4AE5379D21CC9206004CF320 /* frame-2@2x.png in Resources */,
 				2B9ECC28225494A400BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F17F225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
@@ -3321,6 +3389,7 @@
 				2B53532B226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				CA1CF5FB221ECB3A00D15316 /* frame-0@2x.png in Resources */,
 				CA1CF5FC221ECB3A00D15316 /* frame-28@2x.png in Resources */,
+				2BF9F7A322707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */,
 				CA1CF5FD221ECB3A00D15316 /* Localizable.strings in Resources */,
 				CA1CF5FE221ECB3A00D15316 /* frame-26@2x.png in Resources */,
 				CA1CF5FF221ECB3A00D15316 /* frame-22@2x.png in Resources */,
@@ -3328,6 +3397,7 @@
 				CA1CF601221ECB3A00D15316 /* frame-20@2x.png in Resources */,
 				CA1CF602221ECB3A00D15316 /* frame-10@2x.png in Resources */,
 				CA1CF603221ECB3A00D15316 /* frame-18@2x.png in Resources */,
+				2BF9F79A22707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */,
 				CA1CF604221ECB3A00D15316 /* frame-2@2x.png in Resources */,
 				2B9ECC2B225494F800BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F180225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
@@ -3376,6 +3446,7 @@
 				2B53532C226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */,
 				CA1CF6A0221ECB5000D15316 /* frame-0@2x.png in Resources */,
 				CA1CF6A1221ECB5000D15316 /* frame-28@2x.png in Resources */,
+				2BF9F7A422707D3A00C9B0C3 /* OrderStatusWithMoneyCell.xib in Resources */,
 				CA1CF6A2221ECB5000D15316 /* Localizable.strings in Resources */,
 				CA1CF6A3221ECB5000D15316 /* frame-26@2x.png in Resources */,
 				CA1CF6A4221ECB5000D15316 /* frame-22@2x.png in Resources */,
@@ -3383,6 +3454,7 @@
 				CA1CF6A6221ECB5000D15316 /* frame-20@2x.png in Resources */,
 				CA1CF6A7221ECB5000D15316 /* frame-10@2x.png in Resources */,
 				CA1CF6A8221ECB5000D15316 /* frame-18@2x.png in Resources */,
+				2BF9F79B22707BAA00C9B0C3 /* OrderStatusWithNumAndTime.xib in Resources */,
 				CA1CF6A9221ECB5000D15316 /* frame-2@2x.png in Resources */,
 				2B9ECC2C225494F900BAC47A /* FounctionIntroCell.xib in Resources */,
 				2BE9F181225AF9CD00C33669 /* zysocial_qzone.png in Resources */,
@@ -3568,10 +3640,12 @@
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
+				2BF9F79622707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4A092D5C222D535A00FB2A35 /* MessageDetailVC.m in Sources */,
 				4A759A702248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
+				2BF9F7B52270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				4AC857642236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
@@ -3624,6 +3698,7 @@
 				4A092D4D222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
 				4ABF44D021C20090002AF34E /* NSString+verify.m in Sources */,
+				2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
@@ -3653,6 +3728,7 @@
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				2B9ECC27225494A400BAC47A /* FounctionIntroCell.m in Sources */,
+				2BF9F79F22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
@@ -3701,6 +3777,7 @@
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
+				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
@@ -3725,6 +3802,7 @@
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
+				2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
@@ -3768,6 +3846,7 @@
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
 				4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */,
 				4A092D80222E1D2600FB2A35 /* CollectionModel.m in Sources */,
+				2BF9F77E2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
 				4A759AAC224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
 				4AC8576A22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				4A092CBC2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
@@ -3805,6 +3884,7 @@
 				6B6E29EBB975D7946CE96343 /* IssueChatMessagelLayout.m in Sources */,
 				6B6E2E85F33B2B48D353BCA1 /* IssueChatMessage.m in Sources */,
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
+				2BF9F7902270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
@@ -3868,10 +3948,12 @@
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
 				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
+				2BF9F79722707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
 				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
 				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
+				2BF9F7B62270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
@@ -3924,6 +4006,7 @@
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
 				4AC857B5223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
+				2BF9F78422702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B1223FB0370057BD02 /* text.swift in Sources */,
 				4A759AEF224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
@@ -3953,6 +4036,7 @@
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC29225494AD00BAC47A /* FounctionIntroCell.m in Sources */,
+				2BF9F7A022707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
@@ -4001,6 +4085,7 @@
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
+				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
 				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
@@ -4025,6 +4110,7 @@
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
 				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
+				2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
@@ -4068,6 +4154,7 @@
 				CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */,
 				CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */,
 				4A759AAD224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
+				2BF9F77F2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
 				4A092D91222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CAD9CAC02243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
@@ -4105,6 +4192,7 @@
 				6B6E28C6D5584444F4D46187 /* IssueChatMessagelLayout.m in Sources */,
 				6B6E224B48BF721E1F076A95 /* IssueChatMessage.m in Sources */,
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
+				2BF9F7912270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
@@ -4168,10 +4256,12 @@
 				4A092D97222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */,
 				CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */,
+				2BF9F79822707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
 				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
 				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
+				2BF9F7B72270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
@@ -4224,6 +4314,7 @@
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
 				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
 				4AC857B6223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
+				2BF9F78522702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B2223FB0370057BD02 /* text.swift in Sources */,
 				4A759AF0224FD4A30057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
@@ -4253,6 +4344,7 @@
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC2A225494AE00BAC47A /* FounctionIntroCell.m in Sources */,
+				2BF9F7A122707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
@@ -4301,6 +4393,7 @@
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
+				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
 				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
@@ -4325,6 +4418,7 @@
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
 				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
+				2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
@@ -4368,6 +4462,7 @@
 				CA1CF68D221ECB5000D15316 /* iToast.m in Sources */,
 				CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */,
 				4A759AAE224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
+				2BF9F7802270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
 				4A092D92222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				CAD9CAC12243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
@@ -4405,6 +4500,7 @@
 				6B6E217D9A6DDC83F62E24CC /* IssueChatMessagelLayout.m in Sources */,
 				6B6E2F908B1F3B11902D9102 /* IssueChatMessage.m in Sources */,
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
+				2BF9F7922270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
