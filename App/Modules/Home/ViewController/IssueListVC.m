@@ -42,7 +42,7 @@
                               object:nil];
     [kNotificationCenter addObserver:self
                             selector:@selector(onNewIssueUpdate:)
-                                name:KNotificationChatNewDatas
+                                name:KNotificationUpdateIssueList
                               object:nil];
 
 
@@ -129,6 +129,9 @@
     if([getTeamState isEqualToString:PW_isTeam]){
     AddIssueVC *creatVC = [[AddIssueVC alloc]init];
     creatVC.type = self.type;
+        creatVC.refresh = ^(){
+        [self headerRefreshing];
+        };
     [self.navigationController pushViewController:creatVC animated:YES];
     }else if([getTeamState isEqualToString:PW_isPersonal]){
         FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
@@ -192,7 +195,7 @@
         IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
         detailVC.model = self.monitorData[indexPath.row];
         detailVC.refreshClick = ^(){
-            [self headerRefreshing];
+            [self reloadData];
         };
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
@@ -200,7 +203,6 @@
         infodetial.model = model;
         [self.navigationController pushViewController:infodetial animated:YES];
     }
-    [[IssueListManger sharedIssueListManger] readIssue:model.issueId];
     [self.tableView reloadData];
 
 }
@@ -217,6 +219,12 @@
     }
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
+}
+
 
 /*
 #pragma mark - Navigation

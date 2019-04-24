@@ -77,6 +77,7 @@
     self.mHeaderImgBtn.frame = layout.headerImgRect;
     [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
+        _mExpertLab.hidden = YES;
         if (layout.message.messageFrom == PWChatMessageFromStaff) {
             [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"expert_defaulticon"]];
 
@@ -91,14 +92,12 @@
             self.mExpertLab.frame = CGRectMake(layout.expertLabRect.origin.x, layout.expertLabRect.origin.y, rect.size.width+5, layout.expertLabRect.size.height);
             _mExpertLab.hidden = NO;
 
-        }else{
-            _mExpertLab.hidden = YES;
         }
     }
 }
 - (void)retryBtnClick{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClickWithModel:)]){
-        [self.delegate PWChatRetryClickWithModel:self.layout.message.model];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClick:layout:)]){
+        [self.delegate PWChatRetryClick:self.indexPath layout:self.layout];
     }
 }
 - (void)iconPressed{

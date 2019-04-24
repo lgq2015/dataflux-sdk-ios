@@ -53,6 +53,7 @@
     [self observeApplicationActionNotification];
 }
 - (void)createUI{
+    __weak typeof(self) weakSelf = self;
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17)+kTopHeight, 250, ZOOM_SCALE(37))];
     title.text = @"输入验证码";
     title.font = MediumFONT(26);
@@ -69,8 +70,21 @@
         make.width.offset(kWidth-Interval(32));
         make.height.offset(ZOOM_SCALE(25));
     }];
+    
     UILabel *phoneLab = [[UILabel alloc]init];
-    phoneLab.text = [NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
+    if([self.phoneNumber validatePhoneNumber]){
+         phoneLab.text =[NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
+    }else{
+        NSArray *emailary = [self.phoneNumber componentsSeparatedByString:@"@"];
+        if ([emailary[0] isKindOfClass:NSString.class]) {
+            NSString *  email= emailary[0];
+            if(email.length>3){
+             phoneLab.text = [NSString stringWithFormat:@"%@...%@@%@",[email substringToIndex:2],[email substringFromIndex:email.length-1],emailary[1]];
+            }else{
+             phoneLab.text = self.phoneNumber;
+            }
+        }
+    }
     phoneLab.font = RegularFONT(18);
     [self.view addSubview:phoneLab];
     [phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,18 +127,18 @@
         codeTfView.count = 6;
         [codeTfView createItem];
         codeTfView.completeBlock = ^(NSString *completeStr){
-            self.code = completeStr;
-            if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected && self.code.length == 6) {
+            weakSelf.code = completeStr;
+            if (weakSelf.type == VerifyCodeVCTypeLogin &&!weakSelf.selectBtn.selected && weakSelf.code.length == 6) {
                 [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可登录哦"];
             }else{
-                [self btnClickWithCode:completeStr];
+                [weakSelf btnClickWithCode:completeStr];
             }
         };
 //        RACSignal *codeLength =  RACObserve(self.code, length);
 //        RACSignal *selected = RACObserve(self.selectBtn, selected);
         
         codeTfView.deleteBlock = ^(void){
-            self.code = @"";
+            weakSelf.code = @"";
         };
         self.codeTfView = codeTfView;
         [self.view addSubview:self.codeTfView];
@@ -308,15 +322,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else if([response[ERROR_CODE] isEqualToString:@"home.auth.emailCodeIncorrect"]){
-                 [SVProgressHUD showErrorWithStatus:@"验证码错误"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -337,10 +343,7 @@
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -361,10 +364,7 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"网络异常"];
@@ -383,16 +383,14 @@
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
     }];
 
 }
+
 #pragma mark ========== 我的/修改手机号 验证新手机 ==========
 -(void)updateNewMobileWithCode:(NSString *)code{
     NSDictionary *param = @{@"data":@{@"verificationCode":code,@"uuid":self.uuid}};
@@ -409,14 +407,7 @@
                 }
             });
         }else{
-           
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -431,15 +422,10 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doteamDissolve:uuid];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }        }
+            [self dealWithError:response];
+        }
     } failBlock:^(NSError *error) {
-        
+        [error errorToast];
     }];
 }
 - (void)teamTransferWithCode:(NSString *)code{
@@ -450,13 +436,7 @@
             NSString *uuid = [content stringValueForKey:@"uuid" default:@""];
             [self doTeamTransfer:uuid];
         }else{
-            [self.codeTfView setItemEmpty];
-            [self.codeTfView codeView_showWarnState];
-            if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
-            }else{
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
-            }
+            [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -509,20 +489,20 @@
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+- (void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     DLog(@"%s", __func__);
 }
+
 #pragma mark =======倒计时切换到后台，再次进入同步倒计时时间==========
 - (void)observeApplicationActionNotification {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name: UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name: UIApplicationWillResignActiveNotification object:nil];
 }
-- (void)applicationDidEnterBackground {
+- (void)applicationWillResignActive {
     _timestamp = [NSDate date].timeIntervalSince1970;
     self.timer.fireDate = [NSDate distantFuture];
 }
@@ -538,6 +518,17 @@
         self.second = 0;
         _timer.fireDate = [NSDate date];
         [self timerRun];
+    }
+}
+- (void)dealWithError:(NSDictionary *)response{
+    [self.codeTfView setItemEmpty];
+    [self.codeTfView codeView_showWarnState];
+    
+    if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
+        NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+        [SVProgressHUD showErrorWithStatus:toast];
+    }else{
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
     }
 }
 @end

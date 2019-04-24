@@ -49,11 +49,11 @@
 "home.account.operationError"= "操作错误";
 "ff.team.to_scout_miss_params"= "缺少参数";
 "ff.account.format_error"= "手机号格式错误，请重新输入";
-"home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请稍后后再尝试";
+"home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请稍后再尝试";
 "home.auth.noSuchMobile"= "手机号码不存在";
 "home.issueSource.invalidDomain"= "域名格式错误";
 "home.account.notTheSameTeam"= "不是同一个团队";
-"home.auth.invalidIdentityToken"= "身份验证已过期";
+"home.auth.invalidIdentityToken"= "身份验证已过期，请重新验证";
 "home.base.paramsIncorrect"= "参数错误";
 "pylon.auth.noSuchAccount"= "用户不存在";
 "ff.team.subscription_team_exist"= "订阅失败，存在已订阅团队";
@@ -126,7 +126,7 @@
 "home.auth.loginInfoInvalid"= "登录信息失效";
 "home.account.emailExists"= "该邮箱已被绑定";
 "ff.scheduler.config_center_request_error"= "请求错误";
-"home.auth.emailCodeIncorrect"= "邮件验证码错误";
+"home.auth.emailCodeIncorrect"= "验证码错误";
 "home.recommendation.unsupportedFileType"= "不支持的文件类型";
 
 

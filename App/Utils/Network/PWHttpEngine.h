@@ -37,4 +37,5 @@
 */
 - (PWURLSessionTask *)issueTicketOpenWithIssueid:(NSString *)issueid expertGroup:(NSString *)expertGroup content:(NSString *)content callBack:(void (^)(id))callback;
 
+- (PWURLSessionTask *)heartBeatWithCallBack:(void (^)(id))callback;
 @end

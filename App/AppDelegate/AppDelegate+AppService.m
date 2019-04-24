@@ -35,6 +35,7 @@
 #import "NewsListModel.h"
 #import "IssueDetailVC.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "HomeViewController.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -119,7 +120,6 @@
 
 }
 - (void)dealWithNotification:(NSDictionary *)userInfo{
-
     NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
     NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
     
@@ -127,38 +127,42 @@
     NSString *msgType = [userInfo stringValueForKey:@"msgType" default:@""];  //消息类型
     
     if ([msgType isEqualToString:@"system_message"]) {
-        if ([userInfo containsObjectForKey:@"uri"] && ![[userInfo stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
-            NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
-            PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
-            [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
-            
-        } else if ([userInfo containsObjectForKey:@"entityId"]) {
-            NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
-            
-            [SVProgressHUD show];
-            [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
-                [SVProgressHUD dismiss];
-                MineMessageModel *data = (MineMessageModel *) o;
-                if (data.isSuccess) {
-                    MessageDetailVC *detail = [[MessageDetailVC alloc] init];
-                    detail.model = data;
-                    [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
-                } else {
-                    [iToast alertWithTitleCenter:data.errorCode];
+          NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+        [SVProgressHUD show];
+        [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
+            [SVProgressHUD dismiss];
+            MineMessageModel *data = (MineMessageModel *) o;
+            if (data.isSuccess) {
+                if ([userInfo containsObjectForKey:@"uri"] && ![[userInfo stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
+                    NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
+                    PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
+                    [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+                }else{
+                MessageDetailVC *detail = [[MessageDetailVC alloc] init];
+                detail.model = data;
+                [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
                 }
-            }];
-        }
+            } else {
+                [iToast alertWithTitleCenter:data.errorCode];
+            }
+        }];
         
     } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
         //暂时只停留在首页
         [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
         MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
         [maintabbar setSelectedIndex:0];
+        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+        }
     } else if ([msgType isEqualToString:@"issue_engine_count"]) {
         //暂时只停留在首页
         [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
         MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
         [maintabbar setSelectedIndex:0];
+        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+        }
     } else if ([msgType isEqualToString:@"issue_add"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         [SVProgressHUD show];

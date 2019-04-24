@@ -96,7 +96,7 @@
     AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate dealWithNotification:userInfo];
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
-
+    [kUserDefaults synchronize];
 }
 
 - (void)judgeIssueConnectState:(void (^)(void))complete {
@@ -313,7 +313,6 @@
     } else {
         [self loadTipsData];
     }
-    [self loadRecommendationData];
     [self loadNewsDatas];
 
 
@@ -329,12 +328,12 @@
             NSArray *datas = response[@"content"];
             if (datas.count > 0) {
                 [self RecommendationDatas:datas];
+                self.tableView.tableFooterView = nil;
             } else {
                 self.newsDatas.count == 0 ? self.tableView.tableFooterView = self.noDataView : nil;
             }
         } else {
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-            self.newsDatas.count == 0 ? self.tableView.tableFooterView = self.noDataView : nil;
         }
     }                  failBlock:^(NSError *error) {
         self.newsDatas.count == 0 ? self.tableView.tableFooterView = self.noDataView : nil;
@@ -378,11 +377,9 @@
     }];
     NSArray *result = [recommendDatas sortedArrayUsingComparator:^NSComparisonResult(NewsListModel *obj1,   NewsListModel *obj2) {
 
-
         return [[NSNumber numberWithLong:obj1.position] compare:[NSNumber numberWithLong:obj2.position]]; //升序
 
     }];
-    DLog(@"result = %@",result);
     [InformationStatusReadManager.sharedInstance setReadStatus:result];
 
     [self.newsDatas insertObjects:result atIndex:0];

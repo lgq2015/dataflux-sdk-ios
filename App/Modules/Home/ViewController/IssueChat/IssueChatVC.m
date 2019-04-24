@@ -86,7 +86,8 @@
         }
     }];
 
-    // Do any additional setup after loading the view.
+    //为了识别，在重连的时候是否需要,重新获取新的数据
+    [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 }
 - (void)scrollToBottom{
     [self scrollToBottom:YES];
@@ -98,8 +99,8 @@
  */
 -(void)scrollToBottom:(BOOL)force{
     if (self.datas.count > 0) {
-        //经过测试会有 92 的左右的固定偏移量
-        BOOL isBottom = self.mTableView.contentOffset.y + 92 >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
+        //经过测试会有 96 的左右的固定偏移量
+        BOOL isBottom = self.mTableView.contentOffset.y + 96  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
 
         if (force || isBottom) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];
@@ -111,7 +112,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNewIssueChatData:)
-                                                 name:KNotificationChatNewDatas
+                                                 name:KNotificationNewIssueLog
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onReConnect)
@@ -405,6 +406,7 @@
         logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
         logModel.issueId = self.issueID;
         logModel.id = [NSDate getNowTimeTimestamp];
+        logModel.sendError = NO;
         if(![[PWSocketManager sharedPWSocketManager] isConnect]){
             [self dealSocketNotConnectWithModel:logModel];
         }else{
@@ -453,35 +455,39 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"zip"]
         || [ext isEqualToString:@"rar"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
     [self.navigationController pushViewController:webView animated:YES];
 }
 #pragma mark ========== 重发 ==========
--(void)PWChatRetryClickWithModel:(IssueLogModel *)model{
+-(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
     if (![[PWSocketManager sharedPWSocketManager] isConnect]) {
         [[PWSocketManager sharedPWSocketManager] checkForRestart];
     } else {
-        model.sendError = NO;
+        layout.message.model.sendError = NO;
 
-        PWChatMessageType type = model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
-        if (model.imageData) {
-            UIImage *image = [UIImage imageWithData:model.imageData];
+        PWChatMessageType type =layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
+        if (layout.message.model.imageData) {
+            UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
             NSData *newData = UIImageJPEGRepresentation(image, 0.5);
-            model.imageData = newData;
+            layout.message.model.imageData = newData;
         }
-        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
-
+        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
+        layout.message.sendError = NO;
         [self.mTableView reloadData];
-        [IssueChatDatas sendMessage:model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
+        [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
             if (type == UploadTypeSuccess) {
+                  layout.message.model.id = newModel.id;
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
             } else if (type == UploadTypeError) {
+                layout.message.model.id = newModel.id;
+                layout.message.model.sendError = YES;
                 newModel.sendError = YES;
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
             }
+            layout.message.isSend = NO;
             [self.mTableView reloadData];
         }];
     }
@@ -519,6 +525,7 @@
     logModel.text = dic[@"text"];
     logModel.issueId = self.issueID;
     logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.sendError = NO;
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
         [self dealSocketNotConnectWithModel:logModel];
     }else{
@@ -611,9 +618,8 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationChatNewDatas object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationSocketConnecting object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationFetchComplete object:nil];
+    //为了让讨论界面移除未读标记
+    [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
 
 
 }

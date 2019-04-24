@@ -106,7 +106,6 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self.ztsearchbar.tf resignFirstResponder];
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
         member.type = PWMemberViewTypeTrans;
@@ -158,8 +157,13 @@
     
     return img;
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.ztsearchbar.tf.text.length > 0){
+        [self.ztsearchbar.tf becomeFirstResponder];
+    }
+}
+- (void)dealloc{
     [self.ztsearchbar.tf resignFirstResponder];
 }
 @end

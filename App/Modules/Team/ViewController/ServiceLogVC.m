@@ -10,8 +10,9 @@
 #import "IssueCell.h"
 #import "IssueDetailVC.h"
 #import "IssueProblemDetailsVC.h"
+#import "HLSafeMutableArray.h"
 @interface ServiceLogVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) HLSafeMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageMaker;
 @property (nonatomic, strong) IssueCell *tempCell;
 
@@ -56,6 +57,7 @@
             NSDictionary *pageInfo = response[@"content"][@"pageInfo"];
             NSArray *data = response[@"content"][@"data"];
             if (data.count>0) {
+                [self.dataSource removeAllObjects];
                 [self dealWithData:data];
                 self.pageMaker = [pageInfo longValueForKey:@"pageMarker" default:0];
                 if (data.count<10) {
@@ -64,6 +66,8 @@
             }else{
                 [self showNoDataImage];
             }
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
         [self.header endRefreshing];
         [SVProgressHUD dismiss];
@@ -74,11 +78,12 @@
         [SVProgressHUD dismiss];
         if(self.dataSource.count == 0){
             [self showNoNetWorkView];
+        }else{
+            [error errorToast];
         }
     }];
 }
 - (void)headerRefreshing{
-    self.dataSource = [NSMutableArray new];
     self.pageMaker = 0;
     [self showLoadFooterView];
     [self loadTeamNeedData];
@@ -132,7 +137,7 @@
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
-        _dataSource = [NSMutableArray new];
+        _dataSource = [HLSafeMutableArray new];
     }
     return _dataSource;
 }

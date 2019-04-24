@@ -28,6 +28,10 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 - (void)readIssue:(NSString *)issueId;
 
+- (void)readIssueLog:(NSString *)issueId;
+
+- (void)updateIssueBoardLastMsgTime:(NSString *)type updateTime:(NSString *)updateTime;
+
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId;
 
 /**

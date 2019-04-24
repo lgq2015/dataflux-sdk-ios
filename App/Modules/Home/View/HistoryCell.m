@@ -26,12 +26,6 @@
         make.width.height.offset(ZOOM_SCALE(20));
         make.centerY.mas_equalTo(self.contentView);
     }];
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(icon.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(icon);
-        make.height.offset(ZOOM_SCALE(20));
-    }];
-    
     UIButton *delect = [[UIButton alloc]init];
     [delect setImage:[UIImage imageNamed:@"handbook_x"] forState:UIControlStateNormal];
     [delect addTarget:self action:@selector(delectBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -41,6 +35,14 @@
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(24));
     }];
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(icon.mas_right).offset(Interval(10));
+        make.centerY.mas_equalTo(icon);
+        make.height.offset(ZOOM_SCALE(20));
+        make.right.mas_equalTo(delect.mas_left).offset(-5);
+    }];
+    
+   
 }
 -(void)delectBtnClick{
     if (self.delectClick) {

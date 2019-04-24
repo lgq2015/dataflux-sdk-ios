@@ -206,19 +206,21 @@
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
+            [error errorToast];
         }];
     }else if ([model.sourceType isEqualToString:@"forum"]) {
         [SVProgressHUD show];
-        [PWNetworking requsetHasTokenWithUrl:PW_articelForumclick withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [PWNetworking requsetHasTokenWithUrl:PW_articelForumclick(model.newsID) withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
                 [self.navigationController pushViewController:newsweb animated:YES];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"home.hdbk.articleNotExists", @"")];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
+            [error errorToast];
         }];
     }
 }

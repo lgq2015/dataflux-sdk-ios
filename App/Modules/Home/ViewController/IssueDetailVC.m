@@ -21,6 +21,8 @@
 #import "EchartListView.h"
 #import "FillinTeamInforVC.h"
 #import "ExpertsMoreVC.h"
+#import "IssueListManger.h"
+
 @interface IssueDetailVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIImageView *typeIcon;
@@ -67,7 +69,7 @@
     
     self.contentLab.attributedText = attrStr;
     self.contentLab.font = RegularFONT(14);
-    self.contentLab.textColor = PWSubTitleColor;
+    self.contentLab.textColor = PWTitleColor;
    
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
@@ -231,7 +233,7 @@
     self.issueNameLab.text = name;
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-            self.contentLab.text = [NSString stringWithFormat:@"您的 %@ %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
+            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
@@ -373,9 +375,22 @@
     NSDictionary *dict =  self.handbookAry[indexPath.row];
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:dict error:&error];
-    NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
-    webview.handbookModel = model;
-    [self.navigationController pushViewController:webview animated:YES];
+    NSDictionary *param = @{@"id":model.handbookId};
+    [SVProgressHUD show];
+    [PWNetworking requsetWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        [SVProgressHUD dismiss];
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
+            webview.handbookModel = model;
+            [self.navigationController pushViewController:webview animated:YES];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [error errorToast];
+    }];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 /*

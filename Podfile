@@ -26,6 +26,7 @@ target 'App' do
   pod 'RegexKitLite', '~> 4.0'
   pod 'CocoaLumberjack/Swift'  , '~> 3.5.2'
   pod 'AlipaySDK-iOS', '~> 15.5.9'
+  pod 'NullSafe', '~> 2.0'
   #分享
   pod 'WechatOpenSDK', '~> 1.8.4'
   pod 'Tencent_Open_SDK', '~> 1.0.3'
@@ -57,6 +58,7 @@ target 'AppDev' do
     pod 'RegexKitLite', '~> 4.0'
     pod 'CocoaLumberjack/Swift'  , '~> 3.5.2'
     pod 'AlipaySDK-iOS', '~> 15.5.9'
+    pod 'NullSafe', '~> 2.0'
     #分享
     pod 'WechatOpenSDK', '~> 1.8.4'
     pod 'Tencent_Open_SDK', '~> 1.0.3'
@@ -88,6 +90,7 @@ target 'AppPreMade' do
     pod 'RegexKitLite', '~> 4.0'
     pod 'CocoaLumberjack/Swift'  , '~> 3.5.2'
     pod 'AlipaySDK-iOS', '~> 15.5.9'
+    pod 'NullSafe', '~> 2.0'
     #分享
     pod 'WechatOpenSDK', '~> 1.8.4'
     pod 'Tencent_Open_SDK', '~> 1.0.3'
