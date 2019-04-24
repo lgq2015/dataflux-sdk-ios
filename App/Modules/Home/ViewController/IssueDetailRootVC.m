@@ -14,6 +14,7 @@
 
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
+@property (nonatomic, assign) BOOL firstInit;
 @end
 
 @implementation IssueDetailRootVC
@@ -22,9 +23,6 @@
     self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
     [self updateUI];
 
-    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.1];
-
-
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,9 +30,17 @@
     [self createUI];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setReadFlag:)   //read= NO
+                                             selector:@selector(checkRead)
                                                  name:KNotificationUpdateIssueDetail
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkRead)
+                                                 name:KNotificationFetchComplete
+                                               object:nil];
+
+    [self performSelector:@selector(checkRead) afterDelay:0.5];
+
 
 
 }
@@ -90,11 +96,6 @@
 
 }
 
--(void)setReadFlagWith:(NSDictionary * )params {
-    [self setReadFlag:[params boolValueForKey:@"read" default:YES]];
-
-}
-
 -(void)setReadFlag:(BOOL )read{
     if(!read){
         [self.navigationItem.rightBarButtonItem pp_setBadgeHeight:10];
@@ -103,6 +104,11 @@
     } else{
         [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
     }
+}
+
+-(void)checkRead{
+    BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:self.model.issueId];
+    [self setReadFlag:read];
 }
 
 - (void)stateLabUI{
@@ -146,17 +152,14 @@
             [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
         }
        
-    [[IssueListManger sharedIssueListManger] readIssueLog:self.model.issueId];
     [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
 
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-
+-(void)dealloc{
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
     [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                      userInfo:@{@"updateView":@(YES)}];
-
 }
 
 - (void)loadProgressData{

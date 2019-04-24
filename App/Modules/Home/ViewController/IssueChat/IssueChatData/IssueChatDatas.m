@@ -113,9 +113,15 @@
     __block long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
     void (^bindView)(long long) = ^void(long long newLastCheckSeq){
-        NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
-        NSMutableArray *newChatArray = [self bindArray:array];
-        callback ? callback(newChatArray) : nil;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *array = [[IssueChatDataManager sharedInstance]
+                    getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
+            dispatch_sync_on_main_queue(^{
+                NSMutableArray *newChatArray = [self bindArray:array];
+                callback ? callback(newChatArray) : nil;
+            });
+        });
     };
 
 

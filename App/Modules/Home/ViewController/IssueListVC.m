@@ -113,20 +113,25 @@
 - (void)reloadData {
     [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
 
-    NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
-    self.dataSource = [dataSource mutableCopy];
-    if (self.dataSource.count > 0) {
-        [self.monitorData removeAllObjects];
-        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
-            [self.monitorData addObject:model];
-        }];
-        [self.tableView reloadData];
-        [self removeNoDataImage];
-    } else {
-        [self showNoDataImage];
-    }
-    self.tipLab.hidden = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
+
+        dispatch_sync_on_main_queue(^{
+            self.dataSource = [dataSource mutableCopy];
+            if (self.dataSource.count > 0) {
+                [self.monitorData removeAllObjects];
+                [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                    IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
+                    [self.monitorData addObject:model];
+                }];
+                [self.tableView reloadData];
+                [self removeNoDataImage];
+            } else {
+                [self showNoDataImage];
+            }
+            self.tipLab.hidden = YES;
+        });
+    });
 
 }
 - (void)navBtnClick:(UIButton *)btn{
@@ -224,8 +229,7 @@
 
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+-(void)dealloc{
     KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
 }
 

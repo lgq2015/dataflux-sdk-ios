@@ -126,7 +126,6 @@
         self.serviceLab.text = [_model.ticketStatus isEqualToString:@"closed"]?@"已结束":@"服务中";
         self.serviceDot.backgroundColor = [_model.ticketStatus isEqualToString:@"closed"]?[UIColor colorWithHexString:@"#70E1BC"]:[UIColor colorWithHexString:@"#7BAEFF"];
     }
-    DLog(@"%f",self.height);
 }
 -(UIView *)serviceDot{
     if (!_serviceDot) {
