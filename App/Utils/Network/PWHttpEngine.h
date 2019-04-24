@@ -38,4 +38,9 @@
 - (PWURLSessionTask *)issueTicketOpenWithIssueid:(NSString *)issueid expertGroup:(NSString *)expertGroup content:(NSString *)content callBack:(void (^)(id))callback;
 
 - (PWURLSessionTask *)heartBeatWithCallBack:(void (^)(id))callback;
+
+/**
+ * @param logid logid 获取情报日志附件外部下载链接地址
+ */
+- (PWURLSessionTask *)issueLogAttachmentUrlWithIssueLogid:(NSString *)logid callBack:(void (^)(id))callback;
 @end
