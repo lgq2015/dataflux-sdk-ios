@@ -124,7 +124,7 @@
 
 }
 
-- (void)onNewIssueChatData:(NSNotification *)notification {                         
+- (void)onNewIssueChatData:(NSNotification *)notification {
     NSDictionary * pass = [notification userInfo];
     IssueLogModel *model = [[IssueLogModel new] initWithDictionary:pass];
     if ([model.issueId isEqualToString:_issueID]) {
@@ -466,13 +466,11 @@
         return;
     }
     IssueLogModel *logModel = layout.message.model;
-    NSString *issueId = logModel.id;
-    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+    NSString *issueLogId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueLogId callBack:^(id o) {
         IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
         if(model.isSuccess){
             if (model.externalDownloadURL) {
-                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
-                layout.message.model = logModel;
                 PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
                 [self.navigationController pushViewController:webView animated:YES];
             }
