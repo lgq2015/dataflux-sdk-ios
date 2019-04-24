@@ -19,12 +19,11 @@
 @implementation IssueDetailRootVC
 -(void)viewWillAppear:(BOOL)animated{
     IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-    [self updateUI];
-
-    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(model.issueLogRead)} afterDelay:0.5];
-
-
+    if (model) {
+        self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
+        [self updateUI];
+        [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read":@(model.issueLogRead)} afterDelay:0.5];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
