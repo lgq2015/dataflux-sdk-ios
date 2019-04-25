@@ -16,7 +16,7 @@
     [self.textColor set];
     CGFloat w = rect.size.width;
     CGFloat h = rect.size.height;
-    UIRectFill(CGRectMake(0, h * 0.35, w, 1));
+    UIRectFill(CGRectMake(0, h * 0.5, w, 1));
 }
 
 @end

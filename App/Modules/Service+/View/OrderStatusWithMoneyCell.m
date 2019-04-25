@@ -10,6 +10,8 @@
 #import "ZTDeleteLabel.h"
 #define zt_nowMoneyLabBottom 18
 #define zt_titleLabLeftMargin 16
+#define zt_titleLabRightMargin 11
+
 
 @interface OrderStatusWithMoneyCell()
 @property (weak, nonatomic) IBOutlet ZTDeleteLabel *originLab;
@@ -21,7 +23,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.titleLab.preferredMaxLayoutWidth = kWidth - zt_titleLabLeftMargin;
+    self.titleLab.preferredMaxLayoutWidth = kWidth - zt_titleLabLeftMargin - zt_titleLabRightMargin;
     self.titleLab.font = RegularFONT(18);
     self.originLab.font = RegularFONT(20);
     self.nowMoneyLab.font = RegularFONT(18);

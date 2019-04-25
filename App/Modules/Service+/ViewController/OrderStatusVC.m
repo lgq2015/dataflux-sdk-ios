@@ -43,7 +43,7 @@
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //ios 11 适配
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -74,7 +74,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 10;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0){
@@ -94,7 +94,7 @@
     CGFloat heigth = 0;
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *title = titles[i];
-        heigth += [title zt_getHeight:RegularFONT(16) width:kWidth - 16];
+        heigth += [title zt_getHeight:RegularFONT(16) width:kWidth - 32];
     }
     return heigth + (titles.count - 1) * 35 + 20 + 49;
 }
