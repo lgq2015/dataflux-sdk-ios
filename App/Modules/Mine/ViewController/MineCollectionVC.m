@@ -199,6 +199,9 @@
         [PWNetworking requsetHasTokenWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
+                if ([model.imageUrl isEqualToString:@""]) {
+                    
+                }
                 PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
                 [self.navigationController pushViewController:newsweb animated:YES];
             }else{

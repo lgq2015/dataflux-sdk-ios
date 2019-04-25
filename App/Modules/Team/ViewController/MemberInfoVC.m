@@ -208,18 +208,13 @@
 }
 
 - (void)transBtnClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIView *subView1 = alert.view.subviews[0];
-    UIView *subView2 = subView1.subviews[0];
-    UIView *subView3 = subView2.subviews[0];
-    DLog(@"%@",subView3);
-    UIView *subView4 = subView3.subviews[0];
-    UIView *subView5 = subView4.subviews[0];
-    NSLog(@"%@",subView5.subviews);
-    //取title和message：
-    if([subView5.subviews[0] isKindOfClass:UILabel.class]){
-        UILabel *message = subView5.subviews[0];
-        message.textAlignment = NSTextAlignmentLeft;
+    NSString *message = @"* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录";
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleActionSheet];
+   
+    UIView *messageParentView = [self getParentViewOfTitleAndMessageFromView:alert.view];
+    if (messageParentView && [messageParentView isKindOfClass:UILabel.class]) {
+        UILabel *lable = (UILabel *)messageParentView;
+        lable.textAlignment = NSTextAlignmentLeft;
     }
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认转移" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
@@ -237,6 +232,18 @@
    
 
 }
+- (UIView *)getParentViewOfTitleAndMessageFromView:(UIView *)view{
+    for (UIView *subView in view.subviews) {
+        if ([subView isKindOfClass:[UILabel class]]) {
+            return subView;
+        }else{
+            UIView *resultV = [self getParentViewOfTitleAndMessageFromView:subView];
+            if (resultV) return resultV;
+        }
+    }
+    return nil;
+}
+
 /*
 #pragma mark - Navigation
 

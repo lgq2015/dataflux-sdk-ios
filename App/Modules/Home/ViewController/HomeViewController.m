@@ -28,8 +28,8 @@
     PWSegmentStyle *style = [[PWSegmentStyle alloc]init];
     style.titleFont = RegularFONT(17);
     style.selectTitleFont = RegularFONT(24);
-    style.selectedTitleColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
-    style.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
+    style.selectedTitleColor =RGBACOLOR(51, 51, 51, 1);
+    style.normalTitleColor =RGBACOLOR(201, 201, 201, 1);
     style.showExtraButton = YES;
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
