@@ -87,12 +87,14 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
     }
 
-    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+    });
 
 }
 -(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-
+        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
         [self reloadData];
         [self.header endRefreshing];
     }                                           getAllDatas:YES];
@@ -111,9 +113,9 @@
 }
 
 - (void)reloadData {
-    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
         NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
 
         dispatch_sync_on_main_queue(^{
@@ -230,6 +232,7 @@
 }
 
 -(void)dealloc{
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:_type];
     KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
 }
 

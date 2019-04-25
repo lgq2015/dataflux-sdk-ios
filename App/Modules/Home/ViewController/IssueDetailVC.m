@@ -255,9 +255,9 @@
     }else if([type isEqualToString:@"ucloud"]){
         icon = @"icon_tencent_small";
     }else if ([type isEqualToString:@"domain"]){
-        icon = @"icon_mainframe_small";
+        icon = @"icon_domainname_small";
     }else if([type isEqualToString:@"carrier.corsair"]){
-        icon =@"icon_domainname_small";
+        icon =@"icon_mainframe_small";
     }else if([type isEqualToString:@"carrier.alert"]){
         self.issueNameLab.text = @"消息坞";
         icon = @"message_docks";

@@ -125,7 +125,6 @@
     DLog(@"model = %@ account = %@",self.model.accountId,getPWUserID);
     if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
         
-        [self.ignoreBtn setTitle:@"关闭此问题" forState:UIControlStateNormal];
         
         self.ignoreBtn.hidden = self.model.state == MonitorListStateRecommend?YES:NO;
         

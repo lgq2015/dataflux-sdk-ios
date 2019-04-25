@@ -43,7 +43,8 @@
 -(UIViewController*)getCurrentVC;
 
 -(UIViewController*) getCurrentUIVC;
-
+-(UIView *)getCurrentView;
+- (void)DetectNewVersion;
 - (void)configLog;
 
 //是否显示控制器名称在当前界面上

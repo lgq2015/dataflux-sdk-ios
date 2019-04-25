@@ -36,6 +36,7 @@
 #import "IssueDetailVC.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "HomeViewController.h"
+#import "HomeIssueIndexGuidanceView.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -98,9 +99,9 @@
 //
     if([userManager loadUserInfo]){
         //如果有本地数据，先展示TabBar 随后异步自动登录
+       
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-         [self DetectNewVersion];
         //自动登录
 //        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
 //            if (success) {
@@ -213,7 +214,6 @@
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
 //        [[PWSocketManager sharedPWSocketManager] connect];
-         [self DetectNewVersion];
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];
@@ -246,7 +246,7 @@
     }
     //展示FPS
 #ifdef DEBUG //开发环境
-    [AppManager showFPS];
+  //  [AppManager showFPS];
 #endif
 
 }
@@ -441,9 +441,27 @@
         }
     return superVC;
 }
--(void)DetectNewVersion{
-  
+-(UIView *)getCurrentView{
+   
     
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+   return  [[window subviews] objectAtIndex:0];
+}
+-(void)DetectNewVersion{
+   
     //获取appStore网络版本号
     [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSArray *results = response[@"results"];
@@ -477,9 +495,12 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         };
+        alert.nextClick = ^(){
+            [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
+            setNewVersionDict(versionDict);
+            [kUserDefaults synchronize];
+        };
     }
-        [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
-        setNewVersionDict(versionDict);
     }
 
 }

@@ -39,13 +39,17 @@
     return [IssueListManger sharedIssueListManger].getHelper;
 }
 
-/**
- * 拉取最近的讨论内容
- * @param issueId
- * @param callback
- */
-- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback {
-    if (_isFetching)return;
+
+-(void) fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
+                  withFetchStatus:(BOOL)withStatus{
+    if (_isFetching){
+        if(withStatus){
+            BaseReturnModel *model = [BaseReturnModel new];
+            model.errorCode = ERROR_CODE_LOCAL_IS_FETCHING;
+            callback(model);
+        }
+        return;
+    }
 
     _isFetching = YES;
     NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
@@ -53,10 +57,18 @@
     [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:^(IssueLogListModel *model) {
         _isFetching = NO;
         callback(model);
-        
     }];
 
+    
+}
 
+/**
+ * 拉取最近的讨论内容
+ * @param issueId
+ * @param callback
+ */
+- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(BaseReturnModel *))callback {
+    [self fetchLatestChatIssueLog:issueId with:callback withFetchStatus:NO];
 }
 
 /**
@@ -144,7 +156,7 @@
                                                 withSql:sqlTable
                                             whereFormat:@"WHERE dataCheckFlag=1"];
 
-        if (array.count) {
+        if (array.count>0) {
             seq = [array[0] longLongValueForKey:@"seq" default:0];
         }
     }];
@@ -298,7 +310,7 @@
         if (deleteCache) {
             NSString *where = @"WHERE issueId='%@' AND id='%@'";
             [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
-                               whereFormat:where, issueId, data.id];
+                               whereFormat:where, issueId, data.localTempUniqueId];
         }
     }];
 }
@@ -321,7 +333,10 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-        NSString *where = NSStringFormat(@"WHERE issueId='%@' AND seq >%lli ", issueId, endSeq);
+        NSString *where = NSStringFormat(@"WHERE issueId='%@' OR (seq=0 AND origin='me')", issueId);
+        if(endSeq>0){
+            where= [where stringByAppendingFormat:@" AND seq > %lli  ", startSeq];
+        }
         if (startSeq > 0) {
             where= [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
         }
@@ -339,6 +354,20 @@
     }];
 
     return array;
+}
+
+/**
+ * 将之前正在发送的消息标记失败
+ * @param issueId
+ */
+-(void)setSendingDataFailInDataDB:(NSString *)issueId{
+    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+        NSString *where = NSStringFormat(@"WHERE issueId='%@'", issueId);
+
+        [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
+                            dicOrModel:@{@"sendError":@YES} whereFormat:where];
+    }];
+
 }
 
 

@@ -9,6 +9,7 @@
 #define ERROR_CODE_LOCAL_ERROR  @"local.err"
 #define ERROR_CODE_LOCAL_ERROR_NETWORK_NOT_AVAILABLE  @"local.err.networkNotAvailable"
 #define ERROR_CODE_LOCAL_ERROR_NETWORK_ERROR  @"local.err.netWorkError"
+#define ERROR_CODE_LOCAL_IS_FETCHING  @"local.err.isFetching"
 #define ERROR_CODE_AUTH_UNAUTHORIZED_SHRINE  @"Shrine.Token.WithoutInfoToken"
 
 @interface BaseReturnModel : NSObject

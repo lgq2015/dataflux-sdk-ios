@@ -282,6 +282,11 @@
                                     model.localUpdateTime = model.updateTime;
                                     model.isRead = NO;
                                     model.issueLogRead = NO;
+                                } else{
+                                    model.issueLogRead = cacheModel.issueLogRead;
+                                    model.localUpdateTime = cacheModel.localUpdateTime;
+                                    model.isRead = cacheModel.isRead;
+                                    model.issueLogRead = cacheModel.issueLogRead;
                                 }
                                 [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
                             } else {
@@ -304,6 +309,7 @@
                         } else{
                             callBackStatus(listModel);
                         }
+                        _isFetching =NO;
                     });
                 });
 
@@ -317,6 +323,7 @@
             if (callBackStatus != nil) {
                 callBackStatus(listModel);
             }
+            _isFetching =NO;
         }
 
     }];
@@ -387,13 +394,15 @@
 
 }
 
-/**
- *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
- * @param callBackStatus
- * @param getAllDatas
- */
-- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus
+           getAllDatas:(BOOL)getAllDatas withStatus:(BOOL)withStatus{
     if (_isFetching) {
+        if(withStatus){
+            BaseReturnModel *model = [BaseReturnModel new];
+            model.errorCode = ERROR_CODE_LOCAL_IS_FETCHING;
+            callBackStatus(model);
+        }
         return;
     }
 
@@ -407,12 +416,8 @@
             NSMutableArray *allDatas = [NSMutableArray new];
             long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
 
-            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas lastDataStatus:^(BaseReturnModel *model) {
-                if (callBackStatus) {
-                    callBackStatus(model);
-                }
-                _isFetching = NO;
-            } clearCache:needGetAllData];
+            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
+                               lastDataStatus:callBackStatus clearCache:needGetAllData];
         } else {
             if (callBackStatus) {
                 callBackStatus(model);
@@ -421,8 +426,15 @@
         }
 
     }];
+}
 
-
+/**
+ *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
+ * @param callBackStatus
+ * @param getAllDatas
+ */
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+    [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];
 }
 
 
@@ -431,8 +443,8 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(IssueLogListModel *model) {
-            [[PWSocketManager sharedPWSocketManager] connect];
+        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+            [[PWSocketManager sharedPWSocketManager] connect:YES];
         }];
     }                                           getAllDatas:YES];
 
@@ -722,12 +734,14 @@
  * @return
  */
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId {
-    __block BOOL isRead = NO;
+    __block BOOL isRead = YES;
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                 dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
-        isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        if(array.count>0){
+            isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        }
     }];
     return isRead;
 }

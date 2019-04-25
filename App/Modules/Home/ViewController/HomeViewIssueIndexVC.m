@@ -23,13 +23,10 @@
 #import "TeamInfoModel.h"
 #import "PWHttpEngine.h"
 #import "MineMessageModel.h"
-#import "MessageDetailVC.h"
 #import "IssueModel.h"
-#import "IssueDetailVC.h"
-#import "IssueProblemDetailsVC.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "NewsListEmptyView.h"
-
+#import "DetectionVersionAlert.h"
 @interface HomeViewIssueIndexVC () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) NSMutableArray *infoDatas;
 @property(nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -60,6 +57,7 @@
             [guid showInView:[UIApplication sharedApplication].keyWindow];
 
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+            [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
         }
     }
 }
@@ -138,12 +136,18 @@
 }
 
 - (void)createUI {
+    
     if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
         if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
             HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-            [guid showInView:[UIApplication sharedApplication].keyWindow];
-
+            [guid showInView:window];
+            guid.dismissClick = ^(){
+            [[AppDelegate shareAppDelegate] DetectNewVersion];
+            };
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+        }else{
+            [[AppDelegate shareAppDelegate] DetectNewVersion];
         }
     }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected ? ZOOM_SCALE(530) : ZOOM_SCALE(696);
@@ -354,13 +358,13 @@
     NSDictionary *param = @{@"page": [NSNumber numberWithInteger:self.newsPage], @"pageSize": @10, @"isStarred": @YES};
     [PWNetworking requsetWithUrl:PW_newsList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
 
-
         if ([response[@"errorCode"] isEqualToString:@""]) {
             NSDictionary *data = response[@"data"];
             NSArray *items = data[@"items"];
             if (items.count > 0) {
+                NSInteger page = self.newsPage;
                 [self dealNewsDataWithData:items andTotalPage:[data[@"totalPages"] integerValue]];
-                self.newsPage == 2 ? [self loadRecommendationData] : nil;
+                page == 1? [self loadRecommendationData] : nil;
 
             }
         } else {
@@ -415,10 +419,8 @@
         if (page == self.newsPage) {
             [self showNoMoreDataFooter];
         } else {
-            [self.footer endRefreshing];
-        }
-        if (page > self.newsPage) {
             self.newsPage++;
+            [self.footer endRefreshing];
         }
     } else {
         self.tableView.tableFooterView = self.noDataView;
