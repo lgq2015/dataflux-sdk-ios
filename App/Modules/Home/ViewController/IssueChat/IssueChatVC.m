@@ -554,7 +554,11 @@
     }else if (layout.message.messageFrom == PWChatMessageFromStaff){
         iconVC.type = PWMemberViewTypeExpert;
         NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
-        iconVC.expertDict = @{@"name":name,@"url":layout.message.headerImgurl};
+        if (layout.message.headerImgurl) {
+            iconVC.expertDict = @{@"name":name,@"url":layout.message.headerImgurl};
+        }else{
+            iconVC.expertDict = @{@"name":name,@"url":@""};
+        }
     }
     iconVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:iconVC animated:YES];
