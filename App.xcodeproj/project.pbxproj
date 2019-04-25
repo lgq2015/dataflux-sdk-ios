@@ -14,6 +14,15 @@
 		2B24273F22608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
 		2B24274022608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
 		2B24274122608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */; };
+		2B3A44A92271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44A82271A18F0059761E /* ZYChangeTeamUIManager.m */; };
+		2B3A44AA2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44A82271A18F0059761E /* ZYChangeTeamUIManager.m */; };
+		2B3A44AB2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44A82271A18F0059761E /* ZYChangeTeamUIManager.m */; };
+		2B3A44AF2271B8680059761E /* ZYChangeTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44AD2271B8680059761E /* ZYChangeTeamCell.m */; };
+		2B3A44B02271B8680059761E /* ZYChangeTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44AD2271B8680059761E /* ZYChangeTeamCell.m */; };
+		2B3A44B12271B8680059761E /* ZYChangeTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A44AD2271B8680059761E /* ZYChangeTeamCell.m */; };
+		2B3A44B22271B8680059761E /* ZYChangeTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3A44AE2271B8680059761E /* ZYChangeTeamCell.xib */; };
+		2B3A44B32271B8680059761E /* ZYChangeTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3A44AE2271B8680059761E /* ZYChangeTeamCell.xib */; };
+		2B3A44B42271B8680059761E /* ZYChangeTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3A44AE2271B8680059761E /* ZYChangeTeamCell.xib */; };
 		2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
 		2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
 		2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */; };
@@ -1074,6 +1083,11 @@
 		2B03D038226D646200FBDB74 /* ZTSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTSearchBar.h; sourceTree = "<group>"; };
 		2B24273D22608137005A45D0 /* TeamVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamVC+ChangeNavColor.h"; sourceTree = "<group>"; };
 		2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TeamVC+ChangeNavColor.m"; sourceTree = "<group>"; };
+		2B3A44A72271A18F0059761E /* ZYChangeTeamUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYChangeTeamUIManager.h; sourceTree = "<group>"; };
+		2B3A44A82271A18F0059761E /* ZYChangeTeamUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYChangeTeamUIManager.m; sourceTree = "<group>"; };
+		2B3A44AC2271B8680059761E /* ZYChangeTeamCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYChangeTeamCell.h; sourceTree = "<group>"; };
+		2B3A44AD2271B8680059761E /* ZYChangeTeamCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYChangeTeamCell.m; sourceTree = "<group>"; };
+		2B3A44AE2271B8680059761E /* ZYChangeTeamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZYChangeTeamCell.xib; sourceTree = "<group>"; };
 		2B5210FF2257CA5F004DA56D /* ZTOpenUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTOpenUrl.m; sourceTree = "<group>"; };
 		2B5211002257CA5F004DA56D /* ZYSocialUIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialUIManager.m; sourceTree = "<group>"; };
 		2B5211012257CA5F004DA56D /* ZTOpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTOpenUrl.h; sourceTree = "<group>"; };
@@ -1793,6 +1807,18 @@
 			path = ZTSearchBar;
 			sourceTree = "<group>";
 		};
+		2B3A44A62271A10B0059761E /* ZTChangeTeam */ = {
+			isa = PBXGroup;
+			children = (
+				2B3A44A72271A18F0059761E /* ZYChangeTeamUIManager.h */,
+				2B3A44A82271A18F0059761E /* ZYChangeTeamUIManager.m */,
+				2B3A44AC2271B8680059761E /* ZYChangeTeamCell.h */,
+				2B3A44AD2271B8680059761E /* ZYChangeTeamCell.m */,
+				2B3A44AE2271B8680059761E /* ZYChangeTeamCell.xib */,
+			);
+			path = ZTChangeTeam;
+			sourceTree = "<group>";
+		};
 		2B5210FE2257CA5F004DA56D /* ZTShareView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2201,6 +2227,7 @@
 		4A6C2874219C15820059BB08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2B3A44A62271A10B0059761E /* ZTChangeTeam */,
 				2B53530B226DBE3400A4AC22 /* ZTPayWayView */,
 				2B03D036226D646200FBDB74 /* ZTSearchBar */,
 				4AF66392225F747600E551B9 /* SVProgressHUD */,
@@ -3367,6 +3394,7 @@
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
 				4AE537A621CC9206004CF320 /* frame-27@2x.png in Resources */,
+				2B3A44B22271B8680059761E /* ZYChangeTeamCell.xib in Resources */,
 				4A95BB8F217DAD6100FC2979 /* Assets.xcassets in Resources */,
 				4AE537AE21CC9206004CF320 /* frame-1@2x.png in Resources */,
 				4AE537A221CC9206004CF320 /* frame-13@2x.png in Resources */,
@@ -3424,6 +3452,7 @@
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
 				CA1CF610221ECB3A00D15316 /* frame-27@2x.png in Resources */,
+				2B3A44B32271B8680059761E /* ZYChangeTeamCell.xib in Resources */,
 				CA1CF611221ECB3A00D15316 /* Assets.xcassets in Resources */,
 				CA1CF612221ECB3A00D15316 /* frame-1@2x.png in Resources */,
 				CA1CF613221ECB3A00D15316 /* frame-13@2x.png in Resources */,
@@ -3481,6 +3510,7 @@
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
 				CA1CF6B5221ECB5000D15316 /* frame-27@2x.png in Resources */,
+				2B3A44B42271B8680059761E /* ZYChangeTeamCell.xib in Resources */,
 				CA1CF6B6221ECB5000D15316 /* Assets.xcassets in Resources */,
 				CA1CF6B7221ECB5000D15316 /* frame-1@2x.png in Resources */,
 				CA1CF6B8221ECB5000D15316 /* frame-13@2x.png in Resources */,
@@ -3782,6 +3812,7 @@
 				4AC857B4223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
+				2B3A44AF2271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
@@ -3902,6 +3933,7 @@
 				4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */,
 				6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */,
+				2B3A44A92271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
 				6B6E22AF17266A5900D40334 /* HomeViewController.m in Sources */,
 				6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */,
@@ -4091,6 +4123,7 @@
 				4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE5224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
+				2B3A44B02271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
@@ -4211,6 +4244,7 @@
 				4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */,
 				6B6E20646B3AB3460999FB95 /* ScanViewController.m in Sources */,
+				2B3A44AA2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
 				6B6E279062CF87E37FE1DBF4 /* HomeViewController.m in Sources */,
 				6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */,
@@ -4400,6 +4434,7 @@
 				4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE6224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
+				2B3A44B12271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
@@ -4520,6 +4555,7 @@
 				4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */,
 				6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */,
+				2B3A44AB2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
 				6B6E21B78A8409F6DE2539F3 /* HomeViewController.m in Sources */,
 				6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */,

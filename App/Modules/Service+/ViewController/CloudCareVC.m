@@ -10,6 +10,7 @@
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
 #import "OrderStatusVC.h"
+#import "ZYChangeTeamUIManager.h"
 @interface CloudCareVC ()
 @property (nonatomic, strong)UIView *customHeader;
 @end
@@ -45,9 +46,10 @@
     }];
 }
 - (void)navRightBtnClick{
-    OrderStatusVC *order = [[OrderStatusVC alloc]init];
-    order.isShowCustomNaviBar = YES;
-    [self.navigationController pushViewController:order animated:YES];
+//    OrderStatusVC *order = [[OrderStatusVC alloc]init];
+//    order.isShowCustomNaviBar = YES;
+//    [self.navigationController pushViewController:order animated:YES];
+    [[ZYChangeTeamUIManager shareInstance] showWithOffsetY:80 fromViewController:self];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];
