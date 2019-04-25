@@ -98,7 +98,7 @@
 //
     if([userManager loadUserInfo]){
         //如果有本地数据，先展示TabBar 随后异步自动登录
-        [self DetectNewVersion];
+       
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
         //自动登录
@@ -213,7 +213,6 @@
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
 //        [[PWSocketManager sharedPWSocketManager] connect];
-         [self DetectNewVersion];
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];
@@ -415,8 +414,7 @@
    return  [[window subviews] objectAtIndex:0];
 }
 -(void)DetectNewVersion{
-  
-    
+   
     //获取appStore网络版本号
     [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSArray *results = response[@"results"];
@@ -454,27 +452,8 @@
             [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
             setNewVersionDict(versionDict);
             [kUserDefaults synchronize];
-            if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
-                BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-                if(isConnect){
-                HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-                [guid showInView:[UIApplication sharedApplication].keyWindow];
-                [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
-                }
-            }
-
         };
-    }else{
-        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
-            BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-            if(isConnect){
-                HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-                [guid showInView:[UIApplication sharedApplication].keyWindow];
-                [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
-            }
-        }
     }
-       
     }
 
 }

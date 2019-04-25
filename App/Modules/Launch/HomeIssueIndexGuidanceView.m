@@ -61,6 +61,9 @@
     [view addSubview:_contentView];
 }
 - (void)disMissView{
+    if (self.dismissClick) {
+        self.dismissClick();
+    }
     [self removeFromSuperview];
     [_contentView removeFromSuperview];
 }
