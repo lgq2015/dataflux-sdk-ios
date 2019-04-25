@@ -230,8 +230,6 @@
         self.itemClick(indexPath.row);
     }
 
-    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:cell.model.typeName];
-
     cell.model.read=YES;
     cell.isShow = NO;
     cell.layer.shadowOffset = CGSizeMake(0,2);

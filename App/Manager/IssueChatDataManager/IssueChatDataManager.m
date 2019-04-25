@@ -333,7 +333,7 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-        NSString *where = NSStringFormat(@"WHERE issueId='%@'", issueId);
+        NSString *where = NSStringFormat(@"WHERE issueId='%@' OR (seq=0 AND origin='me')", issueId);
         if(endSeq>0){
             where= [where stringByAppendingFormat:@" AND seq > %lli  ", startSeq];
         }

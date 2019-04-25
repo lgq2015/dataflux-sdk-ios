@@ -230,6 +230,7 @@
 }
 
 -(void)dealloc{
+    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:_type];
     KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
 }
 
