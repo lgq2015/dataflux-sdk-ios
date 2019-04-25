@@ -282,6 +282,11 @@
                                     model.localUpdateTime = model.updateTime;
                                     model.isRead = NO;
                                     model.issueLogRead = NO;
+                                } else{
+                                    model.issueLogRead = cacheModel.issueLogRead;
+                                    model.localUpdateTime = cacheModel.localUpdateTime;
+                                    model.isRead = cacheModel.isRead;
+                                    model.issueLogRead = cacheModel.issueLogRead;
                                 }
                                 [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
                             } else {
@@ -304,6 +309,7 @@
                         } else{
                             callBackStatus(listModel);
                         }
+                        _isFetching =NO;
                     });
                 });
 
@@ -317,6 +323,7 @@
             if (callBackStatus != nil) {
                 callBackStatus(listModel);
             }
+            _isFetching =NO;
         }
 
     }];
@@ -409,12 +416,8 @@
             NSMutableArray *allDatas = [NSMutableArray new];
             long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
 
-            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas lastDataStatus:^(BaseReturnModel *model) {
-                if (callBackStatus) {
-                    callBackStatus(model);
-                }
-                _isFetching = NO;
-            } clearCache:needGetAllData];
+            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
+                               lastDataStatus:callBackStatus clearCache:needGetAllData];
         } else {
             if (callBackStatus) {
                 callBackStatus(model);

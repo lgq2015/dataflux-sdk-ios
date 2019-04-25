@@ -126,36 +126,53 @@
 }
 
 - (void)onNewIssueChatData:(NSNotification *)notification {
-    NSDictionary * pass = [notification userInfo];
-    IssueLogModel *model = [[IssueLogModel new] initWithDictionary:pass];
-    if ([model.issueId isEqualToString:_issueID]) {
-        IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:model];
-        IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDictionary * pass = [notification userInfo];
+        IssueLogModel *model = [[IssueLogModel new] initWithDictionary:pass];
+        if ([model.issueId isEqualToString:_issueID]) {
+            IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:model];
+            IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
 
-        BOOL hasSame = NO;
+            BOOL hasSame = NO;
 
-        for(IssueChatMessagelLayout *cache in self.datas){
-            if([cache.message.model.id isEqualToString:model.id]){
-                cache.message.model.updateTime = model.updateTime;
-                cache.message.model.type = model.type;
-                cache.message.model.subType = model.subType;
-                cache.message.model.accountInfoStr = model.accountInfoStr;
-                hasSame =YES;
-                break;
+            for(IssueChatMessagelLayout *cache in self.datas){
+                if([cache.message.model.id isEqualToString:model.id]){
+                    cache.message.model.updateTime = model.updateTime;
+                    cache.message.model.type = model.type;
+                    cache.message.model.subType = model.subType;
+                    cache.message.model.accountInfoStr = model.accountInfoStr;
+                    hasSame =YES;
+                    break;
+                }
             }
+
+            if(!hasSame){
+                [self.datas addObject:layout];
+                dispatch_sync_on_main_queue(^{
+                    [NSObject cancelPreviousPerformRequestsWithTarget: self
+                                                             selector:@selector(onNewIssueChatDataRemoveSame:)
+                                                               object: notification];
+
+                    [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
+                               withObject: notification afterDelay: 0.5];
+                });
+            }
+
         }
 
-        if(!hasSame){
-            [self.datas addObject:layout];
-            BOOL isEnd= [self checkIsEnd];
-            [self.mTableView reloadData];
-
-            if(isEnd){
-                [self scrollToBottom:NO];
-            }
-        }
+    });
 
 
+
+}
+
+
+- (void)onNewIssueChatDataRemoveSame:(NSNotification *)notification{
+    BOOL isEnd= [self checkIsEnd];
+    [self.mTableView reloadData];
+
+    if(isEnd){
+        [self scrollToBottom:NO];
     }
 }
 
