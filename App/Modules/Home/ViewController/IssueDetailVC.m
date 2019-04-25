@@ -375,7 +375,7 @@
     NSDictionary *dict =  self.handbookAry[indexPath.row];
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:dict error:&error];
-    NSDictionary *param = @{@"id":model.handbookId};
+    NSDictionary *param = @{@"id":model.articleId};
     [SVProgressHUD show];
     [PWNetworking requsetWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
