@@ -98,6 +98,7 @@
             NSArray *data = response[@"content"][@"data"];
             if(data.count<10){
                 [self showNoMoreDataFooter];
+                [self dealWithData:data];
             }else{
                 [self dealWithData:data];
                 self.page ++;
