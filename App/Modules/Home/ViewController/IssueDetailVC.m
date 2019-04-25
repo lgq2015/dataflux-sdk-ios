@@ -380,8 +380,11 @@
     [PWNetworking requsetWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
-            webview.handbookModel = model;
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSError *error1;
+            HandbookModel *model1 = [[HandbookModel alloc]initWithDictionary:content error:&error1];
+            NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model1.articleId)];
+            webview.handbookModel = model1;
             [self.navigationController pushViewController:webview animated:YES];
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
