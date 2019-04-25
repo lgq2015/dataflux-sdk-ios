@@ -155,7 +155,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
     [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
     [[HeartBeatManager new] sendHeartBeat];
 

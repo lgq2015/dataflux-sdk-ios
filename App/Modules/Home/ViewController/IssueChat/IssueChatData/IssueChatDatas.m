@@ -117,12 +117,16 @@
 
 + (void)LoadingMessagesStartWithChat:(NSString *)issueId callBack:(void (^)(NSMutableArray <IssueChatMessagelLayout *> *))callback {
 
+
+
     BOOL endDataComplete = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueId];
     __block long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
     void (^bindView)(long long) = ^void(long long newLastCheckSeq){
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[IssueChatDataManager sharedInstance] setSendingDataFailInDataDB:issueId];
+
             NSArray *array = [[IssueChatDataManager sharedInstance]
                     getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
             dispatch_sync_on_main_queue(^{

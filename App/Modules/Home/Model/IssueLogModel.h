@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *fileType;
 @property (nonatomic, strong) NSData *fileData;
 @property (nonatomic, assign) BOOL dataCheckFlag;
+@property (nonatomic, strong) NSString* localTempUniqueId;
 
 
 //@property (nonatomic,strong) NSDictionary* originInfoJSON;

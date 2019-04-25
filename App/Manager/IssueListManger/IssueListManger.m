@@ -387,13 +387,15 @@
 
 }
 
-/**
- *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
- * @param callBackStatus
- * @param getAllDatas
- */
-- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus
+           getAllDatas:(BOOL)getAllDatas withStatus:(BOOL)withStatus{
     if (_isFetching) {
+        if(withStatus){
+            BaseReturnModel *model = [BaseReturnModel new];
+            model.errorCode = ERROR_CODE_LOCAL_IS_FETCHING;
+            callBackStatus(model);
+        }
         return;
     }
 
@@ -421,8 +423,15 @@
         }
 
     }];
+}
 
-
+/**
+ *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
+ * @param callBackStatus
+ * @param getAllDatas
+ */
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+    [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];
 }
 
 
@@ -431,8 +440,8 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(IssueLogListModel *model) {
-            [[PWSocketManager sharedPWSocketManager] connect];
+        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+            [[PWSocketManager sharedPWSocketManager] connect:YES];
         }];
     }                                           getAllDatas:YES];
 
@@ -722,7 +731,7 @@
  * @return
  */
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId {
-    __block BOOL isRead = NO;
+    __block BOOL isRead = YES;
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME

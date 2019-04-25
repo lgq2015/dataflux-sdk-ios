@@ -69,6 +69,7 @@
 
     [IssueChatDatas LoadingMessagesStartWithChat:_issueID callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
         if (array.count>0) {
+
             _hasMoreData = array.count == ISSUE_CHAT_PAGE_SIZE;
 
             [self.datas addObjectsFromArray:array];
@@ -188,7 +189,7 @@
                 [self.mTableView reloadData];
 
                 if(isEnd){
-                    [self scrollToBottom:YES];
+                    [self scrollToBottom:NO];
                 }
             }
         }
@@ -430,6 +431,7 @@
     model.sendError = YES;
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
+    model.localTempUniqueId = model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     [self.datas addObject:layout];
     [self.mTableView reloadData];
@@ -442,6 +444,8 @@
     [self.datas addObject:layout];
     [self.mTableView reloadData];
     [self scrollToBottom:YES];
+
+    layout.message.model.localTempUniqueId = layout.message.model.id;
 
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
 
@@ -486,34 +490,31 @@
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
-    if (![[PWSocketManager sharedPWSocketManager] isConnect]) {
-        [[PWSocketManager sharedPWSocketManager] checkForRestart];
-    } else {
-        layout.message.model.sendError = NO;
+    layout.message.model.sendError = NO;
 
-        PWChatMessageType type =layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
-        if (layout.message.model.imageData) {
-            UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
-            NSData *newData = UIImageJPEGRepresentation(image, 0.5);
-            layout.message.model.imageData = newData;
-        }
-        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
-        layout.message.sendError = NO;
-        [self.mTableView reloadData];
-        [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
-            if (type == UploadTypeSuccess) {
-                  layout.message.model.id = newModel.id;
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
-            } else if (type == UploadTypeError) {
-                layout.message.model.id = newModel.id;
-                layout.message.model.sendError = YES;
-                newModel.sendError = YES;
-                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
-            }
-            layout.message.isSend = NO;
-            [self.mTableView reloadData];
-        }];
+    PWChatMessageType type = layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
+    if (layout.message.model.imageData) {
+        UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
+        NSData *newData = UIImageJPEGRepresentation(image, 0.5);
+        layout.message.model.imageData = newData;
     }
+    layout.message.model.localTempUniqueId = layout.message.model.id;
+    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
+    layout.message.sendError = NO;
+    [self.mTableView reloadData];
+    [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
+        if (type == UploadTypeSuccess) {
+            layout.message.model.id = newModel.id;
+            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
+        } else if (type == UploadTypeError) {
+            layout.message.model.id = newModel.id;
+            layout.message.model.sendError = YES;
+            newModel.sendError = YES;
+            [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
+        }
+        layout.message.isSend = NO;
+        [self.mTableView reloadData];
+    }];
 
 }
 #pragma mark ========== 用户名片图片查看 ==========
@@ -609,7 +610,8 @@
         if(model.isSuccess){
             if (model.externalDownloadURL) {
                 logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
-                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
+                logModel.localTempUniqueId = logModel.id;
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
                
                 layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
                 [self.mTableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
