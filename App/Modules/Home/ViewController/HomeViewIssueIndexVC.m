@@ -23,13 +23,10 @@
 #import "TeamInfoModel.h"
 #import "PWHttpEngine.h"
 #import "MineMessageModel.h"
-#import "MessageDetailVC.h"
 #import "IssueModel.h"
-#import "IssueDetailVC.h"
-#import "IssueProblemDetailsVC.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "NewsListEmptyView.h"
-
+#import "DetectionVersionAlert.h"
 @interface HomeViewIssueIndexVC () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) NSMutableArray *infoDatas;
 @property(nonatomic, strong) NSDictionary *infoSourceDatas;
@@ -60,6 +57,7 @@
             [guid showInView:[UIApplication sharedApplication].keyWindow];
 
             [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+            [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
         }
     }
 }
@@ -138,14 +136,24 @@
 }
 
 - (void)createUI {
-    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
-        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
-            HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-            [guid showInView:[UIApplication sharedApplication].keyWindow];
-
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
-        }
-    }
+    
+//    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
+//        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+//            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//            BOOL isDetection = NO;
+//            for (UIView *view in window.subviews) {
+//                if ([view isKindOfClass:DetectionVersionAlert.class]) {
+//                    isDetection = YES;
+//                    break;
+//                }
+//            }
+//            if (!isDetection) {
+//                HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
+//                [guid showInView:window];
+//                [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+//            }
+//        }
+//    }
     CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected ? ZOOM_SCALE(530) : ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
