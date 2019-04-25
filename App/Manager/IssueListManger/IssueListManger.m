@@ -722,7 +722,7 @@
  * @return
  */
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId {
-    __block BOOL isRead = NO;
+    __block BOOL isRead = YES;
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
