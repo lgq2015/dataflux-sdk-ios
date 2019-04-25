@@ -137,7 +137,7 @@ static NSUInteger ItemWidth = 104;
 
 }
 - (void)createUI{
-    [self.view removeAllSubviews];
+    [self.mainScrollView removeAllSubviews];
     [self createUpUI];
     self.view.backgroundColor = PWWhiteColor;
     NSUInteger backImgCount = self.handbookArray.count%3 == 0? self.handbookArray.count/3:self.handbookArray.count/3+1;
