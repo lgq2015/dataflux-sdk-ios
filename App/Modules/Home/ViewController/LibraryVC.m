@@ -37,7 +37,7 @@ static NSUInteger ItemWidth = 104;
     self.mainScrollView.frame= CGRectMake(0, Interval(28)+ZOOM_SCALE(36), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
     self.mainScrollView.backgroundColor = PWWhiteColor;
     [self dealWithData];
-    [self createUpUI];
+    
 }
 
 - (void)createUpUI{
@@ -82,6 +82,7 @@ static NSUInteger ItemWidth = 104;
         LibraryModel *model = [[LibraryModel alloc]initWithDictionary:dict error:&error];
         [handbook addObject:model];
     }];
+    DLog(@"zhangtao(%ld)----%@", handbook.count,handbook);
     NSArray *itemDatas = [[HandBookManager sharedInstance] getHandBooks];
     if (itemDatas.count == 0) {
         [[HandBookManager sharedInstance] cacheHandBooks:handbook];
@@ -89,6 +90,7 @@ static NSUInteger ItemWidth = 104;
         [self createUI];
     } else {
         __block NSMutableArray *oldArrs = [itemDatas mutableCopy];
+        __block NSMutableArray *deletedHandBooks = [NSMutableArray array];
         //itemDatas为老数据  handbook为新数据
         [itemDatas enumerateObjectsUsingBlock:^(LibraryModel *model, NSUInteger oldIndex, BOOL *_Nonnull stop) {
             NSString *oldID = model.handbookId;
@@ -102,8 +104,9 @@ static NSUInteger ItemWidth = 104;
                     *stop = YES;
                 }
             }];
-            if (!isHave) {//老数据中有，新数据没有（删除数据）
-                [oldArrs removeObject:model];
+            NSLog(@"isHave---%d",isHave);
+            if (!isHave) {//对已经删除的本地元素装到新的数组中，后面统一删除
+                [deletedHandBooks addObject:model];
             }
         }];
         [handbook enumerateObjectsUsingBlock:^(LibraryModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -120,8 +123,10 @@ static NSUInteger ItemWidth = 104;
                 [oldArrs addObject:obj];
             }
         }];
-        DLog(@"oldArrs----%@", oldArrs);
-        DLog(@"handbook----%@", handbook);
+        DLog(@"deletedHandBooks(%ld)----%@", deletedHandBooks.count,deletedHandBooks);
+        [oldArrs removeObjectsInArray:deletedHandBooks];
+        DLog(@"oldArrs(%ld)----%@", oldArrs.count,oldArrs);
+        DLog(@"handbook(%ld)----%@", handbook.count,handbook);
         [[HandBookManager sharedInstance] deleteAllHandBooks];
         [[HandBookManager sharedInstance] cacheHandBooks:oldArrs];
         NSArray *newitemDatas = [[HandBookManager sharedInstance] getHandBooks];
@@ -132,6 +137,8 @@ static NSUInteger ItemWidth = 104;
 
 }
 - (void)createUI{
+    [self.view removeAllSubviews];
+    [self createUpUI];
     self.view.backgroundColor = PWWhiteColor;
     NSUInteger backImgCount = self.handbookArray.count%3 == 0? self.handbookArray.count/3:self.handbookArray.count/3+1;
     self.mainScrollView.contentSize = CGSizeMake(0, backImgCount*(ZOOM_SCALE(ItemHeight)+ZOOM_SCALE(18))+Interval(10));
