@@ -148,14 +148,17 @@
             [self.datas addObject:layout];
             BOOL isEnd= [self checkIsEnd];
             [self.mTableView reloadData];
+
             if(isEnd){
-                [self scrollToBottom:YES];
+                [self scrollToBottom:NO];
             }
         }
 
 
     }
 }
+
+
 
 -(void)onFetchComplete{
     if (_issueID.length > 0) {

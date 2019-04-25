@@ -144,7 +144,7 @@
                                                 withSql:sqlTable
                                             whereFormat:@"WHERE dataCheckFlag=1"];
 
-        if (array.count) {
+        if (array.count>0) {
             seq = [array[0] longLongValueForKey:@"seq" default:0];
         }
     }];

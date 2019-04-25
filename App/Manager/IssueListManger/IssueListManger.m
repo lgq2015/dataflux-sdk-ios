@@ -727,7 +727,9 @@
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                 dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
-        isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        if(array.count>0){
+            isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        }
     }];
     return isRead;
 }
