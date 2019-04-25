@@ -228,7 +228,7 @@
 
         return cellHeight;
     } else {
-        return model.cellHeight;
+        return model.cellHeight;                 
     }
 
 }
