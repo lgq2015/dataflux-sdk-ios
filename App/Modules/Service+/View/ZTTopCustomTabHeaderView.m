@@ -152,7 +152,7 @@
         _cancelBtn.layer.cornerRadius = 14;
         [_cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         _cancelBtn.backgroundColor = [UIColor whiteColor];
-        
+        [_cancelBtn addTarget:self action:@selector(cancelClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
 }
@@ -173,7 +173,7 @@
         _payBtn.backgroundColor = [UIColor colorWithHexString:@"#FAC34F"];
         _payBtn.layer.cornerRadius = 14;
         [_payBtn setTitle:@"立即支付" forState:UIControlStateNormal];
-        
+        [_payBtn addTarget:self action:@selector(playClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _payBtn;
 }
@@ -192,5 +192,20 @@
         _bgImageView.image = [UIImage imageNamed:@"order_status_top"];
     }
     return _bgImageView;
+}
+#pragma mark ---setter----
+- (void)setCancelBlock:(CancelBlock)cancelBlock{
+    _cancelBlock = cancelBlock;
+}
+#pragma mark ---按钮事件---
+- (void)playClick:(UIButton *)sender{
+    if (_payBlock){
+        _payBlock();
+    }
+}
+- (void)cancelClick:(UIButton *)sender{
+    if (_cancelBlock){
+        _cancelBlock();
+    }
 }
 @end

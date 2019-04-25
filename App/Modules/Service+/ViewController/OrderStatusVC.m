@@ -33,12 +33,19 @@
         make.top.equalTo(self.view).offset(Interval(32));
     }];
     [self initTopNavBar];
+    //对headerView中的按钮点击处理
+    self.customHeaderView.cancelBlock = ^{
+        DLog(@"customHeaderView--取消了");
+    };
+    self.customHeaderView.payBlock = ^{
+        DLog(@"customHeaderView--立即支付");
+    };
 }
 
 - (void)createUI{
     self.title = @"订单列表";
     self.tableView.tableHeaderView = self.customHeaderView;
-    self.customHeaderView.orderStatusType = payed_status;
+    self.customHeaderView.orderStatusType = notPay_status;
     self.dataSource = [NSMutableArray new];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight);
     self.tableView.delegate = self;

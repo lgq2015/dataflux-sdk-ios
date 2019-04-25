@@ -14,9 +14,13 @@ typedef enum: NSUInteger{
     payed_status,   //已完成
     
 }OrderStatusType;
+typedef void(^CancelBlock)(void);
+typedef void(^PayBlock)(void);
 NS_ASSUME_NONNULL_BEGIN
 @interface ZTTopCustomTabHeaderView : UIView
 @property (nonatomic, assign)OrderStatusType orderStatusType;
+@property (nonatomic, copy)CancelBlock cancelBlock;
+@property (nonatomic, copy)PayBlock payBlock;
 @end
 
 NS_ASSUME_NONNULL_END
