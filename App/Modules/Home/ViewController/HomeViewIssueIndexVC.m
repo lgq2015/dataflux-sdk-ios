@@ -162,44 +162,52 @@
     };
 
     self.infoboard.itemClick = ^(NSInteger index) {
-        NSArray *dataSource;
-        NSString *title;
-        NSString *issueType;
-        switch (index) {
-            case 0:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
-                title = @"监控";
-                issueType = @"alarm";
-                break;
-            case 1:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
-                title = @"安全";
-                issueType = @"security";
-                break;
-            case 2:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
-                title = @"费用";
-                issueType = @"expense";
-                break;
-            case 3:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
-                title = @"优化";
-                issueType = @"optimization";
-                break;
-            case 4:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
-                title = @"提醒";
-                issueType = @"misc";
-                break;
-            default:
-                dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
-                title = @"提醒";
-                issueType = @"misc";
-                break;
-        }
-        IssueListVC *monitor = [[IssueListVC alloc] initWithTitle:title andIssueType:issueType];
-        monitor.dataSource = [[NSMutableArray alloc] initWithArray:dataSource];
-        [weakSelf.navigationController pushViewController:monitor animated:YES];
+
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *title;
+            NSString *issueType;
+            NSArray *dataSource;
+
+            switch (index) {
+                case 0:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                    title = @"监控";
+                    issueType = @"alarm";
+                    break;
+                case 1:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
+                    title = @"安全";
+                    issueType = @"security";
+                    break;
+                case 2:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
+                    title = @"费用";
+                    issueType = @"expense";
+                    break;
+                case 3:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
+                    title = @"优化";
+                    issueType = @"optimization";
+                    break;
+                case 4:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                    title = @"提醒";
+                    issueType = @"misc";
+                    break;
+                default:
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                    title = @"提醒";
+                    issueType = @"misc";
+                    break;
+            }
+            dispatch_sync_on_main_queue(^{
+                IssueListVC *monitor = [[IssueListVC alloc] initWithTitle:title andIssueType:issueType];
+                monitor.dataSource = [[NSMutableArray alloc] initWithArray:dataSource];
+                [weakSelf.navigationController pushViewController:monitor animated:YES];
+            });
+        });
+        
     };
 
     self.infoboard.connectClick = ^() {

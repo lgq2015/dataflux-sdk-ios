@@ -265,41 +265,47 @@
             [allDatas addObjectsFromArray:listModel.list];
             if (listModel.list.count < ISSUE_LIST_PAGE_SIZE) {
 
-                [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
 
-                    if (clearCache) {
-                        [self mergeReadData:allDatas];
-                        [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
-                    }
-
-                    [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
-                        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
-                        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-                        if (array.count > 0) {
-                            IssueModel *cacheModel = array[0];
-                            if(cacheModel.lastIssueLogSeq<model.lastIssueLogSeq){
-                                model.localUpdateTime = model.updateTime;
-                                model.isRead = NO;
-                                model.issueLogRead = NO;
-                            }
-                            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
-                        } else {
-                            [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
+                        if (clearCache) {
+                            [self mergeReadData:allDatas];
+                            [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
                         }
+
+                        [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+                            NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
+                            NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+                            if (array.count > 0) {
+                                IssueModel *cacheModel = array[0];
+                                if(cacheModel.lastIssueLogSeq<model.lastIssueLogSeq){
+                                    model.localUpdateTime = model.updateTime;
+                                    model.isRead = NO;
+                                    model.issueLogRead = NO;
+                                }
+                                [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
+                            } else {
+                                [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
+                            }
+                        }];
+
+                        [self refreshIssueBoardDatas];
+
+                        rollback = NO;
+
                     }];
-
-                    [self refreshIssueBoardDatas];
-                    setLastTime([NSDate date]);
-                    if (callBackStatus == nil) {
-
-                        [kNotificationCenter
-                                postNotificationName:KNotificationNewIssue
-                                              object:nil
-                                            userInfo:@{@"types": [self getUnReadType]}];
-                    }
-                    rollback = NO;
-
-                }];
+                    dispatch_sync_on_main_queue(^{
+                        if (callBackStatus == nil) {
+                            setLastTime([NSDate date]);
+                            [kNotificationCenter
+                                    postNotificationName:KNotificationNewIssue
+                                                  object:nil
+                                                userInfo:@{@"types": [self getUnReadType]}];
+                        } else{
+                            callBackStatus(listModel);
+                        }
+                    });
+                });
 
             } else {
                 long long lastPageMaker = ((IssueModel *) [allDatas lastObject]).actSeq;
@@ -307,10 +313,10 @@
                                        clearCache:clearCache];
             }
 
-        }
-        _isFetching = NO;
-        if (callBackStatus != nil) {
-            callBackStatus(listModel);
+        } else{
+            if (callBackStatus != nil) {
+                callBackStatus(listModel);
+            }
         }
 
     }];
@@ -359,7 +365,7 @@
         [cacheArr enumerateObjectsUsingBlock:^(IssueModel *cacheModel, NSUInteger idx, BOOL *_Nonnull stop) {
 
             if ([newModel.issueId isEqualToString:cacheModel.issueId]) {
-                if(newModel.lastIssueLogSeq<=cacheModel.lastIssueLogSeq){
+                if (newModel.lastIssueLogSeq <= cacheModel.lastIssueLogSeq) {
                     newModel.isRead = cacheModel.isRead;
                     newModel.issueLogRead = cacheModel.issueLogRead;
                     if (cacheModel.localUpdateTime.length > 0) {
@@ -367,7 +373,7 @@
                     } else {
                         newModel.localUpdateTime = cacheModel.createTime;
                     }
-                } else{
+                } else {
                     newModel.localUpdateTime = cacheModel.updateTime;
                 }
 
@@ -400,8 +406,13 @@
         if (model.isSuccess) {
             NSMutableArray *allDatas = [NSMutableArray new];
             long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
-            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
-                               lastDataStatus:callBackStatus clearCache:needGetAllData];;
+
+            [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas lastDataStatus:^(BaseReturnModel *model) {
+                if (callBackStatus) {
+                    callBackStatus(model);
+                }
+                _isFetching = NO;
+            } clearCache:needGetAllData];
         } else {
             if (callBackStatus) {
                 callBackStatus(model);
@@ -613,7 +624,9 @@
     }];
 
 
-    KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
+    dispatch_sync_on_main_queue(^{
+        KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
+    });
 }
 
 
@@ -636,6 +649,7 @@
                     @"latestIssueLogsStr": [data createLastIssueLogJsonString],
                     @"isRead": @(0),
                     @"issueLogRead": @(0),
+                    @"localUpdateTime": data.updateTime,
             };
 
             [self.getHelper pw_updateTable:table dicOrModel:dic

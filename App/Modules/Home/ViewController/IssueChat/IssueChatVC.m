@@ -27,6 +27,7 @@
 #import "PWBaseWebVC.h"
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
+#import "IssueLogAttachmentUrl.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -72,7 +73,7 @@
 
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
-            [self scrollToBottom];
+            [self scrollToBottom:NO];
         }else{
             if (self.datas.count == 0) {
                 IssueChatMessage *message = [IssueChatMessage new];
@@ -88,28 +89,7 @@
 
     //为了识别，在重连的时候是否需要,重新获取新的数据
     [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
-}
-- (void)scrollToBottom{
-    [self scrollToBottom:YES];
-}
 
-/**
- *
- * @param force YES 强制到底部，NO 如果已经在底部则滑动到底部，如果不是则不做处理
- */
--(void)scrollToBottom:(BOOL)force{
-    if (self.datas.count > 0) {
-        //经过测试会有 96 的左右的固定偏移量
-        BOOL isBottom = self.mTableView.contentOffset.y + 96  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
-
-        if (force || isBottom) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];
-            [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        }
-    }
-
-}
--(void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onNewIssueChatData:)
                                                  name:KNotificationNewIssueLog
@@ -124,6 +104,20 @@
                                                  name:KNotificationFetchComplete
                                                object:nil];
 }
+
+- (void)scrollToBottom:(BOOL)animation {
+    if (self.datas.count > 0) {
+
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.datas.count - 1 inSection:0];
+        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animation];
+    }
+}
+
+-(BOOL)checkIsEnd{
+    //10 是容错偏移量
+    return self.mTableView.contentOffset.y+10  >= self.mTableView.contentSize.height - self.mTableView.frame.size.height;
+}
+
 
 -(void)onReConnect{
     //TODO 后期可能需要做链接提示
@@ -152,8 +146,11 @@
 
         if(!hasSame){
             [self.datas addObject:layout];
+            BOOL isEnd= [self checkIsEnd];
             [self.mTableView reloadData];
-            [self scrollToBottom:NO];
+            if(isEnd){
+                [self scrollToBottom:YES];
+            }
         }
 
 
@@ -166,6 +163,7 @@
         BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:_issueID];
         if (!read) {
             long long seq = 0;
+            //不会有空数据的情况
             if (self.datas.count > 0) {
                 seq = ((IssueChatMessagelLayout *)self.datas.lastObject).message.model.seq;
 
@@ -183,10 +181,13 @@
                 }];
 
                 [self.datas addObjectsFromArray:newChatArray];
+                BOOL isEnd= [self checkIsEnd];
                 [self.mTableView reloadData];
-            }
 
-            [self scrollToBottom:NO];
+                if(isEnd){
+                    [self scrollToBottom:YES];
+                }
+            }
         }
     }
 
@@ -227,18 +228,24 @@
 
 
         void(^bindHistory)(void)= ^{
-            NSArray *topDatas = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:_issueID
-                    startSeq:seq endSeq:0];
-            if (topDatas.count > 0) {
-                NSArray *newChatDatas= [IssueChatDatas bindArray:topDatas];
-                [self.datas insertObjects:newChatDatas atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,[topDatas count])]];
-                [self.mTableView reloadData];
-                NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:newChatDatas.count inSection:0];
-                [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 
-            }
-            _hasMoreData = topDatas.count == ISSUE_CHAT_PAGE_SIZE;
-            [_progressView stopAnimating];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *topDatas = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:_issueID
+                                                                                       startSeq:seq endSeq:0];
+                dispatch_sync_on_main_queue(^{
+                    if (topDatas.count > 0) {
+                        NSArray *newChatDatas= [IssueChatDatas bindArray:topDatas];
+                        [self.datas insertObjects:newChatDatas atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,[topDatas count])]];
+                        [self.mTableView reloadData];
+                        NSIndexPath *indexPath = [NSIndexPath  indexPathForRow:newChatDatas.count inSection:0];
+                        [self.mTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
+                    }
+                    _hasMoreData = topDatas.count == ISSUE_CHAT_PAGE_SIZE;
+                    [_progressView stopAnimating];
+                });
+            });
+
         };
 
         if (lastDataCheckSeq > 0) {
@@ -371,7 +378,7 @@
     [UIView animateWithDuration:changeTime animations:^{
         self.mBackView.frame = CGRectMake(0, 0, kWidth, height);
         self.mTableView.frame = self.mBackView.bounds;
-        [self scrollToBottom];
+        [self scrollToBottom:YES];
 
     } completion:^(BOOL finished) {
 
@@ -423,7 +430,7 @@
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
     [self.datas addObject:layout];
     [self.mTableView reloadData];
-    [self scrollToBottom];
+    [self scrollToBottom:YES];
 }
 #pragma mark ========== Socket已连接 正常发送消息 ==========
 - (void)sendMessageWithModel:(IssueLogModel *)logModel messageType:(PWChatMessageType)type{
@@ -431,7 +438,7 @@
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
     [self.datas addObject:layout];
     [self.mTableView reloadData];
-    [self scrollToBottom];
+    [self scrollToBottom:YES];
 
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:logModel deleteCache:NO];
 
@@ -458,8 +465,21 @@
         [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }
-    PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:layout.message.filePath]];
-    [self.navigationController pushViewController:webView animated:YES];
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueLogId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueLogId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
+                [self.navigationController pushViewController:webView animated:YES];
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorCode];
+        }
+
+    }];
+   
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
@@ -577,6 +597,23 @@
     [self.mInputView SetPWChatKeyBoardInputViewEndEditing];
 }
 
+#pragma mark ========== 图片链接异常 ==========
+-(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
+                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
+               
+                layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
+                [self.mTableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+    }];
+}
 
 /*
 #pragma mark - Navigation
@@ -617,13 +654,10 @@
     }];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    //为了让讨论界面移除未读标记
+- (void)dealloc {
     [[IssueListManger sharedIssueListManger] readIssueLog:self.issueID];
-
-
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueDetail object:nil];
 }
-
 
 
 @end

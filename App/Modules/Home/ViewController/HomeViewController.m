@@ -54,6 +54,7 @@
     PWScrollPageView *scrollPageView = [self.view viewWithTag:500];
     HomeViewIssueIndexVC *vc1 = scrollPageView.childVcs[0];
     [scrollPageView setSelectedIndex:index animated:NO];
+    [vc1.tableView setContentOffset:CGPointMake(0,0) animated:NO];
     [vc1.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 - (NSArray *)setupChildVcAndTitle {

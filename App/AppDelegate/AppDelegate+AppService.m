@@ -468,8 +468,7 @@
     if (!setversion) {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-       
-    if (![version isEqualToString:@""] && [nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
+    if (![version isEqualToString:@""] && [nowVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
         DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
        
            [alert showInView:[UIApplication sharedApplication].keyWindow];

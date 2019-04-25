@@ -382,6 +382,9 @@
 		4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
 		4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
+		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
+		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
+		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* IssueCell.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -1353,6 +1356,8 @@
 		4A95BBDB2181C52500FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A95BBDF2181C76F00FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A95BBE12181C77000FC2979 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
+		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
 		4AB489B121EC6640009F9E94 /* IssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
 		4AB489B221EC6640009F9E94 /* IssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -2580,8 +2585,10 @@
 				6B6E20E3ACBEC20ECB30944C /* IssueListModel.h */,
 				6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */,
 				6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */,
-				6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */,
 				6B6E2509D7E531858F7A4058 /* AddIssueLogReturnModel.h */,
+				6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */,
+				4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */,
+				4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3718,6 +3725,7 @@
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
+				4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
@@ -4026,6 +4034,7 @@
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
+				4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				2B84E42C2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -4334,6 +4343,7 @@
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
+				4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				2B84E42D2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,

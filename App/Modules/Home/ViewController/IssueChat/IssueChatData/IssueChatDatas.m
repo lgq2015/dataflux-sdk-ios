@@ -38,7 +38,15 @@
                 messageBlock(model,UploadTypeNotStarted,progress);
 
             } successBlock:^(id response) {
-                messageBlock(model,UploadTypeSuccess,1);
+                if([response[ERROR_CODE] isEqualToString:@""]){
+                    NSDictionary *content =PWSafeDictionaryVal(response, @"content");
+                    NSDictionary *data = PWSafeDictionaryVal(content, @"data");
+                    NSString *idStr = [data stringValueForKey:@"id" default:@""];
+                    model.id = idStr;
+                    messageBlock(model,UploadTypeSuccess,1);
+                }else{
+                    messageBlock(model,UploadTypeError,0);
+                }
             } failBlock:^(NSError *error) {
                 messageBlock(model,UploadTypeError,0);
                 [error errorToast];
@@ -113,9 +121,15 @@
     __block long long lastCheckSeq = [[IssueChatDataManager sharedInstance] getLastDataCheckSeqInOnPage:issueId pageMarker:nil];
 
     void (^bindView)(long long) = ^void(long long newLastCheckSeq){
-        NSArray *array = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
-        NSMutableArray *newChatArray = [self bindArray:array];
-        callback ? callback(newChatArray) : nil;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *array = [[IssueChatDataManager sharedInstance]
+                    getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
+            dispatch_sync_on_main_queue(^{
+                NSMutableArray *newChatArray = [self bindArray:array];
+                callback ? callback(newChatArray) : nil;
+            });
+        });
     };
 
 

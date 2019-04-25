@@ -34,6 +34,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zhifubaoCallBack:) name:KZhifubaoPayResult object:nil];
 }
 - (void)createUI{
+    self.webView.frame = CGRectMake(0, 0, kWidth, kHeight);
 
     [self.view bringSubviewToFront:self.whiteBackBtn];
     if (self.isShowCustomNaviBar){

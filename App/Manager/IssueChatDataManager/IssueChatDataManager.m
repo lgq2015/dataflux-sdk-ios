@@ -49,7 +49,12 @@
 
     _isFetching = YES;
     NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
-    [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:callback];
+
+    [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:^(IssueLogListModel *model) {
+        _isFetching = NO;
+        callback(model);
+        
+    }];
 
 
 }
@@ -69,6 +74,8 @@
                     issueId:issueId
                  pageMarker:pageMarker orderMethod:@"desc"
                    callBack:^(id o) {
+
+
                        IssueLogListModel *listModel = (IssueLogListModel *) o;
                        if (listModel.isSuccess) {
 
@@ -76,33 +83,40 @@
 
                            BOOL containMarker = NO;
                            if (allDatas.count > 0) {
-                               long long lastSeq = [self getLastIssueLogSeqFromIssueLog:nil];
-                               if (lastSeq == allDatas.firstObject.seq) {
-                                   callback(listModel);
-                                   return;
-                               }
+//
+//
+//                               long long lastSeq = [self getLastIssueLogSeqFromIssueLog:nil];
+//                               if (lastSeq == allDatas.firstObject.seq) {
+//                                   callback(listModel);
+//                                   return;
+//                               }
 
                                containMarker = [self containMarker:nil pageMarker:allDatas.lastObject.seq];
+
                            }
 
                            if (listModel.list.count < ISSUE_CHAT_PAGE_SIZE
                                    || allDatas.count > ISSUE_CHAT_LATEST_MAX_SIZE || containMarker) {
 
-                               [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-                                   [self flagLastUpdateIssueDatas:allDatas];  //标记每个issue 中需要追加数据的标记
-                                   [self cacheChatIssueLogDatasToDB:allDatas];
-                                   rollback = NO;
-                               }];
+                               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                   [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                                       [self flagLastUpdateIssueDatas:allDatas];  //标记每个issue 中需要追加数据的标记
+                                       [self cacheChatIssueLogDatasToDB:allDatas];
+                                       rollback = NO;
+                                   }];
+
+                                   dispatch_sync_on_main_queue(^{
+                                       callback(listModel);
+                                   });
+                               });
+
+
                            } else {
                                [self fetchLatestChatIssueLog:issueId withDatas:allDatas pageMarker:allDatas.lastObject.seq callBack:callback];
                            }
-                       } else {
-
-                           [iToast alertWithTitleCenter:listModel.errorMsg];
+                       } else{
+                           callback(listModel);
                        }
-
-                       _isFetching = NO;
-                       callback(listModel);
 
 
                    }];
@@ -185,23 +199,29 @@
                                                           ((IssueLogModel *) data.list.lastObject).dataCheckFlag = YES;
                                                       }
                                                   }
+
+                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+                                                      [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                                                          [self cacheChatIssueLogDatasToDB:data.list];
+
+                                                          if (pageMarker > 0) {
+
+                                                              NSString *sql= [NSString stringWithFormat:@"WHERE issueId='%@' AND seq='%lli' ",issueId,pageMarker];
+                                                              [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
+                                                                                  dicOrModel:@{@"dataCheckFlag": @(NO)}
+                                                                                 whereFormat:sql];
+                                                          }
+
+                                                          rollback = NO;
+                                                      }];
+                                                      dispatch_sync_on_main_queue(^{
+                                                          callback(data);
+                                                      });
+                                                  });
+                                              } else{
+                                                  callback(data);
                                               }
-
-                                              [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-                                                  [self cacheChatIssueLogDatasToDB:data.list];
-
-                                                  if (pageMarker > 0) {
-
-                                                      NSString *sql= [NSString stringWithFormat:@"WHERE issueId='%@' AND seq='%lli' ",issueId,pageMarker];
-                                                      [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
-                                                                          dicOrModel:@{@"dataCheckFlag": @(NO)}
-                                                                         whereFormat:sql];
-                                                  }
-
-                                                  rollback = NO;
-                                              }];
-
-                                              callback(data);
 
                                           }];
 

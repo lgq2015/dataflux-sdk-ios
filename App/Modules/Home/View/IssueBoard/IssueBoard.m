@@ -101,14 +101,14 @@
         _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_rightBtn setTitle:@"情报源" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-        [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
+//        [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = RegularFONT(14);
         [_rightBtn sizeToFit];
         // 重点位置开始
-        _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_rightBtn.imageView.frame.size.width - _rightBtn.frame.size.width + _rightBtn.titleLabel.frame.size.width, 0, 0);
-        
-        _rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_rightBtn.titleLabel.frame.size.width - _rightBtn.frame.size.width + _rightBtn.imageView.frame.size.width);
-        
+//        _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_rightBtn.imageView.frame.size.width - _rightBtn.frame.size.width + _rightBtn.titleLabel.frame.size.width, 0, 0);
+//        
+//        _rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_rightBtn.titleLabel.frame.size.width - _rightBtn.frame.size.width + _rightBtn.imageView.frame.size.width);
+//        
         // 重点位置结束
 //        _rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [_rightBtn addTarget:self action:@selector(historyInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];

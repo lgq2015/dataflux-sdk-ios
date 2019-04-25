@@ -83,17 +83,17 @@
         [iToast alertWithTitle:NSLocalizedString(@"local.err.netWorkError", @"")];
         return;
     }
-    if ([version compare:nowVersion  options:NSNumericSearch] == NSOrderedAscending) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-        MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        [cell setDescribeLabText:@"已是最新版本"];
-    }else{
+    if ([nowVersion compare:version  options:NSNumericSearch] == NSOrderedAscending) {
         DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
         [alert showInView:[UIApplication sharedApplication].keyWindow];
         alert.itemClick = ^(){
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         };
+    }else{
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+        MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell setDescribeLabText:@"已是最新版本"];
     }
 }
 #pragma mark ========== UITableViewDelegate ==========

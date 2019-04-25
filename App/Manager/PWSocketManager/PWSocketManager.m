@@ -192,8 +192,11 @@ static dispatch_queue_t socket_message_queue() {
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
 
-                        [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
-                                                                                  updateTime:issueLogModel.updateTime];
+                        if(![issueModel.status isEqualToString:@"discarded"]
+                                &&![issueModel.status isEqualToString:@"recovered"]) {
+                            [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
+                                                                                      updateTime:issueLogModel.updateTime];
+                        }
 
                     }
                     dispatch_sync_on_main_queue(^{
@@ -265,6 +268,8 @@ static dispatch_queue_t socket_message_queue() {
         if (self.socket.status != SocketIOStatusConnecting && ![self isConnect]) {
             [self checkForRestart];
         }
+    } else{
+        DLog(@"network not available");
     }
 }
 
