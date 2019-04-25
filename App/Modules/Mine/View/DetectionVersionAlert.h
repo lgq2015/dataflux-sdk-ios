@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DetectionVersionAlert : UIView
 @property (nonatomic, copy) void(^itemClick)(void);
+@property (nonatomic, copy) void(^nextClick)(void);
+
 -(instancetype)initWithReleaseNotes:(NSString *)releaseNotes Version:(NSString *)version;
 
 - (void)showInView:(UIView *)view;

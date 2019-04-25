@@ -35,6 +35,7 @@
 #import "NewsListModel.h"
 #import "IssueDetailVC.h"
 #import "HomeViewController.h"
+#import "HomeIssueIndexGuidanceView.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -97,9 +98,9 @@
 //
     if([userManager loadUserInfo]){
         //如果有本地数据，先展示TabBar 随后异步自动登录
+        [self DetectNewVersion];
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-         [self DetectNewVersion];
         //自动登录
 //        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
 //            if (success) {
@@ -245,7 +246,7 @@
     }
     //展示FPS
 #ifdef DEBUG //开发环境
-    [AppManager showFPS];
+  //  [AppManager showFPS];
 #endif
 
 }
@@ -394,6 +395,25 @@
         }
     return superVC;
 }
+-(UIView *)getCurrentView{
+   
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+   return  [[window subviews] objectAtIndex:0];
+}
 -(void)DetectNewVersion{
   
     
@@ -430,9 +450,31 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         };
+        alert.nextClick = ^(){
+            [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
+            setNewVersionDict(versionDict);
+            [kUserDefaults synchronize];
+            if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+                BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
+                if(isConnect){
+                HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
+                [guid showInView:[UIApplication sharedApplication].keyWindow];
+                [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+                }
+            }
+
+        };
+    }else{
+        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
+            BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
+            if(isConnect){
+                HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
+                [guid showInView:[UIApplication sharedApplication].keyWindow];
+                [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
+            }
+        }
     }
-        [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
-        setNewVersionDict(versionDict);
+       
     }
 
 }
