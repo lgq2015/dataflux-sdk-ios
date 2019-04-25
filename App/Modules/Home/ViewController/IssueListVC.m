@@ -138,8 +138,9 @@
     if([getTeamState isEqualToString:PW_isTeam]){
     AddIssueVC *creatVC = [[AddIssueVC alloc]init];
     creatVC.type = self.type;
+        WeakSelf
         creatVC.refresh = ^(){
-        [self headerRefreshing];
+        [weakSelf headerRefreshing];
         };
     [self.navigationController pushViewController:creatVC animated:YES];
     }else if([getTeamState isEqualToString:PW_isPersonal]){
@@ -203,8 +204,9 @@
     if (model.isFromUser) {
         IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
         detailVC.model = self.monitorData[indexPath.row];
+        WeakSelf
         detailVC.refreshClick = ^(){
-            [self reloadData];
+            [weakSelf reloadData];
         };
         [self.navigationController pushViewController:detailVC animated:YES];
     }else{
