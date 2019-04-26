@@ -273,6 +273,7 @@ SINGLETON_FOR_CLASS(UserManager);
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
     [kUserDefaults removeObjectForKey:PWTeamState];
+    [kUserDefaults removeObjectForKey:XAuthToken];
 
     self.curUserInfo = nil;
     self.teamModel = nil;
