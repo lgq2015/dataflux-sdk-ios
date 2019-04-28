@@ -10,7 +10,6 @@
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
 #import "OrderStatusVC.h"
-#import "ZYChangeTeamUIManager.h"
 @interface CloudCareVC ()
 @property (nonatomic, strong)UIView *customHeader;
 @end
@@ -46,10 +45,9 @@
     }];
 }
 - (void)navRightBtnClick{
-//    OrderStatusVC *order = [[OrderStatusVC alloc]init];
-//    order.isShowCustomNaviBar = YES;
-//    [self.navigationController pushViewController:order animated:YES];
-    [[ZYChangeTeamUIManager shareInstance] showWithOffsetY:80 fromViewController:self];
+    OrderStatusVC *order = [[OrderStatusVC alloc]init];
+    order.isShowCustomNaviBar = YES;
+    [self.navigationController pushViewController:order animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];
@@ -63,14 +61,5 @@
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

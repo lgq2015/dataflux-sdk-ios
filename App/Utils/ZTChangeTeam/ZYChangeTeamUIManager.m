@@ -13,7 +13,6 @@
 @property (nonatomic,strong) UIWindow * window;
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
 @property (nonatomic, assign) CGFloat offsetY;//从哪个位置弹出来
-@property (nonatomic, strong) UIViewController *fromVC;//从哪个控制器上弹出
 @property (nonatomic, strong) UITableView *tab;
 @end
 @implementation ZYChangeTeamUIManager
@@ -46,8 +45,8 @@
     _tab.frame =CGRectMake(0,0, kWidth, teamViewH);
 }
 
-- (void)showWithOffsetY:(CGFloat)offset fromViewController:(UIViewController *)fromVC{
-    _fromVC = fromVC;
+- (void)showWithOffsetY:(CGFloat)offset{
+    if (_isShowTeamView) return;
     _offsetY = offset;
     [self s_UI];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -57,6 +56,7 @@
         self.backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     } completion:^(BOOL finished) {
         if (finished) {
+            _isShowTeamView = YES;
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
@@ -75,6 +75,7 @@
             [self.tab removeFromSuperview];
             self.tab = nil;
             [self.backgroundGrayView removeFromSuperview];
+            _isShowTeamView = NO;
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
@@ -114,6 +115,18 @@
     }
     return _tab;
 }
+#pragma mark ---列表UI更新---
+//修改团队消息数
+- (void)changeTeamMessageNum:(NSString *)num withGroupId:(NSString *)groupID{
+    //遍历model数组，找到后修改其显示的消息数目
+    
+}
+//有人@我
+- (void)somebodyCallMe:(NSString *)groupID{
+    //遍历model数组，找到要修改的model，修改其@显示bool属性值
+}
+
+
 #pragma mark --UITableViewDataSource--
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 5;
@@ -126,21 +139,25 @@
         ZYChangeTeamCell *cell = (ZYChangeTeamCell *)[tableView dequeueReusableCellWithIdentifier:[ZYChangeTeamCell cellReuseIdentifier]];
         if (indexPath.row == 0){
             cell.selectedImage.hidden = YES;
+            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
             cell.callLab.hidden = YES;
             cell.numLab.hidden = NO;
         }
         if (indexPath.row == 1){
             cell.selectedImage.hidden = NO;
+            cell.teamName.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
             cell.callLab.hidden = YES;
             cell.numLab.hidden = YES;
         }
         if (indexPath.row == 2){
             cell.selectedImage.hidden = YES;
+            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
             cell.callLab.hidden = NO;
             cell.numLab.hidden = NO;
         }
         if (indexPath.row == 3){
             cell.selectedImage.hidden = YES;
+            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
             cell.callLab.hidden = YES;
             cell.numLab.hidden = NO;
         }
@@ -166,12 +183,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 4){
-        DLog(@"开始创建团队");
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
+            [self.delegate didClickAddTeam];
+        }
+        [self dismiss];
         return;
     }
+    NSString *str = [NSString stringWithFormat:@"%ld",indexPath.row];
     if (self.delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
-        [self.delegate didClickChangeTeamWithGroupID:nil];
+        [self.delegate didClickChangeTeamWithGroupID:str];
     }
+    [self dismiss];
 }
 
 #pragma mark ---UIGestureRecognizerDelegate---
