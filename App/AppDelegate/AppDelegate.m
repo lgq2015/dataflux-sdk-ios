@@ -15,6 +15,7 @@
 #endif
 #import "MainTabBarController.h"
 #import "PWSocketManager.h"
+#import "HeartBeatManager.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
@@ -106,6 +107,12 @@
     DLog(@"networkDidReceiveMessage userInfo = %@",userInfo);
 
 }
+-(void)resetBageNumber{
+    UILocalNotification *clearEpisodeNotification = [[UILocalNotification  alloc]init];
+    clearEpisodeNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(1*1)];
+    clearEpisodeNotification.applicationIconBadgeNumber = -1;
+     [[UIApplication sharedApplication] scheduleLocalNotification:clearEpisodeNotification];
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -133,6 +140,7 @@
             [[UIApplication sharedApplication] endBackgroundTask:taskID];
         });
     });
+//    [self resetBageNumber];
 
 }
 
@@ -147,9 +155,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
     [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
-    
+    [[HeartBeatManager new] sendHeartBeat];
+
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
@@ -187,8 +196,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 [resultDic setValue:@"" forKey:key];
             }
         }
-        NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
-        
         setRemoteNotificationData(resultDic);
         [kUserDefaults synchronize];
         KPostNotification(KNotificationNewRemoteNoti, nil);

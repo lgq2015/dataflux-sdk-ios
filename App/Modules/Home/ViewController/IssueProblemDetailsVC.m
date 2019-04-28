@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"问题详情";
-     [self setupView];
+    [self setupView];
     [self loadIssueDetailExtra];
     [self loadInfoDeatil];
 }
@@ -58,6 +58,7 @@
 }
 - (void)loadIssueDetailExtra{
     self.expireData = [NSMutableArray new];
+    DLog(@"self.model.issueId = %@",self.model.issueId);
     NSDictionary *param = @{@"pageSize": @100,
             @"type":@"attachment",
             @"subType":@"issueDetailExtra",
@@ -124,7 +125,6 @@
     DLog(@"model = %@ account = %@",self.model.accountId,getPWUserID);
     if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
         
-        [self.ignoreBtn setTitle:@"关闭此问题" forState:UIControlStateNormal];
         
         self.ignoreBtn.hidden = self.model.state == MonitorListStateRecommend?YES:NO;
         
@@ -223,7 +223,7 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"rar"]
         || [ext isEqualToString:@"zip"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时无法预览"];
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
         return;
     }else if( [ext isEqualToString:@"txt"]){//下载后用QL预览
         [self previewInternet:model.fileUrl];

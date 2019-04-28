@@ -166,13 +166,22 @@
         result = [NSString stringWithFormat:@"刚刚"];
     }
     else if((temp = timeInterval/60) <60){
-        result = [NSString stringWithFormat:@"%ld分钟前",temp];
+        result = [NSString stringWithFormat:@"%ld 分钟前",temp];
     }
     else if((temp = temp/60) <24){
-        result = [NSString stringWithFormat:@"%ld小时前",temp];
+        result = [NSString stringWithFormat:@"%ld 小时前",temp];
     }
     else if((temp = temp/24) <7){
-        result = [NSString stringWithFormat:@"%ld天前",temp];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *fromDate;
+        NSDate *toDate;
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:timeDate];
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
+        NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
+        result = [NSString stringWithFormat:@"%ld 天前",dayComponents.day];
+        if (dayComponents.day == 7) {
+            result = [timeDate yearMonthDayTimeStr];
+        }
     }
     else {
         if([timeDate isThisYear]){
@@ -266,9 +275,21 @@
             type =[NSString stringWithFormat:@"%@加入讨论",name];
         }];
     }else if([subType isEqualToString:@"issueLevelChanged"]){
-           type =  @"情报等级变更为一般";
+        NSDictionary *issueSnapshotJSON_cache = dict[@"issueSnapshotJSON_cache"];
+           type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
+}
+- (NSString *)getIssueStateLevel{
+    NSString *level;
+    if ([self isEqualToString:@"danger"]) {
+        level = @"严重";
+    }else if([self isEqualToString:@"info"]){
+        level = @"一般";
+    }else{
+        level = @"警告";
+    }
+    return level;
 }
 - (NSString *)getTimeFromTimestamp{
     NSTimeInterval interval  =[self doubleValue] / 1000.0;

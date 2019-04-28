@@ -9,5 +9,5 @@
 #import "RootViewController.h"
 
 @interface HomeViewController : RootViewController
-
+- (void)setSelectedIndex:(NSInteger)index;
 @end

@@ -51,7 +51,7 @@
     }];
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.text = NSLocalizedString(@"您的专属云顾问", @"");
+    label.text = NSLocalizedString(@"云计算时代的智能诊断专家", @"");
 
     [self.view addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -36,7 +36,16 @@
     
     
     self.mImgView.frame = self.mBackImgButton.bounds;
-    [self.mImgView sd_setImageWithURL:[NSURL URLWithString:layout.message.imageString]];
+    if (layout.message.imageString) {
+        [self.mImgView sd_setImageWithURL:[NSURL URLWithString:layout.message.imageString] placeholderImage:[UIImage imageNamed:@""] options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (error) {
+                if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatImageReload:layout:)]){
+                    [self.delegate PWChatImageReload:self.indexPath layout:layout];
+                }
+            }
+        }];
+    }
+   
     self.mImgView.contentMode = self.layout.message.contentMode;
     
     

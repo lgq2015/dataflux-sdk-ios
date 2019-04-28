@@ -14,28 +14,28 @@
 
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
+@property (nonatomic, assign) BOOL firstInit;
 @end
 
 @implementation IssueDetailRootVC
--(void)viewWillAppear:(BOOL)animated{
-    IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-    self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-    [self updateUI];
 
-    [self setReadFlag:model.issueLogRead];
-
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressData = [NSMutableArray new];
     [self createUI];
 
-    [self performSelector:@selector(setReadFlagWith:) withObject:@{@"read": @(self.model.issueLogRead&&self.model)} afterDelay:0.5];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkRead)
+                                                 name:KNotificationUpdateIssueDetail
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setReadFlag:)   //read= NO
-                                                 name:KNotificationChatNewDatas
+                                             selector:@selector(checkRead)
+                                                 name:KNotificationFetchComplete
                                                object:nil];
+
+    [self performSelector:@selector(checkRead) afterDelay:0.5];
+
 
 
 }
@@ -91,11 +91,6 @@
 
 }
 
--(void)setReadFlagWith:(NSDictionary * )params {
-    [self setReadFlag:[params boolValueForKey:@"read" default:YES]];
-
-}
-
 -(void)setReadFlag:(BOOL )read{
     if(!read){
         [self.navigationItem.rightBarButtonItem pp_setBadgeHeight:10];
@@ -104,6 +99,16 @@
     } else{
         [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
     }
+}
+
+-(void)checkRead{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:self.model.issueId];
+        dispatch_sync_on_main_queue(^{
+            [self setReadFlag:read];
+        });
+
+    });
 }
 
 - (void)stateLabUI{
@@ -146,19 +151,15 @@
         }else if([getTeamState isEqualToString:PW_isPersonal]){
             [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
         }
-       
-    [[IssueListManger sharedIssueListManger] readIssueLog:self.model.issueId];
+
     [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
 
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationChatNewDatas object:nil];
+-(void)dealloc{
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
-    [kNotificationCenter postNotificationName:KNotificationChatNewDatas object:nil
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                      userInfo:@{@"updateView":@(YES)}];
-
 }
 
 - (void)loadProgressData{

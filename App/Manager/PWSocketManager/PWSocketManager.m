@@ -33,6 +33,7 @@ static dispatch_queue_t socket_message_queue() {
 @property(strong, nonatomic) SocketManager *manager;
 @property(strong, nonatomic) SocketIOClient *socket;
 @property(assign, nonatomic) BOOL isAuthed;
+@property (assign, nonatomic) BOOL isFetchingComplete;
 
 
 
@@ -50,14 +51,14 @@ static dispatch_queue_t socket_message_queue() {
     return _sharedManger;
 }
 
-- (void)connect {
+- (void)connect:(BOOL)force {
 
 
     [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationSocketConnecting object:nil];
 
-    DLog(@"try to connecting...")
+    DLog(@"try to connecting... ,force:%d",force)
 
-    if (![self isConnect]) {
+    if (![self isConnect]||force) {
         [self shutDown];
         [self initSocket];
     } else{
@@ -71,16 +72,22 @@ static dispatch_queue_t socket_message_queue() {
  */
 - (BOOL)isConnect {
     if(self.socket){
-        return self.socket.status == SocketIOStatusConnected&&_isAuthed;
+        return self.socket.status == SocketIOStatusConnected&&_isAuthed&&_isFetchingComplete;
     } else{
         return NO;
+    }
+}
+
+-(void)forceRestart{
+    if (getXAuthToken) {
+        [self connect:YES];
     }
 }
 
 //判断是否需要重新启用
 - (void)checkForRestart {
     if (getXAuthToken) {
-        [self connect];
+        [self connect:NO];
     }
 
 }
@@ -184,7 +191,7 @@ static dispatch_queue_t socket_message_queue() {
 
                     BOOL endCompleteData = [[IssueListManger sharedIssueListManger] checkIssueLastStatus:issueModel.issueId];
 
-                    issueLogModel.dataCheckFlag = !endCompleteData;
+                    issueLogModel.dataCheckFlag = !endCompleteData||!_isFetchingComplete;
 
                     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
 
@@ -192,8 +199,11 @@ static dispatch_queue_t socket_message_queue() {
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
 
-                        [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
-                                                                                  updateTime:issueLogModel.updateTime];
+                        if(![issueModel.status isEqualToString:@"discarded"]
+                                &&![issueModel.status isEqualToString:@"recovered"]) {
+                            [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
+                                                                                      updateTime:issueLogModel.updateTime];
+                        }
 
                     }
                     dispatch_sync_on_main_queue(^{
@@ -201,8 +211,16 @@ static dispatch_queue_t socket_message_queue() {
                         [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
                                             userInfo:nil];
 
-                        [kNotificationCenter postNotificationName:KNotificationChatNewDatas object:nil
+                        [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                             userInfo:@{@"updateView":@(YES)}];
+
+                        [kNotificationCenter postNotificationName:KNotificationUpdateIssueDetail object:nil
+                                                         userInfo:@{@"updateView":@(YES)}];
+
+                        [kNotificationCenter
+                                postNotificationName:KNotificationNewIssueLog
+                                              object:nil
+                                            userInfo:dic];
 
                     });
 
@@ -222,20 +240,24 @@ static dispatch_queue_t socket_message_queue() {
  * 尝试获取讨论消息内容
  */
 -(void)tryFetchIssueLog{
-
-    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+    _isFetchingComplete = NO;
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model)  {
         if(model.isSuccess){
             [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil
-                                                                  callBack:^(IssueLogListModel *issueLogListModel) {
+                                                                  callBack:^(BaseReturnModel *issueLogListModel) {
 
                 if(issueLogListModel.isSuccess){
-
+                    _isFetchingComplete = YES;
                     [kNotificationCenter
                             postNotificationName:KNotificationFetchComplete
                                           object:nil];
 
                 } else{
-                    [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+                    if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
+
+                    } else{
+                        [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+                    }
 
                 }
 
@@ -243,7 +265,11 @@ static dispatch_queue_t socket_message_queue() {
 
 
         } else{
-            [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+            if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
+
+            } else{
+                [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+            }
 
         }
 
@@ -254,13 +280,16 @@ static dispatch_queue_t socket_message_queue() {
 - (void)retryConnect {
 
     if ([YYReachability new].isReachable) {
-        if (self.socket.status != SocketIOStatusConnecting && ![self isConnect]) {
+        if (self.socket.status != SocketIOStatusConnecting) {
             [self checkForRestart];
         }
+    } else{
+        DLog(@"network not available");
     }
 }
 
 - (void)shutDown {
+     _isFetchingComplete = NO;
     [self.socket removeAllHandlers];
     [self.socket disconnect];
     self.socket = nil;

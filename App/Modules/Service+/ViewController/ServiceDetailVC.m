@@ -23,14 +23,11 @@
     self.isShowWhiteBack = YES;
     [self.whiteBackBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     self.webView.scrollView.bounces = YES;
-   self.webView.scrollView.delegate = self;
-    if (@available(iOS 11.0, *)) {
-        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    self.webView.scrollView.delegate = self;
+    
 }
 - (void)createUI{
+    self.webView.frame = CGRectMake(0, 0, kWidth, kHeight);
 
     [self.view bringSubviewToFront:self.whiteBackBtn];
     if (self.isShowCustomNaviBar){

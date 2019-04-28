@@ -28,7 +28,7 @@
     [self addSubview:infoSourceImg];
     [infoSourceImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(kTopHeight+18);
-        make.right.mas_equalTo(self).offset(5);
+        make.right.mas_equalTo(self).offset(-5);
         make.width.offset(ZOOM_SCALE(82));
         make.height.offset(ZOOM_SCALE(37));
     }];
@@ -61,6 +61,9 @@
     [view addSubview:_contentView];
 }
 - (void)disMissView{
+    if (self.dismissClick) {
+        self.dismissClick();
+    }
     [self removeFromSuperview];
     [_contentView removeFromSuperview];
 }

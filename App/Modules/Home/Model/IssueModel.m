@@ -53,6 +53,7 @@
     }
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.isRead = NO;
+    self.issueLogRead= self.lastIssueLogSeq <= 0;
 
 }
 

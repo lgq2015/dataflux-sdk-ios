@@ -212,6 +212,7 @@
     UIView *subView1 = alert.view.subviews[0];
     UIView *subView2 = subView1.subviews[0];
     UIView *subView3 = subView2.subviews[0];
+    DLog(@"%@",subView3);
     UIView *subView4 = subView3.subviews[0];
     UIView *subView5 = subView4.subviews[0];
     NSLog(@"%@",subView5.subviews);

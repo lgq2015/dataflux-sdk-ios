@@ -128,8 +128,12 @@
 #define PW_issueLogAdd(issueid)  [NSString stringWithFormat:@"%@/v1/issue/%@/log/add", API_SEVERID,issueid]
 //情报日志 上传附件
 #define PW_issueUploadAttachment(issueid) [NSString stringWithFormat:@"%@/v1/issue/%@/log/upload-attachment", API_SEVERID,issueid]
+//情报日志附件外部下载链接地址
+#define PW_issueDownloadurl(issueid)   [NSString stringWithFormat:@"%@/v1/issue/log/%@/attachment-external-download-url", API_SEVERID,issueid]
 //开启工单
 #define PW_issueTicketOpen(issueid)   [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/open", API_SEVERID,issueid]
+#define PW_heartBeat  API_SEVERID@"/v1/auth/heartbeat"
+
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 //文章推荐
@@ -211,7 +215,7 @@
 #define PW_fouctionIntro               API_SEVERID@"/v1/app/version/list"
 #define PW_ContactUS                   API_SHRINE@"/resources/action/getWorkGroupMember@workGroupOpenAdmin"
 #define PW_CMSCall                     API_SEVERID@"/v1/utils/csm-call"
-#define PW_articelForumclick           API_FORUM@"/v1/post"
+#define PW_articelForumclick(id)           [NSString stringWithFormat:@"%@/v1/post/%@", API_FORUM,id]
 #define PW_jpushDidLogin               API_SEVERID@"/v1/auth/device/registration"
 #endif /* PWNetWorkURLs_h */
 

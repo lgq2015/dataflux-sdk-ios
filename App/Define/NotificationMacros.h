@@ -14,7 +14,9 @@
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
 
-#define KNotificationChatNewDatas     @"KNotificationChatNewDatas"
+#define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
+#define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
+#define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
@@ -29,6 +31,9 @@
 #define KTeamCacheName @"KTeamCacheName"
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWUserID]
 #define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
+
+// 常量显示
+#define KUtilsConst   @"KUtilsConst"
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
 #define KTeamModelCache @"KTeamModelCache"

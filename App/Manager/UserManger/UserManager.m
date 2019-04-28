@@ -273,6 +273,7 @@ SINGLETON_FOR_CLASS(UserManager);
     //    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationLogout object:nil];//被踢下线通知用户退出直播间
     [kUserDefaults removeObjectForKey:PWLastTime];
     [kUserDefaults removeObjectForKey:PWTeamState];
+    [kUserDefaults removeObjectForKey:XAuthToken];
 
     self.curUserInfo = nil;
     self.teamModel = nil;
@@ -510,8 +511,8 @@ SINGLETON_FOR_CLASS(UserManager);
     }
    
 }
-- (void)setXCoreStoneAuthToken:(NSString *)token{
-//    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+- (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
 //    [cache removeAllObjectsWithBlock:^{
 //        [cache setObject:teamProduct forKey:KTeamProductDict];
 //    }];

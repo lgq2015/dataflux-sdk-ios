@@ -87,7 +87,7 @@
         NSString *url = [externalDownloadURL stringValueForKey:@"url" default:@""];
         NSString *type =  [url pathExtension];
         
-        if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+        if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
             self.messageType = PWChatMessageTypeImage;
             self.imageString = [url imageTransStr];
             self.cellString = PWChatImageCellId;
@@ -99,13 +99,16 @@
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
+     
             if ([type isEqualToString:@"pdf"]) {
                 self.fileIcon = @"file_PDF";
-            }else if([type isEqualToString:@"docx"]){
+            }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
                 self.fileIcon = @"file_word";
-            }else if([type isEqualToString:@"ppt"]){
+            }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
+                self.fileIcon = @"file_img";
+            }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
                 self.fileIcon = @"file_PPT";
-            }else if([type isEqualToString:@"xlsx"]){
+            }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
                 self.fileIcon = @"file_excel";
             }else if([type isEqualToString:@"key"]){
                 self.fileIcon = @"file_keynote";
@@ -117,6 +120,10 @@
                 self.fileIcon = @"file_zip";
             }else if([type isEqualToString:@"rar"]){
                 self.fileIcon = @"file_rar";
+            }else if([type isEqualToString:@"txt"]){
+                self.fileIcon = @"file_txt";
+            }else{
+                self.fileIcon = @"file";
             }
         }
         

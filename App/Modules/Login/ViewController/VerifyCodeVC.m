@@ -53,6 +53,7 @@
     [self observeApplicationActionNotification];
 }
 - (void)createUI{
+    __weak typeof(self) weakSelf = self;
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), Interval(17)+kTopHeight, 250, ZOOM_SCALE(37))];
     title.text = @"输入验证码";
     title.font = MediumFONT(26);
@@ -126,18 +127,18 @@
         codeTfView.count = 6;
         [codeTfView createItem];
         codeTfView.completeBlock = ^(NSString *completeStr){
-            self.code = completeStr;
-            if (self.type == VerifyCodeVCTypeLogin &&!self.selectBtn.selected && self.code.length == 6) {
+            weakSelf.code = completeStr;
+            if (weakSelf.type == VerifyCodeVCTypeLogin &&!weakSelf.selectBtn.selected && weakSelf.code.length == 6) {
                 [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可登录哦"];
             }else{
-                [self btnClickWithCode:completeStr];
+                [weakSelf btnClickWithCode:completeStr];
             }
         };
 //        RACSignal *codeLength =  RACObserve(self.code, length);
 //        RACSignal *selected = RACObserve(self.selectBtn, selected);
         
         codeTfView.deleteBlock = ^(void){
-            self.code = @"";
+            weakSelf.code = @"";
         };
         self.codeTfView = codeTfView;
         [self.view addSubview:self.codeTfView];
@@ -488,20 +489,20 @@
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+- (void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     DLog(@"%s", __func__);
 }
+
 #pragma mark =======倒计时切换到后台，再次进入同步倒计时时间==========
 - (void)observeApplicationActionNotification {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name: UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name: UIApplicationWillResignActiveNotification object:nil];
 }
-- (void)applicationDidEnterBackground {
+- (void)applicationWillResignActive {
     _timestamp = [NSDate date].timeIntervalSince1970;
     self.timer.fireDate = [NSDate distantFuture];
 }
