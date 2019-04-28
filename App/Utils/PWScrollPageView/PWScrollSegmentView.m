@@ -111,7 +111,6 @@
         NSString *imageName = self.segmentStyle.leftExtraBtnImageNames[i];
         button.tag = i+20;
         [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         button.backgroundColor = [UIColor whiteColor];
         [self addSubview:button];
         CGFloat width = [self.segmentStyle.leftExtraBtnFrames[i] CGRectValue].size.width;

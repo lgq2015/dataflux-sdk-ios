@@ -33,7 +33,7 @@
 @property(nonatomic, strong) IssueBoard *infoboard;
 @property(nonatomic, strong) HomeNoticeScrollView *notice;
 @property(nonatomic, strong) UIView *headerView;
-@property(nonatomic, assign) PWInfoBoardStyle infoBoardStyle;
+@property(nonatomic, assign) PWIssueBoardStyle infoBoardStyle;
 
 @property(nonatomic, assign) NSInteger newsPage;
 @property(nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
@@ -47,19 +47,9 @@
 
 
     [[IssueSourceManger sharedIssueSourceManger] checkToGetDetectionStatement:^(NSString *string) {
-        [_infoboard updateTitle:string];
+        [_infoboard updateTitle:string withStates:NO];
 
     }];
-
-    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
-        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
-            HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-            [guid showInView:[UIApplication sharedApplication].keyWindow];
-
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
-            [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
-        }
-    }
 }
 
 - (void)viewDidLoad {
@@ -101,7 +91,7 @@
 
     void (^setUpStyle)(void) = ^{
         BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-        self.infoBoardStyle = isConnect ? PWInfoBoardStyleConnected : PWInfoBoardStyleNotConnected;
+        self.infoBoardStyle = isConnect ? PWIssueBoardStyleConnected : PWIssueBoardStyleNotConnected;
         if (isConnect) {
             setIsHideGuide(PW_IsHideGuide);
         }
@@ -137,20 +127,10 @@
 
 - (void)createUI {
     
-    if (self.infoBoardStyle == PWInfoBoardStyleConnected) {
-        if (![kUserDefaults valueForKey:@"HomeIsFirst"]) {
-            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            HomeIssueIndexGuidanceView *guid = [[HomeIssueIndexGuidanceView alloc] init];
-            [guid showInView:window];
-            guid.dismissClick = ^(){
-            [[AppDelegate shareAppDelegate] DetectNewVersion];
-            };
-            [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"HomeIsFirst"];
-        }else{
-            [[AppDelegate shareAppDelegate] DetectNewVersion];
-        }
-    }
-    CGFloat headerHeight = self.infoBoardStyle == PWInfoBoardStyleConnected ? ZOOM_SCALE(530) : ZOOM_SCALE(696);
+   
+    [[AppDelegate shareAppDelegate] DetectNewVersion];
+     
+    CGFloat headerHeight = self.infoBoardStyle == PWIssueBoardStyleConnected ? ZOOM_SCALE(530) : ZOOM_SCALE(696);
 
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
 
@@ -238,10 +218,10 @@
 }
 
 - (void)issueBoardSetConnectView {
-    if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
-        self.infoBoardStyle = PWInfoBoardStyleConnected;
+    if (self.infoBoardStyle == PWIssueBoardStyleNotConnected) {
+        self.infoBoardStyle = PWIssueBoardStyleConnected;
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
-        [self.infoboard updataInfoBoardStyle:PWInfoBoardStyleConnected itemData:@{@"datas": array}];
+        [self.infoboard updataInfoBoardStyle:PWIssueBoardStyleConnected itemData:@{@"datas": array}];
         self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
         self.infoboard.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(436));
         self.tableView.tableHeaderView = self.headerView;
@@ -255,14 +235,14 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            if (self.infoBoardStyle == PWInfoBoardStyleNotConnected) {
+            if (self.infoBoardStyle == PWIssueBoardStyleNotConnected) {
                 BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
                 if (isConnect) {
                     [self issueBoardSetConnectView];
                     setIsHideGuide(PW_IsHideGuide);
                 }
             } else {
-                [self.infoboard updateTitle:title];
+                [self.infoboard updateTitle:title withStates:NO];
                 if (array.count > 0) {
                     [self.infoboard updataDatas:@{@"datas": array}];
                 }
@@ -274,7 +254,7 @@
 
 - (IssueBoard *)infoboard {
     if (!_infoboard) {
-        CGFloat height = self.infoBoardStyle == PWInfoBoardStyleConnected ? ZOOM_SCALE(440) : ZOOM_SCALE(600);
+        CGFloat height = self.infoBoardStyle == PWIssueBoardStyleConnected ? ZOOM_SCALE(440) : ZOOM_SCALE(600);
         _infoboard = [[IssueBoard alloc] initWithFrame:CGRectMake(0, 0, kWidth, height) style:self.infoBoardStyle]; // type从用户信息里提前获取
     }
     return _infoboard;
@@ -282,7 +262,7 @@
 
 - (HomeNoticeScrollView *)notice {
     if (!_notice) {
-        _notice = [[HomeNoticeScrollView alloc] initWithFrame:CGRectMake(0, ZOOM_SCALE(400), kWidth, ZOOM_SCALE(60))];
+        _notice = [[HomeNoticeScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(60))];
         _notice.backgroundColor = PWWhiteColor;
     }
     return _notice;

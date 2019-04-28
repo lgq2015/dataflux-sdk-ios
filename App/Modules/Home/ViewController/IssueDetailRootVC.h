@@ -29,8 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray *progressData;
 - (void)navRightBtnClick;
-- (void)showProgress:(UIButton *)button;
--(void)updateViewConstraints;
+- (void)updateViewConstraints;
 - (void)updateUI;
 @end
 

@@ -13,8 +13,9 @@
 #import "ToolsVC.h"
 #import "ScanViewController.h"
 #import "RootNavigationController.h"
+#import "ZYChangeTeamUIManager.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
 @end
 
@@ -53,7 +54,9 @@
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
         [self presentViewController:nav animated:YES completion:nil];
         }else{
-            
+            ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
+            [changeView showWithOffsetY:kTopHeight+16];
+            changeView.delegate = self;
         }
     };
     scrollPageView.tag = 500;

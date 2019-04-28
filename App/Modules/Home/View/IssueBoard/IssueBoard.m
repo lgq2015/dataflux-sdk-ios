@@ -13,7 +13,7 @@
 @interface IssueBoard ()<UICollectionViewDelegate,UICollectionViewDataSource,PWInfoInitialViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datas;
 @property (nonatomic, strong) NSDictionary *headRightBtn;
-@property (nonatomic, assign) PWInfoBoardStyle style;
+@property (nonatomic, assign) PWIssueBoardStyle style;
 @property (nonatomic, strong) UILabel *titleLable;
 @property (nonatomic, strong) UIImageView *rightBtnIcon;
 @property (nonatomic, strong) UIButton *rightBtn;
@@ -24,7 +24,7 @@
 @implementation IssueBoard
 
 #pragma mark ========== 初始化 ==========
--(instancetype)initWithFrame:(CGRect)frame style:(PWInfoBoardStyle)style{
+-(instancetype)initWithFrame:(CGRect)frame style:(PWIssueBoardStyle)style{
     if (self = [super initWithFrame:frame]) {
         self.frame = frame;
         self.style = style;
@@ -37,7 +37,7 @@
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
 
-    if (self.style == PWInfoBoardStyleNotConnected) {
+    if (self.style == PWIssueBoardStyleNotConnected) {
         self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
         [self.initializeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -47,11 +47,12 @@
             make.height.offset(ZOOM_SCALE(586));
         }];
     }else{
+        CGFloat width = self.rightBtn.frame.size.width;
         [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self).offset(ZOOM_SCALE(6));
             make.right.mas_equalTo(self).offset(-Interval(12));
             make.height.offset(ZOOM_SCALE(30));
-            make.width.offset(ZOOM_SCALE(70));
+            make.width.offset(width);
         }];
         [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(Interval(16));
@@ -63,7 +64,7 @@
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
-        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82 * 5));
+        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(76 * 5));
     }
     
 }
@@ -74,7 +75,7 @@
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         //该方法也可以设置itemSize
         layout.itemSize =CGSizeMake(kWidth-2*Interval(16), ZOOM_SCALE(64));
-        layout.minimumLineSpacing = ZOOM_SCALE(18);
+        layout.minimumLineSpacing = ZOOM_SCALE(12);
         _itemCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _itemCollectionView.delegate = self;
         _itemCollectionView.dataSource = self;
@@ -82,7 +83,6 @@
         _itemCollectionView.backgroundColor = PWBackgroundColor;
         [_itemCollectionView registerClass:[IssueBoardCell class] forCellWithReuseIdentifier:@"cellId"];
         [self addSubview:_itemCollectionView];
-
     }
     return _itemCollectionView;
 }
@@ -101,29 +101,16 @@
         _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_rightBtn setTitle:@"连接云服务" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-//        [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
-        _rightBtn.titleLabel.font = RegularFONT(14);
+        [_rightBtn setImage:[UIImage imageNamed:@"home_infoBoard_connect"] forState:UIControlStateNormal];
+        _rightBtn.titleLabel.font = RegularFONT(13);
         [_rightBtn sizeToFit];
-        // 重点位置开始
-//        _rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_rightBtn.imageView.frame.size.width - _rightBtn.frame.size.width + _rightBtn.titleLabel.frame.size.width, 0, 0);
-//        
-//        _rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -_rightBtn.titleLabel.frame.size.width - _rightBtn.frame.size.width + _rightBtn.imageView.frame.size.width);
-//        
-        // 重点位置结束
-//        _rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [_rightBtn addTarget:self action:@selector(historyInfoBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
         [self addSubview:_rightBtn];
     }
     return _rightBtn;
 }
--(UIImageView *)rightBtnIcon{
-    if (!_rightBtnIcon) {
-        _rightBtnIcon = [[UIImageView alloc]initWithFrame:CGRectZero];
-        [self addSubview:_rightBtnIcon];
-    }
-    return _rightBtnIcon;
-}
+
 -(IssueBoardInitialView *)initializeView{
     if(!_initializeView){
         _initializeView = [[IssueBoardInitialView alloc]initWithFrame:CGRectZero];
@@ -133,7 +120,7 @@
     return _initializeView;
 }
 #pragma mark ========== 实例方法 ==========
-- (void)updataInfoBoardStyle:(PWInfoBoardStyle)style itemData:(NSDictionary *)paramsDict{
+- (void)updataInfoBoardStyle:(PWIssueBoardStyle)style itemData:(NSDictionary *)paramsDict{
     NSArray *data = paramsDict[@"datas"];
         if(data.count>0){
         if(self.style != style){
@@ -195,8 +182,11 @@
         });
     }
 }
-- (void)updateTitle:(NSString *)title{
-        if (self.titleLable) {
+- (void)updateTitle:(NSString *)title withStates:(BOOL)isCheck{
+    if(isCheck){
+        
+    }
+    if (self.titleLable) {
             self.titleLable.text = title;
         }
 }
