@@ -117,7 +117,7 @@
 - (void)loadFromDB {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
-        dispatch_sync_on_main_queue(^{
+        dispatch_async_on_main_queue(^{
             self.dataSource = [array mutableCopy];
             if (self.dataSource.count > 0) {
                 [self hideNoDataImageView];

@@ -118,7 +118,7 @@
 
         NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
 
-        dispatch_sync_on_main_queue(^{
+        dispatch_async_on_main_queue(^{
             self.dataSource = [dataSource mutableCopy];
             if (self.dataSource.count > 0) {
                 [self.monitorData removeAllObjects];

@@ -129,7 +129,7 @@
 
             NSArray *array = [[IssueChatDataManager sharedInstance]
                     getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
-            dispatch_sync_on_main_queue(^{
+            dispatch_async_on_main_queue(^{
                 NSMutableArray *newChatArray = [self bindArray:array];
                 callback ? callback(newChatArray) : nil;
             });
