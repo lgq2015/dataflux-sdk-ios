@@ -9,7 +9,6 @@
 #import "CloudCareVC.h"
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
-#import "OrderStatusVC.h"
 @interface CloudCareVC ()
 @property (nonatomic, strong)UIView *customHeader;
 @end
@@ -45,8 +44,7 @@
     }];
 }
 - (void)navRightBtnClick{
-    OrderStatusVC *order = [[OrderStatusVC alloc]init];
-    order.isShowCustomNaviBar = YES;
+    PurchaseHistoryVC *order = [[PurchaseHistoryVC alloc]init];
     [self.navigationController pushViewController:order animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
