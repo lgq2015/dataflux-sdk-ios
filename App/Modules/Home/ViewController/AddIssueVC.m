@@ -267,17 +267,17 @@
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
-                model.state = [self.level isEqualToString:@"1"]? MonitorListStateSeriousness:MonitorListStateWarning;
+                model.state = [self.level isEqualToString:@"danger"]? MonitorListStateSeriousness:MonitorListStateWarning;
                 model.title = self.titleTf.text;
                 model.content = self.describeTextView.text;
                 model.issueId = [response[@"content"] stringValueForKey:@"id" default:@""];
+                model.accountId = getPWUserID;
+                model.isFromUser = YES;
                 model.time = [NSString getLocalDateFormateUTCDate:[[NSDate date] getNowUTCTimeStr] formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
                 IssueProblemDetailsVC *details = [[IssueProblemDetailsVC alloc]init];
                 details.model = model;
-                self.refresh? self.refresh():nil;
                 if(![[PWSocketManager sharedPWSocketManager] isConnect]){
-                    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-
+                    self.refresh? self.refresh():nil;
                 }
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController pushViewController:details animated:YES];

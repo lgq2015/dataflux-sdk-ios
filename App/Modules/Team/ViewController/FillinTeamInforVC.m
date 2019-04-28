@@ -348,7 +348,11 @@
 #pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
+<<<<<<< HEAD
         _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队(可选）" font:RegularFONT(16)];
+=======
+        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队（可选）" font:RegularFONT(16)];
+>>>>>>> 6232e3c4a37f3ff6f6cfc2af1ea2f168d5363d9e
     }
     return _textView;
 }

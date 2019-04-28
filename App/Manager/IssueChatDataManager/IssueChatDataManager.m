@@ -39,19 +39,36 @@
     return [IssueListManger sharedIssueListManger].getHelper;
 }
 
+
+-(void) fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
+                  withFetchStatus:(BOOL)withStatus{
+    if (_isFetching){
+        if(withStatus){
+            BaseReturnModel *model = [BaseReturnModel new];
+            model.errorCode = ERROR_CODE_LOCAL_IS_FETCHING;
+            callback(model);
+        }
+        return;
+    }
+
+    _isFetching = YES;
+    NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
+
+    [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:^(IssueLogListModel *model) {
+        _isFetching = NO;
+        callback(model);
+    }];
+
+    
+}
+
 /**
  * 拉取最近的讨论内容
  * @param issueId
  * @param callback
  */
-- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(IssueLogListModel *))callback {
-    if (_isFetching)return;
-
-    _isFetching = YES;
-    NSMutableArray *array = [NSMutableArray <IssueLogModel *> new];
-    [self fetchLatestChatIssueLog:issueId withDatas:array pageMarker:0 callBack:callback];
-
-
+- (void)fetchLatestChatIssueLog:(NSString *)issueId callBack:(void (^)(BaseReturnModel *))callback {
+    [self fetchLatestChatIssueLog:issueId with:callback withFetchStatus:NO];
 }
 
 /**
@@ -69,6 +86,8 @@
                     issueId:issueId
                  pageMarker:pageMarker orderMethod:@"desc"
                    callBack:^(id o) {
+
+
                        IssueLogListModel *listModel = (IssueLogListModel *) o;
                        if (listModel.isSuccess) {
 
@@ -76,33 +95,40 @@
 
                            BOOL containMarker = NO;
                            if (allDatas.count > 0) {
-                               long long lastSeq = [self getLastIssueLogSeqFromIssueLog:nil];
-                               if (lastSeq == allDatas.firstObject.seq) {
-                                   callback(listModel);
-                                   return;
-                               }
+//
+//
+//                               long long lastSeq = [self getLastIssueLogSeqFromIssueLog:nil];
+//                               if (lastSeq == allDatas.firstObject.seq) {
+//                                   callback(listModel);
+//                                   return;
+//                               }
 
                                containMarker = [self containMarker:nil pageMarker:allDatas.lastObject.seq];
+
                            }
 
                            if (listModel.list.count < ISSUE_CHAT_PAGE_SIZE
                                    || allDatas.count > ISSUE_CHAT_LATEST_MAX_SIZE || containMarker) {
 
-                               [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-                                   [self flagLastUpdateIssueDatas:allDatas];  //标记每个issue 中需要追加数据的标记
-                                   [self cacheChatIssueLogDatasToDB:allDatas];
-                                   rollback = NO;
-                               }];
+                               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                   [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                                       [self flagLastUpdateIssueDatas:allDatas];  //标记每个issue 中需要追加数据的标记
+                                       [self cacheChatIssueLogDatasToDB:allDatas];
+                                       rollback = NO;
+                                   }];
+
+                                   dispatch_sync_on_main_queue(^{
+                                       callback(listModel);
+                                   });
+                               });
+
+
                            } else {
                                [self fetchLatestChatIssueLog:issueId withDatas:allDatas pageMarker:allDatas.lastObject.seq callBack:callback];
                            }
-                       } else {
-
-                           [iToast alertWithTitleCenter:listModel.errorMsg];
+                       } else{
+                           callback(listModel);
                        }
-
-                       _isFetching = NO;
-                       callback(listModel);
 
 
                    }];
@@ -130,7 +156,7 @@
                                                 withSql:sqlTable
                                             whereFormat:@"WHERE dataCheckFlag=1"];
 
-        if (array.count) {
+        if (array.count>0) {
             seq = [array[0] longLongValueForKey:@"seq" default:0];
         }
     }];
@@ -185,23 +211,29 @@
                                                           ((IssueLogModel *) data.list.lastObject).dataCheckFlag = YES;
                                                       }
                                                   }
+
+                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+                                                      [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                                                          [self cacheChatIssueLogDatasToDB:data.list];
+
+                                                          if (pageMarker > 0) {
+
+                                                              NSString *sql= [NSString stringWithFormat:@"WHERE issueId='%@' AND seq='%lli' ",issueId,pageMarker];
+                                                              [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
+                                                                                  dicOrModel:@{@"dataCheckFlag": @(NO)}
+                                                                                 whereFormat:sql];
+                                                          }
+
+                                                          rollback = NO;
+                                                      }];
+                                                      dispatch_sync_on_main_queue(^{
+                                                          callback(data);
+                                                      });
+                                                  });
+                                              } else{
+                                                  callback(data);
                                               }
-
-                                              [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-                                                  [self cacheChatIssueLogDatasToDB:data.list];
-
-                                                  if (pageMarker > 0) {
-
-                                                      NSString *sql= [NSString stringWithFormat:@"WHERE issueId='%@' AND seq='%lli' ",issueId,pageMarker];
-                                                      [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
-                                                                          dicOrModel:@{@"dataCheckFlag": @(NO)}
-                                                                         whereFormat:sql];
-                                                  }
-
-                                                  rollback = NO;
-                                              }];
-
-                                              callback(data);
 
                                           }];
 
@@ -278,7 +310,7 @@
         if (deleteCache) {
             NSString *where = @"WHERE issueId='%@' AND id='%@'";
             [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
-                               whereFormat:where, issueId, data.id];
+                               whereFormat:where, issueId, data.localTempUniqueId];
         }
     }];
 }
@@ -301,7 +333,10 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-        NSString *where = NSStringFormat(@"WHERE issueId='%@' AND seq >%lli ", issueId, endSeq);
+        NSString *where = NSStringFormat(@"WHERE issueId='%@' OR (seq=0 AND origin='me')", issueId);
+        if(endSeq>0){
+            where= [where stringByAppendingFormat:@" AND seq > %lli  ", startSeq];
+        }
         if (startSeq > 0) {
             where= [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
         }
@@ -319,6 +354,20 @@
     }];
 
     return array;
+}
+
+/**
+ * 将之前正在发送的消息标记失败
+ * @param issueId
+ */
+-(void)setSendingDataFailInDataDB:(NSString *)issueId{
+    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+        NSString *where = NSStringFormat(@"WHERE issueId='%@'", issueId);
+
+        [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME
+                            dicOrModel:@{@"sendError":@YES} whereFormat:where];
+    }];
+
 }
 
 

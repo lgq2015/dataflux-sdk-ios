@@ -9,8 +9,8 @@
 #import "CloudCareVC.h"
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
-
 @interface CloudCareVC ()
+@property (nonatomic, strong)UIView *customHeader;
 @end
 
 @implementation CloudCareVC
@@ -20,10 +20,7 @@
     [self createUI];
 }
 - (void)createUI{
-   
-    [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view).offset(-kTabBarHeight);
-    }];
+    self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-kTabBarHeight);
     [self addNavigationItemWithTitles:@[@"购买记录"] isLeft:NO target:self action:@selector(navRightBtnClick) tags:@[@11]];
     UIImageView *logo_icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
     UIImageView *logo_text = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_text"]];
@@ -62,14 +59,5 @@
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

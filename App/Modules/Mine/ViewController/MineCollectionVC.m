@@ -98,6 +98,7 @@
             NSArray *data = response[@"content"][@"data"];
             if(data.count<10){
                 [self showNoMoreDataFooter];
+                [self dealWithData:data];
             }else{
                 [self dealWithData:data];
                 self.page ++;
@@ -193,7 +194,7 @@
     
 }
 - (void)recollectWithModel:(NewsListModel*)model{
-    NSDictionary *param = @{@"id":model.newsID};
+    NSMutableDictionary *param = [@{@"id":model.newsID} mutableCopy];
     if ([model.sourceType isEqualToString:@"handbook"]) {
         [SVProgressHUD show];
         [PWNetworking requsetHasTokenWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
@@ -213,6 +214,7 @@
         }];
     }else if ([model.sourceType isEqualToString:@"forum"]) {
         [SVProgressHUD show];
+        param[@"noUserView"] = @YES;
         [PWNetworking requsetHasTokenWithUrl:PW_articelForumclick(model.newsID) withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {

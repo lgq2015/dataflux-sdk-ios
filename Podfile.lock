@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - AlipaySDK-iOS (15.5.9)
   - CocoaLumberjack/Core (3.5.2)
   - CocoaLumberjack/Swift (3.5.2):
     - CocoaLumberjack/Core
@@ -64,6 +65,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - AlipaySDK-iOS (~> 15.5.9)
   - CocoaLumberjack/Swift (~> 3.5.2)
   - FMDB (~> 2.7.5)
   - iOS-Echarts (~> 1.4.4)
@@ -90,6 +92,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - AlipaySDK-iOS
     - CocoaLumberjack
     - FMDB
     - iOS-Echarts
@@ -116,6 +119,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AlipaySDK-iOS: 1c5283b30977a24acecc0114662697f7dc78f618
   CocoaLumberjack: 118bf4a820efc641f79fa487b75ed928dccfae23
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
@@ -140,6 +144,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 3bd521e02ef4588aac98ca48a61d69da20744846
+PODFILE CHECKSUM: 5e374d803f45c58090f5260d93fe813c22648a6b
 
 COCOAPODS: 1.6.1

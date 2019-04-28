@@ -15,6 +15,7 @@
 #endif
 #import "MainTabBarController.h"
 #import "PWSocketManager.h"
+#import "HeartBeatManager.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
@@ -154,9 +155,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
     [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
-    
+    [[HeartBeatManager new] sendHeartBeat];
+
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }

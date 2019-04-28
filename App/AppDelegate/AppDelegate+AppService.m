@@ -34,7 +34,9 @@
 #import "IssueProblemDetailsVC.h"
 #import "NewsListModel.h"
 #import "IssueDetailVC.h"
+#import <AlipaySDK/AlipaySDK.h>
 #import "HomeViewController.h"
+#import "HomeIssueIndexGuidanceView.h"
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -97,9 +99,9 @@
 //
     if([userManager loadUserInfo]){
         //如果有本地数据，先展示TabBar 随后异步自动登录
+       
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-         [self DetectNewVersion];
         //自动登录
 //        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
 //            if (success) {
@@ -212,7 +214,6 @@
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
 //        [[PWSocketManager sharedPWSocketManager] connect];
-         [self DetectNewVersion];
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];
@@ -245,7 +246,7 @@
     }
     //展示FPS
 #ifdef DEBUG //开发环境
-    [AppManager showFPS];
+  //  [AppManager showFPS];
 #endif
 
 }
@@ -320,14 +321,60 @@
 }
 #pragma mark ========== OpenURL 回调 ==========
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
+        }];
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
+        }];
+    }
     return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-{
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+        }];
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
     return YES;
 }
 
@@ -394,9 +441,27 @@
         }
     return superVC;
 }
--(void)DetectNewVersion{
-  
+-(UIView *)getCurrentView{
+   
     
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+   return  [[window subviews] objectAtIndex:0];
+}
+-(void)DetectNewVersion{
+   
     //获取appStore网络版本号
     [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         NSArray *results = response[@"results"];
@@ -421,8 +486,7 @@
     if (!setversion) {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *nowVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-       
-    if (![version isEqualToString:@""] && [nowVersion compare:version options:NSNumericSearch] != NSOrderedDescending) {
+    if (![version isEqualToString:@""] && [nowVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
         DetectionVersionAlert *alert = [[DetectionVersionAlert alloc]initWithReleaseNotes:releaseNotes Version:version];
        
            [alert showInView:[UIApplication sharedApplication].keyWindow];
@@ -431,9 +495,12 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/id%@?ls=1&mt=8", APP_ID]];
             [[UIApplication sharedApplication] openURL:url];
         };
+        alert.nextClick = ^(){
+            [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
+            setNewVersionDict(versionDict);
+            [kUserDefaults synchronize];
+        };
     }
-        [versionDict addEntriesFromDictionary:@{version:[NSNumber numberWithBool:YES]}];
-        setNewVersionDict(versionDict);
     }
 
 }

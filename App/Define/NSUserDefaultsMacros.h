@@ -25,6 +25,11 @@
 #define setLastTime(str)        [kUserDefaults setObject:str forKey:PWLastTime]
 #define getLastTime             [kUserDefaults objectForKey:PWLastTime]
 
+#define PWLastHeartBeat                  @"heartBeatTime"
+#define setHeartBeatLastTime(str)        [kUserDefaults setObject:str forKey:PWLastHeartBeat]
+#define getHeartBeatLastTime             [kUserDefaults objectForKey:PWLastHeartBeat]
+
+
 //当前用户id
 #define PWUserID @"userid"
 #define setPWUserID(str)        [kUserDefaults setObject:str forKey:PWUserID]

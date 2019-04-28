@@ -99,7 +99,7 @@
             make.top.mas_equalTo(line.mas_bottom);
             make.bottom.mas_equalTo(line2.mas_bottom);
         }];
-        [cancle addTarget:self action:@selector(disMissView) forControlEvents:UIControlEventTouchUpInside];
+        [cancle addTarget:self action:@selector(cancleClick) forControlEvents:UIControlEventTouchUpInside];
         UIButton *updateBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"立即更新"];
         updateBtn.titleLabel.font = RegularFONT(15);
         [_contentView addSubview:updateBtn];
@@ -120,6 +120,12 @@
     [view addSubview:self];
  
     
+}
+- (void)cancleClick{
+    if (self.nextClick) {
+        self.nextClick();
+    }
+    [self disMissView];
 }
 - (void)disMissView{
     [self removeFromSuperview];

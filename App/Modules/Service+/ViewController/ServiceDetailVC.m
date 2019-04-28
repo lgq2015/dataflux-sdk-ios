@@ -10,7 +10,8 @@
 #import "FillinTeamInforVC.h"
 #import "BookSuccessVC.h"
 #import "ServiceDetailVC+ChangeNavColor.h"
-//#import "UIViewController+ChangeNavBarColor.h"
+#import "ZYPayWayUIManager.h"
+#import <AlipaySDK/AlipaySDK.h>
 @interface ServiceDetailVC ()<UIScrollViewDelegate>
 
 @end
@@ -29,8 +30,11 @@
     } else {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    //监听支付回调结果事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zhifubaoCallBack:) name:KZhifubaoPayResult object:nil];
 }
 - (void)createUI{
+    self.webView.frame = CGRectMake(0, 0, kWidth, kHeight);
 
     [self.view bringSubviewToFront:self.whiteBackBtn];
     if (self.isShowCustomNaviBar){
@@ -42,10 +46,52 @@
     [self.navigationController pushViewController:createTeam animated:YES];
 }
 -(void)eventBookSuccess:(NSDictionary *)extra{
-    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
-    [self presentViewController:successVC animated:YES completion:nil];
+    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
+        DLog(@"支付方式----%ld",selectPayWayType);
+        switch (selectPayWayType) {
+            case Zhifubao_PayWayType:
+                [self requestSign];
+                break;
+            case ContactSale_PayWayType:
+                DLog(@"联系销售");
+                break;
+            default:
+                break;
+        }
+    }];
+    //弹出支付方式界面
+//    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
+//    [self presentViewController:successVC animated:YES completion:nil];
 }
-
+#pragma mark ====获取订单签名======
+- (void)requestSign{
+    //请求
+    NSString *appScheme = @"";
+    NSString *orderString = @"";
+    #if DEV //开发环境
+    appScheme = @"prof-wang-dev";
+    #elif PREPROD //预发环境
+    appScheme = @"prof-wang-pre";
+    #else //正式环境
+    appScheme = @"prof-wang";
+    #endif
+    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        DLog(@"ServiceDetailVC支付宝结果 = %@",resultDic);
+        int statusCode = [resultDic[@"resultStatus"]  intValue];
+        if (statusCode == 9000){
+            DLog(@"支付成功");
+        }
+        else{
+            DLog(@"支付失败")
+        }
+    }];
+}
+#pragma mark ===通知支付回调处理=====
+- (void)zhifubaoCallBack:(NSNotification *)notif{
+    NSDictionary *dic = [notif object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    DLog(@"收到的回调结果---%@",dic);
+}
 #pragma mark ====导航栏的显示和隐藏====
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self zt_changeColor:[UIColor whiteColor] scrolllView:scrollView];

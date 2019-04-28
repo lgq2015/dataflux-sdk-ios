@@ -255,9 +255,9 @@
     }else if([type isEqualToString:@"ucloud"]){
         icon = @"icon_tencent_small";
     }else if ([type isEqualToString:@"domain"]){
-        icon = @"icon_mainframe_small";
+        icon = @"icon_domainname_small";
     }else if([type isEqualToString:@"carrier.corsair"]){
-        icon =@"icon_domainname_small";
+        icon =@"icon_mainframe_small";
     }else if([type isEqualToString:@"carrier.alert"]){
         self.issueNameLab.text = @"消息坞";
         icon = @"message_docks";
@@ -375,13 +375,16 @@
     NSDictionary *dict =  self.handbookAry[indexPath.row];
     NSError *error;
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:dict error:&error];
-    NSDictionary *param = @{@"id":model.handbookId};
+    NSDictionary *param = @{@"id":model.articleId};
     [SVProgressHUD show];
     [PWNetworking requsetWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
-            webview.handbookModel = model;
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSError *error1;
+            HandbookModel *model1 = [[HandbookModel alloc]initWithDictionary:content error:&error1];
+            NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model1.articleId)];
+            webview.handbookModel = model1;
             [self.navigationController pushViewController:webview animated:YES];
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];

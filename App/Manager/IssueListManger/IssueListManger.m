@@ -265,41 +265,53 @@
             [allDatas addObjectsFromArray:listModel.list];
             if (listModel.list.count < ISSUE_LIST_PAGE_SIZE) {
 
-                [self.getHelper pw_inTransaction:^(BOOL *rollback) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self.getHelper pw_inTransaction:^(BOOL *rollback) {
 
-                    if (clearCache) {
-                        [self mergeReadData:allDatas];
-                        [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
-                    }
-
-                    [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
-                        NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
-                        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-                        if (array.count > 0) {
-                            IssueModel *cacheModel = array[0];
-                            if(cacheModel.lastIssueLogSeq<model.lastIssueLogSeq){
-                                model.localUpdateTime = model.updateTime;
-                                model.isRead = NO;
-                                model.issueLogRead = NO;
-                            }
-                            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
-                        } else {
-                            [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
+                        if (clearCache) {
+                            [self mergeReadData:allDatas];
+                            [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
                         }
+
+                        [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
+                            NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
+                            NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+                            if (array.count > 0) {
+                                IssueModel *cacheModel = array[0];
+                                if(cacheModel.lastIssueLogSeq<model.lastIssueLogSeq){
+                                    model.localUpdateTime = model.updateTime;
+                                    model.isRead = NO;
+                                    model.issueLogRead = NO;
+                                } else{
+                                    model.issueLogRead = cacheModel.issueLogRead;
+                                    model.localUpdateTime = cacheModel.localUpdateTime;
+                                    model.isRead = cacheModel.isRead;
+                                    model.issueLogRead = cacheModel.issueLogRead;
+                                }
+                                [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model whereFormat:whereFormat];
+                            } else {
+                                [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
+                            }
+                        }];
+
+                        [self refreshIssueBoardDatas];
+
+                        rollback = NO;
+
                     }];
-
-                    [self refreshIssueBoardDatas];
-                    setLastTime([NSDate date]);
-                    if (callBackStatus == nil) {
-
-                        [kNotificationCenter
-                                postNotificationName:KNotificationNewIssue
-                                              object:nil
-                                            userInfo:@{@"types": [self getUnReadType]}];
-                    }
-                    rollback = NO;
-
-                }];
+                    dispatch_sync_on_main_queue(^{
+                        if (callBackStatus == nil) {
+                            setLastTime([NSDate date]);
+                            [kNotificationCenter
+                                    postNotificationName:KNotificationNewIssue
+                                                  object:nil
+                                                userInfo:@{@"types": [self getUnReadType]}];
+                        } else{
+                            callBackStatus(listModel);
+                        }
+                        _isFetching =NO;
+                    });
+                });
 
             } else {
                 long long lastPageMaker = ((IssueModel *) [allDatas lastObject]).actSeq;
@@ -307,10 +319,11 @@
                                        clearCache:clearCache];
             }
 
-        }
-        _isFetching = NO;
-        if (callBackStatus != nil) {
-            callBackStatus(listModel);
+        } else{
+            if (callBackStatus != nil) {
+                callBackStatus(listModel);
+            }
+            _isFetching =NO;
         }
 
     }];
@@ -338,13 +351,14 @@
  */
 -(NSArray *)getUnReadType{
     NSMutableArray *typeArr = [NSMutableArray new];
-
-    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
-                                         dicOrModel:@{@"typeName": SQL_TEXT} whereFormat:@"WHERE getMsgTime < lastMsgTime"];
-    for (NSDictionary *dic in array) {
-        [typeArr addObject:[dic stringValueForKey:@"typeName" default:@""]];
-    }
-
+    
+    [self.getHelper pw_inDatabase:^{
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                             dicOrModel:@{@"typeName": SQL_TEXT} whereFormat:@"WHERE getMsgTime < lastMsgTime"];
+        for (NSDictionary *dic in array) {
+            [typeArr addObject:[dic stringValueForKey:@"typeName" default:@""]];
+        }
+    }];
 
     return typeArr;
 }
@@ -359,7 +373,7 @@
         [cacheArr enumerateObjectsUsingBlock:^(IssueModel *cacheModel, NSUInteger idx, BOOL *_Nonnull stop) {
 
             if ([newModel.issueId isEqualToString:cacheModel.issueId]) {
-                if(newModel.lastIssueLogSeq<=cacheModel.lastIssueLogSeq){
+                if (newModel.lastIssueLogSeq <= cacheModel.lastIssueLogSeq) {
                     newModel.isRead = cacheModel.isRead;
                     newModel.issueLogRead = cacheModel.issueLogRead;
                     if (cacheModel.localUpdateTime.length > 0) {
@@ -367,7 +381,7 @@
                     } else {
                         newModel.localUpdateTime = cacheModel.createTime;
                     }
-                } else{
+                } else {
                     newModel.localUpdateTime = cacheModel.updateTime;
                 }
 
@@ -381,13 +395,15 @@
 
 }
 
-/**
- *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
- * @param callBackStatus
- * @param getAllDatas
- */
-- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus
+           getAllDatas:(BOOL)getAllDatas withStatus:(BOOL)withStatus{
     if (_isFetching) {
+        if(withStatus){
+            BaseReturnModel *model = [BaseReturnModel new];
+            model.errorCode = ERROR_CODE_LOCAL_IS_FETCHING;
+            callBackStatus(model);
+        }
         return;
     }
 
@@ -400,8 +416,9 @@
         if (model.isSuccess) {
             NSMutableArray *allDatas = [NSMutableArray new];
             long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
+
             [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
-                               lastDataStatus:callBackStatus clearCache:needGetAllData];;
+                               lastDataStatus:callBackStatus clearCache:needGetAllData];
         } else {
             if (callBackStatus) {
                 callBackStatus(model);
@@ -410,8 +427,15 @@
         }
 
     }];
+}
 
-
+/**
+ *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
+ * @param callBackStatus
+ * @param getAllDatas
+ */
+- (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
+    [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];
 }
 
 
@@ -420,8 +444,8 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(IssueLogListModel *model) {
-            [[PWSocketManager sharedPWSocketManager] connect];
+        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+            [[PWSocketManager sharedPWSocketManager] connect:YES];
         }];
     }                                           getAllDatas:YES];
 
@@ -533,7 +557,7 @@
     if (lastTime == nil) {
         return YES;
     } else {
-        return ![NSDate date].isToday;
+        return !lastTime.isToday;
     }
 }
 
@@ -613,7 +637,9 @@
     }];
 
 
-    KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
+    dispatch_sync_on_main_queue(^{
+        KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
+    });
 }
 
 
@@ -636,6 +662,7 @@
                     @"latestIssueLogsStr": [data createLastIssueLogJsonString],
                     @"isRead": @(0),
                     @"issueLogRead": @(0),
+                    @"localUpdateTime": data.updateTime,
             };
 
             [self.getHelper pw_updateTable:table dicOrModel:dic
@@ -708,12 +735,14 @@
  * @return
  */
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId {
-    __block BOOL isRead = NO;
+    __block BOOL isRead = YES;
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                 dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
-        isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        if(array.count>0){
+            isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
+        }
     }];
     return isRead;
 }

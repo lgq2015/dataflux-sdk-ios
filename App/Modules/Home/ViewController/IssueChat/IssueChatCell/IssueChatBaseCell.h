@@ -18,7 +18,10 @@
 -(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 -(void)PWChatRetryClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 //点击cell图片和短视频
--(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout; 
+-(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
+//图片链接异常
+-(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @end

@@ -17,7 +17,8 @@
 #import "IssueLogModel.h"
 #import "IssueLogListModel.h"
 #import "AddIssueLogReturnModel.h"
-
+#import "OpenUDID.h"
+#import "IssueLogAttachmentUrl.h"
 
 @implementation PWHttpEngine {
 
@@ -276,4 +277,36 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
+/**
+ * 心跳
+ * @param callback
+ * @return
+ */
+- (PWURLSessionTask *)heartBeatWithCallBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"deviceId":[OpenUDID value]}};
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_heartBeat
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)issueLogAttachmentUrlWithIssueLogid:(NSString *)logid callBack:(void (^)(id))callback{
+    IssueLogAttachmentUrl *model = [IssueLogAttachmentUrl new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueDownloadurl(logid)
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
+
+

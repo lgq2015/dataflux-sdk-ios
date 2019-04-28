@@ -179,6 +179,9 @@
         [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
         NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
         result = [NSString stringWithFormat:@"%ld 天前",dayComponents.day];
+        if (dayComponents.day == 7) {
+            result = [timeDate yearMonthDayTimeStr];
+        }
     }
     else {
         if([timeDate isThisYear]){
