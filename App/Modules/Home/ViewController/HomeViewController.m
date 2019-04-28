@@ -29,23 +29,32 @@
     style.titleFont = RegularFONT(17);
     style.selectTitleFont = RegularFONT(24);
     style.selectedTitleColor =RGBACOLOR(51, 51, 51, 1);
-    style.normalTitleColor =RGBACOLOR(201, 201, 201, 1);
+    style.normalTitleColor = PWTitleColor;
     style.showExtraButton = YES;
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
     style.extraBtnImageNames =@[@"icon_scan"];
+    style.leftExtraBtnImageNames= @[@"icon_teamselect",@"icon_nextgray"];
     style.segmentHeight = kTopHeight+16;
+//    style.leftExtraBtnFrame =
+    CGRect leftBtnFirst = CGRectMake(0, 0, ZOOM_SCALE(28), ZOOM_SCALE(28));
+    CGRect leftArrow = CGRectMake(0, 0, ZOOM_SCALE(11), ZOOM_SCALE(11));
+    style.leftExtraBtnFrames = @[[NSValue valueWithCGRect:leftBtnFirst],[NSValue valueWithCGRect:leftArrow]];
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
     //    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
+        if(extraBtn.tag == 10){
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
         scan.scanCodeType = SCT_QRCode;
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
         [self presentViewController:nav animated:YES completion:nil];
+        }else{
+            
+        }
     };
     scrollPageView.tag = 500;
     [self.view addSubview:scrollPageView];

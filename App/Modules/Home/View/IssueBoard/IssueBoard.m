@@ -99,7 +99,7 @@
     if (!_rightBtn) {
         _rightBtn = [[UIButton alloc]initWithFrame:CGRectZero];
         _rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_rightBtn setTitle:@"情报源" forState:UIControlStateNormal];
+        [_rightBtn setTitle:@"连接云服务" forState:UIControlStateNormal];
         [_rightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_rightBtn setImage:[UIImage imageNamed:@"icon_nextblue"] forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = RegularFONT(14);
