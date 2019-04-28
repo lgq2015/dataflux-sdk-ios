@@ -276,10 +276,8 @@
                 model.time = [NSString getLocalDateFormateUTCDate:[[NSDate date] getNowUTCTimeStr] formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
                 IssueProblemDetailsVC *details = [[IssueProblemDetailsVC alloc]init];
                 details.model = model;
-                self.refresh? self.refresh():nil;
                 if(![[PWSocketManager sharedPWSocketManager] isConnect]){
-                    [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
-
+                    self.refresh? self.refresh():nil;
                 }
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController pushViewController:details animated:YES];

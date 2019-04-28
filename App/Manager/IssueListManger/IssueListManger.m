@@ -351,13 +351,14 @@
  */
 -(NSArray *)getUnReadType{
     NSMutableArray *typeArr = [NSMutableArray new];
-
-    NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
-                                         dicOrModel:@{@"typeName": SQL_TEXT} whereFormat:@"WHERE getMsgTime < lastMsgTime"];
-    for (NSDictionary *dic in array) {
-        [typeArr addObject:[dic stringValueForKey:@"typeName" default:@""]];
-    }
-
+    
+    [self.getHelper pw_inDatabase:^{
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME
+                                             dicOrModel:@{@"typeName": SQL_TEXT} whereFormat:@"WHERE getMsgTime < lastMsgTime"];
+        for (NSDictionary *dic in array) {
+            [typeArr addObject:[dic stringValueForKey:@"typeName" default:@""]];
+        }
+    }];
 
     return typeArr;
 }
