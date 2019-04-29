@@ -299,7 +299,7 @@
                         rollback = NO;
 
                     }];
-                    dispatch_sync_on_main_queue(^{
+                    dispatch_async_on_main_queue(^{
                         if (callBackStatus == nil) {
                             setLastTime([NSDate date]);
                             [kNotificationCenter
@@ -637,7 +637,7 @@
     }];
 
 
-    dispatch_sync_on_main_queue(^{
+    dispatch_async_on_main_queue(^{
         KPostNotification(KNotificationInfoBoardDatasUpdate, nil);
     });
 }

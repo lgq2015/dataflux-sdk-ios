@@ -206,7 +206,8 @@ static dispatch_queue_t socket_message_queue() {
                         }
 
                     }
-                    dispatch_sync_on_main_queue(^{
+                    DLog(@"sync notification view")
+                    dispatch_async_on_main_queue(^{
 
                         [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
                                             userInfo:nil];

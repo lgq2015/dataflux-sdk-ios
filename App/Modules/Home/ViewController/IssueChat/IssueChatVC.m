@@ -148,7 +148,7 @@
 
             if(!hasSame){
                 [self.datas addObject:layout];
-                dispatch_sync_on_main_queue(^{
+                dispatch_async_on_main_queue(^{
                     [NSObject cancelPreviousPerformRequestsWithTarget: self
                                                              selector:@selector(onNewIssueChatDataRemoveSame:)
                                                                object: notification];
@@ -253,7 +253,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSArray *topDatas = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:_issueID
                                                                                        startSeq:seq endSeq:0];
-                dispatch_sync_on_main_queue(^{
+                dispatch_async_on_main_queue(^{
                     if (topDatas.count > 0) {
                         NSArray *newChatDatas= [IssueChatDatas bindArray:topDatas];
                         [self.datas insertObjects:newChatDatas atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,[topDatas count])]];
