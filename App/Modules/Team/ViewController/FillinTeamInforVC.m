@@ -282,7 +282,7 @@
 
 }
 - (void)logoutTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、连接的云服务、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutTeamRequest];
     }];
