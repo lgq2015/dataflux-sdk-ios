@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TeamInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZYChangeTeamCell : UITableViewCell
@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *callLab;
 @property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
 @property (weak, nonatomic) IBOutlet UILabel *numLab;
+@property (nonatomic, strong)TeamInfoModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

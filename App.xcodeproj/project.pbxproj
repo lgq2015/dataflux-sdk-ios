@@ -47,6 +47,12 @@
 		2B53532A226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
 		2B53532B226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
 		2B53532C226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */; };
+		2B79D0FD2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D0FC2275A7EB00D14902 /* ZTCreateTeamVC.m */; };
+		2B79D0FE2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D0FC2275A7EB00D14902 /* ZTCreateTeamVC.m */; };
+		2B79D0FF2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D0FC2275A7EB00D14902 /* ZTCreateTeamVC.m */; };
+		2B79D1072275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */; };
+		2B79D1082275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */; };
+		2B79D1092275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */; };
 		2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
 		2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */; };
@@ -1102,6 +1108,10 @@
 		2B535324226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTOrderListExceptNotPayStatusCell.h; sourceTree = "<group>"; };
 		2B535325226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTOrderListExceptNotPayStatusCell.m; sourceTree = "<group>"; };
 		2B535326226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTOrderListExceptNotPayStatusCell.xib; sourceTree = "<group>"; };
+		2B79D0FB2275A7EB00D14902 /* ZTCreateTeamVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTCreateTeamVC.h; sourceTree = "<group>"; };
+		2B79D0FC2275A7EB00D14902 /* ZTCreateTeamVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTCreateTeamVC.m; sourceTree = "<group>"; };
+		2B79D1052275AD6C00D14902 /* ZTCreateTeamConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTCreateTeamConfig.h; sourceTree = "<group>"; };
+		2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTCreateTeamConfig.m; sourceTree = "<group>"; };
 		2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTHandBookNoPicCell.h; sourceTree = "<group>"; };
 		2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTHandBookNoPicCell.m; sourceTree = "<group>"; };
 		2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTHandBookNoPicCell.xib; sourceTree = "<group>"; };
@@ -1884,6 +1894,8 @@
 			children = (
 				4AB48A2521F83B0C009F9E94 /* TeamVC.h */,
 				4AB48A2621F83B0C009F9E94 /* TeamVC.m */,
+				2B79D0FB2275A7EB00D14902 /* ZTCreateTeamVC.h */,
+				2B79D0FC2275A7EB00D14902 /* ZTCreateTeamVC.m */,
 				4A092C7B22256DAF00FB2A35 /* FillinTeamInforVC.h */,
 				4A092C7C22256DAF00FB2A35 /* FillinTeamInforVC.m */,
 				4A092C8522263FA000FB2A35 /* ChooseAddressVC.h */,
@@ -1938,6 +1950,8 @@
 				4A092CCA2228CDC400FB2A35 /* MemberInfoModel.m */,
 				4AF663AC2265832200E551B9 /* TeamFillConfige.h */,
 				4AF663AD2265832300E551B9 /* TeamFillConfige.m */,
+				2B79D1052275AD6C00D14902 /* ZTCreateTeamConfig.h */,
+				2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */,
 				4AF663BB2265DE6600E551B9 /* TeamTF.h */,
 				4AF663BC2265DE6600E551B9 /* TeamTF.m */,
 			);
@@ -3747,6 +3761,7 @@
 				4A759AA2224A2D700057BD02 /* IssueTf.m in Sources */,
 				4A092CF42229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				4AC8570422323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
+				2B79D1072275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
 				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* IssueBoardModel.m in Sources */,
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
@@ -3803,6 +3818,7 @@
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
+				2B79D0FD2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
 				4AB48ACC2212BE6F009F9E94 /* IssueListManger.m in Sources */,
 				4A092C732225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				4ABF441E21BD3146002AF34E /* PWNetworking+RequestManager.m in Sources */,
@@ -4058,6 +4074,7 @@
 				4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4A759AA3224A2D700057BD02 /* IssueTf.m in Sources */,
 				CA1CF5A1221ECB3A00D15316 /* IssueListViewModel.m in Sources */,
+				2B79D1082275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
 				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB82227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
@@ -4114,6 +4131,7 @@
 				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
 				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */,
+				2B79D0FE2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
 				CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */,
 				4A092D81222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */,
@@ -4369,6 +4387,7 @@
 				4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4A759AA4224A2D700057BD02 /* IssueTf.m in Sources */,
 				CA1CF646221ECB5000D15316 /* IssueListViewModel.m in Sources */,
+				2B79D1092275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
 				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB92227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
@@ -4425,6 +4444,7 @@
 				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,
 				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */,
+				2B79D0FF2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
 				CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */,
 				4A092D82222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */,

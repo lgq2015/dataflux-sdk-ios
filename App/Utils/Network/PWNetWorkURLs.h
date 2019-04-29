@@ -162,9 +162,11 @@
 #define PW_OrderList                   API_SHRINE@"/resources/action/listOrders@customerOpenAdmin"
 //http://testing.shrine-via-core-stone.cloudcare.cn:10100/resources/action/listOrders@customerOpenAdmin,
 #pragma mark ========== 团队 ==========
-#define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
+#define PW_CurrentTeam                 API_SEVERID@"/v1/auth/current-team"
 #define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"
 #define PW_AddTeam                     API_SEVERID@"/v1/team/add"
+#define PW_AuthTeamList                API_SEVERID@"/v1/auth/team-list"
+#define PW_AuthSwitchTeam              API_SEVERID@"/v1/auth/switch-team"
 #define PW_CancelTeam                  API_SEVERID@"/v1/team/cancel"
 #define PW_TeamAccount                 API_SEVERID@"/v1/team/account/list"
 #define PW_TeamModify                  API_SEVERID@"/v1/team/modify"

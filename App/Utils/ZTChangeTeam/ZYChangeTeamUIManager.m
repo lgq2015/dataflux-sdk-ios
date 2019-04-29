@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
 @property (nonatomic, assign) CGFloat offsetY;//从哪个位置弹出来
 @property (nonatomic, strong) UITableView *tab;
+@property (nonatomic, strong) NSArray *teamlists;
 @end
 @implementation ZYChangeTeamUIManager
 
@@ -46,8 +47,11 @@
 }
 
 - (void)showWithOffsetY:(CGFloat)offset{
+    //避免弹出多次
     if (_isShowTeamView) return;
-    _offsetY = offset;
+    //保存外界传入的值(+1.0 为了让导航栏顶部那条线显示出来)
+    _offsetY = offset + 1.0;
+    _teamlists = [userManager getAuthTeamList];
     [self s_UI];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.25 animations:^{
@@ -60,7 +64,6 @@
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
-    
     [UIView commitAnimations];
 }
 
@@ -129,38 +132,13 @@
 
 #pragma mark --UITableViewDataSource--
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return self.teamlists.count +  1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0
-        || indexPath.row == 1
-        || indexPath.row == 2
-        || indexPath.row == 3){
+    if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
+        TeamInfoModel *model = self.teamlists[indexPath.row];
         ZYChangeTeamCell *cell = (ZYChangeTeamCell *)[tableView dequeueReusableCellWithIdentifier:[ZYChangeTeamCell cellReuseIdentifier]];
-        if (indexPath.row == 0){
-            cell.selectedImage.hidden = YES;
-            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
-            cell.callLab.hidden = YES;
-            cell.numLab.hidden = NO;
-        }
-        if (indexPath.row == 1){
-            cell.selectedImage.hidden = NO;
-            cell.teamName.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
-            cell.callLab.hidden = YES;
-            cell.numLab.hidden = YES;
-        }
-        if (indexPath.row == 2){
-            cell.selectedImage.hidden = YES;
-            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
-            cell.callLab.hidden = NO;
-            cell.numLab.hidden = NO;
-        }
-        if (indexPath.row == 3){
-            cell.selectedImage.hidden = YES;
-            cell.teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
-            cell.callLab.hidden = YES;
-            cell.numLab.hidden = NO;
-        }
+        cell.model = model;
         return  cell;
     }else{
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -170,10 +148,7 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0
-        || indexPath.row == 1
-        || indexPath.row == 2
-        || indexPath.row == 3){
+    if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
         return ZOOM_SCALE(44);
     }else{
         return ZOOM_SCALE(60);
@@ -182,16 +157,20 @@
 #pragma mark --UITableViewDelegate--
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 4){
+    if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
+        TeamInfoModel *model = self.teamlists[indexPath.row];
+        TeamInfoModel *currentTeam = [self getCurrentTeamModel];
+        //如果点击当前团队不做处理
+        if ([model.teamID isEqualToString:currentTeam.teamID]){
+            return;
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
+            [self.delegate didClickChangeTeamWithGroupID:model.teamID];
+        }
+    }else{
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
             [self.delegate didClickAddTeam];
         }
-        [self dismiss];
-        return;
-    }
-    NSString *str = [NSString stringWithFormat:@"%ld",indexPath.row];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
-        [self.delegate didClickChangeTeamWithGroupID:str];
     }
     [self dismiss];
 }
@@ -207,13 +186,21 @@
 }
 #pragma mark --获取表的高度---
 - (CGFloat)getHeight{
-    NSArray *titles = @[@"上海驻云团队",@"上海驻云团队2",@"上海驻云团队2",@"我的团队"];
-    CGFloat height = titles.count * ZOOM_SCALE(44) + ZOOM_SCALE(60);
+    CGFloat height = self.teamlists.count * ZOOM_SCALE(44) + ZOOM_SCALE(60);
     if (height > kHeight * 0.5){
         height = kHeight * 0.5;
     }
     return height;
 }
-
-
+#pragma mark --获取当前teammodel----
+- (TeamInfoModel *)getCurrentTeamModel{
+    if (userManager.teamModel){
+        return userManager.teamModel;
+    }else{
+        YYCache *cache = [[YYCache alloc] initWithName:KTeamCacheName];
+        NSDictionary * teamDic = (NSDictionary *)[cache objectForKey:KTeamModelCache];
+        TeamInfoModel *model = [TeamInfoModel modelWithJSON:teamDic];
+        return model;
+    }
+}
 @end

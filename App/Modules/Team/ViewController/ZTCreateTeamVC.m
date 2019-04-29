@@ -1,12 +1,12 @@
 //
-//  FillinTeamInforVC.m
+//  ZTCreateTeamVC.m
 //  App
 //
-//  Created by 胡蕾蕾 on 2019/2/26.
+//  Created by tao on 2019/4/28.
 //  Copyright © 2019 hll. All rights reserved.
 //
 
-#import "FillinTeamInforVC.h"
+#import "ZTCreateTeamVC.h"
 #import "ChooseAddressVC.h"
 #import "ChooseTradesVC.h"
 #import "CreateSuccessVC.h"
@@ -18,11 +18,9 @@
 
 #define AddressTag 15
 #define TradesTag  20
-
-@interface FillinTeamInforVC ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
+@interface ZTCreateTeamVC ()<UIGestureRecognizerDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray<UITextField *> *tfAry;
-@property (nonatomic, assign) FillinTeamType type;
-@property (nonatomic, strong) TeamFillConfige *mConfige;
+@property (nonatomic, strong) ZTCreateTeamConfig *mConfige;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, copy) NSString *currentCity;
 @property (nonatomic, copy) NSString *currentProvince;
@@ -30,12 +28,13 @@
 @property (nonatomic, strong) UILabel *countLab;
 @end
 
-@implementation FillinTeamInforVC
+@implementation ZTCreateTeamVC
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
-    
-}}
+        
+    }}
 
 
 - (void)viewDidLoad {
@@ -44,7 +43,8 @@
     [self judgeVcType];
 }
 - (void)judgeVcType{
-    self.mConfige = [[TeamFillConfige alloc]init];
+    self.mConfige = [[ZTCreateTeamConfig alloc] init];
+    [self.mConfige createTeamConfige];
     self.title = self.mConfige.title;
     self.currentCity = self.mConfige.currentCity;
     self.currentProvince = self.mConfige.currentProvince;
@@ -55,7 +55,7 @@
     UIView *temp = nil;
     CGFloat height = Interval(23)+ZOOM_SCALE(42);
     for (NSInteger i=0;i<itemAry.count ;i++) {
-         UIView *item = [self itemWithData:itemAry[i]];
+        UIView *item = [self itemWithData:itemAry[i]];
         if (temp == nil) {
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(self.view).offset(Interval(12));
@@ -89,22 +89,22 @@
         make.right.mas_equalTo(self.view);
         make.height.offset(ZOOM_SCALE(130));
     }];
-   
-        UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
-        [textItem addSubview:titel];
     
-
-        [textItem addSubview:self.textView];
-        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(titel.mas_bottom);
-            make.right.mas_equalTo(self.view).offset(-Interval(12));
-            make.left.mas_equalTo(self.view).offset(Interval(12));
-            make.bottom.mas_equalTo(textItem).offset(-Interval(25));
-        }];
+    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
+    [textItem addSubview:titel];
+    
+    
+    [textItem addSubview:self.textView];
+    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(titel.mas_bottom);
+        make.right.mas_equalTo(self.view).offset(-Interval(12));
+        make.left.mas_equalTo(self.view).offset(Interval(12));
+        make.bottom.mas_equalTo(textItem).offset(-Interval(25));
+    }];
     if (!_countLab) {
         _countLab = [PWCommonCtrl lableWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(13) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"0/250"];
         _countLab.textAlignment = NSTextAlignmentRight;
-         [textItem addSubview:_countLab];
+        [textItem addSubview:_countLab];
     }
     self.textView.text = self.mConfige.describeStr;
     if (!self.mConfige.showDescribe) {
@@ -127,61 +127,9 @@
         }];
     }
     self.tfAry[0].delegate = self;
-    switch (self.mConfige.type) {
-        case FillinTeamTypeAdd:
-            [self createBtnViewAdd];
-            break;
-        case FillinTeamTypeIsAdmin:
-            [self createBtnViewAdmin];
-            break;
-        case FillinTeamTypeIsMember:
-            [self createBtnViewMember];
-            break;
-    }
-    
-}
-#pragma mark ========== 团队/个人 ==========
-- (void)createBtnViewMember{
-    self.textView.editable = NO;
-    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"退出团队"];
-    [commitTeam addTarget:self action:@selector(exictTeamClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:commitTeam];
-    [commitTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        if (!self.mConfige.showDescribe) {
-            make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78)-ZOOM_SCALE(130));
-        }else{
-        make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78));
-        }
-        make.height.offset(ZOOM_SCALE(47));
-    }];
+    [self createBtnViewAdd];
 }
 
--(void)exictTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@" * 退出团队后，您当前有关该团队的所有信息都将被清空，并不再接收该团队的任何消息\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [SVProgressHUD show];
-        NSString *uid =userManager.curUserInfo.userID;
-        [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            [SVProgressHUD dismiss];
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"退出成功"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [userManager logout:nil];
-                });
-            }else{
-                
-            }
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-        }];
-    }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:confirm];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-}
 #pragma mark ========== 创建团队 ==========
 - (void)createBtnViewAdd{
     UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"提交"];
@@ -220,21 +168,22 @@
         
     }
     //创建团队：区分个人团队升级，还是在已有团队的基础上创建新的团队
+    NSMutableDictionary *createTMDic = [[NSMutableDictionary alloc] initWithDictionary:params];
     if([getTeamState isEqualToString:PW_isTeam]){
-        [params setValue:@"create" forKey:@"operationType"];
-        [params setValue:@{@"isDefault":@YES,@"isAdmin":@YES} forKey:@"relationship"];
+        [createTMDic setValue:@"create" forKey:@"operationType"];
+        [createTMDic setValue:@{@"isDefault":@YES,@"isAdmin":@YES} forKey:@"relationship"];
     }
     [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
+    [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-                CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
-                create.groupName = self.tfAry[0].text;
-                create.btnClick =^(){
-                    KPostNotification(KNotificationTeamStatusChange, @YES);
-                    setTeamState(PW_isTeam);
-                    [self.navigationController popViewControllerAnimated:NO];
-                };
-            [self presentViewController:create animated:YES completion:nil];  
+            CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
+            create.groupName = self.tfAry[0].text;
+            create.btnClick =^(){
+                KPostNotification(KNotificationTeamStatusChange, @YES);
+                setTeamState(PW_isTeam);
+                [self.navigationController popViewControllerAnimated:NO];
+            };
+            [self presentViewController:create animated:YES completion:nil];
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -244,7 +193,7 @@
                     [self.navigationController popViewControllerAnimated:NO];
                 });
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
         }
         [SVProgressHUD dismiss];
@@ -254,92 +203,7 @@
     }];
     
 }
-#pragma mark ========== 团队/管理员 ==========
-- (void)createBtnViewAdmin{
 
-    UIButton *transferTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
-    [transferTeam addTarget:self action:@selector(transferClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:transferTeam];
-    [transferTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(self.textView.mas_bottom).offset(Interval(78));
-        make.height.offset(ZOOM_SCALE(47));
-    }];
-    if(self.count<2){
-        transferTeam.enabled = NO;
-    }
-    UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"解散团队"];
-    [logoutTeam addTarget:self action:@selector(logoutTeamClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:logoutTeam];
-    [logoutTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(transferTeam.mas_bottom).offset(Interval(20));
-        make.height.offset(ZOOM_SCALE(47));
-    }];
-    self.tfAry[0].hll_limitTextLength = 30;
-
-}
-- (void)logoutTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self logoutTeamRequest];
-    }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:confirm];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)logoutTeamRequest{
-    ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
-    verify.isShowCustomNaviBar = YES;
-    verify.type = ChangeUITTeamDissolve;
-    [self.navigationController pushViewController:verify animated:YES];
-    
-}
-- (void)backBtnClicked{
-    if (self.mConfige.type == FillinTeamTypeIsAdmin) {
-        TeamInfoModel *model = userManager.teamModel;
-        if ([self.tfAry[0].text isEqualToString:model.name] &&[self.currentProvince isEqualToString:model.province] && [self.currentCity isEqualToString:model.city]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-             NSString *name = [self.tfAry[0].text stringByTrimmingCharactersInSet:set];
-            if ([name isEqualToString:@""]) {
-                [iToast alertWithTitleCenter:@"团队名称不能为空"];
-            }else{
-                [SVProgressHUD show];
-                NSDictionary *param ;
-                NSString *province =self.currentProvince;
-                NSString *city = self.currentCity;
-                if ([self.tfAry[0].text isEqualToString:model.name]) {
-                    param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":[self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]}}};
-                }else{
-                    param= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
-                }
-                [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-                    if ([response[ERROR_CODE] isEqualToString:@""]) {
-                        if (self.changeSuccess) {
-                            self.changeSuccess();
-                        }
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    [SVProgressHUD dismiss];
-                    
-                } failBlock:^(NSError *error) {
-                    [SVProgressHUD dismiss];
-                    [error errorToast];
-                }];
-            }
-        }
-        
-    }else{
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    }
-}
 - (void)transferClick{
     ChooseAdminVC *choose = [[ChooseAdminVC alloc]init];
     [self.navigationController pushViewController:choose animated:YES];
@@ -423,15 +287,5 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
     return NO;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

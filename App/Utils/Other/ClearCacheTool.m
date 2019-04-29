@@ -26,7 +26,7 @@
         BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
         
         // 4. 以上判断目的是忽略不需要计算的文件
-        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"] ||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"]){
+        if (!isExist || isDirectory || [filePath containsString:@".DS"]||[filePath containsString:@"KUserCacheName"] ||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"] ||[filePath containsString:@"KTeamListCacheName"]){
             // 过滤: 1. 文件夹不存在  2. 过滤文件夹  3. 隐藏文件
             continue;
         }
@@ -67,7 +67,7 @@
     for (NSString *subPath in subPathArr)
     {
         filePath = [path stringByAppendingPathComponent:subPath];
-        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"]||[filePath containsString:@"/Caches/Snapshots"])) {
+        if (([filePath containsString:@"KUserCacheName"]||[filePath containsString:@"SDWebImageCache"]||[filePath containsString:@"KTeamCacheName"]||[filePath containsString:@"/Caches/Snapshots"]||[filePath containsString:@"KTeamListCacheName"])) {
           
         }else{
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];

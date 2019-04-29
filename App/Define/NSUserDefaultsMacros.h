@@ -34,7 +34,10 @@
 #define PWUserID @"userid"
 #define setPWUserID(str)        [kUserDefaults setObject:str forKey:PWUserID]
 #define getPWUserID             [kUserDefaults objectForKey:PWUserID]
-
+//用户默认团队id
+#define PWDefaultTeamID @"teamId"
+#define setPWDefaultTeamID(str)        [kUserDefaults setObject:str forKey:PWDefaultTeamID]
+#define getPWDefaultTeamID             [kUserDefaults objectForKey:PWDefaultTeamID]
 //seqAct
 #define PWseqAct                [NSString stringWithFormat:@"%@/PWseqAct", getPWUserID]
 #define setPWseqAct(str,type)   [kUserDefaults setObject:str forKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]

@@ -290,27 +290,14 @@ SINGLETON_FOR_CLASS(UserManager);
     [[IssueListManger sharedIssueListManger] createData];
 
 
-    //    //移除缓存
+    //移除缓存
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
-    __block BOOL iscompletion1,completion2;
-    [cache removeAllObjectsWithBlock:^{
-        iscompletion1 = YES;
-    }];
-    [cacheteam removeAllObjectsWithBlock:^{
-        completion2 = YES;
-    }];
-    if (iscompletion1&&completion2) {
-        if (completion) {
-            completion(YES,nil);
-        }
-    }else{
-        if (completion) {
-            completion(NO,nil);
-        }
-    }
+    YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
+    [cache removeAllObjects];
+    [cacheteam removeObjectForKey:KTeamModelCache];
+    [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
-
 }
 
 //-(void)autoLoginToServer:(loginBlock)completion{
@@ -439,9 +426,9 @@ SINGLETON_FOR_CLASS(UserManager);
         [cache setObject:dic forKey:KUserModelCache];
     }
 }
-#pragma mark ========== team 相关 ==========
+#pragma mark ========== 团队列表相关 ==========
 - (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
     if (teamMember) {
         memberBlock ? memberBlock(YES,teamMember):nil;
@@ -450,10 +437,9 @@ SINGLETON_FOR_CLASS(UserManager);
     }
 }
 - (void)setTeamMember:(NSArray *)memberArray{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
-    [cache removeAllObjectsWithBlock:^{
-         [cache setObject:memberArray forKey:KTeamMemberCacheName];
-    }];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    [cache removeObjectForKey:KTeamMemberCacheName];
+    [cache setObject:memberArray forKey:KTeamMemberCacheName];
 }
 - (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
@@ -475,7 +461,7 @@ SINGLETON_FOR_CLASS(UserManager);
     if (memberId==nil || [memberId isEqualToString:@""]) {
         memberBlock? memberBlock(nil):nil;
     }
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamMemberCacheName];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
    __block NSDictionary *memberDict = nil;
     if (teamMember) {
@@ -510,6 +496,40 @@ SINGLETON_FOR_CLASS(UserManager);
         }];
     }
    
+}
+#pragma mark =========团队列表===============
+- (void)setAuthTeamList:(NSArray *)teamList{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    [cache removeObjectForKey:kAuthTeamListDict];
+    [cache setObject:teamList forKey:kAuthTeamListDict];
+}
+- (void)getAuthTeamList:(void(^)(id obj))resultBlock{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    [cache objectForKey:kAuthTeamListDict withBlock:^(NSString * _Nonnull key, id<NSCoding>  _Nonnull object) {
+        resultBlock(object);
+    }];
+}
+- (NSArray *)getAuthTeamList{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    NSArray *lists = (NSArray *)[cache objectForKey:kAuthTeamListDict];
+    return lists;
+}
+
+#pragma mark =========更新默认团队===============
+- (void)updateTeamModelWithGroupID:(NSString *)groupID{
+    NSArray *lists = [self getAuthTeamList];
+    [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TeamInfoModel *model = (TeamInfoModel *)obj;
+        if ([model.teamID isEqualToString:groupID]){
+            self.teamModel = model;
+            //更新teammodel缓存
+            YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
+            NSDictionary *dic = [model modelToJSONObject];
+            [cacheteam removeObjectForKey:KTeamModelCache];
+            [cacheteam setObject:dic forKey:KTeamModelCache withBlock:nil];
+            *stop = YES;
+        }
+    }];
 }
 - (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TeamInfoModel.h"
 @protocol ZYChangeTeamUIManagerDelegate <NSObject>
 @optional
 //切换团队
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 //表明切换团队界面是否弹出
 @property (nonatomic, assign)BOOL isShowTeamView;
 - (void)showWithOffsetY:(CGFloat)offset;
+-(void)dismiss;
 //修改团队消息数
 - (void)changeTeamMessageNum:(NSString *)num withGroupId:(NSString *)groupID;
 //有人@我

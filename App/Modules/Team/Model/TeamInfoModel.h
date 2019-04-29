@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *teamID;
 @property (nonatomic, strong) NSDictionary *tags;
+@property (nonatomic, assign)BOOL isDefault;
 @end
 
 NS_ASSUME_NONNULL_END
