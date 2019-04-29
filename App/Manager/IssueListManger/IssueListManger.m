@@ -491,7 +491,17 @@
 
     return array;
 }
-
+- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type{
+    NSMutableArray *array = [NSMutableArray new];
+    [self.getHelper pw_inDatabase:^{
+        
+        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status ='recovered' ORDER by seq DESC ", type];
+        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        [array addObjectsFromArray:itemDatas];
+    }];
+    
+    return array;
+}
 - (IssueModel *)getIssueDataByData:(NSString *)issueId {
     __block IssueModel *data = nil;
     [self.getHelper pw_inDatabase:^{
@@ -560,7 +570,17 @@
         return !lastTime.isToday;
     }
 }
+- (BOOL)checkIssueEngineIsHasIssue{
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME;
 
+    NSString *whereFormat = @"where origin = 'issueEngine' AND status!='discarded' AND status!='recovered'";
+     NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
+    if (itemDatas.count>0) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
 
 #pragma mark ========== infoBoard 数据库创建相关 ==========
 
