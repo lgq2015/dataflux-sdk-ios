@@ -27,12 +27,12 @@
 #import "HomeIssueIndexGuidanceView.h"
 #import "NewsListEmptyView.h"
 #import "DetectionVersionAlert.h"
+#import "IssueIndexHeaderView.h"
+
 @interface HomeViewIssueIndexVC () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) NSMutableArray *infoDatas;
 @property(nonatomic, strong) NSDictionary *infoSourceDatas;
-@property(nonatomic, strong) IssueBoard *infoboard;
-@property(nonatomic, strong) HomeNoticeScrollView *notice;
-@property(nonatomic, strong) UIView *headerView;
+@property(nonatomic, strong) IssueIndexHeaderView *headerView;
 @property(nonatomic, assign) PWIssueBoardStyle infoBoardStyle;
 
 @property(nonatomic, assign) NSInteger newsPage;
@@ -47,7 +47,7 @@
 
 
     [[IssueSourceManger sharedIssueSourceManger] checkToGetDetectionStatement:^(NSString *string) {
-        [_infoboard updateTitle:string withStates:NO];
+        [_headerView.issueBoard updateTitle:string];
 
     }];
 }
@@ -128,24 +128,21 @@
 - (void)createUI {
     
    
-    [[AppDelegate shareAppDelegate] DetectNewVersion];
+ //   [[AppDelegate shareAppDelegate] DetectNewVersion];
      
-    CGFloat headerHeight = self.infoBoardStyle == PWIssueBoardStyleConnected ? ZOOM_SCALE(530) : ZOOM_SCALE(696);
 
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, headerHeight)];
+    self.headerView = [[IssueIndexHeaderView alloc] initWithStyle:self.infoBoardStyle];
 
-    [self.headerView addSubview:self.infoboard];
-    [self.headerView addSubview:self.notice];
     NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
     self.infoDatas = [[NSMutableArray alloc] initWithArray:array];
-    [self.infoboard createUIWithParamsDict:@{@"datas": self.infoDatas}];
+    [self.headerView.issueBoard createUIWithParamsDict:@{@"datas": self.infoDatas}];
     __weak typeof(self) weakSelf = self;
-    self.infoboard.historyInfoClick = ^(void) {
+    self.headerView.issueBoard.historyInfoClick = ^(void) {
         IssueSourceListVC *infosourceVC = [[IssueSourceListVC alloc] init];
         [weakSelf.navigationController pushViewController:infosourceVC animated:YES];
     };
 
-    self.infoboard.itemClick = ^(NSInteger index) {
+    self.headerView.issueBoard.itemClick = ^(NSInteger index) {
 
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -194,16 +191,15 @@
         
     };
 
-    self.infoboard.connectClick = ^() {
+    self.headerView.issueBoard.connectClick = ^() {
         AddSourceVC *addVC = [[AddSourceVC alloc] init];
         [weakSelf.navigationController pushViewController:addVC animated:YES];
     };
-    [self.notice mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.infoboard.mas_bottom).offset(20);
-        make.width.offset(kWidth);
-        make.height.offset(ZOOM_SCALE(60));
-    }];
+  
     self.tableView.tableHeaderView = self.headerView;
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(self.tableView);
+    }];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight - kTabBarHeight - kTopHeight - 16);
     self.tableView.estimatedRowHeight = 44;
     self.tableView.delegate = self;
@@ -218,14 +214,11 @@
 }
 
 - (void)issueBoardSetConnectView {
-    if (self.infoBoardStyle == PWIssueBoardStyleNotConnected) {
         self.infoBoardStyle = PWIssueBoardStyleConnected;
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
-        [self.infoboard updataInfoBoardStyle:PWIssueBoardStyleConnected itemData:@{@"datas": array}];
-        self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(524));
-        self.infoboard.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(436));
+        [self.headerView updateIssueBoardStyle:PWIssueBoardStyleConnected itemData:@{@"datas": array}];
+        [self.headerView layoutIfNeeded];
         self.tableView.tableHeaderView = self.headerView;
-    }
 }
 
 - (void)infoBoardDatasUpdate {
@@ -242,30 +235,14 @@
                     setIsHideGuide(PW_IsHideGuide);
                 }
             } else {
-                [self.infoboard updateTitle:title withStates:NO];
+                [self.headerView.issueBoard updateTitle:title];
                 if (array.count > 0) {
-                    [self.infoboard updataDatas:@{@"datas": array}];
+                    [self.headerView.issueBoard updataDatas:@{@"datas": array}];
                 }
             }
         });
 
     });
-}
-
-- (IssueBoard *)infoboard {
-    if (!_infoboard) {
-        CGFloat height = self.infoBoardStyle == PWIssueBoardStyleConnected ? ZOOM_SCALE(440) : ZOOM_SCALE(600);
-        _infoboard = [[IssueBoard alloc] initWithFrame:CGRectMake(0, 0, kWidth, height) style:self.infoBoardStyle]; // type从用户信息里提前获取
-    }
-    return _infoboard;
-}
-
-- (HomeNoticeScrollView *)notice {
-    if (!_notice) {
-        _notice = [[HomeNoticeScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(60))];
-        _notice.backgroundColor = PWWhiteColor;
-    }
-    return _notice;
 }
 
 - (NewsListEmptyView *)noDataView {
@@ -283,7 +260,7 @@
                 NSDictionary *dict = array[0];
                 self.noticeDatas = [NSMutableArray new];
                 [self.noticeDatas addObjectsFromArray:array];
-                [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+                [self.headerView.notice createUIWithTitleArray:@[dict[@"title"]]];
             }
 
         }
@@ -301,7 +278,7 @@
     if (self.noticeDatas.count > 0) {
         int x = arc4random() % self.noticeDatas.count;
         NSDictionary *dict = self.noticeDatas[x];
-        [self.notice createUIWithTitleArray:@[dict[@"title"]]];
+        [self.headerView.notice createUIWithTitleArray:@[dict[@"title"]]];
     } else {
         [self loadTipsData];
     }

@@ -100,8 +100,13 @@
         } else {
             NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
             if (time.length > 0) {
+               BOOL ishas= [[IssueListManger sharedIssueListManger] checkIssueEngineIsHasIssue];
                 NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-                statement = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+                statement = [NSString stringWithFormat:@"%@为您检测", [NSString compareCurrentTime:local]];
+                if (!ishas) {
+                  statement = [NSString stringWithFormat:@"%@为您检测\n恭喜您，您的系统非常健康", [NSString compareCurrentTime:local]];
+                }
+                
             } else {
                 statement = @"尚未进行检测";
             }

@@ -9,7 +9,8 @@
 #import "IssueBoard.h"
 #import "IssueBoardInitialView.h"
 #import "IssueListManger.h"
-
+#define itemHeight ZOOM_SCALE(64)
+#define LineSpacing ZOOM_SCALE(12)
 @interface IssueBoard ()<UICollectionViewDelegate,UICollectionViewDataSource,PWInfoInitialViewDelegate>
 @property (nonatomic, strong) NSMutableArray *datas;
 @property (nonatomic, strong) NSDictionary *headRightBtn;
@@ -24,9 +25,8 @@
 @implementation IssueBoard
 
 #pragma mark ========== 初始化 ==========
--(instancetype)initWithFrame:(CGRect)frame style:(PWIssueBoardStyle)style{
-    if (self = [super initWithFrame:frame]) {
-        self.frame = frame;
+-(instancetype)initWithStyle:(PWIssueBoardStyle)style{
+    if (self = [super init]) {
         self.style = style;
     }
     return self;
@@ -36,7 +36,7 @@
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict{
      _datas = [NSMutableArray new];
     [_datas addObjectsFromArray:paramsDict[@"datas"]];
-
+ 
     if (self.style == PWIssueBoardStyleNotConnected) {
         self.titleLable.hidden = NO;
         self.initializeView.hidden = NO;
@@ -45,6 +45,9 @@
             make.left.mas_equalTo(self).offset(Interval(16));
             make.right.mas_equalTo(self).offset(Interval(-16));
             make.height.offset(ZOOM_SCALE(586));
+        }];
+        [self mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.initializeView);
         }];
     }else{
         CGFloat width = self.rightBtn.frame.size.width;
@@ -57,14 +60,21 @@
         [self.titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(Interval(16));
             make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
-            make.height.offset(ZOOM_SCALE(20));
-            make.centerY.equalTo(self.rightBtn.mas_centerY);
+            make.top.mas_equalTo(self).offset(Interval(12));
         }];
         self.titleLable.text = @"检测时间";
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
         self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(76 * 5));
+        [self.itemCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.titleLable.mas_bottom).offset(Interval(12));
+            make.left.right.mas_equalTo(self);
+            make.height.offset((itemHeight+LineSpacing)*5);
+        }];
+        [self mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.itemCollectionView);
+        }];
     }
     
 }
@@ -74,8 +84,8 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
         //该方法也可以设置itemSize
-        layout.itemSize =CGSizeMake(kWidth-2*Interval(16), ZOOM_SCALE(64));
-        layout.minimumLineSpacing = ZOOM_SCALE(12);
+        layout.itemSize =CGSizeMake(kWidth-2*Interval(16), itemHeight);
+        layout.minimumLineSpacing = LineSpacing;
         _itemCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _itemCollectionView.delegate = self;
         _itemCollectionView.dataSource = self;
@@ -88,9 +98,9 @@
 }
 -(UILabel *)titleLable{
     if (!_titleLable) {
-        _titleLable = [[UILabel alloc] init];
-        _titleLable.font = [UIFont systemFontOfSize:12];
-        _titleLable.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1/1.0];
+        _titleLable = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
+        _titleLable.numberOfLines = 0;
+        
         [self addSubview:_titleLable];
     }
     return _titleLable;
@@ -123,7 +133,7 @@
 - (void)updataInfoBoardStyle:(PWIssueBoardStyle)style itemData:(NSDictionary *)paramsDict{
     NSArray *data = paramsDict[@"datas"];
         if(data.count>0){
-        if(self.style != style){
+        if(self.style != style && style == PWIssueBoardStyleConnected){
             self.style = style;
             [self.initializeView removeFromSuperview];
             [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,11 +151,14 @@
             self.titleLable.text = @"检测时间";
             self.titleLable.hidden = NO;
            
-            self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(82*5));
+            self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, (itemHeight+LineSpacing)*5);
+            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.mas_equalTo(self.itemCollectionView);
+            }];
         }
-        [self.datas removeAllObjects];
-        [self.datas addObjectsFromArray:data];
-        [self.itemCollectionView reloadData];
+            [self updataDatas:paramsDict];
+        }else{
+            // 由已连接变为未连接 但是目前业务没有此需求
         }
 }
 - (void)updataDatas:(NSDictionary *)paramsDict{
@@ -182,12 +195,14 @@
         });
     }
 }
-- (void)updateTitle:(NSString *)title withStates:(BOOL)isCheck{
-    if(isCheck){
-        
-    }
+- (void)updateTitle:(NSString *)title{
     if (self.titleLable) {
-            self.titleLable.text = title;
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:title];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 8; // 调整行间距
+        NSRange range = NSMakeRange(0, [title length]);
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
+        self.titleLable.attributedText = attributedString;
         }
 }
 #pragma mark ========== private methods ==========

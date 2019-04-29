@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, PWIssueBoardStyle) {
 @property (nonatomic, copy) void(^itemClick)(NSInteger index);
 
 /** 初始化InfoBoard视图的frame与style*/
--(instancetype)initWithFrame:(CGRect)frame style:(PWIssueBoardStyle)style;
+-(instancetype)initWithStyle:(PWIssueBoardStyle)style;
 
 /** 创建InfoBoard视图*/
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict;
@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, PWIssueBoardStyle) {
 /** item刷新*/
 - (void)updateItem:(NSDictionary *)paramsDict;
 
-/** InfoBoard模块title更新  isCheck 是否处于检测中*/
-- (void)updateTitle:(NSString *)title withStates:(BOOL)isCheck;
+/** InfoBoard模块title更新*/
+- (void)updateTitle:(NSString *)title;
 
 @end
