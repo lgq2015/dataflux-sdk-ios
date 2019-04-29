@@ -10,6 +10,7 @@
 #import <MJRefresh.h>
 #import "NaviBarView.h"
 #import "PWLibraryListNoMoreFootView.h"
+#import "NoDataView.h"
 @interface RootViewController : UIViewController
 /**
  *  修改状态栏颜色
@@ -36,6 +37,8 @@
  *  显示没有数据页面
  */
 -(void)showNoDataImage;
+-(void)showNoDataViewWithStyle:(NoDataViewStyle)style;
+
 -(void)setBackgroundColor:(UIColor *)color;
 /**
  *  移除无数据页面

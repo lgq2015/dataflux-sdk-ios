@@ -35,7 +35,7 @@
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
     style.extraBtnImageNames =@[@"icon_scan"];
-    style.leftExtraBtnImageNames= @[@"icon_teamselect",@"icon_nextgray"];
+    style.leftExtraBtnImageNames= @[@"icon_teamselect",@"arrow_down"];
     style.segmentHeight = kTopHeight+16;
 //    style.leftExtraBtnFrame =
     CGRect leftBtnFirst = CGRectMake(0, 0, ZOOM_SCALE(28), ZOOM_SCALE(28));
