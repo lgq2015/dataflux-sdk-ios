@@ -48,6 +48,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     NSError *error;
                     self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
                     if (self.teamModel) {
+                        setPWDefaultTeamID(self.teamModel.teamID);
                         YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
                         NSDictionary *dic = [self.teamModel modelToJSONObject];
                         [cache setObject:dic forKey:KTeamModelCache];
@@ -194,6 +195,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     NSError *error;
                     self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
                     if (self.teamModel) {
+                        setPWDefaultTeamID(self.teamModel.teamID);
                         YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
                         NSDictionary *dic = [self.teamModel modelToJSONObject];
                         [cache setObject:dic forKey:KTeamModelCache];
@@ -229,6 +231,7 @@ SINGLETON_FOR_CLASS(UserManager);
         
     });
     [self loadExperGroups:nil];
+    [self requestMemberList:NO complete:nil];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -237,6 +240,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if (content.allKeys.count>0) {
                 NSError *error;
                 self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
+                setPWDefaultTeamID(self.teamModel.teamID);
                 setTeamState(PW_isTeam);
                 [kUserDefaults synchronize];
                 isHave(YES,content);
@@ -497,7 +501,7 @@ SINGLETON_FOR_CLASS(UserManager);
     }
    
 }
-#pragma mark =========团队列表===============
+#pragma mark ========== 团队列表===============
 - (void)setAuthTeamList:(NSArray *)teamList{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
     [cache removeObjectForKey:kAuthTeamListDict];
@@ -515,7 +519,7 @@ SINGLETON_FOR_CLASS(UserManager);
     return lists;
 }
 
-#pragma mark =========更新默认团队===============
+#pragma mark ========== 更新默认团队===============
 - (void)updateTeamModelWithGroupID:(NSString *)groupID{
     NSArray *lists = [self getAuthTeamList];
     [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -528,6 +532,54 @@ SINGLETON_FOR_CLASS(UserManager);
             [cacheteam removeObjectForKey:KTeamModelCache];
             [cacheteam setObject:dic forKey:KTeamModelCache withBlock:nil];
             *stop = YES;
+        }
+    }];
+}
+#pragma mark ========== 常用请求==========
+//团队列表
+- (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished{
+    if (isShowProgress){
+        [SVProgressHUD show];
+    }
+    NSMutableArray *teamlists = [NSMutableArray array];
+    [PWNetworking requsetHasTokenWithUrl:PW_AuthTeamList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            if (content.count == 0 || content == nil){
+                if (isFinished){
+                    isFinished(NO);
+                }
+                return ;
+            }
+            for(NSDictionary *dic in content){
+                NSError * error = nil;
+                TeamInfoModel *model = [[TeamInfoModel alloc] initWithDictionary:dic error:&error];
+                [teamlists addObject:model];
+            }
+            //缓存
+            [userManager setAuthTeamList:teamlists];
+            //回调
+            if (isFinished){
+                isFinished(YES);
+            }
+            if (isShowProgress){
+                [SVProgressHUD dismiss];
+            }
+        }else{
+            //回调
+            if (isFinished){
+                isFinished(NO);
+            }
+            if (isShowProgress){
+                [SVProgressHUD dismiss];
+            }
+            if (isShowProgress){
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
+        }
+    } failBlock:^(NSError *error) {
+        if (isFinished){
+            isFinished(NO);
         }
     }];
 }

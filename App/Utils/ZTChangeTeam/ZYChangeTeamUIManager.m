@@ -47,11 +47,22 @@
 }
 
 - (void)showWithOffsetY:(CGFloat)offset{
+    _offsetY = offset + 1.0;
+    _teamlists = [userManager getAuthTeamList];
+    //如果缓存为空，转圈请求
+    if (_teamlists == nil || _teamlists.count == 0){
+        [userManager requestMemberList:YES complete:^(BOOL isFinished) {
+            [self show];
+        }];
+    }else{//有数据也要请求，为了和web端同步数据
+        [userManager requestMemberList:NO complete:nil];
+        [self show];
+    }
+}
+- (void)show{
     //避免弹出多次
     if (_isShowTeamView) return;
     //保存外界传入的值(+1.0 为了让导航栏顶部那条线显示出来)
-    _offsetY = offset + 1.0;
-    _teamlists = [userManager getAuthTeamList];
     [self s_UI];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.25 animations:^{
@@ -164,9 +175,7 @@
         if ([model.teamID isEqualToString:currentTeam.teamID]){
             return;
         }
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
-            [self.delegate didClickChangeTeamWithGroupID:model.teamID];
-        }
+        [self changeTeamWithGroupID:model.teamID];
     }else{
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
             [self.delegate didClickAddTeam];
@@ -202,5 +211,26 @@
         TeamInfoModel *model = [TeamInfoModel modelWithJSON:teamDic];
         return model;
     }
+}
+#pragma mark ---发送切换团队请求----
+- (void)changeTeamWithGroupID:(NSString *)groupID{
+    NSDictionary *params = @{@"data":@{@"teamId":groupID}};
+    [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSString *token = response[@"content"][@"authAccessToken"];
+            //存储最新token
+            setXAuthToken(token);
+            //存储默认团队IDO
+            setPWDefaultTeamID(groupID);
+            //发送团队切换通知
+            KPostNotification(KNotificationSwitchTeam, nil);
+            //更新团队列表中的默认团队
+            [userManager updateTeamModelWithGroupID:groupID];
+            //重新发送loadlist请求
+            [userManager requestMemberList:NO complete:nil];
+        }
+    } failBlock:^(NSError *error) {
+    }];
+    
 }
 @end

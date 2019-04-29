@@ -137,4 +137,8 @@ SINGLETON_FOR_HEADER(UserManager)
   更新teammodel
  */
 - (void)updateTeamModelWithGroupID:(NSString *)groupID;
+/**
+  请求团队列表
+ */
+- (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished;
 @end
