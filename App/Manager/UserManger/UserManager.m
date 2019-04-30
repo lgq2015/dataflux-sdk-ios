@@ -56,10 +56,11 @@ SINGLETON_FOR_CLASS(UserManager);
                             isSuccess(YES);
                         }
                     }
-                    setTeamState(PW_isTeam);
-                    [kUserDefaults synchronize];
-                }else{
-                    setTeamState(PW_isPersonal);
+                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                        setTeamState(PW_isPersonal);
+                    }else{
+                        setTeamState(PW_isTeam);
+                    }
                     [kUserDefaults synchronize];
                 }
                 
@@ -200,10 +201,11 @@ SINGLETON_FOR_CLASS(UserManager);
                         NSDictionary *dic = [self.teamModel modelToJSONObject];
                         [cache setObject:dic forKey:KTeamModelCache];
                     }
-                    setTeamState(PW_isTeam);
-                    [kUserDefaults synchronize];
-                }else{
-                    setTeamState(PW_isPersonal);
+                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                        setTeamState(PW_isPersonal);
+                    }else{
+                        setTeamState(PW_isTeam);
+                    }
                     [kUserDefaults synchronize];
                 }
                   dispatch_group_leave(grpupT);
@@ -241,15 +243,15 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSError *error;
                 self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
                 setPWDefaultTeamID(self.teamModel.teamID);
-                setTeamState(PW_isTeam);
+                if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                    setTeamState(PW_isPersonal);
+                    isHave(NO,nil);
+                }else{
+                    setTeamState(PW_isTeam);
+                    isHave(YES,content);
+                }
                 [kUserDefaults synchronize];
-                isHave(YES,content);
-            }else{
-                setTeamState(PW_isPersonal);
-                [kUserDefaults synchronize];
-                isHave(NO,nil);
             }
-            
         }else{
             isHave(NO,nil);
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];

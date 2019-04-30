@@ -51,7 +51,7 @@
     
     //    MsgViewController *msgVC = [[MsgViewController alloc]init];
     TeamVC *team = [TeamVC new];
-    team.isShowCustomNaviBar = YES;
+    team.isShowCustomNaviBar = NO;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
     
     

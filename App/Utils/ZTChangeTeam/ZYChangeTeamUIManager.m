@@ -9,6 +9,7 @@
 #import "ZYChangeTeamUIManager.h"
 #import "ZYChangeTeamCell.h"
 #import "UITableViewCell+ZTCategory.h"
+#import "ZTCreateTeamVC.h"
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIWindow * window;
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
@@ -86,6 +87,9 @@
         self.backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
+            if (_dismissedBlock){
+                _dismissedBlock(YES);
+            }
             [self.tab removeFromSuperview];
             self.tab = nil;
             [self.backgroundGrayView removeFromSuperview];
@@ -177,8 +181,11 @@
         }
         [self changeTeamWithGroupID:model.teamID];
     }else{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
-            [self.delegate didClickAddTeam];
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
+//            [self.delegate didClickAddTeam];
+//        }
+        if (self.fromVC){
+            [self.fromVC.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
         }
     }
     [self dismiss];

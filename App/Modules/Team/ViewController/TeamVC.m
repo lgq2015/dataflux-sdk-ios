@@ -18,12 +18,14 @@
 #import "MemberInfoVC.h"
 #import "ServiceLogVC.h"
 #import "TeamVC+ChangeNavColor.h"
+#import "ZYChangeTeamUIManager.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
 @property (nonatomic, strong) TeamHeaderView *headerView;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
+@property (nonatomic, strong) UIButton *leftNavBtn;
 @end
 
 @implementation TeamVC
@@ -41,6 +43,8 @@
     [self judgeIsTeam];
     if (self.isShowCustomNaviBar){
         [self initTopNavBar];
+    }else{
+        [self initSystemNav];
     }
 }
 - (void)judgeIsTeam{
@@ -376,12 +380,12 @@
 #pragma mark ====导航栏的显示和隐藏====
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.view bringSubviewToFront:self.topNavBar];
-    [self scrollViewDidScroll:self.tableView];
+//    [self.view bringSubviewToFront:self.topNavBar];
+//    [self scrollViewDidScroll:self.tableView];
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self zt_changeColor:[UIColor whiteColor] scrolllView:self.tableView];
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self zt_changeColor:[UIColor whiteColor] scrolllView:self.tableView];
+//}
 - (void)initTopNavBar{
     self.topNavBar.titleLabel.text = @"团队";
     self.topNavBar.backBtn.hidden = YES;
@@ -395,6 +399,67 @@
         }
     }];
 }
+#pragma mark =====系统导航栏设置=====
+- (void)initSystemNav{
+    self.navigationItem.title = @"";
+    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:self.leftNavBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+        if (isDismissed){
+            self.leftNavBtn.selected = NO;
+            //设置动画
+            self.leftNavBtn.userInteractionEnabled = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.leftNavBtn.imageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+            } completion:^(BOOL finished) {
+                self.leftNavBtn.userInteractionEnabled = YES;
+            }];
+        }
+    };
+}
+- (UIButton *)leftNavBtn{
+    if (!_leftNavBtn){
+        CGFloat spacing = 7.0;
+        _leftNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_leftNavBtn setTitle:@"我的团队" forState:UIControlStateNormal];
+        [_leftNavBtn setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+        [_leftNavBtn setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateHighlighted];
+        [_leftNavBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _leftNavBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+        [_leftNavBtn setTitleColor:[UIColor colorWithHexString:@"#140F26"] forState:UIControlStateNormal];
+        [_leftNavBtn sizeToFit];
+        [_leftNavBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+        // 图片右移
+        CGSize imageSize = _leftNavBtn.imageView.frame.size;
+        _leftNavBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
+        // 文字左移
+        CGSize titleSize = _leftNavBtn.titleLabel.frame.size;
+        _leftNavBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+    }
+    return _leftNavBtn;
+}
+- (void)click:(UIButton *)sender{
+    sender.userInteractionEnabled = NO;
+    sender.selected = !sender.selected;
+    //设置动画
+    [UIView animateWithDuration:0.2 animations:^{
+        if (sender.selected){
+            self.leftNavBtn.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+        }else{
+            self.leftNavBtn.imageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+        }
+    } completion:^(BOOL finished) {
+        sender.userInteractionEnabled = YES;
+    }];
+    //显示
+    if (sender.isSelected){
+        [[ZYChangeTeamUIManager shareInstance] showWithOffsetY:kTopHeight];
+        [ZYChangeTeamUIManager shareInstance].fromVC = self;
+    }else{
+        [[ZYChangeTeamUIManager shareInstance] dismiss];
+    }
+}
+
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
