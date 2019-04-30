@@ -55,12 +55,16 @@
         [userManager requestMemberList:YES complete:^(BOOL isFinished) {
             [self show];
         }];
+        [userManager requestTeamIssueCount];
     }else{//有数据也要请求，为了和web端同步数据
         [userManager requestMemberList:NO complete:nil];
+        [userManager requestTeamIssueCount];
         [self show];
     }
 }
 - (void)show{
+    //将红点数设置到团队列表中
+    [self addIssueCount];
     //避免弹出多次
     if (_isShowTeamView) return;
     //保存外界传入的值(+1.0 为了让导航栏顶部那条线显示出来)
@@ -219,6 +223,21 @@
         return model;
     }
 }
+#pragma mark --添加红点数----
+- (void)addIssueCount{
+    NSDictionary *issueCountDic = [userManager getAuthTeamIssueCount];
+    [self.teamlists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TeamInfoModel *model = (TeamInfoModel *)obj;
+        [issueCountDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            NSString *count = [NSString stringWithFormat:@"%@",obj];;
+            NSString *teamID = (NSString *)key;
+            if ([teamID isEqualToString:model.teamID]) {//这里就不在替换，因为前面已经替换过了
+                model.issueCount = count;
+                *stop = YES;
+            }
+        }];
+    }];
+}
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
@@ -237,6 +256,8 @@
             [userManager updateTeamModelWithGroupID:model.teamID];
             //重新发送loadlist请求
             [userManager requestMemberList:NO complete:nil];
+            //重新发送团队列表红点请求
+            [userManager requestTeamIssueCount];
         }
     } failBlock:^(NSError *error) {
     }];

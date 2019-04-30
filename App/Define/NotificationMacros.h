@@ -38,7 +38,7 @@
 //团队列表
 #define KTeamListCacheName @"KTeamListCacheName"
 #define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]
-
+#define kAuthTeamIssueCountDict       [NSString stringWithFormat:@"%@/kAuthTeamIssueCountDict",  getPWUserID]
 // 常量显示
 #define KUtilsConst   @"KUtilsConst"
 //用户model缓存

@@ -35,7 +35,11 @@
         _selectedImage.hidden = YES;
         _teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
         _numLab.hidden = NO;
-        _numLab.text = @"当前情报：0";
+        if (model.issueCount == nil || [model.issueCount isEqualToString:@""]){
+            _numLab.text = @"当前情报：0";
+        }else{
+            _numLab.text = [NSString stringWithFormat:@"情报： %@",model.issueCount];
+        }
     }
     _callLab.hidden = YES;
 }

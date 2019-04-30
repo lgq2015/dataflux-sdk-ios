@@ -234,6 +234,7 @@ SINGLETON_FOR_CLASS(UserManager);
     });
     [self loadExperGroups:nil];
     [self requestMemberList:NO complete:nil];
+    [self requestTeamIssueCount];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -302,6 +303,7 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
     [cache removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
+    [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
 }
@@ -520,6 +522,16 @@ SINGLETON_FOR_CLASS(UserManager);
     NSArray *lists = (NSArray *)[cache objectForKey:kAuthTeamListDict];
     return lists;
 }
+- (void)setAuthTeamIssueCount:(NSDictionary *)dic{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    [cache removeObjectForKey:kAuthTeamIssueCountDict];
+    [cache setObject:dic forKey:kAuthTeamIssueCountDict];
+}
+- (NSDictionary *)getAuthTeamIssueCount{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    NSDictionary *dic = (NSDictionary *)[cache objectForKey:kAuthTeamIssueCountDict];
+    return dic;
+}
 
 #pragma mark ========== 更新默认团队===============
 - (void)updateTeamModelWithGroupID:(NSString *)groupID{
@@ -583,6 +595,23 @@ SINGLETON_FOR_CLASS(UserManager);
         if (isFinished){
             isFinished(NO);
         }
+    }];
+}
+//团队活跃情报树
+- (void)requestTeamIssueCount{
+    NSMutableArray *teamlists = [NSMutableArray array];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            if (content.allKeys.count == 0 || content == nil){
+                return ;
+            }
+            //缓存团队列表红点
+            [self setAuthTeamIssueCount:content];
+        }else{
+            
+        }
+    } failBlock:^(NSError *error) {
     }];
 }
 - (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{

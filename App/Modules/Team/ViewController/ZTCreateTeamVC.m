@@ -179,6 +179,7 @@
             //创建团队成功后，请求新的成员列表
             KPostNotification(KNotificationTeamStatusChange, @YES);
             [userManager requestMemberList:NO complete:nil];
+            [userManager requestTeamIssueCount];
             CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
             create.groupName = self.tfAry[0].text;
             create.btnClick =^(){
