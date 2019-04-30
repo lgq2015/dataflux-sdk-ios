@@ -47,9 +47,7 @@
     }];
 }
 - (void)navRightBtnClick{
-    [[ZYChangeTeamUIManager shareInstance] showWithOffsetY:kTopHeight];
-//    [ZYChangeTeamUIManager shareInstance].delegate = self;
-//    [self.navigationController pushViewController:[PurchaseHistoryVC new] animated:YES];
+    [self.navigationController pushViewController:[PurchaseHistoryVC new] animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];

@@ -79,6 +79,10 @@
                                              selector:@selector(dealWithNotificationData)
                                                  name:KNotificationNewRemoteNoti
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(teamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
     [self judgeIssueConnectState:^{
         self.newsDatas = [NSMutableArray new];
         [self loadNewsDatas];
@@ -95,6 +99,9 @@
     [appDelegate dealWithNotification:userInfo];
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
     [kUserDefaults synchronize];
+}
+- (void)teamSwitch:(NSNotification *)notification{
+    DLog(@"teamvc----团队切换");
 }
 
 - (void)judgeIssueConnectState:(void (^)(void))complete {

@@ -19,12 +19,14 @@
 #import "ServiceLogVC.h"
 #import "TeamVC+ChangeNavColor.h"
 #import "ZYChangeTeamUIManager.h"
+#import "MineMessageVC.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
 @property (nonatomic, strong) TeamHeaderView *headerView;
 @property (nonatomic, strong) UIButton *leftNavButton;
+@property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @end
 
@@ -72,6 +74,8 @@
 {
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
     self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
+
 //    self.isHidenNaviBar = YES;
     BOOL isTeam = [notification.object boolValue];
     if (isTeam) {
@@ -407,6 +411,7 @@
     self.navigationItem.title = @"";
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
     self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
     [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
         if (isDismissed){
             _leftNavButton.selected = NO;
@@ -444,6 +449,15 @@
         _leftNavButton = btn;
         return btn;
 }
+- (UIButton *)rightNavButton{
+    if (!_rightNavButton){
+        _rightNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightNavButton setImage:[UIImage imageNamed:@"team_message"] forState:UIControlStateNormal];
+        [_rightNavButton setFrame:CGRectMake(0, 0, 44, 44)];
+        [_rightNavButton addTarget:self action:@selector(rightNavClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavButton;
+}
 - (void)click:(UIButton *)sender{
     sender.userInteractionEnabled = NO;
     sender.selected = !sender.selected;
@@ -472,6 +486,13 @@
     DLog(@"teamvc----团队切换");
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
     self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
     [self loadTeamMemberInfo];
+}
+#pragma mark ====常用按钮交互=====
+- (void)rightNavClick{
+    MineMessageVC *messageVC = [[MineMessageVC alloc]init];
+    messageVC.ownership = Team_Message;
+    [self.navigationController pushViewController:messageVC animated:YES];
 }
 @end
