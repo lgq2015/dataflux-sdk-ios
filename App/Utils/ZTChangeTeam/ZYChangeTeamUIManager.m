@@ -179,7 +179,7 @@
         if ([model.teamID isEqualToString:currentTeam.teamID]){
             return;
         }
-        [self changeTeamWithGroupID:model.teamID];
+        [self changeTeamWithGroupModel:model];
     }else{
 //        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
 //            [self.delegate didClickAddTeam];
@@ -220,19 +220,21 @@
     }
 }
 #pragma mark ---发送切换团队请求----
-- (void)changeTeamWithGroupID:(NSString *)groupID{
-    NSDictionary *params = @{@"data":@{@"teamId":groupID}};
+- (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
+    NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
     [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
             setXAuthToken(token);
+            //更新teamModel
+            userManager.teamModel = model;
             //存储默认团队IDO
-            setPWDefaultTeamID(groupID);
+            setPWDefaultTeamID(model.teamID);
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
             //更新团队列表中的默认团队
-            [userManager updateTeamModelWithGroupID:groupID];
+            [userManager updateTeamModelWithGroupID:model.teamID];
             //重新发送loadlist请求
             [userManager requestMemberList:NO complete:nil];
         }

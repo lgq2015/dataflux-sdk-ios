@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)zt_getHeight:(UIFont *)zt_font width:(CGFloat)width;
 //A标签替换后的文本
 - (NSString *)zt_convertLinkTextString;
+//获取单行文字宽度
+- (CGFloat)calculateStringWidth:(NSString *)str withFont:(UIFont *)font;
 @end
 
 NS_ASSUME_NONNULL_END

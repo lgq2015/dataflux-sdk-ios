@@ -176,10 +176,12 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
+            //创建团队成功后，请求新的成员列表
+            KPostNotification(KNotificationTeamStatusChange, @YES);
+            [userManager requestMemberList:NO complete:nil];
             CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
             create.groupName = self.tfAry[0].text;
             create.btnClick =^(){
-                KPostNotification(KNotificationTeamStatusChange, @YES);
                 setTeamState(PW_isTeam);
                 [self.navigationController popViewControllerAnimated:NO];
             };
