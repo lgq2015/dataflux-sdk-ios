@@ -43,8 +43,6 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
-
-
  */
 - (void)fetchIssueList:(BOOL)getAllDatas;
 
@@ -66,10 +64,19 @@ SINGLETON_FOR_HEADER(IssueListManger)
  */
 - (NSArray *)getIssueListWithIssueType:(NSString *)type;
 /**
+ 24内恢复的情报列表
+ */
+- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type;
+
+/**
   切换账号 清空首页infoBoard缓存信息
  */
 - (void)createData;
-
+/**
+ 首页 判断非自建情报 是否存在严重、紧急、一般状态的情报
+ @return YES 存在  NO 不存在
+ */
+- (BOOL)checkIssueEngineIsHasIssue;
 - (BOOL)checkIssueLastStatus:(NSString *)issueId;
 
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds ;

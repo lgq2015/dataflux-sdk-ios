@@ -100,8 +100,13 @@
         } else {
             NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
             if (time.length > 0) {
+               BOOL ishas= [[IssueListManger sharedIssueListManger] checkIssueEngineIsHasIssue];
                 NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-                statement = [NSString stringWithFormat:@"最近一次检测时间：%@", [NSString compareCurrentTime:local]];
+                statement = [NSString stringWithFormat:@"%@为您检测", [NSString compareCurrentTime:local]];
+                if (!ishas) {
+                  statement = [NSString stringWithFormat:@"%@为您检测\n恭喜您，您的系统非常健康", [NSString compareCurrentTime:local]];
+                }
+                
             } else {
                 statement = @"尚未进行检测";
             }
@@ -185,20 +190,20 @@
 }
 
 
-- (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID {
-    __block NSString *name = @"";
+- (NSDictionary *)getIssueSourceNameAndProviderWithID:(NSString *)issueSourceID {
+    __block NSMutableDictionary *source = [NSMutableDictionary new];
 
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceID];
-        NSDictionary *dict = @{@"name": SQL_TEXT};
+        NSDictionary *dict = @{@"name": SQL_TEXT,@"provider":SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         if (array.count == 0) {
-            name = nil;
+            source = nil;
         } else {
-            name = array[0][@"name"];
+            source = array[0];
         }
     }];
-    return name;
+    return source;
 }
 
 /**

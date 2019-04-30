@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"创建问题";
+    self.title = @"新建情报";
     self.isShowLiftBack = NO;
     [self createUI];
 }
@@ -233,7 +233,7 @@
 }
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消本次创建问题吗？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消本次新建情报吗？" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             
         }];
@@ -265,7 +265,7 @@
 
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
-                [SVProgressHUD showSuccessWithStatus:@"创建问题成功"];
+                [SVProgressHUD showSuccessWithStatus:@"新建情报成功"];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 model.state = [self.level isEqualToString:@"danger"]? MonitorListStateSeriousness:MonitorListStateWarning;
                 model.title = self.titleTf.text;

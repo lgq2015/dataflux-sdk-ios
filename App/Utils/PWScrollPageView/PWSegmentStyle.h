@@ -31,7 +31,10 @@
 @property (nonatomic, assign) CGFloat extraBtnMarginTitle;
 /** 是否显示附加的按钮 默认为NO*/
 @property (assign, nonatomic, getter=isShowExtraButton) BOOL showExtraButton;
-/** 设置附加按钮的背景图片 默认为nil*/
+/** 设置附加按钮的背景图片 默认为nil 右*/
 @property (strong, nonatomic) NSArray *extraBtnImageNames;
-
+/** 设置附加按钮的背景图片 默认为nil 左*/
+@property (strong, nonatomic) NSArray *leftExtraBtnImageNames;
+/** 设置附加按钮的frame 默认为nil 左*/
+@property (strong, nonatomic) NSArray *leftExtraBtnFrames;
 @end

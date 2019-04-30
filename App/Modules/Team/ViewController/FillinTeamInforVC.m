@@ -160,6 +160,11 @@
 
 -(void)exictTeamClick{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@" * 退出团队后，您当前有关该团队的所有信息都将被清空，并不再接收该团队的任何消息\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+     UIView *messageParentView = [self getParentViewOfTitleAndMessageFromView:alert.view];
+     if (messageParentView && [messageParentView isKindOfClass:UILabel.class]) {
+        UILabel *lable = (UILabel *)messageParentView;
+         lable.textAlignment = NSTextAlignmentLeft;
+     }
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [SVProgressHUD show];
         NSString *uid =userManager.curUserInfo.userID;
@@ -282,7 +287,7 @@
 
 }
 - (void)logoutTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、配置的情报源、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、连接的云服务、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutTeamRequest];
     }];
@@ -348,6 +353,7 @@
 #pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
+
         _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队（可选）" font:RegularFONT(16)];
     }
     return _textView;
@@ -423,7 +429,17 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
     return NO;
 }
-
+- (UIView *)getParentViewOfTitleAndMessageFromView:(UIView *)view{
+    for (UIView *subView in view.subviews) {
+        if ([subView isKindOfClass:[UILabel class]]) {
+            return subView;
+        }else{
+            UIView *resultV = [self getParentViewOfTitleAndMessageFromView:subView];
+            if (resultV) return resultV;
+        }
+    }
+    return nil;
+}
 /*
 #pragma mark - Navigation
 

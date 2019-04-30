@@ -400,6 +400,15 @@
 		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
+		4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
+		4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
+		4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
+		4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
+		4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
+		4AAC14202276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
+		4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
+		4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
+		4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
 		4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* IssueCell.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -1382,6 +1391,12 @@
 		4A95BBE12181C77000FC2979 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
+		4AAC14162275AA290043AD5E /* IssueIndexHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueIndexHeaderView.h; sourceTree = "<group>"; };
+		4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueIndexHeaderView.m; sourceTree = "<group>"; };
+		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
+		4AAC141D2276F3500043AD5E /* NoDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoDataView.m; sourceTree = "<group>"; };
+		4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueRecoveredListVC.h; sourceTree = "<group>"; };
+		4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueRecoveredListVC.m; sourceTree = "<group>"; };
 		4AB489B121EC6640009F9E94 /* IssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
 		4AB489B221EC6640009F9E94 /* IssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -2072,6 +2087,8 @@
 				4A759AF7224FF5930057BD02 /* UpTriangle.m */,
 				4A759B502254B6A20057BD02 /* EchartListView.h */,
 				4A759B512254B6A20057BD02 /* EchartListView.m */,
+				4AAC141C2276F3500043AD5E /* NoDataView.h */,
+				4AAC141D2276F3500043AD5E /* NoDataView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2091,6 +2108,8 @@
 				2B84E4282265D6C9008E7B29 /* ZTHandBookHasPicCell.h */,
 				2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */,
 				2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */,
+				4AAC14162275AA290043AD5E /* IssueIndexHeaderView.h */,
+				4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */,
 			);
 			path = IssueBoard;
 			sourceTree = "<group>";
@@ -3123,6 +3142,8 @@
 				6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */,
 				6B6E2EA23B7EF46677429CCD /* AddSourceTipVC.h */,
 				6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */,
+				4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */,
+				4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3552,7 +3573,6 @@
 			files = (
 			);
 			inputPaths = (
-
 				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
@@ -3570,7 +3590,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3579,7 +3599,6 @@
 			files = (
 			);
 			inputPaths = (
-
 				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
@@ -3597,7 +3616,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3659,7 +3678,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -3791,6 +3810,7 @@
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
@@ -3860,6 +3880,7 @@
 				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
@@ -3943,6 +3964,7 @@
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
 				2BF9F7902270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
+				4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
@@ -4104,6 +4126,7 @@
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
@@ -4173,6 +4196,7 @@
 				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
@@ -4256,6 +4280,7 @@
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
 				2BF9F7912270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
+				4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
@@ -4417,6 +4442,7 @@
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
+				4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
@@ -4486,6 +4512,7 @@
 				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
@@ -4569,6 +4596,7 @@
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
 				2BF9F7922270686800C9B0C3 /* RootViewController+ZYChangeNavColor.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
+				4AAC14202276F3520043AD5E /* NoDataView.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,

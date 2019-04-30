@@ -13,8 +13,9 @@
 #import "ToolsVC.h"
 #import "ScanViewController.h"
 #import "RootNavigationController.h"
+#import "ZYChangeTeamUIManager.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
 @end
 
@@ -28,24 +29,35 @@
     PWSegmentStyle *style = [[PWSegmentStyle alloc]init];
     style.titleFont = RegularFONT(17);
     style.selectTitleFont = RegularFONT(24);
-    style.selectedTitleColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
-    style.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
+    style.selectedTitleColor =RGBACOLOR(51, 51, 51, 1);
+    style.normalTitleColor = PWTitleColor;
     style.showExtraButton = YES;
     style.titleMargin = 20;
     style.extraBtnMarginTitle = 20;
     style.extraBtnImageNames =@[@"icon_scan"];
+    style.leftExtraBtnImageNames= @[@"icon_teamselect",@"arrow_down"];
     style.segmentHeight = kTopHeight+16;
+//    style.leftExtraBtnFrame =
+    CGRect leftBtnFirst = CGRectMake(0, 0, ZOOM_SCALE(28), ZOOM_SCALE(28));
+    CGRect leftArrow = CGRectMake(0, 0, ZOOM_SCALE(11), ZOOM_SCALE(11));
+    style.leftExtraBtnFrames = @[[NSValue valueWithCGRect:leftBtnFirst],[NSValue valueWithCGRect:leftArrow]];
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
     //    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
+        if(extraBtn.tag == 10){
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
         scan.scanCodeType = SCT_QRCode;
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
         [self presentViewController:nav animated:YES completion:nil];
+        }else{
+            ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
+            [changeView showWithOffsetY:kTopHeight+16];
+            changeView.delegate = self;
+        }
     };
     scrollPageView.tag = 500;
     [self.view addSubview:scrollPageView];

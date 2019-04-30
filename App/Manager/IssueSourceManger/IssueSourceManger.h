@@ -49,10 +49,9 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
 - (NSInteger)getIssueSourceCount;
 
 /**
- 预展示 issuesource
+ 预展示 issuesource name 与 provider
  */
-- (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID;
-
+- (NSDictionary *)getIssueSourceNameAndProviderWithID:(NSString *)issueSourceID;
 - (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
 
 - (void)deleteIssueSourceById:(NSArray *)issueSourceIds;

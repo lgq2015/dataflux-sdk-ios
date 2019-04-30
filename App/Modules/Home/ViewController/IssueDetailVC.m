@@ -53,11 +53,13 @@
         make.width.offset(ZOOM_SCALE(39));
         make.height.offset(ZOOM_SCALE(27));
     }];
+    self.typeIcon.image = [UIImage imageNamed:self.model.icon];
     [self.issueNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(11));
         make.centerY.mas_equalTo(self.typeIcon);
         make.height.offset(ZOOM_SCALE(18));
     }];
+    self.issueNameLab.text = self.model.sourceName;
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
         make.top.mas_equalTo(self.typeIcon.mas_bottom).offset(Interval(8));
@@ -228,41 +230,22 @@
 - (void)loadIssueSourceDetail:(NSDictionary *)dict{
     NSString *issueSourceID = [dict stringValueForKey:@"issueSourceId" default:@""];
     NSString *type = [dict stringValueForKey:@"itAssetProvider_cache" default:@""];
-    NSString *icon;
-    NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:issueSourceID];
-    self.issueNameLab.text = name;
+
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,name];
+            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.model.sourceName];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
-        icon = @"icon_foresight_small";
-        self.typeIcon.image = [UIImage imageNamed:icon];
-        if([name isEqualToString:@""] || name == nil){
+       
+        if([self.model.sourceName isEqualToString:@""] || self.model.sourceName == nil){
             [self loadIssueSuperSourceDetail:issueSourceID issueProvider:type];
         }else{
             [SVProgressHUD dismiss];
         }
         return;
     }
-    if ([type isEqualToString:@"aliyun"]) {
-        icon = @"icon_alis";
-    }else if([type isEqualToString:@"qcloud"]){
-        icon = @"icon_tencent_small";
-    }else if([type isEqualToString:@"aws"]){
-        icon = @"icon_aws_small";
-    }else if([type isEqualToString:@"ucloud"]){
-        icon = @"icon_tencent_small";
-    }else if ([type isEqualToString:@"domain"]){
-        icon = @"icon_domainname_small";
-    }else if([type isEqualToString:@"carrier.corsair"]){
-        icon =@"icon_mainframe_small";
-    }else if([type isEqualToString:@"carrier.alert"]){
-        self.issueNameLab.text = @"消息坞";
-        icon = @"message_docks";
-    }
-    self.typeIcon.image = [UIImage imageNamed:icon];
+   
     [SVProgressHUD dismiss];
 }
 - (void)dealWithEchartView:(NSDictionary *)dict{
@@ -309,7 +292,8 @@
             if (data.count>0) {
                 if ([data[0] isKindOfClass:NSDictionary.class]) {
                     NSDictionary *dict = data[0];
-                   self.issueNameLab.text = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:[dict stringValueForKey:@"parentId" default:@""]];
+                   NSDictionary *source  = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:[dict stringValueForKey:@"parentId" default:@""]];
+                    self.issueNameLab.text = [source stringValueForKey:@"name" default:@""];
                     if (self.model.isInvalidIssue) {
                         [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
                             self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.issueNameLab.text];

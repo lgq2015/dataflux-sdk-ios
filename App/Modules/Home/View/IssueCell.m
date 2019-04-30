@@ -9,6 +9,7 @@
 #import "IssueCell.h"
 #import "IssueListViewModel.h"
 #import "RightTriangleView.h"
+#import "IssueSourceManger.h"
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *warningLab;
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) RightTriangleView *triangleView;
 @property (nonatomic, strong) UILabel *serviceLab;
 @property (nonatomic, strong) UIView *serviceDot;
+@property (nonatomic, strong) UIImageView *sourceIcon;
+@property (nonatomic, strong) UILabel *sourcenNameLab;
 @end
 @implementation IssueCell
 -(void)setFrame:(CGRect)frame{
@@ -27,22 +30,26 @@
     frame.size.height -= Interval(12);
     [super setFrame:frame];
 }
+
 -(void)layoutSubviews{
     [self createUI];
 }
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [self createUI];
-}
+
 - (void)createUI{
+    [self.sourcenNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.sourceIcon.mas_right).offset(Interval(12));
+        make.centerY.mas_equalTo(self.sourceIcon);
+        make.right.mas_equalTo(self).offset(-Interval(12));
+        make.height.offset(ZOOM_SCALE(18));
+    }];
+    
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(28));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
     }];
-   
-   
+
     if (self.isService) {
         [self.serviceLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self).offset(-Interval(20));
@@ -56,9 +63,10 @@
         }];
     }else{
     [self.warningLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).offset(Interval(16));
+//        make.top.mas_equalTo(self).offset(Interval(16));
         make.right.mas_equalTo(self).offset(-20);
         make.height.offset(ZOOM_SCALE(28));
+        make.centerY.mas_equalTo(self.stateLab);
         make.width.offset(ZOOM_SCALE(120));
     }];
     }
@@ -85,6 +93,7 @@
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
+    
     switch (self.model.state) {
         case MonitorListStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
@@ -126,6 +135,9 @@
         self.serviceLab.text = [_model.ticketStatus isEqualToString:@"closed"]?@"已结束":@"服务中";
         self.serviceDot.backgroundColor = [_model.ticketStatus isEqualToString:@"closed"]?[UIColor colorWithHexString:@"#70E1BC"]:[UIColor colorWithHexString:@"#7BAEFF"];
     }
+    self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
+    self.sourcenNameLab.text = self.model.sourceName;
+//     NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:self.model.sourceType];
 }
 -(UIView *)serviceDot{
     if (!_serviceDot) {
@@ -190,9 +202,23 @@
     }
     return _subLab;
 }
+-(UIImageView *)sourceIcon{
+    if (!_sourceIcon) {
+        _sourceIcon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(20), Interval(14), ZOOM_SCALE(29), ZOOM_SCALE(20))];
+        [self addSubview:_sourceIcon];
+    }
+    return _sourceIcon;
+}
+-(UILabel *)sourcenNameLab{
+    if (!_sourcenNameLab) {
+        _sourcenNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@""];
+        [self addSubview:_sourcenNameLab];
+    }
+    return _sourcenNameLab;
+}
 -(UILabel *)stateLab{
     if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(17), ZOOM_SCALE(50), ZOOM_SCALE(24))];
+        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(22), Interval(29)+ZOOM_SCALE(20), ZOOM_SCALE(50), ZOOM_SCALE(24))];
         _stateLab.textColor = [UIColor whiteColor];
         _stateLab.font =  RegularFONT(14);
         _stateLab.textAlignment = NSTextAlignmentCenter;
@@ -203,15 +229,11 @@
     return _stateLab;
 }
 - (CGFloat)heightForModel:(IssueListViewModel *)model{
-    [self layoutSubviews];
+   
     [self setModel:model];
     [self layoutIfNeeded];
-    CGFloat cellHeight;
-    if ([model.issueLog isEqualToString:@""]) {
-        cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
-    }else{
-        cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
-    }
+    CGFloat cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
+    
     return cellHeight;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

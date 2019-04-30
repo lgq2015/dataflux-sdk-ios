@@ -22,7 +22,6 @@
 #import "MineMessageVC.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
-@property (nonatomic, strong) UILabel *feeLab;
 @property (nonatomic, strong) NSDictionary *teamDict;
 @property (nonatomic, strong) TeamHeaderView *headerView;
 @property (nonatomic, strong) UIButton *leftNavButton;
@@ -42,7 +41,7 @@
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     
-    [self judgeIsTeam];
+    [self createTeamUI];
     if (self.isShowCustomNaviBar){
         [self initTopNavBar];
     }else{
@@ -121,19 +120,22 @@
     };
 
     [self.headerView setTeamName:userManager.teamModel.name];
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2);
+    self.tableView.frame = CGRectMake(0, 89, kWidth, kHeight-kTabBarHeight-2);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = ZOOM_SCALE(58);
+    self.tableView.rowHeight = ZOOM_SCALE(66);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(kWidth);
+    }];
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     [self.tableView reloadData];
-    [self loadTeamProductData];
+  //  [self loadTeamProductData];
     [self loadTeamMemberInfo];
 
 }
@@ -149,7 +151,7 @@
         }];
         [self.header endRefreshing];
     }else{
-        [self loadTeamProductData];
+//        [self loadTeamProductData];
         [self loadTeamMemberInfo];
     }
 }
@@ -157,8 +159,6 @@
     [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
          [self.headerView setTeamProduct:member];
-         CGFloat height = ZOOM_SCALE(24)*member.count+Interval(18);
-         self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
         [self.tableView setTableHeaderView: self.headerView];
         }
     }];
@@ -222,7 +222,7 @@
 }
 -(TeamHeaderView *)headerView{
     if (!_headerView) {
-     _headerView = [[TeamHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight)];
+     _headerView = [[TeamHeaderView alloc]init];
     }
     return _headerView;
 }
@@ -254,14 +254,7 @@
     return item;
 }
 
--(UILabel *)feeLab{
-    if (!_feeLab) {
-        _feeLab = [[UILabel alloc]init];
-        _feeLab.font = [UIFont fontWithName:@"PingFang-SC-Bold" size:30];
-        _feeLab.textColor = PWWhiteColor;
-    }
-    return _feeLab;
-}
+
 - (void)loadTeamMemberInfo{
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
@@ -301,8 +294,8 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-    [self.headerView setTeamName:userManager.teamModel.name];
-    [self.headerView setTeamNum:[NSString stringWithFormat:@"共%lu人",(unsigned long)self.teamMemberArray.count]];
+
+    [self.headerView setTeamNum:[NSString stringWithFormat:@"共 %lu 人",(unsigned long)self.teamMemberArray.count]];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{

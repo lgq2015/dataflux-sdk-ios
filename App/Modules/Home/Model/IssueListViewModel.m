@@ -8,6 +8,7 @@
 
 #import "IssueListViewModel.h"
 #import "IssueModel.h"
+#import "IssueSourceManger.h"
 @implementation IssueListViewModel
 - (instancetype)initWithJsonDictionary:(IssueModel *)model{
     if (![model isKindOfClass:[IssueModel class]]) return nil;
@@ -94,6 +95,37 @@
     }
     self.issueId = model.issueId;
     self.accountId = model.accountId;
+    self.issueSourceId = model.issueSourceId;
+    if (model.issueSourceId.length>0) {
+         NSDictionary *source = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:model.issueSourceId];
+        if (source) {
+            NSString *type = [source stringValueForKey:@"provider" default:@""];
+            self.sourceName = [source stringValueForKey:@"name" default:@""];
+            if ([type isEqualToString:@"carrier.corsairmaster"]){
+                self.icon = @"icon_foresight_small";
+                
+            }else if([type isEqualToString:@"aliyun"]) {
+                self.icon = @"icon_alis";
+            }else if([type isEqualToString:@"qcloud"]){
+                self.icon = @"icon_tencent_small";
+            }else if([type isEqualToString:@"aws"]){
+                self.icon = @"icon_aws_small";
+            }else if([type isEqualToString:@"ucloud"]){
+                self.icon = @"icon_tencent_small";
+            }else if ([type isEqualToString:@"domain"]){
+                self.icon = @"icon_domainname_small";
+            }else if([type isEqualToString:@"carrier.corsair"]){
+                self.icon =@"icon_mainframe_small";
+            }else if([type isEqualToString:@"carrier.alert"]){
+                self.sourceName = @"消息坞";
+                self.icon = @"message_docks";
+            }
+        }
+    }else{
+        self.icon = @"issue_selfbuild";
+        self.sourceName = @"自建问题";
+    }
+   
 }
 - (void)setValueWithDict:(NSDictionary *)dict{
     IssueModel *model = [[IssueModel alloc]initWithDictionary:dict];

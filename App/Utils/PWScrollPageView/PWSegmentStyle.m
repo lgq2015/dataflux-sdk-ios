@@ -19,9 +19,9 @@
         self.titleMargin = 15.0;
         self.titleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 17];
         self.selectTitleFont = [UIFont fontWithName:@"PingFangSC-Medium" size: 24];
-        self.normalTitleColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:201/255.0 alpha:1.0];
+        self.normalTitleColor =RGBACOLOR(201, 201, 201, 1);
         
-        self.selectedTitleColor = [UIColor colorWithRed:255/255.0 green:78/255.0 blue:0/255.0 alpha:1.0];
+        self.selectedTitleColor =RGBACOLOR(255, 78, 0, 1);
         self.showExtraButton = NO;
         self.segmentHeight = kStatusBarHeight+60;
         self.extraBtnImageNames = nil;
