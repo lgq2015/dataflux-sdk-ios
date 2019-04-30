@@ -17,11 +17,13 @@
 #import "IssueListManger.h"
 #import "IssueLogModel.h"
 #import "AddIssueGuideView.h"
+#import "IssueRecoveredListVC.h"
 
-@interface IssueListVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, strong) UIView *listFooterView;
 @property (nonatomic, strong) UILabel *tipLab;
 
 @end
@@ -52,22 +54,24 @@
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
 
-    [self addNavigationItemWithTitles:@[@"创建问题"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    [self addNavigationItemWithTitles:@[@"新建情报"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
     self.monitorData = [NSMutableArray new];
-    [self.view addSubview:self.tableView];
-    self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
-    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+
+    //让tableview不显示分割线
     if (@available(iOS 11.0, *)){
         self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
     } else{
         self.tableView.estimatedRowHeight = 44;
     }
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    [self.view addSubview:self.tableView];
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
-    self.tableView.tableFooterView = self.footView;
+    self.tableView.tableFooterView = self.listFooterView;
     self.tempCell = [[IssueCell alloc] initWithStyle:0 reuseIdentifier:@"IssueCell"];
 
     self.tableView.mj_header = self.header;
@@ -76,9 +80,9 @@
             IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
-        [self.tableView reloadData];
+      
     }else{
-        [self showNoDataImage];
+        [self showNoDataViewWithStyle:NoDataViewIssueList];
     }
     if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
         AddIssueGuideView *guid = [[AddIssueGuideView alloc]init];
@@ -91,6 +95,11 @@
         [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
     });
 
+}
+- (void)noDataBtnClick{
+    IssueRecoveredListVC *recoverVC = [IssueRecoveredListVC new];
+    recoverVC.type = self.type;
+    [self.navigationController pushViewController:recoverVC animated:YES];
 }
 -(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
@@ -165,6 +174,30 @@
         }];
     }
 }
+-(UIView *)listFooterView{
+    if (!_listFooterView) {
+        _listFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
+        _listFooterView.backgroundColor = PWBackgroundColor;
+        UIImageView *line = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"DDDDDD"]]];
+        line.frame = CGRectMake(0, 60-ZOOM_SCALE(20), kWidth, 1);
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectZero];
+        btn.titleLabel.font = RegularFONT(13);
+        [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+        btn.backgroundColor = PWBackgroundColor;
+        [btn setTitle:@"查看过去24小时情报" forState:UIControlStateNormal];
+        [btn sizeToFit];
+        [_listFooterView addSubview:line];
+        [_listFooterView addSubview:btn];
+        CGFloat width = btn.frame.size.width;
+        [btn addTarget:self action:@selector(noDataBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(line);
+            make.height.offset(ZOOM_SCALE(20));
+            make.width.offset(width+10);
+        }];
+    }
+    return _listFooterView;
+}
 - (UILabel *)tipLab{
     if (!_tipLab) {
         NSString *string =@"您有新情报，点击刷新";
@@ -193,10 +226,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    IssueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueCell"];
-    cell.model = self.monitorData[indexPath.row];
-    cell.backgroundColor = PWWhiteColor;
+    IssueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setModel:self.monitorData[indexPath.row]];
+    cell.backgroundColor = PWWhiteColor;
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========

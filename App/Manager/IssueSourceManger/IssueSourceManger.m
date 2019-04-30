@@ -190,20 +190,20 @@
 }
 
 
-- (NSString *)getIssueSourceNameWithID:(NSString *)issueSourceID {
-    __block NSString *name = @"";
+- (NSDictionary *)getIssueSourceNameAndProviderWithID:(NSString *)issueSourceID {
+    __block NSMutableDictionary *source = [NSMutableDictionary new];
 
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where id = '%@'", issueSourceID];
-        NSDictionary *dict = @{@"name": SQL_TEXT};
+        NSDictionary *dict = @{@"name": SQL_TEXT,@"provider":SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         if (array.count == 0) {
-            name = nil;
+            source = nil;
         } else {
-            name = array[0][@"name"];
+            source = array[0];
         }
     }];
-    return name;
+    return source;
 }
 
 /**

@@ -400,6 +400,9 @@
 		4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC14202276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
+		4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
+		4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
+		4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */; };
 		4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* IssueCell.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -1382,6 +1385,8 @@
 		4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueIndexHeaderView.m; sourceTree = "<group>"; };
 		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
 		4AAC141D2276F3500043AD5E /* NoDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoDataView.m; sourceTree = "<group>"; };
+		4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueRecoveredListVC.h; sourceTree = "<group>"; };
+		4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueRecoveredListVC.m; sourceTree = "<group>"; };
 		4AB489B121EC6640009F9E94 /* IssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
 		4AB489B221EC6640009F9E94 /* IssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -3123,6 +3128,8 @@
 				6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */,
 				6B6E2EA23B7EF46677429CCD /* AddSourceTipVC.h */,
 				6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */,
+				4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */,
+				4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3857,6 +3864,7 @@
 				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
@@ -4170,6 +4178,7 @@
 				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
@@ -4483,6 +4492,7 @@
 				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,

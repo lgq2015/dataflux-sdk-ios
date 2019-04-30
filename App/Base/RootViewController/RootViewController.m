@@ -289,6 +289,11 @@
         _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
         _mainScrollView.alwaysBounceHorizontal = NO;
         _mainScrollView.directionalLockEnabled = YES;
+        if (@available(iOS 11.0, *)) {
+            _mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
         [self.view addSubview:_mainScrollView];
     }
     return _mainScrollView;
@@ -303,27 +308,18 @@
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
         _tableView.scrollsToTop = YES;
         _tableView.backgroundColor = PWBackgroundColor;
+         _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
 }
 
-/**
- *  懒加载collectionView
- *
- *  @return collectionView
- */
-//- (UICollectionView *)collectionView
-//{
-//    if (_collectionView == nil) {
-//        
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight) collectionViewLayout:self.layout];
-//        _collectionView.backgroundColor=PWWhiteColor;
-//        _collectionView.scrollsToTop = YES;
-//    }
-//    return _collectionView;
-//}
+
 -(void)headerRefreshing{
     [NSException raise:@"[RootViewController headerRefreshing]"
                 format:@"You Must Override This Method."];
