@@ -20,6 +20,7 @@
 #import "TeamVC+ChangeNavColor.h"
 #import "ZYChangeTeamUIManager.h"
 #import "MineMessageVC.h"
+#import "ZTCreateTeamVC.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
@@ -97,6 +98,11 @@
     self.tableView.mj_header = self.header;
      WeakSelf;
     self.headerView.itemClick =^(NSInteger tag){
+        //判断是否是团队而非个人
+        if([getTeamState isEqualToString:PW_isPersonal]){
+            [weakSelf supplementMessage];
+            return ;
+        }
         if (tag == InvateTag) {
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [weakSelf.navigationController pushViewController:invite animated:YES];
@@ -487,5 +493,19 @@
     MineMessageVC *messageVC = [[MineMessageVC alloc]init];
     messageVC.ownership = Team_Message;
     [self.navigationController pushViewController:messageVC animated:YES];
+}
+#pragma mark ====其他========
+//补充团队信息
+- (void)supplementMessage{
+    DLog(@"补充信息");
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"补充团队信息" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

@@ -45,7 +45,11 @@
 - (void)judgeVcType{
     self.mConfige = [[ZTCreateTeamConfig alloc] init];
     [self.mConfige createTeamConfige];
-    self.title = self.mConfige.title;
+    if([getTeamState isEqualToString:PW_isTeam]){
+        self.title = self.mConfige.title;
+    }else{
+        self.title = @"补充团队信息";
+    }
     self.currentCity = self.mConfige.currentCity;
     self.currentProvince = self.mConfige.currentProvince;
     [self createUIWithDatas:self.mConfige.teamTfArray];
@@ -176,12 +180,20 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
+            //判断是否是补充过来的
+            BOOL isSupplement = NO;
+            if([getTeamState isEqualToString:PW_isTeam]){
+                isSupplement = NO;
+            }else{
+                isSupplement = YES;
+            }
             //创建团队成功后，请求新的成员列表
             KPostNotification(KNotificationTeamStatusChange, @YES);
             [userManager requestMemberList:NO complete:nil];
             [userManager requestTeamIssueCount];
             CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
             create.groupName = self.tfAry[0].text;
+            create.isSupplement = isSupplement;
             create.btnClick =^(){
                 setTeamState(PW_isTeam);
                 [self.navigationController popViewControllerAnimated:NO];
