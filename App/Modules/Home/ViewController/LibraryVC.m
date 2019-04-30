@@ -82,7 +82,6 @@ static NSUInteger ItemWidth = 104;
         LibraryModel *model = [[LibraryModel alloc]initWithDictionary:dict error:&error];
         [handbook addObject:model];
     }];
-    DLog(@"zhangtao(%ld)----%@", handbook.count,handbook);
     NSArray *itemDatas = [[HandBookManager sharedInstance] getHandBooks];
     if (itemDatas.count == 0) {
         [[HandBookManager sharedInstance] cacheHandBooks:handbook];

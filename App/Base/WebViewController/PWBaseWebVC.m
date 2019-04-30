@@ -287,7 +287,6 @@
 - (void)dealFileFormat:(NSMutableURLRequest *)request{
     NSString *lastName =[[self.webUrl.absoluteString lastPathComponent] lowercaseString];
     NSString *path =self.webUrl.absoluteString;
-    NSLog(@"zhangtao----%@",path);
     if ([lastName containsString:@".txt"]){
         NSStringEncoding * usedEncoding = nil;
         NSURL *url = self.webUrl;

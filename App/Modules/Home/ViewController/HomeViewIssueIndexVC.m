@@ -182,7 +182,7 @@
                     issueType = @"misc";
                     break;
             }
-            dispatch_sync_on_main_queue(^{
+            dispatch_async_on_main_queue(^{
                 IssueListVC *monitor = [[IssueListVC alloc] initWithTitle:title andIssueType:issueType];
                 monitor.dataSource = [[NSMutableArray alloc] initWithArray:dataSource];
                 [weakSelf.navigationController pushViewController:monitor animated:YES];

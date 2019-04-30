@@ -9,7 +9,10 @@
 #import "CloudCareVC.h"
 #import "PurchaseHistoryVC.h"
 #import "ServiceDetailVC.h"
-@interface CloudCareVC ()
+#import "ZTCreateTeamVC.h"
+#import "ZYChangeTeamUIManager.h"
+#import "TeamInfoModel.h"
+@interface CloudCareVC ()<ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong)UIView *customHeader;
 @end
 
@@ -44,8 +47,9 @@
     }];
 }
 - (void)navRightBtnClick{
-    PurchaseHistoryVC *order = [[PurchaseHistoryVC alloc]init];
-    [self.navigationController pushViewController:order animated:YES];
+    [[ZYChangeTeamUIManager shareInstance] showWithOffsetY:kTopHeight];
+//    [ZYChangeTeamUIManager shareInstance].delegate = self;
+//    [self.navigationController pushViewController:[PurchaseHistoryVC new] animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];

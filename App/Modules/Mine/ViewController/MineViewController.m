@@ -227,6 +227,7 @@
         
         case MineCellTypeInformation:{
             MineMessageVC *messageVC = [[MineMessageVC alloc]init];
+            messageVC.ownership = Account_Message;
             [self.navigationController pushViewController:messageVC animated:YES];
         }
             break;

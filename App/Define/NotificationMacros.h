@@ -20,23 +20,29 @@
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
-
+//团队切换
+#define KNotificationSwitchTeam @"KNotificationSwitchTeam"
 //被踢下线
 #define KNotificationOnKick @"KNotificationOnKick"
 //监听重新拉取讨论数据
 #define KNotificationSocketConnecting @"KNotificationRefetchIssChatDatas"
-
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
-#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWUserID]
+//当前团队
+#define KTeamModelCache @"KTeamModelCache"
+//团队成员
+#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+//团队产品
 #define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
+//团队列表
+#define KTeamListCacheName @"KTeamListCacheName"
+#define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]
 
 // 常量显示
 #define KUtilsConst   @"KUtilsConst"
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
-#define KTeamModelCache @"KTeamModelCache"
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
 #define KNotificationConnectStateCheck @"KNotificationConnectStateCheck"
 

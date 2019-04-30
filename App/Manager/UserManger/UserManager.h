@@ -121,4 +121,24 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock;
 - (void)onKick;
+/**
+  authTeamList 缓存
+ */
+- (void)setAuthTeamList:(NSArray *)teamList;
+/**
+  获取TeamList(异步)
+ */
+- (void)getAuthTeamList:(void(^)(id obj))resultBlock;
+/**
+  获取TeamList(同步)
+ */
+- (NSArray *)getAuthTeamList;
+/**
+  更新teammodel
+ */
+- (void)updateTeamModelWithGroupID:(NSString *)groupID;
+/**
+  请求团队列表
+ */
+- (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished;
 @end

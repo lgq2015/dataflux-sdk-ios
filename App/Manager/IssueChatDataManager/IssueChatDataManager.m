@@ -117,7 +117,7 @@
                                        rollback = NO;
                                    }];
 
-                                   dispatch_sync_on_main_queue(^{
+                                   dispatch_async_on_main_queue(^{
                                        callback(listModel);
                                    });
                                });
@@ -227,7 +227,7 @@
 
                                                           rollback = NO;
                                                       }];
-                                                      dispatch_sync_on_main_queue(^{
+                                                      dispatch_async_on_main_queue(^{
                                                           callback(data);
                                                       });
                                                   });

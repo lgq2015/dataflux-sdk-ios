@@ -32,6 +32,10 @@
                                              selector:@selector(addTeamSuccess:)
                                                  name:KNotificationTeamStatusChange
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(teamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
     
     [self createTeamUI];
     if (self.isShowCustomNaviBar){
@@ -383,5 +387,11 @@
             [obj removeFromSuperview];
         }
     }];
+}
+#pragma mark ===通知回调=====
+//团队切换
+- (void)teamSwitch:(NSNotification *)notification{
+    DLog(@"teamvc----团队切换");
+    [self loadTeamMemberInfo];
 }
 @end

@@ -224,6 +224,11 @@
         params= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
         
     }
+    //创建团队：区分个人团队升级，还是在已有团队的基础上创建新的团队
+    if([getTeamState isEqualToString:PW_isTeam]){
+        [params setValue:@"create" forKey:@"operationType"];
+        [params setValue:@{@"isDefault":@YES,@"isAdmin":@YES} forKey:@"relationship"];
+    }
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {

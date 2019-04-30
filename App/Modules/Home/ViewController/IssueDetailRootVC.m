@@ -104,7 +104,7 @@
 -(void)checkRead{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:self.model.issueId];
-        dispatch_sync_on_main_queue(^{
+        dispatch_async_on_main_queue(^{
             [self setReadFlag:read];
         });
 
