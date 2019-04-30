@@ -41,6 +41,10 @@
                                              selector:@selector(teamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editTeamNote:)
+                                                 name:KNotificationEditTeamNote
+                                               object:nil];
     
     [self createTeamUI];
     if (self.isShowCustomNaviBar){
@@ -320,7 +324,9 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+    NSString *idString = model.memberID;
+    NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;
     if ([memberID isEqualToString:getPWUserID]) {
@@ -331,8 +337,9 @@
             [self loadTeamMemberInfo];
         };
         member.model = self.teamMemberArray[indexPath.row];
-       
     }
+    member.memberID = idString;
+    member.noteName = model.inTeamNote;
      [self.navigationController pushViewController:member animated:YES];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -486,6 +493,11 @@
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
+    [self loadTeamMemberInfo];
+}
+//修改备注
+- (void)editTeamNote:(NSNotification *)notification{
+    DLog(@"teamvc----修改备注");
     [self loadTeamMemberInfo];
 }
 #pragma mark ====常用按钮交互=====

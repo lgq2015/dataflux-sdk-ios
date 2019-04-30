@@ -11,11 +11,15 @@
 #import "TeamVC.h"
 #import "ChangeUserInfoVC.h"
 #import "TeamInfoModel.h"
+#import "EditBeizhuVC.h"
+#import "NSString+Regex.h"
 @interface MemberInfoVC ()
 @property (nonatomic, strong) UIImageView *headerIcon;
 @property (nonatomic, strong) UILabel *subTitleLab;
 @property (nonatomic, strong) UILabel *memberName;
 @property (nonatomic, strong) UIImageView *iconImgView;
+@property (nonatomic, strong) UIButton *beizhuBtn;
+@property (nonatomic, strong) UIButton *noteNameBtn;
 @end
 
 @implementation MemberInfoVC
@@ -25,6 +29,7 @@
     [self createUI];
     self.isShowWhiteBack = YES;
     [self.topNavBar clearNavBarBackgroundColor];
+    self.headerIcon.userInteractionEnabled = YES;
 }
 - (void)createUI{
     self.view.backgroundColor = PWWhiteColor;
@@ -39,11 +44,31 @@
         make.top.mas_equalTo(self.view).offset(kTopHeight);
         make.width.height.offset(ZOOM_SCALE(110));
     }];
+    //对成员名称的位置做处理
+    CGFloat memberNameW = [self getMemberNameWidth:userManager.curUserInfo.name withFont:MediumFONT(16)];
+    CGFloat memberLabLeft = 0.0;
+    if (self.type == PWMemberViewTypeMe){
+        memberLabLeft = (self.view.width - memberNameW - 10 - ZOOM_SCALE(46)) * 0.5;
+    }else{
+        memberLabLeft = (self.view.width - memberNameW) * 0.5;
+    }
     
     [self.memberName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.iconImgView.mas_bottom).offset(Interval(5));
         make.height.offset(ZOOM_SCALE(22));
-        make.left.right.mas_equalTo(self.view);
+        make.left.equalTo(@(memberLabLeft));
+    }];
+    [self.subTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.memberName.mas_right).offset(10);
+        make.centerY.equalTo(self.memberName.mas_centerY);
+        make.width.equalTo(@(ZOOM_SCALE(46)));
+        make.height.equalTo(@(ZOOM_SCALE(18)));
+    }];
+    [self.beizhuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.memberName.mas_bottom).offset(17);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.width.equalTo(self.view);
+        make.height.equalTo(@30);
     }];
     switch (self.type) {
         case PWMemberViewTypeTeamMember:{
@@ -73,12 +98,12 @@
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = userManager.curUserInfo.name;
             if (userManager.teamModel.isAdmin) {
+                self.subTitleLab.hidden = NO;
                  self.subTitleLab.text = @"管理员";
             }
         }
             break;
     }
-
     
     [self.view bringSubviewToFront:self.whiteBackBtn];
 }
@@ -139,20 +164,48 @@
     }
     return _memberName;
 }
+
+
 -(UILabel *)subTitleLab{
     if (!_subTitleLab) {
         _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWWhiteColor text:@""];
         _subTitleLab.numberOfLines = 0;
         _subTitleLab.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:_subTitleLab];
-        [self.subTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.view).offset(Interval(16));
-            make.right.mas_equalTo(self.view).offset(-Interval(16));
-            make.top.mas_equalTo(self.memberName.mas_bottom).offset(Interval(10));
-        }];
-
+        _subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+        _subTitleLab.layer.cornerRadius = 2;
+        _subTitleLab.layer.masksToBounds = YES;
+        _subTitleLab.hidden = YES;
+        [self.headerIcon addSubview:_subTitleLab];
     }
     return _subTitleLab;
+}
+- (UIButton *)beizhuBtn{
+    if (!_beizhuBtn){
+        _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _beizhuBtn.userInteractionEnabled = YES;
+        CGFloat spacing = 8.0;
+        _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        if (_noteName.length > 0){
+            [_beizhuBtn setTitle:_noteName forState:UIControlStateNormal];
+        }else{
+            [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+        }
+        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
+        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+        [_beizhuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _beizhuBtn.titleLabel.font = RegularFONT(14);
+        [_beizhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_beizhuBtn sizeToFit];
+        // 图片右移
+        CGSize imageSize = _beizhuBtn.imageView.frame.size;
+        _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
+        // 文字左移
+        CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
+        _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        [self.headerIcon addSubview:_beizhuBtn];
+        [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _beizhuBtn;
 }
 - (void)callPhone{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
@@ -242,6 +295,30 @@
         }
     }
     return nil;
+}
+#pragma mark ======按钮交互======
+- (void)beizhuclick{
+    EditBeizhuVC *vc = [[EditBeizhuVC alloc] init];
+    vc.memeberID = self.memberID;
+    vc.noteName = self.noteName;
+    __weak typeof(self) weakSelf = self;
+    vc.editTeamMemberNote = ^(NSString *noteName) {
+        [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+        CGFloat spacing = 8.0;
+        // 图片右移
+        CGSize imageSize = weakSelf.beizhuBtn.imageView.frame.size;
+        weakSelf.beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
+        // 文字左移
+        CGSize titleSize = weakSelf.beizhuBtn.titleLabel.frame.size;
+        weakSelf.beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+#pragma mark ===计算文本宽度=====
+- (CGFloat)getMemberNameWidth:(NSString *)str withFont:(UIFont *)font{
+    NSDictionary *dic = @{NSFontAttributeName:font};
+    CGRect rect = [str boundingRectWithSize:CGSizeMake(0, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
+    return rect.size.width;
 }
 
 /*

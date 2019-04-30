@@ -22,6 +22,8 @@
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
 //团队切换
 #define KNotificationSwitchTeam @"KNotificationSwitchTeam"
+//修改团队成员备注
+#define KNotificationEditTeamNote @"KNotificationEditTeamNote"
 //被踢下线
 #define KNotificationOnKick @"KNotificationOnKick"
 //监听重新拉取讨论数据

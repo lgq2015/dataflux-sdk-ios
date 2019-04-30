@@ -171,6 +171,8 @@
 #define PW_CancelTeam                  API_SEVERID@"/v1/team/cancel"
 #define PW_TeamAccount                 API_SEVERID@"/v1/team/account/list"
 #define PW_TeamModify                  API_SEVERID@"/v1/team/modify"
+#define PW_TeamAccountModify           API_SEVERID@"/v1/team/account/modify"
+
 #define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"

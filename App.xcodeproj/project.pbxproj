@@ -92,6 +92,12 @@
 		2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2BD4210A2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210B2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210C2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210D2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD4210E2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD4210F2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
 		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
@@ -1143,6 +1149,9 @@
 		2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZTUtil.m"; sourceTree = "<group>"; };
 		2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZTCategory.h"; sourceTree = "<group>"; };
 		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
+		2BD421072278575C009E854A /* EditBeizhuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditBeizhuVC.h; sourceTree = "<group>"; };
+		2BD421082278575C009E854A /* EditBeizhuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditBeizhuVC.m; sourceTree = "<group>"; };
+		2BD421092278575C009E854A /* EditBeizhuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditBeizhuVC.xib; sourceTree = "<group>"; };
 		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
 		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
@@ -1935,6 +1944,9 @@
 				4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */,
 				2B24273D22608137005A45D0 /* TeamVC+ChangeNavColor.h */,
 				2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */,
+				2BD421072278575C009E854A /* EditBeizhuVC.h */,
+				2BD421082278575C009E854A /* EditBeizhuVC.m */,
+				2BD421092278575C009E854A /* EditBeizhuVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -3425,6 +3437,7 @@
 				4AE537A721CC9206004CF320 /* frame-21@2x.png in Resources */,
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
+				2BD4210D2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
@@ -3483,6 +3496,7 @@
 				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
+				2BD4210E2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
@@ -3541,6 +3555,7 @@
 				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
+				2BD4210F2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
@@ -4009,6 +4024,7 @@
 				6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */,
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
+				2BD4210A2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
 				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
 				6B6E25EA6E5A8E29AF07EEBB /* IssueLogListModel.m in Sources */,
@@ -4325,6 +4341,7 @@
 				6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */,
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
+				2BD4210B2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
 				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
 				6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */,
@@ -4641,6 +4658,7 @@
 				6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */,
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
+				2BD4210C2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
 				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
 				6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */,
