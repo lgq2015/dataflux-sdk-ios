@@ -120,7 +120,7 @@
     };
 
     [self.headerView setTeamName:userManager.teamModel.name];
-    self.tableView.frame = CGRectMake(0, 89, kWidth, kHeight-kTabBarHeight-2);
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2 - kTopHeight);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(66);
