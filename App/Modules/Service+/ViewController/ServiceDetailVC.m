@@ -46,22 +46,22 @@
     [self.navigationController pushViewController:createTeam animated:YES];
 }
 -(void)eventBookSuccess:(NSDictionary *)extra{
-    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
-        DLog(@"支付方式----%ld",selectPayWayType);
-        switch (selectPayWayType) {
-            case Zhifubao_PayWayType:
-                [self requestSign];
-                break;
-            case ContactSale_PayWayType:
-                DLog(@"联系销售");
-                break;
-            default:
-                break;
-        }
-    }];
+//    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
+//        DLog(@"支付方式----%ld",selectPayWayType);
+//        switch (selectPayWayType) {
+//            case Zhifubao_PayWayType:
+//                [self requestSign];
+//                break;
+//            case ContactSale_PayWayType:
+//                DLog(@"联系销售");
+//                break;
+//            default:
+//                break;
+//        }
+//    }];
     //弹出支付方式界面
-//    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
-//    [self presentViewController:successVC animated:YES completion:nil];
+    BookSuccessVC *successVC = [[BookSuccessVC alloc]init];
+    [self presentViewController:successVC animated:YES completion:nil];
 }
 #pragma mark ====获取订单签名======
 - (void)requestSign{

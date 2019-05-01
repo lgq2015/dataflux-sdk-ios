@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isDefault;
 @property (nonatomic, strong) NSString *outerIdentifier;
 @property (nonatomic, strong) NSString *outerIdentifierType;
+//是否是专家
+@property (nonatomic, assign) BOOL isSpecialist;
 @end
 
 NS_ASSUME_NONNULL_END

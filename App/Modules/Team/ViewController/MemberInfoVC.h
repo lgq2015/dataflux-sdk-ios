@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, PWMemberViewType) {
     PWMemberViewTypeMe,
     PWMemberViewTypeExpert,
     PWMemberViewTypeTrans,
+    PWMemberViewTypeSpecialist,
 };
 @class MemberInfoModel;
 NS_ASSUME_NONNULL_BEGIN

@@ -246,19 +246,27 @@ SINGLETON_FOR_CLASS(UserManager);
                 setPWDefaultTeamID(self.teamModel.teamID);
                 if ([self.teamModel.type isEqualToString:@"singleAccount"]){
                     setTeamState(PW_isPersonal);
-                    isHave(NO,nil);
+                    if (isHave){
+                        isHave(NO,nil);
+                    }
                 }else{
                     setTeamState(PW_isTeam);
-                    isHave(YES,content);
+                    if (isHave){
+                        isHave(YES,content);
+                    }
                 }
                 [kUserDefaults synchronize];
             }
         }else{
-            isHave(NO,nil);
+            if (isHave){
+                isHave(NO,nil);
+            }
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
-        isHave(NO,nil);
+        if (isHave){
+            isHave(NO,nil);
+        }
         [error errorToast];
     }];
 }

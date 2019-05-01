@@ -86,6 +86,14 @@
             [self createBtnExpert];
         }
             break;
+        case PWMemberViewTypeSpecialist:{
+            self.memberName.text = @"周伟";
+            [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
+            self.subTitleLab.hidden = NO;
+            self.subTitleLab.text = @"专家";
+            [self createBtnExpert];
+        }
+            break;
         case PWMemberViewTypeTrans:{
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
@@ -141,9 +149,9 @@
             make.height.offset(ZOOM_SCALE(47));
         }];
     }
-    if (self.model.isAdmin) {
-        self.subTitleLab.text = @"管理员";
-    }
+//    if (self.model.isAdmin) {
+//        self.subTitleLab.text = @"管理员";
+//    }
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
@@ -204,6 +212,9 @@
         _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
+        if (self.model.isSpecialist){
+            _beizhuBtn.hidden = YES;
+        }
     }
     return _beizhuBtn;
 }

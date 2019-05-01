@@ -304,7 +304,8 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-
+    //判断是否要添加专家
+    [self addSpecialist];
     [self.headerView setTeamNum:[NSString stringWithFormat:@"共 %lu 人",(unsigned long)self.teamMemberArray.count]];
     [self.tableView reloadData];
 }
@@ -332,11 +333,16 @@
     if ([memberID isEqualToString:getPWUserID]) {
          member.type = PWMemberViewTypeMe;
     }else{
-        member.type = PWMemberViewTypeTeamMember;
-        member.teamMemberRefresh =^(){
-            [self loadTeamMemberInfo];
-        };
-        member.model = self.teamMemberArray[indexPath.row];
+        if (model.isSpecialist){
+            member.type = PWMemberViewTypeSpecialist;
+            member.model = model;
+        }else{
+            member.type = PWMemberViewTypeTeamMember;
+            member.teamMemberRefresh =^(){
+                [self loadTeamMemberInfo];
+            };
+            member.model = self.teamMemberArray[indexPath.row];
+        }
     }
     member.memberID = idString;
     member.noteName = model.inTeamNote;
@@ -519,5 +525,21 @@
     [alert addAction:confirm];
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
+}
+//判断用户有没有购买服务，如果有就添加专家
+- (void)addSpecialist{
+    NSDictionary *tags = userManager.teamModel.tags;
+    if (tags == nil) return;
+    NSDictionary *product = tags[@"product"];
+    if (product == nil) return;
+    NSString *managed = product[@"managed"];
+    NSString *support = product[@"support"];
+    if (managed != nil || support != nil){
+        MemberInfoModel *model =[[MemberInfoModel alloc]init];
+        model.isSpecialist = YES;
+        model.name = @"专家";
+        model.mobile = @"400-882-3320";
+        [self.teamMemberArray insertObject:model atIndex:1];
+    }
 }
 @end
