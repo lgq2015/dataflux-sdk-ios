@@ -137,6 +137,7 @@
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
+    
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.offset(kWidth);
     }];
@@ -151,7 +152,7 @@
 - (void)headerRefreshing{
     if ([getTeamState isEqualToString:PW_isPersonal]) {
         [userManager addTeamSuccess:^(BOOL isSuccess) {
-            self.isHidenNaviBar = YES;
+//            self.isHidenNaviBar = YES;
             if (isSuccess) {
                 [self zt_removeAllSubview];
                 [self createTeamUI];
@@ -276,8 +277,10 @@
             [userManager setTeamMember:content];
             [self dealWithDatas:content];
         }
+        [self.header endRefreshing];
     } failBlock:^(NSError *error) {
         [error errorToast];
+        [self.header endRefreshing];
     }];
     
 }
