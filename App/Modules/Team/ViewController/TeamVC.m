@@ -21,6 +21,7 @@
 #import "ZYChangeTeamUIManager.h"
 #import "MineMessageVC.h"
 #import "ZTCreateTeamVC.h"
+#import "ZTChangeTeamNavView.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) UIButton *leftNavButton;
 @property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
+@property (nonatomic, strong)ZTChangeTeamNavView *changeTeamNavView;
 @end
 
 @implementation TeamVC
@@ -76,10 +78,7 @@
 }
 - (void)addTeamSuccess:(NSNotification *)notification
 {
-    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
-
+    [_changeTeamNavView.navViewLeftBtn setTitle:userManager.teamModel.name forState:UIControlStateNormal];
 //    self.isHidenNaviBar = YES;
     BOOL isTeam = [notification.object boolValue];
     if (isTeam) {
@@ -421,46 +420,34 @@
 #pragma mark =====系统导航栏设置=====
 - (void)initSystemNav{
     self.navigationItem.title = @"";
-    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
+    NSString *titleString = @"";
+    if([getTeamState isEqualToString:PW_isTeam]){
+        titleString = userManager.teamModel.name;
+    }else{
+        titleString = @"我的团队";
+    }
+    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:RegularFONT(20)];
+    [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
+    _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
+    [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
+    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:_changeTeamNavView];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
     [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
         if (isDismissed){
-            _leftNavButton.selected = NO;
+            _changeTeamNavView.navViewLeftBtn.selected = NO;
             //设置动画
-            _leftNavButton.userInteractionEnabled = NO;
+            _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
             [UIView animateWithDuration:0.2 animations:^{
-                _leftNavButton.imageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+                _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
             } completion:^(BOOL finished) {
-                _leftNavButton.userInteractionEnabled = YES;
+                _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
             }];
         }
     };
 }
-- (UIButton *)leftNavBtn{
-        CGFloat spacing = 7.0;
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        if([getTeamState isEqualToString:PW_isTeam]){
-            [btn setTitle:userManager.teamModel.name forState:UIControlStateNormal];
-        }else{
-            [btn setTitle:@"我的团队" forState:UIControlStateNormal];
-        }
-        [btn setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateHighlighted];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:20];
-        [btn setTitleColor:[UIColor colorWithHexString:@"#140F26"] forState:UIControlStateNormal];
-        [btn sizeToFit];
-        [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-        // 图片右移
-        CGSize imageSize = btn.imageView.frame.size;
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
-        // 文字左移
-        CGSize titleSize = btn.titleLabel.frame.size;
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
-        _leftNavButton = btn;
-        return btn;
-}
+
 - (UIButton *)rightNavButton{
     if (!_rightNavButton){
         _rightNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -470,15 +457,15 @@
     }
     return _rightNavButton;
 }
-- (void)click:(UIButton *)sender{
+- (void)navLeftBtnclick:(UIButton *)sender{
     sender.userInteractionEnabled = NO;
     sender.selected = !sender.selected;
     //设置动画
     [UIView animateWithDuration:0.2 animations:^{
         if (sender.selected){
-            sender.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(M_PI);
         }else{
-            sender.imageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
         }
     } completion:^(BOOL finished) {
         sender.userInteractionEnabled = YES;
@@ -491,14 +478,15 @@
         [[ZYChangeTeamUIManager shareInstance] dismiss];
     }
 }
+- (void)tapTopArrow:(UITapGestureRecognizer *)ges{
+    [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
+}
 
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
     DLog(@"teamvc----团队切换");
-    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:[self leftNavBtn]];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
+    [_changeTeamNavView changeTitle:userManager.teamModel.name];
     [self loadTeamMemberInfo];
 }
 //修改备注

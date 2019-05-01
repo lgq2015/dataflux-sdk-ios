@@ -98,6 +98,9 @@
 		2BD4210D2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
 		2BD4210E2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
 		2BD4210F2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
+		2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
+		2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
 		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
@@ -1152,6 +1155,8 @@
 		2BD421072278575C009E854A /* EditBeizhuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditBeizhuVC.h; sourceTree = "<group>"; };
 		2BD421082278575C009E854A /* EditBeizhuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditBeizhuVC.m; sourceTree = "<group>"; };
 		2BD421092278575C009E854A /* EditBeizhuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditBeizhuVC.xib; sourceTree = "<group>"; };
+		2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTChangeTeamNavView.m; sourceTree = "<group>"; };
+		2BD42114227966BE009E854A /* ZTChangeTeamNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTChangeTeamNavView.h; sourceTree = "<group>"; };
 		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
 		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
@@ -1956,6 +1961,8 @@
 			children = (
 				4A092C8C2226620100FB2A35 /* DistrictCell.h */,
 				4A092C8D2226620100FB2A35 /* DistrictCell.m */,
+				2BD42114227966BE009E854A /* ZTChangeTeamNavView.h */,
+				2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */,
 				4A092C9122266C6700FB2A35 /* CityCell.h */,
 				4A092C9222266C6700FB2A35 /* CityCell.m */,
 				4A092CA02227804A00FB2A35 /* TeamHeaderView.h */,
@@ -3884,6 +3891,7 @@
 				4ABF43B521B8BACE002AF34E /* LibraryDraggableItem.m in Sources */,
 				4A092D28222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				4A759AB6224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
+				2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A759AB1224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B82265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
@@ -4201,6 +4209,7 @@
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
 				4AC857142232668200DAE1F6 /* HistoryTableView.m in Sources */,
+				2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A759AB7224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB2224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B92265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
@@ -4518,6 +4527,7 @@
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
 				4AC857152232668200DAE1F6 /* HistoryTableView.m in Sources */,
+				2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A759AB8224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB3224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663BA2265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
