@@ -45,9 +45,15 @@
         make.width.height.offset(ZOOM_SCALE(110));
     }];
     //对成员名称的位置做处理
-    CGFloat memberNameW = [self getMemberNameWidth:userManager.curUserInfo.name withFont:MediumFONT(16)];
+    NSString  *titleName = @"";
+    if (self.model.isSpecialist){
+        titleName = self.model.name;
+    }else{
+        titleName = userManager.curUserInfo.name;
+    }
+    CGFloat memberNameW = [self getMemberNameWidth:titleName withFont:MediumFONT(16)];
     CGFloat memberLabLeft = 0.0;
-    if (self.type == PWMemberViewTypeMe){
+    if (self.type == PWMemberViewTypeMe || self.type == PWMemberViewTypeSpecialist){
         memberLabLeft = (self.view.width - memberNameW - 10 - ZOOM_SCALE(46)) * 0.5;
     }else{
         memberLabLeft = (self.view.width - memberNameW) * 0.5;
@@ -87,7 +93,7 @@
         }
             break;
         case PWMemberViewTypeSpecialist:{
-            self.memberName.text = @"周伟";
+            self.memberName.text = self.model.name;
             [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
             self.subTitleLab.hidden = NO;
             self.subTitleLab.text = @"专家";

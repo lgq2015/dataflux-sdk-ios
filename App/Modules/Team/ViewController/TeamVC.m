@@ -83,7 +83,7 @@
 
 
 - (void)addTeamSuccess:(NSNotification *)notification{
-    [_changeTeamNavView.navViewLeftBtn setTitle:userManager.teamModel.name forState:UIControlStateNormal];
+    [_changeTeamNavView changeTitle:userManager.teamModel.name];
     [self.tableView reloadData];
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
@@ -327,6 +327,10 @@
 }
 #pragma mark ---ZTTeamVCTopCellDelegate---
 - (void)didClickTeamTopCell:(UITableViewCell *)cell withType:(TeamTopType)type{
+    if([getTeamState isEqualToString:PW_isPersonal]){
+        [self supplementMessage];
+        return;
+    }
     switch (type) {
         case inviteMemberType:{
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
@@ -349,7 +353,7 @@
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
                     if (isSuccess) {
-                        [_changeTeamNavView.navViewLeftBtn setTitle:userManager.teamModel.name forState:UIControlStateNormal];
+                        [_changeTeamNavView changeTitle:userManager.teamModel.name];
                     }
                 }];};
             fillVC.count = self.teamMemberArray.count;
@@ -495,7 +499,7 @@
     if (managed != nil || support != nil){
         MemberInfoModel *model =[[MemberInfoModel alloc]init];
         model.isSpecialist = YES;
-        model.name = @"专家";
+        model.name = @"驻云小助手";
         model.mobile = @"400-882-3320";
         [self.teamMemberArray insertObject:model atIndex:1];
     }
@@ -504,7 +508,13 @@
     UIView *view = [[UIView alloc] init];
     //团队名称
     UILabel *teamLab = [[UILabel alloc] init];
-    teamLab.text = userManager.teamModel.name;
+    NSString *titleString = @"";
+    if([getTeamState isEqualToString:PW_isTeam]){
+        titleString = userManager.teamModel.name;
+    }else{
+        titleString = @"我的团队";
+    }
+    teamLab.text = titleString;
     teamLab.font = RegularFONT(16);
     teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
     [view addSubview:teamLab];
@@ -549,19 +559,22 @@
 }
 - (TeamMemberCell *)teamMemberCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
-    cell.model = self.teamMemberArray[indexPath.row];
+    MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+    cell.model = model;
     cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (userManager.teamModel.isAdmin) {
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            [self delectMember:indexPath.row];
-            return NO;
-        }];
-        button.titleLabel.font = RegularFONT(14);
-        button.tag = indexPath.row + DeletBtnTag;
-        [button centerIconOverTextWithSpacing:5];
-        cell.rightButtons = @[button];
-        cell.delegate = self;
+    if (userManager.teamModel.isAdmin) {//我是管理员
+        if (!model.isAdmin && !model.isSpecialist){//可以对非管理员和非专家执行删除操作
+            MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+                [self delectMember:indexPath.row];
+                return NO;
+            }];
+            button.titleLabel.font = RegularFONT(14);
+            button.tag = indexPath.row + DeletBtnTag;
+            [button centerIconOverTextWithSpacing:5];
+            cell.rightButtons = @[button];
+            cell.delegate = self;
+        }
     }
     return cell;
 }

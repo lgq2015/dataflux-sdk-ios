@@ -56,13 +56,20 @@
         make.width.offset(ZOOM_SCALE(40));
         make.height.offset(ZOOM_SCALE(14));
     }];
-    self.adminLab.hidden = _model.isAdmin?NO:YES;
+    
+    self.adminLab.hidden = _model.isAdmin || _model.isSpecialist?NO:YES;
     [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self.beizhuLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
 }
 -(UILabel *)adminLab{
     if (!_adminLab) {
-        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@"管理员"];
+        NSString *str = @"";
+        if (_model.isAdmin){
+            str = @"管理员";
+        }else{
+            str = @"专家";
+        }
+        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:str];
         _adminLab.textAlignment = NSTextAlignmentCenter;
         _adminLab.layer.cornerRadius = 2.0f;
         _adminLab.layer.masksToBounds = YES;
