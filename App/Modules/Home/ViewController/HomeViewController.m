@@ -57,6 +57,7 @@
             ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
             [changeView showWithOffsetY:kTopHeight+16];
             changeView.delegate = self;
+            changeView.fromVC = self;
         }
     };
     scrollPageView.tag = 500;

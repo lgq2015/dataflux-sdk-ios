@@ -73,6 +73,10 @@
                                              selector:@selector(teamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hasMemberCacheTeamSwitch:)
+                                                 name:KNotificationHasMemCacheSwitchTeam
+                                               object:nil];
     [self judgeIssueConnectState:^{
         self.newsDatas = [NSMutableArray new];
         [self loadNewsDatas];
@@ -91,9 +95,11 @@
     [kUserDefaults synchronize];
 }
 - (void)teamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----团队切换");
+    DLog(@"homevc----无团队成员、团队切换");
 }
-
+- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
+    DLog(@"homevc----有团队成员、团队切换");
+}
 - (void)judgeIssueConnectState:(void (^)(void))complete {
 
     void (^setUpStyle)(void) = ^{

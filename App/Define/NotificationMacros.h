@@ -20,8 +20,10 @@
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
-//团队切换
+//团队切换(无团队成员、切换请求成功后通知)
 #define KNotificationSwitchTeam @"KNotificationSwitchTeam"
+//团队切换(有团队成员缓存切换后通知)
+#define KNotificationHasMemCacheSwitchTeam @"KNotificationNoNetworkSwitchTeam"
 //修改团队成员备注
 #define KNotificationEditTeamNote @"KNotificationEditTeamNote"
 //被踢下线

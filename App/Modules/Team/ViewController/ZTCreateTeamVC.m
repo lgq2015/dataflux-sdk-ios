@@ -177,17 +177,24 @@
         [createTMDic setValue:@"create" forKey:@"operationType"];
         [createTMDic setValue:@{@"isDefault":@YES,@"isAdmin":@YES} forKey:@"relationship"];
     }
+    //判断是否是补充过来的
+    BOOL isSupplement = NO;
+    if([getTeamState isEqualToString:PW_isTeam]){
+        isSupplement = NO;
+    }else{
+        isSupplement = YES;
+    }
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            //判断是否是补充过来的
-            BOOL isSupplement = NO;
-            if([getTeamState isEqualToString:PW_isTeam]){
-                isSupplement = NO;
-            }else{
-                isSupplement = YES;
-            }
             //创建团队成功后，请求新的成员列表
+            setTeamState(PW_isTeam);
+            //如果是个人升级
+            if (isSupplement){
+                TeamInfoModel *model = [[TeamInfoModel alloc] init];
+                model.name = name;
+                userManager.teamModel = model;
+            }
             KPostNotification(KNotificationTeamStatusChange, @YES);
             [userManager requestMemberList:NO complete:nil];
             [userManager requestTeamIssueCount];
@@ -195,15 +202,14 @@
             create.groupName = self.tfAry[0].text;
             create.isSupplement = isSupplement;
             create.btnClick =^(){
-                setTeamState(PW_isTeam);
                 [self.navigationController popViewControllerAnimated:NO];
             };
             [self presentViewController:create animated:YES completion:nil];
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-                KPostNotification(KNotificationTeamStatusChange, @YES);
                 setTeamState(PW_isTeam);
+                KPostNotification(KNotificationTeamStatusChange, @YES);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:NO];
                 });

@@ -47,6 +47,11 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (content.allKeys.count>0) {
                     NSError *error;
                     self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
+                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                        setTeamState(PW_isPersonal);
+                    }else{
+                        setTeamState(PW_isTeam);
+                    }
                     if (self.teamModel) {
                         setPWDefaultTeamID(self.teamModel.teamID);
                         YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
@@ -55,11 +60,6 @@ SINGLETON_FOR_CLASS(UserManager);
                         if (isSuccess) {
                             isSuccess(YES);
                         }
-                    }
-                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
-                        setTeamState(PW_isPersonal);
-                    }else{
-                        setTeamState(PW_isTeam);
                     }
                     [kUserDefaults synchronize];
                 }
@@ -547,7 +547,6 @@ SINGLETON_FOR_CLASS(UserManager);
     [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         TeamInfoModel *model = (TeamInfoModel *)obj;
         if ([model.teamID isEqualToString:groupID]){
-            self.teamModel = model;
             //更新teammodel缓存
             YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
             NSDictionary *dic = [model modelToJSONObject];

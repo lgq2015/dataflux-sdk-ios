@@ -14,6 +14,8 @@
 - (void)didClickChangeTeamWithGroupID:(NSString *_Nullable)groupID;
 //创建团队
 - (void)didClickAddTeam;
+//有成员缓存可无网络切换
+- (void)changeTeamInNoNetwork;
 @end
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^DismissBlock)(BOOL isDismissed);

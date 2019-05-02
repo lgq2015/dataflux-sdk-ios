@@ -53,6 +53,7 @@
     //如果缓存为空，转圈请求
     if (_teamlists == nil || _teamlists.count == 0){
         [userManager requestMemberList:YES complete:^(BOOL isFinished) {
+            _teamlists = [userManager getAuthTeamList];
             [self show];
         }];
         [userManager requestTeamIssueCount];
@@ -185,9 +186,6 @@
         }
         [self changeTeamWithGroupModel:model];
     }else{
-//        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
-//            [self.delegate didClickAddTeam];
-//        }
         if (self.fromVC){
             [self.fromVC.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
         }
@@ -240,26 +238,60 @@
 }
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
+    //获取切换前teamModel
+    TeamInfoModel *lastTeamModel = userManager.teamModel;
+    //存储默认团队ID
+    setPWDefaultTeamID(model.teamID);
+    //判断是否有要切换teamID，对应的成员缓存
+    __block BOOL isHaveMemberCache = NO;
+    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess){
+            isHaveMemberCache = YES;
+        }else{
+            isHaveMemberCache = NO;
+        }
+    }];
+    //有缓存，切换本地数据并代理外界
+    if (isHaveMemberCache){
+        //更新teamModel
+        userManager.teamModel = model;
+        //更新团队列表中的默认团队
+        [userManager updateTeamModelWithGroupID:model.teamID];
+        KPostNotification(KNotificationHasMemCacheSwitchTeam, nil);
+    }
+    if (isHaveMemberCache == NO){
+        //恢复存储默认团队ID
+        setPWDefaultTeamID(lastTeamModel.teamID);
+        [SVProgressHUD show];
+    }
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
     [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
             setXAuthToken(token);
-            //更新teamModel
-            userManager.teamModel = model;
-            //存储默认团队IDO
-            setPWDefaultTeamID(model.teamID);
+            if (isHaveMemberCache == NO){
+                userManager.teamModel = model;
+                [userManager updateTeamModelWithGroupID:model.teamID];
+                setPWDefaultTeamID(model.teamID);
+            }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
-            //更新团队列表中的默认团队
-            [userManager updateTeamModelWithGroupID:model.teamID];
             //重新发送loadlist请求
             [userManager requestMemberList:NO complete:nil];
             //重新发送团队列表红点请求
             [userManager requestTeamIssueCount];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+        }
+        if (isHaveMemberCache == NO){
+            [SVProgressHUD dismiss];
         }
     } failBlock:^(NSError *error) {
+        if (isHaveMemberCache == NO){
+            [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:@"切换团队失败"];
+        }
     }];
     
 }
