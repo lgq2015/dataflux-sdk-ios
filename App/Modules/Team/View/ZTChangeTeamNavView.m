@@ -18,7 +18,6 @@
 - (instancetype)initWithTitle:(NSString *)titleString font:(UIFont *)font{
     _font = font;
     _titleString = titleString;
-    self.backgroundColor = [UIColor purpleColor];
     if (self = [super init]){
         [self s_UI];
     }
@@ -27,8 +26,10 @@
 
 - (void)s_UI{
     CGFloat navViewLeftBtnW =  [self getMemberNameWidth:_titleString withFont:_font];
+    self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     if (navViewLeftBtnW > TitleMaxW){
         navViewLeftBtnW = TitleMaxW;
+        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
     }
     [self.navViewLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -72,8 +73,10 @@
 - (void)changeTitle:(NSString *)string{
     [self.navViewLeftBtn setTitle:string forState:UIControlStateNormal];
     CGFloat navViewLeftBtnW =  [self getMemberNameWidth:string withFont:self.navViewLeftBtn.titleLabel.font];
+    self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     if (navViewLeftBtnW > TitleMaxW){
         navViewLeftBtnW = TitleMaxW;
+        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
     }
     [self.navViewLeftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.offset(navViewLeftBtnW);
