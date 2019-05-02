@@ -251,7 +251,7 @@
             isHaveMemberCache = NO;
         }
     }];
-    //有缓存，切换本地数据并代理外界
+    //有缓存，切换本地数据并通知外界
     if (isHaveMemberCache){
         //更新teamModel
         userManager.teamModel = model;
