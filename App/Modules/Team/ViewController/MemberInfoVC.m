@@ -53,7 +53,8 @@
     }
     CGFloat memberNameW = [self getMemberNameWidth:titleName withFont:MediumFONT(16)];
     CGFloat memberLabLeft = 0.0;
-    if (self.type == PWMemberViewTypeMe || self.type == PWMemberViewTypeSpecialist){
+    //如果点击了管理员或专家
+    if (self.model.isAdmin || self.model.isSpecialist){
         memberLabLeft = (self.view.width - memberNameW - 10 - ZOOM_SCALE(46)) * 0.5;
     }else{
         memberLabLeft = (self.view.width - memberNameW) * 0.5;
@@ -81,6 +82,10 @@
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
+            if (self.model.isAdmin) {
+                self.subTitleLab.hidden = NO;
+                self.subTitleLab.text = @"管理员";
+            }
              [self createBtnPhone];
         }
             break;
@@ -111,7 +116,7 @@
             NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = userManager.curUserInfo.name;
-            if (userManager.teamModel.isAdmin) {
+            if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
                  self.subTitleLab.text = @"管理员";
             }
@@ -155,9 +160,6 @@
             make.height.offset(ZOOM_SCALE(47));
         }];
     }
-//    if (self.model.isAdmin) {
-//        self.subTitleLab.text = @"管理员";
-//    }
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
@@ -218,9 +220,11 @@
         _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
-        if (self.model.isSpecialist){
+        //隐藏备注条件 1.专家 2.非管理员并且不是自己
+        if (self.model.isSpecialist || (!userManager.teamModel.isAdmin && self.type != PWMemberViewTypeMe)){
             _beizhuBtn.hidden = YES;
         }
+        
     }
     return _beizhuBtn;
 }

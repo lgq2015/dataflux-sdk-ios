@@ -180,6 +180,7 @@
     NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;
+    //团队成员分三类： 1. 我 2. 其他人 3.虚拟专家
     if ([memberID isEqualToString:getPWUserID]) {
          member.type = PWMemberViewTypeMe;
     }else{
