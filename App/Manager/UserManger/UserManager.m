@@ -38,9 +38,7 @@ SINGLETON_FOR_CLASS(UserManager);
     }
     return self;
 }
-- (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess
-{
-    
+- (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess{
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 NSDictionary *content = response[@"content"];
@@ -469,9 +467,8 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 - (void)setTeamProduct:(NSArray *)teamProduct{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
-    [cache removeAllObjectsWithBlock:^{
-        [cache setObject:teamProduct forKey:KTeamProductDict];
-    }];
+    [cache removeObjectForKey:KTeamProductDict];
+    [cache setObject:teamProduct forKey:KTeamProductDict];
 }
 - (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock{
     if (memberId==nil || [memberId isEqualToString:@""]) {

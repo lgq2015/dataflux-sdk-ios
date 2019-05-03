@@ -87,9 +87,11 @@
     [self.tableView reloadData];
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
+            [_changeTeamNavView changeTitle:userManager.teamModel.name];
             [self.tableView reloadData];
         }
     }];
+    [self loadTeamProductData];
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];
@@ -344,12 +346,6 @@
         }
             break;
         case teamManagerType:{
-            ServiceLogVC *monitor = [[ServiceLogVC alloc]init];
-            [self.navigationController pushViewController:monitor animated:YES];
-        }
-            
-            break;
-        case server:{
             FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
@@ -359,6 +355,11 @@
                 }];};
             fillVC.count = self.teamMemberArray.count;
             [self.navigationController pushViewController:fillVC animated:YES];
+        }
+            break;
+        case server:{
+            ServiceLogVC *monitor = [[ServiceLogVC alloc]init];
+            [self.navigationController pushViewController:monitor animated:YES];
         }
             break;
         default:
