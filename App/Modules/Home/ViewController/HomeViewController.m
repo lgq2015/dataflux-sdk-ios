@@ -47,6 +47,11 @@
     //    WeakSelf;
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         if(extraBtn.tag == 10){
+        //判断团队切换界面如果弹出就让你消失
+        ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+        if (manager.isShowTeamView){
+            [manager dismiss];
+        }
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
