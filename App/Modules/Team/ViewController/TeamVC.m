@@ -91,7 +91,12 @@
             [self.tableView reloadData];
         }
     }];
-    [self loadTeamProductData];
+    //如果是团队升级重新请求团队信息
+    BOOL isTeamUpgrade = [kUserDefaults boolForKey:@"teamUpgrade"];
+    if (isTeamUpgrade){
+        [kUserDefaults setBool:NO forKey:@"teamUpgrade"];
+        [self loadTeamProductData];
+    }
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];

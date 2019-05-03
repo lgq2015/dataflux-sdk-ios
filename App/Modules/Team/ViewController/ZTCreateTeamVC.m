@@ -194,6 +194,7 @@
                 TeamInfoModel *model = [[TeamInfoModel alloc] init];
                 model.name = name;
                 userManager.teamModel = model;
+                [kUserDefaults setBool:YES forKey:@"teamUpgrade"];
             }
             KPostNotification(KNotificationTeamStatusChange, @YES);
             [userManager requestMemberList:NO complete:nil];
