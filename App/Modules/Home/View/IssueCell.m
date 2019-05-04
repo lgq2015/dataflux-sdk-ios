@@ -10,6 +10,7 @@
 #import "IssueListViewModel.h"
 #import "RightTriangleView.h"
 #import "IssueSourceManger.h"
+#import "IssueListManger.h"
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *warningLab;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) UIImageView *sourceIcon;
 @property (nonatomic, strong) UILabel *sourcenNameLab;
 @property (nonatomic, strong) UIImageView *chatIcon;
+@property (nonatomic, strong) UIView *readDot;
 @end
 @implementation IssueCell
 -(void)setFrame:(CGRect)frame{
@@ -78,13 +80,24 @@
         make.left.equalTo(self.stateLab.mas_left);
         make.right.mas_equalTo(self).offset(-Interval(21));
     }];
+    [self.chatIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.titleLab);
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(12));
+        make.width.height.offset(ZOOM_SCALE(12));
+    }];
+    [self.readDot mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.chatIcon).offset(-3);
+        make.left.mas_equalTo(self.chatIcon.mas_right).offset(-3);
+        make.width.height.offset(6);
+    }];
     [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(8));
-            make.left.mas_equalTo(self.stateLab.mas_left);
+            make.left.mas_equalTo(self.chatIcon.mas_right).offset(5);
             make.right.mas_equalTo(self).offset(-17);
             make.height.offset(ZOOM_SCALE(18));
             make.bottom.offset(-Interval(11));
+        make.centerY.mas_equalTo(self.chatIcon);
     }];
+    
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -138,6 +151,13 @@
     }
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.sourcenNameLab.text = self.model.sourceName;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:self.model.issueId];
+        dispatch_async_on_main_queue(^{
+            self.readDot.hidden = read;
+        });
+        
+    });
 //     NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:self.model.sourceType];
 }
 -(UIView *)serviceDot{
@@ -150,11 +170,20 @@
 }
 - (UIImageView *)chatIcon{
     if (!_chatIcon) {
-        _chatIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chatIcon"]];
+        _chatIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"issueList_chat"]];
         _chatIcon.frame = CGRectMake(0, 0, ZOOM_SCALE(12), ZOOM_SCALE(12));
         [self addSubview:_chatIcon];
     }
     return _chatIcon;
+}
+-(UIView *)readDot{
+    if (!_readDot) {
+        _readDot = [[UIView alloc]init];
+        _readDot.layer.cornerRadius = 3.0f;
+        _readDot.backgroundColor = [UIColor redColor];
+        [self addSubview:_readDot];
+    }
+    return _readDot;
 }
 -(UILabel *)serviceLab{
     if (!_serviceLab) {
