@@ -109,7 +109,7 @@
 -(UIWindow *)window{
     if (!_window) {
         _window = [[[UIApplication sharedApplication]delegate]window];
-        _window.clipsToBounds = YES;
+//        _window.clipsToBounds = YES;
     }
     return _window;
 }
@@ -117,13 +117,13 @@
 -(UIView *)backgroundGrayView{
     if (!_backgroundGrayView) {
         _backgroundGrayView = [[UIView alloc]init];
-        _backgroundGrayView.frame = CGRectMake(0,_offsetY, kWidth, kHeight);
         _backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
         _backgroundGrayView.clipsToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
         tap.delegate = self;
         [_backgroundGrayView addGestureRecognizer:tap];
     }
+    _backgroundGrayView.frame = CGRectMake(0,_offsetY, kWidth, kHeight);
     return _backgroundGrayView;
 }
 - (UITableView *)tab{
