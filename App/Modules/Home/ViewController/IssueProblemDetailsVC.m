@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"问题详情";
+    self.title = @"情报详情";
     [self setupView];
     [self loadIssueDetailExtra];
     [self loadInfoDeatil];
@@ -156,7 +156,7 @@
 -(UIButton *)ignoreBtn{
     if (!_ignoreBtn) {
         _ignoreBtn = [[UIButton alloc]init];
-        [_ignoreBtn setTitle:@"关闭此问题" forState:UIControlStateNormal];
+        [_ignoreBtn setTitle:@"关闭此情报" forState:UIControlStateNormal];
         [_ignoreBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
         _ignoreBtn.titleLabel.font = RegularFONT(14);
         [_ignoreBtn addTarget:self action:@selector(ignoreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -167,7 +167,7 @@
 #pragma mark ========== btnClick ==========
 
 - (void)ignoreBtnClick:(UIButton *)button{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭问题将会结束该问题相关的讨论与服务" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭情报将会结束该问题相关的讨论与服务" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm =[PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {

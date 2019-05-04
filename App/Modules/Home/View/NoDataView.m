@@ -41,6 +41,7 @@
             break;
         case NoDataViewLastDay:
             tip = @"过去24小时无情报";
+            hideBtn = YES;
             btnTitle = @"进入日历";
             break;
     }
