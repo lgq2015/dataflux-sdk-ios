@@ -123,7 +123,7 @@
         }
     }else{
         self.icon = @"issue_selfbuild";
-        self.sourceName = @"自建问题";
+        self.sourceName = @"自建情报";
     }
    
 }

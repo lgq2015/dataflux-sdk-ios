@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *serviceDot;
 @property (nonatomic, strong) UIImageView *sourceIcon;
 @property (nonatomic, strong) UILabel *sourcenNameLab;
+@property (nonatomic, strong) UIImageView *chatIcon;
 @end
 @implementation IssueCell
 -(void)setFrame:(CGRect)frame{
@@ -146,6 +147,14 @@
         [self addSubview:_serviceDot];
     }
     return _serviceDot;
+}
+- (UIImageView *)chatIcon{
+    if (!_chatIcon) {
+        _chatIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chatIcon"]];
+        _chatIcon.frame = CGRectMake(0, 0, ZOOM_SCALE(12), ZOOM_SCALE(12));
+        [self addSubview:_chatIcon];
+    }
+    return _chatIcon;
 }
 -(UILabel *)serviceLab{
     if (!_serviceLab) {

@@ -14,7 +14,7 @@
 #import "ScanViewController.h"
 #import "RootNavigationController.h"
 #import "ZYChangeTeamUIManager.h"
-
+#import "FillinTeamInforVC.h"
 @interface HomeViewController ()<ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
 @end
@@ -45,6 +45,7 @@
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
     //    WeakSelf;
+    UIButton *button = [scrollPageView viewWithTag:21];
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
         if(extraBtn.tag == 10){
         ScanViewController *scan = [[ScanViewController alloc]init];
@@ -54,9 +55,21 @@
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
         [self presentViewController:nav animated:YES completion:nil];
         }else{
+            BOOL selected = button.selected;
+            button.selected =!selected;
             ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
+            if (selected) {
+                [changeView dismiss];
+                [UIView animateWithDuration:0.3 animations:^{
+                    button.imageView.transform = CGAffineTransformIdentity;
+                }];
+            }else{
             [changeView showWithOffsetY:kTopHeight+16];
             changeView.delegate = self;
+                [UIView animateWithDuration:0.3 animations:^{
+                    button.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+                }];
+            }
         }
     };
     scrollPageView.tag = 500;
@@ -96,7 +109,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)didClickChangeTeamWithGroupID:(NSString *_Nullable)groupID{
+    
+}
+- (void)didClickAddTeam{
+    [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
+}
 /*
 #pragma mark - Navigation
 
