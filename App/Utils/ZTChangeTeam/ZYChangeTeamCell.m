@@ -25,9 +25,13 @@
 
 - (void)setModel:(TeamInfoModel *)model{
     _model = model;
-    _teamName.text = model.name;
+    if([getTeamState isEqualToString:PW_isPersonal]){//个人
+        _teamName.text = @"我的团队";
+    }else{
+        _teamName.text = model.name;
+    }
     //当前团队
-    if ([userManager.teamModel.teamID isEqualToString:model.teamID]){
+    if ([userManager.teamModel.teamID isEqualToString:model.teamID] || [getTeamState isEqualToString:PW_isPersonal]){
         _selectedImage.hidden = NO;
         _teamName.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
         _numLab.hidden = YES;
