@@ -17,6 +17,7 @@
 #import "FillinTeamInforVC.h"
 @interface HomeViewController ()<ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
+@property (nonatomic, strong) PWScrollSegmentView *zysegmentView;
 @end
 
 @implementation HomeViewController
@@ -37,17 +38,20 @@
     style.extraBtnImageNames =@[@"icon_scan"];
     style.leftExtraBtnImageNames= @[@"icon_teamselect",@"arrow_down"];
     style.segmentHeight = kTopHeight+16;
-//    style.leftExtraBtnFrame =
     CGRect leftBtnFirst = CGRectMake(0, 0, ZOOM_SCALE(28), ZOOM_SCALE(28));
     CGRect leftArrow = CGRectMake(0, 0, ZOOM_SCALE(11), ZOOM_SCALE(11));
     style.leftExtraBtnFrames = @[[NSValue valueWithCGRect:leftBtnFirst],[NSValue valueWithCGRect:leftArrow]];
     NSArray *childVcs = [NSArray arrayWithArray:[self setupChildVcAndTitle]];
     PWScrollPageView *scrollPageView = [[PWScrollPageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - kTabBarHeight) segmentStyle:style childVcs:childVcs parentViewController:self];
     // 额外的按钮响应的block
-    //    WeakSelf;
-    UIButton *button = [scrollPageView viewWithTag:21];
-    scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn){
+
+    scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn,PWScrollSegmentView *segmentView){
         if(extraBtn.tag == 10){
+        //判断团队切换界面如果弹出就让你消失
+        ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+        if (manager.isShowTeamView){
+            [manager dismiss];
+        }
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
@@ -55,20 +59,29 @@
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
         [self presentViewController:nav animated:YES completion:nil];
         }else{
-            BOOL selected = button.selected;
-            button.selected =!selected;
-            ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
-            if (selected) {
-                [changeView dismiss];
-                [UIView animateWithDuration:0.3 animations:^{
-                    button.imageView.transform = CGAffineTransformIdentity;
-                }];
+
+            _zysegmentView = segmentView;
+            UIButton *arrowBtn = [segmentView viewWithTag:21];
+            arrowBtn.userInteractionEnabled = NO;
+            arrowBtn.selected = !arrowBtn.selected;
+            //设置动画
+            [UIView animateWithDuration:0.2 animations:^{
+                if (arrowBtn.selected){
+                    arrowBtn.transform = CGAffineTransformMakeRotation(M_PI);
+                }else{
+                    arrowBtn.transform = CGAffineTransformIdentity;
+                }
+            } completion:^(BOOL finished) {
+                arrowBtn.userInteractionEnabled = YES;
+            }];
+            //显示
+            if (arrowBtn.isSelected){
+                ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
+                [changeView showWithOffsetY:kTopHeight+16];
+                changeView.delegate = self;
+                changeView.fromVC = self;
             }else{
-            [changeView showWithOffsetY:kTopHeight+16];
-            changeView.delegate = self;
-                [UIView animateWithDuration:0.3 animations:^{
-                    button.imageView.transform = CGAffineTransformMakeRotation(M_PI);
-                }];
+                [[ZYChangeTeamUIManager shareInstance] dismiss];
             }
         }
     };
@@ -109,20 +122,35 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)didClickChangeTeamWithGroupID:(NSString *_Nullable)groupID{
-    
-}
-- (void)didClickAddTeam{
-    [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
-}
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
 }
-*/
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self clickTeamChangeViewBlackBG];
+}
+//点击切换团队阴影
+- (void)clickTeamChangeViewBlackBG{
+    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+        if (isDismissed){
+            UIButton *arrowBtn = [_zysegmentView viewWithTag:21];
+            arrowBtn.selected = NO;
+            //设置动画
+            arrowBtn.userInteractionEnabled = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                arrowBtn.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+            } completion:^(BOOL finished) {
+                arrowBtn.userInteractionEnabled = YES;
+            }];
+        }
+    };
+}
 
 @end

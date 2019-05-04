@@ -39,7 +39,13 @@
         make.centerX.mas_equalTo(self.view);
         make.width.height.offset(ZOOM_SCALE(80));
     }];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:@"恭喜您创建团队成功！"];
+    NSString *titleString = @"";
+    if (_isSupplement){
+        titleString = @"补全团队信息成功！";
+    }else{
+        titleString = @"恭喜您创建团队成功！";
+    }
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:titleString];
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];
     

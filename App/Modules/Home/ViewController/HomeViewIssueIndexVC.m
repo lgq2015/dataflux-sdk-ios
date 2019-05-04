@@ -69,6 +69,14 @@
                                              selector:@selector(dealWithNotificationData)
                                                  name:KNotificationNewRemoteNoti
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(teamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hasMemberCacheTeamSwitch:)
+                                                 name:KNotificationHasMemCacheSwitchTeam
+                                               object:nil];
     [self judgeIssueConnectState:^{
         self.newsDatas = [NSMutableArray new];
         [self loadNewsDatas];
@@ -86,7 +94,21 @@
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
     [kUserDefaults synchronize];
 }
-
+- (void)teamSwitch:(NSNotification *)notification{
+    DLog(@"homevc----团队切换请求成功后通知");
+    [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
+    if (self.noticeDatas.count > 0) {
+        int x = arc4random() % self.noticeDatas.count;
+        NSDictionary *dict = self.noticeDatas[x];
+        [self.headerView.notice createUIWithTitleArray:@[dict[@"title"]]];
+    } else {
+        [self loadTipsData];
+    }
+    [self loadNewsDatas];
+}
+- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
+    DLog(@"homevc----有团队成员、团队切换");
+}
 - (void)judgeIssueConnectState:(void (^)(void))complete {
 
     void (^setUpStyle)(void) = ^{

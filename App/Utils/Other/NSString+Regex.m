@@ -66,4 +66,9 @@
     }
     return labelText;
 }
+- (CGFloat)calculateStringWidth:(NSString *)str withFont:(UIFont *)font{
+    NSDictionary *dic = @{NSFontAttributeName:font};
+    CGRect rect = [str boundingRectWithSize:CGSizeMake(0, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
+    return rect.size.width;
+}
 @end

@@ -9,6 +9,7 @@
 #import "ZYChangeTeamUIManager.h"
 #import "ZYChangeTeamCell.h"
 #import "UITableViewCell+ZTCategory.h"
+#import "ZTCreateTeamVC.h"
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIWindow * window;
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
@@ -52,14 +53,19 @@
     //如果缓存为空，转圈请求
     if (_teamlists == nil || _teamlists.count == 0){
         [userManager requestMemberList:YES complete:^(BOOL isFinished) {
+            _teamlists = [userManager getAuthTeamList];
             [self show];
         }];
+        [userManager requestTeamIssueCount];
     }else{//有数据也要请求，为了和web端同步数据
         [userManager requestMemberList:NO complete:nil];
+        [userManager requestTeamIssueCount];
         [self show];
     }
 }
 - (void)show{
+    //将红点数设置到团队列表中
+    [self addIssueCount];
     //避免弹出多次
     if (_isShowTeamView) return;
     //保存外界传入的值(+1.0 为了让导航栏顶部那条线显示出来)
@@ -79,6 +85,9 @@
 }
 
 -(void)dismiss{
+    if (_dismissedBlock){
+        _dismissedBlock(YES);
+    }
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.25 animations:^{
         [self p_hideFrame];
@@ -168,6 +177,7 @@
 #pragma mark --UITableViewDelegate--
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self dismiss];
     if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
         TeamInfoModel *model = self.teamlists[indexPath.row];
         TeamInfoModel *currentTeam = [self getCurrentTeamModel];
@@ -175,13 +185,12 @@
         if ([model.teamID isEqualToString:currentTeam.teamID]){
             return;
         }
-        [self changeTeamWithGroupID:model.teamID];
+        [self changeTeamWithGroupModel:model];
     }else{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didClickAddTeam)]){
-            [self.delegate didClickAddTeam];
+        if (self.fromVC){
+            [self.fromVC.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
         }
     }
-    [self dismiss];
 }
 
 #pragma mark ---UIGestureRecognizerDelegate---
@@ -212,24 +221,77 @@
         return model;
     }
 }
+#pragma mark --添加红点数----
+- (void)addIssueCount{
+    NSDictionary *issueCountDic = [userManager getAuthTeamIssueCount];
+    [self.teamlists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TeamInfoModel *model = (TeamInfoModel *)obj;
+        [issueCountDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            NSString *count = [NSString stringWithFormat:@"%@",obj];;
+            NSString *teamID = (NSString *)key;
+            if ([teamID isEqualToString:model.teamID]) {//这里就不在替换，因为前面已经替换过了
+                model.issueCount = count;
+                *stop = YES;
+            }
+        }];
+    }];
+}
 #pragma mark ---发送切换团队请求----
-- (void)changeTeamWithGroupID:(NSString *)groupID{
-    NSDictionary *params = @{@"data":@{@"teamId":groupID}};
+- (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
+    //获取切换前teamModel
+    TeamInfoModel *lastTeamModel = userManager.teamModel;
+    //存储默认团队ID
+    setPWDefaultTeamID(model.teamID);
+    //判断是否有要切换teamID，对应的成员缓存
+    __block BOOL isHaveMemberCache = NO;
+    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess){
+            isHaveMemberCache = YES;
+        }else{
+            isHaveMemberCache = NO;
+        }
+    }];
+    //有缓存，切换本地数据并通知外界
+    if (isHaveMemberCache){
+        //更新teamModel
+        userManager.teamModel = model;
+        //更新团队列表中的默认团队
+        [userManager updateTeamModelWithGroupID:model.teamID];
+        KPostNotification(KNotificationHasMemCacheSwitchTeam, nil);
+    }
+    if (isHaveMemberCache == NO){
+        //恢复存储默认团队ID
+        setPWDefaultTeamID(lastTeamModel.teamID);
+        [SVProgressHUD show];
+    }
+    NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
     [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
             setXAuthToken(token);
-            //存储默认团队IDO
-            setPWDefaultTeamID(groupID);
+            if (isHaveMemberCache == NO){
+                userManager.teamModel = model;
+                [userManager updateTeamModelWithGroupID:model.teamID];
+                setPWDefaultTeamID(model.teamID);
+            }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
-            //更新团队列表中的默认团队
-            [userManager updateTeamModelWithGroupID:groupID];
             //重新发送loadlist请求
             [userManager requestMemberList:NO complete:nil];
+            //重新发送团队列表红点请求
+            [userManager requestTeamIssueCount];
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+        }
+        if (isHaveMemberCache == NO){
+            [SVProgressHUD dismiss];
         }
     } failBlock:^(NSError *error) {
+        if (isHaveMemberCache == NO){
+            [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:@"切换团队失败"];
+        }
     }];
     
 }

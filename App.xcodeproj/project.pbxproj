@@ -92,6 +92,30 @@
 		2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
 		2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */; };
+		2BD4210A2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210B2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210C2278575C009E854A /* EditBeizhuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD421082278575C009E854A /* EditBeizhuVC.m */; };
+		2BD4210D2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD4210E2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD4210F2278575C009E854A /* EditBeizhuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD421092278575C009E854A /* EditBeizhuVC.xib */; };
+		2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
+		2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
+		2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */; };
+		2BD4211B227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42119227A03B9009E854A /* ZTTeamVCTopCell.m */; };
+		2BD4211C227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42119227A03B9009E854A /* ZTTeamVCTopCell.m */; };
+		2BD4211D227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42119227A03B9009E854A /* ZTTeamVCTopCell.m */; };
+		2BD4211E227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD4211A227A03B9009E854A /* ZTTeamVCTopCell.xib */; };
+		2BD4211F227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD4211A227A03B9009E854A /* ZTTeamVCTopCell.xib */; };
+		2BD42120227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD4211A227A03B9009E854A /* ZTTeamVCTopCell.xib */; };
+		2BD42124227A8669009E854A /* ZTTeamProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42122227A8669009E854A /* ZTTeamProductCell.m */; };
+		2BD42125227A8669009E854A /* ZTTeamProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42122227A8669009E854A /* ZTTeamProductCell.m */; };
+		2BD42126227A8669009E854A /* ZTTeamProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42122227A8669009E854A /* ZTTeamProductCell.m */; };
+		2BD42127227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
+		2BD42128227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
+		2BD42129227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
+		2BD42135227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
+		2BD42136227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
+		2BD42137227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
 		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
@@ -1143,6 +1167,19 @@
 		2B9ECC2E225496D800BAC47A /* NSObject+ZTUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZTUtil.m"; sourceTree = "<group>"; };
 		2B9ECC322254977700BAC47A /* UITableViewCell+ZTCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ZTCategory.h"; sourceTree = "<group>"; };
 		2B9ECC332254977700BAC47A /* UITableViewCell+ZTCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ZTCategory.m"; sourceTree = "<group>"; };
+		2BD421072278575C009E854A /* EditBeizhuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditBeizhuVC.h; sourceTree = "<group>"; };
+		2BD421082278575C009E854A /* EditBeizhuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditBeizhuVC.m; sourceTree = "<group>"; };
+		2BD421092278575C009E854A /* EditBeizhuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditBeizhuVC.xib; sourceTree = "<group>"; };
+		2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTChangeTeamNavView.m; sourceTree = "<group>"; };
+		2BD42114227966BE009E854A /* ZTChangeTeamNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTChangeTeamNavView.h; sourceTree = "<group>"; };
+		2BD42118227A03B9009E854A /* ZTTeamVCTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTTeamVCTopCell.h; sourceTree = "<group>"; };
+		2BD42119227A03B9009E854A /* ZTTeamVCTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTTeamVCTopCell.m; sourceTree = "<group>"; };
+		2BD4211A227A03B9009E854A /* ZTTeamVCTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTTeamVCTopCell.xib; sourceTree = "<group>"; };
+		2BD42121227A8668009E854A /* ZTTeamProductCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTTeamProductCell.h; sourceTree = "<group>"; };
+		2BD42122227A8669009E854A /* ZTTeamProductCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTTeamProductCell.m; sourceTree = "<group>"; };
+		2BD42123227A8669009E854A /* ZTTeamProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTTeamProductCell.xib; sourceTree = "<group>"; };
+		2BD42133227D4207009E854A /* ZTBuChongTeamInfoUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTBuChongTeamInfoUIManager.h; sourceTree = "<group>"; };
+		2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTBuChongTeamInfoUIManager.m; sourceTree = "<group>"; };
 		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
 		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
@@ -1935,6 +1972,9 @@
 				4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */,
 				2B24273D22608137005A45D0 /* TeamVC+ChangeNavColor.h */,
 				2B24273E22608137005A45D0 /* TeamVC+ChangeNavColor.m */,
+				2BD421072278575C009E854A /* EditBeizhuVC.h */,
+				2BD421082278575C009E854A /* EditBeizhuVC.m */,
+				2BD421092278575C009E854A /* EditBeizhuVC.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1944,6 +1984,8 @@
 			children = (
 				4A092C8C2226620100FB2A35 /* DistrictCell.h */,
 				4A092C8D2226620100FB2A35 /* DistrictCell.m */,
+				2BD42114227966BE009E854A /* ZTChangeTeamNavView.h */,
+				2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */,
 				4A092C9122266C6700FB2A35 /* CityCell.h */,
 				4A092C9222266C6700FB2A35 /* CityCell.m */,
 				4A092CA02227804A00FB2A35 /* TeamHeaderView.h */,
@@ -1952,6 +1994,14 @@
 				4A092CB62227BE5300FB2A35 /* InviteCardView.m */,
 				4A092CCE2228D67D00FB2A35 /* TeamMemberCell.h */,
 				4A092CCF2228D67D00FB2A35 /* TeamMemberCell.m */,
+				2BD42118227A03B9009E854A /* ZTTeamVCTopCell.h */,
+				2BD42119227A03B9009E854A /* ZTTeamVCTopCell.m */,
+				2BD4211A227A03B9009E854A /* ZTTeamVCTopCell.xib */,
+				2BD42121227A8668009E854A /* ZTTeamProductCell.h */,
+				2BD42122227A8669009E854A /* ZTTeamProductCell.m */,
+				2BD42123227A8669009E854A /* ZTTeamProductCell.xib */,
+				2BD42133227D4207009E854A /* ZTBuChongTeamInfoUIManager.h */,
+				2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3425,6 +3475,7 @@
 				4AE537A721CC9206004CF320 /* frame-21@2x.png in Resources */,
 				4AE537B821CC9206004CF320 /* frame-5@2x.png in Resources */,
 				4AE537A321CC9206004CF320 /* frame-15@2x.png in Resources */,
+				2BD4210D2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */,
 				2B9ECC1C225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				4AE537B221CC9206004CF320 /* frame-25@2x.png in Resources */,
@@ -3439,11 +3490,13 @@
 				2B84E42522658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				4AE537A521CC9206004CF320 /* frame-14@2x.png in Resources */,
 				4AE537B521CC9206004CF320 /* frame-6@2x.png in Resources */,
+				2BD4211E227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */,
 				4AE537B121CC9206004CF320 /* frame-19@2x.png in Resources */,
 				2BE9F185225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17C225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				4AE537A821CC9206004CF320 /* frame-8@2x.png in Resources */,
 				4AF663A9225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2BD42127227A8669009E854A /* ZTTeamProductCell.xib in Resources */,
 				2B535321226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3483,6 +3536,7 @@
 				CA1CF60B221ECB3A00D15316 /* frame-21@2x.png in Resources */,
 				CA1CF60C221ECB3A00D15316 /* frame-5@2x.png in Resources */,
 				CA1CF60D221ECB3A00D15316 /* frame-15@2x.png in Resources */,
+				2BD4210E2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				CA1CF60E221ECB3A00D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1D225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF60F221ECB3A00D15316 /* frame-25@2x.png in Resources */,
@@ -3497,11 +3551,13 @@
 				2B84E42622658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				CA1CF616221ECB3A00D15316 /* frame-14@2x.png in Resources */,
 				CA1CF617221ECB3A00D15316 /* frame-6@2x.png in Resources */,
+				2BD4211F227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */,
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
 				2BE9F186225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
 				4AF663AA225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2BD42128227A8669009E854A /* ZTTeamProductCell.xib in Resources */,
 				2B535322226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3541,6 +3597,7 @@
 				CA1CF6B0221ECB5000D15316 /* frame-21@2x.png in Resources */,
 				CA1CF6B1221ECB5000D15316 /* frame-5@2x.png in Resources */,
 				CA1CF6B2221ECB5000D15316 /* frame-15@2x.png in Resources */,
+				2BD4210F2278575C009E854A /* EditBeizhuVC.xib in Resources */,
 				CA1CF6B3221ECB5000D15316 /* InfoPlist.strings in Resources */,
 				2B9ECC1E225476B100BAC47A /* FounctionIntroductionVC.xib in Resources */,
 				CA1CF6B4221ECB5000D15316 /* frame-25@2x.png in Resources */,
@@ -3555,11 +3612,13 @@
 				2B84E42722658699008E7B29 /* ZTHandBookNoPicCell.xib in Resources */,
 				CA1CF6BB221ECB5000D15316 /* frame-14@2x.png in Resources */,
 				CA1CF6BC221ECB5000D15316 /* frame-6@2x.png in Resources */,
+				2BD42120227A03B9009E854A /* ZTTeamVCTopCell.xib in Resources */,
 				CA1CF6BD221ECB5000D15316 /* frame-19@2x.png in Resources */,
 				2BE9F187225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17E225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
 				CA1CF6BE221ECB5000D15316 /* frame-8@2x.png in Resources */,
 				4AF663AB225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
+				2BD42129227A8669009E854A /* ZTTeamProductCell.xib in Resources */,
 				2B535323226EEB4F00A4AC22 /* ZTOrderListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3799,6 +3858,7 @@
 				2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				4AC857C6223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
 				4A759AA7224B16B50057BD02 /* GuideCell.m in Sources */,
+				2BD4211B227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				2B9ECC27225494A400BAC47A /* FounctionIntroCell.m in Sources */,
@@ -3824,6 +3884,7 @@
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4A092D61222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
+				2BD42124227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				4A7599B6223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A7C4B1621C282DA007730E6 /* iToast+SYCategory.m in Sources */,
 				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
@@ -3847,6 +3908,7 @@
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
+				2BD42135227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4AC857B4223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
@@ -3869,6 +3931,7 @@
 				4ABF43B521B8BACE002AF34E /* LibraryDraggableItem.m in Sources */,
 				4A092D28222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				4A759AB6224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
+				2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A759AB1224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B82265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
@@ -4009,6 +4072,7 @@
 				6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */,
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
+				2BD4210A2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */,
 				6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */,
 				6B6E25EA6E5A8E29AF07EEBB /* IssueLogListModel.m in Sources */,
@@ -4115,6 +4179,7 @@
 				2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* IssueSourceViewModel.m in Sources */,
 				CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */,
+				2BD4211C227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC29225494AD00BAC47A /* FounctionIntroCell.m in Sources */,
@@ -4140,6 +4205,7 @@
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4E222D310000FB2A35 /* MineMessageVC.m in Sources */,
+				2BD42125227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
 				4AC857CE223D1A2100DAE1F6 /* OrderListModel.m in Sources */,
 				4A092CFB2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
@@ -4163,6 +4229,7 @@
 				CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */,
 				CA1CF5BE221ECB3A00D15316 /* IssueListManger.m in Sources */,
 				4AC85719223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
+				2BD42136227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE5224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
@@ -4185,6 +4252,7 @@
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
 				4AC857142232668200DAE1F6 /* HistoryTableView.m in Sources */,
+				2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A759AB7224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB2224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B92265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
@@ -4325,6 +4393,7 @@
 				6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */,
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
+				2BD4210B2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */,
 				6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */,
 				6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */,
@@ -4431,6 +4500,7 @@
 				2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* IssueSourceViewModel.m in Sources */,
 				CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */,
+				2BD4211D227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC2A225494AE00BAC47A /* FounctionIntroCell.m in Sources */,
@@ -4456,6 +4526,7 @@
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4F222D310000FB2A35 /* MineMessageVC.m in Sources */,
+				2BD42126227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
 				4AC857CF223D1A2100DAE1F6 /* OrderListModel.m in Sources */,
 				4A092CFC2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
@@ -4479,6 +4550,7 @@
 				CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */,
 				CA1CF663221ECB5000D15316 /* IssueListManger.m in Sources */,
 				4AC8571A223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
+				2BD42137227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE6224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
@@ -4501,6 +4573,7 @@
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
 				4AC857152232668200DAE1F6 /* HistoryTableView.m in Sources */,
+				2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A759AB8224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB3224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663BA2265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
@@ -4641,6 +4714,7 @@
 				6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */,
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
+				2BD4210C2278575C009E854A /* EditBeizhuVC.m in Sources */,
 				6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */,
 				6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */,
 				6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */,
@@ -4819,6 +4893,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4912,6 +4987,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (

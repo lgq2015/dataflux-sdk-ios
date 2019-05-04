@@ -38,15 +38,18 @@ SINGLETON_FOR_CLASS(UserManager);
     }
     return self;
 }
-- (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess
-{
-    
+- (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess{
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 NSDictionary *content = response[@"content"];
                 if (content.allKeys.count>0) {
                     NSError *error;
                     self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
+                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                        setTeamState(PW_isPersonal);
+                    }else{
+                        setTeamState(PW_isTeam);
+                    }
                     if (self.teamModel) {
                         setPWDefaultTeamID(self.teamModel.teamID);
                         YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
@@ -56,10 +59,6 @@ SINGLETON_FOR_CLASS(UserManager);
                             isSuccess(YES);
                         }
                     }
-                    setTeamState(PW_isTeam);
-                    [kUserDefaults synchronize];
-                }else{
-                    setTeamState(PW_isPersonal);
                     [kUserDefaults synchronize];
                 }
                 
@@ -200,10 +199,11 @@ SINGLETON_FOR_CLASS(UserManager);
                         NSDictionary *dic = [self.teamModel modelToJSONObject];
                         [cache setObject:dic forKey:KTeamModelCache];
                     }
-                    setTeamState(PW_isTeam);
-                    [kUserDefaults synchronize];
-                }else{
-                    setTeamState(PW_isPersonal);
+                    if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                        setTeamState(PW_isPersonal);
+                    }else{
+                        setTeamState(PW_isTeam);
+                    }
                     [kUserDefaults synchronize];
                 }
                   dispatch_group_leave(grpupT);
@@ -232,6 +232,7 @@ SINGLETON_FOR_CLASS(UserManager);
     });
     [self loadExperGroups:nil];
     [self requestMemberList:NO complete:nil];
+    [self requestTeamIssueCount];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -241,21 +242,29 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSError *error;
                 self.teamModel = [[TeamInfoModel alloc]initWithDictionary:content error:&error];
                 setPWDefaultTeamID(self.teamModel.teamID);
-                setTeamState(PW_isTeam);
+                if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                    setTeamState(PW_isPersonal);
+                    if (isHave){
+                        isHave(NO,nil);
+                    }
+                }else{
+                    setTeamState(PW_isTeam);
+                    if (isHave){
+                        isHave(YES,content);
+                    }
+                }
                 [kUserDefaults synchronize];
-                isHave(YES,content);
-            }else{
-                setTeamState(PW_isPersonal);
-                [kUserDefaults synchronize];
+            }
+        }else{
+            if (isHave){
                 isHave(NO,nil);
             }
-            
-        }else{
-            isHave(NO,nil);
             [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
         }
     } failBlock:^(NSError *error) {
-        isHave(NO,nil);
+        if (isHave){
+            isHave(NO,nil);
+        }
         [error errorToast];
     }];
 }
@@ -300,6 +309,7 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
     [cache removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
+    [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
 }
@@ -446,7 +456,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache setObject:memberArray forKey:KTeamMemberCacheName];
 }
 - (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *product = (NSArray *)[cache objectForKey:KTeamProductDict];
     if (product) {
         productBlock ? productBlock(YES,product):nil;
@@ -456,10 +466,9 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 - (void)setTeamProduct:(NSArray *)teamProduct{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
-    [cache removeAllObjectsWithBlock:^{
-        [cache setObject:teamProduct forKey:KTeamProductDict];
-    }];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    [cache removeObjectForKey:KTeamProductDict];
+    [cache setObject:teamProduct forKey:KTeamProductDict];
 }
 - (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock{
     if (memberId==nil || [memberId isEqualToString:@""]) {
@@ -518,6 +527,16 @@ SINGLETON_FOR_CLASS(UserManager);
     NSArray *lists = (NSArray *)[cache objectForKey:kAuthTeamListDict];
     return lists;
 }
+- (void)setAuthTeamIssueCount:(NSDictionary *)dic{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    [cache removeObjectForKey:kAuthTeamIssueCountDict];
+    [cache setObject:dic forKey:kAuthTeamIssueCountDict];
+}
+- (NSDictionary *)getAuthTeamIssueCount{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamListCacheName];
+    NSDictionary *dic = (NSDictionary *)[cache objectForKey:kAuthTeamIssueCountDict];
+    return dic;
+}
 
 #pragma mark ========== 更新默认团队===============
 - (void)updateTeamModelWithGroupID:(NSString *)groupID{
@@ -525,7 +544,6 @@ SINGLETON_FOR_CLASS(UserManager);
     [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         TeamInfoModel *model = (TeamInfoModel *)obj;
         if ([model.teamID isEqualToString:groupID]){
-            self.teamModel = model;
             //更新teammodel缓存
             YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
             NSDictionary *dic = [model modelToJSONObject];
@@ -583,8 +601,25 @@ SINGLETON_FOR_CLASS(UserManager);
         }
     }];
 }
+//团队活跃情报树
+- (void)requestTeamIssueCount{
+    NSMutableArray *teamlists = [NSMutableArray array];
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            if (content.allKeys.count == 0 || content == nil){
+                return ;
+            }
+            //缓存团队列表红点
+            [self setAuthTeamIssueCount:content];
+        }else{
+            
+        }
+    } failBlock:^(NSError *error) {
+    }];
+}
 - (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamProductDict];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
 //    [cache removeAllObjectsWithBlock:^{
 //        [cache setObject:teamProduct forKey:KTeamProductDict];
 //    }];

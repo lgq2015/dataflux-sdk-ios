@@ -12,6 +12,7 @@
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *adminLab;
+@property (nonatomic, strong) UILabel *beizhuLab;
 @end
 @implementation TeamMemberCell
 
@@ -22,6 +23,7 @@
 -(void)setModel:(MemberInfoModel *)model{
     _model = model;
     self.titleLab.text = _model.name;
+    self.beizhuLab.text = _model.inTeamNote;
     NSString *img = [_model.tags stringValueForKey:@"pwAvatar" default:@""];
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
 }
@@ -31,19 +33,17 @@
         make.width.height.mas_equalTo(ZOOM_SCALE(40));
         make.centerY.mas_equalTo(self.contentView);
     }];
-    [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
-        make.height.width.offset(ZOOM_SCALE(36));
-        make.centerY.mas_equalTo(self.contentView);
-    }];
+    
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(13));
         make.height.offset(ZOOM_SCALE(22));
-        make.right.mas_equalTo(self.phoneBtn.mas_left).offset(-Interval(10));
         make.centerY.mas_equalTo(self.iconImgView);
     }];
-   
-   
+    [self.beizhuLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.contentView).offset(-Interval(22));
+        make.left.mas_greaterThanOrEqualTo(self.titleLab.mas_right).offset(10);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-13);
+    }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(1);
         make.left.mas_equalTo(self.titleLab);
@@ -56,11 +56,20 @@
         make.width.offset(ZOOM_SCALE(40));
         make.height.offset(ZOOM_SCALE(14));
     }];
-    self.adminLab.hidden = _model.isAdmin?NO:YES;
+    
+    self.adminLab.hidden = _model.isAdmin || _model.isSpecialist?NO:YES;
+    [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [self.beizhuLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
 }
 -(UILabel *)adminLab{
     if (!_adminLab) {
-        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@"管理员"];
+        NSString *str = @"";
+        if (_model.isAdmin){
+            str = @"管理员";
+        }else{
+            str = @"专家";
+        }
+        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:str];
         _adminLab.textAlignment = NSTextAlignmentCenter;
         _adminLab.layer.cornerRadius = 2.0f;
         _adminLab.layer.masksToBounds = YES;
@@ -93,15 +102,13 @@
     }
     return _titleLab;
 }
--(UIButton *)phoneBtn{
-    if (!_phoneBtn) {
-        _phoneBtn = [[UIButton alloc]init];
-        _phoneBtn.userInteractionEnabled = YES;
-        [_phoneBtn setImage:[UIImage imageNamed:@"team_phone"] forState:UIControlStateNormal];
-        [_phoneBtn addTarget:self action:@selector(phoneClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_phoneBtn];
+
+- (UILabel *)beizhuLab{
+    if (!_beizhuLab){
+        _beizhuLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@""];
+        [self.contentView addSubview:_beizhuLab];
     }
-    return _phoneBtn;
+    return _beizhuLab;
 }
 - (void)phoneClick{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];

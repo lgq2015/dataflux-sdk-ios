@@ -161,15 +161,15 @@
         _nodataView.backgroundColor = PWWhiteColor;
         [self.view addSubview:_nodataView];
 
-        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank_page"]];
+        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goToWebAdd"]];
         [_nodataView addSubview:bgImgview];
         [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(_nodataView).offset(Interval(47));
-            make.width.offset(ZOOM_SCALE(222));
-            make.height.offset(ZOOM_SCALE(190));
+            make.width.offset(ZOOM_SCALE(250));
+            make.height.offset(ZOOM_SCALE(222));
             make.centerX.mas_equalTo(_nodataView);
         }];
-        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"您还没有添加情报源"];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:[UIColor colorWithHexString:@"#140F26"] text:@"请去web端添加"];
         tip.textAlignment = NSTextAlignmentCenter;
         [_nodataView addSubview:tip];
         [tip mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -177,30 +177,6 @@
             make.left.right.mas_equalTo(self.view);
             make.height.offset(ZOOM_SCALE(22));
         }];
-        if ([getTeamState isEqualToString:PW_isTeam]) {
-            if(userManager.teamModel.isAdmin){
-                UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"添加"];
-                [_nodataView addSubview:commitBtn];
-                [commitBtn addTarget:self action:@selector(addInfoSource) forControlEvents:UIControlEventTouchUpInside];
-                [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(_nodataView).offset(Interval(16));
-                    make.right.mas_equalTo(_nodataView).offset(-Interval(16));
-                    make.top.mas_equalTo(tip.mas_bottom).offset(Interval(74));
-                    make.height.offset(ZOOM_SCALE(47));
-                }];
-            }
-        }else{
-            UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"添加"];
-            [_nodataView addSubview:commitBtn];
-            [commitBtn addTarget:self action:@selector(addInfoSource) forControlEvents:UIControlEventTouchUpInside];
-            [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(_nodataView).offset(Interval(16));
-                make.right.mas_equalTo(_nodataView).offset(-Interval(16));
-                make.top.mas_equalTo(tip.mas_bottom).offset(Interval(74));
-                make.height.offset(ZOOM_SCALE(47));
-            }];
-        }
-
     }
     return _nodataView;
 }

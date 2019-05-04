@@ -33,10 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *mobile;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSDictionary *tags;
-
+@property (nonatomic, copy)NSString *inTeamNote;
 @property (nonatomic, assign) BOOL isDefault;
 @property (nonatomic, strong) NSString *outerIdentifier;
 @property (nonatomic, strong) NSString *outerIdentifierType;
+//是否是专家
+@property (nonatomic, assign) BOOL isSpecialist;
 @end
 
 NS_ASSUME_NONNULL_END

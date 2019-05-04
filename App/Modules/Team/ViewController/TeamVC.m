@@ -8,7 +8,6 @@
 
 #import "TeamVC.h"
 #import "FillinTeamInforVC.h"
-#import "TeamHeaderView.h"
 #import "TeamInfoModel.h"
 #import "IssueSourceListVC.h"
 #import "InviteMembersVC.h"
@@ -18,11 +17,23 @@
 #import "MemberInfoVC.h"
 #import "ServiceLogVC.h"
 #import "TeamVC+ChangeNavColor.h"
+#import "ZYChangeTeamUIManager.h"
+#import "MineMessageVC.h"
+#import "ZTCreateTeamVC.h"
+#import "ZTChangeTeamNavView.h"
+#import "ZTTeamVCTopCell.h"
+#import "ZTTeamProductCell.h"
+#import "UITableViewCell+ZTCategory.h"
+#import "ZTBuChongTeamInfoUIManager.h"
+#import "CloudCareVC.h"
 #define DeletBtnTag 100
-@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate>
+@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZYChangeTeamUIManagerDelegate,ZTTeamVCTopCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
-@property (nonatomic, strong) TeamHeaderView *headerView;
+@property (nonatomic, strong) UIButton *leftNavButton;
+@property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
+@property (nonatomic, strong)ZTChangeTeamNavView *changeTeamNavView;
+@property (nonatomic, assign)BOOL isHaveProduct;
 @end
 
 @implementation TeamVC
@@ -36,211 +47,83 @@
                                              selector:@selector(teamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hasMemberCacheTeamSwitch:)
+                                                 name:KNotificationHasMemCacheSwitchTeam
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editTeamNote:)
+                                                 name:KNotificationEditTeamNote
+                                               object:nil];
     
-    [self createTeamUI];
-    if (self.isShowCustomNaviBar){
-        [self initTopNavBar];
-    }
+    [self initSystemNav];
+    [self s_UI];
 }
-- (void)judgeIsTeam{
-    
-    NSString *team = getTeamState;
-   if([team isEqualToString:PW_isTeam]){
-        [self createTeamUI];
-    }else if([team isEqualToString:PW_isPersonal]){
-        [self createPersonalUI];
-    }else{
-        [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
-            if (isSuccess) {
-                if([getTeamState isEqualToString:PW_isTeam]){
-                    [self createTeamUI];
-                }else if([getTeamState isEqualToString:PW_isPersonal]){
-                    [self createPersonalUI];
-                }
-            }else{
-             
-            }
-        }];
-    }
-}
-- (void)addTeamSuccess:(NSNotification *)notification
-{
-    self.isHidenNaviBar = YES;
-    BOOL isTeam = [notification.object boolValue];
-    if (isTeam) {
-        [userManager addTeamSuccess:^(BOOL isSuccess) {
-            if (isSuccess) {
-            [self zt_removeAllSubview];
-            [self createTeamUI];
-            }
-        }];
-    }else{
-        [self zt_removeAllSubview];
-        [self createPersonalUI];
-    }
-    }
 
-- (void)createTeamUI{
-    [self zt_removeAllSubview];
-    self.view.backgroundColor = PWBackgroundColor;
-    self.tableView.mj_header = self.header;
-     WeakSelf;
-    self.headerView.itemClick =^(NSInteger tag){
-        if (tag == InvateTag) {
-            InviteMembersVC *invite = [[InviteMembersVC alloc]init];
-            [weakSelf.navigationController pushViewController:invite animated:YES];
-        }else if (tag == InfoSourceTag){
-            IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
-            [weakSelf.navigationController pushViewController:infoSource animated:YES];
-        }else if(tag == ServeTag){
-            ServiceLogVC *monitor = [[ServiceLogVC alloc]init];
-            [weakSelf.navigationController pushViewController:monitor animated:YES];
-        }else{
-            FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
-            fillVC.changeSuccess = ^(){
-                [userManager addTeamSuccess:^(BOOL isSuccess) {
-                    if (isSuccess) {
-                [weakSelf.headerView setTeamName:userManager.teamModel.name];
-            }
-                }];};
-            fillVC.count = weakSelf.teamMemberArray.count;
-            [weakSelf.navigationController pushViewController:fillVC animated:YES];
-        }
-    };
-
-    [self.headerView setTeamName:userManager.teamModel.name];
-    self.tableView.frame = CGRectMake(0, 89, kWidth, kHeight-kTabBarHeight-2);
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.rowHeight = ZOOM_SCALE(66);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
-    [self.view addSubview:self.tableView];
-    self.tableView.tableHeaderView = self.headerView;
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(kWidth);
-    }];
-    if (@available(iOS 11.0, *)) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    [self.tableView reloadData];
-  //  [self loadTeamProductData];
-    [self loadTeamMemberInfo];
-
-}
-- (void)headerRefreshing{
-    if ([getTeamState isEqualToString:PW_isPersonal]) {
-        [userManager addTeamSuccess:^(BOOL isSuccess) {
-            self.isHidenNaviBar = YES;
-            if (isSuccess) {
-                [self zt_removeAllSubview];
-                [self createTeamUI];
-            }
-            [self.header endRefreshing];
-        }];
-        [self.header endRefreshing];
-    }else{
-//        [self loadTeamProductData];
-        [self loadTeamMemberInfo];
-    }
-}
-- (void)loadTeamProductData{
+- (void)s_UI{
+    //判断是否购买了产品
+    __weak typeof(self) weakSelf = self;
     [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
-         [self.headerView setTeamProduct:member];
-        [self.tableView setTableHeaderView: self.headerView];
+            weakSelf.isHaveProduct = YES;
+        }else{
+            weakSelf.isHaveProduct = NO;
         }
     }];
+    self.tableView.mj_header = self.header;
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2 - kTopHeight);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
+    [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
+    [self.tableView registerNib:[ZTTeamProductCell cellWithNib] forCellReuseIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
+    [self.view addSubview:self.tableView];
+    [self loadTeamMemberInfo];
+    [self loadTeamProductData];
+}
+
+
+- (void)addTeamSuccess:(NSNotification *)notification{
+    [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    [self.tableView reloadData];
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [_changeTeamNavView changeTitle:userManager.teamModel.name];
+            [self.tableView reloadData];
+        }
+    }];
+    //如果是团队升级重新请求团队信息
+    BOOL isTeamUpgrade = [kUserDefaults boolForKey:@"teamUpgrade"];
+    if (isTeamUpgrade){
+        [kUserDefaults setBool:NO forKey:@"teamUpgrade"];
+        [self loadTeamProductData];
+    }
+}
+- (void)headerRefreshing{
+    [self loadTeamProductData];
+    [self loadTeamMemberInfo];
+}
+- (void)loadTeamProductData{
+    __weak typeof(self) weakSelf = self;
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
-            [self.headerView setTeamProduct:content];
-            CGFloat height = ZOOM_SCALE(24)*content.count+Interval(18);
-            self.headerView.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(364)+kStatusBarHeight+height);
-            [self.tableView setTableHeaderView: self.headerView];
             [userManager setTeamProduct:content];
+            if (content.count > 0) {
+                weakSelf.isHaveProduct = YES;
+            }else{
+                weakSelf.isHaveProduct = NO;
+            }
+            [self.tableView reloadData];
         }
          [self.header endRefreshing];
     } failBlock:^(NSError *error) {
          [self.header endRefreshing];
         [SVProgressHUD dismiss];
     }];
-}
-- (void)createPersonalUI{
-    self.mainScrollView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight);
-    self.mainScrollView.contentSize = CGSizeMake(kWidth, kHeight);
-    self.mainScrollView.mj_header = self.header;
-    self.view.backgroundColor = PWBackgroundColor;
-    NSArray *datas = @[@{@"icon":@"team_infoSource",@"title":@"情报源",@"subTitle":@"开放基础诊断情报源上限为 3 个，为您提供更多的诊断空间"},@{@"icon":@"team_cooperation",@"title":@"协作",@"subTitle":@"支持邀请成员加入团队，共享情报信息；支持主动记录问题，与团队成员共同解决"},@{@"icon":@"team_serve",@"title":@"服务",@"subTitle":@"云资源购买优惠，多领域的解决方案，总有一款是您想要的"}];
-    UIView *temp = nil;
-    CGFloat itemHeight = ZOOM_SCALE(74)+Interval(36);
-    for (NSInteger i=0; i<datas.count; i++) {
-        UIView *item = [self itemWithData:datas[i]];
-        if (i==0) {
-            [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.view).offset(Interval(16));
-                make.right.mas_equalTo(self.view).offset(-Interval(16));
-                make.top.mas_equalTo(self.mainScrollView).offset(kTopHeight-20);
-                make.height.offset(itemHeight);
-            }];
-            temp = item;
-        }else{
-            [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.view).offset(Interval(16));
-                make.right.mas_equalTo(self.view).offset(-Interval(16));
-                make.top.mas_equalTo(temp.mas_bottom).offset(Interval(12));
-                make.height.offset(itemHeight);
-            }];
-            temp = item;
-        }
-    }
-    
-    UIButton *createTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"创建团队"];
-    [createTeam addTarget:self action:@selector(createTeamClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.mainScrollView addSubview:createTeam];
-    [createTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(temp.mas_bottom).offset(Interval(57));
-        make.height.offset(ZOOM_SCALE(47));
-    }];
-    
-    
-}
--(TeamHeaderView *)headerView{
-    if (!_headerView) {
-     _headerView = [[TeamHeaderView alloc]init];
-    }
-    return _headerView;
-}
--(UIView *)itemWithData:(NSDictionary *)dict{
-    UIView *item = [[UIView alloc]initWithFrame:CGRectZero];
-    item.backgroundColor = PWWhiteColor;
-    [self.mainScrollView addSubview:item];
-    UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(9), Interval(9), ZOOM_SCALE(30), ZOOM_SCALE(30))];
-    icon.image = [UIImage imageNamed:dict[@"icon"]];
-    [item addSubview:icon];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:dict[@"title"]];
-    [item addSubview:titleLab];
-    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(icon.mas_right).offset(Interval(8));
-        make.centerY.mas_equalTo(icon);
-        make.height.offset(ZOOM_SCALE(25));
-    }];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:dict[@"subTitle"]];
-    subTitle.numberOfLines = 2;
-    
-    [item addSubview:subTitle];
-    [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(item).offset(Interval(12));
-        make.top.mas_equalTo(icon.mas_bottom).offset(Interval(10));
-        make.right.mas_equalTo(item).offset(-Interval(12));
-        make.height.offset(ZOOM_SCALE(45));
-    }];
-    item.layer.cornerRadius = 4.0f;
-    return item;
 }
 
 
@@ -256,8 +139,10 @@
             [userManager setTeamMember:content];
             [self dealWithDatas:content];
         }
+        [self.header endRefreshing];
     } failBlock:^(NSError *error) {
         [error errorToast];
+        [self.header endRefreshing];
     }];
     
 }
@@ -283,65 +168,149 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-
-    [self.headerView setTeamNum:[NSString stringWithFormat:@"共 %lu 人",(unsigned long)self.teamMemberArray.count]];
+    //判断是否要添加专家
+    [self addSpecialist];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{
     FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
     [self.navigationController pushViewController:fillVC animated:YES];
 }
-#pragma mark ========== UITableViewDataSource ==========
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.teamMemberArray.count;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0){
-        return 80;
-    }else{
-        return 60;
-    }
-}
+#pragma mark -----UITableViewDataSource ----------
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    if (_isHaveProduct && (indexPath.section == 1 || indexPath.section == 0)){
+        return;
+    }
+    if (!_isHaveProduct && indexPath.section == 0){
+        return;
+    }
+    MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+    NSString *idString = model.memberID;
+    NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;
+    //团队成员分三类： 1. 我 2. 其他人 3.虚拟专家
     if ([memberID isEqualToString:getPWUserID]) {
          member.type = PWMemberViewTypeMe;
     }else{
-        member.type = PWMemberViewTypeTeamMember;
-        member.teamMemberRefresh =^(){
-            [self loadTeamMemberInfo];
-        };
-        member.model = self.teamMemberArray[indexPath.row];
-       
+        if (model.isSpecialist){
+            member.type = PWMemberViewTypeSpecialist;
+            member.model = model;
+        }else{
+            member.type = PWMemberViewTypeTeamMember;
+            member.teamMemberRefresh =^(){
+                [self loadTeamMemberInfo];
+            };
+            member.model = self.teamMemberArray[indexPath.row];
+        }
     }
+    member.memberID = idString;
+    member.noteName = model.inTeamNote;
      [self.navigationController pushViewController:member animated:YES];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
-    cell.model = self.teamMemberArray[indexPath.row];
-    cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSString *memberID= [self.teamMemberArray[indexPath.row].memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    cell.phoneBtn.hidden = NO;
-    if (userManager.teamModel.isAdmin) {
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            [self delectMember:indexPath.row];
-            return NO;
-        }];
-        button.titleLabel.font = RegularFONT(14);
-        button.tag = indexPath.row + DeletBtnTag;
 
-        [button centerIconOverTextWithSpacing:5];
-        cell.rightButtons = @[button];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
+        return  cell;
+    }else if(indexPath.section == 1){
+        if (_isHaveProduct){
+            ZTTeamProductCell *cell = (ZTTeamProductCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
+                if (isSuccess) {
+                    [cell setTeamProduct:member];
+                }
+            }];
+            return  cell;
+        }else{
+            TeamMemberCell *cell = [self teamMemberCell:tableView indexPath:indexPath];
+            return cell;
+        }
+    }else{
+        TeamMemberCell *cell = [self teamMemberCell:tableView indexPath:indexPath];
+        return cell;
     }
-    if ([memberID isEqualToString:getPWUserID]) {
-        cell.phoneBtn.hidden = YES;
-    }
-    return cell;
+    
 }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0){
+        return [UIView new];
+    }else if (section == 1){
+        if (_isHaveProduct){
+            return [self teamProductCellHeaderView];
+        }else{
+            return [self teamMemberCellHeaderView];
+        }
+    }else{
+        return [self teamMemberCellHeaderView];
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0){
+        return 12;
+    }else{
+        return 46;
+    }
+}
+
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (_isHaveProduct){
+        return 3;
+    }else{
+        return 2;
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 0){
+        return 1;
+    }else if (section == 1){
+        if (_isHaveProduct){
+            return 1;
+        }else{
+            return self.teamMemberArray.count;
+        }
+    }else{
+        return self.teamMemberArray.count;
+    }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
+        CGFloat height = [cell caculateRowHeight];
+        return height;
+    }else if (indexPath.section == 1){
+        if (_isHaveProduct){
+            ZTTeamProductCell *cell = (ZTTeamProductCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
+            [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
+                if (isSuccess) {
+                    [cell setTeamProduct:member];
+                }
+            }];
+            CGFloat height = [cell caculateProductCellRowHeight];
+            return height;
+        }else{
+            if (indexPath.row == 0){
+                return 80;
+            }else{
+                return 60;
+            }
+        }
+    }else{
+        if (indexPath.row == 0){
+            return 80;
+        }else{
+            return 60;
+        }
+    }
+}
+
+
 - (void)delectMember:(NSInteger )row{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"移除成员后，成员将不在团队管理中，并不再接收团队任何消息" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -366,15 +335,46 @@
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
 }
+#pragma mark ---ZTTeamVCTopCellDelegate---
+- (void)didClickTeamTopCell:(UITableViewCell *)cell withType:(TeamTopType)type{
+    if([getTeamState isEqualToString:PW_isPersonal]){
+        [self supplementMessage];
+        return;
+    }
+    switch (type) {
+        case inviteMemberType:{
+            InviteMembersVC *invite = [[InviteMembersVC alloc]init];
+            [self.navigationController pushViewController:invite animated:YES];
+        }
+            break;
+        case cloudServerType:{
+            IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
+            [self.navigationController pushViewController:infoSource animated:YES];
+        }
+            break;
+        case teamManagerType:{
+            FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
+            fillVC.changeSuccess = ^(){
+                [userManager addTeamSuccess:^(BOOL isSuccess) {
+                    if (isSuccess) {
+                        [_changeTeamNavView changeTitle:userManager.teamModel.name];
+                    }
+                }];};
+            fillVC.count = self.teamMemberArray.count;
+            [self.navigationController pushViewController:fillVC animated:YES];
+        }
+            break;
+        case server:{
+            CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
+            makeFriendVC.isHideProgress = NO;
+            [self.navigationController pushViewController:makeFriendVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark ====导航栏的显示和隐藏====
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self.view bringSubviewToFront:self.topNavBar];
-    [self scrollViewDidScroll:self.tableView];
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self zt_changeColor:[UIColor whiteColor] scrolllView:self.tableView];
-}
 - (void)initTopNavBar{
     self.topNavBar.titleLabel.text = @"团队";
     self.topNavBar.backBtn.hidden = YES;
@@ -388,10 +388,205 @@
         }
     }];
 }
+#pragma mark =====系统导航栏设置=====
+- (void)initSystemNav{
+    self.navigationItem.title = @"";
+    NSString *titleString = @"";
+    if([getTeamState isEqualToString:PW_isTeam]){
+        titleString = userManager.teamModel.name;
+    }else{
+        titleString = @"我的团队";
+    }
+    //导航栏左侧按钮设置
+    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:RegularFONT(20)];
+    [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
+    _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
+    [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
+    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:_changeTeamNavView];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
+}
+
+- (UIButton *)rightNavButton{
+    if (!_rightNavButton){
+        _rightNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightNavButton setImage:[UIImage imageNamed:@"team_message"] forState:UIControlStateNormal];
+        [_rightNavButton setFrame:CGRectMake(0, 0, 44, 44)];
+        [_rightNavButton addTarget:self action:@selector(rightNavClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightNavButton;
+}
+- (void)navLeftBtnclick:(UIButton *)sender{
+    sender.userInteractionEnabled = NO;
+    sender.selected = !sender.selected;
+    //设置动画
+    [UIView animateWithDuration:0.2 animations:^{
+        if (sender.selected){
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(M_PI);
+        }else{
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+        }
+    } completion:^(BOOL finished) {
+        sender.userInteractionEnabled = YES;
+    }];
+    //显示
+    if (sender.isSelected){
+        ZYChangeTeamUIManager *mag = [ZYChangeTeamUIManager shareInstance];
+        [mag showWithOffsetY:kTopHeight];
+        mag.fromVC = self;
+        mag.delegate = self;
+    }else{
+        [[ZYChangeTeamUIManager shareInstance] dismiss];
+    }
+}
+- (void)tapTopArrow:(UITapGestureRecognizer *)ges{
+    [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
+}
+
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----团队切换");
+    DLog(@"teamvc----无成员缓存团队切换");
+    [_changeTeamNavView changeTitle:userManager.teamModel.name];
     [self loadTeamMemberInfo];
+}
+- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
+    DLog(@"teamvc----有成员缓存团队切换");
+    [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+        if (isSuccess) {
+            [self dealWithDatas:member];
+        }
+    }];
+}
+//修改备注
+- (void)editTeamNote:(NSNotification *)notification{
+    DLog(@"teamvc----修改备注");
+    [self loadTeamMemberInfo];
+}
+#pragma mark ====常用按钮交互=====
+- (void)rightNavClick{
+    MineMessageVC *messageVC = [[MineMessageVC alloc]init];
+    messageVC.ownership = Team_Message;
+    [self.navigationController pushViewController:messageVC animated:YES];
+}
+#pragma mark ====其他========
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self clickTeamChangeViewBlackBG];
+}
+//点击切换团队阴影
+- (void)clickTeamChangeViewBlackBG{
+    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+        if (isDismissed){
+            _changeTeamNavView.navViewLeftBtn.selected = NO;
+            //设置动画
+            _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+            } completion:^(BOOL finished) {
+                _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
+            }];
+        }
+    };
+}
+//补充团队信息
+- (void)supplementMessage{
+    DLog(@"补充信息");
+    __weak typeof(self) weakSelf = self;
+    [[ZTBuChongTeamInfoUIManager shareInstance] show:^{
+        [weakSelf.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
+    }];
+}
+//判断用户有没有购买服务，如果有就添加专家
+- (void)addSpecialist{
+    NSDictionary *tags = userManager.teamModel.tags;
+    if (tags == nil) return;
+    NSDictionary *product = tags[@"product"];
+    if (product == nil) return;
+    NSString *managed = product[@"managed"];
+    NSString *support = product[@"support"];
+    if (managed != nil || support != nil){
+        MemberInfoModel *model =[[MemberInfoModel alloc]init];
+        model.isSpecialist = YES;
+        model.name = @"驻云小助手";
+        model.mobile = @"400-882-3320";
+        [self.teamMemberArray insertObject:model atIndex:1];
+    }
+}
+- (UIView *)teamMemberCellHeaderView{
+    UIView *view = [[UIView alloc] init];
+    //团队名称
+    UILabel *teamLab = [[UILabel alloc] init];
+    NSString *titleString = @"";
+    if([getTeamState isEqualToString:PW_isTeam]){
+        titleString = userManager.teamModel.name;
+    }else{
+        titleString = @"我的团队";
+    }
+    teamLab.text = titleString;
+    teamLab.font = RegularFONT(16);
+    teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
+    [view addSubview:teamLab];
+    //团队人数
+    UILabel *teamMemNumLab = [[UILabel alloc] init];
+    teamMemNumLab.text = [NSString stringWithFormat:@"共 %lu 人",(unsigned long)self.teamMemberArray.count];
+    teamMemNumLab.font = RegularFONT(13);
+    teamMemNumLab.textColor = [UIColor colorWithHexString:@"#140F26"];
+    [view addSubview:teamMemNumLab];
+    //布局
+    [teamLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view).offset(15);
+        make.top.equalTo(view);
+        make.bottom.equalTo(view);
+    }];
+    [teamMemNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(teamLab.mas_right).offset(20);
+        make.centerY.equalTo(teamLab);
+        make.right.mas_lessThanOrEqualTo(view).offset(-15);
+    }];
+    [teamLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [teamMemNumLab setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
+    return view;
+}
+- (UIView *)teamProductCellHeaderView{
+    UIView *view = [[UIView alloc] init];
+    //团队名称
+    UILabel *teamLab = [[UILabel alloc] init];
+    teamLab.text = @"尊享权益";
+    teamLab.font = RegularFONT(16);
+    teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
+    [view addSubview:teamLab];
+    //布局
+    [teamLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view).offset(15);
+        make.top.equalTo(view);
+        make.bottom.equalTo(view);
+    }];
+    view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
+    return view;
+}
+- (TeamMemberCell *)teamMemberCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath{
+    TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
+    MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+    cell.model = model;
+    cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (userManager.teamModel.isAdmin) {//我是管理员
+        if (!model.isAdmin && !model.isSpecialist){//可以对非管理员和非专家执行删除操作
+            MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+                [self delectMember:indexPath.row];
+                return NO;
+            }];
+            button.titleLabel.font = RegularFONT(14);
+            button.tag = indexPath.row + DeletBtnTag;
+            [button centerIconOverTextWithSpacing:5];
+            cell.rightButtons = @[button];
+            cell.delegate = self;
+        }
+    }
+    return cell;
 }
 @end

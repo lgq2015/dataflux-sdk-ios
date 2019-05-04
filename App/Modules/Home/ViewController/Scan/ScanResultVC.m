@@ -32,7 +32,7 @@
         KPostNotification(KNotificationConnectStateCheck,nil);
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-        [tabViewController setSelectedIndex:2];
+        [tabViewController setSelectedIndex:1];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 
@@ -53,7 +53,7 @@
     }else if([path isEqualToString:@"index"]){
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-        [tabViewController setSelectedIndex:2];
+        [tabViewController setSelectedIndex:1];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

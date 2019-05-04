@@ -141,4 +141,12 @@ SINGLETON_FOR_HEADER(UserManager)
   请求团队列表
  */
 - (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished;
+/**
+ 团队活跃情报树
+ */
+- (void)requestTeamIssueCount;
+/**
+ 获取活跃情报红点
+ */
+- (NSDictionary *)getAuthTeamIssueCount;
 @end
