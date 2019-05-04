@@ -113,6 +113,9 @@
 		2BD42127227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
 		2BD42128227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
 		2BD42129227A8669009E854A /* ZTTeamProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BD42123227A8669009E854A /* ZTTeamProductCell.xib */; };
+		2BD42135227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
+		2BD42136227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
+		2BD42137227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */; };
 		2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
 		2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE9F167225A4B4300C33669 /* ZYSocialManager.m */; };
@@ -1175,6 +1178,8 @@
 		2BD42121227A8668009E854A /* ZTTeamProductCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTTeamProductCell.h; sourceTree = "<group>"; };
 		2BD42122227A8669009E854A /* ZTTeamProductCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTTeamProductCell.m; sourceTree = "<group>"; };
 		2BD42123227A8669009E854A /* ZTTeamProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTTeamProductCell.xib; sourceTree = "<group>"; };
+		2BD42133227D4207009E854A /* ZTBuChongTeamInfoUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTBuChongTeamInfoUIManager.h; sourceTree = "<group>"; };
+		2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTBuChongTeamInfoUIManager.m; sourceTree = "<group>"; };
 		2BE9F166225A4B4300C33669 /* ZYSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSocialManager.h; sourceTree = "<group>"; };
 		2BE9F167225A4B4300C33669 /* ZYSocialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSocialManager.m; sourceTree = "<group>"; };
 		2BE9F173225AF9CC00C33669 /* zysocial_wechat_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zysocial_wechat_timeline.png; sourceTree = "<group>"; };
@@ -1995,6 +2000,8 @@
 				2BD42121227A8668009E854A /* ZTTeamProductCell.h */,
 				2BD42122227A8669009E854A /* ZTTeamProductCell.m */,
 				2BD42123227A8669009E854A /* ZTTeamProductCell.xib */,
+				2BD42133227D4207009E854A /* ZTBuChongTeamInfoUIManager.h */,
+				2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3901,6 +3908,7 @@
 				4AB48A2721F83B0C009F9E94 /* TeamVC.m in Sources */,
 				4AE5377D21CB3AE3004CF320 /* BasicInformationVC.m in Sources */,
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
+				2BD42135227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4AC857B4223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
@@ -4221,6 +4229,7 @@
 				CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */,
 				CA1CF5BE221ECB3A00D15316 /* IssueListManger.m in Sources */,
 				4AC85719223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
+				2BD42136227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE5224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
@@ -4541,6 +4550,7 @@
 				CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */,
 				CA1CF663221ECB5000D15316 /* IssueListManger.m in Sources */,
 				4AC8571A223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
+				2BD42137227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE6224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
