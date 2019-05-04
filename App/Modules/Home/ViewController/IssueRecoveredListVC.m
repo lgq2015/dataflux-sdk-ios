@@ -31,7 +31,7 @@
     [self.view addSubview:self.tableView];
 //    self.tableView.mj_header = self.header;
 //    self.tableView.mj_footer = self.footer;
-    self.tableView.tableFooterView = self.recoverFooterView;
+    self.tableView.tableFooterView = self.footView;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = PWBackgroundColor;

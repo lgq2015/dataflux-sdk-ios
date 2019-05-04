@@ -132,6 +132,7 @@
 
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
+#define PW_issueModify(issueid)         [NSString stringWithFormat:@"%@/v1/issue/%@/modify", API_SEVERID,issueid]
 //文章推荐
 #define PW_recommendation               API_SEVERID@"/v1/recommendation/list"
 
