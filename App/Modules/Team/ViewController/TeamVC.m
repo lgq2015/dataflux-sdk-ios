@@ -403,19 +403,6 @@
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:_changeTeamNavView];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
-    //点击切换团队阴影
-    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
-        if (isDismissed){
-            _changeTeamNavView.navViewLeftBtn.selected = NO;
-            //设置动画
-            _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
-            [UIView animateWithDuration:0.2 animations:^{
-                _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
-            } completion:^(BOOL finished) {
-                _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
-            }];
-        }
-    };
 }
 
 - (UIButton *)rightNavButton{
@@ -482,6 +469,25 @@
     [self.navigationController pushViewController:messageVC animated:YES];
 }
 #pragma mark ====其他========
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self clickTeamChangeViewBlackBG];
+}
+//点击切换团队阴影
+- (void)clickTeamChangeViewBlackBG{
+    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+        if (isDismissed){
+            _changeTeamNavView.navViewLeftBtn.selected = NO;
+            //设置动画
+            _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
+            [UIView animateWithDuration:0.2 animations:^{
+                _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+            } completion:^(BOOL finished) {
+                _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
+            }];
+        }
+    };
+}
 //补充团队信息
 - (void)supplementMessage{
     DLog(@"补充信息");

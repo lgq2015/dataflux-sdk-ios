@@ -358,7 +358,7 @@
 - (void)extraBtnOnClick:(UIButton *)extraBtn {
     
     if (self.extraBtnOnClick) {
-        self.extraBtnOnClick(extraBtn);
+        self.extraBtnOnClick(extraBtn,self);
     }
 }
 

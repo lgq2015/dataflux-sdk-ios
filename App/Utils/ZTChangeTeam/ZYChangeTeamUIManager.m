@@ -85,6 +85,9 @@
 }
 
 -(void)dismiss{
+    if (_dismissedBlock){
+        _dismissedBlock(YES);
+    }
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.25 animations:^{
         [self p_hideFrame];
@@ -92,9 +95,6 @@
         self.backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
-            if (_dismissedBlock){
-                _dismissedBlock(YES);
-            }
             [self.tab removeFromSuperview];
             self.tab = nil;
             [self.backgroundGrayView removeFromSuperview];
@@ -177,6 +177,7 @@
 #pragma mark --UITableViewDelegate--
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self dismiss];
     if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
         TeamInfoModel *model = self.teamlists[indexPath.row];
         TeamInfoModel *currentTeam = [self getCurrentTeamModel];
@@ -190,7 +191,6 @@
             [self.fromVC.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
         }
     }
-    [self dismiss];
 }
 
 #pragma mark ---UIGestureRecognizerDelegate---
