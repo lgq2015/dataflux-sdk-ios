@@ -47,8 +47,7 @@
     }];
 }
 - (void)navRightBtnClick{
-//    [self.navigationController pushViewController:[PurchaseHistoryVC new] animated:YES];
-    [userManager requestTeamIssueCount];
+    [self.navigationController pushViewController:[PurchaseHistoryVC new] animated:YES];
 }
 -(void)eventOfOpenWithExtra:(NSDictionary *)extra{
     NSString *url = extra[@"url"];
