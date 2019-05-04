@@ -33,7 +33,6 @@
 @property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong)ZTChangeTeamNavView *changeTeamNavView;
-@property (nonatomic, assign)BOOL isHaveProduct;
 @end
 
 @implementation TeamVC
@@ -63,13 +62,6 @@
 - (void)s_UI{
     //判断是否购买了产品
     __weak typeof(self) weakSelf = self;
-    [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
-        if (isSuccess) {
-            weakSelf.isHaveProduct = YES;
-        }else{
-            weakSelf.isHaveProduct = NO;
-        }
-    }];
     self.tableView.mj_header = self.header;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2 - kTopHeight);
     self.tableView.delegate = self;
@@ -80,43 +72,30 @@
     [self.tableView registerNib:[ZTTeamProductCell cellWithNib] forCellReuseIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
     [self.view addSubview:self.tableView];
     [self loadTeamMemberInfo];
-    [self loadTeamProductData];
 }
 
 
 - (void)addTeamSuccess:(NSNotification *)notification{
-    [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    [self changeTopLeftNavTitleName];
     [self.tableView reloadData];
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
-            [_changeTeamNavView changeTitle:userManager.teamModel.name];
+            [self changeTopLeftNavTitleName];
             [self.tableView reloadData];
         }
     }];
-    //如果是团队升级重新请求团队信息
-    BOOL isTeamUpgrade = [kUserDefaults boolForKey:@"teamUpgrade"];
-    if (isTeamUpgrade){
-        [kUserDefaults setBool:NO forKey:@"teamUpgrade"];
-        [self loadTeamProductData];
-    }
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];
     [self loadTeamMemberInfo];
 }
 - (void)loadTeamProductData{
-    __weak typeof(self) weakSelf = self;
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *content = response[@"content"];
             [userManager setTeamProduct:content];
-            if (content.count > 0) {
-                weakSelf.isHaveProduct = YES;
-            }else{
-                weakSelf.isHaveProduct = NO;
-            }
             [self.tableView reloadData];
         }
          [self.header endRefreshing];
@@ -178,10 +157,7 @@
 }
 #pragma mark -----UITableViewDataSource ----------
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_isHaveProduct && (indexPath.section == 1 || indexPath.section == 0)){
-        return;
-    }
-    if (!_isHaveProduct && indexPath.section == 0){
+    if (indexPath.section == 0){
         return;
     }
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
@@ -215,20 +191,6 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         return  cell;
-    }else if(indexPath.section == 1){
-        if (_isHaveProduct){
-            ZTTeamProductCell *cell = (ZTTeamProductCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
-                if (isSuccess) {
-                    [cell setTeamProduct:member];
-                }
-            }];
-            return  cell;
-        }else{
-            TeamMemberCell *cell = [self teamMemberCell:tableView indexPath:indexPath];
-            return cell;
-        }
     }else{
         TeamMemberCell *cell = [self teamMemberCell:tableView indexPath:indexPath];
         return cell;
@@ -238,12 +200,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0){
         return [UIView new];
-    }else if (section == 1){
-        if (_isHaveProduct){
-            return [self teamProductCellHeaderView];
-        }else{
-            return [self teamMemberCellHeaderView];
-        }
     }else{
         return [self teamMemberCellHeaderView];
     }
@@ -259,22 +215,12 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_isHaveProduct){
-        return 3;
-    }else{
-        return 2;
-    }
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0){
         return 1;
-    }else if (section == 1){
-        if (_isHaveProduct){
-            return 1;
-        }else{
-            return self.teamMemberArray.count;
-        }
     }else{
         return self.teamMemberArray.count;
     }
@@ -284,23 +230,6 @@
         ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
         CGFloat height = [cell caculateRowHeight];
         return height;
-    }else if (indexPath.section == 1){
-        if (_isHaveProduct){
-            ZTTeamProductCell *cell = (ZTTeamProductCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
-            [userManager getTeamProduct:^(BOOL isSuccess, NSArray *member) {
-                if (isSuccess) {
-                    [cell setTeamProduct:member];
-                }
-            }];
-            CGFloat height = [cell caculateProductCellRowHeight];
-            return height;
-        }else{
-            if (indexPath.row == 0){
-                return 80;
-            }else{
-                return 60;
-            }
-        }
     }else{
         if (indexPath.row == 0){
             return 80;
@@ -357,7 +286,7 @@
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
                     if (isSuccess) {
-                        [_changeTeamNavView changeTitle:userManager.teamModel.name];
+                        [self changeTopLeftNavTitleName];
                     }
                 }];};
             fillVC.count = self.teamMemberArray.count;
@@ -447,13 +376,13 @@
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----无成员缓存团队切换");
-    [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    DLog(@"teamvc----无成员缓存团队切换---%@",userManager.teamModel.type);
+    [self changeTopLeftNavTitleName];
     [self loadTeamMemberInfo];
 }
 - (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"teamvc----有成员缓存团队切换");
-    [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    [self changeTopLeftNavTitleName];
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
             [self dealWithDatas:member];
@@ -467,6 +396,10 @@
 }
 #pragma mark ====常用按钮交互=====
 - (void)rightNavClick{
+    ZYChangeTeamUIManager *manger = [ZYChangeTeamUIManager shareInstance];
+    if (manger.isShowTeamView){
+        [manger dismiss];
+    }
     MineMessageVC *messageVC = [[MineMessageVC alloc]init];
     messageVC.ownership = Team_Message;
     [self.navigationController pushViewController:messageVC animated:YES];
@@ -496,7 +429,9 @@
     DLog(@"补充信息");
     __weak typeof(self) weakSelf = self;
     [[ZTBuChongTeamInfoUIManager shareInstance] show:^{
-        [weakSelf.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
+        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+        vc.dowhat = supplementTeamInfo;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
 }
 //判断用户有没有购买服务，如果有就添加专家
@@ -588,5 +523,13 @@
         }
     }
     return cell;
+}
+- (void)changeTopLeftNavTitleName{
+    NSString *currentTeamType = userManager.teamModel.type;
+    if ([currentTeamType isEqualToString:@"singleAccount"]){
+        [_changeTeamNavView changeTitle:@"我的团队"];
+    }else{
+        [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    }
 }
 @end
