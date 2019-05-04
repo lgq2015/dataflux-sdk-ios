@@ -29,7 +29,7 @@
 }
 - (void)createUI{
     [self.view addSubview:self.tableView];
-//    self.tableView.mj_header = self.header;
+    self.tableView.mj_header = self.header;
 //    self.tableView.mj_footer = self.footer;
     self.tableView.tableFooterView = self.footView;
     self.tableView.delegate = self;
@@ -55,6 +55,20 @@
 }
 - (void)noDataBtnClick{
     
+}
+-(void)headerRefreshing{
+    NSArray *data = [[IssueListManger sharedIssueListManger] getRecoveredIssueListWithIssueType:self.type];
+    [self.header endRefreshing];
+    if (data.count>0) {
+        [self.dataSource removeAllObjects];
+        [data enumerateObjectsUsingBlock:^(IssueModel *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+            IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:dict];
+            [self.dataSource addObject:model];
+        }];
+        [self.tableView reloadData];
+    }else{
+        [self showNoDataViewWithStyle:NoDataViewLastDay];
+    }
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
