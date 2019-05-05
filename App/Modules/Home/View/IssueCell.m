@@ -47,7 +47,7 @@
     }];
     
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(28));
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(19));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
@@ -136,7 +136,7 @@
         self.warningLab.hidden = NO;
     }
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
-    self.timeLab.text = [NSString compareCurrentTime:self.model.time];
+    self.timeLab.text = [NSString compareCurrentTimeSustainTime:self.model.time];
     
     self.warningLab.text = self.model.highlight;
     self.titleLab.text = self.model.title;

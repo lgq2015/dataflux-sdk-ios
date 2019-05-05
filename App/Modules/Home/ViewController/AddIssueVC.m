@@ -85,8 +85,18 @@
     self.level = @"danger";
     [seriousBtn setTitle:@"严重" forState:UIControlStateNormal];
     [levelView addSubview:seriousBtn];
-    [waringBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *infoBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"599AFF"]];
+    [infoBtn setTitle:@"一般" forState:UIControlStateNormal];
+    infoBtn.tag = 12;
+    [levelView addSubview:infoBtn];
+    [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(levelView).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(24));
+        make.width.offset(ZOOM_SCALE(50));
+        make.centerY.mas_equalTo(levelView.centerY);
+    }];
+    [waringBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(infoBtn.mas_left).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(24));
         make.width.offset(ZOOM_SCALE(50));
         make.centerY.mas_equalTo(levelView.centerY);
@@ -101,10 +111,18 @@
         self.level = @"warning";
         waringBtn.selected = YES;
         seriousBtn.selected = NO;
+        infoBtn.selected = NO;
     }];
     [[seriousBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         self.level = @"danger";
         seriousBtn.selected = YES;
+        waringBtn.selected = NO;
+        infoBtn.selected = NO;
+    }];
+    [[infoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        self.level = @"info";
+        infoBtn.selected = YES;
+        seriousBtn.selected = NO;
         waringBtn.selected = NO;
     }];
     UIView *describeView = [[UIView alloc]init];
@@ -267,7 +285,13 @@
             if([response[@"errorCode"] isEqualToString:@""]){
                 [SVProgressHUD showSuccessWithStatus:@"新建情报成功"];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
-                model.state = [self.level isEqualToString:@"danger"]? MonitorListStateSeriousness:MonitorListStateWarning;
+                if ([self.level isEqualToString:@"danger"]) {
+                    model.state =MonitorListStateSeriousness;
+                }else if([self.level isEqualToString:@"info"]){
+                    model.state =MonitorListStateCommon;
+                }else{
+                    model.state =MonitorListStateWarning;
+                }
                 model.title = self.titleTf.text;
                 model.content = self.describeTextView.text;
                 model.issueId = [response[@"content"] stringValueForKey:@"id" default:@""];

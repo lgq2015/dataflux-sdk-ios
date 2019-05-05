@@ -604,7 +604,7 @@
             __block IssueModel *issue = [[IssueModel alloc] init];
             __block NSString *level = @"info";
             [itemDatas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                if ([issue.level isEqualToString:@""]) {
+                if (issue.level == nil ||[issue.level isEqualToString:@""]) {
                     issue = obj;
                 }
                 if (![obj.level isEqualToString:level]) {
