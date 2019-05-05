@@ -243,7 +243,13 @@
             
         }];
     }
-    CGFloat height =CGRectGetMaxY(self.subContainerView.frame);
+    CGFloat height;
+    if (self.model.isFromUser) {
+       height =CGRectGetMaxY(self.subContainerView.frame);
+    }else{
+        height =CGRectGetMaxY(self.subContainerView.frame)+ZOOM_SCALE(47)+Interval(30);
+
+    }
 
     if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
         height += 50;
