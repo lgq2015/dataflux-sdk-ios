@@ -25,7 +25,11 @@
     self.titleLab.text = _model.name;
     self.beizhuLab.text = _model.inTeamNote;
     NSString *img = [_model.tags stringValueForKey:@"pwAvatar" default:@""];
-    [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+    if (model.isSpecialist){
+        [self.iconImgView setImage:[UIImage imageNamed:@"professor_wang_header"]];
+    }else{
+        [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+    }
 }
 -(void)layoutSubviews{
     [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {

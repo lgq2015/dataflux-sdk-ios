@@ -30,7 +30,7 @@
     self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     if (_navViewLeftBtnW > TitleMaxW){
         _navViewLeftBtnW = TitleMaxW;
-        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
+        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 0);
     }
     [self.navViewLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -77,7 +77,7 @@
     self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     if (_navViewLeftBtnW > TitleMaxW){
         _navViewLeftBtnW = TitleMaxW;
-        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
+        self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 0);
     }
     [self.navViewLeftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.offset(_navViewLeftBtnW);
