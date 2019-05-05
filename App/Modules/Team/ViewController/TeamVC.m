@@ -331,6 +331,10 @@
     _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
     [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue <= 11.0) {
+        _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:NO];
+    }
     UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:_changeTeamNavView];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
@@ -542,6 +546,10 @@
         [_changeTeamNavView changeTitle:@"我的团队"];
     }else{
         [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    }
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue <= 11.0) {
+        _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:YES];
     }
 }
 @end
