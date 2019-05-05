@@ -859,6 +859,7 @@
 
 - (void)shutDown {
     [super shutDown];
+    [SVProgressHUD dismiss];
     _isFetching = NO;
 }
 

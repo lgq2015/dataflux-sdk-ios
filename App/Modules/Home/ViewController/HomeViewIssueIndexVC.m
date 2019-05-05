@@ -104,13 +104,6 @@
     }
     [SVProgressHUD show];
     [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
-    if (self.noticeDatas.count > 0) {
-        int x = arc4random() % self.noticeDatas.count;
-        NSDictionary *dict = self.noticeDatas[x];
-        [self.headerView noticeCreateUIWithTitleArray:@[dict[@"title"]]];
-    } else {
-        [self loadTipsData];
-    }
 }
 - (void)homeHasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----有团队成员、团队切换");
