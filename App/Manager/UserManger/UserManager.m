@@ -548,7 +548,7 @@ SINGLETON_FOR_CLASS(UserManager);
             YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
             NSDictionary *dic = [model modelToJSONObject];
             [cacheteam removeObjectForKey:KTeamModelCache];
-            [cacheteam setObject:dic forKey:KTeamModelCache withBlock:nil];
+            [cacheteam setObject:dic forKey:KTeamModelCache];
             *stop = YES;
         }
     }];
