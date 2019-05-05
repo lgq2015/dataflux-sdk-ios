@@ -326,6 +326,7 @@
                 callBackStatus(listModel);
             }
             _isFetching =NO;
+            [SVProgressHUD dismiss];
         }
 
     }];
@@ -426,6 +427,7 @@
                 callBackStatus(model);
             }
             _isFetching = NO;
+            [SVProgressHUD dismiss];
         }
 
     }];
