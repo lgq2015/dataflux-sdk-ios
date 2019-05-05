@@ -182,10 +182,9 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            //创建团队成功后，请求新的成员列表
-            setTeamState(PW_isTeam);
             //如果是个人升级
             if (_dowhat == supplementTeamInfo){
+                setTeamState(PW_isTeam);
                 //获取之前的teammodel，修改team名称
                 TeamInfoModel *model = userManager.teamModel;
                 model.name = name;
