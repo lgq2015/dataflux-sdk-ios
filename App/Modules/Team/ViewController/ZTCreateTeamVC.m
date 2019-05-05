@@ -171,37 +171,31 @@
         params= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province}};
         
     }
-    //创建团队：区分个人团队升级，还是在已有团队的基础上创建新的团队
+    //区分个人团队升级，还是在已有团队的基础上创建新的团队
     NSMutableDictionary *createTMDic = [[NSMutableDictionary alloc] initWithDictionary:params];
-    if([getTeamState isEqualToString:PW_isTeam]){
+    if(_dowhat == newCreateTeam){
         [createTMDic setValue:@"create" forKey:@"operationType"];
         [createTMDic setValue:@{@"isDefault":@YES,@"isAdmin":@YES} forKey:@"relationship"];
-    }
-    //判断是否是补充过来的
-    BOOL isSupplement = NO;
-    if([getTeamState isEqualToString:PW_isTeam]){
-        isSupplement = NO;
     }else{
-        isSupplement = YES;
+        [createTMDic setValue:@"upgrade" forKey:@"operationType"];
     }
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            //创建团队成功后，请求新的成员列表
-            setTeamState(PW_isTeam);
             //如果是个人升级
-            if (isSupplement){
-                TeamInfoModel *model = [[TeamInfoModel alloc] init];
+            if (_dowhat == supplementTeamInfo){
+                setTeamState(PW_isTeam);
+                //获取之前的teammodel，修改team名称
+                TeamInfoModel *model = userManager.teamModel;
                 model.name = name;
                 userManager.teamModel = model;
-                [kUserDefaults setBool:YES forKey:@"teamUpgrade"];
             }
             KPostNotification(KNotificationTeamStatusChange, @YES);
             [userManager requestMemberList:NO complete:nil];
             [userManager requestTeamIssueCount];
             CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
             create.groupName = self.tfAry[0].text;
-            create.isSupplement = isSupplement;
+            create.isSupplement = _dowhat == newCreateTeam ? NO:YES;
             create.btnClick =^(){
                 [self.navigationController popViewControllerAnimated:NO];
             };

@@ -25,13 +25,14 @@
 
 - (void)setModel:(TeamInfoModel *)model{
     _model = model;
-    if([getTeamState isEqualToString:PW_isPersonal]){//个人
+    if([model.type isEqualToString:@"singleAccount"]){
         _teamName.text = @"我的团队";
     }else{
         _teamName.text = model.name;
     }
+    NSLog(@"zhangtao----%@----%@",userManager.teamModel.teamID,userManager.teamModel);
     //当前团队
-    if ([userManager.teamModel.teamID isEqualToString:model.teamID] || [getTeamState isEqualToString:PW_isPersonal]){
+    if ([userManager.teamModel.teamID isEqualToString:model.teamID]){
         _selectedImage.hidden = NO;
         _teamName.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
         _numLab.hidden = YES;

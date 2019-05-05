@@ -64,6 +64,11 @@
     }
 }
 - (void)show{
+    //判断本地teammodel是否为nil，如果为nil,请求当前团队信息
+    if (userManager.teamModel == nil){
+        [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+        }];
+    }
     //将红点数设置到团队列表中
     [self addIssueCount];
     //避免弹出多次
@@ -109,7 +114,7 @@
 -(UIWindow *)window{
     if (!_window) {
         _window = [[[UIApplication sharedApplication]delegate]window];
-        _window.clipsToBounds = YES;
+//        _window.clipsToBounds = YES;
     }
     return _window;
 }
@@ -117,13 +122,13 @@
 -(UIView *)backgroundGrayView{
     if (!_backgroundGrayView) {
         _backgroundGrayView = [[UIView alloc]init];
-        _backgroundGrayView.frame = CGRectMake(0,_offsetY, kWidth, kHeight);
         _backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
         _backgroundGrayView.clipsToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
         tap.delegate = self;
         [_backgroundGrayView addGestureRecognizer:tap];
     }
+    _backgroundGrayView.frame = CGRectMake(0,_offsetY, kWidth, kHeight);
     return _backgroundGrayView;
 }
 - (UITableView *)tab{
@@ -188,7 +193,9 @@
         [self changeTeamWithGroupModel:model];
     }else{
         if (self.fromVC){
-            [self.fromVC.navigationController pushViewController:[ZTCreateTeamVC new] animated:YES];
+            ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+            vc.dowhat = newCreateTeam;
+            [self.fromVC.navigationController pushViewController:vc animated:YES];
         }
     }
 }
@@ -257,6 +264,12 @@
         userManager.teamModel = model;
         //更新团队列表中的默认团队
         [userManager updateTeamModelWithGroupID:model.teamID];
+        //更新当前team状态
+        if ([model.type isEqualToString:@"singleAccount"]){
+            setTeamState(PW_isPersonal);
+        }else{
+            setTeamState(PW_isTeam);
+        }
         KPostNotification(KNotificationHasMemCacheSwitchTeam, nil);
     }
     if (isHaveMemberCache == NO){
@@ -274,6 +287,12 @@
                 userManager.teamModel = model;
                 [userManager updateTeamModelWithGroupID:model.teamID];
                 setPWDefaultTeamID(model.teamID);
+            }
+            //更新当前team状态
+            if ([model.type isEqualToString:@"singleAccount"]){
+                setTeamState(PW_isPersonal);
+            }else{
+                setTeamState(PW_isTeam);
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
