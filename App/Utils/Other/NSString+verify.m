@@ -192,6 +192,42 @@
     }
     return  result;
 }
++ (NSString *)compareCurrentTimeSustainTime:(NSString *)str{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:str];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:timeDate];
+    long temp = 0;
+    NSString *result;
+    if (timeInterval/60 < 1)
+    {
+        result = [NSString stringWithFormat:@"刚刚"];
+    }
+    else if((temp = timeInterval/60) <60){
+        result = [NSString stringWithFormat:@"持续 %ld 分钟",temp];
+    }
+    else if((temp = temp/60) <24){
+        result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",temp,temp%60];
+    }
+    else if((temp = temp/24) <7){
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *fromDate;
+        NSDate *toDate;
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:timeDate];
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
+        NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
+        result = [NSString stringWithFormat:@"持续 %ld 天",dayComponents.day];
+        if (dayComponents.day == 7) {
+            result = @"持续超过1周";
+        }
+    }
+    else {
+        result = @"持续超过1周";
+    }
+    return  result;
+}
 - (NSString *)accurateTimeStr{
     //把字符串转为NSdate
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
