@@ -29,6 +29,7 @@
 #import "DetectionVersionAlert.h"
 #import "IssueIndexHeaderView.h"
 #import "PWSocketManager.h"
+#import "IssueChatDataManager.h"
 
 @interface HomeViewIssueIndexVC () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) NSMutableArray *infoDatas;
@@ -96,13 +97,11 @@
 }
 - (void)hometeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----团队切换请求成功后通知");
-    [[IssueListManger sharedIssueListManger] shutDown];
-    BOOL   isConnect = [[PWSocketManager sharedPWSocketManager] isConnect];
-    if(!isConnect){
-        [[PWSocketManager sharedPWSocketManager] checkForRestart];
-    }
+
     [SVProgressHUD show];
-    [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+        [SVProgressHUD dismiss];
+    }];
 }
 - (void)homeHasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----有团队成员、团队切换");
@@ -239,7 +238,6 @@
 }
 
 - (void)infoBoardDatasUpdate {
-    [SVProgressHUD dismiss];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
         NSString *title = [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];

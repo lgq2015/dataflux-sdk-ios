@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[有人@我]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muB-lv-7dv">
-                        <rect key="frame" x="116" y="44.5" width="75" height="19.5"/>
+                        <rect key="frame" x="119" y="44.5" width="75" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.96862745100000003" green="0.31764705879999999" blue="0.31764705879999999" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="fhQ-K4-Lyr" secondAttribute="trailing" constant="16" id="1pN-NA-YWB"/>
                     <constraint firstItem="GL1-Ql-tqs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="37I-mv-xgM"/>
-                    <constraint firstItem="muB-lv-7dv" firstAttribute="leading" secondItem="GL1-Ql-tqs" secondAttribute="trailing" constant="3" id="7z9-SM-6v7"/>
+                    <constraint firstItem="muB-lv-7dv" firstAttribute="leading" secondItem="GL1-Ql-tqs" secondAttribute="trailing" constant="6" id="7z9-SM-6v7"/>
                     <constraint firstAttribute="trailing" secondItem="KBa-Lx-1iK" secondAttribute="trailing" constant="14" id="AfG-ED-md7"/>
                     <constraint firstItem="GL1-Ql-tqs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wf0-hn-tVh"/>
                     <constraint firstItem="fhQ-K4-Lyr" firstAttribute="centerY" secondItem="GL1-Ql-tqs" secondAttribute="centerY" id="WnD-Ca-mlH"/>

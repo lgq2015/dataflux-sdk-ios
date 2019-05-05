@@ -10,6 +10,11 @@
 #import "ZYChangeTeamCell.h"
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTCreateTeamVC.h"
+#import "IssueListManger.h"
+#import "IssueChatDataManager.h"
+#import "PWSocketManager.h"
+#import "IssueSourceManger.h"
+
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIWindow * window;
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
@@ -234,11 +239,12 @@
     [self.teamlists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         TeamInfoModel *model = (TeamInfoModel *)obj;
         [issueCountDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-//            NSDictionary *count = obj;
             NSString *teamID = (NSString *)key;
-            
-            if ([teamID isEqualToString:model.teamID]) {//这里就不在替换，因为前面已经替换过了
-                model.issueCount = obj;
+            if ([teamID isEqualToString:model.teamID]) {
+                NSInteger issueCount = [obj[@"issueCount"] integerValue];
+                NSInteger atCount = [obj[@"atCount"] integerValue];
+                model.issueCount = [NSString stringWithFormat:@"%ld",issueCount];
+                model.atCount = [NSString stringWithFormat:@"%ld",atCount];
                 *stop = YES;
             }
         }];
@@ -283,6 +289,12 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
+
+            [[IssueChatDataManager sharedInstance] shutDown];
+            [[IssueListManger sharedIssueListManger] shutDown];
+            [[PWSocketManager sharedPWSocketManager] shutDown];
+            [[IssueSourceManger sharedIssueSourceManger] logout];
+            
             setXAuthToken(token);
             if (isHaveMemberCache == NO){
                 userManager.teamModel = model;
