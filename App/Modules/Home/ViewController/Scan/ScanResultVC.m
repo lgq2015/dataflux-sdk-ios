@@ -27,6 +27,8 @@
 -(void)eventSwitchToken:(NSDictionary *)extra{
     NSString *token = [extra stringValueForKey:@"token" default:@""];
     setXAuthToken(token);
+    //请求成员
+    [userManager requestMemberList:NO complete:nil];
     [userManager saveUserInfoLoginStateisChange:NO success:^(BOOL isSuccess) {
         KPostNotification(KNotificationTeamStatusChange,@YES);
         KPostNotification(KNotificationConnectStateCheck,nil);
