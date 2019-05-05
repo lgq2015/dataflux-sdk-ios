@@ -61,7 +61,6 @@
 
 - (void)s_UI{
     //判断是否购买了产品
-    __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = self.header;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-2 - kTopHeight);
     self.tableView.delegate = self;
