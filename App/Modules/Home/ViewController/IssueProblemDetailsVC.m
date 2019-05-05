@@ -140,7 +140,7 @@
     [self.view layoutIfNeeded];
     
     
-    self.mainScrollView.contentSize = CGSizeMake(kWidth, CGRectGetMaxY(self.subContainerView.frame)+35);
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, CGRectGetMaxY(self.solveBtn.frame)+35);
 }
 
 

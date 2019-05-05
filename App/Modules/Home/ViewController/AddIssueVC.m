@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"新建情报";
+    self.title = @"创建情报";
     self.isShowLiftBack = NO;
     [self createUI];
 }
@@ -283,7 +283,7 @@
 
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
-                [SVProgressHUD showSuccessWithStatus:@"新建情报成功"];
+                [SVProgressHUD showSuccessWithStatus:@"创建情报成功"];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 if ([self.level isEqualToString:@"danger"]) {
                     model.state =MonitorListStateSeriousness;

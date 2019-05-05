@@ -54,7 +54,7 @@
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
 
-    [self addNavigationItemWithTitles:@[@"新建情报"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    [self addNavigationItemWithTitles:@[@"创建情报"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
     self.monitorData = [NSMutableArray new];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -65,7 +65,7 @@
 
     //让tableview不显示分割线
     if (@available(iOS 11.0, *)){
-        self.tableView.estimatedRowHeight = 44; //修复 ios 11 reload data 闪动问题
+        self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
     } else{
         self.tableView.estimatedRowHeight = 44;
     }
@@ -188,7 +188,7 @@
         btn.titleLabel.font = RegularFONT(13);
         [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         btn.backgroundColor = PWBackgroundColor;
-        [btn setTitle:@"查看过去24小时情报" forState:UIControlStateNormal];
+        [btn setTitle:@"查看过去 24 小时恢复的情报" forState:UIControlStateNormal];
         [btn sizeToFit];
         [_listFooterView addSubview:line];
         [_listFooterView addSubview:btn];
@@ -265,7 +265,7 @@
 
         return cellHeight;
     } else {
-        return model.cellHeight;                 
+        return model.cellHeight;
     }
 
 }

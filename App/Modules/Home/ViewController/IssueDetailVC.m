@@ -346,7 +346,7 @@
         [self.tableView reloadData];
     }
     [self.view layoutIfNeeded];
-    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
+    CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
 

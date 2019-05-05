@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"过去24小时情报";
+    self.title = @"过去 24 小时情报";
     [kNotificationCenter addObserver:self
                             selector:@selector(recoveredOnNewIssueUpdate:)
                                 name:KNotificationNewIssue
