@@ -25,6 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"过去24小时情报";
+    [kNotificationCenter addObserver:self
+                            selector:@selector(recoveredOnNewIssueUpdate:)
+                                name:KNotificationNewIssue
+                              object:nil];
+    [kNotificationCenter addObserver:self
+                            selector:@selector(recoveredOnNewIssueUpdate:)
+                                name:KNotificationUpdateIssueList
+                              object:nil];
     [self createUI];
 }
 - (void)createUI{
@@ -52,6 +60,12 @@
         [self showNoDataViewWithStyle:NoDataViewLastDay];
     }
     
+}
+- (void)recoveredOnNewIssueUpdate:(NSNotification *)notification{
+    NSDictionary *pass = [notification userInfo];
+    if ([pass boolValueForKey:@"updateView" default:NO]) {
+        [self headerRefreshing];
+    }
 }
 - (void)noDataBtnClick{
     
@@ -145,6 +159,11 @@
     } else {
         return model.cellHeight;
     }
+}
+-(void)dealloc{
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil];
+    [kNotificationCenter postNotificationName:KNotificationNewIssue object:nil];
+
 }
 /*
 #pragma mark - Navigation

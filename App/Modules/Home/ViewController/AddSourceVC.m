@@ -22,16 +22,42 @@
 @interface AddSourceVC ()
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) BOOL isDefault;
+@property (nonatomic, strong) UIView *nodataView;
 @end
 
 @implementation AddSourceVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"添加情报源";
-    [self createUI];
-  
+    self.title = @"添加云服务";
+   // [self createUI];
+    [self.view addSubview:self.nodataView];
     // Do any additional setup after loading the view.
+}
+-(UIView *)nodataView{
+    if (!_nodataView) {
+        _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
+        _nodataView.backgroundColor = PWWhiteColor;
+        [self.view addSubview:_nodataView];
+        
+        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goToWebAdd"]];
+        [_nodataView addSubview:bgImgview];
+        [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(_nodataView).offset(Interval(47));
+            make.width.offset(ZOOM_SCALE(250));
+            make.height.offset(ZOOM_SCALE(222));
+            make.centerX.mas_equalTo(_nodataView);
+        }];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:[UIColor colorWithHexString:@"#140F26"] text:@"请去web端添加"];
+        tip.textAlignment = NSTextAlignmentCenter;
+        [_nodataView addSubview:tip];
+        [tip mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
+            make.left.right.mas_equalTo(self.view);
+            make.height.offset(ZOOM_SCALE(22));
+        }];
+    }
+    return _nodataView;
 }
 - (void)createUI{
   

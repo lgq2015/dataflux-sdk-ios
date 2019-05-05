@@ -67,6 +67,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.mj_header = self.header;
+    
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     self.tableView.rowHeight = 100.f;
@@ -197,24 +198,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InformationSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InformationSourceCell"];
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     DLog(@"list cell");
     cell.model = [[IssueSourceViewModel alloc]initWithJsonDictionary:self.dataSource[indexPath.row]];
     return cell;
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
-    if ([getTeamState isEqualToString:PW_isPersonal] || userManager.teamModel.isAdmin==YES) {
-        [self loadTeamProductcompletion:^(BOOL isDefault) {
-            IssueSourceDetailVC *source = [[IssueSourceDetailVC alloc]init];
-            source.model = cell.model;
-            source.isAdd = NO;
-            source.isDefault = isDefault;
-            [self.navigationController pushViewController:source animated:YES];
-        }];
-    }
+  //  [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    InformationSourceCell *cell = (InformationSourceCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    if ([getTeamState isEqualToString:PW_isPersonal] || userManager.teamModel.isAdmin==YES) {
+//        [self loadTeamProductcompletion:^(BOOL isDefault) {
+//            IssueSourceDetailVC *source = [[IssueSourceDetailVC alloc]init];
+//            source.model = cell.model;
+//            source.isAdd = NO;
+//            source.isDefault = isDefault;
+//            [self.navigationController pushViewController:source animated:YES];
+//        }];
+//    }
 
 }
 /*

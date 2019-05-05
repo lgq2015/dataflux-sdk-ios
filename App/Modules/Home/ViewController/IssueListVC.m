@@ -65,7 +65,7 @@
 
     //让tableview不显示分割线
     if (@available(iOS 11.0, *)){
-        self.tableView.estimatedRowHeight = 0; //修复 ios 11 reload data 闪动问题
+        self.tableView.estimatedRowHeight = 44; //修复 ios 11 reload data 闪动问题
     } else{
         self.tableView.estimatedRowHeight = 44;
     }
