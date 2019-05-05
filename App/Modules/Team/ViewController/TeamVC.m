@@ -326,7 +326,8 @@
         titleString = @"我的团队";
     }
     //导航栏左侧按钮设置
-    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:RegularFONT(20)];
+    UIFont *font = [UIFont boldSystemFontOfSize:20];
+    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:font];
     [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
     _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
