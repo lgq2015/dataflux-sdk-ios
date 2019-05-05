@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)UIImageView *navViewImageView;
 - (instancetype)initWithTitle:(NSString *)titleString font:(UIFont *)font;
 - (void)changeTitle:(NSString *)string;
+- (CGRect)getChangeTeamNavViewFrame:(BOOL)isSwitch;
 @end
 
 NS_ASSUME_NONNULL_END

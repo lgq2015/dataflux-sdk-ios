@@ -30,7 +30,6 @@
     }else{
         _teamName.text = model.name;
     }
-    NSLog(@"zhangtao----%@----%@",userManager.teamModel.teamID,userManager.teamModel);
     //当前团队
     if ([userManager.teamModel.teamID isEqualToString:model.teamID]){
         _selectedImage.hidden = NO;

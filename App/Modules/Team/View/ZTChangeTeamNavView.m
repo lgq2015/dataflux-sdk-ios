@@ -12,6 +12,7 @@
 @interface ZTChangeTeamNavView()
 @property (nonatomic, copy)NSString *titleString;
 @property (nonatomic, strong)UIFont *font;
+@property (nonatomic, assign)CGFloat navViewLeftBtnW;
 @end
 @implementation ZTChangeTeamNavView
 
@@ -25,17 +26,17 @@
 }
 
 - (void)s_UI{
-    CGFloat navViewLeftBtnW =  [self getMemberNameWidth:_titleString withFont:_font];
+    _navViewLeftBtnW =  [self getMemberNameWidth:_titleString withFont:_font];
     self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    if (navViewLeftBtnW > TitleMaxW){
-        navViewLeftBtnW = TitleMaxW;
+    if (_navViewLeftBtnW > TitleMaxW){
+        _navViewLeftBtnW = TitleMaxW;
         self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
     }
     [self.navViewLeftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.bottom.equalTo(self);
         make.left.equalTo(self);
-        make.width.offset(navViewLeftBtnW);
+        make.width.offset(_navViewLeftBtnW);
     }];
     [self.navViewImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.navViewLeftBtn.mas_centerY);
@@ -72,14 +73,24 @@
 #pragma mark ===修改标题====
 - (void)changeTitle:(NSString *)string{
     [self.navViewLeftBtn setTitle:string forState:UIControlStateNormal];
-    CGFloat navViewLeftBtnW =  [self getMemberNameWidth:string withFont:self.navViewLeftBtn.titleLabel.font];
+    _navViewLeftBtnW =  [self getMemberNameWidth:string withFont:self.navViewLeftBtn.titleLabel.font];
     self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    if (navViewLeftBtnW > TitleMaxW){
-        navViewLeftBtnW = TitleMaxW;
+    if (_navViewLeftBtnW > TitleMaxW){
+        _navViewLeftBtnW = TitleMaxW;
         self.navViewLeftBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 0);
     }
     [self.navViewLeftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(navViewLeftBtnW);
+        make.width.offset(_navViewLeftBtnW);
     }];
+}
+#pragma mark ====获取NavView的frame
+- (CGRect)getChangeTeamNavViewFrame:(BOOL)isSwitch{
+    CGFloat width = _navViewLeftBtnW + 7 + self.navViewImageView.bounds.size.width;
+    CGFloat height = 44;
+    if (isSwitch){
+        return CGRectMake(20, 0, width, height);
+    }else{
+        return CGRectMake(0, 0, width, height);
+    }
 }
 @end
