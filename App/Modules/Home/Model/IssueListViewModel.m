@@ -55,29 +55,52 @@
         self.content = model.content;
     }
     NSDictionary *account_info = issueLogDict[@"account_info"];
-    if (account_info.allKeys>0) {
-        NSString *account = [account_info stringValueForKey:@"name" default:@""];
-        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
-        NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
-        NSString *content;
-        if ([type isEqualToString:@"attachment"]) {
-            NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
-             NSString *type =  [fileName pathExtension];
-            if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
-                content =@"[图片]";
-            }else{
-                content = [NSString stringWithFormat:@"[文件]%@",fileName];
+//    if (account_info.allKeys>0) {
+//        NSString *account = [account_info stringValueForKey:@"name" default:@""];
+//        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+//        NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
+//        NSString *content;
+//        if ([type isEqualToString:@"attachment"]) {
+//            NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
+//             NSString *type =  [fileName pathExtension];
+//            if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
+//                content =@"[图片]";
+//            }else{
+//                content = [NSString stringWithFormat:@"[文件]%@",fileName];
+//            }
+//        }else{
+//            content =[issueLogDict stringValueForKey:@"content" default:@""];
+//        }
+//        if (nickname.length>0) {
+//            self.issueLog =[NSString stringWithFormat:@"%@:  %@",nickname,content];
+//        }else{
+//            self.issueLog =[NSString stringWithFormat:@"%@: %@",account,content];
+//        }
+//    }else{
+//        self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
+//    }
+    NSDictionary *markTookOverInfoJSON;
+    if (model.markTookOverInfoJSONStr) {
+        markTookOverInfoJSON = [model.markTookOverInfoJSONStr jsonValueDecoded];
+    }
+    if ([model.markStatus isEqualToString:@"tookOver"]){
+        NSString *userID = [markTookOverInfoJSON stringValueForKey:@"accountId" default:@""];
+        [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
+            if (member) {
+                NSString *name = [[member stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[member stringValueForKey:@"name" default:@""]:[member stringValueForKey:@"nickname" default:@""];
+                self.issueLog = [NSString stringWithFormat:@"· %@正在处理",name];
+            }}];
+        
+    }else if ([model.markStatus isEqualToString:@"recovered"]){
+        //[4]    (null)    @"originInfoAccountId_cache" : @"acnt-9RS9ntgyqPvFLSs61kqggs"
+        NSString *userID = [markTookOverInfoJSON stringValueForKey:@"accountId" default:@""];
+        [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
+            if (member) {
+                NSString *name = [[member stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[member stringValueForKey:@"name" default:@""]:[member stringValueForKey:@"nickname" default:@""];
+                self.issueLog = [NSString stringWithFormat:@"· 已由%@解决",name];
             }
-        }else{
-            content =[issueLogDict stringValueForKey:@"content" default:@""];
-        }
-        if (nickname.length>0) {
-            self.issueLog =[NSString stringWithFormat:@"%@:  %@",nickname,content];
-        }else{
-            self.issueLog =[NSString stringWithFormat:@"%@: %@",account,content];
-        }
-    }else{
-        self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
+        }];
+        
     }
     self.time = [NSString getLocalDateFormateUTCDate:model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
