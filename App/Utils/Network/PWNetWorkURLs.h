@@ -98,7 +98,8 @@
 #define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
 
 #define PW_sendEmail                   API_SEVERID@"/v1/auth/send-email"
-
+// 登出
+#define PW_loginOut                    API_SEVERID@"/v1/auth/logout"
 
 #pragma mark ========== 情报 ==========
 //首页News列表   // @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
