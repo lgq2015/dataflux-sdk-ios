@@ -90,6 +90,7 @@
         make.left.mas_equalTo(self.chatIcon.mas_right).offset(-3);
         make.width.height.offset(6);
     }];
+   
     [self.subLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.chatIcon.mas_right).offset(5);
             make.right.mas_equalTo(self).offset(-17);
@@ -151,14 +152,9 @@
     }
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.sourcenNameLab.text = self.model.sourceName;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL read = [[IssueListManger sharedIssueListManger] getIssueLogReadStatus:self.model.issueId];
-        dispatch_async_on_main_queue(^{
-            self.readDot.hidden = read;
-        });
-        
-    });
-//     NSString *name = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameWithID:self.model.sourceType];
+
+    self.readDot.hidden = self.model.issueLogRead;
+
 }
 -(UIView *)serviceDot{
     if (!_serviceDot) {

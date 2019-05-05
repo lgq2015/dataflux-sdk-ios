@@ -68,6 +68,7 @@
             @"credentialJSONStr": SQL_TEXT,
             @"markStatus": SQL_TEXT,
             @"markTookOverInfoJSONStr": SQL_TEXT,
+            @"markEndAccountInfoStr": SQL_TEXT,
     }];
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{

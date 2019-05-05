@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 //转译为json 用于保存数据库
 @property (nonatomic, strong) NSString *latestIssueLogsStr;  // issueList最下面显示 需拼接 //[@"title"] subtitle
 @property (nonatomic, strong) NSString *markTookOverInfoJSONStr;
+@property (nonatomic, strong) NSString *markEndAccountInfoStr;
 @property (nonatomic, strong) NSString *markStatus;
 @property (nonatomic, strong) NSString *renderedTextStr;     // 可能有可能无 有就显示
 @property (nonatomic, strong) NSString *originInfoJSONStr;   // 异常情报处理  后台返回缺失，前端自己处理

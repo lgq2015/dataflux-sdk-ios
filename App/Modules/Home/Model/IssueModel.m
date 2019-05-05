@@ -46,8 +46,10 @@
     }
     NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered ? [rendered jsonPrettyStringEncoded] : @"";
-    NSDictionary *markTookOverInfoJSON = PWSafeDictionaryVal(dict, @"markTookOverInfoJSON");
-    self.markTookOverInfoJSONStr = markTookOverInfoJSON?[markTookOverInfoJSON jsonPrettyStringEncoded]:@"";
+    NSDictionary *markTookOverInfo = PWSafeDictionaryVal(dict, @"markTookOverAccountInfo");
+    NSDictionary *markEndInfoInfo = PWSafeDictionaryVal(dict, @"markEndAccountInfo");
+    self.markTookOverInfoJSONStr = markTookOverInfo?[markTookOverInfo jsonPrettyStringEncoded]:@"";
+    self.markEndAccountInfoStr =markEndInfoInfo?[markEndInfoInfo jsonStringEncoded]:@"";
     self.markStatus = [dict stringValueForKey:@"markStatus" default:@""];
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict, @"originInfoJSON");
     if (originInfoJSON) {
