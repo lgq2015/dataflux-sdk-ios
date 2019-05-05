@@ -40,10 +40,11 @@
         _selectedImage.hidden = YES;
         _teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
         _numLab.hidden = NO;
-        if (model.issueCount == nil || [model.issueCount isEqualToString:@""]){
+        if (model.issueCount == nil ){
             _numLab.text = @"当前情报：0";
         }else{
-            _numLab.text = [NSString stringWithFormat:@"情报： %@",model.issueCount];
+            
+            _numLab.text = [NSString stringWithFormat:@"情报： %@",[model.issueCount stringValueForKey:@"issueCount" default:@""]];
         }
     }
     _callLab.hidden = YES;

@@ -234,10 +234,11 @@
     [self.teamlists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         TeamInfoModel *model = (TeamInfoModel *)obj;
         [issueCountDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            NSString *count = [NSString stringWithFormat:@"%@",obj];;
+//            NSDictionary *count = obj;
             NSString *teamID = (NSString *)key;
+            
             if ([teamID isEqualToString:model.teamID]) {//这里就不在替换，因为前面已经替换过了
-                model.issueCount = count;
+                model.issueCount = obj;
                 *stop = YES;
             }
         }];
