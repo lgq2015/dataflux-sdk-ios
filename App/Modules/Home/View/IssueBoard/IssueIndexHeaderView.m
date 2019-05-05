@@ -38,6 +38,22 @@
 - (void)updateIssueBoardStyle:(PWIssueBoardStyle)style itemData:(NSDictionary *)paramsDict{
     [self.issueBoard updataInfoBoardStyle:style itemData:paramsDict];
 }
+- (void)createUIWithParamsDict:(NSDictionary *)paramsDict{
+    [self.issueBoard createUIWithParamsDict:paramsDict];
+    [self layoutIfNeeded];
+}
+- (void)updateTitle:(NSString *)title{
+    [self.issueBoard updateTitle:title];
+    [self.superview layoutIfNeeded];
+}
+- (void)updataDatas:(NSDictionary *)datas{
+    [self setNeedsUpdateConstraints];
+    [self.issueBoard updataDatas:datas];
+    [self.superview layoutIfNeeded];
+}
+- (void)noticeCreateUIWithTitleArray:(NSArray *)array{
+    [self.notice createUIWithTitleArray:array];
+}
 - (HomeNoticeScrollView *)notice {
     if (!_notice) {
         _notice = [[HomeNoticeScrollView alloc] initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(60))];

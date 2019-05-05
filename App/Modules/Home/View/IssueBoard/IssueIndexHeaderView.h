@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)initWithStyle:(PWIssueBoardStyle)style;
 - (void)updateTitle:(NSString *)title withStates:(BOOL)isCheck;
 - (void)updateIssueBoardStyle:(PWIssueBoardStyle)style itemData:(NSDictionary *)paramsDict;
+- (void)createUIWithParamsDict:(NSDictionary *)paramsDict;
+- (void)updateTitle:(NSString *)title;
+- (void)updataDatas:(NSDictionary *)datas;
+- (void)noticeCreateUIWithTitleArray:(NSArray *)array;
+
 @end
 
 NS_ASSUME_NONNULL_END

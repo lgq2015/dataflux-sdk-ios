@@ -66,7 +66,7 @@
         self.titleLable.hidden = NO;
         _initializeView.hidden = YES;
         [_initializeView removeFromSuperview];
-        self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(76 * 5));
+   //     self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, ZOOM_SCALE(76 * 5));
         [self.itemCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.titleLable.mas_bottom).offset(Interval(12));
             make.left.right.mas_equalTo(self);
@@ -75,6 +75,8 @@
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(self.itemCollectionView);
         }];
+        CGFloat height = self.itemCollectionView.frame.size.height;
+        DLog("height == %f",height);
     }
     
 }
@@ -151,7 +153,6 @@
             self.titleLable.text = @"检测时间";
             self.titleLable.hidden = NO;
            
-            self.itemCollectionView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, (itemHeight+LineSpacing)*5);
             [self mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(self.itemCollectionView);
             }];
@@ -165,6 +166,8 @@
     [self.datas removeAllObjects];
     [self.datas addObjectsFromArray:paramsDict[@"datas"]];
     [self.itemCollectionView reloadData];
+    [self.superview layoutIfNeeded];
+
 }
 - (void)updateItem:(NSDictionary *)paramsDict{
     NSInteger index = [paramsDict integerValueForKey:@"index" default:0];
@@ -203,6 +206,17 @@
         NSRange range = NSMakeRange(0, [title length]);
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
         self.titleLable.attributedText = attributedString;
+        [self setNeedsUpdateConstraints];
+        [self.titleLable mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(Interval(16));
+            make.right.mas_equalTo(self.rightBtn.mas_left).offset(10);
+            make.top.mas_equalTo(self).offset(Interval(12));
+        }];
+        [self.itemCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.titleLable.mas_bottom).offset(Interval(12));
+        }];
+        [self.superview layoutIfNeeded];
+
         }
 }
 #pragma mark ========== private methods ==========

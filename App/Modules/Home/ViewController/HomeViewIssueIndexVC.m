@@ -28,6 +28,7 @@
 #import "NewsListEmptyView.h"
 #import "DetectionVersionAlert.h"
 #import "IssueIndexHeaderView.h"
+#import "PWSocketManager.h"
 
 @interface HomeViewIssueIndexVC () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) NSMutableArray *infoDatas;
@@ -47,7 +48,7 @@
 
 
     [[IssueSourceManger sharedIssueSourceManger] checkToGetDetectionStatement:^(NSString *string) {
-        [_headerView.issueBoard updateTitle:string];
+        [_headerView updateTitle:string];
 
     }];
 }
@@ -96,15 +97,18 @@
 }
 - (void)teamSwitch:(NSNotification *)notification{
     DLog(@"homevc----团队切换请求成功后通知");
+    BOOL   isConnect = [[PWSocketManager sharedPWSocketManager] isConnect];
+    if(!isConnect){
+        [[PWSocketManager sharedPWSocketManager] checkForRestart];
+    }
     [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
     if (self.noticeDatas.count > 0) {
         int x = arc4random() % self.noticeDatas.count;
         NSDictionary *dict = self.noticeDatas[x];
-        [self.headerView.notice createUIWithTitleArray:@[dict[@"title"]]];
+        [self.headerView noticeCreateUIWithTitleArray:@[dict[@"title"]]];
     } else {
         [self loadTipsData];
     }
-    [self loadNewsDatas];
 }
 - (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----有团队成员、团队切换");
@@ -157,7 +161,7 @@
 
     NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
     self.infoDatas = [[NSMutableArray alloc] initWithArray:array];
-    [self.headerView.issueBoard createUIWithParamsDict:@{@"datas": self.infoDatas}];
+    [self.headerView createUIWithParamsDict:@{@"datas": self.infoDatas}];
     __weak typeof(self) weakSelf = self;
     self.headerView.issueBoard.historyInfoClick = ^(void) {
         IssueSourceListVC *infosourceVC = [[IssueSourceListVC alloc] init];
@@ -217,12 +221,15 @@
         AddSourceVC *addVC = [[AddSourceVC alloc] init];
         [weakSelf.navigationController pushViewController:addVC animated:YES];
     };
-  
+    NSString *title = [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];
+   
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight - kTabBarHeight - kTopHeight - 16);
     self.tableView.tableHeaderView = self.headerView;
+    [self.headerView updateTitle:title];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(self.tableView);
         make.width.equalTo(self.tableView);
     }];
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight - kTabBarHeight - kTopHeight - 16);
     self.tableView.estimatedRowHeight = 44;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -232,7 +239,7 @@
 
     self.tempCell = [[NewsListCell alloc] initWithStyle:0 reuseIdentifier:@"NewsListCell"];
     [self.view addSubview:self.tableView];
-
+   
 }
 
 - (void)issueBoardSetConnectView {
@@ -257,10 +264,12 @@
                     setIsHideGuide(PW_IsHideGuide);
                 }
             } else {
-                [self.headerView.issueBoard updateTitle:title];
+                [self.headerView updateTitle:title];
+
                 if (array.count > 0) {
-                    [self.headerView.issueBoard updataDatas:@{@"datas": array}];
+                    [self.headerView updataDatas:@{@"datas": array}];
                 }
+                [self.tableView setTableHeaderView:self.headerView];
             }
         });
 
@@ -300,7 +309,7 @@
     if (self.noticeDatas.count > 0) {
         int x = arc4random() % self.noticeDatas.count;
         NSDictionary *dict = self.noticeDatas[x];
-        [self.headerView.notice createUIWithTitleArray:@[dict[@"title"]]];
+        [self.headerView noticeCreateUIWithTitleArray:@[dict[@"title"]]];
     } else {
         [self loadTipsData];
     }
