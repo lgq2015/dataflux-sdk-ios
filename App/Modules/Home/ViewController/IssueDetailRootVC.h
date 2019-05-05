@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *progressView;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UILabel *contentLab;
-
+@property (nonatomic, strong) UIButton *dealBtn;
+@property (nonatomic, strong) UIButton *solveBtn;
 @property (nonatomic, strong) UIView *subContainerView;
 @property (nonatomic, strong) NSDictionary *infoDetailDict;
 

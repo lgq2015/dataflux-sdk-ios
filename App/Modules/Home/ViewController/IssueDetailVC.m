@@ -32,8 +32,7 @@
 @property (nonatomic, strong) NSMutableArray *handbookAry;
 @property (nonatomic, strong) UIView *echartContenterView;
 
-@property (nonatomic, strong) UIButton *dealBtn;
-@property (nonatomic, strong) UIButton *solveBtn;
+
 
 @end
 
@@ -157,19 +156,7 @@
         make.width.offset(kWidth);
         make.height.offset(self.handbookAry.count*45);
     }];
-    CGFloat width = (kWidth-Interval(40))/2.0;
-    [self.dealBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(30));
-        make.left.mas_equalTo(self.mainScrollView).offset(Interval(16));
-        make.height.offset(ZOOM_SCALE(47));
-        make.width.offset(width);
-    }];
-    [self.solveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.dealBtn);
-        make.left.mas_equalTo(self.dealBtn.mas_right).offset(Interval(10));
-        make.height.offset(ZOOM_SCALE(47));
-        make.width.offset(width);
-    }];
+
     [self.view layoutIfNeeded];
 
     CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
@@ -327,73 +314,9 @@
         [error errorToast];
     }];
 }
-- (void)dealBtnClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"将该情报标记为由我处理" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
-    }];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSDictionary *param = @{@"data":@{@"markStatus":@"tookOver"}};
-        [SVProgressHUD show];
-        [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-              [SVProgressHUD showSuccessWithStatus:@"请求成功"];
-               [self updateUI];
-            }else{
-              [SVProgressHUD showErrorWithStatus:@"请求失败"];
-            }
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-            [error errorToast];
-        }];
-    }];
-    [alert addAction:cancle];
-    [alert addAction:confirm];
-    [self presentViewController:alert animated:YES completion:nil];
-}
 
-- (void)solveBtnClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"将该情报标记为由我解决" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
-    }];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSDictionary *param = @{@"data":@{@"markStatus":@"recovered"}};
-        [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"请求成功"];
-                [self updateUI];
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"请求失败"];
-            }
 
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-            [error errorToast];
-        }];
-    }];
-    [alert addAction:cancle];
-    [alert addAction:confirm];
-    [self presentViewController:alert animated:YES completion:nil];
-}
--(UIButton *)dealBtn{
-    if (!_dealBtn) {
-        _dealBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"处理"];
-        [_dealBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"FFC25A"]] forState:UIControlStateNormal];
-        [_dealBtn addTarget:self action:@selector(dealBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_dealBtn];
-    }
-    return _dealBtn;
-}
--(UIButton *)solveBtn{
-    if (!_solveBtn) {
-        _solveBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"解决"];
-        [_solveBtn addTarget:self action:@selector(solveBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_solveBtn];
-    }
-    return _solveBtn;
-}
+
 - (UIView *)createChartViewWithDict:(NSDictionary *)dict{
     if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"table"]) {
         NSDictionary *data = dict[@"data"];

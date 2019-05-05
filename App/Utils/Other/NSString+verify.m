@@ -288,7 +288,6 @@
     }else if ([subType isEqualToString:@"markRecovered"]){
         //[4]    (null)    @"originInfoAccountId_cache" : @"acnt-9RS9ntgyqPvFLSs61kqggs"
         NSString *userID = [dict stringValueForKey:@"originInfoAccountId_cache" default:@""];
-        type = @"已由 解决";
         [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
             if (member) {
                 NSString *name = [[member stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[member stringValueForKey:@"name" default:@""]:[member stringValueForKey:@"nickname" default:@""];

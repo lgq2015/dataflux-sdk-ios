@@ -129,7 +129,7 @@
         self.ignoreBtn.hidden = self.model.state == MonitorListStateRecommend?YES:NO;
         
         [self.ignoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(temp.mas_bottom).offset(Interval(20));
+            make.top.mas_equalTo(self.solveBtn.mas_bottom).offset(Interval(20));
             make.width.offset(ZOOM_SCALE(100));
             make.height.offset(ZOOM_SCALE(20));
             make.centerX.mas_equalTo(self.mainScrollView);
