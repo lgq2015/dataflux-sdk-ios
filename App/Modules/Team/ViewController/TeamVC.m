@@ -462,7 +462,7 @@
     if (managed != nil || support != nil){
         MemberInfoModel *model =[[MemberInfoModel alloc]init];
         model.isSpecialist = YES;
-        model.name = @"驻云小助手";
+        model.name = @"王教授";
         model.mobile = @"400-882-3320";
         [self.teamMemberArray insertObject:model atIndex:1];
     }
