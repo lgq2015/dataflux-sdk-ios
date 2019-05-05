@@ -427,11 +427,24 @@
 - (void)supplementMessage{
     DLog(@"补充信息");
     __weak typeof(self) weakSelf = self;
-    [[ZTBuChongTeamInfoUIManager shareInstance] show:^{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *add = [PWCommonCtrl actionWithTitle:@"补充团队信息" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
         vc.dowhat = supplementTeamInfo;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    [alert addAction:add];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+//    [[ZTBuChongTeamInfoUIManager shareInstance] show:^{
+//        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+//        vc.dowhat = supplementTeamInfo;
+//        [weakSelf.navigationController pushViewController:vc animated:YES];
+//    }];
 }
 //判断用户有没有购买服务，如果有就添加专家
 - (void)addSpecialist{
