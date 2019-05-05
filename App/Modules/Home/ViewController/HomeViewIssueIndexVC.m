@@ -71,11 +71,11 @@
                                                  name:KNotificationNewRemoteNoti
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(teamSwitch:)
+                                             selector:@selector(hometeamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hasMemberCacheTeamSwitch:)
+                                             selector:@selector(homeHasMemberCacheTeamSwitch:)
                                                  name:KNotificationHasMemCacheSwitchTeam
                                                object:nil];
     [self judgeIssueConnectState:^{
@@ -95,12 +95,14 @@
     [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
     [kUserDefaults synchronize];
 }
-- (void)teamSwitch:(NSNotification *)notification{
+- (void)hometeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----团队切换请求成功后通知");
+    [[IssueListManger sharedIssueListManger] shutDown];
     BOOL   isConnect = [[PWSocketManager sharedPWSocketManager] isConnect];
     if(!isConnect){
         [[PWSocketManager sharedPWSocketManager] checkForRestart];
     }
+    [SVProgressHUD show];
     [[IssueListManger sharedIssueListManger] fetchIssueList:YES];
     if (self.noticeDatas.count > 0) {
         int x = arc4random() % self.noticeDatas.count;
@@ -110,7 +112,7 @@
         [self loadTipsData];
     }
 }
-- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
+- (void)homeHasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----有团队成员、团队切换");
 }
 - (void)judgeIssueConnectState:(void (^)(void))complete {
@@ -251,6 +253,7 @@
 }
 
 - (void)infoBoardDatasUpdate {
+    [SVProgressHUD dismiss];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
         NSString *title = [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];
