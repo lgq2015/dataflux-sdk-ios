@@ -34,7 +34,6 @@
 @property(nonatomic, strong) NSMutableArray *infoDatas;
 @property(nonatomic, strong) NSDictionary *infoSourceDatas;
 @property(nonatomic, strong) IssueIndexHeaderView *headerView;
-@property(nonatomic, assign) PWIssueBoardStyle infoBoardStyle;
 
 @property(nonatomic, assign) NSInteger newsPage;
 @property(nonatomic, strong) NSMutableArray<NewsListModel *> *newsDatas;
@@ -111,11 +110,6 @@
 - (void)judgeIssueConnectState:(void (^)(void))complete {
 
     void (^setUpStyle)(void) = ^{
-        BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-        self.infoBoardStyle = isConnect ? PWIssueBoardStyleConnected : PWIssueBoardStyleNotConnected;
-        if (isConnect) {
-            setIsHideGuide(PW_IsHideGuide);
-        }
         [self createUI];
     };
 
@@ -152,7 +146,7 @@
  //   [[AppDelegate shareAppDelegate] DetectNewVersion];
      
 
-    self.headerView = [[IssueIndexHeaderView alloc] initWithStyle:self.infoBoardStyle];
+    self.headerView = [[IssueIndexHeaderView alloc] initWithStyle:PWIssueBoardStyleConnected];
 
     NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
     self.infoDatas = [[NSMutableArray alloc] initWithArray:array];
@@ -238,7 +232,6 @@
 }
 
 - (void)issueBoardSetConnectView {
-        self.infoBoardStyle = PWIssueBoardStyleConnected;
         NSArray *array = [IssueListManger sharedIssueListManger].infoDatas;
         [self.headerView updateIssueBoardStyle:PWIssueBoardStyleConnected itemData:@{@"datas": array}];
         [self.headerView layoutIfNeeded];
@@ -253,20 +246,13 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            if (self.infoBoardStyle == PWIssueBoardStyleNotConnected) {
-                BOOL isConnect = [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-                if (isConnect) {
-                    [self issueBoardSetConnectView];
-                    setIsHideGuide(PW_IsHideGuide);
-                }
-            } else {
                 [self.headerView updateTitle:title];
 
                 if (array.count > 0) {
                     [self.headerView updataDatas:@{@"datas": array}];
                 }
                 [self.tableView setTableHeaderView:self.headerView];
-            }
+            
         });
 
     });
