@@ -10,6 +10,11 @@
 #import "ZYChangeTeamCell.h"
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTCreateTeamVC.h"
+#import "IssueListManger.h"
+#import "IssueChatDataManager.h"
+#import "PWSocketManager.h"
+#import "IssueSourceManger.h"
+
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIWindow * window;
 @property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
@@ -284,6 +289,12 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
+
+            [[IssueChatDataManager sharedInstance] shutDown];
+            [[IssueListManger sharedIssueListManger] shutDown];
+            [[PWSocketManager sharedPWSocketManager] shutDown];
+            [[IssueSourceManger sharedIssueSourceManger] logout];
+            
             setXAuthToken(token);
             if (isHaveMemberCache == NO){
                 userManager.teamModel = model;
