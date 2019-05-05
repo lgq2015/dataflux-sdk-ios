@@ -42,11 +42,15 @@
         if (model.issueCount == nil ){
             _numLab.text = @"当前情报：0";
         }else{
-            
-            _numLab.text = [NSString stringWithFormat:@"情报： %@",[model.issueCount stringValueForKey:@"issueCount" default:@""]];
+            _numLab.text = [NSString stringWithFormat:@"情报： %@",model.issueCount];
         }
     }
-    _callLab.hidden = YES;
+    //@显示
+    if ([model.atCount integerValue] > 0){
+        _callLab.hidden = NO;
+    }else{
+        _callLab.hidden = YES;
+    }
 }
 
 @end

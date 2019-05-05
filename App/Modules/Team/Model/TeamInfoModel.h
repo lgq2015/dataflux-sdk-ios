@@ -62,7 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDictionary *tags;
 @property (nonatomic, assign)BOOL isDefault;
 //团队活跃情报数
-@property (nonatomic, copy)   NSDictionary *issueCount;
+@property (nonatomic, copy) NSString <Ignore>*issueCount;
+//团队at数
+@property (nonatomic, copy) NSString <Ignore>*atCount;
 //用于区分是个人：singleAccount 还是 团队
 @property (nonatomic, copy)NSString *type;
 @end
