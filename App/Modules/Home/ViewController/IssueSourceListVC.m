@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"情报源";
+    self.title = @"云服务";
     [self createUI];
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self

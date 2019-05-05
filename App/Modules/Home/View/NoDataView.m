@@ -37,10 +37,10 @@
             break;
         case NoDataViewIssueList:
             tip = @"暂无情报";
-            btnTitle = @"查看过去24小时恢复的情报";
+            btnTitle = @"查看过去 24 小时恢复的情报";
             break;
         case NoDataViewLastDay:
-            tip = @"过去24小时无情报";
+            tip = @"过去 24 小时无情报";
             hideBtn = YES;
             btnTitle = @"进入日历";
             break;

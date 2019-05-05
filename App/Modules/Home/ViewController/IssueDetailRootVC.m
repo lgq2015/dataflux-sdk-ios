@@ -116,9 +116,9 @@
         NSDictionary *param = @{@"data":@{@"markStatus":@"tookOver"}};
         [SVProgressHUD show];
         [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            
+            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"标记成功"];
+                [iToast alertWithTitleCenter:@"该情报进程已更新"];
                 [self updateUI];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"标记失败"];
@@ -159,7 +159,7 @@
         NSDictionary *param = @{@"data":@{@"markStatus":@"recovered"}};
         [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"标记成功"];
+                [iToast alertWithTitleCenter:@"该情报进程已更新"];
                 [self updateUI];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"标记失败"];
