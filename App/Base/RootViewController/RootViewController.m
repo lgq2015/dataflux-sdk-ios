@@ -310,6 +310,7 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _tableView.estimatedRowHeight = 0;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.scrollsToTop = YES;
