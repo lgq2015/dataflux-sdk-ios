@@ -432,7 +432,7 @@
     DLog(@"补充信息");
     __weak typeof(self) weakSelf = self;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [PWCommonCtrl alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *add = [PWCommonCtrl actionWithTitle:@"补充团队信息" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
         vc.dowhat = supplementTeamInfo;
