@@ -9,7 +9,7 @@
 #import "PWScrollSegmentView.h"
 #import "PWCustomLabel.h"
 #import "UIView+PWFrame.h"
-
+#import "ZYChangeTeamUIManager.h"
 @interface PWScrollSegmentView(){
     CGFloat _currentWidth;
     NSUInteger _currentIndex;
@@ -212,7 +212,10 @@
     PWCustomLabel *oldLabel = (PWCustomLabel *)self.titleLabels[_oldIndex];
     PWCustomLabel *currentLabel = (PWCustomLabel *)self.titleLabels[_currentIndex];
     
-    
+    ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+    if (manager.isShowTeamView){
+        [manager dismiss];
+    }
     CGFloat animatedTime = animated ? 0.3 : 0.0;
     
     __weak typeof(self) weakSelf = self;

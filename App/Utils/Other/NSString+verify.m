@@ -314,25 +314,17 @@
         NSDictionary *issueSnapshotJSON_cache = dict[@"issueSnapshotJSON_cache"];
            type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else if ([subType isEqualToString:@"markTookOver"]){
-        NSString *userID = [dict stringValueForKey:@"originInfoAccountId_cache" default:@""];
-        [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
-            if (member) {
-                NSString *name = [[member stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[member stringValueForKey:@"name" default:@""]:[member stringValueForKey:@"nickname" default:@""];
-                type = [NSString stringWithFormat:@"%@正在处理",name];
-            }}];
-       
+      
+        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+        NSString *name = [[account_info stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[account_info stringValueForKey:@"name" default:@""]:[account_info stringValueForKey:@"nickname" default:@""];
+        type = [NSString stringWithFormat:@"%@正在处理",name];
     }else if ([subType isEqualToString:@"markRecovered"]){
-        //[4]    (null)    @"originInfoAccountId_cache" : @"acnt-9RS9ntgyqPvFLSs61kqggs"
-        NSString *userID = [dict stringValueForKey:@"originInfoAccountId_cache" default:@""];
-        [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
-            if (member) {
-                NSString *name = [[member stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[member stringValueForKey:@"name" default:@""]:[member stringValueForKey:@"nickname" default:@""];
+        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+      
+        NSString *name = [[account_info stringValueForKey:@"nickname" default:@""] isEqualToString:@""]?[account_info stringValueForKey:@"name" default:@""]:[account_info stringValueForKey:@"nickname" default:@""];
                  type = [NSString stringWithFormat:@"已由%@解决",name];
-            }
-        }];
-        
+    
     }
-        
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
 }
 - (NSString *)getIssueStateLevel{
