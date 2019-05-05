@@ -18,7 +18,7 @@
 #import "IssueLogModel.h"
 #import "AddIssueGuideView.h"
 #import "IssueRecoveredListVC.h"
-
+#import "ZTCreateTeamVC.h"
 @interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
@@ -155,8 +155,12 @@
         };
     [self.navigationController pushViewController:creatVC animated:YES];
     }else if([getTeamState isEqualToString:PW_isPersonal]){
-        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-        [self.navigationController pushViewController:createTeam animated:YES];
+//        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+//        [self.navigationController pushViewController:createTeam animated:YES];
+      
+        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+        vc.dowhat = supplementTeamInfo;
+        [self.navigationController pushViewController:vc animated:YES];
     }else{
         [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
             if (isSuccess) {
