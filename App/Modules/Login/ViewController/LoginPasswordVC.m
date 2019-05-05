@@ -244,9 +244,12 @@
                 @"username": [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                 @"password": self.passwordTf.text,
         } mutableCopy];
-
+    //指定最后一次登录的teamid
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [param setValue:lastLoginTeamId forKey:@"teamId"];
+    }
     [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
-
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];

@@ -33,7 +33,7 @@
 }
 - (void)createUI{
     self.view.backgroundColor = PWWhiteColor;
-    self.headerIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(278)+kStatusBarHeight)];
+    self.headerIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(330))];
     self.headerIcon.image = [UIImage imageNamed:@"team_header"];
     
     [self.view addSubview:self.headerIcon];

@@ -286,16 +286,17 @@
 #pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
     [SVProgressHUD showWithStatus:@"登录中..."];
-
-
     NSMutableDictionary * data = [@{
             @"username": self.phoneNumber,
             @"verificationCode": code,
             @"marker": @"mobile",
     } mutableCopy];
-
+    //指定最后一次登录的teamid
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [data setValue:lastLoginTeamId forKey:@"teamId"];
+    }
     [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
-
     NSDictionary *param = @{@"data": data};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
@@ -311,7 +312,12 @@
 }
 #pragma mark ========== 找回密码 ==========
 - (void)findPasswordWithCode:(NSString *)code{
-    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
+    NSMutableDictionary *dataDic = [@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}  mutableCopy];
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [dataDic setValue:lastLoginTeamId forKey:@"teamId"];
+    }
+    NSDictionary *params = @{@"data":dataDic};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
