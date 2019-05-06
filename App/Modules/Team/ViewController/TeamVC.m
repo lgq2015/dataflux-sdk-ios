@@ -170,15 +170,14 @@
     }else{
         if (model.isSpecialist){
             member.type = PWMemberViewTypeSpecialist;
-            member.model = model;
         }else{
             member.type = PWMemberViewTypeTeamMember;
             member.teamMemberRefresh =^(){
                 [self loadTeamMemberInfo];
             };
-            member.model = self.teamMemberArray[indexPath.row];
         }
     }
+    member.model = model;
     member.memberID = idString;
     member.noteName = model.inTeamNote;
      [self.navigationController pushViewController:member animated:YES];
