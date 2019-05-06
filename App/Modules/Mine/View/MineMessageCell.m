@@ -88,7 +88,7 @@
 }
 - (RightTriangleView *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-8, 0, 8, 8)];
+        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-12, 0, 12, 12)];
         [self addSubview:_triangleView];
     }
     return _triangleView;

@@ -44,25 +44,7 @@
         }
     }
     self.navigationController.viewControllers = newMarr;
-    NSArray *title = @[@"添加"];
     self.currentPage = 1;
-    DLog(@"%d",userManager.teamModel.isAdmin);
-    if(getTeamState){
-        if([getTeamState isEqualToString:PW_isTeam] && userManager.teamModel.isAdmin ){
-        BOOL isadmain = userManager.teamModel.isAdmin;
-        if (isadmain) {
-            [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
-        }
-        }else{
-
-        }
-    }else{
-
-        [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
-    }
-//    if(!(self.isFromTeam && !userManager.teamModel.isAdmin)){
-//    [self addNavigationItemWithTitles:title isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
-//    }
     self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

@@ -412,21 +412,6 @@
 }
 #pragma mark ====常用按钮交互=====
 - (void)rightNavClick{
-    static int i = 0;
-    UIView *view = [self.rightNavButton viewWithTag:20];
-    if (i % 2 == 0){
-        view.hidden = YES;
-    }else{
-        view.hidden = NO;
-    }
-    i++;
-    
-    
-    
-    return;
-    
-    
-    
     ZYChangeTeamUIManager *manger = [ZYChangeTeamUIManager shareInstance];
     if (manger.isShowTeamView){
         [manger dismiss];
