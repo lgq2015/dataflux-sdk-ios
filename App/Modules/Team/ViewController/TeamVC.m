@@ -262,12 +262,12 @@
 }
 #pragma mark ---ZTTeamVCTopCellDelegate---
 - (void)didClickTeamTopCell:(UITableViewCell *)cell withType:(TeamTopType)type{
-    if([getTeamState isEqualToString:PW_isPersonal]){
-        [self supplementMessage];
-        return;
-    }
     switch (type) {
         case inviteMemberType:{
+            if([getTeamState isEqualToString:PW_isPersonal]){
+                [self supplementMessage];
+                return;
+            }
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [self.navigationController pushViewController:invite animated:YES];
         }
@@ -278,6 +278,10 @@
         }
             break;
         case teamManagerType:{
+            if([getTeamState isEqualToString:PW_isPersonal]){
+                [self supplementMessage];
+                return;
+            }
             FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
