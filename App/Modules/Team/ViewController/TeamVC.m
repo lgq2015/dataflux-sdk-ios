@@ -484,12 +484,7 @@
     UIView *view = [[UIView alloc] init];
     //团队名称
     UILabel *teamLab = [[UILabel alloc] init];
-    NSString *titleString = @"";
-    if([getTeamState isEqualToString:PW_isTeam]){
-        titleString = userManager.teamModel.name;
-    }else{
-        titleString = @"我的团队";
-    }
+    NSString *titleString = @"团队成员";
     teamLab.text = titleString;
     teamLab.font = RegularFONT(16);
     teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
