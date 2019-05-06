@@ -93,6 +93,25 @@
         make.left.mas_equalTo(self.chatIcon.mas_right).offset(-3);
         make.width.height.offset(6);
     }];
+    UILabel *callMeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#FE563E"] text:@"[有人@我]"];
+    callMeLab.tag = 32;
+    [[self.contentView viewWithTag:32] removeFromSuperview];
+    [self.contentView addSubview:callMeLab];
+    if (self.model.isCallME) {
+        [callMeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (!self.model.isHasChat) {
+                make.left.mas_equalTo(self.titleLab);
+            }else{
+                make.left.mas_equalTo(self.chatIcon.mas_right).offset(8);
+            }
+            make.right.mas_equalTo(self).offset(-17);
+            make.height.offset(ZOOM_SCALE(18));
+            make.bottom.offset(-Interval(11));
+            make.centerY.mas_equalTo(self.chatIcon);
+        }];
+    }else{
+        [[self.contentView viewWithTag:32] removeFromSuperview];
+    }
     UILabel *sublab  = [[UILabel alloc]initWithFrame:CGRectZero];
     sublab.font = RegularFONT(12);
     sublab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
@@ -100,10 +119,14 @@
     [[self.contentView viewWithTag:22] removeFromSuperview];
     [self.contentView addSubview:sublab];
     [sublab mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (!self.model.isHasChat) {
-            make.left.mas_equalTo(self.titleLab);
+        if (self.model.isCallME) {
+            make.left.mas_equalTo(callMeLab).offset(ZOOM_SCALE(60));
         }else{
+            if (!self.model.isHasChat) {
+            make.left.mas_equalTo(self.titleLab);
+            }else{
             make.left.mas_equalTo(self.chatIcon.mas_right).offset(5);
+            }
         }
             make.right.mas_equalTo(self).offset(-17);
             make.height.offset(ZOOM_SCALE(18));
@@ -114,7 +137,8 @@
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
-    
+    self.timeLab.text = [NSString compareCurrentTimeSustainTime:self.model.time];
+
     switch (self.model.state) {
         case MonitorListStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
@@ -131,6 +155,8 @@
         case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已解决";
+            self.timeLab.text =[NSString stringWithFormat:@"解决时间：%@",[self.model.time accurateTimeStr]];
+
             break;
         case MonitorListStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
@@ -144,7 +170,6 @@
     }
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
-    self.timeLab.text = [NSString compareCurrentTimeSustainTime:self.model.time];
     
     self.warningLab.text = self.model.highlight;
     self.titleLab.text = self.model.title;
@@ -235,15 +260,7 @@
     }
     return _warningLab;
 }
-//-(UILabel *)subLab{
-//    if (!_subLab) {
-//        _subLab = [[UILabel alloc]initWithFrame:CGRectZero];
-//        _subLab.font = RegularFONT(12);
-//        _subLab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
-//        [self.contentView addSubview:_subLab];
-//    }
-//    return _subLab;
-//}
+
 -(UIImageView *)sourceIcon{
     if (!_sourceIcon) {
         _sourceIcon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(20), Interval(14), ZOOM_SCALE(29), ZOOM_SCALE(20))];
