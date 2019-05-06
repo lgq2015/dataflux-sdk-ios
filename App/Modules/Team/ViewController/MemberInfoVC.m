@@ -80,6 +80,7 @@
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
                 self.subTitleLab.text = @"管理员";
+                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
              [self createBtnPhone];
         }
@@ -97,6 +98,7 @@
             [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
             self.subTitleLab.hidden = NO;
             self.subTitleLab.text = @"专家";
+            self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];
             [self createBtnExpert];
         }
             break;
@@ -113,7 +115,8 @@
             self.memberName.text = self.model.name;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
-                 self.subTitleLab.text = @"管理员";
+                self.subTitleLab.text = @"管理员";
+                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
         }
             break;
@@ -182,7 +185,6 @@
         _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWWhiteColor text:@""];
         _subTitleLab.numberOfLines = 0;
         _subTitleLab.textAlignment = NSTextAlignmentCenter;
-        _subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
         _subTitleLab.layer.cornerRadius = 2;
         _subTitleLab.layer.masksToBounds = YES;
         _subTitleLab.hidden = YES;

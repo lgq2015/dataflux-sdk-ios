@@ -54,7 +54,7 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BOOL content = [response[@"content"] boolValue];
             if (content){
-                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+                [SVProgressHUD showSuccessWithStatus:@"标签添加成功"];
                 if (_editTeamMemberNote){
                     _editTeamMemberNote(inTeamNote);
                 }

@@ -439,6 +439,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
+    [self requestTeamSystemUnreadCount];
 }
 //点击切换团队阴影
 - (void)clickTeamChangeViewBlackBG{
@@ -579,5 +580,20 @@
     if (version.doubleValue <= 11.0) {
         _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:YES];
     }
+}
+#pragma mark --请求---
+- (void)requestTeamSystemUnreadCount{
+    NSDictionary *params = @{@"ownership":@"team"};
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSInteger unread = [content longValueForKey:@"unread" default:0];
+            UIView *view = [self.rightNavButton viewWithTag:20];
+            view.hidden = unread > 0 ? NO:YES;
+        }
+    } failBlock:^(NSError *error) {
+        UIView *view = [self.rightNavButton viewWithTag:20];
+        view.hidden = YES;
+    }];
 }
 @end
