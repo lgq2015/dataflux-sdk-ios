@@ -7,10 +7,14 @@
 //
 
 #import "IssueDetailRootVC.h"
-#import "FillinTeamInforVC.h"
 #import "IssueListManger.h"
 #import "PPBadgeView.h"
 #import "IssueModel.h"
+#import "ZTCreateTeamVC.h"
+
+
+#define DealBtnTag  55
+#define SolveBtnTag  65
 
 @interface IssueDetailRootVC ()
 @property (nonatomic, strong) UIImageView *arrowImg;
@@ -107,13 +111,21 @@
     [self loadProgressData];
 
 }
-- (void)dealBtnClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"将该情报标记为由我处理" preferredStyle:UIAlertControllerStyleAlert];
+- (void)dealOrSolveBtnClick:(UIButton *)button{
+    NSString *message;
+    NSDictionary *param;
+    if (button.tag == DealBtnTag) {
+        message = @"将该情报标记为由我处理";
+        param = @{@"data":@{@"markStatus":@"tookOver"}};
+    }else{
+        message = @"将该情报标记为由我解决";
+        param = @{@"data":@{@"markStatus":@"recovered"}};
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSDictionary *param = @{@"data":@{@"markStatus":@"tookOver"}};
         [SVProgressHUD show];
         [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
@@ -137,7 +149,8 @@
     if (!_dealBtn) {
         _dealBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"处理"];
         [_dealBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"FFC25A"]] forState:UIControlStateNormal];
-        [_dealBtn addTarget:self action:@selector(dealBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _dealBtn.tag = DealBtnTag;
+        [_dealBtn addTarget:self action:@selector(dealOrSolveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_dealBtn];
     }
     return _dealBtn;
@@ -145,35 +158,13 @@
 -(UIButton *)solveBtn{
     if (!_solveBtn) {
         _solveBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"解决"];
-        [_solveBtn addTarget:self action:@selector(solveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _solveBtn.tag = SolveBtnTag;
+        [_solveBtn addTarget:self action:@selector(dealOrSolveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_solveBtn];
     }
     return _solveBtn;
 }
-- (void)solveBtnClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"将该情报标记为由我解决" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
-    }];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSDictionary *param = @{@"data":@{@"markStatus":@"recovered"}};
-        [PWNetworking requsetHasTokenWithUrl:PW_issueModify(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [iToast alertWithTitleCenter:@"该情报进程已更新"];
-                [self updateUI];
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"标记失败"];
-            }
-            
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-            [error errorToast];
-        }];
-    }];
-    [alert addAction:cancle];
-    [alert addAction:confirm];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+
 -(void)setReadFlag:(BOOL )read{
     if(!read){
         [self.navigationItem.rightBarButtonItem pp_setBadgeHeight:10];
@@ -232,7 +223,9 @@
             chat.infoDetailDict = self.infoDetailDict;
             [self.navigationController pushViewController:chat animated:YES];
         }else if([getTeamState isEqualToString:PW_isPersonal]){
-            [self.navigationController pushViewController:[FillinTeamInforVC new] animated:YES];
+            ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+            vc.dowhat = supplementTeamInfo;
+            [self.navigationController pushViewController:vc animated:YES];
         }
 
     [self.navigationItem.rightBarButtonItem pp_hiddenBadge];
@@ -274,30 +267,38 @@
             dot.layer.cornerRadius = 3; dot.tag = 100+i;
             dot.backgroundColor = [UIColor colorWithHexString:@"#FFB0B0"];
             [self.progressView addSubview:dot];
+            UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:@""];
+            [self.progressView addSubview:timeLab];
             if (temp==nil) {
-                [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(self.view).offset(Interval(16));
-                    make.top.mas_equalTo(self.progressView).offset(Interval(12));
-                    make.width.height.offset(6);
+                [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(self.view).offset(Interval(25));
+                    make.top.mas_equalTo(self.progressView).offset(3);
+                    make.height.offset(ZOOM_SCALE(17));
                 }];
             }else{
-                [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(temp);
-                    make.top.mas_equalTo(temp.mas_bottom).offset(Interval(18));
-                    make.width.height.offset(6);
+                [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(self.view).offset(Interval(25));
+                    make.top.mas_equalTo(temp.mas_bottom).offset(Interval(6));
+                    make.height.offset(ZOOM_SCALE(17));
                 }];
             }
-            UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:@""];
-           
-            [self.progressView addSubview:timeLab];
-            [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(dot.mas_right).offset(Interval(3));
-                make.centerY.mas_equalTo(dot);
-                make.height.offset(ZOOM_SCALE(17));
+            [dot mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.view).offset(Interval(16));
+                make.centerY.mas_equalTo(timeLab);
+                make.width.height.offset(6);
             }];
+            
             timeLab.text = [NSString progressLabText:self.progressData[i]];
-            temp = dot;
+            temp = timeLab;
         }
+    }
+    if (self.progressBtn.selected) {
+       [self.view setNeedsUpdateConstraints];
+        CGFloat height = self.progressData.count*(Interval(6)+ZOOM_SCALE(17))+3;
+        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(height);
+        }];
+         [self.view layoutIfNeeded];
     }
 }
 - (void)showProgress{
@@ -305,7 +306,7 @@
     [self.view setNeedsUpdateConstraints];
     if (self.progressBtn.selected) {
         self.arrowImg.transform = CGAffineTransformMakeRotation(M_PI/2);
-        CGFloat height = self.progressData.count*ZOOM_SCALE(27)+3;
+        CGFloat height = self.progressData.count*(Interval(6)+ZOOM_SCALE(17))+3;
         [UIView animateWithDuration:0.3 animations:^{
             [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.offset(height);
