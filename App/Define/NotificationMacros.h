@@ -37,6 +37,8 @@
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+//团队专家
+#define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWDefaultTeamID]
 //团队产品
 #define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
 //团队列表

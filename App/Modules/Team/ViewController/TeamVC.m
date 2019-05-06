@@ -81,13 +81,17 @@
         if (isSuccess){
             [self changeTopLeftNavTitleName];
             [self.tableView reloadData];
+            [self loadTeamMemberInfo];
         }
     }];
-    [self loadTeamMemberInfo];
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];
-    [self loadTeamMemberInfo];
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [self loadTeamMemberInfo];
+        }
+    }];
 }
 - (void)loadTeamProductData{
     [SVProgressHUD show];
@@ -132,12 +136,10 @@
     return _teamMemberArray;
 }
 - (void)dealWithDatas:(NSArray *)content{
-    
     [userManager setTeamMember:content];
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
@@ -147,8 +149,7 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-    //判断是否要添加专家
-    [self addSpecialist];
+    [self addSpecialist123];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{
@@ -394,7 +395,11 @@
 - (void)teamSwitch:(NSNotification *)notification{
     DLog(@"teamvc----无成员缓存团队切换---%@",userManager.teamModel.type);
     [self changeTopLeftNavTitleName];
-    [self loadTeamMemberInfo];
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [self loadTeamMemberInfo];
+        }
+    }];
 }
 - (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
     DLog(@"teamvc----有成员缓存团队切换");
@@ -464,22 +469,7 @@
 //        [weakSelf.navigationController pushViewController:vc animated:YES];
 //    }];
 }
-//判断用户有没有购买服务，如果有就添加专家
-- (void)addSpecialist{
-    NSDictionary *tags = userManager.teamModel.tags;
-    if (tags == nil) return;
-    NSDictionary *product = tags[@"product"];
-    if (product == nil) return;
-    NSString *managed = product[@"managed"];
-    NSString *support = product[@"support"];
-    if (managed != nil || support != nil){
-        MemberInfoModel *model =[[MemberInfoModel alloc]init];
-        model.isSpecialist = YES;
-        model.name = @"王教授";
-        model.mobile = @"400-882-3320";
-        [self.teamMemberArray insertObject:model atIndex:1];
-    }
-}
+
 - (UIView *)teamMemberCellHeaderView{
     UIView *view = [[UIView alloc] init];
     //团队名称
@@ -562,6 +552,7 @@
     }
 }
 #pragma mark --请求---
+//请求团队系统消息，未读数量
 - (void)requestTeamSystemUnreadCount{
     NSDictionary *params = @{@"ownership":@"team"};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
@@ -576,4 +567,36 @@
         view.hidden = YES;
     }];
 }
+//判断用户有没有购买服务，如果有就添加专家
+- (void)addSpecialist123{
+    TeamInfoModel *model = [userManager getTeamModel];
+    NSDictionary *tags = model.tags;
+    NSArray *ISPs = PWSafeArrayVal(tags, @"ISPs");
+    if (ISPs == nil || ISPs.count == 0) return;
+    NSArray *constISPs = [userManager getTeamISPs];
+    if (constISPs == nil || constISPs.count == 0) return;
+    NSMutableArray *ipsDics = [NSMutableArray array];
+    //找出当前团队所有的专家对象数组
+    [ISPs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [constISPs enumerateObjectsUsingBlock:^(NSDictionary *ispDic, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *ispName = ispDic[@"ISP"];
+            if ([obj isEqualToString:ispName]){
+                [ipsDics addObject:ispDic];
+                *stop = YES;
+            }
+        }];
+    }];
+    [ipsDics enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *displayName = dic[@"displayName"][@"zh_CN"];
+        NSString *mobile = dic[@"mobile"];
+        NSString *ISP = dic[@"ISP"];
+        MemberInfoModel *model =[[MemberInfoModel alloc]init];
+        model.mobile = mobile;
+        model.name = displayName;
+        model.ISP = ISP;
+        model.isSpecialist = YES;
+        [self.teamMemberArray insertObject:model atIndex:1];
+    }];
+}
+
 @end

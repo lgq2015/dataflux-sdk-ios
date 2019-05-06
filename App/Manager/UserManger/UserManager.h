@@ -39,6 +39,7 @@ SINGLETON_FOR_HEADER(UserManager)
 @property (nonatomic, strong) TeamInfoModel *teamModel;
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, strong) NSMutableArray *expertGroups;
+@property (nonatomic, strong) NSMutableArray *ISPs;
 @property (nonatomic, assign) BOOL isLogined;
 /**
  获取验证码
@@ -91,6 +92,10 @@ SINGLETON_FOR_HEADER(UserManager)
  获取情报源名称
  */
 - (void)getissueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+/**
+ 获取当前团队
+ */
+- (TeamInfoModel *)getTeamModel;
 /**
     获取team成员
  */
@@ -149,4 +154,12 @@ SINGLETON_FOR_HEADER(UserManager)
  获取活跃情报红点
  */
 - (NSDictionary *)getAuthTeamIssueCount;
+/**
+ 存储团队ISPs
+ */
+- (void)setTeamISPs:(NSArray *)ispsArray;
+/**
+ 获取团队ISPs
+ */
+- (NSArray *)getTeamISPs;
 @end
