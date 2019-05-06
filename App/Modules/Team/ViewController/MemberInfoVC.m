@@ -45,12 +45,7 @@
         make.width.height.offset(ZOOM_SCALE(110));
     }];
     //对成员名称的位置做处理
-    NSString  *titleName = @"";
-    if (self.model.isSpecialist){
-        titleName = self.model.name;
-    }else{
-        titleName = userManager.curUserInfo.name;
-    }
+    NSString  *titleName = self.model.name;
     CGFloat memberNameW = [self getMemberNameWidth:titleName withFont:MediumFONT(16)];
     CGFloat memberLabLeft = 0.0;
     //如果点击了管理员或专家
@@ -115,7 +110,7 @@
         case PWMemberViewTypeMe:{
             NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-            self.memberName.text = userManager.curUserInfo.name;
+            self.memberName.text = self.model.name;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
                  self.subTitleLab.text = @"管理员";
