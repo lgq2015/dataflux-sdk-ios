@@ -169,7 +169,7 @@
     }
 }
 - (void)dealloc{
-    DLog(@"zhangtao----%s",__func__);
+    DLog(@"%s",__func__);
     [self.ztsearchbar.tf resignFirstResponder];
 }
 @end

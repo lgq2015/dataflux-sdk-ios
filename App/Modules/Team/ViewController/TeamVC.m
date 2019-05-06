@@ -348,6 +348,17 @@
         [_rightNavButton setImage:[UIImage imageNamed:@"team_message"] forState:UIControlStateNormal];
         [_rightNavButton setFrame:CGRectMake(0, 0, 44, 44)];
         [_rightNavButton addTarget:self action:@selector(rightNavClick) forControlEvents:UIControlEventTouchUpInside];
+        UIView *redPoint = [[UIView alloc] init];
+        redPoint.backgroundColor = [UIColor redColor];
+        redPoint.bounds = CGRectMake(0, 0, 6, 6);
+        redPoint.tag  = 20;
+        redPoint.layer.cornerRadius = 3;
+        [_rightNavButton.imageView addSubview:redPoint];
+        [redPoint mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_rightNavButton.imageView.mas_top);
+            make.right.equalTo(_rightNavButton.imageView.mas_right);
+            make.width.height.offset(6);
+        }];
     }
     return _rightNavButton;
 }
@@ -401,6 +412,15 @@
 }
 #pragma mark ====常用按钮交互=====
 - (void)rightNavClick{
+    static int i = 0;
+    UIView *view = [self.rightNavButton viewWithTag:20];
+    if (i % 2 == 0){
+        view.hidden = YES;
+    }else{
+        view.hidden = NO;
+    }
+    i++;
+    return;
     ZYChangeTeamUIManager *manger = [ZYChangeTeamUIManager shareInstance];
     if (manger.isShowTeamView){
         [manger dismiss];
