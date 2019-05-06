@@ -98,6 +98,7 @@
 //    DLog(@"设备IMEI ：%@",[OpenUDID value]);
 //
     if([userManager loadUserInfo]){
+        [[PWSocketManager sharedPWSocketManager] forceRestart];
         //如果有本地数据，先展示TabBar 随后异步自动登录
         [self DetectNewVersion];
         self.mainTabBar = [MainTabBarController new];

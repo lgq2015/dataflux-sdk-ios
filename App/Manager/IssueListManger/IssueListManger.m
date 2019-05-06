@@ -55,9 +55,6 @@
 
     // issue source update
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
-                       dicOrModel:@{@"scanCheckInQueueTime": SQL_TEXT,
-                       }];
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
                        dicOrModel:@{@"isVirtual": SQL_INTEGER,
                        }];
 
@@ -69,6 +66,11 @@
             @"markStatus": SQL_TEXT,
             @"markTookOverInfoJSONStr": SQL_TEXT,
             @"markEndAccountInfoStr": SQL_TEXT,
+            @"endTime":SQL_TEXT,
+            @"readAtInfoStr":SQL_TEXT,
+    }];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
+            @"scanCheckEndTime":SQL_TEXT,
     }];
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
@@ -76,7 +78,6 @@
             @"lastIssueLogSeq": SQL_INTEGER,
             @"issueLogRead": SQL_INTEGER,
             @"seq": SQL_INTEGER,
-
     }];
 
     //issue log update
@@ -92,6 +93,8 @@
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
             @"dataCheckFlag": SQL_INTEGER,
+            @"atInfoJSONStr": SQL_TEXT,
+            @"atStatusStr": SQL_TEXT,
     }];
 
 
