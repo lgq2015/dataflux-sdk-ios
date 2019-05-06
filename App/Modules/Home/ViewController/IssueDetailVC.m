@@ -111,8 +111,8 @@
         make.top.mas_equalTo(icon);
         make.right.mas_equalTo(self.subContainerView).offset(-Interval(16));
     }];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(goExpertsVC)];
-    [suggestion addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(goExpertsVC)];
+//    [suggestion addGestureRecognizer:tap];
     TriangleLeft *triangle = [[TriangleLeft alloc]initWithFrame:CGRectZero];
     [self.subContainerView addSubview:triangle];
     [triangle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -282,7 +282,6 @@
             CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
             self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
         }
-
    }
 }
 #pragma mark ========== 请求一级情报源详情 获取情报源名称 ==========
