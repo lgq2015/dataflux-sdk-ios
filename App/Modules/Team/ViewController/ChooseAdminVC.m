@@ -107,7 +107,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-        NSString *idString = model.memberID;
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
         member.type = PWMemberViewTypeTrans;
@@ -119,8 +118,6 @@
             [self.tableView reloadData];
         };
         member.model = model;
-        member.memberID = idString;
-        member.noteName = model.inTeamNote;
         [self.navigationController pushViewController:member animated:YES];
     
 }

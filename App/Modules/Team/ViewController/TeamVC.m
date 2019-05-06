@@ -178,9 +178,7 @@
         }
     }
     member.model = model;
-    member.memberID = idString;
-    member.noteName = model.inTeamNote;
-     [self.navigationController pushViewController:member animated:YES];
+    [self.navigationController pushViewController:member animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

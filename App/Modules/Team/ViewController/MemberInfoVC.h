@@ -19,10 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MemberInfoVC : RootViewController
 @property (nonatomic, strong) MemberInfoModel *model;
-//成员ID
-@property (nonatomic, copy)NSString *memberID;
-//备注名称
-@property (nonatomic, copy)NSString *noteName;
 @property (nonatomic, assign) PWMemberViewType type;
 @property (nonatomic, copy) void(^teamMemberRefresh)(void);
 @property (nonatomic, copy) void(^memberBeizhuChangeBlock)(NSString *name);

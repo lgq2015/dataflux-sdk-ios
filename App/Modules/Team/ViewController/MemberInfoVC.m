@@ -201,8 +201,8 @@
         _beizhuBtn.userInteractionEnabled = YES;
         CGFloat spacing = 8.0;
         _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (_noteName.length > 0){
-            [_beizhuBtn setTitle:_noteName forState:UIControlStateNormal];
+        if (self.model.inTeamNote.length > 0){
+            [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
         }else{
             [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
@@ -320,8 +320,8 @@
 #pragma mark ======按钮交互======
 - (void)beizhuclick{
     EditBeizhuVC *vc = [[EditBeizhuVC alloc] init];
-    vc.memeberID = self.memberID;
-    vc.noteName = self.noteName;
+    vc.memeberID = self.model.memberID;
+    vc.noteName = self.model.inTeamNote;
     __weak typeof(self) weakSelf = self;
     vc.editTeamMemberNote = ^(NSString *noteName) {
         [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
