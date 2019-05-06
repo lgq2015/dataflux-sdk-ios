@@ -30,6 +30,13 @@
     }else{
         _teamName.text = model.name;
     }
+    //从本地获取teamModel，如果获取不到则从本地拉取
+    TeamInfoModel *infoModel = userManager.teamModel;
+    if (infoModel == nil){
+        YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
+        NSDictionary * teamDic = (NSDictionary *)[cacheteam objectForKey:KTeamModelCache];
+        userManager.teamModel  = [TeamInfoModel modelWithJSON:teamDic];
+    }
     //当前团队
     if ([userManager.teamModel.teamID isEqualToString:model.teamID]){
         _selectedImage.hidden = NO;

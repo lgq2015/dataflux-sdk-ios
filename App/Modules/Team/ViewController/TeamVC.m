@@ -420,7 +420,13 @@
         view.hidden = NO;
     }
     i++;
+    
+    
+    
     return;
+    
+    
+    
     ZYChangeTeamUIManager *manger = [ZYChangeTeamUIManager shareInstance];
     if (manger.isShowTeamView){
         [manger dismiss];
