@@ -540,17 +540,10 @@
 
     if(layout.message.messageFrom == PWChatMessageFromMe ){
         iconVC.type = PWMemberViewTypeMe;
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
     }else if(layout.message.messageFrom == PWChatMessageFromOther){
         iconVC.type = PWMemberViewTypeTeamMember;
-        [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
-            if (member) {
-                NSError *error;
-                MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
-                iconVC.model = model;
-            }else{
-                return;
-            }
-        }];
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
     }else if (layout.message.messageFrom == PWChatMessageFromStaff){
         iconVC.type = PWMemberViewTypeExpert;
         NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
@@ -563,7 +556,19 @@
     iconVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:iconVC animated:YES];
 }
-
+- (void)getMemberAndTransModelInfo:(IssueChatMessagelLayout *)layout vc:(MemberInfoVC *)iconVC{
+    [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
+        if (member) {
+            NSError *error;
+            MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
+            iconVC.model = model;
+            iconVC.memberID = model.memberID;
+            iconVC.noteName = model.inTeamNote;
+        }else{
+            return;
+        }
+    }];
+}
 #pragma mark ========== 发送消息 ==========
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];

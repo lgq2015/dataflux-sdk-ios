@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
-typedef void(^EditTeamMemberNote)(NSString *noteName);
+typedef void(^EditTeamMemberNote)(NSString * _Nullable noteName);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EditBeizhuVC : RootViewController

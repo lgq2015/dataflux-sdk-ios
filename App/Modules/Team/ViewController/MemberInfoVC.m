@@ -332,6 +332,10 @@
         // 文字左移
         CGSize titleSize = weakSelf.beizhuBtn.titleLabel.frame.size;
         weakSelf.beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        // 修改chooseAdminVC中显示的备注
+        if (weakSelf.memberBeizhuChangeBlock){
+            weakSelf.memberBeizhuChangeBlock(noteName);
+        }
     };
     [self.navigationController pushViewController:vc animated:YES];
 }

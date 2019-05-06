@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *noteName;
 @property (nonatomic, assign) PWMemberViewType type;
 @property (nonatomic, copy) void(^teamMemberRefresh)(void);
+@property (nonatomic, copy) void(^memberBeizhuChangeBlock)(NSString *name);
 @property (nonatomic, strong) NSDictionary *expertDict;
 @end
 

@@ -7,7 +7,6 @@
 //
 
 #import "ExpertsDetailVC.h"
-#import "MemberInfoVC.h"
 #import "IssueChatVC.h"
 #import "ExpertsSuggestVC.h"
 #import "IssueListViewModel.h"
