@@ -83,6 +83,7 @@
             [self.tableView reloadData];
         }
     }];
+    [self loadTeamMemberInfo];
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];
@@ -160,7 +161,6 @@
         return;
     }
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-    NSString *idString = model.memberID;
     NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;

@@ -285,11 +285,15 @@
         [SVProgressHUD show];
     }
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
+    [self requestChangeTeam:params isHaveMemberCache:isHaveMemberCache withModel:model];
+}
+
+#pragma mark ---团队切换请求-----
+- (void)requestChangeTeam:(NSDictionary *)params isHaveMemberCache:(BOOL)isHaveMemberCache withModel:(TeamInfoModel *)model{
     [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
             //存储最新token
-
             [[IssueChatDataManager sharedInstance] shutDown];
             [[IssueListManger sharedIssueListManger] shutDown];
             [[PWSocketManager sharedPWSocketManager] shutDown];
@@ -325,6 +329,6 @@
             [iToast alertWithTitleCenter:@"切换团队失败"];
         }
     }];
-    
 }
+
 @end

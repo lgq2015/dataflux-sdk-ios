@@ -20,11 +20,6 @@
 @property (nonatomic,strong) NSMutableArray * imageArr;
 @property (nonatomic, assign) SharePlatformType sharePlatformType;//!<分享功能区分
 @property (nonatomic, copy)ShareBlock shareBlock;
-//=================================================================
-@property (nonatomic,assign) BOOL isQQ;//!<QQ
-@property (nonatomic,assign) BOOL isWX;//!<微信
-@property (nonatomic,assign) BOOL isDing;//!<钉钉
-//=================================================================
 @end
 
 @implementation ZYSocialUIManager

@@ -145,13 +145,13 @@
     manager.showVC = weakself;
     switch (btnTag) {
         case WeChatBtnTag:
-            [manager shareToPlatform:WechatSession_PlatformType];
+            [manager shareToPlatform:WechatSession_PlatformType viewController:self];
             break;
         case QQBtnTag:
-            [manager shareToPlatform:QQ_PlatformType];
+            [manager shareToPlatform:QQ_PlatformType viewController:self];
             break;
         case DingBtnTag:
-            [manager shareToPlatform:Dingding_PlatformType];
+            [manager shareToPlatform:Dingding_PlatformType viewController:self];
             break;
         default:
             break;
