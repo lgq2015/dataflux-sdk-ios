@@ -23,7 +23,7 @@
     [super viewDidLoad];
     self.second = 5;
     [self createUI];
-    [self addTimer];
+//    [self addTimer];
 }
 - (void)addTimer{
     __weak typeof(self) weakSelf = self;
@@ -82,7 +82,8 @@
         make.left.right.mas_equalTo(contentView);
         make.centerX.mas_equalTo(contentView);
     }];
-    NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
+//    NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
+    NSString *str = @"我知道了";
     _confirm = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:str];
     _confirm.titleLabel.font = RegularFONT(18);
     [contentView addSubview:_confirm];
