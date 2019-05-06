@@ -262,7 +262,7 @@
                      lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus clearCache:(BOOL)clearCache {
     [[PWHttpEngine sharedInstance] getIssueList:ISSUE_LIST_PAGE_SIZE pageMarker:pageMaker callBack:^(id o) {
         IssueListModel *listModel = (IssueListModel *) o;
-        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
+//        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
         if (listModel.isSuccess) {
 
             [allDatas addObjectsFromArray:listModel.list];
@@ -860,7 +860,6 @@
 
 - (void)shutDown {
     [super shutDown];
-    [SVProgressHUD dismiss];
     _isFetching = NO;
 }
 

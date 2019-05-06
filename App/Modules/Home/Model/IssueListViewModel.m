@@ -108,7 +108,9 @@
     }else{
         self.isFromUser = NO;
     }
-    
+    if (model.latestIssueLogsStr) {
+        self.isHasChat = YES;
+    }
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     if(model.seq>0){
