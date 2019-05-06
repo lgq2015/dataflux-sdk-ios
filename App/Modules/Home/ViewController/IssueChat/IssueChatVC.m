@@ -542,9 +542,11 @@
     if(layout.message.messageFrom == PWChatMessageFromMe ){
         iconVC.type = PWMemberViewTypeMe;
         [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
     }else if(layout.message.messageFrom == PWChatMessageFromOther){
         iconVC.type = PWMemberViewTypeTeamMember;
         [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
     }else if (layout.message.messageFrom == PWChatMessageFromStaff){
         iconVC.type = PWMemberViewTypeExpert;
         NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
@@ -563,10 +565,6 @@
             NSError *error;
             MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
             iconVC.model = model;
-            iconVC.memberID = model.memberID;
-            iconVC.noteName = model.inTeamNote;
-        }else{
-            return;
         }
     }];
 }

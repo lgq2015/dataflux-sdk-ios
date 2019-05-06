@@ -45,12 +45,7 @@
         make.width.height.offset(ZOOM_SCALE(110));
     }];
     //对成员名称的位置做处理
-    NSString  *titleName = @"";
-    if (self.model.isSpecialist){
-        titleName = self.model.name;
-    }else{
-        titleName = userManager.curUserInfo.name;
-    }
+    NSString  *titleName = self.model.name;
     CGFloat memberNameW = [self getMemberNameWidth:titleName withFont:MediumFONT(16)];
     CGFloat memberLabLeft = 0.0;
     //如果点击了管理员或专家
@@ -85,6 +80,7 @@
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
                 self.subTitleLab.text = @"管理员";
+                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
              [self createBtnPhone];
         }
@@ -102,6 +98,7 @@
             [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
             self.subTitleLab.hidden = NO;
             self.subTitleLab.text = @"专家";
+            self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];
             [self createBtnExpert];
         }
             break;
@@ -115,10 +112,11 @@
         case PWMemberViewTypeMe:{
             NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-            self.memberName.text = userManager.curUserInfo.name;
+            self.memberName.text = self.model.name;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
-                 self.subTitleLab.text = @"管理员";
+                self.subTitleLab.text = @"管理员";
+                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
         }
             break;
@@ -187,7 +185,6 @@
         _subTitleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWWhiteColor text:@""];
         _subTitleLab.numberOfLines = 0;
         _subTitleLab.textAlignment = NSTextAlignmentCenter;
-        _subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
         _subTitleLab.layer.cornerRadius = 2;
         _subTitleLab.layer.masksToBounds = YES;
         _subTitleLab.hidden = YES;
@@ -201,8 +198,8 @@
         _beizhuBtn.userInteractionEnabled = YES;
         CGFloat spacing = 8.0;
         _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (_noteName.length > 0){
-            [_beizhuBtn setTitle:_noteName forState:UIControlStateNormal];
+        if (self.model.inTeamNote.length > 0){
+            [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
         }else{
             [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
@@ -320,8 +317,8 @@
 #pragma mark ======按钮交互======
 - (void)beizhuclick{
     EditBeizhuVC *vc = [[EditBeizhuVC alloc] init];
-    vc.memeberID = self.memberID;
-    vc.noteName = self.noteName;
+    vc.memeberID = self.model.memberID;
+    vc.noteName = self.model.inTeamNote;
     __weak typeof(self) weakSelf = self;
     vc.editTeamMemberNote = ^(NSString *noteName) {
         [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];

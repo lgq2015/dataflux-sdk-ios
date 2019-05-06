@@ -227,12 +227,12 @@ SINGLETON_FOR_CLASS(UserManager);
                 isSuccess? isSuccess(NO):nil;
                 [iToast alertWithTitleCenter:@"网络异常"];
             }
+            [self requestMemberList:NO complete:nil];
+            [self requestTeamIssueCount];
         });
         
     });
     [self loadExperGroups:nil];
-    [self requestMemberList:NO complete:nil];
-    [self requestTeamIssueCount];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {

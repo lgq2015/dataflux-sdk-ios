@@ -22,11 +22,17 @@ typedef enum : NSUInteger{
     System_PlatformType,
 }SharePlatformType;
 typedef void(^ShareBlock)(SharePlatformType sharePlatformType);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZYSocialUIManager : UIView
 - (void)showWithPlatformSelectionBlock:(ShareBlock)shareBlock;
 + (instancetype)shareInstance;
+//=================================================================
+@property (nonatomic,assign) BOOL isQQ;//!<QQ
+@property (nonatomic,assign) BOOL isWX;//!<微信
+@property (nonatomic,assign) BOOL isDing;//!<钉钉
+//=================================================================
 @end
 
 NS_ASSUME_NONNULL_END

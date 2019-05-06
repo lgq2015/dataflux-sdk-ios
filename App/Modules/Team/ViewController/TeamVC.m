@@ -83,6 +83,7 @@
             [self.tableView reloadData];
         }
     }];
+    [self loadTeamMemberInfo];
 }
 - (void)headerRefreshing{
     [self loadTeamProductData];
@@ -160,7 +161,6 @@
         return;
     }
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-    NSString *idString = model.memberID;
     NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;
@@ -178,9 +178,7 @@
         }
     }
     member.model = model;
-    member.memberID = idString;
-    member.noteName = model.inTeamNote;
-     [self.navigationController pushViewController:member animated:YES];
+    [self.navigationController pushViewController:member animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -264,12 +262,12 @@
 }
 #pragma mark ---ZTTeamVCTopCellDelegate---
 - (void)didClickTeamTopCell:(UITableViewCell *)cell withType:(TeamTopType)type{
-    if([getTeamState isEqualToString:PW_isPersonal]){
-        [self supplementMessage];
-        return;
-    }
     switch (type) {
         case inviteMemberType:{
+            if([getTeamState isEqualToString:PW_isPersonal]){
+                [self supplementMessage];
+                return;
+            }
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [self.navigationController pushViewController:invite animated:YES];
         }
@@ -280,6 +278,10 @@
         }
             break;
         case teamManagerType:{
+            if([getTeamState isEqualToString:PW_isPersonal]){
+                [self supplementMessage];
+                return;
+            }
             FillinTeamInforVC *fillVC = [[FillinTeamInforVC alloc]init];
             fillVC.changeSuccess = ^(){
                 [userManager addTeamSuccess:^(BOOL isSuccess) {
@@ -346,6 +348,17 @@
         [_rightNavButton setImage:[UIImage imageNamed:@"team_message"] forState:UIControlStateNormal];
         [_rightNavButton setFrame:CGRectMake(0, 0, 44, 44)];
         [_rightNavButton addTarget:self action:@selector(rightNavClick) forControlEvents:UIControlEventTouchUpInside];
+        UIView *redPoint = [[UIView alloc] init];
+        redPoint.backgroundColor = [UIColor redColor];
+        redPoint.bounds = CGRectMake(0, 0, 6, 6);
+        redPoint.tag  = 20;
+        redPoint.layer.cornerRadius = 3;
+        [_rightNavButton.imageView addSubview:redPoint];
+        [redPoint mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_rightNavButton.imageView.mas_top);
+            make.right.equalTo(_rightNavButton.imageView.mas_right);
+            make.width.height.offset(6);
+        }];
     }
     return _rightNavButton;
 }
@@ -411,6 +424,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
+    [self requestTeamSystemUnreadCount];
 }
 //点击切换团队阴影
 - (void)clickTeamChangeViewBlackBG{
@@ -470,12 +484,7 @@
     UIView *view = [[UIView alloc] init];
     //团队名称
     UILabel *teamLab = [[UILabel alloc] init];
-    NSString *titleString = @"";
-    if([getTeamState isEqualToString:PW_isTeam]){
-        titleString = userManager.teamModel.name;
-    }else{
-        titleString = @"我的团队";
-    }
+    NSString *titleString = @"团队成员";
     teamLab.text = titleString;
     teamLab.font = RegularFONT(16);
     teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
@@ -551,5 +560,20 @@
     if (version.doubleValue <= 11.0) {
         _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:YES];
     }
+}
+#pragma mark --请求---
+- (void)requestTeamSystemUnreadCount{
+    NSDictionary *params = @{@"ownership":@"team"};
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            NSInteger unread = [content longValueForKey:@"unread" default:0];
+            UIView *view = [self.rightNavButton viewWithTag:20];
+            view.hidden = unread > 0 ? NO:YES;
+        }
+    } failBlock:^(NSError *error) {
+        UIView *view = [self.rightNavButton viewWithTag:20];
+        view.hidden = YES;
+    }];
 }
 @end

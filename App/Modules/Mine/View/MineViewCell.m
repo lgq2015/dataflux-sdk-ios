@@ -288,7 +288,7 @@
                     make.width.offset(20);
                 }];
                 self.describeLab.text = text;
-            }else if([text integerValue]<99){
+            }else if([text integerValue]<100){
                 [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
                     make.centerY.mas_equalTo(self.titleLab);

@@ -161,7 +161,7 @@
         ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:descr thumImage:[UIImage imageNamed:@"144-144"]];
         manager.webpageUrl = url;
         manager.showVC = weakself;
-        [manager shareToPlatform:sharePlatformType];
+        [manager shareToPlatform:sharePlatformType viewController:self];
     }];
 }
 #pragma mark --避免按钮点击多次----

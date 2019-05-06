@@ -66,7 +66,16 @@
         type = @"服务";
     }else if([_model.messageType isEqualToString:@"service"]){
         color = RGBACOLOR(85, 220, 117, 1);
-        type = @"服务";
+        type = @"权益";
+    }else if([_model.messageType isEqualToString:@"system"]){
+        color = [UIColor colorWithHexString:@"#49DADD"];
+        type = @"系统";
+    }else if([_model.messageType isEqualToString:@"member"]){
+        color = [UIColor colorWithHexString:@"#26DBAC"];
+        type = @"成员";
+    }else if([_model.messageType isEqualToString:@"role"]){
+        color = [UIColor colorWithHexString:@"#936AF2"];
+        type = @"角色";
     }else{
         color = RGBACOLOR(85, 220, 117, 1);
         type = @"服务";
@@ -79,7 +88,7 @@
 }
 - (RightTriangleView *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-8, 0, 8, 8)];
+        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-12, 0, 12, 12)];
         [self addSubview:_triangleView];
     }
     return _triangleView;

@@ -8,6 +8,7 @@
 
 #import "EditBeizhuVC.h"
 #import "UITextField+HLLHelper.h"
+#import <IQKeyboardManager.h>
 
 @interface EditBeizhuVC ()
 @property (nonatomic, strong)UIButton *leftNavBtn;
@@ -17,7 +18,15 @@
 @end
 
 @implementation EditBeizhuVC
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.beizhuTF.text = self.noteName;
@@ -45,7 +54,7 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BOOL content = [response[@"content"] boolValue];
             if (content){
-                [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+                [SVProgressHUD showSuccessWithStatus:@"标签添加成功"];
                 if (_editTeamMemberNote){
                     _editTeamMemberNote(inTeamNote);
                 }

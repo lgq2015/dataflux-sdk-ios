@@ -14,7 +14,7 @@
 @property (nonatomic, strong)NSString *title;
 @property (nonatomic, strong)NSString *descr;
 @property (nonatomic, strong)UIImage *thumImage;
-
+@property (nonatomic, strong)UIViewController *vc;
 @end
 @implementation ZYSocialManager
 - (instancetype)initWithTitle:(NSString *)title descr:(NSString *)descr thumImage:(UIImage *)thumImage{
@@ -30,7 +30,12 @@
     return self;
 }
 - (void)shareToPlatform:(SharePlatformType)type{
+    ZYSocialUIManager *manger = [ZYSocialUIManager shareInstance];
     if (type == WechatSession_PlatformType || type ==  WechatTimeLine_PlatformType){
+        if (!manger.isWX){
+            [self showAlter:@"尚未安装微信"];
+            return;
+        }
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = _title;//标题
         message.description = _descr;//描述
@@ -44,11 +49,15 @@
         sendReq.scene = (type == WechatSession_PlatformType ? WXSceneSession : WXSceneTimeline);
         [WXApi sendReq:sendReq];//发送对象实例
     }else if (type == QQ_PlatformType || type == Qzone_PlatformType){
+        if (!manger.isQQ){
+            [self showAlter:@"尚未安装QQ"];
+            return;
+        }
         QQApiNewsObject *msgContentObj =
         [QQApiNewsObject objectWithURL:[NSURL URLWithString:_webpageUrl]
                                  title:_title
                            description:_descr
-                      previewImageData:UIImageJPEGRepresentation(_thumImage,1.0f)];        
+                      previewImageData:UIImageJPEGRepresentation(_thumImage,1.0f)];
         SendMessageToQQReq *req = [SendMessageToQQReq
                                    reqWithContent:msgContentObj];
         if (type == QQ_PlatformType){
@@ -57,6 +66,10 @@
             [QQApiInterface SendReqToQZone:req];
         }
     }else if (type == Dingding_PlatformType){
+        if (!manger.isDing){
+            [self showAlter:@"尚未安装钉钉"];
+            return;
+        }
         DTSendMessageToDingTalkReq *sendMessageReq = [[DTSendMessageToDingTalkReq alloc] init];
         DTMediaMessage *mediaMessage = [[DTMediaMessage alloc] init];
         DTMediaWebObject *webObject = [[DTMediaWebObject alloc] init];
@@ -77,6 +90,19 @@
                                                 applicationActivities:nil];
         [self.showVC presentViewController:activityVC animated:YES completion:nil];
     }
-    
+}
+
+- (void)shareToPlatform:(SharePlatformType)type viewController:(UIViewController *)vc{
+    _vc = vc;
+    [self shareToPlatform:type];
+}
+
+- (void)showAlter:(NSString *)title{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:confirm];
+    [_vc presentViewController:alert animated:YES completion:nil];
 }
 @end

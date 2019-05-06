@@ -15,6 +15,10 @@
 #import "ChooseAdminVC.h"
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
+#import "IssueListManger.h"
+#import "IssueChatDataManager.h"
+#import "PWSocketManager.h"
+#import "IssueSourceManger.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -45,7 +49,7 @@
 - (void)judgeVcType{
     self.mConfige = [[ZTCreateTeamConfig alloc] init];
     [self.mConfige createTeamConfige];
-    if([getTeamState isEqualToString:PW_isTeam]){
+    if(_dowhat == newCreateTeam){
         self.title = self.mConfige.title;
     }else{
         self.title = @"补充团队信息";
@@ -182,24 +186,20 @@
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_AddTeam withRequestType:NetworkPostType refreshRequest:NO cache:NO params:createTMDic progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
+            setTeamState(PW_isTeam);
             //如果是个人升级
             if (_dowhat == supplementTeamInfo){
-                setTeamState(PW_isTeam);
                 //获取之前的teammodel，修改team名称
                 TeamInfoModel *model = userManager.teamModel;
                 model.name = name;
                 userManager.teamModel = model;
+                [self otherDealAfterNetwork];
+            }else{//如果是创建新团队,触发切换操作
+                NSDictionary *content = response[@"content"];
+                NSString *teamID = content[@"id"];
+                [self requestChangeTeam:teamID];
             }
-            KPostNotification(KNotificationTeamStatusChange, @YES);
-            [userManager requestMemberList:NO complete:nil];
-            [userManager requestTeamIssueCount];
-            CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
-            create.groupName = self.tfAry[0].text;
-            create.isSupplement = _dowhat == newCreateTeam ? NO:YES;
-            create.btnClick =^(){
-                [self.navigationController popViewControllerAnimated:NO];
-            };
-            [self presentViewController:create animated:YES completion:nil];
+            
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
                 [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -302,6 +302,34 @@
 }
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
     return NO;
+}
+#pragma mark ---切换团队--
+- (void)requestChangeTeam:(NSString *)teamID{
+    NSDictionary *params = @{@"data":@{@"teamId":teamID}};
+    [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSString *token = response[@"content"][@"authAccessToken"];
+            [[IssueChatDataManager sharedInstance] shutDown];
+            [[IssueListManger sharedIssueListManger] shutDown];
+            [[PWSocketManager sharedPWSocketManager] shutDown];
+            [[IssueSourceManger sharedIssueSourceManger] logout];
+            setXAuthToken(token);
+            [self otherDealAfterNetwork];
+        }
+    } failBlock:^(NSError *error) {
+    }];
+}
+- (void)otherDealAfterNetwork{
+    KPostNotification(KNotificationTeamStatusChange, @YES);
+    [userManager requestMemberList:NO complete:nil];
+    [userManager requestTeamIssueCount];
+    CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
+    create.groupName = self.tfAry[0].text;
+    create.isSupplement = _dowhat == newCreateTeam ? NO:YES;
+    create.btnClick =^(){
+        [self.navigationController popViewControllerAnimated:NO];
+    };
+    [self presentViewController:create animated:YES completion:nil];
 }
 
 @end
