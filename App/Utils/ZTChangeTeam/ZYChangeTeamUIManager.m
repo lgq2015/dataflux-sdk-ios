@@ -254,6 +254,7 @@
 }
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
+    [SVProgressHUD show];
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
     [self requestChangeTeam:params isHaveMemberCache:YES withModel:model];
 }
@@ -288,11 +289,10 @@
         [userManager requestMemberList:nil];
         //重新发送团队列表红点请求
         [userManager requestTeamIssueCount:nil];
+        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
-        if (isHaveMemberCache == NO){
-            [SVProgressHUD dismiss];
-            [iToast alertWithTitleCenter:@"切换团队失败"];
-        }
+        [iToast alertWithTitleCenter:@"切换团队失败"];
+        [SVProgressHUD dismiss];
     }];
 }
 //请求团队列表和团队情报数

@@ -409,6 +409,8 @@
             }];
         }
     }];
+    //请求团队未读消息
+    [self requestTeamSystemUnreadCount];
 }
 //修改备注
 - (void)editTeamNote:(NSNotification *)notification{
