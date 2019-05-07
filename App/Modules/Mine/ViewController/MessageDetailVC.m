@@ -47,21 +47,30 @@
     }];
     UIColor *color;
     NSString *type;
-    if ([self.model.messageType isEqualToString:@"team"]) {
+    if ([_model.messageType isEqualToString:@"team"]) {
         color = [UIColor colorWithHexString:@"#2EB5F3"];
         type = @"团队";
-    }else if([self.model.messageType isEqualToString:@"account"]){
-        color = [UIColor colorWithHexString:@"#936AF2"];
+    }else if([_model.messageType isEqualToString:@"account"]){
+        color = [UIColor colorWithHexString:@"#FFCF27"];
         type = @"账号";
-    }else if([self.model.messageType isEqualToString:@"issue_source"]){
+    }else if([_model.messageType isEqualToString:@"issue_source"]){
         color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"情报源";
+        type = @"云服务";
     }else if([_model.messageType isEqualToString:@"service_package"]){
-        color = RGBACOLOR(85, 220, 117, 1);
+        color = [UIColor colorWithHexString:@"#3B85F8"];
         type = @"服务";
     }else if([_model.messageType isEqualToString:@"service"]){
-        color = RGBACOLOR(85, 220, 117, 1);
-        type = @"服务";
+        color = [UIColor colorWithHexString:@"#FFA46B"];
+        type = @"权益";
+    }else if([_model.messageType isEqualToString:@"system"]){
+        color = [UIColor colorWithHexString:@"#49DADD"];
+        type = @"系统";
+    }else if([_model.messageType isEqualToString:@"member"]){
+        color = [UIColor colorWithHexString:@"#26DBAC"];
+        type = @"成员";
+    }else if([_model.messageType isEqualToString:@"role"]){
+        color = [UIColor colorWithHexString:@"#936AF2"];
+        type = @"角色";
     }else{
         color = RGBACOLOR(85, 220, 117, 1);
         type = @"服务";
