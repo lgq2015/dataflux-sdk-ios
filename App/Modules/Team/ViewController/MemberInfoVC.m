@@ -321,7 +321,12 @@
     vc.noteName = self.model.inTeamNote;
     __weak typeof(self) weakSelf = self;
     vc.editTeamMemberNote = ^(NSString *noteName) {
-        [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+        if (noteName.length == 0){
+            [weakSelf.beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+        }else{
+            [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+        }
+        weakSelf.model.inTeamNote = noteName;
         CGFloat spacing = 8.0;
         // 图片右移
         CGSize imageSize = weakSelf.beizhuBtn.imageView.frame.size;
