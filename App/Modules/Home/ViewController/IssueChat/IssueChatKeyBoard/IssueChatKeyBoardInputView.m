@@ -8,6 +8,13 @@
 
 #import "IssueChatKeyBoardInputView.h"
 #import "IssueChatKeyBordView.h"
+#import "AtTeamMemberListVC.h"
+#import "RootNavigationController.h"
+#import "MemberInfoModel.h"
+@interface IssueChatKeyBoardInputView()
+@property (nonatomic, strong) NSMutableArray *choseMember;
+@property (nonatomic, strong) NSMutableArray *rangeArray;
+@end
 @implementation IssueChatKeyBoardInputView
 
 -(instancetype)init{
@@ -214,7 +221,12 @@
     }
     
 }
-
+-(NSMutableArray *)rangeArray{
+    if (!_rangeArray) {
+        _rangeArray = [NSMutableArray new];
+    }
+    return _rangeArray;
+}
 //设置所有控件新的尺寸位置
 -(void)setNewSizeWithBootm:(CGFloat)height{
     [self setNewSizeWithController];
@@ -259,15 +271,83 @@
 
 //拦截发送按钮
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
+    __block BOOL isAt = NO;
+    if ([text isEqualToString:@""]) {
+       
+        [[self.rangeArray copy] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSArray *rangeAry =[self rangeOfSubString:obj inString:self.textString];
+            [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               NSRange strrange = [obj rangeValue];
+          if(strrange.location<range.location&&range.location<=(strrange.location+strrange.length)) {
+                NSMutableString *str = [NSMutableString stringWithString:self.textString];
+                [str deleteCharactersInRange:strrange];
+                self.mTextView.text = str;
+                self.textString = str;
+                DLog(@"self.mTextView.text ==%@;",self.mTextView.text)
+                isAt = YES;
+                [self.rangeArray removeObjectAtIndex:idx];
+                *stop = YES;
+                }
+            }];
+            if(isAt){
+                *stop = YES;
+            }
+        }];
+        if (isAt) {
+            return NO;
+        }
+    }
     if ([text isEqualToString:@"\n"]) {
         [self startSendMessage];
         return NO;
     }
-    
+    if([text isEqualToString:@"@"]){
+        WeakSelf
+        AtTeamMemberListVC *setVC = [[AtTeamMemberListVC alloc] init];
+        setVC.chooseMembers = ^(NSArray *chooseArr){
+            [weakSelf dealAtMessageWithArray:chooseArr];
+        };
+        RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:setVC];
+        [[self viewController] presentViewController:nav animated:YES completion:nil];
+    }
+    //删除
+  
     return YES;
 }
+- (void)dealAtMessageWithArray:(NSArray *)array{
+    NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
 
+    if(array.count == 0){
+        [addStr appendString:@"@"];
+        self.mTextView.text = addStr;
+        return;
+    }
+    [array enumerateObjectsUsingBlock:^(MemberInfoModel *newObj, NSUInteger idx, BOOL * _Nonnull stop) {
+      __block  BOOL isNew = YES;
+        if (self.choseMember.count == 0) {
+            [self.choseMember addObjectsFromArray:array];
+        }else{
+        [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.memberID isEqualToString:newObj.memberID]) {
+                isNew = NO;
+                *stop = YES;
+            }
+        }];
+        if(isNew){
+            [self.choseMember addObject:newObj];
+        }
+        }
+//        [NSString stringWithFormat:@"@%@",newObj.name];
+        [self.rangeArray addObject:[NSString stringWithFormat:@"@%@ ",newObj.name]];
+        [addStr appendFormat:@"@%@ ",newObj.name];
+        
+    }];
+    
+   
+    self.mTextView.text =addStr;
+    [self textViewDidChange:self.mTextView];
+    [self.mTextView becomeFirstResponder];
+}
 //开始发送消息
 -(void)startSendMessage{
     NSString *message = [_mTextView.attributedText string];
@@ -331,9 +411,29 @@
         }
     }
 }
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 
-
-
+- (NSArray*)rangeOfSubString:(NSString*)subStr inString:(NSString*)string {
+   NSMutableArray *rangeArray = [NSMutableArray array];
+   NSString *string1 = [string stringByAppendingString:subStr];
+   NSString *temp;
+    for(int i =0; i < string.length; i ++) {
+         temp = [string1 substringWithRange:NSMakeRange(i, subStr.length)];
+        if ([temp isEqualToString:subStr]) {
+            NSRange range = {i,subStr.length};
+            [rangeArray addObject: [NSValue valueWithRange:range]];
+        }
+    }
+     return rangeArray;
+}
 
 
 
