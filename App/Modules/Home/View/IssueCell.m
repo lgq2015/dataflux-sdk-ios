@@ -39,7 +39,7 @@
 }
 
 -(void)layoutSubviews{
-
+    [self createUI];
 }
 
 - (void)createUI{
@@ -95,8 +95,8 @@
     }];
     UILabel *callMeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#FE563E"] text:@"[有人@我]"];
     callMeLab.tag = 32;
-    [[self.contentView viewWithTag:32] removeFromSuperview];
-    [self.contentView addSubview:callMeLab];
+    [[self viewWithTag:32] removeFromSuperview];
+    [self addSubview:callMeLab];
     if (self.model.isCallME) {
         [callMeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             if (!self.model.isHasChat) {
@@ -116,8 +116,8 @@
     sublab.font = RegularFONT(12);
     sublab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
     sublab.tag = 22;
-    [[self.contentView viewWithTag:22] removeFromSuperview];
-    [self.contentView addSubview:sublab];
+    [[self viewWithTag:22] removeFromSuperview];
+    [self addSubview:sublab];
     [sublab mas_makeConstraints:^(MASConstraintMaker *make) {
         if (self.model.isCallME) {
             make.left.mas_equalTo(callMeLab).offset(ZOOM_SCALE(60));
@@ -186,14 +186,13 @@
     self.chatIcon.hidden = !self.model.isHasChat;
     self.readDot.hidden = self.model.issueLogRead;
    
-     [self createUI];
 }
 
 -(UIView *)serviceDot{
     if (!_serviceDot) {
         _serviceDot = [[UIView alloc]init];
         _serviceDot.layer.cornerRadius = 4.0f;
-        [self.contentView addSubview:_serviceDot];
+        [self addSubview:_serviceDot];
     }
     return _serviceDot;
 }
@@ -201,7 +200,7 @@
     if (!_chatIcon) {
         _chatIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"issueList_chat"]];
         _chatIcon.frame = CGRectMake(0, 0, ZOOM_SCALE(12), ZOOM_SCALE(12));
-        [self.contentView addSubview:_chatIcon];
+        [self addSubview:_chatIcon];
     }
     return _chatIcon;
 }
@@ -210,7 +209,7 @@
         _readDot = [[UIView alloc]init];
         _readDot.layer.cornerRadius = 3.0f;
         _readDot.backgroundColor = [UIColor redColor];
-        [self.contentView addSubview:_readDot];
+        [self addSubview:_readDot];
     }
     return _readDot;
 }
@@ -218,7 +217,7 @@
     if (!_serviceLab) {
         _serviceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:@""];
         _serviceLab.textAlignment = NSTextAlignmentRight;
-        [self.contentView addSubview:_serviceLab];
+        [self addSubview:_serviceLab];
     }
     return _serviceLab;
 }
@@ -226,7 +225,7 @@
     if (!_triangleView) {
         _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-40, 0, 8, 8)];
         
-        [self.contentView addSubview:_triangleView];
+        [self addSubview:_triangleView];
     }
     return _triangleView;
 }
@@ -235,7 +234,7 @@
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _timeLab.font = RegularFONT(14);
         _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
-        [self.contentView addSubview:_timeLab];
+        [self addSubview:_timeLab];
     }
     return _timeLab;
 }
@@ -246,7 +245,7 @@
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.textColor = [UIColor colorWithRed:36/255.0 green:41/255.0 blue:44/255.0 alpha:1/1.0];
         _titleLab.numberOfLines = 0;
-        [self.contentView addSubview:_titleLab];
+        [self addSubview:_titleLab];
     }
     return _titleLab;
 }
@@ -256,7 +255,7 @@
         _warningLab.font = RegularFONT(20);
         _warningLab.textAlignment = NSTextAlignmentRight;
         _warningLab.textColor = PWBlueColor;
-        [self.contentView addSubview:_warningLab];
+        [self addSubview:_warningLab];
     }
     return _warningLab;
 }
@@ -264,14 +263,14 @@
 -(UIImageView *)sourceIcon{
     if (!_sourceIcon) {
         _sourceIcon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(20), Interval(14), ZOOM_SCALE(29), ZOOM_SCALE(20))];
-        [self.contentView addSubview:_sourceIcon];
+        [self addSubview:_sourceIcon];
     }
     return _sourceIcon;
 }
 -(UILabel *)sourcenNameLab{
     if (!_sourcenNameLab) {
         _sourcenNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@""];
-        [self.contentView addSubview:_sourcenNameLab];
+        [self addSubview:_sourcenNameLab];
     }
     return _sourcenNameLab;
 }
@@ -283,7 +282,7 @@
         _stateLab.textAlignment = NSTextAlignmentCenter;
         _stateLab.layer.cornerRadius = 4.0f;
         _stateLab.layer.masksToBounds = YES;
-        [self.contentView addSubview:_stateLab];
+        [self addSubview:_stateLab];
     }
     return _stateLab;
 }
@@ -291,7 +290,7 @@
    
     [self setModel:model];
     [self layoutIfNeeded];
-    CGFloat cellHeight = [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
+    CGFloat cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
     
     return cellHeight;
 }

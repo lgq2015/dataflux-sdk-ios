@@ -40,7 +40,7 @@
     [nameLab sizeToFit];
     _nameLabRect = nameLab.bounds;
     CGFloat nameWidth  = _nameLabRect.size.width;
-
+    
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
     mTextView.font = RegularFONT(17);

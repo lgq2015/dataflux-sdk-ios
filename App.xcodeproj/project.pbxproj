@@ -308,6 +308,9 @@
 		4A3A137022806CFD00098DFA /* ReadUnreadListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */; };
 		4A3A137122806CFE00098DFA /* ReadUnreadListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */; };
 		4A3A137222806CFE00098DFA /* ReadUnreadListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */; };
+		4A3A13752281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
+		4A3A13762281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
+		4A3A13772281290500098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
 		4A402302225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
 		4A402303225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
 		4A402304225F29CC00783079 /* IssueSourceSubTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A402301225F29CC00783079 /* IssueSourceSubTipView.m */; };
@@ -1317,6 +1320,8 @@
 		4A3A1369228060B100098DFA /* AtListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtListVC.m; sourceTree = "<group>"; };
 		4A3A136E22806CFD00098DFA /* ReadUnreadListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadUnreadListVC.h; sourceTree = "<group>"; };
 		4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadUnreadListVC.m; sourceTree = "<group>"; };
+		4A3A13732281290400098DFA /* AtTeamMemberListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtTeamMemberListVC.h; sourceTree = "<group>"; };
+		4A3A13742281290400098DFA /* AtTeamMemberListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtTeamMemberListVC.m; sourceTree = "<group>"; };
 		4A402300225F29CC00783079 /* IssueSourceSubTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSourceSubTipView.h; sourceTree = "<group>"; };
 		4A402301225F29CC00783079 /* IssueSourceSubTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSourceSubTipView.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
@@ -2181,6 +2186,8 @@
 				4A3A1369228060B100098DFA /* AtListVC.m */,
 				4A3A136E22806CFD00098DFA /* ReadUnreadListVC.h */,
 				4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */,
+				4A3A13732281290400098DFA /* AtTeamMemberListVC.h */,
+				4A3A13742281290400098DFA /* AtTeamMemberListVC.m */,
 			);
 			path = AtChatView;
 			sourceTree = "<group>";
@@ -3952,6 +3959,7 @@
 				4AB48AAD221145D8009F9E94 /* PWWeakProxy.m in Sources */,
 				4ABF43B521B8BACE002AF34E /* LibraryDraggableItem.m in Sources */,
 				4A092D28222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
+				4A3A13752281290400098DFA /* AtTeamMemberListVC.m in Sources */,
 				4A3A137022806CFD00098DFA /* ReadUnreadListVC.m in Sources */,
 				4A759AB6224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
@@ -4275,6 +4283,7 @@
 				4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */,
+				4A3A13762281290400098DFA /* AtTeamMemberListVC.m in Sources */,
 				4A3A137122806CFE00098DFA /* ReadUnreadListVC.m in Sources */,
 				4AC857142232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
@@ -4598,6 +4607,7 @@
 				4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
 				CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */,
+				4A3A13772281290500098DFA /* AtTeamMemberListVC.m in Sources */,
 				4A3A137222806CFE00098DFA /* ReadUnreadListVC.m in Sources */,
 				4AC857152232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
