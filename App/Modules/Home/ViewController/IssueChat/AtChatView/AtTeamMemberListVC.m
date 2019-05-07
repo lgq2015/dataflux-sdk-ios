@@ -44,6 +44,8 @@
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:TeamMemberCell.class forCellReuseIdentifier:@"TeamMemberCell"];
     SCIndexViewConfiguration *configuration = [SCIndexViewConfiguration configurationWithIndexViewStyle:SCIndexViewStyleCenterToast];
+    configuration.indexItemSelectedBackgroundColor = PWClearColor;
+    configuration.indexItemSelectedTextColor = PWTextColor;
     self.tableView.sc_indexViewConfiguration = configuration;
     self.tableView.sc_translucentForTableViewInNavigationBar = NO;
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {

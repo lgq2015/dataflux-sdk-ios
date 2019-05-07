@@ -274,7 +274,7 @@
     __block BOOL isAt = NO;
     if ([text isEqualToString:@""]) {
        
-        [[self.rangeArray copy] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[self.rangeArray copy] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx1, BOOL * _Nonnull stop) {
             NSArray *rangeAry =[self rangeOfSubString:obj inString:self.textString];
             [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                NSRange strrange = [obj rangeValue];
@@ -285,7 +285,7 @@
                 self.textString = str;
                 DLog(@"self.mTextView.text ==%@;",self.mTextView.text)
                 isAt = YES;
-                [self.rangeArray removeObjectAtIndex:idx];
+                [self.rangeArray removeObjectAtIndex:idx1];
                 *stop = YES;
                 }
             }];
