@@ -62,8 +62,9 @@
     }];
     
     self.adminLab.hidden = _model.isAdmin || _model.isSpecialist?NO:YES;
-    [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [self.beizhuLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    //UILayoutPriorityDefaultLow
+    [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.beizhuLab setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
 }
 -(UILabel *)adminLab{
     if (!_adminLab) {
