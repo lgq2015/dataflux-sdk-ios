@@ -12,6 +12,7 @@
 #import "ServiceDetailVC+ChangeNavColor.h"
 #import "ZYPayWayUIManager.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "ZTCreateTeamVC.h"
 @interface ServiceDetailVC ()<UIScrollViewDelegate>
 
 @end
@@ -42,8 +43,14 @@
     }
 }
 - (void)eventTeamCreate:(NSDictionary *)extra{
-    FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-    [self.navigationController pushViewController:createTeam animated:YES];
+    if([getTeamState isEqualToString:PW_isPersonal]){
+        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+        vc.dowhat = supplementTeamInfo;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+        [self.navigationController pushViewController:createTeam animated:YES];
+    }
 }
 -(void)eventBookSuccess:(NSDictionary *)extra{
 //    [[ZYPayWayUIManager shareInstance] showWithPayWaySelectionBlock:^(SelectPayWayType selectPayWayType) {
