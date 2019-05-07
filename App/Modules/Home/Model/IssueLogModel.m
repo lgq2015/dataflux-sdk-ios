@@ -32,12 +32,14 @@
     NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJSON");
     NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
     NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
-
+    NSDictionary *atStatus = PWSafeDictionaryVal(dict, @"atStatus");
+    NSDictionary *atInfoJSON = PWSafeDictionaryVal(dict, @"atInfoJSON");
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";
     self.externalDownloadURLStr = externalDownloadURL ? [externalDownloadURL jsonPrettyStringEncoded] : @"";
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
-
+    self.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
+    self.atInfoJSONStr = atInfoJSON ?[atInfoJSON jsonStringEncoded]:@"";
 }
 
 -(NSString *)createLastIssueLogJsonString{

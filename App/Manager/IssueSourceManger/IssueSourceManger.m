@@ -92,13 +92,13 @@
     __block NSString *statement = @"";
 
     [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = @"ORDER BY scanCheckInQueueTime DESC";
-        NSDictionary *dict = @{@"scanCheckInQueueTime": SQL_TEXT};
+        NSString *whereFormat = @"ORDER BY scanCheckEndTime DESC";
+        NSDictionary *dict = @{@"scanCheckEndTime": SQL_TEXT};
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
         if (array.count == 0) {
             statement = @"尚未进行检测";
         } else {
-            NSString *time = [array[0] stringValueForKey:@"scanCheckInQueueTime" default:@""];
+            NSString *time = [array[0] stringValueForKey:@"scanCheckEndTime" default:@""];
             if (time.length > 0) {
                BOOL ishas= [[IssueListManger sharedIssueListManger] checkIssueEngineIsHasIssue];
                 NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

@@ -140,8 +140,8 @@
         titleL += [obj CGRectValue].size.width;
     }];
     titleL += (self.segmentStyle.leftExtraBtnFrames.count-1)*6;
-    titleW = ZOOM_SCALE(48);
-    
+    if (self.segmentStyle.titleMargin>0) {
+      titleW = ZOOM_SCALE(48);
     NSInteger index = 0;
     for (PWCustomLabel *label in self.titleLabels) {
         
@@ -149,6 +149,21 @@
         label.frame = CGRectMake(titleX, titleY, titleW, titleH);
         index++;
         
+    }
+        
+    }else{
+        titleW = _currentWidth / self.titles.count;
+        titleY = 0;
+        titleH = self.segmentStyle.segmentHeight-2;
+        NSInteger index = 0;
+        for (PWCustomLabel *label in self.titleLabels) {
+            
+            titleX = index * titleW;
+            
+            label.frame = CGRectMake(titleX, titleY, titleW, titleH);
+            index++;
+            
+        }
     }
     PWCustomLabel *firstLabel = (PWCustomLabel *)self.titleLabels[0];
     

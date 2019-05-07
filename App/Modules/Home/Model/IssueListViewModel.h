@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, assign) BOOL issueLogRead;
 @property (nonatomic, assign) BOOL isFromUser;
 @property (nonatomic, assign) BOOL isHasChat;
+@property (nonatomic, assign) BOOL isCallME;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString * ticketStatus;

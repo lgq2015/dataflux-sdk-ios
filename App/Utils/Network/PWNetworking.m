@@ -41,7 +41,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     manager.requestSerializer.timeoutInterval = requestTimeout;
-    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
+//    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
     NSDictionary *header = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
     for (NSString *key in header.allKeys) {
         if (header[key] != nil) {

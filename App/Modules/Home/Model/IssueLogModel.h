@@ -23,7 +23,8 @@
 @property (nonatomic, strong) NSString* metaJsonStr;
 @property (nonatomic, strong) NSString* externalDownloadURLStr;
 @property (nonatomic, strong) NSString* accountInfoStr;
-
+@property (nonatomic, strong) NSString *atInfoJSONStr;
+@property (nonatomic, strong) NSString *atStatusStr;
 //自发 issueLog
 @property (nonatomic, strong) NSData *imageData;  //图片
 @property (nonatomic, strong) NSString *imageName; //图片名字

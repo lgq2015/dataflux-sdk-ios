@@ -27,6 +27,7 @@
     self.issueId = [dict stringValueForKey:@"id" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.createTime = [dict stringValueForKey:@"createTime" default:@""];
+    self.endTime = [dict stringValueForKey:@"endTime" default:@""];
     self.localUpdateTime = self.createTime;
     self.status = [dict stringValueForKey:@"status" default:@""];
     self.actSeq = [dict longValueForKey:@"actSeq" default:0];
@@ -43,6 +44,10 @@
     NSDictionary *tags = PWSafeDictionaryVal(dict, @"tags");
     if (tags) {
         self.tagsStr = [tags jsonStringEncoded];
+    }
+    NSDictionary *readAtInfo = PWSafeDictionaryVal(dict, @"readAtInfo");
+    if (readAtInfo) {
+        self.readAtInfoStr = [readAtInfo jsonStringEncoded];
     }
     NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered ? [rendered jsonPrettyStringEncoded] : @"";

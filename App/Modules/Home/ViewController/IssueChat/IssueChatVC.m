@@ -28,6 +28,7 @@
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
 #import "IssueLogAttachmentUrl.h"
+#import "AtListVC.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -293,10 +294,10 @@
 
 - (void)createUI{
 //    self.tableVie
-    if(self.model.state != MonitorListStateRecommend){
-        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
-
-    }
+//    if(self.model.state != MonitorListStateRecommend){
+//        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
+//
+//    }
     self.datas = [HLSafeMutableArray new];
     _mInputView = [[IssueChatKeyBoardInputView alloc]init];
     _mInputView.delegate = self;
