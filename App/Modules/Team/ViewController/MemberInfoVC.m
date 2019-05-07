@@ -203,22 +203,31 @@
         }else{
             [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
-        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
-        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
+            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+        }
         [_beizhuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _beizhuBtn.titleLabel.font = RegularFONT(14);
         [_beizhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_beizhuBtn sizeToFit];
-        // 图片右移
-        CGSize imageSize = _beizhuBtn.imageView.frame.size;
-        _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
-        // 文字左移
-        CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
-        _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+            CGSize imageSize = _beizhuBtn.imageView.frame.size;
+            _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
+            CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
+            _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        }
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         //隐藏备注条件 1.专家 2.非管理员并且不是自己
-        if (self.model.isSpecialist || (!userManager.teamModel.isAdmin && self.type != PWMemberViewTypeMe)){
+        if (self.model.inTeamNote.length > 0){
+            _beizhuBtn.hidden = NO;
+            if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+                _beizhuBtn.enabled = YES;
+            }else{
+                _beizhuBtn.enabled = NO;
+            }
+        }else{
             _beizhuBtn.hidden = YES;
         }
         
