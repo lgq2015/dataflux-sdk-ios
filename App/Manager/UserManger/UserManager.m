@@ -230,8 +230,8 @@ SINGLETON_FOR_CLASS(UserManager);
         });
         
     });
-    [self requestMemberList:NO complete:nil];
-    [self requestTeamIssueCount];
+    [self requestMemberList:nil];
+    [self requestTeamIssueCount:nil];
     [self loadExperGroups:nil];
     [self loadISPs];
 }
@@ -594,10 +594,7 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 常用请求==========
 //团队列表
-- (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished{
-    if (isShowProgress){
-        [SVProgressHUD show];
-    }
+- (void)requestMemberList:(void(^)(BOOL isFinished))isFinished{
     NSMutableArray *teamlists = [NSMutableArray array];
     [PWNetworking requsetHasTokenWithUrl:PW_AuthTeamList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -619,19 +616,10 @@ SINGLETON_FOR_CLASS(UserManager);
             if (isFinished){
                 isFinished(YES);
             }
-            if (isShowProgress){
-                [SVProgressHUD dismiss];
-            }
         }else{
             //回调
             if (isFinished){
                 isFinished(NO);
-            }
-            if (isShowProgress){
-                [SVProgressHUD dismiss];
-            }
-            if (isShowProgress){
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             }
         }
     } failBlock:^(NSError *error) {
@@ -641,19 +629,30 @@ SINGLETON_FOR_CLASS(UserManager);
     }];
 }
 //团队活跃情报树
-- (void)requestTeamIssueCount{
+- (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
     [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count == 0 || content == nil){
+                if (completeBlock){
+                    completeBlock(NO);
+                }
                 return ;
+            }
+            if (completeBlock){
+                completeBlock(YES);
             }
             //缓存团队列表红点
             [self setAuthTeamIssueCount:content];
         }else{
-            
+            if (completeBlock){
+                completeBlock(NO);
+            }
         }
     } failBlock:^(NSError *error) {
+        if (completeBlock){
+            completeBlock(NO);
+        }
     }];
 }
 - (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{

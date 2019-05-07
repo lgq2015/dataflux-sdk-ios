@@ -55,22 +55,38 @@
 - (void)showWithOffsetY:(CGFloat)offset{
     _offsetY = offset + 1.0;
     _teamlists = [userManager getAuthTeamList];
-    //如果缓存为空，转圈请求
-    if (_teamlists == nil || _teamlists.count == 0){
-        [userManager requestMemberList:YES complete:^(BOOL isFinished) {
-            _teamlists = [userManager getAuthTeamList];
-            [self show];
-        }];
-        [userManager requestTeamIssueCount];
-    }else{//有数据也要请求，为了和web端同步数据
-        [userManager requestMemberList:NO complete:nil];
-        [userManager requestTeamIssueCount];
+    //有列表缓存，直接展现
+    if (_teamlists && _teamlists.count > 0){
         [self show];
     }
+    //请求最新数据，刷新界面
+    dispatch_queue_t queue = dispatch_queue_create("zt.teamlist", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestMemberList:^(BOOL isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestTeamIssueCount:^(bool isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _teamlists = [userManager getAuthTeamList];
+            [self addIssueCount];
+            [self p_disFrame];
+            [self.tab reloadData];
+        });
+    });
 }
 - (void)show{
     //判断本地teammodel是否为nil，如果为nil,请求当前团队信息
-    if (userManager.teamModel == nil){
+    TeamInfoModel *teamModel = [userManager getTeamModel];
+    if (teamModel == nil){
         [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
         }];
     }
@@ -279,13 +295,13 @@
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
-            //重新发送loadlist请求
-            [userManager requestMemberList:NO complete:nil];
-            //重新发送团队列表红点请求
-            [userManager requestTeamIssueCount];
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
+        //重新发送loadlist请求
+        [userManager requestMemberList:nil];
+        //重新发送团队列表红点请求
+        [userManager requestTeamIssueCount:nil];
     } failBlock:^(NSError *error) {
         if (isHaveMemberCache == NO){
             [SVProgressHUD dismiss];

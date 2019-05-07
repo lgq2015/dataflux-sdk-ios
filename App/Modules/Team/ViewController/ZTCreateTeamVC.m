@@ -321,8 +321,8 @@
 }
 - (void)otherDealAfterNetwork{
     KPostNotification(KNotificationTeamStatusChange, @YES);
-    [userManager requestMemberList:NO complete:nil];
-    [userManager requestTeamIssueCount];
+    [userManager requestMemberList:nil];
+    [userManager requestTeamIssueCount:nil];
     CreateSuccessVC *create = [[CreateSuccessVC alloc]init];
     create.groupName = self.tfAry[0].text;
     create.isSupplement = _dowhat == newCreateTeam ? NO:YES;
