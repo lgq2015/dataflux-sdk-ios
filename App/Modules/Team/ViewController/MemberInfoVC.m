@@ -95,7 +95,7 @@
             break;
         case PWMemberViewTypeSpecialist:{
             self.memberName.text = self.model.name;
-            [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
+            [self.iconImgView setImage:[UIImage imageNamed:@"professor_wang_header"]];
             self.subTitleLab.hidden = NO;
             self.subTitleLab.text = @"专家";
             self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];

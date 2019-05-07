@@ -410,15 +410,6 @@
         }
     }];
 }
-//- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
-//    DLog(@"teamvc----有成员缓存团队切换");
-//    [self changeTopLeftNavTitleName];
-//    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-//        if (isSuccess) {
-//            [self dealWithDatas:member];
-//        }
-//    }];
-//}
 //修改备注
 - (void)editTeamNote:(NSNotification *)notification{
     DLog(@"teamvc----修改备注");
