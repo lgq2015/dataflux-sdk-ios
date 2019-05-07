@@ -136,8 +136,8 @@
     }];
 }
 - (void)createBtnPhone{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"拨打电话(%@)",self.model.mobile]];
-
+    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"%@",[self phoneChange:self.model.mobile]]];
+    callPhone.titleLabel.font = RegularFONT(18);
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -148,6 +148,7 @@
     }];
     if (userManager.teamModel.isAdmin) {
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
+        [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
         [delectTeam setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:delectTeam];
@@ -367,14 +368,14 @@
     return rect.size.width;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//格式化电话号码 344
+- (NSString *)phoneChange:(NSString *)phoneNum{
+    NSString *tenDigitNumber = phoneNum;
+    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{3})(\\d{4})"
+                                                               withString:@"$1 $2 $3"
+                                                                  options:NSRegularExpressionSearch
+                                                                    range:NSMakeRange(0, [tenDigitNumber length])];
+    return tenDigitNumber;
 }
-*/
 
 @end
