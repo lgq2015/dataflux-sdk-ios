@@ -163,6 +163,8 @@
     }
     return _contentLab;
 }
-
+- (void)dealloc{
+    DLog(@"%s",__func__);
+}
 
 @end

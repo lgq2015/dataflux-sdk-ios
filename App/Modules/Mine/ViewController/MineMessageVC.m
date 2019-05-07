@@ -144,10 +144,13 @@
         [self setMessageRead:model];
     }else{
     MessageDetailVC *detail = [[MessageDetailVC alloc]init];
-   
     detail.model = model;
     detail.refreshTable =^(){
-        [self loadData];
+        NSMutableDictionary * mdic = [NSMutableDictionary dictionaryWithDictionary:dict];
+        [mdic setValue:@1 forKey:@"isReaded"];
+        [self.dataSource removeObject:dict];
+        [self.dataSource insertObject:mdic atIndex:indexPath.row];
+        [self.tableView reloadData];
     };
     [self.navigationController pushViewController:detail animated:YES];
     }
@@ -161,5 +164,8 @@
     } failBlock:^(NSError *error) {
         
     }];
+}
+- (void)dealloc{
+    DLog(@"%s",__func__);
 }
 @end
