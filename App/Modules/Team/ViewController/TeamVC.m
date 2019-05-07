@@ -84,6 +84,8 @@
 - (void)headerRefreshing{
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
+            //修改顶部名称
+            [self changeTopLeftNavTitleName];
             [self requestTeamMember:^(bool isSuccess, NSArray *content) {
                 if (isSuccess){
                     [self dealWithDatas:content];
