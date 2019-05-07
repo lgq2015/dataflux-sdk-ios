@@ -252,40 +252,8 @@
 }
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
-    //获取切换前teamModel
-    TeamInfoModel *lastTeamModel = userManager.teamModel;
-    //存储默认团队ID
-    setPWDefaultTeamID(model.teamID);
-    //判断是否有要切换teamID，对应的成员缓存
-    __block BOOL isHaveMemberCache = NO;
-    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-        if (isSuccess){
-            isHaveMemberCache = YES;
-        }else{
-            isHaveMemberCache = NO;
-        }
-    }];
-    //有缓存，切换本地数据并通知外界
-    if (isHaveMemberCache){
-        //更新teamModel
-        userManager.teamModel = model;
-        //更新团队列表中的默认团队
-        [userManager updateTeamModelWithGroupID:model.teamID];
-        //更新当前team状态
-        if ([model.type isEqualToString:@"singleAccount"]){
-            setTeamState(PW_isPersonal);
-        }else{
-            setTeamState(PW_isTeam);
-        }
-        KPostNotification(KNotificationHasMemCacheSwitchTeam, nil);
-    }
-    if (isHaveMemberCache == NO){
-        //恢复存储默认团队ID
-        setPWDefaultTeamID(lastTeamModel.teamID);
-        [SVProgressHUD show];
-    }
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
-    [self requestChangeTeam:params isHaveMemberCache:isHaveMemberCache withModel:model];
+    [self requestChangeTeam:params isHaveMemberCache:YES withModel:model];
 }
 
 #pragma mark ---团队切换请求-----
@@ -300,11 +268,9 @@
             [[IssueSourceManger sharedIssueSourceManger] logout];
             
             setXAuthToken(token);
-            if (isHaveMemberCache == NO){
-                userManager.teamModel = model;
-                [userManager updateTeamModelWithGroupID:model.teamID];
-                setPWDefaultTeamID(model.teamID);
-            }
+            setPWDefaultTeamID(model.teamID);
+            userManager.teamModel = model;
+            [userManager updateTeamModelWithGroupID:model.teamID];
             //更新当前team状态
             if ([model.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
@@ -320,9 +286,6 @@
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
-        if (isHaveMemberCache == NO){
-            [SVProgressHUD dismiss];
-        }
     } failBlock:^(NSError *error) {
         if (isHaveMemberCache == NO){
             [SVProgressHUD dismiss];
@@ -330,5 +293,7 @@
         }
     }];
 }
+//请求团队成员
+
 
 @end

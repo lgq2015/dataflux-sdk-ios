@@ -74,10 +74,6 @@
                                              selector:@selector(hometeamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(homeHasMemberCacheTeamSwitch:)
-                                                 name:KNotificationHasMemCacheSwitchTeam
-                                               object:nil];
     [self judgeIssueConnectState:^{
         self.newsDatas = [NSMutableArray new];
         [self loadNewsDatas];
@@ -102,9 +98,6 @@
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
     }];
-}
-- (void)homeHasMemberCacheTeamSwitch:(NSNotification *)notification{
-    DLog(@"homevc----有团队成员、团队切换");
 }
 - (void)judgeIssueConnectState:(void (^)(void))complete {
 

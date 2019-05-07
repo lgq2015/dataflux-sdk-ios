@@ -47,10 +47,6 @@
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hasMemberCacheTeamSwitch:)
-                                                 name:KNotificationHasMemCacheSwitchTeam
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editTeamNote:)
                                                  name:KNotificationEditTeamNote
                                                object:nil];
@@ -86,10 +82,13 @@
     }];
 }
 - (void)headerRefreshing{
-    [self loadTeamProductData];
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
-            [self loadTeamMemberInfo];
+            [self requestTeamMember:^(bool isSuccess, NSArray *content) {
+                if (isSuccess){
+                    [self dealWithDatas:content];
+                }
+            }];
         }
     }];
 }
@@ -393,23 +392,33 @@
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----无成员缓存团队切换---%@",userManager.teamModel.type);
     [self changeTopLeftNavTitleName];
-    [userManager addTeamSuccess:^(BOOL isSuccess) {
-        if (isSuccess){
-            [self loadTeamMemberInfo];
-        }
-    }];
-}
-- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----有成员缓存团队切换");
-    [self changeTopLeftNavTitleName];
+    //如果有成员缓存，直接刷新
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-        if (isSuccess) {
+        if (isSuccess){
             [self dealWithDatas:member];
         }
     }];
+    //请求当前团队，请求成员列表，刷新界面
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
+                if (isSuccess){
+                    [self dealWithDatas:content];
+                }
+            }];
+        }
+    }];
 }
+//- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
+//    DLog(@"teamvc----有成员缓存团队切换");
+//    [self changeTopLeftNavTitleName];
+//    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+//        if (isSuccess) {
+//            [self dealWithDatas:member];
+//        }
+//    }];
+//}
 //修改备注
 - (void)editTeamNote:(NSNotification *)notification{
     DLog(@"teamvc----修改备注");
@@ -565,6 +574,23 @@
     } failBlock:^(NSError *error) {
         UIView *view = [self.rightNavButton viewWithTag:20];
         view.hidden = YES;
+    }];
+}
+//请求团队成员信息
+- (void)requestTeamMember:(void(^)(bool isSuccess,NSArray *content))finished{
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            [userManager setTeamMember:content];
+            finished(YES,content);
+        }else{
+            finished(NO,nil);
+        }
+        [self.header endRefreshing];
+    } failBlock:^(NSError *error) {
+        finished(NO,nil);
+        [error errorToast];
+        [self.header endRefreshing];
     }];
 }
 //判断用户有没有购买服务，如果有就添加专家
