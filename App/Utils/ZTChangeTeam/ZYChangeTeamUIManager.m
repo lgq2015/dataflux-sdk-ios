@@ -57,33 +57,16 @@
     _teamlists = [userManager getAuthTeamList];
     //有列表缓存，直接展现
     if (_teamlists && _teamlists.count > 0){
-        [self show];
+        [self show:^(BOOL isShow) {
+            if (isShow){
+                [self loadData];
+            }
+        }];
+    }else{
+        [self loadData];
     }
-    //请求最新数据，刷新界面
-    dispatch_queue_t queue = dispatch_queue_create("zt.teamlist", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_async(group, queue, ^{
-        dispatch_group_enter(group);
-        [userManager requestMemberList:^(BOOL isFinished) {
-            dispatch_group_leave(group);
-        }];
-    });
-    dispatch_group_async(group, queue, ^{
-        dispatch_group_enter(group);
-        [userManager requestTeamIssueCount:^(bool isFinished) {
-            dispatch_group_leave(group);
-        }];
-    });
-    dispatch_group_notify(group, queue, ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _teamlists = [userManager getAuthTeamList];
-            [self addIssueCount];
-            [self p_disFrame];
-            [self.tab reloadData];
-        });
-    });
 }
-- (void)show{
+- (void)show:(void(^)(BOOL isShow))showCompleteBlock{
     //判断本地teammodel是否为nil，如果为nil,请求当前团队信息
     TeamInfoModel *teamModel = [userManager getTeamModel];
     if (teamModel == nil){
@@ -104,6 +87,9 @@
     } completion:^(BOOL finished) {
         if (finished) {
             _isShowTeamView = YES;
+            if (showCompleteBlock){
+                showCompleteBlock(_isShowTeamView);
+            }
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
@@ -309,7 +295,41 @@
         }
     }];
 }
-//请求团队成员
+//请求团队列表和团队情报数
+- (void)loadData{
+    //请求最新数据，刷新界面
+    if (!_isShowTeamView){
+        [SVProgressHUD show];
+    }
+    dispatch_queue_t queue = dispatch_queue_create("zt.teamlist", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestMemberList:^(BOOL isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestTeamIssueCount:^(bool isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            _teamlists = [userManager getAuthTeamList];
+            if (_isShowTeamView){
+                [self addIssueCount];
+                [self p_disFrame];
+                [self.tab reloadData];
+            }else{
+                [self show:nil];
+            }
+            
+        });
+    });
+}
 
 
 @end
