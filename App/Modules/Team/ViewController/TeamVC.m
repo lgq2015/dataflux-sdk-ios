@@ -355,6 +355,7 @@
         redPoint.bounds = CGRectMake(0, 0, 6, 6);
         redPoint.tag  = 20;
         redPoint.layer.cornerRadius = 3;
+        redPoint.hidden = YES;
         [_rightNavButton.imageView addSubview:redPoint];
         [redPoint mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_rightNavButton.imageView.mas_top);
