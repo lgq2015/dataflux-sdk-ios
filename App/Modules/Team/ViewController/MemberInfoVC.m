@@ -263,10 +263,20 @@
                 });
                
             }else{
-                [SVProgressHUD showErrorWithStatus:@"移除失败"];
+                NSString *errorCode = response[@"errorCode"];
+                if ([errorCode isEqualToString:@"home.auth.noSuchAccount"]){
+                    [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if(self.teamMemberRefresh){
+                            self.teamMemberRefresh();
+                        }
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    });
+                }else{
+                    [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                }
             }
         } failBlock:^(NSError *error) {
-//            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:@"移除失败"];
         }];
     }];
