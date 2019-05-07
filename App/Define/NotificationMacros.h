@@ -20,10 +20,8 @@
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
-//团队切换(无团队成员、切换请求成功后通知)
+//团队切换
 #define KNotificationSwitchTeam @"KNotificationSwitchTeam"
-//团队切换(有团队成员缓存切换后通知)
-#define KNotificationHasMemCacheSwitchTeam @"KNotificationNoNetworkSwitchTeam"
 //修改团队成员备注
 #define KNotificationEditTeamNote @"KNotificationEditTeamNote"
 //被踢下线
@@ -37,6 +35,8 @@
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+//团队专家
+#define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWDefaultTeamID]
 //团队产品
 #define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
 //团队列表

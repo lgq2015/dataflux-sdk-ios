@@ -456,12 +456,16 @@
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = YES;
             [self presentViewController:success animated:YES completion:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
         }else{
-            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
+            });
         }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        });
+
     } failBlock:^(NSError *error) {
         [error errorToast];
     }];
@@ -536,5 +540,28 @@
     }else{
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
     }
+}
+#pragma mark --寻找控制器返回--
+-(void)popToAppointViewController:(NSString *)ClassName animated:(BOOL)animated{
+    id vc = [self getCurrentViewControllerClass:ClassName];
+    if(vc != nil && [vc isKindOfClass:[UIViewController class]]){
+        [self.navigationController popToViewController:vc animated:YES];
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+-(UIViewController *)getCurrentViewControllerClass:(NSString *)ClassName
+{
+    Class classObj = NSClassFromString(ClassName);
+    
+    NSArray * szArray =  self.navigationController.viewControllers;
+    for (id vc in szArray) {
+        if([vc isMemberOfClass:classObj])
+        {
+            return vc;
+        }
+    }
+    
+    return nil;
 }
 @end

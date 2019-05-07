@@ -55,22 +55,21 @@
 - (void)showWithOffsetY:(CGFloat)offset{
     _offsetY = offset + 1.0;
     _teamlists = [userManager getAuthTeamList];
-    //如果缓存为空，转圈请求
-    if (_teamlists == nil || _teamlists.count == 0){
-        [userManager requestMemberList:YES complete:^(BOOL isFinished) {
-            _teamlists = [userManager getAuthTeamList];
-            [self show];
+    //有列表缓存，直接展现
+    if (_teamlists && _teamlists.count > 0){
+        [self show:^(BOOL isShow) {
+            if (isShow){
+                [self loadData];
+            }
         }];
-        [userManager requestTeamIssueCount];
-    }else{//有数据也要请求，为了和web端同步数据
-        [userManager requestMemberList:NO complete:nil];
-        [userManager requestTeamIssueCount];
-        [self show];
+    }else{
+        [self loadData];
     }
 }
-- (void)show{
+- (void)show:(void(^)(BOOL isShow))showCompleteBlock{
     //判断本地teammodel是否为nil，如果为nil,请求当前团队信息
-    if (userManager.teamModel == nil){
+    TeamInfoModel *teamModel = [userManager getTeamModel];
+    if (teamModel == nil){
         [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
         }];
     }
@@ -88,6 +87,9 @@
     } completion:^(BOOL finished) {
         if (finished) {
             _isShowTeamView = YES;
+            if (showCompleteBlock){
+                showCompleteBlock(_isShowTeamView);
+            }
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
@@ -252,40 +254,9 @@
 }
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
-    //获取切换前teamModel
-    TeamInfoModel *lastTeamModel = userManager.teamModel;
-    //存储默认团队ID
-    setPWDefaultTeamID(model.teamID);
-    //判断是否有要切换teamID，对应的成员缓存
-    __block BOOL isHaveMemberCache = NO;
-    [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-        if (isSuccess){
-            isHaveMemberCache = YES;
-        }else{
-            isHaveMemberCache = NO;
-        }
-    }];
-    //有缓存，切换本地数据并通知外界
-    if (isHaveMemberCache){
-        //更新teamModel
-        userManager.teamModel = model;
-        //更新团队列表中的默认团队
-        [userManager updateTeamModelWithGroupID:model.teamID];
-        //更新当前team状态
-        if ([model.type isEqualToString:@"singleAccount"]){
-            setTeamState(PW_isPersonal);
-        }else{
-            setTeamState(PW_isTeam);
-        }
-        KPostNotification(KNotificationHasMemCacheSwitchTeam, nil);
-    }
-    if (isHaveMemberCache == NO){
-        //恢复存储默认团队ID
-        setPWDefaultTeamID(lastTeamModel.teamID);
-        [SVProgressHUD show];
-    }
+    [SVProgressHUD show];
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
-    [self requestChangeTeam:params isHaveMemberCache:isHaveMemberCache withModel:model];
+    [self requestChangeTeam:params isHaveMemberCache:YES withModel:model];
 }
 
 #pragma mark ---团队切换请求-----
@@ -300,11 +271,9 @@
             [[IssueSourceManger sharedIssueSourceManger] logout];
             
             setXAuthToken(token);
-            if (isHaveMemberCache == NO){
-                userManager.teamModel = model;
-                [userManager updateTeamModelWithGroupID:model.teamID];
-                setPWDefaultTeamID(model.teamID);
-            }
+            setPWDefaultTeamID(model.teamID);
+            userManager.teamModel = model;
+            [userManager updateTeamModelWithGroupID:model.teamID];
             //更新当前team状态
             if ([model.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
@@ -313,22 +282,54 @@
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
-            //重新发送loadlist请求
-            [userManager requestMemberList:NO complete:nil];
-            //重新发送团队列表红点请求
-            [userManager requestTeamIssueCount];
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
-        if (isHaveMemberCache == NO){
-            [SVProgressHUD dismiss];
-        }
+        //重新发送loadlist请求
+        [userManager requestMemberList:nil];
+        //重新发送团队列表红点请求
+        [userManager requestTeamIssueCount:nil];
+        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
-        if (isHaveMemberCache == NO){
-            [SVProgressHUD dismiss];
-            [iToast alertWithTitleCenter:@"切换团队失败"];
-        }
+        [iToast alertWithTitleCenter:@"切换团队失败"];
+        [SVProgressHUD dismiss];
     }];
 }
+//请求团队列表和团队情报数
+- (void)loadData{
+    //请求最新数据，刷新界面
+    if (!_isShowTeamView){
+        [SVProgressHUD show];
+    }
+    dispatch_queue_t queue = dispatch_queue_create("zt.teamlist", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestMemberList:^(BOOL isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        dispatch_group_enter(group);
+        [userManager requestTeamIssueCount:^(bool isFinished) {
+            dispatch_group_leave(group);
+        }];
+    });
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            _teamlists = [userManager getAuthTeamList];
+            if (_isShowTeamView){
+                [self addIssueCount];
+                [self p_disFrame];
+                [self.tab reloadData];
+            }else{
+                [self show:nil];
+            }
+            
+        });
+    });
+}
+
 
 @end

@@ -47,10 +47,6 @@
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hasMemberCacheTeamSwitch:)
-                                                 name:KNotificationHasMemCacheSwitchTeam
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editTeamNote:)
                                                  name:KNotificationEditTeamNote
                                                object:nil];
@@ -81,13 +77,22 @@
         if (isSuccess){
             [self changeTopLeftNavTitleName];
             [self.tableView reloadData];
+            [self loadTeamMemberInfo];
         }
     }];
-    [self loadTeamMemberInfo];
 }
 - (void)headerRefreshing{
-    [self loadTeamProductData];
-    [self loadTeamMemberInfo];
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            //修改顶部名称
+            [self changeTopLeftNavTitleName];
+            [self requestTeamMember:^(bool isSuccess, NSArray *content) {
+                if (isSuccess){
+                    [self dealWithDatas:content];
+                }
+            }];
+        }
+    }];
 }
 - (void)loadTeamProductData{
     [SVProgressHUD show];
@@ -132,12 +137,10 @@
     return _teamMemberArray;
 }
 - (void)dealWithDatas:(NSArray *)content{
-    
     [userManager setTeamMember:content];
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
@@ -147,8 +150,7 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-    //判断是否要添加专家
-    [self addSpecialist];
+    [self addSpecialist123];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{
@@ -353,6 +355,7 @@
         redPoint.bounds = CGRectMake(0, 0, 6, 6);
         redPoint.tag  = 20;
         redPoint.layer.cornerRadius = 3;
+        redPoint.hidden = YES;
         [_rightNavButton.imageView addSubview:redPoint];
         [redPoint mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_rightNavButton.imageView.mas_top);
@@ -392,18 +395,25 @@
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----无成员缓存团队切换---%@",userManager.teamModel.type);
     [self changeTopLeftNavTitleName];
-    [self loadTeamMemberInfo];
-}
-- (void)hasMemberCacheTeamSwitch:(NSNotification *)notification{
-    DLog(@"teamvc----有成员缓存团队切换");
-    [self changeTopLeftNavTitleName];
+    //如果有成员缓存，直接刷新
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
-        if (isSuccess) {
+        if (isSuccess){
             [self dealWithDatas:member];
         }
     }];
+    //请求当前团队，请求成员列表，刷新界面
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
+                if (isSuccess){
+                    [self dealWithDatas:content];
+                }
+            }];
+        }
+    }];
+    //请求团队未读消息
+    [self requestTeamSystemUnreadCount];
 }
 //修改备注
 - (void)editTeamNote:(NSNotification *)notification{
@@ -464,22 +474,7 @@
 //        [weakSelf.navigationController pushViewController:vc animated:YES];
 //    }];
 }
-//判断用户有没有购买服务，如果有就添加专家
-- (void)addSpecialist{
-    NSDictionary *tags = userManager.teamModel.tags;
-    if (tags == nil) return;
-    NSDictionary *product = tags[@"product"];
-    if (product == nil) return;
-    NSString *managed = product[@"managed"];
-    NSString *support = product[@"support"];
-    if (managed != nil || support != nil){
-        MemberInfoModel *model =[[MemberInfoModel alloc]init];
-        model.isSpecialist = YES;
-        model.name = @"王教授";
-        model.mobile = @"400-882-3320";
-        [self.teamMemberArray insertObject:model atIndex:1];
-    }
-}
+
 - (UIView *)teamMemberCellHeaderView{
     UIView *view = [[UIView alloc] init];
     //团队名称
@@ -562,6 +557,7 @@
     }
 }
 #pragma mark --请求---
+//请求团队系统消息，未读数量
 - (void)requestTeamSystemUnreadCount{
     NSDictionary *params = @{@"ownership":@"team"};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
@@ -576,4 +572,53 @@
         view.hidden = YES;
     }];
 }
+//请求团队成员信息
+- (void)requestTeamMember:(void(^)(bool isSuccess,NSArray *content))finished{
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            [userManager setTeamMember:content];
+            finished(YES,content);
+        }else{
+            finished(NO,nil);
+        }
+        [self.header endRefreshing];
+    } failBlock:^(NSError *error) {
+        finished(NO,nil);
+        [error errorToast];
+        [self.header endRefreshing];
+    }];
+}
+//判断用户有没有购买服务，如果有就添加专家
+- (void)addSpecialist123{
+    TeamInfoModel *model = [userManager getTeamModel];
+    NSDictionary *tags = model.tags;
+    NSArray *ISPs = PWSafeArrayVal(tags, @"ISPs");
+    if (ISPs == nil || ISPs.count == 0) return;
+    NSArray *constISPs = [userManager getTeamISPs];
+    if (constISPs == nil || constISPs.count == 0) return;
+    NSMutableArray *ipsDics = [NSMutableArray array];
+    //找出当前团队所有的专家对象数组
+    [ISPs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [constISPs enumerateObjectsUsingBlock:^(NSDictionary *ispDic, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *ispName = ispDic[@"ISP"];
+            if ([obj isEqualToString:ispName]){
+                [ipsDics addObject:ispDic];
+                *stop = YES;
+            }
+        }];
+    }];
+    [ipsDics enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *displayName = dic[@"displayName"][@"zh_CN"];
+        NSString *mobile = dic[@"mobile"];
+        NSString *ISP = dic[@"ISP"];
+        MemberInfoModel *model =[[MemberInfoModel alloc]init];
+        model.mobile = mobile;
+        model.name = displayName;
+        model.ISP = ISP;
+        model.isSpecialist = YES;
+        [self.teamMemberArray insertObject:model atIndex:1];
+    }];
+}
+
 @end

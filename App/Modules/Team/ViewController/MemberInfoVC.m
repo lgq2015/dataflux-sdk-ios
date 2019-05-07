@@ -95,7 +95,7 @@
             break;
         case PWMemberViewTypeSpecialist:{
             self.memberName.text = self.model.name;
-            [self.iconImgView setImage:[UIImage imageNamed:@"team_memicon"]];
+            [self.iconImgView setImage:[UIImage imageNamed:@"professor_wang_header"]];
             self.subTitleLab.hidden = NO;
             self.subTitleLab.text = @"专家";
             self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];
@@ -136,8 +136,8 @@
     }];
 }
 - (void)createBtnPhone{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"拨打电话(%@)",self.model.mobile]];
-
+    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"%@",[self phoneChange:self.model.mobile]]];
+    callPhone.titleLabel.font = RegularFONT(18);
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -148,6 +148,7 @@
     }];
     if (userManager.teamModel.isAdmin) {
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
+        [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
         [delectTeam setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:delectTeam];
@@ -203,22 +204,31 @@
         }else{
             [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
-        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
-        [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
+            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+        }
         [_beizhuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _beizhuBtn.titleLabel.font = RegularFONT(14);
         [_beizhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_beizhuBtn sizeToFit];
-        // 图片右移
-        CGSize imageSize = _beizhuBtn.imageView.frame.size;
-        _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
-        // 文字左移
-        CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
-        _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+            CGSize imageSize = _beizhuBtn.imageView.frame.size;
+            _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
+            CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
+            _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
+        }
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         //隐藏备注条件 1.专家 2.非管理员并且不是自己
-        if (self.model.isSpecialist || (!userManager.teamModel.isAdmin && self.type != PWMemberViewTypeMe)){
+        if (self.model.inTeamNote.length > 0){
+            _beizhuBtn.hidden = NO;
+            if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+                _beizhuBtn.enabled = YES;
+            }else{
+                _beizhuBtn.enabled = NO;
+            }
+        }else{
             _beizhuBtn.hidden = YES;
         }
         
@@ -263,10 +273,20 @@
                 });
                
             }else{
-                [SVProgressHUD showErrorWithStatus:@"移除失败"];
+                NSString *errorCode = response[@"errorCode"];
+                if ([errorCode isEqualToString:@"home.auth.noSuchAccount"]){
+                    [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if(self.teamMemberRefresh){
+                            self.teamMemberRefresh();
+                        }
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    });
+                }else{
+                    [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                }
             }
         } failBlock:^(NSError *error) {
-//            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:@"移除失败"];
         }];
     }];
@@ -321,7 +341,12 @@
     vc.noteName = self.model.inTeamNote;
     __weak typeof(self) weakSelf = self;
     vc.editTeamMemberNote = ^(NSString *noteName) {
-        [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+        if (noteName.length == 0){
+            [weakSelf.beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+        }else{
+            [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+        }
+        weakSelf.model.inTeamNote = noteName;
         CGFloat spacing = 8.0;
         // 图片右移
         CGSize imageSize = weakSelf.beizhuBtn.imageView.frame.size;
@@ -343,14 +368,14 @@
     return rect.size.width;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//格式化电话号码 344
+- (NSString *)phoneChange:(NSString *)phoneNum{
+    NSString *tenDigitNumber = phoneNum;
+    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{3})(\\d{4})"
+                                                               withString:@"$1 $2 $3"
+                                                                  options:NSRegularExpressionSearch
+                                                                    range:NSMakeRange(0, [tenDigitNumber length])];
+    return tenDigitNumber;
 }
-*/
 
 @end

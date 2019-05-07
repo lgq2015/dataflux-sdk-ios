@@ -227,12 +227,13 @@ SINGLETON_FOR_CLASS(UserManager);
                 isSuccess? isSuccess(NO):nil;
                 [iToast alertWithTitleCenter:@"网络异常"];
             }
-            [self requestMemberList:NO complete:nil];
-            [self requestTeamIssueCount];
         });
         
     });
+    [self requestMemberList:nil];
+    [self requestTeamIssueCount:nil];
     [self loadExperGroups:nil];
+    [self loadISPs];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -312,6 +313,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
+    completion(YES,nil);
 }
 
 //-(void)autoLoginToServer:(loginBlock)completion{
@@ -428,6 +430,21 @@ SINGLETON_FOR_CLASS(UserManager);
         [error errorToast];
     }];
 }
+
+- (void)loadISPs{
+    NSDictionary *param = @{@"keys":@"ISPs"};
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
+            if (constISPs == nil || constISPs.count == 0) return ;
+            self.ISPs = [NSMutableArray new];
+            [self.ISPs addObjectsFromArray:constISPs];
+            [userManager setTeamISPs:constISPs];
+        }
+    } failBlock:^(NSError *error) {
+    }];
+}
 #pragma mark ========== 被踢下线 ==========
 -(void)onKick{
     [self logout:nil];
@@ -441,6 +458,15 @@ SINGLETON_FOR_CLASS(UserManager);
     }
 }
 #pragma mark ========== 团队列表相关 ==========
+- (TeamInfoModel *)getTeamModel{
+    if (self.teamModel){
+        return self.teamModel;
+    }
+    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
+    NSDictionary * teamDic = (NSDictionary *)[cacheteam objectForKey:KTeamModelCache];
+    self.teamModel  = [TeamInfoModel modelWithJSON:teamDic];
+    return self.teamModel;
+}
 - (void)getTeamMember:(void(^)(BOOL isSuccess,NSArray *member))memberBlock{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
@@ -463,8 +489,22 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
         productBlock ? productBlock(NO,nil):nil;
     }
-    
 }
+
+- (void)setTeamISPs:(NSArray *)ispsArray{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    [cache removeObjectForKey:KTeamISPsCacheName];
+    [cache setObject:ispsArray forKey:KTeamISPsCacheName];
+}
+- (NSArray *)getTeamISPs{
+    if (self.ISPs && self.ISPs.count > 0){
+        return self.ISPs;
+    }
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    NSArray *isps = (NSArray *)[cache objectForKey:KTeamISPsCacheName];
+    return isps;
+}
+
 - (void)setTeamProduct:(NSArray *)teamProduct{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     [cache removeObjectForKey:KTeamProductDict];
@@ -555,10 +595,7 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 常用请求==========
 //团队列表
-- (void)requestMemberList:(BOOL)isShowProgress complete:(void(^)(BOOL isFinished))isFinished{
-    if (isShowProgress){
-        [SVProgressHUD show];
-    }
+- (void)requestMemberList:(void(^)(BOOL isFinished))isFinished{
     NSMutableArray *teamlists = [NSMutableArray array];
     [PWNetworking requsetHasTokenWithUrl:PW_AuthTeamList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -580,19 +617,10 @@ SINGLETON_FOR_CLASS(UserManager);
             if (isFinished){
                 isFinished(YES);
             }
-            if (isShowProgress){
-                [SVProgressHUD dismiss];
-            }
         }else{
             //回调
             if (isFinished){
                 isFinished(NO);
-            }
-            if (isShowProgress){
-                [SVProgressHUD dismiss];
-            }
-            if (isShowProgress){
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             }
         }
     } failBlock:^(NSError *error) {
@@ -602,20 +630,30 @@ SINGLETON_FOR_CLASS(UserManager);
     }];
 }
 //团队活跃情报树
-- (void)requestTeamIssueCount{
-    NSMutableArray *teamlists = [NSMutableArray array];
+- (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
     [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count == 0 || content == nil){
+                if (completeBlock){
+                    completeBlock(NO);
+                }
                 return ;
+            }
+            if (completeBlock){
+                completeBlock(YES);
             }
             //缓存团队列表红点
             [self setAuthTeamIssueCount:content];
         }else{
-            
+            if (completeBlock){
+                completeBlock(NO);
+            }
         }
     } failBlock:^(NSError *error) {
+        if (completeBlock){
+            completeBlock(NO);
+        }
     }];
 }
 - (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
