@@ -29,7 +29,7 @@
 /**
  * @param text 讨论 文本
  */
-- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback;
+- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON callBack:(void (^)(id))callback;
 /**
 * @param issueid issueID
 * @param expertGroup 专家
@@ -43,4 +43,8 @@
  * @param logid logid 获取情报日志附件外部下载链接地址
  */
 - (PWURLSessionTask *)issueLogAttachmentUrlWithIssueLogid:(NSString *)logid callBack:(void (^)(id))callback;
+/**
+   获取当前团队的团队成员列表
+ */
+//- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback;
 @end

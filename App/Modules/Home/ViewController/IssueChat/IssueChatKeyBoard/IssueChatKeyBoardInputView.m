@@ -314,6 +314,13 @@
   
     return YES;
 }
+-(NSMutableArray *)choseMember{
+    if (!_choseMember) {
+        _choseMember = [NSMutableArray new];
+    }
+    return _choseMember;
+    
+}
 - (void)dealAtMessageWithArray:(NSArray *)array{
     NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
 
@@ -350,15 +357,47 @@
 }
 //开始发送消息
 -(void)startSendMessage{
-    NSString *message = [_mTextView.attributedText string];
+   __block NSString *message = [_mTextView.attributedText string];
     NSString *newMessage = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if(message.length==0){
-        
+        return;
     }
-    else if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewBtnClick:)]){
+   __block NSMutableDictionary *accountIdMap = [NSMutableDictionary dictionary];
+    __block NSMutableDictionary *serviceMap = [NSMutableDictionary dictionary];
+    if (self.choseMember.count>0) {
+        [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *name = [NSString stringWithFormat:@"@%@",obj.name];
+            if([message containsString:name]) {
+                if (obj.isSpecialist) {
+                    [serviceMap setObject:obj.name forKey:obj.ISP];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.ISP]];
+                }else{
+                    [accountIdMap setObject:obj.name forKey:obj.memberID];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.memberID]];
+
+                }
+            }
+        }];
+        NSMutableDictionary *atInfoJSON = [NSMutableDictionary new];
+
+        if (serviceMap.allKeys.count > 0) {
+            [atInfoJSON setObject:serviceMap forKey:@"serviceMap"];
+        }
+        if (accountIdMap.allKeys.count>0) {
+            [atInfoJSON setObject:accountIdMap forKey:@"accountIdMap"];
+        }
+      //  NSString *newMessage1 = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        if (_delegate &&[_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewAtBtnClick:atInfoJSON:)]) {
+            [_delegate PWChatKeyBoardInputViewAtBtnClick:message atInfoJSON:atInfoJSON];
+        }
+        [self.choseMember removeAllObjects];
+        [self.rangeArray removeAllObjects];
+    }else{
+     if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewBtnClick:)]){
         [_delegate PWChatKeyBoardInputViewBtnClick:newMessage];
     }
-    
+    }
     _mTextView.text = @"";
     _textString = _mTextView.text;
     _mTextView.contentSize = CGSizeMake(_mTextView.contentSize.width, 30);
@@ -367,6 +406,7 @@
     _textH = PWChatTextHeight;
     [self setNewSizeWithBootm:_textH];
 }
+
 
 
 //监听输入框的操作 输入框高度动态变化

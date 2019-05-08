@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGRect       backImgButtonRect;
 //背景按钮图片的拉伸膜是和保护区域
 @property (nonatomic, assign) UIEdgeInsets imageInsets;
-
+@property (nonatomic, assign) CGRect       readUnreadBtnRect;
 //文本间隙的处理
 @property (nonatomic, assign) UIEdgeInsets textInsets;
 //文本控件的frame

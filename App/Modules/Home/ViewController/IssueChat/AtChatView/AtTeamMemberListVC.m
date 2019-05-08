@@ -82,23 +82,43 @@
     
 }
 - (void)addAtSpecialist{
-    NSDictionary *tags = userManager.teamModel.tags;
-    NSDictionary *product =PWSafeDictionaryVal(tags, @"product");
-    NSString *managed = [product stringValueForKey:@"managed" default:@""];
-    NSString *support = [product stringValueForKey:@"support" default:@""];
+    TeamInfoModel *model = [userManager getTeamModel];
+    NSDictionary *tags = model.tags;
+    NSArray *ISPs = PWSafeArrayVal(tags, @"ISPs");
+    NSArray *constISPs = [userManager getTeamISPs];
     NSInteger index = 0;
-    if (managed != nil || support != nil){
-        MemberInfoModel *model =[[MemberInfoModel alloc]init];
-        model.isSpecialist = YES;
-        model.name = @"王教授";
-        model.mobile = @"400-882-3320";
-        [self.teamMemberArray insertObject:model atIndex:1];
-        index = 1;
+    if (constISPs != nil && constISPs.count != 0) {
+        NSMutableArray *ipsDics = [NSMutableArray array];
+        //找出当前团队所有的专家对象数组
+        [ISPs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [constISPs enumerateObjectsUsingBlock:^(NSDictionary *ispDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *ispName = ispDic[@"ISP"];
+                if ([obj isEqualToString:ispName]){
+                    [ipsDics addObject:ispDic];
+                    *stop = YES;
+                }
+            }];
+        }];
+        [ipsDics enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *displayName = dic[@"displayName"][@"zh_CN"];
+            NSString *mobile = dic[@"mobile"];
+            NSString *ISP = dic[@"ISP"];
+            MemberInfoModel *model =[[MemberInfoModel alloc]init];
+            model.mobile = mobile;
+            model.name = displayName;
+            model.ISP = ISP;
+            model.isSpecialist = YES;
+            [self.teamMemberArray insertObject:model atIndex:1];
+        }];
+        index = ipsDics.count;
     }
     [self dealGroupDataWithIgnoreIndex:index];
     
 }
 - (void)dealGroupDataWithIgnoreIndex:(NSInteger)index{
+    if (self.teamMemberArray.count == 0) {
+        return;
+    }
     if (self.teamMemberArray.count == index+1) {
         [self.dataSource addObject:self.teamMemberArray];
     }else{

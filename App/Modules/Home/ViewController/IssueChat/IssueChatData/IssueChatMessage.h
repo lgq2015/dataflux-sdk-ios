@@ -12,7 +12,7 @@
 #define PWChatTextCellId        @"PWChatTextCellId"
 #define PWChatImageCellId       @"PWChatImageCellId"
 #define PWChatFileCellId        @"PWChatFileCellId"
-#define PWChatSystermCellId      @"PWChatSystermCellId"
+#define PWChatSystermCellId     @"PWChatSystermCellId"
 
 
 #define PWChatCellTop           8           //顶部距离cell
@@ -80,6 +80,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeImage,
     PWChatMessageTypeFile,
     PWChatMessageTypeSysterm,
+    PWChatMessageTypeAtText,
 };
 @interface IssueChatMessage : NSObject
 //消息发送方  消息类型  消息对应cell类型
@@ -96,12 +97,12 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
 //头像
 @property (nonatomic, strong) NSString    *headerImgurl;
 @property (nonatomic, strong) NSString    *nameStr;
-
+@property (nonatomic, strong) NSString    *stuffName;
 //文本消息内容 颜色  消息转换可变字符串
-@property (nonatomic, strong) NSString    *textString;
+@property (nonatomic, strong) NSMutableAttributedString    *textString;
 @property (nonatomic, strong) UIColor     *textColor;
 @property (nonatomic, strong) NSMutableAttributedString  *attTextString;
-
+@property (nonatomic, assign) BOOL       isHasAtStr;
 //图片消息链接或者本地图片 图片展示格式
 @property (nonatomic, strong) NSString    *imageString;
 @property (nonatomic, strong) UIImage     *image;

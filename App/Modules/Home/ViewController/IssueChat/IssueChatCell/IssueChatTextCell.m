@@ -7,7 +7,7 @@
 //
 
 #import "IssueChatTextCell.h"
-
+#import "IssueLogModel.h"
 @implementation IssueChatTextCell
 -(void)initPWChatCellUserInterface{
     [super initPWChatCellUserInterface];
@@ -28,7 +28,7 @@
     [super setLayout:layout];
     UIColor *color;
     if (layout.message.messageFrom ==PWChatMessageFromStaff) {
-        color = RGBACOLOR(78, 135, 252, 1);
+        color = [UIColor colorWithHexString:@"#CCE0FF"];
     }else{
         color = PWWhiteColor;
     }
@@ -39,8 +39,7 @@
     [self.mBackImgButton setBackgroundImage:image forState:UIControlStateNormal];
     
     self.mTextView.frame = self.layout.textLabRect;
-    self.mTextView.text = layout.message.textString;
-    self.mTextView.textColor = layout.message.textColor;
+    self.mTextView.attributedText = layout.message.textString;
     self.mIndicator.hidden = YES;
     self.retryBtn.hidden = YES;
     if (layout.message.isSend && !layout.message.sendError) {
@@ -61,8 +60,87 @@
         }];
         self.retryBtn.hidden = NO;
     }
-}
+    self.atReadBtn.hidden = YES;
+    if (layout.message.isHasAtStr) {
+        NSString *arStr = [self atString];
+        self.atReadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:arStr];
+        [self.atReadBtn setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
 
+        self.atReadBtn.titleLabel.font = RegularFONT(13);
+        self.atReadBtn.hidden = NO;
+        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
+            self.atReadBtn.enabled = NO;
+        }else{
+            self.atReadBtn.enabled = YES;
+        }
+        [self.contentView addSubview:self.atReadBtn];
+        [self.atReadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.mBackImgButton);
+            make.top.mas_equalTo(self.mBackImgButton.mas_bottom).offset(4);
+            make.height.offset(ZOOM_SCALE(18));
+        }];
+        [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+-(NSString *)atString{
+    __block NSString *atStr;
+    NSDictionary *atStatus = [self.layout.message.model.atStatusStr jsonValueDecoded];
+    NSArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts");
+    NSArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts");
+    if (unreadAccounts.count>0) {
+        if(unreadAccounts.count == 1){
+            NSDictionary *unread = unreadAccounts[0];
+            [userManager getTeamMenberWithId:unread[unread.allKeys[0]] memberBlock:^(NSDictionary *member) {
+                if (member.allKeys.count>0) {
+                    atStr = [NSString stringWithFormat:@"%@未读",[member stringValueForKey:@"name" default:@""]];
+                }
+            }];
+            
+        }else{
+            atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
+        }
+    }
+    if (unreadAccounts.count == 0 && readAccounts.count>0) {
+        if (readAccounts.count > 1) {
+            atStr = @"全部已读";
+        }else{
+            NSDictionary *read = readAccounts[0];
+            atStr = [NSString stringWithFormat:@"%@已读",read[read.allKeys[0]]];
+            [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
+                if (member.allKeys.count>0) {
+                    atStr = [NSString stringWithFormat:@"%@已读",[member stringValueForKey:@"name" default:@""]];
+                    
+                }
+            }];
+        }
+    }
+    if (unreadAccounts.count == 0 && readAccounts.count == 0) {
+        NSDictionary *atInfoJSON = [self.layout.message.model.atInfoJSONStr jsonValueDecoded];
+        NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+        NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
+       
+        if(accountIdMap.allKeys.count>0){
+            atStr = [NSString stringWithFormat:@"%ld 人未读",accountIdMap.allKeys.count];
+        }else if(serviceMap.allKeys.count>0){
+            NSArray *isps = [userManager getTeamISPs];
+            NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
+            NSString *name = [displayName stringValueForKey:@"zh_CN" default:@"王教授"];
+            if (self.layout.message.isSend) {
+                atStr = [NSString stringWithFormat:@"%@未读",name];
+            }else{
+                atStr = [NSString stringWithFormat:@"%@已读",name];
+            }
+        }
+      
+    }
+    return atStr;
+}
+- (void)readBtnClick{
+  
+        if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatReadUnreadBtnClickLayout:)]){
+            [self.delegate PWChatReadUnreadBtnClickLayout:self.layout];
+        }
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -644,7 +644,50 @@
         }
     }];
 }
+#pragma mark ========== @文本发送 ==========
+- (void)PWChatKeyBoardInputViewAtBtnClick:(NSString *)string atInfoJSON:(NSDictionary *)atInfoJSON{
+    DLog(@"atstring === %@;\n atInfoJSON === %@",string,atInfoJSON);
+    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
+    __block  NSMutableArray *unreadAccounts = [NSMutableArray new];
+    [accountIdMap enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [unreadAccounts addObject:@{@"accountId":key}];
+    }];
+    NSDictionary *atStatus;
+    if (unreadAccounts.count>0) {
+        atStatus = @{@"unreadAccounts":unreadAccounts};
+    }
+    IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
+    logModel.text = string;
+    logModel.issueId = self.issueID;
+    logModel.atInfoJSONStr = [atInfoJSON jsonStringEncoded];
+    logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.sendError = NO;
+    logModel.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
+   
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        [self dealSocketNotConnectWithModel:logModel];
+    }else{
+        [self sendMessageWithModel:logModel messageType:PWChatMessageTypeAtText];
+    }
+}
+- (void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout{
+    NSDictionary *atStatus = [layout.message.model.atStatusStr jsonValueDecoded];
+    NSDictionary *atInfoJSON = [layout.message.model.atInfoJSONStr jsonValueDecoded];
+    NSArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts");
+    NSArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts");
+    NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+//    NSDictionary *atInfoJSON = [layout.message.model.atInfoJSONStr jsonValueDecoded];
+//    NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+//    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
 
+    if ((unreadAccounts.count+readAccounts.count)>1) {
+        AtListVC *atVC = [[AtListVC alloc]init];
+        atVC.atStatus = atStatus;
+        atVC.isHasStuff = serviceMap.allKeys.count>0?YES:NO;
+        [self.navigationController pushViewController:atVC animated:YES];
+    }
+   
+}
 /*
 #pragma mark - Navigation
 

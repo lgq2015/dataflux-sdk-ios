@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AtListVC : RootViewController
-
+@property (nonatomic, strong) NSDictionary *atStatus;
+@property (nonatomic, assign) BOOL isHasStuff;
 @end
 
 NS_ASSUME_NONNULL_END

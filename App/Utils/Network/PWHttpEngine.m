@@ -247,9 +247,14 @@
 
 
 
-- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback{
+- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON callBack:(void (^)(id))callback{
     AddIssueLogReturnModel *model = [AddIssueLogReturnModel new];
-    NSDictionary *param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    NSDictionary *param;
+    if (atInfoJSON.allKeys.count>0) {
+        param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text,@"atInfoJSON":atInfoJSON}};
+    }else{
+        param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    }
     return [PWNetworking requsetHasTokenWithUrl:PW_issueLogAdd(issueid)
                                 withRequestType:NetworkPostType
                                  refreshRequest:NO
@@ -308,6 +313,9 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+//- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback{
+//    
+//}
 @end
 
 

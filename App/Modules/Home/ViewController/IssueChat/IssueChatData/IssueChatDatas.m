@@ -19,7 +19,7 @@
 
     switch (messageType) {
         case PWChatMessageTypeText:{
-            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text callBack:^(id response) {
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text atInfoJSON:nil callBack:^(id response) {
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
                     model.id = data.id;
@@ -53,7 +53,17 @@
             }];
         }
             break;
-    
+        case PWChatMessageTypeAtText:{
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text atInfoJSON:[model.atInfoJSONStr jsonValueDecoded] callBack:^(id response) {
+                AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+                if (data.isSuccess) {
+                    model.id = data.id;
+                    messageBlock ? messageBlock(model, UploadTypeSuccess, 1) : nil;
+                } else {
+                    messageBlock ? messageBlock(model, UploadTypeError, 1) : nil;
+                }
+            }];
+        }
     
         default:
             break;

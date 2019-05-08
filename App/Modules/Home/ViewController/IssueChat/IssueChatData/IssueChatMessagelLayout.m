@@ -32,7 +32,11 @@
      case PWChatMessageTypeSysterm:
             [self setSysterm];
             break;
+     case PWChatMessageTypeAtText:
+            [self setAtText];
+            break;
     }
+    
     
 }
 - (void)setText{
@@ -44,13 +48,13 @@
     UITextView *mTextView = [UITextView new];
     mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
     mTextView.font = RegularFONT(17);
-    mTextView.text = _message.textString;
+    mTextView.attributedText = _message.textString;
     mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [mTextView sizeToFit];
      _textLabRect = mTextView.bounds;
     CGFloat textWidth  = _textLabRect.size.width;
     CGFloat textHeight = _textLabRect.size.height;
-    
+    CGFloat atHeight = 0;
     if(_message.messageFrom == PWChatMessageFromOther){
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _nameLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
@@ -64,17 +68,23 @@
     }else if(_message.messageFrom == PWChatMessageFromMe){
         _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconLeft-nameWidth, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+        if (_message.isHasAtStr) {
+            atHeight = ZOOM_SCALE(18)+4;
+        }
         _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatDetailRight-PWChatTextLRB-textWidth-PWChatTextLRS, CGRectGetMaxY(_nameLabRect)+8, textWidth+PWChatTextLRB+PWChatTextLRS, textHeight+PWChatTextTop+PWChatTextBottom);
-        
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, 0, PWChatAirBottom, 0);
         
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;
     }else if(_message.messageFrom == PWChatMessageFromStaff){
-        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
-
+       
+        UILabel *stuffLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.stuffName];
+        [stuffLab sizeToFit];
+        _expertLabRect = stuffLab.bounds;
+        CGFloat stuffWidth  = _expertLabRect.size.width;
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, CGRectGetMaxY(_expertLabRect), kWidth-80, ZOOM_SCALE(16));
+        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, stuffWidth+10, ZOOM_SCALE(16));
+        _nameLabRect = CGRectMake(CGRectGetMaxX(_expertLabRect)+12, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _backImgButtonRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, textWidth+PWChatTextLRB+PWChatTextLRS, textHeight+PWChatTextTop+PWChatTextBottom);
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, 0, PWChatAirBottom, 0);
@@ -85,8 +95,7 @@
         
     }
     
-
-    _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
+    _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom+atHeight;
     
 }
 - (void)setImage{
@@ -140,10 +149,13 @@
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
     }else if(_message.messageFrom == PWChatMessageFromStaff){
-        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
-
+        UILabel *stuffLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.stuffName];
+        [stuffLab sizeToFit];
+        _expertLabRect = stuffLab.bounds;
+        CGFloat stuffWidth  = _expertLabRect.size.width;
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y+CGRectGetMaxY(_expertLabRect), kWidth-80, ZOOM_SCALE(16));
+        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, stuffWidth+10, ZOOM_SCALE(16));
+        _nameLabRect = CGRectMake(CGRectGetMaxX(_expertLabRect)+12, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _backImgButtonRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y+CGRectGetMaxY(_nameLabRect)+8, imgActualWidth, imgActualHeight);
         
         _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRB, PWChatAirBottom, PWChatAirLRS);
@@ -175,10 +187,14 @@
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;
     }else if(_message.messageFrom == PWChatMessageFromStaff){
+        UILabel *stuffLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.stuffName];
+        [stuffLab sizeToFit];
+        _expertLabRect = stuffLab.bounds;
+        CGFloat stuffWidth  = _expertLabRect.size.width;
        
-        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
-        _nameLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, CGRectGetMaxY(_expertLabRect)+8, kWidth-80, ZOOM_SCALE(16));
+        _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, stuffWidth+10, ZOOM_SCALE(16));
+         _nameLabRect = CGRectMake(CGRectGetMaxX(_expertLabRect)+12, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
         _backImgButtonRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, CGRectGetMaxY(_nameLabRect)+8, PWChatFileWidth, PWChatFileHeight);
         
     }
@@ -198,5 +214,8 @@
         _cellHeight = _systermLabRect.size.height+Interval(28);
 
     }
+}
+- (void)setAtText{
+    
 }
 @end

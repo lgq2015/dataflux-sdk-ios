@@ -22,6 +22,8 @@
 //图片链接异常
 -(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
 
+-(void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @end
@@ -40,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSIndexPath         *indexPath;
 //文本消息
 @property(nonatomic, strong) UITextView     *mTextView;
-
+@property(nonatomic, strong) UIButton   *atReadBtn;
 //图片消息
 @property(nonatomic,strong) UIImageView *mImgView;
 

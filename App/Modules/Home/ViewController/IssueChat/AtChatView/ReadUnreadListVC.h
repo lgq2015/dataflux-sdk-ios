@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReadUnreadListVC : RootViewController
-
+@property (nonatomic, strong) NSArray *atStatusAry;
 @end
 
 NS_ASSUME_NONNULL_END
