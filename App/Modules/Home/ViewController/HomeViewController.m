@@ -77,7 +77,7 @@
             //显示
             if (arrowBtn.isSelected){
                 ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
-                [changeView showWithOffsetY:kTopHeight+16];
+                [changeView showWithOffsetY:kTopHeight+15];
                 changeView.delegate = self;
                 changeView.fromVC = self;
             }else{
