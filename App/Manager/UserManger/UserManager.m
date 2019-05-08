@@ -311,6 +311,7 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
+    [cacheteam removeObjectForKey:KTeamISPsCacheName];
     [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
     if (completion){

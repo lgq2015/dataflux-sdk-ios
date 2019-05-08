@@ -139,7 +139,7 @@
     }
 }
 - (void)btnClickedOperations{
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400 882 3320"];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
@@ -188,7 +188,7 @@
 #pragma mark ---lazy-----
 - (UIButton *)noPicPhoneBtn{
     if (!_noPicPhoneBtn){
-        _noPicPhoneBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:_mobile == nil ? @"400-882-3320" : _mobile];
+        _noPicPhoneBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:_mobile == nil ? @"400 882 3320" : _mobile];
         [_noPicPhoneBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         _noPicPhoneBtn.tag = TagPhoneBtn;
         [_noPicPhoneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];

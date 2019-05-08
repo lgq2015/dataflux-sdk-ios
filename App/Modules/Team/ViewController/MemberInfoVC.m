@@ -125,7 +125,7 @@
     [self.view bringSubviewToFront:self.whiteBackBtn];
 }
 -(void)createBtnExpert{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"400-882-3320"];
+    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"400 882 3320"];
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -240,7 +240,7 @@
     [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
 }
 - (void)btnClickedOperations{
-    NSString *mobile = self.type==PWMemberViewTypeExpert? @"400-882-3320":self.model.mobile;
+    NSString *mobile = self.type==PWMemberViewTypeExpert? @"400 882 3320":self.model.mobile;
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
@@ -371,7 +371,7 @@
 //格式化电话号码 344
 - (NSString *)phoneChange:(NSString *)phoneNum{
     NSString *tenDigitNumber = phoneNum;
-    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{3})(\\d{4})"
+    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{4})(\\d{4})"
                                                                withString:@"$1 $2 $3"
                                                                   options:NSRegularExpressionSearch
                                                                     range:NSMakeRange(0, [tenDigitNumber length])];

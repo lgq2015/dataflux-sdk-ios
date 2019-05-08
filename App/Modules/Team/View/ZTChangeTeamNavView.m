@@ -8,7 +8,7 @@
 
 #import "ZTChangeTeamNavView.h"
 #import <Masonry.h>
-#define TitleMaxW 200.0
+#define TitleMaxW 250.0
 @interface ZTChangeTeamNavView()
 @property (nonatomic, copy)NSString *titleString;
 @property (nonatomic, strong)UIFont *font;

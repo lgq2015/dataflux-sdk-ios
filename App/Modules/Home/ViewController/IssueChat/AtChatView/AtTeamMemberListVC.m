@@ -91,7 +91,7 @@
         MemberInfoModel *model =[[MemberInfoModel alloc]init];
         model.isSpecialist = YES;
         model.name = @"王教授";
-        model.mobile = @"400-882-3320";
+        model.mobile = @"400 882 3320";
         [self.teamMemberArray insertObject:model atIndex:1];
         index = 1;
     }
