@@ -59,7 +59,7 @@
     if (_teamlists && _teamlists.count > 0){
         [self show:^(BOOL isShow) {
             if (isShow){
-                [self loadData];
+                [self requestIssueCount];
             }
         }];
     }else{
@@ -121,7 +121,6 @@
 -(UIWindow *)window{
     if (!_window) {
         _window = [[[UIApplication sharedApplication]delegate]window];
-//        _window.clipsToBounds = YES;
     }
     return _window;
 }
@@ -254,7 +253,7 @@
 }
 #pragma mark ---发送切换团队请求----
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
-    [SVProgressHUD show];
+//    [SVProgressHUD show];
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
     [self requestChangeTeam:params isHaveMemberCache:YES withModel:model];
 }
@@ -283,16 +282,17 @@
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
         }else{
+            //切换团队失败，移出缓存中的这一条
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            NSInteger index = [_teamlists indexOfObject:model];
+            NSMutableArray *mTeams = [[NSMutableArray alloc] initWithArray:_teamlists];
+            [mTeams removeObjectAtIndex:index];
+            [userManager setAuthTeamList:mTeams];
         }
         //重新发送loadlist请求
         [userManager requestMemberList:nil];
-        //重新发送团队列表红点请求
-        [userManager requestTeamIssueCount:nil];
-        [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
         [iToast alertWithTitleCenter:@"切换团队失败"];
-        [SVProgressHUD dismiss];
     }];
 }
 //请求团队列表和团队情报数
@@ -319,17 +319,20 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD dismiss];
             _teamlists = [userManager getAuthTeamList];
-            if (_isShowTeamView){
-                [self addIssueCount];
-                [self p_disFrame];
-                [self.tab reloadData];
-            }else{
-                [self show:nil];
-            }
-            
+            [self show:nil];
         });
     });
 }
-
+//请求团队情报数
+- (void)requestIssueCount{
+    [userManager requestTeamIssueCount:^(bool isFinished) {
+        if (isFinished){
+            if (_isShowTeamView){
+                [self addIssueCount];
+                [self.tab reloadData];
+            }
+        }
+    }];
+}
 
 @end

@@ -93,8 +93,8 @@
 }
 - (void)hometeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----团队切换请求成功后通知");
-
-//    [SVProgressHUD show];
+    
+    [SVProgressHUD show];
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
     }];
