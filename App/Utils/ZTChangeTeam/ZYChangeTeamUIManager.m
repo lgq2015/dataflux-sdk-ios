@@ -255,11 +255,11 @@
 - (void)changeTeamWithGroupModel:(TeamInfoModel *)model{
 //    [SVProgressHUD show];
     NSDictionary *params = @{@"data":@{@"teamId":model.teamID}};
-    [self requestChangeTeam:params isHaveMemberCache:YES withModel:model];
+    [self requestChangeTeam:params withModel:model];
 }
 
 #pragma mark ---团队切换请求-----
-- (void)requestChangeTeam:(NSDictionary *)params isHaveMemberCache:(BOOL)isHaveMemberCache withModel:(TeamInfoModel *)model{
+- (void)requestChangeTeam:(NSDictionary *)params withModel:(TeamInfoModel *)model{
     [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSString *token = response[@"content"][@"authAccessToken"];
