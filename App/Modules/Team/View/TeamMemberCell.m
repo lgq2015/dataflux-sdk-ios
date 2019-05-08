@@ -51,12 +51,13 @@
         make.left.mas_equalTo(iconImgView.mas_right).offset(Interval(13));
         make.height.offset(ZOOM_SCALE(22));
         make.centerY.mas_equalTo(iconImgView);
-        
+        make.width.lessThanOrEqualTo([NSNumber numberWithFloat:ZOOM_SCALE(190)]);
     }];
     [self.beizhuLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.contentView).offset(-Interval(22));
-        make.left.mas_greaterThanOrEqualTo(titleLab.mas_right).offset(10);
+        make.right.mas_equalTo(self.contentView).offset(-Interval(10));
+        make.left.mas_greaterThanOrEqualTo(titleLab.mas_right).offset(0);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-13);
+        make.width.lessThanOrEqualTo([NSNumber numberWithFloat:ZOOM_SCALE(110)]);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(1);

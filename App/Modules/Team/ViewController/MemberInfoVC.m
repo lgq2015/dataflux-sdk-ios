@@ -221,8 +221,12 @@
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
-            _beizhuBtn.hidden = NO;
-            _beizhuBtn.enabled = YES;
+            if ([getTeamState isEqualToString:PW_isPersonal]){
+                _beizhuBtn.hidden = YES;
+            }else{
+                _beizhuBtn.hidden = NO;
+                _beizhuBtn.enabled = YES;
+            }
         }else{
             if (self.model.inTeamNote.length > 0){
                 _beizhuBtn.hidden = NO;
