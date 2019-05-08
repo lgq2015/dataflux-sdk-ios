@@ -97,7 +97,7 @@
 }
 -(UILabel *)adminLab{
     if (!_adminLab) {
-        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:_model.isAdmin ? @"管理员" : @"专家"];
+        _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@""];
         _adminLab.textAlignment = NSTextAlignmentCenter;
         _adminLab.layer.cornerRadius = 2.0f;
         _adminLab.layer.masksToBounds = YES;
@@ -109,6 +109,7 @@
         _adminLab.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_adminLab];
     }
+    _adminLab.text = _model.isAdmin ? @"管理员" : @"专家";
     return _adminLab;
 }
 -(UIView *)line{

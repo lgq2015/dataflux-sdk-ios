@@ -313,7 +313,9 @@ SINGLETON_FOR_CLASS(UserManager);
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheTeamList removeObjectForKey:kAuthTeamListDict];
     KPostNotification(KNotificationLoginStateChange, @NO);
-    completion(YES,nil);
+    if (completion){
+        completion(YES,nil);
+    }
 }
 
 //-(void)autoLoginToServer:(loginBlock)completion{
