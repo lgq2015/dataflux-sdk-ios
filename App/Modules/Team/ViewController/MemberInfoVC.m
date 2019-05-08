@@ -125,7 +125,7 @@
     [self.view bringSubviewToFront:self.whiteBackBtn];
 }
 -(void)createBtnExpert{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"400-882-3320"];
+    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"400 882 3320"];
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -220,16 +220,20 @@
         }
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
-        //隐藏备注条件 1.专家 2.非管理员并且不是自己
-        if (self.model.inTeamNote.length > 0){
-            _beizhuBtn.hidden = NO;
-            if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
-                _beizhuBtn.enabled = YES;
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+            if ([getTeamState isEqualToString:PW_isPersonal]){
+                _beizhuBtn.hidden = YES;
             }else{
-                _beizhuBtn.enabled = NO;
+                _beizhuBtn.hidden = NO;
+                _beizhuBtn.enabled = YES;
             }
         }else{
-            _beizhuBtn.hidden = YES;
+            if (self.model.inTeamNote.length > 0){
+                _beizhuBtn.hidden = NO;
+                _beizhuBtn.enabled = NO;
+            }else{
+                _beizhuBtn.hidden = YES;
+            }
         }
         
     }
@@ -240,7 +244,7 @@
     [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
 }
 - (void)btnClickedOperations{
-    NSString *mobile = self.type==PWMemberViewTypeExpert? @"400-882-3320":self.model.mobile;
+    NSString *mobile = self.type==PWMemberViewTypeExpert? @"400 882 3320":self.model.mobile;
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
@@ -371,7 +375,7 @@
 //格式化电话号码 344
 - (NSString *)phoneChange:(NSString *)phoneNum{
     NSString *tenDigitNumber = phoneNum;
-    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{3})(\\d{4})"
+    tenDigitNumber = [tenDigitNumber stringByReplacingOccurrencesOfString:@"(\\d{3})(\\d{4})(\\d{4})"
                                                                withString:@"$1 $2 $3"
                                                                   options:NSRegularExpressionSearch
                                                                     range:NSMakeRange(0, [tenDigitNumber length])];

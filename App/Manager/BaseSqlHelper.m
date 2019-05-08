@@ -48,8 +48,10 @@
 
 - (void)shutDown {
     @synchronized (self.lock) {
-        [_fmdbHelper close];
-        _fmdbHelper = nil;
+        [_fmdbHelper pw_inDatabase:^{
+            [_fmdbHelper close];
+            _fmdbHelper = nil;
+        }];
     }
 }
 @end
