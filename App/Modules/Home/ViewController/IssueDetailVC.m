@@ -238,7 +238,7 @@
 
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.model.sourceName];
+            self.contentLab.text = [NSString stringWithFormat:@"您的 %@云服务 %@ 最近一次检测失效，请检查该云服务是否存在问题。",name1,self.model.sourceName];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
@@ -284,7 +284,7 @@
         }
    }
 }
-#pragma mark ========== 请求一级情报源详情 获取情报源名称 ==========
+#pragma mark ========== 请求一级云服务详情 获取云服务名称 ==========
 - (void)loadIssueSuperSourceDetail:(NSString *)issueSourceId issueProvider:(NSString *)provider{
     NSDictionary *param = @{@"id":issueSourceId};
     [SVProgressHUD show];
@@ -300,7 +300,7 @@
                     self.issueNameLab.text = [source stringValueForKey:@"name" default:@""];
                     if (self.model.isInvalidIssue) {
                         [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
-                            self.contentLab.text = [NSString stringWithFormat:@"您的 %@情报源 %@ 最近一次检测失效，请检查该情报源是否存在问题。",name1,self.issueNameLab.text];
+                            self.contentLab.text = [NSString stringWithFormat:@"您的 %@云服务 %@ 最近一次检测失效，请检查该云服务是否存在问题。",name1,self.issueNameLab.text];
                         }];
                     }
                 }

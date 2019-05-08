@@ -81,7 +81,7 @@
         NSDictionary *dict = [self.originInfoJSONStr jsonValueDecoded];
         NSString *checkKey = [dict stringValueForKey:@"checkKey" default:@""];
         if ([checkKey isEqualToString:@"invalidIssueSource"]) {
-            self.title = @"情报源异常";
+            self.title = @"云服务异常";
             self.isInvalidIssue = YES;
         }
     }

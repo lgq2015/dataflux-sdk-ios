@@ -547,7 +547,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         }
     }
 }
-#pragma mark ========== 编辑情报源 ==========
+#pragma mark ========== 编辑云服务 ==========
 - (void)modifyIssueSourcejudge{
      NSDictionary *param ;
     if (self.type == SourceTypeAli || self.type ==SourceTypeAWS||self.type ==SourceTypeUcloud||self.type ==SourceTypeTencent) {
@@ -606,7 +606,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 
     }];
 }
-#pragma mark ========== 添加情报源 ==========
+#pragma mark ========== 添加云服务 ==========
 - (void)addIssueSourcejudge{
     NSDictionary *param;
      self.addTipView = [[AddIssueSourceTipView alloc]init];
@@ -708,13 +708,13 @@ typedef NS_ENUM(NSUInteger ,NaviType){
 }
 
 
-#pragma mark ========== 删除情报源 ==========
+#pragma mark ========== 删除云服务 ==========
 - (void)deleteIssueSource{
     [SVProgressHUD showWithStatus:@"正在删除..."];
 
     void (^sourceNotExist)(void) = ^{
         [SVProgressHUD dismiss];
-        [iToast alertWithTitleCenter:@"情报源不存在"];
+        [iToast alertWithTitleCenter:@"云服务不存在"];
         [self deleteAndRefreshDB];
 
     };

@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, MineCellType) {
     MineCellTypeOpinion,           //意见与反馈
     MineCellTypeContactuUs,        //联系我们
     MineCellTypeSetting,           //设置
-    MineCellTypeInfoSource         //情报源
+    MineCellTypeInfoSource         //云服务
 };
 
 

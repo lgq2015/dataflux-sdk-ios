@@ -27,7 +27,7 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
 
 
 /**
- 每次打开app更新情报源列表
+ 每次打开app更新云服务列表
  */
 - (void)downLoadAllIssueSourceList;
 

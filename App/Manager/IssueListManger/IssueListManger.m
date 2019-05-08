@@ -833,7 +833,7 @@
 }
 
 /**
- * 根据情报源删除情报
+ * 根据云服务删除情报
  * @param sourceIds
  */
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds {

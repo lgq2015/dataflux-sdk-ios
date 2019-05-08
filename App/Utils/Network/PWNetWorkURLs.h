@@ -108,13 +108,13 @@
 //情报列表
 #define PW_issueList                   API_SEVERID@"/v1/issue/list"
 
-//情报源添加
+//云服务添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
-//情报源列表
+//云服务列表
 #define PW_issueSourceList [NSString stringWithFormat:@"%@/v1/issue_source/list", API_SEVERID]
-//情报源修改
+//云服务修改
 #define PW_issueSourceModify(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/modify", API_SEVERID,issueid]
-//情报源详情
+//云服务详情
 //#define PW_issueDetail(issueid)   [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
 
 #define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]

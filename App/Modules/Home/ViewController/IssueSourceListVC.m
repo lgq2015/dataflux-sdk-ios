@@ -167,7 +167,7 @@
     self.currentPage = 1;
     [self loadData];
 }
-// 添加情报源跳转
+// 添加云服务跳转
 - (void)addInfoSource{
     AddSourceVC *addVC = [[AddSourceVC alloc]init];
     [self.navigationController pushViewController:addVC animated:YES];

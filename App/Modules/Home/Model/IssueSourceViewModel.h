@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, SourceType) {
 typedef NS_ENUM(NSInteger, SourceState) {
     SourceStateNotDetected = 1,        //未开始检测
     SourceStateDetected,               //已纳入检测
-    SourceStateAbnormal,               //情报源异常
+    SourceStateAbnormal,               //云服务异常
 };
 NS_ASSUME_NONNULL_BEGIN
 

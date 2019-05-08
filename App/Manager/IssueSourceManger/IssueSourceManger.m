@@ -69,7 +69,7 @@
     [self downLoadAllIssueSourceList:nil];
 }
 
-// 获取基础类的 情报源总数
+// 获取基础类的 云服务总数
 - (NSInteger)getBasicIssueSourceCount {
 
     __block NSInteger count = 0;

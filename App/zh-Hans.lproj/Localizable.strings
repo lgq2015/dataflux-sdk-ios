@@ -54,7 +54,7 @@
 "ff.group.add_account_invalid_params"= "无效的参数";
 "home.auth.noSuchEmail"= "邮箱不存在";
 "pylon.account.onlyAdminCanOperate"= "运营系统管理员操作";
-"home.auth.noSuchIssueSource"= "情报源不存在";
+"home.auth.noSuchIssueSource"= "云服务不存在";
 "forum.auth.NoPermission"= "没有文章操作权限";
 "home.base.badRequest"= "错误的请求";
 "home.hdbk.handbookAlreadyExists"= "手册已经存在";
@@ -62,7 +62,7 @@
 "home.auth.unsupportedEmailType"= "不支持的邮件类型";
 "home.recommendation.recommendationAlreadyPushed"= "推荐位已推送";
 "ff.team.list_miss_params"= "参数错误";
-"home.issueSource.noSuchIssueSource"= "情报源不存在";
+"home.issueSource.noSuchIssueSource"= "云服务不存在";
 "home.auth.passwordIncorrect"= "账号或密码错误";
 "pylon.auth.accountForbidden"= "账号已被禁用";
 "home.auth.noSuchTeam"= "团队不存在";

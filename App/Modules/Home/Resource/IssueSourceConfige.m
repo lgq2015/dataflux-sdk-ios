@@ -67,13 +67,13 @@
             [self createDomainNameTf];
             break;
     }
-    self.deletAlert = @"删除情报源将会同时删除关于该情报源的所有情报记录以及相关的服务记录，请您谨慎操作";
+    self.deletAlert = @"删除云服务将会同时删除关于该云服务的所有情报记录以及相关的服务记录，请您谨慎操作";
     self.helpUrl = PW_ISSUE_HELP(self.vcProvider);
 }
 - (void)createTFArrayWithAliyun{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
@@ -99,8 +99,8 @@
 }
 - (void)createTFArrayWithAWS{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
@@ -118,8 +118,8 @@
 }
 - (void)createTFArrayWithTencent{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
@@ -137,8 +137,8 @@
 }
 - (void)createTFArrayWithUcloud{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
@@ -156,8 +156,8 @@
 }
 - (void)createTFArrayWithClusterDiagnose{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
@@ -179,8 +179,8 @@
 }
 - (void)createTFArrayWithSingleDiagnose{
     IssueTf *tf =[IssueTf new];
-    tf.tfTitle = @"情报源名称";
-    tf.placeHolder = @"请输入情报源名称";
+    tf.tfTitle = @"云服务名称";
+    tf.placeHolder = @"请输入云服务名称";
     tf.text = @"";
     tf.enable = YES;
     IssueTf *tf2 =[IssueTf new];
