@@ -220,16 +220,16 @@
         }
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
-        //隐藏备注条件 1.专家 2.非管理员并且不是自己
-        if (self.model.inTeamNote.length > 0){
+        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             _beizhuBtn.hidden = NO;
-            if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
-                _beizhuBtn.enabled = YES;
-            }else{
-                _beizhuBtn.enabled = NO;
-            }
+            _beizhuBtn.enabled = YES;
         }else{
-            _beizhuBtn.hidden = YES;
+            if (self.model.inTeamNote.length > 0){
+                _beizhuBtn.hidden = NO;
+                _beizhuBtn.enabled = NO;
+            }else{
+                _beizhuBtn.hidden = YES;
+            }
         }
         
     }
