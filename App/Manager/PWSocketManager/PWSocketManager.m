@@ -18,7 +18,7 @@
 #define ON_EVENT_ISSUE_UPDATE @"socketio.issueUpdate"
 #define ON_EVENT_ISSUE_SOURCE_UPDATE @"socketio.issueSourceUpdate"
 #define ON_EVENT_ISSUE_LOG_ADD @"socketio.issueLogAdd"
-
+#define ON_EVENT_RECORD_Last_ReadSeq @"socketio.recordLastReadSeq"
 
 static dispatch_queue_t socket_message_queue() {
     static dispatch_queue_t queue;
@@ -167,6 +167,14 @@ static dispatch_queue_t socket_message_queue() {
 
         }
 
+    }];
+    [self.socket on:ON_EVENT_RECORD_Last_ReadSeq callback:^(NSArray *data, SocketAckEmitter *ack) {
+        if (data.count > 0) {
+            DLog(ON_EVENT_RECORD_Last_ReadSeq" = %@", data);
+            
+            
+        }
+        
     }];
     [self.socket on:ON_EVENT_ISSUE_LOG_ADD callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
