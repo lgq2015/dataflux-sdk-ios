@@ -191,7 +191,8 @@
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
-        NSString *title = [userInfo stringValueForKey:@"title" default:@""];
+        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
+        DLog(@"zhangtao123456------%@-----%@",title,titleW);
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
