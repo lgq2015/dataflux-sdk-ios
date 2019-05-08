@@ -478,7 +478,7 @@
             success.isTrans = NO;
             [self presentViewController:success animated:YES completion:nil];
         }else{
-            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
