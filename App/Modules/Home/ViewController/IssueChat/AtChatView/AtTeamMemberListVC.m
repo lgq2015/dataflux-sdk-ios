@@ -51,6 +51,8 @@
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
             [self dealMemberWithDatas:member];
+        }else{
+            [self showNoDataImage];
         }
     }];
 }
@@ -65,28 +67,30 @@
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    
+    //判断是否要添加专家
+    [self addAtSpecialist];
+  __block  NSInteger index = self.teamMemberArray.count>0?1:0;
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
         if(![model.memberID isEqualToString:userManager.curUserInfo.userID]){
             if (model.isAdmin) {
                 [self.teamMemberArray insertObject:model atIndex:0];
+                index+=1;
             }else{
                 [self.teamMemberArray addObject:model];
             }
         }
     }];
-    //判断是否要添加专家
-    [self addAtSpecialist];
     
+    [self dealGroupDataWithIgnoreIndex:index];
+
 }
 - (void)addAtSpecialist{
     TeamInfoModel *model = [userManager getTeamModel];
     NSDictionary *tags = model.tags;
     NSArray *ISPs = PWSafeArrayVal(tags, @"ISPs");
     NSArray *constISPs = [userManager getTeamISPs];
-    NSInteger index = 0;
     if (constISPs != nil && constISPs.count != 0) {
         NSMutableArray *ipsDics = [NSMutableArray array];
         //找出当前团队所有的专家对象数组
@@ -108,25 +112,24 @@
             model.name = displayName;
             model.ISP = ISP;
             model.isSpecialist = YES;
-            [self.teamMemberArray insertObject:model atIndex:1];
+            [self.teamMemberArray addObject:model];
         }];
-        index = ipsDics.count;
     }
-    [self dealGroupDataWithIgnoreIndex:index];
     
 }
 - (void)dealGroupDataWithIgnoreIndex:(NSInteger)index{
     if (self.teamMemberArray.count == 0) {
+        [self showNoDataImage];
         return;
     }
-    if (self.teamMemberArray.count == index+1) {
+    if (self.teamMemberArray.count == index) {
         [self.dataSource addObject:self.teamMemberArray];
     }else{
         
-        NSArray *data = [self.teamMemberArray subarrayWithRange:NSMakeRange(index+1, self.teamMemberArray.count-index-1)];
+        NSArray *data = [self.teamMemberArray subarrayWithRange:NSMakeRange(index, self.teamMemberArray.count-index)];
         self.indexArr = [ZLChineseToPinyin indexWithArray:data Key:@"name"];
         self.dataSource = [ZLChineseToPinyin sortObjectArray:data Key:@"name"];
-        [self.dataSource insertObject:[self.teamMemberArray subarrayWithRange:NSMakeRange(0, index+1)]  atIndex:0];
+        [self.dataSource insertObject:[self.teamMemberArray subarrayWithRange:NSMakeRange(0, index)]  atIndex:0];
         [self.indexArr insertObject:@"" atIndex:0];
         self.tableView.sc_indexViewDataSource = self.indexArr;
         [self.tableView reloadData];
@@ -230,13 +233,16 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.isMultiChoice) {
-         TeamMemberCell *cell = (TeamMemberCell *)[tableView cellForRowAtIndexPath:indexPath];
-        [cell setTeamMemberSelect];
-        UIButton *selBtn = [cell.contentView viewWithTag:55];
-        if (selBtn.selected) {
+        TeamMemberCell *cell = (TeamMemberCell *)[tableView cellForRowAtIndexPath:indexPath];
+        MemberInfoModel *model =self.dataSource[indexPath.section][indexPath.row];
+        BOOL isSelect = model.isSelect;
+        model.isSelect = !isSelect;
+        [cell setTeamMemberSelect:model.isSelect];
+        if (model.isSelect) {
+            model.isSelect = YES;
         [self.chooseArr addObject:self.dataSource[indexPath.section][indexPath.row]];
         }else{
-            MemberInfoModel *model =self.dataSource[indexPath.section][indexPath.row];
+            model.isSelect = NO;
             [[self.chooseArr modelCopy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([model.memberID isEqualToString:obj.memberID]) {
                     [self.chooseArr removeObjectAtIndex:idx];

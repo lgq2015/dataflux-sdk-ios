@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MemberInfoModel *model;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIButton *phoneBtn;
-- (void)setTeamMemberSelect;
+- (void)setTeamMemberSelect:(BOOL)isSelect;
 @end
 
 NS_ASSUME_NONNULL_END

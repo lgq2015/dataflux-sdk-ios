@@ -81,9 +81,7 @@
         [iconImgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     }
     if (model.isMultiChoice) {
-        UIButton *selImage = [[UIButton alloc]init];
-        [selImage setImage:[UIImage imageNamed:@"icon_noSelect"] forState:UIControlStateNormal];
-        [selImage setImage:[UIImage imageNamed:@"team_success"] forState:UIControlStateSelected];
+        UIImageView *selImage = [[UIImageView alloc]init];
         selImage.tag = 55;
         [[self.contentView viewWithTag:55] removeFromSuperview];
         [self.contentView addSubview:selImage];
@@ -92,11 +90,19 @@
             make.width.height.offset(20);
             make.centerY.mas_equalTo(self.contentView);
         }];
+        selImage.userInteractionEnabled = YES;
+        if(model.isSelect){
+            selImage.image = [UIImage imageNamed:@"team_success"];
+        }else{
+            selImage.image = [UIImage imageNamed:@"icon_noSelect"];
+        }
+       
     }
 }
 -(void)layoutSubviews{
    
 }
+
 -(UILabel *)adminLab{
     if (!_adminLab) {
         _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@""];
@@ -156,9 +162,13 @@
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self addSubview:callWebview];
 }
-- (void)setTeamMemberSelect{
-   UIButton *selimage= [self.contentView viewWithTag:55];
-    selimage.selected = !selimage.selected;
+- (void)setTeamMemberSelect:(BOOL)isSelect{
+   UIImageView *selImage= [self.contentView viewWithTag:55];
+    if(isSelect){
+        selImage.image = [UIImage imageNamed:@"team_success"];
+    }else{
+        selImage.image = [UIImage imageNamed:@"icon_noSelect"];
+    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
