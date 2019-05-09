@@ -102,7 +102,7 @@
     
     LibraryVC *vc2 = [LibraryVC new];
     vc2.view.backgroundColor = PWBackgroundColor;
-    vc2.title = @"手册";
+    vc2.title = @"智库";
    
     NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, nil];
     return childVcs;

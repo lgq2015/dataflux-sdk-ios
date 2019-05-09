@@ -79,7 +79,7 @@
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
         _mExpertLab.hidden = YES;
         if (layout.message.messageFrom == PWChatMessageFromStaff) {
-            [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"expert_defaulticon"]];
+            [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"professor_wang_header"]];
 
             self.mExpertLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:layout.message.stuffName];
             [self.contentView addSubview:_mExpertLab];
