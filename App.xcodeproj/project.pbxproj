@@ -430,6 +430,18 @@
 		4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		4A95BBD82181C52200FC2979 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBDA2181C52200FC2979 /* InfoPlist.strings */; };
 		4A95BBDE2181C76F00FC2979 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A95BBE02181C76F00FC2979 /* Localizable.strings */; };
+		4AA4CEE12283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEE02283F0ED00A2CBE1 /* IssueLastReadInfoModel.m */; };
+		4AA4CEE22283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEE02283F0ED00A2CBE1 /* IssueLastReadInfoModel.m */; };
+		4AA4CEE32283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEE02283F0ED00A2CBE1 /* IssueLastReadInfoModel.m */; };
+		4AA4CEEB228400F000A2CBE1 /* IssueReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEEA228400F000A2CBE1 /* IssueReadInfo.m */; };
+		4AA4CEEC228400F000A2CBE1 /* IssueReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEEA228400F000A2CBE1 /* IssueReadInfo.m */; };
+		4AA4CEED228400F000A2CBE1 /* IssueReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEEA228400F000A2CBE1 /* IssueReadInfo.m */; };
+		4AA4CEF5228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF4228416AC00A2CBE1 /* IssueLogAtReadInfo.m */; };
+		4AA4CEF6228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF4228416AC00A2CBE1 /* IssueLogAtReadInfo.m */; };
+		4AA4CEF7228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF4228416AC00A2CBE1 /* IssueLogAtReadInfo.m */; };
+		4AA4CEFA22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF822841A4700A2CBE1 /* IssueLastReadInfoData.m */; };
+		4AA4CEFB22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF822841A4700A2CBE1 /* IssueLastReadInfoData.m */; };
+		4AA4CEFC22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CEF822841A4700A2CBE1 /* IssueLastReadInfoData.m */; };
 		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
@@ -1441,6 +1453,14 @@
 		4A95BBDB2181C52500FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A95BBDF2181C76F00FC2979 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A95BBE12181C77000FC2979 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4AA4CEDF2283F0ED00A2CBE1 /* IssueLastReadInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLastReadInfoModel.h; sourceTree = "<group>"; };
+		4AA4CEE02283F0ED00A2CBE1 /* IssueLastReadInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLastReadInfoModel.m; sourceTree = "<group>"; };
+		4AA4CEE9228400F000A2CBE1 /* IssueReadInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueReadInfo.h; sourceTree = "<group>"; };
+		4AA4CEEA228400F000A2CBE1 /* IssueReadInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueReadInfo.m; sourceTree = "<group>"; };
+		4AA4CEF3228416AC00A2CBE1 /* IssueLogAtReadInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAtReadInfo.h; sourceTree = "<group>"; };
+		4AA4CEF4228416AC00A2CBE1 /* IssueLogAtReadInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAtReadInfo.m; sourceTree = "<group>"; };
+		4AA4CEF822841A4700A2CBE1 /* IssueLastReadInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLastReadInfoData.m; sourceTree = "<group>"; };
+		4AA4CEF922841A4700A2CBE1 /* IssueLastReadInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLastReadInfoData.h; sourceTree = "<group>"; };
 		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
 		4AAC14162275AA290043AD5E /* IssueIndexHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueIndexHeaderView.h; sourceTree = "<group>"; };
@@ -3314,6 +3334,14 @@
 				6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */,
 				6B6E2C50F5C0956C6E1B472D /* IssueChatDataModel.h */,
 				6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */,
+				4AA4CEDF2283F0ED00A2CBE1 /* IssueLastReadInfoModel.h */,
+				4AA4CEE02283F0ED00A2CBE1 /* IssueLastReadInfoModel.m */,
+				4AA4CEE9228400F000A2CBE1 /* IssueReadInfo.h */,
+				4AA4CEEA228400F000A2CBE1 /* IssueReadInfo.m */,
+				4AA4CEF3228416AC00A2CBE1 /* IssueLogAtReadInfo.h */,
+				4AA4CEF4228416AC00A2CBE1 /* IssueLogAtReadInfo.m */,
+				4AA4CEF922841A4700A2CBE1 /* IssueLastReadInfoData.h */,
+				4AA4CEF822841A4700A2CBE1 /* IssueLastReadInfoData.m */,
 			);
 			path = IssueChatData;
 			sourceTree = "<group>";
@@ -3822,6 +3850,7 @@
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
 				2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4AA4CEFA22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				4A759A9D224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
@@ -4044,6 +4073,7 @@
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
+				4AA4CEEB228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D039226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3A136A228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
@@ -4072,6 +4102,7 @@
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
 				6B6E22AF17266A5900D40334 /* HomeViewController.m in Sources */,
 				6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */,
+				4AA4CEF5228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
 				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
@@ -4101,6 +4132,7 @@
 				6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */,
 				6B6E247AD1C1857E2253AA88 /* AddSourceTipVC.m in Sources */,
 				4AF663A0225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
+				4AA4CEE12283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */,
 				6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */,
 				6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */,
@@ -4146,6 +4178,7 @@
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
 				2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4AA4CEFB22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -4368,6 +4401,7 @@
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
+				4AA4CEEC228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D03A226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3A136B228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
@@ -4396,6 +4430,7 @@
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
 				6B6E279062CF87E37FE1DBF4 /* HomeViewController.m in Sources */,
 				6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */,
+				4AA4CEF6228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
 				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
@@ -4425,6 +4460,7 @@
 				6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */,
 				6B6E2BF32AB1BEFA3DA7ADDE /* AddSourceTipVC.m in Sources */,
 				4AF663A1225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
+				4AA4CEE22283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */,
 				6B6E2E8E66BD000C8344D33C /* IssueSourceModel.m in Sources */,
 				6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */,
@@ -4470,6 +4506,7 @@
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
 				2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4AA4CEFC22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */,
@@ -4692,6 +4729,7 @@
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
+				4AA4CEED228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D03B226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3A136C228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
@@ -4720,6 +4758,7 @@
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
 				6B6E21B78A8409F6DE2539F3 /* HomeViewController.m in Sources */,
 				6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */,
+				4AA4CEF7228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,
 				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
@@ -4749,6 +4788,7 @@
 				6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */,
 				6B6E29E505B6D2E250140FC3 /* AddSourceTipVC.m in Sources */,
 				4AF663A2225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
+				4AA4CEE32283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */,
 				6B6E2E920811A2448BBB0012 /* IssueSourceModel.m in Sources */,
 				6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */,
