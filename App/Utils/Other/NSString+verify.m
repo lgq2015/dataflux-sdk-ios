@@ -199,7 +199,7 @@
     NSDate *timeDate = [dateFormatter dateFromString:str];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:timeDate];
-    long temp = 0;
+    long temp,tempHour,tempDay = 0;
     NSString *result;
     if (timeInterval/60 < 1)
     {
@@ -208,10 +208,11 @@
     else if((temp = timeInterval/60) <60){
         result = [NSString stringWithFormat:@"持续 %ld 分钟",temp];
     }
-    else if((temp = temp/60) <24){
-        result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",temp,temp%60];
+    else if((tempHour = temp/60) <24){
+        long min =temp%60;
+        result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",tempHour,min];
     }
-    else if((temp = temp/24) <7){
+    else if((tempDay = temp/24) <7){
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDate *fromDate;
         NSDate *toDate;
@@ -220,11 +221,11 @@
         NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
         result = [NSString stringWithFormat:@"持续 %ld 天",dayComponents.day];
         if (dayComponents.day == 7) {
-            result = @"持续超过1周";
+            result = @"持续超过 1 周";
         }
     }
     else {
-        result = @"持续超过1周";
+        result = @"持续超过 1 周";
     }
     return  result;
 }
