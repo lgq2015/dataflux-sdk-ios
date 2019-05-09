@@ -128,7 +128,7 @@
 - (void)dealWithNotification:(NSDictionary *)userInfo{
     NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
     NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
-    NSString *title = [alert valueForKey:@"title"]; //标题
+    NSString *title = [alert valueForKey:@"body"]; //标题
     NSString *msgType = [userInfo stringValueForKey:@"msgType" default:@""];  //消息类型
     NSString *teamID = [userInfo stringValueForKey:@"teamId" default:@""];  //teamID
     TeamInfoModel *currentTeam = [userManager getTeamModel];

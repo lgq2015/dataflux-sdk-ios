@@ -96,8 +96,8 @@
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
         make.top.mas_equalTo(self.sourceLab.mas_bottom).offset(Interval(11));
+        make.height.mas_equalTo(contentLabH + 1);
         make.bottom.mas_equalTo(self.contentView).offset(-Interval(19));
-        make.height.mas_equalTo(contentLabH);
     }];
     
 }
