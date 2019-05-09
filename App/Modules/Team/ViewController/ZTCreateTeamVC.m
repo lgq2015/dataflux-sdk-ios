@@ -320,7 +320,9 @@
     }];
 }
 - (void)otherDealAfterNetwork{
+    //发送团队切换通知
     KPostNotification(KNotificationTeamStatusChange, @YES);
+    KPostNotification(KNotificationSwitchTeam, nil);
     [userManager requestMemberList:nil];
     [userManager requestTeamIssueCount:nil];
     CreateSuccessVC *create = [[CreateSuccessVC alloc]init];

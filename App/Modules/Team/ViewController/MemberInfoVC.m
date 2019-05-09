@@ -221,7 +221,7 @@
         [self.headerIcon addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
-            if ([getTeamState isEqualToString:PW_isPersonal]){
+            if ([getTeamState isEqualToString:PW_isPersonal] || self.model.isSpecialist){
                 _beizhuBtn.hidden = YES;
             }else{
                 _beizhuBtn.hidden = NO;

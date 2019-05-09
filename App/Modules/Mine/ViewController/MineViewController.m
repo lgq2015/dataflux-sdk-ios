@@ -45,10 +45,6 @@
                                              selector:@selector(updateUser)
                                                  name:KNotificationUserInfoChange
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(feedBack)
-                                                 name:KNotificationFeedBack
-                                               object:nil];
     self.dataSource = [NSArray new];
     [self getSystemMessagCount];
  
@@ -56,10 +52,6 @@
 }
 #pragma mark ========== UI布局 ==========
 
-- (void)feedBack{
-    FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
-    [self.navigationController pushViewController:opinionVC animated:NO];
-}
 - (void)updateUser{
     [userManager saveChangeUserInfo];
     self.userName.text= userManager.curUserInfo.name;

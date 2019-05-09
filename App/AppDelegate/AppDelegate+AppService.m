@@ -128,7 +128,7 @@
 - (void)dealWithNotification:(NSDictionary *)userInfo{
     NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
     NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
-    NSString *title = [alert valueForKey:@"title"]; //标题
+    NSString *title = [alert valueForKey:@"body"]; //标题
     NSString *msgType = [userInfo stringValueForKey:@"msgType" default:@""];  //消息类型
     NSString *teamID = [userInfo stringValueForKey:@"teamId" default:@""];  //teamID
     TeamInfoModel *currentTeam = [userManager getTeamModel];
@@ -192,7 +192,8 @@
         NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
         NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
-        DLog(@"zhangtao123456------%@-----%@",title,titleW);
+        NSString *titleH = [alert valueForKey:@"title"];
+        DLog(@"zhangtao123456------%@-----%@----%@",title,titleW,titleH);
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
@@ -216,10 +217,12 @@
                 NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
                 PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
                 [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+                [self deleteAllNavViewController];
             }else{
                 MessageDetailVC *detail = [[MessageDetailVC alloc] init];
                 detail.model = data;
                 [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
+                [self deleteAllNavViewController];
             }
         } else {
             [iToast alertWithTitleCenter:data.errorCode];
@@ -257,9 +260,8 @@
                 control = [IssueDetailVC new];
             }
             control.model = monitorListModel;
-            
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
-            
+            [self deleteAllNavViewController];
         } else {
             [iToast alertWithTitleCenter:data.errorCode];
         }
@@ -598,9 +600,12 @@
                 }
             }];
         }else{
+            [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             completeBlock ? completeBlock(NO) : nil;
         }
     } failBlock:^(NSError *error){
+        [SVProgressHUD dismiss];
         completeBlock ? completeBlock(NO) : nil;
     }];
 }
@@ -618,5 +623,14 @@
     }];
 }
 
-
+- (void)deleteAllNavViewController{
+    UINavigationController *nav = [self getCurrentUIVC].navigationController;
+    NSMutableArray *vcs = nav.viewControllers.mutableCopy;
+    if (vcs.count > 2){
+        for (NSInteger i = vcs.count - 2;i>0;i--){
+            [vcs removeObjectAtIndex:i];
+        }
+        [nav setViewControllers:vcs animated:NO];
+    }
+}
 @end

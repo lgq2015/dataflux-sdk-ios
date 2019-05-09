@@ -82,6 +82,8 @@
     }];
 }
 - (void)headerRefreshing{
+    //请求团队列表
+    [userManager requestMemberList:nil];
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
             //修改顶部名称
