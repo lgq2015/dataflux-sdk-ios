@@ -174,7 +174,7 @@
 #pragma mark ========== btnClick ==========
 
 - (void)ignoreBtnClick:(UIButton *)button{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭情报将会结束该问题相关的讨论与服务" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭情报将会结束情报相关的讨论与服务" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm =[PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {

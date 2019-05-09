@@ -443,7 +443,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if (constISPs == nil || constISPs.count == 0) return ;
             NSMutableArray *ISPs = [NSMutableArray array];
             [ISPs addObjectsFromArray:constISPs];
-            [userManager setTeamISPs:constISPs];
+            [userManager setTeamISPs:ISPs];
         }
     } failBlock:^(NSError *error) {
     }];
