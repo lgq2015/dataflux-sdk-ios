@@ -319,6 +319,11 @@
                 NSDictionary *param ;
                 NSString *province =self.currentProvince;
                 NSString *city = self.currentCity;
+                //安全判断
+                city = city == nil ? @"" : city;
+                province = province == nil ? @"" : province;
+                self.tfAry[2].text = [self.tfAry[2].text isEqualToString:@""] ? @"" :  self.tfAry[2].text;
+                
                 if ([self.tfAry[0].text isEqualToString:model.name]) {
                     param= @{@"data":@{@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":[self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]}}};
                 }else{
@@ -440,14 +445,5 @@
     }
     return nil;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
