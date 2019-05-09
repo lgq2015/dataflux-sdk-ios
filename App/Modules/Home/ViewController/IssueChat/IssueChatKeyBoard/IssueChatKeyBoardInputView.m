@@ -278,7 +278,7 @@
             NSArray *rangeAry =[self rangeOfSubString:obj inString:self.textString];
             [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                NSRange strrange = [obj rangeValue];
-          if(strrange.location<range.location&&range.location<=(strrange.location+strrange.length)) {
+          if(strrange.location<=range.location&&range.location<=(strrange.location+strrange.length)) {
                 NSMutableString *str = [NSMutableString stringWithString:self.textString];
                 [str deleteCharactersInRange:strrange];
                 self.mTextView.text = str;
@@ -294,6 +294,7 @@
             }
         }];
         if (isAt) {
+            [self textViewDidChange:textView];
             return NO;
         }
     }
