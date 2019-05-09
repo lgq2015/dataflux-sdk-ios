@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *origin;
 @property (nonatomic, strong) NSString * ticketStatus;
 @property (nonatomic, strong) NSString *subType;
-
+@property (nonatomic, assign) long long atLogSeq;
 //转译为json 用于保存数据库
 @property (nonatomic, strong) NSString *latestIssueLogsStr;  // issueList最下面显示 需拼接 //[@"title"] subtitle
 @property (nonatomic, strong) NSString *markTookOverInfoJSONStr;

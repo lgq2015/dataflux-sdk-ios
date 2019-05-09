@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isSpecialist;
 
 @property (nonatomic, assign) BOOL isMultiChoice;
-
+@property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, copy) NSString<Ignore> *ISP;
 
 @end

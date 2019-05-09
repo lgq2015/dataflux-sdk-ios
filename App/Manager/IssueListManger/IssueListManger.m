@@ -78,6 +78,7 @@
             @"lastIssueLogSeq": SQL_INTEGER,
             @"issueLogRead": SQL_INTEGER,
             @"seq": SQL_INTEGER,
+            @"atLogSeq": SQL_INTEGER,
     }];
 
     //issue log update
@@ -683,16 +684,25 @@
         NSArray *array = [self.getHelper pw_lookupTable:table
                                              dicOrModel:@{@"seq": SQL_INTEGER}
                                             whereFormat:sql, issueId];
-
+        
         if (array.count > 0) {
-            NSDictionary *dic = @{
+            NSMutableDictionary *dic = @{
                     @"lastIssueLogSeq": @(data.seq),
                     @"latestIssueLogsStr": [data createLastIssueLogJsonString],
                     @"isRead": @(0),
                     @"issueLogRead": @(0),
                     @"localUpdateTime": data.updateTime,
+                    
             };
-
+            if(data.atStatusStr.length>0){
+                NSArray *unreadAccounts = PWSafeArrayVal([data.atInfoJSONStr jsonValueDecoded], @"unreadAccounts");
+                [unreadAccounts enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *accountID = [obj stringValueForKey:@"accountId" default:@""];
+                    if ([accountID isEqualToString:userManager.curUserInfo.userID]) {
+                        [dic setObject:@(data.seq) forKey:@"atLogSeq"];
+                    }
+                }];
+            }
             [self.getHelper pw_updateTable:table dicOrModel:dic
                                whereFormat:sql, issueId];
 
