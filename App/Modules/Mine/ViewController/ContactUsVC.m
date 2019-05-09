@@ -16,7 +16,7 @@
 @property (nonatomic, strong)UIButton *emailBtn;
 @property (nonatomic, strong)UIImageView *iconImg;
 @property (nonatomic, strong)UILabel *titleLab;
-@property (nonatomic, strong)UILabel *subTip;
+//@property (nonatomic, strong)UILabel *subTip;
 @property (nonatomic, strong)UILabel *phoneLab;
 @property (nonatomic, strong)UILabel *emailLab;
 @property (nonatomic, strong)UIView *downView;
@@ -36,14 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"联系我们";
-    [self requesetContactUserData];
-    
+//    [self requesetContactUserData];
+    self.contactUSType = VIP_Type;
+    [self createUI];
 }
 - (void)createUI{
     self.view.backgroundColor = PWWhiteColor;
     [self.view addSubview:self.iconImg];
     [self.view addSubview:self.titleLab];
-    [self.view addSubview:self.subTip];
+//    [self.view addSubview:self.subTip];
     if (self.contactUSType == VIP_Type){
         [self.view addSubview:self.phoneBtn];
         [self.view addSubview:self.emailBtn];
@@ -62,20 +63,20 @@
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(33));
     }];
-    [self.subTip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(12));
-        make.width.offset(ZOOM_SCALE(50));
-    }];
+//    [self.subTip mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.mas_equalTo(self.view);
+//        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(12));
+//        make.width.offset(ZOOM_SCALE(50));
+//    }];
     if (self.contactUSType == VIP_Type){
         [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.view).offset(Interval(100));
-            make.top.mas_equalTo(self.subTip.mas_bottom).offset(Interval(25));
+            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(25));
             make.width.height.offset(ZOOM_SCALE(50));
         }];
         [self.emailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.view).offset(-Interval(100));
-            make.top.mas_equalTo(self.subTip.mas_bottom).offset(Interval(25));
+            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(25));
             make.width.height.offset(ZOOM_SCALE(50));
         }];
         [self.phoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,7 +94,7 @@
     }
     if (self.contactUSType == Normal_Type){
         [self.noPicPhoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.subTip.mas_bottom).offset(Interval(20));
+            make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(20));
             make.left.mas_equalTo(self.view).offset(Interval(30));
             make.right.mas_equalTo(self.view).offset(-Interval(30));
             make.height.offset(30);
@@ -125,21 +126,17 @@
 }
 - (void)btnClick:(UIButton *)button{
     if (button.tag == TagPhoneBtn) {
-        if (self.contactUSType == VIP_Type){
-            [self requesetCMSCall];
-        }else if (self.contactUSType == Normal_Type){
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
-            [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
-        }
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
+        [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
     }else{
         NSMutableString *mailUrl = [[NSMutableString alloc] init];
-        [mailUrl appendFormat:@"mailto:%@", _email];
+        [mailUrl appendFormat:@"mailto:%@", @"support@jiagouyun.com"];
         NSString *emailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:emailPath]];
     }
 }
 - (void)btnClickedOperations{
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400 882 3320"];
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
@@ -216,7 +213,8 @@
 - (UIImageView *)iconImg{
     if (!_iconImg){
         _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, Interval(28), ZOOM_SCALE(160), ZOOM_SCALE(160))];
-        [_iconImg sd_setImageWithURL:[NSURL URLWithString:_avatar == nil ? @"" : _avatar] placeholderImage:[UIImage imageNamed:@"mine_contacticon"]];
+//        [_iconImg sd_setImageWithURL:[NSURL URLWithString:_avatar == nil ? @"" : _avatar] placeholderImage:[UIImage imageNamed:@"mine_contacticon"]];
+        [_iconImg setImage:[UIImage imageNamed:@"mine_contacticon"]];
         CGPoint center = _iconImg.center;
         center.x = self.view.centerX;
         _iconImg.center = center;
@@ -225,19 +223,20 @@
 }
 - (UILabel *)titleLab{
     if (!_titleLab){
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:_realName == nil ? @"王教授" : _realName];
+//        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:_realName == nil ? @"王教授" : _realName];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:@"王教授"];
         _titleLab.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLab;
 }
-- (UILabel *)subTip{
-    if (!_subTip){
-        _subTip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@"服务格言：\n对客户负责，是我们始终的态度"];
-        _subTip.textAlignment = NSTextAlignmentCenter;
-        _subTip.numberOfLines = 0;
-    }
-    return _subTip;
-}
+//- (UILabel *)subTip{
+//    if (!_subTip){
+//        _subTip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@"服务格言：\n对客户负责，是我们始终的态度"];
+//        _subTip.textAlignment = NSTextAlignmentCenter;
+//        _subTip.numberOfLines = 0;
+//    }
+//    return _subTip;
+//}
 - (UILabel *)phoneLab{
     if (!_phoneLab){
         _phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@"拨打电话"];
@@ -271,14 +270,14 @@
 }
 - (UILabel *)zoonLab{
     if (!_zoonLab){
-        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? @"上海 (总部)" : _city];
+        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? @"上海浦东新区" : _city];
         _zoonLab.textAlignment = NSTextAlignmentCenter;
     }
     return _zoonLab;
 }
 - (UILabel *)addressLab{
     if (!_addressLab){
-        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:_address == nil ? @"科苑路399号张江创新园7号楼" : _address];
+        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:_address == nil ? @"上海浦东新区科苑路399号张江创新园7号楼" : _address];
         _addressLab.textAlignment = NSTextAlignmentCenter;
         _addressLab.numberOfLines = 0;
     }

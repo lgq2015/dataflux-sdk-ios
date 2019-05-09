@@ -31,7 +31,6 @@
     
 }
 -(void)createUI{
-    _describeLab.hidden = YES;
     switch (self.type) {
         case MineVCCellTypeBase:
             [self createUIBase];
@@ -131,6 +130,7 @@
     [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
 - (void)createUIDescribe{
+    self.describeLab.hidden = NO;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(Interval(16));
         make.height.offset(22);
@@ -156,7 +156,6 @@
 
 }
 - (void)createUIDot{
-   
     self.iconImgView.image = [UIImage imageNamed:_data.icon];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconImgView.mas_right).offset(10);
@@ -308,6 +307,7 @@
                 self.describeLab.text = @"···";
             }
         }else{
+            self.describeLab.hidden = NO;
         self.describeLab.text = text;
         self.describeLab.textColor = [UIColor colorWithHexString:@"8E8E93"];
         }
@@ -316,6 +316,7 @@
 }
 -(void)setAlermDescribeLabText:(NSString *)text{
     if (_describeLab) {
+        self.describeLab.hidden = NO;
         self.describeLab.textColor = PWBlueColor;
         self.describeLab.text = text;
     }
