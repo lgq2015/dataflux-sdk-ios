@@ -18,24 +18,26 @@
 }
 -(void)setMessage:(IssueChatMessage *)message{
     _message = message;
+  
+        switch (_message.messageType ) {
+            case PWChatMessageTypeFile:
+                [self setFile];
+                break;
+            case PWChatMessageTypeText:
+                [self setText];
+                break;
+            case PWChatMessageTypeImage:
+                [self setImage];
+                break;
+            case PWChatMessageTypeSysterm:
+                [self setSysterm];
+                break;
+            case PWChatMessageTypeAtText:
+                [self setAtText];
+                break;
+        }
+
     
-    switch (_message.messageType ) {
-      case PWChatMessageTypeFile:
-           [self setFile];
-            break;
-      case PWChatMessageTypeText:
-           [self setText];
-            break;
-      case PWChatMessageTypeImage:
-           [self setImage];
-            break;
-     case PWChatMessageTypeSysterm:
-            [self setSysterm];
-            break;
-     case PWChatMessageTypeAtText:
-            [self setAtText];
-            break;
-    }
     
     
 }
@@ -45,13 +47,9 @@
     _nameLabRect = nameLab.bounds;
     CGFloat nameWidth  = _nameLabRect.size.width;
     
-    UITextView *mTextView = [UITextView new];
-    mTextView.bounds = CGRectMake(0, ZOOM_SCALE(16)+8, PWChatTextInitWidth, 100);
-    mTextView.font = RegularFONT(17);
-    mTextView.attributedText = _message.textString;
-    mTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [mTextView sizeToFit];
-     _textLabRect = mTextView.bounds;
+    CGSize sizeText = [self sizeWithStr:[_message.textString string] Width:PWChatTextInitWidth withFont:RegularFONT(17)];
+    
+    _textLabRect = CGRectMake(0, ZOOM_SCALE(16)+8, sizeText.width+20, sizeText.height);
     CGFloat textWidth  = _textLabRect.size.width;
     CGFloat textHeight = _textLabRect.size.height;
     CGFloat atHeight = 0;
@@ -187,11 +185,11 @@
         _textLabRect.origin.x = PWChatTextLRS;
         _textLabRect.origin.y = PWChatTextTop;
     }else if(_message.messageFrom == PWChatMessageFromStaff){
-        UILabel *stuffLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.stuffName];
-        [stuffLab sizeToFit];
-        _expertLabRect = stuffLab.bounds;
-        CGFloat stuffWidth  = _expertLabRect.size.width;
        
+        CGSize size = [self sizeWithStr:_message.stuffName Width:kWidth withFont:RegularFONT(12)];
+        CGFloat stuffWidth  = size.width;
+        _expertLabRect = CGRectMake(0, 0, size.width, 20);
+
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, stuffWidth+10, ZOOM_SCALE(16));
          _nameLabRect = CGRectMake(CGRectGetMaxX(_expertLabRect)+12, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
@@ -217,5 +215,13 @@
 }
 - (void)setAtText{
     
+}
+-(CGSize)sizeWithStr:(NSString *)str Width:(CGFloat)width withFont:(UIFont*)font{
+    if (@available(iOS 7.0, *)) {
+        return [str boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil].size;
+    } else {
+        return CGSizeZero;
+        
+    }
 }
 @end
