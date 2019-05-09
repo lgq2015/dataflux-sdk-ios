@@ -599,9 +599,12 @@
                 }
             }];
         }else{
+            [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             completeBlock ? completeBlock(NO) : nil;
         }
     } failBlock:^(NSError *error){
+        [SVProgressHUD dismiss];
         completeBlock ? completeBlock(NO) : nil;
     }];
 }
