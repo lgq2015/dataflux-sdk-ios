@@ -197,11 +197,11 @@
             break;
         case MonitorListStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"一般";
+            self.stateLab.text = @"提示";
             break;
         case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已解决";
+            self.stateLab.text = @"已恢复";
             break;
         case MonitorListStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];

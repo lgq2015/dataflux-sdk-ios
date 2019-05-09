@@ -333,7 +333,7 @@
     if ([self isEqualToString:@"danger"]) {
         level = @"严重";
     }else if([self isEqualToString:@"info"]){
-        level = @"一般";
+        level = @"提示";
     }else{
         level = @"警告";
     }
