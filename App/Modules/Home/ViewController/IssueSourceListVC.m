@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"云服务";
+    self.title = @"连接云服务";
     [self createUI];
     [self loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -138,27 +138,45 @@
     self.nodataView.hidden = NO;
 
 }
+//-(UIView *)nodataView{
+//    if (!_nodataView) {
+//        _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
+//        _nodataView.backgroundColor = PWWhiteColor;
+//        [self.view addSubview:_nodataView];
+//
+//        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goToWebAdd"]];
+//        [_nodataView addSubview:bgImgview];
+//        [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(_nodataView).offset(Interval(47));
+//            make.width.offset(ZOOM_SCALE(250));
+//            make.height.offset(ZOOM_SCALE(222));
+//            make.centerX.mas_equalTo(_nodataView);
+//        }];
+//        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:[UIColor colorWithHexString:@"#140F26"] text:@"请去web端添加"];
+//        tip.textAlignment = NSTextAlignmentCenter;
+//        [_nodataView addSubview:tip];
+//        [tip mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
+//            make.left.right.mas_equalTo(self.view);
+//            make.height.offset(ZOOM_SCALE(22));
+//        }];
+//    }
+//    return _nodataView;
+//}
 -(UIView *)nodataView{
     if (!_nodataView) {
-        _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
+        _nodataView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
         _nodataView.backgroundColor = PWWhiteColor;
         [self.view addSubview:_nodataView];
-
-        UIImageView *bgImgview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goToWebAdd"]];
-        [_nodataView addSubview:bgImgview];
-        [bgImgview mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(_nodataView).offset(Interval(47));
-            make.width.offset(ZOOM_SCALE(250));
-            make.height.offset(ZOOM_SCALE(222));
-            make.centerX.mas_equalTo(_nodataView);
-        }];
         UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:[UIColor colorWithHexString:@"#140F26"] text:@"请去web端添加"];
-        tip.textAlignment = NSTextAlignmentCenter;
+        tip.numberOfLines = 0;
+        //设置内容
+        [self setContent:tip];
         [_nodataView addSubview:tip];
         [tip mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(bgImgview.mas_bottom).offset(Interval(31));
-            make.left.right.mas_equalTo(self.view);
-            make.height.offset(ZOOM_SCALE(22));
+            make.top.mas_equalTo(_nodataView).offset(Interval(47));
+            make.left.equalTo(_nodataView).offset(16);
+            make.right.equalTo(_nodataView).offset(-16);
         }];
     }
     return _nodataView;
@@ -200,14 +218,18 @@
 //    }
 
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//设置 无数据内容
+- (void)setContent:(UILabel *)label{
+    NSString *string = @"通过连接云服务，您可以将您的云服务账号与王教授进行连接，从而获得针对云资源的专业诊断，发现可优化的配置，监控您的系统健康状态。\n所有发现的问题都将以情报推送给您，以便您可以及时获知 IT 系统存在的问题，与团队成员共同查看并沟通解决。\n\n连接云服务仅支持在 Web 端操作，请您登录 home.prof.wang，进行连接云服务的配置。";
+    NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
+    NSRange range = [string rangeOfString:@"home.prof.wang"];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    dic[NSForegroundColorAttributeName] = [UIColor blueColor];
+    [attribut addAttributes:dic range:range];
+    label.attributedText = attribut;
 }
-*/
+
+
+
 
 @end
