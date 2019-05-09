@@ -39,7 +39,6 @@ SINGLETON_FOR_HEADER(UserManager)
 @property (nonatomic, strong) TeamInfoModel *teamModel;
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, strong) NSMutableArray *expertGroups;
-@property (nonatomic, strong) NSMutableArray *ISPs;
 @property (nonatomic, assign) BOOL isLogined;
 /**
  获取验证码

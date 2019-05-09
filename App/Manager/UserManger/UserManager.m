@@ -441,8 +441,8 @@ SINGLETON_FOR_CLASS(UserManager);
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
             NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
             if (constISPs == nil || constISPs.count == 0) return ;
-            self.ISPs = [NSMutableArray new];
-            [self.ISPs addObjectsFromArray:constISPs];
+            NSMutableArray *ISPs = [NSMutableArray array];
+            [ISPs addObjectsFromArray:constISPs];
             [userManager setTeamISPs:constISPs];
         }
     } failBlock:^(NSError *error) {
@@ -500,9 +500,6 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache setObject:ispsArray forKey:KTeamISPsCacheName];
 }
 - (NSArray *)getTeamISPs{
-    if (self.ISPs && self.ISPs.count > 0){
-        return self.ISPs;
-    }
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *isps = (NSArray *)[cache objectForKey:KTeamISPsCacheName];
     return isps;
