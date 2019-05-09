@@ -249,16 +249,29 @@
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content = response[@"content"];
             NSArray *data = content[@"data"];
-            [self.progressData removeAllObjects];
-            [self.progressData addObjectsFromArray:data];
-            [self dealWithProgressView];
+            [self dealWithProgressView:data];
         }
     } failBlock:^(NSError *error) {
         
     }];
 }
-- (void)dealWithProgressView{
+- (void)dealWithProgressView:(NSArray *)data{
     DLog(@"progressData = %@",self.progressData);
+    if (self.progressBtn.selected) {
+        [self.view setNeedsUpdateConstraints];
+        CGFloat height = data.count*(Interval(6)+ZOOM_SCALE(17))+3;
+        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(height);
+        }];
+        [self.view layoutIfNeeded];
+        CGSize size = self.mainScrollView.contentSize;
+        if(data.count>self.progressData.count){
+            CGFloat addHeight = (data.count-self.progressData.count)*(Interval(6)+ZOOM_SCALE(17));
+            self.mainScrollView.contentSize = CGSizeMake(kWidth, size.height+addHeight);
+        }
+    }
+    [self.progressData removeAllObjects];
+    [self.progressData addObjectsFromArray:data];
     [self.progressView removeAllSubviews];
     UIView *temp = nil;
     if (self.progressData.count>0) {
@@ -292,14 +305,7 @@
             temp = timeLab;
         }
     }
-    if (self.progressBtn.selected) {
-       [self.view setNeedsUpdateConstraints];
-        CGFloat height = self.progressData.count*(Interval(6)+ZOOM_SCALE(17))+3;
-        [self.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset(height);
-        }];
-         [self.view layoutIfNeeded];
-    }
+    
 }
 - (void)showProgress{
     self.progressBtn.selected = !self.progressBtn.selected;

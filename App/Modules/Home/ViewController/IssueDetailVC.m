@@ -217,7 +217,8 @@
 #pragma mark ========== DATA/DEAL ==========
 - (void)loadInfoDeatil{
     [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+   NSDictionary *param = @{@"_readerAccountId":userManager.curUserInfo.userID,@"_needReadInfo":@YES};
+    [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
        
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");

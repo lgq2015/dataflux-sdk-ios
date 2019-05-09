@@ -112,6 +112,7 @@
         self.tableView.rowHeight = ZOOM_SCALE(70);
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        self.tableView.scrollEnabled = NO;
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(title.mas_bottom).offset(Interval(25));
             make.width.offset(kWidth);
@@ -140,7 +141,13 @@
     [self.view layoutIfNeeded];
     
     
-    self.mainScrollView.contentSize = CGSizeMake(kWidth, CGRectGetMaxY(self.solveBtn.frame)+35);
+    CGFloat height =CGRectGetMaxY(self.solveBtn.frame)+Interval(30);
+    
+    if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
+        height += 50;
+    }
+    self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
+
 }
 
 
