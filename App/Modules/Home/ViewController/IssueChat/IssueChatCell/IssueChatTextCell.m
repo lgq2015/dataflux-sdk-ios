@@ -87,8 +87,11 @@
     NSDictionary *atStatus = [self.layout.message.model.atStatusStr jsonValueDecoded];
     NSArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts");
     NSArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts");
+    NSDictionary *atInfoJSON = [self.layout.message.model.atInfoJSONStr jsonValueDecoded];
+    NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
     if (unreadAccounts.count>0) {
-        if(unreadAccounts.count == 1){
+        if(unreadAccounts.count == 1 && readAccounts.count == 0 && accountIdMap.allKeys.count == 0){
             NSDictionary *unread = unreadAccounts[0];
             [userManager getTeamMenberWithId:unread[unread.allKeys[0]] memberBlock:^(NSDictionary *member) {
                 if (member.allKeys.count>0) {
@@ -115,9 +118,7 @@
         }
     }
     if (unreadAccounts.count == 0 && readAccounts.count == 0) {
-        NSDictionary *atInfoJSON = [self.layout.message.model.atInfoJSONStr jsonValueDecoded];
-        NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
-        NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
+       
        
         if(accountIdMap.allKeys.count>0){
             atStr = [NSString stringWithFormat:@"%ld 人未读",accountIdMap.allKeys.count];

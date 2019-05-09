@@ -29,6 +29,8 @@
 #import "IssueLogListModel.h"
 #import "IssueLogAttachmentUrl.h"
 #import "AtListVC.h"
+#import "IssueLastReadInfoModel.h"
+#import "IssueLogAtReadInfo.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -76,6 +78,7 @@
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
             [self scrollToBottom:NO];
+            [self postLastReadSeq];
         }else{
             if (self.datas.count == 0) {
                 IssueChatMessage *message = [IssueChatMessage new];
@@ -84,7 +87,7 @@
                 message.systermStr = @"在这里讨论该情报";
                 IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
                 [self.datas addObject:layout];
-                 [self.mTableView reloadData];
+                [self.mTableView reloadData];
             }
         }
     }];
@@ -105,8 +108,28 @@
                                              selector:@selector(onFetchComplete)
                                                  name:KNotificationFetchComplete
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onRecordLastReadSeq:)
+                                                 name:KNotificationRecordLastReadSeq
+                                               object:nil];
+    [self loadReadInfo];
 }
-
+- (void)loadReadInfo{
+    [[PWHttpEngine sharedInstance] getIssueLogReadsInfoWithIssueID:self.issueID callBack:^(id o) {
+        IssueLogAtReadInfo *data = (IssueLogAtReadInfo *) o;
+        if (data.isSuccess) {
+            [data.lastReadSeqInfo  enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                IssueLastReadInfoModel *readInfo = [IssueLastReadInfoModel new];
+                readInfo.issueLogInfo.seq = obj;
+                readInfo.data.accountId = key;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self dealWithAtDatas:readInfo];
+                });
+            }];
+        }
+    }];
+    
+}
 - (void)scrollToBottom:(BOOL)animation {
     if (self.datas.count > 0) {
 
@@ -125,7 +148,68 @@
     //TODO 后期可能需要做链接提示
 
 }
-
+#pragma mark ========== 刷新界面上的已读未读 ==========
+- (void)onRecordLastReadSeq:(NSNotification *)notification{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       NSDictionary * pass = [notification userInfo];
+       NSError *error;
+       IssueLastReadInfoModel *readModel = [[IssueLastReadInfoModel alloc]initWithDictionary:pass error:&error];
+        
+        DLog(@"%@",readModel.data.accountId);
+        if ([readModel.issueLogInfo.issueId isEqualToString:_issueID]) {
+            [self dealWithAtDatas:readModel];
+        }
+        
+    });
+}
+- (void)dealWithAtDatas:(IssueLastReadInfoModel *)readModel{
+    __block NSMutableArray *indexAry = [NSMutableArray new];
+    [[self.datas copy] enumerateObjectsUsingBlock:^(IssueChatMessagelLayout *cache, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (cache.message.messageFrom == PWChatMessageFromMe) {
+        IssueLogModel *model = cache.message.model;
+        if(model.seq<=readModel.issueLogInfo.seq && model.atStatusStr.length>0){
+            NSDictionary *atStatus = [model.atStatusStr jsonValueDecoded];
+            NSMutableArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts")?
+            [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"unreadAccounts")]:[NSMutableArray new];
+            NSMutableArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts")?
+            [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"readAccounts")]:[NSMutableArray new];
+            if(unreadAccounts.count>0){
+                [[unreadAccounts copy] enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx1, BOOL * _Nonnull stop) {
+                    if ([[obj stringValueForKey:@"accountId" default:@""] isEqualToString:readModel.data.accountId]) {
+                        NSDictionary *readDict= unreadAccounts[idx1];
+                        [unreadAccounts removeObjectAtIndex:idx1];
+                        [readAccounts addObject:readDict];
+                        if (unreadAccounts.count == 0) {
+                            
+                        }
+                        NSDictionary *newAtStatus = @{@"readAccounts":readAccounts,@"unreadAccounts":unreadAccounts};
+                        model.atStatusStr = [newAtStatus jsonStringEncoded];
+                        cache.message.model = model;
+                        [self.datas replaceObjectAtIndex:idx withObject:cache];
+                        NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
+                        [indexAry addObject:index];
+                        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:self.issueID data:model deleteCache:NO];
+                        *stop = YES;
+                    }
+                }];
+            }
+        }
+            }
+        
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        DLog(@"indexAry == %@",indexAry);
+        [self.mTableView reloadRowsAtIndexPaths:indexAry withRowAnimation:UITableViewRowAnimationNone];
+    });
+    
+}
+- (void)postLastReadSeq{
+    IssueChatMessagelLayout *layout = [self.datas lastObject];
+    [[PWHttpEngine sharedInstance] postIssueLogReadsLastReadSeqRecord:layout.message.model.id callBack:^(id o) {
+        
+    }];
+}
 - (void)onNewIssueChatData:(NSNotification *)notification {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary * pass = [notification userInfo];
@@ -148,15 +232,22 @@
             }
 
             if(!hasSame){
-                [self.datas addObject:layout];
-                dispatch_async_on_main_queue(^{
-                    [NSObject cancelPreviousPerformRequestsWithTarget: self
-                                                             selector:@selector(onNewIssueChatDataRemoveSame:)
-                                                               object: notification];
-
-                    [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
-                               withObject: notification afterDelay: 0.5];
+               
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.datas addObject:layout];
+                    [self onNewIssueChatDataRemoveSame:notification];
+                    if(layout.message.model.atStatusStr.length>0){
+                        [self postLastReadSeq];
+                    }
+//                    [NSObject cancelPreviousPerformRequestsWithTarget: self
+//                                                             selector:@selector(onNewIssueChatDataRemoveSame:)
+//                                                               object: notification];
+//
+//                    [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
+//                               withObject: notification afterDelay: 0.5];
                 });
+               
             }
 
         }
@@ -209,6 +300,7 @@
                 if(isEnd){
                     [self scrollToBottom:NO];
                 }
+                [self postLastReadSeq];
             }
         }
     }
@@ -511,10 +603,14 @@
     layout.message.model.sendError = NO;
 
     PWChatMessageType type = layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
+    
     if (layout.message.model.imageData) {
         UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
         NSData *newData = UIImageJPEGRepresentation(image, 0.5);
         layout.message.model.imageData = newData;
+    }
+    if(layout.message.model.atInfoJSONStr.length>0){
+        type = PWChatMessageTypeAtText;
     }
     layout.message.model.localTempUniqueId = layout.message.model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];

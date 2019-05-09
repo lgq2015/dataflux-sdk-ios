@@ -44,7 +44,14 @@
  */
 - (PWURLSessionTask *)issueLogAttachmentUrlWithIssueLogid:(NSString *)logid callBack:(void (^)(id))callback;
 /**
-   获取当前团队的团队成员列表
+ * @param issueID  获取聊天里每个用户 已读的位置
  */
+- (PWURLSessionTask *)getIssueLogReadsInfoWithIssueID:(NSString *)issueID callBack:(void (^)(id))callback;
 //- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback;
+/**
+ * @param issuelogID  发出 已读的位置
+ */
+- (PWURLSessionTask *)postIssueLogReadsLastReadSeqRecord:(NSString *)issuelogID callBack:(void (^)(id))callback;
+
+
 @end

@@ -9,5 +9,10 @@
 #import "IssueLogAtReadInfo.h"
 
 @implementation IssueLogAtReadInfo
-
+- (void)setValueWithDict:(NSDictionary *)dict {
+    [super setValueWithDict:dict];
+    NSDictionary *content = PWSafeDictionaryVal(dict, @"content");
+    self.readInfo= PWSafeDictionaryVal(content, @"readInfo");
+    self.lastReadSeqInfo = PWSafeDictionaryVal(content, @"lastReadSeqInfo");
+}
 @end

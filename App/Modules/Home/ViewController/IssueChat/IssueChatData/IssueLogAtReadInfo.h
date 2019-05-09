@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueLogAtReadInfo : BaseListReturnModel
-
+@property (nonatomic, strong) NSDictionary *lastReadSeqInfo;
+@property (nonatomic, strong) NSDictionary *readInfo;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -88,15 +88,23 @@
     if (model.latestIssueLogsStr) {
         self.isHasChat = YES;
     }
-    if (model.readAtInfoStr) {
-        NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
-        int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
-        long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
-        long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
-        if (unreadCount>0 && lastReadSeq<seq) {
-         self.isCallME = YES;
+    if (model.atLogSeq && model.atLogSeq>0) {
+         long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
+        if (model.atLogSeq>seq) {
+          self.isCallME = YES;
+        }
+    }else{
+        if (model.readAtInfoStr) {
+            NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
+            int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
+            long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
+            long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
+            if (unreadCount>0 && lastReadSeq<seq) {
+                self.isCallME = YES;
+            }
         }
     }
+   
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     if(model.seq>0){

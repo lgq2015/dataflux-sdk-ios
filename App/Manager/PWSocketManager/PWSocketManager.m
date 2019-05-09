@@ -171,8 +171,12 @@ static dispatch_queue_t socket_message_queue() {
     [self.socket on:ON_EVENT_RECORD_Last_ReadSeq callback:^(NSArray *data, SocketAckEmitter *ack) {
         if (data.count > 0) {
             DLog(ON_EVENT_RECORD_Last_ReadSeq" = %@", data);
-            
-            
+            NSString *jsonString = data[0];
+            NSDictionary *dic = [jsonString jsonValueDecoded];
+            [kNotificationCenter
+             postNotificationName:KNotificationRecordLastReadSeq
+             object:nil
+             userInfo:dic];
         }
         
     }];

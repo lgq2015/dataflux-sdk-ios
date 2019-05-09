@@ -19,6 +19,7 @@
 #import "AddIssueLogReturnModel.h"
 #import "OpenUDID.h"
 #import "IssueLogAttachmentUrl.h"
+#import "IssueLogAtReadInfo.h"
 
 @implementation PWHttpEngine {
 
@@ -196,6 +197,8 @@
                     @"_latestIssueLogSubType": @"comment",
                     @"orderMethod": @"asc",
                     @"_readerAccountId":userManager.curUserInfo.userID,
+                    @"_needReadInfo":@YES,
+                    @"_withLastReadSeq":@NO,
                     @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
                     @"pageSize": @(pageSize)
             } mutableCopy];
@@ -316,6 +319,35 @@
 //- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback{
 //    
 //}
+- (PWURLSessionTask *)getIssueLogReadsInfoWithIssueID:(NSString *)issueID callBack:(void (^)(id))callback{
+    NSDictionary *param = @{@"_readerAccountId":userManager.curUserInfo.userID,
+                            @"_needReadInfo": @YES,
+                            @"_withLastReadSeq":@YES
+                            };
+    IssueLogAtReadInfo *model = [IssueLogAtReadInfo new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueID)
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+    
+}
+
+- (PWURLSessionTask *)postIssueLogReadsLastReadSeqRecord:(NSString *)issuelogID callBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueReadSeq(issuelogID)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 

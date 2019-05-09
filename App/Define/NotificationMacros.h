@@ -18,6 +18,7 @@
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
 #define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
+#define KNotificationRecordLastReadSeq @"KNotificationRecordLastReadSeq"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
 //团队切换
