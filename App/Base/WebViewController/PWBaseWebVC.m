@@ -8,6 +8,7 @@
 
 #import "PWBaseWebVC.h"
 #import <WebKit/WebKit.h>
+#import "FeedbackVC.h"
 
 @interface PWBaseWebVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIProgressView *progressView;
@@ -183,9 +184,11 @@
     
 }
 - (void)eventFeedback{
-    [self.tabBarController setSelectedIndex:3];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    KPostNotification(KNotificationFeedBack,nil);
+//    [self.tabBarController setSelectedIndex:2];
+//    [self.navigationController popToRootViewControllerAnimated:NO];
+//    KPostNotification(KNotificationFeedBack,nil);
+    FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
+    [self.navigationController pushViewController:opinionVC animated:YES];
 }
 - (void)eventSwitchToken:(NSDictionary *)extra{
     
