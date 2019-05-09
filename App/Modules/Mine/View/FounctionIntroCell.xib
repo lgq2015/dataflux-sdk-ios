@@ -40,11 +40,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVi-XO-2wl">
-                        <rect key="frame" x="292" y="63.5" width="44" height="30"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="292" y="68.5" width="44" height="25"/>
+                        <color key="backgroundColor" white="1" alpha="0.95086033358895705" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="SpJ-yN-00p"/>
-                            <constraint firstAttribute="height" constant="30" id="cff-ao-pkg"/>
+                            <constraint firstAttribute="height" constant="25" id="cff-ao-pkg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <state key="normal" title="更多">
