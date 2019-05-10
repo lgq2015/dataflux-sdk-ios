@@ -38,13 +38,12 @@
         }
 
     
-    
-    
 }
 - (void)setText{
-    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
-    [nameLab sizeToFit];
-    _nameLabRect = nameLab.bounds;
+   
+     CGSize nameSize = [self sizeWithStr:_message.nameStr Width:kWidth withFont:RegularFONT(12)];
+    _nameLabRect = CGRectMake(0, 0, nameSize.width,20);
+
     CGFloat nameWidth  = _nameLabRect.size.width;
     
     CGSize sizeText = [self sizeWithStr:[_message.textString string] Width:PWChatTextInitWidth withFont:RegularFONT(17)];
@@ -76,10 +75,10 @@
         _textLabRect.origin.y = PWChatTextTop;
     }else if(_message.messageFrom == PWChatMessageFromStaff){
        
-        UILabel *stuffLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.stuffName];
-        [stuffLab sizeToFit];
-        _expertLabRect = stuffLab.bounds;
-        CGFloat stuffWidth  = _expertLabRect.size.width;
+        CGSize stuffSize = [self sizeWithStr:_message.stuffName Width:kWidth withFont:RegularFONT(12)];
+        _expertLabRect = CGRectMake(0, 0, stuffSize.width, 20);
+
+        CGFloat stuffWidth  = stuffSize.width;
         _headerImgRect = CGRectMake(PWChatIconLeft,PWChatCellTop, PWChatIconWH, PWChatIconWH);
         _expertLabRect = CGRectMake(PWChatIconLeft+PWChatIconWH+PWChatIconRight, self.headerImgRect.origin.y, stuffWidth+10, ZOOM_SCALE(16));
         _nameLabRect = CGRectMake(CGRectGetMaxX(_expertLabRect)+12, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
