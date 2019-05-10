@@ -334,12 +334,12 @@
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
         NSString *where = NSStringFormat(@"WHERE issueId='%@'", issueId);
-        where = [where stringByAppendingFormat:@" AND (seq > %lli  ", endSeq];
+        where = [where stringByAppendingFormat:@" AND ((seq > %lli  ", endSeq];
         if (startSeq > 0) {
             where = [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
         }
 
-        where = [where stringByAppendingString:@") OR (seq=0 AND origin='me')"];
+        where = [where stringByAppendingString:@") OR (seq=0 AND origin='me'))"];
 
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"
                                          " seq DESC LIMIT %d)", table, where, ISSUE_CHAT_PAGE_SIZE);
