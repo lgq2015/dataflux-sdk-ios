@@ -56,7 +56,8 @@
     [self.beizhuLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView).offset(-Interval(10));
         make.left.mas_greaterThanOrEqualTo(titleLab.mas_right).offset(0);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-13);
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-13);
+        make.centerY.mas_equalTo(iconImgView);
         make.width.lessThanOrEqualTo([NSNumber numberWithFloat:ZOOM_SCALE(110)]);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
