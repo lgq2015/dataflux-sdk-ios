@@ -19,8 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    self.tableView.frame = CGRectMake(0, 0, kWidth, self.dataSource.count*67);
-    [self.tableView reloadData];
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
@@ -31,12 +29,11 @@
 -(void)setAtStatusAry:(NSArray *)atStatusAry{
     _atStatusAry = atStatusAry;
     [self.dataSource addObjectsFromArray:atStatusAry];
-    self.tableView.frame = CGRectMake(0, 0, kWidth, self.dataSource.count*67);
     [self.tableView reloadData];
 }
 - (void)createUI{
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, self.atStatusAry.count*67) style:UITableViewStylePlain];
-    self.tableView.backgroundColor = PWRedColor;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight-48-SafeAreaBottom_Height) style:UITableViewStylePlain];
+    self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 67;
@@ -57,7 +54,6 @@
     return self.dataSource.count;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSError *error;
     MemberInfoModel *model =self.dataSource[indexPath.row];
     MemberInfoVC *member = [[MemberInfoVC alloc]init];
     member.isHidenNaviBar = YES;
