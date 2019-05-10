@@ -236,7 +236,7 @@
 
 
 - (NSString *)getDBName {
-    return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_ISSUE);
+    return NSStringFormat(@"%@/%@/%@", getPWUserID,getPWDefaultTeamID, PW_DBNAME_ISSUE);
 }
 
 - (void)createData {
