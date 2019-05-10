@@ -172,6 +172,13 @@
     }
      [self backBtnClicked];
 }
+- (void)backBtnClicked{
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.DisMissBlock) {
+            self.DisMissBlock();
+        }
+    }];
+}
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];

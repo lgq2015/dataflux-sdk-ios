@@ -308,6 +308,9 @@
         setVC.chooseMembers = ^(NSArray *chooseArr){
             [weakSelf dealAtMessageWithArray:chooseArr];
         };
+        setVC.DisMissBlock = ^(){
+            [weakSelf.mTextView becomeFirstResponder];
+        };
         RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:setVC];
         [[self viewController] presentViewController:nav animated:YES completion:nil];
     }
