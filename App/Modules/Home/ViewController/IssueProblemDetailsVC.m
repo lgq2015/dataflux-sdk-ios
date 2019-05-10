@@ -101,6 +101,7 @@
     if (data.count>0) {
         [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
+            make.left.right.mas_equalTo(self.view);
             make.width.offset(kWidth);
         }];
         UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"附件"];
