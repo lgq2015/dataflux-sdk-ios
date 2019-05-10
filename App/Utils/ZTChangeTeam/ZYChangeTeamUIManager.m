@@ -14,6 +14,7 @@
 #import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "RootNavigationController.h"
 
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIWindow * window;
@@ -281,6 +282,8 @@
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
+            //判断是否是在首页，如果是在首页切换的团队，再请求下当前团队
+            [self dealNoTeamVCAndCurrentPageIsHome];
         }else{
             //切换团队失败，移出缓存中的这一条
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
@@ -334,5 +337,17 @@
         }
     }];
 }
-
+//判断如果在首页，teamvc没有加载出来请求当前团队
+- (void)dealNoTeamVCAndCurrentPageIsHome{
+    if (_fromVC.tabBarController.selectedIndex == 0){
+        NSArray *navs = _fromVC.tabBarController.viewControllers;
+        if (navs == nil || navs.count == 0) return;
+        RootNavigationController *nav = (RootNavigationController *)navs[1];
+        NSArray *childs = nav.viewControllers;
+        UIViewController *teamvc = childs[0];
+        if (!teamvc.isViewLoaded){
+            [userManager addTeamSuccess:nil];
+        }
+    }
+}
 @end

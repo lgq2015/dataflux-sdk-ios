@@ -538,6 +538,7 @@
 }
 #pragma mark ========== Socket未连接 保存失败消息 ==========
 - (void)dealSocketNotConnectWithModel:(IssueLogModel *)model{
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
     model.sendError = YES;
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
@@ -600,6 +601,10 @@
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        return;
+    }
+    
     layout.message.model.sendError = NO;
 
     PWChatMessageType type = layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;

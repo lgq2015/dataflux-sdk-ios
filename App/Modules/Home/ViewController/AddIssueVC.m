@@ -86,7 +86,7 @@
     [seriousBtn setTitle:@"严重" forState:UIControlStateNormal];
     [levelView addSubview:seriousBtn];
     UIButton *infoBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"599AFF"]];
-    [infoBtn setTitle:@"一般" forState:UIControlStateNormal];
+    [infoBtn setTitle:@"提示" forState:UIControlStateNormal];
     infoBtn.tag = 12;
     [levelView addSubview:infoBtn];
     [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {

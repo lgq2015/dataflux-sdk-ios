@@ -212,7 +212,7 @@
         long min =temp%60;
         result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",tempHour,min];
     }
-    else if((tempDay = temp/24) <7){
+    else if((tempDay = tempHour/24) <7){
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDate *fromDate;
         NSDate *toDate;
