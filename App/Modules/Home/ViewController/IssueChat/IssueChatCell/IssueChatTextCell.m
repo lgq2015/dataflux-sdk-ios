@@ -91,7 +91,7 @@
     NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
     NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
     if (unreadAccounts.count>0) {
-        if(unreadAccounts.count == 1 && readAccounts.count == 0 && accountIdMap.allKeys.count == 0){
+        if(unreadAccounts.count == 1 && readAccounts.count == 0 && (atInfoJSON == nil || atInfoJSON.allKeys.count == 1)){
             NSDictionary *unread = unreadAccounts[0];
             [userManager getTeamMenberWithId:unread[unread.allKeys[0]] memberBlock:^(NSDictionary *member) {
                 if (member.allKeys.count>0) {
@@ -103,7 +103,7 @@
             atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
         }
     }
-    if (unreadAccounts.count == 0 && readAccounts.count>0) {
+    if ((unreadAccounts.count == 0 && readAccounts.count>0 )||(readAccounts.count == 1 && atInfoJSON.allKeys.count == 2)) {
         if (readAccounts.count > 1) {
             atStr = @"全部已读";
         }else{
