@@ -98,7 +98,6 @@
     }
     
     
-    message.sendError    = NO;
     message.headerImgurl = model.headerImg;
 //    message.messageId    = dic[@"messageId"];
     message.textColor    = PWChatTextColor;

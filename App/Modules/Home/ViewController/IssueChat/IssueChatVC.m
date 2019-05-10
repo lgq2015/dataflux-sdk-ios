@@ -78,7 +78,9 @@
 
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
-            [self scrollToBottom:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self scrollToBottom:NO];
+            });
             [self loadReadInfo];
             [self postLastReadSeq];
         }else{
@@ -544,6 +546,7 @@
     [[PWSocketManager sharedPWSocketManager] forceRestart];
     model.sendError = YES;
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
+    chatModel.sendStates = ChatSentStatesSendError;
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
     model.localTempUniqueId = model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
@@ -554,6 +557,7 @@
 #pragma mark ========== Socket已连接 正常发送消息 ==========
 - (void)sendMessageWithModel:(IssueLogModel *)logModel messageType:(PWChatMessageType)type{
     IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:logModel];
+    chatModel.sendStates = ChatSentStatesIsSending;
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
     [self.datas addObject:layout];
     [self.mTableView reloadData];
@@ -565,14 +569,14 @@
 
     [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
-            logModel.id = model.id;
+            chatModel.model.id = model.id;
+            chatModel.sendStates = ChatSentStatesSendSuccess;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
         } else if (type == UploadTypeError) {
-            logModel.sendError = YES;
+            chatModel.model.sendError = YES;
+            chatModel.sendStates = ChatSentStatesSendError;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
         }
-        chatModel.model = logModel;
-        chatModel.isSend = NO;
         [self.mTableView reloadData];
     }];
 }
@@ -605,10 +609,13 @@
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        [[PWSocketManager sharedPWSocketManager] forceRestart];
         return;
     }
     
     layout.message.model.sendError = NO;
+    layout.message.sendStates = ChatSentStatesIsSending;
+    [self.mTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 
     PWChatMessageType type = layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
     
@@ -622,19 +629,19 @@
     }
     layout.message.model.localTempUniqueId = layout.message.model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
-    layout.message.sendError = NO;
+    layout.message.sendStates = ChatSentStatesSendSuccess;
     [self.mTableView reloadData];
     [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
             layout.message.model.id = newModel.id;
+            layout.message.sendStates = ChatSentStatesSendSuccess;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
         } else if (type == UploadTypeError) {
             layout.message.model.id = newModel.id;
             layout.message.model.sendError = YES;
-            newModel.sendError = YES;
+            layout.message.sendStates = ChatSentStatesSendError;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
         }
-        layout.message.isSend = NO;
         [self.mTableView reloadData];
     }];
 

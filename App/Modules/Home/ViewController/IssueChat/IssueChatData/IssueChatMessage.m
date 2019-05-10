@@ -225,8 +225,7 @@
         self.cellString = PWChatFileCellId;
         self.fileName = model.fileName;
     }
-    self.sendError = model.sendError;
-    self.isSend = YES;
+    self.sendStates = model.sendError?ChatSentStatesSendError:ChatSentStatesSendSuccess;
     self.model = model;
 }
 @end

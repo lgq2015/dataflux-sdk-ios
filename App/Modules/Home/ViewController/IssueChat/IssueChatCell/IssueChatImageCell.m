@@ -59,7 +59,7 @@
     self.mIndicator.hidden = YES;
     self.sendLab.hidden = YES;
     self.retryBtn.hidden = YES;
-    if (layout.message.isSend && !layout.message.sendError) {
+    if (layout.message.sendStates == ChatSentStatesIsSending) {
         [self.mIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(self.mBackImgButton);
             make.centerY.mas_equalTo(self.mBackImgButton.centerY).offset(-10);
@@ -72,7 +72,7 @@
         }];
         self.mIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.mIndicator startAnimating];
-    }else if(layout.message.isSend && layout.message.sendError){
+    }else if(layout.message.sendStates == ChatSentStatesSendError){
          self.retryBtn.hidden = NO;
         [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
 //        [self.retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];

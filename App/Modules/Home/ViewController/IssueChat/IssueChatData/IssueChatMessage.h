@@ -82,17 +82,23 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeSysterm,
     PWChatMessageTypeAtText,
 };
+typedef NS_ENUM(NSInteger, PWChatMessageSendStates) {
+    ChatSentStatesIsSending =1,
+    ChatSentStatesSendSuccess,
+    ChatSentStatesSendError,
+};
 @interface IssueChatMessage : NSObject
 //消息发送方  消息类型  消息对应cell类型
 @property (nonatomic, assign) PWChatMessageFrom messageFrom;
 @property (nonatomic, assign) PWChatMessageType messageType;
+@property (nonatomic, assign) PWChatMessageSendStates  sendStates;
 @property (nonatomic, strong) NSString     *cellString;
 
 //会话id
 @property (nonatomic, strong) NSString    *sessionId;
-@property (nonatomic, assign) BOOL isSend;
+//@property (nonatomic, assign) BOOL isSend;
 //消息是否发送失败
-@property (nonatomic, assign) BOOL sendError;
+//@property (nonatomic, assign) BOOL sendError;
 @property (nonatomic, strong) NSString *memberId;
 //头像
 @property (nonatomic, strong) NSString    *headerImgurl;

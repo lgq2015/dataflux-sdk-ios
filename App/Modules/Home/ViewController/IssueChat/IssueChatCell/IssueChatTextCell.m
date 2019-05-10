@@ -42,7 +42,7 @@
     self.mTextView.attributedText = layout.message.textString;
     self.mIndicator.hidden = YES;
     self.retryBtn.hidden = YES;
-    if (layout.message.isSend && !layout.message.sendError) {
+    if (layout.message.sendStates == ChatSentStatesIsSending) {
         [self.mIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.mBackImgButton);
             make.right.mas_equalTo(self.mBackImgButton.mas_left).offset(-5);
@@ -50,7 +50,7 @@
         self.mIndicator.hidden = NO;
         self.mIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.mIndicator startAnimating];
-    }else if(layout.message.isSend && layout.message.sendError){
+    }else if(layout.message.sendStates == ChatSentStatesSendError){
         [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
 //        [_retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];
         [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,6 +80,11 @@
             make.height.offset(ZOOM_SCALE(18));
         }];
         [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        if (self.layout.message.sendStates == ChatSentStatesIsSending) {
+            self.atReadBtn.hidden = YES;
+        }else{
+            self.atReadBtn.hidden = NO;
+        }
     }
 }
 -(NSString *)atString{
@@ -89,14 +94,13 @@
     NSArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts");
     NSDictionary *atInfoJSON = [self.layout.message.model.atInfoJSONStr jsonValueDecoded];
     NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
-    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
     if (unreadAccounts.count>0) {
         if (unreadAccounts.count == 1 ) {
             if (readAccounts.count>0) {
                 atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
             }else{
                 if (serviceMap == nil || serviceMap.allKeys.count ==0) {
-                    NSDictionary *read = readAccounts[0];
+                    NSDictionary *read = unreadAccounts[0];
                     [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
                         if (member.allKeys.count>0) {
                             atStr = [NSString stringWithFormat:@"%@未读",[member stringValueForKey:@"name" default:@""]];
@@ -115,7 +119,9 @@
             NSArray *isps = [userManager getTeamISPs];
             NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
             NSString *name = [displayName stringValueForKey:@"zh_CN" default:@"王教授"];
-            if (self.layout.message.isSend || self.layout.message.model.sendError) {
+            if (self.layout.message.sendStates == ChatSentStatesSendError) {
+                atStr = @"";
+            }else if(self.layout.message.sendStates ==ChatSentStatesIsSending){
                 atStr = [NSString stringWithFormat:@"%@未读",name];
             }else{
                 atStr = [NSString stringWithFormat:@"%@已读",name];
