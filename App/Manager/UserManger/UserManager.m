@@ -221,6 +221,10 @@ SINGLETON_FOR_CLASS(UserManager);
             if( isTeamSuccess && isUserSuccess){
                 if(change){
                     KPostNotification(KNotificationLoginStateChange, @YES);
+                    //存储的团队列表、团队情报数、ISPs都和当前账号有关系，所以请求成功做处理
+                    [self requestMemberList:nil];
+                    [self requestTeamIssueCount:nil];
+                    [self loadISPs];
                 }
                 isSuccess? isSuccess(YES):nil;
             }else{
@@ -230,10 +234,7 @@ SINGLETON_FOR_CLASS(UserManager);
         });
         
     });
-    [self requestMemberList:nil];
-    [self requestTeamIssueCount:nil];
     [self loadExperGroups:nil];
-    [self loadISPs];
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
     [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
