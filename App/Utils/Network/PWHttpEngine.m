@@ -222,7 +222,7 @@
     NSMutableDictionary *param = [@{
                 @"pageSize": @(pageSize),
                 @"type": @"attachment,bizPoint,text",
-                @"subType": @"exitExpertGroups,updateExpertGroups,call,comment",
+                @"subType": @"comment",
                 @"_withAttachmentExternalDownloadURL": @YES,
                 @"orderBy": @"seq",
                 @"orderMethod": orderMethod,

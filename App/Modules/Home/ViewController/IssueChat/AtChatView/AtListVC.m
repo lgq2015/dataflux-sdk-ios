@@ -70,7 +70,7 @@
     vc2.atStatusAry =[unreadAccountsAry copy];
     vc2.title = [NSString stringWithFormat:@"未读 (%ld)",unreadAccounts.count];;
     
-    NSArray *childVcs = [NSArray arrayWithObjects:vc1, vc2, nil];
+    NSArray *childVcs = [NSArray arrayWithObjects:vc2, vc1, nil];
     return childVcs;
 }
 - (MemberInfoModel *)addSpecialist123{

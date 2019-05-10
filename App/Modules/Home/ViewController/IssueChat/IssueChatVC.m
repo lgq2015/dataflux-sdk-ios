@@ -31,6 +31,7 @@
 #import "AtListVC.h"
 #import "IssueLastReadInfoModel.h"
 #import "IssueLogAtReadInfo.h"
+#import "AtReadSeqAndAccountID.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -78,6 +79,7 @@
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
             [self scrollToBottom:NO];
+            [self loadReadInfo];
             [self postLastReadSeq];
         }else{
             if (self.datas.count == 0) {
@@ -112,16 +114,15 @@
                                              selector:@selector(onRecordLastReadSeq:)
                                                  name:KNotificationRecordLastReadSeq
                                                object:nil];
-    [self loadReadInfo];
 }
 - (void)loadReadInfo{
     [[PWHttpEngine sharedInstance] getIssueLogReadsInfoWithIssueID:self.issueID callBack:^(id o) {
         IssueLogAtReadInfo *data = (IssueLogAtReadInfo *) o;
         if (data.isSuccess) {
             [data.lastReadSeqInfo  enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                IssueLastReadInfoModel *readInfo = [IssueLastReadInfoModel new];
-                readInfo.issueLogInfo.seq = obj;
-                readInfo.data.accountId = key;
+                AtReadSeqAndAccountID *readInfo = [AtReadSeqAndAccountID new];
+                readInfo.seq = [obj longLongValue];
+                readInfo.accountId = key;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self dealWithAtDatas:readInfo];
                 });
@@ -154,20 +155,22 @@
        NSDictionary * pass = [notification userInfo];
        NSError *error;
        IssueLastReadInfoModel *readModel = [[IssueLastReadInfoModel alloc]initWithDictionary:pass error:&error];
-        
+        AtReadSeqAndAccountID *read  = [AtReadSeqAndAccountID new];
+        read.seq = readModel.issueLogInfo.seq;
+        read.accountId = readModel.data.accountId;
         DLog(@"%@",readModel.data.accountId);
         if ([readModel.issueLogInfo.issueId isEqualToString:_issueID]) {
-            [self dealWithAtDatas:readModel];
+            [self dealWithAtDatas:read];
         }
         
     });
 }
-- (void)dealWithAtDatas:(IssueLastReadInfoModel *)readModel{
+- (void)dealWithAtDatas:(AtReadSeqAndAccountID *)readModel{
     __block NSMutableArray *indexAry = [NSMutableArray new];
     [[self.datas copy] enumerateObjectsUsingBlock:^(IssueChatMessagelLayout *cache, NSUInteger idx, BOOL * _Nonnull stop) {
         if (cache.message.messageFrom == PWChatMessageFromMe) {
         IssueLogModel *model = cache.message.model;
-        if(model.seq<=readModel.issueLogInfo.seq && model.atStatusStr.length>0){
+        if(model.seq<=readModel.seq && model.atStatusStr.length>0){
             NSDictionary *atStatus = [model.atStatusStr jsonValueDecoded];
             NSMutableArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts")?
             [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"unreadAccounts")]:[NSMutableArray new];
@@ -175,7 +178,7 @@
             [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"readAccounts")]:[NSMutableArray new];
             if(unreadAccounts.count>0){
                 [[unreadAccounts copy] enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx1, BOOL * _Nonnull stop) {
-                    if ([[obj stringValueForKey:@"accountId" default:@""] isEqualToString:readModel.data.accountId]) {
+                    if ([[obj stringValueForKey:@"accountId" default:@""] isEqualToString:readModel.accountId]) {
                         NSDictionary *readDict= unreadAccounts[idx1];
                         [unreadAccounts removeObjectAtIndex:idx1];
                         [readAccounts addObject:readDict];
