@@ -197,6 +197,8 @@
  */
 -(void)presentPickerViewController{
     self.picker = [[UIImagePickerController alloc] init];
+    
+    self.picker.navigationBar.tintColor  = PWTextBlackColor;
     if (@available(iOS 11.0, *)){
         [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
     }
@@ -247,6 +249,6 @@
 }
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    [viewController.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWOrangeTextColor, NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+    [viewController.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWTextBlackColor, NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
 }
 @end
