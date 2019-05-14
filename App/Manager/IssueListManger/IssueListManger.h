@@ -8,7 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
-
+typedef NS_ENUM(NSInteger ,IssueType){
+    IssueTypeAll = 1,
+    IssueTypeAlarm ,
+    IssueTypeSecurity,
+    IssueTypeExpense,
+    IssueTypeOptimization,
+    IssueTypeMisc,
+};
+typedef NS_ENUM(NSInteger ,IssueViewType){
+    IssueViewTypeNormal = 1,
+    IssueViewTypeIgnore = 2,
+    IssueViewTypeAll = 3,
+};
 @class IssueBoardModel;
 @class IssueModel;
 @class BaseReturnModel;
@@ -58,11 +70,12 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus;
 
 - (BOOL)isInfoBoardInit;
-
+-(IssueViewType)getCurrentIssueViewType;
+-(IssueType)getCurrentIssueType;
 /**
  情报分类页数据源获取
  */
-- (NSArray *)getIssueListWithIssueType:(NSString *)type;
+- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType;
 /**
  24内恢复的情报列表
  */

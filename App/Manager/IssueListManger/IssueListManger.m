@@ -48,7 +48,7 @@
         [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self createIssueListTable];
-        [self createIssueLogTable];
+ //     [self createIssueLogTable];
 
 
     }];
@@ -82,21 +82,21 @@
     }];
 
     //issue log update
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-            @"imageData": SQL_BLOB,
-            @"fileData": SQL_BLOB,
-            @"text": SQL_TEXT,
-            @"fileName": SQL_TEXT,
-            @"fileType": SQL_TEXT,
-            @"imageName": SQL_TEXT,
-            @"sendError": SQL_INTEGER,
-    }];
+//    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
+//            @"imageData": SQL_BLOB,
+//            @"fileData": SQL_BLOB,
+//            @"text": SQL_TEXT,
+//            @"fileName": SQL_TEXT,
+//            @"fileType": SQL_TEXT,
+//            @"imageName": SQL_TEXT,
+//            @"sendError": SQL_INTEGER,
+//    }];
 
-    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-            @"dataCheckFlag": SQL_INTEGER,
-            @"atInfoJSONStr": SQL_TEXT,
-            @"atStatusStr": SQL_TEXT,
-    }];
+//    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
+//            @"dataCheckFlag": SQL_INTEGER,
+//            @"atInfoJSONStr": SQL_TEXT,
+//            @"atStatusStr": SQL_TEXT,
+//    }];
 
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME dicOrModel:@{
@@ -109,7 +109,40 @@
     }];
 
 }
-
+-(IssueType)getCurrentIssueType{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+   
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
+    if (isContain) {
+        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueListType];
+         return (IssueType)[currentType integerValue];
+    }else{
+        return IssueTypeAll;
+    }
+}
+/**
+ * @param type 存储用户使用记录 当前issueType选择
+ */
+-(void)setCurrentIssueType:(IssueType)type{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    [cache removeObjectForKey:KCurrentIssueListType];
+    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueListType];
+}
+-(IssueViewType)getCurrentIssueViewType{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueViewType];
+    if (isContain) {
+        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueViewType];
+        return (IssueViewType)[currentType integerValue];
+    }else{
+        return IssueViewTypeAll;
+    }
+}
+-(void)setCurrentIssueViewType:(IssueViewType)type{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    [cache removeObjectForKey:KCurrentIssueViewType];
+    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueViewType];
+}
 - (void)creatIssueBoardTable {
     NSString *tableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
     if (![self.getHelper pw_isExistTable:tableName]) {
@@ -453,9 +486,9 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+//        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
             [[PWSocketManager sharedPWSocketManager] connect:YES];
-        }];
+//        }];
     }                                           getAllDatas:YES];
 
 }
@@ -470,7 +503,7 @@
 
 
 /**
- * 获取最好条数据的marker
+ * 获取最后条数据的marker
  * @return
  */
 - (long long)getLastPageMarker {
@@ -489,11 +522,58 @@
 }
 
 
-- (NSArray *)getIssueListWithIssueType:(NSString *)type {
+- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType{
+    if(type == 0){
+      type = [self getCurrentIssueType];
+    }else{
+        [self setCurrentIssueType:type];
+    }
+    if (viewType == 0) {
+        viewType = [self getCurrentIssueViewType];
+    }else{
+        [self setCurrentIssueViewType:viewType];
+    }
     NSMutableArray *array = [NSMutableArray new];
+    NSString *typeStr,*whereFormat,*statesStr;
+    BOOL isALL = NO;
+    switch (type) {
+        case IssueTypeAlarm:
+            typeStr = @"alarm";
+            break;
+        case IssueTypeSecurity:
+            typeStr = @"security";
+            break;
+        case IssueTypeExpense:
+            typeStr = @"expense";
+            break;
+        case IssueTypeOptimization:
+            typeStr = @"optimization";
+            break;
+        case IssueTypeMisc:
+            typeStr = @"misc";
+            break;
+        case IssueTypeAll:
+            isALL = YES;
+            break;
+    };
+    switch (viewType) {
+        case IssueViewTypeNormal:
+            statesStr =@"AND status!='recovered'";
+            break;
+        case IssueViewTypeIgnore:
+            statesStr=@"AND status='recovered'";
+            break;
+        case IssueViewTypeAll:
+            statesStr = @"";
+            break;
+    }
+    if (isALL) {
+        whereFormat =[NSString stringWithFormat:@"WHERE status!='discarded' %@ ORDER by seq DESC ",statesStr] ;
+    }else{
+       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@'AND status!='discarded' %@  ORDER by seq DESC ", typeStr,statesStr];
+    }
     [self.getHelper pw_inDatabase:^{
 
-        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status!='discarded' AND status!='recovered' ORDER by seq DESC ", type];
         NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
         [array addObjectsFromArray:itemDatas];
     }];
