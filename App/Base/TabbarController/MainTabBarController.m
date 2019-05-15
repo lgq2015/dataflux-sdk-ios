@@ -42,9 +42,9 @@
     _VCS = @[].mutableCopy;
     HomeIssueListVC *homeVC = [[HomeIssueListVC alloc]init];
     homeVC.isHidenNaviBar = YES;
-    [self setupChildViewController:homeVC title:@"情报" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
+    [self setupChildViewController:homeVC title:@"情报" imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
     LibraryVC *libriary = [[LibraryVC alloc]init];
-    [self setupChildViewController:libriary title:@"智库" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
+    [self setupChildViewController:libriary title:@"智库" imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
     team.isShowCustomNaviBar = NO;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];

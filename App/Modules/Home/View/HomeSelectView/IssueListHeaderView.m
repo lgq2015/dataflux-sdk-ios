@@ -9,6 +9,8 @@
 #import "IssueListHeaderView.h"
 #import "SelectIssueTypeView.h"
 #import "IssueListManger.h"
+#import "AddIssueVC.h"
+#import "ZTCreateTeamVC.h"
 #define IssueTypeBtnTag   55
 #define IssueViewBtnTag   66
 @interface IssueListHeaderView()<SelectIssueViewDelegate>
@@ -107,11 +109,9 @@
             break;
         case IssueTypeOptimization:
             issueTitle = @"优化类别";
-            
             break;
         case IssueTypeMisc:
             issueTitle = @"提醒类别";
-            
             break;
     }
     return issueTitle;
@@ -119,7 +119,6 @@
 - (NSString *)getIssueViewTitle:(IssueViewType)type{
     NSString *viewTitle;
     switch (type) {
-        
         case IssueViewTypeAll:
             viewTitle = @"全部视图";
             break;
@@ -137,7 +136,7 @@
     if (!_issueSV) {
         UIButton *arrow = [self viewWithTag:IssueTypeBtnTag];
         CGFloat x = arrow.frame.origin.x-ZOOM_SCALE(60);
-        CGFloat y = CGRectGetMaxY(arrow.frame)+10+kTopHeight;
+        CGFloat y = CGRectGetMaxY(arrow.frame)+35+kTopHeight;
         _issueSV = [[SelectIssueTypeView alloc]initWithType:SelectTypeIssue contentViewPoint:CGPointMake(x, y)];
         _issueSV.delegate =self;
     }
@@ -147,7 +146,7 @@
     if (!_viewSV) {
         UIButton *arrow = [self viewWithTag:IssueViewBtnTag];
         CGFloat x = arrow.frame.origin.x-ZOOM_SCALE(60);
-        CGFloat y = CGRectGetMaxY(arrow.frame)+10+kTopHeight;
+        CGFloat y = CGRectGetMaxY(arrow.frame)+35+kTopHeight;
         _viewSV = [[SelectIssueTypeView alloc]initWithType:SelectTypeView contentViewPoint:CGPointMake(x, y)];
         _viewSV.delegate =self;
     }
@@ -162,7 +161,32 @@
     }
 }
 - (void)addIssueBtnClick{
-   
+    if([getTeamState isEqualToString:PW_isTeam]){
+        AddIssueVC *creatVC = [[AddIssueVC alloc]init];
+        [self.viewController.navigationController pushViewController:creatVC animated:YES];
+    }else if([getTeamState isEqualToString:PW_isPersonal]){
+        //        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
+        //        [self.navigationController pushViewController:createTeam animated:YES];
+        
+        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+        vc.dowhat = supplementTeamInfo;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    }else{
+        [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
+            if (isSuccess) {
+                if([getTeamState isEqualToString:PW_isTeam]){
+                    AddIssueVC *creatVC = [[AddIssueVC alloc]init];
+                    [self.viewController.navigationController pushViewController:creatVC animated:YES];
+                }else if([getTeamState isEqualToString:PW_isPersonal]){
+                    ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
+                    vc.dowhat = supplementTeamInfo;
+                    [self.viewController.navigationController pushViewController:vc animated:YES];
+                }
+            }else{
+                
+            }
+        }];
+    }
 }
 - (void)viewTypeBtnClick{
     UIButton *button = [self viewWithTag:IssueViewBtnTag];

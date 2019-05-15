@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) HomeNoticeScrollView *notice;
 
 -(instancetype)initWithStyle:(PWIssueBoardStyle)style;
-- (void)updateTitle:(NSString *)title withStates:(BOOL)isCheck;
 - (void)updateIssueBoardStyle:(PWIssueBoardStyle)style itemData:(NSDictionary *)paramsDict;
 - (void)createUIWithParamsDict:(NSDictionary *)paramsDict;
 - (void)updateTitle:(NSString *)title;
