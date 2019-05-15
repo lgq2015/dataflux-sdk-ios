@@ -322,6 +322,7 @@
     }];
 }
 #pragma mark =====系统导航栏设置=====
+//TODO:丽蕾 （对导航栏进行配置）
 - (void)initSystemNav{
     self.navigationItem.title = @"";
     NSString *titleString = @"";
@@ -367,6 +368,7 @@
     }
     return _rightNavButton;
 }
+//TODO:丽蕾 (点击切换团队按钮)
 - (void)navLeftBtnclick:(UIButton *)sender{
     sender.userInteractionEnabled = NO;
     sender.selected = !sender.selected;
@@ -390,6 +392,7 @@
         [[ZYChangeTeamUIManager shareInstance] dismiss];
     }
 }
+//TODO:丽蕾 (点击切换团队箭头)
 - (void)tapTopArrow:(UITapGestureRecognizer *)ges{
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
 }
@@ -397,6 +400,7 @@
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
+    NSLog(@"zhangtao----");
     [self changeTopLeftNavTitleName];
     //如果有成员缓存，直接刷新
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
@@ -438,7 +442,7 @@
     [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
 }
-//点击切换团队阴影
+//TODO:丽蕾 （点击切换团队阴影）
 - (void)clickTeamChangeViewBlackBG{
     [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
         if (isDismissed){

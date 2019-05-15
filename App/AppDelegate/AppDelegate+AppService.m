@@ -193,7 +193,6 @@
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
         NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
         NSString *titleH = [alert valueForKey:@"title"];
-        DLog(@"zhangtao123456------%@-----%@----%@",title,titleW,titleH);
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
