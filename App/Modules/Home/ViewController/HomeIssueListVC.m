@@ -10,18 +10,14 @@
 #import "IssueListHeaderView.h"
 #import "IssueListVC.h"
 #import "IssueListManger.h"
-/*
- "alarm",
- "security",
- "expense",
- "optimization",
- "misc",
- "ticket"
- */
-
+#import "ScanViewController.h"
+#import "RootNavigationController.h"
+#import "ZTChangeTeamNavView.h"
+#import "TeamInfoModel.h"
 @interface HomeIssueListVC ()<IssueListHeaderDelegate>
 @property (nonatomic, strong) IssueListHeaderView *headerView;
 @property (nonatomic, strong) IssueListVC *listVC;
+@property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
 @end
 
 @implementation HomeIssueListVC
@@ -36,6 +32,7 @@
     [self.view addSubview:nav];
     UIButton *scanBtn = [[UIButton alloc]init];
     [scanBtn setImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+    [scanBtn addTarget:self action:@selector(scanBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [nav addSubview:scanBtn];
     [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(nav).offset(-20);
@@ -43,6 +40,27 @@
         make.width.height.offset(28);
     }];
     nav.backgroundColor = PWBackgroundColor;
+    NSString *titleString;
+    if([getTeamState isEqualToString:PW_isTeam]){
+        titleString = userManager.teamModel.name;
+    }else{
+        titleString = @"我的团队";
+    }
+    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:BOLDFONT(20)];
+    [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
+    _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
+    [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue <= 11.0) {
+        _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:NO];
+    }
+    [nav addSubview:_changeTeamNavView];
+    [_changeTeamNavView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(Interval(15));
+        make.bottom.mas_equalTo(nav).offset(-20);
+        make.height.offset(ZOOM_SCALE(25));
+    }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24, kWidth, 1)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
@@ -56,8 +74,19 @@
     [self addChildViewController:self.listVC];
     [contentView addSubview:self.listVC.view];
 }
-- (void)createUI{
+- (void)navLeftBtnclick:(UIButton *)button{
     
+}
+- (void)tapTopArrow:(UITapGestureRecognizer *)tap{
+    
+}
+- (void)scanBtnClick{
+    ScanViewController *scan = [[ScanViewController alloc]init];
+    scan.isVideoZoom = YES;
+    scan.libraryType = SLT_Native;
+    scan.scanCodeType = SCT_QRCode;
+    RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 -(void)selectIssueTypeIndex:(NSInteger)index{
     [self.listVC reloadDataWithIssueType:index+1 viewType:0];

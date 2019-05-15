@@ -17,7 +17,7 @@
 #import "IssueListManger.h"
 #import "IssueListViewModel.h"
 #import "IssueProblemDetailsVC.h"
-
+#import "IssueDetailsVC.h"
 #define NavRightBtnTag  100  // 右侧图片
 
 @interface AddIssueVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -28,9 +28,9 @@
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, strong) NSMutableArray<CreateQuestionModel *> *attachmentArray;
 @property (nonatomic, copy) NSString *batchId;
-
+@property (nonatomic, strong) UILabel *typeLab;
 @property (nonatomic, copy) NSString *upBatchId;
-// type = 1 严重 type = 2  警告
+// type = 1 严重 type = 2  警告 3  一般
 @property (nonatomic, assign) NSString *level;
 @end
 
@@ -65,7 +65,7 @@
         make.height.offset(ZOOM_SCALE(56));
     }];
     UILabel *leve = [[UILabel alloc]init];
-    leve.text = @"严重程度";
+    leve.text = @"等级";
     leve.font = RegularFONT(16);
     leve.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
     [levelView addSubview:leve];
@@ -125,11 +125,46 @@
         seriousBtn.selected = NO;
         waringBtn.selected = NO;
     }];
+    UIView *typeView = [[UIView alloc]init];
+    typeView.backgroundColor = PWWhiteColor;
+    [self.mainScrollView addSubview:typeView];
+    [typeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(levelView.mas_bottom).offset(Interval(12));
+        make.width.offset(kWidth);
+        make.height.offset(ZOOM_SCALE(56));
+    }];
+    UILabel *typeTip = [[UILabel alloc]init];
+    typeTip.text = @"类别";
+    typeTip.font = RegularFONT(16);
+    typeTip.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
+    [typeView addSubview:typeTip];
+    [typeTip mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(typeView).offset(Interval(16));
+        make.height.offset(ZOOM_SCALE(22));
+        make.width.offset(ZOOM_SCALE(100));
+        make.centerY.mas_equalTo(typeView.centerY);
+    }];
+    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
+    [typeView addSubview:arrow];
+    [arrow mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(typeView).offset(-16);
+        make.centerY.mas_equalTo(typeView);
+        make.width.offset(ZOOM_SCALE(11));
+        make.height.offset(ZOOM_SCALE(16));
+    }];
+    self.typeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:@""];
+    [typeView addSubview:self.typeLab];
+    [self.typeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(arrow.mas_left).offset(-10);
+        make.centerY.mas_equalTo(arrow);
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(issueTypeChoose)];
+    [typeView addGestureRecognizer:tap];
     UIView *describeView = [[UIView alloc]init];
     describeView.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:describeView];
     [describeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(levelView.mas_bottom).offset(Interval(12));
+        make.top.equalTo(typeView.mas_bottom).offset(Interval(12));
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(180));
     }];
@@ -180,10 +215,10 @@
     RACSignal *titleSignal = [self.titleTf rac_textSignal];
     RACSignal *state = RACObserve(seriousBtn, selected);
     RACSignal *state2 = RACObserve(waringBtn, selected);
-
-    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,state,state2] reduce:^id(NSString * title,NSString * content){
+    RACSignal *typeSignal = RACObserve(self.typeLab, text);
+    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,state,state2,typeSignal] reduce:^id(NSString * title,NSString * content,NSString *typeStr){
         NSString *describe = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
-        return @(title.length>0 && describe.length>0 && self.level.length>0);
+        return @(title.length>0 && describe.length>0 && self.level.length>0&&self.type.length>0);
     }];
     RAC(self.navRightBtn,enabled) = navBtnSignal;
     self.tableView.rowHeight = ZOOM_SCALE(60)+Interval(30);
@@ -196,6 +231,24 @@
         make.left.right.mas_equalTo(self.view);
     make.height.offset(self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
     }];
+}
+- (void)issueTypeChoose{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    NSArray *title = @[@"监控",@"安全",@"费用",@"优化",@"提醒"];
+    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
+    for (NSInteger i=0; i<title.count; i++) {
+        UIAlertAction *alarm = [PWCommonCtrl actionWithTitle:title[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+            self.type = type[i];
+            self.typeLab.text = title[i];
+        }];
+        [alert addAction:alarm];
+    }
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
+        
+    }];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
     UIButton *button = [[UIButton alloc]init];
@@ -298,7 +351,7 @@
                 model.accountId = getPWUserID;
                 model.isFromUser = YES;
                 model.time = [NSString getLocalDateFormateUTCDate:[[NSDate date] getNowUTCTimeStr] formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-                IssueProblemDetailsVC *details = [[IssueProblemDetailsVC alloc]init];
+                IssueDetailsVC *details = [[IssueDetailsVC alloc]init];
                 details.model = model;
                 if(![[PWSocketManager sharedPWSocketManager] isConnect]){
                     self.refresh? self.refresh():nil;
@@ -449,13 +502,13 @@
     double convertedValue = [data length] * 1.0;
     int multiplyFactor = 0;
 
-    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
+    NSArray *tokens = [NSArray arrayWithObjects:@"B",@"KB",@"M",nil];
     while (convertedValue > 1024) {
         convertedValue /= 1024;
         multiplyFactor++;
     }
 
-    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
+    return [NSString stringWithFormat:@"%f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
 /*
 #pragma mark - Navigation
