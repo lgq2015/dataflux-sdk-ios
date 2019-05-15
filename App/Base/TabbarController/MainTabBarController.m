@@ -15,6 +15,9 @@
 #import "TeamVC.h"
 #import "PWTabBar.h"
 #import "WEBViewController.h"
+#import "IssueListVC.h"
+#import "LibraryVC.h"
+#import "HomeIssueListVC.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
 @end
@@ -37,10 +40,11 @@
 }
 - (void)setUpAllChildViewController{
     _VCS = @[].mutableCopy;
-    HomeViewController *homeVC = [[HomeViewController alloc]init];
-    [self setupChildViewController:homeVC title:@"王教授" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
-     homeVC.isHidenNaviBar= YES;
-    
+    HomeIssueListVC *homeVC = [[HomeIssueListVC alloc]init];
+    homeVC.isHidenNaviBar = YES;
+    [self setupChildViewController:homeVC title:@"情报" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
+    LibraryVC *libriary = [[LibraryVC alloc]init];
+    [self setupChildViewController:libriary title:@"智库" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
     TeamVC *team = [TeamVC new];
     team.isShowCustomNaviBar = NO;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];

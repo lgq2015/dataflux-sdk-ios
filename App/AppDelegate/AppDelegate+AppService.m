@@ -38,7 +38,7 @@
 #import "HomeViewController.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "IssueListManger.h"
-#import "IssueChatDataManager.h"
+//#import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
 @implementation AppDelegate (AppService)
@@ -611,7 +611,7 @@
 }
 - (void)dealChangeTeam:(id) response withTeamID:(NSString *)teamID complete:(void(^)(bool isFinished))completeBlock{
     NSString *token = response[@"content"][@"authAccessToken"];
-    [[IssueChatDataManager sharedInstance] shutDown];
+//    [[IssueChatDataManager sharedInstance] shutDown];
     [[IssueListManger sharedIssueListManger] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
     [[IssueSourceManger sharedIssueSourceManger] logout];
