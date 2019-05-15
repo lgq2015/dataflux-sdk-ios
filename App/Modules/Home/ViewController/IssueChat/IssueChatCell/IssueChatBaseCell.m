@@ -50,18 +50,18 @@
     [_mBackImgButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     //菊花转
-    _mIndicator = [UIActivityIndicatorView new];
-    [self.contentView addSubview:_mIndicator];
-    _sendLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:@"上传中…"];
-    _sendLab.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:_sendLab];
-    _retryBtn = [[UIButton alloc]init];
-    _retryBtn.titleLabel.font = RegularFONT(12);
-    _retryBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-
-    [_retryBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-    [_retryBtn addTarget:self action:@selector(retryBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:_retryBtn];
+//    _mIndicator = [UIActivityIndicatorView new];
+//    [self.contentView addSubview:_mIndicator];
+//    _sendLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:@"上传中…"];
+//    _sendLab.textAlignment = NSTextAlignmentCenter;
+//    [self.contentView addSubview:_sendLab];
+//    _retryBtn = [[UIButton alloc]init];
+//    _retryBtn.titleLabel.font = RegularFONT(12);
+//    _retryBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//
+//    [_retryBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+//    [_retryBtn addTarget:self action:@selector(retryBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:_retryBtn];
     
 }
 -(void)setLayout:(IssueChatMessagelLayout *)layout{

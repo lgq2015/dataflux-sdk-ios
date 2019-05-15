@@ -49,8 +49,8 @@
 
 - (void)setupView{
     [self.typeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.progressView.mas_bottom).offset(ZOOM_SCALE(13));
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(10));
+        make.centerY.mas_equalTo(self.stateLab);
         make.width.offset(ZOOM_SCALE(39));
         make.height.offset(ZOOM_SCALE(27));
     }];
@@ -60,10 +60,23 @@
         make.centerY.mas_equalTo(self.typeIcon);
         make.height.offset(ZOOM_SCALE(18));
     }];
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.issueNameLab.mas_right).offset(Interval(10));
+        make.centerY.mas_equalTo(self.issueNameLab);
+        make.height.offset(ZOOM_SCALE(18));
+    }];
+    self.timeLab.text =[self.model.time accurateTimeStr];
     self.issueNameLab.text = self.model.sourceName;
+    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
+    [self.upContainerView addSubview:lab];
+    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.stateLab);
+        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(16));
+        make.height.offset(ZOOM_SCALE(22));
+    }];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
-        make.top.mas_equalTo(self.typeIcon.mas_bottom).offset(Interval(8));
+        make.top.mas_equalTo(lab.mas_bottom).offset(Interval(16));
         make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
     }];
     NSString * htmlString = self.model.content;
@@ -71,15 +84,38 @@
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     
     self.contentLab.attributedText = attrStr;
-    self.contentLab.font = RegularFONT(14);
+    self.contentLab.font = RegularFONT(16);
     self.contentLab.textColor = PWTitleColor;
    
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
         make.left.mas_equalTo(self.upContainerView);
         make.right.mas_equalTo(self.upContainerView);
+        if(self.model.attrs== nil || self.model.attrs.length== 0){
         make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
+        }
     }];
+    if(self.model.attrs.length>0){
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"建议"];
+        [self.upContainerView addSubview:title];
+        [title mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.echartContenterView.mas_bottom).offset(Interval(20));
+            make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
+            make.height.offset(ZOOM_SCALE(22));
+        }];
+        UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(17) textColor:PWWhiteColor text:self.model.attrs];
+        sugLab.numberOfLines = 0;
+        sugLab.textColor = PWTitleColor;
+        [self.upContainerView addSubview:sugLab];
+        [sugLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(title);
+            make.top.mas_equalTo(title.mas_bottom).offset(Interval(15));
+            make.right.mas_equalTo(self.view).offset(-16);
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-20);
+        }];
+        sugLab.text = self.model.attrs;
+    }
+    
    
 }
 - (void)setSubView{
@@ -90,76 +126,33 @@
     }];
     
     if(!self.model.isInvalidIssue){
-        [self setSuggestSubView];
+       
     }
 }
 
 -(void)setSuggestSubView{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(17), 100, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"建议"];
-    [self.subContainerView addSubview:title];
-    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"professor"]];
-    icon.frame = CGRectMake(Interval(16), ZOOM_SCALE(55), ZOOM_SCALE(60), ZOOM_SCALE(60));
-    [self.subContainerView addSubview:icon];
-    [self.subContainerView addSubview:self.tableView];
    
-    UIView *suggestion = [[UIView alloc]init];
-    suggestion.backgroundColor = [UIColor colorWithHexString:@"#5090F5"];
-    suggestion.layer.cornerRadius = 4;
-    [self.subContainerView addSubview:suggestion];
-    [suggestion mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(icon.mas_right).offset(Interval(18));
-        make.top.mas_equalTo(icon);
-        make.right.mas_equalTo(self.subContainerView).offset(-Interval(16));
-    }];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(goExpertsVC)];
-//    [suggestion addGestureRecognizer:tap];
-    TriangleLeft *triangle = [[TriangleLeft alloc]initWithFrame:CGRectZero];
-    [self.subContainerView addSubview:triangle];
-    [triangle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(ZOOM_SCALE(10));
-        make.height.offset(ZOOM_SCALE(18));
-        make.right.mas_equalTo(suggestion.mas_left).offset(1);
-        make.centerY.mas_equalTo(icon);
-    }];
-    [self.subContainerView bringSubviewToFront:suggestion];
-    self.suggestion = suggestion;
-    UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(17) textColor:PWWhiteColor text:self.model.attrs];
-    sugLab.numberOfLines = 0;
-    sugLab.textColor = PWWhiteColor;
-    [suggestion addSubview:sugLab];
-    [sugLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(suggestion).offset(Interval(14));
-        make.top.mas_equalTo(suggestion.mas_top).offset(Interval(9));
-        make.right.mas_equalTo(suggestion).offset(-13);
-        make.bottom.mas_equalTo(suggestion.bottom).offset(-9);
-    }];
-    if (self.model.attrs.length == 0) {
-        title.hidden = YES;
-        suggestion.hidden = YES;
-        icon.hidden = YES;
-        triangle.hidden = YES;
-    }
-    self.tableView.backgroundColor = PWWhiteColor;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (self.model.attrs.length == 0) {
-        make.top.mas_equalTo(self.subContainerView);
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom);
-        }else{
-        make.top.mas_equalTo(self.suggestion.mas_bottom).offset(Interval(15));
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom);
-        }
-        make.width.offset(kWidth);
-        make.height.offset(self.handbookAry.count*45);
-    }];
+    
+    [self.subContainerView addSubview:self.tableView];
+        UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"相关文章"];
+        [self.subContainerView addSubview:tipLab];
+        self.tableView.backgroundColor = PWWhiteColor;
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        [self.tableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.showsVerticalScrollIndicator = NO;
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(12));
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+            make.width.offset(kWidth);
+            make.height.offset(self.handbookAry.count*45);
+        }];
 
+    
     [self.view layoutIfNeeded];
 
-    CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
+    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
@@ -190,36 +183,12 @@
 
 #pragma mark ========== BTNCLICK ==========
 
-- (void)setupBadges{
-    [self.navigationItem.rightBarButtonItem pp_addBadgeWithNumber:2];
-}
-- (void)goExpertsVC{
-    [SVProgressHUD show];
-    [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
-        [SVProgressHUD dismiss];
-            if ([getTeamState isEqualToString:PW_isTeam]) {
-                NSDictionary *tags =userManager.teamModel.tags;
-                NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
-                if (product ==nil) {
-                    [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
-                    return;
-                }
-                ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-                expert.model = self.model;
-                [self.navigationController pushViewController:expert animated:YES];
-            }else if([getTeamState isEqualToString:PW_isPersonal]){
-             [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
-            }
-    }];
 
-}
 
 #pragma mark ========== DATA/DEAL ==========
 - (void)loadInfoDeatil{
     [SVProgressHUD show];
-   NSDictionary *param = @{@"_readerAccountId":userManager.curUserInfo.userID,@"_needReadInfo":@YES};
-    [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-       
+    [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
             [self loadIssueSourceDetail:content];
@@ -280,7 +249,7 @@
                 temp1 = chartView;
             }
             [self.view layoutIfNeeded];
-            CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
+            CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
             self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
         }
    }
@@ -339,6 +308,9 @@
     if (dict[@"reference"] &&dict[@"reference"][@"articles"]) {
         self.handbookAry = [NSMutableArray new];
         [self.handbookAry addObjectsFromArray:dict[@"reference"][@"articles"]];
+        if (self.handbookAry.count>0) {
+            [self setSuggestSubView];;
+        }
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(self.handbookAry.count*45);
             make.bottom.mas_equalTo(self.subContainerView.mas_bottom);
@@ -346,7 +318,7 @@
         [self.tableView reloadData];
     }
     [self.view layoutIfNeeded];
-    CGFloat height = CGRectGetMaxY(self.solveBtn.frame);
+    CGFloat height = CGRectGetMaxY(self.subContainerView.frame);
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 }
 

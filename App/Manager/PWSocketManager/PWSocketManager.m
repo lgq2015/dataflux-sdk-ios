@@ -11,7 +11,7 @@
 #import "YYReachability.h"
 #import "IssueLogModel.h"
 #import "IssueSourceManger.h"
-#import "IssueChatDataManager.h"
+//#import "IssueChatDataManager.h"
 #import "IssueLogListModel.h"
 #import "IssueModel.h"
 
@@ -120,7 +120,7 @@ static dispatch_queue_t socket_message_queue() {
                         NSInteger code = [dic integerValueForKey:@"error" default:0];
                         if (code == 200) {
                             _isAuthed = YES;
-                            [self tryFetchIssueLog];
+//                        [self tryFetchIssueLog];
                         } else{
                             _isAuthed  =NO;
                         }
@@ -205,7 +205,7 @@ static dispatch_queue_t socket_message_queue() {
 
                     issueLogModel.dataCheckFlag = !endCompleteData||!_isFetchingComplete;
 
-                    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
+//                    [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:issueLogModel.issueId data:issueLogModel deleteCache:NO];
 
                     if(issueModel){
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
@@ -230,10 +230,10 @@ static dispatch_queue_t socket_message_queue() {
                         [kNotificationCenter postNotificationName:KNotificationUpdateIssueDetail object:nil
                                                          userInfo:@{@"updateView":@(YES)}];
 
-                        [kNotificationCenter
-                                postNotificationName:KNotificationNewIssueLog
-                                              object:nil
-                                            userInfo:dic];
+//                        [kNotificationCenter
+//                                postNotificationName:KNotificationNewIssueLog
+//                                              object:nil
+//                                            userInfo:dic];
 
                     });
 
@@ -252,43 +252,43 @@ static dispatch_queue_t socket_message_queue() {
 /**
  * 尝试获取讨论消息内容
  */
--(void)tryFetchIssueLog{
-    _isFetchingComplete = NO;
-    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model)  {
-        if(model.isSuccess){
-            [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil
-                                                                  callBack:^(BaseReturnModel *issueLogListModel) {
-
-                if(issueLogListModel.isSuccess){
-                    _isFetchingComplete = YES;
-                    [kNotificationCenter
-                            postNotificationName:KNotificationFetchComplete
-                                          object:nil];
-
-                } else{
-                    if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
-
-                    } else{
-                        [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
-                    }
-
-                }
-
-            }];
-
-
-        } else{
-            if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
-
-            } else{
-                [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
-            }
-
-        }
-
-    } getAllDatas:NO];
-
-}
+//-(void)tryFetchIssueLog{
+//    _isFetchingComplete = NO;
+//    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model)  {
+//        if(model.isSuccess){
+//            [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil
+//                                                                  callBack:^(BaseReturnModel *issueLogListModel) {
+//
+//                if(issueLogListModel.isSuccess){
+//                    _isFetchingComplete = YES;
+//                    [kNotificationCenter
+//                            postNotificationName:KNotificationFetchComplete
+//                                          object:nil];
+//
+//                } else{
+//                    if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
+//
+//                    } else{
+//                        [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+//                    }
+//
+//                }
+//
+//            }];
+//
+//
+//        } else{
+//            if([model.errorCode isEqualToString: ERROR_CODE_LOCAL_IS_FETCHING]) {
+//
+//            } else{
+//                [self performSelector:@selector(tryFetchIssueLog) afterDelay:10];
+//            }
+//
+//        }
+//
+//    } getAllDatas:NO];
+//
+//}
 
 - (void)retryConnect {
 

@@ -524,6 +524,18 @@
 		4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D821C20B68002AF34E /* FindPasswordVC.m */; };
 		4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
+		4AC21FC8228BB53D0098848C /* IssueEngineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */; };
+		4AC21FC9228BB53D0098848C /* IssueEngineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */; };
+		4AC21FCA228BB53D0098848C /* IssueEngineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */; };
+		4AC21FCD228BB5590098848C /* IssueUserDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FCC228BB5590098848C /* IssueUserDetailView.m */; };
+		4AC21FCE228BB5590098848C /* IssueUserDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FCC228BB5590098848C /* IssueUserDetailView.m */; };
+		4AC21FCF228BB5590098848C /* IssueUserDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FCC228BB5590098848C /* IssueUserDetailView.m */; };
+		4AC21FD2228BDCE20098848C /* IssueDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */; };
+		4AC21FD3228BDCE20098848C /* IssueDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */; };
+		4AC21FD4228BDCE20098848C /* IssueDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */; };
+		4AC21FDE228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
+		4AC21FDF228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
+		4AC21FE0228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
 		4AC856E622311E3800DAE1F6 /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
 		4AC856E9223121BA00DAE1F6 /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
 		4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */; };
@@ -1610,6 +1622,14 @@
 		4ABF44D821C20B68002AF34E /* FindPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindPasswordVC.m; sourceTree = "<group>"; };
 		4ABF44DA21C20BD6002AF34E /* VerifyCodeLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyCodeLoginVC.h; sourceTree = "<group>"; };
 		4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeLoginVC.m; sourceTree = "<group>"; };
+		4AC21FC6228BB53D0098848C /* IssueEngineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueEngineHeaderView.h; sourceTree = "<group>"; };
+		4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueEngineHeaderView.m; sourceTree = "<group>"; };
+		4AC21FCB228BB5590098848C /* IssueUserDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueUserDetailView.h; sourceTree = "<group>"; };
+		4AC21FCC228BB5590098848C /* IssueUserDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueUserDetailView.m; sourceTree = "<group>"; };
+		4AC21FD0228BDCE20098848C /* IssueDetailsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueDetailsVC.h; sourceTree = "<group>"; };
+		4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueDetailsVC.m; sourceTree = "<group>"; };
+		4AC21FDC228C16510098848C /* ChatMessageLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessageLayout.h; sourceTree = "<group>"; };
+		4AC21FDD228C16510098848C /* ChatMessageLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatMessageLayout.m; sourceTree = "<group>"; };
 		4AC856E422311E3800DAE1F6 /* HandbookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandbookCell.h; sourceTree = "<group>"; };
 		4AC856E522311E3800DAE1F6 /* HandbookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandbookCell.m; sourceTree = "<group>"; };
 		4AC856E7223121BA00DAE1F6 /* HandbookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandbookModel.h; sourceTree = "<group>"; };
@@ -2194,6 +2214,10 @@
 				4A759B512254B6A20057BD02 /* EchartListView.m */,
 				4AAC141C2276F3500043AD5E /* NoDataView.h */,
 				4AAC141D2276F3500043AD5E /* NoDataView.m */,
+				4AC21FC6228BB53D0098848C /* IssueEngineHeaderView.h */,
+				4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */,
+				4AC21FCB228BB5590098848C /* IssueUserDetailView.h */,
+				4AC21FCC228BB5590098848C /* IssueUserDetailView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2335,8 +2359,9 @@
 			isa = PBXGroup;
 			children = (
 				4A6C287E219D08B70059BB08 /* Home */,
-				4A6C287F219D08B70059BB08 /* Service+ */,
+				4AC21FC5228BB2790098848C /* Library */,
 				4A6C2880219D08B70059BB08 /* Team */,
+				4A6C287F219D08B70059BB08 /* Service+ */,
 				4A6C2881219D08B70059BB08 /* Mine */,
 				4A6C286C219C156D0059BB08 /* Login */,
 				4A759A902248F40F0057BD02 /* Guide */,
@@ -2771,6 +2796,8 @@
 				6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */,
 				4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */,
 				4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */,
+				4AC21FDC228C16510098848C /* ChatMessageLayout.h */,
+				4AC21FDD228C16510098848C /* ChatMessageLayout.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2910,6 +2937,31 @@
 				4AF663B72265B1F900E551B9 /* UITextView+HLLHelper.m */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		4AC21FC5228BB2790098848C /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				4AC21FD5228C05640098848C /* ViewController */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		4AC21FD5228C05640098848C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6B6E22660F17E4F0B5C2F76A /* LibraryVC.h */,
+				6B6E2F8F577E7263475A5404 /* LibraryVC.m */,
+				6B6E250B899A7687AE65005B /* HandBookArticleVC.h */,
+				6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */,
+				6B6E246A1711FD530AF274CA /* HandbookIndexVC.h */,
+				6B6E25221972ECF638142FC3 /* HandbookIndexVC.m */,
+				6B6E21580CB0771C1641C1E4 /* LibrarySearchVC.h */,
+				6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */,
+				6B6E290FF524A1DA8BA0EA3A /* NewsWebView.h */,
+				6B6E2F331858745A2216176D /* NewsWebView.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4AC856ED223147A300DAE1F6 /* SCIndexView */ = {
@@ -3218,12 +3270,10 @@
 				6B6E2BC8D9B7C776ED88D370 /* Scan */,
 				6B6E243DEBD6CDF05812520A /* HomeViewController.h */,
 				6B6E206D33FC79F101DB0167 /* HomeViewController.m */,
-				4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */,
-				4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */,
 				6B6E2D0040AFC9957E14AB94 /* HomeViewIssueIndexVC.h */,
 				6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */,
-				6B6E22660F17E4F0B5C2F76A /* LibraryVC.h */,
-				6B6E2F8F577E7263475A5404 /* LibraryVC.m */,
+				4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */,
+				4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */,
 				6B6E2D4B41D723CAC6B2D614 /* IssueListVC.h */,
 				6B6E2F653962505AE565BFBD /* IssueListVC.m */,
 				6B6E2237311CA9E45817A4B2 /* IssueSourceListVC.h */,
@@ -3240,16 +3290,10 @@
 				6B6E2A36B4B1CE63DB1D6C8A /* IssueProblemDetailsVC.m */,
 				6B6E2F391B62A1B0AE0D961B /* IssueDetailVC.h */,
 				6B6E20F36B75EF48D9623907 /* IssueDetailVC.m */,
+				4AC21FD0228BDCE20098848C /* IssueDetailsVC.h */,
+				4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */,
 				6B6E219BA3FC613B341070F3 /* ToolsVC.h */,
 				6B6E2188F811955A7DCCF384 /* ToolsVC.m */,
-				6B6E290FF524A1DA8BA0EA3A /* NewsWebView.h */,
-				6B6E2F331858745A2216176D /* NewsWebView.m */,
-				6B6E250B899A7687AE65005B /* HandBookArticleVC.h */,
-				6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */,
-				6B6E246A1711FD530AF274CA /* HandbookIndexVC.h */,
-				6B6E25221972ECF638142FC3 /* HandbookIndexVC.m */,
-				6B6E21580CB0771C1641C1E4 /* LibrarySearchVC.h */,
-				6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */,
 				6B6E2ED012C28A0E6B365DE3 /* HostDiagnosisVC.h */,
 				6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */,
 				6B6E29F0B051337D2E55A205 /* ClusterDiagnosisVC.h */,
@@ -3937,6 +3981,7 @@
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
+				4AC21FC8228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
@@ -3951,6 +3996,7 @@
 				2BF9F79F22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
+				4AC21FCD228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
@@ -4003,6 +4049,7 @@
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				4AA4CF2D228962A400A2CBE1 /* IssueListHeaderView.m in Sources */,
+				4AC21FD2228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
@@ -4067,6 +4114,7 @@
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
 				4AE9C53121D73B37003BB9CB /* HomeNoticeScrollView.m in Sources */,
 				4AC8571D223278DD00DAE1F6 /* HistoryCell.m in Sources */,
+				4AC21FDE228C16510098848C /* ChatMessageLayout.m in Sources */,
 				4ABF437C21B76BC5002AF34E /* RootNavigationController.m in Sources */,
 				4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */,
 				4A092D57222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -4269,6 +4317,7 @@
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
+				4AC21FC9228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42C2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -4283,6 +4332,7 @@
 				2BF9F7A022707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4AC21FCE228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
@@ -4335,6 +4385,7 @@
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2E228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
+				4AC21FD3228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
 				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
@@ -4399,6 +4450,7 @@
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
 				4A092C8F2226620100FB2A35 /* DistrictCell.m in Sources */,
 				CA1CF5E4221ECB3A00D15316 /* RootNavigationController.m in Sources */,
+				4AC21FDF228C16510098848C /* ChatMessageLayout.m in Sources */,
 				CA1CF5E5221ECB3A00D15316 /* NewsListModel.m in Sources */,
 				4AC857D4223D1A4500DAE1F6 /* OrderListCell.m in Sources */,
 				4A092D5D222D535A00FB2A35 /* MessageDetailVC.m in Sources */,
@@ -4601,6 +4653,7 @@
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
+				4AC21FCA228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42D2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
@@ -4615,6 +4668,7 @@
 				2BF9F7A122707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
+				4AC21FCF228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
@@ -4667,6 +4721,7 @@
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2F228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
+				4AC21FD4228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
 				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
@@ -4731,6 +4786,7 @@
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
 				4A092C902226620100FB2A35 /* DistrictCell.m in Sources */,
 				CA1CF689221ECB5000D15316 /* RootNavigationController.m in Sources */,
+				4AC21FE0228C16510098848C /* ChatMessageLayout.m in Sources */,
 				CA1CF68A221ECB5000D15316 /* NewsListModel.m in Sources */,
 				4AC857D5223D1A4500DAE1F6 /* OrderListCell.m in Sources */,
 				4A092D5E222D535A00FB2A35 /* MessageDetailVC.m in Sources */,

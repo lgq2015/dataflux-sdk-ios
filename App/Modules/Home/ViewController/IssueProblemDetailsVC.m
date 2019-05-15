@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"情报详情";
+    self.title = @"问题详情";
     [self setupView];
     [self loadIssueDetailExtra];
     [self loadInfoDeatil];
@@ -83,10 +83,16 @@
 
 - (void)setupView{
     [self.createNameLab mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.top.mas_equalTo(self.progressView.mas_bottom).offset(Interval(11));
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(16));
+        make.centerY.mas_equalTo(self.stateLab);
         make.height.offset(ZOOM_SCALE(18));
     }];
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.createNameLab.mas_right).offset(Interval(10));
+        make.centerY.mas_equalTo(self.createNameLab);
+        make.height.offset(ZOOM_SCALE(18));
+    }];
+    self.timeLab.text =[self.model.time accurateTimeStr];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
         make.top.mas_equalTo(self.createNameLab.mas_bottom).offset(ZOOM_SCALE(11));
@@ -97,7 +103,6 @@
 }
 
 - (void)dealWithSubViewWithData:(NSArray *)data{
-       UIView *temp;
     if (data.count>0) {
         [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
@@ -120,33 +125,12 @@
             make.height.offset(ZOOM_SCALE(70)*data.count);
             make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(15));
         }];
-        temp = self.subContainerView;
-    }else{
-        temp = self.upContainerView;
+      
     }
-    DLog(@"model = %@ account = %@",self.model.accountId,getPWUserID);
-    if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
-        
-        
-        self.ignoreBtn.hidden = self.model.state == MonitorListStateRecommend?YES:NO;
-        
-        [self.ignoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.solveBtn.mas_bottom).offset(Interval(20));
-            make.width.offset(ZOOM_SCALE(100));
-            make.height.offset(ZOOM_SCALE(20));
-            make.centerX.mas_equalTo(self.mainScrollView);
-        }];
-    }else{
-        _ignoreBtn.hidden = YES;
-    }
+ 
     [self.view layoutIfNeeded];
+    CGFloat height =CGRectGetMaxY(self.subContainerView.frame)+Interval(30);
     
-    
-    CGFloat height =CGRectGetMaxY(self.solveBtn.frame)+Interval(30);
-    
-    if ([[self.model.accountId stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID] || userManager.teamModel.isAdmin) {
-        height += 50;
-    }
     self.mainScrollView.contentSize = CGSizeMake(kWidth, height+35);
 
 }

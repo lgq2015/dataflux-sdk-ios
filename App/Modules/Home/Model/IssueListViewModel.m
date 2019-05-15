@@ -49,7 +49,6 @@
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
         self.title = [dict stringValueForKey:@"title" default:@""];
         self.content = [dict stringValueForKey:@"detail" default:@""];
-        self.highlight = [dict stringValueForKey:@"highlight" default:@""];
         self.attrs = [dict stringValueForKey:@"suggestion" default:@""];
     }else{
         self.title = model.title;
@@ -67,17 +66,17 @@
     if (model.latestIssueLogsStr) {
         
     }
+    NSDictionary *tags = PWSafeDictionaryVal(markTookOverInfoJSON, @"tags");
+    if (tags) {
+        self.markUserIcon = PWSafeDictionaryVal(tags, @"pwAvatar");
+    }
+    //标记状态
     if ([model.markStatus isEqualToString:@"tookOver"]){
-       
         NSString *name = [markTookOverInfoJSON stringValueForKey:@"name" default:@""];
-        self.issueLog = [NSString stringWithFormat:@"· %@正在处理",name];
-        
+        self.markStatusStr = [NSString stringWithFormat:@"%@正在处理",name];
     }else if ([model.markStatus isEqualToString:@"recovered"]){
-
         NSString *name = [markEndAccountInfo stringValueForKey:@"name" default:@""];
-        self.issueLog = [NSString stringWithFormat:@"· 已由%@解决",name];
-    
-        
+        self.markStatusStr = [NSString stringWithFormat:@"%@标记为解决",name];
     }
    
     if ([model.origin isEqualToString:@"user"]) {
@@ -85,9 +84,7 @@
     }else{
         self.isFromUser = NO;
     }
-    if (model.latestIssueLogsStr) {
-        self.isHasChat = YES;
-    }
+    
     if (model.atLogSeq && model.atLogSeq>0) {
          long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
         if (model.atLogSeq>seq) {
@@ -104,7 +101,7 @@
             }
         }
     }
-   
+    self.type = model.type;
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     if(model.seq>0){

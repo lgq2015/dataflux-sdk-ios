@@ -293,7 +293,7 @@
 
 /**
  * 根据 pageMarker
- * @param pageMaker
+ * @param pageMaker 请求标记
  */
 - (void)fetchAllIssueWithPageMarker:(long long)pageMaker allDatas:(NSMutableArray *)allDatas
                      lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus clearCache:(BOOL)clearCache {
@@ -388,7 +388,7 @@
 }
 /**
  * 获取未读的类型
- * @return
+ * @return 获取未读的类型
  */
 -(NSArray *)getUnReadType{
     NSMutableArray *typeArr = [NSMutableArray new];
@@ -406,7 +406,7 @@
 
 /**
  * 合并已读数据
- * @param allDatas
+ * @param allDatas 合并已读数据
  */
 - (void)mergeReadData:(NSMutableArray *)allDatas {
     NSArray *cacheArr = [self getAllIssueData];
@@ -473,8 +473,8 @@
 
 /**
  *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
- * @param callBackStatus
- * @param getAllDatas
+ * @param callBackStatus  callBackStatus 为 nil 时 走 Notification 通知
+ * @param getAllDatas    callBackStatus 为 nil 时 走 Notification 通知
  */
 - (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
     [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];

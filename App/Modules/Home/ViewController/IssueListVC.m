@@ -19,25 +19,29 @@
 #import "AddIssueGuideView.h"
 #import "IssueRecoveredListVC.h"
 #import "ZTCreateTeamVC.h"
-@interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "IssueListHeaderView.h"
+#import "IssueDetailsVC.h"
+
+@interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource,IssueListHeaderDelegate>
 @property (nonatomic, strong) IssueCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
-@property (nonatomic, copy) NSString *type;
-@property (nonatomic, strong) UIView *listFooterView;
+@property (nonatomic, copy)   NSString *type;
+//@property (nonatomic, strong) UIView *listFooterView;
 @property (nonatomic, strong) UILabel *tipLab;
-
 @end
 
 @implementation IssueListVC
-- (id)initWithTitle:(NSString *)title andIssueType:(NSString *)type{
-    if (self = [super init]) {
-        self.title = title;
-        self.type = type;
-    }
-    return self;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dealWithNotificationData)
+                                                 name:KNotificationNewRemoteNoti
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hometeamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
     [kNotificationCenter addObserver:self
                             selector:@selector(onNewIssueUpdate:)
                                 name:KNotificationNewIssue
@@ -47,20 +51,61 @@
                                 name:KNotificationUpdateIssueList
                               object:nil];
 
-
-    [self createUI];
+    [self loadAllIssueList:^{
+        [self dealWithNotificationData];
+    }];
+    
 
 }
+- (void)hometeamSwitch:(NSNotification *)notification{
+    DLog(@"homevc----团队切换请求成功后通知");
+    [SVProgressHUD show];
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+        [SVProgressHUD dismiss];
+        NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+        [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
+            [self.monitorData addObject:model];
+        }];
+        [self.tableView reloadData];
+    }];
+}
+- (void)loadAllIssueList:(void (^)(void))complete{
+    void (^setUpStyle)(void) = ^{
+        [self createUI];
+    };
+    [SVProgressHUD show];
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+        [SVProgressHUD dismiss];
+         setUpStyle();
+         complete();
+        if (!model.isSuccess) {
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+        
+    }];
+   
+}
+- (void)dealWithNotificationData{
+    DLog(@"dealWithNotificationData");
+    NSDictionary *userInfo = getRemoteNotificationData;
+    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate dealWithNotification:userInfo];
+    [kUserDefaults removeObjectForKey:REMOTE_NOTIFICATION_JSPUSH_EXTRA];
+    [kUserDefaults synchronize];
+}
+
+
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
-
-    [self addNavigationItemWithTitles:@[@"创建情报"] isLeft:NO target:self action:@selector(navBtnClick:) tags:@[@10]];
+    self.view.backgroundColor = PWWhiteColor;
+    NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
     self.monitorData = [NSMutableArray new];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight-25-ZOOM_SCALE(42));
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
 
     //让tableview不显示分割线
@@ -71,39 +116,35 @@
     }
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
-    self.tableView.tableFooterView = self.listFooterView;
+    self.tableView.tableFooterView = self.footView;
     self.tempCell = [[IssueCell alloc] initWithStyle:0 reuseIdentifier:@"IssueCell"];
 
     self.tableView.mj_header = self.header;
-    if (self.dataSource.count>0) {
-        [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (datas.count>0) {
+        [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
       
     }else{
-        [self showNoDataViewWithStyle:NoDataViewIssueList];
+        [self showNoDataViewWithStyle:NoDataViewNormal];
     }
-    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
-        AddIssueGuideView *guid = [[AddIssueGuideView alloc]init];
-        [guid showInView:[UIApplication sharedApplication].keyWindow];
+//    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
+//        AddIssueGuideView *guid = [[AddIssueGuideView alloc]init];
+//        [guid showInView:[UIApplication sharedApplication].keyWindow];
+//
+//        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
+//    }
 
-        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
-    }
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+//    });
 
 }
-- (void)noDataBtnClick{
-    IssueRecoveredListVC *recoverVC = [IssueRecoveredListVC new];
-    recoverVC.type = self.type;
-    [self.navigationController pushViewController:recoverVC animated:YES];
-}
+
 -(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
         [self reloadData];
         [self.header endRefreshing];
     }                                           getAllDatas:YES];
@@ -122,28 +163,7 @@
 }
 
 - (void)reloadData {
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:self.type];
-
-        dispatch_async_on_main_queue(^{
-            self.dataSource = [dataSource mutableCopy];
-            if (self.dataSource.count > 0) {
-                [self.monitorData removeAllObjects];
-                [self.dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                    IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
-                    [self.monitorData addObject:model];
-                }];
-                [self.tableView reloadData];
-                [self removeNoDataImage];
-            } else {
-                [self showNoDataImage];
-            }
-            self.tipLab.hidden = YES;
-        });
-    });
-
+    [self reloadDataWithIssueType:0 viewType:0];
 }
 - (void)navBtnClick:(UIButton *)btn{
     if([getTeamState isEqualToString:PW_isTeam]){
@@ -178,30 +198,30 @@
         }];
     }
 }
--(UIView *)listFooterView{
-    if (!_listFooterView) {
-        _listFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
-        _listFooterView.backgroundColor = PWBackgroundColor;
-        UIImageView *line = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"DDDDDD"]]];
-        line.frame = CGRectMake(0, 60-ZOOM_SCALE(20), kWidth, 1);
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectZero];
-        btn.titleLabel.font = RegularFONT(13);
-        [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-        btn.backgroundColor = PWBackgroundColor;
-        [btn setTitle:@"查看过去 24 小时恢复的情报" forState:UIControlStateNormal];
-        [btn sizeToFit];
-        [_listFooterView addSubview:line];
-        [_listFooterView addSubview:btn];
-        CGFloat width = btn.frame.size.width;
-        [btn addTarget:self action:@selector(noDataBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.mas_equalTo(line);
-            make.height.offset(ZOOM_SCALE(20));
-            make.width.offset(width+10);
-        }];
-    }
-    return _listFooterView;
-}
+//-(UIView *)listFooterView{
+//    if (!_listFooterView) {
+//        _listFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
+//        _listFooterView.backgroundColor = PWBackgroundColor;
+//        UIImageView *line = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"DDDDDD"]]];
+//        line.frame = CGRectMake(0, 60-ZOOM_SCALE(20), kWidth, 1);
+//        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectZero];
+//        btn.titleLabel.font = RegularFONT(13);
+//        [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+//        btn.backgroundColor = PWBackgroundColor;
+//        [btn setTitle:@"查看过去 24 小时恢复的情报" forState:UIControlStateNormal];
+//        [btn sizeToFit];
+//        [_listFooterView addSubview:line];
+//        [_listFooterView addSubview:btn];
+//        CGFloat width = btn.frame.size.width;
+//        [btn addTarget:self action:@selector(noDataBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.center.mas_equalTo(line);
+//            make.height.offset(ZOOM_SCALE(20));
+//            make.width.offset(width+10);
+//        }];
+//    }
+//    return _listFooterView;
+//}
 - (UILabel *)tipLab{
     if (!_tipLab) {
         NSString *string =@"您有新情报，点击刷新";
@@ -224,6 +244,31 @@
     }
     return _tipLab;
 }
+- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)viewIndex{
+    IssueType type = index;
+    IssueViewType viewType =viewIndex;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:type issueViewType:viewType];
+        
+        dispatch_async_on_main_queue(^{
+            
+            if (dataSource.count > 0) {
+                [self.monitorData removeAllObjects];
+                [dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                    IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
+                    [self.monitorData addObject:model];
+                }];
+                [self.tableView reloadData];
+                [self removeNoDataImage];
+            } else {
+                [self showNoDataImage];
+            }
+            self.tipLab.hidden = YES;
+        });
+    });
+}
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.monitorData.count;
@@ -240,19 +285,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.monitorData[indexPath.row];
     model.isRead = YES;
-    if (model.isFromUser) {
-        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
-        detailVC.model = self.monitorData[indexPath.row];
-        WeakSelf
-        detailVC.refreshClick = ^(){
-            [weakSelf reloadData];
-        };
-        [self.navigationController pushViewController:detailVC animated:YES];
-    }else{
-        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
-        infodetial.model = model;
-        [self.navigationController pushViewController:infodetial animated:YES];
-    }
+//    if (model.isFromUser) {
+//        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
+//        detailVC.model = self.monitorData[indexPath.row];
+//        WeakSelf
+//        detailVC.refreshClick = ^(){
+//            [weakSelf reloadData];
+//        };
+//        [self.navigationController pushViewController:detailVC animated:YES];
+//    }else{
+//        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
+//        infodetial.model = model;
+//        [self.navigationController pushViewController:infodetial animated:YES];
+//    }
+    IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
+    detailsVC.model = model;
+    [self.navigationController pushViewController:detailsVC animated:YES];
     [self.tableView reloadData];
 
 }

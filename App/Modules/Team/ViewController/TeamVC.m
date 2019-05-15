@@ -32,7 +32,7 @@
 @property (nonatomic, strong) UIButton *leftNavButton;
 @property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
-@property (nonatomic, strong)ZTChangeTeamNavView *changeTeamNavView;
+@property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
 @end
 
 @implementation TeamVC

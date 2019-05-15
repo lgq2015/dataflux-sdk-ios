@@ -134,10 +134,6 @@
 
 - (void)createUI {
     
-   
- //   [[AppDelegate shareAppDelegate] DetectNewVersion];
-     
-
     self.headerView = [[IssueIndexHeaderView alloc] initWithStyle:PWIssueBoardStyleConnected];
 
     NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
@@ -159,39 +155,35 @@
 
             switch (index) {
                 case 0:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"alarm"];
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeAlarm issueViewType:0];
                     title = @"监控";
                     issueType = @"alarm";
                     break;
                 case 1:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"security"];
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeSecurity issueViewType:0];
                     title = @"安全";
                     issueType = @"security";
                     break;
                 case 2:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"expense"];
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeExpense issueViewType:0];
                     title = @"费用";
                     issueType = @"expense";
                     break;
                 case 3:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"optimization"];
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeOptimization issueViewType:0];
                     title = @"优化";
                     issueType = @"optimization";
                     break;
                 case 4:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
-                    title = @"提醒";
-                    issueType = @"misc";
-                    break;
-                default:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:@"misc"];
+                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:
+                                  IssueTypeMisc issueViewType:0];
                     title = @"提醒";
                     issueType = @"misc";
                     break;
             }
             dispatch_async_on_main_queue(^{
-                IssueListVC *monitor = [[IssueListVC alloc] initWithTitle:title andIssueType:issueType];
-                monitor.dataSource = [[NSMutableArray alloc] initWithArray:dataSource];
+                IssueListVC *monitor = [[IssueListVC alloc] init];
+//                monitor.dataSource = [[NSMutableArray alloc] initWithArray:dataSource];
                 [weakSelf.navigationController pushViewController:monitor animated:YES];
             });
         });

@@ -34,7 +34,7 @@
 #define PWChatAirLRS            10           //气泡左右短距离
 #define PWChatAirBottom         10           //气泡距离详情底部
 #define PWChatAirLRB            10           //气泡左右长距离
-#define PWChatTextFont          17           //内容字号
+#define PWChatTextFont          16           //内容字号
 
 #define PWChatTextLineSpacing   5            //文本行高
 #define PWChatTextRowSpacing    0            //文本间距
@@ -49,10 +49,11 @@
 #define PWChatIcon_RX            kWidth-PWChatIconRight-PWChatIconWH
 
 //文本自适应限制宽度
-#define PWChatTextInitWidth      kWidth-128-PWChatTextLRS-PWChatTextLRB
+#define PWChatTextInitWidth      kWidth-ZOOM_SCALE(64)-16
+//128-PWChatTextLRS-PWChatTextLRB
 
 //图片最大尺寸(正方形)
-#define PWChatImageMaxSize       ZOOM_SCALE(140)
+#define PWChatImageMaxSize       ZOOM_SCALE(102)
 
 
 /**

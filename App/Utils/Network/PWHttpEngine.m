@@ -221,8 +221,8 @@
 
     NSMutableDictionary *param = [@{
                 @"pageSize": @(pageSize),
-                @"type": @"attachment,bizPoint,text",
-                @"subType": @"comment",
+                @"type": @"attachment,bizPoint,text,keyPoint",
+                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded",
                 @"_withAttachmentExternalDownloadURL": @YES,
                 @"orderBy": @"seq",
                 @"orderMethod": orderMethod,

@@ -19,7 +19,7 @@
 #import "AddSourceTipVC.h"
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
-#import "IssueSourceSubTipView.h"
+//#import "IssueSourceSubTipView.h"
 #import "UITextField+HLLHelper.h"
 
 #define ACCESS_KEY @"****************"
