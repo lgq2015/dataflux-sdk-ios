@@ -536,6 +536,30 @@
 		4AC21FDE228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
 		4AC21FDF228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
 		4AC21FE0228C16510098848C /* ChatMessageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FDD228C16510098848C /* ChatMessageLayout.m */; };
+		4AC21FE3228D031A0098848C /* IssueChatKeyPointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */; };
+		4AC21FE4228D031A0098848C /* IssueChatKeyPointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */; };
+		4AC21FE5228D031A0098848C /* IssueChatKeyPointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */; };
+		4AC21FE9228D289D0098848C /* DiscussInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE8228D289D0098848C /* DiscussInputView.m */; };
+		4AC21FEA228D289D0098848C /* DiscussInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE8228D289D0098848C /* DiscussInputView.m */; };
+		4AC21FEB228D289D0098848C /* DiscussInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FE8228D289D0098848C /* DiscussInputView.m */; };
+		4AC21FEE228D30C40098848C /* InputNormalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FED228D30C40098848C /* InputNormalView.m */; };
+		4AC21FEF228D30C40098848C /* InputNormalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FED228D30C40098848C /* InputNormalView.m */; };
+		4AC21FF0228D30C40098848C /* InputNormalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FED228D30C40098848C /* InputNormalView.m */; };
+		4AC21FFC228D3DA80098848C /* ZTPopCommentTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF4228D3DA80098848C /* ZTPopCommentTopView.m */; };
+		4AC21FFD228D3DA80098848C /* ZTPopCommentTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF4228D3DA80098848C /* ZTPopCommentTopView.m */; };
+		4AC21FFE228D3DA80098848C /* ZTPopCommentTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF4228D3DA80098848C /* ZTPopCommentTopView.m */; };
+		4AC21FFF228D3DA80098848C /* ZTPopCommentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF5228D3DA80098848C /* ZTPopCommentToolView.m */; };
+		4AC22000228D3DA80098848C /* ZTPopCommentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF5228D3DA80098848C /* ZTPopCommentToolView.m */; };
+		4AC22001228D3DA80098848C /* ZTPopCommentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF5228D3DA80098848C /* ZTPopCommentToolView.m */; };
+		4AC22002228D3DA80098848C /* ZTPopCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF7228D3DA80098848C /* ZTPopCommentView.m */; };
+		4AC22003228D3DA80098848C /* ZTPopCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF7228D3DA80098848C /* ZTPopCommentView.m */; };
+		4AC22004228D3DA80098848C /* ZTPopCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF7228D3DA80098848C /* ZTPopCommentView.m */; };
+		4AC22005228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF8228D3DA80098848C /* ZTPlaceHolderTextView.m */; };
+		4AC22006228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF8228D3DA80098848C /* ZTPlaceHolderTextView.m */; };
+		4AC22007228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FF8228D3DA80098848C /* ZTPlaceHolderTextView.m */; };
+		4AC22008228D3DA80098848C /* ZTBottomCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FFA228D3DA80098848C /* ZTBottomCommentView.m */; };
+		4AC22009228D3DA80098848C /* ZTBottomCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FFA228D3DA80098848C /* ZTBottomCommentView.m */; };
+		4AC2200A228D3DA80098848C /* ZTBottomCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC21FFA228D3DA80098848C /* ZTBottomCommentView.m */; };
 		4AC856E622311E3800DAE1F6 /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
 		4AC856E9223121BA00DAE1F6 /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
 		4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856EB223127DD00DAE1F6 /* TeamSuccessVC.m */; };
@@ -1630,6 +1654,22 @@
 		4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueDetailsVC.m; sourceTree = "<group>"; };
 		4AC21FDC228C16510098848C /* ChatMessageLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessageLayout.h; sourceTree = "<group>"; };
 		4AC21FDD228C16510098848C /* ChatMessageLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatMessageLayout.m; sourceTree = "<group>"; };
+		4AC21FE1228D031A0098848C /* IssueChatKeyPointCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChatKeyPointCell.h; sourceTree = "<group>"; };
+		4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyPointCell.m; sourceTree = "<group>"; };
+		4AC21FE7228D289D0098848C /* DiscussInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussInputView.h; sourceTree = "<group>"; };
+		4AC21FE8228D289D0098848C /* DiscussInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussInputView.m; sourceTree = "<group>"; };
+		4AC21FEC228D30C40098848C /* InputNormalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputNormalView.h; sourceTree = "<group>"; };
+		4AC21FED228D30C40098848C /* InputNormalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputNormalView.m; sourceTree = "<group>"; };
+		4AC21FF2228D3DA80098848C /* ZTPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTPlaceHolderTextView.h; sourceTree = "<group>"; };
+		4AC21FF3228D3DA80098848C /* ZTPopCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTPopCommentView.h; sourceTree = "<group>"; };
+		4AC21FF4228D3DA80098848C /* ZTPopCommentTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTPopCommentTopView.m; sourceTree = "<group>"; };
+		4AC21FF5228D3DA80098848C /* ZTPopCommentToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTPopCommentToolView.m; sourceTree = "<group>"; };
+		4AC21FF6228D3DA80098848C /* ZTBottomCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTBottomCommentView.h; sourceTree = "<group>"; };
+		4AC21FF7228D3DA80098848C /* ZTPopCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTPopCommentView.m; sourceTree = "<group>"; };
+		4AC21FF8228D3DA80098848C /* ZTPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTPlaceHolderTextView.m; sourceTree = "<group>"; };
+		4AC21FF9228D3DA80098848C /* ZTPopCommentTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTPopCommentTopView.h; sourceTree = "<group>"; };
+		4AC21FFA228D3DA80098848C /* ZTBottomCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTBottomCommentView.m; sourceTree = "<group>"; };
+		4AC21FFB228D3DA80098848C /* ZTPopCommentToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTPopCommentToolView.h; sourceTree = "<group>"; };
 		4AC856E422311E3800DAE1F6 /* HandbookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandbookCell.h; sourceTree = "<group>"; };
 		4AC856E522311E3800DAE1F6 /* HandbookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HandbookCell.m; sourceTree = "<group>"; };
 		4AC856E7223121BA00DAE1F6 /* HandbookModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandbookModel.h; sourceTree = "<group>"; };
@@ -2155,6 +2195,8 @@
 		4A19547321A7ACAD007ADFCA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4AC21FF1228D3DA80098848C /* ZTAddComment */,
+				4AC21FE6228D27DC0098848C /* IssueDetailsKeyBoard */,
 				4AA4CF352289887300A2CBE1 /* HomeSelectView */,
 				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* LibraryView */,
@@ -2964,6 +3006,34 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		4AC21FE6228D27DC0098848C /* IssueDetailsKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				4AC21FE7228D289D0098848C /* DiscussInputView.h */,
+				4AC21FE8228D289D0098848C /* DiscussInputView.m */,
+				4AC21FEC228D30C40098848C /* InputNormalView.h */,
+				4AC21FED228D30C40098848C /* InputNormalView.m */,
+			);
+			path = IssueDetailsKeyBoard;
+			sourceTree = "<group>";
+		};
+		4AC21FF1228D3DA80098848C /* ZTAddComment */ = {
+			isa = PBXGroup;
+			children = (
+				4AC21FF2228D3DA80098848C /* ZTPlaceHolderTextView.h */,
+				4AC21FF8228D3DA80098848C /* ZTPlaceHolderTextView.m */,
+				4AC21FF3228D3DA80098848C /* ZTPopCommentView.h */,
+				4AC21FF7228D3DA80098848C /* ZTPopCommentView.m */,
+				4AC21FF9228D3DA80098848C /* ZTPopCommentTopView.h */,
+				4AC21FF4228D3DA80098848C /* ZTPopCommentTopView.m */,
+				4AC21FFB228D3DA80098848C /* ZTPopCommentToolView.h */,
+				4AC21FF5228D3DA80098848C /* ZTPopCommentToolView.m */,
+				4AC21FF6228D3DA80098848C /* ZTBottomCommentView.h */,
+				4AC21FFA228D3DA80098848C /* ZTBottomCommentView.m */,
+			);
+			path = ZTAddComment;
+			sourceTree = "<group>";
+		};
 		4AC856ED223147A300DAE1F6 /* SCIndexView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3352,6 +3422,8 @@
 				6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */,
 				6B6E2BC13AE4A64B1E2EE552 /* IssueChatSystermCell.h */,
 				6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */,
+				4AC21FE1228D031A0098848C /* IssueChatKeyPointCell.h */,
+				4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */,
 			);
 			path = IssueChatCell;
 			sourceTree = "<group>";
@@ -3900,6 +3972,7 @@
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
+				4AC21FFC228D3DA80098848C /* ZTPopCommentTopView.m in Sources */,
 				2BF9F79622707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4AE9C53A21D73F06003BB9CB /* SDCycleScrollView.m in Sources */,
 				4A092D5C222D535A00FB2A35 /* MessageDetailVC.m in Sources */,
@@ -3918,6 +3991,7 @@
 				4A092D48222D303D00FB2A35 /* MineCollectionVC.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
 				4AA4CF192285482A00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
+				4AC21FEE228D30C40098848C /* InputNormalView.m in Sources */,
 				4A092CB72227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				4AB48AD822142DC0009F9E94 /* ChangeUserInfoVC.m in Sources */,
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
@@ -3931,6 +4005,8 @@
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A759AF3224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
+				4AC21FE9228D289D0098848C /* DiscussInputView.m in Sources */,
+				4AC21FFF228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				4A092D04222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
@@ -3962,6 +4038,7 @@
 				2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
+				4AC22008228D3DA80098848C /* ZTBottomCommentView.m in Sources */,
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */,
 				4AB48A5221FB01E8009F9E94 /* PersonalInfoVC.m in Sources */,
@@ -4045,6 +4122,7 @@
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2B3A44AF2271B8680059761E /* ZYChangeTeamCell.m in Sources */,
+				4AC22002228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
@@ -4052,6 +4130,7 @@
 				4AC21FD2228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
+				4AC22005228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
 				4AE9C4F021D362FD003BB9CB /* AccountInfoModel.m in Sources */,
@@ -4198,6 +4277,7 @@
 				6B6E20AA5CDE84A1F4CDB90B /* ToolsVC.m in Sources */,
 				6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */,
 				2B535313226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
+				4AC21FE3228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */,
 				6B6E2F367D1AE927F4ADF821 /* HandbookIndexVC.m in Sources */,
 				6B6E2227FD9A9B351409F7C2 /* LibrarySearchVC.m in Sources */,
@@ -4236,6 +4316,7 @@
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
 				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
+				4AC21FFD228D3DA80098848C /* ZTPopCommentTopView.m in Sources */,
 				2BF9F79722707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
@@ -4254,6 +4335,7 @@
 				4AC857652236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4AA4CF1A2285482B00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
+				4AC21FEF228D30C40098848C /* InputNormalView.m in Sources */,
 				4A092D29222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */,
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
@@ -4267,6 +4349,8 @@
 				4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				4A759AF4224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
+				4AC21FEA228D289D0098848C /* DiscussInputView.m in Sources */,
+				4AC22000228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8922489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
@@ -4298,6 +4382,7 @@
 				2BF9F78422702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B1223FB0370057BD02 /* text.swift in Sources */,
 				4A759AEF224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
+				4AC22009228D3DA80098848C /* ZTBottomCommentView.m in Sources */,
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
@@ -4381,6 +4466,7 @@
 				4A759AE5224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
 				2B3A44B02271B8680059761E /* ZYChangeTeamCell.m in Sources */,
+				4AC22003228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
@@ -4388,6 +4474,7 @@
 				4AC21FD3228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
+				4AC22006228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */,
 				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
@@ -4534,6 +4621,7 @@
 				6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */,
 				6B6E233BD4BDD2FB28CC1471 /* NewsWebView.m in Sources */,
 				2B535314226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
+				4AC21FE4228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */,
 				6B6E27B421ACBADB501FF6E3 /* HandbookIndexVC.m in Sources */,
 				6B6E2E37A646DA4521036A2D /* LibrarySearchVC.m in Sources */,
@@ -4572,6 +4660,7 @@
 				4A092D97222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */,
 				CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */,
+				4AC21FFE228D3DA80098848C /* ZTPopCommentTopView.m in Sources */,
 				2BF9F79822707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
@@ -4590,6 +4679,7 @@
 				4AC857662236646F00DAE1F6 /* AddSourceTipView.m in Sources */,
 				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4AA4CF1B2285482B00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
+				4AC21FF0228D30C40098848C /* InputNormalView.m in Sources */,
 				4A092D2A222A765400FB2A35 /* PWLibraryListNoMoreFootView.m in Sources */,
 				CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */,
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
@@ -4603,6 +4693,8 @@
 				4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				4A759AF5224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
+				4AC21FEB228D289D0098848C /* DiscussInputView.m in Sources */,
+				4AC22001228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8A22489C330057BD02 /* CreateQuestionModel.m in Sources */,
 				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
@@ -4634,6 +4726,7 @@
 				2BF9F78522702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B2223FB0370057BD02 /* text.swift in Sources */,
 				4A759AF0224FD4A30057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
+				4AC2200A228D3DA80098848C /* ZTBottomCommentView.m in Sources */,
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
 				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
@@ -4717,6 +4810,7 @@
 				4A759AE6224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
 				2B3A44B12271B8680059761E /* ZYChangeTeamCell.m in Sources */,
+				4AC22004228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
@@ -4724,6 +4818,7 @@
 				4AC21FD4228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
+				4AC22007228D3DA80098848C /* ZTPlaceHolderTextView.m in Sources */,
 				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
@@ -4870,6 +4965,7 @@
 				6B6E27631A6099819A86B2ED /* ToolsVC.m in Sources */,
 				6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */,
 				2B535315226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
+				4AC21FE5228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E23018BA988522794E257 /* HandBookArticleVC.m in Sources */,
 				6B6E269B81B53508574A58FE /* HandbookIndexVC.m in Sources */,
 				6B6E26B6B14359570F63DD0F /* LibrarySearchVC.m in Sources */,
