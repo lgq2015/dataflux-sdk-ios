@@ -348,6 +348,23 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+- (PWURLSessionTask *)modifyIssueWithIssueid:(NSString *)issueid markStatus:(NSString *)markStatus text:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON callBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param;
+    if (atInfoJSON.allKeys.count>0) {
+        param = @{@"data":@{@"markStatus":markStatus},@"issueLogPayLoad":@{@"type":@"text",@"subType":@"comment",@"content":text,@"atInfoJSON":atInfoJSON}};
+    }else{
+        param = @{@"data":@{@"markStatus":markStatus},@"issueLogPayLoad":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 
