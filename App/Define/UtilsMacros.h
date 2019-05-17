@@ -84,7 +84,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #elif PREPROD
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #else
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
 
 

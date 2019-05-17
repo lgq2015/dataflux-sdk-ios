@@ -41,6 +41,8 @@
 #import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "Sprocket.h"
+
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -568,6 +570,8 @@
 
 -(void)configLog {
 
+    [DDLog registeredClasses];
+    [DDLog levelForClass:[Sprocket class]];
 
     NSURL *dirUrl = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
     NSString *path = [dirUrl.path stringByAppendingPathComponent:@"pwlog"];
@@ -585,6 +589,11 @@
     [fileLogger setLogFormatter:logFormatter];
 
     [DDLog addLogger:fileLogger];
+
+    if(getIsDevMode){
+
+        [Sprocket ddSetLogLevel:DDLogLevelVerbose];
+    }
 
 }
 

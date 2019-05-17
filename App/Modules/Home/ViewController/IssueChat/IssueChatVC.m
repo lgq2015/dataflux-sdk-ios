@@ -245,12 +245,12 @@
                     if(layout.message.model.atStatusStr.length>0){
                         [self postLastReadSeq];
                     }
-//                    [NSObject cancelPreviousPerformRequestsWithTarget: self
-//                                                             selector:@selector(onNewIssueChatDataRemoveSame:)
-//                                                               object: notification];
-//
-//                    [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
-//                               withObject: notification afterDelay: 0.5];
+                    [NSObject cancelPreviousPerformRequestsWithTarget: self
+                                                             selector:@selector(onNewIssueChatDataRemoveSame:)
+                                                               object: notification];
+
+                    [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
+                               withObject: notification afterDelay: 0.5];
                 });
                
             }
@@ -444,9 +444,7 @@
 
 
 }
--(void)dealWithNewDta{
 
-}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _datas.count==0?0:1;
 }
