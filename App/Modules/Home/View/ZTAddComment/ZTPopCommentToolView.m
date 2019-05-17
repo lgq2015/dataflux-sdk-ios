@@ -7,7 +7,6 @@
 //
 
 #import "ZTPopCommentToolView.h"
-#import <Masonry.h>
 @interface ZTPopCommentToolView()
 @property (nonatomic, strong)UIButton *photoBtn;
 @property (nonatomic, strong)UIButton *atBtn;
@@ -23,24 +22,24 @@
 }
 
 - (void)s_UI{
+    self.backgroundColor = PWWhiteColor;
     [self addSubview:self.photoBtn];
     [self addSubview:self.atBtn];
-    [self addSubview:self.sendBtn];
     [self.photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(10);
-        make.top.equalTo(self);
-        make.bottom.equalTo(self);
-        make.width.equalTo(@44);
+        make.left.equalTo(self).offset(15);
+        make.centerY.mas_equalTo(self);
+        make.width.height.offset(ZOOM_SCALE(20));
     }];
     [self.atBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.photoBtn);
         make.width.height.equalTo(self.photoBtn);
-        make.left.equalTo(self.photoBtn.mas_right);
+        make.left.mas_equalTo(self.photoBtn.mas_right).offset(14);
     }];
     [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-10);
         make.centerY.equalTo(self);
-        make.width.height.equalTo(self.atBtn);
+        make.width.offset(ZOOM_SCALE(40));
+        make.height.mas_equalTo(self);
     }];
 }
 
@@ -48,23 +47,23 @@
 - (UIButton *)photoBtn{
     if (!_photoBtn){
         _photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_photoBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
+        [_photoBtn setImage:[UIImage imageNamed:@"uploadimg"] forState:UIControlStateNormal];
     }
     return _photoBtn;
 }
 - (UIButton *)atBtn{
     if (!_atBtn){
         _atBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_atBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
+        [_atBtn setTitle:@"@" forState:UIControlStateNormal];
+        [_atBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
     }
     return _atBtn;
 }
 - (UIButton *)sendBtn{
     if (!_sendBtn){
-        _sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
-        [_sendBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        _sendBtn.backgroundColor = [UIColor redColor];
+        _sendBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"发送"];
+        _sendBtn.titleLabel.font = RegularFONT(16);
+        [self addSubview:_sendBtn];
     }
     return _sendBtn;
 }

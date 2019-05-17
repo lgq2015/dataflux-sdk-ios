@@ -22,7 +22,7 @@
 //图片链接异常
 -(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
 
--(void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout;
+//-(void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IssueChatBaseCell : UITableViewCell
 -(void)initPWChatCellUserInterface;
 
-@property(nonatomic,assign)id<PWChatBaseCellDelegate> delegate;
+@property(nonatomic, assign)id<PWChatBaseCellDelegate> delegate;
 @property(nonatomic, strong) IssueChatMessagelLayout  *layout;
 
 //头像  姓名  背景按钮

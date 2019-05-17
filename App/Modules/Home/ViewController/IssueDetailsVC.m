@@ -11,12 +11,25 @@
 #import "IssueEngineHeaderView.h"
 #import "IssueUserDetailView.h"
 #import "IssueSourceManger.h"
-@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
+#import "IssueChatDatas.h"
+#import "IssueChatBaseCell.h"
+#import "MemberInfoVC.h"
+#import "MemberInfoModel.h"
+#import "IssueLogAttachmentUrl.h"
+#import "IssueLogModel.h"
+#import "IssueChatDataManager.h"
+#import "IssueDtealsBV.h"
+#import "ZTPopCommentView.h"
+@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@end
 
+@property (nonatomic, strong) IssueDtealsBV *bottomBtnView; //底部伪输入框
+@property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
+@property (nonatomic, assign) IssueDealState state;
+@property (nonatomic, copy) NSString *oldStr;     //输入内容
+@end
 @implementation IssueDetailsVC
 
 - (void)viewDidLoad {
@@ -24,13 +37,27 @@
      self.title = @"情报详情";
     [self createUI];
     [self loadIssueLog];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCommentNotif:) name:@"zt_add_comment" object:nil];
 }
+- (void)addCommentNotif:(NSNotification *)notif{
+    NSLog(@"neirong---%@",notif.userInfo[@"content"]);
+    NSString *comment = notif.userInfo[@"content"];
+    // 待处理： 空格
+    self.bottomBtnView.oldStr = comment;
+}
+
 - (void)createUI{
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67));
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    
+    [self.tableView registerClass:NSClassFromString(@"IssueChatTextCell") forCellReuseIdentifier:PWChatTextCellId];
+    [self.tableView registerClass:NSClassFromString(@"IssueChatImageCell") forCellReuseIdentifier:PWChatImageCellId];
+    [self.tableView registerClass:NSClassFromString(@"IssueChatFileCell") forCellReuseIdentifier:PWChatFileCellId];
+    [self.tableView registerClass:NSClassFromString(@"IssueChatSystermCell") forCellReuseIdentifier:PWChatSystermCellId];
+    [self.tableView registerClass:NSClassFromString(@"IssueChatKeyPointCell") forCellReuseIdentifier:PWChatKeyPointCellId];
     if(self.model.isFromUser){
         self.tableView.tableHeaderView = self.userHeader;
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,9 +71,32 @@
         }];
         [self loadInfoDeatil];
     }
+    self.bottomBtnView  = [[IssueDtealsBV alloc] initWithFrame:CGRectMake(0, kHeight -kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67), kWidth, ZOOM_SCALE(67))];
+    self.bottomBtnView.delegate = self;
+    self.state = IssueDealStateChat;
+    [self.view addSubview:self.bottomBtnView];
+    [self.view bringSubviewToFront:self.bottomBtnView];
+}
+#pragma mark ========== init ==========
+-(ZTPopCommentView *)popCommentView{
+    if (!_popCommentView) {
+        _popCommentView =[[ZTPopCommentView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, 200)];
+    }
+    return _popCommentView;
+}
+-(NSMutableArray *)dataSource{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray new];
+    }
+    return _dataSource;
 }
 - (void)loadIssueLog{
-
+    [IssueChatDatas LoadingMessagesStartWithChat:self.model.issueId callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.dataSource addObjectsFromArray:array];
+            [self.tableView reloadData];
+        });
+    }];
 }
 -(IssueEngineHeaderView *)engineHeader{
     if (!_engineHeader) {
@@ -62,6 +112,7 @@
     }
     return _userHeader;
 }
+#pragma mark ========== networking ==========
 - (void)loadInfoDeatil{
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -103,7 +154,7 @@
     
     [SVProgressHUD dismiss];
 }
-#pragma mark ========== 请求一级云服务详情 获取云服务名称 ==========
+//请求一级云服务详情 获取云服务名称
 - (void)loadIssueSuperSourceDetail:(NSString *)issueSourceId issueProvider:(NSString *)provider{
     NSDictionary *param = @{@"id":issueSourceId};
     [SVProgressHUD show];
@@ -155,14 +206,28 @@
         [error errorToast];
     }];
 }
+#pragma mark ========== bottomBtnClick ==========
+- (void)issueDtealsBVClick{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.popCommentView.state = self.state;
+        self.popCommentView.oldData = self.oldStr;
+        
+    });
+}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    IssueChatMessagelLayout *layout = _dataSource[indexPath.row];
+    IssueChatBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:layout.message.cellString];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.delegate = self;
+    cell.indexPath = indexPath;
+    cell.layout = layout;
+    return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 50)];
@@ -175,18 +240,91 @@
     }];
     return view;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 47;
+}
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [(IssueChatMessagelLayout *)self.dataSource[indexPath.row]cellHeight];
 }
-*/
+
+#pragma mark ========== PWChatBaseCellDelegate ==========
+- (void)PWChatFileCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    
+}
+
+- (void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
+    
+    if(layout.message.messageFrom == PWChatMessageFromMe ){
+        iconVC.type = PWMemberViewTypeMe;
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
+    }else if(layout.message.messageFrom == PWChatMessageFromOther){
+        iconVC.type = PWMemberViewTypeTeamMember;
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
+    }else if (layout.message.messageFrom == PWChatMessageFromStaff){
+        iconVC.type = PWMemberViewTypeExpert;
+        NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
+        if (layout.message.headerImgurl) {
+            iconVC.expertDict = @{@"name":name,@"url":layout.message.headerImgurl};
+        }else{
+            iconVC.expertDict = @{@"name":name,@"url":@""};
+        }
+    }
+    iconVC.isShowCustomNaviBar = YES;
+    [self.navigationController pushViewController:iconVC animated:YES];
+
+}
+- (void)getMemberAndTransModelInfo:(IssueChatMessagelLayout *)layout vc:(MemberInfoVC *)iconVC{
+    [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
+        if (member) {
+            NSError *error;
+            MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
+            iconVC.model = model;
+        }
+    }];
+}
+- (void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    
+}
+
+- (void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                logModel.externalDownloadURLStr = [model.externalDownloadURL jsonStringEncoded];
+                logModel.localTempUniqueId = logModel.id;
+                [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
+                
+                layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
+                [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+    }];
+}
+
+
+- (void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    
+}
+
+- (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout {
+    
+}
+
+
+-(void)dealloc{
+   
+}
 
 @end

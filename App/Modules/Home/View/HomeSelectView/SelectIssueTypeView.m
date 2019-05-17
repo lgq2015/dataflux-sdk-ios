@@ -53,6 +53,8 @@
             self.dataSource = @[@1,@2,@3];
         self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
             break;
+        default:
+            break;
     }
     [self.mTableView registerClass:HomeSelectCell.class forCellReuseIdentifier:@"HomeSelectCell"];
     self.mTableView.frame = CGRectMake(self.firstPoint.x, self.firstPoint.y, ZOOM_SCALE(95), self.dataSource.count*ZOOM_SCALE(45));
@@ -83,22 +85,13 @@
             self.dataSource = @[@1,@2,@3];
             self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
             break;
+        default:
+            break;
     }
     [self addSubview:_mTableView];
     [self.mTableView reloadData];
     [view addSubview:self];
-//    [view addSubview:_mTableView];
-//    CGFloat height = self.dataSource.count*ZOOM_SCALE(45);
-//    self.mTableView.frame = CGRectMake(self.firstPoint.x, self.firstPoint.y, ZOOM_SCALE(95), self.dataSource.count*ZOOM_SCALE(45));
-//    [UIView animateWithDuration:0.3 animations:^{
-//        [self.mTableView mas_updateConstraints:^(MASConstraintMaker *make) {
-//           make.height.offset(height);
-//        }];
-//        [self.mTableView layoutIfNeeded];
-//        [self layoutIfNeeded];
-//
-//    }];
-//
+
 }
 
 #pragma mark ========== UITableViewDataSource ==========
@@ -135,16 +128,7 @@
 
 }
 - (void)disMissView{
-//    [UIView animateWithDuration:0.3 animations:^{
-//        [self.mTableView mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.height.offset(1);
-//        }];
-//        [self.mTableView layoutIfNeeded];
-//        [self layoutIfNeeded];
-//    } completion:^(BOOL finished) {
-////        [self removeFromSuperview];
-////        [_mTableView removeFromSuperview];
-//    }];
+
     if(self.delegate && [self.delegate respondsToSelector:@selector(disMissClickWithSelectType:)]){
         [self.delegate disMissClickWithSelectType:self.type];
     }

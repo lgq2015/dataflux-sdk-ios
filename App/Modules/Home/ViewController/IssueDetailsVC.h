@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueDetailsVC : RootViewController
 @property (nonatomic, strong) IssueListViewModel *model;
+@property (nonatomic, copy) void(^refreshClick)(void);
 @end
 
 NS_ASSUME_NONNULL_END

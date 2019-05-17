@@ -96,22 +96,22 @@
     NSString *issueTitle;
     switch (type) {
         case IssueTypeAll:
-            issueTitle = @"全部类别";
+            issueTitle = @"全部";
             break;
         case IssueTypeAlarm:
-            issueTitle = @"监控类别";
+            issueTitle = @"监控";
             break;
         case IssueTypeSecurity:
-            issueTitle = @"安全类别";
+            issueTitle = @"安全";
             break;
         case IssueTypeExpense:
-            issueTitle = @"费用类别";
+            issueTitle = @"费用";
             break;
         case IssueTypeOptimization:
-            issueTitle = @"优化类别";
+            issueTitle = @"优化";
             break;
         case IssueTypeMisc:
-            issueTitle = @"提醒类别";
+            issueTitle = @"提醒";
             break;
     }
     return issueTitle;

@@ -13,19 +13,19 @@
 #define PWChatImageCellId       @"PWChatImageCellId"
 #define PWChatFileCellId        @"PWChatFileCellId"
 #define PWChatSystermCellId     @"PWChatSystermCellId"
-
+#define PWChatKeyPointCellId    @"PWChatKeyPointCellId"
 
 #define PWChatCellTop           8           //顶部距离cell
 #define PWChatCellBottom        15           //底部距离cell
 #define PWChatIconWH            40           //原型头像尺寸
 #define PWChatIconLeft          16           //头像与左边距离
 #define PWChatIconRight         16           //头像与右边距离
-#define PWChatDetailLeft        10           //详情与左边距离
-#define PWChatDetailRight       10           //详情与右边距离
-#define PWChatTextTop           12           //文本距离详情顶部
+#define PWChatDetailLeft        0           //详情与左边距离
+#define PWChatDetailRight       0           //详情与右边距离
+#define PWChatTextTop           0           //文本距离详情顶部
 #define PWChatTextBottom        12           //文本距离详情底部
-#define PWChatTextLRS           5           //文本左右短距离
-#define PWChatTextLRB           10           //文本左右长距离
+#define PWChatTextLRS           0           //文本左右短距离
+#define PWChatTextLRB           0           //文本左右长距离
 
 
 
@@ -81,6 +81,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeImage,
     PWChatMessageTypeFile,
     PWChatMessageTypeSysterm,
+    PWChatMessageTypeKeyPoint,
     PWChatMessageTypeAtText,
 };
 typedef NS_ENUM(NSInteger, PWChatMessageSendStates) {

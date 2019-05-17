@@ -29,15 +29,14 @@
 #import "MessageDetailVC.h"
 #import "PWBaseWebVC.h"
 #import "IssueListViewModel.h"
-#import "IssueDetailRootVC.h"
 #import "NewsWebView.h"
-#import "IssueProblemDetailsVC.h"
 #import "NewsListModel.h"
-#import "IssueDetailVC.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "HomeViewController.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "IssueListManger.h"
+#import "IssueDetailsVC.h"
+#import "TeamInfoModel.h"
 //#import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
@@ -251,13 +250,8 @@
         IssueModel *data = (IssueModel *) o;
         if (data.isSuccess) {
             IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
-            
-            IssueDetailRootVC *control;
-            if ([data.origin isEqualToString:@"user"]) {
-                control = [IssueProblemDetailsVC new];
-            } else {
-                control = [IssueDetailVC new];
-            }
+        
+            IssueDetailsVC *control = [IssueDetailsVC new];
             control.model = monitorListModel;
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
             [self deleteAllNavViewController];

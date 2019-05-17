@@ -347,7 +347,7 @@
 
         NSArray<IssueLogModel *> *results = [self.getHelper pw_lookupTable:table
                                                                 dicOrModel:[IssueLogModel class] withSql:range
-                                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
+                                                               whereFormat:@" ORDER BY updateTime DESC,seq DESC", issueId];
 
 
         [array addObjectsFromArray:results];

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatInputHeaderView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZTPopCommentView : UIView
-@property (nonatomic, copy)NSString *oldData;
+@property (nonatomic, strong) NSString *oldData;
+@property (nonatomic, assign) IssueDealState state;
+- (void)show;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -26,8 +26,9 @@
     return self;
 }
 -(void)initPWChatCellUserInterface{
+    self.contentView.backgroundColor = PWWhiteColor;
     // 1、创建姓名
-    _mNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
+    _mNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@""];
     [self.contentView addSubview:_mNameLab];
     
     // 2、创建头像

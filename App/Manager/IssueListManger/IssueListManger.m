@@ -48,7 +48,7 @@
         [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self createIssueListTable];
- //     [self createIssueLogTable];
+        [self createIssueLogTable];
 
 
     }];
@@ -82,21 +82,21 @@
     }];
 
     //issue log update
-//    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-//            @"imageData": SQL_BLOB,
-//            @"fileData": SQL_BLOB,
-//            @"text": SQL_TEXT,
-//            @"fileName": SQL_TEXT,
-//            @"fileType": SQL_TEXT,
-//            @"imageName": SQL_TEXT,
-//            @"sendError": SQL_INTEGER,
-//    }];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
+            @"imageData": SQL_BLOB,
+            @"fileData": SQL_BLOB,
+            @"text": SQL_TEXT,
+            @"fileName": SQL_TEXT,
+            @"fileType": SQL_TEXT,
+            @"imageName": SQL_TEXT,
+            @"sendError": SQL_INTEGER,
+    }];
 
-//    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-//            @"dataCheckFlag": SQL_INTEGER,
-//            @"atInfoJSONStr": SQL_TEXT,
-//            @"atStatusStr": SQL_TEXT,
-//    }];
+    [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
+            @"dataCheckFlag": SQL_INTEGER,
+            @"atInfoJSONStr": SQL_TEXT,
+            @"atStatusStr": SQL_TEXT,
+    }];
 
 
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME dicOrModel:@{

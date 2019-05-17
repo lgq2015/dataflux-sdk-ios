@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger,SelectType){
     SelectTypeIssue, //全部类别
     SelectTypeView,  //标准视图
+    SelectTypeIssueChat, //聊天里的选择
 };
 @interface HomeSelectCell : UITableViewCell
 @property (nonatomic, assign) SelectType type;

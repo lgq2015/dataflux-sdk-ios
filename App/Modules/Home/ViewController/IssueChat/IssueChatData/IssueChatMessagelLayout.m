@@ -32,8 +32,8 @@
             case PWChatMessageTypeSysterm:
                 [self setSysterm];
                 break;
-            case PWChatMessageTypeAtText:
-                [self setAtText];
+            case PWChatMessageTypeKeyPoint:
+                [self setKeyPoint];
                 break;
         }
 
@@ -41,7 +41,7 @@
 }
 - (void)setText{
    
-     CGSize nameSize = [self sizeWithStr:_message.nameStr Width:kWidth withFont:RegularFONT(12)];
+     CGSize nameSize = [self sizeWithStr:_message.nameStr Width:kWidth withFont:RegularFONT(13)];
     _nameLabRect = CGRectMake(0, 0, nameSize.width,20);
 
     CGFloat nameWidth  = _nameLabRect.size.width;
@@ -114,12 +114,12 @@
 //            [self setImageWidth:image.size.width Height:image.size.height];
 //        }];
 //    }
-    [self setImageWidth:ZOOM_SCALE(140) Height:ZOOM_SCALE(102)];
+    [self setImageWidth:ZOOM_SCALE(102) Height:ZOOM_SCALE(102)];
 
     
 }
 -(void)setImageWidth:(CGFloat)imgActualWidth Height:(CGFloat)imgActualHeight{
-    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
+    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(13) textColor:PWWhiteColor text:_message.nameStr];
     [nameLab sizeToFit];
     _nameLabRect = nameLab.bounds;
     CGFloat nameWidth  = _nameLabRect.size.width;
@@ -163,7 +163,7 @@
 }
 - (void)setFile{
     
-    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(12) textColor:PWWhiteColor text:_message.nameStr];
+    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(13) textColor:PWWhiteColor text:_message.nameStr];
     [nameLab sizeToFit];
     _nameLabRect = nameLab.bounds;
     CGFloat nameWidth  = _nameLabRect.size.width;
@@ -212,8 +212,8 @@
 
     }
 }
-- (void)setAtText{
-    
+- (void)setKeyPoint{
+    _cellHeight = ZOOM_SCALE(60);
 }
 -(CGSize)sizeWithStr:(NSString *)str Width:(CGFloat)width withFont:(UIFont*)font{
     if (@available(iOS 7.0, *)) {

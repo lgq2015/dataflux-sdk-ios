@@ -7,24 +7,23 @@
 //
 
 #import "ZTPopCommentView.h"
-#import <Masonry.h>
 #import "ZTPopCommentToolView.h"
-#import "ZTPopCommentTopView.h"
-#import "ZTPlaceHolderTextView.h"
-#define kWidth [UIScreen mainScreen].bounds.size.width
-#define kHeight [UIScreen mainScreen].bounds.size.height
+
+#define PWChatTextMaxHeight     85
+#define PWChatTextHeight        45
 #define zt_topViewH 44.0
 #define zt_toolViewH 44.0
 #define zt_tabbarH 44.0
-@interface ZTPopCommentView()<ZTPlaceHolderTextViewDelegate,UITextViewDelegate>
-@property (nonatomic, strong)ZTPlaceHolderTextView *textView;
-@property (nonatomic,strong) UIWindow * window;
-@property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
-@property (nonatomic,strong) ZTPopCommentToolView *toolView;
-@property (nonatomic,strong) ZTPopCommentTopView *topView;
+@interface ZTPopCommentView()<UITextViewDelegate>
+@property (nonatomic, strong) UITextView *mTextView;
+@property (nonatomic, strong) UIWindow * window;
+@property (nonatomic, strong) UIView *backgroundGrayView; //!<透明背景View
+@property (nonatomic, strong) ZTPopCommentToolView *toolView;
+@property (nonatomic, strong) ChatInputHeaderView *topView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) CGRect keyBoardFrame;
 @property (nonatomic, assign) CGRect commentViewFrame;
+@property (nonatomic, assign) CGFloat   textH;
 @end
 @implementation ZTPopCommentView
 
@@ -34,24 +33,26 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
-        self.backgroundColor = [UIColor purpleColor];
-
+        self.backgroundColor = PWWhiteColor;
+       
     }
     return self;
 }
 
 - (void)setOldData:(NSString *)oldData{
     _oldData = oldData;
-    [self s_UI];
+    self.topView.state = self.state;
+   [self s_UI];
 }
-
+- (void)show{
+   
+}
 - (void)s_UI{
+    if(!_backgroundGrayView){
     [self.window addSubview:self.backgroundGrayView];
     [self.window addSubview:self];
-    [self addSubview:self.topView];
-    [self addSubview:self.textView];
-    [self addSubview:self.toolView];
-//    [self addSubview:self.imageView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
+    [self addGestureRecognizer:tap];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self);
@@ -59,36 +60,38 @@
         make.height.equalTo(@zt_topViewH);
     }];
     //获取textview的内容高度
-    CGFloat contentH = self.textView.height;
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+     _textH = PWChatTextHeight;
+    [self.mTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom);
         make.left.equalTo(self).offset(10);
         make.right.equalTo(self).offset(-16);
-        make.height.offset(contentH);
+        make.height.offset(_textH);
     }];
     [self.toolView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@zt_toolViewH);
-        make.top.equalTo(self.textView.mas_bottom);
+        make.top.equalTo(self.mTextView.mas_bottom);
     }];
-//    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self);
-//        make.top.equalTo(self.textView.mas_bottom);
-//        make.width.height.offset(64);
-//    }];
-    if ([self.textView canBecomeFirstResponder]){
-        [self.textView becomeFirstResponder];
+    }else{
+        self.backgroundGrayView.hidden = NO;
+        self.hidden = NO;
+    }
+    if ([self.mTextView canBecomeFirstResponder]){
+        [self.mTextView becomeFirstResponder];
 
     }
-
+    [self textViewDidChange:self.mTextView];
     NSLog(@"zhangtao----%@",self);
+}
+- (void)viewTap{
+    
 }
 -(void)dismiss{
     //将数据传出去
-    NSDictionary *dic = @{@"content":self.textView.text};
+    NSDictionary *dic = @{@"content":self.mTextView.text,@"state":[NSNumber numberWithInteger:self.topView.state]};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"zt_add_comment" object:nil userInfo:dic];
-    [self.textView resignFirstResponder];
+    [self.mTextView resignFirstResponder];
     
 }
 
@@ -111,41 +114,36 @@
     return _backgroundGrayView;
 }
 
-- (UITextView *)textView{
-    if (!_textView){
-        _textView = [[ZTPlaceHolderTextView alloc] init];
-        _textView.zt_delegate = self;
-        _textView.delegate = self;
-        _textView.oldCommentData = _oldData;
+- (UITextView *)mTextView{
+    if (!_mTextView){
+        _mTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"输入您的内容" font:RegularFONT(14)];
+        _mTextView.delegate = self;
+        _mTextView.text = _oldData;
+        [self addSubview:_mTextView];
     }
-    return _textView;
+    return _mTextView;
 }
 - (ZTPopCommentToolView *)toolView{
     if (!_toolView){
         _toolView = [[ZTPopCommentToolView alloc] initWithFrame:CGRectZero];
-        
+      [self addSubview:_toolView];
     }
     return _toolView;
 }
-- (ZTPopCommentTopView *)topView{
+- (ChatInputHeaderView *)topView{
     if (!_topView){
-        _topView = [[ZTPopCommentTopView alloc] initWithFrame:CGRectZero];
-        [_topView.zhankaiBtn addTarget:self action:@selector(zhankaiBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _topView = [[ChatInputHeaderView alloc] initWithFrame:CGRectZero];
+        [_topView.unfoldBtn addTarget:self action:@selector(zhankaiBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_topView];
     }
     return _topView;
 }
-- (UIImageView *)imageView{
-    if (!_imageView){
-        _imageView = [[UIImageView alloc] init];
-        _imageView.hidden = YES;
-    }
-    return _imageView;
-}
+
 
 #pragma mark --键盘弹出
 - (void)keyboardWillChangeFrame:(NSNotification *)notification{
     //计算内容总高度
-    CGFloat height = self.textView.height + zt_topViewH + zt_toolViewH;
+    CGFloat height = _textH + zt_topViewH + zt_toolViewH;
     CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     _keyBoardFrame = keyboardFrame;
@@ -166,9 +164,8 @@
         self.backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
         self.frame = CGRectMake(0, kHeight, kWidth, 200);
     } completion:^(BOOL finished) {
-        [self.backgroundGrayView removeFromSuperview];
-        [self.textView removeFromSuperview];
-        [self removeFromSuperview];
+        self.backgroundGrayView.hidden =YES;
+        self.hidden = YES;
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }];
     [UIView commitAnimations];
@@ -188,43 +185,75 @@
         _commentViewFrame = self.frame;
         
         CGFloat newTextViewH = kHeight - zt_tabbarH - _keyBoardFrame.size.height - zt_toolViewH - zt_topViewH ;
-        [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset(newTextViewH);
-        }];
         [UIView animateWithDuration:0.25 animations:^{
             self.frame = CGRectMake(0, zt_tabbarH, kWidth, kHeight - zt_tabbarH);
+            [self.mTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.offset(newTextViewH);
+            }];
+
             [self layoutIfNeeded];
 
         } completion:^(BOOL finished) {
             
         }];
     }else{
-        CGFloat textviewH = self.textView.height;
+        CGFloat textviewH = _textH;
         CGFloat commentH = textviewH + zt_topViewH + zt_toolViewH;
-        [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.mTextView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(textviewH);
         }];
         [UIView animateWithDuration:0.25 animations:^{
             self.frame = CGRectMake(0, self->_keyBoardFrame.origin.y - commentH, kWidth, self->_keyBoardFrame.origin.y + commentH);
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
-            
+            [self textViewDidChange:self.mTextView];
         }];
     }
 }
-#pragma mark --ZTPlaceHolderTextViewDelegate--
-- (void)textViewHeigthChange:(ZTPlaceHolderTextView *)view{
-    CGFloat textviewH = view.height;
-    CGFloat commentH = textviewH + zt_topViewH + zt_toolViewH;
-    [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.offset(textviewH);
-    }];
+//监听输入框的操作 输入框高度动态变化
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    _oldData = textView.text;
+    CGFloat width = textView.width;
+    //获取到textView的最佳高度
+    NSInteger height = ceilf([textView sizeThatFits:CGSizeMake(width, MAXFLOAT)].height);
+    if(self.topView.unfoldBtn.selected){
+        return;
+    }
+    if(height>PWChatTextMaxHeight){
+        height = PWChatTextMaxHeight;
+        textView.scrollEnabled = YES;
+    }
+    else if(height<PWChatTextHeight){
+        height = PWChatTextHeight;
+        textView.scrollEnabled = NO;
+    }
+    else{
+        textView.scrollEnabled = NO;
+    }
+    
+    if(_textH != height){
+        _textH = height;
+        [self setNewSizeWithBootm:height];
+    }
+    else{
+        [textView scrollRangeToVisible:NSMakeRange(textView.text.length, 2)];
+    }
+}
+//设置所有控件新的尺寸位置
+-(void)setNewSizeWithBootm:(CGFloat)height{
+  
+    
     [UIView animateWithDuration:0.25 animations:^{
-        self.frame = CGRectMake(0, self->_keyBoardFrame.origin.y - commentH, kWidth, self->_keyBoardFrame.origin.y + commentH);
-        [self layoutIfNeeded];
+        self.height = 8 + 8 + self.mTextView.height;
+        [self.mTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(height);
+        }];
+        CGFloat height = _textH + zt_topViewH + zt_toolViewH;
         
+        self.frame = CGRectMake(0, _keyBoardFrame.origin.y - height, kWidth, _keyBoardFrame.origin.y + height);
     } completion:^(BOOL finished) {
-        
+        [self.mTextView.superview layoutIfNeeded];
     }];
 }
 

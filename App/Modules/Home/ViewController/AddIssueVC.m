@@ -16,7 +16,6 @@
 #import "PWSocketManager.h"
 #import "IssueListManger.h"
 #import "IssueListViewModel.h"
-#import "IssueProblemDetailsVC.h"
 #import "IssueDetailsVC.h"
 #define NavRightBtnTag  100  // 右侧图片
 

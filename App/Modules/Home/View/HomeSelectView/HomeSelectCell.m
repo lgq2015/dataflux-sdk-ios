@@ -9,6 +9,8 @@
 #import "HomeSelectCell.h"
 #import "IssueListManger.h"
 #import "SelectIssueTypeView.h"
+#import "ChatInputHeaderView.h"
+
 @interface HomeSelectCell()
 @property (nonatomic, strong) UIImageView *iconImgV;
 @property (nonatomic, copy) NSString *selectedIcon;
@@ -19,7 +21,7 @@
     [super awakeFromNib];
     // Initialization code
 }
--(void)setType:(int)type{
+-(void)setType:(SelectType)type{
     _type = type;
 }
 -(void)setIndex:(NSInteger)index{
@@ -31,11 +33,14 @@
       case SelectTypeIssue:
             [self createIssue:_index];
             break;
+        case SelectTypeIssueChat:
+            [self createChat:_index];
+            break;
     }
     
 }
 - (void)createIssue:(NSInteger)index{
-   IssueType type= index+1;
+    IssueType type= index+1;
     NSString *title,*icon;
     switch (type) {
         case IssueTypeAll:
@@ -83,6 +88,24 @@
         make.height.offset(ZOOM_SCALE(22));
     }];
    
+}
+- (void)createChat:(NSInteger)index{
+    IssueDealState state = index+1;
+    NSString *title,*icon;
+    switch (state) {
+        case IssueDealStateChat:
+            title = @"回复";
+            icon = @"reply_g";
+            break;
+        case IssueDealStateDeal:
+            title = @"处理";
+            icon = @"deal_g";
+            break;
+        case IssueDealStateSolve:
+            title = @"解决";
+            icon = @"solve_g";
+            break;
+    }
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {

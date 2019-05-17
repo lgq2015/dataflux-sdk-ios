@@ -33,7 +33,11 @@
     self.mFileView.frame = layout.fileLabRect;
     self.mFileView.backgroundColor = PWWhiteColor;
     self.mBackImgButton.frame = layout.backImgButtonRect;
-    self.mFileView.userInteractionEnabled = YES;
+    self.mBackImgButton.layer.shadowOffset = CGSizeMake(0,6);
+    self.mBackImgButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.mBackImgButton.layer.shadowRadius = 8;
+    self.mBackImgButton.layer.shadowOpacity = 0.06;
+    self.mBackImgButton.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(fileTap)];
     [self.mFileView addGestureRecognizer:tap];
     [self.mBackImgButton addSubview:self.mFileView];

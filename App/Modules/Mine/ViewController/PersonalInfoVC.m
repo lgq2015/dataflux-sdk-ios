@@ -60,7 +60,7 @@
     NSString *emailText = userManager.curUserInfo.email ==nil? @"去绑定":userManager.curUserInfo.email;
     NSString *phoneText = userManager.curUserInfo.mobile ;
     NSString *nameText = userManager.curUserInfo.name;
-     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
+    NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
     MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
     MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
     MineCellModel *phone = [[MineCellModel alloc]initWithTitle:@"手机号" describeText:phoneText];
