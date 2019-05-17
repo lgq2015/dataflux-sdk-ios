@@ -20,11 +20,15 @@
 #import "IssueChatDataManager.h"
 #import "IssueDtealsBV.h"
 #import "ZTPopCommentView.h"
-@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate>
+#import "PWPhotoOrAlbumImagePicker.h"
+#import "AddIssueLogReturnModel.h"
+#import "PWImageGroupView.h"
+
+@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
 @property (nonatomic, strong) NSMutableArray *dataSource;
-
+@property (nonatomic, strong) PWPhotoOrAlbumImagePicker *myPicker;
 @property (nonatomic, strong) IssueDtealsBV *bottomBtnView; //底部伪输入框
 @property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
 @property (nonatomic, assign) IssueDealState state;
@@ -80,7 +84,8 @@
 #pragma mark ========== init ==========
 -(ZTPopCommentView *)popCommentView{
     if (!_popCommentView) {
-        _popCommentView =[[ZTPopCommentView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, 200)];
+        _popCommentView =[[ZTPopCommentView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, 200) WithController:self];
+        _popCommentView.delegate = self;
     }
     return _popCommentView;
 }
@@ -91,10 +96,12 @@
     return _dataSource;
 }
 - (void)loadIssueLog{
+    [SVProgressHUD show];
     [IssueChatDatas LoadingMessagesStartWithChat:self.model.issueId callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dataSource addObjectsFromArray:array];
             [self.tableView reloadData];
+            [SVProgressHUD dismiss];
         });
     }];
 }
@@ -292,12 +299,49 @@
     }];
 }
 - (void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    NSInteger currentIndex = 0;
+    NSMutableArray *groupItems = [NSMutableArray new];
     
+    for(int i=0;i<self.dataSource.count;++i){
+        
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+        IssueChatBaseCell *cell = [self.tableView cellForRowAtIndexPath:ip];
+        IssueChatMessagelLayout *mLayout = self.dataSource[i];
+        
+        PWImageGroupItem *item = [PWImageGroupItem new];
+        if(mLayout.message.messageType == PWChatMessageTypeImage){
+            item.imageType = PWImageGroupImage;
+            item.fromImgView = cell.mImgView;
+            if(mLayout.message.image){
+                item.fromImage = mLayout.message.image;
+            }else{
+                item.fromImageStr = mLayout.message.imageString;
+            }
+        }
+        else continue;
+        
+        item.contentMode = mLayout.message.contentMode;
+        item.itemTag = groupItems.count + 10;
+        if([mLayout isEqual:layout])currentIndex = groupItems.count;
+        [groupItems addObject:item];
+        
+    }
+    
+    PWImageGroupView *imageGroupView = [[PWImageGroupView alloc]initWithGroupItems:groupItems currentIndex:currentIndex];
+    [self.navigationController.view addSubview:imageGroupView];
+    
+    __block PWImageGroupView *blockView = imageGroupView;
+    blockView.dismissBlock = ^{
+        [blockView removeFromSuperview];
+        blockView = nil;
+    };
+
 }
 
 - (void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
     IssueLogModel *logModel = layout.message.model;
     NSString *issueId = logModel.id;
+    WeakSelf
     [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
         IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
         if(model.isSuccess){
@@ -307,22 +351,71 @@
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
                 
                 layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
-                [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
             }
         }
     }];
 }
 
 
-- (void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
-    
-}
+
 
 - (void)PWChatTextCellClick:(NSIndexPath *)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout {
     
 }
+#pragma mark ========== IssueKeyBoardDelegate ==========
+- (void)IssueKeyBoardInputViewBtnClickFunction:(NSInteger)index{
+        self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
+        [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
+            NSData *data = UIImageJPEGRepresentation(image, 0.5);
+            if (!name) {
+                name = [NSDate getNowTimeTimestamp];
+                name=  [NSString stringWithFormat:@"%@.jpg",name];
+            }
+            [SVProgressHUD show];
+            NSDictionary *param = @{@"type":@"attachment",@"subType":@"comment"};
+            [PWNetworking uploadFileWithUrl:PW_issueUploadAttachment(self.model.issueId) params:param fileData:data type:@"jpg" name:@"files" fileName:name mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+                
+            } successBlock:^(id response) {
+                 [SVProgressHUD dismiss];
+                if([response[ERROR_CODE] isEqualToString:@""]){
+                    NSDictionary *content =PWSafeDictionaryVal(response, @"content");
+                    NSDictionary *data = PWSafeDictionaryVal(content, @"data");
+                 //待处理：刷新机制
+                }else{
+                }
+            } failBlock:^(NSError *error) {
+                [SVProgressHUD dismiss];
+                [error errorToast];
+            }];
+        }];
+   }
 
-
+-(void)IssueKeyBoardInputViewSendText:(NSString *)text{
+    
+    [SVProgressHUD show];
+    [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:nil callBack:^(id response) {
+        [SVProgressHUD dismiss];
+        AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+        if (data.isSuccess) {
+           // 待处理
+        } else {
+          [iToast alertWithTitleCenter:data.errorMsg];
+        }
+    }];
+}
+-(void)IssueKeyBoardInputViewSendAtText:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON{
+    [SVProgressHUD show];
+    [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:atInfoJSON callBack:^(id response) {
+        [SVProgressHUD dismiss];
+        AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+        if (data.isSuccess) {
+            // 待处理
+        } else {
+            [iToast alertWithTitleCenter:data.errorMsg];
+        }
+    }];
+}
 -(void)dealloc{
    
 }

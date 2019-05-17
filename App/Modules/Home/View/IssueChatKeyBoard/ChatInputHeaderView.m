@@ -21,6 +21,7 @@
     return self;
 }
 - (void)createUI{
+    self.backgroundColor = PWWhiteColor;
     [self addSubview:self.commentBtn];
     [self addSubview:self.unfoldBtn];
     [self.stateIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,7 +95,9 @@
 }
 #pragma mark ========== Click ==========
 - (void)commentBtnClick{
-    
+    if (self.changeChatStateClick) {
+        self.changeChatStateClick();
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

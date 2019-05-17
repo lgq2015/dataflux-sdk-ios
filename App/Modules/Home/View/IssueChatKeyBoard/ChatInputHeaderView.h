@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ChatInputHeaderView : UIView
 @property (nonatomic, strong) UIButton *unfoldBtn; 
 @property (nonatomic, assign) IssueDealState state;
+@property (nonatomic, copy)   void(^changeChatStateClick)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

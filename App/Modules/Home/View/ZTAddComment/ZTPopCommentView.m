@@ -8,7 +8,9 @@
 
 #import "ZTPopCommentView.h"
 #import "ZTPopCommentToolView.h"
-
+#import "AtTeamMemberListVC.h"
+#import "RootNavigationController.h"
+#import "MemberInfoModel.h"
 #define PWChatTextMaxHeight     85
 #define PWChatTextHeight        45
 #define zt_topViewH 44.0
@@ -24,13 +26,17 @@
 @property (nonatomic, assign) CGRect keyBoardFrame;
 @property (nonatomic, assign) CGRect commentViewFrame;
 @property (nonatomic, assign) CGFloat   textH;
+@property (nonatomic, weak)   UIViewController  *viewController; //issueDetailsVC
+@property (nonatomic, strong) NSMutableArray *choseMember;
+@property (nonatomic, strong) NSMutableArray *rangeArray;
 @end
 @implementation ZTPopCommentView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame WithController:(UIViewController *)controller
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.viewController = controller;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
         self.backgroundColor = PWWhiteColor;
@@ -45,7 +51,8 @@
    [self s_UI];
 }
 - (void)show{
-   
+    self.backgroundGrayView.hidden = NO;
+    self.hidden = NO;
 }
 - (void)s_UI{
     if(!_backgroundGrayView){
@@ -81,11 +88,24 @@
         [self.mTextView becomeFirstResponder];
 
     }
+    WeakSelf
+    self.topView.changeChatStateClick = ^(){
+        [weakSelf changeChatState];
+    };
     [self textViewDidChange:self.mTextView];
     NSLog(@"zhangtao----%@",self);
 }
 - (void)viewTap{
     
+}
+- (void)changeChatState{
+   
+    if (self.topView.unfoldBtn.selected) {
+        
+    }else{
+        [self zhankaiBtnClick:self.topView.unfoldBtn];
+    }
+
 }
 -(void)dismiss{
     //将数据传出去
@@ -102,6 +122,18 @@
         _window = [UIApplication sharedApplication].delegate.window;
     }
     return _window;
+}
+-(NSMutableArray *)rangeArray{
+    if (!_rangeArray) {
+        _rangeArray = [NSMutableArray new];
+    }
+    return _rangeArray;
+}
+-(NSMutableArray *)choseMember{
+    if (!_choseMember) {
+        _choseMember = [NSMutableArray new];
+    }
+    return _choseMember;
 }
 -(UIView *)backgroundGrayView{
     if (!_backgroundGrayView) {
@@ -126,6 +158,9 @@
 - (ZTPopCommentToolView *)toolView{
     if (!_toolView){
         _toolView = [[ZTPopCommentToolView alloc] initWithFrame:CGRectZero];
+        [_toolView.sendBtn addTarget:self action:@selector(sendBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_toolView.photoBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_toolView.atBtn addTarget:self action:@selector(atBtnClick) forControlEvents:UIControlEventTouchUpInside];
       [self addSubview:_toolView];
     }
     return _toolView;
@@ -210,6 +245,40 @@
         }];
     }
 }
+#pragma mark ========== UITextViewDelegate ==========
+//拦截发送按钮
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    __block BOOL isAt = NO;
+    if ([text isEqualToString:@""]) {
+        
+        [[self.rangeArray copy] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx1, BOOL * _Nonnull stop) {
+            NSArray *rangeAry =[self rangeOfSubString:obj inString:self.oldData];
+            [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSRange strrange = [obj rangeValue];
+                if(strrange.location<=range.location&&range.location<(strrange.location+strrange.length)) {
+                    NSMutableString *str = [NSMutableString stringWithString:self.oldData];
+                    [str deleteCharactersInRange:strrange];
+                    self.mTextView.text = str;
+                    self.oldData = str;
+                    DLog(@"self.mTextView.text ==%@;",self.mTextView.text)
+                    isAt = YES;
+                    [self.rangeArray removeObjectAtIndex:idx1];
+                    *stop = YES;
+                }
+            }];
+            if(isAt){
+                *stop = YES;
+            }
+        }];
+        if (isAt) {
+            [self textViewDidChange:textView];
+            return NO;
+        }
+    }
+        //删除
+    
+    return YES;
+}
 //监听输入框的操作 输入框高度动态变化
 - (void)textViewDidChange:(UITextView *)textView{
     
@@ -257,6 +326,119 @@
     }];
 }
 
+- (void)sendBtnClick{
+   
+    __block NSString *message = [_mTextView.attributedText string];
+    NSString *newMessage = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if(newMessage.length==0){
+        return;
+    }
+    __block NSMutableDictionary *accountIdMap = [NSMutableDictionary dictionary];
+    __block NSMutableDictionary *serviceMap = [NSMutableDictionary dictionary];
+    if (self.choseMember.count>0) {
+        [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *name = [NSString stringWithFormat:@"@%@",obj.name];
+            if([message containsString:name]) {
+                if (obj.isSpecialist) {
+                    [serviceMap setObject:obj.name forKey:obj.ISP];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.ISP]];
+                }else{
+                    [accountIdMap setObject:obj.name forKey:obj.memberID];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.memberID]];
+                    
+                }
+            }
+        }];
+        NSMutableDictionary *atInfoJSON = [NSMutableDictionary new];
+        
+        if (serviceMap.allKeys.count > 0) {
+            [atInfoJSON setObject:serviceMap forKey:@"serviceMap"];
+        }
+        if (accountIdMap.allKeys.count>0) {
+            [atInfoJSON setObject:accountIdMap forKey:@"accountIdMap"];
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewSendAtText:atInfoJSON:)]) {
+            [self.delegate IssueKeyBoardInputViewSendAtText:message atInfoJSON:atInfoJSON];
+        }
+      
+        [self.choseMember removeAllObjects];
+        [self.rangeArray removeAllObjects];
+    }else{
+       NSString *newMessage = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewSendText:)]) {
+            [self.delegate IssueKeyBoardInputViewSendText:newMessage];
+        }
+    }
+    _mTextView.text = @"";
+    _oldData = _mTextView.text;
+    _textH = PWChatTextHeight;
+    [self dismiss];
+    
+}
+- (void)photoBtnClick{
+    [self dismiss];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewBtnClickFunction:)]) {
+        [self.delegate IssueKeyBoardInputViewBtnClickFunction:1];
+    }
+}
+- (void)atBtnClick{
 
-
+    WeakSelf
+    AtTeamMemberListVC *setVC = [[AtTeamMemberListVC alloc] init];
+    setVC.chooseMembers = ^(NSArray *chooseArr){
+       [weakSelf dealAtMessageWithArray:chooseArr];
+    };
+    setVC.DisMissBlock = ^(){
+       [weakSelf.mTextView becomeFirstResponder];
+       [weakSelf show];
+    };
+    RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:setVC];
+    [self.viewController presentViewController:nav animated:YES completion:nil];
+}
+- (NSArray*)rangeOfSubString:(NSString*)subStr inString:(NSString*)string {
+    NSMutableArray *rangeArray = [NSMutableArray array];
+    NSString *string1 = [string stringByAppendingString:subStr];
+    NSString *temp;
+    for(int i =0; i < string.length; i ++) {
+        temp = [string1 substringWithRange:NSMakeRange(i, subStr.length)];
+        if ([temp isEqualToString:subStr]) {
+            NSRange range = {i,subStr.length};
+            [rangeArray addObject: [NSValue valueWithRange:range]];
+        }
+    }
+    return rangeArray;
+}
+- (void)dealAtMessageWithArray:(NSArray *)array{
+    NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
+    
+    if(array.count == 0){
+        [addStr appendString:@"@"];
+        self.mTextView.text = addStr;
+        return;
+    }
+    [array enumerateObjectsUsingBlock:^(MemberInfoModel *newObj, NSUInteger idx, BOOL * _Nonnull stop) {
+        __block  BOOL isNew = YES;
+        if (self.choseMember.count == 0) {
+            [self.choseMember addObjectsFromArray:array];
+        }else{
+            [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.memberID isEqualToString:newObj.memberID]) {
+                    isNew = NO;
+                    *stop = YES;
+                }
+            }];
+            if(isNew){
+                [self.choseMember addObject:newObj];
+            }
+        }
+        [self.rangeArray addObject:[NSString stringWithFormat:@"@%@ ",newObj.name]];
+        [addStr appendFormat:@"@%@ ",newObj.name];
+        
+    }];
+    
+    
+    self.mTextView.text =addStr;
+    [self textViewDidChange:self.mTextView];
+    [self.mTextView becomeFirstResponder];
+}
 @end

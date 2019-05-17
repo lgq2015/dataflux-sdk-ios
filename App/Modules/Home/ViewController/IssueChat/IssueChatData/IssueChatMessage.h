@@ -49,7 +49,7 @@
 #define PWChatIcon_RX            kWidth-PWChatIconRight-PWChatIconWH
 
 //文本自适应限制宽度
-#define PWChatTextInitWidth      kWidth-ZOOM_SCALE(64)-16
+#define PWChatTextInitWidth      kWidth-ZOOM_SCALE(64)-26
 //128-PWChatTextLRS-PWChatTextLRB
 
 //图片最大尺寸(正方形)

@@ -8,9 +8,7 @@
 
 #import "ZTPopCommentToolView.h"
 @interface ZTPopCommentToolView()
-@property (nonatomic, strong)UIButton *photoBtn;
-@property (nonatomic, strong)UIButton *atBtn;
-@property (nonatomic, strong)UIButton *sendBtn;
+
 @end
 @implementation ZTPopCommentToolView
 
@@ -64,7 +62,17 @@
         _sendBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"发送"];
         _sendBtn.titleLabel.font = RegularFONT(16);
         [self addSubview:_sendBtn];
+   
     }
     return _sendBtn;
+}
+- (void)photoBtnClick{
+    
+}
+- (void)atBtnClick{
+    
+}
+- (void)sendBtnClick{
+    
 }
 @end

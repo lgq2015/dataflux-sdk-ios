@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZTPopCommentToolView : UIView
-
+@property (nonatomic, strong)UIButton *photoBtn;
+@property (nonatomic, strong)UIButton *atBtn;
+@property (nonatomic, strong)UIButton *sendBtn;
 @end
 
 NS_ASSUME_NONNULL_END

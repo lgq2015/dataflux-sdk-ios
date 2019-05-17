@@ -135,7 +135,7 @@
 -(SelectIssueTypeView *)issueSV{
     if (!_issueSV) {
         UIButton *arrow = [self viewWithTag:IssueTypeBtnTag];
-        CGFloat x = arrow.frame.origin.x-ZOOM_SCALE(60);
+        CGFloat x = self.typeBtn.frame.origin.x+ZOOM_SCALE(8);
         CGFloat y = CGRectGetMaxY(arrow.frame)+35+kTopHeight;
         _issueSV = [[SelectIssueTypeView alloc]initWithType:SelectTypeIssue contentViewPoint:CGPointMake(x, y)];
         _issueSV.delegate =self;
@@ -217,6 +217,8 @@
             }
         }
             break;
+       default:
+            break;
     }
 }
 -(void)disMissClickWithSelectType:(SelectType)type{
@@ -230,6 +232,8 @@
             UIButton *button = [self viewWithTag:IssueViewBtnTag];
             button.selected = NO;
         }
+            break;
+            default:
             break;
     }
 }
