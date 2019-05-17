@@ -33,6 +33,12 @@
         _mTableView.backgroundColor = PWWhiteColor;
         _mTableView.delegate = self;
         _mTableView.dataSource =self;
+        _mTableView.layer.cornerRadius = 8;
+        _mTableView.layer.shadowOffset = CGSizeMake(0,2);
+        _mTableView.layer.shadowColor = [UIColor blackColor].CGColor;
+        _mTableView.layer.shadowRadius = 5;
+        _mTableView.layer.shadowOpacity = 0.06;
+        _mTableView.layer.masksToBounds = YES;
     }
     return _mTableView;
 }

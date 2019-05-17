@@ -97,9 +97,9 @@
     }
 }
 - (void)retryBtnClick{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClick:layout:)]){
-        [self.delegate PWChatRetryClick:self.indexPath layout:self.layout];
-    }
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClick:layout:)]){
+//        [self.delegate PWChatRetryClick:self.indexPath layout:self.layout];
+//    }
 }
 - (void)iconPressed{
     if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatHeaderImgCellClick:layout:)]){

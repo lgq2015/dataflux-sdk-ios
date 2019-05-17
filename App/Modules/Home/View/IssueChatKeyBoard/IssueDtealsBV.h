@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatInputHeaderView.h"
 @protocol IssueDtealsBVDelegate <NSObject>
 - (void)issueDtealsBVClick;
 @end
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IssueDtealsBV : UIView
 @property (nonatomic, assign) id<IssueDtealsBVDelegate> delegate;
 @property (nonatomic, copy) NSString *oldStr;
+-(void)setImgWithStates:(IssueDealState)states;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,17 +11,20 @@
 #import "AtTeamMemberListVC.h"
 #import "RootNavigationController.h"
 #import "MemberInfoModel.h"
+#import "ChooseChatStateView.h"
+
 #define PWChatTextMaxHeight     85
 #define PWChatTextHeight        45
 #define zt_topViewH 44.0
 #define zt_toolViewH 44.0
 #define zt_tabbarH 44.0
-@interface ZTPopCommentView()<UITextViewDelegate>
+@interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextView *mTextView;
 @property (nonatomic, strong) UIWindow * window;
 @property (nonatomic, strong) UIView *backgroundGrayView; //!<透明背景View
 @property (nonatomic, strong) ZTPopCommentToolView *toolView;
 @property (nonatomic, strong) ChatInputHeaderView *topView;
+@property (nonatomic, strong) ChooseChatStateView *chooseStateView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) CGRect keyBoardFrame;
 @property (nonatomic, assign) CGRect commentViewFrame;
@@ -29,6 +32,7 @@
 @property (nonatomic, weak)   UIViewController  *viewController; //issueDetailsVC
 @property (nonatomic, strong) NSMutableArray *choseMember;
 @property (nonatomic, strong) NSMutableArray *rangeArray;
+
 @end
 @implementation ZTPopCommentView
 
@@ -58,7 +62,8 @@
     if(!_backgroundGrayView){
     [self.window addSubview:self.backgroundGrayView];
     [self.window addSubview:self];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
+    UITapGestureRecognizer *tap= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTap)];
+         tap.delegate = self;
     [self addGestureRecognizer:tap];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -99,17 +104,23 @@
     
 }
 - (void)changeChatState{
-   
     if (self.topView.unfoldBtn.selected) {
         
     }else{
         [self zhankaiBtnClick:self.topView.unfoldBtn];
     }
-
+    [self.chooseStateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.topView.mas_bottom);
+        make.width.offset(ZOOM_SCALE(180));
+        make.left.mas_equalTo(self).offset(16);
+        make.height.offset(3*ZOOM_SCALE(45));
+    }];
+//    self.backgroundGrayView.userInteractionEnabled = NO;
+    [self.chooseStateView showWithState:(NSInteger)self.state];
 }
 -(void)dismiss{
     //将数据传出去
-    NSDictionary *dic = @{@"content":self.mTextView.text,@"state":[NSNumber numberWithInteger:self.topView.state]};
+    NSDictionary *dic = @{@"content":self.mTextView.text,@"state":[NSNumber numberWithInteger:self.state]};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"zt_add_comment" object:nil userInfo:dic];
     [self.mTextView resignFirstResponder];
     
@@ -122,6 +133,14 @@
         _window = [UIApplication sharedApplication].delegate.window;
     }
     return _window;
+}
+-(ChooseChatStateView *)chooseStateView{
+    if (!_chooseStateView) {
+        _chooseStateView= [[ChooseChatStateView alloc]init];
+        _chooseStateView.delegate = self;
+        [self addSubview:_chooseStateView];
+    }
+    return _chooseStateView;
 }
 -(NSMutableArray *)rangeArray{
     if (!_rangeArray) {
@@ -141,6 +160,7 @@
         _backgroundGrayView.frame = CGRectMake(0,0, kWidth, kHeight);
         _backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:1.0];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
+        tap.delegate = self;
         [_backgroundGrayView addGestureRecognizer:tap];
     }
     return _backgroundGrayView;
@@ -174,7 +194,18 @@
     return _topView;
 }
 
-
+#pragma mark - UIGestureRecognizerDelegate
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+//
+//    // self.contentView为子控件
+//    DLog(@"[NSStringFromClass([touch.view class]) = %@",NSStringFromClass([touch.view class]));
+//    if([NSStringFromClass([touch.view class]) isEqual:@"UITableViewCellContentView"]){
+//
+//        return NO;
+//
+//    }
+//    return YES;
+//}
 #pragma mark --键盘弹出
 - (void)keyboardWillChangeFrame:(NSNotification *)notification{
     //计算内容总高度
@@ -232,6 +263,7 @@
             
         }];
     }else{
+        [self.chooseStateView disMissView];
         CGFloat textviewH = _textH;
         CGFloat commentH = textviewH + zt_topViewH + zt_toolViewH;
         [self.mTextView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -327,7 +359,7 @@
 }
 
 - (void)sendBtnClick{
-   
+   [self.chooseStateView disMissView];
     __block NSString *message = [_mTextView.attributedText string];
     NSString *newMessage = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if(newMessage.length==0){
@@ -376,13 +408,14 @@
     
 }
 - (void)photoBtnClick{
+    [self.chooseStateView disMissView];
     [self dismiss];
     if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewBtnClickFunction:)]) {
         [self.delegate IssueKeyBoardInputViewBtnClickFunction:1];
     }
 }
 - (void)atBtnClick{
-
+   [self.chooseStateView disMissView];
     WeakSelf
     AtTeamMemberListVC *setVC = [[AtTeamMemberListVC alloc] init];
     setVC.chooseMembers = ^(NSArray *chooseArr){
@@ -440,5 +473,9 @@
     self.mTextView.text =addStr;
     [self textViewDidChange:self.mTextView];
     [self.mTextView becomeFirstResponder];
+}
+- (void)ChooseChatStateViewCellIndex:(NSInteger)index{
+    self.state = (IssueDealState)(index);
+    [self.topView setState:self.state];
 }
 @end

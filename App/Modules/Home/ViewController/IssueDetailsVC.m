@@ -48,6 +48,8 @@
     NSString *comment = notif.userInfo[@"content"];
     // 待处理： 空格
     self.bottomBtnView.oldStr = comment;
+    self.state = self.popCommentView.state;
+    [self.bottomBtnView setImgWithStates:self.popCommentView.state];
 }
 
 - (void)createUI{
@@ -392,29 +394,89 @@
    }
 
 -(void)IssueKeyBoardInputViewSendText:(NSString *)text{
-    
-    [SVProgressHUD show];
-    [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:nil callBack:^(id response) {
-        [SVProgressHUD dismiss];
-        AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
-        if (data.isSuccess) {
-           // 待处理
-        } else {
-          [iToast alertWithTitleCenter:data.errorMsg];
+    switch (self.popCommentView.state) {
+        
+        case IssueDealStateChat:{
+            [SVProgressHUD show];
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:nil callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
         }
-    }];
+            break;
+        case IssueDealStateDeal:{
+            [[PWHttpEngine sharedInstance] modifyIssueWithIssueid:self.model.issueId markStatus:@"tookOver" text:text atInfoJSON:nil callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
+        }
+            break;
+        case IssueDealStateSolve:{
+            [[PWHttpEngine sharedInstance] modifyIssueWithIssueid:self.model.issueId markStatus:@"recovered" text:text atInfoJSON:nil callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
+        }
+            break;
+    }
+  
 }
 -(void)IssueKeyBoardInputViewSendAtText:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON{
-    [SVProgressHUD show];
-    [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:atInfoJSON callBack:^(id response) {
-        [SVProgressHUD dismiss];
-        AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
-        if (data.isSuccess) {
-            // 待处理
-        } else {
-            [iToast alertWithTitleCenter:data.errorMsg];
+    switch (self.popCommentView.state) {
+        case IssueDealStateChat:{
+            [SVProgressHUD show];
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:self.model.issueId text:text atInfoJSON:atInfoJSON callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
         }
-    }];
+            break;
+        case IssueDealStateDeal:{
+            [[PWHttpEngine sharedInstance] modifyIssueWithIssueid:self.model.issueId markStatus:@"tookOver" text:text atInfoJSON:atInfoJSON callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
+        }
+            break;
+        case IssueDealStateSolve:{
+            [[PWHttpEngine sharedInstance] modifyIssueWithIssueid:self.model.issueId markStatus:@"recovered" text:text atInfoJSON:atInfoJSON callBack:^(id response) {
+                [SVProgressHUD dismiss];
+                BaseReturnModel *data = ((BaseReturnModel *) response) ;
+                if (data.isSuccess) {
+                    // 待处理
+                } else {
+                    [iToast alertWithTitleCenter:data.errorMsg];
+                }
+            }];
+        }
+            break;
+    }
+ 
 }
 -(void)dealloc{
    

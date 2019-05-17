@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,SelectType){
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) UILabel *titleLab;
 
+@property (nonatomic, copy)   void(^changeChatStateClick)();
 @end
 
 NS_ASSUME_NONNULL_END

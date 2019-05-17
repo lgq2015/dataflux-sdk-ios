@@ -96,16 +96,36 @@
         case IssueDealStateChat:
             title = @"回复";
             icon = @"reply_g";
+            self.selectedIcon = @"reply_b";
             break;
         case IssueDealStateDeal:
             title = @"处理";
             icon = @"deal_g";
+            self.selectedIcon = @"deal_b";
+
             break;
         case IssueDealStateSolve:
             title = @"解决";
             icon = @"solve_g";
+            self.selectedIcon = @"solve_g";
             break;
     }
+    self.iconImgV.image = [UIImage imageNamed:icon];
+    
+    [self.iconImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView).offset(ZOOM_SCALE(16));
+        make.width.height.offset(ZOOM_SCALE(20));
+        make.centerY.mas_equalTo(self.contentView);
+    }];
+    self.titleLab.text = title;
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.iconImgV.mas_right).offset(8);
+        make.centerY.mas_equalTo(self.iconImgV);
+        make.height.offset(ZOOM_SCALE(22));
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellClick)];
+    
+    [self.contentView addGestureRecognizer:tap];
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {
@@ -140,6 +160,12 @@
         make.height.offset(ZOOM_SCALE(22));
         make.centerY.mas_equalTo(self.contentView);
     }];
+   
+}
+- (void)cellClick{
+    if (self.changeChatStateClick) {
+        self.changeChatStateClick();
+    }
 }
 -(void)setSelected:(BOOL)selected{
     if (selected) {

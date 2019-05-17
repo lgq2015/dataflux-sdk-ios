@@ -311,6 +311,9 @@
 		4A3A13752281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
 		4A3A13762281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
 		4A3A13772281290500098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
+		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
+		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
+		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
@@ -1364,6 +1367,8 @@
 		4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadUnreadListVC.m; sourceTree = "<group>"; };
 		4A3A13732281290400098DFA /* AtTeamMemberListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtTeamMemberListVC.h; sourceTree = "<group>"; };
 		4A3A13742281290400098DFA /* AtTeamMemberListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtTeamMemberListVC.m; sourceTree = "<group>"; };
+		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
+		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
 		4A61144621DCAE4000E4138B /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
 		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
@@ -2994,6 +2999,8 @@
 				4AC2200D228D8FC80098848C /* IssueDtealsBV.m */,
 				4AC22011228E521D0098848C /* ChatInputHeaderView.h */,
 				4AC22012228E521D0098848C /* ChatInputHeaderView.m */,
+				4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */,
+				4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */,
 			);
 			path = IssueChatKeyBoard;
 			sourceTree = "<group>";
@@ -4037,6 +4044,7 @@
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
+				4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
 				4A092CC12227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
@@ -4375,6 +4383,7 @@
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
+				4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF5AC221ECB3A00D15316 /* TAPageControl.m in Sources */,
 				CA1CF5AD221ECB3A00D15316 /* IssueCell.m in Sources */,
@@ -4713,6 +4722,7 @@
 				4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
+				4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* IssueCell.m in Sources */,

@@ -107,6 +107,21 @@
         [self.delegate issueDtealsBVClick];
     }
 }
+-(void)setImgWithStates:(IssueDealState)states{
+    switch (states) {
+        case IssueDealStateChat:
+            self.typeIcon.image = [UIImage imageNamed:@"reply_g"];
+            break;
+        case IssueDealStateDeal:
+            self.typeIcon.image = [UIImage imageNamed:@"deal_g"];
+          
+            break;
+        case IssueDealStateSolve:
+            self.typeIcon.image = [UIImage imageNamed:@"solve_g"];
+           
+            break;
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

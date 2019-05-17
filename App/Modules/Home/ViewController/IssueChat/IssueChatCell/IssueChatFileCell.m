@@ -38,6 +38,8 @@
     self.mBackImgButton.layer.shadowRadius = 8;
     self.mBackImgButton.layer.shadowOpacity = 0.06;
     self.mBackImgButton.userInteractionEnabled = YES;
+    self.mBackImgButton.clipsToBounds = NO;
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(fileTap)];
     [self.mFileView addGestureRecognizer:tap];
     [self.mBackImgButton addSubview:self.mFileView];
