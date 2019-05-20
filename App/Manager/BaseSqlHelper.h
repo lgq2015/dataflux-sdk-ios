@@ -15,6 +15,7 @@
 #define PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME @"issue_source"
 #define PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME @"issue_log"
 #define PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME @"issue_list"
+#define PW_DB_ISSUE_ISSUE_LOG_READ_NAME @"issue_log_read"
 
 #define PW_DB_INFORMATION_TABLE_NAME @"information"
 #define PW_DB_LIBRARY_TABLE_NAME @"library"

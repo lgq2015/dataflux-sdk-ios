@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) RightTriangleView *triangleView;
+@property (nonatomic, strong) UILabel *chatTimeLab;
 //情报源名称 情报源头像
 @property (nonatomic, strong) UIImageView *sourceIcon;
 @property (nonatomic, strong) UILabel *sourcenNameLab;
@@ -85,20 +86,37 @@
 //    [[self viewWithTag:32] removeFromSuperview];
 //    [self addSubview:callMeLab];
 //
-    UILabel *sublab  = [[UILabel alloc]initWithFrame:CGRectZero];
-    sublab.font = RegularFONT(12);
-    sublab.textColor = [UIColor colorWithHexString:@"9B9EA0"];
-    sublab.tag = 22;
-    [[self viewWithTag:22] removeFromSuperview];
-    [self addSubview:sublab];
-    [sublab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom);
-        make.left.mas_equalTo(self.stateLab);
+    [self.chatTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
         make.right.mas_equalTo(self).offset(-17);
         make.height.offset(ZOOM_SCALE(18));
         make.bottom.offset(-Interval(11));
     }];
+    self.chatTimeLab.text = self.model.chatTime;
+    
+    UILabel *sublab  = [[UILabel alloc]initWithFrame:CGRectZero];
+    sublab.font = RegularFONT(12);
+    sublab.textColor = PWTextBlackColor;
+    sublab.tag = 22;
+    [[self viewWithTag:22] removeFromSuperview];
+    [self addSubview:sublab];
+    
+    [sublab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
+        make.left.mas_equalTo(self.stateLab);
+        make.right.mas_equalTo(self.chatTimeLab.mas_left).offset(-10);
+        make.height.offset(ZOOM_SCALE(18));
+        make.bottom.offset(-Interval(11));
+    }];
+    if (_model.isCallME) {
+        NSString *str = [NSString stringWithFormat:@"[有人@我] %@",self.model.issueLog];
+        NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:str];
+        NSRange range = [str rangeOfString:@"[有人@我]"];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FE563E"] range:range];
+        sublab.attributedText = attrStr;
+    }else{
     sublab.text = self.model.issueLog;
+    }
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
@@ -235,6 +253,13 @@
         [self addSubview:_sourcenNameLab];
     }
     return _sourcenNameLab;
+}
+-(UILabel *)chatTimeLab{
+    if (!_chatTimeLab) {
+        _chatTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextBlackColor text:@""];
+        [self addSubview:_chatTimeLab];
+    }
+    return _chatTimeLab;
 }
 -(UILabel *)stateLab{
     if (!_stateLab) {

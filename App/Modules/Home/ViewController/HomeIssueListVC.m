@@ -14,17 +14,35 @@
 #import "RootNavigationController.h"
 #import "ZTChangeTeamNavView.h"
 #import "TeamInfoModel.h"
-@interface HomeIssueListVC ()<IssueListHeaderDelegate>
+#import "ZYChangeTeamUIManager.h"
+@interface HomeIssueListVC ()<IssueListHeaderDelegate,ZYChangeTeamUIManagerDelegate>
 @property (nonatomic, strong) IssueListHeaderView *headerView;
 @property (nonatomic, strong) IssueListVC *listVC;
 @property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
+@property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
 @end
 
 @implementation HomeIssueListVC
-
+#pragma mark ====其他========
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    [self clickTeamChangeViewBlackBG];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createNav];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addTeamSuccess:)
+                                                 name:KNotificationTeamStatusChange
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(teamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editTeamNote:)
+                                                 name:KNotificationEditTeamNote
+                                               object:nil];
     // Do any additional setup after loading the view.
 }
 - (void)createNav{
@@ -74,11 +92,42 @@
     [self addChildViewController:self.listVC];
     [contentView addSubview:self.listVC.view];
 }
-- (void)navLeftBtnclick:(UIButton *)button{
-    
+- (void)navLeftBtnclick:(UIButton *)sender{
+    sender.userInteractionEnabled = NO;
+    sender.selected = !sender.selected;
+    //设置动画
+    [UIView animateWithDuration:0.2 animations:^{
+        if (sender.selected){
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(M_PI);
+        }else{
+            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+        }
+    } completion:^(BOOL finished) {
+        sender.userInteractionEnabled = YES;
+    }];
+    //显示
+    if (sender.isSelected){
+        [self.changeTeamView showWithOffsetY:kTopHeight+24];
+       
+    }else{
+        [self.changeTeamView  dismiss];
+    }
 }
-- (void)tapTopArrow:(UITapGestureRecognizer *)tap{
-    
+- (void)addTeamSuccess:(NSNotification *)notification{
+    [self changeTopLeftNavTitleName];
+    [self.tableView reloadData];
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        if (isSuccess){
+            [self changeTopLeftNavTitleName];
+            [self.tableView reloadData];
+        }
+    }];
+}
+- (void)editTeamNote:(NSNotification *)notification{
+    DLog(@"teamvc----修改备注");
+}
+- (void)tapTopArrow:(UITapGestureRecognizer *)ges{
+    [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
 }
 - (void)scanBtnClick{
     ScanViewController *scan = [[ScanViewController alloc]init];
@@ -87,6 +136,45 @@
     scan.scanCodeType = SCT_QRCode;
     RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+-(ZYChangeTeamUIManager *)changeTeamView{
+    if (!_changeTeamView) {
+        _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
+        [_changeTeamView showWithOffsetY:kTopHeight+24];
+        _changeTeamView.fromVC = self;
+        _changeTeamView.delegate =self;
+        WeakSelf
+        _changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
+            if (isDismissed){
+                weakSelf.changeTeamNavView.navViewLeftBtn.selected = NO;
+                //设置动画
+                weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
+                [UIView animateWithDuration:0.2 animations:^{
+                    weakSelf.changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+                } completion:^(BOOL finished) {
+                    weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
+                }];
+            }
+        };
+    }
+    return _changeTeamView;
+}
+- (void)teamSwitch:(NSNotification *)notification{
+    [self changeTopLeftNavTitleName];
+    [self.headerView refreshHeaderViewTitle];
+}
+- (void)changeTopLeftNavTitleName{
+    NSString *currentTeamType = userManager.teamModel.type;
+    if ([currentTeamType isEqualToString:@"singleAccount"]){
+        [_changeTeamNavView changeTitle:@"我的团队"];
+    }else{
+        [_changeTeamNavView changeTitle:userManager.teamModel.name];
+    }
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue <= 11.0) {
+        _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:YES];
+    }
 }
 -(void)selectIssueTypeIndex:(NSInteger)index{
     [self.listVC reloadDataWithIssueType:index+1 viewType:0];

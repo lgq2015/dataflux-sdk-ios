@@ -107,7 +107,7 @@
         case IssueDealStateSolve:
             title = @"解决";
             icon = @"solve_g";
-            self.selectedIcon = @"solve_g";
+            self.selectedIcon = @"solve_b";
             break;
     }
     self.iconImgV.image = [UIImage imageNamed:icon];
@@ -149,9 +149,6 @@
             break;
         case IssueViewTypeNormal:
             self.titleLab.text = @"标准视图";
-            break;
-        case IssueViewTypeIgnore:
-            self.titleLab.text = @"忽略视图";
             break;
     }
     self.titleLab.textAlignment = NSTextAlignmentCenter;

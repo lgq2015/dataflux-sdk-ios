@@ -49,7 +49,7 @@
         [self createIssueSourceTable];
         [self createIssueListTable];
         [self createIssueLogTable];
-
+        [self createIssueLogChatReadTable];
 
     }];
 
@@ -109,6 +109,26 @@
     }];
 
 }
+- (void)createIssueLogChatReadTable{
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
+    NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
+    
+    NSDictionary *params = @{
+                             @"type": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"content": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"updateTime": SQL_TEXT,
+                             @"sendStatus": SQL_INTEGER
+                             };
+    [dict addEntriesFromDictionary:params];
+    
+    if (![self.getHelper pw_isExistTable:tableName]) {
+        
+        [self.getHelper pw_createTable:tableName dicOrModel:dict];
+        
+    }
+}
 -(IssueType)getCurrentIssueType{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
    
@@ -144,19 +164,13 @@
     [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueViewType];
 }
 - (void)creatIssueBoardTable {
-    NSString *tableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
     if (![self.getHelper pw_isExistTable:tableName]) {
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
 
         NSDictionary *params =
                 @{
-                        @"type": SQL_INTEGER,
-                        @"state": SQL_INTEGER,
-                        @"typeName": SQL_TEXT,
-                        @"messageCount": SQL_TEXT,
-                        @"subTitle": SQL_TEXT,
-                        @"pageMaker": SQL_TEXT,
-                        @"seqAct": SQL_INTEGER
+                  @"seq": SQL_INTEGER
                 };
 
         [dict addEntriesFromDictionary:params];
@@ -763,16 +777,17 @@
                                             whereFormat:sql, issueId];
         
         if (array.count > 0) {
-            NSMutableDictionary *dic = @{
-                    @"lastIssueLogSeq": @(data.seq),
-                    @"latestIssueLogsStr": [data createLastIssueLogJsonString],
-                    @"isRead": @(0),
-                    @"issueLogRead": @(0),
-                    @"localUpdateTime": data.updateTime,
-                    
-            };
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                       @"lastIssueLogSeq": @(data.seq),
+                                                                                       @"latestIssueLogsStr": [data createLastIssueLogJsonString],
+                                                                                       @"isRead": @(0),
+                                                                                       @"issueLogRead": @(0),
+                                                                                       @"localUpdateTime": data.updateTime,
+                                                                                       
+                                                                                       }];
             if(data.atStatusStr.length>0){
-                NSArray *unreadAccounts = PWSafeArrayVal([data.atInfoJSONStr jsonValueDecoded], @"unreadAccounts");
+                NSDictionary *atStatus = [data.atStatusStr jsonValueDecoded];
+                NSArray *unreadAccounts = PWSafeArrayVal(atStatus,@"unreadAccounts");
                 [unreadAccounts enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSString *accountID = [obj stringValueForKey:@"accountId" default:@""];
                     if ([accountID isEqualToString:userManager.curUserInfo.userID]) {

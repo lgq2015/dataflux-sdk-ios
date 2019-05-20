@@ -20,7 +20,7 @@
 #import "IssueListHeaderView.h"
 #import "IssueDetailsVC.h"
 
-@interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource,IssueListHeaderDelegate>
+@interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueCell *tempCell;
 @property (nonatomic, strong) NSMutableArray *monitorData;
 @property (nonatomic, copy)   NSString *type;
@@ -61,10 +61,16 @@
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
         NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+        [self.monitorData removeAllObjects];
         [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
             [self.monitorData addObject:model];
         }];
+        if (datas.count == 0) {
+             [self showNoDataViewWithStyle:NoDataViewNormal];
+        }else{
+             [self removeNoDataImage];
+        }
         [self.tableView reloadData];
     }];
 }
@@ -119,14 +125,15 @@
 
     self.tableView.mj_header = self.header;
     if (datas.count>0) {
+    
         [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
-            [self.monitorData addObject:model];
-        }];
-      
+        IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
+        [self.monitorData addObject:model];
+        }];       
     }else{
         [self showNoDataViewWithStyle:NoDataViewNormal];
     }
+   
 //    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
 //        AddIssueGuideView *guid = [[AddIssueGuideView alloc]init];
 //        [guid showInView:[UIApplication sharedApplication].keyWindow];
@@ -135,7 +142,7 @@
 //    }
 
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
+//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:];
 //    });
 
 }
@@ -283,19 +290,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.monitorData[indexPath.row];
     model.isRead = YES;
-//    if (model.isFromUser) {
-//        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
-//        detailVC.model = self.monitorData[indexPath.row];
-//        WeakSelf
-//        detailVC.refreshClick = ^(){
-//            [weakSelf reloadData];
-//        };
-//        [self.navigationController pushViewController:detailVC animated:YES];
-//    }else{
-//        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
-//        infodetial.model = model;
-//        [self.navigationController pushViewController:infodetial animated:YES];
-//    }
     IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
     detailsVC.model = model;
     [self.navigationController pushViewController:detailsVC animated:YES];

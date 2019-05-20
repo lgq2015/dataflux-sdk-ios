@@ -32,21 +32,16 @@
     NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
         NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
-        if ([nickname isEqualToString:@""]) {
-            NSString *name = [account_info stringValueForKey:@"name" default:@""];
-            nickname = name;
-        }
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+    
        
         self.messageFrom = PWChatMessageFromOther;
         NSString *userID = [account_info stringValueForKey:@"id" default:@""];
         self.memberId = userID;
+        self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
-          //  self.messageFrom = PWChatMessageFromMe;
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-            self.nameStr = [time accurateTimeStr];
         }else{
-            self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
             [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
                 if (member) {
                     NSDictionary *tags =PWSafeDictionaryVal(member,@"tags");

@@ -30,6 +30,7 @@
 }
 - (void)createUI{
     IssueType issueType =[[IssueListManger sharedIssueListManger] getCurrentIssueType];
+    [self updateGetMsgTime];
     NSString *issueTitle = [self getIssueTitle:issueType];
     IssueViewType viewType =[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
     NSString *viewTitle = [self getIssueViewTitle:viewType];
@@ -125,9 +126,7 @@
         case IssueViewTypeNormal:
             viewTitle = @"标准视图";
             break;
-        case IssueViewTypeIgnore:
-            viewTitle = @"忽略视图";
-            break;
+
     }
     return viewTitle;
 }
@@ -203,6 +202,7 @@
             UIButton *button = [self viewWithTag:IssueTypeBtnTag];
             button.selected = NO;
             [self.typeBtn setTitle:[self getIssueTitle:(IssueType)(index+1)] forState:UIControlStateNormal];
+            [self updateGetMsgTime];
         if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueTypeIndex:)]){
             [self.delegate selectIssueTypeIndex:index];
         }
@@ -244,6 +244,35 @@
     NSString *viewTitle = [self getIssueViewTitle:viewType];
     [self.typeBtn setTitle:issueTitle forState:UIControlStateNormal];
     [self.viewTypeBtn setTitle:viewTitle forState:UIControlStateNormal];
+}
+- (void)updateGetMsgTime{
+    IssueType issueType =[[IssueListManger sharedIssueListManger] getCurrentIssueType];
+    NSString *type;
+    switch (issueType) {
+            
+        case IssueTypeAll:
+            type = @"all";
+            break;
+        case IssueTypeAlarm:
+            type = @"alarm";
+            break;
+        case IssueTypeSecurity:
+            type = @"security";
+            break;
+        case IssueTypeExpense:
+            type = @"expense";
+            break;
+        case IssueTypeOptimization:
+            type = @"optimization";
+            break;
+        case IssueTypeMisc:
+            type = @"misc";
+            break;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:type];
+    });
 }
 /*
 // Only override drawRect: if you perform custom drawing.

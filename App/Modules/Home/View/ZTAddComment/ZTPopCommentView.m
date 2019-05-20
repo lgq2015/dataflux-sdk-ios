@@ -17,7 +17,7 @@
 #define PWChatTextHeight        45
 #define zt_topViewH 44.0
 #define zt_toolViewH 44.0
-#define zt_tabbarH 44.0
+#define zt_tabbarH   76
 @interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextView *mTextView;
 @property (nonatomic, strong) UIWindow * window;
@@ -119,6 +119,9 @@
     [self.chooseStateView showWithState:(NSInteger)self.state];
 }
 -(void)dismiss{
+    if (self.topView.unfoldBtn.selected) {
+        [self zhankaiBtnClick:self.topView.unfoldBtn];
+    }
     //将数据传出去
     NSDictionary *dic = @{@"content":self.mTextView.text,@"state":[NSNumber numberWithInteger:self.state]};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"zt_add_comment" object:nil userInfo:dic];
@@ -194,18 +197,7 @@
     return _topView;
 }
 
-#pragma mark - UIGestureRecognizerDelegate
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-//
-//    // self.contentView为子控件
-//    DLog(@"[NSStringFromClass([touch.view class]) = %@",NSStringFromClass([touch.view class]));
-//    if([NSStringFromClass([touch.view class]) isEqual:@"UITableViewCellContentView"]){
-//
-//        return NO;
-//
-//    }
-//    return YES;
-//}
+
 #pragma mark --键盘弹出
 - (void)keyboardWillChangeFrame:(NSNotification *)notification{
     //计算内容总高度
@@ -415,7 +407,7 @@
     }
 }
 - (void)atBtnClick{
-   [self.chooseStateView disMissView];
+    [self dismiss];
     WeakSelf
     AtTeamMemberListVC *setVC = [[AtTeamMemberListVC alloc] init];
     setVC.chooseMembers = ^(NSArray *chooseArr){

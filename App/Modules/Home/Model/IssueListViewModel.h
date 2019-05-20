@@ -43,7 +43,8 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, strong) NSString *issueSourceId;
 @property (nonatomic, strong) NSString *sourceName;
 @property (nonatomic, strong) NSString *type;
-
+@property (nonatomic, strong) NSString *chatTime;
+@property (nonatomic, strong) NSDictionary *atStatus;
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 

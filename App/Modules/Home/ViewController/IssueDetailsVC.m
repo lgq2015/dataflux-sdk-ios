@@ -23,7 +23,8 @@
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "AddIssueLogReturnModel.h"
 #import "PWImageGroupView.h"
-
+#import "PWBaseWebVC.h"
+#import "IssueListManger.h"
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
@@ -104,6 +105,11 @@
             [self.dataSource addObjectsFromArray:array];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
+            if(array.count<ISSUE_CHAT_PAGE_SIZE){
+                self.tableView.tableFooterView = self.footView;
+            }else{
+                self.tableView.tableFooterView = self.footer;
+            }
         });
     }];
 }
@@ -264,6 +270,27 @@
 
 #pragma mark ========== PWChatBaseCellDelegate ==========
 - (void)PWChatFileCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
+    NSString *ext = [layout.message.filePath pathExtension];
+    if ([ext isEqualToString:@"csv"]
+        || [ext isEqualToString:@"zip"]
+        || [ext isEqualToString:@"rar"]){
+        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
+        return;
+    }
+    IssueLogModel *logModel = layout.message.model;
+    NSString *issueLogId = logModel.id;
+    [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueLogId callBack:^(id o) {
+        IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
+        if(model.isSuccess){
+            if (model.externalDownloadURL) {
+                PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:layout.message.fileName andURL:[NSURL URLWithString:[model.externalDownloadURL stringValueForKey:@"url" default:@""]]];
+                [self.navigationController pushViewController:webView animated:YES];
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorCode];
+        }
+        
+    }];
     
 }
 
@@ -384,6 +411,7 @@
                     NSDictionary *content =PWSafeDictionaryVal(response, @"content");
                     NSDictionary *data = PWSafeDictionaryVal(content, @"data");
                  //待处理：刷新机制
+                    [self getNewChatDatas];
                 }else{
                 }
             } failBlock:^(NSError *error) {
@@ -402,7 +430,7 @@
                 [SVProgressHUD dismiss];
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                      [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -414,7 +442,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                      [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -426,7 +454,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                      [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -444,7 +472,7 @@
                 [SVProgressHUD dismiss];
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                      [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -456,7 +484,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                      [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -468,7 +496,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    // 待处理
+                    [self getNewChatDatas];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -478,8 +506,35 @@
     }
  
 }
--(void)dealloc{
+- (void)getNewChatDatas{
+    [SVProgressHUD show];
+    [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:self.model.issueId
+                                                          callBack:^(BaseReturnModel *issueLogListModel) {
+            [IssueChatDatas LoadingMessagesStartWithChat:self.model.issueId callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
+                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                      [self.dataSource removeAllObjects];
+                                                                      [self.dataSource addObjectsFromArray:array];
+                                                                      [self.tableView reloadData];
+                                                                      [SVProgressHUD dismiss];
+                                                                      if(array.count<ISSUE_CHAT_PAGE_SIZE){
+                                                                          self.tableView.tableFooterView = self.footView;
+                                                                      }else{
+                                                                          self.tableView.tableFooterView = self.footer;
+                                                                      }
+                                                                  });
+                                                              }];
+                            
+                                                          }];
    
+    self.state = IssueDealStateChat;
+    [self.bottomBtnView setImgWithStates:IssueDealStateChat];
+
+}
+-(void)dealloc{
+    [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
+    [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
+    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+                                     userInfo:@{@"updateView":@(YES)}];
 }
 
 @end
