@@ -227,10 +227,10 @@
     PWCustomLabel *oldLabel = (PWCustomLabel *)self.titleLabels[_oldIndex];
     PWCustomLabel *currentLabel = (PWCustomLabel *)self.titleLabels[_currentIndex];
     
-    ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
-    if (manager.isShowTeamView){
-        [manager dismiss];
-    }
+//    ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+//    if (manager.isShowTeamView){
+//        [manager dismiss];
+//    }
     CGFloat animatedTime = animated ? 0.3 : 0.0;
     
     __weak typeof(self) weakSelf = self;

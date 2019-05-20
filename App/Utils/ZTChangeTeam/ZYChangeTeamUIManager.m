@@ -25,14 +25,14 @@
 @end
 @implementation ZYChangeTeamUIManager
 
-+ (instancetype)shareInstance{
-    static ZYChangeTeamUIManager *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[ZYChangeTeamUIManager alloc] init];
-    });
-    return instance;
-}
+//+ (instancetype)shareInstance{
+//    static ZYChangeTeamUIManager *instance = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        instance = [[ZYChangeTeamUIManager alloc] init];
+//    });
+//    return instance;
+//}
 
 #pragma mark --添加主控件--
 -(void)s_UI{
@@ -282,6 +282,9 @@
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
+            if(_delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
+                [self.delegate didClickChangeTeamWithGroupID:model.teamID];
+            }
             //判断是否是在首页，如果是在首页切换的团队，再请求下当前团队
             [self dealNoTeamVCAndCurrentPageIsHome];
         }else{

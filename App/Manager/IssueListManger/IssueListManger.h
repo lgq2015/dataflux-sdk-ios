@@ -18,8 +18,7 @@ typedef NS_ENUM(NSInteger ,IssueType){
 };
 typedef NS_ENUM(NSInteger ,IssueViewType){
     IssueViewTypeNormal = 1,
-    IssueViewTypeIgnore = 2,
-    IssueViewTypeAll = 3,
+    IssueViewTypeAll = 2,
 };
 @class IssueBoardModel;
 @class IssueModel;

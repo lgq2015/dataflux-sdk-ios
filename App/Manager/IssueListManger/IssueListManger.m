@@ -135,7 +135,7 @@
         NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueViewType];
         return (IssueViewType)[currentType integerValue];
     }else{
-        return IssueViewTypeAll;
+        return IssueViewTypeNormal;
     }
 }
 -(void)setCurrentIssueViewType:(IssueViewType)type{
@@ -299,7 +299,7 @@
                      lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus clearCache:(BOOL)clearCache {
     [[PWHttpEngine sharedInstance] getIssueList:ISSUE_LIST_PAGE_SIZE pageMarker:pageMaker callBack:^(id o) {
         IssueListModel *listModel = (IssueListModel *) o;
-//        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
+        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
         if (listModel.isSuccess) {
 
             [allDatas addObjectsFromArray:listModel.list];
@@ -486,9 +486,9 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-//        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
             [[PWSocketManager sharedPWSocketManager] connect:YES];
-//        }];
+        }];
     }                                           getAllDatas:YES];
 
 }
@@ -559,9 +559,6 @@
     switch (viewType) {
         case IssueViewTypeNormal:
             statesStr =@"AND status!='recovered'";
-            break;
-        case IssueViewTypeIgnore:
-            statesStr=@"AND status='recovered'";
             break;
         case IssueViewTypeAll:
             statesStr = @"";
