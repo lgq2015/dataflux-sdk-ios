@@ -180,11 +180,11 @@
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueAt:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueAt:userInfo];
         }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
@@ -201,6 +201,18 @@
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+    }else if([msgType isEqualToString:@"issue_log_at"]){
+        if (isDiffentTeamID){
+             [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueAdd:userInfo];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueAdd:userInfo];
+        }
+        
     }
     
 }
@@ -251,6 +263,23 @@
         if (data.isSuccess) {
             IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
         
+            IssueDetailsVC *control = [IssueDetailsVC new];
+            control.model = monitorListModel;
+            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
+            [self deleteAllNavViewController];
+        } else {
+            [iToast alertWithTitleCenter:data.errorCode];
+        }
+    }];
+}
+- (void)dealNotificationIssueAt:(NSDictionary *)userInfo{
+    NSString *issueId = [userInfo stringValueForKey:@"issueId" default:@""];
+    [[PWHttpEngine sharedInstance] getIssueDetail:issueId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        IssueModel *data = (IssueModel *) o;
+        if (data.isSuccess) {
+            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+            
             IssueDetailsVC *control = [IssueDetailsVC new];
             control.model = monitorListModel;
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
