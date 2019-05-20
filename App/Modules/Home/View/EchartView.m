@@ -45,8 +45,13 @@
         title.textEqual(data[@"title"][@"text"])
         .subtextEqual(data[@"yAxis"][@"name"]);
     }]);
+    PYTitle *title = [[PYTitle alloc]init];
+    title.textEqual(data[@"title"][@"text"]);
+    title.subtextEqual(data[@"yAxis"][@"name"]);
+    title.textStyle.fontSize = @16;
+    title.textStyle.fontStyle = PYTextStyleFontStyleNormal;
     //    option.title.subtext = @"数值";
-    
+    option.title = title;
     /** 提示框 */
     PYTooltip *tooltip = [[PYTooltip alloc] init];
     // 触发类型 默认数据触发
