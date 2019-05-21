@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)long long lastIssueLogSeq;
 @property (nonatomic, strong) NSString *localUpdateTime;
 @property (nonatomic, strong) NSString *readAtInfoStr;  //@已读字典
-
+@property (nonatomic, assign) CGFloat cellHeight;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (void)checkInvalidIssue;

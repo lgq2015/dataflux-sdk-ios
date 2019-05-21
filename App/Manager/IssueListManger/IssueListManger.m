@@ -45,7 +45,7 @@
 - (void)onDBInit {
     [self.getHelper pw_inDatabase:^{
 
-        [self creatIssueBoardTable];
+      //  [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self createIssueListTable];
         [self createIssueLogTable];
@@ -79,6 +79,7 @@
             @"issueLogRead": SQL_INTEGER,
             @"seq": SQL_INTEGER,
             @"atLogSeq": SQL_INTEGER,
+            @"cellHeight":SQL_INTEGER,
     }];
 
     //issue log update
@@ -110,16 +111,12 @@
 
 }
 - (void)createIssueLogChatReadTable{
-    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
     NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
     
     NSDictionary *params = @{
-                             @"type": SQL_TEXT,
-                             @"subType": SQL_TEXT,
-                             @"content": SQL_TEXT,
-                             @"subType": SQL_TEXT,
-                             @"updateTime": SQL_TEXT,
-                             @"sendStatus": SQL_INTEGER
+                             @"seq":SQL_INTEGER,
+                             @"issueId":SQL_TEXT
                              };
     [dict addEntriesFromDictionary:params];
     
@@ -164,14 +161,18 @@
     [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueViewType];
 }
 - (void)creatIssueBoardTable {
-    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
+    NSString *tableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
     if (![self.getHelper pw_isExistTable:tableName]) {
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
 
-        NSDictionary *params =
-                @{
-                  @"seq": SQL_INTEGER
-                };
+        NSDictionary *params = @{
+                                 @"type": SQL_TEXT,
+                                 @"subType": SQL_TEXT,
+                                 @"content": SQL_TEXT,
+                                 @"subType": SQL_TEXT,
+                                 @"updateTime": SQL_TEXT,
+                                 @"sendStatus": SQL_INTEGER
+                                 };
 
         [dict addEntriesFromDictionary:params];
 
@@ -500,9 +501,9 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
 
-        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+//        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
             [[PWSocketManager sharedPWSocketManager] connect:YES];
-        }];
+//        }];
     }                                           getAllDatas:YES];
 
 }
@@ -534,7 +535,18 @@
     return seqAct;
 
 }
-
+-(void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId{
+    [self.getHelper pw_inDatabase:^{
+        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                                             dicOrModel:@{@"cellHeight": SQL_INTEGER} whereFormat:@"WHERE issueId='%@'", issueId];
+        if (array.count > 0) {
+//            NSString *lastMsgTime = [array[0] stringValueForKey:@"cellHeight" default:@""];
+            [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
+                                dicOrModel:@{@"cellHeight": [NSNumber numberWithFloat:cellHeight]} whereFormat:@"WHERE issueId='%@'", issueId];
+        }
+        
+    }];
+}
 
 - (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType{
     if(type == 0){
