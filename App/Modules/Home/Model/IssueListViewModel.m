@@ -71,9 +71,9 @@
         NSString *chatTime = [issueLogDict stringValueForKey:@"createTime" default:@""];
         chatTime = [NSString getLocalDateFormateUTCDate:chatTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         self.chatTime = [NSString compareCurrentTime:chatTime];
+        NSString *name;
         if (account_info.allKeys>0) {
-            NSString *account = [account_info stringValueForKey:@"name" default:@""];
-            NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+            name = [account_info stringValueForKey:@"name" default:@""];
             NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
             NSString *content;
             if ([type isEqualToString:@"attachment"]) {
@@ -87,11 +87,9 @@
             }else{
                 content =[issueLogDict stringValueForKey:@"content" default:@""];
             }
-            if (nickname.length>0) {
-                self.issueLog =[NSString stringWithFormat:@"%@:  %@",nickname,content];
-            }else{
-                self.issueLog =[NSString stringWithFormat:@"%@: %@",account,content];
-            }
+        
+                self.issueLog =[NSString stringWithFormat:@"%@:  %@",name,content];
+            
         }else{
             self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
         }
@@ -110,8 +108,7 @@
                     string=  [string stringByReplacingOccurrencesOfString:obj withString:accountIdMap[obj]];
                 }];
             }
-    
-            self.issueLog = string;
+            self.issueLog =[NSString stringWithFormat:@"%@:  %@",name,string];
         }
     }
   
@@ -146,14 +143,14 @@
                 NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
                 int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
                 long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
-                long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
-                if (unreadCount>0 && lastReadSeq<seq) {
+                long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
+                if (unreadCount>0 && lastReadSeq>=seq) {
                     self.isCallME = YES;
                 }
             }
    
     }
-    
+    self.cellHeight = model.cellHeight;
     self.type = model.type;
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;

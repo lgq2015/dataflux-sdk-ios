@@ -71,9 +71,9 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
-        if ([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin) {
-            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
-        }
+//        if ([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin) {
+//            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
+//        }
         [self loadIssueDetailExtra];
     }else{
         self.tableView.tableHeaderView = self.engineHeader;
@@ -116,6 +116,7 @@
             }
         });
     }];
+    [self getNewChatDatas];
 }
 -(IssueEngineHeaderView *)engineHeader{
     if (!_engineHeader) {
@@ -387,7 +388,9 @@
                 [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:layout.message.model.issueId data:logModel deleteCache:NO];
                 
                 layout.message.imageString = [model.externalDownloadURL stringValueForKey:@"url" default:@""];
-            [weakSelf.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+                if (weakSelf.tableView) {
+                  [weakSelf.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+                }
             }
         }
     }];
@@ -523,7 +526,8 @@
                                                                       [self.dataSource addObjectsFromArray:array];
                                                                       [self.tableView reloadData];
                                                                       [SVProgressHUD dismiss];
-                                                                      if(array.count<ISSUE_CHAT_PAGE_SIZE){
+                                                                      [self postLastReadSeq];
+ if(array.count<ISSUE_CHAT_PAGE_SIZE){
                                                                           self.tableView.tableFooterView = self.footView;
                                                                       }else{
                                                                           self.tableView.tableFooterView = self.footer;
@@ -534,8 +538,19 @@
                                                           }];
    
     self.state = IssueDealStateChat;
+    dispatch_async_on_main_queue(^{
+         [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+    });
     [self.bottomBtnView setImgWithStates:IssueDealStateChat];
-
+}
+- (void)postLastReadSeq{
+    if (self.dataSource.count>0) {
+        IssueChatMessagelLayout *layout = _dataSource[0];
+        [[PWHttpEngine sharedInstance] postIssueLogReadsLastReadSeqRecord:layout.message.model.id callBack:^(id o) {
+            
+        }];
+    }
+   
 }
 -(void)dealloc{
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
