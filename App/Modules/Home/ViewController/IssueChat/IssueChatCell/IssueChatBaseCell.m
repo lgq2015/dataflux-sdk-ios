@@ -33,7 +33,7 @@
     
     // 2、创建头像
     _mHeaderImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _mHeaderImgBtn.backgroundColor =  [UIColor brownColor];
+    _mHeaderImgBtn.backgroundColor =  PWWhiteColor;
     _mHeaderImgBtn.userInteractionEnabled = YES;
     
     [self.contentView addSubview:_mHeaderImgBtn];

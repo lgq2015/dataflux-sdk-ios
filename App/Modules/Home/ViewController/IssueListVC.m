@@ -50,6 +50,7 @@
                               object:nil];
 
     [self loadAllIssueList:^{
+        [self reloadData];
         [self dealWithNotificationData];
     }];
     
@@ -67,7 +68,7 @@
             [self.monitorData addObject:model];
         }];
         if (datas.count == 0) {
-             [self showNoDataViewWithStyle:NoDataViewNormal];
+             [self showNoDataViewWithStyle:NoDataViewIssueList];
         }else{
              [self removeNoDataImage];
         }
@@ -79,9 +80,12 @@
         [self createUI];
     };
     [SVProgressHUD show];
+     NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+    if(datas.count>0){
+      setUpStyle();
+    }
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
-         setUpStyle();
          complete();
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg];
@@ -129,9 +133,9 @@
         [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
         [self.monitorData addObject:model];
-        }];       
+        }];
     }else{
-        [self showNoDataViewWithStyle:NoDataViewNormal];
+        [self showNoDataViewWithStyle:NoDataViewIssueList];
     }
    
 //    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
@@ -180,9 +184,7 @@
         };
     [self.navigationController pushViewController:creatVC animated:YES];
     }else if([getTeamState isEqualToString:PW_isPersonal]){
-//        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-//        [self.navigationController pushViewController:createTeam animated:YES];
-      
+
         ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
         vc.dowhat = supplementTeamInfo;
         [self.navigationController pushViewController:vc animated:YES];
@@ -267,7 +269,7 @@
                 [self.tableView reloadData];
                 [self removeNoDataImage];
             } else {
-                [self showNoDataImage];
+                [self showNoDataViewWithStyle:NoDataViewIssueList];
             }
             self.tipLab.hidden = YES;
         });
