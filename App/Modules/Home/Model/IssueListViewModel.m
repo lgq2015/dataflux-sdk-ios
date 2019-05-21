@@ -119,7 +119,7 @@
    
     NSDictionary *tags = PWSafeDictionaryVal(markTookOverInfoJSON, @"tags");
     if (tags) {
-        self.markUserIcon = PWSafeDictionaryVal(tags, @"pwAvatar");
+        self.markUserIcon = [tags stringValueForKey:@"pwAvatar" default:@""];
     }
     //标记状态
     if ([model.markStatus isEqualToString:@"tookOver"]){
