@@ -137,17 +137,21 @@
 - (void)logReadSeqWithissueId:(NSString *)issueId{
     long long  seq = [self getLastChatIssueLogMarker:issueId];
     [self.getHelper pw_inDatabase:^{
-        NSDictionary *insertValues = @{@"seq": [NSNumber numberWithLongLong:seq]};
+        NSDictionary *insertValues = @{@"seq": [NSNumber numberWithLongLong:seq],@"issueId":issueId};
         
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
         NSString *whereSql = [NSString stringWithFormat:@"WHERE issueId = '%@'", issueId];
 ;
-        NSArray *results = [self.getHelper pw_lookupTable:table dicOrModel:insertValues whereFormat:whereSql];
+        NSArray *results = [self.getHelper pw_lookupTable:table dicOrModel:@{@"seq": SQL_INTEGER} whereFormat:whereSql];
+        BOOL isExict =  [self.getHelper pw_isExistTable:table];
+        DLog(@"sdfsfsdfsdfaaa = %@",[NSNumber numberWithBool:isExict]);
+
         if (results.count > 0) {
             [self.getHelper pw_updateTable:table dicOrModel:insertValues whereFormat:whereSql];
             
         } else {
-            [self.getHelper pw_insertTable:table dicOrModel:insertValues];
+        BOOL is = [self.getHelper pw_insertTable:table dicOrModel:insertValues];
+            DLog(@"sdfsfsdfsdf = %@",[NSNumber numberWithBool:is]);
         }
         
     }];
