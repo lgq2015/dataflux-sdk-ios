@@ -25,6 +25,7 @@
 #import "PWImageGroupView.h"
 #import "PWBaseWebVC.h"
 #import "IssueListManger.h"
+#import "TeamInfoModel.h"
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
@@ -70,6 +71,9 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
+        if ([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin) {
+            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
+        }
         [self loadIssueDetailExtra];
     }else{
         self.tableView.tableHeaderView = self.engineHeader;
@@ -228,6 +232,9 @@
         self.popCommentView.oldData = self.oldStr;
         
     });
+}
+- (void)ignoreClick{
+    
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

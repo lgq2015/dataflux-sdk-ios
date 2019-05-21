@@ -34,8 +34,8 @@
 #define KTeamCacheName @"KTeamCacheName"
 //用户issueList 选择type类型
 #define KIssueListType @"KIssueListType"
-#define KCurrentIssueListType    [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
-#define KCurrentIssueViewType    [NSString stringWithFormat:@"%@/KCurrentIssueViewType", getPWDefaultTeamID]
+#define KCurrentIssueListType   @"KCurrentIssueListType"
+#define KCurrentIssueViewType   @"KCurrentIssueViewType"
 //当前团队
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员

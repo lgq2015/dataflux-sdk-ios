@@ -70,7 +70,6 @@
     }];
     [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
-//        make.right.mas_equalTo(self).offset(-10);
         make.centerY.mas_equalTo(self.markUserIcon);
         make.height.offset(ZOOM_SCALE(18));
     }];
@@ -81,11 +80,7 @@
         make.left.equalTo(self.stateLab.mas_left);
         make.right.mas_equalTo(self).offset(-Interval(21));
     }];
-//    UILabel *callMeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#FE563E"] text:@"[有人@我]"];
-//    callMeLab.tag = 32;
-//    [[self viewWithTag:32] removeFromSuperview];
-//    [self addSubview:callMeLab];
-//
+
     [self.chatTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
         make.right.mas_equalTo(self).offset(-17);
