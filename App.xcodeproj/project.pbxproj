@@ -718,7 +718,6 @@
 		6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2460A72F4A7A678D1444 /* AddIssueVC.m */; };
 		6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
 		6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E279ABDD933179C7571A1 /* ScanResultVC.m */; };
-		6B6E20E8FDCDA7D08D6E9C93 /* Sprocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28E988F55939D84CCB08 /* Sprocket.m */; };
 		6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */; };
 		6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */; };
 		6B6E213295CA24656C647897 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
@@ -771,7 +770,6 @@
 		6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
 		6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
-		6B6E25765CADE66A7D856619 /* Sprocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28E988F55939D84CCB08 /* Sprocket.m */; };
 		6B6E25B703CD5F0C3A09503C /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E25C1805B975112483B4F /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
@@ -835,7 +833,6 @@
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2AFE43A95D1FED215D99 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
 		6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
-		6B6E2B274A993C7D9CCCD53B /* Sprocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28E988F55939D84CCB08 /* Sprocket.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
 		6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E269CB1332A74C7EFD5A4 /* IssueChatImageCell.m */; };
@@ -1809,7 +1806,6 @@
 		6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookArticleVC.m; sourceTree = "<group>"; };
 		6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSqlHelper.m; sourceTree = "<group>"; };
 		6B6E2188F811955A7DCCF384 /* ToolsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsVC.m; sourceTree = "<group>"; };
-		6B6E219454CEFD82F87747CA /* Sprocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprocket.h; sourceTree = "<group>"; };
 		6B6E219BA3FC613B341070F3 /* ToolsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsVC.h; sourceTree = "<group>"; };
 		6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatFileCell.m; sourceTree = "<group>"; };
 		6B6E21B5EF3E93FD0771906C /* ExpertsMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsMoreVC.h; sourceTree = "<group>"; };
@@ -1859,7 +1855,6 @@
 		6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogListModel.h; sourceTree = "<group>"; };
 		6B6E2863DA063BDD899A7E86 /* IssueChatFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatFileCell.h; sourceTree = "<group>"; };
 		6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceModel.m; sourceTree = "<group>"; };
-		6B6E28E988F55939D84CCB08 /* Sprocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprocket.m; sourceTree = "<group>"; };
 		6B6E28F8DB0A218F6629EC70 /* IssueChatTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatTextCell.h; sourceTree = "<group>"; };
 		6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsDetailVC.m; sourceTree = "<group>"; };
 		6B6E2909DDC81286E9B84FD7 /* ReadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadStatusModel.h; sourceTree = "<group>"; };
@@ -2440,8 +2435,6 @@
 				4A19546E21A7A3E3007ADFCA /* DataBase */,
 				4A95BBB4217DB76100FC2979 /* Adaptive */,
 				4A95BBE92182AF4100FC2979 /* Network */,
-				6B6E28E988F55939D84CCB08 /* Sprocket.m */,
-				6B6E219454CEFD82F87747CA /* Sprocket.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3809,6 +3802,7 @@
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
+				"${PODS_ROOT}/LumberjackConsole/Source/LumberjackConsole.storyboard",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
@@ -3817,6 +3811,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LumberjackConsole.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
@@ -3835,6 +3830,7 @@
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
+				"${PODS_ROOT}/LumberjackConsole/Source/LumberjackConsole.storyboard",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
@@ -3843,6 +3839,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LumberjackConsole.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
@@ -3897,6 +3894,7 @@
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
+				"${PODS_ROOT}/LumberjackConsole/Source/LumberjackConsole.storyboard",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/iOS-Echarts/iOS-Echarts.bundle",
 			);
@@ -3905,6 +3903,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CodeScan.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LumberjackConsole.storyboardc",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iOS-Echarts.bundle",
 			);
@@ -4270,7 +4269,6 @@
 				6B6E2E96763550DBD26FD3FE /* BaseListReturnModel.m in Sources */,
 				6B6E2B83A13C8E2AAB95BB66 /* AddIssueLogReturnModel.m in Sources */,
 				6B6E226FB9C4B51890ABA0B9 /* HeartBeatManager.m in Sources */,
-				6B6E20E8FDCDA7D08D6E9C93 /* Sprocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4610,7 +4608,6 @@
 				6B6E2463E35C68771B98DCA4 /* BaseListReturnModel.m in Sources */,
 				6B6E2A15E3B9033201251096 /* AddIssueLogReturnModel.m in Sources */,
 				6B6E2C01FD9FE84D3CD27906 /* HeartBeatManager.m in Sources */,
-				6B6E25765CADE66A7D856619 /* Sprocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4950,7 +4947,6 @@
 				6B6E2268E758B6FE148C1078 /* BaseListReturnModel.m in Sources */,
 				6B6E2BADF44FE5AB7A16DBE4 /* AddIssueLogReturnModel.m in Sources */,
 				6B6E227C6F0782567AE3C7D0 /* HeartBeatManager.m in Sources */,
-				6B6E2B274A993C7D9CCCD53B /* Sprocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

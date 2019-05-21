@@ -15,9 +15,9 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - AlipaySDK-iOS (15.5.9)
+  - CocoaLumberjack (3.5.2):
+    - CocoaLumberjack/Core (= 3.5.2)
   - CocoaLumberjack/Core (3.5.2)
-  - CocoaLumberjack/Swift (3.5.2):
-    - CocoaLumberjack/Core
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -32,9 +32,22 @@ PODS:
   - LBXScan/Types (2.3)
   - LBXScan/UI (2.3):
     - LBXScan/Types (~> 2.2)
+  - LumberjackConsole (3.3.1):
+    - CocoaLumberjack (>= 3.x)
+    - NBUCore (>= 2.1.0)
   - Masonry (1.1.0)
   - MCDingTalk (1.0.1)
   - MJRefresh (3.1.15.7)
+  - NBUCore (2.1.0)
+  - NBULog (2.0.0):
+    - CocoaLumberjack (>= 3.x)
+    - NBULog/Base (= 2.0.0)
+  - NBULog/Base (2.0.0):
+    - CocoaLumberjack (>= 3.x)
+  - NBULog/Console (2.0.0):
+    - CocoaLumberjack (>= 3.x)
+    - LumberjackConsole (>= 3.x)
+    - NBULog/Base
   - NullSafe (2.0)
   - ReactiveCocoa (2.0):
     - ReactiveCocoa/Core (= 2.0)
@@ -66,7 +79,6 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AlipaySDK-iOS (~> 15.5.9)
-  - CocoaLumberjack/Swift (~> 3.5.2)
   - FMDB (~> 2.7.5)
   - iOS-Echarts (~> 1.4.4)
   - IQKeyboardManager (~> 6.2.0)
@@ -77,6 +89,8 @@ DEPENDENCIES:
   - Masonry (~> 1.1.0)
   - MCDingTalk (~> 1.0.1)
   - MJRefresh (~> 3.1.15.7)
+  - NBULog (~> 2.0.0)
+  - NBULog/Console (~> 2.0.0)
   - NullSafe (~> 2.0)
   - ReactiveCocoa (= 2.0)
   - RegexKitLite (~> 4.0)
@@ -101,9 +115,12 @@ SPEC REPOS:
     - JPush
     - JSONModel
     - LBXScan
+    - LumberjackConsole
     - Masonry
     - MCDingTalk
     - MJRefresh
+    - NBUCore
+    - NBULog
     - NullSafe
     - ReactiveCocoa
     - RegexKitLite
@@ -128,9 +145,12 @@ SPEC CHECKSUMS:
   JPush: d0cead70ba223a6a3b52749899ebda830dfbc49a
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
+  LumberjackConsole: c5fcf48e08da5313d060225901737496cf9140ca
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  NBUCore: 201af50441f48513ef6d5823a5fc12c9e1f288cd
+  NBULog: eb7872e9aef98806ddb05b5b4ef90a3157117074
   NullSafe: 948feba938f03abede5ed3758694a9fe5b3a65ce
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
@@ -144,6 +164,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
 
-PODFILE CHECKSUM: 5e374d803f45c58090f5260d93fe813c22648a6b
+PODFILE CHECKSUM: 40e2420c202a814bec369cc5e6cba0439aa8fb00
 
 COCOAPODS: 1.5.3

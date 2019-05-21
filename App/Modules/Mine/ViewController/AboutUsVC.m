@@ -12,7 +12,6 @@
 #import "PWBaseWebVC.h"
 #import "DetectionVersionAlert.h"
 #import "FounctionIntroductionVC.h"
-#import "Sprocket.h"
 
 #define MODE_SWITCH_COUNT 5
 
@@ -83,7 +82,7 @@
 #else
 - (void)longPress {
     if (self.clickTimes >= MODE_SWITCH_COUNT) {
-        [Sprocket ddSetLogLevel:DDLogLevelVerbose];
+        [NBULog setAppLogLevel:DDLogLevelAll];
         setIsDevMode(YES);
         [iToast alertWithTitleCenter:@"开发者模式"];
     }
