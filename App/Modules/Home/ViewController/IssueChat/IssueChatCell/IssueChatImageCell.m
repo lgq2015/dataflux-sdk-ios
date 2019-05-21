@@ -23,13 +23,8 @@
 }
 -(void)setLayout:(IssueChatMessagelLayout *)layout{
     [super setLayout:layout];
-    UIColor *color;
-    if (layout.message.messageFrom ==PWChatMessageFromSystem ) {
-        color = PWBlueColor;
-    }else{
-        color = PWWhiteColor;
-    }
-    UIImage *image = [UIImage imageWithColor:color];
+  
+    UIImage *image = [UIImage imageWithColor:PWWhiteColor];
     image = [image resizableImageWithCapInsets:layout.imageInsets resizingMode:UIImageResizingModeStretch];
     self.mBackImgButton.frame = layout.backImgButtonRect;
     [self.mBackImgButton setBackgroundImage:image forState:UIControlStateNormal];

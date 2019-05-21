@@ -29,16 +29,15 @@
 #import "MessageDetailVC.h"
 #import "PWBaseWebVC.h"
 #import "IssueListViewModel.h"
-#import "IssueDetailRootVC.h"
 #import "NewsWebView.h"
-#import "IssueProblemDetailsVC.h"
 #import "NewsListModel.h"
-#import "IssueDetailVC.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "HomeViewController.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "IssueListManger.h"
-#import "IssueChatDataManager.h"
+#import "IssueDetailsVC.h"
+#import "TeamInfoModel.h"
+//#import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
 #import "Sprocket.h"
@@ -183,11 +182,11 @@
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueAt:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueAt:userInfo];
         }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
@@ -204,6 +203,18 @@
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+    }else if([msgType isEqualToString:@"issue_log_at"]){
+        if (isDiffentTeamID){
+             [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueAdd:userInfo];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueAdd:userInfo];
+        }
+        
     }
     
 }
@@ -253,13 +264,25 @@
         IssueModel *data = (IssueModel *) o;
         if (data.isSuccess) {
             IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+        
+            IssueDetailsVC *control = [IssueDetailsVC new];
+            control.model = monitorListModel;
+            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
+            [self deleteAllNavViewController];
+        } else {
+            [iToast alertWithTitleCenter:data.errorCode];
+        }
+    }];
+}
+- (void)dealNotificationIssueAt:(NSDictionary *)userInfo{
+    NSString *issueId = [userInfo stringValueForKey:@"issueId" default:@""];
+    [[PWHttpEngine sharedInstance] getIssueDetail:issueId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        IssueModel *data = (IssueModel *) o;
+        if (data.isSuccess) {
+            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
             
-            IssueDetailRootVC *control;
-            if ([data.origin isEqualToString:@"user"]) {
-                control = [IssueProblemDetailsVC new];
-            } else {
-                control = [IssueDetailVC new];
-            }
+            IssueDetailsVC *control = [IssueDetailsVC new];
             control.model = monitorListModel;
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
             [self deleteAllNavViewController];
@@ -619,7 +642,7 @@
 }
 - (void)dealChangeTeam:(id) response withTeamID:(NSString *)teamID complete:(void(^)(bool isFinished))completeBlock{
     NSString *token = response[@"content"][@"authAccessToken"];
-    [[IssueChatDataManager sharedInstance] shutDown];
+//    [[IssueChatDataManager sharedInstance] shutDown];
     [[IssueListManger sharedIssueListManger] shutDown];
     [[PWSocketManager sharedPWSocketManager] shutDown];
     [[IssueSourceManger sharedIssueSourceManger] logout];

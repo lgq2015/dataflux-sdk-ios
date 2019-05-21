@@ -26,13 +26,13 @@
 
 -(void)setLayout:(IssueChatMessagelLayout *)layout{
     [super setLayout:layout];
-    UIColor *color;
-    if (layout.message.messageFrom ==PWChatMessageFromStaff) {
-        color = [UIColor colorWithHexString:@"#CCE0FF"];
-    }else{
-        color = PWWhiteColor;
-    }
-    UIImage *image = [UIImage imageWithColor:color];
+//    UIColor *color;
+//    if (layout.message.messageFrom ==PWChatMessageFromStaff) {
+//        color = [UIColor colorWithHexString:@"#CCE0FF"];
+//    }else{
+//        color = PWWhiteColor;
+//    }
+    UIImage *image = [UIImage imageWithColor:PWWhiteColor];
     image = [image resizableImageWithCapInsets:layout.imageInsets resizingMode:UIImageResizingModeStretch];
     
     self.mBackImgButton.frame = layout.backImgButtonRect;
@@ -187,10 +187,10 @@
     return atStr;
 }
 - (void)readBtnClick{
-  
-        if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatReadUnreadBtnClickLayout:)]){
-            [self.delegate PWChatReadUnreadBtnClickLayout:self.layout];
-        }
+//  
+//        if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatReadUnreadBtnClickLayout:)]){
+//            [self.delegate PWChatReadUnreadBtnClickLayout:self.layout];
+//        }
 }
 
 - (void)awakeFromNib {

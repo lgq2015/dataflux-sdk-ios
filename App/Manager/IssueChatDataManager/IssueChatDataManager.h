@@ -34,6 +34,7 @@
 - (long long)getLastIssueLogSeqFromIssueLog:(NSString *)issueId;
 
 - (long long)getLastChatIssueLogMarker:(NSString *)issueId;
-
+- (void)logReadSeqWithissueId:(NSString *)issueId;
+- (long long)getLastReadChatIssueLogMarker:(NSString *)issueId;
 - (void)shutDown;
 @end

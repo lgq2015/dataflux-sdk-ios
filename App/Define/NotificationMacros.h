@@ -32,6 +32,10 @@
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
+//用户issueList 选择type类型
+#define KIssueListType @"KIssueListType"
+#define KCurrentIssueListType    [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
+#define KCurrentIssueViewType    [NSString stringWithFormat:@"%@/KCurrentIssueViewType", getPWDefaultTeamID]
 //当前团队
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员

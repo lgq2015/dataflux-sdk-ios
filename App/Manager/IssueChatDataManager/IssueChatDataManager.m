@@ -40,7 +40,7 @@
 }
 
 
--(void) fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
+-(void)fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
                   withFetchStatus:(BOOL)withStatus{
     if (_isFetching){
         if(withStatus){
@@ -134,7 +134,24 @@
                    }];
 
 }
-
+- (void)logReadSeqWithissueId:(NSString *)issueId{
+    long long  seq = [self getLastChatIssueLogMarker:issueId];
+    [self.getHelper pw_inDatabase:^{
+        NSDictionary *insertValues = @{@"seq": [NSNumber numberWithLongLong:seq]};
+        
+        NSString *table = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
+        NSString *whereSql = [NSString stringWithFormat:@"WHERE issueId = '%@'", issueId];
+;
+        NSArray *results = [self.getHelper pw_lookupTable:table dicOrModel:insertValues whereFormat:whereSql];
+        if (results.count > 0) {
+            [self.getHelper pw_updateTable:table dicOrModel:insertValues whereFormat:whereSql];
+            
+        } else {
+            [self.getHelper pw_insertTable:table dicOrModel:insertValues];
+        }
+        
+    }];
+}
 
 - (long long)getLastDataCheckSeqInOnPage:(NSString *)issueId pageMarker:(long long)pageMarker {
     __block long long seq = 0L;
@@ -347,7 +364,7 @@
 
         NSArray<IssueLogModel *> *results = [self.getHelper pw_lookupTable:table
                                                                 dicOrModel:[IssueLogModel class] withSql:range
-                                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
+                                                               whereFormat:@" ORDER BY updateTime DESC,seq DESC", issueId];
 
 
         [array addObjectsFromArray:results];
@@ -410,7 +427,22 @@
     }];
     return seq;
 }
-
+- (long long)getLastReadChatIssueLogMarker:(NSString *)issueId {
+    __block long long seq = 1L;
+    [self.getHelper pw_inDatabase:^{
+        NSString *table = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
+        
+        NSString *where = @"WHERE issueId='%@'";
+        NSArray *arr = [self.getHelper pw_lookupTable:table dicOrModel:@{@"seq": SQL_INTEGER} whereFormat:where, issueId];
+        
+        if (arr.count > 0) {
+            seq = [arr[0][@"seq"] longLongValue];
+        }else{
+            seq = 0;
+        }
+    }];
+    return seq;
+}
 - (void)shutDown {
     _isFetching = NO;
 }

@@ -40,6 +40,7 @@
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
     self.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
     self.atInfoJSONStr = atInfoJSON ?[atInfoJSON jsonStringEncoded]:@"";
+    self.atInfoJSON = atInfoJSON;
 }
 
 -(NSString *)createLastIssueLogJsonString{
@@ -60,6 +61,7 @@
     NSDictionary *metaJson = [self.metaJsonStr jsonValueDecoded];
     NSDictionary *externalDownloadURL = [self.externalDownloadURLStr jsonValueDecoded];
     NSDictionary *accountInfo = [self.accountInfoStr jsonValueDecoded];
+    NSDictionary *atInfoJSON  = [self.atInfoJSONStr jsonValueDecoded];
     if(originInfoJSON){
         dic[@"originInfoJSON"] =originInfoJSON;
     }
@@ -71,6 +73,9 @@
     }
     if(accountInfo){
         dic[@"account_info"] =accountInfo;
+    }
+    if(atInfoJSON){
+        dic[@"atInfoJSON"] = atInfoJSON;
     }
     return [@[dic] jsonStringEncoded];
 }

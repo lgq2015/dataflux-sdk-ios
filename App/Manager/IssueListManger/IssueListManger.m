@@ -49,7 +49,7 @@
         [self createIssueSourceTable];
         [self createIssueListTable];
         [self createIssueLogTable];
-
+        [self createIssueLogChatReadTable];
 
     }];
 
@@ -109,21 +109,68 @@
     }];
 
 }
-
+- (void)createIssueLogChatReadTable{
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
+    NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
+    
+    NSDictionary *params = @{
+                             @"type": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"content": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"updateTime": SQL_TEXT,
+                             @"sendStatus": SQL_INTEGER
+                             };
+    [dict addEntriesFromDictionary:params];
+    
+    if (![self.getHelper pw_isExistTable:tableName]) {
+        
+        [self.getHelper pw_createTable:tableName dicOrModel:dict];
+        
+    }
+}
+-(IssueType)getCurrentIssueType{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+   
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
+    if (isContain) {
+        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueListType];
+         return (IssueType)[currentType integerValue];
+    }else{
+        return IssueTypeAll;
+    }
+}
+/**
+ * @param type 存储用户使用记录 当前issueType选择
+ */
+-(void)setCurrentIssueType:(IssueType)type{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    [cache removeObjectForKey:KCurrentIssueListType];
+    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueListType];
+}
+-(IssueViewType)getCurrentIssueViewType{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueViewType];
+    if (isContain) {
+        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueViewType];
+        return (IssueViewType)[currentType integerValue];
+    }else{
+        return IssueViewTypeNormal;
+    }
+}
+-(void)setCurrentIssueViewType:(IssueViewType)type{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    [cache removeObjectForKey:KCurrentIssueViewType];
+    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueViewType];
+}
 - (void)creatIssueBoardTable {
-    NSString *tableName = PW_DB_ISSUE_ISSUE_BOARD_TABLE_NAME;
+    NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
     if (![self.getHelper pw_isExistTable:tableName]) {
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
 
         NSDictionary *params =
                 @{
-                        @"type": SQL_INTEGER,
-                        @"state": SQL_INTEGER,
-                        @"typeName": SQL_TEXT,
-                        @"messageCount": SQL_TEXT,
-                        @"subTitle": SQL_TEXT,
-                        @"pageMaker": SQL_TEXT,
-                        @"seqAct": SQL_INTEGER
+                  @"seq": SQL_INTEGER
                 };
 
         [dict addEntriesFromDictionary:params];
@@ -260,13 +307,13 @@
 
 /**
  * 根据 pageMarker
- * @param pageMaker
+ * @param pageMaker 请求标记
  */
 - (void)fetchAllIssueWithPageMarker:(long long)pageMaker allDatas:(NSMutableArray *)allDatas
                      lastDataStatus:(void (^)(BaseReturnModel *))callBackStatus clearCache:(BOOL)clearCache {
     [[PWHttpEngine sharedInstance] getIssueList:ISSUE_LIST_PAGE_SIZE pageMarker:pageMaker callBack:^(id o) {
         IssueListModel *listModel = (IssueListModel *) o;
-//        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
+        DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
         if (listModel.isSuccess) {
 
             [allDatas addObjectsFromArray:listModel.list];
@@ -355,7 +402,7 @@
 }
 /**
  * 获取未读的类型
- * @return
+ * @return 获取未读的类型
  */
 -(NSArray *)getUnReadType{
     NSMutableArray *typeArr = [NSMutableArray new];
@@ -373,7 +420,7 @@
 
 /**
  * 合并已读数据
- * @param allDatas
+ * @param allDatas 合并已读数据
  */
 - (void)mergeReadData:(NSMutableArray *)allDatas {
     NSArray *cacheArr = [self getAllIssueData];
@@ -440,8 +487,8 @@
 
 /**
  *   callBackStatus 为 nil 时 走 Notification 通知，如果不为 null 会回调
- * @param callBackStatus
- * @param getAllDatas
+ * @param callBackStatus  callBackStatus 为 nil 时 走 Notification 通知
+ * @param getAllDatas    callBackStatus 为 nil 时 走 Notification 通知
  */
 - (void)fetchIssueList:(void (^)(BaseReturnModel *))callBackStatus getAllDatas:(BOOL)getAllDatas {
     [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];
@@ -470,7 +517,7 @@
 
 
 /**
- * 获取最好条数据的marker
+ * 获取最后条数据的marker
  * @return
  */
 - (long long)getLastPageMarker {
@@ -489,11 +536,55 @@
 }
 
 
-- (NSArray *)getIssueListWithIssueType:(NSString *)type {
+- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType{
+    if(type == 0){
+      type = [self getCurrentIssueType];
+    }else{
+        [self setCurrentIssueType:type];
+    }
+    if (viewType == 0) {
+        viewType = [self getCurrentIssueViewType];
+    }else{
+        [self setCurrentIssueViewType:viewType];
+    }
     NSMutableArray *array = [NSMutableArray new];
+    NSString *typeStr,*whereFormat,*statesStr;
+    BOOL isALL = NO;
+    switch (type) {
+        case IssueTypeAlarm:
+            typeStr = @"alarm";
+            break;
+        case IssueTypeSecurity:
+            typeStr = @"security";
+            break;
+        case IssueTypeExpense:
+            typeStr = @"expense";
+            break;
+        case IssueTypeOptimization:
+            typeStr = @"optimization";
+            break;
+        case IssueTypeMisc:
+            typeStr = @"misc";
+            break;
+        case IssueTypeAll:
+            isALL = YES;
+            break;
+    };
+    switch (viewType) {
+        case IssueViewTypeNormal:
+            statesStr =@"AND status!='recovered'";
+            break;
+        case IssueViewTypeAll:
+            statesStr = @"";
+            break;
+    }
+    if (isALL) {
+        whereFormat =[NSString stringWithFormat:@"WHERE status!='discarded' %@ ORDER by seq DESC ",statesStr] ;
+    }else{
+       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@'AND status!='discarded' %@  ORDER by seq DESC ", typeStr,statesStr];
+    }
     [self.getHelper pw_inDatabase:^{
 
-        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status!='discarded' AND status!='recovered' ORDER by seq DESC ", type];
         NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
         [array addObjectsFromArray:itemDatas];
     }];
@@ -686,16 +777,17 @@
                                             whereFormat:sql, issueId];
         
         if (array.count > 0) {
-            NSMutableDictionary *dic = @{
-                    @"lastIssueLogSeq": @(data.seq),
-                    @"latestIssueLogsStr": [data createLastIssueLogJsonString],
-                    @"isRead": @(0),
-                    @"issueLogRead": @(0),
-                    @"localUpdateTime": data.updateTime,
-                    
-            };
+            NSMutableDictionary *dic =[[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                       @"lastIssueLogSeq": @(data.seq),
+                                                                                       @"latestIssueLogsStr": [data createLastIssueLogJsonString],
+                                                                                       @"isRead": @(0),
+                                                                                       @"issueLogRead": @(0),
+                                                                                       @"localUpdateTime": data.updateTime,
+                                                                                       
+                                                                                       }];
             if(data.atStatusStr.length>0){
-                NSArray *unreadAccounts = PWSafeArrayVal([data.atInfoJSONStr jsonValueDecoded], @"unreadAccounts");
+                NSDictionary *atStatus = [data.atStatusStr jsonValueDecoded];
+                NSArray *unreadAccounts = PWSafeArrayVal(atStatus,@"unreadAccounts");
                 [unreadAccounts enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSString *accountID = [obj stringValueForKey:@"accountId" default:@""];
                     if ([accountID isEqualToString:userManager.curUserInfo.userID]) {

@@ -28,25 +28,20 @@
         [self setUserSendIssueLog:model];
         return;
     }
+    NSString *createTime = model.createTime;
+    NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
         NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
-        if ([nickname isEqualToString:@""]) {
-            NSString *name = [account_info stringValueForKey:@"name" default:@""];
-            nickname = name;
-        }
-        NSString *createTime = model.createTime;
-        NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+    
+       
+        self.messageFrom = PWChatMessageFromOther;
         NSString *userID = [account_info stringValueForKey:@"id" default:@""];
         self.memberId = userID;
+        self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
-            self.messageFrom = PWChatMessageFromMe;
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-            self.nameStr = [time accurateTimeStr];
         }else{
-            self.messageFrom = PWChatMessageFromOther;
-            self.nameStr = [NSString stringWithFormat:@"%@ %@",nickname,[time accurateTimeStr]];
             [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
                 if (member) {
                     NSDictionary *tags =PWSafeDictionaryVal(member,@"tags");
@@ -147,7 +142,29 @@
                 self.fileIcon = @"file";
             }
         }
-        
+    }else if([model.type isEqualToString:@"keyPoint"]){
+        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+       
+        self.messageType = PWChatMessageTypeKeyPoint;
+        if ([model.subType isEqualToString:@"markTookOver"]) {
+            self.stuffName = [NSString stringWithFormat:@"由%@处理",name];
+        }else if([model.subType isEqualToString:@"issueCreated"]){
+            if (self.messageFrom == PWChatMessageFromOther) {
+                self.stuffName = [NSString stringWithFormat:@"由%@创建",name];
+            }else{
+             self.stuffName = @"情报产生";
+            }
+            //if ([subType isEqualToString:@"markRecovered"]){
+        }else if([model.subType isEqualToString:@"markRecovered"]){
+            self.stuffName = [NSString stringWithFormat:@"被%@解决",name];
+
+        }else if([model.subType isEqualToString:@"issueRecovered"]){
+            self.stuffName = [NSString stringWithFormat:@"被%@关闭",name];
+
+        }
+        self.cellString = PWChatKeyPointCellId;
+        self.nameStr = [NSString compareCurrentTime:time];
     }else{
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
@@ -214,7 +231,7 @@
         [str addAttribute:NSForegroundColorAttributeName value:PWTextBlackColor range:NSMakeRange(0, str.length)];
         [atStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSRange range = [string rangeOfString:obj];
-            [str addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#2A7AF7 "] range:range];
+            [str addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#2A7AF7"] range:range];
         }];
         [str addAttribute:NSFontAttributeName value:RegularFONT(17) range:NSMakeRange(0, str.length)];
         self.textString =str;

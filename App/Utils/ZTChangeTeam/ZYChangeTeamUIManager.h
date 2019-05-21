@@ -20,7 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 typedef void(^DismissBlock)(BOOL isDismissed);
 @interface ZYChangeTeamUIManager : UIView
-+ (instancetype)shareInstance;
+//+ (instancetype)shareInstance;
 @property (nonatomic, weak)id<ZYChangeTeamUIManagerDelegate>delegate;
 //表明切换团队界面是否弹出
 @property (nonatomic, assign)BOOL isShowTeamView;

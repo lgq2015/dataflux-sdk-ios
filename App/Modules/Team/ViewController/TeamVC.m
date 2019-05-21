@@ -32,7 +32,8 @@
 @property (nonatomic, strong) UIButton *leftNavButton;
 @property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
-@property (nonatomic, strong)ZTChangeTeamNavView *changeTeamNavView;
+@property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
+@property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
 @end
 
 @implementation TeamVC
@@ -54,7 +55,14 @@
     [self initSystemNav];
     [self s_UI];
 }
-
+-(ZYChangeTeamUIManager *)changeTeamView{
+    if (!_changeTeamView) {
+        _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
+        _changeTeamView.fromVC = self;
+        _changeTeamView.delegate = self;
+    }
+    return _changeTeamView;
+}
 - (void)s_UI{
     //判断是否购买了产品
     self.tableView.mj_header = self.header;
@@ -384,12 +392,9 @@
     }];
     //显示
     if (sender.isSelected){
-        ZYChangeTeamUIManager *mag = [ZYChangeTeamUIManager shareInstance];
-        [mag showWithOffsetY:kTopHeight];
-        mag.fromVC = self;
-        mag.delegate = self;
+        [self.changeTeamView showWithOffsetY:kTopHeight];
     }else{
-        [[ZYChangeTeamUIManager shareInstance] dismiss];
+        [self.changeTeamView dismiss];
     }
 }
 //TODO:丽蕾 (点击切换团队箭头)
@@ -428,9 +433,9 @@
 }
 #pragma mark ====常用按钮交互=====
 - (void)rightNavClick{
-    ZYChangeTeamUIManager *manger = [ZYChangeTeamUIManager shareInstance];
-    if (manger.isShowTeamView){
-        [manger dismiss];
+    
+    if (self.changeTeamView.isShowTeamView){
+        [self.changeTeamView dismiss];
     }
     MineMessageVC *messageVC = [[MineMessageVC alloc]init];
     messageVC.ownership = Team_Message;
@@ -444,15 +449,16 @@
 }
 //TODO:丽蕾 （点击切换团队阴影）
 - (void)clickTeamChangeViewBlackBG{
-    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+    WeakSelf
+    self.changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
         if (isDismissed){
-            _changeTeamNavView.navViewLeftBtn.selected = NO;
+            weakSelf.changeTeamNavView.navViewLeftBtn.selected = NO;
             //设置动画
-            _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
+            weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
             [UIView animateWithDuration:0.2 animations:^{
-                _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+                weakSelf.changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
             } completion:^(BOOL finished) {
-                _changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
+                weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
             }];
         }
     };

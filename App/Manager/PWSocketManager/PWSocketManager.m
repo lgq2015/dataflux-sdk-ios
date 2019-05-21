@@ -120,7 +120,7 @@ static dispatch_queue_t socket_message_queue() {
                         NSInteger code = [dic integerValueForKey:@"error" default:0];
                         if (code == 200) {
                             _isAuthed = YES;
-                            [self tryFetchIssueLog];
+                        [self tryFetchIssueLog];
                         } else{
                             _isAuthed  =NO;
                         }
@@ -221,8 +221,8 @@ static dispatch_queue_t socket_message_queue() {
                     DLog(@"sync notification view")
                     dispatch_async_on_main_queue(^{
 
-                        [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
-                                            userInfo:nil];
+//                        [kNotificationCenter postNotificationName:KNotificationInfoBoardDatasUpdate object:nil
+//                                            userInfo:nil];
 
                         [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                             userInfo:@{@"updateView":@(YES)}];

@@ -48,10 +48,10 @@
     scrollPageView.extraBtnOnClick = ^(UIButton *extraBtn,PWScrollSegmentView *segmentView){
         if(extraBtn.tag == 10){
         //判断团队切换界面如果弹出就让你消失
-        ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
-        if (manager.isShowTeamView){
-            [manager dismiss];
-        }
+//        ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+//        if (manager.isShowTeamView){
+//            [manager dismiss];
+//        }
         ScanViewController *scan = [[ScanViewController alloc]init];
         scan.isVideoZoom = YES;
         scan.libraryType = SLT_Native;
@@ -76,12 +76,12 @@
             }];
             //显示
             if (arrowBtn.isSelected){
-                ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
-                [changeView showWithOffsetY:kTopHeight+15];
-                changeView.delegate = self;
-                changeView.fromVC = self;
+//                ZYChangeTeamUIManager *changeView=  [ZYChangeTeamUIManager shareInstance];
+//                [changeView showWithOffsetY:kTopHeight+15];
+//                changeView.delegate = self;
+//                changeView.fromVC = self;
             }else{
-                [[ZYChangeTeamUIManager shareInstance] dismiss];
+//                [[ZYChangeTeamUIManager shareInstance] dismiss];
             }
         }
     };
@@ -138,19 +138,19 @@
 }
 //点击切换团队阴影
 - (void)clickTeamChangeViewBlackBG{
-    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
-        if (isDismissed){
-            UIButton *arrowBtn = [_zysegmentView viewWithTag:21];
-            arrowBtn.selected = NO;
-            //设置动画
-            arrowBtn.userInteractionEnabled = NO;
-            [UIView animateWithDuration:0.2 animations:^{
-                arrowBtn.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
-            } completion:^(BOOL finished) {
-                arrowBtn.userInteractionEnabled = YES;
-            }];
-        }
-    };
+//    [ZYChangeTeamUIManager shareInstance].dismissedBlock = ^(BOOL isDismissed) {
+//        if (isDismissed){
+//            UIButton *arrowBtn = [_zysegmentView viewWithTag:21];
+//            arrowBtn.selected = NO;
+//            //设置动画
+//            arrowBtn.userInteractionEnabled = NO;
+//            [UIView animateWithDuration:0.2 animations:^{
+//                arrowBtn.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+//            } completion:^(BOOL finished) {
+//                arrowBtn.userInteractionEnabled = YES;
+//            }];
+//        }
+//    };
 }
 
 @end

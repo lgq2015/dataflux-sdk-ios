@@ -8,11 +8,10 @@
 
 #import "IssueRecoveredListVC.h"
 #import "IssueCell.h"
-#import "IssueDetailVC.h"
-#import "IssueProblemDetailsVC.h"
 #import "HLSafeMutableArray.h"
 #import "IssueListManger.h"
-
+#import "IssueDetailsVC.h"
+#import "IssueListViewModel.h"
 @interface IssueRecoveredListVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) HLSafeMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageMaker;
@@ -136,16 +135,10 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.dataSource[indexPath.row];
-    model.isRead = YES;
-    if (model.isFromUser) {
-        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
+        model.isRead = YES;
+        IssueDetailsVC *detailVC = [[IssueDetailsVC alloc]init];
         detailVC.model = model;
         [self.navigationController pushViewController:detailVC animated:YES];
-    }else{
-        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
-        infodetial.model = model;
-        [self.navigationController pushViewController:infodetial animated:YES];
-    }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

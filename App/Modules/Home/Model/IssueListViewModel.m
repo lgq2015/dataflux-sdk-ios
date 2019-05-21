@@ -49,7 +49,6 @@
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
         self.title = [dict stringValueForKey:@"title" default:@""];
         self.content = [dict stringValueForKey:@"detail" default:@""];
-        self.highlight = [dict stringValueForKey:@"highlight" default:@""];
         self.attrs = [dict stringValueForKey:@"suggestion" default:@""];
     }else{
         self.title = model.title;
@@ -65,19 +64,70 @@
         markEndAccountInfo = [model.markEndAccountInfoStr jsonValueDecoded];
     }
     if (model.latestIssueLogsStr) {
+        NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];
         
-    }
-    if ([model.markStatus isEqualToString:@"tookOver"]){
-       
-        NSString *name = [markTookOverInfoJSON stringValueForKey:@"name" default:@""];
-        self.issueLog = [NSString stringWithFormat:@"· %@正在处理",name];
-        
-    }else if ([model.markStatus isEqualToString:@"recovered"]){
-
-        NSString *name = [markEndAccountInfo stringValueForKey:@"name" default:@""];
-        self.issueLog = [NSString stringWithFormat:@"· 已由%@解决",name];
+        NSDictionary *issueLogDict =latestIssueLogs[0];
+        NSDictionary *account_info = issueLogDict[@"account_info"];
+        NSString *chatTime = [issueLogDict stringValueForKey:@"createTime" default:@""];
+        chatTime = [NSString getLocalDateFormateUTCDate:chatTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        self.chatTime = [NSString compareCurrentTime:chatTime];
+        if (account_info.allKeys>0) {
+            NSString *account = [account_info stringValueForKey:@"name" default:@""];
+            NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+            NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
+            NSString *content;
+            if ([type isEqualToString:@"attachment"]) {
+                NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
+                NSString *type =  [fileName pathExtension];
+                if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
+                    content =@"[图片]";
+                }else{
+                    content = [NSString stringWithFormat:@"[文件]%@",fileName];
+                }
+            }else{
+                content =[issueLogDict stringValueForKey:@"content" default:@""];
+            }
+            if (nickname.length>0) {
+                self.issueLog =[NSString stringWithFormat:@"%@:  %@",nickname,content];
+            }else{
+                self.issueLog =[NSString stringWithFormat:@"%@: %@",account,content];
+            }
+        }else{
+            self.issueLog = [issueLogDict stringValueForKey:@"content" default:@""];
+        }
+        NSDictionary *atInfoJSON = PWSafeDictionaryVal(issueLogDict, @"atInfoJSON");
+        if (atInfoJSON) {
+           __block NSString *string = [issueLogDict stringValueForKey:@"content" default:@""];
+            NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+            NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
+            if(serviceMap.allKeys.count>0){
+                [serviceMap.allKeys enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    string = [string stringByReplacingOccurrencesOfString:obj withString:serviceMap[obj]];
+                }];
+            }
+            if(accountIdMap.allKeys.count>0){
+                [accountIdMap.allKeys enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    string=  [string stringByReplacingOccurrencesOfString:obj withString:accountIdMap[obj]];
+                }];
+            }
     
-        
+            self.issueLog = string;
+        }
+    }
+  
+   
+   
+    NSDictionary *tags = PWSafeDictionaryVal(markTookOverInfoJSON, @"tags");
+    if (tags) {
+        self.markUserIcon = PWSafeDictionaryVal(tags, @"pwAvatar");
+    }
+    //标记状态
+    if ([model.markStatus isEqualToString:@"tookOver"]){
+        NSString *name = [markTookOverInfoJSON stringValueForKey:@"name" default:@""];
+        self.markStatusStr = [NSString stringWithFormat:@"%@正在处理",name];
+    }else if ([model.markStatus isEqualToString:@"recovered"]){
+        NSString *name = [markEndAccountInfo stringValueForKey:@"name" default:@""];
+        self.markStatusStr = [NSString stringWithFormat:@"%@标记为解决",name];
     }
    
     if ([model.origin isEqualToString:@"user"]) {
@@ -85,26 +135,26 @@
     }else{
         self.isFromUser = NO;
     }
-    if (model.latestIssueLogsStr) {
-        self.isHasChat = YES;
-    }
-    if (model.atLogSeq && model.atLogSeq>0) {
-         long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
-        if (model.atLogSeq>seq) {
-          self.isCallME = YES;
-        }
-    }else{
-        if (model.readAtInfoStr) {
-            NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
-            int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
-            long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
-            long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
-            if (unreadCount>0 && lastReadSeq<seq) {
+   
+        if (model.atLogSeq && model.atLogSeq>0) {
+            long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
+            if (model.atLogSeq>seq) {
                 self.isCallME = YES;
             }
-        }
-    }
+        }else{
+            if (model.readAtInfoStr) {
+                NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
+                int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
+                long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
+                long long seq = [[IssueChatDataManager sharedInstance] getLastChatIssueLogMarker:model.issueId];
+                if (unreadCount>0 && lastReadSeq<seq) {
+                    self.isCallME = YES;
+                }
+            }
    
+    }
+    
+    self.type = model.type;
     self.ticketStatus = model.ticketStatus;
     self.isRead = model.isRead;
     if(model.seq>0){
