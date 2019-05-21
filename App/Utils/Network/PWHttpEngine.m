@@ -197,8 +197,7 @@
                     @"_latestIssueLogSubType": @"comment",
                     @"orderMethod": @"asc",
                     @"_readerAccountId":userManager.curUserInfo.userID,
-                    @"_needReadInfo":@YES,
-                    @"_withLastReadSeq":@NO,
+                    @"_needReadInfo":@"true",
                     @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
                     @"pageSize": @(pageSize)
             } mutableCopy];
