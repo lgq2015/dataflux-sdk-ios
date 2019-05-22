@@ -39,7 +39,7 @@
     [self addSubview:arrow];
     [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.commentBtn.mas_right).offset(8);
-        make.centerY.width.mas_equalTo(self.stateIcon);
+        make.centerY.mas_equalTo(self.stateIcon);
         make.width.height.offset(ZOOM_SCALE(16));
     }];
     [self.unfoldBtn mas_makeConstraints:^(MASConstraintMaker *make) {
