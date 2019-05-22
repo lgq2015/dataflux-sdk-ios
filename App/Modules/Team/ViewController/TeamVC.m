@@ -27,7 +27,7 @@
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "CloudCareVC.h"
 #define DeletBtnTag 100
-@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZYChangeTeamUIManagerDelegate,ZTTeamVCTopCellDelegate>
+@interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZTTeamVCTopCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
 @property (nonatomic, strong) UIButton *leftNavButton;
 @property (nonatomic, strong) UIButton *rightNavButton;
@@ -59,7 +59,6 @@
     if (!_changeTeamView) {
         _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
         _changeTeamView.fromVC = self;
-        _changeTeamView.delegate = self;
     }
     return _changeTeamView;
 }
@@ -327,7 +326,7 @@
         make.right.mas_equalTo(nav).offset(-13);
         make.width.height.offset(28);
     }];
-    nav.backgroundColor = PWBackgroundColor;
+    nav.backgroundColor = PWWhiteColor;
     NSString *titleString;
     if([getTeamState isEqualToString:PW_isTeam]){
         titleString = userManager.teamModel.name;
@@ -349,7 +348,7 @@
         make.bottom.mas_equalTo(nav).offset(-20);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24, kWidth, 1)];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
    

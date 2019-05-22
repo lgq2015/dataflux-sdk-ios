@@ -26,6 +26,9 @@
 @property (nonatomic, copy)   NSString *type;
 //@property (nonatomic, strong) UIView *listFooterView;
 @property (nonatomic, strong) UILabel *tipLab;
+@property (nonatomic, strong) NSMutableArray *datas;
+@property (nonatomic, assign) NSInteger currentPage;
+
 @end
 
 @implementation IssueListVC
@@ -49,9 +52,11 @@
                                 name:KNotificationUpdateIssueList
                               object:nil];
 
+    [self createUI];
+    WeakSelf
     [self loadAllIssueList:^{
-        [self reloadData];
-        [self dealWithNotificationData];
+        [weakSelf reloadDataWithIssueType:0 viewType:0 refresh:NO];
+        [weakSelf dealWithNotificationData];
     }];
     
 
@@ -59,28 +64,27 @@
 - (void)hometeamSwitch:(NSNotification *)notification{
     DLog(@"homevc----团队切换请求成功后通知");
     [SVProgressHUD show];
+    WeakSelf
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
         NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
-        [self.monitorData removeAllObjects];
-        [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
-            [self.monitorData addObject:model];
-        }];
         if (datas.count == 0) {
-             [self showNoDataViewWithStyle:NoDataViewIssueList];
+             [weakSelf showNoDataViewWithStyle:NoDataViewIssueList];
         }else{
-             [self removeNoDataImage];
+            [weakSelf removeNoDataImage];
+            NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+            [weakSelf.datas removeAllObjects];
+            [weakSelf.datas addObjectsFromArray:datas];
+            weakSelf.currentPage = 1;
+            [weakSelf dealDatas];
         }
-        [self.tableView reloadData];
+       
     }];
 }
 - (void)loadAllIssueList:(void (^)(void))complete{
   
-    [self createUI];
     [SVProgressHUD show];
-//     NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
-//      setUpStyle();
+
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
          complete();
@@ -103,6 +107,7 @@
 
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
+    self.currentPage = 1;
     self.view.backgroundColor = PWWhiteColor;
     NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
     self.monitorData = [NSMutableArray new];
@@ -121,55 +126,55 @@
     }
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
-    self.tableView.tableFooterView = self.footView;
     self.tempCell = [[IssueCell alloc] initWithStyle:0 reuseIdentifier:@"IssueCell"];
 
     self.tableView.mj_header = self.header;
+    [self.datas addObjectsFromArray:datas];
     if (datas.count>0) {
-    
-        [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
-        [self.monitorData addObject:model];
-        }];
+        [self dealDatas];
     }else{
         [self showNoDataViewWithStyle:NoDataViewIssueList];
     }
    
-//    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
-//        AddIssueGuideView *guid = [[AddIssueGuideView alloc]init];
-//        [guid showInView:[UIApplication sharedApplication].keyWindow];
-//
-//        [[NSUserDefaults standardUserDefaults] setValue:@"YES" forKey:@"MonitorIsFirst"];
-//    }
-
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:];
-//    });
 
 }
-
+-(void)footerRefreshing{
+    self.currentPage++;
+    [self addDatas];
+}
 -(void)headerRefreshing{
+    self.currentPage = 1;
+    WeakSelf
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-        [self reloadData];
-        [self.header endRefreshing];
+        [weakSelf reloadDataWithIssueType:0 viewType:0 refresh:YES];
+        [weakSelf.header endRefreshing];
     }                                           getAllDatas:YES];
+}
+-(NSMutableArray *)datas{
+    if (!_datas) {
+        _datas = [NSMutableArray new];
+    }
+    return _datas;
 }
 - (void)onNewIssueUpdate:(NSNotification *)notification{
     NSDictionary *pass = [notification userInfo];
     if ([pass boolValueForKey:@"updateView" default:NO]) {
-        [self reloadData];
+        [self reloadDataWithIssueType:0 viewType:0 refresh:NO];
     } else {
 
         NSArray *types = [pass mutableArrayValueForKey:@"types"];
+        if ([pass containsObjectForKey:@"types"]) {
+             self.tipLab.hidden = NO;
+            [self.view bringSubviewToFront:self.tipLab];
+        }
         if ([types containsObject:self.type]) {
             self.tipLab.hidden = NO;
+            [self.view bringSubviewToFront:self.tipLab];
         }
     }
 }
 
-- (void)reloadData {
-    [self reloadDataWithIssueType:0 viewType:0];
-}
+
 - (void)navBtnClick:(UIButton *)btn{
     if([getTeamState isEqualToString:PW_isTeam]){
     AddIssueVC *creatVC = [[AddIssueVC alloc]init];
@@ -185,15 +190,16 @@
         vc.dowhat = supplementTeamInfo;
         [self.navigationController pushViewController:vc animated:YES];
     }else{
+        WeakSelf
         [userManager judgeIsHaveTeam:^(BOOL isSuccess, NSDictionary *content) {
             if (isSuccess) {
                 if([getTeamState isEqualToString:PW_isTeam]){
                     AddIssueVC *creatVC = [[AddIssueVC alloc]init];
-                    creatVC.type = self.type;
-                    [self.navigationController pushViewController:creatVC animated:YES];
+                    creatVC.type = _type;
+                    [weakSelf.navigationController pushViewController:creatVC animated:YES];
                 }else if([getTeamState isEqualToString:PW_isPersonal]){
                     FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-                    [self.navigationController pushViewController:createTeam animated:YES];
+                    [weakSelf.navigationController pushViewController:createTeam animated:YES];
                 }
             }else{
               
@@ -201,30 +207,42 @@
         }];
     }
 }
-//-(UIView *)listFooterView{
-//    if (!_listFooterView) {
-//        _listFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
-//        _listFooterView.backgroundColor = PWBackgroundColor;
-//        UIImageView *line = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:[UIColor colorWithHexString:@"DDDDDD"]]];
-//        line.frame = CGRectMake(0, 60-ZOOM_SCALE(20), kWidth, 1);
-//        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectZero];
-//        btn.titleLabel.font = RegularFONT(13);
-//        [btn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-//        btn.backgroundColor = PWBackgroundColor;
-//        [btn setTitle:@"查看过去 24 小时恢复的情报" forState:UIControlStateNormal];
-//        [btn sizeToFit];
-//        [_listFooterView addSubview:line];
-//        [_listFooterView addSubview:btn];
-//        CGFloat width = btn.frame.size.width;
-//        [btn addTarget:self action:@selector(noDataBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.center.mas_equalTo(line);
-//            make.height.offset(ZOOM_SCALE(20));
-//            make.width.offset(width+10);
-//        }];
-//    }
-//    return _listFooterView;
-//}
+- (void)addDatas{
+    NSArray *currentData;
+    NSInteger addCount;
+    if (self.datas.count<=self.currentPage*10) {
+        addCount = self.datas.count%10==0?10:self.datas.count%10;
+        self.tableView.tableFooterView = self.footView;
+    }else{
+        addCount = 10;
+        self.tableView.tableFooterView = self.footer;
+    }
+    
+    currentData = [self.datas subarrayWithRange:NSMakeRange((self.currentPage-1)*10, addCount)];
+    WeakSelf
+    [currentData enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
+        [weakSelf.monitorData addObject:model];
+    }];
+    [self.tableView reloadData];
+    [self.footer endRefreshing];
+}
+- (void)dealDatas{
+    [self.monitorData removeAllObjects];
+    NSArray *currentData;
+    if (self.datas.count>=self.currentPage*10) {
+        currentData = [self.datas subarrayWithRange:NSMakeRange(0, self.currentPage*10)];
+        self.tableView.tableFooterView = self.footer;
+    }else{
+        currentData = [self.datas copy];
+        self.tableView.tableFooterView = self.footView;
+    }
+    [currentData enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
+        [_monitorData addObject:model];
+    }];
+    [self.tableView reloadData];
+}
 - (UILabel *)tipLab{
     if (!_tipLab) {
         NSString *string =@"您有新情报，点击刷新";
@@ -247,9 +265,16 @@
     }
     return _tipLab;
 }
-- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)viewIndex{
+- (void)reloadData{
+    [self reloadDataWithIssueType:0 viewType:0 refresh:YES];
+}
+- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)viewIndex refresh:(BOOL)refresh{
+    if (refresh) {
+        self.currentPage =1;
+    }
     IssueType type = index;
     IssueViewType viewType =viewIndex;
+    WeakSelf
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:type issueViewType:viewType];
@@ -257,17 +282,17 @@
         dispatch_async_on_main_queue(^{
             
             if (dataSource.count > 0) {
-                [self.monitorData removeAllObjects];
-                [dataSource enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                    IssueListViewModel *model = [[IssueListViewModel alloc] initWithJsonDictionary:obj];
-                    [self.monitorData addObject:model];
-                }];
-                [self.tableView reloadData];
-                [self removeNoDataImage];
+                [weakSelf.datas removeAllObjects];
+                [weakSelf.datas addObjectsFromArray:dataSource];
+                [weakSelf dealDatas];
+                if (refresh) {
+             [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                }
+                [weakSelf removeNoDataImage];
             } else {
-                [self showNoDataViewWithStyle:NoDataViewIssueList];
+                [weakSelf showNoDataViewWithStyle:NoDataViewIssueList];
             }
-            self.tipLab.hidden = YES;
+            weakSelf.tipLab.hidden = YES;
         });
     });
 }
@@ -310,8 +335,7 @@
 }
 
 -(void)dealloc{
-    [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:_type];
-    KPostNotification(KNotificationInfoBoardDatasUpdate, nil)
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

@@ -15,7 +15,7 @@
 #import "ZTChangeTeamNavView.h"
 #import "TeamInfoModel.h"
 #import "ZYChangeTeamUIManager.h"
-@interface HomeIssueListVC ()<IssueListHeaderDelegate,ZYChangeTeamUIManagerDelegate>
+@interface HomeIssueListVC ()<IssueListHeaderDelegate>
 @property (nonatomic, strong) IssueListHeaderView *headerView;
 @property (nonatomic, strong) IssueListVC *listVC;
 @property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
@@ -36,7 +36,7 @@
                                                  name:KNotificationTeamStatusChange
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(teamSwitch:)
+                                             selector:@selector(issueTeamSwitch:)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -57,7 +57,7 @@
         make.right.mas_equalTo(nav).offset(-13);
         make.width.height.offset(28);
     }];
-    nav.backgroundColor = PWBackgroundColor;
+    nav.backgroundColor = PWWhiteColor;
     NSString *titleString;
     if([getTeamState isEqualToString:PW_isTeam]){
         titleString = userManager.teamModel.name;
@@ -79,7 +79,7 @@
         make.bottom.mas_equalTo(nav).offset(-20);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24, kWidth, 1)];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
     self.headerView = [[IssueListHeaderView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(nav.frame) , kWidth, ZOOM_SCALE(42))];
@@ -116,10 +116,11 @@
 - (void)addTeamSuccess:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];
     [self.tableView reloadData];
+    WeakSelf
     [userManager addTeamSuccess:^(BOOL isSuccess) {
         if (isSuccess){
-            [self changeTopLeftNavTitleName];
-            [self.tableView reloadData];
+            [weakSelf changeTopLeftNavTitleName];
+            [weakSelf.tableView reloadData];
         }
     }];
 }
@@ -143,7 +144,6 @@
         _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
         [_changeTeamView showWithOffsetY:kTopHeight+24];
         _changeTeamView.fromVC = self;
-        _changeTeamView.delegate =self;
         WeakSelf
         _changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
             if (isDismissed){
@@ -160,7 +160,7 @@
     }
     return _changeTeamView;
 }
-- (void)teamSwitch:(NSNotification *)notification{
+- (void)issueTeamSwitch:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];
     [self.headerView refreshHeaderViewTitle];
 }
@@ -177,10 +177,14 @@
     }
 }
 -(void)selectIssueTypeIndex:(NSInteger)index{
-    [self.listVC reloadDataWithIssueType:index+1 viewType:0];
+    [self.listVC reloadDataWithIssueType:index+1 viewType:0 refresh:YES];
 }
 -(void)selectIssueViewTypeIndex:(NSInteger)index{
-    [self.listVC reloadDataWithIssueType:0 viewType:index+1];
+    [self.listVC reloadDataWithIssueType:0 viewType:index+1 refresh:YES];
+}
+-(void)dealloc{
+    self.listVC = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 /*
 #pragma mark - Navigation
