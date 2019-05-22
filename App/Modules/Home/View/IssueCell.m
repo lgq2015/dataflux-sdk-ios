@@ -68,6 +68,7 @@
         make.width.height.offset(ZOOM_SCALE(18));
         make.centerY.mas_equalTo(self.sourcenNameLab);
     }];
+    
     [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
         make.centerY.mas_equalTo(self.markUserIcon);
@@ -231,6 +232,8 @@
 -(UIImageView *)markUserIcon{
     if (!_markUserIcon) {
         _markUserIcon = [[UIImageView alloc]init];
+        _markUserIcon.layer.cornerRadius = ZOOM_SCALE(9);
+        _markUserIcon.layer.masksToBounds = YES;
         [self addSubview:_markUserIcon];
     }
     return _markUserIcon;

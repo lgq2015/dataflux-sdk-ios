@@ -44,6 +44,8 @@
     homeVC.isHidenNaviBar = YES;
     [self setupChildViewController:homeVC title:@"情报" imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
     LibraryVC *libriary = [[LibraryVC alloc]init];
+    libriary.isHidenNaviBar = YES;
+
     [self setupChildViewController:libriary title:@"智库" imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
     team.isHidenNaviBar = YES;

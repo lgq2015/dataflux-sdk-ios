@@ -15,7 +15,7 @@
 #import "RootNavigationController.h"
 #import "ZYChangeTeamUIManager.h"
 #import "FillinTeamInforVC.h"
-@interface HomeViewController ()<ZYChangeTeamUIManagerDelegate>
+@interface HomeViewController ()
 @property (nonatomic, strong) NetworkToolboxView *toolsView;
 @property (nonatomic, strong) PWScrollSegmentView *zysegmentView;
 @end
