@@ -171,7 +171,14 @@
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
     
     self.titleLab.text = self.model.title;
-   
+     [self.sourcenNameLab sizeToFit];
+    CGSize size =self.sourcenNameLab.frame.size;
+    [self.sourcenNameLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(size.width);
+    }];
+    [self.markStatusLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self).offset(-5);
+    }];
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
