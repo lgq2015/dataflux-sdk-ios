@@ -57,8 +57,8 @@
     }];
     [self stateLabUI];
     [self.typeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.stateLab);
+        make.left.mas_equalTo(self.stateLab);
+        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
         make.width.offset(ZOOM_SCALE(39));
         make.height.offset(ZOOM_SCALE(27));
     }];
@@ -69,8 +69,8 @@
         make.height.offset(ZOOM_SCALE(18));
     }];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.issueNameLab.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.issueNameLab);
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(10));
+        make.centerY.mas_equalTo(self.stateLab);
         make.height.offset(ZOOM_SCALE(18));
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
@@ -79,7 +79,7 @@
     [self.upContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(16));
+        make.top.mas_equalTo(self.issueNameLab.mas_bottom).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(22));
     }];
     self.contentLab.preferredMaxLayoutWidth = kWidth-Interval(32);

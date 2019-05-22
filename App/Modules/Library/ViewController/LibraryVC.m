@@ -34,10 +34,26 @@ static NSUInteger ItemWidth = 104;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.mainScrollView.frame= CGRectMake(0, Interval(28)+ZOOM_SCALE(36), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(74));
+    [self createNav];
+    self.mainScrollView.frame= CGRectMake(0, kTopHeight+Interval(53)+ZOOM_SCALE(36), kWidth, kHeight-kTopHeight-kTabBarHeight-Interval(53)-ZOOM_SCALE(36));
     self.mainScrollView.backgroundColor = PWWhiteColor;
     [self dealWithData];
     
+}
+- (void)createNav{
+    UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
+    [self.view addSubview:nav];    
+    nav.backgroundColor = PWWhiteColor;
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:@"智库"];
+    title.textAlignment = NSTextAlignmentCenter;
+    [nav addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(nav);
+        make.bottom.mas_equalTo(nav.mas_bottom).offset(-20);
+    }];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
+    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    [nav addSubview:line];
 }
 
 - (void)createUpUI{
@@ -174,7 +190,7 @@ static NSUInteger ItemWidth = 104;
 }
 -(UIView *)searchView{
     if (!_searchView) {
-        _searchView = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12), kWidth-Interval(32), ZOOM_SCALE(36))];
+        _searchView = [[UIView alloc]initWithFrame:CGRectMake(Interval(16), Interval(12)+kTopHeight+25, kWidth-Interval(32), ZOOM_SCALE(36))];
         _searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
         _searchView.layer.cornerRadius = 4.0f;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchClick)];

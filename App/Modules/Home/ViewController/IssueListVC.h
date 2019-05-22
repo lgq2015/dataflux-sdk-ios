@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListVC : RootViewController
-- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)index;
+- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)index refresh:(BOOL)refresh;
 @end
 
 NS_ASSUME_NONNULL_END

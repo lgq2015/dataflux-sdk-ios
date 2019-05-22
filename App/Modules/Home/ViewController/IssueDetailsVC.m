@@ -539,7 +539,11 @@
    
     self.state = IssueDealStateChat;
     dispatch_async_on_main_queue(^{
-         [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+        if(self.dataSource.count>0){
+         CGRect rect = [self.tableView rectForSection:0];
+         [self.tableView setContentOffset:CGPointMake(0, rect.origin.y) animated:YES];
+        }
+       
     });
     [self.bottomBtnView setImgWithStates:IssueDealStateChat];
 }

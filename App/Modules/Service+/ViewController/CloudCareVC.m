@@ -12,7 +12,7 @@
 #import "ZTCreateTeamVC.h"
 #import "ZYChangeTeamUIManager.h"
 #import "TeamInfoModel.h"
-@interface CloudCareVC ()<ZYChangeTeamUIManagerDelegate>
+@interface CloudCareVC ()
 @property (nonatomic, strong)UIView *customHeader;
 @end
 
