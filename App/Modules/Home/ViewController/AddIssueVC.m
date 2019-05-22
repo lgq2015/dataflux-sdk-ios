@@ -356,8 +356,6 @@
                 if(![[PWSocketManager sharedPWSocketManager] isConnect]){
                     self.refresh? self.refresh():nil;
                 }
-                [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:model.issueId
-                                                                      callBack:^(BaseReturnModel *issueLogListModel) {}];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController pushViewController:details animated:YES];
                     NSMutableArray *delect = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
@@ -510,7 +508,7 @@
         multiplyFactor++;
     }
 
-    return [NSString stringWithFormat:@"%f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
+    return [NSString stringWithFormat:@"%.f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
 /*
 #pragma mark - Navigation

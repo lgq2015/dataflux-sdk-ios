@@ -354,14 +354,14 @@
     double convertedValue = [value doubleValue];
     int multiplyFactor = 0;
     
-    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
+    NSArray *tokens = [NSArray arrayWithObjects:@"B",@"KB",@"M",nil];
     
     while (convertedValue > 1024) {
         convertedValue /= 1024;
         multiplyFactor++;
     }
     
-    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
+    return [NSString stringWithFormat:@"%.f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
 //获取字符串的字节数
 - (NSUInteger )charactorNumber

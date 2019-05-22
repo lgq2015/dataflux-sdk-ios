@@ -68,7 +68,7 @@
         [self.teamMemberArray removeAllObjects];
     }
     //判断是否要添加专家
-    [self addAtSpecialist];
+//    [self addAtSpecialist];
   __block  NSInteger index = self.teamMemberArray.count>0?1:0;
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;

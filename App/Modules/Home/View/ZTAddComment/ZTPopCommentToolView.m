@@ -52,8 +52,7 @@
 - (UIButton *)atBtn{
     if (!_atBtn){
         _atBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_atBtn setTitle:@"@" forState:UIControlStateNormal];
-        [_atBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
+        [_atBtn setImage:[UIImage imageNamed:@"pw_icon_call_person"] forState:UIControlStateNormal];
     }
     return _atBtn;
 }

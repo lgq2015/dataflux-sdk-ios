@@ -46,7 +46,7 @@
     LibraryVC *libriary = [[LibraryVC alloc]init];
     [self setupChildViewController:libriary title:@"智库" imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
-    team.isShowCustomNaviBar = NO;
+    team.isHidenNaviBar = YES;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
     
     MineViewController *mineVC = [[MineViewController alloc]init];

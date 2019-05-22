@@ -309,7 +309,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedRowHeight = 50;
         _tableView.rowHeight = UITableViewAutomaticDimension;
   
         _tableView.scrollsToTop = YES;

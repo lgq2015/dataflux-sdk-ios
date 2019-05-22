@@ -314,6 +314,9 @@
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
+		4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
+		4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
+		4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
 		4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
@@ -1369,6 +1372,8 @@
 		4A3A13742281290400098DFA /* AtTeamMemberListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtTeamMemberListVC.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
+		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
+		4A50F3F92293A18000AD7715 /* IgnoreItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IgnoreItemView.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
 		4A61144621DCAE4000E4138B /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
 		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
@@ -2235,6 +2240,8 @@
 				4AC21FC7228BB53D0098848C /* IssueEngineHeaderView.m */,
 				4AC21FCB228BB5590098848C /* IssueUserDetailView.h */,
 				4AC21FCC228BB5590098848C /* IssueUserDetailView.m */,
+				4A50F3F82293A18000AD7715 /* IgnoreItemView.h */,
+				4A50F3F92293A18000AD7715 /* IgnoreItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3798,7 +3805,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
@@ -3817,7 +3824,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-App/Pods-App-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5542C2A8A2A0B557334EB579 /* [CP] Copy Pods Resources */ = {
@@ -3826,7 +3833,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
@@ -3845,7 +3852,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppPreMade/Pods-AppPreMade-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		579FFACBF0095BE129E7091C /* [CP] Check Pods Manifest.lock */ = {
@@ -3890,7 +3897,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh",
 				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle",
@@ -3909,7 +3916,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppDev/Pods-AppDev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B45C7A2EA9CFC7661572B9A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -4023,6 +4030,7 @@
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* IssueSourceViewModel.m in Sources */,
+				4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
@@ -4362,6 +4370,7 @@
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
 				4A759ACB224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
@@ -4701,6 +4710,7 @@
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
 				4A759ACC224CF0BA0057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,

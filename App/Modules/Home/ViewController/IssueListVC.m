@@ -50,6 +50,7 @@
                               object:nil];
 
     [self loadAllIssueList:^{
+        [self reloadData];
         [self dealWithNotificationData];
     }];
     
@@ -67,7 +68,7 @@
             [self.monitorData addObject:model];
         }];
         if (datas.count == 0) {
-             [self showNoDataViewWithStyle:NoDataViewNormal];
+             [self showNoDataViewWithStyle:NoDataViewIssueList];
         }else{
              [self removeNoDataImage];
         }
@@ -75,13 +76,13 @@
     }];
 }
 - (void)loadAllIssueList:(void (^)(void))complete{
-    void (^setUpStyle)(void) = ^{
-        [self createUI];
-    };
+  
+    [self createUI];
     [SVProgressHUD show];
+//     NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+//      setUpStyle();
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
-         setUpStyle();
          complete();
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg];
@@ -129,9 +130,9 @@
         [datas enumerateObjectsUsingBlock:^(IssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         IssueListViewModel *model = [[IssueListViewModel alloc]initWithJsonDictionary:obj];
         [self.monitorData addObject:model];
-        }];       
+        }];
     }else{
-        [self showNoDataViewWithStyle:NoDataViewNormal];
+        [self showNoDataViewWithStyle:NoDataViewIssueList];
     }
    
 //    if (![kUserDefaults valueForKey:@"MonitorIsFirst"]) {
@@ -149,7 +150,6 @@
 
 -(void)headerRefreshing{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-//        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:self.type];
         [self reloadData];
         [self.header endRefreshing];
     }                                           getAllDatas:YES];
@@ -180,9 +180,7 @@
         };
     [self.navigationController pushViewController:creatVC animated:YES];
     }else if([getTeamState isEqualToString:PW_isPersonal]){
-//        FillinTeamInforVC *createTeam = [[FillinTeamInforVC alloc]init];
-//        [self.navigationController pushViewController:createTeam animated:YES];
-      
+
         ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
         vc.dowhat = supplementTeamInfo;
         [self.navigationController pushViewController:vc animated:YES];
@@ -267,7 +265,7 @@
                 [self.tableView reloadData];
                 [self removeNoDataImage];
             } else {
-                [self showNoDataImage];
+                [self showNoDataViewWithStyle:NoDataViewIssueList];
             }
             self.tipLab.hidden = YES;
         });
@@ -298,9 +296,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.monitorData[indexPath.row];
-    if (model.cellHeight == 0 || !model.cellHeight) {
+    if (!model.cellHeight||model.cellHeight == 0) {
         CGFloat cellHeight = [self.tempCell heightForModel:self.monitorData[indexPath.row]];
         // 缓存给model
+        [[IssueListManger sharedIssueListManger] updateIssueListCellHeight:cellHeight issueId:model.issueId];
         model.cellHeight = cellHeight;
 
         return cellHeight;

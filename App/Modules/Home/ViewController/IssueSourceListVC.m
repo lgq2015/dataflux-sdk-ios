@@ -55,6 +55,12 @@
     self.tableView.rowHeight = 100.f;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[InformationSourceCell class] forCellReuseIdentifier:@"InformationSourceCell"];
+    if (userManager.teamModel.isAdmin) {
+         [self addNavigationItemWithTitles:@[@"添加"] isLeft:NO target:self action:@selector(addInfoSource) tags:@[@100]];
+    }
+}
+- (void)addIssueSource{
+    
 }
 - (void)loadTeamProductcompletion:(void(^)(BOOL isDefault))completion{
     [SVProgressHUD show];
@@ -109,7 +115,7 @@
                 [self.tableView reloadData];
                 self.tableView.tableFooterView = self.footView;
             } else {
-                [self showNoDataImageView];
+                [self showNoDataViewWithStyle:NoDataViewNormal];
             }
 
         });
