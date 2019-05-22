@@ -17,8 +17,7 @@
 #import "RootNavigationController.h"
 
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
-@property (nonatomic,strong) UIWindow * window;
-@property (nonatomic,strong) UIView *backgroundGrayView;//!<透明背景View
+@property (nonatomic,strong)  UIView *backgroundGrayView;//!<透明背景View
 @property (nonatomic, assign) CGFloat offsetY;//从哪个位置弹出来
 @property (nonatomic, strong) UITableView *tab;
 @property (nonatomic, strong) NSArray *teamlists;
@@ -36,7 +35,6 @@
 
 #pragma mark --添加主控件--
 -(void)s_UI{
-    [self.window addSubview:self.backgroundGrayView];
     [self.backgroundGrayView addSubview:self.tab];
     [self p_hideFrame];
 }
@@ -54,13 +52,17 @@
 }
 
 - (void)showWithOffsetY:(CGFloat)offset{
+    [[UIApplication sharedApplication].keyWindow addSubview:self.backgroundGrayView];
+    [self.backgroundGrayView addSubview:self.tab];
+    [self p_hideFrame];
     _offsetY = offset + 1.0;
     _teamlists = [userManager getAuthTeamList];
     //有列表缓存，直接展现
     if (_teamlists && _teamlists.count > 0){
+        WeakSelf
         [self show:^(BOOL isShow) {
             if (isShow){
-                [self requestIssueCount];
+                [weakSelf requestIssueCount];
             }
         }];
     }else{
@@ -108,9 +110,10 @@
         self.backgroundGrayView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
-            [self.tab removeFromSuperview];
-            self.tab = nil;
-            [self.backgroundGrayView removeFromSuperview];
+            [self removeFromSuperview];
+            [_tab removeFromSuperview];
+            _tab = nil;
+            [_backgroundGrayView removeFromSuperview];
             _isShowTeamView = NO;
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
@@ -119,12 +122,6 @@
 }
 
 #pragma mark --lazy--
--(UIWindow *)window{
-    if (!_window) {
-        _window = [[[UIApplication sharedApplication]delegate]window];
-    }
-    return _window;
-}
 
 -(UIView *)backgroundGrayView{
     if (!_backgroundGrayView) {
@@ -282,9 +279,6 @@
             }
             //发送团队切换通知
             KPostNotification(KNotificationSwitchTeam, nil);
-            if(_delegate && [self.delegate respondsToSelector:@selector(didClickChangeTeamWithGroupID:)]){
-                [self.delegate didClickChangeTeamWithGroupID:model.teamID];
-            }
             //判断是否是在首页，如果是在首页切换的团队，再请求下当前团队
             [self dealNoTeamVCAndCurrentPageIsHome];
         }else{
