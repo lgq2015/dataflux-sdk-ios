@@ -62,16 +62,16 @@
         make.height.offset(ZOOM_SCALE(18));
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
-    [self.createUser mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
+//    [self.createUser mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.stateLab);
+//        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
+//        make.height.offset(ZOOM_SCALE(18));
+//    }];
     UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
     [self.upContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.createUser.mas_bottom).offset(Interval(16));
+        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(22));
     }];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
