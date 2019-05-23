@@ -149,7 +149,7 @@
                 int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
                 long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
                 long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
-                if (unreadCount>0 && (seq ==0 || lastReadSeq>=seq)) {
+                if (unreadCount>0 && (lastReadSeq ==0 || lastReadSeq>=seq)) {
                     self.isCallME = YES;
                 }
             }
