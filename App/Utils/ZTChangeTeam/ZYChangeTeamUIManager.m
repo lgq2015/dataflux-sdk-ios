@@ -172,6 +172,7 @@
     }else{
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
         cell.textLabel.text = @"创建新团队";
+        cell.textLabel.font = RegularFONT(16);
         cell.textLabel.textColor = [UIColor colorWithHexString:@"#C7C7CC"];
         return  cell;
     }
