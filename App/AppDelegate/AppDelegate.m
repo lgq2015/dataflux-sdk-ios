@@ -204,7 +204,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional
-    DDLogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
+    NBULogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
@@ -219,7 +219,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
-            DDLogDebug(@"didReceive userInfo = %@",userInfo);
+            NBULogDebug(@"didReceive userInfo = %@",userInfo);
             if([userManager loadUserInfo]){
                 NSMutableDictionary *resultDic = [[NSMutableDictionary alloc]initWithDictionary:userInfo];
                 for (NSString *key in resultDic.allKeys) {

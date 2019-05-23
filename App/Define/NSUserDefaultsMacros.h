@@ -61,6 +61,10 @@
 #define setIsHideGuide(str)       [kUserDefaults setObject:str forKey:PW_IsHideGuide]
 #define getIsHideGuide             [kUserDefaults objectForKey:PW_IsHideGuide]
 
+#define PW_DevMode   @"isDevMode"
+#define setIsDevMode(str)   [kUserDefaults setBool:str forKey:PW_DevMode]
+#define getIsDevMode   [kUserDefaults boolForKey:PW_DevMode]
+
 #define PW_IsNotConnect  @"PW_IsNotConnect"
 
 

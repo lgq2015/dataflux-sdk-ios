@@ -13,8 +13,11 @@
 #import "DetectionVersionAlert.h"
 #import "FounctionIntroductionVC.h"
 
+#define MODE_SWITCH_COUNT 5
+
 @interface AboutUsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, assign) NSInteger clickTimes;
 @end
 
 @implementation AboutUsVC
@@ -26,6 +29,23 @@
 }
 - (void)createUI{
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, Interval(30), ZOOM_SCALE(64), ZOOM_SCALE(64))];
+#if DEV
+
+#elif PREPROD
+#else
+     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+             action:@selector(tapDetected)];
+    singleTap.numberOfTapsRequired = 1;
+    [icon setUserInteractionEnabled:YES];
+    [icon addGestureRecognizer:singleTap];
+
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc]
+            initWithTarget:self action:@selector(longPress)];
+    longPressGestureRecognizer.numberOfTapsRequired = 1;
+    [icon addGestureRecognizer:longPressGestureRecognizer];
+#endif
+
+
     CGPoint center = icon.center;
     center.x = self.view.centerX;
     icon.center = center;
@@ -56,9 +76,34 @@
     [self.view addSubview:self.tableView];
     self.tableView.frame = CGRectMake(0, Interval(86)+ZOOM_SCALE(84), kWidth, self.dataSource.count*45);
 }
+
+#if DEV
+#elif PREPROD
+#else
+- (void)longPress {
+    if (self.clickTimes >= MODE_SWITCH_COUNT) {
+        [NBULog setAppLogLevel:DDLogLevelAll];
+        setIsDevMode(YES);
+        [iToast alertWithTitleCenter:@"开发者模式"];
+    }
+}
+- (void)tapDetected {
+    if(getIsDevMode) {
+        [iToast alertWithTitleCenter:@"已经是开发者模式"];
+        return;
+    }
+
+    if (self.clickTimes >= MODE_SWITCH_COUNT) {
+        return;
+    }
+    self.clickTimes++;
+}
+#endif
+
+
 -(void)DetectNewVersion{
     [SVProgressHUD show];
-    
+
     //获取appStore网络版本号
     [PWNetworking requsetWithUrl:[NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=%@", APP_ID] withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
@@ -67,12 +112,12 @@
             NSDictionary *dict = results[0];
             [self judgeTheVersion:dict];
         }
-        
+
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
         [error errorToast];
     }];
-    
+
 }
 - (void)judgeTheVersion:(NSDictionary *)dict{
     NSString *releaseNotes = [dict stringValueForKey:@"releaseNotes" default:@""];
