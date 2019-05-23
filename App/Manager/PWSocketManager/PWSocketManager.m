@@ -150,6 +150,27 @@ static dispatch_queue_t socket_message_queue() {
         if (data.count > 0) {
             DLog(ON_EVENT_ISSUE_UPDATE
                     " = %@", data);
+            NSString *jsonString = data[0];
+            NSDictionary *dic = [jsonString jsonValueDecoded];
+            NSArray *addedIssues = PWSafeArrayVal(dic, @"addedIssues");
+            if (addedIssues.count>0) {
+                IssueModel *model = [[IssueModel alloc]initWithDictionary:addedIssues[0]];
+                if ( [model.origin isEqualToString:@"user"] ) {
+                    NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
+                    NSString *accountId = [originInfoJSON stringValueForKey:@"accountId" default:@""];
+                    if (![accountId isEqualToString:userManager.curUserInfo.userID]) {
+                   dispatch_async_on_main_queue(^{
+                        [kNotificationCenter
+                         postNotificationName:KNotificationNewIssue
+                         object:nil
+                         userInfo:@{@"types": @[]}];
+                   
+                                                
+                            });
+                    }}
+            }
+            
+           
             [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
         }
 
@@ -168,18 +189,18 @@ static dispatch_queue_t socket_message_queue() {
         }
 
     }];
-    [self.socket on:ON_EVENT_RECORD_Last_ReadSeq callback:^(NSArray *data, SocketAckEmitter *ack) {
-        if (data.count > 0) {
-            DLog(ON_EVENT_RECORD_Last_ReadSeq" = %@", data);
-            NSString *jsonString = data[0];
-            NSDictionary *dic = [jsonString jsonValueDecoded];
-            [kNotificationCenter
-             postNotificationName:KNotificationRecordLastReadSeq
-             object:nil
-             userInfo:dic];
-        }
-        
-    }];
+//    [self.socket on:ON_EVENT_RECORD_Last_ReadSeq callback:^(NSArray *data, SocketAckEmitter *ack) {
+//        if (data.count > 0) {
+//            DLog(ON_EVENT_RECORD_Last_ReadSeq" = %@", data);
+//            NSString *jsonString = data[0];
+//            NSDictionary *dic = [jsonString jsonValueDecoded];
+//            [kNotificationCenter
+//             postNotificationName:KNotificationRecordLastReadSeq
+//             object:nil
+//             userInfo:dic];
+//        }
+//
+//    }];
     [self.socket on:ON_EVENT_ISSUE_LOG_ADD callback:^(NSArray *data, SocketAckEmitter *ack) {
         DLog(ON_EVENT_ISSUE_LOG_ADD
                 " = %@", data);

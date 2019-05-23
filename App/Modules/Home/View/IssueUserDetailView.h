@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueUserDetailView : UIView
 -(instancetype)initHeaderWithIssueModel:(IssueListViewModel *)model;
+-(void)setCreateUserName:(NSString *)name;
+-(void)reloadHeaderUI;
 -(void)createAttachmentUIWithAry:(NSArray *)array;
 @end
 

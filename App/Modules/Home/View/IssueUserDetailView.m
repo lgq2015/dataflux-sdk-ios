@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIView  *subContainerView;
 @property (nonatomic, strong) UITableView *mTableView;
 @property (nonatomic, strong) NSMutableArray *expireData;
+@property (nonatomic, strong) UILabel *createUser;
 @property (nonatomic, copy)   NSURL *fileURL; //文件路径
 
 @end
@@ -61,11 +62,16 @@
         make.height.offset(ZOOM_SCALE(18));
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
+    [self.createUser mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.stateLab);
+        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
+        make.height.offset(ZOOM_SCALE(18));
+    }];
     UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
     [self.upContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(Interval(16));
+        make.top.mas_equalTo(self.createUser.mas_bottom).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(22));
     }];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,6 +113,11 @@
         [self layoutIfNeeded];
     
 }
+- (void)reloadHeaderUI{
+    [self stateLabUI];
+    self.timeLab.text =[self.model.time accurateTimeStr];
+    [self layoutIfNeeded];
+}
 - (void)stateLabUI{
     switch (self.model.state) {
         case MonitorListStateWarning:
@@ -131,6 +142,10 @@
             break;
     }
 }
+-(void)setCreateUserName:(NSString *)name{
+    self.createUser.text = name;
+    [self layoutIfNeeded];
+}
 #pragma mark ========== UI/INIT ==========
 
 -(UIView *)upContainerView{
@@ -148,6 +163,14 @@
         [self.upContainerView addSubview:_titleLab];
     }
     return _titleLab;
+}
+-(UILabel *)createUser{
+    if (!_createUser) {
+        _createUser = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13)
+                                         textColor:PWTitleColor text:@""];
+        [self.upContainerView addSubview:_createUser];
+    }
+    return _createUser;
 }
 -(UILabel *)contentLab{
     if (!_contentLab) {

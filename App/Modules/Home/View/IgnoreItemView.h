@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IgnoreItemView : UIView
-
+@property (nonatomic, copy) void(^itemClick)(void);
+- (void)showInView:(UIView *)view;
 @end
 
 NS_ASSUME_NONNULL_END

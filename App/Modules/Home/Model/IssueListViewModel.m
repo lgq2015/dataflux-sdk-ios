@@ -140,11 +140,14 @@
             }
         }else{
             if (model.readAtInfoStr) {
-                NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];
+                NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];                
                 int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
                 long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
                 long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
-                if (unreadCount>0 && lastReadSeq>=seq) {
+                if (unreadCount>0 && (lastReadSeq ==0 || lastReadSeq>=seq)) {
+                    if (lastReadSeq == 0 && lastReadSeq) {
+                        
+                    }
                     self.isCallME = YES;
                 }
             }

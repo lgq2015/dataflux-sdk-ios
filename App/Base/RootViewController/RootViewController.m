@@ -381,6 +381,7 @@
     for (NSString * imageName in imageNames) {
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateSelected];
         btn.frame = CGRectMake(0, 0, 30, 30);
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         

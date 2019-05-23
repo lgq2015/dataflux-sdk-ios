@@ -44,7 +44,7 @@
                                                  name:KNotificationSwitchTeam
                                                object:nil];
     [kNotificationCenter addObserver:self
-                            selector:@selector(onNewIssueUpdate:)
+                            selector:@selector(onNewIssueAddUpdate:)
                                 name:KNotificationNewIssue
                               object:nil];
     [kNotificationCenter addObserver:self
@@ -162,18 +162,30 @@
         [self reloadDataWithIssueType:0 viewType:0 refresh:NO];
     } else {
 
-        NSArray *types = [pass mutableArrayValueForKey:@"types"];
-        if ([pass containsObjectForKey:@"types"]) {
-             self.tipLab.hidden = NO;
-            [self.view bringSubviewToFront:self.tipLab];
-        }
-        if ([types containsObject:self.type]) {
-            self.tipLab.hidden = NO;
-            [self.view bringSubviewToFront:self.tipLab];
-        }
+//        NSArray *types = [pass mutableArrayValueForKey:@"types"];
+//        if ([pass containsObjectForKey:@"types"]) {
+//             self.tipLab.hidden = NO;
+//            [self.view bringSubviewToFront:self.tipLab];
+//        }
+//        if ([types containsObject:self.type]) {
+//            self.tipLab.hidden = NO;
+//            [self.view bringSubviewToFront:self.tipLab];
+//        }
     }
 }
+- (void)onNewIssueAddUpdate:(NSNotification *)notification{
+    NSDictionary *pass = [notification userInfo];
 
+    NSArray *types = [pass mutableArrayValueForKey:@"types"];
+    if ([pass containsObjectForKey:@"types"]) {
+        self.tipLab.hidden = NO;
+        [self.view bringSubviewToFront:self.tipLab];
+    }
+    if ([types containsObject:self.type]) {
+        self.tipLab.hidden = NO;
+        [self.view bringSubviewToFront:self.tipLab];
+    }
+}
 
 - (void)navBtnClick:(UIButton *)btn{
     if([getTeamState isEqualToString:PW_isTeam]){

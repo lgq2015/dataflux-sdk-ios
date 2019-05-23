@@ -26,6 +26,8 @@
 #import "PWBaseWebVC.h"
 #import "IssueListManger.h"
 #import "TeamInfoModel.h"
+#import "IgnoreItemView.h"
+
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
@@ -34,6 +36,7 @@
 @property (nonatomic, strong) IssueDtealsBV *bottomBtnView; //底部伪输入框
 @property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
 @property (nonatomic, assign) IssueDealState state;
+@property (nonatomic, strong) IgnoreItemView *itemView;
 @property (nonatomic, copy) NSString *oldStr;     //输入内容
 @end
 @implementation IssueDetailsVC
@@ -71,10 +74,12 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
-//        if ([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin) {
-//            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
-//        }
+        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != MonitorListStateLoseeEfficacy&&self.model.state != MonitorListStateRecommend) {
+            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
+        }
         [self loadIssueDetailExtra];
+        [self loadInfoDeatil];
+
     }else{
         self.tableView.tableHeaderView = self.engineHeader;
         [self.engineHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,13 +143,21 @@
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            if (self.model.isFromUser) {
+                NSDictionary *accountInfo = PWSafeDictionaryVal(content, @"accountInfo");
+                NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
+                [self.userHeader setCreateUserName:[NSString stringWithFormat:@"创建者：%@",name]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.tableView.tableHeaderView = self.userHeader;
+                });
+            }else{
             [self loadIssueSourceDetail:content];
             [self.engineHeader createUIWithDetailDict:content];
             [self.engineHeader layoutIfNeeded];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.tableHeaderView = self.engineHeader;
             });
-           
+            }
         }else{
             [SVProgressHUD dismiss];
         }
@@ -235,7 +248,33 @@
     });
 }
 - (void)ignoreClick{
-    
+    _itemView = [[IgnoreItemView alloc]init];
+    [self.itemView showInView:[UIApplication sharedApplication].keyWindow];
+    WeakSelf
+    _itemView.itemClick=^(){
+        [weakSelf ignoreIssue];
+    };
+}
+- (void)ignoreIssue{
+    [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            [SVProgressHUD showSuccessWithStatus:@"关闭成功"];
+            self.refreshClick?self.refreshClick():nil;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }else{
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            if ([response[ERROR_CODE] isEqualToString:@"home.issue.AlreadyIsRecovered"]) {
+                self.refreshClick?self.refreshClick():nil;
+                IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
+                self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
+                [self.userHeader reloadHeaderUI];
+            }
+        }
+    } failBlock:^(NSError *error) {
+        [error errorToast];
+    }];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -405,7 +444,8 @@
 #pragma mark ========== IssueKeyBoardDelegate ==========
 - (void)IssueKeyBoardInputViewBtnClickFunction:(NSInteger)index{
         self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
-        [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
+        WeakSelf
+        [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:weakSelf photoBlock:^(UIImage *image, NSString *name) {
             NSData *data = UIImageJPEGRepresentation(image, 0.5);
             if (!name) {
                 name = [NSDate getNowTimeTimestamp];
@@ -413,7 +453,7 @@
             }
             [SVProgressHUD show];
             NSDictionary *param = @{@"type":@"attachment",@"subType":@"comment"};
-            [PWNetworking uploadFileWithUrl:PW_issueUploadAttachment(self.model.issueId) params:param fileData:data type:@"jpg" name:@"files" fileName:name mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+            [PWNetworking uploadFileWithUrl:PW_issueUploadAttachment(weakSelf.model.issueId) params:param fileData:data type:@"jpg" name:@"files" fileName:name mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
                 
             } successBlock:^(id response) {
                  [SVProgressHUD dismiss];
@@ -421,7 +461,7 @@
                     NSDictionary *content =PWSafeDictionaryVal(response, @"content");
                     NSDictionary *data = PWSafeDictionaryVal(content, @"data");
                  //待处理：刷新机制
-                    [self getNewChatDatas];
+                    [weakSelf getNewChatDatas];
                 }else{
                 }
             } failBlock:^(NSError *error) {
@@ -521,21 +561,20 @@
     [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:self.model.issueId
                                                           callBack:^(BaseReturnModel *issueLogListModel) {
             [IssueChatDatas LoadingMessagesStartWithChat:self.model.issueId callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
-                                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                                      [self.dataSource removeAllObjects];
-                                                                      [self.dataSource addObjectsFromArray:array];
-                                                                      [self.tableView reloadData];
-                                                                      [SVProgressHUD dismiss];
-                                                                      [self postLastReadSeq];
- if(array.count<ISSUE_CHAT_PAGE_SIZE){
-                                                                          self.tableView.tableFooterView = self.footView;
-                                                                      }else{
-                                                                          self.tableView.tableFooterView = self.footer;
-                                                                      }
-                                                                  });
-                                                              }];
-                            
-                                                          }];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataSource removeAllObjects];
+                    [self.dataSource addObjectsFromArray:array];
+                    [self.tableView reloadData];
+                    [SVProgressHUD dismiss];
+           if(array.count<ISSUE_CHAT_PAGE_SIZE){
+                self.tableView.tableFooterView = self.footView;
+            }else{
+               self.tableView.tableFooterView = self.footer;
+            }
+            });
+                [self postLastReadSeq];
+          }];
+    }];
    
     self.state = IssueDealStateChat;
     dispatch_async_on_main_queue(^{

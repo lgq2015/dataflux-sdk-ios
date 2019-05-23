@@ -64,6 +64,7 @@
     self.isRead = NO;
     self.issueLogRead= self.lastIssueLogSeq <= 0;
     self.cellHeight = 0;
+    self.isEnded = [dict boolValueForKey:@"isEnded" default:NO];
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict {

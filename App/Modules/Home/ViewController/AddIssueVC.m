@@ -368,6 +368,9 @@
                     self.navigationController.viewControllers = delect;
                 });
                
+            }else{
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [SVProgressHUD dismiss];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];

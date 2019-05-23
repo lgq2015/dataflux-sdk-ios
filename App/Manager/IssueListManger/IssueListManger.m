@@ -68,6 +68,7 @@
             @"markEndAccountInfoStr": SQL_TEXT,
             @"endTime":SQL_TEXT,
             @"readAtInfoStr":SQL_TEXT,
+            @"isEnded":SQL_BLOB,
     }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
             @"scanCheckEndTime":SQL_TEXT,
@@ -357,10 +358,10 @@
                     dispatch_async_on_main_queue(^{
                         if (callBackStatus == nil) {
                             setLastTime([NSDate date]);
-                            [kNotificationCenter
-                                    postNotificationName:KNotificationNewIssue
-                                                  object:nil
-                                                userInfo:@{@"types": [self getUnReadType]}];
+//                            [kNotificationCenter
+//                                    postNotificationName:KNotificationNewIssue
+//                                                  object:nil
+//                                                userInfo:@{@"types": [self getUnReadType]}];
                         } else{
                             callBackStatus(listModel);
                         }
@@ -584,16 +585,21 @@
     };
     switch (viewType) {
         case IssueViewTypeNormal:
-            statesStr =@"AND status!='recovered'";
+            statesStr =@"AND isEnded = false";
             break;
         case IssueViewTypeAll:
             statesStr = @"";
             break;
     }
     if (isALL) {
-        whereFormat =[NSString stringWithFormat:@"WHERE status!='discarded' %@ ORDER by seq DESC ",statesStr] ;
+        if(statesStr.length>0){
+            whereFormat =@"WHERE isEnded = false ORDER by seq DESC";
+        }else{
+            whereFormat =@"ORDER by seq DESC";
+        }
+        
     }else{
-       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@'AND status!='discarded' %@  ORDER by seq DESC ", typeStr,statesStr];
+       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' %@  ORDER by seq DESC ", typeStr,statesStr];
     }
     [self.getHelper pw_inDatabase:^{
 
