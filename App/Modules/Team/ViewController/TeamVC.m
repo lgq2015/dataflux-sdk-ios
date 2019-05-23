@@ -159,7 +159,7 @@
          [self.teamMemberArray addObject:model];
         }
     }];
-    [self addSpecialist123];
+//    [self addSpecialist123];
     [self.tableView reloadData];
 }
 - (void)createTeamClick{
