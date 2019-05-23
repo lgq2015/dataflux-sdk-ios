@@ -30,6 +30,7 @@
     //请求成员
     [userManager requestMemberList:nil];
     [userManager saveUserInfoLoginStateisChange:NO success:^(BOOL isSuccess) {
+        KPostNotification(KNotificationSwitchTeam, @YES);
         KPostNotification(KNotificationTeamStatusChange,@YES);
         KPostNotification(KNotificationConnectStateCheck,nil);
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -38,13 +39,13 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
-        KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
-
-        if (!model.isSuccess) {
-            [iToast alertWithTitleCenter:model.errorMsg];
-        }
-    }];
+//    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+//        KPostNotification(KNotificationSwitchTeam, @YES);
+//
+//        if (!model.isSuccess) {
+//            [iToast alertWithTitleCenter:model.errorMsg];
+//        }
+//    }];
 
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
