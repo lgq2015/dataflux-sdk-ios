@@ -68,6 +68,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (NSArray *)getIssueBoardData;
 
 - (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus;
+- (void)checkSocketConnectAndFetchNewIssue:(void (^)(BaseReturnModel *))callBackStatus;
 
 - (BOOL)isInfoBoardInit;
 -(IssueViewType)getCurrentIssueViewType;

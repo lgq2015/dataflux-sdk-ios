@@ -147,10 +147,17 @@
             if (model.readAtInfoStr) {
                 NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];                
                 int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
+                long long lastSeq = [readAtInfo longLongValueForKey:@"lastSeq" default:0];
                 long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
                 long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
-                if (unreadCount>0 && (lastReadSeq ==0 || lastReadSeq>=seq)) {
-                    self.isCallME = YES;
+                if (unreadCount>0 ) {
+                    if (seq == 0) {
+                        self.isCallME = YES;
+                    }else{
+                        if (lastSeq>seq) {
+                            self.isCallME = YES;
+                        }
+                    }
                 }
             }
    

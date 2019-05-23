@@ -82,7 +82,7 @@
                 [self scrollToBottom:NO];
             });
             [self loadReadInfo];
-            [self postLastReadSeq];
+        //    [self postLastReadSeq];
         }else{
             if (self.datas.count == 0) {
                 IssueChatMessage *message = [IssueChatMessage new];
@@ -243,7 +243,7 @@
                     [self.datas addObject:layout];
                     [self onNewIssueChatDataRemoveSame:notification];
                     if(layout.message.model.atStatusStr.length>0){
-                        [self postLastReadSeq];
+              //          [self postLastReadSeq];
                     }
                     [NSObject cancelPreviousPerformRequestsWithTarget: self
                                                              selector:@selector(onNewIssueChatDataRemoveSame:)

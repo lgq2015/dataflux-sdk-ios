@@ -16,6 +16,7 @@
 #import "MainTabBarController.h"
 #import "PWSocketManager.h"
 #import "HeartBeatManager.h"
+#import "IssueListManger.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;

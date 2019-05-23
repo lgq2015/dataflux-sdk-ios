@@ -45,7 +45,7 @@
 - (void)onDBInit {
     [self.getHelper pw_inDatabase:^{
 
-      //  [self creatIssueBoardTable];
+       // [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self createIssueListTable];
         [self createIssueLogTable];
@@ -358,10 +358,8 @@
                     dispatch_async_on_main_queue(^{
                         if (callBackStatus == nil) {
                             setLastTime([NSDate date]);
-//                            [kNotificationCenter
-//                                    postNotificationName:KNotificationNewIssue
-//                                                  object:nil
-//                                                userInfo:@{@"types": [self getUnReadType]}];
+//                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+//                        userInfo:@{@"updateView":@(YES)}];
                         } else{
                             callBackStatus(listModel);
                         }
@@ -496,6 +494,15 @@
     [self fetchIssueList:callBackStatus getAllDatas:getAllDatas withStatus:NO];
 }
 
+- (void)checkSocketConnectAndFetchNewIssue:(void (^)(BaseReturnModel *))callBackStatus{
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+        callBackStatus(model);
+        
+        //        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
+        [[PWSocketManager sharedPWSocketManager] connect:YES];
+        //        }];
+    }                                           getAllDatas:NO];
+}
 
 - (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus {
 

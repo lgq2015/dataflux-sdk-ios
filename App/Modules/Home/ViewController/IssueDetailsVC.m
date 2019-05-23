@@ -596,6 +596,7 @@
    
 }
 -(void)dealloc{
+    [self postLastReadSeq];
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
     [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
     [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil

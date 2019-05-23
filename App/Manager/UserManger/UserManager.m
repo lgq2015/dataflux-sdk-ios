@@ -641,11 +641,11 @@ SINGLETON_FOR_CLASS(UserManager);
                 }
                 return ;
             }
+            [self setAuthTeamIssueCount:content];
             if (completeBlock){
                 completeBlock(YES);
             }
             //缓存团队列表红点
-            [self setAuthTeamIssueCount:content];
         }else{
             if (completeBlock){
                 completeBlock(NO);

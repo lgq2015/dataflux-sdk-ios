@@ -20,7 +20,7 @@
 @property (nonatomic,strong)  UIView *backgroundGrayView;//!<透明背景View
 @property (nonatomic, assign) CGFloat offsetY;//从哪个位置弹出来
 @property (nonatomic, strong) UITableView *tab;
-@property (nonatomic, strong) NSArray *teamlists;
+@property (nonatomic, strong) NSMutableArray *teamlists;
 @end
 @implementation ZYChangeTeamUIManager
 
@@ -32,7 +32,12 @@
 //    });
 //    return instance;
 //}
-
+-(NSMutableArray *)teamlists{
+    if (!_teamlists) {
+        _teamlists = [NSMutableArray new];
+    }
+    return _teamlists;
+}
 #pragma mark --添加主控件--
 -(void)s_UI{
     [self.backgroundGrayView addSubview:self.tab];
@@ -56,7 +61,7 @@
     [self.backgroundGrayView addSubview:self.tab];
     [self p_hideFrame];
     _offsetY = offset + 1.0;
-    _teamlists = [userManager getAuthTeamList];
+    _teamlists = [NSMutableArray arrayWithArray:[userManager getAuthTeamList]];
     //有列表缓存，直接展现
     if (_teamlists && _teamlists.count > 0){
         WeakSelf
@@ -178,11 +183,8 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.teamlists.count > 0 && indexPath.row < self.teamlists.count){
+    
         return ZOOM_SCALE(44);
-    }else{
-        return ZOOM_SCALE(60);
-    }
 }
 #pragma mark --UITableViewDelegate--
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -319,7 +321,7 @@
     dispatch_group_notify(group, queue, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD dismiss];
-            _teamlists = [userManager getAuthTeamList];
+            _teamlists =[NSMutableArray arrayWithArray:[userManager getAuthTeamList]] ;
             [self show:nil];
         });
     });
@@ -329,8 +331,11 @@
     [userManager requestTeamIssueCount:^(bool isFinished) {
         if (isFinished){
             if (_isShowTeamView){
+                 _teamlists =[NSMutableArray arrayWithArray:[userManager getAuthTeamList]] ;
                 [self addIssueCount];
-                [self.tab reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tab reloadData];
+                });
             }
         }
     }];

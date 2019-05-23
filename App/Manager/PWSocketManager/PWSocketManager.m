@@ -120,7 +120,7 @@ static dispatch_queue_t socket_message_queue() {
                         NSInteger code = [dic integerValueForKey:@"error" default:0];
                         if (code == 200) {
                             _isAuthed = YES;
-                     //   [self tryFetchIssueLog];
+//                            [[IssueListManger sharedIssueListManger] fetchIssueList:NO];
                         } else{
                             _isAuthed  =NO;
                         }
