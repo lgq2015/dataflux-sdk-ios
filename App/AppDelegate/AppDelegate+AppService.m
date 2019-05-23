@@ -126,6 +126,7 @@
 
 }
 - (void)dealWithNotification:(NSDictionary *)userInfo{
+    DLogE(@"Notification userInfo == %@",userInfo)
     NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
     NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
     NSString *title = [alert valueForKey:@"body"]; //标题
@@ -181,11 +182,11 @@
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAt:userInfo];
+                    [self dealNotificationIssueAdd:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAt:userInfo];
+            [self dealNotificationIssueAdd:userInfo];
         }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
@@ -236,7 +237,7 @@
                 [self deleteAllNavViewController];
             }
         } else {
-            [iToast alertWithTitleCenter:data.errorCode];
+//            [iToast alertWithTitleCenter:data.errorCode];
         }
     }];
 }
@@ -269,27 +270,11 @@
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
             [self deleteAllNavViewController];
         } else {
-            [iToast alertWithTitleCenter:data.errorCode];
+//            [iToast alertWithTitleCenter:data.errorCode];
         }
     }];
 }
-- (void)dealNotificationIssueAt:(NSDictionary *)userInfo{
-    NSString *issueId = [userInfo stringValueForKey:@"issueId" default:@""];
-    [[PWHttpEngine sharedInstance] getIssueDetail:issueId callBack:^(id o) {
-        [SVProgressHUD dismiss];
-        IssueModel *data = (IssueModel *) o;
-        if (data.isSuccess) {
-            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
-            
-            IssueDetailsVC *control = [IssueDetailsVC new];
-            control.model = monitorListModel;
-            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
-            [self deleteAllNavViewController];
-        } else {
-            [iToast alertWithTitleCenter:data.errorCode];
-        }
-    }];
-}
+
 #pragma mark ========== 登录状态处理 ==========
 - (void)loginStateChange:(NSNotification *)notification
 {
