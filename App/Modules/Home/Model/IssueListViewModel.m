@@ -118,6 +118,11 @@
     if (tags) {
         self.markUserIcon = [tags stringValueForKey:@"pwAvatar" default:@""];
     }
+    NSDictionary *tags2 = PWSafeDictionaryVal(markEndAccountInfo, @"tags");
+    if(tags2){
+        self.markUserIcon = [tags2 stringValueForKey:@"pwAvatar" default:@""];
+    }
+
     //标记状态
     if ([model.markStatus isEqualToString:@"tookOver"]){
         NSString *name = [markTookOverInfoJSON stringValueForKey:@"name" default:@""];
