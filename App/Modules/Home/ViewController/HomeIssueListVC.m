@@ -131,6 +131,7 @@
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
 }
 - (void)scanBtnClick{
+    [_changeTeamView dismiss];
     ScanViewController *scan = [[ScanViewController alloc]init];
     scan.isVideoZoom = YES;
     scan.libraryType = SLT_Native;
