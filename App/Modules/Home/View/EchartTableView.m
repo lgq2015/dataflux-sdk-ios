@@ -84,7 +84,8 @@
         //赋值
         [attribut addAttributes:dic range:range];
         title.attributedText = attribut;
-        
+        title.preferredMaxLayoutWidth = kWidth-Interval(60);
+//        title.text = string;
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             if (temp == nil) {
                 make.top.mas_equalTo(view).offset(Interval(16));
@@ -93,7 +94,7 @@
             }
             make.left.mas_equalTo(view).offset(Interval(14));
             make.right.mas_equalTo(view).offset(-Interval(14));
-            if(i == date.count-1){
+            if(i == header.count-1){
                 make.bottom.mas_equalTo(view).offset(-Interval(16));
             }
         }];
