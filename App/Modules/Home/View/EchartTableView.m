@@ -65,7 +65,7 @@
     for (NSInteger i=0;i<header.count;i++) {
         NSString *headerStr = [header[i] isKindOfClass:NSNull.class]?@"":header[i];
         NSString *dataStr;
-        if (date.count>0) {
+        if (date.count>0&&i<date.count) {
             dataStr =  [date[i] isKindOfClass:NSNull.class]?@"":date[i];
         }else{
             dataStr = @"";
