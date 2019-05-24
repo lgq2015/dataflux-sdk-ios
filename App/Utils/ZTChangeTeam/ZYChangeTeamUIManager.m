@@ -218,7 +218,7 @@
 }
 #pragma mark --获取表的高度---
 - (CGFloat)getHeight{
-    CGFloat height = self.teamlists.count * ZOOM_SCALE(44) + ZOOM_SCALE(60);
+    CGFloat height = self.teamlists.count * ZOOM_SCALE(44) + ZOOM_SCALE(44);
     if (height > kHeight * 0.5){
         height = kHeight * 0.5;
     }
