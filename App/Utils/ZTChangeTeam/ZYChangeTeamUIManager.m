@@ -108,7 +108,7 @@
     if (_dismissedBlock){
         _dismissedBlock(YES);
     }
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [UIView animateWithDuration:0.25 animations:^{
         [self p_hideFrame];
         self.tab.alpha = 0;
@@ -120,7 +120,7 @@
             _tab = nil;
             [_backgroundGrayView removeFromSuperview];
             _isShowTeamView = NO;
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
     }];
     [UIView commitAnimations];
