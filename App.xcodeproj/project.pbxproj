@@ -311,6 +311,9 @@
 		4A3A13752281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
 		4A3A13762281290400098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
 		4A3A13772281290500098DFA /* AtTeamMemberListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A13742281290400098DFA /* AtTeamMemberListVC.m */; };
+		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
+		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
+		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -1373,6 +1376,8 @@
 		4A3A136F22806CFD00098DFA /* ReadUnreadListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadUnreadListVC.m; sourceTree = "<group>"; };
 		4A3A13732281290400098DFA /* AtTeamMemberListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtTeamMemberListVC.h; sourceTree = "<group>"; };
 		4A3A13742281290400098DFA /* AtTeamMemberListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtTeamMemberListVC.m; sourceTree = "<group>"; };
+		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
+		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -2964,6 +2969,8 @@
 				4AF663B22265A9CC00E551B9 /* UITextField+HLLHelper.m */,
 				4AF663B62265B1F900E551B9 /* UITextView+HLLHelper.h */,
 				4AF663B72265B1F900E551B9 /* UITextView+HLLHelper.m */,
+				4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */,
+				4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3578,7 +3585,7 @@
 					};
 					CA1CF57B221ECB3A00D15316 = {
 						LastSwiftMigration = 1010;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -4173,6 +4180,7 @@
 				4AC856FA223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4AC857E3223F4A6B00DAE1F6 /* ServiceDetailVC.m in Sources */,
+				4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
 				4AC8573C2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				4A092CF72229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
@@ -4513,6 +4521,7 @@
 				4A092CAE2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
+				4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
 				CAD9CABC2243EBD90063ABFF /* HandbookCell.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -4853,6 +4862,7 @@
 				4A092CAF2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
+				4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
 				CAD9CABD2243EBDA0063ABFF /* HandbookCell.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -5230,7 +5240,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
@@ -5244,7 +5254,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = development_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -5260,8 +5270,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5274,7 +5284,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = distribution_dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
