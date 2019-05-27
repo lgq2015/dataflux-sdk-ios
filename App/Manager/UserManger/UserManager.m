@@ -319,7 +319,15 @@ SINGLETON_FOR_CLASS(UserManager);
         completion(YES,nil);
     }
 }
-
+-(CurrentUserModel *)getCurrentUserModel{
+    YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
+    NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
+    if (userDic) {
+       CurrentUserModel *model= [CurrentUserModel modelWithJSON:userDic];
+        return model;
+    }
+    return nil;
+}
 //-(void)autoLoginToServer:(loginBlock)completion{
 //    
 //}

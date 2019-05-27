@@ -161,4 +161,5 @@ SINGLETON_FOR_HEADER(UserManager)
  获取团队ISPs
  */
 - (NSArray *)getTeamISPs;
+-(CurrentUserModel *)getCurrentUserModel;
 @end
