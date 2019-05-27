@@ -176,7 +176,7 @@
   
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{
-    [self.tabBarController setSelectedIndex:1];
+    [self.tabBarController setSelectedIndex:2];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)eventOfOpenWithExtra:(NSDictionary *)extra{
