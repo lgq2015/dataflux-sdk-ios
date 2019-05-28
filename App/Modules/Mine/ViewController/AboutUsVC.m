@@ -82,7 +82,7 @@
 #else
 - (void)longPress {
     if (self.clickTimes >= MODE_SWITCH_COUNT) {
-        [NBULog setAppLogLevel:DDLogLevelAll];
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
         setIsDevMode(YES);
         [iToast alertWithTitleCenter:@"开发者模式"];
     }
