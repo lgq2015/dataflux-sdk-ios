@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TouchLargeButton : UIButton
-
+@property (nonatomic, assign) CGFloat largeWidth;
+@property (nonatomic, assign) CGFloat largeHeight;
 @end
 
 NS_ASSUME_NONNULL_END

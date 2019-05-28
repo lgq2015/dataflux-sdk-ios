@@ -16,6 +16,12 @@
     //宽高希望扩展的范围
     CGFloat widthDelta =30;
     CGFloat heightDelta =0;
+    if (self.largeHeight) {
+        heightDelta = self.largeHeight;
+    }
+    if (self.largeWidth) {
+        widthDelta = self.largeWidth;
+    }
     
     //相当于bounds 上下左右都增加了10的额外
     bounds =CGRectInset(bounds, -0.5*widthDelta, -0.5* heightDelta);//注意这里是负数，扩大了之前的bounds的范围
