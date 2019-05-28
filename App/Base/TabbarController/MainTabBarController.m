@@ -18,6 +18,8 @@
 #import "IssueListVC.h"
 #import "LibraryVC.h"
 #import "HomeIssueListVC.h"
+#import "CalendarVC.h"
+
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
 @end
@@ -43,6 +45,9 @@
     HomeIssueListVC *homeVC = [[HomeIssueListVC alloc]init];
     homeVC.isHidenNaviBar = YES;
     [self setupChildViewController:homeVC title:@"情报" imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
+    CalendarVC *calendar = [[CalendarVC alloc]init];
+    calendar.isHidenNaviBar = YES;
+     [self setupChildViewController:calendar title:@"日历" imageName:@"calender_nor" seleceImageName:@"calender_sel"];
     LibraryVC *libriary = [[LibraryVC alloc]init];
     libriary.isHidenNaviBar = YES;
 

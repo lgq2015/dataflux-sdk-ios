@@ -314,6 +314,45 @@
 		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
+		4A3CDA2E229BDB2100C2EC62 /* CalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA2D229BDB2100C2EC62 /* CalendarVC.m */; };
+		4A3CDA2F229BDB2100C2EC62 /* CalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA2D229BDB2100C2EC62 /* CalendarVC.m */; };
+		4A3CDA30229BDB2100C2EC62 /* CalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA2D229BDB2100C2EC62 /* CalendarVC.m */; };
+		4A3CDA34229C041B00C2EC62 /* CalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA33229C041B00C2EC62 /* CalendarAppearance.m */; };
+		4A3CDA35229C041C00C2EC62 /* CalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA33229C041B00C2EC62 /* CalendarAppearance.m */; };
+		4A3CDA36229C041C00C2EC62 /* CalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA33229C041B00C2EC62 /* CalendarAppearance.m */; };
+		4A3CDA4D229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA38229C095800C2EC62 /* LTSCalendarDayItem.m */; };
+		4A3CDA4E229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA38229C095800C2EC62 /* LTSCalendarDayItem.m */; };
+		4A3CDA4F229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA38229C095800C2EC62 /* LTSCalendarDayItem.m */; };
+		4A3CDA50229C095800C2EC62 /* LTSCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3A229C095800C2EC62 /* LTSCalendarManager.m */; };
+		4A3CDA51229C095800C2EC62 /* LTSCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3A229C095800C2EC62 /* LTSCalendarManager.m */; };
+		4A3CDA52229C095800C2EC62 /* LTSCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3A229C095800C2EC62 /* LTSCalendarManager.m */; };
+		4A3CDA53229C095800C2EC62 /* LTSCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3C229C095800C2EC62 /* LTSCircleView.m */; };
+		4A3CDA54229C095800C2EC62 /* LTSCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3C229C095800C2EC62 /* LTSCircleView.m */; };
+		4A3CDA55229C095800C2EC62 /* LTSCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3C229C095800C2EC62 /* LTSCircleView.m */; };
+		4A3CDA56229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3D229C095800C2EC62 /* LTSCalendarAppearance.m */; };
+		4A3CDA57229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3D229C095800C2EC62 /* LTSCalendarAppearance.m */; };
+		4A3CDA58229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA3D229C095800C2EC62 /* LTSCalendarAppearance.m */; };
+		4A3CDA59229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
+		4A3CDA5A229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
+		4A3CDA5B229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
+		4A3CDA5C229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
+		4A3CDA5D229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
+		4A3CDA5E229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
+		4A3CDA5F229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
+		4A3CDA60229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
+		4A3CDA61229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
+		4A3CDA62229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA46229C095800C2EC62 /* LTSCalendarScrollView.m */; };
+		4A3CDA63229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA46229C095800C2EC62 /* LTSCalendarScrollView.m */; };
+		4A3CDA64229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA46229C095800C2EC62 /* LTSCalendarScrollView.m */; };
+		4A3CDA65229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */; };
+		4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */; };
+		4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */; };
+		4A3CDA68229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */; };
+		4A3CDA69229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */; };
+		4A3CDA6A229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */; };
+		4A3CDA7C229D20C500C2EC62 /* CalendarArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */; };
+		4A3CDA7D229D20C500C2EC62 /* CalendarArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */; };
+		4A3CDA7E229D20C500C2EC62 /* CalendarArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -1378,6 +1417,33 @@
 		4A3A13742281290400098DFA /* AtTeamMemberListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtTeamMemberListVC.m; sourceTree = "<group>"; };
 		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
 		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
+		4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
+		4A3CDA2D229BDB2100C2EC62 /* CalendarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarVC.m; sourceTree = "<group>"; };
+		4A3CDA32229C041B00C2EC62 /* CalendarAppearance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarAppearance.h; sourceTree = "<group>"; };
+		4A3CDA33229C041B00C2EC62 /* CalendarAppearance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarAppearance.m; sourceTree = "<group>"; };
+		4A3CDA38229C095800C2EC62 /* LTSCalendarDayItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarDayItem.m; sourceTree = "<group>"; };
+		4A3CDA39229C095800C2EC62 /* LTSCalendarCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarCollectionCell.h; sourceTree = "<group>"; };
+		4A3CDA3A229C095800C2EC62 /* LTSCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarManager.m; sourceTree = "<group>"; };
+		4A3CDA3B229C095800C2EC62 /* LTSCalendarScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarScrollView.h; sourceTree = "<group>"; };
+		4A3CDA3C229C095800C2EC62 /* LTSCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCircleView.m; sourceTree = "<group>"; };
+		4A3CDA3D229C095800C2EC62 /* LTSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarAppearance.m; sourceTree = "<group>"; };
+		4A3CDA3E229C095800C2EC62 /* LTSCalendarWeekDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarWeekDayView.h; sourceTree = "<group>"; };
+		4A3CDA3F229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarContentView.m; sourceTree = "<group>"; };
+		4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarViewController.m; sourceTree = "<group>"; };
+		4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarCollectionCell.m; sourceTree = "<group>"; };
+		4A3CDA43229C095800C2EC62 /* LTSCalendarDayItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarDayItem.h; sourceTree = "<group>"; };
+		4A3CDA44229C095800C2EC62 /* LTSCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarAppearance.h; sourceTree = "<group>"; };
+		4A3CDA45229C095800C2EC62 /* LTSCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCircleView.h; sourceTree = "<group>"; };
+		4A3CDA46229C095800C2EC62 /* LTSCalendarScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarScrollView.m; sourceTree = "<group>"; };
+		4A3CDA47229C095800C2EC62 /* LTSCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarManager.h; sourceTree = "<group>"; };
+		4A3CDA48229C095800C2EC62 /* LTSCalendarContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarContentView.h; sourceTree = "<group>"; };
+		4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarWeekDayView.m; sourceTree = "<group>"; };
+		4A3CDA4B229C095800C2EC62 /* LTSCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarViewController.h; sourceTree = "<group>"; };
+		4A3CDA4C229C095800C2EC62 /* LTSCalendarEventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarEventSource.h; sourceTree = "<group>"; };
+		4A3CDA7A229D20C400C2EC62 /* CalendarArrowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarArrowView.h; sourceTree = "<group>"; };
+		4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarArrowView.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -2289,6 +2355,81 @@
 			path = AtChatView;
 			sourceTree = "<group>";
 		};
+		4A3CDA28229BDABB00C2EC62 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				4A3CDA2B229BDAF300C2EC62 /* Model */,
+				4A3CDA2A229BDAE600C2EC62 /* ViewController */,
+				4A3CDA29229BDADF00C2EC62 /* View */,
+			);
+			name = Calendar;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		4A3CDA29229BDADF00C2EC62 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4A3CDA31229C03E200C2EC62 /* PWCalendar */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4A3CDA2A229BDAE600C2EC62 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */,
+				4A3CDA2D229BDB2100C2EC62 /* CalendarVC.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4A3CDA2B229BDAF300C2EC62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4A3CDA31229C03E200C2EC62 /* PWCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				4A3CDA37229C095800C2EC62 /* LTSCalendar */,
+				4A3CDA32229C041B00C2EC62 /* CalendarAppearance.h */,
+				4A3CDA33229C041B00C2EC62 /* CalendarAppearance.m */,
+			);
+			path = PWCalendar;
+			sourceTree = "<group>";
+		};
+		4A3CDA37229C095800C2EC62 /* LTSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				4A3CDA43229C095800C2EC62 /* LTSCalendarDayItem.h */,
+				4A3CDA38229C095800C2EC62 /* LTSCalendarDayItem.m */,
+				4A3CDA39229C095800C2EC62 /* LTSCalendarCollectionCell.h */,
+				4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */,
+				4A3CDA47229C095800C2EC62 /* LTSCalendarManager.h */,
+				4A3CDA3A229C095800C2EC62 /* LTSCalendarManager.m */,
+				4A3CDA3B229C095800C2EC62 /* LTSCalendarScrollView.h */,
+				4A3CDA46229C095800C2EC62 /* LTSCalendarScrollView.m */,
+				4A3CDA44229C095800C2EC62 /* LTSCalendarAppearance.h */,
+				4A3CDA3D229C095800C2EC62 /* LTSCalendarAppearance.m */,
+				4A3CDA3E229C095800C2EC62 /* LTSCalendarWeekDayView.h */,
+				4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */,
+				4A3CDA3F229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.h */,
+				4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */,
+				4A3CDA4B229C095800C2EC62 /* LTSCalendarViewController.h */,
+				4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */,
+				4A3CDA48229C095800C2EC62 /* LTSCalendarContentView.h */,
+				4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */,
+				4A3CDA45229C095800C2EC62 /* LTSCircleView.h */,
+				4A3CDA3C229C095800C2EC62 /* LTSCircleView.m */,
+				4A3CDA4C229C095800C2EC62 /* LTSCalendarEventSource.h */,
+				4A3CDA7A229D20C400C2EC62 /* CalendarArrowView.h */,
+				4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */,
+			);
+			path = LTSCalendar;
+			sourceTree = "<group>";
+		};
 		4A402305225F2C5F00783079 /* PWImageGroupView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2391,6 +2532,7 @@
 		4A6C286B219C156D0059BB08 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4A3CDA28229BDABB00C2EC62 /* Calendar */,
 				4A6C287E219D08B70059BB08 /* Home */,
 				4AC21FC5228BB2790098848C /* Library */,
 				4A6C2880219D08B70059BB08 /* Team */,
@@ -3585,7 +3727,7 @@
 					};
 					CA1CF57B221ECB3A00D15316 = {
 						LastSwiftMigration = 1010;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -4024,6 +4166,7 @@
 				2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				4A759ACA224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4A092D4D222D310000FB2A35 /* MineMessageVC.m in Sources */,
+				4A3CDA50229C095800C2EC62 /* LTSCalendarManager.m in Sources */,
 				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
 				4ABF44D021C20090002AF34E /* NSString+verify.m in Sources */,
 				2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
@@ -4031,6 +4174,7 @@
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */,
+				4A3CDA62229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
 				4AB48A5221FB01E8009F9E94 /* PersonalInfoVC.m in Sources */,
 				4A092C9822268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				4AF663AE2265832300E551B9 /* TeamFillConfige.m in Sources */,
@@ -4045,6 +4189,7 @@
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* IssueSourceViewModel.m in Sources */,
+				4A3CDA5F229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */,
 				4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
@@ -4069,6 +4214,7 @@
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
+				4A3CDA65229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
@@ -4101,6 +4247,7 @@
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
 				4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
+				4A3CDA56229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
 				4ABF448121BFA170002AF34E /* MineViewController.m in Sources */,
 				2B79D0FD2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
@@ -4181,6 +4328,7 @@
 				4ABF441A21BD1F68002AF34E /* PWNetworking.m in Sources */,
 				4AC857E3223F4A6B00DAE1F6 /* ServiceDetailVC.m in Sources */,
 				4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
+				4A3CDA7C229D20C500C2EC62 /* CalendarArrowView.m in Sources */,
 				4AC8573C2233B39900DAE1F6 /* BaseTextField.m in Sources */,
 				4A092CF72229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */,
@@ -4217,15 +4365,18 @@
 				4AC857D3223D1A4500DAE1F6 /* OrderListCell.m in Sources */,
 				4AB48A2B21F86331009F9E94 /* IgnoreListVC.m in Sources */,
 				6B6E250BB7768C35F5E6061A /* InformationStatusReadManager.m in Sources */,
+				4A3CDA68229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */,
 				6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */,
 				6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */,
 				6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */,
 				4AF6639D225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
+				4A3CDA4D229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
 				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
 				4AA4CEEB228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D039226D646200FBDB74 /* ZTSearchBar.m in Sources */,
+				4A3CDA59229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
 				4A3A136A228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
@@ -4245,6 +4396,7 @@
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
 				6B6E26D8FDBAEEC6BFEC1739 /* IssueChatFileCell.m in Sources */,
+				4A3CDA5C229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */,
 				4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */,
@@ -4256,11 +4408,13 @@
 				4AA4CEF5228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
+				4A3CDA34229C041B00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
 				2B535327226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF282289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
+				4A3CDA53229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */,
 				4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2D128A3CDB9307318A6D /* IssueSourceDetailVC.m in Sources */,
@@ -4271,6 +4425,7 @@
 				6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */,
 				6B6E2F367D1AE927F4ADF821 /* HandbookIndexVC.m in Sources */,
 				6B6E2227FD9A9B351409F7C2 /* LibrarySearchVC.m in Sources */,
+				4A3CDA2E229BDB2100C2EC62 /* CalendarVC.m in Sources */,
 				6B6E2284726714D0C5C3FE6E /* HostDiagnosisVC.m in Sources */,
 				6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A3225F747600E551B9 /* SVProgressHUD.m in Sources */,
@@ -4365,6 +4520,7 @@
 				2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
+				4A3CDA51229C095800C2EC62 /* LTSCalendarManager.m in Sources */,
 				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
 				4AC857B5223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				2BF9F78422702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
@@ -4372,6 +4528,7 @@
 				4A759AEF224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				CA1CF59E221ECB3A00D15316 /* NSString+verify.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
+				4A3CDA63229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
 				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
 				4A092CF82229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D58222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -4386,6 +4543,7 @@
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
 				4A759ACB224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FB223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4A3CDA60229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */,
 				4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
@@ -4410,6 +4568,7 @@
 				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
+				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
@@ -4442,6 +4601,7 @@
 				4AC8570522323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
 				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
+				4A3CDA57229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B79D0FE2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
@@ -4522,6 +4682,7 @@
 				4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576B22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
+				4A3CDA7D229D20C500C2EC62 /* CalendarArrowView.m in Sources */,
 				CA1CF5E1221ECB3A00D15316 /* PWSegmentStyle.m in Sources */,
 				CAD9CABC2243EBD90063ABFF /* HandbookCell.m in Sources */,
 				CA1CF5E3221ECB3A00D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -4558,15 +4719,18 @@
 				CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */,
 				CA1CF5F3221ECB3A00D15316 /* IgnoreListVC.m in Sources */,
 				6B6E21641DBD3D514519D671 /* InformationStatusReadManager.m in Sources */,
+				4A3CDA69229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */,
 				6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */,
 				6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */,
 				6B6E25CDF1B09B6FA91AF641 /* IssueChatDataManager.m in Sources */,
 				4AF6639E225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
+				4A3CDA4E229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
 				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
 				4AA4CEEC228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D03A226D646200FBDB74 /* ZTSearchBar.m in Sources */,
+				4A3CDA5A229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
 				4A3A136B228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
@@ -4586,6 +4750,7 @@
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
 				6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */,
+				4A3CDA5D229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */,
 				4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */,
@@ -4597,11 +4762,13 @@
 				4AA4CEF6228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
+				4A3CDA35229C041C00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
 				2B535328226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF292289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
+				4A3CDA54229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */,
 				4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2FC4DFCDDA647155A7CA /* IssueSourceDetailVC.m in Sources */,
@@ -4612,6 +4779,7 @@
 				6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */,
 				6B6E27B421ACBADB501FF6E3 /* HandbookIndexVC.m in Sources */,
 				6B6E2E37A646DA4521036A2D /* LibrarySearchVC.m in Sources */,
+				4A3CDA2F229BDB2100C2EC62 /* CalendarVC.m in Sources */,
 				6B6E2096165EA44EBEF7A40B /* HostDiagnosisVC.m in Sources */,
 				6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A4225F747600E551B9 /* SVProgressHUD.m in Sources */,
@@ -4706,6 +4874,7 @@
 				2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
+				4A3CDA52229C095800C2EC62 /* LTSCalendarManager.m in Sources */,
 				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
 				4AC857B6223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				2BF9F78522702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
@@ -4713,6 +4882,7 @@
 				4A759AF0224FD4A30057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				CA1CF643221ECB5000D15316 /* NSString+verify.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
+				4A3CDA64229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
 				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
 				4A092CF92229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D59222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -4727,6 +4897,7 @@
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
 				4A759ACC224CF0BA0057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4AC856FC223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
+				4A3CDA61229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */,
 				4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
@@ -4751,6 +4922,7 @@
 				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
+				4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */,
@@ -4783,6 +4955,7 @@
 				4AC8570622323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
 				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,
+				4A3CDA58229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B79D0FF2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
@@ -4863,6 +5036,7 @@
 				4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AC8576C22374B7D00DAE1F6 /* IssueSourceManger.m in Sources */,
 				4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */,
+				4A3CDA7E229D20C500C2EC62 /* CalendarArrowView.m in Sources */,
 				CA1CF686221ECB5000D15316 /* PWSegmentStyle.m in Sources */,
 				CAD9CABD2243EBDA0063ABFF /* HandbookCell.m in Sources */,
 				CA1CF688221ECB5000D15316 /* HomeNoticeScrollView.m in Sources */,
@@ -4899,15 +5073,18 @@
 				CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */,
 				CA1CF698221ECB5000D15316 /* IgnoreListVC.m in Sources */,
 				6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */,
+				4A3CDA6A229C095900C2EC62 /* LTSCalendarWeekDayView.m in Sources */,
 				6B6E29BDD12409D61E572EF7 /* BaseSqlHelper.m in Sources */,
 				6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */,
 				6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */,
 				4AF6639F225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
+				4A3CDA4F229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
 				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
 				4AA4CEED228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				2B03D03B226D646200FBDB74 /* ZTSearchBar.m in Sources */,
+				4A3CDA5B229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
 				4A3A136C228060B200098DFA /* AtListVC.m in Sources */,
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
@@ -4927,6 +5104,7 @@
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
 				6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */,
+				4A3CDA5E229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */,
 				4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */,
@@ -4938,11 +5116,13 @@
 				4AA4CEF7228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,
+				4A3CDA36229C041C00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
 				2B535329226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF2A2289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
+				4A3CDA55229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */,
 				4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */,
 				6B6E2C5A6F38B0F90D9BFA36 /* IssueSourceDetailVC.m in Sources */,
@@ -4953,6 +5133,7 @@
 				6B6E23018BA988522794E257 /* HandBookArticleVC.m in Sources */,
 				6B6E269B81B53508574A58FE /* HandbookIndexVC.m in Sources */,
 				6B6E26B6B14359570F63DD0F /* LibrarySearchVC.m in Sources */,
+				4A3CDA30229BDB2100C2EC62 /* CalendarVC.m in Sources */,
 				6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */,
 				6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A5225F747600E551B9 /* SVProgressHUD.m in Sources */,
@@ -5240,7 +5421,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
@@ -5254,7 +5435,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = development_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -5270,8 +5451,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = AppDev.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5284,7 +5465,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = distribution_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "App/Resource/AppDev-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
