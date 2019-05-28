@@ -146,6 +146,11 @@
 #define PW_AdduploaAttachment         API_SEVERID@"/v1/issue/add-upload-attachment"
 
 #define PW_URL_CARRIER_PROBE          API_CARRIER_HOST@"/v1/probe"
+#pragma mark ========== 日历 ==========
+//日历上的点
+#define PW_Calendar_count             API_SEVERID@"/v1/issue/log/count"
+//日历上对应区间情报列表
+#define PW_Calendar_list              API_SEVERID@"/v1/issue/log/keypoint/list"
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
