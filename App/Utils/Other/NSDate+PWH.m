@@ -128,4 +128,22 @@
     }
     return @"";
 }
+-(NSArray *)getDateMonthFirstLastDayTimeStamp{
+    double interval = 0;
+    NSDate *firstDate = nil;
+    NSDate *lastDate = nil;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    BOOL OK = [calendar rangeOfUnit:NSCalendarUnitMonth startDate:&firstDate interval:&interval forDate:self];
+    
+    if (OK) {
+        lastDate = [firstDate dateByAddingTimeInterval:interval - 1];
+    }else {
+        return @[@"",@""];
+    }
+    NSInteger firstTime =[[NSNumber numberWithDouble:[firstDate timeIntervalSince1970]] integerValue];
+    NSInteger lastTime =[[NSNumber numberWithDouble:[lastDate timeIntervalSince1970]] integerValue];
+
+    return @[[NSNumber numberWithInteger:firstTime], [NSNumber numberWithInteger:lastTime]];
+}
 @end
