@@ -26,13 +26,14 @@
     return self;
 }
 -(void)initPWChatCellUserInterface{
+    self.contentView.backgroundColor = PWWhiteColor;
     // 1、创建姓名
-    _mNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@""];
+    _mNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@""];
     [self.contentView addSubview:_mNameLab];
     
     // 2、创建头像
     _mHeaderImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _mHeaderImgBtn.backgroundColor =  [UIColor brownColor];
+    _mHeaderImgBtn.backgroundColor =  PWWhiteColor;
     _mHeaderImgBtn.userInteractionEnabled = YES;
     
     [self.contentView addSubview:_mHeaderImgBtn];
@@ -50,18 +51,18 @@
     [_mBackImgButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     //菊花转
-    _mIndicator = [UIActivityIndicatorView new];
-    [self.contentView addSubview:_mIndicator];
-    _sendLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:@"上传中…"];
-    _sendLab.textAlignment = NSTextAlignmentCenter;
-    [self.contentView addSubview:_sendLab];
-    _retryBtn = [[UIButton alloc]init];
-    _retryBtn.titleLabel.font = RegularFONT(12);
-    _retryBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-
-    [_retryBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
-    [_retryBtn addTarget:self action:@selector(retryBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:_retryBtn];
+//    _mIndicator = [UIActivityIndicatorView new];
+//    [self.contentView addSubview:_mIndicator];
+//    _sendLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:@"上传中…"];
+//    _sendLab.textAlignment = NSTextAlignmentCenter;
+//    [self.contentView addSubview:_sendLab];
+//    _retryBtn = [[UIButton alloc]init];
+//    _retryBtn.titleLabel.font = RegularFONT(12);
+//    _retryBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+//
+//    [_retryBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+//    [_retryBtn addTarget:self action:@selector(retryBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:_retryBtn];
     
 }
 -(void)setLayout:(IssueChatMessagelLayout *)layout{
@@ -79,26 +80,26 @@
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
         _mExpertLab.hidden = YES;
         if (layout.message.messageFrom == PWChatMessageFromStaff) {
-            [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"expert_defaulticon"]];
+            [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"professor_wang_header"]];
 
-            self.mExpertLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"CloudCare 服务"];
+            self.mExpertLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:layout.message.stuffName];
             [self.contentView addSubview:_mExpertLab];
             [self.mExpertLab sizeToFit];
             self.mExpertLab.backgroundColor = RGBACOLOR(209, 225, 255, 1);
             self.mExpertLab.layer.cornerRadius = 2;
             self.mExpertLab.layer.masksToBounds = YES;
             self.mExpertLab.textAlignment = NSTextAlignmentCenter;
-          CGRect rect = self.mExpertLab.bounds;
-            self.mExpertLab.frame = CGRectMake(layout.expertLabRect.origin.x, layout.expertLabRect.origin.y, rect.size.width+5, layout.expertLabRect.size.height);
+            self.mExpertLab.frame = layout.expertLabRect;
+    
             _mExpertLab.hidden = NO;
 
         }
     }
 }
 - (void)retryBtnClick{
-    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClick:layout:)]){
-        [self.delegate PWChatRetryClick:self.indexPath layout:self.layout];
-    }
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatRetryClick:layout:)]){
+//        [self.delegate PWChatRetryClick:self.indexPath layout:self.layout];
+//    }
 }
 - (void)iconPressed{
     if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatHeaderImgCellClick:layout:)]){

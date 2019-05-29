@@ -40,7 +40,7 @@
 }
 
 
--(void) fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
+-(void)fetchLatestChatIssueLog:(NSString *)issueId with:(void (^)(BaseReturnModel *))callback
                   withFetchStatus:(BOOL)withStatus{
     if (_isFetching){
         if(withStatus){
@@ -59,7 +59,7 @@
         callback(model);
     }];
 
-    
+
 }
 
 /**
@@ -117,7 +117,7 @@
                                        rollback = NO;
                                    }];
 
-                                   dispatch_sync_on_main_queue(^{
+                                   dispatch_async_on_main_queue(^{
                                        callback(listModel);
                                    });
                                });
@@ -134,7 +134,28 @@
                    }];
 
 }
+- (void)logReadSeqWithissueId:(NSString *)issueId{
+    long long  seq = [self getLastChatIssueLogMarker:issueId];
+    [self.getHelper pw_inDatabase:^{
+        NSDictionary *insertValues = @{@"seq": [NSNumber numberWithLongLong:seq],@"issueId":issueId};
+        
+        NSString *table = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
+        NSString *whereSql = [NSString stringWithFormat:@"WHERE issueId = '%@'", issueId];
+;
+        NSArray *results = [self.getHelper pw_lookupTable:table dicOrModel:@{@"seq": SQL_INTEGER} whereFormat:whereSql];
+        BOOL isExict =  [self.getHelper pw_isExistTable:table];
+        DLog(@"sdfsfsdfsdfaaa = %@",[NSNumber numberWithBool:isExict]);
 
+        if (results.count > 0) {
+            [self.getHelper pw_updateTable:table dicOrModel:insertValues whereFormat:whereSql];
+            
+        } else {
+        BOOL is = [self.getHelper pw_insertTable:table dicOrModel:insertValues];
+            DLog(@"sdfsfsdfsdf = %@",[NSNumber numberWithBool:is]);
+        }
+        
+    }];
+}
 
 - (long long)getLastDataCheckSeqInOnPage:(NSString *)issueId pageMarker:(long long)pageMarker {
     __block long long seq = 0L;
@@ -227,7 +248,7 @@
 
                                                           rollback = NO;
                                                       }];
-                                                      dispatch_sync_on_main_queue(^{
+                                                      dispatch_async_on_main_queue(^{
                                                           callback(data);
                                                       });
                                                   });
@@ -333,13 +354,13 @@
 
     [self.getHelper pw_inDatabase:^{
         NSString *table = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
-        NSString *where = NSStringFormat(@"WHERE issueId='%@' OR (seq=0 AND origin='me')", issueId);
-        if(endSeq>0){
-            where= [where stringByAppendingFormat:@" AND seq > %lli  ", startSeq];
-        }
+        NSString *where = NSStringFormat(@"WHERE issueId='%@'", issueId);
+        where = [where stringByAppendingFormat:@" AND ((seq > %lli  ", endSeq];
         if (startSeq > 0) {
-            where= [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
+            where = [where stringByAppendingFormat:@" AND seq < %lli  ", startSeq];
         }
+
+        where = [where stringByAppendingString:@") OR (seq=0 AND origin='me'))"];
 
         NSString *range = NSStringFormat(@"(SELECT * FROM %@ %@ ORDER BY updateTime DESC ,"
                                          " seq DESC LIMIT %d)", table, where, ISSUE_CHAT_PAGE_SIZE);
@@ -347,7 +368,7 @@
 
         NSArray<IssueLogModel *> *results = [self.getHelper pw_lookupTable:table
                                                                 dicOrModel:[IssueLogModel class] withSql:range
-                                                               whereFormat:@" ORDER BY updateTime ASC,seq ASC", issueId];
+                                                               whereFormat:@" ORDER BY updateTime DESC,seq DESC", issueId];
 
 
         [array addObjectsFromArray:results];
@@ -410,7 +431,22 @@
     }];
     return seq;
 }
-
+- (long long)getLastReadChatIssueLogMarker:(NSString *)issueId {
+    __block long long seq = 1L;
+    [self.getHelper pw_inDatabase:^{
+        NSString *table = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
+        
+        NSString *where = @"WHERE issueId='%@'";
+        NSArray *arr = [self.getHelper pw_lookupTable:table dicOrModel:@{@"seq": SQL_INTEGER} whereFormat:where, issueId];
+        
+        if (arr.count > 0) {
+            seq = [arr[0][@"seq"] longLongValue];
+        }else{
+            seq = 0;
+        }
+    }];
+    return seq;
+}
 - (void)shutDown {
     _isFetching = NO;
 }

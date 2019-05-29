@@ -16,11 +16,13 @@
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;
 -(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
--(void)PWChatRetryClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
+//-(void)PWChatRetryClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 //点击cell图片和短视频
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
 //图片链接异常
 -(void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
+
+//-(void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IssueChatBaseCell : UITableViewCell
 -(void)initPWChatCellUserInterface;
 
-@property(nonatomic,assign)id<PWChatBaseCellDelegate> delegate;
+@property(nonatomic, assign)id<PWChatBaseCellDelegate> delegate;
 @property(nonatomic, strong) IssueChatMessagelLayout  *layout;
 
 //头像  姓名  背景按钮
@@ -40,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSIndexPath         *indexPath;
 //文本消息
 @property(nonatomic, strong) UITextView     *mTextView;
-
+@property(nonatomic, strong) UIButton   *atReadBtn;
 //图片消息
 @property(nonatomic,strong) UIImageView *mImgView;
 

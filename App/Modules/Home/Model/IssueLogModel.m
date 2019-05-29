@@ -32,12 +32,15 @@
     NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJSON");
     NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
     NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
-
+    NSDictionary *atStatus = PWSafeDictionaryVal(dict, @"atStatus");
+    NSDictionary *atInfoJSON = PWSafeDictionaryVal(dict, @"atInfoJSON");
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";
     self.externalDownloadURLStr = externalDownloadURL ? [externalDownloadURL jsonPrettyStringEncoded] : @"";
     self.accountInfoStr = accountInfo ? [accountInfo jsonPrettyStringEncoded] : @"";
-
+    self.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
+    self.atInfoJSONStr = atInfoJSON ?[atInfoJSON jsonStringEncoded]:@"";
+    self.atInfoJSON = atInfoJSON;
 }
 
 -(NSString *)createLastIssueLogJsonString{
@@ -58,6 +61,7 @@
     NSDictionary *metaJson = [self.metaJsonStr jsonValueDecoded];
     NSDictionary *externalDownloadURL = [self.externalDownloadURLStr jsonValueDecoded];
     NSDictionary *accountInfo = [self.accountInfoStr jsonValueDecoded];
+    NSDictionary *atInfoJSON  = [self.atInfoJSONStr jsonValueDecoded];
     if(originInfoJSON){
         dic[@"originInfoJSON"] =originInfoJSON;
     }
@@ -69,6 +73,9 @@
     }
     if(accountInfo){
         dic[@"account_info"] =accountInfo;
+    }
+    if(atInfoJSON){
+        dic[@"atInfoJSON"] = atInfoJSON;
     }
     return [@[dic] jsonStringEncoded];
 }

@@ -18,25 +18,40 @@
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
 #define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
 #define KNotificationFetchComplete     @"KNotificationFetchComplete"
+#define KNotificationRecordLastReadSeq @"KNotificationRecordLastReadSeq"
 //自动登录成功
 #define KNotificationAutoLoginSuccess @"KNotificationAutoLoginSuccess"
-
+//团队切换
+#define KNotificationSwitchTeam @"KNotificationSwitchTeam"
+//修改团队成员备注
+#define KNotificationEditTeamNote @"KNotificationEditTeamNote"
 //被踢下线
 #define KNotificationOnKick @"KNotificationOnKick"
 //监听重新拉取讨论数据
 #define KNotificationSocketConnecting @"KNotificationRefetchIssChatDatas"
-
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
-#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWUserID]
+//用户issueList 选择type类型
+#define KIssueListType @"KIssueListType"
+#define KCurrentIssueListType   @"KCurrentIssueListType"
+#define KCurrentIssueViewType   @"KCurrentIssueViewType"
+//当前团队
+#define KTeamModelCache @"KTeamModelCache"
+//团队成员
+#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+//账号ISPs常量数组
+#define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWUserID]
+//团队产品
 #define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
-
+//团队列表
+#define KTeamListCacheName @"KTeamListCacheName"
+#define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]
+#define kAuthTeamIssueCountDict       [NSString stringWithFormat:@"%@/kAuthTeamIssueCountDict",  getPWUserID]
 // 常量显示
 #define KUtilsConst   @"KUtilsConst"
 //用户model缓存
 #define KUserModelCache @"KUserModelCache"
-#define KTeamModelCache @"KTeamModelCache"
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
 #define KNotificationConnectStateCheck @"KNotificationConnectStateCheck"
 
@@ -61,5 +76,7 @@
 #define KUtilsConstCacheName      @"KUtilsConstCacheName"
 
 #define KIssueSourceNameModelCache @"KIssueSourceNameModelCache"
+//支付宝支付回调
+#define KZhifubaoPayResult @"KZhifubaoPayResult"
 
 #endif /* NotificationMacros_h */

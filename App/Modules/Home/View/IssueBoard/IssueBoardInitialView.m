@@ -117,7 +117,7 @@
 -(UIButton *)serverConnectbtn{
     if (!_serverConnectbtn) {
         _serverConnectbtn = [[UIButton alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(542), self.width, ZOOM_SCALE(44))];
-        [_serverConnectbtn setTitle:@"立即配置情报源" forState:UIControlStateNormal];
+        [_serverConnectbtn setTitle:@"立即配置云服务" forState:UIControlStateNormal];
         [_serverConnectbtn setTitleColor: PWWhiteColor forState:UIControlStateNormal];
        
         [[_serverConnectbtn titleLabel] setFont:[UIFont systemFontOfSize:16]];

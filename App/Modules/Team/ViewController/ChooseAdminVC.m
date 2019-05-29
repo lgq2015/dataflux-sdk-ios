@@ -106,13 +106,18 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        MemberInfoModel *model = self.teamMemberArray[indexPath.row];
         MemberInfoVC *member = [[MemberInfoVC alloc]init];
         member.isHidenNaviBar = YES;
         member.type = PWMemberViewTypeTrans;
         member.teamMemberRefresh =^(){
             [self loadTeamMemberInfo];
         };
-        member.model = self.teamMemberArray[indexPath.row];
+        member.memberBeizhuChangeBlock = ^(NSString * _Nonnull name) {
+            model.inTeamNote = name;
+            [self.tableView reloadData];
+        };
+        member.model = model;
         [self.navigationController pushViewController:member animated:YES];
     
 }
@@ -164,6 +169,7 @@
     }
 }
 - (void)dealloc{
+    DLog(@"%s",__func__);
     [self.ztsearchbar.tf resignFirstResponder];
 }
 @end

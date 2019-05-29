@@ -77,6 +77,14 @@
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame{
     return  [self passwordTextFieldWithFrame:frame font:RegularFONT(16)];
 }
++(UIAlertController *)alertControllerWithTitle:(NSString *)title message:(NSString *)message preferredStyle:(UIAlertControllerStyle)style{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+    NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:message];
+    [alertControllerMessageStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#8E8E93"] range:NSMakeRange(0, alertControllerMessageStr.length)];
+    [alertControllerMessageStr addAttribute:NSFontAttributeName value:RegularFONT(14) range:NSMakeRange(0, alertControllerMessageStr.length)];
+    [alert setValue:alertControllerMessageStr forKey:@"attributedMessage"];
+    return alert;
+}
 +(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font{
     BaseTextField *tf = [[BaseTextField alloc]initWithFrame:frame];
     [tf setFont:font];

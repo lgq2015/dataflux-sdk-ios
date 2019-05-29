@@ -8,6 +8,13 @@
 
 #import "IssueChatKeyBoardInputView.h"
 #import "IssueChatKeyBordView.h"
+#import "AtTeamMemberListVC.h"
+#import "RootNavigationController.h"
+#import "MemberInfoModel.h"
+@interface IssueChatKeyBoardInputView()
+@property (nonatomic, strong) NSMutableArray *choseMember;
+@property (nonatomic, strong) NSMutableArray *rangeArray;
+@end
 @implementation IssueChatKeyBoardInputView
 
 -(instancetype)init{
@@ -214,7 +221,12 @@
     }
     
 }
-
+-(NSMutableArray *)rangeArray{
+    if (!_rangeArray) {
+        _rangeArray = [NSMutableArray new];
+    }
+    return _rangeArray;
+}
 //设置所有控件新的尺寸位置
 -(void)setNewSizeWithBootm:(CGFloat)height{
     [self setNewSizeWithController];
@@ -259,26 +271,137 @@
 
 //拦截发送按钮
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
+    __block BOOL isAt = NO;
+    if ([text isEqualToString:@""]) {
+       
+        [[self.rangeArray copy] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx1, BOOL * _Nonnull stop) {
+            NSArray *rangeAry =[self rangeOfSubString:obj inString:self.textString];
+            [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+               NSRange strrange = [obj rangeValue];
+          if(strrange.location<=range.location&&range.location<(strrange.location+strrange.length)) {
+                NSMutableString *str = [NSMutableString stringWithString:self.textString];
+                [str deleteCharactersInRange:strrange];
+                self.mTextView.text = str;
+                self.textString = str;
+                DLog(@"self.mTextView.text ==%@;",self.mTextView.text)
+                isAt = YES;
+                [self.rangeArray removeObjectAtIndex:idx1];
+                *stop = YES;
+                }
+            }];
+            if(isAt){
+                *stop = YES;
+            }
+        }];
+        if (isAt) {
+            [self textViewDidChange:textView];
+            return NO;
+        }
+    }
     if ([text isEqualToString:@"\n"]) {
         [self startSendMessage];
         return NO;
     }
-    
+    if([text isEqualToString:@"@"]){
+        WeakSelf
+        AtTeamMemberListVC *setVC = [[AtTeamMemberListVC alloc] init];
+        setVC.chooseMembers = ^(NSArray *chooseArr){
+            [weakSelf dealAtMessageWithArray:chooseArr];
+        };
+        setVC.DisMissBlock = ^(){
+            [weakSelf.mTextView becomeFirstResponder];
+        };
+        RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:setVC];
+        [[self viewController] presentViewController:nav animated:YES completion:nil];
+    }
+    //删除
+  
     return YES;
 }
+-(NSMutableArray *)choseMember{
+    if (!_choseMember) {
+        _choseMember = [NSMutableArray new];
+    }
+    return _choseMember;
+    
+}
+- (void)dealAtMessageWithArray:(NSArray *)array{
+    NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
 
+    if(array.count == 0){
+        [addStr appendString:@"@"];
+        self.mTextView.text = addStr;
+        return;
+    }
+    [array enumerateObjectsUsingBlock:^(MemberInfoModel *newObj, NSUInteger idx, BOOL * _Nonnull stop) {
+      __block  BOOL isNew = YES;
+        if (self.choseMember.count == 0) {
+            [self.choseMember addObjectsFromArray:array];
+        }else{
+        [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.memberID isEqualToString:newObj.memberID]) {
+                isNew = NO;
+                *stop = YES;
+            }
+        }];
+        if(isNew){
+            [self.choseMember addObject:newObj];
+        }
+        }
+//        [NSString stringWithFormat:@"@%@",newObj.name];
+        [self.rangeArray addObject:[NSString stringWithFormat:@"@%@ ",newObj.name]];
+        [addStr appendFormat:@"@%@ ",newObj.name];
+        
+    }];
+    
+   
+    self.mTextView.text =addStr;
+    [self textViewDidChange:self.mTextView];
+    [self.mTextView becomeFirstResponder];
+}
 //开始发送消息
 -(void)startSendMessage{
-    NSString *message = [_mTextView.attributedText string];
+   __block NSString *message = [_mTextView.attributedText string];
     NSString *newMessage = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if(message.length==0){
-        
+        return;
     }
-    else if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewBtnClick:)]){
+   __block NSMutableDictionary *accountIdMap = [NSMutableDictionary dictionary];
+    __block NSMutableDictionary *serviceMap = [NSMutableDictionary dictionary];
+    if (self.choseMember.count>0) {
+        [[self.choseMember copy] enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *name = [NSString stringWithFormat:@"@%@",obj.name];
+            if([message containsString:name]) {
+                if (obj.isSpecialist) {
+                    [serviceMap setObject:obj.name forKey:obj.ISP];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.ISP]];
+                }else{
+                    [accountIdMap setObject:obj.name forKey:obj.memberID];
+                    message = [message stringByReplacingOccurrencesOfString:name withString:[NSString stringWithFormat:@"@%@",obj.memberID]];
+
+                }
+            }
+        }];
+        NSMutableDictionary *atInfoJSON = [NSMutableDictionary new];
+
+        if (serviceMap.allKeys.count > 0) {
+            [atInfoJSON setObject:serviceMap forKey:@"serviceMap"];
+        }
+        if (accountIdMap.allKeys.count>0) {
+            [atInfoJSON setObject:accountIdMap forKey:@"accountIdMap"];
+        }
+      //  NSString *newMessage1 = [message stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        if (_delegate &&[_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewAtBtnClick:atInfoJSON:)]) {
+            [_delegate PWChatKeyBoardInputViewAtBtnClick:message atInfoJSON:atInfoJSON];
+        }
+        [self.choseMember removeAllObjects];
+        [self.rangeArray removeAllObjects];
+    }else{
+     if(_delegate && [_delegate respondsToSelector:@selector(PWChatKeyBoardInputViewBtnClick:)]){
         [_delegate PWChatKeyBoardInputViewBtnClick:newMessage];
     }
-    
+    }
     _mTextView.text = @"";
     _textString = _mTextView.text;
     _mTextView.contentSize = CGSizeMake(_mTextView.contentSize.width, 30);
@@ -287,6 +410,7 @@
     _textH = PWChatTextHeight;
     [self setNewSizeWithBootm:_textH];
 }
+
 
 
 //监听输入框的操作 输入框高度动态变化
@@ -331,9 +455,29 @@
         }
     }
 }
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 
-
-
+- (NSArray*)rangeOfSubString:(NSString*)subStr inString:(NSString*)string {
+   NSMutableArray *rangeArray = [NSMutableArray array];
+   NSString *string1 = [string stringByAppendingString:subStr];
+   NSString *temp;
+    for(int i =0; i < string.length; i ++) {
+         temp = [string1 substringWithRange:NSMakeRange(i, subStr.length)];
+        if ([temp isEqualToString:subStr]) {
+            NSRange range = {i,subStr.length};
+            [rangeArray addObject: [NSValue valueWithRange:range]];
+        }
+    }
+     return rangeArray;
+}
 
 
 

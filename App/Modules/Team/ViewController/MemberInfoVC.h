@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, PWMemberViewType) {
     PWMemberViewTypeMe,
     PWMemberViewTypeExpert,
     PWMemberViewTypeTrans,
+    PWMemberViewTypeSpecialist,
 };
 @class MemberInfoModel;
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MemberInfoModel *model;
 @property (nonatomic, assign) PWMemberViewType type;
 @property (nonatomic, copy) void(^teamMemberRefresh)(void);
-
+@property (nonatomic, copy) void(^memberBeizhuChangeBlock)(NSString *name);
 @property (nonatomic, strong) NSDictionary *expertDict;
 @end
 

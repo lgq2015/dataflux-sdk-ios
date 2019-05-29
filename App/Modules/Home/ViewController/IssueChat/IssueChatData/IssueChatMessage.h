@@ -12,20 +12,20 @@
 #define PWChatTextCellId        @"PWChatTextCellId"
 #define PWChatImageCellId       @"PWChatImageCellId"
 #define PWChatFileCellId        @"PWChatFileCellId"
-#define PWChatSystermCellId      @"PWChatSystermCellId"
-
+#define PWChatSystermCellId     @"PWChatSystermCellId"
+#define PWChatKeyPointCellId    @"PWChatKeyPointCellId"
 
 #define PWChatCellTop           8           //顶部距离cell
 #define PWChatCellBottom        15           //底部距离cell
 #define PWChatIconWH            40           //原型头像尺寸
 #define PWChatIconLeft          16           //头像与左边距离
 #define PWChatIconRight         16           //头像与右边距离
-#define PWChatDetailLeft        10           //详情与左边距离
-#define PWChatDetailRight       10           //详情与右边距离
-#define PWChatTextTop           12           //文本距离详情顶部
+#define PWChatDetailLeft        0           //详情与左边距离
+#define PWChatDetailRight       0           //详情与右边距离
+#define PWChatTextTop           0           //文本距离详情顶部
 #define PWChatTextBottom        12           //文本距离详情底部
-#define PWChatTextLRS           5           //文本左右短距离
-#define PWChatTextLRB           10           //文本左右长距离
+#define PWChatTextLRS           0           //文本左右短距离
+#define PWChatTextLRB           0           //文本左右长距离
 
 
 
@@ -34,7 +34,7 @@
 #define PWChatAirLRS            10           //气泡左右短距离
 #define PWChatAirBottom         10           //气泡距离详情底部
 #define PWChatAirLRB            10           //气泡左右长距离
-#define PWChatTextFont          17           //内容字号
+#define PWChatTextFont          16           //内容字号
 
 #define PWChatTextLineSpacing   5            //文本行高
 #define PWChatTextRowSpacing    0            //文本间距
@@ -49,10 +49,11 @@
 #define PWChatIcon_RX            kWidth-PWChatIconRight-PWChatIconWH
 
 //文本自适应限制宽度
-#define PWChatTextInitWidth      kWidth-128-PWChatTextLRS-PWChatTextLRB
+#define PWChatTextInitWidth      kWidth-ZOOM_SCALE(64)-26
+//128-PWChatTextLRS-PWChatTextLRB
 
 //图片最大尺寸(正方形)
-#define PWChatImageMaxSize       ZOOM_SCALE(140)
+#define PWChatImageMaxSize       ZOOM_SCALE(102)
 
 
 /**
@@ -80,28 +81,36 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeImage,
     PWChatMessageTypeFile,
     PWChatMessageTypeSysterm,
+    PWChatMessageTypeKeyPoint,
+    PWChatMessageTypeAtText,
+};
+typedef NS_ENUM(NSInteger, PWChatMessageSendStates) {
+    ChatSentStatesIsSending =1,
+    ChatSentStatesSendSuccess,
+    ChatSentStatesSendError,
 };
 @interface IssueChatMessage : NSObject
 //消息发送方  消息类型  消息对应cell类型
 @property (nonatomic, assign) PWChatMessageFrom messageFrom;
 @property (nonatomic, assign) PWChatMessageType messageType;
+@property (nonatomic, assign) PWChatMessageSendStates  sendStates;
 @property (nonatomic, strong) NSString     *cellString;
 
 //会话id
 @property (nonatomic, strong) NSString    *sessionId;
-@property (nonatomic, assign) BOOL isSend;
+//@property (nonatomic, assign) BOOL isSend;
 //消息是否发送失败
-@property (nonatomic, assign) BOOL sendError;
+//@property (nonatomic, assign) BOOL sendError;
 @property (nonatomic, strong) NSString *memberId;
 //头像
 @property (nonatomic, strong) NSString    *headerImgurl;
 @property (nonatomic, strong) NSString    *nameStr;
-
+@property (nonatomic, strong) NSString    *stuffName;
 //文本消息内容 颜色  消息转换可变字符串
-@property (nonatomic, strong) NSString    *textString;
+@property (nonatomic, strong) NSMutableAttributedString    *textString;
 @property (nonatomic, strong) UIColor     *textColor;
 @property (nonatomic, strong) NSMutableAttributedString  *attTextString;
-
+@property (nonatomic, assign) BOOL       isHasAtStr;
 //图片消息链接或者本地图片 图片展示格式
 @property (nonatomic, strong) NSString    *imageString;
 @property (nonatomic, strong) UIImage     *image;

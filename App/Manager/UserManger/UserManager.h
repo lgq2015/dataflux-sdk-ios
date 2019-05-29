@@ -88,9 +88,13 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 /**
- 获取情报源名称
+ 获取云服务名称
  */
 - (void)getissueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+/**
+ 获取当前团队
+ */
+- (TeamInfoModel *)getTeamModel;
 /**
     获取team成员
  */
@@ -121,4 +125,41 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock;
 - (void)onKick;
+/**
+  authTeamList 缓存
+ */
+- (void)setAuthTeamList:(NSArray *)teamList;
+/**
+  获取TeamList(异步)
+ */
+- (void)getAuthTeamList:(void(^)(id obj))resultBlock;
+/**
+  获取TeamList(同步)
+ */
+- (NSArray *)getAuthTeamList;
+/**
+  更新teammodel
+ */
+- (void)updateTeamModelWithGroupID:(NSString *)groupID;
+/**
+  请求团队列表
+ */
+- (void)requestMemberList:(void(^)(BOOL isFinished))isFinished;
+/**
+ 团队活跃情报树
+ */
+- (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock;
+/**
+ 获取活跃情报红点
+ */
+- (NSDictionary *)getAuthTeamIssueCount;
+/**
+ 存储团队ISPs
+ */
+- (void)setTeamISPs:(NSArray *)ispsArray;
+/**
+ 获取团队ISPs
+ */
+- (NSArray *)getTeamISPs;
+-(CurrentUserModel *)getCurrentUserModel;
 @end

@@ -12,9 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListVC : RootViewController
-@property (nonatomic, strong) NSMutableArray *dataSource;
-- (id)initWithTitle:(NSString *)title andIssueType:(NSString *)type;
-
+- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)index refresh:(BOOL)refresh;
 @end
 
 NS_ASSUME_NONNULL_END

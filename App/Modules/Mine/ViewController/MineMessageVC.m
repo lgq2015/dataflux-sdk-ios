@@ -20,7 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的消息";
+    if (self.ownership == Account_Message){
+        self.title = @"我的消息";
+    }else if (self.ownership == Team_Message){
+        self.title = @"团队消息";
+    }
     [self createUI];
     [self loadData];
 }
@@ -42,7 +46,13 @@
     [SVProgressHUD show];
     self.dataSource = [NSMutableArray new];
     self.pageIndex = 1;
-    NSDictionary *param = @{@"pageSize":@20,@"pageIndex":@1};
+    NSString *ownership = nil;
+    if (self.ownership == Account_Message){
+        ownership = @"account";
+    }else if (self.ownership == Team_Message){
+        ownership = @"team";
+    }
+    NSDictionary *param = @{@"pageSize":@20,@"pageIndex":@1,@"ownership":ownership};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSArray *data = response[@"content"][@"data"];
@@ -70,7 +80,13 @@
     }];
 }
 -(void)loadMoreData{
-    NSDictionary *param = @{@"pageSize":@20,@"pageIndex":[NSNumber numberWithInteger:self.pageIndex]};
+    NSString *ownership = nil;
+    if (self.ownership == Account_Message){
+        ownership = @"account";
+    }else if (self.ownership == Team_Message){
+        ownership = @"team";
+    }
+    NSDictionary *param = @{@"pageSize":@20,@"pageIndex":[NSNumber numberWithInteger:self.pageIndex],@"ownership":ownership};
     [PWNetworking requsetHasTokenWithUrl:PW_systemMessageList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             self.pageIndex++;
@@ -128,10 +144,13 @@
         [self setMessageRead:model];
     }else{
     MessageDetailVC *detail = [[MessageDetailVC alloc]init];
-   
     detail.model = model;
     detail.refreshTable =^(){
-        [self loadData];
+        NSMutableDictionary * mdic = [NSMutableDictionary dictionaryWithDictionary:dict];
+        [mdic setValue:@1 forKey:@"isReaded"];
+        [self.dataSource removeObject:dict];
+        [self.dataSource insertObject:mdic atIndex:indexPath.row];
+        [self.tableView reloadData];
     };
     [self.navigationController pushViewController:detail animated:YES];
     }
@@ -145,5 +164,8 @@
     } failBlock:^(NSError *error) {
         
     }];
+}
+- (void)dealloc{
+    DLog(@"%s",__func__);
 }
 @end

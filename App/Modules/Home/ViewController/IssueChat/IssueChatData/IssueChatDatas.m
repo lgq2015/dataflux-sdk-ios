@@ -19,7 +19,7 @@
 
     switch (messageType) {
         case PWChatMessageTypeText:{
-            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text callBack:^(id response) {
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text atInfoJSON:nil callBack:^(id response) {
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
                     model.id = data.id;
@@ -53,7 +53,17 @@
             }];
         }
             break;
-    
+        case PWChatMessageTypeAtText:{
+            [[PWHttpEngine sharedInstance] addIssueLogWithIssueid:sessionId text:model.text atInfoJSON:[model.atInfoJSONStr jsonValueDecoded] callBack:^(id response) {
+                AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
+                if (data.isSuccess) {
+                    model.id = data.id;
+                    messageBlock ? messageBlock(model, UploadTypeSuccess, 1) : nil;
+                } else {
+                    messageBlock ? messageBlock(model, UploadTypeError, 1) : nil;
+                }
+            }];
+        }
     
         default:
             break;
@@ -88,7 +98,6 @@
     }
     
     
-    message.sendError    = NO;
     message.headerImgurl = model.headerImg;
 //    message.messageId    = dic[@"messageId"];
     message.textColor    = PWChatTextColor;
@@ -129,7 +138,7 @@
 
             NSArray *array = [[IssueChatDataManager sharedInstance]
                     getChatIssueLogDatas:issueId startSeq:nil endSeq:newLastCheckSeq];
-            dispatch_sync_on_main_queue(^{
+            dispatch_async_on_main_queue(^{
                 NSMutableArray *newChatArray = [self bindArray:array];
                 callback ? callback(newChatArray) : nil;
             });

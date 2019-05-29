@@ -10,7 +10,7 @@
 #import "UIScrollView+UITouch.h"
 
 @interface RootViewController ()
-@property(nonatomic, strong) UIView *noDataView;
+@property(nonatomic, strong) NoDataView *noDataView;
 @property(nonatomic, strong) UILabel *noDataLab;
 @property(nonatomic, strong) UIView *noNetWordView;
 @property(nonatomic, strong) UIView *noSearchView;
@@ -162,18 +162,40 @@
     }
     return _footer;
 }
--(void)showNoDataImage
+#pragma mark ========== 没有数据空页面 ==========
+- (void)showNoDataImage{
+    [self showNoDataViewWithStyle:NoDataViewNormal];
+}
+-(void)showNoDataViewWithStyle:(NoDataViewStyle)style
 {
-//    _noDataView=[[UIImageView alloc] init];
-
-//    [_noDataView setImage:[UIImage imageNamed:@"blank_page"]];
     [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITableView class]]) {
             obj.hidden = YES;
         }
     }];
+    CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
+    if (!_noDataView) {
+       _noDataView = [[NoDataView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight) style:style];
+        WeakSelf
+        _noDataView.btnClickBlock = ^(){
+            [weakSelf noDataBtnClick];
+        };
+    }
     [self.view addSubview:self.noDataView];
 }
+- (void)noDataBtnClick{
+    
+}
+-(void)removeNoDataImage{
+    if (_noDataView) {
+        [_noDataView removeFromSuperview];
+        _noDataView = nil;
+    }
+    if (_tableView) {
+        _tableView.hidden = NO;
+    }
+}
+#pragma mark ========== 搜索结果为空页面 ==========
 -(void)hideNoSearchView{
     if (_noSearchView) {
         self.noSearchView.hidden = YES;
@@ -223,22 +245,7 @@
     }
     return _noSearchView;
 }
--(UIView *)noDataView{
-    if (!_noDataView) {
-        CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
 
-        _noDataView = [[UIView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight)];
-        _noDataView.backgroundColor = PWWhiteColor;
-        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(111), ZOOM_SCALE(222), ZOOM_SCALE(190))];
-         [image setImage:[UIImage imageNamed:@"blank_page"]];
-        image.centerX = self.view.centerX;
-        [_noDataView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"暂无列表"];
-        no.textAlignment = NSTextAlignmentCenter;
-        [_noDataView addSubview:no];
-    }
-    return _noDataView;
-}
 -(UIView *)noNetWordView{
     if (!_noNetWordView) {
         CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
@@ -271,15 +278,7 @@
         self.tableView.tableFooterView = nil;
     }
 }
--(void)removeNoDataImage{
-    if (_noDataView) {
-        [_noDataView removeFromSuperview];
-        _noDataView = nil;
-    }
-    if (_tableView) {
-        _tableView.hidden = NO;
-    }
-}
+
 /**
  *  懒加载UIScrollView
  *
@@ -290,6 +289,11 @@
         _mainScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight)];
         _mainScrollView.alwaysBounceHorizontal = NO;
         _mainScrollView.directionalLockEnabled = YES;
+        if (@available(iOS 11.0, *)) {
+            _mainScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
         [self.view addSubview:_mainScrollView];
     }
     return _mainScrollView;
@@ -303,33 +307,19 @@
 {
     if (_tableView == nil) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _tableView.estimatedRowHeight = 50;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
+  
         _tableView.scrollsToTop = YES;
         _tableView.backgroundColor = PWBackgroundColor;
-        _tableView.tableFooterView = [[UIView alloc] init];
+         _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
 }
 
-/**
- *  懒加载collectionView
- *
- *  @return collectionView
- */
-//- (UICollectionView *)collectionView
-//{
-//    if (_collectionView == nil) {
-//        
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kWidth , kHeight - kTopHeight) collectionViewLayout:self.layout];
-//        _collectionView.backgroundColor=PWWhiteColor;
-//        _collectionView.scrollsToTop = YES;
-//    }
-//    return _collectionView;
-//}
+
 -(void)headerRefreshing{
     [NSException raise:@"[RootViewController headerRefreshing]"
                 format:@"You Must Override This Method."];
@@ -391,6 +381,7 @@
     for (NSString * imageName in imageNames) {
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateSelected];
         btn.frame = CGRectMake(0, 0, 30, 30);
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UIViewController *showVC;
 - (instancetype)initWithTitle:(NSString *)title descr:(NSString *)descr thumImage:(UIImage *)thumImage;
 - (void)shareToPlatform:(SharePlatformType)type;
+- (void)shareToPlatform:(SharePlatformType)type viewController:(UIViewController *)vc;
 @end
 
 NS_ASSUME_NONNULL_END

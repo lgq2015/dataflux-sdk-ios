@@ -31,7 +31,6 @@
     
 }
 -(void)createUI{
-    _describeLab.hidden = YES;
     switch (self.type) {
         case MineVCCellTypeBase:
             [self createUIBase];
@@ -131,6 +130,7 @@
     [self.switchBtn addTarget:self action:@selector(valueChanged:) forControlEvents:(UIControlEventValueChanged)];
 }
 - (void)createUIDescribe{
+    self.describeLab.hidden = NO;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(Interval(16));
         make.height.offset(22);
@@ -143,7 +143,6 @@
         make.height.offset(16);
         make.centerY.mas_equalTo(self.titleLab);
     }];
-    self.describeLab.hidden = NO;
     [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLab.mas_right).offset(10);
         make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
@@ -157,7 +156,6 @@
 
 }
 - (void)createUIDot{
-   
     self.iconImgView.image = [UIImage imageNamed:_data.icon];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconImgView.mas_right).offset(10);
@@ -171,7 +169,6 @@
         make.height.offset(16);
         make.centerY.mas_equalTo(self.iconImgView);
     }];
-    self.describeLab.hidden = NO;
     [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
         make.centerY.mas_equalTo(self.titleLab);
@@ -230,6 +227,7 @@
     if (!_describeLab) {
         _describeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@""];
         _describeLab.textAlignment = NSTextAlignmentRight;
+        _describeLab.hidden = YES;
         [self addSubview:_describeLab];
     }
     return _describeLab;
@@ -277,9 +275,12 @@
 -(void)setDescribeLabText:(NSString *)text{
     if (_describeLab) {
         if (self.type == MineVCCellTypeDot) {
-            self.describeLab.hidden = NO;
-            if ([text integerValue] == 0) {
+            if ([text integerValue] > 0){
+                self.describeLab.hidden = NO;
+            }else{
                 self.describeLab.hidden = YES;
+            }
+            if ([text integerValue] == 0) {
             }else if ([text integerValue]<9) {
                 [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
@@ -288,7 +289,7 @@
                     make.width.offset(20);
                 }];
                 self.describeLab.text = text;
-            }else if([text integerValue]<99){
+            }else if([text integerValue]<100){
                 [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
                     make.centerY.mas_equalTo(self.titleLab);
@@ -297,9 +298,16 @@
                 }];
                 self.describeLab.text = text;
             }else{
-                self.describeLab.text = @"•••";
+                [self.describeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+                    make.centerY.mas_equalTo(self.titleLab);
+                    make.height.offset(20);
+                    make.width.offset(28);
+                }];
+                self.describeLab.text = @"···";
             }
         }else{
+            self.describeLab.hidden = NO;
         self.describeLab.text = text;
         self.describeLab.textColor = [UIColor colorWithHexString:@"8E8E93"];
         }
@@ -308,6 +316,7 @@
 }
 -(void)setAlermDescribeLabText:(NSString *)text{
     if (_describeLab) {
+        self.describeLab.hidden = NO;
         self.describeLab.textColor = PWBlueColor;
         self.describeLab.text = text;
     }

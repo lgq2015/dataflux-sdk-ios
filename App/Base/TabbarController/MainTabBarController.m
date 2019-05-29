@@ -15,7 +15,9 @@
 #import "TeamVC.h"
 #import "PWTabBar.h"
 #import "WEBViewController.h"
-#import "CloudCareVC.h"
+#import "IssueListVC.h"
+#import "LibraryVC.h"
+#import "HomeIssueListVC.h"
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
 @end
@@ -38,22 +40,16 @@
 }
 - (void)setUpAllChildViewController{
     _VCS = @[].mutableCopy;
-    //    HomeViewController *homeVC = [[HomeViewController alloc]init];
-    //    WaterFallListViewController *homeVC = [WaterFallListViewController new];
-    HomeViewController *homeVC = [[HomeViewController alloc]init];
-    [self setupChildViewController:homeVC title:@"王教授" imageName:@"icon_pw" seleceImageName:@"icon_pwselect"];
-     homeVC.isHidenNaviBar= YES;
+    HomeIssueListVC *homeVC = [[HomeIssueListVC alloc]init];
+    homeVC.isHidenNaviBar = YES;
+    [self setupChildViewController:homeVC title:@"情报" imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
+    LibraryVC *libriary = [[LibraryVC alloc]init];
+    libriary.isHidenNaviBar = YES;
 
-    //    MakeFriendsViewController *makeFriendVC = [[MakeFriendsViewController alloc]init];
-    CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
-    makeFriendVC.isHideProgress = YES;
-    [self setupChildViewController:makeFriendVC title:@"服务" imageName:@"icon_serve" seleceImageName:@"icon_serveselect"];
-    
-    //    MsgViewController *msgVC = [[MsgViewController alloc]init];
+    [self setupChildViewController:libriary title:@"智库" imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
-    team.isShowCustomNaviBar = YES;
+    team.isHidenNaviBar = YES;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
-    
     
     MineViewController *mineVC = [[MineViewController alloc]init];
     [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_personal" seleceImageName:@"icon_personals"];

@@ -45,10 +45,6 @@
                                              selector:@selector(updateUser)
                                                  name:KNotificationUserInfoChange
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(feedBack)
-                                                 name:KNotificationFeedBack
-                                               object:nil];
     self.dataSource = [NSArray new];
     [self getSystemMessagCount];
  
@@ -56,10 +52,6 @@
 }
 #pragma mark ========== UI布局 ==========
 
-- (void)feedBack{
-    FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
-    [self.navigationController pushViewController:opinionVC animated:NO];
-}
 - (void)updateUser{
     [userManager saveChangeUserInfo];
     self.userName.text= userManager.curUserInfo.name;
@@ -70,28 +62,28 @@
 #pragma mark ========== 界面布局数据处理 ==========
 - (void)dealWithData{
     MineCellModel *mynews = [[MineCellModel alloc]initWithTitle:@"我的消息" icon:@"icon_news" cellType:MineCellTypeInformation];
-    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"情报源" icon:@"icon_information" cellType:MineCellTypeInfoSource];
+//    MineCellModel *infoSource = [[MineCellModel alloc]initWithTitle:@"云服务" icon:@"icon_information" cellType:MineCellTypeInfoSource];
     MineCellModel *collection = [[MineCellModel alloc]initWithTitle:@"收藏" icon:@"mine_collection" cellType:MineCellTypeCollect];
     MineCellModel *opinion = [[MineCellModel alloc]initWithTitle:@"意见与反馈" icon:@"icon_opinion" cellType:MineCellTypeOpinion];
     MineCellModel *contact = [[MineCellModel alloc]initWithTitle:@"联系我们" icon:@"icon_contact" cellType:MineCellTypeContactuUs];
     MineCellModel *encourage = [[MineCellModel alloc]initWithTitle:@"鼓励我们" icon:@"icon_encourage" cellType:MineCellTypeEncourage];
     MineCellModel *aboutPW = [[MineCellModel alloc]initWithTitle:@"关于王教授" icon:@"icon_about" cellType:MineCellTypeAboutPW];
     MineCellModel *setting = [[MineCellModel alloc]initWithTitle:@"设置" icon:@"icon_setting" cellType:MineCellTypeSetting];
-    NSArray *group1 =@[mynews,infoSource,collection];
+    NSArray *group1 =@[mynews,collection];
     NSArray *group2= @[opinion,contact,encourage,aboutPW];
     NSArray *group3 = @[setting];
     self.dataSource = @[group1,group2,group3];
     [self.tableView reloadData];
 }
 - (void)getSystemMessagCount{
-    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    NSDictionary *params = @{@"ownership":@"account"};
+    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             self.unread = [content longValueForKey:@"unread" default:0];
             if (self.tableView) {
                 NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
                 MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-
                 long count =(long)self.unread;
                 [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",count]];
             }
@@ -227,6 +219,7 @@
         
         case MineCellTypeInformation:{
             MineMessageVC *messageVC = [[MineMessageVC alloc]init];
+            messageVC.ownership = Account_Message;
             [self.navigationController pushViewController:messageVC animated:YES];
         }
             break;
@@ -284,14 +277,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

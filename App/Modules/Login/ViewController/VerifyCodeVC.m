@@ -286,16 +286,17 @@
 #pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
     [SVProgressHUD showWithStatus:@"登录中..."];
-
-
     NSMutableDictionary * data = [@{
             @"username": self.phoneNumber,
             @"verificationCode": code,
             @"marker": @"mobile",
     } mutableCopy];
-
+    //指定最后一次登录的teamid
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [data setValue:lastLoginTeamId forKey:@"teamId"];
+    }
     [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
-
     NSDictionary *param = @{@"data": data};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
         [SVProgressHUD dismiss];
@@ -311,7 +312,12 @@
 }
 #pragma mark ========== 找回密码 ==========
 - (void)findPasswordWithCode:(NSString *)code{
-    NSDictionary *params = @{@"data":@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}};
+    NSMutableDictionary *dataDic = [@{@"username":self.phoneNumber,@"verificationCode":code,@"marker":@"mobile"}  mutableCopy];
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [dataDic setValue:lastLoginTeamId forKey:@"teamId"];
+    }
+    NSDictionary *params = @{@"data":dataDic};
     [PWNetworking requsetWithUrl:PW_forgottenPassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
@@ -450,12 +456,16 @@
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = YES;
             [self presentViewController:success animated:YES completion:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
         }else{
-            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
+            });
         }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        });
+
     } failBlock:^(NSError *error) {
         [error errorToast];
     }];
@@ -468,7 +478,7 @@
             success.isTrans = NO;
             [self presentViewController:success animated:YES completion:nil];
         }else{
-            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
@@ -530,5 +540,28 @@
     }else{
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
     }
+}
+#pragma mark --寻找控制器返回--
+-(void)popToAppointViewController:(NSString *)ClassName animated:(BOOL)animated{
+    id vc = [self getCurrentViewControllerClass:ClassName];
+    if(vc != nil && [vc isKindOfClass:[UIViewController class]]){
+        [self.navigationController popToViewController:vc animated:YES];
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+-(UIViewController *)getCurrentViewControllerClass:(NSString *)ClassName
+{
+    Class classObj = NSClassFromString(ClassName);
+    
+    NSArray * szArray =  self.navigationController.viewControllers;
+    for (id vc in szArray) {
+        if([vc isMemberOfClass:classObj])
+        {
+            return vc;
+        }
+    }
+    
+    return nil;
 }
 @end

@@ -16,6 +16,7 @@
 #import "MainTabBarController.h"
 #import "PWSocketManager.h"
 #import "HeartBeatManager.h"
+#import "IssueListManger.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
@@ -155,10 +156,9 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [[PWSocketManager sharedPWSocketManager] forceRestart];
     [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
     [[HeartBeatManager new] sendHeartBeat];
-
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
@@ -205,7 +205,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional
-    DDLogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
+    NBULogDebug(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
@@ -220,7 +220,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             //程序运行时收到通知，先弹出消息框 一般是前台收到消息 设置的alert
         }else{
-            DDLogDebug(@"didReceive userInfo = %@",userInfo);
+            NBULogDebug(@"didReceive userInfo = %@",userInfo);
             if([userManager loadUserInfo]){
                 NSMutableDictionary *resultDic = [[NSMutableDictionary alloc]initWithDictionary:userInfo];
                 for (NSString *key in resultDic.allKeys) {

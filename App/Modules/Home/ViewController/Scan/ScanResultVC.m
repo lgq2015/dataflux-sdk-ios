@@ -27,22 +27,27 @@
 -(void)eventSwitchToken:(NSDictionary *)extra{
     NSString *token = [extra stringValueForKey:@"token" default:@""];
     setXAuthToken(token);
+    //请求成员
+    [userManager requestMemberList:nil];
     [userManager saveUserInfoLoginStateisChange:NO success:^(BOOL isSuccess) {
-        KPostNotification(KNotificationTeamStatusChange,@YES);
-        KPostNotification(KNotificationConnectStateCheck,nil);
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-        [tabViewController setSelectedIndex:2];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            KPostNotification(KNotificationSwitchTeam, @YES);
+            KPostNotification(KNotificationTeamStatusChange,@YES);
+            KPostNotification(KNotificationConnectStateCheck,nil);
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
+            [tabViewController setSelectedIndex:2];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
     }];
 
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
-        KPostNotification(KNotificationInfoBoardDatasUpdate, @YES);
-
-        if (!model.isSuccess) {
-            [iToast alertWithTitleCenter:model.errorMsg];
-        }
-    }];
+//    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+//        KPostNotification(KNotificationSwitchTeam, @YES);
+//
+//        if (!model.isSuccess) {
+//            [iToast alertWithTitleCenter:model.errorMsg];
+//        }
+//    }];
 
 }
 - (void)eventOfTeamViewWithExtra:(NSDictionary *)extra{

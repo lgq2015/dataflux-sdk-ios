@@ -41,10 +41,20 @@
     
     self.titleLab.text = _model.title;
     self.titleLab.textColor = _model.read?PWReadColor:PWBlackColor;
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+                                 forHTTPHeaderField:@"Accept"];
+    self.model.imageUrl = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)self.model.imageUrl,
+                                                              (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                              NULL,kCFStringEncodingUTF8));
+    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageWithColor:PWBackgroundColor]];
 }
 
--(void)layoutIfNeeded{
-    self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(32)-ZOOM_SCALE(90);
+
+-(void)layoutSubviews{
+    self.backgroundColor = [UIColor whiteColor];
+    self.iconImgVie.backgroundColor = PWBackgroundColor;
     self.titleLab.numberOfLines = 3;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.iconImgVie.mas_left).offset(-Interval(20));
@@ -57,16 +67,7 @@
         make.right.mas_equalTo(self.contentView).offset(-Interval(16));
         make.width.height.offset(ZOOM_SCALE(90));
     }];
-    //修复NSURLErrorDomain - Code = 415(不支持的媒体类型)
-    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-                                 forHTTPHeaderField:@"Accept"];
-    //字符串编码
-    self.model.imageUrl = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)self.model.imageUrl,
-                                                              (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
-                                                              NULL,kCFStringEncodingUTF8));
-    [self.iconImgVie sd_setImageWithURL:[NSURL URLWithString:self.model.imageUrl] placeholderImage:[UIImage imageWithColor:PWBackgroundColor]];
+    
     if (self.model.isStarred) {
         self.timeLab.hidden = YES;
         self.topStateLab.hidden =NO;
@@ -87,12 +88,6 @@
             make.bottom.mas_equalTo(self.contentView).offset(-Interval(8));
         }];
     }
-    
-}
--(void)layoutSubviews{
-    self.backgroundColor = [UIColor whiteColor];
-    self.iconImgVie.backgroundColor = PWBackgroundColor;
-    
 }
 -(UILabel *)topStateLab{
     if (!_topStateLab) {

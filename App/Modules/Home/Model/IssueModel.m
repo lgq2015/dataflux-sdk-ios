@@ -27,6 +27,7 @@
     self.issueId = [dict stringValueForKey:@"id" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.createTime = [dict stringValueForKey:@"createTime" default:@""];
+    self.endTime = [dict stringValueForKey:@"endTime" default:@""];
     self.localUpdateTime = self.createTime;
     self.status = [dict stringValueForKey:@"status" default:@""];
     self.actSeq = [dict longValueForKey:@"actSeq" default:0];
@@ -44,9 +45,17 @@
     if (tags) {
         self.tagsStr = [tags jsonStringEncoded];
     }
+    NSDictionary *readAtInfo = PWSafeDictionaryVal(dict, @"readAtInfo");
+    if (readAtInfo) {
+        self.readAtInfoStr = [readAtInfo jsonStringEncoded];
+    }
     NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered ? [rendered jsonPrettyStringEncoded] : @"";
-
+    NSDictionary *markTookOverInfo = PWSafeDictionaryVal(dict, @"markTookOverAccountInfo");
+    NSDictionary *markEndInfoInfo = PWSafeDictionaryVal(dict, @"markEndAccountInfo");
+    self.markTookOverInfoJSONStr = markTookOverInfo?[markTookOverInfo jsonPrettyStringEncoded]:@"";
+    self.markEndAccountInfoStr =markEndInfoInfo?[markEndInfoInfo jsonStringEncoded]:@"";
+    self.markStatus = [dict stringValueForKey:@"markStatus" default:@""];
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict, @"originInfoJSON");
     if (originInfoJSON) {
 
@@ -54,7 +63,8 @@
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.isRead = NO;
     self.issueLogRead= self.lastIssueLogSeq <= 0;
-
+    self.cellHeight = 0;
+    self.isEnded = [dict boolValueForKey:@"isEnded" default:NO];
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict {
@@ -72,7 +82,7 @@
         NSDictionary *dict = [self.originInfoJSONStr jsonValueDecoded];
         NSString *checkKey = [dict stringValueForKey:@"checkKey" default:@""];
         if ([checkKey isEqualToString:@"invalidIssueSource"]) {
-            self.title = @"情报源异常";
+            self.title = @"云服务异常";
             self.isInvalidIssue = YES;
         }
     }

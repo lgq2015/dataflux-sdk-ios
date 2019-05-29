@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PWSegmentStyle.h"
+@class PWScrollSegmentView;
 typedef void(^TitleBtnOnClickBlock)(UILabel *label, NSInteger index);
-typedef void(^ExtraBtnOnClick)(UIButton *extraBtn);
+typedef void(^ExtraBtnOnClick)(UIButton *extraBtn,PWScrollSegmentView *segmentView);
 @interface PWScrollSegmentView : UIView
 @property (copy, nonatomic) ExtraBtnOnClick extraBtnOnClick;
 @property (strong, nonatomic) UIImage *backgroundImage;

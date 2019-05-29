@@ -192,6 +192,43 @@
     }
     return  result;
 }
++ (NSString *)compareCurrentTimeSustainTime:(NSString *)str{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:str];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:timeDate];
+    long temp,tempHour,tempDay = 0;
+    NSString *result;
+    if (timeInterval/60 < 1)
+    {
+        result = [NSString stringWithFormat:@"刚刚"];
+    }
+    else if((temp = timeInterval/60) <60){
+        result = [NSString stringWithFormat:@"持续 %ld 分钟",temp];
+    }
+    else if((tempHour = temp/60) <24){
+        long min =temp%60;
+        result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",tempHour,min];
+    }
+    else if((tempDay = tempHour/24) <7){
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *fromDate;
+        NSDate *toDate;
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:timeDate];
+        [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
+        NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
+        result = [NSString stringWithFormat:@"持续 %ld 天",dayComponents.day];
+        if (dayComponents.day == 7) {
+            result = @"持续超过 1 周";
+        }
+    }
+    else {
+        result = @"持续超过 1 周";
+    }
+    return  result;
+}
 - (NSString *)accurateTimeStr{
     //把字符串转为NSdate
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -277,6 +314,17 @@
     }else if([subType isEqualToString:@"issueLevelChanged"]){
         NSDictionary *issueSnapshotJSON_cache = dict[@"issueSnapshotJSON_cache"];
            type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
+    }else if ([subType isEqualToString:@"markTookOver"]){
+      
+        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        type = [NSString stringWithFormat:@"%@正在处理",name];
+    }else if ([subType isEqualToString:@"markRecovered"]){
+        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+      
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+                 type = [NSString stringWithFormat:@"已由%@解决",name];
+    
     }
     return [NSString stringWithFormat:@"%@  %@",needTime,type];
 }
@@ -285,7 +333,7 @@
     if ([self isEqualToString:@"danger"]) {
         level = @"严重";
     }else if([self isEqualToString:@"info"]){
-        level = @"一般";
+        level = @"提示";
     }else{
         level = @"警告";
     }
@@ -306,14 +354,14 @@
     double convertedValue = [value doubleValue];
     int multiplyFactor = 0;
     
-    NSArray *tokens = [NSArray arrayWithObjects:@"bytes",@"KB",@"M",nil];
+    NSArray *tokens = [NSArray arrayWithObjects:@"B",@"KB",@"M",nil];
     
     while (convertedValue > 1024) {
         convertedValue /= 1024;
         multiplyFactor++;
     }
     
-    return [NSString stringWithFormat:@"%0.2f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
+    return [NSString stringWithFormat:@"%.f %@",convertedValue, [tokens objectAtIndex:multiplyFactor]];
 }
 //获取字符串的字节数
 - (NSUInteger )charactorNumber

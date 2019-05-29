@@ -74,4 +74,5 @@
   是否含有emoji
  */
 -(BOOL)stringContainsEmoji;
++ (NSString *)compareCurrentTimeSustainTime:(NSString *)str;
 @end

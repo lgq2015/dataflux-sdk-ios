@@ -28,6 +28,10 @@
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
 #import "IssueLogAttachmentUrl.h"
+#import "AtListVC.h"
+#import "IssueLastReadInfoModel.h"
+#import "IssueLogAtReadInfo.h"
+#import "AtReadSeqAndAccountID.h"
 
 //#import "PWImageGroupView.h"
 @interface IssueChatVC ()<PWChatKeyBoardInputViewDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PWChatBaseCellDelegate>
@@ -74,7 +78,11 @@
 
             [self.datas addObjectsFromArray:array];
             [self.mTableView reloadData];
-            [self scrollToBottom:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self scrollToBottom:NO];
+            });
+            [self loadReadInfo];
+        //    [self postLastReadSeq];
         }else{
             if (self.datas.count == 0) {
                 IssueChatMessage *message = [IssueChatMessage new];
@@ -83,7 +91,7 @@
                 message.systermStr = @"在这里讨论该情报";
                 IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
                 [self.datas addObject:layout];
-                 [self.mTableView reloadData];
+                [self.mTableView reloadData];
             }
         }
     }];
@@ -104,8 +112,27 @@
                                              selector:@selector(onFetchComplete)
                                                  name:KNotificationFetchComplete
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onRecordLastReadSeq:)
+                                                 name:KNotificationRecordLastReadSeq
+                                               object:nil];
 }
-
+- (void)loadReadInfo{
+    [[PWHttpEngine sharedInstance] getIssueLogReadsInfoWithIssueID:self.issueID callBack:^(id o) {
+        IssueLogAtReadInfo *data = (IssueLogAtReadInfo *) o;
+        if (data.isSuccess) {
+            [data.lastReadSeqInfo  enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                AtReadSeqAndAccountID *readInfo = [AtReadSeqAndAccountID new];
+                readInfo.seq = [obj longLongValue];
+                readInfo.accountId = key;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self dealWithAtDatas:readInfo];
+                });
+            }];
+        }
+    }];
+    
+}
 - (void)scrollToBottom:(BOOL)animation {
     if (self.datas.count > 0) {
 
@@ -124,7 +151,70 @@
     //TODO 后期可能需要做链接提示
 
 }
-
+#pragma mark ========== 刷新界面上的已读未读 ==========
+- (void)onRecordLastReadSeq:(NSNotification *)notification{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       NSDictionary * pass = [notification userInfo];
+       NSError *error;
+       IssueLastReadInfoModel *readModel = [[IssueLastReadInfoModel alloc]initWithDictionary:pass error:&error];
+        AtReadSeqAndAccountID *read  = [AtReadSeqAndAccountID new];
+        read.seq = readModel.issueLogInfo.seq;
+        read.accountId = readModel.data.accountId;
+        DLog(@"%@",readModel.data.accountId);
+        if ([readModel.issueLogInfo.issueId isEqualToString:_issueID]) {
+            [self dealWithAtDatas:read];
+        }
+        
+    });
+}
+- (void)dealWithAtDatas:(AtReadSeqAndAccountID *)readModel{
+    __block NSMutableArray *indexAry = [NSMutableArray new];
+    [[self.datas copy] enumerateObjectsUsingBlock:^(IssueChatMessagelLayout *cache, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (cache.message.messageFrom == PWChatMessageFromMe) {
+        IssueLogModel *model = cache.message.model;
+        if(model.seq<=readModel.seq && model.atStatusStr.length>0){
+            NSDictionary *atStatus = [model.atStatusStr jsonValueDecoded];
+            NSMutableArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts")?
+            [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"unreadAccounts")]:[NSMutableArray new];
+            NSMutableArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts")?
+            [NSMutableArray arrayWithArray:PWSafeArrayVal(atStatus, @"readAccounts")]:[NSMutableArray new];
+            if(unreadAccounts.count>0){
+                [[unreadAccounts copy] enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx1, BOOL * _Nonnull stop) {
+                    if ([[obj stringValueForKey:@"accountId" default:@""] isEqualToString:readModel.accountId]) {
+                        NSDictionary *readDict= unreadAccounts[idx1];
+                        [unreadAccounts removeObjectAtIndex:idx1];
+                        [readAccounts addObject:readDict];
+                        if (unreadAccounts.count == 0) {
+                            
+                        }
+                        NSDictionary *newAtStatus = @{@"readAccounts":readAccounts,@"unreadAccounts":unreadAccounts};
+                        model.atStatusStr = [newAtStatus jsonStringEncoded];
+                        cache.message.model = model;
+                        [self.datas replaceObjectAtIndex:idx withObject:cache];
+                        NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
+                        [indexAry addObject:index];
+                        [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:self.issueID data:model deleteCache:NO];
+                        *stop = YES;
+                    }
+                }];
+            }
+        }
+            }
+        
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        DLog(@"indexAry == %@",indexAry);
+        [self.mTableView reloadRowsAtIndexPaths:indexAry withRowAnimation:UITableViewRowAnimationNone];
+    });
+    
+}
+- (void)postLastReadSeq{
+    IssueChatMessagelLayout *layout = [self.datas lastObject];
+    [[PWHttpEngine sharedInstance] postIssueLogReadsLastReadSeqRecord:layout.message.model.id callBack:^(id o) {
+        
+    }];
+}
 - (void)onNewIssueChatData:(NSNotification *)notification {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary * pass = [notification userInfo];
@@ -147,8 +237,14 @@
             }
 
             if(!hasSame){
-                [self.datas addObject:layout];
-                dispatch_sync_on_main_queue(^{
+               
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.datas addObject:layout];
+                    [self onNewIssueChatDataRemoveSame:notification];
+                    if(layout.message.model.atStatusStr.length>0){
+              //          [self postLastReadSeq];
+                    }
                     [NSObject cancelPreviousPerformRequestsWithTarget: self
                                                              selector:@selector(onNewIssueChatDataRemoveSame:)
                                                                object: notification];
@@ -156,6 +252,7 @@
                     [self performSelector:@selector(onNewIssueChatDataRemoveSame:)
                                withObject: notification afterDelay: 0.5];
                 });
+               
             }
 
         }
@@ -208,6 +305,7 @@
                 if(isEnd){
                     [self scrollToBottom:NO];
                 }
+                [self postLastReadSeq];
             }
         }
     }
@@ -253,7 +351,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSArray *topDatas = [[IssueChatDataManager sharedInstance] getChatIssueLogDatas:_issueID
                                                                                        startSeq:seq endSeq:0];
-                dispatch_sync_on_main_queue(^{
+                dispatch_async_on_main_queue(^{
                     if (topDatas.count > 0) {
                         NSArray *newChatDatas= [IssueChatDatas bindArray:topDatas];
                         [self.datas insertObjects:newChatDatas atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,[topDatas count])]];
@@ -293,10 +391,10 @@
 
 - (void)createUI{
 //    self.tableVie
-    if(self.model.state != MonitorListStateRecommend){
-        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
-
-    }
+//    if(self.model.state != MonitorListStateRecommend){
+//        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
+//
+//    }
     self.datas = [HLSafeMutableArray new];
     _mInputView = [[IssueChatKeyBoardInputView alloc]init];
     _mInputView.delegate = self;
@@ -346,9 +444,7 @@
 
 
 }
--(void)dealWithNewDta{
 
-}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _datas.count==0?0:1;
 }
@@ -445,8 +541,10 @@
 }
 #pragma mark ========== Socket未连接 保存失败消息 ==========
 - (void)dealSocketNotConnectWithModel:(IssueLogModel *)model{
+    [[PWSocketManager sharedPWSocketManager] forceRestart];
     model.sendError = YES;
     IssueChatMessage *chatModel = [[IssueChatMessage alloc]initWithIssueLogModel:model];
+    chatModel.sendStates = ChatSentStatesSendError;
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:chatModel];
     model.localTempUniqueId = model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
@@ -457,6 +555,7 @@
 #pragma mark ========== Socket已连接 正常发送消息 ==========
 - (void)sendMessageWithModel:(IssueLogModel *)logModel messageType:(PWChatMessageType)type{
     IssueChatMessage *chatModel = [[IssueChatMessage alloc] initWithIssueLogModel:logModel];
+    chatModel.sendStates = ChatSentStatesIsSending;
     IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc] initWithMessage:chatModel];
     [self.datas addObject:layout];
     [self.mTableView reloadData];
@@ -468,14 +567,14 @@
 
     [IssueChatDatas sendMessage:logModel sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *model, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
-            logModel.id = model.id;
+            chatModel.model.id = model.id;
+            chatModel.sendStates = ChatSentStatesSendSuccess;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:YES];
         } else if (type == UploadTypeError) {
-            logModel.sendError = YES;
+            chatModel.model.sendError = YES;
+            chatModel.sendStates = ChatSentStatesSendError;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:model deleteCache:NO];
         }
-        chatModel.model = logModel;
-        chatModel.isSend = NO;
         [self.mTableView reloadData];
     }];
 }
@@ -507,29 +606,40 @@
 }
 #pragma mark ========== 重发 ==========
 -(void)PWChatRetryClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        [[PWSocketManager sharedPWSocketManager] forceRestart];
+        return;
+    }
+    
     layout.message.model.sendError = NO;
+    layout.message.sendStates = ChatSentStatesIsSending;
+    [self.mTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 
     PWChatMessageType type = layout.message.model.text ? PWChatMessageTypeText : PWChatMessageTypeImage;
+    
     if (layout.message.model.imageData) {
         UIImage *image = [UIImage imageWithData:layout.message.model.imageData];
         NSData *newData = UIImageJPEGRepresentation(image, 0.5);
         layout.message.model.imageData = newData;
     }
+    if(layout.message.model.atInfoJSONStr.length>0){
+        type = PWChatMessageTypeAtText;
+    }
     layout.message.model.localTempUniqueId = layout.message.model.id;
     [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:layout.message.model deleteCache:NO];
-    layout.message.sendError = NO;
+    layout.message.sendStates = ChatSentStatesSendSuccess;
     [self.mTableView reloadData];
     [IssueChatDatas sendMessage:layout.message.model sessionId:self.issueID messageType:type messageBlock:^(IssueLogModel *newModel, UploadType type, float progress) {
         if (type == UploadTypeSuccess) {
             layout.message.model.id = newModel.id;
+            layout.message.sendStates = ChatSentStatesSendSuccess;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:YES];
         } else if (type == UploadTypeError) {
             layout.message.model.id = newModel.id;
             layout.message.model.sendError = YES;
-            newModel.sendError = YES;
+            layout.message.sendStates = ChatSentStatesSendError;
             [[IssueChatDataManager sharedInstance] insertChatIssueLogDataToDB:_issueID data:newModel deleteCache:NO];
         }
-        layout.message.isSend = NO;
         [self.mTableView reloadData];
     }];
 
@@ -540,17 +650,12 @@
 
     if(layout.message.messageFrom == PWChatMessageFromMe ){
         iconVC.type = PWMemberViewTypeMe;
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
     }else if(layout.message.messageFrom == PWChatMessageFromOther){
         iconVC.type = PWMemberViewTypeTeamMember;
-        [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
-            if (member) {
-                NSError *error;
-                MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
-                iconVC.model = model;
-            }else{
-                return;
-            }
-        }];
+        [self getMemberAndTransModelInfo:layout vc:iconVC];
+        if (iconVC.model == nil) return;
     }else if (layout.message.messageFrom == PWChatMessageFromStaff){
         iconVC.type = PWMemberViewTypeExpert;
         NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
@@ -563,7 +668,15 @@
     iconVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:iconVC animated:YES];
 }
-
+- (void)getMemberAndTransModelInfo:(IssueChatMessagelLayout *)layout vc:(MemberInfoVC *)iconVC{
+    [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
+        if (member) {
+            NSError *error;
+            MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
+            iconVC.model = model;
+        }
+    }];
+}
 #pragma mark ========== 发送消息 ==========
 -(void)sendMessage:(NSDictionary *)dic messageType:(PWChatMessageType)messageType{
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
@@ -640,7 +753,50 @@
         }
     }];
 }
+#pragma mark ========== @文本发送 ==========
+- (void)PWChatKeyBoardInputViewAtBtnClick:(NSString *)string atInfoJSON:(NSDictionary *)atInfoJSON{
+    DLog(@"atstring === %@;\n atInfoJSON === %@",string,atInfoJSON);
+    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
+    __block  NSMutableArray *unreadAccounts = [NSMutableArray new];
+    [accountIdMap enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [unreadAccounts addObject:@{@"accountId":key}];
+    }];
+    NSDictionary *atStatus;
+    if (unreadAccounts.count>0) {
+        atStatus = @{@"unreadAccounts":unreadAccounts};
+    }
+    IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
+    logModel.text = string;
+    logModel.issueId = self.issueID;
+    logModel.atInfoJSONStr = [atInfoJSON jsonStringEncoded];
+    logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.sendError = NO;
+    logModel.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
+   
+    if(![[PWSocketManager sharedPWSocketManager] isConnect]){
+        [self dealSocketNotConnectWithModel:logModel];
+    }else{
+        [self sendMessageWithModel:logModel messageType:PWChatMessageTypeAtText];
+    }
+}
+- (void)PWChatReadUnreadBtnClickLayout:(IssueChatMessagelLayout *)layout{
+    NSDictionary *atStatus = [layout.message.model.atStatusStr jsonValueDecoded];
+    NSDictionary *atInfoJSON = [layout.message.model.atInfoJSONStr jsonValueDecoded];
+    NSArray *unreadAccounts = PWSafeArrayVal(atStatus, @"unreadAccounts");
+    NSArray *readAccounts = PWSafeArrayVal(atStatus, @"readAccounts");
+    NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+//    NSDictionary *atInfoJSON = [layout.message.model.atInfoJSONStr jsonValueDecoded];
+//    NSDictionary *serviceMap = PWSafeDictionaryVal(atInfoJSON, @"serviceMap");
+//    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
 
+    if ((unreadAccounts.count+readAccounts.count)>1) {
+        AtListVC *atVC = [[AtListVC alloc]init];
+        atVC.atStatus = atStatus;
+        atVC.isHasStuff = serviceMap.allKeys.count>0?YES:NO;
+        [self.navigationController pushViewController:atVC animated:YES];
+    }
+   
+}
 /*
 #pragma mark - Navigation
 

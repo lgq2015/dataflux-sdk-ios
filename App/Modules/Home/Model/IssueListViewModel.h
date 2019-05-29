@@ -19,11 +19,12 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @class IssueModel;
 @interface IssueListViewModel : NSObject
 @property (nonatomic, strong) NSDictionary *dictionary;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *title;   //
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *attrs;
-@property (nonatomic, strong) NSString *issueLog;
-@property (nonatomic, strong) NSString *highlight;
+@property (nonatomic, strong) NSString *issueLog; //最后一条日志
+@property (nonatomic, strong) NSString *markStatusStr;
+@property (nonatomic, strong) NSString *markUserIcon;
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, assign) MonitorListState state;
 @property (nonatomic, strong) NSString *time;
@@ -31,6 +32,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, assign) BOOL isRead;
 @property (nonatomic, assign) BOOL issueLogRead;
 @property (nonatomic, assign) BOOL isFromUser;
+@property (nonatomic, assign) BOOL isCallME;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) NSString *issueId;
 @property (nonatomic, strong) NSString * ticketStatus;
@@ -38,7 +40,11 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, assign) SourceType sourceType;
 @property (nonatomic, assign) BOOL isInvalidIssue;
 @property (nonatomic, strong) NSDictionary *tags;
-
+@property (nonatomic, strong) NSString *issueSourceId;
+@property (nonatomic, strong) NSString *sourceName;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *chatTime;
+@property (nonatomic, strong) NSDictionary *atStatus;
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 

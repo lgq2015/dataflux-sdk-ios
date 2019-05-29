@@ -8,7 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
-
+typedef NS_ENUM(NSInteger ,IssueType){
+    IssueTypeAll = 1,
+    IssueTypeAlarm ,
+    IssueTypeSecurity,
+    IssueTypeExpense,
+    IssueTypeOptimization,
+    IssueTypeMisc,
+};
+typedef NS_ENUM(NSInteger ,IssueViewType){
+    IssueViewTypeNormal = 1,
+    IssueViewTypeAll = 2,
+};
 @class IssueBoardModel;
 @class IssueModel;
 @class BaseReturnModel;
@@ -33,7 +44,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (void)updateIssueBoardLastMsgTime:(NSString *)type updateTime:(NSString *)updateTime;
 
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId;
-
+// 更新列表高度缓存
+- (void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId;
 /**
  首页展示类型判断
  */
@@ -43,8 +55,6 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新
-
-
  */
 - (void)fetchIssueList:(BOOL)getAllDatas;
 
@@ -58,18 +68,29 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (NSArray *)getIssueBoardData;
 
 - (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus;
+- (void)checkSocketConnectAndFetchNewIssue:(void (^)(BaseReturnModel *))callBackStatus;
 
 - (BOOL)isInfoBoardInit;
-
+-(IssueViewType)getCurrentIssueViewType;
+-(IssueType)getCurrentIssueType;
 /**
  情报分类页数据源获取
  */
-- (NSArray *)getIssueListWithIssueType:(NSString *)type;
+- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType;
+/**
+ 24内恢复的情报列表
+ */
+- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type;
+
 /**
   切换账号 清空首页infoBoard缓存信息
  */
 - (void)createData;
-
+/**
+ 首页 判断非自建情报 是否存在严重、紧急、一般状态的情报
+ @return YES 存在  NO 不存在
+ */
+- (BOOL)checkIssueEngineIsHasIssue;
 - (BOOL)checkIssueLastStatus:(NSString *)issueId;
 
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds ;

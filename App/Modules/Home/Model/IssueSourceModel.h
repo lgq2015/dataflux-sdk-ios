@@ -19,6 +19,7 @@
 @property (nonatomic, strong)NSString *credentialJSONStr;
 @property (nonatomic, strong)NSString *scanCheckStartTime;
 @property (nonatomic, strong)NSString *scanCheckInQueueTime;
+@property (nonatomic, strong)NSString *scanCheckEndTime;
 @property (nonatomic, strong)NSString *optionsJSONStr;
 @property (nonatomic, assign)BOOL isVirtual;
 

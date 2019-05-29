@@ -19,6 +19,7 @@
 #import "AddIssueLogReturnModel.h"
 #import "OpenUDID.h"
 #import "IssueLogAttachmentUrl.h"
+#import "IssueLogAtReadInfo.h"
 
 @implementation PWHttpEngine {
 
@@ -195,6 +196,8 @@
                     @"_latestIssueLogLimit": @1,
                     @"_latestIssueLogSubType": @"comment",
                     @"orderMethod": @"asc",
+                    @"_readerAccountId":userManager.curUserInfo.userID,
+                    @"_needReadInfo":@"true",
                     @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
                     @"pageSize": @(pageSize)
             } mutableCopy];
@@ -217,8 +220,8 @@
 
     NSMutableDictionary *param = [@{
                 @"pageSize": @(pageSize),
-                @"type": @"attachment,bizPoint,text",
-                @"subType": @"exitExpertGroups,updateExpertGroups,call,comment",
+                @"type": @"attachment,bizPoint,text,keyPoint",
+                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded",
                 @"_withAttachmentExternalDownloadURL": @YES,
                 @"orderBy": @"seq",
                 @"orderMethod": orderMethod,
@@ -246,9 +249,14 @@
 
 
 
-- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text callBack:(void (^)(id))callback{
+- (PWURLSessionTask *)addIssueLogWithIssueid:(NSString *)issueid text:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON callBack:(void (^)(id))callback{
     AddIssueLogReturnModel *model = [AddIssueLogReturnModel new];
-    NSDictionary *param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    NSDictionary *param;
+    if (atInfoJSON.allKeys.count>0) {
+        param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text,@"atInfoJSON":atInfoJSON}};
+    }else{
+        param = @{@"data":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    }
     return [PWNetworking requsetHasTokenWithUrl:PW_issueLogAdd(issueid)
                                 withRequestType:NetworkPostType
                                  refreshRequest:NO
@@ -303,6 +311,55 @@
                                  refreshRequest:NO
                                           cache:NO
                                          params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+//- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback{
+//    
+//}
+- (PWURLSessionTask *)getIssueLogReadsInfoWithIssueID:(NSString *)issueID callBack:(void (^)(id))callback{
+    NSDictionary *param = @{@"_readerAccountId":userManager.curUserInfo.userID,
+                            @"_needReadInfo": @YES,
+                            @"_withLastReadSeq":@YES
+                            };
+    IssueLogAtReadInfo *model = [IssueLogAtReadInfo new];
+
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueID)
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+    
+}
+
+- (PWURLSessionTask *)postIssueLogReadsLastReadSeqRecord:(NSString *)issuelogID callBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueReadSeq(issuelogID)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)modifyIssueWithIssueid:(NSString *)issueid markStatus:(NSString *)markStatus text:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON callBack:(void (^)(id))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param;
+    if (atInfoJSON.allKeys.count>0) {
+        param = @{@"data":@{@"markStatus":markStatus},@"issueLogPayLoad":@{@"type":@"text",@"subType":@"comment",@"content":text,@"atInfoJSON":atInfoJSON}};
+    }else{
+        param = @{@"data":@{@"markStatus":markStatus},@"issueLogPayLoad":@{@"type":@"text",@"subType":@"comment",@"content":text}};
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];

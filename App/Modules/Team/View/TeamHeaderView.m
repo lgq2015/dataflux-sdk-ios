@@ -25,40 +25,31 @@
 -(instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = PWWhiteColor;
+        [self createUI];
     }
     return self;
 }
 -(void)createUI{
-    UIImageView *headerBg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_header"]];
-    headerBg.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(153)+kStatusBarHeight);
-    [self addSubview:headerBg];
-    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_admin"]];
-    [self addSubview:icon];
-    [icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).offset(Interval(45)+kStatusBarHeight);
-        make.left.mas_equalTo(self).offset(Interval(13));
-        make.width.height.offset(ZOOM_SCALE(18));
+    self.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
+    UIView *contentView = [[UIView alloc]init];
+    contentView.backgroundColor = PWWhiteColor;
+    [self addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self);
+        make.top.mas_equalTo(self).offset(Interval(12));
     }];
-    [self addSubview:self.teamNameLab];
-    [self.teamNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(icon.mas_right).offset(Interval(3));
-        make.centerY.mas_equalTo(icon);
-        make.height.offset(ZOOM_SCALE(28));
-        make.right.mas_equalTo(self).offset(-Interval(12));
-    }];
-    
     CGFloat btnWidth = ZOOM_SCALE(34);
     CGFloat interval = (kWidth-ZOOM_SCALE(34)*4-Interval(30)*2)/3.0;
     UIView *temp;
-    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_record",@"team_management"];
-    NSArray *btnName = @[@"邀请成员",@"情报源",@"服务记录",@"团队管理"];
+    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_management",@"team_record"];
+    NSArray *btnName = @[@"邀请成员",@"云服务",@"团队管理",@"服务"];
     for (NSInteger i=0; i<iconAry.count; i++) {
         UIImageView *item = [self itemBtnWithIconName:iconAry[i]];
         [self addSubview:item];
         if (temp == nil) {
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self).offset(Interval(30));
-                make.top.mas_equalTo(headerBg.mas_bottom).offset(Interval(25));
+                make.top.mas_equalTo(contentView).offset(Interval(25));
                 make.width.height.offset(btnWidth);
             }];
             temp = item;
@@ -81,36 +72,18 @@
             make.height.offset(ZOOM_SCALE(18));
         }];
     }
-    UIView *itemView = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(266)+kStatusBarHeight, kWidth, ZOOM_SCALE(48))];
-    itemView.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
-    [self addSubview:itemView];
-    
-    UIImageView *vipIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_vip"]];
-    [itemView addSubview:vipIcon];
-    [vipIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self).offset(Interval(14));
-        make.centerY.mas_equalTo(itemView);
-        make.width.height.offset(ZOOM_SCALE(24));
+   
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(temp).offset(ZOOM_SCALE(18)+Interval(34));
     }];
-    UILabel *vipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"尊享权益"];
-    [itemView addSubview:vipLab];
-    [vipLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(vipIcon.mas_right).offset(Interval(3));
-        make.centerY.mas_equalTo(vipIcon);
-        make.height.offset(ZOOM_SCALE(22));
-    }];
-    [self.vipProductView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(itemView.mas_bottom);
-        make.left.right.mas_equalTo(self);
-        make.height.offset(1);
-    }];
+   
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
     view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
-    
+
     UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(15), (48-ZOOM_SCALE(22))/2.0, ZOOM_SCALE(66), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"我的团队"];
     [view addSubview:title];
-    
+
     [view addSubview:self.memberNumLab];
     [self.memberNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(title.mas_right).offset(Interval(20));
@@ -123,7 +96,10 @@
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
         make.height.mas_equalTo(ZOOM_SCALE(48));
-        make.top.mas_equalTo(self.vipProductView.mas_bottom);
+        make.top.mas_equalTo(contentView.mas_bottom);
+    }];
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(view);
     }];
 }
 -(void)setTeamName:(NSString *)teamName{

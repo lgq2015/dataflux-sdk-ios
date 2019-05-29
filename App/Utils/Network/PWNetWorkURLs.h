@@ -102,7 +102,8 @@
 #define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
 
 #define PW_sendEmail                   API_SEVERID@"/v1/auth/send-email"
-
+// 登出
+#define PW_loginOut                    API_SEVERID@"/v1/auth/logout"
 
 #pragma mark ========== 情报 ==========
 //首页News列表   // @"http://testing.forum-via-core-stone.cloudcare.cn:10100/v1/post?orderBy=updatedAt"
@@ -111,16 +112,17 @@
 //情报列表
 #define PW_issueList                   API_SEVERID@"/v1/issue/list"
 
-//情报源添加
+//云服务添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
-//情报源列表
+//云服务列表
 #define PW_issueSourceList [NSString stringWithFormat:@"%@/v1/issue_source/list", API_SEVERID]
-//情报源修改
+//云服务修改
 #define PW_issueSourceModify(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/modify", API_SEVERID,issueid]
-//情报源详情
+//云服务详情
 //#define PW_issueDetail(issueid)   [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
 
 #define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]
+#define PW_issueReadSeq(issuelogid)  [NSString stringWithFormat:@"%@/v1/issue/log/%@/last-read-seq/record", API_SEVERID,issuelogid]
 //情报日志详情
 #define PW_issueLog       [NSString stringWithFormat:@"%@/v1/issue/log/list", API_SEVERID]
 #define PW_issueSourceDelete(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/delete", API_SEVERID,issueid]
@@ -136,6 +138,7 @@
 
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
+#define PW_issueModify(issueid)         [NSString stringWithFormat:@"%@/v1/issue/%@/modify", API_SEVERID,issueid]
 //文章推荐
 #define PW_recommendation               API_SEVERID@"/v1/recommendation/list"
 
@@ -166,12 +169,17 @@
 #define PW_OrderList                   API_SHRINE@"/resources/action/listOrders@customerOpenAdmin"
 //http://testing.shrine-via-core-stone.cloudcare.cn:10100/resources/action/listOrders@customerOpenAdmin,
 #pragma mark ========== 团队 ==========
-#define PW_CurrentTeam                 API_SEVERID@"/v1/auth/team"
+#define PW_CurrentTeam                 API_SEVERID@"/v1/auth/current-team"
 #define PW_teamInvite                  API_SEVERID@"/v1/team/account/invite"
 #define PW_AddTeam                     API_SEVERID@"/v1/team/add"
+#define PW_AuthTeamList                API_SEVERID@"/v1/auth/team-list"
+#define PW_TeamIssueCount              API_SEVERID@"/v1/auth/team-issue-count"
+#define PW_AuthSwitchTeam              API_SEVERID@"/v1/auth/switch-team"
 #define PW_CancelTeam                  API_SEVERID@"/v1/team/cancel"
 #define PW_TeamAccount                 API_SEVERID@"/v1/team/account/list"
 #define PW_TeamModify                  API_SEVERID@"/v1/team/modify"
+#define PW_TeamAccountModify           API_SEVERID@"/v1/team/account/modify"
+
 #define PW_AccountRemove(str)   [NSString stringWithFormat:@"%@/v1/team/account/%@/remove", API_SEVERID,str]
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"

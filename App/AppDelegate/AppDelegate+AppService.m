@@ -29,13 +29,18 @@
 #import "MessageDetailVC.h"
 #import "PWBaseWebVC.h"
 #import "IssueListViewModel.h"
-#import "IssueDetailRootVC.h"
 #import "NewsWebView.h"
-#import "IssueProblemDetailsVC.h"
 #import "NewsListModel.h"
-#import "IssueDetailVC.h"
+#import <AlipaySDK/AlipaySDK.h>
 #import "HomeViewController.h"
 #import "HomeIssueIndexGuidanceView.h"
+#import "IssueListManger.h"
+#import "IssueDetailsVC.h"
+#import "TeamInfoModel.h"
+//#import "IssueChatDataManager.h"
+#import "PWSocketManager.h"
+#import "IssueSourceManger.h"
+
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -97,8 +102,9 @@
 //    DLog(@"设备IMEI ：%@",[OpenUDID value]);
 //
     if([userManager loadUserInfo]){
+        [[PWSocketManager sharedPWSocketManager] forceRestart];
         //如果有本地数据，先展示TabBar 随后异步自动登录
-       
+        [self DetectNewVersion];
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
         //自动登录
@@ -120,80 +126,74 @@
 
 }
 - (void)dealWithNotification:(NSDictionary *)userInfo{
+    DLogE(@"Notification userInfo == %@",userInfo)
     NSDictionary *aps = PWSafeDictionaryVal(userInfo, @"aps");
     NSDictionary *alert = PWSafeDictionaryVal(aps, @"alert");
-    
-    NSString *title = [alert valueForKey:@"title"]; //标题
+    NSString *title = [alert valueForKey:@"body"]; //标题
     NSString *msgType = [userInfo stringValueForKey:@"msgType" default:@""];  //消息类型
-    
+    NSString *teamID = [userInfo stringValueForKey:@"teamId" default:@""];  //teamID
+    TeamInfoModel *currentTeam = [userManager getTeamModel];
+    //判断通知teamID是否和本地teamID是否一致
+    bool isDiffentTeamID = NO;
+    if (teamID.length > 0 && ![teamID isEqualToString:currentTeam.teamID]){
+        isDiffentTeamID = YES;
+    }else{
+        isDiffentTeamID = NO;
+    }
+    //判断是否是其他团队的通知消息
     if ([msgType isEqualToString:@"system_message"]) {
-          NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         [SVProgressHUD show];
-        [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
-            [SVProgressHUD dismiss];
-            MineMessageModel *data = (MineMessageModel *) o;
-            if (data.isSuccess) {
-                if ([userInfo containsObjectForKey:@"uri"] && ![[userInfo stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
-                    NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
-                    PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
-                    [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
-                }else{
-                MessageDetailVC *detail = [[MessageDetailVC alloc] init];
-                detail.model = data;
-                [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
+        if (isDiffentTeamID){
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificaionSystemMessage:userInfo withTitle:title];
                 }
-            } else {
-                [iToast alertWithTitleCenter:data.errorCode];
-            }
-        }];
-        
-    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
-        //暂时只停留在首页
-        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
-        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
-        [maintabbar setSelectedIndex:0];
-        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
-            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+            }];
+        }else{
+            [self dealNotificaionSystemMessage:userInfo withTitle:title];
         }
+    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueEngineFinish];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueEngineFinish];
+        }
+       
     } else if ([msgType isEqualToString:@"issue_engine_count"]) {
-        //暂时只停留在首页
-        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
-        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
-        [maintabbar setSelectedIndex:0];
-        if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
-            [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueEngineCount];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueEngineCount];
         }
     } else if ([msgType isEqualToString:@"issue_add"]) {
-        NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         [SVProgressHUD show];
-        
-        [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
-            [SVProgressHUD dismiss];
-            IssueModel *data = (IssueModel *) o;
-            if (data.isSuccess) {
-                IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
-                
-                IssueDetailRootVC *control;
-                if ([data.origin isEqualToString:@"user"]) {
-                    control = [IssueProblemDetailsVC new];
-                } else {
-                    control = [IssueDetailVC new];
+        if (isDiffentTeamID){
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueAdd:userInfo];
                 }
-                control.model = monitorListModel;
-                
-                [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
-
-            } else {
-                [iToast alertWithTitleCenter:data.errorCode];
-            }
-        }];
-        
-        
+            }];
+        }else{
+            [self dealNotificationIssueAdd:userInfo];
+        }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
-        NSString *title = [userInfo stringValueForKey:@"title" default:@""];
+        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
+        NSString *titleH = [alert valueForKey:@"title"];
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
@@ -203,9 +203,78 @@
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+    }else if([msgType isEqualToString:@"issue_log_at"]){
+        if (isDiffentTeamID){
+             [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueAdd:userInfo];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueAdd:userInfo];
+        }
+        
     }
     
 }
+//处理通知系统消息
+- (void)dealNotificaionSystemMessage:(NSDictionary *)userInfo withTitle:(NSString *)title{
+    NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+    [[PWHttpEngine sharedInstance] getMessageDetail:entityId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        MineMessageModel *data = (MineMessageModel *) o;
+        if (data.isSuccess) {
+            if ([userInfo containsObjectForKey:@"uri"] && ![[userInfo stringValueForKey:@"uri" default:@""] isEqualToString:@""]) {
+                NSString *uri = [userInfo stringValueForKey:@"uri" default:@""];
+                PWBaseWebVC *webView = [[PWBaseWebVC alloc] initWithTitle:title andURLString:uri];
+                [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
+                [self deleteAllNavViewController];
+            }else{
+                MessageDetailVC *detail = [[MessageDetailVC alloc] init];
+                detail.model = data;
+                [[self getCurrentUIVC].navigationController pushViewController:detail animated:YES];
+                [self deleteAllNavViewController];
+            }
+        } else {
+//            [iToast alertWithTitleCenter:data.errorCode];
+        }
+    }];
+}
+//处理通知情报完成
+- (void)dealNotificationIssueEngineFinish{
+    //暂时只停留在首页
+    [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
+    MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
+    [maintabbar setSelectedIndex:0];
+    if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+        [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+    }
+}
+//处理情报数
+- (void)dealNotificationIssueEngineCount{
+    //暂时只停留在首页
+    [self dealNotificationIssueEngineFinish];
+}
+//处理情报添加
+- (void)dealNotificationIssueAdd:(NSDictionary *)userInfo{
+    NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+    [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        IssueModel *data = (IssueModel *) o;
+        if (data.isSuccess) {
+            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+        
+            IssueDetailsVC *control = [IssueDetailsVC new];
+            control.model = monitorListModel;
+            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
+            [self deleteAllNavViewController];
+        } else {
+//            [iToast alertWithTitleCenter:data.errorCode];
+        }
+    }];
+}
+
 #pragma mark ========== 登录状态处理 ==========
 - (void)loginStateChange:(NSNotification *)notification
 {
@@ -213,6 +282,8 @@
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
 //        [[PWSocketManager sharedPWSocketManager] connect];
+        [self DetectNewVersion];
+
         //为避免自动登录成功刷新tabbar
         if (!self.mainTabBar || ![self.window.rootViewController isKindOfClass:[MainTabBarController class]]) {
             self.mainTabBar = [MainTabBarController new];
@@ -245,7 +316,7 @@
     }
     //展示FPS
 #ifdef DEBUG //开发环境
-  //  [AppManager showFPS];
+    [AppManager showFPS];
 #endif
 
 }
@@ -323,14 +394,60 @@
 }
 #pragma mark ========== OpenURL 回调 ==========
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
+        }];
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
+        }];
+    }
     return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-{
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+        }];
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            DLog(@"支付宝result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
     return YES;
 }
 
@@ -463,7 +580,6 @@
 
 -(void)configLog {
 
-
     NSURL *dirUrl = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
     NSString *path = [dirUrl.path stringByAppendingPathComponent:@"pwlog"];
 
@@ -481,6 +597,63 @@
 
     [DDLog addLogger:fileLogger];
 
+    if(getIsDevMode){
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
+    } else{
+#if DEV
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
+
+#elif PREPROD
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
+#else
+        [NBULog setAppLogLevel:DDLogLevelWarning];
+#endif
+    }
+
 }
 
+- (void)zy_requestChangeTeam:(NSString *)teamID complete:(void(^)(bool isFinished))completeBlock{
+    NSDictionary *params = @{@"data":@{@"teamId":teamID}};
+    [PWNetworking requsetHasTokenWithUrl:PW_AuthSwitchTeam withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            [self dealChangeTeam:response withTeamID:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    KPostNotification(KNotificationSwitchTeam, nil);
+                    completeBlock ? completeBlock(YES) : nil;
+                }
+            }];
+        }else{
+            [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            completeBlock ? completeBlock(NO) : nil;
+        }
+    } failBlock:^(NSError *error){
+        [SVProgressHUD dismiss];
+        completeBlock ? completeBlock(NO) : nil;
+    }];
+}
+- (void)dealChangeTeam:(id) response withTeamID:(NSString *)teamID complete:(void(^)(bool isFinished))completeBlock{
+    NSString *token = response[@"content"][@"authAccessToken"];
+//    [[IssueChatDataManager sharedInstance] shutDown];
+    [[IssueListManger sharedIssueListManger] shutDown];
+    [[PWSocketManager sharedPWSocketManager] shutDown];
+    [[IssueSourceManger sharedIssueSourceManger] logout];
+    setXAuthToken(token);
+    setPWDefaultTeamID(teamID);
+    //请求当前团队
+    [userManager addTeamSuccess:^(BOOL isSuccess) {
+        completeBlock ? completeBlock(isSuccess) : nil;
+    }];
+}
+
+- (void)deleteAllNavViewController{
+    UINavigationController *nav = [self getCurrentUIVC].navigationController;
+    NSMutableArray *vcs = nav.viewControllers.mutableCopy;
+    if (vcs.count > 2){
+        for (NSInteger i = vcs.count - 2;i>0;i--){
+            [vcs removeObjectAtIndex:i];
+        }
+        [nav setViewControllers:vcs animated:NO];
+    }
+}
 @end

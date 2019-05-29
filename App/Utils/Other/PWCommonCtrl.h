@@ -15,20 +15,21 @@ typedef NS_ENUM(NSInteger, PWButtonType) {
     PWButtonTypeContain,          //包含按钮
     PWButtonTypeBuoy,             //浮标按钮
 };
-
+NS_ASSUME_NONNULL_BEGIN
 @interface PWCommonCtrl : NSObject
 @property (nonatomic, assign) NSString *placeHolder;
 +(UIButton *)buttonWithFrame:(CGRect)frame
                           type:(PWButtonType)type
                           text:(NSString *)text;
 
-+(UIAlertAction *)actionWithTitle:(nullable NSString *)title style:(UIAlertActionStyle)style handler:(void (^ __nullable)(UIAlertAction *action))handler;
-+(UITextField *)textFieldWithFrame:(CGRect)frame;
-+(UITextField *)textFieldWithFrame:(CGRect)frame font:(UIFont *)font;
-+(UITextView *)textViewWithFrame:(CGRect)frame placeHolder:(NSString *)placeHolder font:(UIFont *)font;
-+(UILabel *)lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text;
-+(UITextField *)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *)font;
-+(UITextField *)passwordTextFieldWithFrame:(CGRect)frame;
-+(YYLabel *)zy_lableWithFrame:(CGRect)frame font:(UIFont *)font textColor:(UIColor *)color text:(NSString *)text;
++(UIAlertAction *)actionWithTitle:(nullable NSString *)title style:(UIAlertActionStyle)style handler:(void (^ __nullable)(UIAlertAction * _Nullable action))handler;
++(UITextField *_Nullable)textFieldWithFrame:(CGRect)frame;
++(UITextField *_Nullable)textFieldWithFrame:(CGRect)frame font:(UIFont *_Nullable)font;
++(UITextView *_Nullable)textViewWithFrame:(CGRect)frame placeHolder:(NSString *_Nullable)placeHolder font:(UIFont *_Nullable)font;
++(UILabel *_Nullable)lableWithFrame:(CGRect)frame font:(UIFont *_Nullable)font textColor:(UIColor *_Nullable)color text:(NSString *_Nullable)text;
++(UITextField *_Nullable)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *_Nullable)font;
++(UITextField *_Nullable)passwordTextFieldWithFrame:(CGRect)frame;
++(YYLabel *_Nullable)zy_lableWithFrame:(CGRect)frame font:(UIFont *_Nullable)font textColor:(UIColor *_Nullable)color text:(NSString *_Nonnull)text;
++(UIAlertController *)alertControllerWithTitle:(NSString *)title message:(NSString *)message preferredStyle:(UIAlertControllerStyle)style;
 @end
-
+NS_ASSUME_NONNULL_END

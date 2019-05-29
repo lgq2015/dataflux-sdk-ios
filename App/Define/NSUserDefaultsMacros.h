@@ -34,12 +34,14 @@
 #define PWUserID @"userid"
 #define setPWUserID(str)        [kUserDefaults setObject:str forKey:PWUserID]
 #define getPWUserID             [kUserDefaults objectForKey:PWUserID]
-
+//用户默认团队id
+#define PWDefaultTeamID @"teamId"
+#define setPWDefaultTeamID(str)        [kUserDefaults setObject:str forKey:PWDefaultTeamID]
+#define getPWDefaultTeamID             [kUserDefaults objectForKey:PWDefaultTeamID]
 //seqAct
 #define PWseqAct                [NSString stringWithFormat:@"%@/PWseqAct", getPWUserID]
 #define setPWseqAct(str,type)   [kUserDefaults setObject:str forKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
 #define getPWseqAct(type)       [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@/%@", getPWUserID,type]]
-
 //个人还是团队
 #define PWTeamState                 [NSString stringWithFormat:@"/isTeam"]
 #define setTeamState(str)        [kUserDefaults setObject:str forKey:PWTeamState]
@@ -58,6 +60,10 @@
 #define PW_IsHideGuide  @"ishideguide"
 #define setIsHideGuide(str)       [kUserDefaults setObject:str forKey:PW_IsHideGuide]
 #define getIsHideGuide             [kUserDefaults objectForKey:PW_IsHideGuide]
+
+#define PW_DevMode   @"isDevMode"
+#define setIsDevMode(str)   [kUserDefaults setBool:str forKey:PW_DevMode]
+#define getIsDevMode   [kUserDefaults boolForKey:PW_DevMode]
 
 #define PW_IsNotConnect  @"PW_IsNotConnect"
 

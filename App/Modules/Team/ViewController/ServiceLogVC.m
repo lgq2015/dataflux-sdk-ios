@@ -8,8 +8,8 @@
 
 #import "ServiceLogVC.h"
 #import "IssueCell.h"
-#import "IssueDetailVC.h"
-#import "IssueProblemDetailsVC.h"
+#import "IssueDetailsVC.h"
+#import "IssueListViewModel.h"
 #import "HLSafeMutableArray.h"
 @interface ServiceLogVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) HLSafeMutableArray *dataSource;
@@ -172,16 +172,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.dataSource[indexPath.row];
      model.isRead = YES;
-    if (model.isFromUser) {
-        IssueProblemDetailsVC *detailVC = [[IssueProblemDetailsVC alloc]init];
+        IssueDetailsVC *detailVC = [[IssueDetailsVC alloc]init];
         detailVC.model = model;
         [self.navigationController pushViewController:detailVC animated:YES];
-    }else{
-        IssueDetailVC *infodetial = [[IssueDetailVC alloc]init];
-        infodetial.model = model;
-        [self.navigationController pushViewController:infodetial animated:YES];
-    }
-
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.dataSource[indexPath.row];

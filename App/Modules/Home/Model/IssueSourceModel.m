@@ -32,7 +32,7 @@
     self.scanCheckInQueueTime = [dict stringValueForKey:@"scanCheckInQueueTime" default:@""];
     self.optionsJSONStr =  [PWSafeDictionaryVal(dict, @"optionsJSON")jsonStringEncoded];
     self.isVirtual =  [dict boolValueForKey:@"isVirtual" default:NO];
-
+    self.scanCheckEndTime = [dict stringValueForKey:@"scanCheckEndTime" default:@""];
 
 }
 @end

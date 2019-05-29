@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"什么是情报源";
+    self.title = @"什么是云服务";
     [self createUI];
 }
 - (void)createUI{
@@ -35,7 +35,7 @@
     }];
 
     
-    UILabel *lable2 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"这些为王教授提供诊断所需的基础数据的来源，我们统称为情报源。"];
+    UILabel *lable2 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"这些为王教授提供诊断所需的基础数据的来源，我们统称为云服务。"];
     lable2.numberOfLines = 0;
     [contentView addSubview:lable2];
     [lable2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -43,7 +43,7 @@
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
     }];
-    UILabel *lable3 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"王教授采集基础数据都是采用只读的方式，绝不会影响用户情报源上系统及应用的正常运转。"];
+    UILabel *lable3 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"王教授采集基础数据都是采用只读的方式，绝不会影响用户云服务上系统及应用的正常运转。"];
     lable3.numberOfLines = 0;
     [contentView addSubview:lable3];
     [lable3 mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -39,7 +39,7 @@
         case SourceStateAbnormal:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"FC7676"].CGColor;
             self.stateLab.textColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"情报源异常";
+            self.stateLab.text = @"云服务异常";
             break;
     }
     switch (_model.type) {

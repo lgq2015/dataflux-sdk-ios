@@ -41,7 +41,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     
     manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
     manager.requestSerializer.timeoutInterval = requestTimeout;
-    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
+//    headers = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
     NSDictionary *header = @{@"Content-Type":@"application/json",@"Accept":@"application/json"};
     for (NSString *key in header.allKeys) {
         if (header[key] != nil) {
@@ -169,6 +169,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     if (responseObj && cache) {
         if (successBlock) successBlock(responseObj);
     }
+    __weak typeof(manager) weakManager = manager;
 
     //处理成功请求
     id success = ^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
@@ -176,6 +177,7 @@ static NSTimeInterval   requestTimeout = 60.f;
         DLog(@"method = %@ baseUrl = %@ param = %@ response = %@ header = %@  ", typestr, url, params, responseObject, manager.requestSerializer.HTTPRequestHeaders);
 
         if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
+        [weakManager invalidateSessionCancelingTasks:YES];
 
 //        [[self allTasks] removeObject:session];
     };
@@ -209,7 +211,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             if (failBlock) failBlock(error);
         }
 //           [[self allTasks] removeObject:session];
-
+        [weakManager invalidateSessionCancelingTasks:YES];
     };
 
     //处理进度

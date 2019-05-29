@@ -9,7 +9,7 @@
 #import "PWScrollSegmentView.h"
 #import "PWCustomLabel.h"
 #import "UIView+PWFrame.h"
-
+#import "ZYChangeTeamUIManager.h"
 @interface PWScrollSegmentView(){
     CGFloat _currentWidth;
     NSUInteger _currentIndex;
@@ -99,10 +99,34 @@
         //        btn.layer.shadowOpacity = 1;
         [self addSubview:btn];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self).offset(-18);
+            make.bottom.mas_equalTo(self).offset(-14);
             make.right.mas_equalTo(self).offset(-20-i*40);
-            make.height.width.offset(24);
+            make.height.width.offset(28);
         }];
+    }
+    UIView *temp = nil;
+    for(NSInteger i=0; i<self.segmentStyle.leftExtraBtnImageNames.count;i++){
+        UIButton *button = [UIButton new];
+        [button addTarget:self action:@selector(extraBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        NSString *imageName = self.segmentStyle.leftExtraBtnImageNames[i];
+        button.tag = i+20;
+        [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor whiteColor];
+        [self addSubview:button];
+        CGFloat width = [self.segmentStyle.leftExtraBtnFrames[i] CGRectValue].size.width;
+        CGFloat height = [self.segmentStyle.leftExtraBtnFrames[i] CGRectValue].size.height;
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (temp) {
+                make.left.mas_equalTo(temp.mas_right).offset(6);
+                make.centerY.mas_equalTo(temp);
+            }else{
+                make.left.mas_equalTo(self).offset(16);
+                make.bottom.mas_equalTo(self).offset(-14);
+            }
+            make.width.offset(width);
+            make.height.offset(height);
+        }];
+        temp = button;
     }
     
 }
@@ -111,15 +135,35 @@
     CGFloat titleY = 9+kStatusBarHeight;
     CGFloat titleW = 0.0;
     CGFloat titleH = 37;
-    titleW = ZOOM_SCALE(48);
-    
+    __block CGFloat titleL = 26;
+    [self.segmentStyle.leftExtraBtnFrames enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        titleL += [obj CGRectValue].size.width;
+    }];
+    titleL += (self.segmentStyle.leftExtraBtnFrames.count-1)*6;
+    if (self.segmentStyle.titleMargin>0) {
+      titleW = ZOOM_SCALE(48);
     NSInteger index = 0;
     for (PWCustomLabel *label in self.titleLabels) {
         
-        titleX = index * (titleW+self.segmentStyle.titleMargin)+20;
+        titleX = index * (titleW+self.segmentStyle.titleMargin)+titleL;
         label.frame = CGRectMake(titleX, titleY, titleW, titleH);
         index++;
         
+    }
+        
+    }else{
+        titleW = _currentWidth / self.titles.count;
+        titleY = 0;
+        titleH = self.segmentStyle.segmentHeight-2;
+        NSInteger index = 0;
+        for (PWCustomLabel *label in self.titleLabels) {
+            
+            titleX = index * titleW;
+            
+            label.frame = CGRectMake(titleX, titleY, titleW, titleH);
+            index++;
+            
+        }
     }
     PWCustomLabel *firstLabel = (PWCustomLabel *)self.titleLabels[0];
     
@@ -130,7 +174,6 @@
     }
 }
 - (void)adjustTitleOffSetToCurrentIndex:(NSInteger)currentIndex{
-    PWCustomLabel *currentLabel = (PWCustomLabel *)self.titleLabels[currentIndex];
 
         NSInteger index = 0;
         for (PWCustomLabel *label in self.titleLabels) {
@@ -184,7 +227,10 @@
     PWCustomLabel *oldLabel = (PWCustomLabel *)self.titleLabels[_oldIndex];
     PWCustomLabel *currentLabel = (PWCustomLabel *)self.titleLabels[_currentIndex];
     
-    
+//    ZYChangeTeamUIManager *manager =[ZYChangeTeamUIManager shareInstance];
+//    if (manager.isShowTeamView){
+//        [manager dismiss];
+//    }
     CGFloat animatedTime = animated ? 0.3 : 0.0;
     
     __weak typeof(self) weakSelf = self;
@@ -330,7 +376,7 @@
 - (void)extraBtnOnClick:(UIButton *)extraBtn {
     
     if (self.extraBtnOnClick) {
-        self.extraBtnOnClick(extraBtn);
+        self.extraBtnOnClick(extraBtn,self);
     }
 }
 

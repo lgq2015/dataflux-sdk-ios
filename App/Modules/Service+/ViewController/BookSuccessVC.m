@@ -8,16 +8,33 @@
 
 #import "BookSuccessVC.h"
 #import <TTTAttributedLabel.h>
+#import "PWWeakProxy.h"
 
 @interface BookSuccessVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) TTTAttributedLabel *tipsLab;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger second;
+@property (nonatomic, strong)  UIButton *confirm;
 @end
 
 @implementation BookSuccessVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.second = 5;
     [self createUI];
+//    [self addTimer];
+}
+- (void)addTimer{
+    __weak typeof(self) weakSelf = self;
+    if (@available(iOS 10.0, *)) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            [weakSelf timerRun];
+        }];
+    } else {
+        self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    }
 }
 - (void)createUI{
     self.view.backgroundColor = PWBackgroundColor;
@@ -44,6 +61,7 @@
     contentView.backgroundColor = PWWhiteColor;
     [self.view addSubview:contentView];
     UIImageView *successIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"team_success"]];
+    successIcon.contentMode = UIViewContentModeScaleAspectFill;
     [contentView addSubview:successIcon];
     [successIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(contentView).offset(Interval(55));
@@ -64,16 +82,18 @@
         make.left.right.mas_equalTo(contentView);
         make.centerX.mas_equalTo(contentView);
     }];
-    
-    UIButton *confirm = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"我知道了"];
-    [contentView addSubview:confirm];
-    [confirm mas_makeConstraints:^(MASConstraintMaker *make) {
+//    NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
+    NSString *str = @"我知道了";
+    _confirm = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:str];
+    _confirm.titleLabel.font = RegularFONT(18);
+    [contentView addSubview:_confirm];
+    [_confirm mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.tipsLab.mas_bottom).offset(Interval(54));
         make.left.mas_equalTo(contentView).offset(Interval(16));
         make.right.mas_equalTo(contentView).offset(-Interval(16));
         make.height.offset(ZOOM_SCALE(47));
     }];
-    [confirm addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_confirm addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)confirmBtnClick{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -108,14 +128,21 @@
     [callWebview loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:callWebview];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)dealloc{
+    [self.timer invalidate];
+    self.timer = nil;
+    DLog(@"%s",__func__);
 }
-*/
+#pragma mark ---定时器方法回调----
+- (void)timerRun{
+    if (self.second>0) {
+        self.second--;
+        NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
+        [_confirm setTitle:str forState:UIControlStateNormal];
+    }else if(self.second == 0){
+        [self.timer setFireDate:[NSDate distantFuture]];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 @end

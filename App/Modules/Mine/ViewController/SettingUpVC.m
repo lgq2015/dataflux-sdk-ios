@@ -111,6 +111,8 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定退出登录吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //发送退出登录请求，让后台清空存储的token
+                [self requestLoginOut];
                 [[UserManager sharedUserManager]logout:^(BOOL success, NSString *des) {
 
                 }];
@@ -209,14 +211,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark ---登出请求---
+- (void)requestLoginOut{
+    [PWNetworking requsetHasTokenWithUrl:PW_loginOut withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:nil failBlock:nil];
 }
-*/
 
 @end

@@ -246,14 +246,15 @@
                 success.isTrans = YES;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-            [SVProgressHUD showErrorWithStatus:@"转移失败"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-            });
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
+                });
+                
             }
             
         } failBlock:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:@"转移失败"];
+            [error errorToast];
         }];
 }
 -(void)doteamDissolve:(NSString *)uuid{
@@ -264,23 +265,38 @@
                 success.isTrans = NO;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-                [SVProgressHUD showErrorWithStatus:@"解散失败"];
+                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 });
             }
         } failBlock:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:@"解散失败"];
+            [error errorToast];
         }];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark --寻找控制器返回--
+-(void)popToAppointViewController:(NSString *)ClassName animated:(BOOL)animated{
+    id vc = [self getCurrentViewControllerClass:ClassName];
+    if(vc != nil && [vc isKindOfClass:[UIViewController class]]){
+        [self.navigationController popToViewController:vc animated:YES];
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
-*/
+-(UIViewController *)getCurrentViewControllerClass:(NSString *)ClassName
+{
+    Class classObj = NSClassFromString(ClassName);
+    
+    NSArray * szArray =  self.navigationController.viewControllers;
+    for (id vc in szArray) {
+        if([vc isMemberOfClass:classObj])
+        {
+            return vc;
+        }
+    }
+    
+    return nil;
+}
 
 @end

@@ -42,7 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //发送文本信息
 -(void)PWChatKeyBoardInputViewBtnClick:(NSString *)string;
-
+//发送@消息
+-(void)PWChatKeyBoardInputViewAtBtnClick:(NSString *)string atInfoJSON:(NSDictionary *)atInfoJSON;
 //多功能视图按钮点击回调
 -(void)PWChatKeyBoardInputViewBtnClickFunction:(NSInteger)index;
 
@@ -69,10 +70,10 @@ NS_ASSUME_NONNULL_BEGIN
 //输入框背景 输入框 缓存输入的文字
 @property(nonatomic,strong) UIButton     *mTextBtn;
 @property(nonatomic,strong) UITextView   *mTextView;
-@property(nonatomic,strong) NSString     *textString;
+@property(nonatomic,strong) NSString     *textString;//发送text
 //输入框的高度
 @property(nonatomic,assign) CGFloat   textH;
-
+@property(nonatomic, strong) NSString    *showString;//输入框展示text
 //键盘归位
 -(void)SetPWChatKeyBoardInputViewEndEditing;
 @end

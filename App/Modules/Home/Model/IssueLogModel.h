@@ -23,7 +23,8 @@
 @property (nonatomic, strong) NSString* metaJsonStr;
 @property (nonatomic, strong) NSString* externalDownloadURLStr;
 @property (nonatomic, strong) NSString* accountInfoStr;
-
+@property (nonatomic, strong) NSString *atInfoJSONStr;
+@property (nonatomic, strong) NSString *atStatusStr;
 //自发 issueLog
 @property (nonatomic, strong) NSData *imageData;  //图片
 @property (nonatomic, strong) NSString *imageName; //图片名字
@@ -34,8 +35,7 @@
 @property (nonatomic, strong) NSData *fileData;
 @property (nonatomic, assign) BOOL dataCheckFlag;
 @property (nonatomic, strong) NSString* localTempUniqueId;
-
-
+@property (nonatomic, strong) NSDictionary *atInfoJSON;
 //@property (nonatomic,strong) NSDictionary* originInfoJSON;
 //@property (nonatomic,strong) NSDictionary* metaJson;
 //@property (nonatomic,strong) NSDictionary* externalDownloadURL;

@@ -128,7 +128,6 @@
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {
-                    [userManager saveUserInfoLoginStateisChange:NO success:nil];
                     [iToast alertWithTitleCenter:@"密码设置成功"];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         for (UIViewController *temp in self.navigationController.viewControllers) {

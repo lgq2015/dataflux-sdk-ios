@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title  =@"添加情报源";
+    self.title  =@"添加云服务";
     [self createUI];
 }
 - (void)createUI{
