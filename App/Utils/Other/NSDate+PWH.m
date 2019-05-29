@@ -146,4 +146,26 @@
 
     return @[[NSNumber numberWithInteger:firstTime], [NSNumber numberWithInteger:lastTime]];
 }
+- (NSInteger )getTimeStamp
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    }
+   
+  
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+    [datecomps setYear:[self year]?:0];
+    [datecomps setMonth:[self month]?:0];
+    [datecomps setDay:[self day]?:0];
+    NSDate *calculatedate = [calendar dateFromComponents:datecomps];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    [dateFormatter setTimeZone:timeZone];
+    DLog(@"[self year] == %ld,[self month] == %ld,[self day] == %ld,calculatedate ==%@ ",[self year],[self month],[self day],calculatedate);
+    return [calculatedate timeIntervalSince1970];
+    
+    
+}
 @end
