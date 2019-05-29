@@ -8,8 +8,11 @@
 
 #import "CalendarVC.h"
 #import "LTSCalendarManager.h"
+#import "CountListModel.h"
 
-@interface CalendarVC ()<LTSCalendarEventSource>
+@interface CalendarVC ()<LTSCalendarEventSource>{
+    NSMutableDictionary *eventsByDate;
+}
 @property (nonatomic, strong) LTSCalendarManager *manager;
 @property (nonatomic, strong) NSMutableArray *loadMonth;
 @end
@@ -51,17 +54,34 @@
 }
 
 - (void)loadCalendarDot{
+    eventsByDate = [NSMutableDictionary new];
     NSDate *currentDate = [NSDate date];
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
-    [[PWHttpEngine sharedInstance]getCalendarDotWithStartTime:dateary[0] EndTime:dateary[1] callBack:^(id o) {
+    [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
+}
+- (void)loadMoreCalendarDotWithStartTime:(NSNumber *)start endTime:(NSNumber *)end{
     
+    WeakSelf
+    [[PWHttpEngine sharedInstance]getCalendarDotWithStartTime:start EndTime:end callBack:^(id o) {
+        CountListModel *model = (CountListModel *)o;
+        if (model.isSuccess) {
+            NSArray *dotAry = model.count_list;
+            [dotAry enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *key =[NSString stringWithFormat:@"%ld",[obj longValueForKey:@"timestamp" default:0]];
+                eventsByDate[key] =[NSNumber numberWithLong:[obj longValueForKey:@"count" default:0]];
+            }];
+            [weakSelf.manager reloadAppearanceAndData];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
     }];
-    DLog(@"dateary == %@",dateary);
 }
 - (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month currentDate:(NSDate *)currentDate{
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
     DLog(@"dateary == %@",dateary);
+    //待处理 避免重复的请求
+    [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date{
     DLog(@"sel date == %@ weekday == %ld",date, (long)[date weekday]);
@@ -97,9 +117,21 @@
     NSString *dateStr = [NSString stringWithFormat:@"%ld 月 %ld 日 %@",(long)[date month],(long)[date day],week];
     self.manager.calenderScrollView.arrorView.selDateLab.text = dateStr;
 }
+-(BOOL)calendarHaveEventWithDate:(NSDate *)date{
+     NSInteger stamp = [date getTimeStamp];
+    DLog(@"DotCurrentDate  == %@ stamp == %ld",date,stamp);
+    NSString *key = [NSString stringWithFormat:@"%ld",(long)stamp];
+    
+    if(eventsByDate[key] && [eventsByDate[key] longValue]>0){
+     
+        return YES;
+    }
+    return NO;
+}
 - (void)calendarDidLoadPageCurrentDate:(NSDate *)date{
     DLog(@"CurrentDate  == %@",date);
 }
+
 /*
 #pragma mark - Navigation
 

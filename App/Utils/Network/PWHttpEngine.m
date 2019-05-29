@@ -20,7 +20,7 @@
 #import "OpenUDID.h"
 #import "IssueLogAttachmentUrl.h"
 #import "IssueLogAtReadInfo.h"
-
+#import "CountListModel.h"
 @implementation PWHttpEngine {
 
 }
@@ -366,7 +366,7 @@
 }
 
 - (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback{
-    BaseReturnModel *model = [BaseReturnModel new];
+    CountListModel *model = [CountListModel new];
     NSDictionary *param = @{@"createDateTs_start":start,
                             @"createDateTs_end":end,
                             @"dataMethod":@"between"
