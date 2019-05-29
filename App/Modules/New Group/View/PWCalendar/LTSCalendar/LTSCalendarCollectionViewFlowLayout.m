@@ -7,17 +7,22 @@
 //
 
 #import "LTSCalendarCollectionViewFlowLayout.h"
+#import "SectionBgNumberView.h"
+#import "CanlendarBgLayoutAttributes.h"
+
+NSString *const CalendarSectionBackground = @"CalendarSectionBackground";
 @interface LTSCalendarCollectionViewFlowLayout()
-@property (strong, nonatomic) NSMutableArray *allAttributes;  
+@property (strong, nonatomic) NSMutableArray *allAttributes;
 @end
 @implementation LTSCalendarCollectionViewFlowLayout
 
 - (void)prepareLayout
 {
     [super prepareLayout];
-    
+    self.SectionBgNumberViewAttrs = [NSMutableArray new];
     self.allAttributes = [NSMutableArray array];
-    
+    [self registerClass:[SectionBgNumberView class] forDecorationViewOfKind:CalendarSectionBackground];
+
     NSInteger sections = [self.collectionView numberOfSections];
     for (int i = 0; i < sections; i++)
     {
@@ -31,6 +36,24 @@
         }
         
         [self.allAttributes addObject:tmpArray];
+        id delegate = self.collectionView.delegate;
+        if (!sections || ![delegate conformsToProtocol:@protocol(LTSCalendarCollectionViewFlowLayout)]) {
+            return;
+        }
+
+        
+        if (![[delegate collectionView:self.collectionView layout:self backgroundTextForSection:i] isEqualToString:@""]) {
+            UICollectionViewLayoutAttributes *firstItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:i]];
+            UICollectionViewLayoutAttributes *lastItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:count - 1 inSection:i]];
+            CGRect sectionFrame = CGRectUnion(firstItem.frame, lastItem.frame);
+            CanlendarBgLayoutAttributes *attr = [CanlendarBgLayoutAttributes layoutAttributesForDecorationViewOfKind:CalendarSectionBackground withIndexPath:[NSIndexPath indexPathForItem:0 inSection:i]];
+            attr.frame = sectionFrame;
+            attr.zIndex = -1;
+            
+            attr.bgText =[delegate collectionView:self.collectionView layout:self backgroundTextForSection:i];
+            [self.SectionBgNumberViewAttrs addObject:attr];
+        }
+      
     }
 }
 
@@ -47,34 +70,26 @@
     [self targetPositionWithItem:item resultX:&x resultY:&y];
     NSUInteger item2 = [self originItemAtX:x y:y];
     NSIndexPath *theNewIndexPath = [NSIndexPath indexPathForItem:item2 inSection:indexPath.section];
-    
+
     UICollectionViewLayoutAttributes *theNewAttr = [super layoutAttributesForItemAtIndexPath:theNewIndexPath];
     theNewAttr.indexPath = indexPath;
-    
+
     return theNewAttr;
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
-    
-    NSMutableArray *tmp = [NSMutableArray array];
-    
-    for (UICollectionViewLayoutAttributes *attr in attributes) {
-        for (NSMutableArray *attributes in self.allAttributes)
-        {
-            for (UICollectionViewLayoutAttributes *attr2 in attributes) {
-                if (attr.indexPath.item == attr2.indexPath.item) {
-                    [tmp addObject:attr2];
-                    break;
-                }
-            }
-            
+
+    NSMutableArray *attrs = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+    for (UICollectionViewLayoutAttributes *attr in self.SectionBgNumberViewAttrs) {
+        
+        if (CGRectIntersectsRect(rect, attr.frame)) {
+            [attrs addObject:attr];
         }
     }
-    return tmp;
+    return attrs;
+   
 }
-
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {

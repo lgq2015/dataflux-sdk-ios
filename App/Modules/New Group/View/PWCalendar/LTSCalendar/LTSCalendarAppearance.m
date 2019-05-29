@@ -36,12 +36,12 @@
 
 - (void)setDefaultValues{
     self.dayCircleSize = ZOOM_SCALE(34);
-    self.dayDotSize= self.dayCircleSize*1. / 9. ;
+    self.dayDotSize= 6 ;
     self.weekDayFormat = LTSCalendarWeekDayFormatSingle;
     self.weekDayTextFont = RegularFONT(14);
     self.weekDayTextColor = [UIColor colorWithHexString:@"#8E8E93"];
     self.weeksToDisplay = 6;
-    self.weekDayHeight = 50;
+    self.weekDayHeight = ZOOM_SCALE(45);
     self.isShowSingleWeek = true;
     self.firstWeekday = 1;
     self.defaultDate = [NSDate date];

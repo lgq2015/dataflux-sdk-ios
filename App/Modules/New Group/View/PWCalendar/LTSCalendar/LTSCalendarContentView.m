@@ -13,7 +13,7 @@
 #import "LTSCalendarManager.h"
 
 #define NUMBER_PAGES_LOADED 5
-@interface LTSCalendarContentView()<UICollectionViewDataSource,UICollectionViewDelegate>{
+@interface LTSCalendarContentView()<UICollectionViewDataSource,UICollectionViewDelegate,LTSCalendarCollectionViewFlowLayout>{
     //是否是在点击日期或者滑动改变页数
     BOOL isOwnChangePage;
     //第一次显示周的选中的indexPath
@@ -27,11 +27,10 @@
 @property (nonatomic,assign)NSInteger currentMonthIndex;
 @property (nonatomic,strong)NSArray *daysInMonth;
 @property (nonatomic,strong)NSArray *daysInWeeks;
-@property (nonatomic,strong)NSIndexPath *currentSelectedIndexPath;
+@property (nonatomic,strong) NSIndexPath *currentSelectedIndexPath;
 ///用来区分默认效果选中的日期
-@property (nonatomic,strong)NSDate *selectedDate;
+@property (nonatomic,strong) NSDate *selectedDate;
 
-@property (nonatomic, strong) UILabel *bgMonthLab;
 @end
 
 @implementation LTSCalendarContentView
@@ -68,7 +67,7 @@
     
     
     
-    self.flowLayout = [LTSCalendarCollectionViewFlowLayout new];
+    self.flowLayout = [[LTSCalendarCollectionViewFlowLayout alloc]init];
     self.flowLayout.itemSize = CGSizeMake(self.frame.size.width/7, [LTSCalendarAppearance share].weekDayHeight);
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.flowLayout.itemCountPerRow = 7;
@@ -76,6 +75,7 @@
     self.flowLayout.rowCount = [LTSCalendarAppearance share].weeksToDisplay;
     self.flowLayout.minimumLineSpacing = 0;
     self.flowLayout.minimumInteritemSpacing = 0;
+     
     self.collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:self.flowLayout];
     [self addSubview:self.collectionView];
     self.collectionView.delegate = self;
@@ -87,11 +87,7 @@
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     [self.collectionView registerClass:[LTSCalendarCollectionCell class] forCellWithReuseIdentifier:@"dayCell"];
-    [self.bgMonthLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(self.collectionView);
-        make.width.offset(ZOOM_SCALE(116));
-        make.height.offset(ZOOM_SCALE(280));
-    }];
+
     [self bringSubviewToFront:self.collectionView];
 
     self.backgroundColor = [LTSCalendarAppearance share].calendarBgColor;
@@ -112,23 +108,12 @@
     maskView.layer.mask = shapeLayer;
     [self setUpVisualRegion];
 }
--(UILabel *)bgMonthLab{
-    if (!_bgMonthLab) {
-        _bgMonthLab = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(200) textColor:[UIColor colorWithHexString:@"#EDF5FE"] text:@"5"];
-        [self addSubview:_bgMonthLab];
-    }
-    return _bgMonthLab;
-}
+
 - (void)setSingleWeek:(BOOL)singleWeek{
     [LTSCalendarAppearance share].isShowSingleWeek = singleWeek;
 //    self.flowLayout.rowCount = singleWeek ? 1:[LTSCalendarAppearance share].weeksToDisplay;
 //   self.collectionView.contentInset = UIEdgeInsetsMake(0, 0,(singleWeek ? appearance.weekDayHeight*(appearance.weeksToDisplay-1) : 0), 0);
     beginWeekIndexPath = nil;
-    if (singleWeek) {
-        self.bgMonthLab.hidden = YES;
-    }else{
-        self.bgMonthLab.hidden = NO;
-    }
     [self getDateDatas];
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
@@ -157,6 +142,7 @@
 }
 #pragma mark -- UICollectionViewDataSource --
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+  
     return NUMBER_PAGES_LOADED;
 }
 
@@ -165,6 +151,14 @@
 //        return  7;
 //    }
     return 7*[LTSCalendarAppearance share].weeksToDisplay;
+}
+- (NSString *)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout backgroundTextForSection:(NSInteger)section{
+    if ([LTSCalendarAppearance share].isShowSingleWeek) {
+        return  @"";
+    }else{
+    LTSCalendarDayItem *item = self.daysInMonth[section][10];
+    return [NSString stringWithFormat:@"%ld",[item.date month]];
+    }
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     LTSCalendarCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
@@ -189,10 +183,11 @@
     isOwnChangePage = false;
     
     beginWeekIndexPath = indexPath;
-    LTSCalendarCollectionCell *cell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.isSelected = true;
     LTSCalendarDayItem *itemCurrent;
     LTSCalendarDayItem *itemLast;
+    
+    LTSCalendarCollectionCell *cell = (LTSCalendarCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
+   
     NSArray *dataSource;
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
         dataSource = self.daysInWeeks;
@@ -208,6 +203,10 @@
         itemCurrent = dataSource[indexPath.section][indexPath.item];
         itemLast = dataSource[self.currentSelectedIndexPath.section][self.currentSelectedIndexPath.item];
     }
+    if (!itemCurrent.showEventDot) {
+        return;
+    }
+     cell.isSelected = true;
     NSDate *selectedDate = itemLast.date;
     if (![LTSCalendarAppearance share].defaultSelected){
         selectedDate = self.selectedDate;
