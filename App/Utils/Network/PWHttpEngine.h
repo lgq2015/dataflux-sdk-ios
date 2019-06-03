@@ -58,11 +58,11 @@
  * @param start  查询日历起始时间
  * @param end    查询日历终止时间
  */
-- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback;
+- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id response))callback;
 /**
  * @param start  查询日历起始时间
  * @param end    查询日历终止时间
  */
-- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback;
+- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id response))callback;
 
 @end

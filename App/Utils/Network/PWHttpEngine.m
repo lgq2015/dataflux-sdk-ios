@@ -21,6 +21,8 @@
 #import "IssueLogAttachmentUrl.h"
 #import "IssueLogAtReadInfo.h"
 #import "CountListModel.h"
+#import "CalendarListModel.h"
+
 @implementation PWHttpEngine {
 
 }
@@ -369,7 +371,9 @@
     CountListModel *model = [CountListModel new];
     NSDictionary *param = @{@"createDateTs_start":start,
                             @"createDateTs_end":end,
-                            @"dataMethod":@"between"
+                            @"dataMethod":@"between",
+                            @"subType":
+                                @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered"
                             };
     return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_count
                                 withRequestType:NetworkGetType
@@ -381,12 +385,24 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
-- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback{
-    BaseReturnModel *model = [BaseReturnModel new];
-    NSDictionary *param = @{@"createDateTs_start":start,
-                            @"createDateTs_end":end,
-                            @"dataMethod":@"between"
-                            };
+- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
+    CalendarListModel *model = [CalendarListModel new];
+    
+    NSMutableDictionary *param =[@{
+                           
+                            @"subType":
+    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered",
+                            @"orderBy":@"seq",
+                            @"orderMethod":orderMethod
+                            } mutableCopy];
+    if (pageMarker>0) {
+        [param addEntriesFromDictionary:@{@"pageMarker":[NSNumber numberWithLong:pageMarker],@"pageSize":@40}];
+    }else{
+        [param addEntriesFromDictionary:@{@"pageSize":@40}];
+    }
+    if (![start isEqualToNumber:@0]) {
+        [param addEntriesFromDictionary:@{@"createDateTs_start":start,@"createDateTs_end":end, @"dataMethod":@"between"}];
+    }
     return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_list
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
