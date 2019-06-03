@@ -42,6 +42,7 @@
  UTC时间转换
  */
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter;
++ (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter outdateFormatted:(NSString *)dateFormatted;
 + (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter;
 - (NSString *)accurateTimeStr;
 /**
@@ -75,4 +76,8 @@
  */
 -(BOOL)stringContainsEmoji;
 + (NSString *)compareCurrentTimeSustainTime:(NSString *)str;
+/**
+ 计算字符串size
+ */
+-(CGSize)strSizeWithMaxWidth:(CGFloat)width withFont:(UIFont*)font;
 @end

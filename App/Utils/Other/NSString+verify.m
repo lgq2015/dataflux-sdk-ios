@@ -127,18 +127,29 @@
 }
 
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter{
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    //输入格式
+//    [dateFormatter setDateFormat:formatter];
+//    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+//    [dateFormatter setTimeZone:localTimeZone];
+//    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+//    //输出格式
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    return [NSString getLocalDateFormateUTCDate:utcDate formatter:formatter outdateFormatted:@"yyyy-MM-dd HH:mm:ss"];
+}
++ (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter outdateFormatted:(NSString *)dateFormatted{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:formatter];
     NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
     [dateFormatter setTimeZone:localTimeZone];
-    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+    NSDate *dateFormatteds = [dateFormatter dateFromString:utcDate];
     //输出格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    [dateFormatter setDateFormat:dateFormatted];
+    NSString *dateString = [dateFormatter stringFromDate:dateFormatteds];
     return dateString;
 }
-
 + (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
@@ -438,5 +449,13 @@
                                                               (CFStringRef)self,
                                                               (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
                                                               NULL,kCFStringEncodingUTF8));
+}
+-(CGSize)strSizeWithMaxWidth:(CGFloat)width withFont:(UIFont*)font{
+    if (@available(iOS 7.0, *)) {
+        return [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil].size;
+    } else {
+        return CGSizeZero;
+        
+    }
 }
 @end

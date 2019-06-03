@@ -164,8 +164,41 @@
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
     [dateFormatter setTimeZone:timeZone];
     DLog(@"[self year] == %ld,[self month] == %ld,[self day] == %ld,calculatedate ==%@ ",[self year],[self month],[self day],calculatedate);
+
     return [calculatedate timeIntervalSince1970];
     
     
+}
+
+- (NSString *)getCalenarTimeStr{
+    NSString *week;
+    switch ((long)[self weekday]) {
+        case 1:
+            week = @"周日";
+            break;
+        case 2:
+            week = @"周一";
+            break;
+        case 3:
+            week = @"周二";
+            break;
+        case 4:
+            week = @"周三";
+            break;
+        case 5:
+            week = @"周四";
+            break;
+        case 6:
+            week = @"周五";
+            break;
+        case 7:
+            week = @"周六";
+            break;
+    }
+    if([self isThisYear]){
+        return [NSString stringWithFormat:@"%ld 月 %ld 日 %@",(long)[self month],(long)[self day],week];
+    }else{
+       return [NSString stringWithFormat:@"%ld年 %ld 月 %ld 日 %@",(long)[self year],(long)[self month],(long)[self day],week];
+    }
 }
 @end
