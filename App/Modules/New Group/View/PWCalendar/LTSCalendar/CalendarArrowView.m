@@ -107,6 +107,7 @@
     
 }
 -(void)setArrowUp:(BOOL)arrowUp{
+    _arrowUp = arrowUp;
     self.arrowBtn.selected = arrowUp;
 }
 /*

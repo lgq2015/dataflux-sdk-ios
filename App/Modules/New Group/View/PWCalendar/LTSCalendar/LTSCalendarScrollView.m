@@ -288,6 +288,12 @@
     
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    CGRect bounds = self.tableView.frame;
+    if (CGRectContainsPoint(bounds, point)) {
+        self.scrollEnabled = self.arrorView.arrowUp;
+    }else{
+        self.scrollEnabled = YES;
+    }
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
     CGFloat tableCountDistance = appearce.weekDayHeight*(appearce.weeksToDisplay-1);
     if ( appearce.isShowSingleWeek) {
