@@ -32,4 +32,9 @@
 - (void)loadNextPage;
 - (void)showSingleWeek;
 - (void)showAllWeek;
+- (void)showLoadFooterView;
+- (void)endRefreshing;
+- (void)tablewViewDatasAdd:(NSArray *)array;
+- (void)tablewViewDatasAddBeforeRemove:(NSArray *)array;
+
 @end
