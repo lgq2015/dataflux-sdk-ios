@@ -15,7 +15,9 @@
 
 - (ZhugeIOBaseEventHelper *)event:(NSString *)event;
 
-- (ZhugeIOBaseEventHelper *)scence:(NSString *)scence;
+- (ZhugeIOBaseEventHelper *)scene:(NSString *)scene;
+
+- (ZhugeIOBaseEventHelper*)result:(NSString *)result;
 
 - (void)track;
 

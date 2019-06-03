@@ -4,11 +4,11 @@
 //
 
 #import <Zhugeio/Zhuge.h>
-#import "ZhugeUserDataHelper.h"
+#import "ZhugeIOUserDataHelper.h"
 #import "CurrentUserModel.h"
 
 
-@implementation ZhugeUserDataHelper {
+@implementation ZhugeIOUserDataHelper {
 
 }
 
@@ -17,6 +17,6 @@
     NSMutableDictionary *dic = [NSMutableDictionary new];
     dic[@"姓名"] = model.name;
     dic[@"手机号"] = model.mobile;
-    [[Zhuge sharedInstance] identify:model.userID properties:<#(nullable   NSDictionary *)properties#>];
+    [[Zhuge sharedInstance] identify:model.userID properties:dic];
 }
 @end

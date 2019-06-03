@@ -6,6 +6,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ZhugeUserDataHelper : NSObject
+@interface ZhugeIOUserDataHelper : NSObject
 - (void)bindUserData:(CurrentUserModel *)model;
 @end

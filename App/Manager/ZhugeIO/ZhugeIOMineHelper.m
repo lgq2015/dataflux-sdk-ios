@@ -21,167 +21,163 @@
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventBottomTab {
+- (ZhugeIOMineHelper *)eventBottomTab {
     return [self event:@"点击底部Tab"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventLookInfo {
+- (ZhugeIOMineHelper *)eventLookInfo {
     return [self event:@"查看基本信息"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventChangeName {
+- (ZhugeIOMineHelper *)eventChangeName {
     return [self event:@"编辑姓名"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventChangePhone {
+- (ZhugeIOMineHelper *)eventChangePhone {
     return [self event:@"修改手机"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventGetVerifyCode {
+- (ZhugeIOMineHelper *)eventGetVerifyCode {
     return [self event:@"获取验证码"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventInputVerifyCode {
+- (ZhugeIOMineHelper *)eventInputVerifyCode {
     return [self event:@"输入验证码"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventVerifyPwd {
+- (ZhugeIOMineHelper *)eventVerifyPwd {
     return [self event:@"密码验证"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventChangeEmail {
+- (ZhugeIOMineHelper *)eventChangeEmail {
     return [self event:@"修改邮箱"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventChangeHeadImage {
+- (ZhugeIOMineHelper *)eventChangeHeadImage {
     return [self event:@"更改头像"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickMessage {
+- (ZhugeIOMineHelper *)eventClickMessage {
     return [self event:@"进入我的消息"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventLookMessage {
+- (ZhugeIOMineHelper *)eventLookMessage {
     return [self event:@"查看消息"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickIssueResource {
+- (ZhugeIOMineHelper *)eventClickIssueResource {
     return [self event:@"配置情报源"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventClickCollection {
+- (ZhugeIOMineHelper *)eventClickCollection {
     return [self event:@"进入我的收藏"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventDeleteCollection {
+- (ZhugeIOMineHelper *)eventDeleteCollection {
     return [self event:@"删除收藏文章"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickSuggest {
+- (ZhugeIOMineHelper *)eventClickSuggest {
     return [self event:@"意见与反馈"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickContactUs {
+- (ZhugeIOMineHelper *)eventClickContactUs {
     return [self event:@"联系我们"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickAboutProfWang {
+- (ZhugeIOMineHelper *)eventClickAboutProfWang {
     return [self event:@"关于王教授"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickSetting {
+- (ZhugeIOMineHelper *)eventClickSetting {
     return [self event:@"设置"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventClickSecurityPrivacy {
+- (ZhugeIOMineHelper *)eventClickSecurityPrivacy {
     return [self event:@"安全与隐私"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickChangePwd {
+- (ZhugeIOMineHelper *)eventClickChangePwd {
     return [self event:@"修改密码"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClickSetPwd {
+- (ZhugeIOMineHelper *)eventClickSetPwd {
     return [self event:@"设置密码"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventSetNotifySwitch {
+- (ZhugeIOMineHelper *)eventSetNotifySwitch {
     return [self event:@"设置接收消息通知"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventClearCache {
+- (ZhugeIOMineHelper *)eventClearCache {
     return [self event:@"清除缓存"];
 }
 
-- (ZhugeIOBaseEventHelper *)eventLoginOut {
+- (ZhugeIOMineHelper *)eventLoginOut {
     return [self event:@"退出登录"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrTabName {
+- (ZhugeIOMineHelper *)attrTabName {
     self.data[@"目标位置"] = @"我的";
     return self;
 }
 
 
-- (ZhugeIOBaseEventHelper *)verifyType:(NSString *)type {
+- (ZhugeIOMineHelper *)verifyType:(NSString *)type {
     self.data[@"验证方式"] = type;
     return self;
 }
 
-- (ZhugeIOBaseEventHelper *)attrVerifyWayMobile {
+- (ZhugeIOMineHelper *)attrVerifyWayMobile {
     return [self verifyType:@"手机号"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrVerifyWayPwd {
+- (ZhugeIOMineHelper *)attrVerifyWayPwd {
     return [self verifyType:@"密码"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrSceneVerify {
-    return [self scence:@"验证身份"];
+- (ZhugeIOMineHelper *)attrSceneVerify {
+    return [self scene:@"验证身份"];
 }
 
 
-- (ZhugeIOBaseEventHelper *)attrSceneChangeMobile {
-    return [self scence:@"修改手机号"];
+- (ZhugeIOMineHelper *)attrSceneChangeMobile {
+    return [self scene:@"修改手机号"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrSceneChangeEmail {
-    return [self scence:@"修改邮箱"];
+- (ZhugeIOMineHelper *)attrSceneChangeEmail {
+    return [self scene:@"修改邮箱"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrSceneChangePwd {
-    return [self scence:@"修改密码"];
+- (ZhugeIOMineHelper *)attrSceneChangePwd {
+    return [self scene:@"修改密码"];
 }
 
-- (ZhugeIOBaseEventHelper *)attrMessageTitle:(NSString *)title {
+- (ZhugeIOMineHelper *)attrMessageTitle:(NSString *)title {
     self.data[@"消息标题"] =title;
     return self;
 }
 
 
--(ZhugeIOBaseEventHelper *)result:(NSString *)result{
-    self.data[@"结果"] =result;
-    return self;
-}
 
--(ZhugeIOBaseEventHelper *)attrResultReceive{
+-(ZhugeIOMineHelper *)attrResultReceive{
     return [self result:@"接收"];
 }
 
--(ZhugeIOBaseEventHelper *)attrResultNoReceive{
+-(ZhugeIOMineHelper *)attrResultNoReceive{
     return [self result:@"不接收"];
 }
 
--(ZhugeIOBaseEventHelper *)attrResultLogout{
+-(ZhugeIOMineHelper *)attrResultLogout{
     return [self result:@"退出"];
 }
 
--(ZhugeIOBaseEventHelper *)attrResultCancel{
+-(ZhugeIOMineHelper *)attrResultCancel{
     return [self result:@"取消"];
 }
 

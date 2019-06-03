@@ -31,8 +31,13 @@
     return self;
 }
 
-- (ZhugeIOBaseEventHelper*)scence:(NSString *)scence {
-    _data[@"场景"]=scence;
+- (ZhugeIOBaseEventHelper*)scene:(NSString *)scene {
+    _data[@"场景"]=scene;
+    return self;
+}
+
+-(ZhugeIOBaseEventHelper*)result:(NSString *)result{
+    _data[@"结果"] =result;
     return self;
 }
 
