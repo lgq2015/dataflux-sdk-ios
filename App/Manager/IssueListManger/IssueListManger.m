@@ -69,6 +69,7 @@
             @"endTime":SQL_TEXT,
             @"readAtInfoStr":SQL_TEXT,
             @"isEnded":SQL_BLOB,
+            @"needAttention":SQL_BLOB,
     }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
             @"scanCheckEndTime":SQL_TEXT,
@@ -592,7 +593,7 @@
     };
     switch (viewType) {
         case IssueViewTypeNormal:
-            statesStr =@"AND isEnded = false";
+            statesStr =@"WHERE needAttention = true AND status = 'created'";
             break;
         case IssueViewTypeAll:
             statesStr = @"";
@@ -600,9 +601,10 @@
     }
     if (isALL) {
         if(statesStr.length>0){
-            whereFormat =@"WHERE isEnded = false ORDER by seq DESC";
+            //WHERE needattention = true
+            whereFormat =@"WHERE needAttention = true AND status = 'created'  ORDER by seq DESC";
         }else{
-            whereFormat =@"ORDER by seq DESC";
+            whereFormat =@" ORDER by seq DESC";
         }
         
     }else{

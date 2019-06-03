@@ -35,6 +35,7 @@
     self.origin = [dict stringValueForKey:@"origin" default:@""];
     self.ticketStatus = [dict stringValueForKey:@"ticketStatus" default:@""];
     self.subType = [dict stringValueForKey:@"subType" default:@""];
+    self.needAttention = [dict boolValueForKey:@"needAttention" default:YES];
     NSArray *logs = [dict mutableArrayValueForKey:@"latestIssueLogs"];
     if (logs.count > 0) {
         NSString *logstr = [logs jsonStringEncoded];
