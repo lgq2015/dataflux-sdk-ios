@@ -134,7 +134,8 @@
         case MonitorListStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已恢复";
-            self.timeLab.text =[NSString stringWithFormat:@"恢复时间：%@",[self.model.time accurateTimeStr]];
+            self.timeLab.text =@"";
+            //[NSString stringWithFormat:@"恢复时间：%@",[self.model.time accurateTimeStr]];
 
             break;
         case MonitorListStateLoseeEfficacy:
