@@ -75,6 +75,7 @@
     self.calendarBgColor = [UIColor whiteColor];
     self.scrollBgcolor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
     self.isShowLunarCalender = NO;
+    self.defaultSelected = NO;
 }
 
 - (NSCalendar *)calendar

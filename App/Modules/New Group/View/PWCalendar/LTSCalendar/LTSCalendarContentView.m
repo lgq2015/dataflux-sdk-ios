@@ -30,7 +30,7 @@
 @property (nonatomic,strong) NSIndexPath *currentSelectedIndexPath;
 ///用来区分默认效果选中的日期
 @property (nonatomic,strong) NSDate *selectedDate;
-
+@property (nonatomic, assign) BOOL isCellClick;
 @end
 
 @implementation LTSCalendarContentView
@@ -147,9 +147,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    if ([LTSCalendarAppearance share].isShowSingleWeek) {
-//        return  7;
-//    }
+
     return 7*[LTSCalendarAppearance share].weeksToDisplay;
 }
 - (NSString *)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout backgroundTextForSection:(NSInteger)section{
@@ -181,7 +179,7 @@
 #pragma mark -- UICollectionViewDelegate --
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     isOwnChangePage = false;
-    
+    self.isCellClick = YES;
     beginWeekIndexPath = indexPath;
     LTSCalendarDayItem *itemCurrent;
     LTSCalendarDayItem *itemLast;
@@ -263,6 +261,9 @@
     }
     
     
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
+        [self.eventSource calendarDidSelectedDate:self.currentDate];
+    }
 }
 #pragma mark -- UIScrollView --
 
@@ -278,10 +279,11 @@
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
     }
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:currentDate:)]) {
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month currentDate:self.currentDate];
+        LTSCalendarDayItem *item = self.daysInMonth[self.currentSelectedIndexPath.section][0];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date currentDate:self.currentDate];
     }
     isOwnChangePage = false;
     
@@ -311,10 +313,11 @@
     if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
         [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
     }
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:currentDate:)]) {
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month currentDate:self.currentDate];
+        LTSCalendarDayItem *item =self.daysInMonth[self.currentSelectedIndexPath.section][0];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date currentDate:self.currentDate];
     }
     
     
@@ -485,20 +488,22 @@
 }
 - (void)setCurrentDate:(NSDate *)currentDate{
     _currentDate = currentDate;
-    
-    if ([LTSCalendarAppearance share].defaultSelected) {
-        if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
-            [self.eventSource calendarDidSelectedDate:self.currentDate];
-        }
-    }
+//    if (self.isCellClick) {
+//        if ([LTSCalendarAppearance share].defaultSelected) {
+//            if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
+//                [self.eventSource calendarDidSelectedDate:self.currentDate];
+//            }
+//        }
+//    }
+//    self.isCellClick = NO;
 }
 - (void)setSelectedDate:(NSDate *)selectedDate{
     _selectedDate = selectedDate;
-    if (![LTSCalendarAppearance share].defaultSelected) {
-        if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
-            [self.eventSource calendarDidSelectedDate:selectedDate];
-        }
-    }
+//    if (![LTSCalendarAppearance share].defaultSelected) {
+//        if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
+//            [self.eventSource calendarDidSelectedDate:selectedDate];
+//        }
+//    }
     
 }
 /**

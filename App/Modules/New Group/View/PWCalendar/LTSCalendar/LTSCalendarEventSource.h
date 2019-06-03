@@ -27,11 +27,14 @@
 - (void)calendarDidSelectedDate:(NSDate *)date;
 
 //获取当前滑动的年月
-- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month currentDate:(NSDate*)currentDate;
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first currentDate:(NSDate*)currentDate;
 /**
  翻页完成后的操作
 
  */
 - (void)calendarDidLoadPageCurrentDate:(NSDate *)date;
 
+- (void)tableViewDidSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableViewLoadMoreData;
+- (void)tableViewLoadHeaderData;
 @end

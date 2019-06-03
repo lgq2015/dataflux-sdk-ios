@@ -49,5 +49,13 @@
 - (NSDate *)currentSelectedDate{
     return self.calenderScrollView.calendarView.currentDate;
 }
-
+- (void)endRefreshing{
+    [self.calenderScrollView endRefreshing];
+}
+- (void)tablewViewDatasAdd:(NSArray *)array{
+    [self.calenderScrollView tablewViewDatasAdd:array];
+}
+- (void)tablewViewDatasAddBeforeRemove:(NSArray *)array{
+    [self.calenderScrollView tablewViewDatasAddBeforeRemove:array];
+}
 @end

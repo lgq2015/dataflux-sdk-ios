@@ -7,10 +7,22 @@
 //
 
 #import "LTSCalendarScrollView.h"
-
+#import "CalendarIssueModel.h"
+#import "CalendarListCell.h"
+#import "PWLibraryListNoMoreFootView.h"
+#import <MJRefresh.h>
 
 @interface LTSCalendarScrollView()<UITableViewDelegate,UITableViewDataSource,CalendarArrowViewDelegate>
 @property (nonatomic, strong) UIView *line;
+
+@property (nonatomic, assign) NSInteger currentSection;
+@property (nonatomic, assign) BOOL isUpScroll;
+@property (nonatomic, assign) BOOL isFirstLoad;
+@property (nonatomic, assign) CGFloat oldY;
+@property (nonatomic, strong) PWLibraryListNoMoreFootView *footView;
+@property (nonatomic, strong) MJRefreshGifHeader *header;
+@property (nonatomic, strong) MJRefreshBackStateFooter *footer;
+
 @end
 @implementation LTSCalendarScrollView
 
@@ -27,63 +39,211 @@
     self.line.backgroundColor = bgColor;
 }
 
+-(MJRefreshGifHeader *)header{
+    if (!_header) {
+        _header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+        NSMutableArray *araray = [NSMutableArray new];
+        for (int i =0; i<30; i++) {
+            NSString *imgName = [NSString stringWithFormat:@"frame-%d@2x.png",i];
+            [araray addObject:[UIImage imageNamed:imgName]];
+        }
+        NSArray *pullingImages = araray;
+        _header.lastUpdatedTimeLabel.hidden = YES;
+        _header.stateLabel.hidden =YES;
+        [_header setImages:pullingImages duration:0.3 forState:MJRefreshStateIdle];
+        
+        [_header setImages:pullingImages duration:1 forState:MJRefreshStatePulling];
+    }
+    return _header;
+}
 - (void)initUI{
-    
+    self.isUser= YES;
     self.delegate = self;
     self.bounces = false;
     self.showsVerticalScrollIndicator = false;
     self.backgroundColor = [LTSCalendarAppearance share].scrollBgcolor;
     LTSCalendarContentView *calendarView = [[LTSCalendarContentView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, [LTSCalendarAppearance share].weekDayHeight*[LTSCalendarAppearance share].weeksToDisplay)];
-    calendarView.currentDate = [NSDate date];
+//    calendarView.currentDate = [NSDate date];
     [self addSubview:calendarView];
     self.calendarView = calendarView;
-   CalendarArrowView *arrorView = [[CalendarArrowView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(calendarView.frame), CGRectGetWidth(self.frame), ZOOM_SCALE(70)+8)];
+    CalendarArrowView *arrorView = [[CalendarArrowView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(calendarView.frame), CGRectGetWidth(self.frame), ZOOM_SCALE(70)+8)];
     [self addSubview:arrorView];
     arrorView.delegate = self;
     self.arrorView = arrorView;
-//    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(calendarView.frame), CGRectGetWidth(self.frame),0.5)];
-    
+    self.arrorView.selDateLab.text = [calendarView.currentDate getCalenarTimeStr];
+    self.arrorView.backTodayBtn.hidden = YES;
+    DLog(@"CGRectGetHeight(self.frame) == %f",CGRectGetHeight(self.frame));
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(arrorView.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(arrorView.frame)-ZOOM_SCALE(70))];
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.estimatedRowHeight = 0;
-    self.tableView.estimatedSectionHeaderHeight = 0;
-    self.tableView.estimatedSectionFooterHeight = 0;
-    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-    self.tableView.scrollEnabled = [LTSCalendarAppearance share].isShowSingleWeek;
+    if (@available(iOS 11.0, *)) {
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight=0 ;
+        _tableView.contentInsetAdjustmentBehavior= UIScrollViewContentInsetAdjustmentNever;
+    }
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+    self.tableView.mj_header = self.header;
+    self.tableView.mj_footer = self.footer;
+    self.tableView.scrollEnabled = YES;
+    [self.tableView registerClass:CalendarListCell.class forCellReuseIdentifier:@"CalendarListCell"];
     [self addSubview:self.tableView];
     self.line.backgroundColor = self.backgroundColor;
     [self addSubview:self.line];
     [self bringSubviewToFront:self.arrorView];
     [LTSCalendarAppearance share].isShowSingleWeek ? [self scrollToSingleWeek]:[self scrollToAllWeek];
 }
-
+- (void)tablewViewDatasAdd:(NSArray *)array{
+    [self.calendarList addObject:array];
+    [self.tableView reloadData];
+}
+- (void)tablewViewDatasAddBeforeRemove:(NSArray *)array{
+    [self.calendarList removeAllObjects];
+    [self.calendarList addObjectsFromArray:array];
+    [self.tableView reloadData];
+}
+-(HLSafeMutableArray *)calendarList{
+    if (!_calendarList) {
+        _calendarList = [HLSafeMutableArray new];
+    }
+    return _calendarList;
+}
+-(PWLibraryListNoMoreFootView*)footView{
+    if (!_footView) {
+        _footView = [[PWLibraryListNoMoreFootView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
+        _footView.backgroundColor =PWBackgroundColor;
+    }
+    return _footView;
+}
+-(MJRefreshBackStateFooter *)footer{
+    if (!_footer) {
+        _footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+    }
+    return _footer;
+}
+-(void)headerRefreshing{
+    WeakSelf
+    if (self.calendarView.eventSource && [self.calendarView.eventSource respondsToSelector:@selector(tableViewLoadHeaderData)]) {
+        [weakSelf.calendarView.eventSource tableViewLoadHeaderData];
+    }
+}
+-(void)footerRefreshing{
+    WeakSelf
+    if (self.calendarView.eventSource && [self.calendarView.eventSource respondsToSelector:@selector(tableViewLoadMoreData)]) {
+        [weakSelf.calendarView.eventSource tableViewLoadMoreData];
+    }
+}
+- (void)endRefreshing{
+    [self.header endRefreshing];
+    [self.footer endRefreshing];
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CalendarIssueModel *model = self.calendarList[indexPath.section][indexPath.row];
+    if (model.calendarContentH) {
+       return model.calendarContentH +ZOOM_SCALE(45)+Interval(50);
+    }else{
+        return ZOOM_SCALE(30);
+    }
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    NSArray *array= [self.calendarList copy];
+    return array.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  20;
+    if (_calendarList.count>0 && section<_calendarList.count) {
+        NSArray *array = [self.calendarList[section] copy];
+
+        return  array.count;
+    }else{
+        return 0;
+    }
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *groupHeader = [[UIView alloc]init];
+    if (_calendarList.count>0 && section<_calendarList.count) {
+    groupHeader.backgroundColor = PWBackgroundColor;
+    CalendarIssueModel *model = self.calendarList[section][0];
+    UILabel *groupTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(11), kWidth-30, ZOOM_SCALE(18)) font:RegularFONT(13) textColor:PWSubTitleColor text:model.groupTitle];
+    [groupHeader addSubview:groupTitle];
+    return groupHeader;
+    }else{
+        return nil;
+    }
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return ZOOM_SCALE(40);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UITableViewCell *cell =[UITableViewCell new];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+    if(_calendarList.count > 0  && indexPath.section<_calendarList.count){
+        
+    CalendarListCell *cell =[tableView dequeueReusableCellWithIdentifier:@"CalendarListCell"];
+    cell.model =(CalendarIssueModel *)self.calendarList[indexPath.section][indexPath.row];
+    WeakSelf
+    cell.CalendarListCellClick = ^(void){
+        if (weakSelf.calendarView.eventSource && [weakSelf.calendarView.eventSource respondsToSelector:@selector(tableViewDidSelectRowAtIndexPath:)]) {
+            [weakSelf.calendarView.eventSource tableViewDidSelectRowAtIndexPath:indexPath];
+        }
+    };
+    NSArray *arrar = self.calendarList[indexPath.section];
+    if (indexPath.row == arrar.count-1) {
+        cell.lineHide = YES;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+    }else{
+        return nil;
+    }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    
+    if(_isUser && (_currentSection - section) == 1){
+        
+        //最上面组头（不一定是第一个组头，指最近刚被顶出去的组头）又被拉回来
+        
+        _currentSection = section;
+        CalendarIssueModel *model = self.calendarList[_currentSection][0];
+        [self goDate:model.dayDate];
+        DLog(@"willDisplayHeaderView显示第%ld组",(long)section);
+        
+    }
     
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
+    
+    if(!_isFirstLoad && _isUpScroll && _isUser){
+        
+        _currentSection = section + 1;
+        //最上面的组头被顶出去
+        CalendarIssueModel *model = self.calendarList[_currentSection][0];
+        [self goDate:model.dayDate];
+        DLog(@"didEndDisplayingHeaderView显示第%ld组",(long)section + 1);
+    }
+    
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
    
     CGFloat offsetY = scrollView.contentOffset.y;
-    
-    
+    if ([scrollView isEqual: self.tableView]) {
+        
+        if (self.tableView.contentOffset.y > _oldY) {
+            // 上滑
+            _isUpScroll = YES;
+//            DLog(@"上滑");
+        }else{
+            // 下滑
+            _isUpScroll = NO;
+//            DLog(@"下滑");
+        }
+        _isFirstLoad = NO;
+    }
     if (scrollView != self) {
         return;
     }
-  
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
     ///表需要滑动的距离
     CGFloat tableCountDistance = appearce.weekDayHeight*(appearce.weeksToDisplay-1);
@@ -111,14 +271,15 @@
         }
     }
     CGRect tableFrame = self.tableView.frame;
-    tableFrame.size.height = CGRectGetHeight(self.frame)-CGRectGetHeight(self.calendarView.frame)+offsetY;
+    DLog(@"self.frame.height  === %f",CGRectGetHeight(self.frame))
+    tableFrame.size.height = CGRectGetHeight(self.frame)-CGRectGetHeight(arrowFrame)-CGRectGetHeight(calendarFrame)+offsetY;
     self.tableView.frame = tableFrame;
     self.bounces = false;
     if (offsetY<=0) {
         self.bounces = true;
         calendarFrame.origin.y = offsetY;
         arrowFrame.origin.y = CGRectGetMaxY(calendarFrame);
-        tableFrame.size.height = CGRectGetHeight(self.frame)-CGRectGetHeight(self.calendarView.frame);
+        tableFrame.size.height = CGRectGetHeight(self.frame)-CGRectGetHeight(arrowFrame)-ZOOM_SCALE(70);
         self.tableView.frame = tableFrame;
     }
     self.calendarView.frame = calendarFrame;
@@ -142,9 +303,12 @@
 
     return  [super hitTest:point withEvent:event];
 }
-
+- (void)showNomoreDatasFooter{
+    self.tableView.tableFooterView = self.footView;
+}
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     if (self != scrollView) {
+        self.isUser = YES;
         return;
     }
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
@@ -213,6 +377,7 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    _oldY = self.tableView.contentOffset.y;
     if (self != scrollView) {
         return;
     }
@@ -244,12 +409,27 @@
 
     self.contentSize = CGSizeMake(0, CGRectGetHeight(self.frame)+[LTSCalendarAppearance share].weekDayHeight*([LTSCalendarAppearance share].weeksToDisplay-1));
 }
+-(void)goDate:(NSDate *)date{
+    if ([date isToday]) {
+        self.arrorView.backTodayBtn.hidden = YES;
+    }else{
+        self.arrorView.backTodayBtn.hidden = NO;
+    }
+    self.arrorView.selDateLab.text = [date getCalenarTimeStr];
+    [LTSCalendarAppearance share].defaultDate = date;
+    [self.calendarView reloadDefaultDate];
+    [self.calendarView reloadAppearance];
+}
 #pragma mark ========== CalendarArrowViewDelegate ==========
 -(void)backToday{
+    self.arrorView.selDateLab.text = [[NSDate date] getCalenarTimeStr];
+    [self.tableView scrollToRow:0 inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    self.arrorView.backTodayBtn.hidden = YES;
     [LTSCalendarAppearance share].defaultDate = [NSDate date];
     [self.calendarView reloadDefaultDate];
     [self.calendarView reloadAppearance];
 }
+
 -(void)arrowClickWithUnfold:(BOOL)unfold{
     if (unfold) {
         [self scrollToAllWeek];
