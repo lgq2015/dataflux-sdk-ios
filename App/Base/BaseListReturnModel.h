@@ -9,6 +9,8 @@
 @interface BaseListReturnModel : BaseReturnModel
 
 @property (nonatomic, strong) NSMutableArray * list;
-
+@property (nonatomic, assign) long pageSize;
+@property (nonatomic, assign) long count;
+@property (nonatomic, assign) long pageMarker;
 - (id)getItemData:(NSDictionary *)dic;
 @end
