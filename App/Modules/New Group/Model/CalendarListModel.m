@@ -7,7 +7,11 @@
 //
 
 #import "CalendarListModel.h"
+#import "CalendarIssueModel.h"
 
 @implementation CalendarListModel
-
+- (id)getItemData:(NSDictionary *)dic {
+   
+    return [[CalendarIssueModel alloc] initWithDictionary:dic];
+}
 @end
