@@ -135,3 +135,16 @@
 "您的专属云顾问" = "您的专属云顾问";
 
 "home.auth.passwordLength.scaleOut" = "内容长度超限";
+"issue.issueCreated" = "情报产生";
+"issue.issueRecovered" = "情报恢复";
+"issue.issueExpired" = "情报过期";
+"issue.updateExpertGroups" = "加入讨论";
+
+"issue.issueLevelChanged" ="情报等级变更为";
+
+"issue.issueLogLevelChanged" =  "情报等级变更";
+
+"markTookOver"  =  "由#处理";
+"markRecovered" = "被#解决";
+
+"issue.exitExpertGroups" = "您邀请的专家已退出讨论";
