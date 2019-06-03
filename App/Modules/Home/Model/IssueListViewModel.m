@@ -148,7 +148,6 @@
                 NSDictionary *readAtInfo = [model.readAtInfoStr jsonValueDecoded];                
                 int unreadCount = [readAtInfo intValueForKey:@"unreadCount" default:0];
                 long long lastSeq = [readAtInfo longLongValueForKey:@"lastSeq" default:0];
-                long long lastReadSeq = [readAtInfo longLongValueForKey:@"lastReadSeq" default:0];
                 long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
                 if (unreadCount>0 ) {
                     if (seq == 0) {

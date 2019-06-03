@@ -143,21 +143,12 @@
     [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(self.model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = PWSafeDictionaryVal(response, @"content");
-//            if (self.model.isFromUser) {
-//                NSDictionary *accountInfo = PWSafeDictionaryVal(content, @"accountInfo");
-//                NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-//                [self.userHeader setCreateUserName:[NSString stringWithFormat:@"创建者：%@",name]];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.tableView.tableHeaderView = self.userHeader;
-//                });
-//            }else{
             [self loadIssueSourceDetail:content];
             [self.engineHeader createUIWithDetailDict:content];
             [self.engineHeader layoutIfNeeded];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.tableHeaderView = self.engineHeader;
             });
-//            }
         }else{
             [SVProgressHUD dismiss];
         }
@@ -417,7 +408,8 @@
 - (void)PWChatImageReload:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
     IssueLogModel *logModel = layout.message.model;
     NSString *issueId = logModel.id;
-    WeakSelf
+    if(self){
+     WeakSelf
     [[PWHttpEngine sharedInstance] issueLogAttachmentUrlWithIssueLogid:issueId callBack:^(id o) {
         IssueLogAttachmentUrl *model = (IssueLogAttachmentUrl *)o;
         if(model.isSuccess){
@@ -433,6 +425,7 @@
             }
         }
     }];
+    }
 }
 
 

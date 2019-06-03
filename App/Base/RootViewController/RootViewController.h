@@ -23,7 +23,7 @@
 @property (nonatomic, strong) MJRefreshBackStateFooter *footer;
 @property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) PWLibraryListNoMoreFootView *footView;
-@property(nonatomic, strong) UIButton *whiteBackBtn;
+@property (nonatomic, strong) UIButton *whiteBackBtn;
 
 /** 导航条 */
 @property(nonatomic, strong)NaviBarView *topNavBar;

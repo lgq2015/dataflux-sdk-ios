@@ -39,15 +39,15 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickComentlab)];
     [self addGestureRecognizer:tap];
     self.typeIcon.image = [UIImage imageNamed:@"reply_big"];
-    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-    arrow.tag = 35;
-    [[self viewWithTag:35] removeFromSuperview];
-    [self addSubview:arrow];
-    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(6));
-        make.centerY.mas_equalTo(self.typeIcon);
-        make.width.height.offset(ZOOM_SCALE(18));
-    }];
+//    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
+//    arrow.tag = 35;
+//    [[self viewWithTag:35] removeFromSuperview];
+//    [self addSubview:arrow];
+//    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(6));
+//        make.centerY.mas_equalTo(self.typeIcon);
+//        make.width.height.offset(ZOOM_SCALE(18));
+//    }];
     UIView *contentView = [[UIView alloc]init];
     contentView.backgroundColor = PWWhiteColor;
     [self addSubview:contentView];
@@ -55,7 +55,7 @@
     [contentView.layer setBorderWidth:1];
     [contentView.layer setCornerRadius:4.0f];
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(arrow.mas_right).offset(10);
+        make.left.equalTo(self.typeIcon.mas_right).offset(10);
         make.right.equalTo(self).offset(-16);
         make.centerY.equalTo(self);
         make.height.offset(ZOOM_SCALE(45));
