@@ -595,13 +595,13 @@
     [DDLog addLogger:fileLogger];
 
     if(getIsDevMode){
-        [NBULog setAppLogLevel:DDLogLevelAll];
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
     } else{
 #if DEV
-        [NBULog setAppLogLevel:DDLogLevelAll];
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
 
 #elif PREPROD
-        [NBULog setAppLogLevel:DDLogLevelAll];
+        [NBULog setAppLogLevel:DDLogLevelVerbose];
 #else
         [NBULog setAppLogLevel:DDLogLevelWarning];
 #endif

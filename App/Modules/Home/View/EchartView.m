@@ -29,7 +29,7 @@
         NSArray *data = series[0][@"data"];
         [data enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *time = [NSString stringWithFormat:@"%@",obj[0]];
-            [lineX addObject: [time getTimeFromTimestamp]];
+            [lineX addObject:time];
         }];
     }
     
@@ -38,7 +38,6 @@
     //是否启用拖拽重计算特性，默认关闭
     option.calculable = NO;
     //数值系列的颜色列表(折线颜色)
-    option.color = @[@"#20BCFC", @"#ff6347"];
     // 图标背景色
     // option.backgroundColor = [[PYColor alloc] initWithColor:[UIColor orangeColor]];
     option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
@@ -116,18 +115,9 @@
     
     //单位设置,  设置最大值, 最小值
     // yAxis.axisLabel.formatter = @"{value} k";
-    NSNumber *max = [data[@"yAxis"] numberValueForKey:@"max" default:@100];
-    NSNumber *min = [data[@"yAxis"] numberValueForKey:@"min" default:@0];
-    yAxis.max = max;
-    yAxis.min =min;
-    NSNumber *interval =[data[@"yAxis"] numberValueForKey:@"interval" default:@10];
-    NSInteger interval2 =([max integerValue]-[min integerValue])/[interval integerValue] ;
-    yAxis.splitNumber =[NSNumber numberWithInteger:interval2];
-    //[NSNumber numberWithLong:interval];
-    
+
     // 添加到图标选择中  ( y轴更多设置, 自行查看官方文档)
     option.yAxis = [[NSMutableArray alloc] initWithObjects:yAxis, nil];
-    
     
     /** 定义坐标点数组 */
     NSMutableArray *seriesArr = [NSMutableArray array];
