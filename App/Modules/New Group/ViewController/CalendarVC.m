@@ -9,12 +9,19 @@
 #import "CalendarVC.h"
 #import "LTSCalendarManager.h"
 #import "CountListModel.h"
+#import "CalendarListModel.h"
+#import "CalendarIssueModel.h"
+#import "IssueDetailsVC.h"
 
 @interface CalendarVC ()<LTSCalendarEventSource>{
     NSMutableDictionary *eventsByDate;
+    NSMutableDictionary *dotLoadDate;
+
 }
 @property (nonatomic, strong) LTSCalendarManager *manager;
 @property (nonatomic, strong) NSMutableArray *loadMonth;
+@property (nonatomic, assign) BOOL isLoadTop;
+@property (nonatomic, strong) NSMutableArray *calendarList;
 @end
 
 @implementation CalendarVC
@@ -24,8 +31,30 @@
     [self createNav];
     [self createUI];
     [self loadCalendarDot];
+    [self loadCurrentList];
+    NSString *nameStr= NSLocalizedString(@"(sdd)issueLevelChanged", @"no");
+    DLog(@"nameStr === %@",nameStr);
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(issueTeamSwitch:)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
+
     // Do any additional setup after loading the view.
 }
+-(NSMutableArray *)calendarList{
+    if (!_calendarList) {
+        _calendarList = [NSMutableArray new];
+    }
+    return _calendarList;
+}
+- (void)issueTeamSwitch:(NSNotification *)notification{
+    [eventsByDate removeAllObjects];
+    [dotLoadDate removeAllObjects];
+    [_calendarList removeAllObjects];
+    [self loadCalendarDot];
+    [self loadCurrentList];
+}
+#pragma mark ========== UI ==========
 - (void)createNav{
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
     [self.view addSubview:nav];
@@ -52,14 +81,16 @@
     
     self.automaticallyAdjustsScrollViewInsets = false;
 }
-
+#pragma mark ========== NETWORKING ==========
 - (void)loadCalendarDot{
     eventsByDate = [NSMutableDictionary new];
+    dotLoadDate = [NSMutableDictionary new];
     NSDate *currentDate = [NSDate date];
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
+    [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
     [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
 }
-- (void)loadMoreCalendarDotWithStartTime:(NSNumber *)start endTime:(NSNumber *)end{
+- (void)loadMoreCalendarDotWithStartTime:(NSNumber *)start endTime:(NSNumber *)end {
     
     WeakSelf
     [[PWHttpEngine sharedInstance]getCalendarDotWithStartTime:start EndTime:end callBack:^(id o) {
@@ -72,50 +103,176 @@
             }];
             [weakSelf.manager reloadAppearanceAndData];
         }else{
+//            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+    }];
+}
+- (void)loadCurrentList{
+    self.isLoadTop = YES;
+    [self loadListWithStartTime:@0 endTime:@0 loadNew:YES];
+    [self.manager endRefreshing];
+
+}
+- (void)loadListWithStartTime:(NSNumber *)start endTime:(NSNumber *)end loadNew:(BOOL)new{
+    [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:end pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
+        [self.manager endRefreshing];
+        CalendarListModel *model = (CalendarListModel *)response;
+        if (model.isSuccess) {
+            __block NSString *tempTitle;
+            __block NSMutableArray *group = [NSMutableArray new];
+            __block NSMutableArray *calendarList = [NSMutableArray new];
+            if (model.list.count<2) {
+                [self loadMoreList];
+            }
+            [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.groupTitle isEqualToString:tempTitle]) {
+                    [group addObject:obj];
+                }else{
+                    tempTitle = obj.groupTitle;
+                    if (group.count>0) {
+                        [calendarList addObject:[NSArray arrayWithArray:[group copy]]];
+                        [group removeAllObjects];
+                    }
+                    [group addObject:obj];
+                }
+                if (idx == model.list.count-1) {
+                    [calendarList addObject:[NSArray arrayWithArray:[group copy]]];
+                }
+            }];
+            CalendarIssueModel *model2;
+            if (calendarList.count>0) {
+                model2 = calendarList[0][0];
+            }
+            
+            if (![model2.dayDate isToday] && new) {
+                CalendarIssueModel *model1 = [CalendarIssueModel new];
+                model1.groupTitle = [[NSDate date] getCalenarTimeStr];
+                model1.dayDate = [NSDate date];
+                model1.typeText = @"今日无情报";
+                model1.seq= -1;
+                [calendarList insertObject:@[model1] atIndex:0];
+            }
+            if (model.pageSize>model.count) {
+              self.manager.calenderScrollView.tableView.tableFooterView = self.footView;
+            }else{
+                self.manager.calenderScrollView.tableView.tableFooterView = nil;
+            }
+            
+             [self.calendarList addObjectsFromArray:[calendarList copy]];
+             [self.manager tablewViewDatasAddBeforeRemove:self.calendarList];
+
+        }else{
             [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
 }
-- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month currentDate:(NSDate *)currentDate{
+#pragma mark ========== footerrefreshing ==========
+- (void)loadMoreList{
+    NSArray *array = [self.manager.calenderScrollView.calendarList lastObject];
+    CalendarIssueModel *model =  [array lastObject];
+    [[PWHttpEngine sharedInstance]getCalendarListWithStartTime:@0 EndTime:@0 pageMarker:model.seq orderMethod:@"desc" callBack:^(id response) {
+        [self.manager endRefreshing];
+        CalendarListModel *model = (CalendarListModel *)response;
+        if (model.isSuccess) {
+            if( model.list.count>0){
+            __block NSMutableArray *calendarList = [self.manager.calenderScrollView.calendarList mutableCopy];
+            
+            __block NSMutableArray *group = [[calendarList lastObject] mutableCopy];
+            CalendarIssueModel *issueModel = [group lastObject];
+            __block NSString *tempTitle = issueModel.groupTitle;
+            [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.groupTitle isEqualToString:tempTitle]) {
+                    if (idx == 0) {
+                        [calendarList removeLastObject];
+                    }
+                    [group addObject:obj];
+                }else{
+                    tempTitle = obj.groupTitle;
+                    if (group.count>0 ) {
+                        if (idx !=0) {
+                            [calendarList addObject:[NSArray arrayWithArray:[group mutableCopy]]];
+                        }
+                        [group removeAllObjects];
+                    }
+                    [group addObject:obj];
+                }
+                if (idx == model.list.count-1) {
+                    [calendarList addObject:[NSArray arrayWithArray:[group mutableCopy]]];
+                }
+            }];
+           
+            
+            
+         
+                //刷新完成，执行后续代码
+                [self.calendarList removeAllObjects];
+                [self.calendarList addObjectsFromArray:calendarList];
+                [self.manager tablewViewDatasAddBeforeRemove:calendarList];
+
+                
+            if (model.count<model.pageSize) {
+                [self.manager.calenderScrollView showNomoreDatasFooter];
+            }
+            }else{
+                [self.manager.calenderScrollView showNomoreDatasFooter];
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+    }];
+}
+
+#pragma mark ========== LTSCalendarEventSource ==========
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first currentDate:(NSDate *)currentDate{
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
     DLog(@"dateary == %@",dateary);
     //待处理 避免重复的请求
-    [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
+    if ([dotLoadDate containsObjectForKey:dateary[0]]) {
+        return;
+    }
+    [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
+    [self loadMoreCalendarDotWithStartTime:[NSNumber numberWithInteger:[first getTimeStamp]] endTime:dateary[1]];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date{
+    
     DLog(@"sel date == %@ weekday == %ld",date, (long)[date weekday]);
     if ([date isToday]) {
         self.manager.calenderScrollView.arrorView.backTodayBtn.hidden = YES;
     }else{
         self.manager.calenderScrollView.arrorView.backTodayBtn.hidden = NO;
     }
-    NSString *week;
-    switch ((long)[date weekday]) {
-        case 1:
-            week = @"周日";
-            break;
-        case 2:
-            week = @"周一";
-            break;
-        case 3:
-            week = @"周二";
-            break;
-        case 4:
-            week = @"周三";
-            break;
-        case 5:
-            week = @"周四";
-            break;
-        case 6:
-            week = @"周五";
-            break;
-        case 7:
-            week = @"周六";
-            break;
+    self.manager.calenderScrollView.arrorView.selDateLab.text = [date getCalenarTimeStr];
+    __block BOOL isHas = NO;
+    WeakSelf
+    
+    [[self.manager.calenderScrollView.calendarList copy] enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CalendarIssueModel *model =obj[0];
+        if ([model.groupTitle isEqualToString:[date getCalenarTimeStr]]) {
+            isHas = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.manager.calenderScrollView.isUser = NO;
+
+                 [weakSelf.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:idx] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+            });
+
+            *stop = YES;
+        }
+    }];
+    if (!isHas) {
+        if ([date isToday]) {
+            [self loadCurrentList];
+        }else{
+        NSArray *dateary= [date getDateMonthFirstLastDayTimeStamp];
+            if ([date isToday]) {
+                [self loadCurrentList];
+            }else{
+                self.isLoadTop = NO;
+        [self loadListWithStartTime:dateary[0] endTime:[NSNumber numberWithInteger:[[date dateByAddingDays:1] getTimeStamp]] loadNew:NO];
+            }
     }
-    NSString *dateStr = [NSString stringWithFormat:@"%ld 月 %ld 日 %@",(long)[date month],(long)[date day],week];
-    self.manager.calenderScrollView.arrorView.selDateLab.text = dateStr;
+    }
 }
 -(BOOL)calendarHaveEventWithDate:(NSDate *)date{
      NSInteger stamp = [date getTimeStamp];
@@ -128,10 +285,109 @@
     }
     return NO;
 }
+
 - (void)calendarDidLoadPageCurrentDate:(NSDate *)date{
     DLog(@"CurrentDate  == %@",date);
 }
+-(void)tableViewDidSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CalendarIssueModel *model = self.manager.calenderScrollView.calendarList[indexPath.section][indexPath.row];
+    if (model.issueId && model.issueId.length>0) {
+        [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+                IssueListViewModel *detailModel = [[IssueListViewModel alloc]initWithDictionary:content];
+                IssueDetailsVC *detail = [[IssueDetailsVC alloc]init];
+                detail.model = detailModel;
+                [self.navigationController pushViewController:detail animated:YES];
+            }
+        } failBlock:^(NSError *error) {
+            [error errorToast];
+        }];
+    }
+}
+- (void)tableViewLoadMoreData{
+    [self loadMoreList];
+}
+- (void)tableViewLoadHeaderData{
+    __block NSMutableArray *ary = [self.manager.calenderScrollView.calendarList mutableCopy];
+    if (self.isLoadTop) {
+        NSDate *today = [NSDate date];
+        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:[NSNumber numberWithInteger:[today getTimeStamp]] EndTime:[NSNumber numberWithInteger:[[today dateByAddingDays:1] getTimeStamp]] pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
+            [self.manager endRefreshing];
+            CalendarListModel *model = (CalendarListModel *)response;
+            if (model.isSuccess) {
+                if (model.list.count>0) {
+                    [ary removeObjectAtIndex:0];
+                    [ary insertObject:model.list atIndex:0];
+                    [self.calendarList removeAllObjects];
+                    [self.calendarList addObjectsFromArray:ary];
+                    [self.manager tablewViewDatasAddBeforeRemove:ary];
+                }
+            }
+        }];
+    }else{
+        NSMutableArray *first = [ary firstObject];
+        CalendarIssueModel *firstmodel = [first firstObject];
+        WeakSelf
+        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:@0 EndTime:@0 pageMarker:firstmodel.seq orderMethod:@"asc" callBack:^(id response) {
+            [self.manager endRefreshing];
+            CalendarListModel *model = (CalendarListModel *)response;
+            if (model.isSuccess) {
+                if (model.list.count>0) {
+                    __block NSString *tempTitle = firstmodel.groupTitle;
+                    __block NSMutableArray *group = [first mutableCopy];
+                [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.groupTitle isEqualToString:tempTitle]) {
+                        if(idx == 0){
+                            [ary removeObjectAtIndex:0];
+                        }
+                            [group insertObject:obj atIndex:0];
+                    }else{
+                        tempTitle = obj.groupTitle;
+                        if (group.count>0 ) {
+                            if (idx !=0) {
+                                [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+                            }
+                            [group removeAllObjects];
+                        }
+                        [group insertObject:obj atIndex:0];
+                    }
+                    if (idx == model.list.count-1) {
+                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+                    }
+//                         if (group.count>0 ) {
+//                        if (idx !=0) {
+//                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+//                        }
+//                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+//                        if (idx == model.list.count-1) {
+//                            [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+//                        }
+                    }];
+                    NSInteger section = ary.count-self.manager.calenderScrollView.calendarList.count>0?ary.count-self.manager.calenderScrollView.calendarList.count-1:0;
+                    NSArray *rowAry =ary[section];
+                    CalendarIssueModel *model = rowAry[0];
+                    NSInteger row = rowAry.count-1;
 
+                    if ([model.groupTitle isEqualToString:firstmodel.groupTitle]) {
+                        row = rowAry.count -first.count>0?rowAry.count -first.count-1:0;
+                    }
+
+                    [self.calendarList removeAllObjects];
+                    [self.calendarList addObjectsFromArray:ary];
+                    [self.manager tablewViewDatasAddBeforeRemove:ary];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                  [weakSelf.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                });
+                }
+                
+            }else{
+                [iToast alertWithTitleCenter:model.errorMsg];
+            }
+        }];
+    }
+
+}
 /*
 #pragma mark - Navigation
 
