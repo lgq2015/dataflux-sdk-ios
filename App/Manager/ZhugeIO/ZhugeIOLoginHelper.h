@@ -30,6 +30,8 @@
 
 - (ZhugeIOLoginHelper *)attrSceneLogin;
 
+- (ZhugeIOLoginHelper *)attrSceneForget;
+
 - (ZhugeIOLoginHelper *)attrSceneNewAccount;
 
 - (ZhugeIOLoginHelper *)attrPhone:(NSString *)phone;
@@ -38,7 +40,7 @@
 
 - (ZhugeIOLoginHelper *)attrResultPass;
 
-- (ZhugeIOLoginHelper *)attrResultFail;
+- (ZhugeIOLoginHelper *)attrResultNoPass;
 
 - (ZhugeIOLoginHelper *)attrLoginFail:(NSString *)reason;
 

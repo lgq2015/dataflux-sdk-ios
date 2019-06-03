@@ -16,6 +16,7 @@
     if (self) {
         self.category = @"团队";
     }
+    return self;
 }
 
 - (ZhugeIOTeamHelper *)eventBottomTab {

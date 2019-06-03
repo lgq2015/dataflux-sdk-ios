@@ -16,6 +16,7 @@
 #import "HandBookManager.h"
 #import "IssueSourceManger.h"
 #import "IssueChatDataManager.h"
+#import "ZhugeIOLoginHelper.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -110,34 +111,43 @@ SINGLETON_FOR_CLASS(UserManager);
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
-                [kUserDefaults synchronize];                
+                [kUserDefaults synchronize];
+                
+                [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
+
                 BOOL isRegister = [content[@"isRegister"] boolValue];
-             if (isRegister) {
-                 NSString *changePasswordToken = content[@"changePasswordToken"];
+                if (isRegister) {
+                    NSString *changePasswordToken = content[@"changePasswordToken"];
                     if (completion) {
-                        completion(YES,changePasswordToken);
+                        completion(YES, changePasswordToken);
                     }
                     [self saveUserInfoLoginStateisChange:NO success:nil];
-                }else{
+                } else {
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
-            }else{
+            } else {
                 if (completion) {
-                    completion(NO,@"");
+                    completion(NO, @"");
                 }
-                if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
-                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+
+                NSString *errorCode = response[ERROR_CODE];
+                NSString *errorMsg = NSLocalizedString(errorCode, @"");
+                [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultNoPass] track];
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
+
+                if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
+                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试", (long) [response longValueForKey:@"ttl" default:0]];
                     [SVProgressHUD showErrorWithStatus:toast];
-                }else{
+                } else {
                     [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
                 }
-               
+
             }
-            
-        } failBlock:^(NSError *error) {
+
+        }                  failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
             if (completion) {
-                completion(NO,@"");
+                completion(NO, @"");
             }
             [error errorToast];
 

@@ -74,10 +74,17 @@
 }
 
 - (ZhugeIOLoginHelper *)attrSceneLogin {
+    [self scene:@"登录"];
+    return self;
+
+}
+
+- (ZhugeIOLoginHelper *)attrSceneForget {
     [self scene:@"忘记密码"];
     return self;
 
 }
+
 
 
 - (ZhugeIOLoginHelper *)attrSceneNewAccount {
@@ -106,7 +113,7 @@
 
 }
 
-- (ZhugeIOLoginHelper *)attrResultFail {
+- (ZhugeIOLoginHelper *)attrResultNoPass {
     self.data[@"结果"] = @"未通过";
     return self;
 
