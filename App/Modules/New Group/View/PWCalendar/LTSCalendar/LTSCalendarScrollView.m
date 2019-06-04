@@ -434,6 +434,9 @@
     [LTSCalendarAppearance share].defaultDate = [NSDate date];
     [self.calendarView reloadDefaultDate];
     [self.calendarView reloadAppearance];
+    if (self.calendarView.eventSource &&[self.calendarView.eventSource respondsToSelector:@selector(backToToday)]) {
+        [self.calendarView.eventSource backToToday];
+    }
 }
 
 -(void)arrowClickWithUnfold:(BOOL)unfold{

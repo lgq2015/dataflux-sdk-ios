@@ -227,7 +227,7 @@
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
     DLog(@"dateary == %@",dateary);
-    //待处理 避免重复的请求
+    // 避免重复的请求
     if ([dotLoadDate containsObjectForKey:dateary[0]]) {
         return;
     }
@@ -387,6 +387,9 @@
         }];
     }
 
+}
+- (void)backToToday{
+    
 }
 /*
 #pragma mark - Navigation

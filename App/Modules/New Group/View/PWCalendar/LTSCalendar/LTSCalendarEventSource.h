@@ -33,7 +33,7 @@
 
  */
 - (void)calendarDidLoadPageCurrentDate:(NSDate *)date;
-
+- (void)backToToday;
 - (void)tableViewDidSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)tableViewLoadMoreData;
 - (void)tableViewLoadHeaderData;
