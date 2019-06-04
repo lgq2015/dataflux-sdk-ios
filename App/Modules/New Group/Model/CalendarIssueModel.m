@@ -58,7 +58,7 @@
         self.state = MonitorListStateLoseeEfficacy;
     }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
-    self.calendarContentH = [self.contentText strSizeWithMaxWidth:ZOOM_SCALE(240) withFont:RegularFONT(16)].height+20;
+    self.calendarContentH = [self.contentText strSizeWithMaxWidth:ZOOM_SCALE(240) withFont:RegularFONT(16)].height+10;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

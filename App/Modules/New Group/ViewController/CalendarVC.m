@@ -157,7 +157,7 @@
             }else{
                 self.manager.calenderScrollView.tableView.tableFooterView = nil;
             }
-            
+             [self.calendarList removeAllObjects];
              [self.calendarList addObjectsFromArray:[calendarList copy]];
              [self.manager tablewViewDatasAddBeforeRemove:self.calendarList];
 
