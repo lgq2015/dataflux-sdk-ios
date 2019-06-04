@@ -41,7 +41,7 @@
     self.weekDayTextFont = RegularFONT(14);
     self.weekDayTextColor = [UIColor colorWithHexString:@"#8E8E93"];
     self.weeksToDisplay = 6;
-    self.weekDayHeight = ZOOM_SCALE(45);
+    self.weekDayHeight = 45;
     self.isShowSingleWeek = true;
     self.firstWeekday = 1;
     self.defaultDate = [NSDate date];
