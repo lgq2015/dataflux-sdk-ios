@@ -593,7 +593,7 @@
     };
     switch (viewType) {
         case IssueViewTypeNormal:
-            statesStr =@"WHERE needAttention = true AND status = 'created'";
+            statesStr =@"AND needAttention = true AND status = 'created'";
             break;
         case IssueViewTypeAll:
             statesStr = @"";
