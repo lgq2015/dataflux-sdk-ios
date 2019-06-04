@@ -215,6 +215,7 @@
         }
         if ([self isToday]) {
              circleView.color = [LTSCalendarAppearance share].dayCircleColorToday;
+             textLabel.textColor = PWWhiteColor;
         }
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
         tr = CGAffineTransformIdentity;
