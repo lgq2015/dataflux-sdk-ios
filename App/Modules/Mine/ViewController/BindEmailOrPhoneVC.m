@@ -260,11 +260,11 @@
 }
 - (void)commitNameClick{
     [SVProgressHUD show];
-    NSDictionary *param =@{@"data":@{@"name":self.emailTF.text}};
+    NSDictionary *param =@{@"data":@{@"name":[self.emailTF.text removeFrontBackBlank]}};
     [PWNetworking requsetHasTokenWithUrl:PW_accountName withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            userManager.curUserInfo.name = self.emailTF.text;
+            userManager.curUserInfo.name = [self.emailTF.text removeFrontBackBlank];
             [userManager saveChangeUserInfo];
             KPostNotification(KNotificationUserInfoChange, nil);
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
