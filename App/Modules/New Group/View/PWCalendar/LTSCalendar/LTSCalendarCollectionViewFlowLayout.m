@@ -11,6 +11,8 @@
 #import "CanlendarBgLayoutAttributes.h"
 
 NSString *const CalendarSectionBackground = @"CalendarSectionBackground";
+NSString *const CalendarSectionNullBackground = @"CalendarSectionNullBackground";
+
 @interface LTSCalendarCollectionViewFlowLayout()
 @property (strong, nonatomic) NSMutableArray *allAttributes;
 @end
@@ -40,9 +42,9 @@ NSString *const CalendarSectionBackground = @"CalendarSectionBackground";
         if (!sections || ![delegate conformsToProtocol:@protocol(LTSCalendarCollectionViewFlowLayout)]) {
             return;
         }
-
+        NSString *text = [delegate collectionView:self.collectionView layout:self backgroundTextForSection:i];
         
-        if (![[delegate collectionView:self.collectionView layout:self backgroundTextForSection:i] isEqualToString:@""]) {
+        if (![text isEqualToString:@""]) {
             UICollectionViewLayoutAttributes *firstItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:i]];
             UICollectionViewLayoutAttributes *lastItem = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:count - 1 inSection:i]];
             CGRect sectionFrame = CGRectUnion(firstItem.frame, lastItem.frame);
@@ -50,11 +52,15 @@ NSString *const CalendarSectionBackground = @"CalendarSectionBackground";
             attr.frame = sectionFrame;
             attr.zIndex = -1;
             
-            attr.bgText =[delegate collectionView:self.collectionView layout:self backgroundTextForSection:i];
+            attr.bgText =text;
             [self.SectionBgNumberViewAttrs addObject:attr];
+            
         }
       
     }
+}
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
+    return YES;
 }
 
 - (CGSize)collectionViewContentSize
@@ -91,10 +97,7 @@ NSString *const CalendarSectionBackground = @"CalendarSectionBackground";
    
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-    return YES;
-}
+
 
 // 根据 item 计算目标item的位置
 // x 横向偏移  y 竖向偏移

@@ -43,8 +43,6 @@
         }else{
             self.bgMonthLab.text = attr.bgText;
         }
-        
-//        self.backgroundColor = attr.bgText;
-    }
+        }
 }
 @end

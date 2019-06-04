@@ -21,9 +21,7 @@
 }
 
 - (void)goToDate:(NSDate *)date{
-    [LTSCalendarAppearance share].defaultDate = date;
-    [self.calenderScrollView.calendarView reloadDefaultDate];
-    [self.calenderScrollView.calendarView reloadAppearance];
+    [self.calenderScrollView goDate:date];
 }
 /// 重新加载外观和数据
 - (void)reloadAppearanceAndData{

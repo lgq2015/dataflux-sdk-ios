@@ -51,8 +51,12 @@
     [eventsByDate removeAllObjects];
     [dotLoadDate removeAllObjects];
     [_calendarList removeAllObjects];
+    [self.manager goToDate:[NSDate date]];
+    [self.manager showSingleWeek];
+//    [self.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self loadCalendarDot];
     [self loadCurrentList];
+    [self.manager reloadAppearanceAndData];
 }
 #pragma mark ========== UI ==========
 - (void)createNav{
@@ -121,9 +125,7 @@
             __block NSString *tempTitle;
             __block NSMutableArray *group = [NSMutableArray new];
             __block NSMutableArray *calendarList = [NSMutableArray new];
-            if (model.list.count<2) {
-                [self loadMoreList];
-            }
+            
             [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([obj.groupTitle isEqualToString:tempTitle]) {
                     [group addObject:obj];
@@ -157,10 +159,13 @@
             }else{
                 self.manager.calenderScrollView.tableView.tableFooterView = nil;
             }
+            
              [self.calendarList removeAllObjects];
              [self.calendarList addObjectsFromArray:[calendarList copy]];
              [self.manager tablewViewDatasAddBeforeRemove:self.calendarList];
-
+            if (model.list.count<2) {
+                [self loadMoreList];
+            }
         }else{
             [iToast alertWithTitleCenter:model.errorMsg];
         }
@@ -225,6 +230,12 @@
 #pragma mark ========== LTSCalendarEventSource ==========
 - (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first currentDate:(NSDate *)currentDate{
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
+    NSDate *today = [NSDate date];
+    if (month>[today month]) {
+        if (year>=[today year]) {
+            return;
+        }
+    }
     NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
     DLog(@"dateary == %@",dateary);
     // 避免重复的请求
@@ -232,7 +243,8 @@
         return;
     }
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    [self loadMoreCalendarDotWithStartTime:[NSNumber numberWithInteger:[first getTimeStamp]] endTime:dateary[1]];
+    NSNumber *firstNum = first?[NSNumber numberWithInteger:[first getTimeStamp]]:dateary[0];
+    [self loadMoreCalendarDotWithStartTime:firstNum endTime:dateary[1]];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date{
     
@@ -275,12 +287,12 @@
     }
 }
 -(BOOL)calendarHaveEventWithDate:(NSDate *)date{
-     NSInteger stamp = [date getTimeStamp];
-    DLog(@"DotCurrentDate  == %@ stamp == %ld",date,stamp);
+    NSInteger stamp = [date getTimeStamp];
     NSString *key = [NSString stringWithFormat:@"%ld",(long)stamp];
     
     if(eventsByDate[key] && [eventsByDate[key] longValue]>0){
-     
+        DLog(@"DotCurrentDate  == %@ stamp == %ld",date,stamp);
+
         return YES;
     }
     return NO;
@@ -309,6 +321,9 @@
     [self loadMoreList];
 }
 - (void)tableViewLoadHeaderData{
+    [self loadTopDatas];
+}
+- (void)loadTopDatas{
     __block NSMutableArray *ary = [self.manager.calenderScrollView.calendarList mutableCopy];
     if (self.isLoadTop) {
         NSDate *today = [NSDate date];
@@ -336,49 +351,50 @@
                 if (model.list.count>0) {
                     __block NSString *tempTitle = firstmodel.groupTitle;
                     __block NSMutableArray *group = [first mutableCopy];
-                [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.groupTitle isEqualToString:tempTitle]) {
-                        if(idx == 0){
-                            [ary removeObjectAtIndex:0];
-                        }
-                            [group insertObject:obj atIndex:0];
-                    }else{
-                        tempTitle = obj.groupTitle;
-                        if (group.count>0 ) {
-                            if (idx !=0) {
-                                [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+                    [model.list enumerateObjectsUsingBlock:^(CalendarIssueModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj.groupTitle isEqualToString:tempTitle]) {
+                            if(idx == 0){
+                                [ary removeObjectAtIndex:0];
                             }
-                            [group removeAllObjects];
+                            [group insertObject:obj atIndex:0];
+                        }else{
+                            tempTitle = obj.groupTitle;
+                            if (group.count>0 ) {
+                                if (idx !=0) {
+                                    [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+                                }
+                                [group removeAllObjects];
+                            }
+                            [group insertObject:obj atIndex:0];
                         }
-                        [group insertObject:obj atIndex:0];
-                    }
-                    if (idx == model.list.count-1) {
-                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
-                    }
-//                         if (group.count>0 ) {
-//                        if (idx !=0) {
-//                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
-//                        }
-//                        [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
-//                        if (idx == model.list.count-1) {
-//                            [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
-//                        }
+                        if (idx == model.list.count-1) {
+                            [ary insertObject:[NSArray arrayWithArray:[group copy]] atIndex:0];
+                        }
                     }];
+                    if (model.pageSize>model.count) {
+                        self.isLoadTop = YES;
+                        CalendarIssueModel *model1 = [CalendarIssueModel new];
+                        model1.groupTitle = [[NSDate date] getCalenarTimeStr];
+                        model1.dayDate = [NSDate date];
+                        model1.typeText = @"今日无情报";
+                        model1.seq= -1;
+                        [ary insertObject:@[model1] atIndex:0];
+                    }
                     NSInteger section = ary.count-self.manager.calenderScrollView.calendarList.count>0?ary.count-self.manager.calenderScrollView.calendarList.count-1:0;
                     NSArray *rowAry =ary[section];
-                    CalendarIssueModel *model = rowAry[0];
+                    CalendarIssueModel *issuemodel = rowAry[0];
                     NSInteger row = rowAry.count-1;
-
-                    if ([model.groupTitle isEqualToString:firstmodel.groupTitle]) {
+                    
+                    if ([issuemodel.groupTitle isEqualToString:firstmodel.groupTitle]) {
                         row = rowAry.count -first.count>0?rowAry.count -first.count-1:0;
                     }
-
+                   
                     [self.calendarList removeAllObjects];
                     [self.calendarList addObjectsFromArray:ary];
                     [self.manager tablewViewDatasAddBeforeRemove:ary];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                  [weakSelf.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                });
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                    });
                 }
                 
             }else{
@@ -389,7 +405,13 @@
 
 }
 - (void)backToToday{
-    
+    //待处理 背景数字变化 dot获取优化（2.之前的数据没有数据后 不请求 3.第一次请求请求当前显示所有）
+    if(self.calendarList.count>0){
+        CalendarIssueModel *model = [self.calendarList firstObject][0];
+        if (![model.groupTitle isEqualToString:[[NSDate date] getCalenarTimeStr]]) {
+            [self loadCurrentList];
+        }
+    }
 }
 /*
 #pragma mark - Navigation

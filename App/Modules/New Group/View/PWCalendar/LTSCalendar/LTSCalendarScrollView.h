@@ -24,5 +24,6 @@
 - (void)showNomoreDatasFooter;
 - (void)endRefreshing;
 - (void)tablewViewDatasAdd:(NSArray *)array;
+- (void)goDate:(NSDate *)date;
 - (void)tablewViewDatasAddBeforeRemove:(NSArray *)array;
 @end

@@ -11,8 +11,10 @@
 #import "LTSCalendarCollectionCell.h"
 #import "LTSCalendarDayItem.h"
 #import "LTSCalendarManager.h"
+#import "SectionBgNumberView.h"
 
 #define NUMBER_PAGES_LOADED 5
+
 @interface LTSCalendarContentView()<UICollectionViewDataSource,UICollectionViewDelegate,LTSCalendarCollectionViewFlowLayout>{
     //是否是在点击日期或者滑动改变页数
     BOOL isOwnChangePage;
@@ -111,9 +113,10 @@
 
 - (void)setSingleWeek:(BOOL)singleWeek{
     [LTSCalendarAppearance share].isShowSingleWeek = singleWeek;
-//    self.flowLayout.rowCount = singleWeek ? 1:[LTSCalendarAppearance share].weeksToDisplay;
-//   self.collectionView.contentInset = UIEdgeInsetsMake(0, 0,(singleWeek ? appearance.weekDayHeight*(appearance.weeksToDisplay-1) : 0), 0);
     beginWeekIndexPath = nil;
+    if(!singleWeek){
+  
+    }
     [self getDateDatas];
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
@@ -202,7 +205,9 @@
         itemLast = dataSource[self.currentSelectedIndexPath.section][self.currentSelectedIndexPath.item];
     }
     if (!itemCurrent.showEventDot) {
+        if(![itemCurrent.date isToday]){
         return;
+        }
     }
      cell.isSelected = true;
     NSDate *selectedDate = itemLast.date;
@@ -348,6 +353,7 @@
     [self getDateDatas];
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
+        [self.collectionView layoutIfNeeded];
     }];
 }
 
