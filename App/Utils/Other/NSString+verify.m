@@ -355,7 +355,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM-dd\nHH:mm"];
+    [formatter setDateFormat:@"HH:mm\nMM-dd"];
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;
 }
@@ -457,5 +457,32 @@
         return CGSizeZero;
         
     }
+}
+- (BOOL) deptNumInputShouldNumber
+{
+    if (self.length == 0) {
+        return NO;
+    }
+    NSString *regex = @"[0-9]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    if ([pred evaluateWithObject:self]) {
+        return YES;
+    }
+    return NO;
+}
+- (NSString *)dealWithTimeFormatted{
+
+    NSArray *sepAry = [self componentsSeparatedByString:@":"];
+    if (sepAry.count == 3) {
+        NSString *last =  [sepAry lastObject];
+        if ([last componentsSeparatedByString:@"."].count == 1) {
+        return  [NSString getLocalDateFormateUTCDate:self formatter:@"yyyy-MM-dd'T'HH:mm:ssZ" outdateFormatted:@"HH:mm\nMM-dd"];
+        }else if([last componentsSeparatedByString:@"."].count == 2){
+         NSString *newTime = [self stringByReplacingOccurrencesOfString:[[last componentsSeparatedByString:@"."] lastObject] withString:@""];
+        return  [NSString getLocalDateFormateUTCDate:newTime formatter:@"yyyy-MM-dd'T'HH:mm:ss" outdateFormatted:@"HH:mm\nMM-dd"];
+        }
+        }
+        return self;
+    
 }
 @end

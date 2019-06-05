@@ -34,6 +34,8 @@
     NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
     NSDictionary *atStatus = PWSafeDictionaryVal(dict, @"atStatus");
     NSDictionary *atInfoJSON = PWSafeDictionaryVal(dict, @"atInfoJSON");
+    NSDictionary *issueSnapshotJSON_cache = PWSafeDictionaryVal(dict, @"issueSnapshotJSON_cache");
+    self.issueSnapshotJSON_cacheStr = issueSnapshotJSON_cache?[issueSnapshotJSON_cache jsonPrettyStringEncoded] : @"";
     self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
     self.metaJsonStr = metaJson ? [metaJson jsonPrettyStringEncoded] : @"";
     self.externalDownloadURLStr = externalDownloadURL ? [externalDownloadURL jsonPrettyStringEncoded] : @"";

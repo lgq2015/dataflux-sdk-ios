@@ -99,6 +99,7 @@
             @"dataCheckFlag": SQL_INTEGER,
             @"atInfoJSONStr": SQL_TEXT,
             @"atStatusStr": SQL_TEXT,
+            @"issueSnapshotJSON_cacheStr":SQL_TEXT,
     }];
 
 

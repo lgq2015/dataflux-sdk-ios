@@ -141,5 +141,6 @@
 
 "markTookOver"  =  "由#处理";
 "markRecovered" = "被#解决";
-
+"issue.issueDiscarded"="情报失效";
+"issue.issueFixed" = "被 # 修复";
 "exitExpertGroups" = "您邀请的专家已退出讨论";

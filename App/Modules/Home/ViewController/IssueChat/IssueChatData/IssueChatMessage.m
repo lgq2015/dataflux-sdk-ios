@@ -159,8 +159,20 @@
         }else if([model.subType isEqualToString:@"markRecovered"]){
             self.stuffName = [NSString stringWithFormat:@"被%@解决",name];
 
-        }else if([model.subType isEqualToString:@"issueRecovered"]){
-            self.stuffName = [NSString stringWithFormat:@"被%@关闭",name];
+        }else if([model.subType isEqualToString:@"issueFixed"]){
+           NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
+            self.stuffName = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
+        }else if([model.subType isEqualToString:@"issueLevelChanged"]){
+            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
+            if (model.issueSnapshotJSON_cacheStr) {
+             self.stuffName = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[[model.issueSnapshotJSON_cacheStr jsonValueDecoded][@"level"] getIssueStateLevel]];
+            }else{
+                self.stuffName = @"情报等级变更";
+            }
+            
+        }else{
+            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
+            self.stuffName  = NSLocalizedString(key, @"");
 
         }
         self.cellString = PWChatKeyPointCellId;

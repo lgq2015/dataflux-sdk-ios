@@ -80,4 +80,7 @@
  计算字符串size
  */
 -(CGSize)strSizeWithMaxWidth:(CGFloat)width withFont:(UIFont*)font;
+- (BOOL)deptNumInputShouldNumber;
+- (NSString *)dealWithTimeFormatted;
+- (NSString *)getIssueStateLevel;
 @end
