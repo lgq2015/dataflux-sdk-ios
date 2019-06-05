@@ -242,16 +242,14 @@
         EchartTableView *tableChart = [[EchartTableView alloc]initWithDict:data];
         [self.echartContenterView addSubview:tableChart];
         return tableChart;
-    }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
-        EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
-        [self.echartContenterView addSubview:chart];
-        return chart;
     }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
         EchartListView *listView = [[EchartListView alloc]initWithDict:dict[@"data"]];
         [self.echartContenterView addSubview:listView];
         return listView;
     }else{
-        return nil;
+        EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
+        [self.echartContenterView addSubview:chart];
+        return chart;
     }
 }
 #pragma mark ========== UI/INIT ==========

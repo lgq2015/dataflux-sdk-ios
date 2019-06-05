@@ -148,7 +148,7 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         [weakSelf reloadDataWithIssueType:0 viewType:0 refresh:YES];
         [weakSelf.header endRefreshing];
-    }                                           getAllDatas:YES];
+    }                                           getAllDatas:NO];
 }
 -(NSMutableArray *)datas{
     if (!_datas) {

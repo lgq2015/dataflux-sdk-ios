@@ -335,9 +335,6 @@
 		4A3CDA59229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
 		4A3CDA5A229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
 		4A3CDA5B229C095800C2EC62 /* LTSCalendarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */; };
-		4A3CDA5C229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
-		4A3CDA5D229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
-		4A3CDA5E229C095800C2EC62 /* LTSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */; };
 		4A3CDA5F229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
 		4A3CDA60229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
 		4A3CDA61229C095900C2EC62 /* LTSCalendarCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */; };
@@ -1448,7 +1445,6 @@
 		4A3CDA3E229C095800C2EC62 /* LTSCalendarWeekDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarWeekDayView.h; sourceTree = "<group>"; };
 		4A3CDA3F229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarContentView.m; sourceTree = "<group>"; };
-		4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarViewController.m; sourceTree = "<group>"; };
 		4A3CDA42229C095800C2EC62 /* LTSCalendarCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarCollectionCell.m; sourceTree = "<group>"; };
 		4A3CDA43229C095800C2EC62 /* LTSCalendarDayItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarDayItem.h; sourceTree = "<group>"; };
 		4A3CDA44229C095800C2EC62 /* LTSCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarAppearance.h; sourceTree = "<group>"; };
@@ -1458,7 +1454,6 @@
 		4A3CDA48229C095800C2EC62 /* LTSCalendarContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarContentView.h; sourceTree = "<group>"; };
 		4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTSCalendarWeekDayView.m; sourceTree = "<group>"; };
-		4A3CDA4B229C095800C2EC62 /* LTSCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarViewController.h; sourceTree = "<group>"; };
 		4A3CDA4C229C095800C2EC62 /* LTSCalendarEventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTSCalendarEventSource.h; sourceTree = "<group>"; };
 		4A3CDA7A229D20C400C2EC62 /* CalendarArrowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarArrowView.h; sourceTree = "<group>"; };
 		4A3CDA7B229D20C500C2EC62 /* CalendarArrowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarArrowView.m; sourceTree = "<group>"; };
@@ -2459,8 +2454,6 @@
 				4A3CDA4A229C095800C2EC62 /* LTSCalendarWeekDayView.m */,
 				4A3CDA3F229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.h */,
 				4A3CDA49229C095800C2EC62 /* LTSCalendarCollectionViewFlowLayout.m */,
-				4A3CDA4B229C095800C2EC62 /* LTSCalendarViewController.h */,
-				4A3CDA41229C095800C2EC62 /* LTSCalendarViewController.m */,
 				4A3CDA48229C095800C2EC62 /* LTSCalendarContentView.h */,
 				4A3CDA40229C095800C2EC62 /* LTSCalendarContentView.m */,
 				4A3CDA45229C095800C2EC62 /* LTSCircleView.h */,
@@ -4444,7 +4437,6 @@
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
 				6B6E26D8FDBAEEC6BFEC1739 /* IssueChatFileCell.m in Sources */,
-				4A3CDA5C229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */,
 				4A759B6F225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */,
@@ -4804,7 +4796,6 @@
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
 				6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */,
-				4A3CDA5D229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */,
 				4A759B70225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */,
@@ -5164,7 +5155,6 @@
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
 				6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */,
-				4A3CDA5E229C095800C2EC62 /* LTSCalendarViewController.m in Sources */,
 				6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */,
 				4A759B71225B0B140057BD02 /* HLSafeMutableArray.m in Sources */,
 				6B6E2E99BC8B049A54048B25 /* IssueChatVC.m in Sources */,
