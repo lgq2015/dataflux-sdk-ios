@@ -260,26 +260,26 @@
     NSString *regexStr=
     @"!?\\[((?:\\[[^\\[\\]]*\\]|\\\\[\\[\\]]?|`[^`]*`|[^\\[\\]\\\\])*?)\\]\\(\\s*(<(?:\\\\[<>]?|[^\\s<>\\\\])*>|(?:\\\\[()]?|\\([^\\s\\x00-\\x1f\\\\]*\\)|[^\\s\\x00-\\x1f()\\\\])*?)(?:\\s+(\"(?:\\\\\"?|[^\"\\\\])*\"|'(?:\\\\'?|[^'\\\\])*'|\\((?:\\\\\\)?|[^)\\\\])*\\)))?\\s*\\)";
 
-    NSString *text = self.model.content;
+    //self.model.content;
     NSError *regexError;
     NSRegularExpression *aRegx=[NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&regexError];
-    NSArray *results=[aRegx matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+    NSArray *results=[aRegx matchesInString:self.model.content options:0 range:NSMakeRange(0, self.model.content.length)];
    __block NSString *displatext = self.model.content;
     [results enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSTextCheckingResult *match, NSUInteger idx, BOOL * _Nonnull stop) {
         NSRange matchRange = [match range];
         NSRange first = [match rangeAtIndex:1];
         NSRange second = [match rangeAtIndex:2];
         DLog(@"1:first == %@ 2: second ==%@.", [NSValue valueWithRange:first], [NSValue valueWithRange:second]);
-        NSString *http = [text substringWithRange:second];
-        NSString *nametext =  [text substringWithRange:first];
+        NSString *http = [displatext substringWithRange:second];
+        NSString *nametext =  [displatext substringWithRange:first];
         NSString *repleaceText = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>",http,nametext];
         displatext= [displatext stringByReplacingCharactersInRange:matchRange withString:repleaceText];
     }];
     displatext = [displatext stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
     
     self.contentLab.attributedText = [displatext zt_convertLink:RegularFONT(16) textColor:PWTextColor];
-    self.contentLab.font = RegularFONT(16);
-    self.contentLab.textColor = PWTitleColor;
+//    self.contentLab.font = RegularFONT(16);
+//    self.contentLab.textColor = PWTitleColor;
 }
 #pragma mark ========== UI/INIT ==========
 -(UIView *)upContainerView{

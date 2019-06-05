@@ -40,7 +40,10 @@
         }
         return aStr;
     }
-    return [[NSMutableAttributedString alloc] initWithString:labelText];
+    NSMutableAttributedString *nStr = [[NSMutableAttributedString alloc] initWithString:labelText];
+    nStr.font = zt_font;
+    nStr.color = zt_color;
+    return nStr;
 }
 - (CGFloat)zt_getHeight:(UIFont *)zt_font width:(CGFloat)width{
     CGSize infoSize = CGSizeMake(width, MAXFLOAT);
