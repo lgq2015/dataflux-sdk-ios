@@ -114,9 +114,6 @@
 - (void)setSingleWeek:(BOOL)singleWeek{
     [LTSCalendarAppearance share].isShowSingleWeek = singleWeek;
     beginWeekIndexPath = nil;
-    if(!singleWeek){
-  
-    }
     [self getDateDatas];
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
@@ -155,7 +152,7 @@
 }
 - (NSString *)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout backgroundTextForSection:(NSInteger)section{
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
-        return  @"";
+        return [NSString stringWithFormat:@"%ld",[self.currentDate month]];
     }else{
     LTSCalendarDayItem *item = self.daysInMonth[section][10];
     return [NSString stringWithFormat:@"%ld",[item.date month]];
@@ -164,8 +161,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     LTSCalendarCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
     LTSCalendarDayItem *item = self.daysInMonth[indexPath.section][indexPath.row];
+    cell.backgroundColor = PWClearColor;
     if ([LTSCalendarAppearance share].isShowSingleWeek) {
         item = self.daysInWeeks[indexPath.section][indexPath.row%7];
+        cell.backgroundColor = PWWhiteColor;
     }
     if (![LTSCalendarAppearance share].defaultSelected) {
         if (item.isSelected) {
@@ -671,5 +670,16 @@
     return [[dateFormatter stringFromDate:date1] isEqualToString:[dateFormatter stringFromDate:date2]];
     
 }
-
+- (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    if ([view isKindOfClass:SectionBgNumberView.class]) {
+        SectionBgNumberView *bgview = (SectionBgNumberView*)view;
+        if ([LTSCalendarAppearance share].isShowSingleWeek) {
+            bgview.bgMonthLab.text =[NSString stringWithFormat:@"%ld",[self.currentDate month]];
+        }else{
+           LTSCalendarDayItem *item = self.daysInMonth[indexPath.section][10];
+           bgview.bgMonthLab.text = [NSString stringWithFormat:@"%ld",[item.date month]];
+        }
+    }
+  
+}
 @end

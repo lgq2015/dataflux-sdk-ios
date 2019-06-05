@@ -38,6 +38,9 @@
         NSString *name = [account_info stringValueForKey:@"name" default:@""];
         NSString *text = NSLocalizedString(subType, @"");
         self.typeText = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
+    }else if([subType isEqualToString:@"issueLevelChanged"]){
+         NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
+        self.typeText = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else{
           NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
           self.typeText = NSLocalizedString(key, @"");

@@ -12,6 +12,7 @@
 #import "CalendarListModel.h"
 #import "CalendarIssueModel.h"
 #import "IssueDetailsVC.h"
+#import "HLSafeMutableArray.h"
 
 @interface CalendarVC ()<LTSCalendarEventSource>{
     NSMutableDictionary *eventsByDate;
@@ -21,7 +22,7 @@
 @property (nonatomic, strong) LTSCalendarManager *manager;
 @property (nonatomic, strong) NSMutableArray *loadMonth;
 @property (nonatomic, assign) BOOL isLoadTop;
-@property (nonatomic, strong) NSMutableArray *calendarList;
+@property (nonatomic, strong) HLSafeMutableArray *calendarList;
 @end
 
 @implementation CalendarVC
@@ -43,17 +44,16 @@
 }
 -(NSMutableArray *)calendarList{
     if (!_calendarList) {
-        _calendarList = [NSMutableArray new];
+        _calendarList = [HLSafeMutableArray new];
     }
     return _calendarList;
 }
 - (void)issueTeamSwitch:(NSNotification *)notification{
+    [self.manager showSingleWeek];
     [eventsByDate removeAllObjects];
     [dotLoadDate removeAllObjects];
     [_calendarList removeAllObjects];
     [self.manager goToDate:[NSDate date]];
-    [self.manager showSingleWeek];
-//    [self.manager.calenderScrollView.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self loadCalendarDot];
     [self loadCurrentList];
     [self.manager reloadAppearanceAndData];
@@ -405,7 +405,7 @@
 
 }
 - (void)backToToday{
-    //待处理 背景数字变化 dot获取优化（2.之前的数据没有数据后 不请求 3.第一次请求请求当前显示所有）
+    //待处理  dot获取优化（2.之前的数据没有数据后 不请求 3.第一次请求请求当前显示所有）
     if(self.calendarList.count>0){
         CalendarIssueModel *model = [self.calendarList firstObject][0];
         if (![model.groupTitle isEqualToString:[[NSDate date] getCalenarTimeStr]]) {

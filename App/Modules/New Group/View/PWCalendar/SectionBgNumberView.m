@@ -9,7 +9,6 @@
 #import "SectionBgNumberView.h"
 #import "CanlendarBgLayoutAttributes.h"
 @interface SectionBgNumberView()
-@property (nonatomic, strong) UILabel *bgMonthLab;
 @end
 @implementation SectionBgNumberView
 -(id)initWithFrame:(CGRect)frame{

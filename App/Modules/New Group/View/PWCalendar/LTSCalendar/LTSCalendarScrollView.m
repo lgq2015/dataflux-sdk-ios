@@ -57,6 +57,9 @@
     return _header;
 }
 - (void)initUI{
+    if (@available(iOS 11.0, *)) {
+        self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     self.isUser= YES;
     self.delegate = self;
     self.bounces = false;
@@ -431,6 +434,9 @@
     self.arrorView.selDateLab.text = [[NSDate date] getCalenarTimeStr];
     [self.tableView scrollToRow:0 inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.arrorView.backTodayBtn.hidden = YES;
+//    if ([self.calendarView.currentDate month] != [[NSDate date] month]) {
+//        [self.calendarView.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3] atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
+//    }
     [LTSCalendarAppearance share].defaultDate = [NSDate date];
     [self.calendarView reloadDefaultDate];
     [self.calendarView reloadAppearance];
