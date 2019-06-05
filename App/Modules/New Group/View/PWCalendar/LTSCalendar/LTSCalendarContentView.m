@@ -66,9 +66,6 @@
 
 - (void)initUI
 {
-    
-    
-    
     self.flowLayout = [[LTSCalendarCollectionViewFlowLayout alloc]init];
     self.flowLayout.itemSize = CGSizeMake(self.frame.size.width/7, [LTSCalendarAppearance share].weekDayHeight);
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

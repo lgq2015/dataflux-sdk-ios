@@ -15,13 +15,15 @@
 #import "MineCellModel.h"
 #import "HandbookModel.h"
 #import "NewsWebView.h"
+#import "NSString+Regex.h"
+
 @interface IssueEngineHeaderView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueListViewModel *model;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIView *upContainerView;
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) UILabel *contentLab;
+@property (nonatomic, strong) YYLabel *contentLab;
 @property (nonatomic, strong) UIView *subContainerView;
 @property (nonatomic, strong) UIImageView *typeIcon;
 @property (nonatomic, strong) UILabel *issueNameLab;
@@ -131,6 +133,7 @@
         make.width.offset(kWidth);
         make.bottom.mas_equalTo(self).offset(-10);
     }];
+     [self zhengze];
 }
 -(void)setContentLabText:(NSString *)text{
     self.contentLab.text = text;
@@ -252,6 +255,32 @@
         return chart;
     }
 }
+#pragma mark ========== 替换 ==========
+- (void)zhengze{
+    NSString *regexStr=
+    @"!?\\[((?:\\[[^\\[\\]]*\\]|\\\\[\\[\\]]?|`[^`]*`|[^\\[\\]\\\\])*?)\\]\\(\\s*(<(?:\\\\[<>]?|[^\\s<>\\\\])*>|(?:\\\\[()]?|\\([^\\s\\x00-\\x1f\\\\]*\\)|[^\\s\\x00-\\x1f()\\\\])*?)(?:\\s+(\"(?:\\\\\"?|[^\"\\\\])*\"|'(?:\\\\'?|[^'\\\\])*'|\\((?:\\\\\\)?|[^)\\\\])*\\)))?\\s*\\)";
+
+    NSString *text = self.model.content;
+    NSError *regexError;
+    NSRegularExpression *aRegx=[NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&regexError];
+    NSArray *results=[aRegx matchesInString:text options:0 range:NSMakeRange(0, text.length)];
+   __block NSString *displatext = self.model.content;
+    [results enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSTextCheckingResult *match, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange matchRange = [match range];
+        NSRange first = [match rangeAtIndex:1];
+        NSRange second = [match rangeAtIndex:2];
+        DLog(@"1:first == %@ 2: second ==%@.", [NSValue valueWithRange:first], [NSValue valueWithRange:second]);
+        NSString *http = [text substringWithRange:second];
+        NSString *nametext =  [text substringWithRange:first];
+        NSString *repleaceText = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>",http,nametext];
+        displatext= [displatext stringByReplacingCharactersInRange:matchRange withString:repleaceText];
+    }];
+    displatext = [displatext stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+    
+    self.contentLab.attributedText = [displatext zt_convertLink:RegularFONT(16) textColor:PWTextColor];
+    self.contentLab.font = RegularFONT(16);
+    self.contentLab.textColor = PWTitleColor;
+}
 #pragma mark ========== UI/INIT ==========
 -(UIView *)upContainerView{
     if (!_upContainerView) {
@@ -269,11 +298,20 @@
     }
     return _titleLab;
 }
--(UILabel *)contentLab{
+-(YYLabel *)contentLab{
     if (!_contentLab) {
-        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWSubTitleColor text:nil];
+       _contentLab = [PWCommonCtrl zy_lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:self.model.content];
         _contentLab.backgroundColor = PWWhiteColor;
         _contentLab.numberOfLines = 0;
+        WeakSelf
+        _contentLab.highlightTapAction = ^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect){
+            text = [text attributedSubstringFromRange:range];
+            NSDictionary *dic = text.attributes;
+            YYTextHighlight *user = [dic valueForKey:@"YYTextHighlight"];
+            NSString *linkUrl = [user.userInfo valueForKey:@"linkUrl"];
+            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:text.string andURLString:linkUrl];
+            [weakSelf.viewController.navigationController pushViewController:webView animated:YES];
+        };
         [self.upContainerView addSubview:_contentLab];
     }
     return _contentLab;
