@@ -12,7 +12,7 @@
 @property (nonatomic, strong) YYLabel *titleLable;
 @property (nonatomic, strong) YYLabel *timeLabel;
 @property (nonatomic, strong) YYLabel *statesLabel;
-@property (nonatomic, strong) YYTextView *contentTextView;
+@property (nonatomic, strong) YYLabel *contentTextView;
 @property (nonatomic, strong) UIView *bgContentView;
 @property (nonatomic, strong) UIView *dotView;
 @property (nonatomic, strong) UIView *lineView;
@@ -49,11 +49,10 @@
     self.statesLabel.textAlignment = NSTextAlignmentCenter;
     [self.statesLabel setTextColor:PWWhiteColor];
     [self.bgContentView addSubview:self.statesLabel];
-    self.contentTextView = [[YYTextView alloc]initWithFrame:CGRectMake(Interval(21), Interval(16)+ZOOM_SCALE(24), ZOOM_SCALE(240), ZOOM_SCALE(40))];
+    self.contentTextView = [[YYLabel alloc]initWithFrame:CGRectMake(Interval(21), Interval(16)+ZOOM_SCALE(24), ZOOM_SCALE(240), ZOOM_SCALE(40))];
     self.contentTextView.font = RegularFONT(16);
+    self.contentTextView.numberOfLines = 0;
     self.contentTextView.textColor = PWTitleColor;
-    self.contentTextView.editable = NO;
-    self.contentTextView.scrollEnabled = NO;
     [self.bgContentView addSubview:self.contentTextView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bgContentViewClick)];
     [self.bgContentView addGestureRecognizer:tap];
