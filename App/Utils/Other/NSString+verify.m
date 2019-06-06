@@ -471,12 +471,14 @@
     return NO;
 }
 - (NSString *)dealWithTimeFormatted{
-
+    
     NSArray *sepAry = [self componentsSeparatedByString:@":"];
-    if (sepAry.count == 3) {
+    BOOL containT = [self containsString:@"T"];
+    if (sepAry.count == 3 && containT) {
         NSString *last =  [sepAry lastObject];
         if ([last componentsSeparatedByString:@"."].count == 1) {
-        return  [NSString getLocalDateFormateUTCDate:self formatter:@"yyyy-MM-dd'T'HH:mm:ssZ" outdateFormatted:@"HH:mm\nMM-dd"];
+            NSString *time = [self stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@":%@",sepAry[2]] withString:@""];
+        return  [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm" outdateFormatted:@"HH:mm\nMM-dd"];
         }else if([last componentsSeparatedByString:@"."].count == 2){
          NSString *newTime = [self stringByReplacingOccurrencesOfString:[[last componentsSeparatedByString:@"."] lastObject] withString:@""];
         return  [NSString getLocalDateFormateUTCDate:newTime formatter:@"yyyy-MM-dd'T'HH:mm:ss" outdateFormatted:@"HH:mm\nMM-dd"];
