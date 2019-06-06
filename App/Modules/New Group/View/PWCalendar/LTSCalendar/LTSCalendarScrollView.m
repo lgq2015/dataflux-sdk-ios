@@ -18,6 +18,7 @@
 @property (nonatomic, assign) NSInteger currentSection;
 @property (nonatomic, assign) BOOL isUpScroll;
 @property (nonatomic, assign) BOOL isFirstLoad;
+@property (nonatomic, assign) BOOL isTouch;
 @property (nonatomic, assign) CGFloat oldY;
 @property (nonatomic, strong) PWLibraryListNoMoreFootView *footView;
 @property (nonatomic, strong) MJRefreshGifHeader *header;
@@ -203,7 +204,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     
-    if(_isUser && (_currentSection - section) == 1){
+    if(_isUser && (_currentSection - section) == 1 && !_isTouch){
         
         //最上面组头（不一定是第一个组头，指最近刚被顶出去的组头）又被拉回来
         
@@ -218,7 +219,7 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
     
-    if(!_isFirstLoad && _isUpScroll && _isUser){
+    if(!_isFirstLoad && _isUpScroll && _isUser && !_isTouch){
         
         _currentSection = section + 1;
         //最上面的组头被顶出去
@@ -297,6 +298,11 @@
     }else{
         self.scrollEnabled = YES;
     }
+    CGRect calendar = self.calendarView.frame;
+    CGRect arrow = self.arrorView.frame;
+    if (CGRectContainsPoint(calendar, point)||CGRectContainsPoint(arrow, point)) {
+        _isTouch = YES;
+    }
     LTSCalendarAppearance *appearce =  [LTSCalendarAppearance share];
     CGFloat tableCountDistance = appearce.weekDayHeight*(appearce.weeksToDisplay-1);
     if ( appearce.isShowSingleWeek) {
@@ -352,7 +358,7 @@
 }
 //手指触摸完
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
+    _isTouch = NO;
     if (self != scrollView) {
         return;
     }
