@@ -23,7 +23,8 @@
         // 先把html a标签都给去掉
         labelText = [labelText stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
         labelText = [labelText stringByReplacingOccurrencesOfString:@"<\\/a>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
-        NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc] initWithString:labelText];
+
+        NSMutableAttributedString  * aStr = [[NSMutableAttributedString alloc] initWithData:[labelText dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
         aStr.font = zt_font;
         aStr.color = zt_color;
         for (NSArray *array in array_http) {
@@ -40,7 +41,7 @@
         }
         return aStr;
     }
-    NSMutableAttributedString *nStr = [[NSMutableAttributedString alloc] initWithString:labelText];
+   NSMutableAttributedString  * nStr = [[NSMutableAttributedString alloc] initWithData:[labelText dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     nStr.font = zt_font;
     nStr.color = zt_color;
     return nStr;
