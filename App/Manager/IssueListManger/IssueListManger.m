@@ -352,19 +352,20 @@
                             }
                         }];
 
-                        [self refreshIssueBoardDatas];
+                 //       [self refreshIssueBoardDatas];
 
                         rollback = NO;
 
                     }];
                     dispatch_async_on_main_queue(^{
-                        if (callBackStatus == nil) {
-                            setLastTime([NSDate date]);
-//                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
-//                        userInfo:@{@"updateView":@(YES)}];
-                        } else{
-                            callBackStatus(listModel);
-                        }
+//                        if (callBackStatus == nil) {
+//                            setLastTime([NSDate date]);
+////                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+////                        userInfo:@{@"updateView":@(YES)}];
+//                        } else{
+                        callBackStatus(listModel);
+                        setLastTime([NSDate date]);
+//                        }
                         _isFetching =NO;
                     });
                 });
@@ -500,9 +501,8 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
         
-        //        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
         [[PWSocketManager sharedPWSocketManager] connect:YES];
-        //        }];
+    
     }                                           getAllDatas:NO];
 }
 

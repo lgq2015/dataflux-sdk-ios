@@ -65,7 +65,7 @@
     DLog(@"homevc----团队切换请求成功后通知");
     [SVProgressHUD show];
     WeakSelf
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
         NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
         if (datas.count == 0) {
