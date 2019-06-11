@@ -143,4 +143,5 @@
 "markRecovered" = "被#解决";
 "issue.issueDiscarded"="情报失效";
 "issue.issueFixed" = "被 # 修复";
-"exitExpertGroups" = "您邀请的专家已退出讨论";
+"issue.exitExpertGroups" = "您邀请的专家已退出讨论";
+"issue.create" = "创建情报";
