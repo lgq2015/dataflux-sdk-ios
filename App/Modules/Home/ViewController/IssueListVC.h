@@ -7,12 +7,12 @@
 //
 
 #import "RootViewController.h"
-
+#import "SelectObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListVC : RootViewController
-- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)index refresh:(BOOL)refresh;
+- (void)reloadDataWithSelectObject:(SelectObject *)sel refresh:(BOOL)refresh;
 @end
 
 NS_ASSUME_NONNULL_END

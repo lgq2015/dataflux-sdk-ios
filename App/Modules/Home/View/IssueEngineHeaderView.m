@@ -141,23 +141,23 @@
 }
 - (void)stateLabUI{
     switch (self.model.state) {
-        case MonitorListStateWarning:
+        case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
             self.stateLab.text = @"警告";
             break;
-        case MonitorListStateSeriousness:
+        case IssueStateSeriousness:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
             self.stateLab.text = @"严重";
             break;
-        case MonitorListStateCommon:
+        case IssueStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
             self.stateLab.text = @"提示";
             break;
-        case MonitorListStateRecommend:
+        case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已恢复";
             break;
-        case MonitorListStateLoseeEfficacy:
+        case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
             self.stateLab.text = @"失效";
             break;

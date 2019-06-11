@@ -91,24 +91,24 @@
     self.bgContentView.height =calendarContentH+ZOOM_SCALE(24)+Interval(25);
     self.contentTextView.height = calendarContentH;
     switch (model.state) {
-        case MonitorListStateWarning:
+        case IssueStateWarning:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
             self.statesLabel.text = @"警告";
             break;
-        case MonitorListStateSeriousness:
+        case IssueStateSeriousness:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
             self.statesLabel.text = @"严重";
             break;
-        case MonitorListStateCommon:
+        case IssueStateCommon:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
             self.statesLabel.text = @"提示";
             break;
-        case MonitorListStateRecommend:
+        case IssueStateRecommend:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.statesLabel.text = @"已恢复";
 
             break;
-        case MonitorListStateLoseeEfficacy:
+        case IssueStateLoseeEfficacy:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
             self.statesLabel.text = @"失效";
             break;

@@ -32,17 +32,17 @@
     self.isInvalidIssue = model.isInvalidIssue;
     self.time = [NSString getLocalDateFormateUTCDate:model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.level isEqualToString:@"danger"]) {
-        self.state = MonitorListStateSeriousness;
+        self.state = IssueStateSeriousness;
     }else if([model.level isEqualToString:@"warning"]){
-        self.state = MonitorListStateWarning;
+        self.state = IssueStateWarning;
     }else{
-        self.state =MonitorListStateCommon;
+        self.state =IssueStateCommon;
     }
     if ([model.status isEqualToString:@"recovered"]) {
-        self.state =MonitorListStateRecommend;
+        self.state =IssueStateRecommend;
         self.time = [NSString getLocalDateFormateUTCDate:model.endTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     }else if ([model.status isEqualToString:@"discarded"]){
-        self.state = MonitorListStateLoseeEfficacy;
+        self.state = IssueStateLoseeEfficacy;
     }
     
     if (![model.renderedTextStr isEqualToString:@""]) {

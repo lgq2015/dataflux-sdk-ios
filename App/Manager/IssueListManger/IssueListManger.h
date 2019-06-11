@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
+
 typedef NS_ENUM(NSInteger ,IssueType){
     IssueTypeAll = 1,
     IssueTypeAlarm ,
@@ -20,10 +21,21 @@ typedef NS_ENUM(NSInteger ,IssueViewType){
     IssueViewTypeNormal = 1,
     IssueViewTypeAll = 2,
 };
+typedef NS_ENUM(NSInteger ,IssueSortType){
+    IssueSortTypeCreate = 1,
+    IssueViewTypeUpdate = 2,
+};
+typedef NS_ENUM(NSInteger ,IssueLevel){
+    IssueLevelAll= 1,
+    IssueLevelDanger,
+    IssueLevelWarning,
+    IssueLevelCommon,
+};
 @class IssueBoardModel;
 @class IssueModel;
 @class BaseReturnModel;
 @class IssueLogModel;
+@class SelectObject;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListManger : BaseSqlHelper
@@ -71,14 +83,17 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (void)checkSocketConnectAndFetchNewIssue:(void (^)(BaseReturnModel *))callBackStatus;
 
 - (BOOL)isInfoBoardInit;
--(IssueViewType)getCurrentIssueViewType;
+-(IssueSortType)getCurrentIssueSortType;
 -(IssueType)getCurrentIssueType;
 /**
  情报分类页数据源获取
  */
-- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType;
+- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType;
+- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel;
+-(SelectObject *)getCurrentSelectObject;
+-(void)setCurrentSelectObject:(SelectObject *)sel;
 /**
- 24内恢复的情报列表
+ 24内恢复的情报列表o
  */
 - (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type;
 

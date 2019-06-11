@@ -48,17 +48,17 @@
     self.timeText = [NSString getLocalDateFormateUTCDate:updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"hh:mm"];
     NSString *level = [issueSnapshotJSON_cache stringValueForKey:@"level" default:@""];
     if ([level isEqualToString:@"danger"]) {
-        self.state = MonitorListStateSeriousness;
+        self.state = IssueStateSeriousness;
     }else if([level isEqualToString:@"warning"]){
-        self.state = MonitorListStateWarning;
+        self.state = IssueStateWarning;
     }else{
-        self.state =MonitorListStateCommon;
+        self.state =IssueStateCommon;
     }
     NSString *status = [issueSnapshotJSON_cache stringValueForKey:@"status" default:@""];
     if ([status isEqualToString:@"recovered"]) {
-        self.state =MonitorListStateRecommend;
+        self.state =IssueStateRecommend;
     }else if ([status isEqualToString:@"discarded"]){
-        self.state = MonitorListStateLoseeEfficacy;
+        self.state = IssueStateLoseeEfficacy;
     }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
     self.calendarContentH = [self.contentText strSizeWithMaxWidth:ZOOM_SCALE(240) withFont:RegularFONT(16)].height+10;

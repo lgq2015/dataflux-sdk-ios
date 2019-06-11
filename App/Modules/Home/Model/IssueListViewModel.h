@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "IssueSourceViewModel.h"
-typedef NS_ENUM(NSUInteger, MonitorListState){
-    MonitorListStateWarning,
-    MonitorListStateSeriousness,
-    MonitorListStateRecommend,
-    MonitorListStateCommon,
-    MonitorListStateLoseeEfficacy,
+typedef NS_ENUM(NSInteger, IssueState){
+    IssueStateWarning = 1,
+    IssueStateSeriousness,
+    IssueStateRecommend,
+    IssueStateCommon,
+    IssueStateLoseeEfficacy,
 };
 
 @class IssueModel;
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, MonitorListState){
 @property (nonatomic, strong) NSString *markStatusStr;
 @property (nonatomic, strong) NSString *markUserIcon;
 @property (nonatomic, strong) NSString *icon;
-@property (nonatomic, assign) MonitorListState state;
+@property (nonatomic, assign) IssueState state;
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSDictionary *reference;//handbooks array   "title": "文章标题","url"
 @property (nonatomic, assign) BOOL isRead;

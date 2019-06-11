@@ -33,6 +33,8 @@
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
 //用户issueList 选择type类型
+#define KSelectObject  @"KSelectObject"
+#define KCurrentSelectObject @"KCurrentSelectObject"
 #define KIssueListType @"KIssueListType"
 #define KCurrentIssueListType   @"KCurrentIssueListType"
 #define KCurrentIssueViewType   @"KCurrentIssueViewType"

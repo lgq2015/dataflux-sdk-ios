@@ -74,7 +74,7 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
-        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != MonitorListStateLoseeEfficacy&&self.model.state != MonitorListStateRecommend) {
+        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != IssueStateLoseeEfficacy&&self.model.state != IssueStateRecommend) {
             [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
         }
         [self loadIssueDetailExtra];
