@@ -88,8 +88,8 @@
 
     [self addSubview:addIssueBtn];
     [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.height.mas_equalTo(self);
         make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.mas_equalTo(self);
     }];
     [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -120,7 +120,7 @@
 - (NSString *)getIssueSortTitle:(IssueSortType)type{
     NSString *viewTitle;
     switch (type) {
-        case IssueViewTypeUpdate:
+        case IssueSortTypeUpdate:
             viewTitle = @"更新时间排序";
             break;
         case IssueSortTypeCreate:

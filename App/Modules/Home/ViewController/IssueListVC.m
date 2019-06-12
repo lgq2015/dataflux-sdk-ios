@@ -20,6 +20,7 @@
 #import "IssueListHeaderView.h"
 #import "IssueDetailsVC.h"
 #import "SelectObject.h"
+#import "HLSafeMutableArray.h"
 
 
 @interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -28,7 +29,7 @@
 @property (nonatomic, copy)   NSString *type;
 //@property (nonatomic, strong) UIView *listFooterView;
 @property (nonatomic, strong) UILabel *tipLab;
-@property (nonatomic, strong) NSMutableArray *datas;
+@property (nonatomic, strong) HLSafeMutableArray *datas;
 @property (nonatomic, assign) NSInteger currentPage;
 
 @end
@@ -86,7 +87,7 @@
   
     [SVProgressHUD show];
 
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
          complete();
         if (!model.isSuccess) {
@@ -147,13 +148,13 @@
     self.currentPage = 1;
     WeakSelf
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-//        [weakSelf reloadDataWithIssueType:0 sortType:0 refresh:YES];
+        [weakSelf reloadDataWithSelectObject:nil refresh:YES];
         [weakSelf.header endRefreshing];
     }                                           getAllDatas:NO];
 }
--(NSMutableArray *)datas{
+-(HLSafeMutableArray *)datas{
     if (!_datas) {
-        _datas = [NSMutableArray new];
+        _datas = [HLSafeMutableArray new];
     }
     return _datas;
 }
@@ -270,7 +271,7 @@
 - (void)reloadData{
     [self reloadDataWithSelectObject:nil refresh:YES];
 }
-- (void)reloadDataWithSelectObject:(SelectObject *)sel refresh:(BOOL)refresh{
+- (void)reloadDataWithSelectObject:(nullable SelectObject *)sel refresh:(BOOL)refresh{
     if (refresh) {
         self.currentPage =1;
     }

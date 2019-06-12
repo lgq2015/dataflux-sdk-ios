@@ -160,16 +160,32 @@
             self.stuffName = [NSString stringWithFormat:@"被%@解决",name];
 
         }else if([model.subType isEqualToString:@"issueFixed"]){
-           NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
+            NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
             self.stuffName = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
         }else if([model.subType isEqualToString:@"issueLevelChanged"]){
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
-            if (model.issueSnapshotJSON_cacheStr) {
+            if (model.issueSnapshotJSON_cacheStr){
              self.stuffName = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[[model.issueSnapshotJSON_cacheStr jsonValueDecoded][@"level"] getIssueStateLevel]];
             }else{
                 self.stuffName = @"情报等级变更";
             }
-            
+      
+        }else if([model.subType isEqualToString:@"issueAssigned"]){
+            if (model.issueSnapshotJSON_cacheStr.length>0) {
+                NSDictionary *issueSnapshotJSON_cache = [model.issueSnapshotJSON_cacheStr jsonValueDecoded];
+                NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignedToAccountInfo");
+                NSDictionary *assignAccountInfo =PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignAccountInfo");
+                NSString *key = NSLocalizedString(model.subType, @"");
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",assignAccountInfo[@"name"],key,assignedToAccountInfo[@"name"]];
+            }
+        }else if([model.subType isEqualToString:@"issueCancelAssigning"]){
+            if (model.issueSnapshotJSON_cacheStr.length>0) {
+                NSDictionary *issueSnapshotJSON_cache = [model.issueSnapshotJSON_cacheStr jsonValueDecoded];
+                NSDictionary *assignAccountInfo =PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignAccountInfo");
+                NSString *key = NSLocalizedString(model.subType, @"");
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@",assignAccountInfo[@"name"],key];
+            }
+
         }else{
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
             self.stuffName  = NSLocalizedString(key, @"");

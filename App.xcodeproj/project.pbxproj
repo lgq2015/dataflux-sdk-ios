@@ -377,6 +377,9 @@
 		4A47137322AF886B00EB90F7 /* IssueSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137222AF886B00EB90F7 /* IssueSelectView.m */; };
 		4A47137422AF886B00EB90F7 /* IssueSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137222AF886B00EB90F7 /* IssueSelectView.m */; };
 		4A47137522AF886B00EB90F7 /* IssueSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137222AF886B00EB90F7 /* IssueSelectView.m */; };
+		4A47137822B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
+		4A47137922B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
+		4A47137A22B09E1E00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -1484,6 +1487,8 @@
 		4A47136D22AE729F00EB90F7 /* SelectObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectObject.m; sourceTree = "<group>"; };
 		4A47137122AF886B00EB90F7 /* IssueSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSelectView.h; sourceTree = "<group>"; };
 		4A47137222AF886B00EB90F7 /* IssueSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSelectView.m; sourceTree = "<group>"; };
+		4A47137622B09E1D00EB90F7 /* IssueSelectSortTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSelectSortTypeView.h; sourceTree = "<group>"; };
+		4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSelectSortTypeView.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -2501,6 +2506,8 @@
 				4A47136D22AE729F00EB90F7 /* SelectObject.m */,
 				4A47137122AF886B00EB90F7 /* IssueSelectView.h */,
 				4A47137222AF886B00EB90F7 /* IssueSelectView.m */,
+				4A47137622B09E1D00EB90F7 /* IssueSelectSortTypeView.h */,
+				4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */,
 			);
 			path = IssueSelectView;
 			sourceTree = "<group>";
@@ -4359,6 +4366,7 @@
 				4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
 				4A759AB1224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B82265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
+				4A47137822B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A092C9322266C6700FB2A35 /* CityCell.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
@@ -4721,6 +4729,7 @@
 				4A759AB7224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB2224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B92265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
+				4A47137922B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
 				4A092DC4222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
@@ -5083,6 +5092,7 @@
 				4A759AB8224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB3224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663BA2265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
+				4A47137A22B09E1E00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
 				4A092DC5222FC11C00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,

@@ -152,4 +152,6 @@
 "info" = "提示";
 "issue.exitExpertGroups" = "您邀请的专家已退出讨论";
 "issue.create" = "创建情报";
+"issueAssigned" = "将该情报指派给";
+"issueCancelAssigning" = "取消了指派";
 

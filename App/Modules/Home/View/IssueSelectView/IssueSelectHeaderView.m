@@ -10,7 +10,7 @@
 #import "AddIssueVC.h"
 #import "ZTCreateTeamVC.h"
 
-@interface IssueSelectHeaderView()<SelectViewDelegate>
+@interface IssueSelectHeaderView()<SelectViewDelegate,SelectSortViewDelegate>
 @property (nonatomic, strong) UIButton *typeBtn;
 @property (nonatomic, strong) UIButton *timeTypeBtn;
 @end
@@ -37,7 +37,7 @@
     line.centerY = self.typeBtn.centerY;
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self addSubview:line];
-    self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(16), 0, ZOOM_SCALE(120), ZOOM_SCALE(22));
+    self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(16), 0, ZOOM_SCALE(140), ZOOM_SCALE(22));
     self.timeTypeBtn.centerY = self.typeBtn.centerY;
     UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"创建情报"];
     addIssueBtn.titleLabel.font = RegularFONT(13);
@@ -45,7 +45,7 @@
     [self addSubview:addIssueBtn];
     [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.mas_equalTo(self);
+        make.height.top.bottom.mas_equalTo(self);
     }];
     [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
     UIView *lineb =  [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(42)-1, kWidth, 0.5)];
@@ -58,6 +58,14 @@
         _timeTypeBtn = [[UIButton alloc]init];
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_n"] forState:UIControlStateNormal];
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_highlight"] forState:UIControlStateSelected];
+        _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(130)-ZOOM_SCALE(16));
+        _timeTypeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+        SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+        NSString *title = selO.issueSortType == IssueSortTypeCreate?@"按产生时间排序":@"按更新时间排序";
+        [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
+        [_timeTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
+        [_timeTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
+        _timeTypeBtn.titleLabel.font = RegularFONT(16);
         [_timeTypeBtn addTarget:self action:@selector(timeTypeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_timeTypeBtn];
     }
@@ -74,9 +82,24 @@
     }
     return _selView;
 }
+-(IssueSelectSortTypeView *)sortView{
+    if (!_sortView) {
+        _sortView = [[IssueSelectSortTypeView alloc]initWithTop:CGRectGetMaxY(self.frame)];
+        _sortView.delegate = self;
+        WeakSelf
+        _sortView.disMissClick = ^(){
+            weakSelf.timeTypeBtn.selected = NO;
+        };
+    }
+    return _sortView;
+}
 - (void)typeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
     if (button.selected) {
+        self.timeTypeBtn.selected = NO;
+        if (self.sortView.isShow) {
+            [self.sortView disMissView];
+        }
         [self.selView showInView:[UIApplication sharedApplication].keyWindow];
     }else{
         [self.selView disMissView];
@@ -84,11 +107,23 @@
 }
 - (void)timeTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
+    if (button.selected) {
+        self.typeBtn.selected = NO;
+        if (self.selView.isShow) {
+            [self.selView disMissView];
+        }
+         [self.sortView showInView:[UIApplication sharedApplication].keyWindow];
+    }else{
+        [self.sortView disMissView];
+    }
 }
 - (void)addIssueBtnClick{
     if(self.selView.isShow){
         [self.selView disMissView];
+    }else if (self.sortView.isShow) {
+        [self.sortView disMissView];
     }
+    
     if([getTeamState isEqualToString:PW_isTeam]){
         AddIssueVC *creatVC = [[AddIssueVC alloc]init];
         [self.viewController.navigationController pushViewController:creatVC animated:YES];
@@ -114,6 +149,14 @@
     }
 }
 -(void)selectIssueWithSelectObject:(SelectObject *)sel{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
+        [self.delegate selectIssueSelectObject:sel];
+    }
+}
+-(void)selectSortWithSelectObject:(SelectObject *)sel{
+    NSString *title = sel.issueSortType == IssueSortTypeCreate?@"按产生时间排序":@"按更新时间排序";
+    [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
+    [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
         [self.delegate selectIssueSelectObject:sel];
     }

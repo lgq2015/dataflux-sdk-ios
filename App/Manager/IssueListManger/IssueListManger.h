@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger ,IssueViewType){
 };
 typedef NS_ENUM(NSInteger ,IssueSortType){
     IssueSortTypeCreate = 1,
-    IssueViewTypeUpdate = 2,
+    IssueSortTypeUpdate = 2,
 };
 typedef NS_ENUM(NSInteger ,IssueLevel){
     IssueLevelAll= 1,

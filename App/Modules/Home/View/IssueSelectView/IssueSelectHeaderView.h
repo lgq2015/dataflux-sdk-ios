@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "IssueSelectView.h"
+#import "IssueSelectSortTypeView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol IssueSelectHeaderDelegate <NSObject>
@@ -16,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface IssueSelectHeaderView : UIView
 @property (nonatomic, strong) IssueSelectView *selView;
-@property(nonatomic,assign)id<IssueSelectHeaderDelegate> delegate;
+@property (nonatomic, strong) IssueSelectSortTypeView *sortView;
+@property (nonatomic, assign) id<IssueSelectHeaderDelegate> delegate;
 
 @end
 

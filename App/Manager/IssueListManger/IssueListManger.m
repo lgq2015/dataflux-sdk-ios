@@ -593,7 +593,7 @@
         case IssueSortTypeCreate:
             sortStr = @"ORDER by seq DESC";
             break;
-        case IssueViewTypeUpdate:
+        case IssueSortTypeUpdate:
             sortStr = @"ORDER by lastIssueLogSeq DESC";
             break;
     }
@@ -708,7 +708,7 @@
         case IssueSortTypeCreate:
             statesStr =@"AND needAttention = true AND status = 'created'";
             break;
-        case IssueViewTypeUpdate:
+        case IssueSortTypeUpdate:
             statesStr = @"";
             break;
     }
