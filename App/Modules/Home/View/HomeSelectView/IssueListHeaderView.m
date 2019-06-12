@@ -44,7 +44,7 @@
     [self addSubview:self.typeBtn];
     [self.typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).offset(Interval(16));
-        make.height.mas_equalTo(self);
+        make.top.bottom.height.mas_equalTo(self);
         make.width.offset(width);
     }];
     UIButton *arrow = [[UIButton alloc]init];
@@ -69,7 +69,7 @@
     [self addSubview:self.viewTypeBtn];
     [self.viewTypeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(arrow.mas_right).offset(15);
-        make.height.mas_equalTo(self);
+        make.height.top.bottom.mas_equalTo(self);
         make.width.offset(width2);
     }];
     UIButton *arrow2 = [[UIButton alloc]init];
@@ -89,7 +89,7 @@
     [self addSubview:addIssueBtn];
     [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.mas_equalTo(self);
+        make.height.top.bottom.mas_equalTo(self);
     }];
     [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
