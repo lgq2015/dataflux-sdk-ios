@@ -391,7 +391,7 @@
     NSMutableDictionary *param =[@{
                            
                             @"subType":
-    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered",
+    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
                             @"orderBy":@"seq",
                             @"orderMethod":orderMethod
                             } mutableCopy];

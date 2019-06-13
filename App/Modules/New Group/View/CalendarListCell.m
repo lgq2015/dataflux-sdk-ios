@@ -29,7 +29,8 @@
 }
 - (void)createCellUI{
     self.backgroundColor = PWBackgroundColor;
-    self.titleLable = [[YYLabel alloc]initWithFrame:CGRectMake(ZOOM_SCALE(75), 0, ZOOM_SCALE(200), ZOOM_SCALE(20))];
+    self.titleLable = [[YYLabel alloc]initWithFrame:CGRectMake(ZOOM_SCALE(75), 0, kWidth-ZOOM_SCALE(130), ZOOM_SCALE(20))];
+    self.titleLable.numberOfLines = 0;
     self.titleLable.font = RegularFONT(14);
     self.titleLable.textColor = PWTextBlackColor;
     [self addSubview:self.titleLable];
@@ -88,8 +89,11 @@
     self.contentTextView.text = model.contentText;
     //[[NSAttributedString alloc]initWithString:model.contentText];
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);
+    self.titleLable.height = model.titleH;
+    self.bgContentView.frame = CGRectMake(ZOOM_SCALE(75), CGRectGetMaxY(self.titleLable.frame)+Interval(11), ZOOM_SCALE(284), ZOOM_SCALE(105));
     self.bgContentView.height =calendarContentH+ZOOM_SCALE(24)+Interval(25);
     self.contentTextView.height = calendarContentH;
+   
     switch (model.state) {
         case IssueStateWarning:
             self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
@@ -113,7 +117,7 @@
             self.statesLabel.text = @"失效";
             break;
     }
-    self.lineView.height = model.calendarContentH +ZOOM_SCALE(45)+Interval(50);
+    self.lineView.height = model.calendarContentH +ZOOM_SCALE(25)+Interval(50)+model.titleH;
 }
 -(void)setLineHide:(BOOL)lineHide{
     self.lineView.hidden = lineHide;

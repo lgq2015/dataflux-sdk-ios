@@ -146,7 +146,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CalendarIssueModel *model = self.calendarList[indexPath.section][indexPath.row];
     if (model.calendarContentH) {
-       return model.calendarContentH +ZOOM_SCALE(45)+Interval(50);
+       return model.calendarContentH +ZOOM_SCALE(25)+Interval(50)+model.titleH;
     }else{
         return ZOOM_SCALE(30);
     }

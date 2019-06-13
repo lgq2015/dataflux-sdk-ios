@@ -41,6 +41,22 @@
     }else if([subType isEqualToString:@"issueLevelChanged"]){
          NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
         self.typeText = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
+    }else if([subType isEqualToString:@"issueFixed"]){
+        NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        self.typeText = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
+    }else if([subType isEqualToString:@"issueAssigned"]){
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
+            NSString *key = NSLocalizedString(subType, @"");
+            self.typeText  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
+        
+    }else if([subType isEqualToString:@"issueCancelAssigning"]){
+        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *key = NSLocalizedString(subType, @"");
+        self.typeText  = [NSString stringWithFormat:@"%@ %@",name,key];
+     
+        
     }else{
           NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
           self.typeText = NSLocalizedString(key, @"");
@@ -54,14 +70,20 @@
     }else{
         self.state =IssueStateCommon;
     }
-    NSString *status = [issueSnapshotJSON_cache stringValueForKey:@"status" default:@""];
-    if ([status isEqualToString:@"recovered"]) {
-        self.state =IssueStateRecommend;
-    }else if ([status isEqualToString:@"discarded"]){
-        self.state = IssueStateLoseeEfficacy;
-    }
+//    NSString *status = [issueSnapshotJSON_cache stringValueForKey:@"status" default:@""];
+//    if ([status isEqualToString:@"recovered"]) {
+//        self.state =IssueStateRecommend;
+//    }else if ([status isEqualToString:@"discarded"]){
+//        self.state = IssueStateLoseeEfficacy;
+//    }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
     self.calendarContentH = [self.contentText strSizeWithMaxWidth:ZOOM_SCALE(240) withFont:RegularFONT(16)].height+10;
+    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(130) withFont:RegularFONT(14)].height;
+    if (titleH<ZOOM_SCALE(20)) {
+        self.titleH = ZOOM_SCALE(20);
+    }else{
+        self.titleH = titleH+10;
+    }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];

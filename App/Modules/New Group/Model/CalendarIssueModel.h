@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *groupTitle;
 @property (nonatomic, assign) CGFloat calendarContentH; // 日历cell中可变的高度
+@property (nonatomic, assign) CGFloat titleH;           // 情报状态的高度
 @property (nonatomic, strong) NSDate *dayDate;
 @property (nonatomic, assign) long seq;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
