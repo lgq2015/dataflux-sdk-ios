@@ -25,16 +25,16 @@
 }
 - (void)setValueWithDict:(NSDictionary *)dict{
     if ([dict[@"origin"] isEqualToString:@"user"]) {
-        NSDictionary *account_info = dict[@"account_info"];
-        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+        NSDictionary *accountInfo = dict[@"accountInfo"];
+        NSString *nickname = [accountInfo stringValueForKey:@"nickname" default:@""];
         if ([nickname isEqualToString:@""]) {
-            NSString *name = [account_info stringValueForKey:@"name" default:@""];
+            NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
             nickname = name;
         }
         NSString *createTime = [dict stringValueForKey:@"createTime" default:@""];
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
-        NSString *userID = [account_info stringValueForKey:@"id" default:@""];
+        NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
             self.from = 1;
             self.name = [time accurateTimeStr];
@@ -104,16 +104,16 @@
 }
 - (void)setValueWithModel:(IssueLogModel *)model{
     if ([model.origin isEqualToString:@"user"]) {
-        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *nickname = [account_info stringValueForKey:@"nickname" default:@""];
+        NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
+        NSString *nickname = [accountInfo stringValueForKey:@"nickname" default:@""];
         if ([nickname isEqualToString:@""]) {
-            NSString *name = [account_info stringValueForKey:@"name" default:@""];
+            NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
             nickname = name;
         }
         NSString *createTime = model.createTime;
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
-        NSString *userID = [account_info stringValueForKey:@"id" default:@""];
+        NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
             self.from = 1;
             self.name = [time accurateTimeStr];

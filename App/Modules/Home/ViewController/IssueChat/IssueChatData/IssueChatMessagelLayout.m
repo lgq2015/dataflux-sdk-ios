@@ -213,7 +213,15 @@
     }
 }
 - (void)setKeyPoint{
+    CGSize timeSize = [self sizeWithStr:_message.nameStr Width:200 withFont:RegularFONT(14)];
+    self.nameLabRect = CGRectMake(0, 0, timeSize.width, timeSize.height);
+    CGSize textSize = [self sizeWithStr:_message.stuffName Width:kWidth-Interval(80)-ZOOM_SCALE(16)-timeSize.width withFont:RegularFONT(14)];
+    self.textLabRect = CGRectMake(0, 0, textSize.width, textSize.height);
+    if (textSize.height>ZOOM_SCALE(20)) {
+        _cellHeight = ZOOM_SCALE(40)+textSize.height;
+    }else{
     _cellHeight = ZOOM_SCALE(60);
+    }
 }
 -(CGSize)sizeWithStr:(NSString *)str Width:(CGFloat)width withFont:(UIFont*)font{
     if (@available(iOS 7.0, *)) {
