@@ -82,7 +82,7 @@
     if (titleH<ZOOM_SCALE(20)) {
         self.titleH = ZOOM_SCALE(20);
     }else{
-        self.titleH = titleH+10;
+        self.titleH = titleH+5;
     }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式

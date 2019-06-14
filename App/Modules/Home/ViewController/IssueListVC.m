@@ -54,6 +54,7 @@
                             selector:@selector(onNewIssueUpdate:)
                                 name:KNotificationUpdateIssueList
                               object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadIssueList object:nil];
 
     [self createUI];
     WeakSelf
@@ -85,10 +86,14 @@
 }
 - (void)loadAllIssueList:(void (^)(void))complete{
   
-    [SVProgressHUD show];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         [SVProgressHUD show];
+    });
 
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
-        [SVProgressHUD dismiss];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
          complete();
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg];
@@ -254,7 +259,7 @@
         _tipLab.backgroundColor = [UIColor colorWithHexString:@"#D3E4F5"];
         [self.view addSubview:_tipLab];
         _tipLab.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadData)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerRefreshing)];
         [_tipLab addGestureRecognizer:tap];
     NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
     //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range

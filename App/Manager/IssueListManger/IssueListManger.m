@@ -71,6 +71,9 @@
             @"readAtInfoStr":SQL_TEXT,
             @"isEnded":SQL_BLOB,
             @"needAttention":SQL_BLOB,
+            @"statusChangeAccountInfoStr":SQL_TEXT,
+            @"assignAccountInfoStr":SQL_TEXT,
+            @"assignedToAccountInfoStr":SQL_TEXT,
     }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
             @"scanCheckEndTime":SQL_TEXT,
@@ -101,6 +104,7 @@
             @"atInfoJSONStr": SQL_TEXT,
             @"atStatusStr": SQL_TEXT,
             @"issueSnapshotJSON_cacheStr":SQL_TEXT,
+            @"assignedToAccountInfoStr":SQL_TEXT,
     }];
 
 
@@ -384,14 +388,14 @@
 
                     }];
                     dispatch_async_on_main_queue(^{
-//                        if (callBackStatus == nil) {
-//                            setLastTime([NSDate date]);
-////                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
-////                        userInfo:@{@"updateView":@(YES)}];
-//                        } else{
+                        if (callBackStatus == nil) {
+                            setLastTime([NSDate date]);
+//                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+//                        userInfo:@{@"updateView":@(YES)}];
+                        } else{
                         callBackStatus(listModel);
                         setLastTime([NSDate date]);
-//                        }
+                        }
                         _isFetching =NO;
                     });
                 });
@@ -407,7 +411,7 @@
                 callBackStatus(listModel);
             }
             _isFetching =NO;
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         }
 
     }];

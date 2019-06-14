@@ -13,6 +13,7 @@
 #pragma mark - ——————— 用户相关 ————————
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
+#define KNotificationReloadIssueList     @"KNotificationReloadIssueList"
 
 #define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"

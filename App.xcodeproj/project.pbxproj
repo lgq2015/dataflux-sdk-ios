@@ -380,6 +380,15 @@
 		4A47137822B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
 		4A47137922B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
 		4A47137A22B09E1E00EB90F7 /* IssueSelectSortTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */; };
+		4A47137D22B1EB9500EB90F7 /* AssignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137C22B1EB9500EB90F7 /* AssignView.m */; };
+		4A47137E22B1EB9500EB90F7 /* AssignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137C22B1EB9500EB90F7 /* AssignView.m */; };
+		4A47137F22B1EB9600EB90F7 /* AssignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47137C22B1EB9500EB90F7 /* AssignView.m */; };
+		4A47138222B22C8800EB90F7 /* ChooseAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */; };
+		4A47138322B22C8800EB90F7 /* ChooseAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */; };
+		4A47138422B22C8800EB90F7 /* ChooseAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */; };
+		4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
+		4A47138822B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
+		4A47138922B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -1489,6 +1498,12 @@
 		4A47137222AF886B00EB90F7 /* IssueSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSelectView.m; sourceTree = "<group>"; };
 		4A47137622B09E1D00EB90F7 /* IssueSelectSortTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSelectSortTypeView.h; sourceTree = "<group>"; };
 		4A47137722B09E1D00EB90F7 /* IssueSelectSortTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSelectSortTypeView.m; sourceTree = "<group>"; };
+		4A47137B22B1EB9500EB90F7 /* AssignView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssignView.h; sourceTree = "<group>"; };
+		4A47137C22B1EB9500EB90F7 /* AssignView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssignView.m; sourceTree = "<group>"; };
+		4A47138022B22C8800EB90F7 /* ChooseAssignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseAssignVC.h; sourceTree = "<group>"; };
+		4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseAssignVC.m; sourceTree = "<group>"; };
+		4A47138522B2401300EB90F7 /* NoAssignCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoAssignCell.h; sourceTree = "<group>"; };
+		4A47138622B2401300EB90F7 /* NoAssignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoAssignCell.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -2363,6 +2378,10 @@
 				4AC21FCC228BB5590098848C /* IssueUserDetailView.m */,
 				4A50F3F82293A18000AD7715 /* IgnoreItemView.h */,
 				4A50F3F92293A18000AD7715 /* IgnoreItemView.m */,
+				4A47137B22B1EB9500EB90F7 /* AssignView.h */,
+				4A47137C22B1EB9500EB90F7 /* AssignView.m */,
+				4A47138522B2401300EB90F7 /* NoAssignCell.h */,
+				4A47138622B2401300EB90F7 /* NoAssignCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3025,8 +3044,8 @@
 				4AC856E8223121BA00DAE1F6 /* HandbookModel.m */,
 				4AC857B2223CD02900DAE1F6 /* IssueAttachmentModel.h */,
 				4AC857B3223CD02A00DAE1F6 /* IssueAttachmentModel.m */,
-				6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */,
 				6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */,
+				6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */,
 				4A759A8622489C330057BD02 /* CreateQuestionModel.h */,
 				4A759A8722489C330057BD02 /* CreateQuestionModel.m */,
 				6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */,
@@ -3579,6 +3598,8 @@
 				6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */,
 				4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */,
 				4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */,
+				4A47138022B22C8800EB90F7 /* ChooseAssignVC.h */,
+				4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4202,6 +4223,7 @@
 				4A7C4B8121C61201007730E6 /* SetNewPasswordVC.m in Sources */,
 				4AB48AA72202A72F009F9E94 /* VerifyCodeVC.m in Sources */,
 				2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4A47138222B22C8800EB90F7 /* ChooseAssignVC.m in Sources */,
 				4AA4CEFA22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC2F225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				4A759A9D224A155C0057BD02 /* IssueSourceConfige.m in Sources */,
@@ -4340,6 +4362,7 @@
 				2B3A44AF2271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				4AC22002228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
+				4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				4AA4CF2D228962A400A2CBE1 /* IssueListHeaderView.m in Sources */,
@@ -4347,6 +4370,7 @@
 				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
+				4A47137D22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
 				4AE9C4F021D362FD003BB9CB /* AccountInfoModel.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
@@ -4565,6 +4589,7 @@
 				CA1CF58A221ECB3A00D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF58B221ECB3A00D15316 /* SetNewPasswordVC.m in Sources */,
 				2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4A47138322B22C8800EB90F7 /* ChooseAssignVC.m in Sources */,
 				4AA4CEFB22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC30225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
@@ -4703,6 +4728,7 @@
 				2B3A44B02271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				4AC22003228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
+				4A47138822B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2E228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
@@ -4710,6 +4736,7 @@
 				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
 				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
+				4A47137E22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				4A092D62222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
@@ -4928,6 +4955,7 @@
 				CA1CF62F221ECB5000D15316 /* ChangeUserInfoVC.m in Sources */,
 				CA1CF630221ECB5000D15316 /* SetNewPasswordVC.m in Sources */,
 				2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */,
+				4A47138422B22C8800EB90F7 /* ChooseAssignVC.m in Sources */,
 				4AA4CEFC22841A4700A2CBE1 /* IssueLastReadInfoData.m in Sources */,
 				2B9ECC31225496D800BAC47A /* NSObject+ZTUtil.m in Sources */,
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
@@ -5066,6 +5094,7 @@
 				2B3A44B12271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				4AC22004228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
+				4A47138922B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2F228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
@@ -5073,6 +5102,7 @@
 				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
 				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
+				4A47137F22B1EB9600EB90F7 /* AssignView.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
 				4A092D63222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
