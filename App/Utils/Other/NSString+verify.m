@@ -327,13 +327,13 @@
            type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else if ([subType isEqualToString:@"markTookOver"]){
       
-        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         type = [NSString stringWithFormat:@"%@正在处理",name];
     }else if ([subType isEqualToString:@"markRecovered"]){
-        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
       
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
                  type = [NSString stringWithFormat:@"已由%@解决",name];
     
     }

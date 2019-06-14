@@ -391,7 +391,7 @@
 
 - (void)createUI{
 //    self.tableVie
-//    if(self.model.state != MonitorListStateRecommend){
+//    if(self.model.state != Recommend){
 //        [self addNavigationItemWithImageNames:@[@"expert_icon"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@10]];
 //
 //    }

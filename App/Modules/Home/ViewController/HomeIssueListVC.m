@@ -15,8 +15,10 @@
 #import "ZTChangeTeamNavView.h"
 #import "TeamInfoModel.h"
 #import "ZYChangeTeamUIManager.h"
-@interface HomeIssueListVC ()<IssueListHeaderDelegate>
-@property (nonatomic, strong) IssueListHeaderView *headerView;
+#import "IssueSelectHeaderView.h"
+
+@interface HomeIssueListVC ()<IssueSelectHeaderDelegate>
+@property (nonatomic, strong) IssueSelectHeaderView *headerView;
 @property (nonatomic, strong) IssueListVC *listVC;
 @property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
 @property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
@@ -82,7 +84,7 @@
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
-    self.headerView = [[IssueListHeaderView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(nav.frame) , kWidth, ZOOM_SCALE(42))];
+    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, kTopHeight+25, kWidth, ZOOM_SCALE(42))];
     self.headerView.delegate = self;
     [self.view addSubview:self.headerView];
     CGFloat topHeight = CGRectGetMaxY(self.headerView.frame);
@@ -107,8 +109,12 @@
     }];
     //显示
     if (sender.isSelected){
+        if(self.headerView.selView.isShow){
+            [self.headerView.selView disMissView];
+        }else if (self.headerView.sortView.isShow) {
+            [self.headerView.sortView disMissView];
+        }
         [self.changeTeamView showWithOffsetY:kTopHeight+24];
-       
     }else{
         [self.changeTeamView  dismiss];
     }
@@ -129,8 +135,18 @@
 }
 - (void)tapTopArrow:(UITapGestureRecognizer *)ges{
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
+    if(self.headerView.selView.isShow){
+        [self.headerView.selView disMissView];
+    }else if (self.headerView.sortView.isShow) {
+        [self.headerView.sortView disMissView];
+    }
 }
 - (void)scanBtnClick{
+    if(self.headerView.selView.isShow){
+        [self.headerView.selView disMissView];
+    }else if (self.headerView.sortView.isShow) {
+        [self.headerView.sortView disMissView];
+    }
     [_changeTeamView dismiss];
     ScanViewController *scan = [[ScanViewController alloc]init];
     scan.isVideoZoom = YES;
@@ -163,7 +179,7 @@
 }
 - (void)issueTeamSwitch:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];
-    [self.headerView refreshHeaderViewTitle];
+//    [self.headerView refreshHeaderViewTitle];
 }
 - (void)changeTopLeftNavTitleName{
     NSString *currentTeamType = userManager.teamModel.type;
@@ -177,11 +193,8 @@
         _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:YES];
     }
 }
--(void)selectIssueTypeIndex:(NSInteger)index{
-    [self.listVC reloadDataWithIssueType:index+1 viewType:0 refresh:YES];
-}
--(void)selectIssueViewTypeIndex:(NSInteger)index{
-    [self.listVC reloadDataWithIssueType:0 viewType:index+1 refresh:YES];
+-(void)selectIssueSelectObject:(SelectObject *)sel{
+    [self.listVC reloadDataWithSelectObject:sel refresh:YES];
 }
 -(void)dealloc{
     self.listVC = nil;

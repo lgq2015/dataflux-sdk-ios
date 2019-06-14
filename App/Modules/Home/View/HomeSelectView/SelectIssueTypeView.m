@@ -57,7 +57,7 @@
             break;
         case SelectTypeView:
             self.dataSource = @[@1,@2];
-        self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
+//        self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
             break;
         default:
             break;
@@ -89,7 +89,7 @@
             break;
         case SelectTypeView:
             self.dataSource = @[@1,@2];
-            self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
+//            self.index =(NSInteger)[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
             break;
         default:
             break;

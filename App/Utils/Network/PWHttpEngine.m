@@ -223,7 +223,7 @@
     NSMutableDictionary *param = [@{
                 @"pageSize": @(pageSize),
                 @"type": @"attachment,bizPoint,text,keyPoint",
-                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded",
+                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
                 @"_withAttachmentExternalDownloadURL": @YES,
                 @"orderBy": @"seq",
                 @"orderMethod": orderMethod,
@@ -391,7 +391,7 @@
     NSMutableDictionary *param =[@{
                            
                             @"subType":
-    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered",
+    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
                             @"orderBy":@"seq",
                             @"orderMethod":orderMethod
                             } mutableCopy];
@@ -411,6 +411,36 @@
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)modifyIssueWithIssueid:(NSString *)issueid assignedToAccountId:(NSString *)accountId callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param;
+    if (accountId.length>0) {
+     param = @{@"data":@{@"assignedToAccountId":accountId}};
+    }else{
+     param = @{@"data":@{@"assignedToAccountId":[NSNull null]}};
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)recoveIssueWithIssueid:(NSString *)issueid callBack:(void (^)(id response))callback{
+    
+     BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
 }
 @end
 

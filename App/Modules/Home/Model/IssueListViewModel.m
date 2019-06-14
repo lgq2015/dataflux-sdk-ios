@@ -31,19 +31,20 @@
     [model checkInvalidIssue];
     self.isInvalidIssue = model.isInvalidIssue;
     self.time = [NSString getLocalDateFormateUTCDate:model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    self.updataTime = [NSString getLocalDateFormateUTCDate:model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.level isEqualToString:@"danger"]) {
-        self.state = MonitorListStateSeriousness;
+        self.state = IssueStateSeriousness;
     }else if([model.level isEqualToString:@"warning"]){
-        self.state = MonitorListStateWarning;
+        self.state = IssueStateWarning;
     }else{
-        self.state =MonitorListStateCommon;
+        self.state =IssueStateCommon;
     }
     if ([model.status isEqualToString:@"recovered"]) {
-        self.state =MonitorListStateRecommend;
-        self.time = [NSString getLocalDateFormateUTCDate:model.endTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    }else if ([model.status isEqualToString:@"discarded"]){
-        self.state = MonitorListStateLoseeEfficacy;
+        self.recovered = YES;
     }
+    //else if ([model.status isEqualToString:@"discarded"]){
+//        self.state = IssueStateLoseeEfficacy;
+//    }
     
     if (![model.renderedTextStr isEqualToString:@""]) {
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
@@ -55,7 +56,15 @@
         self.content = model.content;
     }
   
-
+    if (model.statusChangeAccountInfoStr) {
+        self.statusChangeAccountInfo = [model.statusChangeAccountInfoStr jsonValueDecoded];
+    }
+    if (model.assignAccountInfoStr) {
+        self.assignAccountInfo = [model.assignAccountInfoStr jsonValueDecoded];
+    }
+    if (model.assignedToAccountInfoStr && model.assignedToAccountInfoStr.length>0) {
+        self.assignedToAccountInfo = [model.assignedToAccountInfoStr jsonValueDecoded];
+    }
     NSDictionary *markTookOverInfoJSON,*markEndAccountInfo;
     if (model.markTookOverInfoJSONStr) {
         markTookOverInfoJSON = [model.markTookOverInfoJSONStr jsonValueDecoded];
@@ -67,13 +76,13 @@
         NSArray *latestIssueLogs = [model.latestIssueLogsStr jsonValueDecoded];
         
         NSDictionary *issueLogDict =latestIssueLogs[0];
-        NSDictionary *account_info = issueLogDict[@"account_info"];
+        NSDictionary *accountInfo = issueLogDict[@"accountInfo"];
         NSString *chatTime = [issueLogDict stringValueForKey:@"createTime" default:@""];
         chatTime = [NSString getLocalDateFormateUTCDate:chatTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         self.chatTime = [NSString compareCurrentTime:chatTime];
         NSString *name;
-        if (account_info.allKeys>0) {
-            name = [account_info stringValueForKey:@"name" default:@""];
+        if (accountInfo.allKeys>0) {
+            name = [accountInfo stringValueForKey:@"name" default:@""];
             NSString *type = [issueLogDict stringValueForKey:@"type" default:@""];
             NSString *content;
             if ([type isEqualToString:@"attachment"]) {
@@ -113,7 +122,6 @@
     }
   
    
-   
     NSDictionary *tags = PWSafeDictionaryVal(markTookOverInfoJSON, @"tags");
     if (tags) {
         self.markUserIcon = [tags stringValueForKey:@"pwAvatar" default:@""];
@@ -132,11 +140,7 @@
         self.markStatusStr = [NSString stringWithFormat:@"%@标记为解决",name];
     }
    
-    if ([model.origin isEqualToString:@"user"]) {
-        self.isFromUser = YES;
-    }else{
-        self.isFromUser = NO;
-    }
+    
    
         if (model.atLogSeq && model.atLogSeq>0) {
             long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
@@ -173,8 +177,14 @@
     self.issueId = model.issueId;
     self.accountId = model.accountId;
     self.issueSourceId = model.issueSourceId;
-    if (model.issueSourceId.length>0) {
-         NSDictionary *source = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:model.issueSourceId];
+    
+    if ((model.issueSourceId == nil || model.issueSourceId.length == 0) && [model.origin isEqualToString:@"user"]) {
+        self.icon = @"issue_selfbuild";
+        self.sourceName = @"自建情报";
+         self.isFromUser = YES;
+    }else{
+        self.isFromUser = NO;
+        NSDictionary *source = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:model.issueSourceId];
         if (source) {
             NSString *type = [source stringValueForKey:@"provider" default:@""];
             self.sourceName = [source stringValueForKey:@"name" default:@""];
@@ -196,11 +206,12 @@
             }else if([type isEqualToString:@"carrier.alert"]){
                 self.sourceName = @"消息坞";
                 self.icon = @"message_docks";
+            }else if ([type isEqualToString:@"aliyun.finance"]){
+                self.icon = @"icon_alis";
+            }else if ([type isEqualToString:@"aliyun.cainiao"]){
+                self.icon = @"cainiao_s";
             }
         }
-    }else{
-        self.icon = @"issue_selfbuild";
-        self.sourceName = @"自建情报";
     }
    
 }

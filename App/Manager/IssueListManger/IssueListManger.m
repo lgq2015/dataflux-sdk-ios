@@ -20,6 +20,7 @@
 #import "IssueChatDataManager.h"
 #import "IssueLogListModel.h"
 #import "IssueLogModel.h"
+#import "SelectObject.h"
 
 
 #define ISSUE_LIST_PAGE_SIZE  100
@@ -70,6 +71,9 @@
             @"readAtInfoStr":SQL_TEXT,
             @"isEnded":SQL_BLOB,
             @"needAttention":SQL_BLOB,
+            @"statusChangeAccountInfoStr":SQL_TEXT,
+            @"assignAccountInfoStr":SQL_TEXT,
+            @"assignedToAccountInfoStr":SQL_TEXT,
     }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
             @"scanCheckEndTime":SQL_TEXT,
@@ -100,6 +104,7 @@
             @"atInfoJSONStr": SQL_TEXT,
             @"atStatusStr": SQL_TEXT,
             @"issueSnapshotJSON_cacheStr":SQL_TEXT,
+            @"assignedToAccountInfoStr":SQL_TEXT,
     }];
 
 
@@ -129,6 +134,31 @@
         
     }
 }
+-(SelectObject *)getCurrentSelectObject{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
+    if (isContain) {
+    
+        SelectObject *currentType = (SelectObject *)[cache objectForKey:KCurrentIssueListType];
+    
+        return  currentType;
+    }else{
+        SelectObject *sel = [[SelectObject alloc]init];
+        sel.issueViewType = 1;
+        sel.issueSortType = 1;
+        sel.issueType = 1;
+        sel.issueLevel = 1;
+        return sel;
+    }
+}
+-(void)setCurrentSelectObject:(SelectObject *)sel{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
+    if(isContain){
+    cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
+    }
+    [cache setObject:sel forKey:KCurrentIssueListType];
+}
 -(IssueType)getCurrentIssueType{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
    
@@ -148,17 +178,17 @@
     [cache removeObjectForKey:KCurrentIssueListType];
     [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueListType];
 }
--(IssueViewType)getCurrentIssueViewType{
+-(IssueSortType)getCurrentIssueSortType{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
     BOOL isContain= [cache containsObjectForKey:KCurrentIssueViewType];
     if (isContain) {
         NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueViewType];
-        return (IssueViewType)[currentType integerValue];
+        return (IssueSortType)[currentType integerValue];
     }else{
-        return IssueViewTypeNormal;
+        return IssueSortTypeCreate;
     }
 }
--(void)setCurrentIssueViewType:(IssueViewType)type{
+-(void)setCurrentIssueSortType:(IssueSortType)type{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
     [cache removeObjectForKey:KCurrentIssueViewType];
     [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueViewType];
@@ -352,7 +382,7 @@
                             }
                         }];
 
-                        [self refreshIssueBoardDatas];
+                 //       [self refreshIssueBoardDatas];
 
                         rollback = NO;
 
@@ -363,7 +393,8 @@
 //                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
 //                        userInfo:@{@"updateView":@(YES)}];
                         } else{
-                            callBackStatus(listModel);
+                        callBackStatus(listModel);
+                        setLastTime([NSDate date]);
                         }
                         _isFetching =NO;
                     });
@@ -380,7 +411,7 @@
                 callBackStatus(listModel);
             }
             _isFetching =NO;
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         }
 
     }];
@@ -500,9 +531,8 @@
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         callBackStatus(model);
         
-        //        [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:nil callBack:^(BaseReturnModel *model) {
         [[PWSocketManager sharedPWSocketManager] connect:YES];
-        //        }];
+    
     }                                           getAllDatas:NO];
 }
 
@@ -557,46 +587,132 @@
         
     }];
 }
+- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel{
+    if (sel == nil) {
+     sel= [self getCurrentSelectObject];
+    }
+    NSString *typeStr,*statesStr,*sortStr,*levelStr;
+    NSMutableArray *array = [NSMutableArray new];
+    switch (sel.issueSortType) {
+        case IssueSortTypeCreate:
+            sortStr = @"ORDER by seq DESC";
+            break;
+        case IssueSortTypeUpdate:
+            sortStr = @"ORDER by lastIssueLogSeq DESC";
+            break;
+    }
+    switch (sel.issueLevel) {
+        case IssueLevelAll:
+            levelStr = @"";
+            break;
+        case IssueLevelDanger:
+            levelStr = @"level = 'danger'";
+            break;
+        case IssueLevelCommon:
+            levelStr = @"level = 'info'";
+            break;
+        case IssueLevelWarning:
+            levelStr = @"level = 'warning'";
 
-- (NSArray *)getIssueListWithIssueType:(IssueType )type issueViewType:(IssueViewType)viewType{
+            break;
+    }
+    switch (sel.issueType) {
+        case IssueTypeAlarm:
+            typeStr = @"type = 'alarm'";
+            break;
+        case IssueTypeSecurity:
+            typeStr = @"type = 'security'";
+            break;
+        case IssueTypeExpense:
+            typeStr = @"type = 'expense'";
+            break;
+        case IssueTypeOptimization:
+            typeStr = @"type = 'optimization'";
+            break;
+        case IssueTypeMisc:
+            typeStr = @"type = 'misc'";
+            break;
+        case IssueTypeAll:
+            typeStr = @"";
+            break;
+
+    }
+    switch (sel.issueViewType) {
+        case IssueViewTypeNormal:
+            statesStr =@"needAttention = true AND status = 'created'";
+            break;
+        case IssueViewTypeAll:
+            statesStr = @"";
+            break;
+    }
+    NSString *whereFormat = [NSString new];
+    if ([statesStr isEqualToString:@""] && [levelStr isEqualToString:@""] && [typeStr isEqualToString:@""]) {
+        whereFormat = sortStr;
+    }else{
+        __block NSString *appendStr= @"";
+        NSArray *formatStr = @[statesStr,typeStr,levelStr];
+        [formatStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (appendStr.length == 0) {
+            appendStr =  [appendStr stringByAppendingString:obj];
+            }else{
+                if (obj.length>0) {
+                appendStr=   [appendStr stringByAppendingString:[NSString stringWithFormat:@" AND %@",obj]];
+                }
+           
+            }
+        }];
+        whereFormat = [NSString stringWithFormat:@"WHERE %@ %@",appendStr,sortStr];
+    }
+    
+    [self.getHelper pw_inDatabase:^{
+        
+        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        [array addObjectsFromArray:itemDatas];
+    }];
+    
+    return array;
+    
+}
+- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType{
+    
     if(type == 0){
       type = [self getCurrentIssueType];
     }else{
         [self setCurrentIssueType:type];
     }
-    if (viewType == 0) {
-        viewType = [self getCurrentIssueViewType];
+    if (sortType == 0) {
+        sortType = [self getCurrentIssueSortType];
     }else{
-        [self setCurrentIssueViewType:viewType];
+        [self setCurrentIssueSortType:sortType];
     }
     NSMutableArray *array = [NSMutableArray new];
     NSString *typeStr,*whereFormat,*statesStr;
     BOOL isALL = NO;
     switch (type) {
         case IssueTypeAlarm:
-            typeStr = @"alarm";
+            typeStr = @"AND type = 'alarm'";
             break;
         case IssueTypeSecurity:
-            typeStr = @"security";
+            typeStr = @"AND type = 'security'";
             break;
         case IssueTypeExpense:
-            typeStr = @"expense";
+            typeStr = @"AND type = 'expense'";
             break;
         case IssueTypeOptimization:
-            typeStr = @"optimization";
+            typeStr = @"AND type = 'optimization'";
             break;
         case IssueTypeMisc:
-            typeStr = @"misc";
+            typeStr = @"AND type = 'misc'";
             break;
         case IssueTypeAll:
-            isALL = YES;
+            typeStr = @"";
             break;
     };
-    switch (viewType) {
-        case IssueViewTypeNormal:
+    switch (sortType) {
+        case IssueSortTypeCreate:
             statesStr =@"AND needAttention = true AND status = 'created'";
             break;
-        case IssueViewTypeAll:
+        case IssueSortTypeUpdate:
             statesStr = @"";
             break;
     }

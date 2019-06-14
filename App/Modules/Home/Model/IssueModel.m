@@ -39,9 +39,10 @@
     NSArray *logs = [dict mutableArrayValueForKey:@"latestIssueLogs"];
     if (logs.count > 0) {
         NSString *logstr = [logs jsonStringEncoded];
-        self.lastIssueLogSeq = [logs[0] longLongValueForKey:@"seq" default:0];
+//        self.lastIssueLogSeq = [logs[0] longLongValueForKey:@"seq" default:0];
         self.latestIssueLogsStr = logstr;
     }
+    self.lastIssueLogSeq = [dict longLongValueForKey:@"lastIssueLogSeq" default:0];
     NSDictionary *tags = PWSafeDictionaryVal(dict, @"tags");
     if (tags) {
         self.tagsStr = [tags jsonStringEncoded];
@@ -66,6 +67,25 @@
     self.issueLogRead= self.lastIssueLogSeq <= 0;
     self.cellHeight = 0;
     self.isEnded = [dict boolValueForKey:@"isEnded" default:NO];
+    NSDictionary *statusChangeAccountInfo = PWSafeDictionaryVal(dict, @"statusChangeAccountInfo");
+    if (statusChangeAccountInfo) {
+        self.statusChangeAccountInfoStr = [statusChangeAccountInfo jsonStringEncoded];
+    }
+    if ([dict containsObjectForKey:@"assignAccountInfo"]) {
+        NSDictionary *assignAccountInfo = PWSafeDictionaryVal(dict, @"assignAccountInfo");
+        if (assignAccountInfo) {
+            self.assignAccountInfoStr = [assignAccountInfo jsonStringEncoded];
+        }
+    }
+    if ([dict containsObjectForKey:@"assignedToAccountInfo"]) {
+        NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
+        if (assignedToAccountInfo) {
+            self.assignedToAccountInfoStr = [assignedToAccountInfo jsonStringEncoded];
+        }
+    }else{
+        self.assignedToAccountInfoStr = @"";
+    }
+    
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict {

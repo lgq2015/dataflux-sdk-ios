@@ -67,6 +67,12 @@
         case SourceTypeMessageDock:
             self.iconImgView.image = [UIImage imageNamed:@"message_dock"];
             break;
+        case SourceTypeAliFinance:
+            self.iconImgView.image = [UIImage imageNamed:@"icon_alib"];
+            break;
+        case SourceTypeAliCainiao:
+            self.iconImgView.image = [UIImage imageNamed:@"cainiao_b"];
+            break;
     }
     self.iconImgView.centerY = self.contentView.centerY;
     [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {

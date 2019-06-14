@@ -13,7 +13,6 @@
 @interface MineViewCell()
 @property (nonatomic, assign) MineVCCellType type;
 @property (nonatomic, strong) UIImageView *iconImgView;
-@property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIImageView *arrowImgView;
 @property (nonatomic, strong) UILabel *describeLab;
 @property (nonatomic, strong) UIImageView *rightImg;

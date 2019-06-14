@@ -339,11 +339,11 @@
                 [SVProgressHUD showSuccessWithStatus:@"创建情报成功"];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 if ([self.level isEqualToString:@"danger"]) {
-                    model.state =MonitorListStateSeriousness;
+                    model.state =IssueStateSeriousness;
                 }else if([self.level isEqualToString:@"info"]){
-                    model.state =MonitorListStateCommon;
+                    model.state =IssueStateCommon;
                 }else{
-                    model.state =MonitorListStateWarning;
+                    model.state =IssueStateWarning;
                 }
                 model.title = self.titleTf.text;
                 model.content = self.describeTextView.text;

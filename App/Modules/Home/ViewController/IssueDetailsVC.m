@@ -74,9 +74,9 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
-        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != MonitorListStateLoseeEfficacy&&self.model.state != MonitorListStateRecommend) {
-            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
-        }
+//        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != IssueStateLoseeEfficacy&&self.model.state != IssueStateRecommend) {
+//            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
+//        }
         [self loadIssueDetailExtra];
 //        [self loadInfoDeatil];
 
@@ -121,7 +121,7 @@
             }
         });
     }];
-    [self getNewChatDatas];
+    [self getNewChatDatasAndScrollTop:NO];
 }
 -(IssueEngineHeaderView *)engineHeader{
     if (!_engineHeader) {
@@ -134,6 +134,10 @@
     if (!_userHeader) {
         _userHeader = [[IssueUserDetailView alloc]initHeaderWithIssueModel:self.model];
         _userHeader.backgroundColor = PWBackgroundColor;
+        WeakSelf
+        _userHeader.recoverClick = ^(void){
+             [weakSelf getNewChatDatasAndScrollTop:NO];
+        };
     }
     return _userHeader;
 }
@@ -285,7 +289,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 50)];
     view.backgroundColor = PWWhiteColor;
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"讨论"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"情报记录"];
     [view addSubview:title];
     [title mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(view).offset(16);
@@ -454,7 +458,7 @@
                     NSDictionary *content =PWSafeDictionaryVal(response, @"content");
                     NSDictionary *data = PWSafeDictionaryVal(content, @"data");
                  //待处理：刷新机制
-                    [weakSelf getNewChatDatas];
+                    [weakSelf getNewChatDatasAndScrollTop:YES];
                 }else{
                 }
             } failBlock:^(NSError *error) {
@@ -473,7 +477,7 @@
                 [SVProgressHUD dismiss];
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
-                      [self getNewChatDatas];
+                      [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -485,7 +489,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                      [self getNewChatDatas];
+                      [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -497,7 +501,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                      [self getNewChatDatas];
+                      [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -515,7 +519,7 @@
                 [SVProgressHUD dismiss];
                 AddIssueLogReturnModel *data = ((AddIssueLogReturnModel *) response) ;
                 if (data.isSuccess) {
-                      [self getNewChatDatas];
+                      [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -527,7 +531,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                      [self getNewChatDatas];
+                      [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -539,7 +543,7 @@
                 [SVProgressHUD dismiss];
                 BaseReturnModel *data = ((BaseReturnModel *) response) ;
                 if (data.isSuccess) {
-                    [self getNewChatDatas];
+                    [self getNewChatDatasAndScrollTop:YES];
                 } else {
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
@@ -549,7 +553,7 @@
     }
  
 }
-- (void)getNewChatDatas{
+- (void)getNewChatDatasAndScrollTop:(BOOL)scroll{
     [SVProgressHUD show];
     [[IssueChatDataManager sharedInstance] fetchLatestChatIssueLog:self.model.issueId
                                                           callBack:^(BaseReturnModel *issueLogListModel) {
@@ -570,13 +574,16 @@
     }];
    
     self.state = IssueDealStateChat;
-    dispatch_async_on_main_queue(^{
-        if(self.dataSource.count>0){
-         CGRect rect = [self.tableView rectForSection:0];
-         [self.tableView setContentOffset:CGPointMake(0, rect.origin.y) animated:YES];
-        }
-       
-    });
+    if (scroll) {
+        dispatch_async_on_main_queue(^{
+            if(self.dataSource.count>0){
+                //         CGRect rect = [self.tableView rectForSection:0];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
+            
+        });
+    }
+    
     [self.bottomBtnView setImgWithStates:IssueDealStateChat];
 }
 - (void)postLastReadSeq{

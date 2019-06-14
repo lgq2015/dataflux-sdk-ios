@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IssueListViewModel;
 
 @interface IssueEngineHeaderView : UIView
+@property (nonatomic, copy) void(^recoverClick)(void);
 -(instancetype)initHeaderWithIssueModel:(IssueListViewModel *)model;
 -(void)createUIWithDetailDict:(NSDictionary *)dict;
 -(void)setContentLabText:(NSString *)text;
