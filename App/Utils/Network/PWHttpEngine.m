@@ -412,6 +412,36 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+- (PWURLSessionTask *)modifyIssueWithIssueid:(NSString *)issueid assignedToAccountId:(NSString *)accountId callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param;
+    if (accountId.length>0) {
+     param = @{@"data":@{@"assignedToAccountId":accountId}};
+    }else{
+     param = @{@"data":@{@"assignedToAccountId":[NSNull null]}};
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)recoveIssueWithIssueid:(NSString *)issueid callBack:(void (^)(id response))callback{
+    
+     BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
 @end
 
 

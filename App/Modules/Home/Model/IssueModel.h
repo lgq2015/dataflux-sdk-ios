@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, assign) BOOL isEnded;
 @property (nonatomic, assign) BOOL needAttention;
+@property (nonatomic, strong) NSString *statusChangeAccountInfoStr;
+@property (nonatomic, strong) NSString *assignAccountInfoStr;
+@property (nonatomic, strong) NSString *assignedToAccountInfoStr;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (void)checkInvalidIssue;

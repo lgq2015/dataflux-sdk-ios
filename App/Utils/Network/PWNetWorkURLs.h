@@ -116,6 +116,8 @@
 #define PW_issueSourceModify(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/modify", API_SEVERID,issueid]
 //云服务详情
 //#define PW_issueDetail(issueid)   [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
+//情报恢复
+#define PW_issueRecover(issueid)  [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,issueid]
 
 #define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]
 #define PW_issueReadSeq(issuelogid)  [NSString stringWithFormat:@"%@/v1/issue/log/%@/last-read-seq/record", API_SEVERID,issuelogid]

@@ -31,7 +31,7 @@
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict,@"originInfoJSON");
     NSDictionary *metaJson = PWSafeDictionaryVal(dict,@"metaJSON");
     NSDictionary *externalDownloadURL = PWSafeDictionaryVal(dict,@"externalDownloadURL");
-    NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"account_info");
+    NSDictionary *accountInfo = PWSafeDictionaryVal(dict,@"accountInfo");
     NSDictionary *atStatus = PWSafeDictionaryVal(dict, @"atStatus");
     NSDictionary *atInfoJSON = PWSafeDictionaryVal(dict, @"atInfoJSON");
     NSDictionary *issueSnapshotJSON_cache = PWSafeDictionaryVal(dict, @"issueSnapshotJSON_cache");
@@ -43,6 +43,10 @@
     self.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
     self.atInfoJSONStr = atInfoJSON ?[atInfoJSON jsonStringEncoded]:@"";
     self.atInfoJSON = atInfoJSON;
+    if ([dict containsObjectForKey:@"assignedToAccountInfo"]) {
+        NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
+        self.assignedToAccountInfoStr = assignedToAccountInfo?[assignedToAccountInfo jsonStringEncoded]:@"";
+    }
 }
 
 -(NSString *)createLastIssueLogJsonString{
@@ -74,7 +78,7 @@
         dic[@"externalDownloadURL"] =externalDownloadURL;
     }
     if(accountInfo){
-        dic[@"account_info"] =accountInfo;
+        dic[@"accountInfo"] =accountInfo;
     }
     if(atInfoJSON){
         dic[@"atInfoJSON"] = atInfoJSON;
