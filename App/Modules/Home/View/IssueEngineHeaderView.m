@@ -163,7 +163,7 @@
     
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
-        make.width.offset(kWidth);
+        make.width.right.left.mas_equalTo(self);
         make.bottom.mas_equalTo(self).offset(-10);
     }];
      [self zhengze];
