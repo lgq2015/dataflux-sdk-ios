@@ -31,12 +31,12 @@
     NSString *createTime = model.createTime;
     NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
-        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
     
        
         self.messageFrom = PWChatMessageFromOther;
-        NSString *userID = [account_info stringValueForKey:@"id" default:@""];
+        NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
@@ -143,8 +143,8 @@
             }
         }
     }else if([model.type isEqualToString:@"keyPoint"]){
-        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
        
         self.messageType = PWChatMessageTypeKeyPoint;
         if ([model.subType isEqualToString:@"markTookOver"]) {
@@ -171,19 +171,15 @@
             }
       
         }else if([model.subType isEqualToString:@"issueAssigned"]){
-            if (model.issueSnapshotJSON_cacheStr.length>0) {
-                NSDictionary *issueSnapshotJSON_cache = [model.issueSnapshotJSON_cacheStr jsonValueDecoded];
-                NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignedToAccountInfo");
-                NSDictionary *assignAccountInfo =PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignAccountInfo");
+            if (model.assignedToAccountInfoStr.length>0) {
+                NSDictionary *assignedToAccountInfo = [model.assignedToAccountInfoStr jsonValueDecoded];
                 NSString *key = NSLocalizedString(model.subType, @"");
-                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",assignAccountInfo[@"name"],key,assignedToAccountInfo[@"name"]];
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
             }
         }else if([model.subType isEqualToString:@"issueCancelAssigning"]){
             if (model.issueSnapshotJSON_cacheStr.length>0) {
-                NSDictionary *issueSnapshotJSON_cache = [model.issueSnapshotJSON_cacheStr jsonValueDecoded];
-                NSDictionary *assignAccountInfo =PWSafeDictionaryVal(issueSnapshotJSON_cache, @"assignAccountInfo");
                 NSString *key = NSLocalizedString(model.subType, @"");
-                self.stuffName  = [NSString stringWithFormat:@"%@ %@",assignAccountInfo[@"name"],key];
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,key];
             }
 
         }else{

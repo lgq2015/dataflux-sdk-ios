@@ -20,7 +20,7 @@
 }
 - (void)setValueWithDict:(NSDictionary *)dict{
     
-    NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+    NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
     NSDictionary *issueSnapshotJSON_cache = PWSafeDictionaryVal(dict, @"issueSnapshotJSON_cache");
     if (issueSnapshotJSON_cache) {
         self.contentText = [issueSnapshotJSON_cache stringValueForKey:@"title" default:@""];
@@ -35,7 +35,7 @@
     if ([type isEqualToString:@"bizPoint"]&& [subType isEqualToString:@"updateExpertGroups"]) {
         
     }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]){
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSString *text = NSLocalizedString(subType, @"");
         self.typeText = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
     }else if([subType isEqualToString:@"issueLevelChanged"]){
@@ -43,16 +43,16 @@
         self.typeText = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else if([subType isEqualToString:@"issueFixed"]){
         NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         self.typeText = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
     }else if([subType isEqualToString:@"issueAssigned"]){
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
             NSString *key = NSLocalizedString(subType, @"");
             self.typeText  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
         
     }else if([subType isEqualToString:@"issueCancelAssigning"]){
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSString *key = NSLocalizedString(subType, @"");
         self.typeText  = [NSString stringWithFormat:@"%@ %@",name,key];
      

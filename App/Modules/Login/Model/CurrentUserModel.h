@@ -37,7 +37,7 @@
  */
 @interface CurrentUserModel : JSONModel
 @property (nonatomic, strong) NSDictionary *tags;
-@property (nonatomic, strong) NSArray<AccountInfoModel *>*account_info;
+@property (nonatomic, strong) NSArray<AccountInfoModel *>*accountInfo;
 @property (nonatomic, assign) BOOL isDisabled;
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *seq;
