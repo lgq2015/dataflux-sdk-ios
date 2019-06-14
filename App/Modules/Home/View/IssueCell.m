@@ -11,6 +11,7 @@
 #import "RightTriangleView.h"
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
+#import "SelectObject.h"
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *stateLab;
@@ -43,7 +44,7 @@
 
 - (void)createUI{
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(19));
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(16));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
@@ -64,16 +65,16 @@
         make.height.width.offset(ZOOM_SCALE(18));
     }];
     [self.markUserIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.sourcenNameLab.mas_right).offset(Interval(16));
+        make.right.mas_equalTo(self).offset(-16);
         make.width.height.offset(ZOOM_SCALE(18));
         make.centerY.mas_equalTo(self.sourcenNameLab);
     }];
     
-    [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.markUserIcon);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
+//    [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
+//        make.centerY.mas_equalTo(self.markUserIcon);
+//        make.height.offset(ZOOM_SCALE(18));
+//    }];
     self.titleLab.numberOfLines = 0;
   
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,7 +117,12 @@
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
-    self.timeLab.text = [NSString compareCurrentTimeSustainTime:self.model.time];
+  SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    if (selObj.issueSortType == IssueSortTypeCreate) {
+    self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time accurateTimeStr]];
+    }else{
+    self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime accurateTimeStr]];
+    }
 
     switch (self.model.state) {
         case IssueStateWarning:
@@ -165,10 +171,18 @@
     self.issIcon.image = [UIImage imageNamed:icon];
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.sourcenNameLab.text = self.model.sourceName;
-    [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:model.markUserIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-    self.markStatusLab.text = model.markStatusStr;
+//    [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:model.markUserIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+//    self.markStatusLab.text = model.markStatusStr;
    
-    self.markUserIcon.hidden = model.markStatusStr.length>0 ? NO:YES;
+   self.markUserIcon.hidden = model.assignedToAccountInfo ? NO:YES;
+    if (model.assignedToAccountInfo) {
+        NSString *pwAvatar;
+        NSDictionary *tags = PWSafeDictionaryVal(model.assignedToAccountInfo, @"tags");
+        if (tags) {
+           pwAvatar = [tags stringValueForKey:@"pwAvatar" default:@""];
+        }
+        [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:pwAvatar] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+    }
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
     
     self.titleLab.text = self.model.title;
@@ -213,7 +227,7 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.font = RegularFONT(14);
+        _timeLab.font = RegularFONT(12);
         _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
         [self addSubview:_timeLab];
     }

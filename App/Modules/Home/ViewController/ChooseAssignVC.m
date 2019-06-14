@@ -45,18 +45,18 @@
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
             [self dealMemberWithDatas:member];
-            [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-                if ([response[ERROR_CODE] isEqualToString:@""]) {
-                    NSArray *content = response[@"content"];
-                    [userManager setTeamMember:content];
-                    [self dealMemberWithDatas:content];
-                }
-            } failBlock:^(NSError *error) {
-                [error errorToast];
-            }];
         }else{
             [self showNoDataImage];
         }
+        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSArray *content = response[@"content"];
+                [userManager setTeamMember:content];
+                [self dealMemberWithDatas:content];
+            }
+        } failBlock:^(NSError *error) {
+            [error errorToast];
+        }];
     }];
 }
 -(NSMutableArray *)dataSource{
@@ -76,7 +76,7 @@
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    
+     [self removeNoDataImage];
     __block  NSInteger index = self.teamMemberArray.count>0?1:0;
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;

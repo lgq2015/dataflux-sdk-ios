@@ -89,7 +89,9 @@
     self.contentTextView.text = model.contentText;
     //[[NSAttributedString alloc]initWithString:model.contentText];
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);
-    self.titleLable.height = model.titleH;
+    if (model.titleH>0) {
+        self.titleLable.height = model.titleH;
+    }
     self.bgContentView.frame = CGRectMake(ZOOM_SCALE(75), CGRectGetMaxY(self.titleLable.frame)+Interval(11), ZOOM_SCALE(284), ZOOM_SCALE(105));
     self.bgContentView.height =calendarContentH+ZOOM_SCALE(24)+Interval(25);
     self.contentTextView.height = calendarContentH;
