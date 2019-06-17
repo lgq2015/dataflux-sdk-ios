@@ -309,7 +309,9 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
+    YYCache *cacheLastFetchTime = [[YYCache alloc]initWithName:KTeamLastFetchTime];
     [cache removeAllObjects];
+    [cacheLastFetchTime removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheteam removeObjectForKey:KTeamISPsCacheName];
@@ -667,13 +669,13 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 
 - (void)setLastFetchTime{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
     
     NSString *key =[self getTeamModel].teamID;
     [cache setObject:[NSDate date] forKey:key];
 }
 - (NSDate *)getLastFetchTime{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
    
     NSString *key = [self getTeamModel].teamID;
     NSDate *date = (NSDate *)[cache objectForKey:key];
