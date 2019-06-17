@@ -665,13 +665,24 @@ SINGLETON_FOR_CLASS(UserManager);
         }
     }];
 }
-- (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
-//    [cache removeAllObjectsWithBlock:^{
-//        [cache setObject:teamProduct forKey:KTeamProductDict];
-//    }];
-}
 
+- (void)setLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    
+    NSString *key =[self getTeamModel].teamID;
+    [cache setObject:[NSDate date] forKey:key];
+}
+- (NSDate *)getLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+   
+    NSString *key = [self getTeamModel].teamID;
+    NSDate *date = (NSDate *)[cache objectForKey:key];
+    if(date){
+        return date;
+    }else{
+        return nil;
+    }
+}
 +(NSDictionary *)getDeviceInfo{
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];
