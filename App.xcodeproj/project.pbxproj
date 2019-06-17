@@ -704,6 +704,9 @@
 		4AC857F2223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */; };
 		4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */; };
 		4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */; };
+		4AD5569222B742F6003B49FE /* LoginPWVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5569122B742F6003B49FE /* LoginPWVC.m */; };
+		4AD5569322B742F6003B49FE /* LoginPWVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5569122B742F6003B49FE /* LoginPWVC.m */; };
+		4AD5569422B742F6003B49FE /* LoginPWVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5569122B742F6003B49FE /* LoginPWVC.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
@@ -1840,6 +1843,8 @@
 		4AC857E2223F4A6B00DAE1F6 /* ServiceDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceDetailVC.m; sourceTree = "<group>"; };
 		4AC857F0223F6EAF00DAE1F6 /* BookSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookSuccessVC.h; sourceTree = "<group>"; };
 		4AC857F1223F6EAF00DAE1F6 /* BookSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookSuccessVC.m; sourceTree = "<group>"; };
+		4AD5569022B742F6003B49FE /* LoginPWVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPWVC.h; sourceTree = "<group>"; };
+		4AD5569122B742F6003B49FE /* LoginPWVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPWVC.m; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E8221FFC06002ADF62 /* WebItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebItemView.h; sourceTree = "<group>"; };
@@ -2638,6 +2643,7 @@
 		4A6C286C219C156D0059BB08 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4AD5568F22B742E3003B49FE /* NewViewController */,
 				4AE9C4EA21D36078003BB9CB /* Model */,
 				4AE5377A21CA42D0004CF320 /* View */,
 				4AE5377921CA42B9004CF320 /* ViewController */,
@@ -3337,6 +3343,15 @@
 				2BF9F7B42270898F00C9B0C3 /* OrderStatusStepCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		4AD5568F22B742E3003B49FE /* NewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4AD5569022B742F6003B49FE /* LoginPWVC.h */,
+				4AD5569122B742F6003B49FE /* LoginPWVC.m */,
+			);
+			path = NewViewController;
 			sourceTree = "<group>";
 		};
 		4AE5374521C68B89004CF320 /* PWScrollPageView */ = {
@@ -4424,6 +4439,7 @@
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
+				4AD5569222B742F6003B49FE /* LoginPWVC.m in Sources */,
 				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */,
 				4AF663A6225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
@@ -4790,6 +4806,7 @@
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
+				4AD5569322B742F6003B49FE /* LoginPWVC.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AF663A7225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
@@ -5156,6 +5173,7 @@
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */,
+				4AD5569422B742F6003B49FE /* LoginPWVC.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AF663A8225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,

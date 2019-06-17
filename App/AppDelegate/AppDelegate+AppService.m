@@ -40,6 +40,7 @@
 //#import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "LoginPWVC.h"
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -306,7 +307,7 @@
         
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;
-        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[VerifyCodeLoginVC new]];
+        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[LoginPWVC new]];
         CATransition *anima = [CATransition animation];
         anima.type = @"fade";//设置动画的类型
         anima.subtype = kCATransitionFromRight; //设置动画的方向
