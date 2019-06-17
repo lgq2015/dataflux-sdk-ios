@@ -29,15 +29,16 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"输入新密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(24) textColor:PWTextBlackColor text:@"输入新密码"];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(60)+kTopHeight, ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(18) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(12), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(16) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.placeholder = @"请输入新密码";
         _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
+        _passwordTf.font = RegularFONT(15);
         [self.view addSubview:_passwordTf];
     }
     if(self.isChange){
@@ -45,15 +46,15 @@
         _passwordTf.placeholder = @"请输入新密码";
     }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(87));
-        make.width.height.offset(ZOOM_SCALE(24));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(40));
+        make.width.height.offset(ZOOM_SCALE(20));
     }];
     [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
         make.right.mas_equalTo(self.showWordsBtn.mas_left);
         make.centerY.mas_equalTo(self.showWordsBtn);
-        make.height.offset(ZOOM_SCALE(25));
+        make.height.offset(ZOOM_SCALE(21));
     }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
     line.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
@@ -61,14 +62,14 @@
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
         make.top.mas_equalTo(self.passwordTf.mas_bottom).offset(ZOOM_SCALE(4));
-        make.right.mas_equalTo(self.view).offset(Interval(-16));
+        make.right.mas_equalTo(self.view).offset(Interval(-36));
         make.height.offset(ZOOM_SCALE(1));
     }];
     [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(Interval(-16));
-        make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(Interval(-36));
+        make.top.mas_equalTo(line.mas_bottom).offset(Interval(44));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     @weakify(self)
     RACSignal *passwordSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
@@ -105,8 +106,8 @@
 -(UIButton *)showWordsBtn{
     if (!_showWordsBtn) {
         _showWordsBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_disvisible"] forState:UIControlStateNormal];
-        [_showWordsBtn setImage:[UIImage imageNamed:@"icon_visible"] forState:UIControlStateSelected];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"login_disvisable"] forState:UIControlStateNormal];
+        [_showWordsBtn setImage:[UIImage imageNamed:@"login_visable"] forState:UIControlStateSelected];
         [_showWordsBtn addTarget:self action:@selector(pwdTextSwitch:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_showWordsBtn];
     }
