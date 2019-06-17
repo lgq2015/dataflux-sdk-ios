@@ -32,7 +32,7 @@
     self.nameLab.frame = CGRectMake(CGRectGetMaxX(self.iconImg.frame)+Interval(10), 0, kWidth-ZOOM_SCALE(100), ZOOM_SCALE(22));
     self.nameLab.centerY = self.iconImg.centerY;
     self.arrow.hidden = NO;
-    if (_model.statusChangeAccountInfo) {
+    if (_model.recovered && _model.statusChangeAccountInfo) {
         NSString *name = [_model.statusChangeAccountInfo stringValueForKey:@"name" default:@""];
         
      self.nameLab.textColor = PWTextBlackColor;

@@ -95,6 +95,14 @@
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
     self.issueNameLab.text = self.model.sourceName;
+    if (_model.recovered && !_model.statusChangeAccountInfo) {
+        [self.issueNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(11));
+            make.centerY.mas_equalTo(self.typeIcon);
+            make.height.offset(ZOOM_SCALE(18));
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-17);
+        }];
+    }else{
     UIView *line = [[UIView alloc]init];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self.upContainerView addSubview:line];
@@ -110,6 +118,7 @@
         make.height.offset(ZOOM_SCALE(54));
         make.bottom.mas_equalTo(self.upContainerView);
     }];
+    }
     UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
     [self.subContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
