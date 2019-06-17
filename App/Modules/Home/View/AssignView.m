@@ -36,7 +36,7 @@
         NSString *name = [_model.statusChangeAccountInfo stringValueForKey:@"name" default:@""];
         
      self.nameLab.textColor = PWTextBlackColor;
-      self.nameLab.text =[NSString stringWithFormat:@"被%@修复",name];
+      self.nameLab.text =[NSString stringWithFormat:@"被 %@ 修复",name];
     
        [self recoveredUI];
     }else{
@@ -170,7 +170,7 @@
 }
 -(void)repair{
     
-   self.nameLab.text =[NSString stringWithFormat:@"被%@修复", userManager.curUserInfo.name];
+   self.nameLab.text =[NSString stringWithFormat:@"被 %@ 修复", userManager.curUserInfo.name];
     [self recoveredUI];
 }
 /*
