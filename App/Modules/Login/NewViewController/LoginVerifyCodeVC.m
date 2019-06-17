@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UITextField *codeTF;
 @property (nonatomic, strong) UIButton *registerBtn;
 @property (nonatomic, strong) UIButton *getCodeBtn;
+@property (nonatomic, assign) NSTimeInterval timestamp; //用于记录用户进入后台的时间戳
 
 @end
 
@@ -25,6 +26,8 @@
     self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
     [self createUI];
+    [self observeApplicationActionNotification];
+
 }
 - (void)createUI{
     UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
@@ -134,6 +137,8 @@
     if (!_codeTF) {
         _codeTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
         _codeTF.placeholder = @"请输入验证码";
+        _codeTF.keyboardType = UIKeyboardTypeNumberPad;
+        _codeTF.clearButtonMode=UITextFieldViewModeNever;
         _codeTF.delegate = self;
         [self.view addSubview:_codeTF];
     }
@@ -185,10 +190,39 @@
         return;
     }
     
+    [SVProgressHUD showWithStatus:@"登录中..."];
+    NSMutableDictionary * data = [@{
+                                    @"username": [self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],
+                                    @"verificationCode": [self.codeTF.text removeFrontBackBlank],
+                                    @"marker": @"mobile",
+                                    } mutableCopy];
+    //指定最后一次登录的teamid
+    NSString *lastLoginTeamId = getPWDefaultTeamID;
+    if (lastLoginTeamId.length > 0){
+        [data setValue:lastLoginTeamId forKey:@"teamId"];
+    }
+    [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+    NSDictionary *param = @{@"data": data};
+    [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
+        [SVProgressHUD dismiss];
+        if (success) {
+           
+        }else{
+          
+        }
+    }];
+    
 }
 #pragma mark ========== UITextFieldDelegate ==========
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return [string validateNumber];
+}
+
+#pragma mark =======倒计时切换到后台，再次进入同步倒计时时间==========
+- (void)observeApplicationActionNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name: UIApplicationWillResignActiveNotification object:nil];
 }
 /*
 #pragma mark - Navigation
