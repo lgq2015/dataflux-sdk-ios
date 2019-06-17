@@ -8,14 +8,16 @@
 
 #import "LoginPWVC.h"
 #import "FindPasswordVC.h"
-#import "TouchLargeButton.h"
+#import "LoginVerifyCodeVC.h"
+#import "RegisterVC.h"
+
 @interface LoginPWVC ()
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *codeBtn;
 @property (nonatomic, strong) UIButton *forgetBtn;
 @property (nonatomic, strong) UITextField *accountTf;
 @property (nonatomic, strong) UITextField *passwordTF;
-@property (nonatomic, strong) TouchLargeButton *registerBtn;
+@property (nonatomic, strong) UIButton *registerBtn;
 @end
 
 @implementation LoginPWVC
@@ -58,7 +60,8 @@
     self.passwordTF.centerY = passwordIcon.centerY;
     [self.registerBtn sizeToFit];
     CGSize registerSize = self.registerBtn.frame.size;
-    self.registerBtn.frame = CGRectMake(0, CGRectGetMaxY(self.codeBtn.frame)+Interval(20), registerSize.width, ZOOM_SCALE(20));
+    self.registerBtn.frame = CGRectMake(0, CGRectGetMaxY(self.codeBtn.frame)+Interval(20), registerSize.width, registerSize.height);
+    self.registerBtn.centerX = self.view.centerX;
     
 
 }
@@ -73,6 +76,7 @@
 -(UIButton *)codeBtn{
     if (!_codeBtn) {
         _codeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"验证码登录"];
+        _codeBtn.titleLabel.font = RegularFONT(16);
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateHighlighted];
         [_codeBtn.layer setBorderColor:PWBlueColor.CGColor];
@@ -107,13 +111,14 @@
     }
     return _passwordTF;
 }
--(TouchLargeButton *)registerBtn{
+-(UIButton *)registerBtn{
     if (!_registerBtn) {
-        _registerBtn = [[TouchLargeButton alloc]init];
-        _registerBtn.largeHeight = 4;
-        _registerBtn.largeWidth = 2;
+        _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
         [_registerBtn setTitle:@"没有账号？去注册" forState:UIControlStateNormal];
+        [_registerBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
+        [_registerBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_registerBtn];
     }
     return _registerBtn;
 }
@@ -150,7 +155,12 @@
     }];
 }
 - (void)codeBtnClick{
-    
+    LoginVerifyCodeVC *login = [[LoginVerifyCodeVC alloc]init];
+    [self.navigationController pushViewController:login animated:YES];
+}
+- (void)registerBtnClick{
+    RegisterVC *registerVC = [[RegisterVC alloc]init];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 /*
 #pragma mark - Navigation
