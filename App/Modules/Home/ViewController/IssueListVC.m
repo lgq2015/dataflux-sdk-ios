@@ -220,6 +220,9 @@
     NSInteger addCount;
     if (self.datas.count<=self.currentPage*10) {
         addCount = self.datas.count%10==0?10:self.datas.count%10;
+        if (self.datas.count == (self.currentPage-1)*10) {
+            addCount = 0;
+        }
         self.tableView.tableFooterView = self.footView;
     }else{
         addCount = 10;
