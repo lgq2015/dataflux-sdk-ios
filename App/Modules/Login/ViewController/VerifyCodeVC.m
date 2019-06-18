@@ -299,7 +299,7 @@
     [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
     NSDictionary *param = @{@"data": data};
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         if (success) {
             PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
             passwordVC.changePasswordToken = des;
