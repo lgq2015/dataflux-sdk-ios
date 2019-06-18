@@ -106,6 +106,8 @@
 -(UIImageView *)iconImg{
     if (!_iconImg) {
         _iconImg = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(16), (self.frame.size.height-ZOOM_SCALE(24))/2.0, ZOOM_SCALE(24), ZOOM_SCALE(24))];
+        _iconImg.layer.cornerRadius = ZOOM_SCALE(12)*1.00;
+        _iconImg.layer.masksToBounds = YES;
         [self addSubview:_iconImg];
     }
     return _iconImg;
