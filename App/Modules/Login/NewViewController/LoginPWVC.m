@@ -37,14 +37,14 @@
     UIImageView *accountIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_account"]];
     [self.view addSubview:accountIcon];
     accountIcon.frame = CGRectMake(Interval(36), CGRectGetMaxY(logo.frame)+Interval(62), ZOOM_SCALE(20), ZOOM_SCALE(20));
-    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(accountIcon.frame)+Interval(10), kWidth-Interval(72), 1)];
+    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(accountIcon.frame)+Interval(10), kWidth-Interval(72), SINGLE_LINE_WIDTH)];
     line1.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     [self.view addSubview:line1];
     
     UIImageView *passwordIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_password"]];
     [self.view addSubview:passwordIcon];
     passwordIcon.frame = CGRectMake(Interval(36), CGRectGetMaxY(line1.frame)+Interval(24), ZOOM_SCALE(20), ZOOM_SCALE(20));
-    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(passwordIcon.frame)+Interval(10), kWidth-Interval(72), 1)];
+    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(passwordIcon.frame)+Interval(10), kWidth-Interval(72), SINGLE_LINE_WIDTH)];
     line2.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     [self.view addSubview:line2];
     
@@ -62,9 +62,9 @@
     CGSize registerSize = self.registerBtn.frame.size;
     self.registerBtn.frame = CGRectMake(0, CGRectGetMaxY(self.codeBtn.frame)+Interval(20), registerSize.width, registerSize.height);
     self.registerBtn.centerX = self.view.centerX;
-    
 
 }
+
 -(UIButton *)loginBtn{
     if (!_loginBtn) {
         _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"登录"];
@@ -115,8 +115,15 @@
     if (!_registerBtn) {
         _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
-        [_registerBtn setTitle:@"没有账号？去注册" forState:UIControlStateNormal];
-        [_registerBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:@"没有账号？去注册"];
+        //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
+        NSRange range = [@"没有账号？去注册" rangeOfString:@"去注册"];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        dic[NSForegroundColorAttributeName] = PWBlueColor;
+        //赋值
+        [attribut addAttributes:dic range:range];
+        _registerBtn.titleLabel.textColor = PWSubTitleColor;
+        [_registerBtn setAttributedTitle:attribut forState:UIControlStateNormal];
         [_registerBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_registerBtn];
     }
