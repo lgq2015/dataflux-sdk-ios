@@ -162,4 +162,6 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 - (NSArray *)getTeamISPs;
 -(CurrentUserModel *)getCurrentUserModel;
+- (void)setLastFetchTime;
+- (NSDate *)getLastFetchTime;
 @end

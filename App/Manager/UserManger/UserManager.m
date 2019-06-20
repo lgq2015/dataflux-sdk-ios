@@ -96,6 +96,7 @@ SINGLETON_FOR_CLASS(UserManager);
     if(loginType == UserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
                 if (completion) {
@@ -125,6 +126,7 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
@@ -329,7 +331,9 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
+    YYCache *cacheLastFetchTime = [[YYCache alloc]initWithName:KTeamLastFetchTime];
     [cache removeAllObjects];
+    [cacheLastFetchTime removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheteam removeObjectForKey:KTeamISPsCacheName];
@@ -685,13 +689,24 @@ SINGLETON_FOR_CLASS(UserManager);
         }
     }];
 }
-- (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
-//    [cache removeAllObjectsWithBlock:^{
-//        [cache setObject:teamProduct forKey:KTeamProductDict];
-//    }];
-}
 
+- (void)setLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+    
+    NSString *key =[self getTeamModel].teamID;
+    [cache setObject:[NSDate date] forKey:key];
+}
+- (NSDate *)getLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+   
+    NSString *key = [self getTeamModel].teamID;
+    NSDate *date = (NSDate *)[cache objectForKey:key];
+    if(date){
+        return date;
+    }else{
+        return nil;
+    }
+}
 +(NSDictionary *)getDeviceInfo{
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];

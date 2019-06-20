@@ -33,6 +33,7 @@
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
+#define KTeamLastFetchTime @"KTeamLastFetchTime"
 //用户issueList 选择type类型
 #define KSelectObject  @"KSelectObject"
 #define KCurrentSelectObject @"KCurrentSelectObject"

@@ -388,13 +388,13 @@
 
                     }];
                     dispatch_async_on_main_queue(^{
+                        [userManager setLastFetchTime];
                         if (callBackStatus == nil) {
-                            setLastTime([NSDate date]);
 //                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
 //                        userInfo:@{@"updateView":@(YES)}];
                         } else{
                         callBackStatus(listModel);
-                        setLastTime([NSDate date]);
+                      
                         }
                         _isFetching =NO;
                     });
@@ -807,7 +807,7 @@
 
 // 判断是否需要全量更新
 - (BOOL)isNeedUpdateAll {
-    NSDate *lastTime = getLastTime;
+    NSDate *lastTime =[userManager getLastFetchTime];
     if (lastTime == nil) {
         return YES;
     } else {

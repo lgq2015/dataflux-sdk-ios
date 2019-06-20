@@ -127,6 +127,10 @@
     if (!_engineHeader) {
         _engineHeader = [[IssueEngineHeaderView alloc]initHeaderWithIssueModel:self.model];
         _engineHeader.backgroundColor = PWBackgroundColor;
+        WeakSelf
+        _engineHeader.recoverClick = ^(void){
+            [weakSelf getNewChatDatasAndScrollTop:NO];
+        };
     }
     return _engineHeader;
 }

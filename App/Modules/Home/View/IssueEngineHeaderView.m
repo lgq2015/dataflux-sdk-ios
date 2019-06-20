@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) YYLabel *contentLab;
 @property (nonatomic, strong) UIView *subContainerView;
+@property (nonatomic, strong) UIView *bookContainerView;
 @property (nonatomic, strong) UIImageView *typeIcon;
 @property (nonatomic, strong) UILabel *issueNameLab;
 @property (nonatomic, strong) UIView *echartContenterView;
@@ -95,6 +96,14 @@
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
     self.issueNameLab.text = self.model.sourceName;
+    if (_model.recovered && !_model.statusChangeAccountInfo) {
+        [self.issueNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(11));
+            make.centerY.mas_equalTo(self.typeIcon);
+            make.height.offset(ZOOM_SCALE(18));
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-17);
+        }];
+    }else{
     UIView *line = [[UIView alloc]init];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self.upContainerView addSubview:line];
@@ -110,6 +119,7 @@
         make.height.offset(ZOOM_SCALE(54));
         make.bottom.mas_equalTo(self.upContainerView);
     }];
+    }
     UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
     [self.subContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,6 +174,10 @@
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
         make.width.right.left.mas_equalTo(self);
+    }];
+    [self.bookContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(20));
+        make.width.right.left.mas_equalTo(self);
         make.bottom.mas_equalTo(self).offset(-10);
     }];
      [self zhengze];
@@ -214,7 +228,7 @@
         }
         [self.mTableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(self.handbookAry.count*45);
-            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+            make.bottom.mas_equalTo(self.bookContainerView.mas_bottom).offset(-20);
         }];
         [self.mTableView reloadData];
     }
@@ -250,11 +264,11 @@
     }
 }
 -(void)setSuggestSubView{
-    [self.subContainerView addSubview:self.mTableView];
+    [self.bookContainerView addSubview:self.mTableView];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"相关文章"];
-    [self.subContainerView addSubview:tipLab];
+    [self.bookContainerView addSubview:tipLab];
     self.mTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    [self.subContainerView addSubview:self.mTableView];
+    [self.bookContainerView addSubview:self.mTableView];
     self.mTableView.backgroundColor = PWWhiteColor;
     self.mTableView.delegate = self;
     self.mTableView.dataSource = self;
@@ -263,7 +277,7 @@
     self.mTableView.showsVerticalScrollIndicator = NO;
     [self.mTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(12));
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+        make.bottom.mas_equalTo(self.bookContainerView.mas_bottom).offset(-20);
         make.width.offset(kWidth);
         make.height.offset(self.handbookAry.count*45);
     }];
@@ -321,6 +335,14 @@
         [self addSubview:_upContainerView];
     }
     return _upContainerView;
+}
+-(UIView *)bookContainerView{
+    if (!_bookContainerView) {
+        _bookContainerView = [[UIView alloc]init];
+        _bookContainerView.backgroundColor = PWWhiteColor;
+        [self addSubview:_bookContainerView];
+    }
+    return _bookContainerView;
 }
 -(UILabel *)titleLab{
     if (!_titleLab) {

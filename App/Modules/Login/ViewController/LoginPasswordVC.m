@@ -252,7 +252,7 @@
     [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
     }];
 
 }
