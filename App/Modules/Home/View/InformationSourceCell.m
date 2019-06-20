@@ -28,18 +28,18 @@
     switch (_model.state) {
         case SourceStateNotDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"36C4E5"].CGColor;
-            self.stateLab.textColor = [UIColor colorWithHexString:@"36C4E5"];
-            self.stateLab.text = @"未开始检测";
+//            self.stateLab.textColor = [UIColor colorWithHexString:@"36C4E5"];
+//            self.stateLab.text = @"未开始检测";
             break;
         case SourceStateDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"4578FC"].CGColor;
-            self.stateLab.textColor = [UIColor colorWithHexString:@"4578FC"];
-            self.stateLab.text = @"已纳入检测";
+//            self.stateLab.textColor = [UIColor colorWithHexString:@"4578FC"];
+//            self.stateLab.text = @"已纳入检测";
             break;
         case SourceStateAbnormal:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"FC7676"].CGColor;
-            self.stateLab.textColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"云服务异常";
+//            self.stateLab.textColor = [UIColor colorWithHexString:@"FC7676"];
+//            self.stateLab.text = @"云服务异常";
             break;
     }
     switch (_model.type) {
@@ -84,15 +84,16 @@
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).offset(Interval(17));
         make.left.mas_equalTo(self.iconImgView.mas_right).offset(Interval(17));
-        make.height.offset(ZOOM_SCALE(25));
+//        make.height.offset(ZOOM_SCALE(25));
         make.right.mas_equalTo(self).offset(-10);
+        make.centerY.mas_equalTo(self.iconImgView);
     }];
-    [self.stateLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(6));
-        make.left.mas_equalTo(self.titleLab.mas_left);
-        make.height.offset(ZOOM_SCALE(20));
-        make.width.offset(ZOOM_SCALE(80));
-    }];
+//    [self.stateLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(6));
+//        make.left.mas_equalTo(self.titleLab.mas_left);
+//        make.height.offset(ZOOM_SCALE(20));
+//        make.width.offset(ZOOM_SCALE(80));
+//    }];
     self.titleLab.text = self.model.name;
 }
 
@@ -107,23 +108,24 @@
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _titleLab.font = RegularFONT(18);
+        _titleLab.numberOfLines = 0;
         _titleLab.textColor = PWTextBlackColor;
         [self addSubview:_titleLab];
     }
     return _titleLab;
 }
--(UILabel *)stateLab{
-    if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _stateLab.font =  RegularFONT(14);
-        _stateLab.layer.cornerRadius = 4.;//边框圆角大小
-        _stateLab.layer.masksToBounds = YES;
-        _stateLab.layer.borderWidth = 1;//边框宽度
-        _stateLab.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_stateLab];
-    }
-    return _stateLab;
-}
+//-(UILabel *)stateLab{
+//    if (!_stateLab) {
+//        _stateLab = [[UILabel alloc]initWithFrame:CGRectZero];
+//        _stateLab.font =  RegularFONT(14);
+//        _stateLab.layer.cornerRadius = 4.;//边框圆角大小
+//        _stateLab.layer.masksToBounds = YES;
+//        _stateLab.layer.borderWidth = 1;//边框宽度
+//        _stateLab.textAlignment = NSTextAlignmentCenter;
+//        [self addSubview:_stateLab];
+//    }
+//    return _stateLab;
+//}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
