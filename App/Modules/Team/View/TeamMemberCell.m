@@ -61,7 +61,7 @@
         make.width.lessThanOrEqualTo([NSNumber numberWithFloat:ZOOM_SCALE(110)]);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.offset(1);
+        make.height.offset(SINGLE_LINE_WIDTH);
         make.left.mas_equalTo(self.contentView).offset(ZOOM_SCALE(40)+Interval(16));
         make.right.mas_equalTo(self.contentView);
         make.bottom.mas_equalTo(self.contentView);

@@ -68,7 +68,7 @@
         self.successBlock ?  self.successBlock(response): nil;
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+        [error errorToast];
     }];
 }
 - (void)getCodeUpdateMobileNewMobileWithPhone:(NSString *)phone uuid:(NSString *)uuid{
@@ -79,8 +79,7 @@
         self.successBlock ?  self.successBlock(response): nil;
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
-
+        [error errorToast];
     }];
 }
 - (void)getCodeWithEmail:(NSString *)email{
@@ -91,7 +90,7 @@
         self.successBlock ?  self.successBlock(response): nil;
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+        [error errorToast];
     }];
 }
 - (void)getVerifyCodeWithTokenPhone:(NSString *)phone to:(NSString *)t{
@@ -102,7 +101,7 @@
         self.successBlock ?  self.successBlock(response): nil;
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+        [error errorToast];
     }];
 }
 @end

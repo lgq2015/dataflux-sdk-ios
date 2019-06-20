@@ -68,6 +68,7 @@
     self.tableView.frame = CGRectMake(0, kTopHeight+25, kWidth, kHeight-kTabBarHeight-2 - kTopHeight-25);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
@@ -213,7 +214,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0){
-        return 12;
+        return 0;
     }else{
         return 46;
     }
@@ -348,7 +349,7 @@
         make.bottom.mas_equalTo(nav).offset(-20);
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, SINGLE_LINE_WIDTH)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
    
