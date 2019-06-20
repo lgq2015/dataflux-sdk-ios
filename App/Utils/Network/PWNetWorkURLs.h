@@ -96,8 +96,9 @@
 #define PW_changePassword              API_SEVERID@"/v1/auth/change-password"
 // 忘记密码
 #define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
-
+#define PW_register                    API_SEVERID@"/v1/auth/register"
 #define PW_sendEmail                   API_SEVERID@"/v1/auth/send-email"
+#define PW_checkRegister     API_SEVERID@"/v1/auth/check-register"
 // 登出
 #define PW_loginOut                    API_SEVERID@"/v1/auth/logout"
 

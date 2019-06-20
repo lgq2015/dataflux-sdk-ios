@@ -8,6 +8,8 @@
 
 #import "LoginVerifyCodeVC.h"
 #import "RegisterVC.h"
+#import "PWWeakProxy.h"
+#import "VerificationCodeNetWork.h"
 @interface LoginVerifyCodeVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *passwordBtn;
@@ -15,8 +17,9 @@
 @property (nonatomic, strong) UITextField *codeTF;
 @property (nonatomic, strong) UIButton *registerBtn;
 @property (nonatomic, strong) UIButton *getCodeBtn;
+@property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSTimeInterval timestamp; //用于记录用户进入后台的时间戳
-
+@property (nonatomic, assign) NSInteger second;
 @end
 
 @implementation LoginVerifyCodeVC
@@ -26,10 +29,9 @@
     self.view.backgroundColor = PWWhiteColor;
     self.isHidenNaviBar = YES;
     [self createUI];
-    [self observeApplicationActionNotification];
-
 }
 - (void)createUI{
+    self.second= 60;
     UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
     [self.view addSubview:logo];
     logo.frame = CGRectMake(0, 36+kTopHeight, ZOOM_SCALE(148), ZOOM_SCALE(34));
@@ -81,11 +83,16 @@
     self.registerBtn.centerX = self.view.centerX;
     
     self.phoneTF.delegate = self;
-
-    [[self.phoneTF rac_textSignal] subscribeNext:^(id x) {
-        NSString *num =[x stringByReplacingOccurrencesOfString:@" " withString:@""];
-        [self dealTFText:num];
+    [[self.phoneTF rac_textSignal] subscribeNext:^(NSString *value) {
+        if (value.length > 11){
+            self.phoneTF.text = [self.phoneTF.text substringToIndex:11];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordLength.scaleOut", @"")];
+        }
     }];
+//    [[self.phoneTF rac_textSignal] subscribeNext:^(id x) {
+//        NSString *num =[x stringByReplacingOccurrencesOfString:@" " withString:@""];
+//        [self dealTFText:num];
+//    }];
  
 }
 - (void)dealTFText:(NSString *)text{
@@ -167,6 +174,7 @@
         _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"获取验证码"];
         _getCodeBtn.titleLabel.font = RegularFONT(14);
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
+        [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateDisabled];
         [_getCodeBtn addTarget:self action:@selector(getCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_getCodeBtn];
     }
@@ -181,7 +189,51 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)getCodeBtnClick{
+    WeakSelf
+    if ([[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
+        [[PWHttpEngine sharedInstance] checkRegisterWithPhone:[self.phoneTF.text removeFrontBackBlank] callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if (model.isSuccess) {
+                [iToast alertWithTitleCenter:@"该手机号尚未注册"];
+            }else{
+                if ([model.errorCode isEqualToString:@"home.auth.alreadyRegister"]) {
+                    VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+                    [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
+                        if ([response[ERROR_CODE] isEqualToString:@""]) {
+                            if (@available(iOS 10.0, *)) {
+                                if(self.second == 60){
+                                    self.getCodeBtn.enabled = NO;
+                                    weakSelf.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                                        [weakSelf timerRun];
+                                    }];
+                                }else{
+                                    self.second = 60;
+                                    [weakSelf.timer setFireDate:[NSDate distantPast]];
+                                }
+                            } else {
+                                self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
+                                [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+                            }
+                            //对前后台状态进行监听
+                            [self observeApplicationActionNotification];
+                        }else{
+                            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                        }
+                    } failBlock:^(NSError *error) {
+                        
+                    }];
+                    
+                }else{
+                    [iToast alertWithTitleCenter:model.errorMsg];
+                }
+                
+            }}];
     
+      
+    }else{
+        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+    }
+
 }
 - (void)loginBtnClick{
     if ([self.phoneTF.text removeFrontBackBlank].length == 0) {
@@ -196,29 +248,24 @@
         [iToast alertWithTitleCenter:@"验证码不能为空"];
         return;
     }
-    
-    [SVProgressHUD showWithStatus:@"登录中..."];
-    NSMutableDictionary * data = [@{
-                                    @"username": [self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],
-                                    @"verificationCode": [self.codeTF.text removeFrontBackBlank],
-                                    @"marker": @"mobile",
-                                    } mutableCopy];
-    //指定最后一次登录的teamid
-    NSString *lastLoginTeamId = getPWDefaultTeamID;
-    if (lastLoginTeamId.length > 0){
-        [data setValue:lastLoginTeamId forKey:@"teamId"];
-    }
-    [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
-    NSDictionary *param = @{@"data": data};
-    [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
-        [SVProgressHUD dismiss];
-        if (success) {
-           
-        }else{
-          
-        }
-    }];
-    
+   
+            [SVProgressHUD showWithStatus:@"登录中..."];
+            NSMutableDictionary * data = [@{
+                                            @"username": [self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],
+                                            @"verificationCode": [self.codeTF.text removeFrontBackBlank],
+                                            @"marker": @"mobile",
+                                            } mutableCopy];
+            //指定最后一次登录的teamid
+            NSString *lastLoginTeamId = getPWDefaultTeamID;
+            if (lastLoginTeamId.length > 0){
+                [data setValue:lastLoginTeamId forKey:@"teamId"];
+            }
+            [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+            NSDictionary *param = @{@"data": data};
+            [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
+                
+            }];
+        
 }
 #pragma mark ========== UITextFieldDelegate ==========
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -230,6 +277,35 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name: UIApplicationWillResignActiveNotification object:nil];
+}
+- (void)applicationWillResignActive {
+    _timestamp = [NSDate date].timeIntervalSince1970;
+    self.timer.fireDate = [NSDate distantFuture];
+}
+- (void)applicationDidBecomeActive {
+    //获取在后台躲了多久时间
+    NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970-_timestamp;
+    _timestamp = 0;
+    NSTimeInterval ret = self.second-timeInterval;
+    if (ret>0) {
+        self.second = ret;
+        _timer.fireDate = [NSDate date];
+    } else {
+        self.second = 0;
+        _timer.fireDate = [NSDate date];
+        [self timerRun];
+    }
+}
+#pragma mark ========== 倒计时展示/重新发送 ==========
+- (void)timerRun{
+    if (self.second>0) {
+        self.second--;
+        [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ldS后重发",(long)self.second] forState:UIControlStateNormal];
+    }else if(self.second == 0){
+        self.getCodeBtn.enabled = YES;
+        [self.timer setFireDate:[NSDate distantFuture]];
+        [self.getCodeBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+    }
 }
 /*
 #pragma mark - Navigation

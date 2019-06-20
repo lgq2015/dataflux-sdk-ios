@@ -442,6 +442,18 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 
 }
+- (PWURLSessionTask *)checkRegisterWithPhone:(NSString *)phone callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"username":phone}};
+    return [PWNetworking requsetHasTokenWithUrl:PW_checkRegister
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 

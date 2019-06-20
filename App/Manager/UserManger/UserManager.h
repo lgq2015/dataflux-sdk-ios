@@ -47,7 +47,7 @@ SINGLETON_FOR_HEADER(UserManager)
  @param completion 回调
  */
 -(void)getVerificationCodeType:(CodeType)codeType WithParams:(NSDictionary *)params completion:(codeBlock)completion;
-
+-(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion;
 /**
  带参登录
  

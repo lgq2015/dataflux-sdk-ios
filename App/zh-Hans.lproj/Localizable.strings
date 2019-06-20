@@ -147,3 +147,4 @@
 "issue.create" = "创建情报";
 "issueAssigned" = "将该情报指派给";
 "issueCancelAssigning" = "取消了指派";
+"home.auth.alreadyRegister" = "手机号或邮箱已经注册";

@@ -71,7 +71,26 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 
-
+-(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion{
+    NSMutableDictionary *param = [params mutableCopy];
+    [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
+    NSDictionary *data = @{@"data":param};
+    
+    [PWNetworking requsetWithUrl:PW_register withRequestType:NetworkPostType refreshRequest:NO cache:NO params:data progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            setXAuthToken(content[@"authAccessToken"]);
+            [kUserDefaults synchronize];
+            [self saveUserInfoLoginStateisChange:YES success:nil];
+        }else
+        {    [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE],"")];
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [error errorToast];
+    }];
+}
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
@@ -117,7 +136,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     if (completion) {
                         completion(YES,changePasswordToken);
                     }
-                    [self saveUserInfoLoginStateisChange:NO success:nil];
+                    [self saveUserInfoLoginStateisChange:YES success:nil];
                 }else{
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
@@ -220,6 +239,7 @@ SINGLETON_FOR_CLASS(UserManager);
         dispatch_async(dispatch_get_main_queue(), ^{
             if( isTeamSuccess && isUserSuccess){
                 if(change){
+                    [SVProgressHUD dismiss];
                     KPostNotification(KNotificationLoginStateChange, @YES);
                     //存储的团队列表、团队情报数、ISPs都和当前账号有关系，所以请求成功做处理
                     [self requestMemberList:nil];
