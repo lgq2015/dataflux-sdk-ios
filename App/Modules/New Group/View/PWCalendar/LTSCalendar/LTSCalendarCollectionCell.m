@@ -165,7 +165,7 @@
     }
     
     
-    dotView.frame = CGRectMake(0, CGRectGetMaxY(circleView.frame)+1, sizeDot, sizeDot);
+    dotView.frame = CGRectMake(0, CGRectGetMaxY(circleView.frame)-sizeDot-2, sizeDot, sizeDot);
     dotView.center = CGPointMake(self.frame.size.width / 2., dotView.center.y );
     
     dotView.layer.cornerRadius = sizeDot / 2.;
@@ -213,13 +213,16 @@
             lunarTextLabel.textColor = [LTSCalendarAppearance share].lunarDayTextColorSelected;
             
         }
+        dotView.color = [UIColor colorWithHexString:@"#909098"];
         if ([self isToday]) {
              circleView.color = [LTSCalendarAppearance share].dayCircleColorToday;
              textLabel.textColor = PWWhiteColor;
+             dotView.color = PWWhiteColor;
         }
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
         tr = CGAffineTransformIdentity;
     }else {
+        dotView.color = [UIColor colorWithHexString:@"#FFC163"];
         circleView.color = [UIColor clearColor];
         if ([self isToday]){
             

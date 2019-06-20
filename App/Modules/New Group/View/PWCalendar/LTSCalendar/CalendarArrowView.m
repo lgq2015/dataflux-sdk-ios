@@ -28,16 +28,15 @@
 }
 - (void)initUI{
     self.backgroundColor = PWBackgroundColor;
-    UIView *arrowContent = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30))];
+    UIView *arrowContent = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(6)+16)];
     arrowContent.backgroundColor = PWWhiteColor;
     [self addSubview:arrowContent];
     [arrowContent addSubview:self.arrowBtn];
     [self.arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(arrowContent);
         make.width.height.offset(ZOOM_SCALE(18));
-        make.bottom.mas_equalTo(arrowContent).offset(-10);
     }];
-    UIView *dateContent = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(30)+8, kWidth, ZOOM_SCALE(40))];
+    UIView *dateContent = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(6)+Interval(24), kWidth, ZOOM_SCALE(33))];
     dateContent.backgroundColor = PWWhiteColor;
     [self addSubview:dateContent];
     [dateContent addSubview:self.selDateLab];
@@ -45,10 +44,10 @@
         make.center.mas_equalTo(dateContent);
         make.height.offset(ZOOM_SCALE(22));
     }];
-    dateContent.layer.shadowOffset = CGSizeMake(0,2);
-    dateContent.layer.shadowColor = [UIColor colorWithHexString:@"#627084"].CGColor;
-    dateContent.layer.shadowRadius = 5;
-    dateContent.layer.shadowOpacity = 0.2;
+//    dateContent.layer.shadowOffset = CGSizeMake(0,2);
+//    dateContent.layer.shadowColor = [UIColor colorWithHexString:@"#627084"].CGColor;
+//    dateContent.layer.shadowRadius = 5;
+//    dateContent.layer.shadowOpacity = 0.2;
 //    dateContent.clipsToBounds = NO;
     [dateContent addSubview:self.backTodayBtn];
 //    dateContent.layer.shadowOffset = CGSizeMake(0,8);
@@ -66,8 +65,8 @@
 -(TouchLargeButton *)arrowBtn{
     if (!_arrowBtn) {
         _arrowBtn = [[TouchLargeButton alloc]init];
-        [_arrowBtn setImage:[UIImage imageNamed:@"arrow_down_c"] forState:UIControlStateNormal];
-        [_arrowBtn setImage:[UIImage imageNamed:@"arrow_up"] forState:UIControlStateSelected];
+        [_arrowBtn setImage:[UIImage imageNamed:@"arrow_downs"] forState:UIControlStateNormal];
+        [_arrowBtn setImage:[UIImage imageNamed:@"arrow_ups"] forState:UIControlStateSelected];
         [_arrowBtn addTarget:self action:@selector(arrowBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _arrowBtn.largeHeight = 10;
     }
@@ -75,7 +74,7 @@
 }
 -(UILabel *)selDateLab{
     if (!_selDateLab) {
-        _selDateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWTextBlackColor text:@""];
+        _selDateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(15) textColor:PWTextBlackColor text:@""];
         _selDateLab.textAlignment = NSTextAlignmentCenter;
     }
     return _selDateLab;

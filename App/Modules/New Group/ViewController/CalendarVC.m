@@ -77,7 +77,7 @@
 - (void)createUI{
     self.manager = [LTSCalendarManager new];
     self.manager.eventSource = self;
-    self.manager.weekDayView = [[LTSCalendarWeekDayView alloc]initWithFrame:CGRectMake(0, kTopHeight+37, kWidth, 30)];
+    self.manager.weekDayView = [[LTSCalendarWeekDayView alloc]initWithFrame:CGRectMake(0, kTopHeight+26, kWidth, 30)];
     [self.view addSubview:self.manager.weekDayView];
     self.manager.calenderScrollView = [[LTSCalendarScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.manager.weekDayView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-CGRectGetMaxY(self.manager.weekDayView.frame)-kTabBarHeight)];
     [self.view addSubview:self.manager.calenderScrollView];

@@ -70,7 +70,7 @@
 //    calendarView.currentDate = [NSDate date];
     [self addSubview:calendarView];
     self.calendarView = calendarView;
-    CalendarArrowView *arrorView = [[CalendarArrowView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(calendarView.frame), CGRectGetWidth(self.frame), ZOOM_SCALE(70)+8)];
+    CalendarArrowView *arrorView = [[CalendarArrowView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(calendarView.frame), CGRectGetWidth(self.frame), ZOOM_SCALE(55)+8)];
     [self addSubview:arrorView];
     arrorView.delegate = self;
     self.arrorView = arrorView;
@@ -78,7 +78,7 @@
     self.arrorView.backTodayBtn.hidden = YES;
     DLog(@"CGRectGetHeight(self.frame) == %f",CGRectGetHeight(self.frame));
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(arrorView.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(arrorView.frame)-ZOOM_SCALE(70))];
-    self.tableView.backgroundColor = PWBackgroundColor;
+    self.tableView.backgroundColor = PWWhiteColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     if (@available(iOS 11.0, *)) {
@@ -117,7 +117,7 @@
 -(PWLibraryListNoMoreFootView*)footView{
     if (!_footView) {
         _footView = [[PWLibraryListNoMoreFootView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 60)];
-        _footView.backgroundColor =PWBackgroundColor;
+        _footView.backgroundColor =PWWhiteColor;
     }
     return _footView;
 }
@@ -146,7 +146,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CalendarIssueModel *model = self.calendarList[indexPath.section][indexPath.row];
     if (model.calendarContentH) {
-       return model.calendarContentH +ZOOM_SCALE(25)+Interval(50)+model.titleH;
+       return model.calendarContentH +Interval(28)+model.titleH;
     }else{
         return ZOOM_SCALE(30);
     }
@@ -168,8 +168,11 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *groupHeader = [[UIView alloc]init];
     if (_calendarList.count>0 && section<_calendarList.count) {
-    groupHeader.backgroundColor = PWBackgroundColor;
+    groupHeader.backgroundColor = PWWhiteColor;
     CalendarIssueModel *model = self.calendarList[section][0];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, SINGLE_LINE_WIDTH)];
+    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    [groupHeader addSubview:line];
     UILabel *groupTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(11), kWidth-30, ZOOM_SCALE(18)) font:RegularFONT(13) textColor:PWSubTitleColor text:model.groupTitle];
     [groupHeader addSubview:groupTitle];
     return groupHeader;

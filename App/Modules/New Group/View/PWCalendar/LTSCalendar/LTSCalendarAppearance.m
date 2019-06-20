@@ -35,13 +35,13 @@
 }
 
 - (void)setDefaultValues{
-    self.dayCircleSize = ZOOM_SCALE(34);
-    self.dayDotSize= 6 ;
+    self.dayCircleSize = ZOOM_SCALE(36);
+    self.dayDotSize= ZOOM_SCALE(6) ;
     self.weekDayFormat = LTSCalendarWeekDayFormatSingle;
     self.weekDayTextFont = RegularFONT(14);
     self.weekDayTextColor = [UIColor colorWithHexString:@"#8E8E93"];
     self.weeksToDisplay = 6;
-    self.weekDayHeight = 45;
+    self.weekDayHeight = ZOOM_SCALE(40);
     self.isShowSingleWeek = true;
     self.firstWeekday = 1;
     self.defaultDate = [NSDate date];
@@ -73,7 +73,8 @@
     
     self.weekDayBgColor = [UIColor whiteColor];
     self.calendarBgColor = [UIColor whiteColor];
-    self.scrollBgcolor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
+    self.scrollBgcolor = PWWhiteColor;
+    //[UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1];
     self.isShowLunarCalender = NO;
     self.defaultSelected = NO;
 }

@@ -77,10 +77,10 @@
 //        self.state = IssueStateLoseeEfficacy;
 //    }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
-    self.calendarContentH = [self.contentText strSizeWithMaxWidth:ZOOM_SCALE(240) withFont:RegularFONT(16)].height+10;
-    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(130) withFont:RegularFONT(14)].height;
-    if (titleH<ZOOM_SCALE(20)) {
-        self.titleH = ZOOM_SCALE(20);
+    self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
+    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(130) withFont:RegularFONT(12)].height;
+    if (titleH<ZOOM_SCALE(17)) {
+        self.titleH = ZOOM_SCALE(17);
     }else{
         self.titleH = titleH+5;
     }
