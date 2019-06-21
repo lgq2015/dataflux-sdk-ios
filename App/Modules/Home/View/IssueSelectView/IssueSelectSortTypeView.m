@@ -71,7 +71,7 @@
     [self addSubview:self.contentView];
     SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     self.mySel = sel;
-    self.dataSource = @[@"按产生时间排序",@"按更新时间排序"];
+    self.dataSource = @[@"产生时间排序",@"更新时间排序"];
     [self.mTableView reloadData];
     [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(108), kWidth,ZOOM_SCALE(108))];
     _contentView.alpha = 0;

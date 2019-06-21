@@ -30,14 +30,14 @@
     [self.typeBtn setTitle:@"筛选" forState:UIControlStateNormal];
     [self.typeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
     [self.typeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
-    self.typeBtn.titleLabel.font = RegularFONT(16);
+    self.typeBtn.titleLabel.font = RegularFONT(13);
     [self addSubview:self.typeBtn];
     [self.typeBtn addTarget:self action:@selector(typeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.typeBtn.frame)+Interval(16), 0, 1, ZOOM_SCALE(20))];
     line.centerY = self.typeBtn.centerY;
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self addSubview:line];
-    self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(16), 0, ZOOM_SCALE(140), ZOOM_SCALE(22));
+    self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(16), 0, ZOOM_SCALE(140), ZOOM_SCALE(18));
     self.timeTypeBtn.centerY = self.typeBtn.centerY;
     UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"创建情报"];
     addIssueBtn.titleLabel.font = RegularFONT(13);
@@ -58,14 +58,14 @@
         _timeTypeBtn = [[UIButton alloc]init];
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_n"] forState:UIControlStateNormal];
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_highlight"] forState:UIControlStateSelected];
-        _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(130)-ZOOM_SCALE(16));
+        _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(100));
         _timeTypeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
         SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-        NSString *title = selO.issueSortType == IssueSortTypeCreate?@"按产生时间排序":@"按更新时间排序";
+        NSString *title = selO.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
         [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
-        _timeTypeBtn.titleLabel.font = RegularFONT(16);
+        _timeTypeBtn.titleLabel.font = RegularFONT(13);
         [_timeTypeBtn addTarget:self action:@selector(timeTypeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_timeTypeBtn];
     }
@@ -154,7 +154,7 @@
     }
 }
 -(void)selectSortWithSelectObject:(SelectObject *)sel{
-    NSString *title = sel.issueSortType == IssueSortTypeCreate?@"按产生时间排序":@"按更新时间排序";
+    NSString *title = sel.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
     [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
