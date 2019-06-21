@@ -322,7 +322,7 @@
         NSString *repleaceText = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>",http,nametext];
         displatext= [displatext stringByReplacingCharactersInRange:matchRange withString:repleaceText];
     }];
-    displatext = [displatext stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
+   
     
     self.contentLab.attributedText = [displatext zt_convertLink:RegularFONT(16) textColor:PWTextColor];
 
