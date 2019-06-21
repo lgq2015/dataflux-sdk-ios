@@ -59,13 +59,13 @@
             break;
     }
 
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:title];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:title];
     
     [self.view addSubview:titleLab];
     [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(ZOOM_SCALE(53));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(70));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(ZOOM_SCALE(25));
     }];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:tipTitle];
@@ -74,8 +74,8 @@
     [self.view addSubview:tipLab];
     [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(ZOOM_SCALE(31));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(40));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(ZOOM_SCALE(20));
     }];
     tipLab.hidden = YES;
@@ -86,7 +86,7 @@
         make.left.mas_equalTo(titleLab.mas_left);
         make.top.mas_equalTo(self.emailTF.mas_bottom).offset(ZOOM_SCALE(4));
         make.right.mas_equalTo(self.emailTF.mas_right);
-        make.height.offset(ZOOM_SCALE(1));
+        make.height.offset(SINGLE_LINE_WIDTH);
     }];
     self.emailTF.placeholder = placeholder;
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
