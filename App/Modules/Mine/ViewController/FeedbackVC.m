@@ -69,9 +69,9 @@
 //    self.describeTextView.hll_limitTextLength = 2000;
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.describeView.mas_bottom).offset(Interval(35));
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(47));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     self.describeTextView.delegate = self;
 

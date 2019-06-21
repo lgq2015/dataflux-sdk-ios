@@ -90,10 +90,10 @@
     }];
     self.emailTF.placeholder = placeholder;
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(line1.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.height.offset(ZOOM_SCALE(44));
     }];
    
     if (self.changeType == BindUserInfoTypeEmail) {
