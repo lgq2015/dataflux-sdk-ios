@@ -178,6 +178,8 @@
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
     MemberInfoModel *model = self.dataSource[indexPath.section][indexPath.row];
     model.isMultiChoice = YES;
+    NSArray *array =self.dataSource[indexPath.section];
+    cell.line.hidden = indexPath.row == array.count-1?YES:NO;
     cell.model = model;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

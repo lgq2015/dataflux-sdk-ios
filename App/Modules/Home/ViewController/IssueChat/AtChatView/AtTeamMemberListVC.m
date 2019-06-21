@@ -231,7 +231,8 @@
     MemberInfoModel *model = self.dataSource[indexPath.section][indexPath.row];
     model.isMultiChoice = self.isMultiChoice;
     cell.model = model;
-//    cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
+    NSArray *array =self.dataSource[indexPath.section];
+    cell.line.hidden = indexPath.row == array.count-1?YES:NO;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
