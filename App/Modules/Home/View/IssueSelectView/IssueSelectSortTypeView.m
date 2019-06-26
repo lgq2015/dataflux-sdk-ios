@@ -16,12 +16,14 @@
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) SelectObject *mySel;
+@property (nonatomic, assign) BOOL isSleTime;
 @end
 @implementation IssueSelectSortTypeView
--(instancetype)initWithTop:(CGFloat)top{
+-(instancetype)initWithTop:(CGFloat)top AndSelectTypeIsTime:(BOOL)istime{
     if (self) {
         self= [super init];
         _topCons = top;
+        _isSleTime = istime;
         [self setupContent];
     }
     return self;
@@ -71,7 +73,7 @@
     [self addSubview:self.contentView];
     SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     self.mySel = sel;
-    self.dataSource = @[@"产生时间排序",@"更新时间排序"];
+    self.dataSource =self.isSleTime?@[@"产生时间排序",@"更新时间排序"]:@[@"我的情报",@"全部情报"];
     [self.mTableView reloadData];
     [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(108), kWidth,ZOOM_SCALE(108))];
     _contentView.alpha = 0;
@@ -118,7 +120,17 @@
     MineCellModel *model = [MineCellModel new];
     model.title = self.dataSource[indexPath.row];
     [cell initWithData:model type:MineVCCellTypeOnlyTitle];
-    if (self.mySel.issueSortType == (IssueSortType)(indexPath.row+1)) {
+    BOOL  isSel = NO;
+    if (self.isSleTime) {
+        isSel =self.mySel.issueSortType == (IssueSortType)(indexPath.row+1);
+    }else{
+        if (self.mySel.issueFrom != 0) {
+            isSel= self.mySel.issueFrom == (IssueFrom)(indexPath.row+1);
+        }else{
+            self.mySel.issueFrom = IssueFromAll;
+        }
+    }
+    if (isSel) {
         cell.titleLab.textColor = PWBlueColor;
     }else{
         cell.titleLab.textColor = PWTitleColor;
@@ -129,7 +141,11 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    self.mySel.issueSortType =(IssueSortType)(indexPath.row+1);
+    if (self.isSleTime) {
+        self.mySel.issueSortType =(IssueSortType)(indexPath.row+1);
+    }else{
+        self.mySel.issueFrom =(IssueFrom)(indexPath.row+1);
+    }
     WeakSelf
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectSortWithSelectObject:)]){
         [self.delegate selectSortWithSelectObject:weakSelf.mySel];

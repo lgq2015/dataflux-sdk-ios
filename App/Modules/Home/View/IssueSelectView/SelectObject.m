@@ -18,6 +18,8 @@
     [aCoder encodeInteger:(NSInteger)_issueType forKey:@"issueType"];
     [aCoder encodeInteger:(NSInteger)_issueSortType forKey:@"issueSortType"];
     [aCoder encodeInteger:(NSInteger)_issueViewType forKey:@"issueViewType"];
+    [aCoder encodeInteger:(NSInteger)_issueFrom forKey:@"issueFrom"];
+
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
@@ -25,6 +27,7 @@
     _issueType = (IssueType)[aDecoder decodeIntegerForKey:@"issueType"];
     _issueSortType = (IssueSortType)[aDecoder decodeIntegerForKey:@"issueSortType"];
     _issueViewType = (IssueViewType)[aDecoder decodeIntegerForKey:@"issueViewType"];
+    _issueFrom = (IssueFrom)[aDecoder decodeIntegerForKey:@"issueFrom"];
     }
     return self;
 }

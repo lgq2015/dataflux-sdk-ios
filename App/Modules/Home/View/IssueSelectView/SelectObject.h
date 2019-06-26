@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) IssueSortType issueSortType;
 @property(nonatomic, assign) IssueViewType issueViewType;
 @property(nonatomic, assign) IssueType issueType;
+@property(nonatomic, assign) IssueFrom issueFrom;
 @end
 
 NS_ASSUME_NONNULL_END

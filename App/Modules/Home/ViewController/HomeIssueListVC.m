@@ -109,11 +109,7 @@
     }];
     //显示
     if (sender.isSelected){
-        if(self.headerView.selView.isShow){
-            [self.headerView.selView disMissView];
-        }else if (self.headerView.sortView.isShow) {
-            [self.headerView.sortView disMissView];
-        }
+        [self.headerView disMissView];
         [self.changeTeamView showWithOffsetY:kTopHeight+24];
     }else{
         [self.changeTeamView  dismiss];
