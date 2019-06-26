@@ -23,34 +23,34 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120),ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"密码验证"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120),ZOOM_SCALE(33)) font:MediumFONT(24) textColor:PWTextBlackColor text:@"密码验证"];
     [self.view addSubview:title];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTitleColor text:@"您的登录账号为"];
+    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"您的登录账号为"];
     [self.view addSubview:subTitle];
     [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(Interval(7));
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.height.offset(ZOOM_SCALE(25));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.height.offset(ZOOM_SCALE(22));
     }];
     NSString *phone = [NSString stringWithFormat:@"%@******%@",[self.phoneNumber substringToIndex:3],[self.phoneNumber substringFromIndex:9]];
-    UILabel *phoneLable = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:phone];
+    UILabel *phoneLable = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:phone];
     [self.view addSubview:phoneLable];
     [phoneLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(subTitle.mas_bottom).offset(Interval(6));
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.height.offset(ZOOM_SCALE(25));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.height.offset(ZOOM_SCALE(22));
     }];
   
     [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(phoneLable.mas_bottom).offset(ZOOM_SCALE(83));
         make.width.height.offset(ZOOM_SCALE(24));
     }];
     [self.passwordTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
         make.right.mas_equalTo(self.showWordsBtn.mas_left);
         make.centerY.mas_equalTo(self.showWordsBtn);
-        make.height.offset(ZOOM_SCALE(25));
+        make.height.offset(ZOOM_SCALE(21));
     }];
     UIView * line1 = [[UIView alloc]init];
     line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
@@ -58,17 +58,17 @@
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(phoneLable.mas_left);
         make.top.mas_equalTo(self.passwordTf.mas_bottom).offset(ZOOM_SCALE(4));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(1));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.height.offset(SINGLE_LINE_WIDTH);
     }];
     UIButton *confirmBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"确认"];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirmBtn];
     [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(line1.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     
     RACSignal *emailSignal= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
@@ -84,7 +84,7 @@
 }
 -(UITextField *)passwordTf{
     if (!_passwordTf) {
-        _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
+        _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.placeholder = @"请输入密码";
         [self.view addSubview:_passwordTf];
