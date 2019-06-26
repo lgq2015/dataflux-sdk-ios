@@ -21,6 +21,30 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.wangjiao.prof.wang.pre</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>prof-wang-pre</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.wangjiao.prof.wang.test</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>prof-wang-dev</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.wangjiao.prof.wang</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>prof-wang</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>

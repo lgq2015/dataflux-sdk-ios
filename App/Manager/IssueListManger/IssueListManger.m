@@ -74,6 +74,7 @@
             @"statusChangeAccountInfoStr":SQL_TEXT,
             @"assignAccountInfoStr":SQL_TEXT,
             @"assignedToAccountInfoStr":SQL_TEXT,
+            @"watchInfoJSONStr":SQL_TEXT,
     }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
             @"scanCheckEndTime":SQL_TEXT,
@@ -140,7 +141,7 @@
     if (isContain) {
     
         SelectObject *currentType = (SelectObject *)[cache objectForKey:KCurrentIssueListType];
-    
+        
         return  currentType;
     }else{
         SelectObject *sel = [[SelectObject alloc]init];
@@ -148,6 +149,7 @@
         sel.issueSortType = 1;
         sel.issueType = 1;
         sel.issueLevel = 1;
+        sel.issueFrom = 1;
         return sel;
     }
 }
@@ -159,17 +161,7 @@
     }
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
--(IssueType)getCurrentIssueType{
-    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
-   
-    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
-    if (isContain) {
-        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentIssueListType];
-         return (IssueType)[currentType integerValue];
-    }else{
-        return IssueTypeAll;
-    }
-}
+
 /**
  * @param type 存储用户使用记录 当前issueType选择
  */
@@ -590,8 +582,11 @@
 - (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel{
     if (sel == nil) {
      sel= [self getCurrentSelectObject];
+        if(sel.issueFrom != IssueFromAll &&sel.issueFrom != IssueFromMe ){
+            sel.issueFrom = IssueFromAll;
+        }
     }
-    NSString *typeStr,*statesStr,*sortStr,*levelStr;
+    NSString *typeStr,*statesStr,*sortStr,*levelStr,*fromMeStr;
     NSMutableArray *array = [NSMutableArray new];
     switch (sel.issueSortType) {
         case IssueSortTypeCreate:
@@ -645,12 +640,20 @@
             statesStr = @"";
             break;
     }
+    switch (sel.issueFrom) {
+        case IssueFromMe:
+            fromMeStr = [NSString stringWithFormat:@"watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID];
+            break;
+        case IssueFromAll:
+            fromMeStr = @"";
+            break;
+    }
     NSString *whereFormat = [NSString new];
-    if ([statesStr isEqualToString:@""] && [levelStr isEqualToString:@""] && [typeStr isEqualToString:@""]) {
+    if ([statesStr isEqualToString:@""] && [levelStr isEqualToString:@""] && [typeStr isEqualToString:@""]&&[fromMeStr isEqualToString:@""]) {
         whereFormat = sortStr;
     }else{
         __block NSString *appendStr= @"";
-        NSArray *formatStr = @[statesStr,typeStr,levelStr];
+        NSArray *formatStr = @[statesStr,typeStr,levelStr,fromMeStr];
         [formatStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (appendStr.length == 0) {
             appendStr =  [appendStr stringByAppendingString:obj];

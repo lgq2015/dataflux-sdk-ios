@@ -135,7 +135,7 @@
     NSString *teamID = [userInfo stringValueForKey:@"teamId" default:@""];  //teamID
     TeamInfoModel *currentTeam = [userManager getTeamModel];
     //判断通知teamID是否和本地teamID是否一致
-    bool isDiffentTeamID = NO;
+    BOOL isDiffentTeamID = NO;
     if (teamID.length > 0 && ![teamID isEqualToString:currentTeam.teamID]){
         isDiffentTeamID = YES;
     }else{
@@ -216,6 +216,19 @@
             [self dealNotificationIssueAdd:userInfo];
         }
         
+    }else if([msgType isEqualToString:@"url_schemes"]){
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueAdd:userInfo];
+                }
+            }];
+
+        }else{
+            [self dealNotificationIssueAdd:userInfo];
+        }
+        
     }
     
 }
@@ -238,7 +251,7 @@
                 [self deleteAllNavViewController];
             }
         } else {
-//            [iToast alertWithTitleCenter:data.errorCode];
+            [iToast alertWithTitleCenter:data.errorMsg];
         }
     }];
 }
@@ -271,7 +284,7 @@
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
             [self deleteAllNavViewController];
         } else {
-//            [iToast alertWithTitleCenter:data.errorCode];
+            [iToast alertWithTitleCenter:data.errorMsg];
         }
     }];
 }
@@ -423,6 +436,7 @@
 
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
+
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -446,6 +460,24 @@
             DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
         }];
     }
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+    DLog(@"urlComponents == %@",urlComponents);
+    // url中参数的key value
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    for (NSURLQueryItem *item in urlComponents.queryItems) {
+        [parameter setValue:item.value forKey:item.name];
+    }
+    if([parameter containsObjectForKey:@"rtype"]){
+        if ([parameter[@"rtype"] isEqualToString:@"issue_detail"]) {
+            if( [parameter containsObjectForKey:@"teamid"] &&[parameter containsObjectForKey:@"issueid"]){
+                NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"url_schemes",@"entityId":[parameter stringValueForKey:@"issueid" default:@""]};
+                setRemoteNotificationData(userinfo);
+                [kUserDefaults synchronize];
+                KPostNotification(KNotificationNewRemoteNoti, nil);
+            }
+        }
+    }
+
     return YES;
 }
 
@@ -622,7 +654,11 @@
             }];
         }else{
             [SVProgressHUD dismiss];
+            if ([response[ERROR_CODE] isEqualToString:@"home.account.teamNotJoined"]) {
+                [iToast alertWithTitleCenter:@"您没有相关权限"];
+            }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
             completeBlock ? completeBlock(NO) : nil;
         }
     } failBlock:^(NSError *error){

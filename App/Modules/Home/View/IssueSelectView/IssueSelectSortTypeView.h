@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^disMissClick)(void);
 @property (nonatomic, assign)id<SelectSortViewDelegate> delegate;
 
--(instancetype)initWithTop:(CGFloat)top;
+-(instancetype)initWithTop:(CGFloat)top AndSelectTypeIsTime:(BOOL)istime;
 - (void)showInView:(UIView *)view;
 - (void)disMissView;
 @end

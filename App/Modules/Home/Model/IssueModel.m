@@ -51,6 +51,10 @@
     if (readAtInfo) {
         self.readAtInfoStr = [readAtInfo jsonStringEncoded];
     }
+    NSArray *watchInfoJSON = PWSafeArrayVal(dict, @"watchInfoJSON");
+    if (watchInfoJSON) {
+        self.watchInfoJSONStr = [watchInfoJSON jsonStringEncoded];
+    }
     NSDictionary *rendered = PWSafeDictionaryVal(dict, @"renderedText");
     self.renderedTextStr = rendered ? [rendered jsonPrettyStringEncoded] : @"";
     NSDictionary *markTookOverInfo = PWSafeDictionaryVal(dict, @"markTookOverAccountInfo");

@@ -18,8 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IssueSelectHeaderView : UIView
 @property (nonatomic, strong) IssueSelectView *selView;
 @property (nonatomic, strong) IssueSelectSortTypeView *sortView;
+@property (nonatomic, strong) IssueSelectSortTypeView *isMineView;
 @property (nonatomic, assign) id<IssueSelectHeaderDelegate> delegate;
-
+- (void)disMissView;
 @end
 
 NS_ASSUME_NONNULL_END

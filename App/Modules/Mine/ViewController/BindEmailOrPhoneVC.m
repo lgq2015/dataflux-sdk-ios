@@ -78,13 +78,19 @@
         make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(ZOOM_SCALE(20));
     }];
+    [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(10));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.height.offset(ZOOM_SCALE(21));
+    }];
     tipLab.hidden = YES;
     UIView * line1 = [[UIView alloc]init];
     line1.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
     [self.view addSubview:line1];
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(self.emailTF.mas_bottom).offset(ZOOM_SCALE(4));
+        make.top.mas_equalTo(self.emailTF.mas_bottom).offset(10);
         make.right.mas_equalTo(self.emailTF.mas_right);
         make.height.offset(SINGLE_LINE_WIDTH);
     }];

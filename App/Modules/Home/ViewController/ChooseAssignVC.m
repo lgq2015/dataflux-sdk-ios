@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"处理人";
+    self.title = @"指派处理人";
     [self createUI];
 }
 - (void)createUI{
@@ -85,7 +85,7 @@
             model.isSelect = YES;
             self.currentModel = model;
         }
-        if (model.isAdmin) {
+        if ([model.memberID isEqualToString:userManager.curUserInfo.userID]) {
             [self.teamMemberArray insertObject:model atIndex:0];
             index+=1;
         }else{
@@ -190,7 +190,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section== 1) {
-        return @"管理员";
+        return @"我";
     }
     return self.indexArr[section];
 }
