@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, LTSCalendarWeekDayFormat) {
 ///当显示为单周时 滚动周默认选中星期几   1 代表星期天 2代表星期一 default = 1
 @property (nonatomic,assign) NSInteger singWeekDefaultSelectedIndex;
 
-///每一周视图的高度
+///每一周视图的高度  不能使用适配尺度，会因为精度不准导致不能滑动
 @property (nonatomic,assign)CGFloat weekDayHeight;
 ///每个月显示多少周
 @property (nonatomic, assign)NSInteger weeksToDisplay;

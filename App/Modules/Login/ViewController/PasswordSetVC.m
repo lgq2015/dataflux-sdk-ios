@@ -62,10 +62,10 @@
         make.height.offset(ZOOM_SCALE(1));
     }];
     [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     RACSignal *phoneTf= [[self.passwordTf rac_textSignal] map:^id(NSString *value) {
         if(value.length>25){

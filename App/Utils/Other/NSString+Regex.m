@@ -24,7 +24,7 @@
         labelText = [labelText stringByReplacingOccurrencesOfString:@"<a href=(.*?)>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
         labelText = [labelText stringByReplacingOccurrencesOfString:@"<\\/a>" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange (0, labelText.length)];
 
-        NSMutableAttributedString  * aStr = [[NSMutableAttributedString alloc] initWithData:[labelText dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+         NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc] initWithString:labelText];
         aStr.font = zt_font;
         aStr.color = zt_color;
         for (NSArray *array in array_http) {

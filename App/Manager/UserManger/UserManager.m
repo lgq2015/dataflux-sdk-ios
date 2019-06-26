@@ -96,12 +96,12 @@ SINGLETON_FOR_CLASS(UserManager);
     if(loginType == UserLoginTypePwd){
       //密码登录
         [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            [SVProgressHUD dismiss];
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
                 if (completion) {
                     completion(NO,nil);
                 }
+             [SVProgressHUD dismiss];
              [iToast alertWithTitleCenter:@"账号或密码错误"];
                 
             }else{
@@ -126,7 +126,6 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
       //验证码登录
         [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
@@ -143,6 +142,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
             }else{
+                [SVProgressHUD dismiss];
                 if (completion) {
                     completion(NO,@"");
                 }

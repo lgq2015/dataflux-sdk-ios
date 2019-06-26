@@ -141,10 +141,10 @@
     [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:callPhone];
     [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(30));
-        make.height.offset(ZOOM_SCALE(47));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     if (userManager.teamModel.isAdmin) {
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
@@ -153,10 +153,10 @@
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:delectTeam];
         [delectTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.view).offset(Interval(16));
-            make.right.mas_equalTo(self.view).offset(-Interval(16));
+            make.left.mas_equalTo(self.view).offset(Interval(36));
+            make.right.mas_equalTo(self.view).offset(-Interval(36));
             make.top.mas_equalTo(callPhone.mas_bottom).offset(Interval(20));
-            make.height.offset(ZOOM_SCALE(47));
+            make.height.offset(ZOOM_SCALE(44));
         }];
     }
 }

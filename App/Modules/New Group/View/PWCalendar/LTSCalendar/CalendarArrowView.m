@@ -33,7 +33,7 @@
     [self addSubview:arrowContent];
     [arrowContent addSubview:self.arrowBtn];
     [self.arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(arrowContent);
+        make.center.mas_equalTo(arrowContent);
         make.width.height.offset(ZOOM_SCALE(18));
     }];
     UIView *dateContent = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(6)+Interval(24), kWidth, ZOOM_SCALE(33))];

@@ -379,31 +379,46 @@
 - (void)getCodeBtnClick{
     WeakSelf
     if ([[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
-        [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-            if (@available(iOS 10.0, *)) {
-                if(self.second == 60){
-                 self.getCodeBtn.enabled = NO;
-                 weakSelf.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                    [weakSelf timerRun];
+        [SVProgressHUD show];
+        [[PWHttpEngine sharedInstance] checkRegisterWithPhone:[self.phoneTF.text removeFrontBackBlank] callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if (model.isSuccess) {
+                VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
+                [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
+                    [SVProgressHUD dismiss];
+                    if ([response[ERROR_CODE] isEqualToString:@""]) {
+                        if (@available(iOS 10.0, *)) {
+                            if(self.second == 60){
+                                self.getCodeBtn.enabled = NO;
+                                weakSelf.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                                    [weakSelf timerRun];
+                                }];
+                            }else{
+                                self.second = 60;
+                                [weakSelf.timer setFireDate:[NSDate distantPast]];
+                            }
+                        } else {
+                            self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
+                            [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+                        }
+                        //对前后台状态进行监听
+                        [self observeApplicationActionNotification];
+                    }else{
+                        [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                    }
+                } failBlock:^(NSError *error) {
+                    [SVProgressHUD dismiss];
                 }];
-                }else{
-                    self.second = 60;
-                    [weakSelf.timer setFireDate:[NSDate distantPast]];
-                }
-            } else {
-                self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
-                [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-                }
-                //对前后台状态进行监听
-                [self observeApplicationActionNotification];
             }else{
-             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [SVProgressHUD dismiss];
+                if ([model.errorCode isEqualToString:@"home.auth.alreadyRegister"]) {
+                    [iToast alertWithTitleCenter:@"该手机号已经注册，请直接登录"];
+                }else{
+                     [iToast alertWithTitleCenter:model.errorMsg];
+                }
             }
-        } failBlock:^(NSError *error) {
-            
         }];
+       
     }else{
         [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
     }
