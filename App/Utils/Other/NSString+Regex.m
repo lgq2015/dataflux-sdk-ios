@@ -41,7 +41,7 @@
         }
         return aStr;
     }
-   NSMutableAttributedString  * nStr = [[NSMutableAttributedString alloc] initWithData:[labelText dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+   NSMutableAttributedString  * nStr =[[NSMutableAttributedString alloc] initWithString:labelText];
     nStr.font = zt_font;
     nStr.color = zt_color;
     return nStr;
