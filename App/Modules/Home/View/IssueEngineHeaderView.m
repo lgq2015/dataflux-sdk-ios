@@ -146,7 +146,7 @@
         make.left.mas_equalTo(self.subContainerView);
         make.right.mas_equalTo(self.subContainerView);
         if(self.model.attrs== nil || self.model.attrs.length== 0){
-            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(20));
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(12));
         }
     }];
     if(self.model.attrs.length>0){
@@ -166,19 +166,19 @@
             make.left.mas_equalTo(title);
             make.top.mas_equalTo(title.mas_bottom).offset(Interval(15));
             make.right.mas_equalTo(self).offset(-16);
-            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-12);
         }];
         sugLab.text = self.model.attrs;
     }
     
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
+        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(12));
         make.width.right.left.mas_equalTo(self);
     }];
     [self.bookContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(20));
+        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(12));
         make.width.right.left.mas_equalTo(self);
-        make.bottom.mas_equalTo(self).offset(-10);
+        make.bottom.mas_equalTo(self);
     }];
      [self zhengze];
 }
@@ -229,6 +229,9 @@
         [self.mTableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(self.handbookAry.count*45);
             make.bottom.mas_equalTo(self.bookContainerView.mas_bottom).offset(-20);
+        }];
+        [self.bookContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self).offset(-12);
         }];
         [self.mTableView reloadData];
     }

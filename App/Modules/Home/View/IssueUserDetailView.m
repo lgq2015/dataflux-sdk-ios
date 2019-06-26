@@ -116,10 +116,10 @@
     }];
     self.contentLab.text = self.model.content;
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
+        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(12));
         make.width.offset(kWidth);
         make.left.right.mas_equalTo(self);
-        make.bottom.mas_equalTo(self).offset(-10);
+        make.bottom.mas_equalTo(self).offset(-12);
     }];
 }
 -(void)createAttachmentUIWithAry:(NSArray *)array{
@@ -149,7 +149,7 @@
                 make.top.mas_equalTo(title.mas_bottom).offset(Interval(25));
                 make.width.offset(kWidth);
                 make.height.offset(ZOOM_SCALE(70)*array.count);
-                make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(15));
+                make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(12));
             }];
         }
         [self layoutIfNeeded];
