@@ -21,6 +21,10 @@ typedef NS_ENUM(NSInteger ,IssueViewType){
     IssueViewTypeNormal = 1,
     IssueViewTypeAll = 2,
 };
+typedef NS_ENUM(NSInteger ,IssueFrom){
+    IssueFromMe = 1,   //与我相关的 包括@ 指派 标记 创建等
+    IssueFromAll = 2,
+};
 typedef NS_ENUM(NSInteger ,IssueSortType){
     IssueSortTypeCreate = 1,
     IssueSortTypeUpdate = 2,

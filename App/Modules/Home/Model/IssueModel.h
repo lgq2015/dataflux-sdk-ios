@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *statusChangeAccountInfoStr;
 @property (nonatomic, strong) NSString *assignAccountInfoStr;
 @property (nonatomic, strong) NSString *assignedToAccountInfoStr;
+@property (nonatomic, strong) NSString *watchInfoJSONStr;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (void)checkInvalidIssue;
