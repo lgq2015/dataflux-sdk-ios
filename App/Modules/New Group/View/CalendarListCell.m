@@ -80,7 +80,8 @@
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);
     if (model.titleH>0) {
         self.titleLable.height = model.titleH;
-        self.titleLable.frame = CGRectMake(Interval(45), 0, kWidth-ZOOM_SCALE(130), ZOOM_SCALE(20));
+        self.titleLable.frame = CGRectMake(Interval(45), 0, CGRectGetMinX(self.timeLabel.frame)-Interval(45), ZOOM_SCALE(20));
+        self.titleLable.height = model.titleH;
         self.titleLable.textAlignment = NSTextAlignmentLeft;
     }else{
         self.titleLable.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(20));
