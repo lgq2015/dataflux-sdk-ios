@@ -9,11 +9,12 @@
 #import "IssueSelectHeaderView.h"
 #import "AddIssueVC.h"
 #import "ZTCreateTeamVC.h"
+#import "TouchLargeButton.h"
 
 @interface IssueSelectHeaderView()<SelectViewDelegate,SelectSortViewDelegate>
-@property (nonatomic, strong) UIButton *typeBtn;
-@property (nonatomic, strong) UIButton *timeTypeBtn;
-@property (nonatomic, strong) UIButton *mineTypeBtn;
+@property (nonatomic, strong) TouchLargeButton *typeBtn;
+@property (nonatomic, strong) TouchLargeButton *timeTypeBtn;
+@property (nonatomic, strong) TouchLargeButton *mineTypeBtn;
 @end
 @implementation IssueSelectHeaderView
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -51,9 +52,11 @@
     lineb.backgroundColor =[UIColor colorWithHexString:@"#E4E4E4"];
     [self addSubview:lineb];
 }
--(UIButton *)typeBtn{
+-(TouchLargeButton *)typeBtn{
     if (!_typeBtn) {
-        _typeBtn =[[UIButton alloc]init];
+        _typeBtn =[[TouchLargeButton alloc]init];
+        _typeBtn.largeWidth = 20;
+        _typeBtn.largeHeight = 14;
         //[ buttonWithFrame: type:PWButtonTypeWord text:@"筛选"];
         [_typeBtn setTitle:@"筛选" forState:UIControlStateNormal];
         [_typeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
@@ -72,9 +75,11 @@
     }
     return _typeBtn;
 }
-- (UIButton *)timeTypeBtn{
+- (TouchLargeButton *)timeTypeBtn{
     if (!_timeTypeBtn) {
-        _timeTypeBtn = [[UIButton alloc]init];
+        _timeTypeBtn = [[TouchLargeButton alloc]init];
+        _timeTypeBtn.largeWidth = 20;
+        _timeTypeBtn.largeHeight = 14;
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_n"] forState:UIControlStateNormal];
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_highlight"] forState:UIControlStateSelected];
         _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(75));
@@ -90,9 +95,11 @@
     }
     return _timeTypeBtn;
 }
--(UIButton *)mineTypeBtn{
+-(TouchLargeButton *)mineTypeBtn{
     if (!_mineTypeBtn) {
-        _mineTypeBtn = [[UIButton alloc]init];
+        _mineTypeBtn = [[TouchLargeButton alloc]init];
+        _mineTypeBtn.largeWidth = 20;
+        _mineTypeBtn.largeHeight = 14;
         SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
         NSString *title = selO.issueFrom == IssueFromMe?@"我的情报":@"全部情报";
         [_mineTypeBtn setTitle:title forState:UIControlStateNormal];
