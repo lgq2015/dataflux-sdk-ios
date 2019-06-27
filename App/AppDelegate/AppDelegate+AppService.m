@@ -217,6 +217,9 @@
         }
         
     }else if([msgType isEqualToString:@"url_schemes"]){
+        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
+        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
+        [maintabbar setSelectedIndex:0];
         if (isDiffentTeamID){
             [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
