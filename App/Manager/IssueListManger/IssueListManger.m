@@ -653,7 +653,13 @@
         whereFormat = sortStr;
     }else{
         __block NSString *appendStr= @"";
-        NSArray *formatStr = @[statesStr,typeStr,levelStr,fromMeStr];
+        NSArray *formatStr ;
+        if (fromMeStr.length>0) {
+          formatStr = @[typeStr,levelStr,fromMeStr];
+        }else{
+          formatStr = @[statesStr,typeStr,levelStr];
+        }
+       
         [formatStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (appendStr.length == 0) {
             appendStr =  [appendStr stringByAppendingString:obj];
