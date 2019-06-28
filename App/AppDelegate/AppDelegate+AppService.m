@@ -232,6 +232,18 @@
             [self dealNotificationIssueAdd:userInfo];
         }
         
+    }else if([msgType isEqualToString:@"issue_list"]){
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueEngineFinish];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueEngineFinish];
+        }
     }
     
 }
@@ -462,6 +474,7 @@
             }
             DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
         }];
+         return YES;
     }
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
     DLog(@"urlComponents == %@",urlComponents);
@@ -474,6 +487,13 @@
         if ([parameter[@"rtype"] isEqualToString:@"issue_detail"]) {
             if( [parameter containsObjectForKey:@"teamid"] &&[parameter containsObjectForKey:@"issueid"]){
                 NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"url_schemes",@"entityId":[parameter stringValueForKey:@"issueid" default:@""]};
+                setRemoteNotificationData(userinfo);
+                [kUserDefaults synchronize];
+                KPostNotification(KNotificationNewRemoteNoti, nil);
+            }
+        }else if([parameter[@"rtype"] isEqualToString:@"issue_list"]){
+            if( [parameter containsObjectForKey:@"teamid"]){
+                NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"issue_list"};
                 setRemoteNotificationData(userinfo);
                 [kUserDefaults synchronize];
                 KPostNotification(KNotificationNewRemoteNoti, nil);
