@@ -209,11 +209,11 @@
              [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueAt:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueAt:userInfo];
         }
         
     }else if([msgType isEqualToString:@"url_schemes"]){
@@ -284,6 +284,23 @@
 - (void)dealNotificationIssueEngineCount{
     //暂时只停留在首页
     [self dealNotificationIssueEngineFinish];
+}
+- (void)dealNotificationIssueAt:(NSDictionary *)userInfo{
+    NSString *entityId = [userInfo stringValueForKey:@"issueId" default:@""];
+    [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        IssueModel *data = (IssueModel *) o;
+        if (data.isSuccess) {
+            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+            
+            IssueDetailsVC *control = [IssueDetailsVC new];
+            control.model = monitorListModel;
+            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
+            [self deleteAllNavViewController];
+        } else {
+            [iToast alertWithTitleCenter:data.errorMsg];
+        }
+    }];
 }
 //处理情报添加
 - (void)dealNotificationIssueAdd:(NSDictionary *)userInfo{
