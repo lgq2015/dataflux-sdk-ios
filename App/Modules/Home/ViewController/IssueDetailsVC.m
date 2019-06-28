@@ -60,8 +60,7 @@
 - (void)createUI{
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67));
     [self.view addSubview:self.tableView];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+   
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     
     [self.tableView registerClass:NSClassFromString(@"IssueChatTextCell") forCellReuseIdentifier:PWChatTextCellId];
@@ -69,6 +68,9 @@
     [self.tableView registerClass:NSClassFromString(@"IssueChatFileCell") forCellReuseIdentifier:PWChatFileCellId];
     [self.tableView registerClass:NSClassFromString(@"IssueChatSystermCell") forCellReuseIdentifier:PWChatSystermCellId];
     [self.tableView registerClass:NSClassFromString(@"IssueChatKeyPointCell") forCellReuseIdentifier:PWChatKeyPointCellId];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+    
     if(self.model.isFromUser){
         self.tableView.tableHeaderView = self.userHeader;
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,6 +89,10 @@
         }];
         [self loadInfoDeatil];
     }
+       
+    });
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     self.bottomBtnView  = [[IssueDtealsBV alloc] initWithFrame:CGRectMake(0, kHeight -kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67), kWidth, ZOOM_SCALE(67))];
     self.bottomBtnView.delegate = self;
     self.state = IssueDealStateChat;
