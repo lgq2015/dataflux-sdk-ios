@@ -78,8 +78,8 @@
 //    }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
     self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
-    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(130) withFont:RegularFONT(12)].height;
-    if (titleH<ZOOM_SCALE(17)) {
+    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(50)-Interval(65) withFont:RegularFONT(12)].height;
+    if (titleH<=ZOOM_SCALE(17)) {
         self.titleH = ZOOM_SCALE(17);
     }else{
         self.titleH = titleH+5;

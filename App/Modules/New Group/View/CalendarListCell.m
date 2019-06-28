@@ -83,6 +83,9 @@
         self.titleLable.frame = CGRectMake(Interval(45), 0, CGRectGetMinX(self.timeLabel.frame)-Interval(45), ZOOM_SCALE(20));
         self.titleLable.height = model.titleH;
         self.titleLable.textAlignment = NSTextAlignmentLeft;
+        if (model.titleH<=ZOOM_SCALE(17)) {
+            self.titleLable.centerY = self.dotView.centerY;
+        }
     }else{
         self.titleLable.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(20));
         self.titleLable.textAlignment = NSTextAlignmentCenter;
