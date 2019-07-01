@@ -126,6 +126,46 @@
    
     return YES;
 }
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webpageURL = userActivity.webpageURL;
+//        NSString *host = webpageURL.host;
+//        if ([host isEqualToString:@"yohunl.com"]) {
+            //进行我们需要的处理
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:webpageURL resolvingAgainstBaseURL:YES];
+            DLog(@"urlComponents == %@",urlComponents);
+            // url中参数的key value
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            for (NSURLQueryItem *item in urlComponents.queryItems) {
+                [parameter setValue:item.value forKey:item.name];
+            }
+            if([parameter containsObjectForKey:@"rtype"]){
+                if ([parameter[@"rtype"] isEqualToString:@"issue_detail"]) {
+                    if( [parameter containsObjectForKey:@"teamid"] &&[parameter containsObjectForKey:@"issueid"]){
+                        NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"url_schemes",@"entityId":[parameter stringValueForKey:@"issueid" default:@""]};
+                        setRemoteNotificationData(userinfo);
+                        [kUserDefaults synchronize];
+                        KPostNotification(KNotificationNewRemoteNoti, nil);
+                    }
+                }else if([parameter[@"rtype"] isEqualToString:@"issue_list"]){
+                    if( [parameter containsObjectForKey:@"teamid"]){
+                        NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"issue_list"};
+                        setRemoteNotificationData(userinfo);
+                        [kUserDefaults synchronize];
+                        KPostNotification(KNotificationNewRemoteNoti, nil);
+                    }
+                }
+//            }
+
+        }
+        else {
+            [[UIApplication sharedApplication]openURL:webpageURL];
+        }
+        
+    }
+    return YES;
+
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
