@@ -10,6 +10,7 @@
 #import "CalendarIssueModel.h"
 @interface CalendarListCell()
 @property (nonatomic, strong) YYLabel *titleLable;
+@property (nonatomic, strong) YYLabel *noDataLable;
 @property (nonatomic, strong) YYLabel *timeLabel;
 @property (nonatomic, strong) YYLabel *statesLabel;
 @property (nonatomic, strong) YYLabel *contentTextView;
@@ -28,18 +29,19 @@
 }
 - (void)createCellUI{
     self.backgroundColor = PWWhiteColor;
-    self.titleLable = [[YYLabel alloc]initWithFrame:CGRectMake(Interval(45), 0, kWidth-ZOOM_SCALE(130), ZOOM_SCALE(20))];
-    self.titleLable.numberOfLines = 0;
-    self.titleLable.font = RegularFONT(12);
-    self.titleLable.textColor = PWTextBlackColor;
-    [self addSubview:self.titleLable];
+    
     self.timeLabel = [[YYLabel alloc]initWithFrame:CGRectMake(kWidth-Interval(20)-ZOOM_SCALE(50), 0, ZOOM_SCALE(50), ZOOM_SCALE(17))];
-    self.timeLabel.centerY = self.titleLable.centerY;
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.font = RegularFONT(12);
     self.timeLabel.textColor = PWSubTitleColor;
     [self addSubview:self.timeLabel];
-  
+    self.titleLable = [[YYLabel alloc]initWithFrame: CGRectMake(Interval(45), 0, CGRectGetMinX(self.timeLabel.frame)-Interval(45), ZOOM_SCALE(20))];
+    self.titleLable.numberOfLines = 0;
+    self.titleLable.font = RegularFONT(12);
+    self.titleLable.textColor = PWTextBlackColor;
+    [self addSubview:self.titleLable];
+    self.timeLabel.centerY = self.titleLable.centerY;
+
     self.contentTextView = [[YYLabel alloc]initWithFrame:CGRectMake(Interval(45), Interval(16)+ZOOM_SCALE(24), ZOOM_SCALE(240), ZOOM_SCALE(40))];
     self.contentTextView.font = RegularFONT(15);
     self.contentTextView.numberOfLines = 0;
@@ -71,24 +73,21 @@
     BOOL isHidden = [model.typeText isEqualToString:@"今日无情报"];
    
     self.timeLabel.hidden = isHidden;
+    self.titleLable.hidden = isHidden;
     self.dotView.hidden = isHidden;
     self.lineView.hidden = isHidden;
+    _noDataLable.hidden = !isHidden;
     self.titleLable.text = model.typeText;
     self.timeLabel.text = model.timeText;
     self.contentTextView.text = model.contentText;
-    //[[NSAttributedString alloc]initWithString:model.contentText];
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);
     if (model.titleH>0) {
         self.titleLable.height = model.titleH;
-        self.titleLable.frame = CGRectMake(Interval(45), 0, CGRectGetMinX(self.timeLabel.frame)-Interval(45), ZOOM_SCALE(20));
-        self.titleLable.height = model.titleH;
-        self.titleLable.textAlignment = NSTextAlignmentLeft;
         if (model.titleH<=ZOOM_SCALE(17)) {
             self.titleLable.centerY = self.dotView.centerY;
         }
     }else{
-        self.titleLable.frame = CGRectMake(0, 0, kWidth, ZOOM_SCALE(20));
-        self.titleLable.textAlignment = NSTextAlignmentCenter;
+        self.noDataLable.text = model.typeText;
     }
     self.contentTextView.frame = CGRectMake(Interval(45), CGRectGetMaxY(self.titleLable.frame)+8, kWidth-Interval(61), calendarContentH);
     self.contentTextView.height = calendarContentH;
@@ -117,6 +116,16 @@
             break;
     }
     self.lineView.height = model.calendarContentH +Interval(28)+model.titleH;
+}
+-(YYLabel *)noDataLable{
+    if (!_noDataLable) {
+        _noDataLable = [[YYLabel alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(20))];
+        _noDataLable.font = RegularFONT(12);
+        _noDataLable.textColor = PWTextBlackColor;
+        _noDataLable.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_noDataLable];
+    }
+    return _noDataLable;
 }
 -(void)setLineHide:(BOOL)lineHide{
     self.lineView.hidden = lineHide;
