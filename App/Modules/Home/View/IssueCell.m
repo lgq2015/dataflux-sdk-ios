@@ -8,15 +8,15 @@
 
 #import "IssueCell.h"
 #import "IssueListViewModel.h"
-#import "RightTriangleView.h"
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
 #import "SelectObject.h"
+#import "TriangleDrawRect.h"
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) RightTriangleView *triangleView;
+@property (nonatomic, strong) TriangleDrawRect *triangleView;
 @property (nonatomic, strong) UILabel *chatTimeLab;
 //情报源名称 情报源头像
 @property (nonatomic, strong) UIImageView *sourceIcon;
@@ -202,9 +202,10 @@
     self.layer.mask = maskLayer;
 }
 
-- (RightTriangleView *)triangleView{
+- (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-40, 0, 8, 8)];
+        _triangleView =[[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(8, 0) endPoint:CGPointMake(8, 8) color:PWRedColor];
+        _triangleView.frame =CGRectMake(kWidth-40, 0, 8, 8);
         
         [self addSubview:_triangleView];
     }

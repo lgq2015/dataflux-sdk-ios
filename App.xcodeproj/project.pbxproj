@@ -176,8 +176,6 @@
 		2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
-		4A092C592222B05300FB2A35 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
-		4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
 		4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
 		4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
@@ -389,6 +387,9 @@
 		4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
 		4A47138822B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
 		4A47138922B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
+		4A4FF17A22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
+		4A4FF17B22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
+		4A4FF17C22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -429,9 +430,6 @@
 		4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
 		4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
 		4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599E8224274BC0057BD02 /* ExpertCell.m */; };
-		4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
-		4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
-		4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7599F72243C3A30057BD02 /* TriangleLeft.m */; };
 		4A759A4C2247F5060057BD02 /* AddIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* AddIssueCell.m */; };
 		4A759A4D2247F5330057BD02 /* AddIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* AddIssueCell.m */; };
 		4A759A4E2247F5340057BD02 /* AddIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759A4B2247F5060057BD02 /* AddIssueCell.m */; };
@@ -483,9 +481,6 @@
 		4A759AF3224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
 		4A759AF4224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
 		4A759AF5224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
-		4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
-		4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
-		4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF7224FF5930057BD02 /* UpTriangle.m */; };
 		4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
@@ -1248,10 +1243,6 @@
 		CA49D23822201004000F6258 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
-		CA6D83452224214C00CF577A /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
-		CA6D83462224214C00CF577A /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C582222B05300FB2A35 /* TriangleView.m */; };
-		CA6D83472224216700CF577A /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
-		CA6D83482224216800CF577A /* RightTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */; };
 		CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
 		CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E8223121BA00DAE1F6 /* HandbookModel.m */; };
 		CAD9CABC2243EBD90063ABFF /* HandbookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC856E522311E3800DAE1F6 /* HandbookCell.m */; };
@@ -1360,10 +1351,6 @@
 		2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ServiceDetailVC+ChangeNavColor.h"; sourceTree = "<group>"; };
 		2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ServiceDetailVC+ChangeNavColor.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
-		4A092C572222B05300FB2A35 /* TriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
-		4A092C582222B05300FB2A35 /* TriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
-		4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightTriangleView.h; sourceTree = "<group>"; };
-		4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightTriangleView.m; sourceTree = "<group>"; };
 		4A092C6422241B3800FB2A35 /* PasswordVerifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordVerifyVC.h; sourceTree = "<group>"; };
 		4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifyVC.m; sourceTree = "<group>"; };
 		4A092C672224D79100FB2A35 /* ClearCacheTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearCacheTool.h; sourceTree = "<group>"; };
@@ -1513,6 +1500,8 @@
 		4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseAssignVC.m; sourceTree = "<group>"; };
 		4A47138522B2401300EB90F7 /* NoAssignCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoAssignCell.h; sourceTree = "<group>"; };
 		4A47138622B2401300EB90F7 /* NoAssignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoAssignCell.m; sourceTree = "<group>"; };
+		4A4FF17822C9A7F800F8985E /* TriangleDrawRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleDrawRect.h; sourceTree = "<group>"; };
+		4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleDrawRect.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -1567,8 +1556,6 @@
 		4A7599D9224212DC0057BD02 /* EchartTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EchartTableView.m; sourceTree = "<group>"; };
 		4A7599E7224274BC0057BD02 /* ExpertCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpertCell.h; sourceTree = "<group>"; };
 		4A7599E8224274BC0057BD02 /* ExpertCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpertCell.m; sourceTree = "<group>"; };
-		4A7599F62243C3A30057BD02 /* TriangleLeft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleLeft.h; sourceTree = "<group>"; };
-		4A7599F72243C3A30057BD02 /* TriangleLeft.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleLeft.m; sourceTree = "<group>"; };
 		4A759A4A2247F5050057BD02 /* AddIssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIssueCell.h; sourceTree = "<group>"; };
 		4A759A4B2247F5060057BD02 /* AddIssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIssueCell.m; sourceTree = "<group>"; };
 		4A759A6F2248891E0057BD02 /* PWFMDB+Simplefy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PWFMDB+Simplefy.m"; sourceTree = "<group>"; };
@@ -1602,8 +1589,6 @@
 		4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeIssueIndexGuidanceView.m; sourceTree = "<group>"; };
 		4A759AF1224FF2490057BD02 /* AddIssueGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIssueGuideView.h; sourceTree = "<group>"; };
 		4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIssueGuideView.m; sourceTree = "<group>"; };
-		4A759AF6224FF5930057BD02 /* UpTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpTriangle.h; sourceTree = "<group>"; };
-		4A759AF7224FF5930057BD02 /* UpTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpTriangle.m; sourceTree = "<group>"; };
 		4A759B2F22522E150057BD02 /* NewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListEmptyView.h; sourceTree = "<group>"; };
 		4A759B3022522E150057BD02 /* NewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListEmptyView.m; sourceTree = "<group>"; };
 		4A759B502254B6A20057BD02 /* EchartListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EchartListView.h; sourceTree = "<group>"; };
@@ -2349,12 +2334,6 @@
 				4AC8574A2235FEE300DAE1F6 /* InformationSourceCell.m */,
 				4AD848E8221FFC06002ADF62 /* WebItemView.h */,
 				4AD848E9221FFC06002ADF62 /* WebItemView.m */,
-				4A092C572222B05300FB2A35 /* TriangleView.h */,
-				4A092C582222B05300FB2A35 /* TriangleView.m */,
-				4A7599F62243C3A30057BD02 /* TriangleLeft.h */,
-				4A7599F72243C3A30057BD02 /* TriangleLeft.m */,
-				4A092C5A2223BCEB00FB2A35 /* RightTriangleView.h */,
-				4A092C5B2223BCEB00FB2A35 /* RightTriangleView.m */,
 				4AC856E422311E3800DAE1F6 /* HandbookCell.h */,
 				4AC856E522311E3800DAE1F6 /* HandbookCell.m */,
 				4AC857112232668200DAE1F6 /* HistoryTableView.h */,
@@ -2381,8 +2360,6 @@
 				4A759AAB224B3F8B0057BD02 /* IssueSourceView.m */,
 				4A759AAF224B61AB0057BD02 /* EchartView.h */,
 				4A759AB0224B61AB0057BD02 /* EchartView.m */,
-				4A759AF6224FF5930057BD02 /* UpTriangle.h */,
-				4A759AF7224FF5930057BD02 /* UpTriangle.m */,
 				4A759B502254B6A20057BD02 /* EchartListView.h */,
 				4A759B512254B6A20057BD02 /* EchartListView.m */,
 				4AAC141C2276F3500043AD5E /* NoDataView.h */,
@@ -3173,6 +3150,8 @@
 		4ABF449C21C0B892002AF34E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4A4FF17822C9A7F800F8985E /* TriangleDrawRect.h */,
+				4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */,
 				4A7599D2224116830057BD02 /* NSDate+PWH.h */,
 				4A7599D3224116830057BD02 /* NSDate+PWH.m */,
 				4AC8570322323C9200DAE1F6 /* ZLChineseToPinyin.h */,
@@ -3844,6 +3823,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 					CA1CF57B221ECB3A00D15316 = {
@@ -4226,7 +4208,6 @@
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
-				4A092C592222B05300FB2A35 /* TriangleView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				2BF9F79622707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
 				4AC22013228E521D0098848C /* ChatInputHeaderView.m in Sources */,
@@ -4277,7 +4258,6 @@
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
 				4A759AE9224FA1400057BD02 /* Reachability.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
-				4A092C5C2223BCEB00FB2A35 /* RightTriangleView.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
 				4A092D90222E7CE100FB2A35 /* PWPhotoListView.m in Sources */,
 				2B9ECC19225476B100BAC47A /* FounctionIntroductionVC.m in Sources */,
@@ -4371,7 +4351,6 @@
 				4A759B522254B6A20057BD02 /* EchartListView.m in Sources */,
 				2BFEF2FC225B4572008A0233 /* NSString+Regex.m in Sources */,
 				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
-				4A7599F82243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A3CDA56229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
@@ -4508,7 +4487,6 @@
 				4AF6639D225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4D229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
-				4A759AF8224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
 				4A3CDA81229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEEB228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
@@ -4548,6 +4526,7 @@
 				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
 				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
+				4A4FF17A22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535327226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF282289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA53229C095800C2EC62 /* LTSCircleView.m in Sources */,
@@ -4706,7 +4685,6 @@
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCE228BB5590098848C /* IssueUserDetailView.m in Sources */,
-				4A7599F92243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -4741,7 +4719,6 @@
 				2BFEF2FD225B4572008A0233 /* NSString+Regex.m in Sources */,
 				4AC8570522323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
-				CA6D83472224216700CF577A /* RightTriangleView.m in Sources */,
 				4A3CDA57229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */,
@@ -4807,7 +4784,6 @@
 				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
 				CA1CF5D5221ECB3A00D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9B229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
-				CA6D83452224214C00CF577A /* TriangleView.m in Sources */,
 				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
 				4AC8575B22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
@@ -4877,7 +4853,6 @@
 				4AF6639E225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4E229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
-				4A759AF9224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
 				4A3CDA82229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEEC228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
@@ -4917,6 +4892,7 @@
 				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
 				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
+				4A4FF17B22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535328226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF292289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA54229C095800C2EC62 /* LTSCircleView.m in Sources */,
@@ -5075,7 +5051,6 @@
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCF228BB5590098848C /* IssueUserDetailView.m in Sources */,
-				4A7599FA2243C3A30057BD02 /* TriangleLeft.m in Sources */,
 				4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -5110,7 +5085,6 @@
 				2BFEF2FE225B4572008A0233 /* NSString+Regex.m in Sources */,
 				4AC8570622323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
-				CA6D83482224216800CF577A /* RightTriangleView.m in Sources */,
 				4A3CDA58229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */,
@@ -5176,7 +5150,6 @@
 				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
 				CA1CF67A221ECB5000D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9C229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
-				CA6D83462224214C00CF577A /* TriangleView.m in Sources */,
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
 				4AC8575C22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
@@ -5246,7 +5219,6 @@
 				4AF6639F225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4F229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
-				4A759AFA224FF5930057BD02 /* UpTriangle.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
 				4A3CDA83229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEED228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
@@ -5286,6 +5258,7 @@
 				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
 				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
+				4A4FF17C22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535329226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF2A2289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA55229C095800C2EC62 /* LTSCircleView.m in Sources */,
