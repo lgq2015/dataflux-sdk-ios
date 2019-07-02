@@ -24,7 +24,7 @@
 //类别名称 类别头像
 @property (nonatomic, strong) UILabel *issTypeLab;
 @property (nonatomic, strong) UIImageView *issIcon;
-
+@property (nonatomic, strong) UILabel *issueStateLab;
 //标记状态 标记用户头像
 @property (nonatomic, strong) UILabel *markStatusLab;
 @property (nonatomic, strong) UIImageView *markUserIcon;
@@ -43,8 +43,14 @@
 }
 
 - (void)createUI{
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.issueStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(16));
+        make.centerY.mas_equalTo(self.stateLab.mas_centerY);
+        make.height.offset(ZOOM_SCALE(20));
+    }];
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.issueStateLab.mas_right).offset(Interval(10));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
@@ -117,11 +123,23 @@
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
+    if (model.recovered) {
+        self.issueStateLab.text = @"已恢复";
+        self.issueStateLab.textColor = [UIColor colorWithHexString:@"#26DBAC"];
+    }else{
+        self.issueStateLab.text = @"活跃";
+        self.issueStateLab.textColor = PWBlueColor;
+    }
+    [self.issueStateLab sizeToFit];
+    CGFloat labWidth = self.issueStateLab.frame.size.width;
+    [self.issueStateLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(labWidth);
+    }];
   SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     if (selObj.issueSortType == IssueSortTypeCreate) {
-    self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time accurateTimeStr]];
+    self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time listAccurateTimeStr]];
     }else{
-    self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime accurateTimeStr]];
+    self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime listAccurateTimeStr]];
     }
 
     switch (self.model.state) {
@@ -201,7 +219,13 @@
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
-
+-(UILabel *)issueStateLab{
+    if (!_issueStateLab) {
+        _issueStateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"活跃"];
+        [self addSubview:_issueStateLab];
+    }
+    return _issueStateLab;
+}
 - (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
         _triangleView =[[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(8, 0) endPoint:CGPointMake(8, 8) color:PWRedColor];
