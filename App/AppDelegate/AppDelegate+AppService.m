@@ -159,7 +159,7 @@
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
                     [SVProgressHUD dismiss];
-                    [self dealNotificationIssueEngineFinish];
+                    [self dealNotificationIssueDetailSkip:userInfo];
                 }
             }];
         }else{
@@ -183,18 +183,18 @@
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueDetailSkip:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueDetailSkip:userInfo];
         }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
-        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
-        NSString *titleH = [alert valueForKey:@"title"];
+//        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
+//        NSString *titleH = [alert valueForKey:@"title"];
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
@@ -204,7 +204,7 @@
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
-    }else if([msgType isEqualToString:@"issue_log_at"]){
+    }else if([msgType isEqualToString:@"issue_log_at"] || [msgType isEqualToString:@"issue_log_add"]){
         if (isDiffentTeamID){
              [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
@@ -224,12 +224,12 @@
             [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueDetailSkip:userInfo];
                 }
             }];
 
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueDetailSkip:userInfo];
         }
         
     }else if([msgType isEqualToString:@"issue_list"]){
@@ -302,8 +302,8 @@
         }
     }];
 }
-//处理情报添加
-- (void)dealNotificationIssueAdd:(NSDictionary *)userInfo{
+//处理情报添加、情报恢复
+- (void)dealNotificationIssueDetailSkip:(NSDictionary *)userInfo{
     NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
     [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
         [SVProgressHUD dismiss];
