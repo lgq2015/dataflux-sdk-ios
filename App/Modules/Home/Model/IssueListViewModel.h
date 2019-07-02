@@ -49,6 +49,8 @@ typedef NS_ENUM(NSInteger, IssueState){
 @property (nonatomic, strong) NSDictionary *statusChangeAccountInfo;
 @property (nonatomic, strong) NSDictionary *assignAccountInfo;
 @property (nonatomic, strong) NSDictionary *assignedToAccountInfo;
+@property (nonatomic, strong) NSString *watchInfoJSONStr;
+
 @property (nonatomic, assign) BOOL recovered;
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

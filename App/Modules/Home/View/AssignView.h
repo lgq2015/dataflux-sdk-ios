@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AssignView : UIView
-@property (nonatomic, copy) void(^AssignClick)(void);
+@property (nonatomic, copy) void(^AssignClick)(BOOL isAssignSelf);
 
 -(instancetype)initWithFrame:(CGRect)frame IssueModel:(IssueListViewModel *)model;
 -(void)assignWithMember:(nullable MemberInfoModel *)member;

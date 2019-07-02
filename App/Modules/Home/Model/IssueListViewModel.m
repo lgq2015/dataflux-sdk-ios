@@ -120,7 +120,7 @@
             self.issueLog =[NSString stringWithFormat:@"%@:  %@",name,string];
         }
     }
-  
+    self.watchInfoJSONStr = model.watchInfoJSONStr;
    
     NSDictionary *tags = PWSafeDictionaryVal(markTookOverInfoJSON, @"tags");
     if (tags) {

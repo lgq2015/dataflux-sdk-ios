@@ -27,6 +27,7 @@
 #import "IssueListManger.h"
 #import "TeamInfoModel.h"
 #import "IgnoreItemView.h"
+#import "TouchLargeButton.h"
 
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
 @property (nonatomic, assign) IssueDealState state;
 @property (nonatomic, strong) IgnoreItemView *itemView;
+@property (nonatomic, strong) TouchLargeButton *navBtn;
 @property (nonatomic, copy) NSString *oldStr;     //输入内容
 @end
 @implementation IssueDetailsVC
@@ -58,6 +60,12 @@
 }
 
 - (void)createUI{
+    
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navBtn];
+    self.navigationItem.rightBarButtonItem = item;
+    if (self.model.watchInfoJSONStr) {
+        self.navBtn.selected =[self.model.watchInfoJSONStr containsString:userManager.curUserInfo.userID];
+    }
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67));
     [self.view addSubview:self.tableView];
    
@@ -134,7 +142,10 @@
         _engineHeader = [[IssueEngineHeaderView alloc]initHeaderWithIssueModel:self.model];
         _engineHeader.backgroundColor = PWBackgroundColor;
         WeakSelf
-        _engineHeader.recoverClick = ^(void){
+        _engineHeader.recoverClick = ^(BOOL navSel){
+            if (navSel) {
+                weakSelf.navBtn.selected = YES;
+            }
             [weakSelf getNewChatDatasAndScrollTop:NO];
         };
     }
@@ -145,11 +156,23 @@
         _userHeader = [[IssueUserDetailView alloc]initHeaderWithIssueModel:self.model];
         _userHeader.backgroundColor = PWBackgroundColor;
         WeakSelf
-        _userHeader.recoverClick = ^(void){
+        _userHeader.recoverClick = ^(BOOL navSel){
+            if (navSel) {
+                weakSelf.navBtn.selected = YES;
+            }
              [weakSelf getNewChatDatasAndScrollTop:NO];
         };
     }
     return _userHeader;
+}
+-(TouchLargeButton *)navBtn{
+    if (!_navBtn) {
+        _navBtn = [[TouchLargeButton alloc]init];
+        [_navBtn setImage:[UIImage imageNamed:@"issue_noattention"] forState:UIControlStateNormal];
+        [_navBtn setImage:[UIImage imageNamed:@"issue_attention"] forState:UIControlStateSelected];
+        [_navBtn addTarget:self action:@selector(navBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navBtn;
 }
 #pragma mark ========== networking ==========
 - (void)loadInfoDeatil{
@@ -242,6 +265,22 @@
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
+    }];
+}
+#pragma mark ========== navBtnClick ==========
+-(void)navBtnClick:(UIButton *)button{
+    button.enabled = NO;
+    [[PWHttpEngine sharedInstance] issueWatchWithIssueId:self.model.issueId isWatch:!button.selected callBack:^(id response) {
+        BaseReturnModel *model = response;
+        button.enabled = YES;
+        if (model.isSuccess) {
+            NSString *showTip = button.selected?@"已取消关注":@"关注成功";
+            self.navBtn.selected = !button.selected;
+            [SVProgressHUD showSuccessWithStatus:showTip];
+            KPostNotification(KNotificationReloadIssueList, nil);
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
     }];
 }
 #pragma mark ========== bottomBtnClick ==========

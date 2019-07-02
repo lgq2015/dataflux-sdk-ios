@@ -143,7 +143,7 @@
     chooseVC.MemberInfo = ^(MemberInfoModel *model){
         [weakSelf dealWithMemberInfoModel:model];
         if (weakSelf.AssignClick) {
-            weakSelf.AssignClick();
+            weakSelf.AssignClick([model.memberID isEqualToString:userManager.curUserInfo.userID]);
         }
     };
     [self.viewController.navigationController pushViewController:chooseVC animated:YES];
