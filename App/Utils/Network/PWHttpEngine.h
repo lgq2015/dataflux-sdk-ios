@@ -67,4 +67,5 @@
  */
 - (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)checkRegisterWithPhone:(NSString *)phone callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback;
 @end

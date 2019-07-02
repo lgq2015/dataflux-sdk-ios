@@ -454,6 +454,18 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+- (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"isWatch":[NSNumber numberWithBool:isWatch]}};
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueWatch(issueId)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 
