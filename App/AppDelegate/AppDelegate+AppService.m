@@ -153,7 +153,7 @@
         }else{
             [self dealNotificaionSystemMessage:userInfo withTitle:title];
         }
-    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
+    } else if ([msgType isEqualToString:@"issue_engine_finish"]||[msgType isEqualToString:@"issue_recovered"]) {
         if (isDiffentTeamID){
             [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
@@ -305,6 +305,7 @@
 //处理情报添加、情报恢复
 - (void)dealNotificationIssueDetailSkip:(NSDictionary *)userInfo{
     NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+    if(![entityId isEqualToString:@""]){
     [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
         [SVProgressHUD dismiss];
         IssueModel *data = (IssueModel *) o;
@@ -319,6 +320,9 @@
             [iToast alertWithTitleCenter:data.errorMsg];
         }
     }];
+    }else{
+        [self dealNotificationIssueEngineFinish];
+    }
 }
 
 #pragma mark ========== 登录状态处理 ==========
