@@ -45,6 +45,7 @@
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter outdateFormatted:(NSString *)dateFormatted;
 + (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter;
 - (NSString *)accurateTimeStr;
+- (NSString *)listAccurateTimeStr;
 /**
  时间转换
  */

@@ -44,6 +44,12 @@
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
+-(NSString *)listCurrentYearHourMinutesTimeStr{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"MM 月 dd 日";
+    NSString *selfStr = [fmt stringFromDate:self];
+    return  selfStr;
+}
 -(NSString *)currentYearHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"MM 月 dd 日 HH:mm";
@@ -53,6 +59,12 @@
 -(NSString *)hourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"HH:mm";
+    NSString *selfStr = [fmt stringFromDate:self];
+    return selfStr;
+}
+-(NSString *)listYearMonthDayHourMinutesTimeStr{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyyy 年 MM 月 dd 日";
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }

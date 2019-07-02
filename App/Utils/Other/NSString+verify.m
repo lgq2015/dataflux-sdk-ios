@@ -240,6 +240,22 @@
     }
     return  result;
 }
+- (NSString *)listAccurateTimeStr{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:self];
+    NSString *timeStr;
+    if ([timeDate isToday]) {
+        timeStr = [NSString stringWithFormat:@"今天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isYesterday]){
+        timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isThisYear]){
+        timeStr = [timeDate listCurrentYearHourMinutesTimeStr];
+    }else{
+        timeStr = [timeDate listYearMonthDayHourMinutesTimeStr];
+    }
+    return timeStr;
+}
 - (NSString *)accurateTimeStr{
     //把字符串转为NSdate
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
