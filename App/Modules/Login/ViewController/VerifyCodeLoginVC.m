@@ -146,7 +146,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = @"请输入手机号";
+        _phoneTf.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTf.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_phoneTf];
@@ -165,7 +165,7 @@
 }
 -(UIButton *)verifyCodeBtn{
     if(!_verifyCodeBtn){
-        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"获取验证码"];
+        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"home.getCode", @"")];
         [_verifyCodeBtn addTarget:self action:@selector(getVerifyCode) forControlEvents:UIControlEventTouchUpInside];
         _verifyCodeBtn.enabled = NO;
         [self.view addSubview:_verifyCodeBtn];

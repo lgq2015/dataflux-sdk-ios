@@ -86,7 +86,7 @@
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
         _passwordTf.secureTextEntry = YES;
-        _passwordTf.placeholder = @"请输入密码";
+        _passwordTf.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
         [self.view addSubview:_passwordTf];
     }
     return _passwordTf;

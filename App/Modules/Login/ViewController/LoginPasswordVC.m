@@ -142,7 +142,7 @@
 -(UIButton *)findWordsBtn{
     if (!_findWordsBtn) {
         _findWordsBtn = [[UIButton alloc]init];
-        [_findWordsBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+        [_findWordsBtn setTitle:NSLocalizedString(@"login.forget.password", "") forState:UIControlStateNormal];
         _findWordsBtn.titleLabel.font = RegularFONT(14);
         [_findWordsBtn addTarget:self action:@selector(findWordClick) forControlEvents:UIControlEventTouchUpInside];
         [_findWordsBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];
@@ -211,7 +211,7 @@
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
         _passwordTf.secureTextEntry = YES;
         _passwordTf.delegate = self;
-        _passwordTf.placeholder = @"请输入密码";
+        _passwordTf.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
         [self.view addSubview:_passwordTf];
         }
     return _passwordTf;
@@ -228,7 +228,7 @@
 }
 -(UIButton *)verifyCodeBtn{
     if (!_verifyCodeBtn) {
-        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"验证码登录"];
+        _verifyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"login.verificationCodeLogin", @"")];
         [_verifyCodeBtn addTarget:self action:@selector(verifyCodeClick) forControlEvents:UIControlEventTouchUpInside];
         _verifyCodeBtn.titleLabel.font = RegularFONT(16);
         [_verifyCodeBtn setTitleColor:PWTitleColor forState:UIControlStateNormal];

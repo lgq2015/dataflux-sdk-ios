@@ -34,7 +34,7 @@
     switch (self.changeType) {
         case BindUserInfoTypeEmail:
             if (self.isFirst) {
-                placeholder = @"请输入邮箱";
+                placeholder = NSLocalizedString(@"login.placeholder.email", @"");
             }else{
                 placeholder = @"请输入新邮箱";
             }
@@ -44,7 +44,7 @@
         case BindUserInfoTypeName:
             title =@"修改姓名";
             if (self.isFirst) {
-                placeholder = @"请输入姓名";
+                placeholder = NSLocalizedString(@"login.placeholder.name", "");
             }else{
                 placeholder = @"请输入新的姓名";
             }
@@ -109,7 +109,7 @@
         RAC(self.commitBtn,enabled) = emailSignal;
         
     }else if(self.changeType == BindUserInfoTypeMobile){
-        [self.commitBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [self.commitBtn setTitle:NSLocalizedString(@"home.getCode", @"") forState:UIControlStateNormal];
         self.emailTF.keyboardType = UIKeyboardTypeNumberPad;
         RACSignal *phoneSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             

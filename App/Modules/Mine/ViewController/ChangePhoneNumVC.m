@@ -72,7 +72,7 @@
 -(UIButton *)commitBtn{
     if(!_commitBtn){
         _commitBtn = [[UIButton alloc]initWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44))];
-        [_commitBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_commitBtn setTitle:NSLocalizedString(@"login.login", @"") forState:UIControlStateNormal];
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_commitBtn setBackgroundColor:PWBlueColor];
         _commitBtn.enabled = NO;
@@ -88,7 +88,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = @"请输入手机号";
+        _phoneTf.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_phoneTf];
     }

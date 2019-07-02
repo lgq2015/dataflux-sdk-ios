@@ -111,7 +111,7 @@
 #pragma mark ========== init ==========
 -(UIButton *)loginBtn{
     if (!_loginBtn) {
-        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"登录"];
+        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"login.login", @"")];
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_loginBtn];
     }
@@ -133,7 +133,7 @@
 -(UITextField *)phoneTF{
     if (!_phoneTF) {
         _phoneTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _phoneTF.placeholder = @"请输入手机号";
+        _phoneTF.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
         _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTF.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_phoneTF];
@@ -143,7 +143,7 @@
 -(UITextField *)codeTF{
     if (!_codeTF) {
         _codeTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _codeTF.placeholder = @"请输入验证码";
+        _codeTF.placeholder = NSLocalizedString(@"login.placeholder.code", @"");
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.clearButtonMode=UITextFieldViewModeNever;
         _codeTF.delegate = self;
@@ -171,7 +171,7 @@
 }
 -(UIButton *)getCodeBtn{
     if (!_getCodeBtn) {
-        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"获取验证码"];
+        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"home.getCode", @"")];
         _getCodeBtn.titleLabel.font = RegularFONT(14);
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateDisabled];

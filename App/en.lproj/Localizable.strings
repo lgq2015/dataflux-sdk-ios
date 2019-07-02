@@ -155,3 +155,18 @@
 "issueAssigned" = "将该情报指派给";
 "issueCancelAssigning" = "取消了指派";
 "home.auth.alreadyRegister" = "手机号或邮箱已经注册";
+"login.placeholder.name" = "请输入姓名";
+"login.placeholder.code" = "请输入验证码";
+"login.placeholder.password" = "请输入密码";
+"login.placeholder.email" = "请输入邮箱";
+"login.placeholder.phone" = "请输入手机号";
+"login.password.empty" = "密码不能为空";
+"login.forget.password" = "忘记密码";
+"login.verificationCodeLogin" = "验证码登录";
+"tip.emailOrPhoneNotNull" = "邮箱或手机号不能为空";
+"tip.emailNotNull" = "邮箱不能为空";
+
+"login.login" = "登录";
+"home.getCode" = "获取验证码";
+
+"login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

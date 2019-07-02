@@ -67,7 +67,7 @@
 
 -(UIButton *)loginBtn{
     if (!_loginBtn) {
-        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"登录"];
+        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"login.login", @"")];
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_loginBtn];
     }
@@ -75,7 +75,7 @@
 }
 -(UIButton *)codeBtn{
     if (!_codeBtn) {
-        _codeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"验证码登录"];
+        _codeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:NSLocalizedString(@"login.verificationCodeLogin", @"")];
         _codeBtn.titleLabel.font = RegularFONT(16);
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateHighlighted];
@@ -88,7 +88,7 @@
 }
 -(UIButton *)forgetBtn{
     if (!_forgetBtn) {
-        _forgetBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"忘记密码"];
+        _forgetBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"login.forget.password", "")];
         [_forgetBtn addTarget:self action:@selector(forgetBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _forgetBtn.titleLabel.font = RegularFONT(14);
         [self.view addSubview:_forgetBtn];
@@ -106,7 +106,7 @@
 -(UITextField *)passwordTF{
     if (!_passwordTF) {
         _passwordTF = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _passwordTF.placeholder = @"请输入密码";
+        _passwordTF.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
         [self.view addSubview:_passwordTF];
     }
     return _passwordTF;
@@ -138,11 +138,11 @@
 }
 - (void)loginBtnClick{
     if ([self.accountTf.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:@"邮箱或手机号不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.emailOrPhoneNotNull", @"")];
         return;
     }
     if(self.passwordTF.text.length == 0){
-        [iToast alertWithTitleCenter:@"密码不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"login.password.empty", @"")];
         return;
     }
     [SVProgressHUD show];
