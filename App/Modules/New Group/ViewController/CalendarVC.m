@@ -155,7 +155,7 @@
                 [calendarList insertObject:@[model1] atIndex:0];
             }
             if (model.pageSize>model.count) {
-              self.manager.calenderScrollView.tableView.tableFooterView = self.footView;
+                [self.manager.calenderScrollView showNomoreDatasFooter];
             }else{
                 self.manager.calenderScrollView.tableView.tableFooterView = nil;
             }
