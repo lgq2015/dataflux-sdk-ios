@@ -125,6 +125,7 @@
     [SVProgressHUD show];
     [IssueChatDatas LoadingMessagesStartWithChat:self.model.issueId callBack:^(NSMutableArray<IssueChatMessagelLayout *> * array) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.dataSource removeAllObjects];
             [self.dataSource addObjectsFromArray:array];
             [self.tableView reloadData];
             [SVProgressHUD dismiss];
