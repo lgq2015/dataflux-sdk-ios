@@ -153,17 +153,12 @@
         }else{
             [self dealNotificaionSystemMessage:userInfo withTitle:title];
         }
-    } else if ([msgType isEqualToString:@"issue_engine_finish"]||[msgType isEqualToString:@"issue_recovered"] || [msgType isEqualToString:@"issue_recoveredByAccount"]||[msgType isEqualToString:@"issue_assignedToYouByAccount"]) {
+    } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
         if (isDiffentTeamID){
             [SVProgressHUD show];
-            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
-                if (isFinished){
-                    [SVProgressHUD dismiss];
-                    [self dealNotificationIssueDetailSkip:userInfo];
-                }
-            }];
+            [self dealNotificationIssueEngineFinish];
         }else{
-            [self dealNotificationIssueDetailSkip:userInfo];
+            [self dealNotificationIssueEngineFinish];
         }
        
     } else if ([msgType isEqualToString:@"issue_engine_count"]) {
@@ -178,7 +173,7 @@
         }else{
             [self dealNotificationIssueEngineCount];
         }
-    } else if ([msgType isEqualToString:@"issue_add"]) {
+    } else if ([msgType isEqualToString:@"issue_add"]||[msgType isEqualToString:@"issue_recovered"] || [msgType isEqualToString:@"issue_recoveredByAccount"]||[msgType isEqualToString:@"issue_assignedToYouByAccount"]) {
         [SVProgressHUD show];
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
@@ -250,11 +245,11 @@
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
                     [SVProgressHUD dismiss];
-                    [self dealNotificationIssueDetailSkip:userInfo];
+                    [self dealNotificationIssueEngineFinish];
                 }
             }];
         }else{
-            [self dealNotificationIssueDetailSkip:userInfo];
+            [self dealNotificationIssueEngineFinish];
         }
     }
     
