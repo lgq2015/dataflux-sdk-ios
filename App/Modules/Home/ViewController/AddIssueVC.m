@@ -350,6 +350,7 @@
                 model.issueId = [response[@"content"] stringValueForKey:@"id" default:@""];
                 model.accountId = getPWUserID;
                 model.isFromUser = YES;
+                model.watchInfoJSONStr = userManager.curUserInfo.userID;
                 model.time = [NSString getLocalDateFormateUTCDate:[[NSDate date] getNowUTCTimeStr] formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
                 IssueDetailsVC *details = [[IssueDetailsVC alloc]init];
                 details.model = model;
