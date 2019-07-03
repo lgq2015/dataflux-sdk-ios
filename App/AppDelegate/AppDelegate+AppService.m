@@ -153,7 +153,7 @@
         }else{
             [self dealNotificaionSystemMessage:userInfo withTitle:title];
         }
-    } else if ([msgType isEqualToString:@"issue_engine_finish"]||[msgType isEqualToString:@"issue_recovered"]) {
+    } else if ([msgType isEqualToString:@"issue_engine_finish"]||[msgType isEqualToString:@"issue_recovered"] || [msgType isEqualToString:@"issue_recoveredByAccount"]||[msgType isEqualToString:@"issue_assignedToYouByAccount"]) {
         if (isDiffentTeamID){
             [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
@@ -163,7 +163,7 @@
                 }
             }];
         }else{
-            [self dealNotificationIssueEngineFinish];
+            [self dealNotificationIssueDetailSkip:userInfo];
         }
        
     } else if ([msgType isEqualToString:@"issue_engine_count"]) {
@@ -243,6 +243,18 @@
             }];
         }else{
             [self dealNotificationIssueEngineFinish];
+        }
+    }else{
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueDetailSkip:userInfo];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueDetailSkip:userInfo];
         }
     }
     
