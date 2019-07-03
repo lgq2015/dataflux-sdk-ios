@@ -142,6 +142,8 @@
         [self.headerView.selView disMissView];
     }else if (self.headerView.sortView.isShow) {
         [self.headerView.sortView disMissView];
+    }else if(self.headerView.isMineView.isShow){
+        [self.headerView.isMineView disMissView];
     }
     [_changeTeamView dismiss];
     ScanViewController *scan = [[ScanViewController alloc]init];
@@ -191,6 +193,16 @@
 }
 -(void)selectIssueSelectObject:(SelectObject *)sel{
     [self.listVC reloadDataWithSelectObject:sel refresh:YES];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    if(self.headerView.selView.isShow){
+        [self.headerView.selView disMissView];
+    }else if (self.headerView.sortView.isShow) {
+        [self.headerView.sortView disMissView];
+    }else if(self.headerView.isMineView.isShow){
+        [self.headerView.isMineView disMissView];
+    }
+    [_changeTeamView dismiss];
 }
 -(void)dealloc{
     self.listVC = nil;
