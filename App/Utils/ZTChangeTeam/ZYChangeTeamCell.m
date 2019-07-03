@@ -47,9 +47,9 @@
         _teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
         _numLab.hidden = NO;
         if (model.issueCount == nil ){
-            _numLab.text = @"情报：0";
+            _numLab.text = @"我的情报：0";
         }else{
-            _numLab.text = [NSString stringWithFormat:@"情报： %@",model.issueCount];
+            _numLab.text = [NSString stringWithFormat:@"我的情报： %@",model.issueCount];
         }
     }
     //@显示
