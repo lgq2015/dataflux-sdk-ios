@@ -664,7 +664,8 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 //团队活跃情报树
 - (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    NSDictionary *param = @{@"_onlyIsWatch":@"true"};
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count == 0 || content == nil){
