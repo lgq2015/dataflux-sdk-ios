@@ -158,8 +158,18 @@
 "login.verificationCodeLogin" = "验证码登录";
 "tip.emailOrPhoneNotNull" = "邮箱或手机号不能为空";
 "tip.emailNotNull" = "邮箱不能为空";
+"tip.enterPhoneOrEmail" = "请输入手机号/邮箱";
+"tip.noAccountGoRegister" = "没有账号？去注册";
+"tip.goRegister" = "去注册";
+"tip.enterCorrectPhoneNumber" = "请输入正确的手机号码";
+"tip.correctPasswordFormat" = "密码为8-15位，至少包含字母、数字、符号中的两种";
 
 "login.login" = "登录";
+"login.register" = "注册";
+"local.serviceAgreement" = "服务协议";
+"local.notificationRule" = "通知规则";
+"local.addRule" = "添加规则";
+"local.weeks" = "周期";
 
 "home.getCode" = "获取验证码";
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

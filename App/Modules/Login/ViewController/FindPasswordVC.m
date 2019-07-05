@@ -36,7 +36,7 @@
     [self.view addSubview:tipLab];
     if (!_userTf) {
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _userTf.placeholder = @"请输入手机号/邮箱";
+        _userTf.placeholder = NSLocalizedString(@"tip.enterPhoneOrEmail", "");
         _userTf.delegate = self;
         _userTf.keyboardType = UIKeyboardTypeDefault;
         _userTf.clearButtonMode=UITextFieldViewModeNever;

@@ -181,7 +181,7 @@
 }
 -(TTTAttributedLabel *)agreementLab{
     if (!_agreementLab) {
-        NSString *linkText = @"《服务协议》";
+        NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
         NSString *linkText2 = @"《隐私权政策》";
         NSString *promptText = @"同意《服务协议》与《隐私权政策》";
         NSRange linkRange = [promptText rangeOfString:linkText];
@@ -493,7 +493,7 @@
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    NSString *title = @"服务协议";
+    NSString *title = NSLocalizedString(@"local.serviceAgreement", @"");
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
         title = @"隐私权政策";
     }

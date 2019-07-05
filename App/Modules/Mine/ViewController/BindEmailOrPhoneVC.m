@@ -231,7 +231,7 @@
 }
 - (void)commitPhoneClick{
     if (![[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
         return;
     }
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};
