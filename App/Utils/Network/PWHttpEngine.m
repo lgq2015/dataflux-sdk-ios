@@ -24,7 +24,7 @@
 #import "CalendarListModel.h"
 
 @implementation PWHttpEngine {
-
+    
 }
 
 
@@ -34,7 +34,7 @@
     dispatch_once(&onceToken, ^{
         _sharedInstance = [[self alloc] init];
     });
-
+    
     return _sharedInstance;
 }
 
@@ -44,21 +44,21 @@
     return ^(id response) {
         [model setValueWithDict:response];
         callBack(model);
-
+        
     };
 }
 
 - (id)pw_createFailBlock:(BaseReturnModel *)model withCallBack:(void (^)(id))callBack {
     return ^(NSError *error) {
-
+        
         if ([error.domain isEqualToString:AFURLResponseSerializationErrorDomain]
-                ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseErrorKey]
-                ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseDataErrorKey]) {
+            ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseErrorKey]
+            ||[error.domain isEqualToString:AFNetworkingOperationFailingURLResponseDataErrorKey]) {
             id response = [NSJSONSerialization
-                    JSONObjectWithData:error.userInfo[error.domain]
-                               options:0 error:nil];
+                           JSONObjectWithData:error.userInfo[error.domain]
+                           options:0 error:nil];
             [model setValueWithDict:response];
-
+            
         } else if ([error.domain isEqualToString:@"com.hyq.YQNetworking.ErrorDomain"]) {
             model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_NOT_AVAILABLE;
             model.errorMsg = [model.errorCode toErrString];
@@ -66,7 +66,7 @@
             model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_ERROR;
             model.errorMsg = [model.errorCode toErrString];
         }
-
+        
         callBack(model);
     };
 }
@@ -74,15 +74,15 @@
 /**
  * 获取 主机诊断、集群诊断属性
  * @param uploadId
- * @param callback 
+ * @param callback
  * @return
  */
 - (PWURLSessionTask *)getProbe:(NSString *)uploadId callBack:(void (^)(id))callback {
-
+    
     NSDictionary *param = @{@"uploader_uid": uploadId};
-
+    
     CarrierItemModel *model = [CarrierItemModel new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_URL_CARRIER_PROBE
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
@@ -103,7 +103,7 @@
 - (PWURLSessionTask *)patchProbe:(NSString *)uploadId name:(NSString *)desc callBack:(void (^)(id))callback {
     NSDictionary *param = @{@"uploader_uid": uploadId, @"desc": desc};
     BaseReturnModel *model = [BaseReturnModel new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:NSStringFormat(@"%@%@",PW_URL_CARRIER_PROBE, [param queryString])
                                 withRequestType:NetworkPatchType
                                  refreshRequest:NO
@@ -123,9 +123,9 @@
  */
 - (PWURLSessionTask *)deleteProbe:(NSString *)uploadId callBack:(void (^)(id))callback {
     NSDictionary *param = @{@"uploader_uid": uploadId};
-
+    
     BaseReturnModel *model = [BaseReturnModel new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_URL_CARRIER_PROBE
                                 withRequestType:NetworkDeleteType
                                  refreshRequest:NO
@@ -146,42 +146,42 @@
  */
 
 - (PWURLSessionTask *)getMessageDetail:(NSString *)messageId callBack:(void (^)(id))callback {
-
+    
     MineMessageModel* model = [MineMessageModel new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_systemMessageDetail(messageId) withRequestType:NetworkGetType
                                  refreshRequest:NO cache:NO params:nil progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-
+    
 }
 
 
 /**
  * 获取情报详情
  * @param issueId 情报id
- * @param callback 
+ * @param callback
  * @return
  */
 -(PWURLSessionTask *)getIssueDetail:(NSString *)issueId callBack:(void (^)(id))callback {
-
+    
     IssueModel* model = [IssueModel new];
-
+    
     return  [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueId)
                                  withRequestType:NetworkGetType
                                   refreshRequest:NO cache:NO params:nil
                                    progressBlock:nil
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                        failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-
+    
 }
 
 
 - (PWURLSessionTask *)getIssueSource:(NSInteger)pageSize page:(NSInteger)page callBack:(void (^)(id))callback {
     NSDictionary *param = @{
-            @"pageSize": @(pageSize), @"pageNumber": @(page)};
+                            @"pageSize": @(pageSize), @"pageNumber": @(page)};
     IssueSourceListModel* model = [IssueSourceListModel new];
-
+    
     return  [PWNetworking requsetHasTokenWithUrl:PW_issueSourceList withRequestType:NetworkGetType
                                   refreshRequest:YES cache:NO params:param progressBlock:nil
                                     successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
@@ -191,24 +191,24 @@
 
 
 -(PWURLSessionTask *)getIssueList:(NSInteger)pageSize pageMarker:(long long)pageMarker callBack:(void (^)(id))callback{
-
+    
     NSMutableDictionary *params =
-            [@{@"_withLatestIssueLog": @YES,
-                    @"orderBy": @"actSeq",
-                    @"_latestIssueLogLimit": @1,
-                    @"_latestIssueLogSubType": @"comment",
-                    @"orderMethod": @"asc",
-                    @"_readerAccountId":userManager.curUserInfo.userID,
-                    @"_needReadInfo":@"true",
-                    @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
-                    @"pageSize": @(pageSize)
-            } mutableCopy];
-
-
+    [@{@"_withLatestIssueLog": @YES,
+       @"orderBy": @"actSeq",
+       @"_latestIssueLogLimit": @1,
+       @"_latestIssueLogSubType": @"comment",
+       @"orderMethod": @"asc",
+       @"_readerAccountId":userManager.curUserInfo.userID,
+       @"_needReadInfo":@"true",
+       @"fieldKicking": [@[@"extraJSON", @"metaJSON"] componentsJoinedByString:@","],
+       @"pageSize": @(pageSize)
+       } mutableCopy];
+    
+    
     if(pageMarker>0){
         [params addEntriesFromDictionary:@{@"pageMarker":@(pageMarker)}];
     }
-
+    
     IssueListModel * model = [IssueListModel new];
     return  [PWNetworking requsetHasTokenWithUrl:PW_issueList withRequestType:NetworkGetType
                                   refreshRequest:YES cache:NO params:params progressBlock:nil
@@ -218,35 +218,35 @@
 
 
 - (PWURLSessionTask *)getChatIssueLog:(NSInteger)pageSize issueId:(NSString *)issueId
-        pageMarker:(long long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id))callback {
-
+                           pageMarker:(long long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id))callback {
+    
     NSMutableDictionary *param = [@{
-                @"pageSize": @(pageSize),
-                @"type": @"attachment,bizPoint,text,keyPoint",
-                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
-                @"_withAttachmentExternalDownloadURL": @YES,
-                @"orderBy": @"seq",
-                @"orderMethod": orderMethod,
-                @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
-
+                                    @"pageSize": @(pageSize),
+                                    @"type": @"attachment,bizPoint,text,keyPoint",
+                                    @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
+                                    @"_withAttachmentExternalDownloadURL": @YES,
+                                    @"orderBy": @"seq",
+                                    @"orderMethod": orderMethod,
+                                    @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
+    
     if (pageMarker > 0) {
         [param addEntriesFromDictionary:@{@"pageMarker": @(pageMarker)}];
     }
-
+    
     if (issueId.length > 0) {
         [param addEntriesFromDictionary:@{@"issueId": issueId}];
     }
-
+    
     IssueLogListModel *model = [IssueLogListModel new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_issueLog withRequestType:NetworkGetType
-                          refreshRequest:NO
-                                   cache:NO
-                                  params:param
-                           progressBlock:nil
-                            successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
-                               failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+    
 }
 
 
@@ -269,11 +269,11 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 - (PWURLSessionTask *)issueTicketOpenWithIssueid:(NSString *)issueid expertGroup:(NSString *)expertGroup content:(NSString *)content callBack:(void (^)(id))callback{
-     BaseReturnModel *model = [BaseReturnModel new];
+    BaseReturnModel *model = [BaseReturnModel new];
     NSDictionary *param ;
     if(content){
         param = @{@"data":@{@"expertGroup":expertGroup,@"issueLogPayLoad":@{@"content":content}}};
-
+        
     }else{
         param = @{@"data":@{@"expertGroup":expertGroup}};
     }
@@ -295,7 +295,7 @@
 - (PWURLSessionTask *)heartBeatWithCallBack:(void (^)(id))callback{
     BaseReturnModel *model = [BaseReturnModel new];
     NSDictionary *param = @{@"data":@{@"deviceId":[OpenUDID value]}};
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_heartBeat
                                 withRequestType:NetworkPostType
                                  refreshRequest:NO
@@ -307,7 +307,7 @@
 }
 - (PWURLSessionTask *)issueLogAttachmentUrlWithIssueLogid:(NSString *)logid callBack:(void (^)(id))callback{
     IssueLogAttachmentUrl *model = [IssueLogAttachmentUrl new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_issueDownloadurl(logid)
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
@@ -318,7 +318,7 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 //- (PWURLSessionTask *)getCurrentTeamMemberListcallBack:(void (^)(id))callback{
-//    
+//
 //}
 - (PWURLSessionTask *)getIssueLogReadsInfoWithIssueID:(NSString *)issueID callBack:(void (^)(id))callback{
     NSDictionary *param = @{@"_readerAccountId":userManager.curUserInfo.userID,
@@ -326,7 +326,7 @@
                             @"_withLastReadSeq":@YES
                             };
     IssueLogAtReadInfo *model = [IssueLogAtReadInfo new];
-
+    
     return [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueID)
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
@@ -389,12 +389,12 @@
     CalendarListModel *model = [CalendarListModel new];
     
     NSMutableDictionary *param =[@{
-                           
-                            @"subType":
-    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
-                            @"orderBy":@"seq",
-                            @"orderMethod":orderMethod
-                            } mutableCopy];
+                                   
+                                   @"subType":
+                                       @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
+                                   @"orderBy":@"seq",
+                                   @"orderMethod":orderMethod
+                                   } mutableCopy];
     if (pageMarker>0) {
         [param addEntriesFromDictionary:@{@"pageMarker":[NSNumber numberWithLong:pageMarker],@"pageSize":@40}];
     }else{
@@ -416,9 +416,9 @@
     BaseReturnModel *model = [BaseReturnModel new];
     NSDictionary *param;
     if (accountId.length>0) {
-     param = @{@"data":@{@"assignedToAccountId":accountId}};
+        param = @{@"data":@{@"assignedToAccountId":accountId}};
     }else{
-     param = @{@"data":@{@"assignedToAccountId":[NSNull null]}};
+        param = @{@"data":@{@"assignedToAccountId":[NSNull null]}};
     }
     return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
                                 withRequestType:NetworkPostType
@@ -431,7 +431,7 @@
 }
 - (PWURLSessionTask *)recoveIssueWithIssueid:(NSString *)issueid callBack:(void (^)(id response))callback{
     
-     BaseReturnModel *model = [BaseReturnModel new];
+    BaseReturnModel *model = [BaseReturnModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(issueid)
                                 withRequestType:NetworkPostType
                                  refreshRequest:NO
@@ -440,7 +440,7 @@
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-
+    
 }
 - (PWURLSessionTask *)checkRegisterWithPhone:(NSString *)phone callBack:(void (^)(id response))callback{
     BaseReturnModel *model = [BaseReturnModel new];
@@ -465,6 +465,55 @@
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)getNotificationRuleListWithPage:(NSInteger )page  callBack:(void (^)(id response))callback{
+    BaseListReturnModel *model = [BaseListReturnModel new];
+    NSDictionary *param = @{@"pageSize":@10,
+                            @"pageIndex":[NSNumber numberWithInteger:page]
+                            };
+    return [PWNetworking requsetHasTokenWithUrl:PW_nofiticationRuleList
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)subscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_subscribeNotiRule(ruleID)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)unsubscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_unsubscribeNotiRule(ruleID)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)deleteNotificationRuleWithRuleId:(NSString *)ruleID
+                                              callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_notificationRuleDelete(ruleID)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+    
 }
 @end
 

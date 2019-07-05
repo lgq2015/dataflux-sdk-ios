@@ -189,12 +189,14 @@
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"
 //服务记录
-#define PW_issueGeneralList    API_SEVERID@"/v1/issue/general-list"
+#define PW_issueGeneralList           API_SEVERID@"/v1/issue/general-list"
+#define PW_nofiticationRuleList       API_SEVERID@"/v1/team/nofitication/rule/list"
+#define PW_subscribeNotiRule(str)     [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/subscribe/%@", API_SEVERID,str]
 
-
-
-
-
+#define PW_unsubscribeNotiRule(str)  [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/unsubscribe/%@", API_SEVERID,str]
+#define PW_updateNotiRule(str)        [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/update/%@", API_SEVERID,str]
+#define PW_notificationRuleAdd        API_SEVERID@"/v1/team/nofitication/rule/add"
+#define PW_notificationRuleDelete(str)  [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/delete/%@", API_SEVERID,str]
 
 #pragma mark ========== 我的 ==========
 //添加反馈信息
