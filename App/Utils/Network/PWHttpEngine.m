@@ -335,7 +335,7 @@
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-    
+
 }
 
 - (PWURLSessionTask *)postIssueLogReadsLastReadSeqRecord:(NSString *)issuelogID callBack:(void (^)(id))callback{
@@ -387,9 +387,9 @@
 
 - (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
     CalendarListModel *model = [CalendarListModel new];
-    
+
     NSMutableDictionary *param =[@{
-                           
+
                             @"subType":
     @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
                             @"orderBy":@"seq",
@@ -430,7 +430,7 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 - (PWURLSessionTask *)recoveIssueWithIssueid:(NSString *)issueid callBack:(void (^)(id response))callback{
-    
+
      BaseReturnModel *model = [BaseReturnModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(issueid)
                                 withRequestType:NetworkPostType
@@ -466,6 +466,25 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+
+
+- (PWURLSessionTask *)deviceRegistration:(NSString *)deviceId registrationId:(NSString *)registrationId callBack:(void (^)(id response))callback {
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *params = @{
+            @"data":
+            @{
+                    @"deviceId": deviceId,
+                    @"registrationId": registrationId
+            }
+    };
+    return [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES
+                                          cache:NO params:params
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+
 @end
 
 

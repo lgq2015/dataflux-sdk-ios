@@ -36,7 +36,7 @@
     [self configUSharePlatforms];
     //网络监听
     [self monitorNetworkStatus];
-    if( [getUserNotificationSettings isEqualToString:PWRegister]){
+    if( ![getUserNotificationSettings isEqualToString:PWUnRegister]){
         // Override point for customization after application launch.
         //Required
         //notice: 3.0.0 及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -203,7 +203,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
+    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     [[HeartBeatManager new] sendHeartBeat];
     [[PWSocketManager sharedPWSocketManager] forceRestart];
 
@@ -218,7 +218,7 @@
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
+    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
     [JPUSHService registerDeviceToken:deviceToken];
 
