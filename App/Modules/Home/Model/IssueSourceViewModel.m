@@ -51,6 +51,10 @@
         self.type = SourceTypeClusterDiagnose;
     }else if([provider isEqualToString:@"carrier.alert"]){
         self.type = SourceTypeMessageDock;
+    }else if([provider isEqualToString:@"aliyun.cainiao"]){
+        self.type = SourceTypeAliCainiao;
+    }else if([provider isEqualToString:@"aliyun.finance"]){
+        self.type = SourceTypeAliFinance;
     }
     if (self.type == SourceTypeClusterDiagnose || self.type == SourceTypeSingleDiagnose) {
        

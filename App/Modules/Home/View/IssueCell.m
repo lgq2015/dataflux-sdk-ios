@@ -8,14 +8,15 @@
 
 #import "IssueCell.h"
 #import "IssueListViewModel.h"
-#import "RightTriangleView.h"
 #import "IssueSourceManger.h"
 #import "IssueListManger.h"
+#import "SelectObject.h"
+#import "TriangleDrawRect.h"
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) RightTriangleView *triangleView;
+@property (nonatomic, strong) TriangleDrawRect *triangleView;
 @property (nonatomic, strong) UILabel *chatTimeLab;
 //情报源名称 情报源头像
 @property (nonatomic, strong) UIImageView *sourceIcon;
@@ -23,7 +24,7 @@
 //类别名称 类别头像
 @property (nonatomic, strong) UILabel *issTypeLab;
 @property (nonatomic, strong) UIImageView *issIcon;
-
+@property (nonatomic, strong) UILabel *issueStateLab;
 //标记状态 标记用户头像
 @property (nonatomic, strong) UILabel *markStatusLab;
 @property (nonatomic, strong) UIImageView *markUserIcon;
@@ -42,8 +43,14 @@
 }
 
 - (void)createUI{
+    
+    [self.issueStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(16));
+        make.centerY.mas_equalTo(self.stateLab.mas_centerY);
+        make.height.offset(ZOOM_SCALE(20));
+    }];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(19));
+        make.left.mas_equalTo(self.issueStateLab.mas_right).offset(Interval(10));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
@@ -64,16 +71,16 @@
         make.height.width.offset(ZOOM_SCALE(18));
     }];
     [self.markUserIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.sourcenNameLab.mas_right).offset(Interval(16));
+        make.right.mas_equalTo(self).offset(-16);
         make.width.height.offset(ZOOM_SCALE(18));
         make.centerY.mas_equalTo(self.sourcenNameLab);
     }];
     
-    [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.markUserIcon);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
+//    [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
+//        make.centerY.mas_equalTo(self.markUserIcon);
+//        make.height.offset(ZOOM_SCALE(18));
+//    }];
     self.titleLab.numberOfLines = 0;
   
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,28 +123,46 @@
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
-    self.timeLab.text = [NSString compareCurrentTimeSustainTime:self.model.time];
+    if (model.recovered) {
+        self.issueStateLab.text = @"已恢复";
+        self.issueStateLab.textColor = [UIColor colorWithHexString:@"#26DBAC"];
+    }else{
+        self.issueStateLab.text = @"活跃";
+        self.issueStateLab.textColor = PWBlueColor;
+    }
+    [self.issueStateLab sizeToFit];
+    CGFloat labWidth = self.issueStateLab.frame.size.width;
+    [self.issueStateLab mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(labWidth);
+    }];
+  SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    if (selObj.issueSortType == IssueSortTypeCreate) {
+    self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time listAccurateTimeStr]];
+    }else{
+    self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime listAccurateTimeStr]];
+    }
 
     switch (self.model.state) {
-        case MonitorListStateWarning:
+        case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
             self.stateLab.text = @"警告";
             break;
-        case MonitorListStateSeriousness:
+        case IssueStateSeriousness:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
             self.stateLab.text = @"严重";
             break;
-        case MonitorListStateCommon:
+        case IssueStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
             self.stateLab.text = @"提示";
             break;
-        case MonitorListStateRecommend:
+        case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已恢复";
-            self.timeLab.text =[NSString stringWithFormat:@"恢复时间：%@",[self.model.time accurateTimeStr]];
+            self.timeLab.text =@"";
+            //[NSString stringWithFormat:@"恢复时间：%@",[self.model.time accurateTimeStr]];
 
             break;
-        case MonitorListStateLoseeEfficacy:
+        case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
             self.stateLab.text = @"失效";
             break;
@@ -164,10 +189,18 @@
     self.issIcon.image = [UIImage imageNamed:icon];
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.sourcenNameLab.text = self.model.sourceName;
-    [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:model.markUserIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-    self.markStatusLab.text = model.markStatusStr;
+//    [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:model.markUserIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+//    self.markStatusLab.text = model.markStatusStr;
    
-    self.markUserIcon.hidden = model.markStatusStr.length>0 ? NO:YES;
+   self.markUserIcon.hidden = model.assignedToAccountInfo ? NO:YES;
+    if (model.assignedToAccountInfo) {
+        NSString *pwAvatar;
+        NSDictionary *tags = PWSafeDictionaryVal(model.assignedToAccountInfo, @"tags");
+        if (tags) {
+           pwAvatar = [tags stringValueForKey:@"pwAvatar" default:@""];
+        }
+        [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:pwAvatar] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
+    }
     self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
     
     self.titleLab.text = self.model.title;
@@ -186,10 +219,17 @@
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
-
-- (RightTriangleView *)triangleView{
+-(UILabel *)issueStateLab{
+    if (!_issueStateLab) {
+        _issueStateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"活跃"];
+        [self addSubview:_issueStateLab];
+    }
+    return _issueStateLab;
+}
+- (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-40, 0, 8, 8)];
+        _triangleView =[[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(8, 0) endPoint:CGPointMake(8, 8) color:PWRedColor];
+        _triangleView.frame =CGRectMake(kWidth-40, 0, 8, 8);
         
         [self addSubview:_triangleView];
     }
@@ -212,7 +252,7 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.font = RegularFONT(14);
+        _timeLab.font = RegularFONT(12);
         _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
         [self addSubview:_timeLab];
     }

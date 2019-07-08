@@ -55,9 +55,9 @@
 
     [self.exitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.tableView.mas_bottom).offset(100);
-        make.left.mas_equalTo(self.view).offset(16);
-        make.right.mas_equalTo(self.view).offset(-16);
-        make.height.offset(ZOOM_SCALE(47));
+        make.left.mas_equalTo(self.view).offset(36);
+        make.right.mas_equalTo(self.view).offset(-36);
+        make.height.offset(ZOOM_SCALE(44));
     }];
    
 }

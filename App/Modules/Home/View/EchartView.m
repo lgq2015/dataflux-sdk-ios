@@ -22,16 +22,25 @@
 }
 - (void)setupEchartWithDict:(NSDictionary *)data{
     NSArray *series = PWSafeArrayVal(data, @"series");
-    NSMutableArray *lineX  = [NSMutableArray new];
+   __block  NSMutableArray *lineX  = [NSMutableArray new];
     NSDictionary *xAxisDict = PWSafeDictionaryVal(data, @"xAxis");
-    NSString *type = [xAxisDict stringValueForKey:@"type" default:@""];
-    if ([type isEqualToString:@"time"]) {
-        NSArray *data = series[0][@"data"];
-        [data enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSDictionary *yAxisDict = PWSafeDictionaryVal(data, @"yAxis");
+    NSString *type = [xAxisDict stringValueForKey:@"type" default:@"category"];
+    
+        NSArray *xdata = series[0][@"data"];
+        [xdata enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *time = [NSString stringWithFormat:@"%@",obj[0]];
-            [lineX addObject:time];
+            if([type isEqualToString:@"time"]){
+                if([time deptNumInputShouldNumber]){
+                [lineX addObject:[time getTimeFromTimestamp]];
+                }else{
+                   [lineX addObject:[time dealWithTimeFormatted]];
+                }
+            }else{
+                [lineX addObject:time];
+            }
         }];
-    }
+    
     
     /** 图表选项 */
     PYOption *option = [[PYOption alloc] init];
@@ -107,7 +116,7 @@
     PYAxis *yAxis = [[PYAxis alloc] init];
     yAxis.axisLine.show = YES;
     // 纵轴默认为数值型(就是坐标系统生成), 改为 @"category" 会有问题, 读者可以自行尝试
-    yAxis.type = @"value";
+    yAxis.type = [yAxisDict stringValueForKey:@"type" default:@"value"];
     // 分割段数，默认为5
     
     // 分割线类型

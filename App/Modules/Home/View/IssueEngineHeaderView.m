@@ -15,19 +15,27 @@
 #import "MineCellModel.h"
 #import "HandbookModel.h"
 #import "NewsWebView.h"
+#import "NSString+Regex.h"
+#import "AssignView.h"
+#import "TouchLargeButton.h"
+
 @interface IssueEngineHeaderView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueListViewModel *model;
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIView *upContainerView;
 @property (nonatomic, strong) UILabel *stateLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) UILabel *contentLab;
+@property (nonatomic, strong) YYLabel *contentLab;
 @property (nonatomic, strong) UIView *subContainerView;
+@property (nonatomic, strong) UIView *bookContainerView;
 @property (nonatomic, strong) UIImageView *typeIcon;
 @property (nonatomic, strong) UILabel *issueNameLab;
 @property (nonatomic, strong) UIView *echartContenterView;
 @property (nonatomic, strong) NSMutableArray *handbookAry;
 @property (nonatomic, strong) UITableView *mTableView;
+@property (nonatomic, strong) UIImageView *repairIcon;
+@property (nonatomic, strong) TouchLargeButton *repairBtn;
+@property (nonatomic, strong) AssignView *assignView;
 @end
 @implementation IssueEngineHeaderView
 -(instancetype)initHeaderWithIssueModel:(IssueListViewModel *)model{
@@ -56,6 +64,19 @@
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(ZOOM_SCALE(10));
     }];
     [self stateLabUI];
+    [self.repairBtn sizeToFit];
+    CGSize btnSize = self.repairBtn.frame.size;
+    [self.repairBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.stateLab);
+        make.right.mas_equalTo(self.upContainerView).offset(-16);
+        make.width.offset(btnSize.width);
+        make.height.offset(ZOOM_SCALE(14));
+    }];
+    [self.repairIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.stateLab);
+        make.right.mas_equalTo(self.repairBtn.mas_left).offset(-4);
+        make.width.height.offset(ZOOM_SCALE(16));
+    }];
     [self.typeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
         make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
@@ -75,18 +96,42 @@
     }];
     self.timeLab.text =[self.model.time accurateTimeStr];
     self.issueNameLab.text = self.model.sourceName;
+    if (_model.recovered && !_model.statusChangeAccountInfo) {
+        [self.issueNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(11));
+            make.centerY.mas_equalTo(self.typeIcon);
+            make.height.offset(ZOOM_SCALE(18));
+            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-17);
+        }];
+    }else{
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    [self.upContainerView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.width.mas_equalTo(self.upContainerView);
+        make.top.mas_equalTo(self.issueNameLab.mas_bottom).offset(Interval(17));
+        make.height.offset(1);
+        make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(ZOOM_SCALE(-54));
+    }];
+    [self.assignView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(line.mas_bottom);
+        make.left.right.mas_equalTo(self.upContainerView);
+        make.height.offset(ZOOM_SCALE(54));
+        make.bottom.mas_equalTo(self.upContainerView);
+    }];
+    }
     UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
-    [self.upContainerView addSubview:lab];
+    [self.subContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
-        make.top.mas_equalTo(self.issueNameLab.mas_bottom).offset(Interval(16));
+        make.top.mas_equalTo(self.subContainerView).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(22));
     }];
     self.contentLab.preferredMaxLayoutWidth = kWidth-Interval(32);
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
+        make.left.mas_equalTo(self.subContainerView).offset(Interval(16));
         make.top.mas_equalTo(lab.mas_bottom).offset(Interval(16));
-        make.right.mas_equalTo(self.upContainerView).offset(-Interval(16));
+        make.right.mas_equalTo(self.subContainerView).offset(-Interval(16));
     }];
     NSString * htmlString = self.model.content;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
@@ -98,39 +143,44 @@
     
     [self.echartContenterView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentLab.mas_bottom).offset(ZOOM_SCALE(13));
-        make.left.mas_equalTo(self.upContainerView);
-        make.right.mas_equalTo(self.upContainerView);
+        make.left.mas_equalTo(self.subContainerView);
+        make.right.mas_equalTo(self.subContainerView);
         if(self.model.attrs== nil || self.model.attrs.length== 0){
-            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-Interval(20));
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-Interval(12));
         }
     }];
     if(self.model.attrs.length>0){
         UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"建议"];
-        [self.upContainerView addSubview:title];
+        [self.subContainerView addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.echartContenterView.mas_bottom).offset(Interval(20));
-            make.left.mas_equalTo(self.upContainerView).offset(Interval(16));
+            make.left.mas_equalTo(self.subContainerView).offset(Interval(16));
             make.height.offset(ZOOM_SCALE(22));
         }];
         UILabel *sugLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(17) textColor:PWWhiteColor text:self.model.attrs];
         sugLab.numberOfLines = 0;
         sugLab.textColor = PWTitleColor;
-        [self.upContainerView addSubview:sugLab];
+        [self.subContainerView addSubview:sugLab];
         sugLab.preferredMaxLayoutWidth = kWidth-Interval(32);
         [sugLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(title);
             make.top.mas_equalTo(title.mas_bottom).offset(Interval(15));
             make.right.mas_equalTo(self).offset(-16);
-            make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(-20);
+            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-12);
         }];
         sugLab.text = self.model.attrs;
     }
     
     [self.subContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(20));
-        make.width.offset(kWidth);
-        make.bottom.mas_equalTo(self).offset(-10);
+        make.top.mas_equalTo(self.upContainerView.mas_bottom).offset(Interval(12));
+        make.width.right.left.mas_equalTo(self);
     }];
+    [self.bookContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.subContainerView.mas_bottom).offset(Interval(12));
+        make.width.right.left.mas_equalTo(self);
+        make.bottom.mas_equalTo(self);
+    }];
+     [self zhengze];
 }
 -(void)setContentLabText:(NSString *)text{
     self.contentLab.text = text;
@@ -138,23 +188,23 @@
 }
 - (void)stateLabUI{
     switch (self.model.state) {
-        case MonitorListStateWarning:
+        case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
             self.stateLab.text = @"警告";
             break;
-        case MonitorListStateSeriousness:
+        case IssueStateSeriousness:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
             self.stateLab.text = @"严重";
             break;
-        case MonitorListStateCommon:
+        case IssueStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
             self.stateLab.text = @"提示";
             break;
-        case MonitorListStateRecommend:
+        case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
             self.stateLab.text = @"已恢复";
             break;
-        case MonitorListStateLoseeEfficacy:
+        case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
             self.stateLab.text = @"失效";
             break;
@@ -178,7 +228,10 @@
         }
         [self.mTableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.offset(self.handbookAry.count*45);
-            make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+            make.bottom.mas_equalTo(self.bookContainerView.mas_bottom).offset(-20);
+        }];
+        [self.bookContainerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self).offset(-12);
         }];
         [self.mTableView reloadData];
     }
@@ -214,11 +267,11 @@
     }
 }
 -(void)setSuggestSubView{
-    [self.subContainerView addSubview:self.mTableView];
+    [self.bookContainerView addSubview:self.mTableView];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"相关文章"];
-    [self.subContainerView addSubview:tipLab];
+    [self.bookContainerView addSubview:tipLab];
     self.mTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    [self.subContainerView addSubview:self.mTableView];
+    [self.bookContainerView addSubview:self.mTableView];
     self.mTableView.backgroundColor = PWWhiteColor;
     self.mTableView.delegate = self;
     self.mTableView.dataSource = self;
@@ -227,7 +280,7 @@
     self.mTableView.showsVerticalScrollIndicator = NO;
     [self.mTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(12));
-        make.bottom.mas_equalTo(self.subContainerView.mas_bottom).offset(-20);
+        make.bottom.mas_equalTo(self.bookContainerView.mas_bottom).offset(-20);
         make.width.offset(kWidth);
         make.height.offset(self.handbookAry.count*45);
     }];
@@ -242,17 +295,40 @@
         EchartTableView *tableChart = [[EchartTableView alloc]initWithDict:data];
         [self.echartContenterView addSubview:tableChart];
         return tableChart;
-    }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
-        EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
-        [self.echartContenterView addSubview:chart];
-        return chart;
     }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"list"]){
         EchartListView *listView = [[EchartListView alloc]initWithDict:dict[@"data"]];
         [self.echartContenterView addSubview:listView];
         return listView;
     }else{
-        return nil;
+        EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
+        [self.echartContenterView addSubview:chart];
+        return chart;
     }
+}
+#pragma mark ========== 替换 ==========
+- (void)zhengze{
+    NSString *regexStr=
+    @"!?\\[((?:\\[[^\\[\\]]*\\]|\\\\[\\[\\]]?|`[^`]*`|[^\\[\\]\\\\])*?)\\]\\(\\s*(<(?:\\\\[<>]?|[^\\s<>\\\\])*>|(?:\\\\[()]?|\\([^\\s\\x00-\\x1f\\\\]*\\)|[^\\s\\x00-\\x1f()\\\\])*?)(?:\\s+(\"(?:\\\\\"?|[^\"\\\\])*\"|'(?:\\\\'?|[^'\\\\])*'|\\((?:\\\\\\)?|[^)\\\\])*\\)))?\\s*\\)";
+
+    //self.model.content;
+    NSError *regexError;
+    NSRegularExpression *aRegx=[NSRegularExpression regularExpressionWithPattern:regexStr options:NSRegularExpressionCaseInsensitive error:&regexError];
+    NSArray *results=[aRegx matchesInString:self.model.content options:0 range:NSMakeRange(0, self.model.content.length)];
+   __block NSString *displatext = self.model.content;
+    [results enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSTextCheckingResult *match, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange matchRange = [match range];
+        NSRange first = [match rangeAtIndex:1];
+        NSRange second = [match rangeAtIndex:2];
+        DLog(@"1:first == %@ 2: second ==%@.", [NSValue valueWithRange:first], [NSValue valueWithRange:second]);
+        NSString *http = [displatext substringWithRange:second];
+        NSString *nametext =  [displatext substringWithRange:first];
+        NSString *repleaceText = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>",http,nametext];
+        displatext= [displatext stringByReplacingCharactersInRange:matchRange withString:repleaceText];
+    }];
+   
+    
+    self.contentLab.attributedText = [displatext zt_convertLink:RegularFONT(16) textColor:PWTextColor];
+
 }
 #pragma mark ========== UI/INIT ==========
 -(UIView *)upContainerView{
@@ -263,6 +339,14 @@
     }
     return _upContainerView;
 }
+-(UIView *)bookContainerView{
+    if (!_bookContainerView) {
+        _bookContainerView = [[UIView alloc]init];
+        _bookContainerView.backgroundColor = PWWhiteColor;
+        [self addSubview:_bookContainerView];
+    }
+    return _bookContainerView;
+}
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@""];
@@ -271,12 +355,34 @@
     }
     return _titleLab;
 }
--(UILabel *)contentLab{
+-(AssignView *)assignView{
+    if (!_assignView) {
+        _assignView = [[AssignView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(54)) IssueModel:self.model];
+        WeakSelf
+        _assignView.AssignClick = ^(BOOL isAssignSelf){
+            if (weakSelf.recoverClick) {
+                weakSelf.recoverClick(isAssignSelf);
+            }
+        };
+        [self.upContainerView addSubview:_assignView];
+    }
+    return _assignView;
+}
+-(YYLabel *)contentLab{
     if (!_contentLab) {
-        _contentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWSubTitleColor text:nil];
+       _contentLab = [PWCommonCtrl zy_lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:self.model.content];
         _contentLab.backgroundColor = PWWhiteColor;
         _contentLab.numberOfLines = 0;
-        [self.upContainerView addSubview:_contentLab];
+        WeakSelf
+        _contentLab.highlightTapAction = ^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect){
+            text = [text attributedSubstringFromRange:range];
+            NSDictionary *dic = text.attributes;
+            YYTextHighlight *user = [dic valueForKey:@"YYTextHighlight"];
+            NSString *linkUrl = [user.userInfo valueForKey:@"linkUrl"];
+            PWBaseWebVC*webView= [[PWBaseWebVC alloc] initWithTitle:text.string andURLString:linkUrl];
+            [weakSelf.viewController.navigationController pushViewController:webView animated:YES];
+        };
+        [self.subContainerView addSubview:_contentLab];
     }
     return _contentLab;
 }
@@ -328,9 +434,85 @@
 -(UIView *)echartContenterView{
     if (!_echartContenterView) {
         _echartContenterView = [[UIView alloc]init];
-        [self.upContainerView addSubview:_echartContenterView];
+        [self.subContainerView addSubview:_echartContenterView];
     }
     return _echartContenterView;
+}
+-(UIImageView *)repairIcon{
+    if (!_repairIcon) {
+        _repairIcon = [[UIImageView alloc]initWithFrame:CGRectZero];
+        if (self.model.recovered) {
+            [_repairIcon setImage:[UIImage imageNamed:@"issue_tick"]];
+            _repairIcon.userInteractionEnabled = NO;
+        }else{
+            _repairIcon.userInteractionEnabled = YES;
+            [_repairIcon setImage:[UIImage imageNamed:@"icon_repair"]];
+        }
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recoveClick)];
+        [_repairIcon addGestureRecognizer:tap];
+        [self.upContainerView addSubview:_repairIcon];
+    }
+    return _repairIcon;
+}
+-(TouchLargeButton *)repairBtn{
+    if (!_repairBtn) {
+        _repairBtn = [[TouchLargeButton alloc]initWithFrame:CGRectZero];
+        _repairBtn.titleLabel.font = RegularFONT(14);
+        [_repairBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
+        if (self.model.recovered) {
+            [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+            _repairBtn.enabled = NO;
+        }else{
+            [_repairBtn setTitle:@"修复" forState:UIControlStateNormal];
+        }
+        [_repairBtn addTarget:self action:@selector(recoveClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.upContainerView addSubview:_repairBtn];
+    }
+    return _repairBtn;
+}
+- (void)recoveClick{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"手动修复情报后，该情报将不会再出现在您的活跃情报中" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *commit = [PWCommonCtrl actionWithTitle:@"确认修复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+        
+        [[PWHttpEngine sharedInstance]recoveIssueWithIssueid:self.model.issueId callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if (model.isSuccess) {
+                KPostNotification(KNotificationReloadIssueList, nil);
+                [self recoveUI];
+            }else{
+                [iToast alertWithTitleCenter:model.errorMsg];
+            }
+        }];
+    }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
+        
+    }];
+    [alert addAction:commit];
+    [alert addAction:cancle];
+    [self.viewController presentViewController:alert animated:YES completion:nil];
+}
+- (void)recoveUI{
+    [self.assignView repair];
+    [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+    _repairBtn.enabled = NO;
+    [_repairIcon setImage:[UIImage imageNamed:@"issue_tick"]];
+    _repairIcon.userInteractionEnabled = NO;
+    [self.repairBtn sizeToFit];
+    CGSize btnSize = self.repairBtn.frame.size;
+    [self.repairBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.stateLab);
+        make.right.mas_equalTo(self.upContainerView).offset(-16);
+        make.width.offset(btnSize.width);
+        make.height.offset(ZOOM_SCALE(14));
+    }];
+    [self.repairIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.stateLab);
+        make.right.mas_equalTo(self.repairBtn.mas_left).offset(-4);
+        make.width.height.offset(ZOOM_SCALE(16));
+    }];
+    if (self.recoverClick) {
+        self.recoverClick(NO);
+    }
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

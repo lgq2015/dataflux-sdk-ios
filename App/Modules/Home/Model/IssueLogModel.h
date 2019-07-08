@@ -36,6 +36,9 @@
 @property (nonatomic, assign) BOOL dataCheckFlag;
 @property (nonatomic, strong) NSString* localTempUniqueId;
 @property (nonatomic, strong) NSDictionary *atInfoJSON;
+@property (nonatomic, strong) NSString *issueSnapshotJSON_cacheStr;
+@property (nonatomic, strong) NSString *assignedToAccountInfoStr;
+
 //@property (nonatomic,strong) NSDictionary* originInfoJSON;
 //@property (nonatomic,strong) NSDictionary* metaJson;
 //@property (nonatomic,strong) NSDictionary* externalDownloadURL;

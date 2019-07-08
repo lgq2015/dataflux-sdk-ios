@@ -7,14 +7,14 @@
 //
 
 #import "MineMessageCell.h"
-#import "RightTriangleView.h"
+#import "TriangleDrawRect.h"
 #import "MineMessageModel.h"
 
 @interface MineMessageCell()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *sourceLab;
 @property (nonatomic, strong) UILabel *timeLab;
-@property (nonatomic, strong) RightTriangleView *triangleView;
+@property (nonatomic, strong) TriangleDrawRect *triangleView;
 
 @end
 @implementation MineMessageCell
@@ -86,9 +86,10 @@
     self.triangleView.hidden = _model.isReaded;
     self.timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
 }
-- (RightTriangleView *)triangleView{
+- (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[RightTriangleView alloc]initWithFrame:CGRectMake(kWidth-12, 0, 12, 12)];
+        _triangleView = [[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(12, 0) endPoint:CGPointMake(12, 12) color:PWRedColor];
+        _triangleView.frame =CGRectMake(kWidth-12, 0, 12, 12);
         [self addSubview:_triangleView];
     }
     return _triangleView;

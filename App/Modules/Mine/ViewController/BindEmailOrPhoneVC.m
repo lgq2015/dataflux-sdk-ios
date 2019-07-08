@@ -34,7 +34,7 @@
     switch (self.changeType) {
         case BindUserInfoTypeEmail:
             if (self.isFirst) {
-                placeholder = @"请输入邮箱";
+                placeholder = NSLocalizedString(@"login.placeholder.email", @"");
             }else{
                 placeholder = @"请输入新邮箱";
             }
@@ -44,7 +44,7 @@
         case BindUserInfoTypeName:
             title =@"修改姓名";
             if (self.isFirst) {
-                placeholder = @"请输入姓名";
+                placeholder = NSLocalizedString(@"login.placeholder.name", "");
             }else{
                 placeholder = @"请输入新的姓名";
             }
@@ -59,13 +59,13 @@
             break;
     }
 
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:title];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:title];
     
     [self.view addSubview:titleLab];
     [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(ZOOM_SCALE(53));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(70));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(ZOOM_SCALE(25));
     }];
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:tipTitle];
@@ -74,9 +74,15 @@
     [self.view addSubview:tipLab];
     [tipLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(titleLab.mas_bottom).offset(ZOOM_SCALE(31));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(40));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(ZOOM_SCALE(20));
+    }];
+    [self.emailTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(titleLab.mas_left);
+        make.top.mas_equalTo(tipLab.mas_bottom).offset(ZOOM_SCALE(10));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.height.offset(ZOOM_SCALE(21));
     }];
     tipLab.hidden = YES;
     UIView * line1 = [[UIView alloc]init];
@@ -84,16 +90,16 @@
     [self.view addSubview:line1];
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLab.mas_left);
-        make.top.mas_equalTo(self.emailTF.mas_bottom).offset(ZOOM_SCALE(4));
+        make.top.mas_equalTo(self.emailTF.mas_bottom).offset(10);
         make.right.mas_equalTo(self.emailTF.mas_right);
-        make.height.offset(ZOOM_SCALE(1));
+        make.height.offset(SINGLE_LINE_WIDTH);
     }];
     self.emailTF.placeholder = placeholder;
     [self.commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.top.mas_equalTo(line1.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.height.offset(ZOOM_SCALE(44));
     }];
    
     if (self.changeType == BindUserInfoTypeEmail) {
@@ -103,7 +109,7 @@
         RAC(self.commitBtn,enabled) = emailSignal;
         
     }else if(self.changeType == BindUserInfoTypeMobile){
-        [self.commitBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [self.commitBtn setTitle:NSLocalizedString(@"home.getCode", @"") forState:UIControlStateNormal];
         self.emailTF.keyboardType = UIKeyboardTypeNumberPad;
         RACSignal *phoneSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             
@@ -260,11 +266,11 @@
 }
 - (void)commitNameClick{
     [SVProgressHUD show];
-    NSDictionary *param =@{@"data":@{@"name":self.emailTF.text}};
+    NSDictionary *param =@{@"data":@{@"name":[self.emailTF.text removeFrontBackBlank]}};
     [PWNetworking requsetHasTokenWithUrl:PW_accountName withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            userManager.curUserInfo.name = self.emailTF.text;
+            userManager.curUserInfo.name = [self.emailTF.text removeFrontBackBlank];
             [userManager saveChangeUserInfo];
             KPostNotification(KNotificationUserInfoChange, nil);
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];

@@ -36,7 +36,7 @@
             KPostNotification(KNotificationConnectStateCheck,nil);
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-            [tabViewController setSelectedIndex:2];
+            [tabViewController setSelectedIndex:3];
             [self dismissViewControllerAnimated:YES completion:nil];
         });
     }];

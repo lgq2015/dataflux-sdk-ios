@@ -35,15 +35,15 @@
         make.centerY.height.mas_equalTo(self.stateIcon);
         make.left.equalTo(self.stateIcon.mas_right).offset(10);
     }];
-    UIButton *arrow = [[UIButton alloc]init];
-    [arrow setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
-    [arrow addTarget:self action:@selector(commentBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:arrow];
-    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.commentBtn.mas_right).offset(8);
-        make.centerY.mas_equalTo(self.stateIcon);
-        make.width.height.offset(ZOOM_SCALE(16));
-    }];
+//    UIButton *arrow = [[UIButton alloc]init];
+//    [arrow setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+//    [arrow addTarget:self action:@selector(commentBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:arrow];
+//    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(self.commentBtn.mas_right).offset(8);
+//        make.centerY.mas_equalTo(self.stateIcon);
+//        make.width.height.offset(ZOOM_SCALE(16));
+//    }];
     [self.unfoldBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.right.equalTo(self);
@@ -98,9 +98,9 @@
 }
 #pragma mark ========== Click ==========
 - (void)commentBtnClick{
-    if (self.changeChatStateClick) {
-        self.changeChatStateClick();
-    }
+//    if (self.changeChatStateClick) {
+//        self.changeChatStateClick();
+//    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -31,12 +31,12 @@
     NSString *createTime = model.createTime;
     NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     if ([model.origin isEqualToString:@"user"]) {
-        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
     
        
         self.messageFrom = PWChatMessageFromOther;
-        NSString *userID = [account_info stringValueForKey:@"id" default:@""];
+        NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
@@ -143,8 +143,8 @@
             }
         }
     }else if([model.type isEqualToString:@"keyPoint"]){
-        NSDictionary *account_info =[model.accountInfoStr jsonValueDecoded];
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
        
         self.messageType = PWChatMessageTypeKeyPoint;
         if ([model.subType isEqualToString:@"markTookOver"]) {
@@ -159,8 +159,32 @@
         }else if([model.subType isEqualToString:@"markRecovered"]){
             self.stuffName = [NSString stringWithFormat:@"被%@解决",name];
 
-        }else if([model.subType isEqualToString:@"issueRecovered"]){
-            self.stuffName = [NSString stringWithFormat:@"被%@关闭",name];
+        }else if([model.subType isEqualToString:@"issueFixed"]){
+            NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
+            self.stuffName = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
+        }else if([model.subType isEqualToString:@"issueLevelChanged"]){
+            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
+            if (model.issueSnapshotJSON_cacheStr){
+             self.stuffName = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[[model.issueSnapshotJSON_cacheStr jsonValueDecoded][@"level"] getIssueStateLevel]];
+            }else{
+                self.stuffName = @"情报等级变更";
+            }
+      
+        }else if([model.subType isEqualToString:@"issueAssigned"]){
+            if (model.assignedToAccountInfoStr.length>0) {
+                NSDictionary *assignedToAccountInfo = [model.assignedToAccountInfoStr jsonValueDecoded];
+                NSString *key = NSLocalizedString(model.subType, @"");
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
+            }
+        }else if([model.subType isEqualToString:@"issueCancelAssigning"]){
+            if (model.issueSnapshotJSON_cacheStr.length>0) {
+                NSString *key = NSLocalizedString(model.subType, @"");
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,key];
+            }
+
+        }else{
+            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
+            self.stuffName  = NSLocalizedString(key, @"");
 
         }
         self.cellString = PWChatKeyPointCellId;

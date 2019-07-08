@@ -40,6 +40,7 @@
 //#import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "LoginPWVC.h"
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -134,7 +135,7 @@
     NSString *teamID = [userInfo stringValueForKey:@"teamId" default:@""];  //teamID
     TeamInfoModel *currentTeam = [userManager getTeamModel];
     //判断通知teamID是否和本地teamID是否一致
-    bool isDiffentTeamID = NO;
+    BOOL isDiffentTeamID = NO;
     if (teamID.length > 0 && ![teamID isEqualToString:currentTeam.teamID]){
         isDiffentTeamID = YES;
     }else{
@@ -155,12 +156,7 @@
     } else if ([msgType isEqualToString:@"issue_engine_finish"]) {
         if (isDiffentTeamID){
             [SVProgressHUD show];
-            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
-                if (isFinished){
-                    [SVProgressHUD dismiss];
-                    [self dealNotificationIssueEngineFinish];
-                }
-            }];
+            [self dealNotificationIssueEngineFinish];
         }else{
             [self dealNotificationIssueEngineFinish];
         }
@@ -177,23 +173,23 @@
         }else{
             [self dealNotificationIssueEngineCount];
         }
-    } else if ([msgType isEqualToString:@"issue_add"]) {
+    } else if ([msgType isEqualToString:@"issue_add"]||[msgType isEqualToString:@"issue_recovered"] || [msgType isEqualToString:@"issue_recoveredByAccount"]||[msgType isEqualToString:@"issue_assignedToYouByAccount"]) {
         [SVProgressHUD show];
         if (isDiffentTeamID){
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueDetailSkip:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueDetailSkip:userInfo];
         }
     } else if ([msgType isEqualToString:@"recommendation"]) {
         NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
         NSString *summary = [userInfo stringValueForKey:@"summary" default:@""];
         NSString *url = [userInfo stringValueForKey:@"url" default:@""];
-        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
-        NSString *titleH = [alert valueForKey:@"title"];
+//        NSString *titleW = [userInfo stringValueForKey:@"title" default:@""];
+//        NSString *titleH = [alert valueForKey:@"title"];
         NewsListModel *model = [NewsListModel new];
         model.newsID = entityId;
         model.title = title;
@@ -203,18 +199,58 @@
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];
-    }else if([msgType isEqualToString:@"issue_log_at"]){
+    }else if([msgType isEqualToString:@"issue_log_at"] || [msgType isEqualToString:@"issue_log_add"]){
         if (isDiffentTeamID){
              [SVProgressHUD show];
             [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
                 if (isFinished){
-                    [self dealNotificationIssueAdd:userInfo];
+                    [self dealNotificationIssueAt:userInfo];
                 }
             }];
         }else{
-            [self dealNotificationIssueAdd:userInfo];
+            [self dealNotificationIssueAt:userInfo];
         }
         
+    }else if([msgType isEqualToString:@"url_schemes"]){
+        [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
+        MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
+        [maintabbar setSelectedIndex:0];
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [self dealNotificationIssueDetailSkip:userInfo];
+                }
+            }];
+
+        }else{
+            [self dealNotificationIssueDetailSkip:userInfo];
+        }
+        
+    }else if([msgType isEqualToString:@"issue_list"]){
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueEngineFinish];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueEngineFinish];
+        }
+    }else{
+        if (isDiffentTeamID){
+            [SVProgressHUD show];
+            [self zy_requestChangeTeam:teamID complete:^(bool isFinished) {
+                if (isFinished){
+                    [SVProgressHUD dismiss];
+                    [self dealNotificationIssueEngineFinish];
+                }
+            }];
+        }else{
+            [self dealNotificationIssueEngineFinish];
+        }
     }
     
 }
@@ -237,7 +273,7 @@
                 [self deleteAllNavViewController];
             }
         } else {
-//            [iToast alertWithTitleCenter:data.errorCode];
+            [iToast alertWithTitleCenter:data.errorMsg];
         }
     }];
 }
@@ -256,9 +292,27 @@
     //暂时只停留在首页
     [self dealNotificationIssueEngineFinish];
 }
-//处理情报添加
-- (void)dealNotificationIssueAdd:(NSDictionary *)userInfo{
+- (void)dealNotificationIssueAt:(NSDictionary *)userInfo{
+    NSString *entityId = [userInfo stringValueForKey:@"issueId" default:@""];
+    [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
+        [SVProgressHUD dismiss];
+        IssueModel *data = (IssueModel *) o;
+        if (data.isSuccess) {
+            IssueListViewModel *monitorListModel = [[IssueListViewModel alloc] initWithJsonDictionary:data];
+            
+            IssueDetailsVC *control = [IssueDetailsVC new];
+            control.model = monitorListModel;
+            [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
+            [self deleteAllNavViewController];
+        } else {
+            [iToast alertWithTitleCenter:data.errorMsg];
+        }
+    }];
+}
+//处理情报添加、情报恢复
+- (void)dealNotificationIssueDetailSkip:(NSDictionary *)userInfo{
     NSString *entityId = [userInfo stringValueForKey:@"entityId" default:@""];
+    if(![entityId isEqualToString:@""]){
     [[PWHttpEngine sharedInstance] getIssueDetail:entityId callBack:^(id o) {
         [SVProgressHUD dismiss];
         IssueModel *data = (IssueModel *) o;
@@ -270,9 +324,12 @@
             [[self getCurrentUIVC].navigationController pushViewController:control animated:YES];
             [self deleteAllNavViewController];
         } else {
-//            [iToast alertWithTitleCenter:data.errorCode];
+            [iToast alertWithTitleCenter:data.errorMsg];
         }
     }];
+    }else{
+        [self dealNotificationIssueEngineFinish];
+    }
 }
 
 #pragma mark ========== 登录状态处理 ==========
@@ -306,7 +363,7 @@
         
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;
-        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[VerifyCodeLoginVC new]];
+        RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[LoginPWVC new]];
         CATransition *anima = [CATransition animation];
         anima.type = @"fade";//设置动画的类型
         anima.subtype = kCATransitionFromRight; //设置动画的方向
@@ -380,14 +437,15 @@
     NSString *registrationId = [JPUSHService registrationID];
     NSString *openUDID = [OpenUDID value];
     //给后台发绑定请求
-    NSDictionary *params = @{
-                             @"deviceId": openUDID,
-                             @"registrationId":registrationId
-                             };
-    [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        DLog(@"绑定成功----");
-    } failBlock:^(NSError *error) {
-        DLog(@"绑定失败----");
+
+    [[PWHttpEngine sharedInstance] deviceRegistration:openUDID registrationId:registrationId callBack:^(id response) {
+        BaseReturnModel* data = response;
+        if(data.isSuccess){
+            DLog(@"绑定成功----");
+        } else{
+            DLog(@"绑定失败----");
+        }
+
     }];
     //注销通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJPFNetworkDidLoginNotification object:nil];
@@ -425,6 +483,7 @@
 
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
+
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -447,7 +506,33 @@
             }
             DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
         }];
+         return YES;
     }
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
+    DLog(@"urlComponents == %@",urlComponents);
+    // url中参数的key value
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    for (NSURLQueryItem *item in urlComponents.queryItems) {
+        [parameter setValue:item.value forKey:item.name];
+    }
+    if([parameter containsObjectForKey:@"rtype"]){
+        if ([parameter[@"rtype"] isEqualToString:@"issue_detail"]) {
+            if( [parameter containsObjectForKey:@"teamid"] &&[parameter containsObjectForKey:@"issueid"]){
+                NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"url_schemes",@"entityId":[parameter stringValueForKey:@"issueid" default:@""]};
+                setRemoteNotificationData(userinfo);
+                [kUserDefaults synchronize];
+                KPostNotification(KNotificationNewRemoteNoti, nil);
+            }
+        }else if([parameter[@"rtype"] isEqualToString:@"issue_list"]){
+            if( [parameter containsObjectForKey:@"teamid"]){
+                NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"issue_list"};
+                setRemoteNotificationData(userinfo);
+                [kUserDefaults synchronize];
+                KPostNotification(KNotificationNewRemoteNoti, nil);
+            }
+        }
+    }
+
     return YES;
 }
 
@@ -624,7 +709,11 @@
             }];
         }else{
             [SVProgressHUD dismiss];
+            if ([response[ERROR_CODE] isEqualToString:@"home.account.teamNotJoined"]) {
+                [iToast alertWithTitleCenter:@"您没有相关权限"];
+            }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            }
             completeBlock ? completeBlock(NO) : nil;
         }
     } failBlock:^(NSError *error){

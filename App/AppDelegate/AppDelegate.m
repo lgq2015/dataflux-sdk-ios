@@ -36,26 +36,27 @@
     [self configUSharePlatforms];
     //网络监听
     [self monitorNetworkStatus];
-    // Override point for customization after application launch.
-    //Required
-    //notice: 3.0.0 及以后版本注册可以这样写，也可以继续用之前的注册方式
-    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
-    if (@available(iOS 12.0, *)) {
-        entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound|UNAuthorizationOptionProvidesAppNotificationSettings;
-    } else {
-        entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
-    }
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        // 可以添加自定义 categories
-        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
-        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
-    }
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-    [JPUSHService setupWithOption:launchOptions appKey:JPUSH_ID
-                          channel:@"App Store"
-                 apsForProduction:NO
-            advertisingIdentifier:nil];
-    if( [getUserNotificationSettings isEqualToString:PWRegister]){
+    if( ![getUserNotificationSettings isEqualToString:PWUnRegister]){
+        // Override point for customization after application launch.
+        //Required
+        //notice: 3.0.0 及以后版本注册可以这样写，也可以继续用之前的注册方式
+        JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+        if (@available(iOS 12.0, *)) {
+            entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound|UNAuthorizationOptionProvidesAppNotificationSettings;
+        } else {
+            entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+        }
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+            // 可以添加自定义 categories
+            // NSSet<UNNotificationCategory *> *categories for iOS10 or later
+            // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
+        }
+
+        [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+        [JPUSHService setupWithOption:launchOptions appKey:JPUSH_ID
+                              channel:@"App Store"
+                     apsForProduction:NO
+                advertisingIdentifier:nil];
         if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             NSLog(@"Requesting permission for push notifications..."); // iOS 8
             UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
@@ -68,12 +69,14 @@
              UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
              UIRemoteNotificationTypeSound];
         }
-    }
+
+        //    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        //    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
 #if TARGET_IPHONE_SIMULATOR
-    return YES;
+        return YES;
 #else
-    if ([[UIDevice currentDevice] systemVersion].floatValue > 9.999) {
+        if ([[UIDevice currentDevice] systemVersion].floatValue > 9.999) {
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
@@ -92,13 +95,17 @@
 
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
+    return YES;
 
 #endif
+    } else{
+        return YES;
+    }
 
-//    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-//    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
-    return YES;
+
+
+
 }
 
 - (void)networkDidReceiveMessage:(NSDictionary *)userInfo {
@@ -117,14 +124,54 @@
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-   
-   
+
+
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options{
-   
+
     return YES;
+}
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webpageURL = userActivity.webpageURL;
+//        NSString *host = webpageURL.host;
+//        if ([host isEqualToString:@"yohunl.com"]) {
+            //进行我们需要的处理
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:webpageURL resolvingAgainstBaseURL:YES];
+            DLog(@"urlComponents == %@",urlComponents);
+            // url中参数的key value
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            for (NSURLQueryItem *item in urlComponents.queryItems) {
+                [parameter setValue:item.value forKey:item.name];
+            }
+            if([parameter containsObjectForKey:@"rtype"]){
+                if ([parameter[@"rtype"] isEqualToString:@"issue_detail"]) {
+                    if( [parameter containsObjectForKey:@"teamid"] &&[parameter containsObjectForKey:@"issueid"]){
+                        NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"url_schemes",@"entityId":[parameter stringValueForKey:@"issueid" default:@""]};
+                        setRemoteNotificationData(userinfo);
+                        [kUserDefaults synchronize];
+                        KPostNotification(KNotificationNewRemoteNoti, nil);
+                    }
+                }else if([parameter[@"rtype"] isEqualToString:@"issue_list"]){
+                    if( [parameter containsObjectForKey:@"teamid"]){
+                        NSDictionary *userinfo = @{@"teamId":[parameter stringValueForKey:@"teamid" default:@""],@"msgType":@"issue_list"};
+                        setRemoteNotificationData(userinfo);
+                        [kUserDefaults synchronize];
+                        KPostNotification(KNotificationNewRemoteNoti, nil);
+                    }
+                }
+//            }
+
+        }
+        else {
+            [[UIApplication sharedApplication]openURL:webpageURL];
+        }
+
+    }
+    return YES;
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -156,7 +203,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
     KPostNotification(KNotificationAppResignActive, nil);
-    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
+    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     [[HeartBeatManager new] sendHeartBeat];
     [[PWSocketManager sharedPWSocketManager] forceRestart];
 
@@ -171,10 +218,10 @@
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [getUserNotificationSettings isEqualToString:PWRegister]? [application registerForRemoteNotifications]:nil;
+    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
     [JPUSHService registerDeviceToken:deviceToken];
-    
+
 }
 // ios 7.0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
@@ -232,7 +279,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 [kUserDefaults synchronize];
                 KPostNotification(KNotificationNewRemoteNoti, nil);
             }
-            
+
         }
     }
     else {
@@ -264,10 +311,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DLog(@"jpushNotificationCenter openSettingsForNotification");
     if (notification) {
         //从通知界面直接进入应用
-        
+
     }else{
         //从通知设置界面进入应用
-        
+
     }
     DLog(@"%@", notification);
 }

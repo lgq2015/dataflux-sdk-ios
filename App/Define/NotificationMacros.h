@@ -13,6 +13,7 @@
 #pragma mark - ——————— 用户相关 ————————
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
+#define KNotificationReloadIssueList     @"KNotificationReloadIssueList"
 
 #define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
@@ -32,7 +33,10 @@
 //用户信息缓存 名称
 #define KUserCacheName @"KUserCacheName"
 #define KTeamCacheName @"KTeamCacheName"
+#define KTeamLastFetchTime @"KTeamLastFetchTime"
 //用户issueList 选择type类型
+#define KSelectObject  @"KSelectObject"
+#define KCurrentSelectObject @"KCurrentSelectObject"
 #define KIssueListType @"KIssueListType"
 #define KCurrentIssueListType   @"KCurrentIssueListType"
 #define KCurrentIssueViewType   @"KCurrentIssueViewType"

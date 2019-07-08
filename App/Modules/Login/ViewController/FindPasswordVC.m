@@ -30,9 +30,9 @@
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
    
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"忘记密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(34), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:NSLocalizedString(@"login.forget.password", "")];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(84)+kTopHeight, ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(40), ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
     tipLab.hidden = YES;
     tipLab.tag =phoneLabTag;
     [self.view addSubview:tipLab];
@@ -42,14 +42,15 @@
         _userTf.delegate = self;
         _userTf.keyboardType = UIKeyboardTypeDefault;
         _userTf.clearButtonMode=UITextFieldViewModeNever;
+        _userTf.font = RegularFONT(15);
 
         [self.view addSubview:_userTf];
     }
     [self.userTf mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
         make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(8));
-        make.height.offset(ZOOM_SCALE(25));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(21));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
     }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
     line.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
@@ -62,10 +63,10 @@
     }];
    
     [self.veritfyCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(line.mas_bottom).offset(Interval(42));
-        make.height.offset(ZOOM_SCALE(47));
+        make.left.mas_equalTo(self.view).offset(Interval(36));
+        make.right.mas_equalTo(self.view).offset(-Interval(36));
+        make.top.mas_equalTo(line.mas_bottom).offset(Interval(44));
+        make.height.offset(ZOOM_SCALE(44));
     }];
     RACSignal *phoneTf= [[self.userTf rac_textSignal] map:^id(NSString *value) {
 
@@ -82,7 +83,7 @@
 }
 -(UIButton *)veritfyCodeBtn{
     if(!_veritfyCodeBtn){
-        _veritfyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"获取验证码"];
+        _veritfyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"home.getCode", @"")];
         [_veritfyCodeBtn addTarget:self action:@selector(veritfyCodeClick) forControlEvents:UIControlEventTouchUpInside];
         _veritfyCodeBtn.enabled = NO;
         [self.view addSubview:_veritfyCodeBtn];
@@ -109,7 +110,7 @@
                 }
             }
         } failBlock:^(NSError *error) {
-            [iToast alertWithTitleCenter:@"网络异常"];
+            [error errorToast];
         }];
 
     }else{

@@ -100,8 +100,9 @@
 #define PW_changePassword              API_SEVERID@"/v1/auth/change-password"
 // 忘记密码
 #define PW_forgottenPassword           API_SEVERID@"/v1/auth/forgotten-password"
-
+#define PW_register                    API_SEVERID@"/v1/auth/register"
 #define PW_sendEmail                   API_SEVERID@"/v1/auth/send-email"
+#define PW_checkRegister     API_SEVERID@"/v1/auth/check-register"
 // 登出
 #define PW_loginOut                    API_SEVERID@"/v1/auth/logout"
 
@@ -120,6 +121,8 @@
 #define PW_issueSourceModify(issueid) [NSString stringWithFormat:@"%@/v1/issue_source/%@/modify", API_SEVERID,issueid]
 //云服务详情
 //#define PW_issueDetail(issueid)   [NSString stringWithFormat:@"%@/v1/issue_source/%@/get", API_SEVERID,issueid]
+//情报恢复
+#define PW_issueRecover(issueid)  [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,issueid]
 
 #define PW_issueDetail(issueid)    [NSString stringWithFormat:@"%@/v1/issue/%@/get", API_SEVERID,issueid]
 #define PW_issueReadSeq(issuelogid)  [NSString stringWithFormat:@"%@/v1/issue/log/%@/last-read-seq/record", API_SEVERID,issuelogid]
@@ -139,6 +142,7 @@
 //情报添加
 #define PW_issueAdd                     API_SEVERID@"/v1/issue/add"
 #define PW_issueModify(issueid)         [NSString stringWithFormat:@"%@/v1/issue/%@/modify", API_SEVERID,issueid]
+#define PW_issueWatch(issueid)   [NSString stringWithFormat:@"%@/v1/issue/%@/watch", API_SEVERID,issueid]
 //文章推荐
 #define PW_recommendation               API_SEVERID@"/v1/recommendation/list"
 
@@ -150,6 +154,11 @@
 #define PW_AdduploaAttachment         API_SEVERID@"/v1/issue/add-upload-attachment"
 
 #define PW_URL_CARRIER_PROBE          API_CARRIER_HOST@"/v1/probe"
+#pragma mark ========== 日历 ==========
+//日历上的点
+#define PW_Calendar_count             API_SEVERID@"/v1/issue/log/count"
+//日历上对应区间情报列表
+#define PW_Calendar_list              API_SEVERID@"/v1/issue/log/keypoint/list"
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]

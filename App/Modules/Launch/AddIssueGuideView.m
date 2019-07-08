@@ -7,7 +7,7 @@
 //
 
 #import "AddIssueGuideView.h"
-#import "UpTriangle.h"
+#import "TriangleDrawRect.h"
 
 @interface AddIssueGuideView()
 @property (nonatomic, strong) UIView *contentView;
@@ -47,7 +47,7 @@
         make.height.offset(ZOOM_SCALE(50));
     }];
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
-    UpTriangle *triangle = [[UpTriangle alloc]init];
+    TriangleDrawRect *triangle = [[TriangleDrawRect alloc]initStartPoint:CGPointMake(12, 0) middlePoint:CGPointMake(0, 16) endPoint:CGPointMake(24, 16) color:PWBlueColor];
     [self addSubview:triangle];
     [triangle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(backView.mas_top).offset(1);

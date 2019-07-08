@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class IssueListViewModel;
 
 @interface IssueUserDetailView : UIView
+@property (nonatomic, copy) void(^recoverClick)(BOOL needNavSel);
+
 -(instancetype)initHeaderWithIssueModel:(IssueListViewModel *)model;
 -(void)setCreateUserName:(NSString *)name;
 -(void)reloadHeaderUI;

@@ -19,6 +19,9 @@
 #import "ZTCreateTeamVC.h"
 #import "IssueListHeaderView.h"
 #import "IssueDetailsVC.h"
+#import "SelectObject.h"
+#import "HLSafeMutableArray.h"
+
 
 @interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueCell *tempCell;
@@ -26,7 +29,7 @@
 @property (nonatomic, copy)   NSString *type;
 //@property (nonatomic, strong) UIView *listFooterView;
 @property (nonatomic, strong) UILabel *tipLab;
-@property (nonatomic, strong) NSMutableArray *datas;
+@property (nonatomic, strong) HLSafeMutableArray *datas;
 @property (nonatomic, assign) NSInteger currentPage;
 
 @end
@@ -51,11 +54,12 @@
                             selector:@selector(onNewIssueUpdate:)
                                 name:KNotificationUpdateIssueList
                               object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadIssueList object:nil];
 
     [self createUI];
     WeakSelf
     [self loadAllIssueList:^{
-        [weakSelf reloadDataWithIssueType:0 viewType:0 refresh:NO];
+        [weakSelf reloadDataWithSelectObject:nil refresh:NO];
         [weakSelf dealWithNotificationData];
     }];
     
@@ -65,14 +69,13 @@
     DLog(@"homevc----团队切换请求成功后通知");
     [SVProgressHUD show];
     WeakSelf
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
         [SVProgressHUD dismiss];
-        NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+        NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:nil];
         if (datas.count == 0) {
              [weakSelf showNoDataViewWithStyle:NoDataViewIssueList];
         }else{
             [weakSelf removeNoDataImage];
-            NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
             [weakSelf.datas removeAllObjects];
             [weakSelf.datas addObjectsFromArray:datas];
             weakSelf.currentPage = 1;
@@ -83,10 +86,14 @@
 }
 - (void)loadAllIssueList:(void (^)(void))complete{
   
-    [SVProgressHUD show];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         [SVProgressHUD show];
+    });
 
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchIssue:^(BaseReturnModel *model) {
-        [SVProgressHUD dismiss];
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
          complete();
         if (!model.isSuccess) {
             [iToast alertWithTitleCenter:model.errorMsg];
@@ -109,7 +116,7 @@
 - (void)createUI{
     self.currentPage = 1;
     self.view.backgroundColor = PWWhiteColor;
-    NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:0 issueViewType:0];
+    NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:nil];
     self.monitorData = [NSMutableArray new];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -146,31 +153,20 @@
     self.currentPage = 1;
     WeakSelf
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-        [weakSelf reloadDataWithIssueType:0 viewType:0 refresh:YES];
+        [weakSelf reloadDataWithSelectObject:nil refresh:YES];
         [weakSelf.header endRefreshing];
-    }                                           getAllDatas:YES];
+    }                                           getAllDatas:NO];
 }
--(NSMutableArray *)datas{
+-(HLSafeMutableArray *)datas{
     if (!_datas) {
-        _datas = [NSMutableArray new];
+        _datas = [HLSafeMutableArray new];
     }
     return _datas;
 }
 - (void)onNewIssueUpdate:(NSNotification *)notification{
     NSDictionary *pass = [notification userInfo];
     if ([pass boolValueForKey:@"updateView" default:NO]) {
-        [self reloadDataWithIssueType:0 viewType:0 refresh:NO];
-    } else {
-
-//        NSArray *types = [pass mutableArrayValueForKey:@"types"];
-//        if ([pass containsObjectForKey:@"types"]) {
-//             self.tipLab.hidden = NO;
-//            [self.view bringSubviewToFront:self.tipLab];
-//        }
-//        if ([types containsObject:self.type]) {
-//            self.tipLab.hidden = NO;
-//            [self.view bringSubviewToFront:self.tipLab];
-//        }
+        [self reloadDataWithSelectObject:nil refresh:NO];
     }
 }
 - (void)onNewIssueAddUpdate:(NSNotification *)notification{
@@ -224,6 +220,9 @@
     NSInteger addCount;
     if (self.datas.count<=self.currentPage*10) {
         addCount = self.datas.count%10==0?10:self.datas.count%10;
+        if (self.datas.count == (self.currentPage-1)*10) {
+            addCount = 0;
+        }
         self.tableView.tableFooterView = self.footView;
     }else{
         addCount = 10;
@@ -263,7 +262,7 @@
         _tipLab.backgroundColor = [UIColor colorWithHexString:@"#D3E4F5"];
         [self.view addSubview:_tipLab];
         _tipLab.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadData)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerRefreshing)];
         [_tipLab addGestureRecognizer:tap];
     NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
     //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
@@ -278,18 +277,17 @@
     return _tipLab;
 }
 - (void)reloadData{
-    [self reloadDataWithIssueType:0 viewType:0 refresh:YES];
+    [self reloadDataWithSelectObject:nil refresh:YES];
 }
-- (void)reloadDataWithIssueType:(NSInteger)index viewType:(NSInteger)viewIndex refresh:(BOOL)refresh{
+- (void)reloadDataWithSelectObject:(nullable SelectObject *)sel refresh:(BOOL)refresh{
     if (refresh) {
         self.currentPage =1;
     }
-    IssueType type = index;
-    IssueViewType viewType =viewIndex;
+
     WeakSelf
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:type issueViewType:viewType];
+        NSArray *dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:sel];
         
         dispatch_async_on_main_queue(^{
             

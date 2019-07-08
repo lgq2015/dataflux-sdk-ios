@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IssueListManger.h"
+
 @protocol IssueListHeaderDelegate <NSObject>
 
 -(void)selectIssueTypeIndex:(NSInteger)index;
--(void)selectIssueViewTypeIndex:(NSInteger)index;
-
+-(void)selectIssueSortTypeIndex:(NSInteger)index;
+-(void)selectIssueType:(IssueType)issueType;
 @end
 NS_ASSUME_NONNULL_BEGIN
 

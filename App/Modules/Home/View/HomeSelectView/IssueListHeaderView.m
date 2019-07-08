@@ -8,7 +8,6 @@
 
 #import "IssueListHeaderView.h"
 #import "SelectIssueTypeView.h"
-#import "IssueListManger.h"
 #import "AddIssueVC.h"
 #import "ZTCreateTeamVC.h"
 #define IssueTypeBtnTag   55
@@ -17,7 +16,7 @@
 @property (nonatomic, strong) SelectIssueTypeView *issueSV;
 @property (nonatomic, strong) SelectIssueTypeView *viewSV;
 @property (nonatomic, strong) UIButton *typeBtn;
-@property (nonatomic, strong) UIButton *viewTypeBtn;
+@property (nonatomic, strong) UIButton *timeTypeBtn;
 
 @end
 @implementation IssueListHeaderView
@@ -30,13 +29,14 @@
 }
 - (void)createUI{
     IssueType issueType =[[IssueListManger sharedIssueListManger] getCurrentIssueType];
-    [self updateGetMsgTime];
+   
     NSString *issueTitle = [self getIssueTitle:issueType];
-    IssueViewType viewType =[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
-    NSString *viewTitle = [self getIssueViewTitle:viewType];
+    IssueSortType viewType =[[IssueListManger sharedIssueListManger] getCurrentIssueSortType];
+    NSString *viewTitle = [self getIssueSortTitle:viewType];
     self.typeBtn = [[UIButton alloc]init];
     [self.typeBtn setTitle:issueTitle forState:UIControlStateNormal];
     self.typeBtn.titleLabel.font = RegularFONT(16);
+    [self.typeBtn setTitle:@"筛选" forState:UIControlStateNormal];
     [self.typeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
     [self.typeBtn sizeToFit];
     [self.typeBtn addTarget:self action:@selector(typeBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -44,7 +44,7 @@
     [self addSubview:self.typeBtn];
     [self.typeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).offset(Interval(16));
-        make.height.mas_equalTo(self);
+        make.top.bottom.height.mas_equalTo(self);
         make.width.offset(width);
     }];
     UIButton *arrow = [[UIButton alloc]init];
@@ -59,17 +59,17 @@
         make.height.offset(10);
     }];
     [arrow addTarget:self action:@selector(typeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    self.viewTypeBtn = [[UIButton alloc]init];
-    [self.viewTypeBtn setTitle:viewTitle forState:UIControlStateNormal];
-    self.viewTypeBtn.titleLabel.font = RegularFONT(16);
-    [self.viewTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
-    [self.viewTypeBtn sizeToFit];
-    CGFloat width2 = self.viewTypeBtn.frame.size.width;
-    [self.viewTypeBtn addTarget:self action:@selector(viewTypeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.viewTypeBtn];
-    [self.viewTypeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.timeTypeBtn = [[UIButton alloc]init];
+    [self.timeTypeBtn setTitle:viewTitle forState:UIControlStateNormal];
+    self.timeTypeBtn.titleLabel.font = RegularFONT(16);
+    [self.timeTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
+    [self.timeTypeBtn sizeToFit];
+    CGFloat width2 = self.timeTypeBtn.frame.size.width;
+    [self.timeTypeBtn addTarget:self action:@selector(viewTypeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.timeTypeBtn];
+    [self.timeTypeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(arrow.mas_right).offset(15);
-        make.height.mas_equalTo(self);
+        make.height.top.bottom.mas_equalTo(self);
         make.width.offset(width2);
     }];
     UIButton *arrow2 = [[UIButton alloc]init];
@@ -78,8 +78,8 @@
     [self addSubview:arrow2];
     arrow2.tag = IssueViewBtnTag;
     [arrow2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.viewTypeBtn.mas_right).offset(8);
-        make.centerY.mas_equalTo(self.viewTypeBtn);
+        make.left.mas_equalTo(self.timeTypeBtn.mas_right).offset(8);
+        make.centerY.mas_equalTo(self.timeTypeBtn);
         make.width.offset(18);
         make.height.offset(10);
     }];
@@ -89,7 +89,7 @@
     [self addSubview:addIssueBtn];
     [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.mas_equalTo(self);
+        make.height.top.bottom.mas_equalTo(self);
     }];
     [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -117,14 +117,14 @@
     }
     return issueTitle;
 }
-- (NSString *)getIssueViewTitle:(IssueViewType)type{
+- (NSString *)getIssueSortTitle:(IssueSortType)type{
     NSString *viewTitle;
     switch (type) {
-        case IssueViewTypeAll:
-            viewTitle = @"全部视图";
+        case IssueSortTypeUpdate:
+            viewTitle = @"更新时间排序";
             break;
-        case IssueViewTypeNormal:
-            viewTitle = @"标准视图";
+        case IssueSortTypeCreate:
+            viewTitle = @"产生时间排序";
             break;
 
     }
@@ -196,30 +196,30 @@
     }
 }
 -(void)selectIssueCellClick:(NSInteger )index selectType:(SelectType)type{
-   
-    switch (type) {
-        case SelectTypeIssue:{
-            UIButton *button = [self viewWithTag:IssueTypeBtnTag];
-            button.selected = NO;
-            [self.typeBtn setTitle:[self getIssueTitle:(IssueType)(index+1)] forState:UIControlStateNormal];
-            [self updateGetMsgTime];
-        if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueTypeIndex:)]){
-            [self.delegate selectIssueTypeIndex:index];
-        }
-        }
-            break;
-        case SelectTypeView:{
-            UIButton *button = [self viewWithTag:IssueViewBtnTag];
-            button.selected = NO;
-             [self.viewTypeBtn setTitle:[self getIssueViewTitle:(IssueViewType)(index+1)] forState:UIControlStateNormal];
-            if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueViewTypeIndex:)]){
-                [self.delegate selectIssueViewTypeIndex:index];
-            }
-        }
-            break;
-       default:
-            break;
-    }
+//
+//    switch (type) {
+//        case SelectTypeIssue:{
+//            UIButton *button = [self viewWithTag:IssueTypeBtnTag];
+//            button.selected = NO;
+//            [self.typeBtn setTitle:[self getIssueTitle:(IssueType)(index+1)] forState:UIControlStateNormal];
+////            [self updateGetMsgTime];
+//        if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueTypeIndex:)]){
+//            [self.delegate selectIssueTypeIndex:index];
+//        }
+//        }
+//            break;
+//        case SelectTypeView:{
+//            UIButton *button = [self viewWithTag:IssueViewBtnTag];
+//            button.selected = NO;
+//             [self.timeTypeBtn setTitle:[self getIssueViewTitle:(IssueViewType)(index+1)] forState:UIControlStateNormal];
+//            if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueViewTypeIndex:)]){
+//                [self.delegate selectIssueViewTypeIndex:index];
+//            }
+//        }
+//            break;
+//       default:
+//            break;
+//    }
 }
 -(void)disMissClickWithSelectType:(SelectType)type{
     switch (type) {
@@ -240,40 +240,13 @@
 -(void)refreshHeaderViewTitle{
     IssueType issueType =[[IssueListManger sharedIssueListManger] getCurrentIssueType];
     NSString *issueTitle = [self getIssueTitle:issueType];
-    IssueViewType viewType =[[IssueListManger sharedIssueListManger] getCurrentIssueViewType];
-    NSString *viewTitle = [self getIssueViewTitle:viewType];
+    IssueSortType viewType =[[IssueListManger sharedIssueListManger] getCurrentIssueSortType];
+    NSString *viewTitle = [self getIssueSortTitle:viewType];
     [self.typeBtn setTitle:issueTitle forState:UIControlStateNormal];
-    [self.viewTypeBtn setTitle:viewTitle forState:UIControlStateNormal];
+    [self.timeTypeBtn setTitle:viewTitle forState:UIControlStateNormal];
 }
-- (void)updateGetMsgTime{
-    IssueType issueType =[[IssueListManger sharedIssueListManger] getCurrentIssueType];
-    NSString *type;
-    switch (issueType) {
-            
-        case IssueTypeAll:
-            type = @"all";
-            break;
-        case IssueTypeAlarm:
-            type = @"alarm";
-            break;
-        case IssueTypeSecurity:
-            type = @"security";
-            break;
-        case IssueTypeExpense:
-            type = @"expense";
-            break;
-        case IssueTypeOptimization:
-            type = @"optimization";
-            break;
-        case IssueTypeMisc:
-            type = @"misc";
-            break;
-    }
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[IssueListManger sharedIssueListManger] updateIssueBoardGetMsgTime:type];
-    });
-}
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

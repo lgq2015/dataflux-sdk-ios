@@ -20,6 +20,8 @@
 #import "OpenUDID.h"
 #import "IssueLogAttachmentUrl.h"
 #import "IssueLogAtReadInfo.h"
+#import "CountListModel.h"
+#import "CalendarListModel.h"
 
 @implementation PWHttpEngine {
 
@@ -221,7 +223,7 @@
     NSMutableDictionary *param = [@{
                 @"pageSize": @(pageSize),
                 @"type": @"attachment,bizPoint,text,keyPoint",
-                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded",
+                @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
                 @"_withAttachmentExternalDownloadURL": @YES,
                 @"orderBy": @"seq",
                 @"orderMethod": orderMethod,
@@ -333,7 +335,7 @@
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
-    
+
 }
 
 - (PWURLSessionTask *)postIssueLogReadsLastReadSeqRecord:(NSString *)issuelogID callBack:(void (^)(id))callback{
@@ -364,6 +366,125 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+
+- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback{
+    CountListModel *model = [CountListModel new];
+    NSDictionary *param = @{@"createDateTs_start":start,
+                            @"createDateTs_end":end,
+                            @"dataMethod":@"between",
+                            @"subType":
+                                @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered"
+                            };
+    return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_count
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+
+- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
+    CalendarListModel *model = [CalendarListModel new];
+
+    NSMutableDictionary *param =[@{
+
+                            @"subType":
+    @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
+                            @"orderBy":@"seq",
+                            @"orderMethod":orderMethod
+                            } mutableCopy];
+    if (pageMarker>0) {
+        [param addEntriesFromDictionary:@{@"pageMarker":[NSNumber numberWithLong:pageMarker],@"pageSize":@40}];
+    }else{
+        [param addEntriesFromDictionary:@{@"pageSize":@40}];
+    }
+    if (![start isEqualToNumber:@0]) {
+        [param addEntriesFromDictionary:@{@"createDateTs_start":start,@"createDateTs_end":end, @"dataMethod":@"between"}];
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_list
+                                withRequestType:NetworkGetType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)modifyIssueWithIssueid:(NSString *)issueid assignedToAccountId:(NSString *)accountId callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param;
+    if (accountId.length>0) {
+     param = @{@"data":@{@"assignedToAccountId":accountId}};
+    }else{
+     param = @{@"data":@{@"assignedToAccountId":[NSNull null]}};
+    }
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueModify(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)recoveIssueWithIssueid:(NSString *)issueid callBack:(void (^)(id response))callback{
+
+     BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(issueid)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+- (PWURLSessionTask *)checkRegisterWithPhone:(NSString *)phone callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"username":phone}};
+    return [PWNetworking requsetHasTokenWithUrl:PW_checkRegister
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+- (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *param = @{@"data":@{@"isWatch":[NSNumber numberWithBool:isWatch]}};
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueWatch(issueId)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+
+
+- (PWURLSessionTask *)deviceRegistration:(NSString *)deviceId registrationId:(NSString *)registrationId callBack:(void (^)(id response))callback {
+    BaseReturnModel *model = [BaseReturnModel new];
+    NSDictionary *params = @{
+            @"data":
+            @{
+                    @"deviceId": deviceId,
+                    @"registrationId": registrationId
+            }
+    };
+    return [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES
+                                          cache:NO params:params
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+
 @end
 
 

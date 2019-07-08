@@ -127,18 +127,29 @@
 }
 
 + (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter{
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    //输入格式
+//    [dateFormatter setDateFormat:formatter];
+//    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+//    [dateFormatter setTimeZone:localTimeZone];
+//    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+//    //输出格式
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    return [NSString getLocalDateFormateUTCDate:utcDate formatter:formatter outdateFormatted:@"yyyy-MM-dd HH:mm:ss"];
+}
++ (NSString *)getLocalDateFormateUTCDate:(NSString *)utcDate formatter:(NSString *)formatter outdateFormatted:(NSString *)dateFormatted{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:formatter];
     NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
     [dateFormatter setTimeZone:localTimeZone];
-    NSDate *dateFormatted = [dateFormatter dateFromString:utcDate];
+    NSDate *dateFormatteds = [dateFormatter dateFromString:utcDate];
     //输出格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateString = [dateFormatter stringFromDate:dateFormatted];
+    [dateFormatter setDateFormat:dateFormatted];
+    NSString *dateString = [dateFormatter stringFromDate:dateFormatteds];
     return dateString;
 }
-
 + (NSString *)yearMonthDayDateUTC:(NSString *)utcDate formatter:(NSString *)formatter{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
@@ -229,6 +240,22 @@
     }
     return  result;
 }
+- (NSString *)listAccurateTimeStr{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:self];
+    NSString *timeStr;
+    if ([timeDate isToday]) {
+        timeStr = [NSString stringWithFormat:@"今天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isYesterday]){
+        timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
+    }else if([timeDate isThisYear]){
+        timeStr = [timeDate listCurrentYearHourMinutesTimeStr];
+    }else{
+        timeStr = [timeDate listYearMonthDayHourMinutesTimeStr];
+    }
+    return timeStr;
+}
 - (NSString *)accurateTimeStr{
     //把字符串转为NSdate
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -316,13 +343,13 @@
            type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else if ([subType isEqualToString:@"markTookOver"]){
       
-        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         type = [NSString stringWithFormat:@"%@正在处理",name];
     }else if ([subType isEqualToString:@"markRecovered"]){
-        NSDictionary *account_info = PWSafeDictionaryVal(dict, @"account_info");
+        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
       
-        NSString *name = [account_info stringValueForKey:@"name" default:@""];
+        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
                  type = [NSString stringWithFormat:@"已由%@解决",name];
     
     }
@@ -344,7 +371,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM-dd\nHH:mm"];
+    [formatter setDateFormat:@"HH:mm\nMM-dd"];
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;
 }
@@ -438,5 +465,42 @@
                                                               (CFStringRef)self,
                                                               (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
                                                               NULL,kCFStringEncodingUTF8));
+}
+-(CGSize)strSizeWithMaxWidth:(CGFloat)width withFont:(UIFont*)font{
+    if (@available(iOS 7.0, *)) {
+        return [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil].size;
+    } else {
+        return CGSizeZero;
+        
+    }
+}
+- (BOOL) deptNumInputShouldNumber
+{
+    if (self.length == 0) {
+        return NO;
+    }
+    NSString *regex = @"[0-9]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    if ([pred evaluateWithObject:self]) {
+        return YES;
+    }
+    return NO;
+}
+- (NSString *)dealWithTimeFormatted{
+    
+    NSArray *sepAry = [self componentsSeparatedByString:@":"];
+    BOOL containT = [self containsString:@"T"];
+    if (sepAry.count == 3 && containT) {
+        NSString *last =  [sepAry lastObject];
+        if ([last componentsSeparatedByString:@"."].count == 1) {
+            NSString *time = [self stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@":%@",sepAry[2]] withString:@""];
+        return  [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm" outdateFormatted:@"HH:mm\nMM-dd"];
+        }else if([last componentsSeparatedByString:@"."].count == 2){
+         NSString *newTime = [self stringByReplacingOccurrencesOfString:[[last componentsSeparatedByString:@"."] lastObject] withString:@""];
+        return  [NSString getLocalDateFormateUTCDate:newTime formatter:@"yyyy-MM-dd'T'HH:mm:ss" outdateFormatted:@"HH:mm\nMM-dd"];
+        }
+        }
+        return self;
+    
 }
 @end

@@ -23,8 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)currentYearHourMinutesTimeStr;
 -(NSString *)hourMinutesTimeStr;
 -(NSString *)yearMonthDayHourMinutesTimeStr;
-
+-(NSString *)listCurrentYearHourMinutesTimeStr;
+-(NSString *)listYearMonthDayHourMinutesTimeStr;
 -(NSString *)getNowUTCTimeStr;
+-(NSArray *)getDateMonthFirstLastDayTimeStamp;
+- (NSInteger )getTimeStamp;
+- (NSString *)getCalenarTimeStr;
 @end
 
 NS_ASSUME_NONNULL_END

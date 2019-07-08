@@ -155,28 +155,28 @@
 
             switch (index) {
                 case 0:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeAlarm issueViewType:0];
+//                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeAlarm issueViewType:0];
                     title = @"监控";
                     issueType = @"alarm";
                     break;
                 case 1:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeSecurity issueViewType:0];
+//                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeSecurity issueViewType:0];
                     title = @"安全";
                     issueType = @"security";
                     break;
                 case 2:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeExpense issueViewType:0];
+//                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeExpense issueViewType:0];
                     title = @"费用";
                     issueType = @"expense";
                     break;
                 case 3:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeOptimization issueViewType:0];
+//                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:IssueTypeOptimization issueViewType:0];
                     title = @"优化";
                     issueType = @"optimization";
                     break;
                 case 4:
-                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:
-                                  IssueTypeMisc issueViewType:0];
+//                    dataSource = [[IssueListManger sharedIssueListManger] getIssueListWithIssueType:
+//                                  IssueTypeMisc issueViewType:0];
                     title = @"提醒";
                     issueType = @"misc";
                     break;

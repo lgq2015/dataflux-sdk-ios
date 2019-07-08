@@ -44,6 +44,12 @@
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
+-(NSString *)listCurrentYearHourMinutesTimeStr{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"MM 月 dd 日";
+    NSString *selfStr = [fmt stringFromDate:self];
+    return  selfStr;
+}
 -(NSString *)currentYearHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"MM 月 dd 日 HH:mm";
@@ -53,6 +59,12 @@
 -(NSString *)hourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"HH:mm";
+    NSString *selfStr = [fmt stringFromDate:self];
+    return selfStr;
+}
+-(NSString *)listYearMonthDayHourMinutesTimeStr{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyyy 年 MM 月 dd 日";
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
@@ -127,5 +139,78 @@
         return dateString;
     }
     return @"";
+}
+-(NSArray *)getDateMonthFirstLastDayTimeStamp{
+    double interval = 0;
+    NSDate *firstDate = nil;
+    NSDate *lastDate = nil;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    BOOL OK = [calendar rangeOfUnit:NSCalendarUnitMonth startDate:&firstDate interval:&interval forDate:self];
+    
+    if (OK) {
+        lastDate = [firstDate dateByAddingTimeInterval:interval - 1];
+    }else {
+        return @[@"",@""];
+    }
+    NSInteger firstTime =[[NSNumber numberWithDouble:[firstDate timeIntervalSince1970]] integerValue];
+    NSInteger lastTime =[[NSNumber numberWithDouble:[lastDate timeIntervalSince1970]] integerValue];
+
+    return @[[NSNumber numberWithInteger:firstTime], [NSNumber numberWithInteger:lastTime]];
+}
+- (NSInteger )getTimeStamp
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    }
+   
+  
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+    [datecomps setYear:[self year]?:0];
+    [datecomps setMonth:[self month]?:0];
+    [datecomps setDay:[self day]?:0];
+    NSDate *calculatedate = [calendar dateFromComponents:datecomps];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    [dateFormatter setTimeZone:timeZone];
+    DLog(@"[self year] == %ld,[self month] == %ld,[self day] == %ld,calculatedate ==%@ ",[self year],[self month],[self day],calculatedate);
+
+    return [calculatedate timeIntervalSince1970];
+    
+    
+}
+
+- (NSString *)getCalenarTimeStr{
+    NSString *week;
+    switch ((long)[self weekday]) {
+        case 1:
+            week = @"周日";
+            break;
+        case 2:
+            week = @"周一";
+            break;
+        case 3:
+            week = @"周二";
+            break;
+        case 4:
+            week = @"周三";
+            break;
+        case 5:
+            week = @"周四";
+            break;
+        case 6:
+            week = @"周五";
+            break;
+        case 7:
+            week = @"周六";
+            break;
+    }
+    if([self isThisYear]){
+        return [NSString stringWithFormat:@"%ld 月 %ld 日 %@",(long)[self month],(long)[self day],week];
+    }else{
+       return [NSString stringWithFormat:@"%ld年 %ld 月 %ld 日 %@",(long)[self year],(long)[self month],(long)[self day],week];
+    }
 }
 @end

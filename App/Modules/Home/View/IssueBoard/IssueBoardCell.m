@@ -7,7 +7,7 @@
 //
 
 #import "IssueBoardCell.h"
-#import "TriangleView.h"
+#import "TriangleDrawRect.h"
 
 //%%% pop values
 static CGFloat const kPopStartRatio = .75;
@@ -29,7 +29,7 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
 @property (nonatomic, strong) UIView *popView;
 @property (nonatomic, strong) UIImageView *tickImg;
 @property (nonatomic, strong) UIImageView *backgroundImg;
-@property (nonatomic, strong) TriangleView *triangleView;
+@property (nonatomic, strong) TriangleDrawRect *triangleView;
 
 @end
 @implementation IssueBoardCell
@@ -221,9 +221,10 @@ static CGFloat const kBumpTimeSeconds2 = 0.1;
     }
     return _tickImg;
 }
-- (TriangleView *)triangleView{
+- (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
-        _triangleView = [[TriangleView alloc]initWithFrame:CGRectMake(0, 0, 8, 8)];
+        _triangleView = [[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(8, 0) endPoint:CGPointMake(0, 8) color:PWRedColor];
+        _triangleView.frame = CGRectMake(0, 0, 8, 8);
         
         [self addSubview:_triangleView];
     }

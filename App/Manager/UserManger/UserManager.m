@@ -72,7 +72,26 @@ SINGLETON_FOR_CLASS(UserManager);
     
 }
 
+-(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion{
+    NSMutableDictionary *param = [params mutableCopy];
+    [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
+    NSDictionary *data = @{@"data":param};
 
+    [PWNetworking requsetWithUrl:PW_register withRequestType:NetworkPostType refreshRequest:NO cache:NO params:data progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = response[@"content"];
+            setXAuthToken(content[@"authAccessToken"]);
+            [kUserDefaults synchronize];
+            [self saveUserInfoLoginStateisChange:YES success:nil];
+        }else
+        {    [SVProgressHUD dismiss];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE],"")];
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [error errorToast];
+    }];
+}
 #pragma mark ========== 登录操作 ==========
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
@@ -83,6 +102,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,nil);
                 }
+             [SVProgressHUD dismiss];
              [iToast alertWithTitleCenter:@"账号或密码错误"];
                 
             }else{
@@ -112,7 +132,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
-                
+
                 [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
 
                 BOOL isRegister = [content[@"isRegister"] boolValue];
@@ -121,11 +141,12 @@ SINGLETON_FOR_CLASS(UserManager);
                     if (completion) {
                         completion(YES, changePasswordToken);
                     }
-                    [self saveUserInfoLoginStateisChange:NO success:nil];
-                } else {
+                    [self saveUserInfoLoginStateisChange:YES success:nil];
+                }else{
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
-            } else {
+            }else{
+                [SVProgressHUD dismiss];
                 if (completion) {
                     completion(NO, @"");
                 }
@@ -230,6 +251,7 @@ SINGLETON_FOR_CLASS(UserManager);
         dispatch_async(dispatch_get_main_queue(), ^{
             if( isTeamSuccess && isUserSuccess){
                 if(change){
+                    [SVProgressHUD dismiss];
                     KPostNotification(KNotificationLoginStateChange, @YES);
                     //存储的团队列表、团队情报数、ISPs都和当前账号有关系，所以请求成功做处理
                     [self requestMemberList:nil];
@@ -319,7 +341,9 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
     YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
     YYCache *cacheTeamList = [[YYCache alloc]initWithName:KTeamListCacheName];
+    YYCache *cacheLastFetchTime = [[YYCache alloc]initWithName:KTeamLastFetchTime];
     [cache removeAllObjects];
+    [cacheLastFetchTime removeAllObjects];
     [cacheteam removeObjectForKey:KTeamModelCache];
     [cacheteam removeObjectForKey:kAuthTeamIssueCountDict];
     [cacheteam removeObjectForKey:KTeamISPsCacheName];
@@ -650,7 +674,8 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 //团队活跃情报树
 - (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    NSDictionary *param = @{@"_onlyIsWatch":@"true"};
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             if (content.allKeys.count == 0 || content == nil){
@@ -675,13 +700,24 @@ SINGLETON_FOR_CLASS(UserManager);
         }
     }];
 }
-- (void)getIssueStateAndLevelByKey:(NSString *)key displayName:(void(^)(NSString *displayName))displayName{
-    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
-//    [cache removeAllObjectsWithBlock:^{
-//        [cache setObject:teamProduct forKey:KTeamProductDict];
-//    }];
-}
 
+- (void)setLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+
+    NSString *key =[self getTeamModel].teamID;
+    [cache setObject:[NSDate date] forKey:key];
+}
+- (NSDate *)getLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+
+    NSString *key = [self getTeamModel].teamID;
+    NSDate *date = (NSDate *)[cache objectForKey:key];
+    if(date){
+        return date;
+    }else{
+        return nil;
+    }
+}
 +(NSDictionary *)getDeviceInfo{
     NSString *os_version =  [[UIDevice currentDevice] systemVersion];
     NSString *openUDID = [OpenUDID value];

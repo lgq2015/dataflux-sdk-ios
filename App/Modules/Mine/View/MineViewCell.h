@@ -25,6 +25,7 @@ typedef void (^switchBlock)(BOOL isOn);
 @property (nonatomic, strong) MineCellModel *data;
 @property (nonatomic, copy) switchBlock switchChange;
 @property (nonatomic, strong) UISwitch *switchBtn;
+@property (nonatomic, strong) UILabel *titleLab;
 
 -(void)initWithData:(MineCellModel *)data type:(MineVCCellType)type;
 -(void)setSwitchBtnisOn:(BOOL)ison;
