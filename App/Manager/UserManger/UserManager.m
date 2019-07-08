@@ -62,14 +62,14 @@ SINGLETON_FOR_CLASS(UserManager);
                     }
                     [kUserDefaults synchronize];
                 }
-                
+
             }
         } failBlock:^(NSError *error) {
             if (isSuccess) {
                 isSuccess(NO);
             }
         }];
-    
+
 }
 
 -(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion{
@@ -102,9 +102,12 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,nil);
                 }
-             [SVProgressHUD dismiss];
-             [iToast alertWithTitleCenter:@"账号或密码错误"];
-                
+                [SVProgressHUD dismiss];
+                [iToast alertWithTitleCenter:@"账号或密码错误"];
+                NSString *errorMsg = NSLocalizedString(errCode, @"");
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
+
+
             }else{
                 if (completion) {
                     completion(YES,nil);
@@ -114,8 +117,10 @@ SINGLETON_FOR_CLASS(UserManager);
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
                 [self saveUserInfoLoginStateisChange:YES success:nil];
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
+
             }
-            
+
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
             if (completion) {
@@ -145,6 +150,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 }else{
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
             }else{
                 [SVProgressHUD dismiss];
                 if (completion) {
@@ -174,7 +180,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
         }];
     }
-    
+
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
@@ -182,7 +188,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
     dispatch_group_t grpupT = dispatch_group_create();//一个线程组
-    
+
     dispatch_group_async(grpupT, queueT,^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -206,15 +212,15 @@ SINGLETON_FOR_CLASS(UserManager);
                   dispatch_group_leave(grpupT);
                 }
             }
-           
+
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
-           
+
             dispatch_group_leave(grpupT);
         }];
-        
+
     });
-   
+
     dispatch_group_async(grpupT, queueT, ^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -241,9 +247,9 @@ SINGLETON_FOR_CLASS(UserManager);
             }else{
                   dispatch_group_leave(grpupT);
             }
-          
+
         } failBlock:^(NSError *error) {
-           
+
             dispatch_group_leave(grpupT);
         }];
     });
@@ -264,7 +270,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 [iToast alertWithTitleCenter:@"网络异常"];
             }
         });
-        
+
     });
     [self loadExperGroups:nil];
 }
@@ -305,12 +311,12 @@ SINGLETON_FOR_CLASS(UserManager);
 - (void)reloadTeamInfo
 {
     [self addTeamSuccess:^(BOOL isSuccess) {
-        
+
     }];
 }
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -397,7 +403,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 name([self privateGetExpertNameByKey:key]);
             }
         }];
-        
+
     }else{
         if (name) {
             name([self privateGetExpertNameByKey:key]);
@@ -441,7 +447,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
             completion ? completion(nil):nil;
         }
-        
+
     } failBlock:^(NSError *error) {
         completion ? completion(nil):nil;
         [error errorToast];
@@ -470,7 +476,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
            completion ? completion(nil):nil;
         }
-        
+
     } failBlock:^(NSError *error) {
         completion ? completion(nil):nil;
         [error errorToast];
@@ -591,7 +597,7 @@ SINGLETON_FOR_CLASS(UserManager);
             memberBlock? memberBlock(nil):nil;
         }];
     }
-   
+
 }
 #pragma mark ========== 团队列表===============
 - (void)setAuthTeamList:(NSArray *)teamList{

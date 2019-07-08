@@ -19,6 +19,7 @@
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
 #import "JPUSHService.h"
+#import "ZhugeIOLoginHelper.h"
 
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
@@ -327,11 +328,14 @@
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
             newPasswordVC.isShowCustomNaviBar = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+            [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultPass] track];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
+            [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultNoPass] track];
             [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
+        [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultNoPass] track];
         [iToast alertWithTitleCenter:@"网络异常"];
     }];
 }
@@ -496,6 +500,10 @@
     NSString *title = @"服务协议";
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
         title = @"隐私权政策";
+        [[[[ZhugeIOLoginHelper new] eventServiceProtocols] attrSceneLogin] track];
+    } else{
+        [[[[ZhugeIOLoginHelper new] eventPrivacyPolicy] attrSceneLogin] track];
+
     }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];

@@ -8,6 +8,7 @@
 
 #import "GuideVC.h"
 #import "GuideCell.h"
+#import "ZhugeIOLoginHelper.h"
 
 @interface GuideVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView *guideCollection;
@@ -26,6 +27,7 @@
     self.dataSource = [NSMutableArray arrayWithArray:@[@1,@2,@3]];
     self.guideCollection.frame = CGRectMake(0, 0, kWidth, kHeight);
     [self createUI];
+    [[[ZhugeIOLoginHelper new] eventGuideStay] startTrack];
 
 }
 - (void)createUI{
@@ -139,6 +141,8 @@
     cell.itemClick = ^(NSInteger index){
         if (index == 4) {
             KPostNotification(KNotificationLoginStateChange, @NO);
+            [[[[ZhugeIOLoginHelper new] eventGuideStay] attrStayTime] endTrack];
+
         }
     };
     return cell;
