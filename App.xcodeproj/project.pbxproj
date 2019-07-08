@@ -806,6 +806,7 @@
 		6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */; };
 		6B6E213295CA24656C647897 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
 		6B6E2138E9C37E7E2A793BEA /* IssueChatKeyBordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */; };
+		6B6E213DC3477084A3AE9A07 /* ZhugeIOCalendarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */; };
 		6B6E21641DBD3D514519D671 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		6B6E217D9A6DDC83F62E24CC /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */; };
@@ -815,7 +816,6 @@
 		6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C2D3CD112469EF49F0B /* ScanViewController.m */; };
 		6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
 		6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */; };
-		6B6E2216ED256343276B2992 /* ZhugeIOServiceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E241F64B16A17D7A73D8D /* ZhugeIOServiceHelper.m */; };
 		6B6E2227FD9A9B351409F7C2 /* LibrarySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */; };
 		6B6E223FFAD65F7324DF3E88 /* IssueSourceListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */; };
 		6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */; };
@@ -855,6 +855,7 @@
 		6B6E2463E35C68771B98DCA4 /* BaseListReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */; };
 		6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
 		6B6E247AD1C1857E2253AA88 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */; };
+		6B6E24B073E3761F114C8512 /* ZhugeIOLibraryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */; };
 		6B6E24C5C342CB66D622D511 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
 		6B6E2500F88834A6A621FBED /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 6B6E25C0EE0A4AA575CF0FAF /* CHANGELOG */; };
 		6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
@@ -869,6 +870,7 @@
 		6B6E2609CCF7877DFC200807 /* ZhugeIOMineHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2202B14631AF21BB503A /* ZhugeIOMineHelper.m */; };
 		6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
 		6B6E26495AD0A7B1F10B9F7D /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 6B6E25C0EE0A4AA575CF0FAF /* CHANGELOG */; };
+		6B6E2655B65204A000BAA3FA /* ZhugeIOLibraryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */; };
 		6B6E265DC8F29FB5FF515C42 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */; };
 		6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
@@ -895,7 +897,6 @@
 		6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
 		6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
 		6B6E28669D2E0C2DA6B7D2CA /* ZhugeIOIssueHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */; };
-		6B6E28687EC4A11ADB38C44B /* ZhugeIOServiceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E241F64B16A17D7A73D8D /* ZhugeIOServiceHelper.m */; };
 		6B6E28A04E4A1C5E6DA34AF0 /* ZhugeIOIssueHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */; };
 		6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
@@ -904,6 +905,7 @@
 		6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
 		6B6E28C6D5584444F4D46187 /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E28E7AD0117F26FA0F0F8 /* ZhugeIOTeamHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24FEED5BB49C6046894E /* ZhugeIOTeamHelper.m */; };
+		6B6E28EC0A4EB66C269E423C /* ZhugeIOCalendarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */; };
 		6B6E28FFCD3839E8DA55C895 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 6B6E25C0EE0A4AA575CF0FAF /* CHANGELOG */; };
 		6B6E29024B6A96A1E9D161FA /* ZhugeIOLoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2BC30E7BECF225EFD59E /* ZhugeIOLoginHelper.m */; };
 		6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
@@ -952,7 +954,9 @@
 		6B6E2CAF5D6B7F655E94C140 /* ZhugeIOLoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2BC30E7BECF225EFD59E /* ZhugeIOLoginHelper.m */; };
 		6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */; };
+		6B6E2CF970093FF974F66360 /* ZhugeIOLibraryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */; };
 		6B6E2CFDAC12F11A4C3BF259 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
+		6B6E2D01AED54A03EAFE5E6E /* ZhugeIOCalendarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */; };
 		6B6E2D128A3CDB9307318A6D /* IssueSourceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */; };
 		6B6E2D2D518272EAADF5E5C6 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
 		6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
@@ -978,7 +982,6 @@
 		6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */; };
 		6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
 		6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
-		6B6E2FB7E5511195CDEA3724 /* ZhugeIOServiceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E241F64B16A17D7A73D8D /* ZhugeIOServiceHelper.m */; };
 		6B6E2FC4DFCDDA647155A7CA /* IssueSourceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */; };
 		6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */; };
@@ -1945,6 +1948,7 @@
 		4AF663BC2265DE6600E551B9 /* TeamTF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamTF.m; sourceTree = "<group>"; };
 		62C62DFDEDDCCD32D0A33765 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
+		6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOCalendarHelper.m; sourceTree = "<group>"; };
 		6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOUserDataHelper.m; sourceTree = "<group>"; };
 		6B6E206D33FC79F101DB0167 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		6B6E2077A5A8C8441B8F7EB4 /* IssueProblemDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueProblemDetailsVC.h; sourceTree = "<group>"; };
@@ -1963,6 +1967,7 @@
 		6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatFileCell.m; sourceTree = "<group>"; };
 		6B6E21B5EF3E93FD0771906C /* ExpertsMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsMoreVC.h; sourceTree = "<group>"; };
 		6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogModel.h; sourceTree = "<group>"; };
+		6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOLibraryHelper.m; sourceTree = "<group>"; };
 		6B6E2202B14631AF21BB503A /* ZhugeIOMineHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOMineHelper.m; sourceTree = "<group>"; };
 		6B6E2224F185D1FD61F47E08 /* HeartBeatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartBeatManager.h; sourceTree = "<group>"; };
 		6B6E2237311CA9E45817A4B2 /* IssueSourceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceListVC.h; sourceTree = "<group>"; };
@@ -1976,7 +1981,6 @@
 		6B6E239AFED77AD55CBA88A5 /* InformationStatusReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationStatusReadManager.h; sourceTree = "<group>"; };
 		6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOIssueHelper.m; sourceTree = "<group>"; };
 		6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogListModel.m; sourceTree = "<group>"; };
-		6B6E241F64B16A17D7A73D8D /* ZhugeIOServiceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOServiceHelper.m; sourceTree = "<group>"; };
 		6B6E243DEBD6CDF05812520A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		6B6E24481601F546E06BB546 /* CarrierItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarrierItemModel.h; sourceTree = "<group>"; };
 		6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchVC.m; sourceTree = "<group>"; };
@@ -2016,6 +2020,7 @@
 		6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogListModel.h; sourceTree = "<group>"; };
 		6B6E2863DA063BDD899A7E86 /* IssueChatFileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatFileCell.h; sourceTree = "<group>"; };
 		6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceModel.m; sourceTree = "<group>"; };
+		6B6E28CBA035973F209069F9 /* ZhugeIOLibraryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOLibraryHelper.h; sourceTree = "<group>"; };
 		6B6E28F8DB0A218F6629EC70 /* IssueChatTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatTextCell.h; sourceTree = "<group>"; };
 		6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsDetailVC.m; sourceTree = "<group>"; };
 		6B6E2909DDC81286E9B84FD7 /* ReadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadStatusModel.h; sourceTree = "<group>"; };
@@ -2029,6 +2034,7 @@
 		6B6E2A1FF928D06D9093D65A /* IssueChatMessagelLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatMessagelLayout.h; sourceTree = "<group>"; };
 		6B6E2A59CF51997F2D6ECAE9 /* IssueChatDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDatas.h; sourceTree = "<group>"; };
 		6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationStatusReadManager.m; sourceTree = "<group>"; };
+		6B6E2AAB03F3C52B0AB380F7 /* ZhugeIOCalendarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOCalendarHelper.h; sourceTree = "<group>"; };
 		6B6E2AD9299DB3AEA63DDAD9 /* NSString+ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ErrorCode.h"; sourceTree = "<group>"; };
 		6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLogFormatter.h; sourceTree = "<group>"; };
 		6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsMoreVC.m; sourceTree = "<group>"; };
@@ -2062,7 +2068,6 @@
 		6B6E2DFBB81F2190ED5BA9D7 /* IssueSourceListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceListModel.h; sourceTree = "<group>"; };
 		6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
 		6B6E2E222EE3D262B69AC3E5 /* AddIssueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIssueVC.h; sourceTree = "<group>"; };
-		6B6E2E5B94F544055E153DEC /* ZhugeIOServiceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOServiceHelper.h; sourceTree = "<group>"; };
 		6B6E2E9BA908CB20CED7B736 /* ExpertsSuggestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsSuggestVC.h; sourceTree = "<group>"; };
 		6B6E2EA23B7EF46677429CCD /* AddSourceTipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceTipVC.h; sourceTree = "<group>"; };
 		6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceListVC.m; sourceTree = "<group>"; };
@@ -3659,8 +3664,10 @@
 				6B6E2BD2D068F3746FF951DC /* ZhugeIOIssueHelper.h */,
 				6B6E24FEED5BB49C6046894E /* ZhugeIOTeamHelper.m */,
 				6B6E26D5277BD0E3FC22B4B8 /* ZhugeIOTeamHelper.h */,
-				6B6E241F64B16A17D7A73D8D /* ZhugeIOServiceHelper.m */,
-				6B6E2E5B94F544055E153DEC /* ZhugeIOServiceHelper.h */,
+				6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */,
+				6B6E2AAB03F3C52B0AB380F7 /* ZhugeIOCalendarHelper.h */,
+				6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */,
+				6B6E28CBA035973F209069F9 /* ZhugeIOLibraryHelper.h */,
 			);
 			path = ZhugeIO;
 			sourceTree = "<group>";
@@ -4325,7 +4332,7 @@
 				2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
-				4ABF44A221C0FD7E002AF34E /* UserInfo.m in Sources */,
+				4ABF44A221C0FD7E002AF34E,
 				4A3CDA90229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */,
 				4A3CDA62229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
@@ -4618,7 +4625,8 @@
 				6B6E28669D2E0C2DA6B7D2CA /* ZhugeIOIssueHelper.m in Sources */,
 				6B6E226FB9C4B51890ABA0B9 /* HeartBeatManager.m in Sources */,
 				6B6E2F8873D636378453A056 /* ZhugeIOTeamHelper.m in Sources */,
-				6B6E2216ED256343276B2992 /* ZhugeIOServiceHelper.m in Sources */,
+				6B6E2D01AED54A03EAFE5E6E /* ZhugeIOCalendarHelper.m in Sources */,
+				6B6E2CF970093FF974F66360 /* ZhugeIOLibraryHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4703,7 +4711,7 @@
 				4A3CDA91229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
 				4A3CDA63229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
-				CA1CF5A0221ECB3A00D15316 /* UserInfo.m in Sources */,
+				CA1CF5A0221ECB3A00D15316,
 				4A47137422AF886B00EB90F7 /* IssueSelectView.m in Sources */,
 				4A092CF82229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D58222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -4990,7 +4998,8 @@
 				6B6E28A04E4A1C5E6DA34AF0 /* ZhugeIOIssueHelper.m in Sources */,
 				6B6E2C01FD9FE84D3CD27906 /* HeartBeatManager.m in Sources */,
 				6B6E28E7AD0117F26FA0F0F8 /* ZhugeIOTeamHelper.m in Sources */,
-				6B6E28687EC4A11ADB38C44B /* ZhugeIOServiceHelper.m in Sources */,
+				6B6E28EC0A4EB66C269E423C /* ZhugeIOCalendarHelper.m in Sources */,
+				6B6E2655B65204A000BAA3FA /* ZhugeIOLibraryHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5075,7 +5084,7 @@
 				4A3CDA92229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
 				4A3CDA64229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
-				CA1CF645221ECB5000D15316 /* UserInfo.m in Sources */,
+				CA1CF645221ECB5000D15316,
 				4A47137522AF886B00EB90F7 /* IssueSelectView.m in Sources */,
 				4A092CF92229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D59222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -5362,7 +5371,8 @@
 				6B6E253A57AB594799EE3772 /* ZhugeIOIssueHelper.m in Sources */,
 				6B6E227C6F0782567AE3C7D0 /* HeartBeatManager.m in Sources */,
 				6B6E23BF10C0ADA14CB88CC7 /* ZhugeIOTeamHelper.m in Sources */,
-				6B6E2FB7E5511195CDEA3724 /* ZhugeIOServiceHelper.m in Sources */,
+				6B6E213DC3477084A3AE9A07 /* ZhugeIOCalendarHelper.m in Sources */,
+				6B6E24B073E3761F114C8512 /* ZhugeIOLibraryHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
