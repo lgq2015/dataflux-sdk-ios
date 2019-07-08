@@ -505,6 +505,21 @@
         }];
          return YES;
     }
+    [self handleOpenUrl:url];
+    return YES;
+}
+
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webUrl = userActivity.webpageURL;
+        [self handleOpenUrl:webUrl];
+    }
+    return YES;
+}
+
+
+-(void)handleOpenUrl:(NSURL *)url{
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
     DLog(@"urlComponents == %@",urlComponents);
     // url中参数的key value
@@ -530,7 +545,6 @@
         }
     }
 
-    return YES;
 }
 
 #pragma mark ===========是否显示控制器名称 ========

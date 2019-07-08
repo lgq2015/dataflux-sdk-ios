@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:home.prof.wang</string>
+		<string>applinks:app.prof.wang</string>
 	</array>
 </dict>
 </plist>
