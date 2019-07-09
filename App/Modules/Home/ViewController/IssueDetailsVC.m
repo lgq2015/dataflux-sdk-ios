@@ -389,7 +389,7 @@
 - (void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
     MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
     
-    if(layout.message.messageFrom == PWChatMessageFromMe ){
+    if([layout.message.memberId isEqualToString:getPWUserID]   ){
         iconVC.type = PWMemberViewTypeMe;
         [self getMemberAndTransModelInfo:layout vc:iconVC];
         if (iconVC.model == nil) return;

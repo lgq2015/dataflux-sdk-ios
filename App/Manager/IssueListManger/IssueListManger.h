@@ -57,15 +57,9 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 - (void)readIssueLog:(NSString *)issueId;
 
-- (void)updateIssueBoardLastMsgTime:(NSString *)type updateTime:(NSString *)updateTime;
-
 - (BOOL)getIssueLogReadStatus:(NSString *)issueId;
 // 更新列表高度缓存
 - (void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId;
-/**
- 首页展示类型判断
- */
--(BOOL)judgeIssueConnectState;
 
 - (void)updateIssueBoardGetMsgTime:(NSString *)type;
 

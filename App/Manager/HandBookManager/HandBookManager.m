@@ -34,8 +34,7 @@
 
 
 - (NSString *)getDBName {
-     DLog(@"%@",getPWUserID);
-    return NSStringFormat(@"%@/%@", getPWUserID, PW_DBNAME_LIBRARY);
+    return NSStringFormat(@"%@/%@", getPWUserIDWithDBCompat, PW_DBNAME_LIBRARY);
 }
 
 
