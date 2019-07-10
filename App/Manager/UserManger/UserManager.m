@@ -17,6 +17,7 @@
 #import "IssueSourceManger.h"
 #import "IssueChatDataManager.h"
 #import "ZhugeIOLoginHelper.h"
+#import "ZhugeIOUserDataHelper.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -207,6 +208,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
                     setPWUserID(userID);
                     [kUserDefaults synchronize];
+                    [[ZhugeIOUserDataHelper new] bindUserData:self.curUserInfo];
                     dispatch_group_leave(grpupT);
                 }else{
                   dispatch_group_leave(grpupT);

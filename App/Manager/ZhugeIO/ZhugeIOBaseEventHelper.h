@@ -13,11 +13,11 @@
 
 
 
-- (ZhugeIOBaseEventHelper *)event:(NSString *)event;
+- (void)event:(NSString *)event;
 
-- (ZhugeIOBaseEventHelper *)scene:(NSString *)scene;
+- (void)scene:(NSString *)scene;
 
-- (ZhugeIOBaseEventHelper*)result:(NSString *)result;
+- (void)result:(NSString *)result;
 
 - (void)track;
 

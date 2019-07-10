@@ -18,58 +18,82 @@
     return self;
 }
 
-- (void)eventClickBottomTab {
+- (ZhugeIOLibraryHelper *)eventClickBottomTab {
     [self event:@"点击底部Tab"];
+    return self;
 }
 
-- (void)eventLookHandBook {
+- (ZhugeIOLibraryHelper *)eventLookHandBook {
     [self event:@"查看手册"];
+    return self;
+
 }
 
-- (void)eventLookHandBookArticle {
+- (ZhugeIOLibraryHelper *)eventLookHandBookArticle {
     [self event:@"查看手册文章"];
+    return self;
+
 }
 
-- (void)eventReadHandBookTime {
+- (ZhugeIOLibraryHelper *)eventReadHandBookTime {
     [self event:@"阅读手册时长"];
+    return self;
+
+
 }
 
-- (void)eventSearchHandBook {
+- (ZhugeIOLibraryHelper *)eventSearchHandBook {
     [self event:@"搜索手册"];
+    return self;
 }
 
-- (void)attrTabName {
+- (ZhugeIOLibraryHelper *)attrTabName {
     self.data[@"目标位置"] = @"智库";
+    return self;
 }
 
 
-- (void)attrHandBookName:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrHandBookName:(NSString *)name {
     self.data[@"手册名"] = name;
+    return self;
+
 }
 
-- (void)attrArticleName:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrArticleName:(NSString *)name {
     self.data[@"文章名称"] = name;
+    return self;
+
 }
 
-- (void)attrBlongHandBook:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrBlongHandBook:(NSString *)name {
     self.data[@"所属手册"] = name;
+    return self;
+
 }
 
-- (void)attrArticleTitle:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrArticleTitle:(NSString *)name {
     self.data[@"文章标题"] = name;
+    return self;
+
 }
 
 
-- (void)attrBlongTopic:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrBlongTopic:(NSString *)name {
     self.data[@"所属 Topic"] = name;
+    return self;
+
 }
 
-- (void)attrSearchContent:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrSearchContent:(NSString *)name {
     self.data[@"搜索内容"] = name;
+    return self;
+
 }
 
-- (void)attrTime:(NSString *)name {
+- (ZhugeIOLibraryHelper *)attrTime:(NSString *)name {
     self.data[@"时长"] = name;
+    return self;
+
 }
 
 @end

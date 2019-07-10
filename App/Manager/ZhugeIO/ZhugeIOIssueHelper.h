@@ -8,75 +8,75 @@
 
 
 @interface ZhugeIOIssueHelper : ZhugeIOBaseEventHelper
-- (ZhugeIOBaseEventHelper *)eventChangTopTab;
+- (ZhugeIOIssueHelper *)eventChangTopTab;
 
-- (ZhugeIOBaseEventHelper *)eventQuickConfigIssueSource;
+- (ZhugeIOIssueHelper *)eventQuickConfigIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventClickBottomTab;
+- (ZhugeIOIssueHelper *)eventClickBottomTab;
 
-- (ZhugeIOBaseEventHelper *)eventClickRecommend;
+- (ZhugeIOIssueHelper *)eventClickRecommend;
 
-- (ZhugeIOBaseEventHelper *)eventLookRecommendArticle;
+- (ZhugeIOIssueHelper *)eventLookRecommendArticle;
 
-- (ZhugeIOBaseEventHelper *)eventReadArticleTime;
+- (ZhugeIOIssueHelper *)eventReadArticleTime;
 
-- (ZhugeIOBaseEventHelper *)eventClickScan;
+- (ZhugeIOIssueHelper *)eventClickScan;
 
-- (ZhugeIOBaseEventHelper *)eventClickTool;
+- (ZhugeIOIssueHelper *)eventClickTool;
 
-- (ZhugeIOBaseEventHelper *)eventClickToolBox;
+- (ZhugeIOIssueHelper *)eventClickToolBox;
 
-- (ZhugeIOBaseEventHelper *)eventConfigIssueSource;
+- (ZhugeIOIssueHelper *)eventConfigIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventClickIssueClass;
+- (ZhugeIOIssueHelper *)eventClickIssueClass;
 
-- (ZhugeIOBaseEventHelper *)eventLookHandBook;
+- (ZhugeIOIssueHelper *)eventLookHandBook;
 
-- (ZhugeIOBaseEventHelper *)eventSearchHandBook;
+- (ZhugeIOIssueHelper *)eventSearchHandBook;
 
-- (ZhugeIOBaseEventHelper *)eventShareArticle;
+- (ZhugeIOIssueHelper *)eventShareArticle;
 
-- (ZhugeIOBaseEventHelper *)eventShareHandBookArticle;
+- (ZhugeIOIssueHelper *)eventShareHandBookArticle;
 
-- (ZhugeIOBaseEventHelper *)eventCollectionArticle;
+- (ZhugeIOIssueHelper *)eventCollectionArticle;
 
-- (ZhugeIOBaseEventHelper *)eventCollectionHandBookArticle;
+- (ZhugeIOIssueHelper *)eventCollectionHandBookArticle;
 
-- (ZhugeIOBaseEventHelper *)eventLookIssue;
+- (ZhugeIOIssueHelper *)eventLookIssue;
 
-- (ZhugeIOBaseEventHelper *)eventIssueLookTime;
+- (ZhugeIOIssueHelper *)eventIssueLookTime;
 
-- (ZhugeIOBaseEventHelper *)eventCreateProblem;
+- (ZhugeIOIssueHelper *)eventCreateProblem;
 
-- (ZhugeIOBaseEventHelper *)eventLookIssusProgress;
+- (ZhugeIOIssueHelper *)eventLookIssusProgress;
 
-- (ZhugeIOBaseEventHelper *)eventClickExpertSuggest;
+- (ZhugeIOIssueHelper *)eventClickExpertSuggest;
 
-- (ZhugeIOBaseEventHelper *)eventLookSuggestAtticle;
+- (ZhugeIOIssueHelper *)eventLookSuggestAtticle;
 
-- (ZhugeIOBaseEventHelper *)eventJoinDiscuss;
+- (ZhugeIOIssueHelper *)eventJoinDiscuss;
 
-- (ZhugeIOBaseEventHelper *)eventDiscussAreaTime;
+- (ZhugeIOIssueHelper *)eventDiscussAreaTime;
 
-- (ZhugeIOBaseEventHelper *)eventDiscussAreaSay;
+- (ZhugeIOIssueHelper *)eventDiscussAreaSay;
 
-- (ZhugeIOBaseEventHelper *)eventClickLookDiscussMember;
+- (ZhugeIOIssueHelper *)eventClickLookDiscussMember;
 
-- (ZhugeIOBaseEventHelper *)eventCallExpert;
+- (ZhugeIOIssueHelper *)eventCallExpert;
 
-- (ZhugeIOBaseEventHelper *)eventFindExpertHelp;
+- (ZhugeIOIssueHelper *)eventFindExpertHelp;
 
-- (ZhugeIOBaseEventHelper *)eventQuickInviteExpert;
+- (ZhugeIOIssueHelper *)eventQuickInviteExpert;
 
-- (ZhugeIOBaseEventHelper *)eventCloseProblem;
+- (ZhugeIOIssueHelper *)eventCloseProblem;
 
-- (ZhugeIOBaseEventHelper *)eventLookIssueSource;
+- (ZhugeIOIssueHelper *)eventLookIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventDeleteIssueSource;
+- (ZhugeIOIssueHelper *)eventDeleteIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventEditIssueSource;
+- (ZhugeIOIssueHelper *)eventEditIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventAddIssueSource;
+- (ZhugeIOIssueHelper *)eventAddIssueSource;
 
-- (ZhugeIOBaseEventHelper *)eventAddIssusSourceStayTime;
+- (ZhugeIOIssueHelper *)eventAddIssusSourceStayTime;
 @end

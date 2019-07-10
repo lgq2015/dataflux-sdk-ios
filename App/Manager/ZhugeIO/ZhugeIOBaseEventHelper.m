@@ -26,18 +26,20 @@
     return self;
 }
 
-- (ZhugeIOBaseEventHelper*)event:(NSString *)event {
+- (void)event:(NSString *)event {
     _event = event;
-    return self;
 }
 
-- (ZhugeIOBaseEventHelper*)scene:(NSString *)scene {
-    _data[@"场景"]=scene;
-    return self;
+- (void)scene:(NSString *)scene {
+    _data[@"场景"] = scene;
 }
 
--(ZhugeIOBaseEventHelper*)result:(NSString *)result{
-    _data[@"结果"] =result;
+- (void)result:(NSString *)result {
+    _data[@"结果"] = result;
+}
+
+- (ZhugeIOBaseEventHelper *)key:(NSString *)key value:(NSString *)value {
+    _data[key] = value;
     return self;
 }
 
@@ -53,23 +55,18 @@
     }
 }
 
--(void)startTrack{
+- (void)startTrack {
     NSString *eventString = [NSString stringWithFormat:@"%@-%@", _category, _event];
 
     [[Zhuge sharedInstance] startTrack:eventString];
 
 }
 
--(void)endTrack{
+- (void)endTrack {
     NSString *eventString = [NSString stringWithFormat:@"%@-%@", _category, _event];
 
     [[Zhuge sharedInstance] endTrack:eventString properties:_data];
 }
-
-
-
-
-
 
 
 @end

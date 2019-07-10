@@ -19,169 +19,234 @@
 }
 
 
--(ZhugeIOBaseEventHelper *) eventChangTopTab{
-    return [self event:@"切换顶部Tab"];
+- (ZhugeIOIssueHelper *)eventChangTopTab {
+    [self event:@"切换顶部Tab"];
+    return self;
 }
 
--(ZhugeIOBaseEventHelper *) eventQuickConfigIssueSource{
-    return [self event:@"立即配置情报源"];
-}
+- (ZhugeIOIssueHelper *)eventQuickConfigIssueSource {
+    [self event:@"立即配置情报源"];
+    return self;
 
-
--(ZhugeIOBaseEventHelper *) eventClickBottomTab{
-    return [self event:@"点击底部Tab"];
-}
-
-
--(ZhugeIOBaseEventHelper *) eventClickRecommend{
-    return [self event:@"点击推荐位"];
-}
-
--(ZhugeIOBaseEventHelper *) eventLookRecommendArticle{
-    return [self event:@"查看推荐位文章"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventReadArticleTime{
-    return [self event:@"阅读文章时长"];
-}
+- (ZhugeIOIssueHelper *)eventClickBottomTab {
+    [self event:@"点击底部Tab"];
+    return self;
 
--(ZhugeIOBaseEventHelper *) eventClickScan{
-    return [self event:@"点击扫一扫"];
-}
-
--(ZhugeIOBaseEventHelper *) eventClickTool{
-    return [self event:@"点击工具"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventClickToolBox{
-    return [self event:@"点击工具箱"];
+- (ZhugeIOIssueHelper *)eventClickRecommend {
+    [self event:@"点击推荐位"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventConfigIssueSource{
-    return [self event:@"配置情报源"];
-}
+- (ZhugeIOIssueHelper *)eventLookRecommendArticle {
+    [self event:@"查看推荐位文章"];
+    return self;
 
-
--(ZhugeIOBaseEventHelper *) eventClickIssueClass{
-    return [self event:@"点击情报类别"];
-}
-
-
--(ZhugeIOBaseEventHelper *) eventLookHandBook{
-    return [self event:@"阅读手册时长"];
-}
-
--(ZhugeIOBaseEventHelper *) eventSearchHandBook{
-    return [self event:@"搜索手册"];
-}
-
--(ZhugeIOBaseEventHelper *) eventShareArticle{
-    return [self event:@"分享文章"];
-}
-
--(ZhugeIOBaseEventHelper *) eventShareHandBookArticle{
-    return [self event:@"分享手册文章"];
-}
-
--(ZhugeIOBaseEventHelper *) eventCollectionArticle{
-    return [self event:@"收藏文章"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventCollectionHandBookArticle{
-    return [self event:@"收藏手册文章"];
+- (ZhugeIOIssueHelper *)eventReadArticleTime {
+    [self event:@"阅读文章时长"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventLookIssue{
-    return [self event:@"查看情报"];
+- (ZhugeIOIssueHelper *)eventClickScan {
+    [self event:@"点击扫一扫"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventIssueLookTime{
-    return [self event:@"情报查看时长"];
-}
+- (ZhugeIOIssueHelper *)eventClickTool {
+    [self event:@"点击工具"];
+    return self;
 
-
--(ZhugeIOBaseEventHelper *) eventCreateProblem{
-    return [self event:@"创建问题"];
-}
-
--(ZhugeIOBaseEventHelper *) eventLookIssusProgress{
-    return [self event:@"查看情报进展"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventClickExpertSuggest{
-    return [self event:@"点击专家建议"];
+- (ZhugeIOIssueHelper *)eventClickToolBox {
+    [self event:@"点击工具箱"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventLookSuggestAtticle{
-    return [self event:@"查看建议文章"];
-}
+- (ZhugeIOIssueHelper *)eventConfigIssueSource {
+    [self event:@"配置情报源"];
+    return self;
 
-
--(ZhugeIOBaseEventHelper *) eventJoinDiscuss{
-    return [self event:@"进入讨论"];
-}
-
-
--(ZhugeIOBaseEventHelper *) eventDiscussAreaTime{
-    return [self event:@"讨论区停留时长"];
-}
-
--(ZhugeIOBaseEventHelper *) eventDiscussAreaSay{
-    return [self event:@"讨论区发言"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventClickLookDiscussMember{
-    return [self event:@"点击查看讨论成员"];
-}
+- (ZhugeIOIssueHelper *)eventClickIssueClass {
+    [self event:@"点击情报类别"];
+    return self;
 
--(ZhugeIOBaseEventHelper *) eventCallExpert{
-    return [self event:@"拨打专家电话"];
-}
-
-
--(ZhugeIOBaseEventHelper *) eventFindExpertHelp{
-    return [self event:@"寻求专家协助"];
-}
-
--(ZhugeIOBaseEventHelper *) eventQuickInviteExpert{
-    return [self event:@"立即邀请专家"];
-}
-
--(ZhugeIOBaseEventHelper *) eventCloseProblem{
-    return [self event:@"关闭问题"];
 }
 
 
--(ZhugeIOBaseEventHelper *) eventLookIssueSource{
-    return [self event:@"查看情报源"];
+- (ZhugeIOIssueHelper *)eventLookHandBook {
+    [self event:@"阅读手册时长"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventDeleteIssueSource{
-    return [self event:@"删除情报源"];
+- (ZhugeIOIssueHelper *)eventSearchHandBook {
+    [self event:@"搜索手册"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventShareArticle {
+    [self event:@"分享文章"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventShareHandBookArticle {
+    [self event:@"分享手册文章"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventCollectionArticle {
+    [self event:@"收藏文章"];
+    return self;
 }
 
 
--(ZhugeIOBaseEventHelper *) eventEditIssueSource{
-    return [self event:@"编辑情报源"];
+- (ZhugeIOIssueHelper *)eventCollectionHandBookArticle {
+    [self event:@"收藏手册文章"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventAddIssueSource{
-    return [self event:@"添加情报源"];
+- (ZhugeIOIssueHelper *)eventLookIssue {
+    [self event:@"查看情报"];
+    return self;
+
 }
 
--(ZhugeIOBaseEventHelper *) eventAddIssusSourceStayTime{
-    return [self event:@"添加情报源"];
+- (ZhugeIOIssueHelper *)eventIssueLookTime {
+    [self event:@"情报查看时长"];
+    return self;
+
 }
 
 
+- (ZhugeIOIssueHelper *)eventCreateProblem {
+    [self event:@"创建问题"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventLookIssusProgress {
+    [self event:@"查看情报进展"];
+    return self;
+
+}
 
 
+- (ZhugeIOIssueHelper *)eventClickExpertSuggest {
+    [self event:@"点击专家建议"];
+    return self;
 
+}
+
+- (ZhugeIOIssueHelper *)eventLookSuggestAtticle {
+    [self event:@"查看建议文章"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventJoinDiscuss {
+    [self event:@"进入讨论"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventDiscussAreaTime {
+    [self event:@"讨论区停留时长"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventDiscussAreaSay {
+    [self event:@"讨论区发言"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventClickLookDiscussMember {
+    [self event:@"点击查看讨论成员"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventCallExpert {
+    [self event:@"拨打专家电话"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventFindExpertHelp {
+    [self event:@"寻求专家协助"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventQuickInviteExpert {
+    [self event:@"立即邀请专家"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventCloseProblem {
+    [self event:@"关闭问题"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventLookIssueSource {
+    [self event:@"查看情报源"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventDeleteIssueSource {
+    [self event:@"删除情报源"];
+    return self;
+
+}
+
+
+- (ZhugeIOIssueHelper *)eventEditIssueSource {
+    [self event:@"编辑情报源"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventAddIssueSource {
+    [self event:@"添加情报源"];
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)eventAddIssusSourceStayTime {
+    [self event:@"添加情报源"];
+    return self;
+
+}
 
 
 @end

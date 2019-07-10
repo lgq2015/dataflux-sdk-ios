@@ -8,4 +8,7 @@
 
 
 @interface ZhugeIOLibraryHelper : ZhugeIOBaseEventHelper
+- (ZhugeIOBaseEventHelper *)eventClickBottomTab;
+
+- (ZhugeIOBaseEventHelper *)eventLookHandBook;
 @end
