@@ -35,7 +35,7 @@
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
-        if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
+        if ([userID isEqualToString:getPWUserID]) {
             self.from = 1;
             self.name = [time accurateTimeStr];
         }else{
@@ -114,7 +114,7 @@
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
-        if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
+        if ([userID isEqualToString:getPWUserID]) {
             self.from = 1;
             self.name = [time accurateTimeStr];
         }else{

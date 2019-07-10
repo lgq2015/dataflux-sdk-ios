@@ -232,12 +232,6 @@ static dispatch_queue_t socket_message_queue() {
                         [[IssueListManger sharedIssueListManger] updateIssueLogInIssue:issueModel.issueId data:issueLogModel];
 
 
-                        if(![issueModel.status isEqualToString:@"discarded"]
-                                &&![issueModel.status isEqualToString:@"recovered"]) {
-                            [[IssueListManger sharedIssueListManger] updateIssueBoardLastMsgTime:issueModel.type
-                                                                                      updateTime:issueLogModel.updateTime];
-                        }
-
                     }
                     DLog(@"sync notification view")
                     dispatch_async_on_main_queue(^{
