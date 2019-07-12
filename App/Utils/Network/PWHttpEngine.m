@@ -22,7 +22,8 @@
 #import "IssueLogAtReadInfo.h"
 #import "CountListModel.h"
 #import "CalendarListModel.h"
-
+#import "NotiRuleListModel.h"
+#import "NotiRuleModel.h"
 @implementation PWHttpEngine {
     
 }
@@ -467,7 +468,7 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 - (PWURLSessionTask *)getNotificationRuleListWithPage:(NSInteger )page  callBack:(void (^)(id response))callback{
-    BaseListReturnModel *model = [BaseListReturnModel new];
+    NotiRuleListModel *model = [NotiRuleListModel new];
     NSDictionary *param = @{@"pageSize":@10,
                             @"pageIndex":[NSNumber numberWithInteger:page]
                             };
@@ -514,6 +515,28 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
     
+}
+-(PWURLSessionTask *)addNotificationRuleWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_notificationRuleAdd
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)editNotificationRuleWithParam:(NSDictionary *)param ruleId:(NSString *)ruleId callBack:(void (^)(id))callback {
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_updateNotiRule(ruleId)
+                                withRequestType:NetworkPostType
+                                 refreshRequest:NO
+                                          cache:NO
+                                         params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 @end
 
