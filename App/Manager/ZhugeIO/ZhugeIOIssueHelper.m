@@ -19,18 +19,6 @@
 }
 
 
-- (ZhugeIOIssueHelper *)eventChangTopTab {
-    [self event:@"切换顶部Tab"];
-    return self;
-}
-
-- (ZhugeIOIssueHelper *)eventQuickConfigIssueSource {
-    [self event:@"立即配置情报源"];
-    return self;
-
-}
-
-
 - (ZhugeIOIssueHelper *)eventClickBottomTab {
     [self event:@"点击底部Tab"];
     return self;
@@ -38,46 +26,8 @@
 }
 
 
-- (ZhugeIOIssueHelper *)eventClickRecommend {
-    [self event:@"点击推荐位"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventLookRecommendArticle {
-    [self event:@"查看推荐位文章"];
-    return self;
-
-}
-
-
-- (ZhugeIOIssueHelper *)eventReadArticleTime {
-    [self event:@"阅读文章时长"];
-    return self;
-
-}
-
 - (ZhugeIOIssueHelper *)eventClickScan {
     [self event:@"点击扫一扫"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventClickTool {
-    [self event:@"点击工具"];
-    return self;
-
-}
-
-
-- (ZhugeIOIssueHelper *)eventClickToolBox {
-    [self event:@"点击工具箱"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventConfigIssueSource {
-    [self event:@"配置情报源"];
     return self;
 
 }
@@ -89,42 +39,6 @@
 
 }
 
-
-- (ZhugeIOIssueHelper *)eventLookHandBook {
-    [self event:@"阅读手册时长"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventSearchHandBook {
-    [self event:@"搜索手册"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventShareArticle {
-    [self event:@"分享文章"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventShareHandBookArticle {
-    [self event:@"分享手册文章"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventCollectionArticle {
-    [self event:@"收藏文章"];
-    return self;
-}
-
-
-- (ZhugeIOIssueHelper *)eventCollectionHandBookArticle {
-    [self event:@"收藏手册文章"];
-    return self;
-
-}
 
 - (ZhugeIOIssueHelper *)eventLookIssue {
     [self event:@"查看情报"];
@@ -145,18 +59,6 @@
 
 }
 
-- (ZhugeIOIssueHelper *)eventLookIssusProgress {
-    [self event:@"查看情报进展"];
-    return self;
-
-}
-
-
-- (ZhugeIOIssueHelper *)eventClickExpertSuggest {
-    [self event:@"点击专家建议"];
-    return self;
-
-}
 
 - (ZhugeIOIssueHelper *)eventLookSuggestAtticle {
     [self event:@"查看建议文章"];
@@ -198,18 +100,6 @@
 }
 
 
-- (ZhugeIOIssueHelper *)eventFindExpertHelp {
-    [self event:@"寻求专家协助"];
-    return self;
-
-}
-
-- (ZhugeIOIssueHelper *)eventQuickInviteExpert {
-    [self event:@"立即邀请专家"];
-    return self;
-
-}
-
 - (ZhugeIOIssueHelper *)eventCloseProblem {
     [self event:@"关闭问题"];
     return self;
@@ -217,35 +107,75 @@
 }
 
 
-- (ZhugeIOIssueHelper *)eventLookIssueSource {
-    [self event:@"查看情报源"];
+- (ZhugeIOIssueHelper *)eventSwitchTeam {
+    [self event:@"点击切换团队"];
+    return self;
+}
+
+
+- (ZhugeIOIssueHelper *)attrTabName {
+    self.data[@"目标位置"] = @"情报";
+    return self;
+}
+
+
+- (ZhugeIOIssueHelper *)attrTime {
+    self.data[@"时长"] = @"秒";
     return self;
 
 }
 
-- (ZhugeIOIssueHelper *)eventDeleteIssueSource {
-    [self event:@"删除情报源"];
+- (ZhugeIOIssueHelper *)attrIssueTitle:(NSString *)name {
+    self.data[@"情报标题"] = name;
     return self;
 
 }
 
-
-- (ZhugeIOIssueHelper *)eventEditIssueSource {
-    [self event:@"编辑情报源"];
+- (ZhugeIOIssueHelper *)attrIssueType:(NSString *)type {
+    self.data[@"情报分类"] = type;
     return self;
 
 }
 
-- (ZhugeIOIssueHelper *)eventAddIssueSource {
-    [self event:@"添加情报源"];
+- (ZhugeIOIssueHelper *)attrIssueLevel:(NSString* )level {
+    self.data[@"严重级别"] = level;
     return self;
 
 }
 
-- (ZhugeIOIssueHelper *)eventAddIssusSourceStayTime {
-    [self event:@"添加情报源"];
+- (ZhugeIOIssueHelper *)attrAddEnclosure:(BOOL)isAttach {
+    self.data[@"严重级别"] = isAttach ? @"是" : @"否";
     return self;
 
+}
+
+- (ZhugeIOIssueHelper *)attrContentWords {
+    self.data[@"内容类型"] = @"文字";
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)attrContentImage {
+    self.data[@"内容类型"] = @"图片";
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)attrMemberOrdinary {
+    self.data[@"成员类型"] = @"团队成员";
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)attrMemberExpert {
+    self.data[@"成员类型"] = @"专家";
+    return self;
+
+}
+
+- (ZhugeIOIssueHelper *)attrCallPhone:(BOOL)call {
+    self.data[@"是否拨打"] = call ? @"确认" : @"取消";
+    return self;
 }
 
 

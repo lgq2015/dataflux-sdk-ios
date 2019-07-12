@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "PWTransition.h"
 #import "ScanViewController.h"
+#import "ZhugeIOIssueHelper.h"
 
 @interface RootNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, weak) id popDelegate;
@@ -94,6 +95,7 @@
         }
     }
     if ([viewController isKindOfClass:[ScanViewController class]]) {
+        [[[ZhugeIOIssueHelper new] eventClickScan] track];
         ScanViewController * vc = (ScanViewController *)viewController;
             [vc.navigationController setNavigationBarHidden:YES animated:animated];
     }

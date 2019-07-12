@@ -169,7 +169,6 @@
 
 #define PW_issueClose(str)     [NSString stringWithFormat:@"%@/v1/issue/%@/ticket/close", API_SEVERID,str]
 
-#define PW_issueRecover(str)      [NSString stringWithFormat:@"%@/v1/issue/%@/recover", API_SEVERID,str]
 #define PW_articleSearch               API_SEVERID@"/v1/handbook/article/search"
 
 #define PW_handbookdetail             API_SEVERID@"/v1/handbook/article/detail"

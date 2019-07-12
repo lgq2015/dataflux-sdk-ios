@@ -19,4 +19,42 @@
 - (ZhugeIOTeamHelper *)eventClickServiceLog;
 
 - (ZhugeIOTeamHelper *)eventClickTeamManager;
+
+- (ZhugeIOTeamHelper *)eventSwitchTeam;
+
+- (ZhugeIOTeamHelper *)eventLookMember;
+
+- (ZhugeIOTeamHelper *)eventCallMember;
+
+- (ZhugeIOTeamHelper *)eventJoinScan;
+
+- (ZhugeIOTeamHelper *)eventInviteEmail;
+
+- (ZhugeIOTeamHelper *)eventInvitePhone;
+
+- (ZhugeIOTeamHelper *)eventSaveQRCode;
+
+- (ZhugeIOTeamHelper *)eventSureEmailInvite;
+
+- (ZhugeIOTeamHelper *)eventSurePhoneInvite;
+
+- (ZhugeIOTeamHelper *)eventLookServiceLog;
+
+- (ZhugeIOTeamHelper *)eventTransferManager;
+
+- (ZhugeIOTeamHelper *)eventTransferManagerSuccess;
+
+- (ZhugeIOTeamHelper *)eventCancelTeam;
+
+- (ZhugeIOTeamHelper *)eventSignOutTeam;
+
+- (ZhugeIOTeamHelper *)attrTabName;
+
+- (ZhugeIOTeamHelper *)attrStayTime;
+
+- (ZhugeIOTeamHelper *)attrFrom;
+
+- (ZhugeIOTeamHelper *)attrResultSuccess;
+
+- (ZhugeIOTeamHelper *)attrResultCancel;
 @end

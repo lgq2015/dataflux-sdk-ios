@@ -11,6 +11,8 @@
 #import "MineViewCell.h"
 #import "ChangeUserInfoVC.h"
 #import "PWBaseWebVC.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface SecurityPrivacyVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSArray *dataSource;
 

@@ -21,6 +21,7 @@
 #import "IssueDetailsVC.h"
 #import "SelectObject.h"
 #import "HLSafeMutableArray.h"
+#import "ZhugeIOIssueHelper.h"
 
 
 @interface IssueListVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -327,6 +328,8 @@
     detailsVC.model = model;
     [self.navigationController pushViewController:detailsVC animated:YES];
     [self.tableView reloadData];
+    [[[ZhugeIOIssueHelper new] eventLookIssue] track];
+
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

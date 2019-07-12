@@ -11,6 +11,9 @@
 #import "NewsListModel.h"
 #import "HandbookModel.h"
 #import "ZYSocialManager.h"
+#import "ZhugeIOLibraryHelper.h"
+#import "ZhugeIOIssueHelper.h"
+
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
 @property (nonatomic, strong) WebItemView *itemView;
@@ -25,6 +28,16 @@
     [super viewDidLoad];
     [self createUI];
     self.style == WebItemViewStyleNormal ?  [self loadCollectState]:nil;
+
+    if (self.fromvc == FromVCHandBookArticle || self.fromvc == FromVCHandBookIndex) {
+        if (self.handbookModel) {
+            [[[[[ZhugeIOLibraryHelper new] eventLookHandBookArticle]
+                    attrArticleTitle:self.handbookModel.title]
+                    attrBlongTopic:self.handbookModel.handbookName] track];
+
+            [[[ZhugeIOLibraryHelper new] eventReadHandBookTime] startTrack];
+        }
+    }
    
 }
 - (void)createUI{
@@ -123,6 +136,13 @@
                 weakSelf.isCollect = YES;
                 weakSelf.favoId = response[@"content"][@"id"];
                 [iToast alertWithTitleCenter:@"收藏成功"];
+
+                if (self.handbookModel) {
+                    [[[[[ZhugeIOLibraryHelper new] eventCollectionHandBookArticle]
+                            attrArticleTitle:self.handbookModel.title] attrBlongTopic:self.handbookModel.handbookName] track];
+                }
+
+
             }
         } failBlock:^(NSError *error) {
             
@@ -171,6 +191,14 @@
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     });
 }
+
+- (void)dealloc {
+
+    [[[[[[ZhugeIOLibraryHelper new] eventReadHandBookTime]
+            attrArticleTitle:self.handbookModel.title]
+            attrBlongTopic:self.handbookModel.handbookName] attrTime] endTrack];
+}
+
 
 @end
 

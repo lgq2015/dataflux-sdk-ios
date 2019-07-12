@@ -93,22 +93,22 @@
 
     switch( tabBarController.selectedIndex){
         case 0:
-            [[[ZhugeIOIssueHelper new] eventClickBottomTab] track];
+            [[[[ZhugeIOIssueHelper new] eventClickBottomTab] attrTabName] track];
             break;
         case 1:
-            [[[ZhugeIOCalendarHelper new] eventClickBottomTab] track];
+            [[[[ZhugeIOCalendarHelper new] eventClickBottomTab] attrTabName] track];
 
             break;
         case 2:
-            [[[ZhugeIOLibraryHelper new] eventClickBottomTab] track];
+            [[[[ZhugeIOLibraryHelper new] eventClickBottomTab] attrTabName] track];
 
             break;
         case 3:
-            [[[ZhugeIOTeamHelper new] eventBottomTab] track];
+            [[[[ZhugeIOTeamHelper new] eventBottomTab] attrTabName] track];
 
             break;
         case 4:
-            [[[ZhugeIOMineHelper new] eventBottomTab] track];
+            [[[[ZhugeIOMineHelper new] eventBottomTab] attrTabName] track];
 
             break;
 

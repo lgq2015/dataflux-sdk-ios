@@ -14,6 +14,8 @@
 #import "ZTHandBookNoPicCell.h"
 #import "ZTHandBookHasPicCell.h"
 #import "UITableViewCell+ZTCategory.h"
+#import "ZhugeIOLibraryHelper.h"
+
 #define seperatorLineH 4.0
 @interface LibrarySearchVC ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -197,30 +199,32 @@
     if (self.isLocal) {
         self.historytableView.hidden = YES;
         [self searchLocalDataWith:text];
-    }else{
-    self.historytableView.hidden = YES;
-    [SVProgressHUD show];
-    NSDictionary *param = @{@"q":text,@"orderBy":@"desc"};
-    [PWNetworking requsetHasTokenWithUrl:PW_articleSearch withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        [SVProgressHUD dismiss];
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
-            if (content.count>0) {
-                [self hideNoSearchView];
-                self.dataSource = [NSMutableArray new];
-                [self.dataSource addObjectsFromArray:content];
-                self.tableView.hidden = NO;
-                [self.tableView reloadData];
-                self.tableView.tableFooterView = self.footView;
-            }else{
-                [self showNoSearchView];
+    } else {
+        self.historytableView.hidden = YES;
+        [SVProgressHUD show];
+
+        [[[[ZhugeIOLibraryHelper new] eventSearchHandBook] attrSearchContent:text] track];
+        NSDictionary *param = @{@"q": text, @"orderBy": @"desc"};
+        [PWNetworking requsetHasTokenWithUrl:PW_articleSearch withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+            [SVProgressHUD dismiss];
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSArray *content = response[@"content"];
+                if (content.count > 0) {
+                    [self hideNoSearchView];
+                    self.dataSource = [NSMutableArray new];
+                    [self.dataSource addObjectsFromArray:content];
+                    self.tableView.hidden = NO;
+                    [self.tableView reloadData];
+                    self.tableView.tableFooterView = self.footView;
+                } else {
+                    [self showNoSearchView];
+                }
+            } else {
+                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
             }
-        }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
-        }
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-    }];
+        }                          failBlock:^(NSError *error) {
+            [SVProgressHUD dismiss];
+        }];
     }
 }
 #pragma mark ========== UITableViewDataSource ==========

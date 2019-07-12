@@ -18,6 +18,7 @@
 #import "NSString+Regex.h"
 #import "AssignView.h"
 #import "TouchLargeButton.h"
+#import "ZhugeIOIssueHelper.h"
 
 @interface IssueEngineHeaderView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueListViewModel *model;
@@ -479,6 +480,8 @@
             if (model.isSuccess) {
                 KPostNotification(KNotificationReloadIssueList, nil);
                 [self recoveUI];
+                [[[ZhugeIOIssueHelper new] eventCloseProblem] track];
+
             }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
             }
@@ -532,6 +535,9 @@
     HandbookModel *model = [[HandbookModel alloc]initWithDictionary:dict error:&error];
     NSDictionary *param = @{@"id":model.articleId};
     [SVProgressHUD show];
+
+    [[[ZhugeIOIssueHelper new] eventLookSuggestAtticle] track];
+
     [PWNetworking requsetWithUrl:PW_handbookdetail withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {

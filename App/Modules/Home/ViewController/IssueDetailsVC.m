@@ -28,6 +28,7 @@
 #import "TeamInfoModel.h"
 #import "IgnoreItemView.h"
 #import "TouchLargeButton.h"
+#import "ZhugeIOIssueHelper.h"
 
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
@@ -49,6 +50,10 @@
     [self createUI];
     [self loadIssueLog];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCommentNotif:) name:@"zt_add_comment" object:nil];
+    [[[ZhugeIOIssueHelper new] eventIssueLookTime] startTrack];
+
+    [[[ZhugeIOIssueHelper new] eventDiscussAreaTime] startTrack];
+
 }
 - (void)addCommentNotif:(NSNotification *)notif{
     NSLog(@"neirong---%@",notif.userInfo[@"content"]);
@@ -393,10 +398,13 @@
         iconVC.type = PWMemberViewTypeMe;
         [self getMemberAndTransModelInfo:layout vc:iconVC];
         if (iconVC.model == nil) return;
+
     }else if(layout.message.messageFrom == PWChatMessageFromOther){
         iconVC.type = PWMemberViewTypeTeamMember;
         [self getMemberAndTransModelInfo:layout vc:iconVC];
         if (iconVC.model == nil) return;
+        [[[[ZhugeIOIssueHelper new] eventClickLookDiscussMember] attrMemberOrdinary] track];
+
     }else if (layout.message.messageFrom == PWChatMessageFromStaff){
         iconVC.type = PWMemberViewTypeExpert;
         NSString *name = layout.message.nameStr?[layout.message.nameStr componentsSeparatedByString:@" "][0]:@"";
@@ -405,6 +413,8 @@
         }else{
             iconVC.expertDict = @{@"name":name,@"url":@""};
         }
+        [[[[ZhugeIOIssueHelper new] eventClickLookDiscussMember] attrMemberExpert] track];
+
     }
     iconVC.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:iconVC animated:YES];
@@ -519,6 +529,7 @@
    }
 
 -(void)IssueKeyBoardInputViewSendText:(NSString *)text{
+
     switch (self.popCommentView.state) {
         
         case IssueDealStateChat:{
@@ -532,6 +543,8 @@
                     [iToast alertWithTitleCenter:data.errorMsg];
                 }
             }];
+            [[[[ZhugeIOIssueHelper new] eventDiscussAreaSay] attrContentWords] track];
+
         }
             break;
         case IssueDealStateDeal:{
@@ -651,6 +664,39 @@
     [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
     [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                                      userInfo:@{@"updateView":@(YES)}];
+
+    NSString *levelTitle = @"";
+    switch (self.model.state) {
+        case IssueStateWarning:
+            levelTitle = @"警告";
+            break;
+        case IssueStateSeriousness:
+            levelTitle = @"严重";
+            break;
+        case IssueStateCommon:
+            levelTitle = @"提示";
+            break;
+        default:
+            break;
+    }
+
+    NSString *type;
+    if ([self.model.type isEqualToString:@"alarm"]) {
+        type = @"监控";
+    }else if ([self.model.type isEqualToString:@"security"]){
+        type = @"安全";
+    }else if ([self.model.type isEqualToString:@"expense"]){
+        type = @"费用";
+    }else if ([self.model.type isEqualToString:@"optimization"]){
+        type = @"优化";
+    }else{
+        type = @"提醒";
+    }
+
+    [[[[[[ZhugeIOIssueHelper new] eventIssueLookTime] attrIssueLevel:levelTitle]
+            attrIssueTitle:self.model.title] attrIssueType:type] endTrack];
+    [[[[ZhugeIOIssueHelper new] eventDiscussAreaTime] attrTime] endTrack];
+
 }
 
 @end

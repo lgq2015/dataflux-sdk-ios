@@ -8,49 +8,42 @@
 
 
 @interface ZhugeIOIssueHelper : ZhugeIOBaseEventHelper
-- (ZhugeIOIssueHelper *)eventChangTopTab;
-
-- (ZhugeIOIssueHelper *)eventQuickConfigIssueSource;
 
 - (ZhugeIOIssueHelper *)eventClickBottomTab;
 
-- (ZhugeIOIssueHelper *)eventClickRecommend;
+- (ZhugeIOIssueHelper *)eventSwitchTeam;
 
-- (ZhugeIOIssueHelper *)eventLookRecommendArticle;
+- (ZhugeIOIssueHelper *)attrTabName;
 
-- (ZhugeIOIssueHelper *)eventReadArticleTime;
+- (ZhugeIOIssueHelper *)attrTime;
+
+- (ZhugeIOIssueHelper *)attrIssueTitle:(NSString *)name;
+
+- (ZhugeIOIssueHelper *)attrIssueType:(NSString *)type;
+
+- (ZhugeIOIssueHelper *)attrIssueLevel:(NSString *)level;
+
+- (ZhugeIOIssueHelper *)attrAddEnclosure:(BOOL)isAttach;
+
+- (ZhugeIOIssueHelper *)attrContentWords;
+
+- (ZhugeIOIssueHelper *)attrContentImage;
+
+- (ZhugeIOIssueHelper *)attrMemberOrdinary;
+
+- (ZhugeIOIssueHelper *)attrMemberExpert;
+
+- (ZhugeIOIssueHelper *)attrCallPhone:(BOOL)call;
 
 - (ZhugeIOIssueHelper *)eventClickScan;
 
-- (ZhugeIOIssueHelper *)eventClickTool;
-
-- (ZhugeIOIssueHelper *)eventClickToolBox;
-
-- (ZhugeIOIssueHelper *)eventConfigIssueSource;
-
 - (ZhugeIOIssueHelper *)eventClickIssueClass;
-
-- (ZhugeIOIssueHelper *)eventLookHandBook;
-
-- (ZhugeIOIssueHelper *)eventSearchHandBook;
-
-- (ZhugeIOIssueHelper *)eventShareArticle;
-
-- (ZhugeIOIssueHelper *)eventShareHandBookArticle;
-
-- (ZhugeIOIssueHelper *)eventCollectionArticle;
-
-- (ZhugeIOIssueHelper *)eventCollectionHandBookArticle;
 
 - (ZhugeIOIssueHelper *)eventLookIssue;
 
 - (ZhugeIOIssueHelper *)eventIssueLookTime;
 
 - (ZhugeIOIssueHelper *)eventCreateProblem;
-
-- (ZhugeIOIssueHelper *)eventLookIssusProgress;
-
-- (ZhugeIOIssueHelper *)eventClickExpertSuggest;
 
 - (ZhugeIOIssueHelper *)eventLookSuggestAtticle;
 
@@ -64,19 +57,6 @@
 
 - (ZhugeIOIssueHelper *)eventCallExpert;
 
-- (ZhugeIOIssueHelper *)eventFindExpertHelp;
-
-- (ZhugeIOIssueHelper *)eventQuickInviteExpert;
-
 - (ZhugeIOIssueHelper *)eventCloseProblem;
 
-- (ZhugeIOIssueHelper *)eventLookIssueSource;
-
-- (ZhugeIOIssueHelper *)eventDeleteIssueSource;
-
-- (ZhugeIOIssueHelper *)eventEditIssueSource;
-
-- (ZhugeIOIssueHelper *)eventAddIssueSource;
-
-- (ZhugeIOIssueHelper *)eventAddIssusSourceStayTime;
 @end

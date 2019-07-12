@@ -196,6 +196,7 @@
         model.subtitle = summary;
         model.url = url;
         NewsWebView *webView = [[NewsWebView alloc] initWithTitle:title andURLString:url];
+        webView.fromvc= FromVCForum;
         webView.newsModel = model;
         webView.style = WebItemViewStyleNoCollect;
         [[self getCurrentUIVC].navigationController pushViewController:webView animated:YES];

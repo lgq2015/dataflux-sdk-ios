@@ -8,7 +8,31 @@
 
 
 @interface ZhugeIOLibraryHelper : ZhugeIOBaseEventHelper
-- (ZhugeIOBaseEventHelper *)eventClickBottomTab;
+- (ZhugeIOLibraryHelper *)eventClickBottomTab;
 
-- (ZhugeIOBaseEventHelper *)eventLookHandBook;
+- (ZhugeIOLibraryHelper *)attrTabName;
+
+- (ZhugeIOLibraryHelper *)eventLookHandBook;
+
+- (ZhugeIOLibraryHelper *)eventLookHandBookArticle;
+
+- (ZhugeIOLibraryHelper *)eventReadHandBookTime;
+
+- (ZhugeIOLibraryHelper *)eventSearchHandBook;
+
+- (ZhugeIOLibraryHelper *)attrHandBookName:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)attrArticleName:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)attrBlongHandBook:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)attrArticleTitle:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)attrBlongTopic:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)eventCollectionHandBookArticle;
+
+- (ZhugeIOLibraryHelper *)attrSearchContent:(NSString *)name;
+
+- (ZhugeIOLibraryHelper *)attrTime;
 @end

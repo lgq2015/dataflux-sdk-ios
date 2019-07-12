@@ -20,12 +20,12 @@
 }
 
 
-- (ZhugeIOBaseEventHelper *)eventClickBottomTab {
+- (ZhugeIOCalendarHelper *)eventClickBottomTab {
     [self event:@"点击底部Tab"];
     return self;
 }
 
-- (ZhugeIOBaseEventHelper *)attrTabName {
+- (ZhugeIOCalendarHelper *)attrTabName {
     self.data[@"目标位置"] = @"日历";
     return self;
 

@@ -11,6 +11,7 @@
 #import "NewsWebView.h"
 #import "NewsListCell.h"
 #import "NewsListImageCell.h"
+#import "ZhugeIOMineHelper.h"
 
 #define DeletBtnTag 200
 
@@ -146,6 +147,8 @@
         [cell layoutIfNeeded];
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             [self delectCollection:indexPath.row];
+            [[[[ZhugeIOMineHelper new] eventDeleteCollection]
+                    attrMessageTitle:model.title.length>0?model.title:@""]track];
             return NO;
         }];
         button.titleLabel.font = RegularFONT(14);

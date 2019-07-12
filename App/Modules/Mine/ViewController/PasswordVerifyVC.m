@@ -10,6 +10,8 @@
 #import "SetNewPasswordVC.h"
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface PasswordVerifyVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *showWordsBtn;
@@ -120,24 +122,37 @@
 - (void)confirmBtnClick{
     switch (self.type) {
         case PassWordVerifyChangePassword:
+            [[[[ZhugeIOMineHelper new] eventVerifyPwd] attrSceneChangePwd] track];
+
             [self changePassword];
             break;
         case PassWordVerifyUpdateEmail:
+            [[[[ZhugeIOMineHelper new] eventVerifyPwd] attrSceneChangeEmail] track];
+
             [self updateEmail];
             break;
         case PassWordVerifyUpdateMobile:
+            [[[[ZhugeIOMineHelper new] eventVerifyPwd] attrSceneChangeMobile] track];
+
             [self updateMobile];
             break;
         case PassWordVerifyTypeTeamTransfer:
+            [[[[ZhugeIOMineHelper new] eventVerifyPwd] attrSceneVerify] track];
+
             [self teamTransfer];
             break;
         case PassWordVerifyTypeTeamDissolve:
+            [[[[ZhugeIOMineHelper new] eventVerifyPwd] attrSceneVerify] track];
+
             [self teamDissolve];
             break;
     }
 }
 - (void)changePassword{
      [SVProgressHUD show];
+
+    [[[[ZhugeIOMineHelper new] eventClickSetPwd] attrSceneChangePwd] track];
+
     NSDictionary *param = @{@"data":@{@"oldPassword":self.passwordTf.text}};
     [PWNetworking requsetHasTokenWithUrl:PW_verifyoldpassword withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
          [SVProgressHUD dismiss];
@@ -148,6 +163,8 @@
             newPasswordVC.isChange = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
+            [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrVerifyWayPwd] track];
+
         }else{
             [iToast alertWithTitleCenter:@"密码错误" delay:0.3];
         }
@@ -167,6 +184,8 @@
             bind.uuid = response[@"content"][@"uuid"];
             bind.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bind animated:YES];
+            [[[[ZhugeIOMineHelper new] eventChangeEmail] attrVerifyWayPwd] track];
+
         }else{
             [iToast alertWithTitleCenter:@"密码错误"];
 
@@ -187,6 +206,8 @@
             bind.isShowCustomNaviBar = YES;
             bind.uuid =response[@"content"][@"uuid"];
             [self.navigationController pushViewController:bind animated:YES];
+            [[[[ZhugeIOMineHelper new] eventChangePhone] attrVerifyWayPwd] track];
+
         }else{
             [iToast alertWithTitleCenter:@"密码错误"];
 

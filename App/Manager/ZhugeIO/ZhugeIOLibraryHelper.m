@@ -23,6 +23,11 @@
     return self;
 }
 
+- (ZhugeIOLibraryHelper *)attrTabName {
+    self.data[@"目标位置"] = @"智库";
+    return self;
+}
+
 - (ZhugeIOLibraryHelper *)eventLookHandBook {
     [self event:@"查看手册"];
     return self;
@@ -47,10 +52,6 @@
     return self;
 }
 
-- (ZhugeIOLibraryHelper *)attrTabName {
-    self.data[@"目标位置"] = @"智库";
-    return self;
-}
 
 
 - (ZhugeIOLibraryHelper *)attrHandBookName:(NSString *)name {
@@ -84,14 +85,20 @@
 
 }
 
+-(ZhugeIOLibraryHelper *)eventCollectionHandBookArticle{
+    [self event:@"收藏手册文章"];
+    return self;
+
+}
+
 - (ZhugeIOLibraryHelper *)attrSearchContent:(NSString *)name {
     self.data[@"搜索内容"] = name;
     return self;
 
 }
 
-- (ZhugeIOLibraryHelper *)attrTime:(NSString *)name {
-    self.data[@"时长"] = name;
+- (ZhugeIOLibraryHelper *)attrTime {
+    self.data[@"时长"] = @"秒";
     return self;
 
 }

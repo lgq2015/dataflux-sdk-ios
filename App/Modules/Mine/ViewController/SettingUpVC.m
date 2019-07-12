@@ -16,6 +16,8 @@
 #import "SecurityPrivacyVC.h"
 #import "ClearCacheTool.h"
 #import "PrivacySecurityControls.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface SettingUpVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)  UIButton *exitBtn;
@@ -109,10 +111,14 @@
 - (void)exitBtnClick{
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定退出登录吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultCancel] track];
+    }];
     UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //发送退出登录请求，让后台清空存储的token
-                [self requestLoginOut];
+        [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultLogout] track];
+
+        [self requestLoginOut];
                 [[UserManager sharedUserManager]logout:^(BOOL success, NSString *des) {
 
                 }];
@@ -122,30 +128,33 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)showSwitchChangeAlert:(NSInteger)row isOn:(BOOL)isOn{
-    if(isOn){
-         BOOL isSwitch=  [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
+    if (isOn) {
+        BOOL isSwitch = [UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone;
         if (isSwitch) {
-              [self privacySecurityControlsAlert];
-           
-        }else{
+            [self privacySecurityControlsAlert];
+
+        } else {
+            [[[[ZhugeIOMineHelper new] eventSetNotifySwitch] attrResultReceive] track];
+
             [[UIApplication sharedApplication] registerForRemoteNotifications];
-               setUserNotificationSettings(PWRegister);
+            setUserNotificationSettings(PWRegister);
         }
-    }else{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-         setUserNotificationSettings(PWUnRegister);
-    }];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-   __block  MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [cell setSwitchBtnisOn:YES];
-    }];
-    [alert addAction:confirm];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [[[[ZhugeIOMineHelper new] eventSetNotifySwitch] attrResultNoReceive] track];
+            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+            setUserNotificationSettings(PWUnRegister);
+        }];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        __block MineViewCell *cell = (MineViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [cell setSwitchBtnisOn:YES];
+        }];
+        [alert addAction:confirm];
+        [alert addAction:cancle];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 - (void)privacySecurityControlsAlert{
     PrivacySecurityControls *privacy = [[PrivacySecurityControls alloc]init];
@@ -184,21 +193,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
+        [[[ZhugeIOMineHelper new] eventClickSecurityPrivacy] track];
+
         SecurityPrivacyVC *securityVC = [[SecurityPrivacyVC alloc]init];
         [self.navigationController pushViewController:securityVC animated:YES];
     }else if(indexPath.row == 2){
         UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:@"确定清理所有缓存" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+            NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
             [ClearCacheTool clearCacheWithFilePath:path];
             NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:path];
-            DLog(@"%@",totalSize);
+            DLog(@"%@", totalSize);
             NSIndexPath *index = [NSIndexPath indexPathForRow:2 inSection:0];
-            MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
+            MineViewCell *cell = (MineViewCell *) [self.tableView cellForRowAtIndexPath:index];
             [cell setDescribeLabText:totalSize];
+
+            [[[ZhugeIOMineHelper new] eventClearCache] track];
         }];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            
+
         }];
         [cleanAlert addAction:confirm];
         [cleanAlert addAction:cancle];

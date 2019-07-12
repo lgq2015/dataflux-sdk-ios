@@ -8,5 +8,7 @@
 
 
 @interface ZhugeIOCalendarHelper : ZhugeIOBaseEventHelper
-- (ZhugeIOBaseEventHelper *)eventClickBottomTab;
+- (ZhugeIOCalendarHelper *)eventClickBottomTab;
+
+- (ZhugeIOCalendarHelper *)attrTabName;
 @end

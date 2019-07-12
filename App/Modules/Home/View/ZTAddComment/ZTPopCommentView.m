@@ -12,6 +12,7 @@
 #import "RootNavigationController.h"
 #import "MemberInfoModel.h"
 #import "ChooseChatStateView.h"
+#import "ZhugeIOIssueHelper.h"
 
 #define PWChatTextMaxHeight     85
 #define PWChatTextHeight        45
@@ -57,6 +58,8 @@
 - (void)show{
     self.backgroundGrayView.hidden = NO;
     self.hidden = NO;
+    [[[ZhugeIOIssueHelper new] eventJoinDiscuss] track];
+
 }
 - (void)s_UI{
     if(!_backgroundGrayView){

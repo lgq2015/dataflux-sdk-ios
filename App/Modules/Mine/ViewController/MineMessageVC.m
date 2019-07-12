@@ -11,6 +11,8 @@
 #import "MineMessageModel.h"
 #import "MessageDetailVC.h"
 #import "PWBaseWebVC.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface MineMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageIndex;
@@ -138,21 +140,23 @@
     NSDictionary *dict = self.dataSource[indexPath.row];
     MineMessageModel *model = [MineMessageModel new];
     [model setLocalValueWithDict:dict];
-    if (!([model.uri isEqualToString:@""]|| model.uri == nil)) {
-        PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.uri];
+    [[[[ZhugeIOMineHelper new] eventLookMessage] attrMessageTitle:model.title.length > 0 ? model.title : @""] track];
+
+    if (!([model.uri isEqualToString:@""] || model.uri == nil)) {
+        PWBaseWebVC *web = [[PWBaseWebVC alloc] initWithTitle:model.title andURLString:model.uri];
         [self.navigationController pushViewController:web animated:YES];
         [self setMessageRead:model];
-    }else{
-    MessageDetailVC *detail = [[MessageDetailVC alloc]init];
-    detail.model = model;
-    detail.refreshTable =^(){
-        NSMutableDictionary * mdic = [NSMutableDictionary dictionaryWithDictionary:dict];
-        [mdic setValue:@1 forKey:@"isReaded"];
-        [self.dataSource removeObject:dict];
-        [self.dataSource insertObject:mdic atIndex:indexPath.row];
-        [self.tableView reloadData];
-    };
-    [self.navigationController pushViewController:detail animated:YES];
+    } else {
+        MessageDetailVC *detail = [[MessageDetailVC alloc] init];
+        detail.model = model;
+        detail.refreshTable = ^() {
+            NSMutableDictionary *mdic = [NSMutableDictionary dictionaryWithDictionary:dict];
+            [mdic setValue:@1 forKey:@"isReaded"];
+            [self.dataSource removeObject:dict];
+            [self.dataSource insertObject:mdic atIndex:indexPath.row];
+            [self.tableView reloadData];
+        };
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
 - (void)setMessageRead:(MineMessageModel *)model{

@@ -15,6 +15,7 @@
 #import "ChooseAdminVC.h"
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
+#import "ZhugeIOTeamHelper.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -34,8 +35,9 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
-    
-}}
+
+        [[[ZhugeIOTeamHelper new] eventCreateTeamStay] startTrack];
+    }}
 
 
 - (void)viewDidLoad {
@@ -175,11 +177,15 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [userManager logout:nil];
                 });
+
+                [[[[ZhugeIOTeamHelper new] eventSignOutTeam] attrResultSuccess] track];
+
             }else{
                 
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
+            [[[[ZhugeIOTeamHelper new] eventSignOutTeam] attrResultCancel] track];
         }];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -445,5 +451,11 @@
     }
     return nil;
 }
+
+- (void)dealloc {
+    [[[[ZhugeIOTeamHelper new] eventCreateTeamStay] attrStayTime] endTrack];
+
+}
+
 
 @end

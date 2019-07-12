@@ -52,6 +52,12 @@
 
 }
 
+- (ZhugeIOTeamHelper *)eventSwitchTeam {
+    [self event:@"点击切换团队"];
+    return self;
+
+}
+
 - (ZhugeIOTeamHelper *)eventLookMember {
     [self event:@"查看团队成员"];
     return self;

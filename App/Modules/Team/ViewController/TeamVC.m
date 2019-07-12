@@ -26,6 +26,8 @@
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "CloudCareVC.h"
+#import "ZhugeIOTeamHelper.h"
+
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZTTeamVCTopCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
@@ -191,6 +193,9 @@
     }
     member.model = model;
     [self.navigationController pushViewController:member animated:YES];
+
+    [[[ZhugeIOTeamHelper new] eventLookMember] track];
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -282,11 +287,15 @@
             }
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [self.navigationController pushViewController:invite animated:YES];
+            [[[ZhugeIOTeamHelper new] eventClickInvite] track];
+
         }
             break;
         case cloudServerType:{
             IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
             [self.navigationController pushViewController:infoSource animated:YES];
+            [[[ZhugeIOTeamHelper new] eventConfigIssue] track];
+
         }
             break;
         case teamManagerType:{
@@ -303,6 +312,8 @@
                 }];};
             fillVC.count = self.teamMemberArray.count;
             [self.navigationController pushViewController:fillVC animated:YES];
+            [[[ZhugeIOTeamHelper new] eventClickTeamManager] track];
+
         }
             break;
         case server:{
