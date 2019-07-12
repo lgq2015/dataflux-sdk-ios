@@ -37,9 +37,12 @@
     frame.size.height -= Interval(12);
     [super setFrame:frame];
 }
-
--(void)layoutSubviews{
-    [self createUI];
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+       [self createUI];
+    }
+    return self;
 }
 
 - (void)createUI{
