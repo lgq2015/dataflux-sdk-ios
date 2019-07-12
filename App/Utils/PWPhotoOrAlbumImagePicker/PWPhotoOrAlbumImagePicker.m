@@ -48,7 +48,7 @@
         [self getAlertActionType:2];
     }];
     
-    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:cancleAction];
     // 判断是否支持拍照
@@ -71,7 +71,7 @@
         [self getAlertActionType:2];
     }];
    
-    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:cancleAction];
     // 判断是否支持拍照
@@ -94,7 +94,7 @@
     }];
     UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:@"文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
-    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
     [alertController addAction:cancleAction];
     // 判断是否支持拍照
