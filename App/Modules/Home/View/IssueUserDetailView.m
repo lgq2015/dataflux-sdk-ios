@@ -172,7 +172,7 @@
             }
         }];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
         
     }];
     [alert addAction:commit];
@@ -446,7 +446,7 @@
         vc.delegate = self;
         [vc presentOpenInMenuFromRect:CGRectZero inView:self animated:YES];
     }];
-    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:confirm];
     [alert addAction:cancel];
     [self.viewController presentViewController:alert animated:YES completion:nil];

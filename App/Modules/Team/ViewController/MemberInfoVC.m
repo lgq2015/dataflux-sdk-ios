@@ -297,7 +297,7 @@
             [SVProgressHUD showErrorWithStatus:@"移除失败"];
         }];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:confirm];
@@ -321,7 +321,7 @@
         verify.memberID =self.model.memberID;
         [self.navigationController pushViewController:verify animated:YES];
     }];
-    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:confirm];

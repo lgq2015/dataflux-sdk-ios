@@ -191,7 +191,7 @@
 }
 -(void)backBtnClicked{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
