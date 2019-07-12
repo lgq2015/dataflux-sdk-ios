@@ -184,7 +184,7 @@
             _type = teamManagerType;
             break;
         case 13:
-            _type = server;
+            _type = notificationRule;
             break;
         default:
             break;
