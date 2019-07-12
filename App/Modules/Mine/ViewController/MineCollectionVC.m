@@ -146,7 +146,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
-            [self deletCollection:indexPath.row];
+            [self deleteCollection:indexPath.row];
             return NO;
         }];
         button.titleLabel.font = RegularFONT(14);
@@ -162,7 +162,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
-            [self deletCollection:indexPath.row];
+            [self deleteCollection:indexPath.row];
             return NO;
         }];
         button.titleLabel.font = RegularFONT(14);
@@ -176,7 +176,7 @@
 
     
 }
-- (void)deletCollection:(NSInteger)index{
+- (void)deleteCollection:(NSInteger)index{
     NewsListModel *model = self.dataSource[index];
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(model.favoID) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
