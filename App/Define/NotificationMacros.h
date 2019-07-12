@@ -14,7 +14,7 @@
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
 #define KNotificationReloadIssueList     @"KNotificationReloadIssueList"
-
+#define KNotificationReloadRuleList    @"KNotificationReloadRuleList"
 #define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
 #define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
