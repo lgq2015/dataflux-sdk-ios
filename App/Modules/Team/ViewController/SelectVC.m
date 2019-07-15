@@ -56,6 +56,7 @@
             break;
         case SelectIssueSource:{
             self.title = NSLocalizedString(@"local.selectIssueSource", @"");
+             [self loadFromDB];
             [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
                     [self loadFromDB];
             }];
@@ -169,7 +170,7 @@
     [self.tableView reloadData];
 }
 - (void)loadFromDB {
-    
+    [self.dataSource removeAllObjects];
     [self.dataSource addObject:@{@"name":@"全部云服务"}];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
