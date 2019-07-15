@@ -46,7 +46,8 @@
     [self.subscribeBtn sizeToFit];
     CGFloat btnWidth = self.subscribeBtn.frame.size.width;
     self.subscribeBtn.frame = CGRectMake(kWidth-16-btnWidth, 17, btnWidth, ZOOM_SCALE(20));
-    self.ruleNameLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), ZOOM_SCALE(202), ZOOM_SCALE(20)) font:RegularFONT(18) textColor:PWTextBlackColor text:@"已订阅"];
+    self.subscribeLab.frame = CGRectMake(CGRectGetMinX(self.subscribeBtn.frame)-12-ZOOM_SCALE(40), 17, ZOOM_SCALE(40), ZOOM_SCALE(20));
+    self.ruleNameLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), ZOOM_SCALE(222), ZOOM_SCALE(20)) font:RegularFONT(18) textColor:PWTextBlackColor text:@""];
     self.ruleNameLab.numberOfLines = 0;
     [self.contentView addSubview:self.ruleNameLab];
     UIView *line = [[UIView alloc]init];
@@ -79,7 +80,7 @@
 
 -(UILabel *)subscribeLab{
     if (!_subscribeLab) {
-        _subscribeLab = [PWCommonCtrl lableWithFrame:CGRectMake(CGRectGetMaxX(self.ruleNameLab.frame)+10, 17, ZOOM_SCALE(40), ZOOM_SCALE(20)) font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#39D1AA"] text:@"已订阅"];
+        _subscribeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#39D1AA"] text:@"已订阅"];
         _subscribeLab.textAlignment = NSTextAlignmentCenter;
         _subscribeLab.layer.cornerRadius = 3.;//边框圆角大小
         _subscribeLab.layer.masksToBounds = YES;
@@ -466,7 +467,13 @@
                 self.subscribeBtn.selected = !self.subscribeBtn.selected;
                 [SVProgressHUD showSuccessWithStatus:@"通知规则订阅成功"];
             }else{
+                if ([model.errorCode isEqualToString:@"home.team.notificationRuleAlreadySubscribe"]) {
+                   [SVProgressHUD showSuccessWithStatus:@"通知规则订阅成功"];
+                    self.subscribeLab.hidden = NO;
+                    self.subscribeBtn.selected = !self.subscribeBtn.selected;
+                }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
+                }
             }
         }];
     }

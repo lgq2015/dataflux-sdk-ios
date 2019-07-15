@@ -7,6 +7,8 @@
 //
 
 #import "ZTTeamVCTopCell.h"
+#import "TouchLargeButton.h"
+
 #define leftMargin 30.0
 @interface ZTTeamVCTopCell()
 @property (nonatomic, strong)NSMutableArray *labs;
@@ -115,18 +117,20 @@
     NSMutableArray *imageViews = [NSMutableArray array];
     _labs = [NSMutableArray array];
     for (NSInteger i = 0;i<iconAry.count;i++){
-        UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.image = [UIImage imageNamed:iconAry[i]];
-        imgView.tag = 10 + i;
-        imgView.userInteractionEnabled = YES;
+        TouchLargeButton *imgView = [[TouchLargeButton alloc] init];
+        imgView.largeHeight = 30;
+        [imgView setImage:[UIImage imageNamed:iconAry[i]] forState:UIControlStateNormal];
+        imgView.tag = 20 + i;
+        [imgView addTarget:self action:@selector(imgViewClick:) forControlEvents:UIControlEventTouchUpInside];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImg:)];
-        [imgView addGestureRecognizer:tap];
         [self.contentView addSubview:imgView];
         UILabel *lab = [[UILabel alloc] init];
         lab.text = btnName[i];
         lab.font = RegularFONT(13);
         lab.textColor = PWTitleColor;
+        lab.tag = 10 + i;
         lab.textAlignment = NSTextAlignmentCenter;
+        [lab addGestureRecognizer:tap];
         [self.contentView addSubview:lab];
         [imageViews addObject:imgView];
         [_labs addObject:lab];
@@ -136,7 +140,7 @@
     CGFloat imgViewMargin = (kWidth-imgViewW*4-leftMargin*2)/3.0;
     for (NSInteger i = 0; i< imageViews.count; i++){
         //布局图片
-        UIImageView *imgV = imageViews[i];
+        TouchLargeButton *imgV = imageViews[i];
         if (i == 0){
             [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.contentView).offset(leftMargin);
@@ -144,7 +148,7 @@
                 make.width.height.offset(imgViewW);
             }];
         }else{
-            UIImageView *lastImgV = imageViews[i - 1];
+            TouchLargeButton *lastImgV = imageViews[i - 1];
             [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(lastImgV.mas_right).offset(imgViewMargin);
                 make.centerY.mas_equalTo(lastImgV);
@@ -169,11 +173,32 @@
     CGFloat heigth = CGRectGetMaxY(firstLab.frame) + 26;
     return heigth ;
 }
+- (void)imgViewClick:(UIButton *)button{
+    switch (button.tag) {
+        case 20:
+            _type = inviteMemberType;
+            break;
+        case 21:
+            _type = cloudServerType;
+            break;
+        case 22:
+            _type = teamManagerType;
+            break;
+        case 23:
+            _type = notificationRule;
+            break;
+        default:
+            break;
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickTeamTopCell:withType:)]){
+        [self.delegate didClickTeamTopCell:self withType:_type];
+    }
+}
 //点击了图片
 - (void)tapImg:(UITapGestureRecognizer *)ges{
-    UIImageView *imgV = (UIImageView *)ges.view;
+//    UIImageView *imgV = (UIImageView *)ges.view;
     
-    switch (imgV.tag) {
+    switch (ges.view.tag) {
         case 10:
             _type = inviteMemberType;
             break;
