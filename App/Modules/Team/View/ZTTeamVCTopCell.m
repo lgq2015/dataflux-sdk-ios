@@ -132,15 +132,15 @@
         [_labs addObject:lab];
     }
     //布局
-    CGFloat imgViewW = ZOOM_SCALE(34);
-    CGFloat imgViewMargin = (kWidth-ZOOM_SCALE(34)*4-leftMargin*2)/3.0;
+    CGFloat imgViewW = ZOOM_SCALE(24);
+    CGFloat imgViewMargin = (kWidth-imgViewW*4-leftMargin*2)/3.0;
     for (NSInteger i = 0; i< imageViews.count; i++){
         //布局图片
         UIImageView *imgV = imageViews[i];
         if (i == 0){
             [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.contentView).offset(leftMargin);
-                make.top.mas_equalTo(self.contentView).offset(25);
+                make.top.mas_equalTo(self.contentView).offset(20);
                 make.width.height.offset(imgViewW);
             }];
         }else{

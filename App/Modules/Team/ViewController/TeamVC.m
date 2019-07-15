@@ -129,6 +129,7 @@
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
             [self.headerView updataUIWithDatas:content];
+            self.tableView.tableHeaderView = self.headerView;
             [self.tableView reloadData];
         }
          [self.header endRefreshing];
@@ -252,9 +253,9 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
-        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
-        CGFloat height = [cell caculateRowHeight];
-        return height;
+//        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
+//        CGFloat height = [cell caculateRowHeight];
+        return ZOOM_SCALE(86);
     }else{
         if (indexPath.row == 0){
             return 80;
