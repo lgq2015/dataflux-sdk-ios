@@ -39,7 +39,7 @@
 - (void)createUI{
     self.dataSource = [NSMutableArray new];
     self.selectCount = 1;
-    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navBtnLeftClick) tags:@[@12]];
+//    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navBtnLeftClick) tags:@[@12]];
     self.isMultiple = YES;
     switch (self.style) {
         case SelectWeek:
@@ -68,10 +68,10 @@
 
             break;
     }
-    if (self.isMultiple) {
-        [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.select", @"")] isLeft:NO target:self action:@selector(navBtnRightClick) tags:@[@13]];
-    }
-    
+//    if (self.isMultiple) {
+//        [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.select", @"")] isLeft:NO target:self action:@selector(navBtnRightClick) tags:@[@13]];
+//    }
+//
     [self.view addSubview:self.tableView];
     self.tableView.contentInset =  UIEdgeInsetsMake(12, 0, 0, 0);
     self.tableView.dataSource = self;
@@ -184,10 +184,8 @@
         
     });
 }
-- (void)navBtnLeftClick{
-    [self backBtnClicked];
-}
-- (void)navBtnRightClick{
+
+- (void)backBtnClicked {
     WeakSelf
     switch (self.style) {
         case SelectWeek:{
@@ -200,7 +198,7 @@
                         [weekstr appendFormat:@",%@",obj.selectId];
                     }
                 }
-                
+
             }];
             if (weekstr.length == 0) {
                 [iToast alertWithTitleCenter:@"请选择至少一个通知周期"];
@@ -212,7 +210,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
-            
+
             break;
         case SelectIssueLevel:{
             __block  NSMutableArray *levelAry = [NSMutableArray new];
@@ -233,7 +231,7 @@
         }
             break;
         case SelectIssueType:{
-          __block  NSMutableArray *typeAry = [NSMutableArray new];
+            __block  NSMutableArray *typeAry = [NSMutableArray new];
             [self.dataSource enumerateObjectsUsingBlock:^(MultipleSelectModel  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (obj.allSelect == YES &&obj.isSelect) {
                     typeAry = nil;
@@ -251,7 +249,9 @@
         }
             break;
         case SelectIssueSource:
-            
+
+            [super backBtnClicked];
+
             break;
         case SelectNotificationWay:{
             MultipleSelectModel *appModel = [self.dataSource firstObject];
@@ -269,7 +269,9 @@
         }
             break;
     }
+
 }
+
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
@@ -341,17 +343,17 @@
                     }
                 }
             }
-            if (self.selectCount == self.dataSource.count-1) {
-                for (MultipleSelectModel *model in self.dataSource) {
-                    if( model.allSelect == NO && model.isSelect){
-                        model.isSelect = NO;
-                    }else{
-                        model.isSelect = YES;
-                        self.hasAllCell = YES;
-                        self.selectCount = 1;
-                    }
-                }
-            }
+//            if (self.selectCount == self.dataSource.count-1) {
+//                for (MultipleSelectModel *model in self.dataSource) {
+//                    if( model.allSelect == NO && model.isSelect){
+//                        model.isSelect = NO;
+//                    }else{
+//                        model.isSelect = YES;
+//                        self.hasAllCell = YES;
+//                        self.selectCount = 1;
+//                    }
+//                }
+//            }
         }
 
       

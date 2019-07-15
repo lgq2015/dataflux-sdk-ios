@@ -110,7 +110,7 @@
 //    }
 //}
 - (void)s_UI{
-    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_management",@"team_management"];
+    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_management",@"team_notification_rule"];
     NSArray *btnName = @[@"邀请成员",@"云服务",@"团队管理",@"通知规则"];
     NSMutableArray *imageViews = [NSMutableArray array];
     _labs = [NSMutableArray array];
