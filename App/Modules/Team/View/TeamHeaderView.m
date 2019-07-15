@@ -88,6 +88,8 @@
                 make.height.offset(ZOOM_SCALE(15)+12);
             }];
         }else{
+            self.tipLab.hidden = NO;
+            self.line.hidden = NO;
             UIView *temp = nil;
             for (NSInteger i=0; i<managed.count; i++) {
                 NSDictionary *dict = managed[i];
@@ -145,15 +147,22 @@
         self.tipLab.textColor = [UIColor colorWithHexString:@"#949499"];
         self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
         [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#F4F4FA" mediumColor:@"" toColor:@"#FFFFFF" isDefault:NO]  atIndex:0];
+        self.bgContentView.layer.shadowColor = PWBlackColor.CGColor;
+
     }
     if ([code isEqualToString:@"CloudCare_1"]) {
          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#0CCAB8" mediumColor:@"#38D8C4" toColor:@"#24D8C5" isDefault:YES] atIndex:0];
+        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#95E9DE"].CGColor;
     }
     if ([code isEqualToString:@"CloudCare_2"]) {
           [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#895DFF" mediumColor:@"" toColor:@"#8A79FF" isDefault:YES] atIndex:0];
+        
+        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#FFC994"].CGColor;
+
     }
     if ([code isEqualToString:@"CloudCare_3"]) {
          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#FF8033" mediumColor:@"#FDC55E" toColor:@"#FFB04F" isDefault:YES] atIndex:0];
+        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#BEAAFF"].CGColor;
     }
     
     
@@ -198,7 +207,6 @@
     if (!_bgContentView ) {
         _bgContentView = [[UIView alloc]init];
         _bgContentView.layer.masksToBounds = YES;
-        _bgContentView.layer.shadowColor = PWBlackColor.CGColor;
         _bgContentView.layer.shadowRadius = 6;
         self.layer.shadowOffset = CGSizeMake(0,2);
         _bgContentView.layer.shadowOpacity = 0.06;
