@@ -27,6 +27,8 @@
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "CloudCareVC.h"
 #import "NotificationRuleVC.h"
+#import "TeamHeaderView.h"
+#import "UtilsConstManager.h"
 
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZTTeamVCTopCellDelegate>
@@ -36,6 +38,7 @@
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
 @property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
+@property (nonatomic, strong) TeamHeaderView *headerView;
 @end
 
 @implementation TeamVC
@@ -67,16 +70,25 @@
 - (void)s_UI{
     //判断是否购买了产品
     self.tableView.mj_header = self.header;
+    
     self.tableView.frame = CGRectMake(0, kTopHeight+25, kWidth, kHeight-kTabBarHeight-2 - kTopHeight-25);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.headerView;
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(self.tableView);
+        make.width.equalTo(self.tableView);
+    }];
     [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.tableView registerNib:[ZTTeamProductCell cellWithNib] forCellReuseIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
-    [self.view addSubview:self.tableView];
+    UtilsConstManager *manger = [[UtilsConstManager alloc]init];
+    [manger loadServiceCodeName:nil];
     [self loadTeamMemberInfo];
+    [self loadTeamProductData];
 }
 
 
@@ -107,12 +119,18 @@
     }];
 }
 - (void)loadTeamProductData{
+    [userManager getTeamProduct:^(BOOL isSuccess, NSDictionary *product) {
+        if (isSuccess) {
+            [self.headerView updataUIWithDatas:product];
+        }
+    }];
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
+            NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
+            [self.headerView updataUIWithDatas:content];
             [self.tableView reloadData];
         }
          [self.header endRefreshing];
@@ -381,7 +399,12 @@
 //    self.navigationItem.leftBarButtonItem = leftItem;
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
 }
-
+-(TeamHeaderView *)headerView{
+    if (!_headerView) {
+        _headerView = [[TeamHeaderView alloc]init];
+    }
+    return _headerView;
+}
 - (UIButton *)rightNavButton{
     if (!_rightNavButton){
         _rightNavButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -434,6 +457,7 @@
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
     NSLog(@"zhangtao----");
+    [self loadTeamProductData];
     [self changeTopLeftNavTitleName];
     //如果有成员缓存，直接刷新
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {

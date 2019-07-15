@@ -46,8 +46,9 @@
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
 //账号ISPs常量数组
 #define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWUserID]
+#define KTeamServiceCode      @"KTeamServiceCode"
 //团队产品
-#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
+#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWDefaultTeamID]
 //团队列表
 #define KTeamListCacheName @"KTeamListCacheName"
 #define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]

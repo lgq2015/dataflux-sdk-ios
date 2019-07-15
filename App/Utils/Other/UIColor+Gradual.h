@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (Gradual)
 + (CAGradientLayer *)setGradualChangingColor:(UIView *)view fromColor:(NSString *)fromHexColorStr toColor:(NSString *)toHexColorStr;
-
++ (CAGradientLayer *)setGradualChangingColorWithFrame:(CGRect )frame fromColor:(NSString *)fromHexColorStr mediumColor:(NSString *)mediumColor toColor:(NSString *)toHexColorStr isDefault:(BOOL)isDefault;
 @end
 
 NS_ASSUME_NONNULL_END
