@@ -31,15 +31,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
-        
-    }
     [self createUI];
 }
 - (void)createUI{
     self.dataSource = [NSMutableArray new];
     self.selectCount = 1;
-//    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navBtnLeftClick) tags:@[@12]];
     self.isMultiple = YES;
     switch (self.style) {
         case SelectWeek:
@@ -68,10 +64,6 @@
 
             break;
     }
-//    if (self.isMultiple) {
-//        [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.select", @"")] isLeft:NO target:self action:@selector(navBtnRightClick) tags:@[@13]];
-//    }
-//
     [self.view addSubview:self.tableView];
     self.tableView.contentInset =  UIEdgeInsetsMake(12, 0, 0, 0);
     self.tableView.dataSource = self;
@@ -185,7 +177,8 @@
     });
 }
 
-- (void)backBtnClicked {
+
+-(void)saveData{
     WeakSelf
     switch (self.style) {
         case SelectWeek:{
@@ -200,14 +193,10 @@
                 }
 
             }];
-            if (weekstr.length == 0) {
-                [iToast alertWithTitleCenter:@"请选择至少一个通知周期"];
-            }else{
-                self.sendModel.weekday = weekstr;
-                if (self.selectRuleBlock) {
-                    self.selectRuleBlock(weakSelf.sendModel);
-                }
-                [self.navigationController popViewControllerAnimated:YES];
+
+            self.sendModel.weekday = weekstr;
+            if (self.selectRuleBlock) {
+                self.selectRuleBlock(weakSelf.sendModel);
             }
         }
 
@@ -227,7 +216,6 @@
             if (self.selectBlock) {
                 self.selectBlock(weakSelf.model);
             }
-            [self.navigationController popViewControllerAnimated:YES];
         }
             break;
         case SelectIssueType:{
@@ -245,31 +233,24 @@
             if (self.selectBlock) {
                 self.selectBlock(weakSelf.model);
             }
-            [self.navigationController popViewControllerAnimated:YES];
         }
             break;
         case SelectIssueSource:
 
-            [super backBtnClicked];
 
             break;
         case SelectNotificationWay:{
             MultipleSelectModel *appModel = [self.dataSource firstObject];
             MultipleSelectModel *email = [self.dataSource lastObject];
-            if (appModel.isSelect == NO && email.isSelect == NO) {
-                [iToast alertWithTitleCenter:@"请至少选择一种通知方式"];
-            }else{
-                self.sendModel.appNotification = appModel.isSelect;
-                self.sendModel.emailNotification = email.isSelect;
-                if (self.selectRuleBlock) {
-                    self.selectRuleBlock(weakSelf.sendModel);
-                }
-                [self.navigationController popViewControllerAnimated:YES];
+
+            self.sendModel.appNotification = appModel.isSelect;
+            self.sendModel.emailNotification = email.isSelect;
+            if (self.selectRuleBlock) {
+                self.selectRuleBlock(weakSelf.sendModel);
             }
         }
             break;
     }
-
 }
 
 #pragma mark ========== UITableViewDataSource ==========
@@ -366,12 +347,11 @@
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
-    }
+    [self saveData];
 }
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
-    return NO;
-}
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer{
+//    return NO;
+//}
 /*
 #pragma mark - Navigation
 
