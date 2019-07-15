@@ -154,6 +154,7 @@
             weakSelf.keyStr = key;
             weakSelf.valueStr = value;
         };
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
         AddNotiRuleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddNotiRuleCell"];

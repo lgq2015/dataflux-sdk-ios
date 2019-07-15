@@ -134,7 +134,7 @@
    WeakSelf
     MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
          [weakSelf delectRule:indexPath.row];
-        return YES;
+        return NO;
     }];
     
     MGSwipeButton *button2 = [MGSwipeButton buttonWithTitle:@"编辑" icon:[UIImage imageNamed:@"icon_edit"] backgroundColor:PWBlueColor padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
