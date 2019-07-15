@@ -146,7 +146,6 @@
         make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(30));
         make.height.offset(ZOOM_SCALE(44));
     }];
-
     if (userManager.teamModel.isAdmin) {
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
         [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
@@ -298,7 +297,7 @@
             [SVProgressHUD showErrorWithStatus:@"移除失败"];
         }];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:confirm];
@@ -322,7 +321,7 @@
         verify.memberID =self.model.memberID;
         [self.navigationController pushViewController:verify animated:YES];
     }];
-    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:confirm];

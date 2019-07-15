@@ -44,7 +44,7 @@
 }
 - (void)createUI{
     self.attachmentArray = [NSMutableArray new];
-    [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navigationBtnClick:) tags:@[@5]];
+    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navigationBtnClick:) tags:@[@5]];
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
     self.navigationItem.rightBarButtonItem = item;
     [self.view addSubview:self.mainScrollView];
@@ -243,7 +243,7 @@
         }];
         [alert addAction:alarm];
     }
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
         
     }];
     [alert addAction:cancle];
@@ -305,7 +305,7 @@
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消本次新建情报吗？" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             
         }];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

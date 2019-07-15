@@ -1,18 +1,18 @@
-/* 
-  Localizable.strings
-  App
-
-  Created by 胡蕾蕾 on 2018/10/25.
-  Copyright © 2018年 hll. All rights reserved.
-*/
+/*
+ Localizable.strings
+ App
+ 
+ Created by 胡蕾蕾 on 2018/10/25.
+ Copyright © 2018年 hll. All rights reserved.
+ */
 
 /*
-  Localizable.strings
-  App
-
-  Created by 胡蕾蕾 on 2018/10/25.
-  Copyright © 2018年 hll. All rights reserved.
-*/
+ Localizable.strings
+ App
+ 
+ Created by 胡蕾蕾 on 2018/10/25.
+ Copyright © 2018年 hll. All rights reserved.
+ */
 
 "ff.account.image_upload_miss_params"= "缺少参数";
 "ff.group.delete_account_exist"= "服务组中存在成员，请清空成员后再删除";
@@ -165,8 +165,60 @@
 "login.verificationCodeLogin" = "验证码登录";
 "tip.emailOrPhoneNotNull" = "邮箱或手机号不能为空";
 "tip.emailNotNull" = "邮箱不能为空";
+"tip.enterPhoneOrEmail" = "请输入手机号/邮箱";
+"tip.noAccountGoRegister" = "没有账号？去注册";
+"tip.goRegister" = "去注册";
+"tip.enterCorrectPhoneNumber" = "请输入正确的手机号码";
+"tip.correctPasswordFormat" = "密码为8-15位，至少包含字母、数字、符号中的两种";
 
 "login.login" = "登录";
+"login.register" = "注册";
+"local.serviceAgreement" = "服务协议";
+"local.notificationRule" = "通知规则";
+"local.addRule" = "添加规则";
+"local.notificationRule" = "通知规则";
+"local.addNotificationRule" = "添加规则";
+"local.save" = "保存";
+"local.ruleName" = "规则名称";
+"local.condition" = "条件";
+"local.notificationWay" = "通知方式";
+"local.time" = "时间";
+"local.cycle" = "周期";
+"local.more" = "更多";
+"local.pleaseInputRuleName" = "请输入规则名称";
+"local.pleaseInputCondition" = "请选择条件";
+"local.pleaseSelectNotiMethod" = "请选择通知方式";
+"local.pleaseSelectTime" = "请选择时间";
+"local.pleaseSelectCycle" = "请选择周期";
+"local.addMoreNotiRule" = "添加更多通知方式";
+"local.Monday" = "周一";
+"local.Tuesday" = "周二";
+"local.Wednesday" = "周三";
+"local.Thursday" = "周四";
+"local.Friday" = "周五";
+"local.Saturday" = "周六";
+"local.Sunday" = "周日";
+"local.selectCondition" = "选择条件";
+"local.selectIssueSource" = "选择云服务";
+"local.selectIssueType" = "选择类型";
+"local.selectIssueLevel" = "选择等级";
+"local.selectCycle" = "选择周期";
+"local.cancel" = "取消";
+"local.select" = "选择";
+"local.allIssueSource" = "全部云账号";
+"local.allIssueType" = "全部类型";
+"local.allIssueLevel" = "全部等级";
+"local.issueSource" = "云服务";
+"local.type" = "类型";
+"local.level" = "等级";
+"local.ruleTag" = "标签";
+"local.pleaseInputTagKey" = "请输入标签键";
+"local.pleaseInputTagValue" = "请输入标签值（可选）";
+"local.noticeTime" = "通知时间";
+"local.startTime" = "开始时间";
+"local.endTime" = "结束时间";
+"local.pleaseSelectStartTime" = "请选择开始时间";
+"local.pleaseSelectEndTime" = "请选择结束时间";
 "home.getCode" = "获取验证码";
 
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

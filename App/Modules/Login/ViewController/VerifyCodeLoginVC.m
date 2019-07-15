@@ -197,7 +197,7 @@
         
     }];
     }else{
-        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
     }
 }
 

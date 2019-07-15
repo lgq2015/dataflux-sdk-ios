@@ -2,11 +2,12 @@
 // Created by Brandon on 2019-03-27.
 // Copyright (c) 2019 hll. All rights reserved.
 //
-
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
 
 @interface PWHttpEngine : NSObject
+
 + (instancetype)sharedInstance;
 
 
@@ -70,4 +71,12 @@
 - (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback;
 
 - (PWURLSessionTask *)deviceRegistration:(NSString *)deviceId registrationId:(NSString *)registrationId callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)getNotificationRuleListWithPage:(NSInteger )page  callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)subscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)unsubscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)deleteNotificationRuleWithRuleId:(NSString *)ruleID
+                                              callBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)addNotificationRuleWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)editNotificationRuleWithParam:(NSDictionary *)param ruleId:(NSString *)ruleId callBack:(void (^)(id response))callback;
+
 @end

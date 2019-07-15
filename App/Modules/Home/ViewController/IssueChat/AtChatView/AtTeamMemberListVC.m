@@ -33,7 +33,7 @@
     [self createUI];
 }
 - (void)createUI{
-    [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(backBtnClicked:) tags:@[@10]];
+    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(backBtnClicked:) tags:@[@10]];
     [self addNavigationItemWithTitles:@[@"多选"] isLeft:NO target:self action:@selector(chooseMoreClick) tags:@[@11]];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) style:UITableViewStylePlain];

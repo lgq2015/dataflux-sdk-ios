@@ -7,7 +7,7 @@
 //
 
 #import "ZTTeamVCTopCell.h"
-#define leftMargin 50.0
+#define leftMargin 30.0
 @interface ZTTeamVCTopCell()
 @property (nonatomic, strong)NSMutableArray *labs;
 @property (nonatomic, assign)TeamTopType type;
@@ -110,8 +110,8 @@
 //    }
 //}
 - (void)s_UI{
-    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_management"];
-    NSArray *btnName = @[@"邀请成员",@"云服务",@"团队管理"];
+    NSArray *iconAry = @[@"team_invite",@"team_infos",@"team_management",@"team_management"];
+    NSArray *btnName = @[@"邀请成员",@"云服务",@"团队管理",@"通知规则"];
     NSMutableArray *imageViews = [NSMutableArray array];
     _labs = [NSMutableArray array];
     for (NSInteger i = 0;i<iconAry.count;i++){
@@ -133,7 +133,7 @@
     }
     //布局
     CGFloat imgViewW = ZOOM_SCALE(34);
-    CGFloat imgViewMargin = (kWidth-ZOOM_SCALE(34)*3-leftMargin*2)/2.0;
+    CGFloat imgViewMargin = (kWidth-ZOOM_SCALE(34)*4-leftMargin*2)/3.0;
     for (NSInteger i = 0; i< imageViews.count; i++){
         //布局图片
         UIImageView *imgV = imageViews[i];
@@ -184,7 +184,7 @@
             _type = teamManagerType;
             break;
         case 13:
-            _type = server;
+            _type = notificationRule;
             break;
         default:
             break;

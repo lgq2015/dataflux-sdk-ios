@@ -72,7 +72,7 @@
 - (UIButton *)leftNavBtn{
     if (!_leftNavBtn){
         _leftNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_leftNavBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_leftNavBtn setTitle:NSLocalizedString(@"local.cancel", @"") forState:UIControlStateNormal];
         [_leftNavBtn setTitleColor:[UIColor colorWithHexString:@"#2A7AF7"] forState:UIControlStateNormal];
         [_leftNavBtn addTarget:self action:@selector(leftNavBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _leftNavBtn.titleLabel.font = RegularFONT(16);
@@ -82,7 +82,7 @@
 - (UIButton *)rightNavBtn{
     if (!_rightNavBtn){
         _rightNavBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rightNavBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_rightNavBtn setTitle:NSLocalizedString(@"local.save", @"") forState:UIControlStateNormal];
         [_rightNavBtn setTitleColor:[UIColor colorWithHexString:@"#2A7AF7"] forState:UIControlStateNormal];
         _rightNavBtn.titleLabel.font = RegularFONT(16);
         [_rightNavBtn addTarget:self action:@selector(rightNavBtnClick) forControlEvents:UIControlEventTouchUpInside];

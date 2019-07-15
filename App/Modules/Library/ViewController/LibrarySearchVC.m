@@ -123,7 +123,7 @@
             make.height.offset(36);
             make.bottom.mas_equalTo(_searchBar).offset(-Interval(3));
         }];
-        UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"取消"];
+        UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.cancel", @"")];
         [cancle addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [cancle setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_searchBar addSubview:cancle];

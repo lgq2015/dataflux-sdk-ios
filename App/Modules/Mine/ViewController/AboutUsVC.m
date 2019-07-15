@@ -64,7 +64,7 @@
         make.height.offset(ZOOM_SCALE(20));
     }];
 //    MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
-    MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:@"服务协议"];
+    MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.serviceAgreement", @"")];
     MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
     MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
     self.dataSource = [NSMutableArray arrayWithArray:@[founctionIntro,privacy,newVersion]];
@@ -149,7 +149,7 @@
         }
             break;
         case 1:{
-            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"服务协议" andURLString:PW_servicelegal];
+            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:NSLocalizedString(@"local.serviceAgreement", @"") andURLString:PW_servicelegal];
             [self.navigationController pushViewController:webView animated:YES];
         }
             break;

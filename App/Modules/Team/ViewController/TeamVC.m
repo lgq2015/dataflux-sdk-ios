@@ -26,6 +26,8 @@
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "CloudCareVC.h"
+#import "NotificationRuleVC.h"
+
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZTTeamVCTopCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
@@ -265,7 +267,7 @@
             [SVProgressHUD showSuccessWithStatus:@"移除失败"];
         }];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:confirm];
@@ -311,8 +313,12 @@
             [self.navigationController pushViewController:makeFriendVC animated:YES];
         }
             break;
-        default:
+       
+        case notificationRule: {
+            NotificationRuleVC *ruleVC = [[NotificationRuleVC alloc]init];
+            [self.navigationController pushViewController:ruleVC animated:YES];
             break;
+        }
     }
 }
 
@@ -496,7 +502,7 @@
         vc.dowhat = supplementTeamInfo;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
     [alert addAction:add];

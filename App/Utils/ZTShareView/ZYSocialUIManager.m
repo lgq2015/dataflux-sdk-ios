@@ -194,7 +194,7 @@
     if (!_cancelShare) {
         _cancelShare = [UIButton buttonWithType:UIButtonTypeCustom];
         //        [_cancelShare setImage:[UIImage imageNamed:@"tool_bird_11"] forState:UIControlStateNormal];
-        [_cancelShare setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelShare setTitle:NSLocalizedString(@"local.cancel", @"") forState:UIControlStateNormal];
         [_cancelShare setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _cancelShare.backgroundColor = [UIColor whiteColor];
         [_cancelShare addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];

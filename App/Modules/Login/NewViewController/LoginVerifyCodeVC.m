@@ -155,9 +155,9 @@
     if (!_registerBtn) {
         _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:@"没有账号？去注册"];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"tip.noAccountGoRegister", @"")];
         //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [@"没有账号？去注册" rangeOfString:@"去注册"];
+        NSRange range = [NSLocalizedString(@"tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"tip.goRegister", @"")];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         dic[NSForegroundColorAttributeName] = PWBlueColor;
         //赋值
@@ -231,7 +231,7 @@
     
       
     }else{
-        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
     }
 
 }
