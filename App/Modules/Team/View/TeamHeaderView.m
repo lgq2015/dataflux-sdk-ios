@@ -142,30 +142,44 @@
     self.tipLab.textColor = PWWhiteColor;
     self.line.backgroundColor = PWWhiteColor;
     self.bgImgView.image = [UIImage imageNamed:code];
+    UIColor *shadowColor;
     if ([code isEqualToString:@"CloudCare_default"]) {
         self.titleLab.textColor = PWTextBlackColor;
         self.tipLab.textColor = [UIColor colorWithHexString:@"#949499"];
         self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
         [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#F4F4FA" mediumColor:@"" toColor:@"#FFFFFF" isDefault:NO]  atIndex:0];
-        self.bgContentView.layer.shadowColor = PWBlackColor.CGColor;
+        shadowColor = PWBlackColor;
 
     }
     if ([code isEqualToString:@"CloudCare_1"]) {
          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#0CCAB8" mediumColor:@"#38D8C4" toColor:@"#24D8C5" isDefault:YES] atIndex:0];
-        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#95E9DE"].CGColor;
+        shadowColor = [UIColor colorWithHexString:@"#95E9DE"];
     }
     if ([code isEqualToString:@"CloudCare_2"]) {
           [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#895DFF" mediumColor:@"" toColor:@"#8A79FF" isDefault:YES] atIndex:0];
         
-        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#FFC994"].CGColor;
+        shadowColor= [UIColor colorWithHexString:@"#FFC994"];
 
     }
     if ([code isEqualToString:@"CloudCare_3"]) {
          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#FF8033" mediumColor:@"#FDC55E" toColor:@"#FFB04F" isDefault:YES] atIndex:0];
-        self.bgContentView.layer.shadowColor = [UIColor colorWithHexString:@"#BEAAFF"].CGColor;
+        shadowColor = [UIColor colorWithHexString:@"#BEAAFF"];
     }
     
-    
+    CALayer *subLayer=[CALayer layer];
+    subLayer.frame= self.bgContentView.frame;
+    subLayer.cornerRadius=3;
+    subLayer.backgroundColor=shadowColor.CGColor;
+    subLayer.masksToBounds=NO;
+    subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
+    subLayer.shadowOffset = CGSizeMake(0,2);//shadowOffset阴影偏移,x向右偏移3，y向下偏移2，默认(0, -3),这个跟shadowRadius配合使用
+    if ([code isEqualToString:@"CloudCare_default"]) {
+      subLayer.shadowOpacity = 0.06;
+    }else{
+        subLayer.shadowOpacity = 1;
+    }
+    subLayer.shadowRadius = 6;//阴影半径，默认3
+    [self.layer insertSublayer:subLayer below:self.bgContentView.layer];
     
 }
 -(UIView *)line{
@@ -207,10 +221,7 @@
     if (!_bgContentView ) {
         _bgContentView = [[UIView alloc]init];
         _bgContentView.layer.masksToBounds = YES;
-        _bgContentView.layer.shadowRadius = 6;
-        self.layer.shadowOffset = CGSizeMake(0,2);
-        _bgContentView.layer.shadowOpacity = 0.06;
-        _bgContentView.layer.cornerRadius = 3.0;
+        _bgContentView.layer.cornerRadius = 3;
         [self addSubview:_bgContentView];
     }
     return _bgContentView;
