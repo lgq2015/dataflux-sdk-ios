@@ -84,6 +84,9 @@
     [self.tableView registerClass:MultipleSelectCell.class forCellReuseIdentifier:@"MultipleSelectCell"];
    
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    
+}
 - (void)createWeekData{
     NSArray *type = @[@"0",@"1",@"2",@"3",@"4",@"5",@"6"];
     NSArray *name = @[NSLocalizedString(@"local.Monday", @""),NSLocalizedString(@"local.Tuesday", @""),NSLocalizedString(@"local.Wednesday", @""),NSLocalizedString(@"local.Thursday", @""),NSLocalizedString(@"local.Friday", @""),NSLocalizedString(@"local.Saturday", @""),NSLocalizedString(@"local.Sunday", @"")];
@@ -123,7 +126,7 @@
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
     allmodel.name = @"全部等级";
     allmodel.allSelect = YES;
-    if (self.model.type.count == 0 || self.model.type.count == 5) {
+    if (self.model.level.count == 0 || self.model.level.count == 5) {
         allmodel.isSelect = YES;
         self.hasAllCell = YES;
     }
@@ -168,10 +171,9 @@
 - (void)loadFromDB {
     
     [self.dataSource addObject:@{@"name":@"全部云服务"}];
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
         dispatch_async_on_main_queue(^{
-            [self.dataSource addObjectsFromArray:array];
             
             if (array.count > 0) {
                 [self.dataSource addObjectsFromArray:array];
@@ -278,10 +280,12 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     if (self.style == SelectIssueSource) {
         SelectSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelectSourceCell"];
         cell.source = self.dataSource[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
         MultipleSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MultipleSelectCell"];
         cell.cellModel = self.dataSource[indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     return nil;
