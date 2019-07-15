@@ -106,11 +106,11 @@ SINGLETON_FOR_HEADER(UserManager)
 /**
     获取teamProduct 缓存
  */
-- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock;
+- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSDictionary *product))productBlock;
 /**
    teamProduct 缓存
  */
-- (void)setTeamProduct:(NSArray *)teamProduct;
+- (void)setTeamProduct:(NSDictionary *)teamProduct;
 /**
    判断是否有team
  */

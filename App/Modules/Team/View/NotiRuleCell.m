@@ -45,7 +45,7 @@
     [self.contentView addSubview:self.subscribeBtn];
     [self.subscribeBtn sizeToFit];
     CGFloat btnWidth = self.subscribeBtn.frame.size.width;
-    self.subscribeBtn.frame = CGRectMake(kWidth-16-btnWidth, 14, btnWidth, ZOOM_SCALE(20));
+    self.subscribeBtn.frame = CGRectMake(kWidth-16-btnWidth, 17, btnWidth, ZOOM_SCALE(20));
     self.ruleNameLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(14), ZOOM_SCALE(202), ZOOM_SCALE(20)) font:RegularFONT(18) textColor:PWTextBlackColor text:@"已订阅"];
     self.ruleNameLab.numberOfLines = 0;
     [self.contentView addSubview:self.ruleNameLab];
