@@ -175,7 +175,7 @@
         return;
     }
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-    NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    NSString *memberID= model.memberID;
       MemberInfoVC *member = [[MemberInfoVC alloc]init];
       member.isHidenNaviBar = YES;
     //团队成员分三类： 1. 我 2. 其他人 3.虚拟专家

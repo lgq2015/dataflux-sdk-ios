@@ -7,6 +7,11 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:testing.profwang-home.cloudcare.cn</string>
+		<string>applinks:testing-app.prof.wang</string>
+		<string>webcredentials:testing.profwang-home.cloudcare.cn</string>
+		<string>webcredentials:testing-app.prof.wang</string>
+		<string>activitycontinuation:testing.profwang-home.cloudcare.cn</string>
+		<string>activitycontinuation:testing-app.prof.wang</string>
 	</array>
 </dict>
 </plist>

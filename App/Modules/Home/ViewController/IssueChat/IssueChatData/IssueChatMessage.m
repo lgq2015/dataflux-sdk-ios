@@ -39,7 +39,7 @@
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
-        if ([[userID stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:getPWUserID]) {
+        if ([userID  isEqualToString:getPWUserID]) {
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
         }else{
             [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {

@@ -23,9 +23,9 @@ PODS:
   - FMDB/standard (2.7.5)
   - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.2.1)
-  - JCore (1.2.6)
-  - JPush (3.1.2):
-    - JCore (~> 1.2.6)
+  - JCore (2.1.1)
+  - JPush (3.2.1):
+    - JCore (< 3.0.0, >= 2.0.0)
   - JSONModel (1.8.0)
   - LBXScan/LBXNative (2.3):
     - LBXScan/Types (~> 2.2)
@@ -59,9 +59,9 @@ PODS:
   - ReactiveCocoa/RACExtensions (2.0):
     - ReactiveCocoa/Core
   - RegexKitLite (4.0)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - SDWebImage (3.8.3):
+    - SDWebImage/Core (= 3.8.3)
+  - SDWebImage/Core (3.8.3)
   - Socket.IO-Client-Swift (14.0.0):
     - Starscream (~> 3.0.6)
   - Starscream (3.0.6)
@@ -72,9 +72,9 @@ PODS:
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
-  - Zhugeio (3.2.3):
-    - Zhugeio/Zhugeio (= 3.2.3)
-  - Zhugeio/Zhugeio (3.2.3)
+  - Zhugeio (3.2.4):
+    - Zhugeio/Zhugeio (= 3.2.4)
+  - Zhugeio/Zhugeio (3.2.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -82,7 +82,7 @@ DEPENDENCIES:
   - FMDB (~> 2.7.5)
   - iOS-Echarts (~> 1.4.4)
   - IQKeyboardManager (~> 6.2.0)
-  - JPush (~> 3.1.2)
+  - JPush (~> 3.2.1)
   - JSONModel (~> 1.8.0)
   - LBXScan/LBXNative (~> 2.3)
   - LBXScan/UI (~> 2.3)
@@ -141,8 +141,8 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
-  JCore: cae516dd2bf1a73b578ce6e1065abd49e709e0f7
-  JPush: d0cead70ba223a6a3b52749899ebda830dfbc49a
+  JCore: 4072327557f0b83cc22dd4041f2f839740c0077b
+  JPush: a1ff8b8ec53fa3419b414946e4db4efa313baeae
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   LumberjackConsole: c5fcf48e08da5313d060225901737496cf9140ca
@@ -154,7 +154,7 @@ SPEC CHECKSUMS:
   NullSafe: 948feba938f03abede5ed3758694a9fe5b3a65ce
   ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   Tencent_Open_SDK: 6172e25b71ad99ca4d260c27cf1eb04ca6311c1a
@@ -162,8 +162,8 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
-  Zhugeio: 673796b067e731d663d198d95d0c307a33080c15
+  Zhugeio: 617af7a76d4d15ceef98a65e1c6e8b04edc0540c
 
-PODFILE CHECKSUM: 40e2420c202a814bec369cc5e6cba0439aa8fb00
+PODFILE CHECKSUM: 8b231a9720ce8b6c20a1ecf99a417dae169d22ed
 
 COCOAPODS: 1.6.2

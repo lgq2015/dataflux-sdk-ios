@@ -68,8 +68,8 @@
     [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
-        NSString *memberID= [model.memberID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        if (![memberID  isEqualToString:getPWUserID]) {
+        NSString *memberID= model.memberID;
+        if (![memberID isEqualToString:getPWUserID]) {
          [self.teamMemberArray addObject:model];
         }
     }];
