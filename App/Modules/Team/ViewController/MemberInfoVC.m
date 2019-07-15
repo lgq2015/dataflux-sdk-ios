@@ -146,9 +146,6 @@
         make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(30));
         make.height.offset(ZOOM_SCALE(44));
     }];
-    if (self.model.mobile == nil || [self.model.mobile isEqualToString:@""]) {
-        callPhone.hidden = YES;
-    }
     if (userManager.teamModel.isAdmin) {
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
         [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
@@ -162,6 +159,9 @@
             make.height.offset(ZOOM_SCALE(44));
         }];
     }
+
+    BOOL visible = self.model.mobile.length>0;
+    callPhone.hidden = !visible;
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {

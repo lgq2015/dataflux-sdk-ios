@@ -136,7 +136,7 @@
     
     self.headerView = [[IssueIndexHeaderView alloc] initWithStyle:PWIssueBoardStyleConnected];
 
-    NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
+    NSArray *array = [[NSArray alloc] init];
     self.infoDatas = [[NSMutableArray alloc] initWithArray:array];
     [self.headerView createUIWithParamsDict:@{@"datas": self.infoDatas}];
     __weak typeof(self) weakSelf = self;
@@ -224,7 +224,7 @@
 
 - (void)infoBoardDatasUpdate {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *array = [[IssueListManger sharedIssueListManger] getIssueBoardData];
+        NSArray *array = [[NSArray alloc] init];
         NSString *title = [[IssueSourceManger sharedIssueSourceManger] getLastDetectionTimeStatement];
 
         dispatch_async(dispatch_get_main_queue(), ^{

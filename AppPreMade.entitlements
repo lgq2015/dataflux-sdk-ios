@@ -7,6 +7,11 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:preprod-home.prof.wang</string>
+		<string>applinks:preprod-app.prof.wang</string>
+		<string>webcredentials:preprod-home.prof.wang</string>
+		<string>webcredentials:preprod-app.prof.wang</string>
+		<string>activitycontinuation:preprod-home.prof.wang</string>
+		<string>activitycontinuation:preprod-app.prof.wang</string>
 	</array>
 </dict>
 </plist>

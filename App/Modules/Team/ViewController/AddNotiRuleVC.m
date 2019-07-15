@@ -118,47 +118,54 @@
             [notiMethod appendString:@"邮件"];
         }
     }
+
     return notiMethod;
 }
 - (NSString *)weekStr{
-    NSArray *week = [self.model.weekday componentsSeparatedByString:@","];
-    
-    NSMutableString *weekStr = [NSMutableString new];
-    NSString *weeks;
-    for (NSInteger i=0; i<week.count; i++) {
-        NSInteger day = [week[i] integerValue];
-        switch (day) {
-            case 0:
-                weeks =NSLocalizedString(@"local.Monday", @"");
-                break;
-            case 1:
-                weeks =NSLocalizedString(@"local.Tuesday", @"");
-                break;
-            case 2:
-                weeks =NSLocalizedString(@"local.Wednesday", @"");
-                
-                break;
-            case 3:
-                weeks =NSLocalizedString(@"local.Thursday", @"");
-                
-                break;
-            case 4:
-                weeks =NSLocalizedString(@"local.Friday", @"");
-                
-                break;
-            case 5:
-                weeks =NSLocalizedString(@"local.Saturday", @"");
-                
-                break;
-            case 6:
-                weeks =NSLocalizedString(@"local.Sunday", @"");
-                break;
+
+    if(self.model.weekday.length>0){
+
+        NSArray *week = [self.model.weekday componentsSeparatedByString:@","];
+
+        NSMutableString *weekStr = [NSMutableString new];
+        NSString *weeks;
+        for (NSInteger i=0; i<week.count; i++) {
+            NSInteger day = [week[i] integerValue];
+            switch (day) {
+                case 0:
+                    weeks =NSLocalizedString(@"local.Monday", @"");
+                    break;
+                case 1:
+                    weeks =NSLocalizedString(@"local.Tuesday", @"");
+                    break;
+                case 2:
+                    weeks =NSLocalizedString(@"local.Wednesday", @"");
+
+                    break;
+                case 3:
+                    weeks =NSLocalizedString(@"local.Thursday", @"");
+
+                    break;
+                case 4:
+                    weeks =NSLocalizedString(@"local.Friday", @"");
+
+                    break;
+                case 5:
+                    weeks =NSLocalizedString(@"local.Saturday", @"");
+
+                    break;
+                case 6:
+                    weeks =NSLocalizedString(@"local.Sunday", @"");
+                    break;
+            }
+            [weekStr appendFormat:@"、%@",weeks];
         }
-        [weekStr appendFormat:@"、%@",weeks];
+
+        [weekStr substringFromIndex:1];
+        return [weekStr substringFromIndex:1];
+    } else{
+        return  @"";
     }
-    
-    [weekStr substringFromIndex:1];
-    return [weekStr substringFromIndex:1];
 }
 - (NSString *)conditionStr{
     NSMutableString *condition = [NSMutableString new];
@@ -251,6 +258,15 @@
         [iToast alertWithTitleCenter:@"请至少选择一种通知方式"];
         return;
     }
+
+    if(self.model.weekday.length > 0) {
+
+    } else{
+        [iToast alertWithTitleCenter:@"通知周期不能为空"];
+        return;
+    }
+
+    
     if (self.model.startTime.length == 0) {
         self.model.startTime = @"00:00";
     }

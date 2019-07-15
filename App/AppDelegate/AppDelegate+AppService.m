@@ -434,14 +434,15 @@
     NSString *registrationId = [JPUSHService registrationID];
     NSString *openUDID = [OpenUDID value];
     //给后台发绑定请求
-    NSDictionary *params = @{
-                             @"deviceId": openUDID,
-                             @"registrationId":registrationId
-                             };
-    [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        DLog(@"绑定成功----");
-    } failBlock:^(NSError *error) {
-        DLog(@"绑定失败----");
+
+    [[PWHttpEngine sharedInstance] deviceRegistration:openUDID registrationId:registrationId callBack:^(id response) {
+        BaseReturnModel* data = response;
+        if(data.isSuccess){
+            DLog(@"绑定成功----");
+        } else{
+            DLog(@"绑定失败----");
+        }
+
     }];
     //注销通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kJPFNetworkDidLoginNotification object:nil];
@@ -504,6 +505,21 @@
         }];
          return YES;
     }
+    [self handleOpenUrl:url];
+    return YES;
+}
+
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL *webUrl = userActivity.webpageURL;
+        [self handleOpenUrl:webUrl];
+    }
+    return YES;
+}
+
+
+-(void)handleOpenUrl:(NSURL *)url{
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
     DLog(@"urlComponents == %@",urlComponents);
     // url中参数的key value
@@ -529,7 +545,6 @@
         }
     }
 
-    return YES;
 }
 
 #pragma mark ===========是否显示控制器名称 ========

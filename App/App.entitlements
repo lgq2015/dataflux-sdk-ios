@@ -7,6 +7,11 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:home.prof.wang</string>
+		<string>applinks:app.prof.wang</string>
+		<string>webcredentials:home.prof.wang</string>
+		<string>webcredentials:app.prof.wang</string>
+		<string>activitycontinuation:home.prof.wang</string>
+		<string>activitycontinuation:app.prof.wang</string>
 	</array>
 </dict>
 </plist>

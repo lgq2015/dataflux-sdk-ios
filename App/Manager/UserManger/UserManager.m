@@ -188,8 +188,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
                     NSDictionary *dic = [self.curUserInfo modelToJSONObject];
                     [cache setObject:dic forKey:KUserModelCache];
-                    NSString *userID= [self.curUserInfo.userID stringByReplacingOccurrencesOfString:@"-" withString:@""];
-                    setPWUserID(userID);
+                    setPWUserID(self.curUserInfo.userID);
                     [kUserDefaults synchronize];
                     dispatch_group_leave(grpupT);
                 }else{
@@ -358,20 +357,23 @@ SINGLETON_FOR_CLASS(UserManager);
 #pragma mark ========== 加载缓存的用户信息 ==========
 -(BOOL)loadUserInfo{
     [self loadExperGroups:nil];
-    YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
-    YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
-    NSDictionary * userDic = (NSDictionary *)[cache objectForKey:KUserModelCache];
-    NSDictionary * teamDic = (NSDictionary *)[cacheteam objectForKey:KTeamModelCache];
-    if([getTeamState isEqualToString:PW_isTeam]){
-    if (userDic && teamDic) {
-        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
-        self.teamModel = [TeamInfoModel modelWithJSON:teamDic];
-        return YES;
-    }
-    }else{
-        if (userDic) {
-        self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
-        return YES;
+    YYCache *cache = [[YYCache alloc] initWithName:KUserCacheName];
+    YYCache *cacheteam = [[YYCache alloc] initWithName:KTeamCacheName];
+    NSDictionary *userDic = (NSDictionary *) [cache objectForKey:KUserModelCache];
+    NSDictionary *teamDic = (NSDictionary *) [cacheteam objectForKey:KTeamModelCache];
+    //旧数据错误数据过滤
+    if([getPWUserID containsString:@"-"]){
+        if ([getTeamState isEqualToString:PW_isTeam]) {
+            if (userDic && teamDic) {
+                self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
+                self.teamModel = [TeamInfoModel modelWithJSON:teamDic];
+                return YES;
+            }
+        } else {
+            if (userDic) {
+                self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
+                return YES;
+            }
         }
     }
     return NO;
