@@ -124,9 +124,7 @@
             [self.headerView updataUIWithDatas:product];
         }
     }];
-    [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
@@ -136,7 +134,6 @@
          [self.header endRefreshing];
     } failBlock:^(NSError *error) {
          [self.header endRefreshing];
-        [SVProgressHUD dismiss];
     }];
 }
 
