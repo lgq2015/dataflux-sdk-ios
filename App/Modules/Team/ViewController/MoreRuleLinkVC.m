@@ -6,11 +6,13 @@
 //  Copyright © 2019 hll. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "MoreRuleLinkVC.h"
 #import "NotiRuleModel.h"
 #import "MoreRuleLinkCell.h"
 #import "MoreRuleBtnCell.h"
 #import "HLSafeMutableArray.h"
+#import "PWBaseWebVC.h"
 
 @interface MoreRuleLinkVC ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) HLSafeMutableArray *dataSource;
@@ -119,8 +121,30 @@
     linkBtn.titleLabel.font = RegularFONT(14);
     content.backgroundColor = PWBackgroundColor;
     [content addSubview:linkBtn];
+
+    if (section == 0) {
+        [linkBtn addTarget:self action:@selector(viewDingDingWebHookHelp) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        [linkBtn addTarget:self action:@selector(viewCustomWebHookHelp) forControlEvents:UIControlEventTouchUpInside];
+    }
+
     return content;
 }
+
+- (void)viewDingDingWebHookHelp {
+    [self viewHelpWithUrl:DING_DING_WEBHOOK_HELP];
+}
+
+- (void)viewCustomWebHookHelp {
+    [self viewHelpWithUrl:CUSTOM_WEBHOOK_HELP];
+}
+
+-(void)viewHelpWithUrl:(NSString *)url{
+    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"查看帮助" andURL:[[NSURL alloc] initWithString:url]];
+    [self.navigationController pushViewController:web animated: YES];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *array = self.dataSource[indexPath.section];
     if (array.count == indexPath.row+1) {
