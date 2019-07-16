@@ -19,13 +19,14 @@
 @end
 
 @implementation MoreRuleLinkVC
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = @"更多";
+-(void)viewWillAppear:(BOOL)animated{
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
         
     }
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"更多";
     [self creteUI];
 }
 

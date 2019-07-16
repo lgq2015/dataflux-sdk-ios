@@ -21,13 +21,15 @@
 @end
 
 @implementation SelectConditionVC
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = NSLocalizedString(@"local.selectCondition", @"");
+-(void)viewWillAppear:(BOOL)animated{
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =self;
         
     }
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = NSLocalizedString(@"local.selectCondition", @"");
+    
     [self createUI];
 }
 - (void)createUI{
