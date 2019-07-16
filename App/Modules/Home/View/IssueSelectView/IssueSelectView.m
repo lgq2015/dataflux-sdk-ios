@@ -112,18 +112,18 @@
     self.currSelLevel = sel.issueLevel;
     self.selViewType = sel.issueViewType;
     CGFloat contentHeight = ZOOM_SCALE(400);
-    if(sel.issueFrom == IssueFromMe){
+//    if(sel.issueFrom == IssueFromMe){
         self.selViewBtn.hidden = YES;
         self.viewTypeTip.hidden = YES;
         self.subTip.hidden = YES;
         self.line.frame =CGRectMake(0, ZOOM_SCALE(260), kWidth, SINGLE_LINE_WIDTH);
         contentHeight = ZOOM_SCALE(330);
-    }else{
-        self.selViewBtn.hidden = NO;
-        self.viewTypeTip.hidden = NO;
-        self.subTip.hidden = NO;
-        self.line.frame = CGRectMake(0, CGRectGetMaxY(self.subTip.frame)+ZOOM_SCALE(16), kWidth, SINGLE_LINE_WIDTH);
-    }
+//    }else{
+//        self.selViewBtn.hidden = NO;
+//        self.viewTypeTip.hidden = NO;
+//        self.subTip.hidden = NO;
+//        self.line.frame = CGRectMake(0, CGRectGetMaxY(self.subTip.frame)+ZOOM_SCALE(16), kWidth, SINGLE_LINE_WIDTH);
+//    }
     self.cancle.frame =CGRectMake(Interval(16), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40));
     self.commit.frame =CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40));
     UIButton *typeBtn = [self.contentView viewWithTag:(int)sel.issueType+TypeTag-1];
@@ -211,7 +211,7 @@
     sel.issueLevel = self.currSelLevel;
     sel.issueType = self.currSelType;
     if (sel.issueFrom == IssueFromAll) {
-        sel.issueViewType = self.selViewBtn.selected == YES?IssueViewTypeNormal:IssueViewTypeAll;
+        sel.issueViewType = IssueViewTypeNormal;
     }
     [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueWithSelectObject:)]){
