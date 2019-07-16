@@ -99,9 +99,11 @@
         [SVProgressHUD show];
         [[PWHttpEngine sharedInstance] deleteNotificationRuleWithRuleId:ruleId callBack:^(id response) {
             BaseReturnModel *model = response;
-            if (model.isSuccess) {
+            if (model.isSuccess||[model.errorCode isEqualToString:@"home.team.notificationRuleNotExists"]) {
                 [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-                [self headerRefreshing];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self headerRefreshing];
+                });
             }else{
                 [SVProgressHUD dismiss];
                 [iToast alertWithTitleCenter:model.errorMsg];
@@ -169,16 +171,10 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:AddNotiRuleEdit];
-//    detailVC.model = self.dataSource[indexPath.row];
-//    [self.navigationController pushViewController:detailVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
 }
--(BOOL)swipeTableCell:(nonnull MGSwipeTableCell *)cell shouldHideSwipeOnTap:(CGPoint) point{
-   
-    return YES;
-}
+
 -(BOOL) swipeTableCell:(nonnull MGSwipeTableCell*) cell canSwipe:(MGSwipeDirection) direction fromPoint:(CGPoint) point{
  return  [self handlePermissonWithModel:self.dataSource[cell.tag-1]];
 }
