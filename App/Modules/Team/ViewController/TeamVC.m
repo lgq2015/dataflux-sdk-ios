@@ -123,6 +123,7 @@
         if (isSuccess) {
             [self.headerView updataUIWithDatas:product];
             self.tableView.tableHeaderView = self.headerView;
+            [self.tableView layoutIfNeeded];
         }
     }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -132,6 +133,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.headerView updataUIWithDatas:content];
                 self.tableView.tableHeaderView = self.headerView;
+                [self.tableView layoutIfNeeded];
             });
         }
          [self.header endRefreshing];
