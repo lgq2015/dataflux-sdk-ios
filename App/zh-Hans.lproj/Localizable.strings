@@ -121,6 +121,7 @@
 "home.auth.emailCodeIncorrect"= "验证码错误";
 "home.recommendation.unsupportedFileType"= "不支持的文件类型";
 "home.account.teamNotJoined"= "您已不是该团队成员";
+"home.team.notificationRuleNotExists" = "通知规则已不存在";
 
 "local.err.networkNotAvailable" = "网络不可用";
 "local.err.netWorkError"="网络异常";
