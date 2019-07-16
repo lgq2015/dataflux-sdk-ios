@@ -118,17 +118,17 @@
                 CGFloat labWidth = lab.frame.size.width;
                 if (temp == nil) {
                     iconImg.frame = CGRectMake(11, 0, ZOOM_SCALE(15), ZOOM_SCALE(15));
-                    lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth+2, ZOOM_SCALE(17));
+                    lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth, ZOOM_SCALE(17));
                     lab.centerY = iconImg.centerY;
                 }else{
                     CGFloat lastWidth = CGRectGetMaxX(temp.frame);
                     if (lastWidth+33+ZOOM_SCALE(15)+labWidth>kWidth-32) {
                         iconImg.frame = CGRectMake(11, CGRectGetMaxY(temp.frame)+8, ZOOM_SCALE(15), ZOOM_SCALE(15));
-                        lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth+2, ZOOM_SCALE(17));
+                        lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth, ZOOM_SCALE(17));
                         lab.centerY = iconImg.centerY;
                     }else{
                         iconImg.frame = CGRectMake(lastWidth+15, 0, ZOOM_SCALE(15), ZOOM_SCALE(15));
-                        lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth+2, ZOOM_SCALE(17));
+                        lab.frame = CGRectMake(CGRectGetMaxX(iconImg.frame)+5, 0, labWidth, ZOOM_SCALE(17));
                         lab.centerY = iconImg.centerY;
                     }
                 }

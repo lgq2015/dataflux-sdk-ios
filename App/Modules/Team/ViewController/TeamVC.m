@@ -122,6 +122,7 @@
     [userManager getTeamProduct:^(BOOL isSuccess, NSDictionary *product) {
         if (isSuccess) {
             [self.headerView updataUIWithDatas:product];
+            self.tableView.tableHeaderView = self.headerView;
         }
     }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
