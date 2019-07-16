@@ -63,7 +63,10 @@
         } else if ([error.domain isEqualToString:@"com.hyq.YQNetworking.ErrorDomain"]) {
             model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_NOT_AVAILABLE;
             model.errorMsg = [model.errorCode toErrString];
-        } else {
+        } else if(error.code == -1001){
+            model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_Time_Out;
+            model.errorMsg = [model.errorCode toErrString];
+        }else{
             model.errorCode = ERROR_CODE_LOCAL_ERROR_NETWORK_ERROR;
             model.errorMsg = [model.errorCode toErrString];
         }
