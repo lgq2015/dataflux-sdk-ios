@@ -101,7 +101,7 @@
             BaseReturnModel *model = response;
             if (model.isSuccess) {
                 [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-                [self loadData];
+                [self headerRefreshing];
             }else{
                 [SVProgressHUD dismiss];
                 [iToast alertWithTitleCenter:model.errorMsg];
@@ -130,7 +130,7 @@
    
     cell.model = self.dataSource[indexPath.row];
    
-    if([self handlePermissonWithModel:cell.model]){
+    
    WeakSelf
     MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
          [weakSelf delectRule:indexPath.row];
@@ -144,14 +144,13 @@
         return YES;
     }];
     button.titleLabel.font = RegularFONT(14);
-    button.tag = indexPath.row +1;
     [button centerIconOverTextWithSpacing:5];
     button2.titleLabel.font = RegularFONT(14);
-    button2.tag = indexPath.row +100;
     [button2 centerIconOverTextWithSpacing:5];
     cell.rightButtons = @[button,button2];
     cell.delegate = self;
-    }
+   
+    cell.tag = indexPath.row+1;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
@@ -179,6 +178,9 @@
 -(BOOL)swipeTableCell:(nonnull MGSwipeTableCell *)cell shouldHideSwipeOnTap:(CGPoint) point{
    
     return YES;
+}
+-(BOOL) swipeTableCell:(nonnull MGSwipeTableCell*) cell canSwipe:(MGSwipeDirection) direction fromPoint:(CGPoint) point{
+ return  [self handlePermissonWithModel:self.dataSource[cell.tag-1]];
 }
 /*
 #pragma mark - Navigation
