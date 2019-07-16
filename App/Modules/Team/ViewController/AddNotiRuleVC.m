@@ -246,6 +246,7 @@
     return _navRightBtn;
 }
 - (void)navRightBtnClick{
+    [self resignTheFirstResponder];
     if (self.model.name == nil || [self.model.name isEqualToString:@""]) {
         [iToast alertWithTitleCenter:@"规则名称不能为空"];
         return;
@@ -314,7 +315,11 @@
                 KPostNotification(KNotificationReloadRuleList, nil);
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
+                if([model.errorCode isEqualToString:model.errorMsg]){
+                    [iToast alertWithTitleCenter:@"请稍后重试"];
+                }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
+                }
             }
         }];
     }else{
@@ -332,6 +337,11 @@
         }];
     }
     
+}
+- (void)resignTheFirstResponder {
+    UIWindow * keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIView * firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+    [firstResponder resignFirstResponder];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

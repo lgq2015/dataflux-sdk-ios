@@ -80,11 +80,17 @@
     return _subTf;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    WeakSelf
-    if (self.ruleNameClick) {
-        self.ruleNameClick(weakSelf.subTf.text);
-    }
+//    WeakSelf
+//    if (self.ruleNameClick) {
+//        self.ruleNameClick(weakSelf.subTf.text);
+//    }
     return YES;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+        WeakSelf
+        if (self.ruleNameClick) {
+            self.ruleNameClick(weakSelf.subTf.text);
+        }
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
     if (self.ruleNameClick) {
