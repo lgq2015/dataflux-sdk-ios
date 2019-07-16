@@ -128,9 +128,10 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
-            [self.headerView updataUIWithDatas:content];
-            self.tableView.tableHeaderView = self.headerView;
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.headerView updataUIWithDatas:content];
+                self.tableView.tableHeaderView = self.headerView;
+            });
         }
          [self.header endRefreshing];
     } failBlock:^(NSError *error) {

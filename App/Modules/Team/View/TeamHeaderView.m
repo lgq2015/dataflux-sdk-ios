@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *tipLab;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIView *specialProjectView;
+@property (nonatomic, strong) CALayer *subLayer;
 @end
 @implementation TeamHeaderView
 -(instancetype)init{
@@ -69,7 +70,12 @@
 }
 -(void)updataUIWithDatas:(NSDictionary *)datas{
     [self.specialProjectView removeAllSubviews];
-  
+    [self.bgContentView.layer.sublayers enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:CAGradientLayer.class]) {
+            [obj removeFromSuperlayer];
+            *stop = YES;
+        }
+    }];
     NSDictionary *CloudCare = PWSafeDictionaryVal(datas, @"CloudCare");
     NSString *code = [CloudCare stringValueForKey:@"code" default:@""];
     UtilsConstManager *manager = [[UtilsConstManager alloc]init];
@@ -83,7 +89,8 @@
         if (managed.count == 0) {
             self.tipLab.hidden = YES;
             self.line.hidden = YES;
-            height +=ZOOM_SCALE(17)+12;
+            height +=ZOOM_SCALE(15)+12;
+//            self.subLayer.frame= CGRectMake(16, 12, kWidth-32, height-6);
             [self.specialProjectView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.offset(ZOOM_SCALE(15)+12);
             }];
@@ -128,20 +135,20 @@
                 temp = lab;
                 if (i == managed.count-1) {
                     height +=CGRectGetMaxY(lab.frame)+12;
+//                    self.subLayer.frame= CGRectMake(16, 12, kWidth-32, height-6);
                     [self.specialProjectView mas_updateConstraints:^(MASConstraintMaker *make) {
                         make.height.offset(CGRectGetMaxY(lab.frame)+12);
                     }];
                 }
             }
         }
-        
-        
     }
-    
+    self.subLayer.frame = self.bgContentView.frame;
     self.titleLab.textColor = PWWhiteColor;
     self.tipLab.textColor = PWWhiteColor;
     self.line.backgroundColor = PWWhiteColor;
     self.bgImgView.image = [UIImage imageNamed:code];
+ 
     UIColor *shadowColor;
     if ([code isEqualToString:@"CloudCare_default"]) {
         self.titleLab.textColor = PWTextBlackColor;
@@ -157,30 +164,41 @@
     }
     if ([code isEqualToString:@"CloudCare_2"]) {
           [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#895DFF" mediumColor:@"" toColor:@"#8A79FF" isDefault:YES] atIndex:0];
-        
-        shadowColor= [UIColor colorWithHexString:@"#FFC994"];
-
+        shadowColor= [UIColor colorWithHexString:@"#BEAAFF"];
     }
     if ([code isEqualToString:@"CloudCare_3"]) {
          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#FF8033" mediumColor:@"#FDC55E" toColor:@"#FFB04F" isDefault:YES] atIndex:0];
-        shadowColor = [UIColor colorWithHexString:@"#BEAAFF"];
+        shadowColor = [UIColor colorWithHexString:@"#FFC994"];
     }
-    
-    CALayer *subLayer=[CALayer layer];
-    subLayer.frame= self.bgContentView.frame;
-    subLayer.cornerRadius=3;
-    subLayer.backgroundColor=shadowColor.CGColor;
-    subLayer.masksToBounds=NO;
-    subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
-    subLayer.shadowOffset = CGSizeMake(0,2);//shadowOffset阴影偏移,x向右偏移3，y向下偏移2，默认(0, -3),这个跟shadowRadius配合使用
+    self.subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
     if ([code isEqualToString:@"CloudCare_default"]) {
-      subLayer.shadowOpacity = 0.06;
+      self.subLayer.backgroundColor=PWBackgroundColor.CGColor;
+      self.subLayer.shadowOpacity = 0.06;
     }else{
-        subLayer.shadowOpacity = 1;
+        self.subLayer.backgroundColor=shadowColor.CGColor;
+        self.subLayer.shadowOpacity = 1;
     }
-    subLayer.shadowRadius = 6;//阴影半径，默认3
-    [self.layer insertSublayer:subLayer below:self.bgContentView.layer];
-    
+
+   
+}
+-(CALayer *)subLayer{
+    if (!_subLayer) {
+        _subLayer=[CALayer layer];
+//        _subLayer.frame= self.bgContentView.frame;
+        _subLayer.cornerRadius=3;
+//        subLayer.backgroundColor=shadowColor.CGColor;
+        _subLayer.masksToBounds=NO;
+//        subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
+        _subLayer.shadowOffset = CGSizeMake(0,2);//shadowOffset阴影偏移,x向右偏移3，y向下偏移2，默认(0, -3),这个跟shadowRadius配合使用
+//        if ([code isEqualToString:@"CloudCare_default"]) {
+//            subLayer.shadowOpacity = 0.06;
+//        }else{
+//            subLayer.shadowOpacity = 1;
+//        }
+        _subLayer.shadowRadius = 6;//阴影半径，默认3
+        [self.layer insertSublayer:_subLayer below:self.bgContentView.layer];
+    }
+    return _subLayer;
 }
 -(UIView *)line{
     if (!_line) {
