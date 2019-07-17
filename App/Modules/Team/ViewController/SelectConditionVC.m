@@ -114,6 +114,7 @@
     return issueLevel;
 }
 -(void)backBtnClicked{
+     [self resignTheFirstResponder];
     if (self.valueStr.length>0 &&(self.keyStr == nil||self.keyStr.length==0)) {
         [iToast alertWithTitleCenter:@"标签键不能为空"];
         return;
@@ -133,6 +134,11 @@
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+- (void)resignTheFirstResponder {
+    UIWindow * keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIView * firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+    [firstResponder resignFirstResponder];
 }
 #pragma mark ========== UITableViewDataSource ==========
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

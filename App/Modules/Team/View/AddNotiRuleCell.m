@@ -80,10 +80,7 @@
     return _subTf;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//    WeakSelf
-//    if (self.ruleNameClick) {
-//        self.ruleNameClick(weakSelf.subTf.text);
-//    }
+
     return YES;
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{

@@ -81,11 +81,13 @@
     return _valueTf;
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    return YES;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
     WeakSelf
     if (self.TagBlock) {
         self.TagBlock(weakSelf.keyTf.text, weakSelf.valueTf.text);
     }
-    return YES;
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
     NSString *key = self.keyTf.text;
