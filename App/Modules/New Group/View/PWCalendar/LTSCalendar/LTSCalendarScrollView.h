@@ -22,6 +22,7 @@
 - (void)scrollToSingleWeek;
 - (void)scrollToAllWeek;
 - (void)showNomoreDatasFooter;
+- (void)showLoadFooterView;
 - (void)endRefreshing;
 - (void)tablewViewDatasAdd:(NSArray *)array;
 - (void)goDate:(NSDate *)date;

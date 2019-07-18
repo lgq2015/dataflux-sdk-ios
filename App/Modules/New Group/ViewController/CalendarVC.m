@@ -118,6 +118,7 @@
 
 }
 - (void)loadListWithStartTime:(NSNumber *)start endTime:(NSNumber *)end loadNew:(BOOL)new{
+    [self.manager.calenderScrollView showLoadFooterView];
     [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:end pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
         [self.manager endRefreshing];
         CalendarListModel *model = (CalendarListModel *)response;

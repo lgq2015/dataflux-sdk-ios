@@ -322,7 +322,20 @@
     return  [super hitTest:point withEvent:event];
 }
 - (void)showNomoreDatasFooter{
-    self.tableView.tableFooterView = self.footView;
+    if (_footer) {
+        self.footer.hidden = YES;
+    }
+    if (_tableView ) {
+        self.tableView.tableFooterView = self.footView;
+    }
+}
+-(void)showLoadFooterView{
+    if (_footer) {
+        self.footer.hidden = NO;
+    }
+    if (_tableView && _footView) {
+        self.tableView.tableFooterView = nil;
+    }
 }
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     if (self != scrollView) {
