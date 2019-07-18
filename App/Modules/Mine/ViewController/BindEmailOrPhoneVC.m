@@ -134,7 +134,7 @@
     }else{
 
         self.emailTF.hll_limitTextLength = 30;
-         [self.commitBtn setTitle:@"保存" forState:UIControlStateNormal];
+         [self.commitBtn setTitle:NSLocalizedString(@"local.save", @"") forState:UIControlStateNormal];
         RACSignal *emailSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
     
             return @([value stringByReplacingOccurrencesOfString:@" " withString:@""].length>0);
@@ -233,7 +233,7 @@
 }
 - (void)commitPhoneClick{
     if (![[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
         return;
     }
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};

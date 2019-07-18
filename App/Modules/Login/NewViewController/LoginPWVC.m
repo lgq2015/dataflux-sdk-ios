@@ -98,7 +98,7 @@
 -(UITextField *)accountTf{
     if (!_accountTf) {
         _accountTf = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _accountTf.placeholder = @"请输入手机号/邮箱";
+        _accountTf.placeholder = NSLocalizedString(@"tip.enterPhoneOrEmail", "");
         [self.view addSubview:_accountTf];
     }
     return _accountTf;
@@ -115,9 +115,9 @@
     if (!_registerBtn) {
         _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:@"没有账号？去注册"];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"tip.noAccountGoRegister", @"")];
         //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [@"没有账号？去注册" rangeOfString:@"去注册"];
+        NSRange range = [NSLocalizedString(@"tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"tip.goRegister", @"")];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         dic[NSForegroundColorAttributeName] = PWBlueColor;
         //赋值

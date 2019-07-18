@@ -188,7 +188,7 @@
             [[[[ZhugeIOTeamHelper new] eventSignOutTeam] attrResultCancel] track];
         }];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:confirm];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
@@ -297,7 +297,7 @@
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutTeamRequest];
     }];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:confirm];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];

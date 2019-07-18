@@ -11,6 +11,7 @@
 #define ERROR_CODE_LOCAL_ERROR_NETWORK_ERROR  @"local.err.netWorkError"
 #define ERROR_CODE_LOCAL_IS_FETCHING  @"local.err.isFetching"
 #define ERROR_CODE_AUTH_UNAUTHORIZED_SHRINE  @"Shrine.Token.WithoutInfoToken"
+#define ERROR_CODE_LOCAL_ERROR_NETWORK_Time_Out  @"local.err.networkTimeOut"
 
 @interface BaseReturnModel : NSObject
 

@@ -12,6 +12,7 @@
 #define HTTPS_PROTOCOL_STRING @"https://"
 #define HTTP_PROTOCOL_STRING @"http://"
 
+
 #if DEV //开发环境
 #define IS_HTTPS  0
 #if IS_HTTPS
@@ -27,6 +28,7 @@
 #define API_H5_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
 #define API_LIBRARY    HTTP_PROTOCOL@"testing.profwang-h5.cloudcare.cn:10302"
+#define API_DOC    HTTP_PROTOCOL@"testing.help.prof.wang:8090/doc/"
 #define API_CARRIER_HOST    HTTP_PROTOCOL@"testing.carrier-via-core-stone.cloudcare.cn:10100"
 #define PW_ISSUE_HELP(str)                [NSString stringWithFormat:@"%@pre-library.prof.wang/handbook_html/user-help/%@-connect/index.html", HTTP_PROTOCOL,str]
 #define JPUSH_ID            @"e008337585ca5df269038d4f"
@@ -49,6 +51,7 @@
 #define API_CORE_STONE   HTTP_PROTOCOL@"preprod-core-stone.cloudcare.cn"
 #define API_H5_HOST   HTTP_PROTOCOL@"preprod-terms.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"preprod-service.cloudcare.cn"
+#define API_DOC    HTTP_PROTOCOL@"preprod-help.prof.wang/doc/"
 #define API_CARRIER_HOST    HTTP_PROTOCOL@"preprod-carrier-via-core-stone.cloudcare.cn"
 #define API_LIBRARY    HTTP_PROTOCOL@"preprod-library.prof.wang"
 #define PW_ISSUE_HELP(str)                [NSString stringWithFormat:@"%@pre-library.prof.wang/handbook_html/user-help/%@-connect/index.html", HTTP_PROTOCOL,str]
@@ -72,6 +75,7 @@
 #define API_CORE_STONE   HTTP_PROTOCOL@"core-stone.cloudcare.cn"
 #define API_H5_HOST   HTTP_PROTOCOL@"common.prof.wang"
 #define API_CC_PLUS_HOST   HTTP_PROTOCOL@"service.cloudcare.cn"
+#define API_DOC    HTTP_PROTOCOL@"help.prof.wang/doc/"
 #define API_LIBRARY    HTTP_PROTOCOL@"library.prof.wang"
 #define API_CARRIER_HOST    HTTP_PROTOCOL@"carrier-via-core-stone.cloudcare.cn"
 #define PW_ISSUE_HELP(str)                [NSString stringWithFormat:@"%@library.prof.wang/handbook_html/user-help/%@-connect/index.html", HTTP_PROTOCOL,str]
@@ -82,6 +86,9 @@
 #define ZHUGE_APPKEY     @"6545d1143506459d92fd0b080a071ac0"
 
 #endif
+
+#define DING_DING_WEBHOOK_HELP API_DOC@"b1c8103c9274483a3db9340fdd0a66a0120662b9#toc39"
+#define CUSTOM_WEBHOOK_HELP API_DOC@"b1c8103c9274483a3db9340fdd0a66a0120662b9#toc310"
 
 #define API_HOST [NSString stringWithFormat:@"%@/api", API_SEVERID]
 
@@ -192,12 +199,14 @@
 #define PW_OwnertTransfer(str) [NSString stringWithFormat:@"%@/v1/team/account/%@/owner-transfer", API_SEVERID,str]
 #define PW_TeamProduct                 API_SEVERID@"/v1/team/product"
 //服务记录
-#define PW_issueGeneralList    API_SEVERID@"/v1/issue/general-list"
+#define PW_issueGeneralList           API_SEVERID@"/v1/issue/general-list"
+#define PW_nofiticationRuleList       API_SEVERID@"/v1/team/nofitication/rule/list"
+#define PW_subscribeNotiRule(str)     [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/subscribe/%@", API_SEVERID,str]
 
-
-
-
-
+#define PW_unsubscribeNotiRule(str)  [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/unsubscribe/%@", API_SEVERID,str]
+#define PW_updateNotiRule(str)        [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/update/%@", API_SEVERID,str]
+#define PW_notificationRuleAdd        API_SEVERID@"/v1/team/nofitication/rule/add"
+#define PW_notificationRuleDelete(str)  [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/delete/%@", API_SEVERID,str]
 
 #pragma mark ========== 我的 ==========
 //添加反馈信息

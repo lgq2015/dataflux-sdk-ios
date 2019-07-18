@@ -110,7 +110,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             }
             break;
         case NaviTypeAddDone:{
-        [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navLeftBtnClick:) tags:@[@200]];
+        [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navLeftBtnClick:) tags:@[@200]];
             UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
             self.navigationItem.rightBarButtonItem = item;
             if (_navRightBtn) {
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
         case NaviTypeAddBack:
             break;
         case NaviTypeEdit:
-           [self addNavigationItemWithTitles:@[@"取消"] isLeft:YES target:self action:@selector(navLeftBtnClick:) tags:@[@200]];
+           [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.cancel", @"")] isLeft:YES target:self action:@selector(navLeftBtnClick:) tags:@[@200]];
             [self.navRightBtn setTitle:@"保存" forState:UIControlStateNormal];
             UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
             self.navigationItem.rightBarButtonItem = item;
@@ -521,7 +521,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
                 UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     [self deleteIssueSource];
                 }];
-                UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
                 [deletAlert addAction:confirm];
                 [deletAlert addAction:cancel];
                 [self presentViewController:deletAlert animated:YES completion:nil];
@@ -530,7 +530,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [alert addAction:delet];
         }
 
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 
     }];
 
@@ -631,7 +631,7 @@ typedef NS_ENUM(NSUInteger ,NaviType){
             [[UIResponder currentFirstResponder] resignFirstResponder];
         param = @{@"data":@{@"provider":self.provider,@"name":[self.TFArray[0].text removeFrontBackBlank],@"optionsJSON":@{@"domain":[self.TFArray[0].text removeFrontBackBlank]}}};
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认您添加的是一级域名" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 
         }];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

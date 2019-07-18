@@ -69,7 +69,7 @@
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+22)];
     topView.backgroundColor = [UIColor colorWithRed:65/255.0 green:65/255.0 blue:65/255.0 alpha:0.6];
     [self.view addSubview:topView];
-    UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"取消"];
+    UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.cancel", @"")];
     [cancle setTitleColor:PWWhiteColor forState:UIControlStateNormal];
     cancle.titleLabel.font = RegularFONT(16);
     [cancle addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];

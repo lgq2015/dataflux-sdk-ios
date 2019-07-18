@@ -14,7 +14,7 @@
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
 #define KNotificationReloadIssueList     @"KNotificationReloadIssueList"
-
+#define KNotificationReloadRuleList    @"KNotificationReloadRuleList"
 #define KNotificationUpdateIssueList     @"KNotificationUpdateIssueList"
 #define KNotificationUpdateIssueDetail     @"KNotificationUpdateIssueDetail"
 #define KNotificationNewIssueLog     @"KNotificationNewIssueLog"
@@ -46,8 +46,9 @@
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
 //账号ISPs常量数组
 #define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWUserID]
+#define KTeamServiceCode      @"KTeamServiceCode"
 //团队产品
-#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWUserID]
+#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWDefaultTeamID]
 //团队列表
 #define KTeamListCacheName @"KTeamListCacheName"
 #define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]

@@ -36,7 +36,7 @@
             hideBtn = YES;
             break;
         case NoDataViewIssueList:
-            tip = @"恭喜您，所有情报都处理完了";
+            tip = @"暂无情报，试试更改筛选条件";
             hideBtn = YES;
             btnTitle = @"查看过去 24 小时恢复的情报";
             break;

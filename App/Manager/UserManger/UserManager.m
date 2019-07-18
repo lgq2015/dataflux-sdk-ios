@@ -537,9 +537,9 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache removeObjectForKey:KTeamMemberCacheName];
     [cache setObject:memberArray forKey:KTeamMemberCacheName];
 }
-- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSArray *member))productBlock{
+- (void)getTeamProduct:(void(^)(BOOL isSuccess,NSDictionary *product))productBlock{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
-    NSArray *product = (NSArray *)[cache objectForKey:KTeamProductDict];
+    NSDictionary *product = (NSDictionary *)[cache objectForKey:KTeamProductDict];
     if (product) {
         productBlock ? productBlock(YES,product):nil;
     }else{
@@ -558,7 +558,7 @@ SINGLETON_FOR_CLASS(UserManager);
     return isps;
 }
 
-- (void)setTeamProduct:(NSArray *)teamProduct{
+- (void)setTeamProduct:(NSDictionary *)teamProduct{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     [cache removeObjectForKey:KTeamProductDict];
     [cache setObject:teamProduct forKey:KTeamProductDict];

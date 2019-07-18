@@ -176,6 +176,69 @@
 		2BFEF388225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		2BFEF389225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
 		2BFEF38A225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */; };
+		4A00DDA622D2E218008462AF /* NotificationRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDA522D2E218008462AF /* NotificationRuleVC.m */; };
+		4A00DDA722D2E218008462AF /* NotificationRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDA522D2E218008462AF /* NotificationRuleVC.m */; };
+		4A00DDA822D2E218008462AF /* NotificationRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDA522D2E218008462AF /* NotificationRuleVC.m */; };
+		4A00DDAC22D2EED0008462AF /* AddNotiRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDAB22D2EED0008462AF /* AddNotiRuleVC.m */; };
+		4A00DDAD22D2EED0008462AF /* AddNotiRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDAB22D2EED0008462AF /* AddNotiRuleVC.m */; };
+		4A00DDAE22D2EED0008462AF /* AddNotiRuleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDAB22D2EED0008462AF /* AddNotiRuleVC.m */; };
+		4A00DDB122D315CA008462AF /* AddNotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB022D315CA008462AF /* AddNotiRuleCell.m */; };
+		4A00DDB222D315CA008462AF /* AddNotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB022D315CA008462AF /* AddNotiRuleCell.m */; };
+		4A00DDB322D315CA008462AF /* AddNotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB022D315CA008462AF /* AddNotiRuleCell.m */; };
+		4A00DDB622D326AC008462AF /* AddNotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB522D326AC008462AF /* AddNotiRuleModel.m */; };
+		4A00DDB722D326AC008462AF /* AddNotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB522D326AC008462AF /* AddNotiRuleModel.m */; };
+		4A00DDB822D326AC008462AF /* AddNotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDB522D326AC008462AF /* AddNotiRuleModel.m */; };
+		4A00DDBB22D43A42008462AF /* SelectConditionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDBA22D43A42008462AF /* SelectConditionVC.m */; };
+		4A00DDBC22D43A42008462AF /* SelectConditionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDBA22D43A42008462AF /* SelectConditionVC.m */; };
+		4A00DDBD22D43A42008462AF /* SelectConditionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDBA22D43A42008462AF /* SelectConditionVC.m */; };
+		4A00DDC522D463A0008462AF /* SelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC422D463A0008462AF /* SelectVC.m */; };
+		4A00DDC622D463A0008462AF /* SelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC422D463A0008462AF /* SelectVC.m */; };
+		4A00DDC722D463A0008462AF /* SelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC422D463A0008462AF /* SelectVC.m */; };
+		4A00DDCA22D48009008462AF /* NotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC922D48009008462AF /* NotiRuleModel.m */; };
+		4A00DDCB22D48009008462AF /* NotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC922D48009008462AF /* NotiRuleModel.m */; };
+		4A00DDCC22D48009008462AF /* NotiRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDC922D48009008462AF /* NotiRuleModel.m */; };
+		4A00DDCF22D487FE008462AF /* RuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDCE22D487FE008462AF /* RuleModel.m */; };
+		4A00DDD022D487FE008462AF /* RuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDCE22D487FE008462AF /* RuleModel.m */; };
+		4A00DDD122D487FE008462AF /* RuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDCE22D487FE008462AF /* RuleModel.m */; };
+		4A00DDD422D48D7E008462AF /* NotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD322D48D7E008462AF /* NotiRuleCell.m */; };
+		4A00DDD522D48D7E008462AF /* NotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD322D48D7E008462AF /* NotiRuleCell.m */; };
+		4A00DDD622D48D7E008462AF /* NotiRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD322D48D7E008462AF /* NotiRuleCell.m */; };
+		4A00DDD922D5886C008462AF /* NotiRuleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD822D5886C008462AF /* NotiRuleListModel.m */; };
+		4A00DDDA22D5886C008462AF /* NotiRuleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD822D5886C008462AF /* NotiRuleListModel.m */; };
+		4A00DDDB22D5886C008462AF /* NotiRuleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDD822D5886C008462AF /* NotiRuleListModel.m */; };
+		4A00DDDE22D5BA27008462AF /* TagViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDDD22D5BA27008462AF /* TagViewCell.m */; };
+		4A00DDDF22D5BA27008462AF /* TagViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDDD22D5BA27008462AF /* TagViewCell.m */; };
+		4A00DDE022D5BA27008462AF /* TagViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DDDD22D5BA27008462AF /* TagViewCell.m */; };
+		4A00DE0622D6D6B7008462AF /* NoticeTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0522D6D6B7008462AF /* NoticeTimeVC.m */; };
+		4A00DE0722D6D6B7008462AF /* NoticeTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0522D6D6B7008462AF /* NoticeTimeVC.m */; };
+		4A00DE0822D6D6B7008462AF /* NoticeTimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0522D6D6B7008462AF /* NoticeTimeVC.m */; };
+		4A00DE0B22D6DEA6008462AF /* HYTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0922D6DEA6008462AF /* HYTimePickerView.m */; };
+		4A00DE0C22D6DEA6008462AF /* HYTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0922D6DEA6008462AF /* HYTimePickerView.m */; };
+		4A00DE0D22D6DEA6008462AF /* HYTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0922D6DEA6008462AF /* HYTimePickerView.m */; };
+		4A00DE1022D87581008462AF /* SelectSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0F22D87581008462AF /* SelectSourceCell.m */; };
+		4A00DE1122D87581008462AF /* SelectSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0F22D87581008462AF /* SelectSourceCell.m */; };
+		4A00DE1222D87581008462AF /* SelectSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE0F22D87581008462AF /* SelectSourceCell.m */; };
+		4A00DE1522D87D4C008462AF /* MultipleSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1422D87D4C008462AF /* MultipleSelectCell.m */; };
+		4A00DE1622D87D4C008462AF /* MultipleSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1422D87D4C008462AF /* MultipleSelectCell.m */; };
+		4A00DE1722D87D4C008462AF /* MultipleSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1422D87D4C008462AF /* MultipleSelectCell.m */; };
+		4A00DE1A22D87DB7008462AF /* MultipleSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */; };
+		4A00DE1B22D87DB7008462AF /* MultipleSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */; };
+		4A00DE1C22D87DB7008462AF /* MultipleSelectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */; };
+		4A00DE1F22D8A754008462AF /* MoreRuleLinkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1E22D8A754008462AF /* MoreRuleLinkVC.m */; };
+		4A00DE2022D8A754008462AF /* MoreRuleLinkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1E22D8A754008462AF /* MoreRuleLinkVC.m */; };
+		4A00DE2122D8A754008462AF /* MoreRuleLinkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE1E22D8A754008462AF /* MoreRuleLinkVC.m */; };
+		4A00DE2422D8AC81008462AF /* MoreRuleLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */; };
+		4A00DE2522D8AC81008462AF /* MoreRuleLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */; };
+		4A00DE2622D8AC81008462AF /* MoreRuleLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */; };
+		4A00DE2922D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2822D8ADB0008462AF /* MoreRuleBtnCell.m */; };
+		4A00DE2A22D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2822D8ADB0008462AF /* MoreRuleBtnCell.m */; };
+		4A00DE2B22D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2822D8ADB0008462AF /* MoreRuleBtnCell.m */; };
+		4A00DE2E22DC1AB6008462AF /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */; };
+		4A00DE2F22DC1AB6008462AF /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */; };
+		4A00DE3022DC1AB6008462AF /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */; };
+		4A00DE3322DC449C008462AF /* UtilsConstManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE3222DC449C008462AF /* UtilsConstManager.m */; };
+		4A00DE3422DC449C008462AF /* UtilsConstManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE3222DC449C008462AF /* UtilsConstManager.m */; };
+		4A00DE3522DC449C008462AF /* UtilsConstManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE3222DC449C008462AF /* UtilsConstManager.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
 		4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
 		4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
@@ -201,9 +264,6 @@
 		4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
 		4A092C9E2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
 		4A092C9F2226B14600FB2A35 /* CreateSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */; };
-		4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA12227804A00FB2A35 /* TeamHeaderView.m */; };
-		4A092CA32227804A00FB2A35 /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA12227804A00FB2A35 /* TeamHeaderView.m */; };
-		4A092CA42227804A00FB2A35 /* TeamHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA12227804A00FB2A35 /* TeamHeaderView.m */; };
 		4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA72227AA7000FB2A35 /* TeamInfoModel.m */; };
 		4A092CA92227AA7000FB2A35 /* TeamInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA72227AA7000FB2A35 /* TeamInfoModel.m */; };
 		4A092CAA2227AA7000FB2A35 /* TeamInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092CA72227AA7000FB2A35 /* TeamInfoModel.m */; };
@@ -1369,6 +1429,48 @@
 		2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ServiceDetailVC+ChangeNavColor.h"; sourceTree = "<group>"; };
 		2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ServiceDetailVC+ChangeNavColor.m"; sourceTree = "<group>"; };
 		39089D5C1AE813F6931AEADE /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		4A00DDA422D2E218008462AF /* NotificationRuleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationRuleVC.h; sourceTree = "<group>"; };
+		4A00DDA522D2E218008462AF /* NotificationRuleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationRuleVC.m; sourceTree = "<group>"; };
+		4A00DDAA22D2EED0008462AF /* AddNotiRuleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNotiRuleVC.h; sourceTree = "<group>"; };
+		4A00DDAB22D2EED0008462AF /* AddNotiRuleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNotiRuleVC.m; sourceTree = "<group>"; };
+		4A00DDAF22D315CA008462AF /* AddNotiRuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNotiRuleCell.h; sourceTree = "<group>"; };
+		4A00DDB022D315CA008462AF /* AddNotiRuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNotiRuleCell.m; sourceTree = "<group>"; };
+		4A00DDB422D326AC008462AF /* AddNotiRuleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNotiRuleModel.h; sourceTree = "<group>"; };
+		4A00DDB522D326AC008462AF /* AddNotiRuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNotiRuleModel.m; sourceTree = "<group>"; };
+		4A00DDB922D43A42008462AF /* SelectConditionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectConditionVC.h; sourceTree = "<group>"; };
+		4A00DDBA22D43A42008462AF /* SelectConditionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectConditionVC.m; sourceTree = "<group>"; };
+		4A00DDC322D463A0008462AF /* SelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectVC.h; sourceTree = "<group>"; };
+		4A00DDC422D463A0008462AF /* SelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectVC.m; sourceTree = "<group>"; };
+		4A00DDC822D48009008462AF /* NotiRuleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotiRuleModel.h; sourceTree = "<group>"; };
+		4A00DDC922D48009008462AF /* NotiRuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotiRuleModel.m; sourceTree = "<group>"; };
+		4A00DDCD22D487FE008462AF /* RuleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuleModel.h; sourceTree = "<group>"; };
+		4A00DDCE22D487FE008462AF /* RuleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuleModel.m; sourceTree = "<group>"; };
+		4A00DDD222D48D7E008462AF /* NotiRuleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotiRuleCell.h; sourceTree = "<group>"; };
+		4A00DDD322D48D7E008462AF /* NotiRuleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotiRuleCell.m; sourceTree = "<group>"; };
+		4A00DDD722D5886C008462AF /* NotiRuleListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotiRuleListModel.h; sourceTree = "<group>"; };
+		4A00DDD822D5886C008462AF /* NotiRuleListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotiRuleListModel.m; sourceTree = "<group>"; };
+		4A00DDDC22D5BA27008462AF /* TagViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewCell.h; sourceTree = "<group>"; };
+		4A00DDDD22D5BA27008462AF /* TagViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewCell.m; sourceTree = "<group>"; };
+		4A00DE0422D6D6B7008462AF /* NoticeTimeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeTimeVC.h; sourceTree = "<group>"; };
+		4A00DE0522D6D6B7008462AF /* NoticeTimeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeTimeVC.m; sourceTree = "<group>"; };
+		4A00DE0922D6DEA6008462AF /* HYTimePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYTimePickerView.m; sourceTree = "<group>"; };
+		4A00DE0A22D6DEA6008462AF /* HYTimePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYTimePickerView.h; sourceTree = "<group>"; };
+		4A00DE0E22D87581008462AF /* SelectSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectSourceCell.h; sourceTree = "<group>"; };
+		4A00DE0F22D87581008462AF /* SelectSourceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectSourceCell.m; sourceTree = "<group>"; };
+		4A00DE1322D87D4C008462AF /* MultipleSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultipleSelectCell.h; sourceTree = "<group>"; };
+		4A00DE1422D87D4C008462AF /* MultipleSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipleSelectCell.m; sourceTree = "<group>"; };
+		4A00DE1822D87DB7008462AF /* MultipleSelectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultipleSelectModel.h; sourceTree = "<group>"; };
+		4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipleSelectModel.m; sourceTree = "<group>"; };
+		4A00DE1D22D8A754008462AF /* MoreRuleLinkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreRuleLinkVC.h; sourceTree = "<group>"; };
+		4A00DE1E22D8A754008462AF /* MoreRuleLinkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreRuleLinkVC.m; sourceTree = "<group>"; };
+		4A00DE2222D8AC81008462AF /* MoreRuleLinkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreRuleLinkCell.h; sourceTree = "<group>"; };
+		4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreRuleLinkCell.m; sourceTree = "<group>"; };
+		4A00DE2722D8ADB0008462AF /* MoreRuleBtnCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreRuleBtnCell.h; sourceTree = "<group>"; };
+		4A00DE2822D8ADB0008462AF /* MoreRuleBtnCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreRuleBtnCell.m; sourceTree = "<group>"; };
+		4A00DE2C22DC1AB6008462AF /* TeamHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamHeaderView.h; sourceTree = "<group>"; };
+		4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamHeaderView.m; sourceTree = "<group>"; };
+		4A00DE3122DC449C008462AF /* UtilsConstManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsConstManager.h; sourceTree = "<group>"; };
+		4A00DE3222DC449C008462AF /* UtilsConstManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilsConstManager.m; sourceTree = "<group>"; };
 		4A092C6422241B3800FB2A35 /* PasswordVerifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordVerifyVC.h; sourceTree = "<group>"; };
 		4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifyVC.m; sourceTree = "<group>"; };
 		4A092C672224D79100FB2A35 /* ClearCacheTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearCacheTool.h; sourceTree = "<group>"; };
@@ -1387,8 +1489,6 @@
 		4A092C9722268D7300FB2A35 /* ChooseTradesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseTradesVC.m; sourceTree = "<group>"; };
 		4A092C9B2226B14600FB2A35 /* CreateSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSuccessVC.h; sourceTree = "<group>"; };
 		4A092C9C2226B14600FB2A35 /* CreateSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSuccessVC.m; sourceTree = "<group>"; };
-		4A092CA02227804A00FB2A35 /* TeamHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamHeaderView.h; sourceTree = "<group>"; };
-		4A092CA12227804A00FB2A35 /* TeamHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamHeaderView.m; sourceTree = "<group>"; };
 		4A092CA62227AA7000FB2A35 /* TeamInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamInfoModel.h; sourceTree = "<group>"; };
 		4A092CA72227AA7000FB2A35 /* TeamInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamInfoModel.m; sourceTree = "<group>"; };
 		4A092CAB2227BD3900FB2A35 /* InviteMembersVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteMembersVC.h; sourceTree = "<group>"; };
@@ -2236,6 +2336,18 @@
 				2BD421072278575C009E854A /* EditBeizhuVC.h */,
 				2BD421082278575C009E854A /* EditBeizhuVC.m */,
 				2BD421092278575C009E854A /* EditBeizhuVC.xib */,
+				4A00DDA422D2E218008462AF /* NotificationRuleVC.h */,
+				4A00DDA522D2E218008462AF /* NotificationRuleVC.m */,
+				4A00DDAA22D2EED0008462AF /* AddNotiRuleVC.h */,
+				4A00DDAB22D2EED0008462AF /* AddNotiRuleVC.m */,
+				4A00DDB922D43A42008462AF /* SelectConditionVC.h */,
+				4A00DDBA22D43A42008462AF /* SelectConditionVC.m */,
+				4A00DDC322D463A0008462AF /* SelectVC.h */,
+				4A00DDC422D463A0008462AF /* SelectVC.m */,
+				4A00DE0422D6D6B7008462AF /* NoticeTimeVC.h */,
+				4A00DE0522D6D6B7008462AF /* NoticeTimeVC.m */,
+				4A00DE1D22D8A754008462AF /* MoreRuleLinkVC.h */,
+				4A00DE1E22D8A754008462AF /* MoreRuleLinkVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2243,14 +2355,14 @@
 		4A092C8B222661BF00FB2A35 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4A00DE0A22D6DEA6008462AF /* HYTimePickerView.h */,
+				4A00DE0922D6DEA6008462AF /* HYTimePickerView.m */,
 				4A092C8C2226620100FB2A35 /* DistrictCell.h */,
 				4A092C8D2226620100FB2A35 /* DistrictCell.m */,
 				2BD42114227966BE009E854A /* ZTChangeTeamNavView.h */,
 				2BD42113227966BE009E854A /* ZTChangeTeamNavView.m */,
 				4A092C9122266C6700FB2A35 /* CityCell.h */,
 				4A092C9222266C6700FB2A35 /* CityCell.m */,
-				4A092CA02227804A00FB2A35 /* TeamHeaderView.h */,
-				4A092CA12227804A00FB2A35 /* TeamHeaderView.m */,
 				4A092CB52227BE5300FB2A35 /* InviteCardView.h */,
 				4A092CB62227BE5300FB2A35 /* InviteCardView.m */,
 				4A092CCE2228D67D00FB2A35 /* TeamMemberCell.h */,
@@ -2263,6 +2375,22 @@
 				2BD42123227A8669009E854A /* ZTTeamProductCell.xib */,
 				2BD42133227D4207009E854A /* ZTBuChongTeamInfoUIManager.h */,
 				2BD42134227D4207009E854A /* ZTBuChongTeamInfoUIManager.m */,
+				4A00DDAF22D315CA008462AF /* AddNotiRuleCell.h */,
+				4A00DDB022D315CA008462AF /* AddNotiRuleCell.m */,
+				4A00DDD222D48D7E008462AF /* NotiRuleCell.h */,
+				4A00DDD322D48D7E008462AF /* NotiRuleCell.m */,
+				4A00DDDC22D5BA27008462AF /* TagViewCell.h */,
+				4A00DDDD22D5BA27008462AF /* TagViewCell.m */,
+				4A00DE2722D8ADB0008462AF /* MoreRuleBtnCell.h */,
+				4A00DE2822D8ADB0008462AF /* MoreRuleBtnCell.m */,
+				4A00DE0E22D87581008462AF /* SelectSourceCell.h */,
+				4A00DE0F22D87581008462AF /* SelectSourceCell.m */,
+				4A00DE1322D87D4C008462AF /* MultipleSelectCell.h */,
+				4A00DE1422D87D4C008462AF /* MultipleSelectCell.m */,
+				4A00DE2222D8AC81008462AF /* MoreRuleLinkCell.h */,
+				4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */,
+				4A00DE2C22DC1AB6008462AF /* TeamHeaderView.h */,
+				4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2280,6 +2408,16 @@
 				2B79D1062275AD6C00D14902 /* ZTCreateTeamConfig.m */,
 				4AF663BB2265DE6600E551B9 /* TeamTF.h */,
 				4AF663BC2265DE6600E551B9 /* TeamTF.m */,
+				4A00DDB422D326AC008462AF /* AddNotiRuleModel.h */,
+				4A00DDB522D326AC008462AF /* AddNotiRuleModel.m */,
+				4A00DDC822D48009008462AF /* NotiRuleModel.h */,
+				4A00DDC922D48009008462AF /* NotiRuleModel.m */,
+				4A00DDCD22D487FE008462AF /* RuleModel.h */,
+				4A00DDCE22D487FE008462AF /* RuleModel.m */,
+				4A00DDD722D5886C008462AF /* NotiRuleListModel.h */,
+				4A00DDD822D5886C008462AF /* NotiRuleListModel.m */,
+				4A00DE1822D87DB7008462AF /* MultipleSelectModel.h */,
+				4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2835,6 +2973,8 @@
 				6B6E24DE691DA564CD398535 /* ZhugeIO */,
 				6B6E264F8ABB58970A07936D /* HeartBeatManager.m */,
 				6B6E2224F185D1FD61F47E08 /* HeartBeatManager.h */,
+				4A00DE3122DC449C008462AF /* UtilsConstManager.h */,
+				4A00DE3222DC449C008462AF /* UtilsConstManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -3073,16 +3213,16 @@
 				6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */,
 				4A759A8622489C330057BD02 /* CreateQuestionModel.h */,
 				4A759A8722489C330057BD02 /* CreateQuestionModel.m */,
-				6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */,
 				6B6E24481601F546E06BB546 /* CarrierItemModel.h */,
-				6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */,
+				6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */,
 				6B6E248CE399BB4C2495D1F0 /* IssueSourceModel.h */,
-				6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */,
+				6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */,
 				6B6E2DFBB81F2190ED5BA9D7 /* IssueSourceListModel.h */,
-				6B6E270F54D0301125C8BF69 /* IssueListModel.m */,
+				6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */,
 				6B6E20E3ACBEC20ECB30944C /* IssueListModel.h */,
-				6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */,
+				6B6E270F54D0301125C8BF69 /* IssueListModel.m */,
 				6B6E2850FD8D3D168D36347B /* IssueLogListModel.h */,
+				6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */,
 				6B6E2509D7E531858F7A4058 /* AddIssueLogReturnModel.h */,
 				6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */,
 				4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */,
@@ -4330,6 +4470,7 @@
 				4ABF43B721B8BACE002AF34E /* LongPressControl.m in Sources */,
 				4ABF44D021C20090002AF34E /* NSString+verify.m in Sources */,
 				2BF9F78322702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
+				4A00DE2922D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */,
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
 				4ABF44A221C0FD7E002AF34E,
@@ -4348,6 +4489,7 @@
 				2B79D1072275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
 				4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */,
 				4AB48A3221F9A93A009F9E94 /* IssueBoardModel.m in Sources */,
+				4A00DDC522D463A0008462AF /* SelectVC.m in Sources */,
 				4A092D86222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */,
 				4AB48A3521F9B26A009F9E94 /* IssueSourceViewModel.m in Sources */,
@@ -4357,6 +4499,7 @@
 				4A7599B0223FB0370057BD02 /* text.swift in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
 				4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
+				4A00DE1022D87581008462AF /* SelectSourceCell.m in Sources */,
 				4AC21FC8228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
@@ -4373,9 +4516,11 @@
 				2BF9F79F22707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
 				4A092CA82227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4A759ACF224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
+				4A00DDCA22D48009008462AF /* NotiRuleModel.m in Sources */,
 				4AC21FCD228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
+				4A00DDB122D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				4A3CDA65229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
@@ -4392,6 +4537,7 @@
 				4AC857CD223D1A2100DAE1F6 /* OrderListModel.m in Sources */,
 				4A092D9F222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A759ADA224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
+				4A00DE2E22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4A092D61222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
@@ -4422,20 +4568,22 @@
 				4AB48AE9221D4AE9009F9E94 /* FeedbackVC.m in Sources */,
 				2BD42135227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
 				4AC857B4223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
+				4A00DE1F22D8A754008462AF /* MoreRuleLinkVC.m in Sources */,
 				4AB48AE4221A8C16009F9E94 /* ChangeCardItem.m in Sources */,
 				4AC857132232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2B3A44AF2271B8680059761E /* ZYChangeTeamCell.m in Sources */,
 				4AC22002228D3DA80098848C /* ZTPopCommentView.m in Sources */,
 				4A092CFA2229294A00FB2A35 /* MGSwipeButton.m in Sources */,
 				4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */,
-				4A092CA22227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
+				4A00DDB622D326AC008462AF /* AddNotiRuleModel.m in Sources */,
 				4AA4CF2D228962A400A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD2228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A47137D22B1EB9500EB90F7 /* AssignView.m in Sources */,
+				4A00DDDE22D5BA27008462AF /* TagViewCell.m in Sources */,
 				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
@@ -4452,29 +4600,37 @@
 				4A759AB6224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				2BD42115227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
 				4A092D09222A34A000FB2A35 /* ServiceLogVC.m in Sources */,
+				4A00DDBB22D43A42008462AF /* SelectConditionVC.m in Sources */,
 				4A759AB1224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B82265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137822B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A092C9322266C6700FB2A35 /* CityCell.m in Sources */,
 				4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */,
+				4A00DDD922D5886C008462AF /* NotiRuleListModel.m in Sources */,
 				4AB48A7D21FC4741009F9E94 /* PPBadgeControl.m in Sources */,
+				4A00DDA622D2E218008462AF /* NotificationRuleVC.m in Sources */,
 				4AC8574B2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
+				4A00DE0622D6D6B7008462AF /* NoticeTimeVC.m in Sources */,
 				4A3CDA86229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
+				4A00DDCF22D487FE008462AF /* RuleModel.m in Sources */,
 				4AA4CF322289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
+				4A00DE0B22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
 				4AC856F4223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4ABF43B621B8BACE002AF34E /* LibraryDraggableLibraryView.m in Sources */,
 				4ABF43BD21B8BACE002AF34E /* PWGridView.m in Sources */,
 				4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */,
+				4A00DDD422D48D7E008462AF /* NotiRuleCell.m in Sources */,
 				4A3CDA9A229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
 				4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */,
 				4AC857F2223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
+				4A00DDAC22D2EED0008462AF /* AddNotiRuleVC.m in Sources */,
 				4AC857AF223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */,
 				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
@@ -4491,6 +4647,7 @@
 				4AD5569222B742F6003B49FE /* LoginPWVC.m in Sources */,
 				4AC8575A22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */,
+				4A00DE1522D87D4C008462AF /* MultipleSelectCell.m in Sources */,
 				4AD5569722B7790F003B49FE /* RegisterVC.m in Sources */,
 				4AF663A6225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4AC856FA223147A300DAE1F6 /* UITableView+SCIndexView.m in Sources */,
@@ -4511,6 +4668,7 @@
 				4AF663BD2265DE6600E551B9 /* TeamTF.m in Sources */,
 				4A61149E21DF6DA400E4138B /* ChangePasswordVC.m in Sources */,
 				4A7C4B1521C282DA007730E6 /* iToast.m in Sources */,
+				4A00DE3322DC449C008462AF /* UtilsConstManager.m in Sources */,
 				4AC856E622311E3800DAE1F6 /* HandbookCell.m in Sources */,
 				4A3CDA95229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569C22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
@@ -4600,6 +4758,8 @@
 				6B6E2284726714D0C5C3FE6E /* HostDiagnosisVC.m in Sources */,
 				6B6E2BA296214B3B7AC6116B /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A3225F747600E551B9 /* SVProgressHUD.m in Sources */,
+				4A00DE1A22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
+				4A00DE2422D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */,
 				6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
@@ -4650,7 +4810,6 @@
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
-				4A092CA32227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8C222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F8223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA0222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
@@ -4703,6 +4862,7 @@
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
 				4A3CDA51229C095800C2EC62 /* LTSCalendarManager.m in Sources */,
 				CA1CF59D221ECB3A00D15316 /* LongPressControl.m in Sources */,
+				4A00DE2A22D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */,
 				4AC857B5223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				2BF9F78422702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B1223FB0370057BD02 /* text.swift in Sources */,
@@ -4721,6 +4881,7 @@
 				4A759AA3224A2D700057BD02 /* IssueTf.m in Sources */,
 				CA1CF5A1221ECB3A00D15316 /* IssueListViewModel.m in Sources */,
 				2B79D1082275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
+				4A00DDC622D463A0008462AF /* SelectVC.m in Sources */,
 				CA1CF5A2221ECB3A00D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB82227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				CA1CF5A3221ECB3A00D15316 /* PWCustomLabel.m in Sources */,
@@ -4730,6 +4891,7 @@
 				4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
+				4A00DE1122D87581008462AF /* SelectSourceCell.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FC9228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
@@ -4746,9 +4908,11 @@
 				CA1CF5AA221ECB3A00D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC29225494AD00BAC47A /* FounctionIntroCell.m in Sources */,
 				2BF9F7A022707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
+				4A00DDCB22D48009008462AF /* NotiRuleModel.m in Sources */,
 				CA49D23722201003000F6258 /* WebItemView.m in Sources */,
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCE228BB5590098848C /* IssueUserDetailView.m in Sources */,
+				4A00DDB222D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4AC857F3223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -4766,6 +4930,7 @@
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
+				4A00DE2F22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4E222D310000FB2A35 /* MineMessageVC.m in Sources */,
@@ -4795,6 +4960,7 @@
 				4A47136F22AE729F00EB90F7 /* SelectObject.m in Sources */,
 				4AC85719223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				2BD42136227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
+				4A00DE2022D8A754008462AF /* MoreRuleLinkVC.m in Sources */,
 				4A092C8822263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE5224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF5BF221ECB3A00D15316 /* PWNetworking+RequestManager.m in Sources */,
@@ -4803,12 +4969,14 @@
 				CA1CF5C0221ECB3A00D15316 /* TeamVC.m in Sources */,
 				4A47138822B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
+				4A00DDB722D326AC008462AF /* AddNotiRuleModel.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2E228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD3228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
 				4A092D05222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
+				4A00DDDF22D5BA27008462AF /* TagViewCell.m in Sources */,
 				4A47137E22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
@@ -4825,29 +4993,37 @@
 				4A3A137122806CFE00098DFA /* ReadUnreadListVC.m in Sources */,
 				4AC857142232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2BD42116227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
+				4A00DDBC22D43A42008462AF /* SelectConditionVC.m in Sources */,
 				4A759AB7224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB2224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B92265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137922B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
 				4A092DC4222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
+				4A00DDDA22D5886C008462AF /* NotiRuleListModel.m in Sources */,
 				CA1CF5CC221ECB3A00D15316 /* TADotView.m in Sources */,
+				4A00DDA722D2E218008462AF /* NotificationRuleVC.m in Sources */,
 				4A092D87222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF5CD221ECB3A00D15316 /* PWWeakProxy.m in Sources */,
+				4A00DE0722D6D6B7008462AF /* NoticeTimeVC.m in Sources */,
 				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A3CDA87229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
+				4A00DDD022D487FE008462AF /* RuleModel.m in Sources */,
 				2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				4AA4CF332289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
+				4A00DE0C22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
+				4A00DDD522D48D7E008462AF /* NotiRuleCell.m in Sources */,
 				CA1CF5D5221ECB3A00D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9B229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
 				CA1CF5D6221ECB3A00D15316 /* PWGridView.m in Sources */,
+				4A00DDAD22D2EED0008462AF /* AddNotiRuleVC.m in Sources */,
 				4AC8575B22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF5D7221ECB3A00D15316 /* AppDelegate.m in Sources */,
 				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
@@ -4864,6 +5040,7 @@
 				4AD5569322B742F6003B49FE /* LoginPWVC.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
+				4A00DE1622D87D4C008462AF /* MultipleSelectCell.m in Sources */,
 				4AD5569822B7790F003B49FE /* RegisterVC.m in Sources */,
 				4AF663A7225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4A092CAE2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
@@ -4884,6 +5061,7 @@
 				4AF663BE2265DE6600E551B9 /* TeamTF.m in Sources */,
 				CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */,
+				4A00DE3422DC449C008462AF /* UtilsConstManager.m in Sources */,
 				CAD9CAC22243EBF00063ABFF /* PasswordVerifyVC.m in Sources */,
 				4A3CDA96229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569D22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
@@ -4973,6 +5151,8 @@
 				6B6E2096165EA44EBEF7A40B /* HostDiagnosisVC.m in Sources */,
 				6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A4225F747600E551B9 /* SVProgressHUD.m in Sources */,
+				4A00DE1B22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
+				4A00DE2522D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E208E675F7914200AD103 /* IssueSourceHelperVC.m in Sources */,
 				6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
@@ -5023,7 +5203,6 @@
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
-				4A092CA42227804A00FB2A35 /* TeamHeaderView.m in Sources */,
 				4A092D8D222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F9223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA1222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
@@ -5076,6 +5255,7 @@
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
 				4A3CDA52229C095800C2EC62 /* LTSCalendarManager.m in Sources */,
 				CA1CF642221ECB5000D15316 /* LongPressControl.m in Sources */,
+				4A00DE2B22D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */,
 				4AC857B6223CD02A00DAE1F6 /* IssueAttachmentModel.m in Sources */,
 				2BF9F78522702F2100C9B0C3 /* OrderStatusModel.m in Sources */,
 				4A7599B2223FB0370057BD02 /* text.swift in Sources */,
@@ -5094,6 +5274,7 @@
 				4A759AA4224A2D700057BD02 /* IssueTf.m in Sources */,
 				CA1CF646221ECB5000D15316 /* IssueListViewModel.m in Sources */,
 				2B79D1092275AD6C00D14902 /* ZTCreateTeamConfig.m in Sources */,
+				4A00DDC722D463A0008462AF /* SelectVC.m in Sources */,
 				CA1CF647221ECB5000D15316 /* PersonalInfoVC.m in Sources */,
 				4A092CB92227BE5300FB2A35 /* InviteCardView.m in Sources */,
 				CA1CF648221ECB5000D15316 /* PWCustomLabel.m in Sources */,
@@ -5103,6 +5284,7 @@
 				4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
+				4A00DE1222D87581008462AF /* SelectSourceCell.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FCA228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
@@ -5119,9 +5301,11 @@
 				CA1CF64F221ECB5000D15316 /* FindPasswordVC.m in Sources */,
 				2B9ECC2A225494AE00BAC47A /* FounctionIntroCell.m in Sources */,
 				2BF9F7A122707D3A00C9B0C3 /* OrderStatusWithMoneyCell.m in Sources */,
+				4A00DDCC22D48009008462AF /* NotiRuleModel.m in Sources */,
 				CA49D23822201004000F6258 /* WebItemView.m in Sources */,
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCF228BB5590098848C /* IssueUserDetailView.m in Sources */,
+				4A00DDB322D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4AC857F4223F6EAF00DAE1F6 /* BookSuccessVC.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -5139,6 +5323,7 @@
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
+				4A00DE3022DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
 				4A092D4F222D310000FB2A35 /* MineMessageVC.m in Sources */,
@@ -5168,6 +5353,7 @@
 				4A47137022AE729F00EB90F7 /* SelectObject.m in Sources */,
 				4AC8571A223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
 				2BD42137227D4207009E854A /* ZTBuChongTeamInfoUIManager.m in Sources */,
+				4A00DE2122D8A754008462AF /* MoreRuleLinkVC.m in Sources */,
 				4A092C8922263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A759AE6224F38B80057BD02 /* NewsListImageCell.m in Sources */,
 				CA1CF664221ECB5000D15316 /* PWNetworking+RequestManager.m in Sources */,
@@ -5176,12 +5362,14 @@
 				CA1CF665221ECB5000D15316 /* TeamVC.m in Sources */,
 				4A47138922B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
+				4A00DDB822D326AC008462AF /* AddNotiRuleModel.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
 				4AA4CF2F228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD4228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
 				4A092D06222943F500FB2A35 /* ChooseAdminVC.m in Sources */,
+				4A00DDE022D5BA27008462AF /* TagViewCell.m in Sources */,
 				4A47137F22B1EB9600EB90F7 /* AssignView.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
@@ -5198,29 +5386,37 @@
 				4A3A137222806CFE00098DFA /* ReadUnreadListVC.m in Sources */,
 				4AC857152232668200DAE1F6 /* HistoryTableView.m in Sources */,
 				2BD42117227966BF009E854A /* ZTChangeTeamNavView.m in Sources */,
+				4A00DDBD22D43A42008462AF /* SelectConditionVC.m in Sources */,
 				4A759AB8224B6E5A0057BD02 /* UIColor+Gradual.m in Sources */,
 				4A759AB3224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663BA2265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137A22B09E1E00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
 				4A092DC5222FC11C00FB2A35 /* VerificationCodeNetWork.m in Sources */,
+				4A00DDDB22D5886C008462AF /* NotiRuleListModel.m in Sources */,
 				CA1CF671221ECB5000D15316 /* TADotView.m in Sources */,
+				4A00DDA822D2E218008462AF /* NotificationRuleVC.m in Sources */,
 				4A092D88222E6D8A00FB2A35 /* PWPhotoPickerViewController.m in Sources */,
 				CA1CF672221ECB5000D15316 /* PWWeakProxy.m in Sources */,
+				4A00DE0822D6D6B7008462AF /* NoticeTimeVC.m in Sources */,
 				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A3CDA88229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
+				4A00DDD122D487FE008462AF /* RuleModel.m in Sources */,
 				2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				4AA4CF342289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
+				4A00DE0D22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
 				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
+				4A00DDD622D48D7E008462AF /* NotiRuleCell.m in Sources */,
 				CA1CF67A221ECB5000D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9C229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
+				4A00DDAE22D2EED0008462AF /* AddNotiRuleVC.m in Sources */,
 				4AC8575C22362C4E00DAE1F6 /* BorderView.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
 				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
@@ -5237,6 +5433,7 @@
 				4AD5569422B742F6003B49FE /* LoginPWVC.m in Sources */,
 				CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */,
 				4A092C6B2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
+				4A00DE1722D87D4C008462AF /* MultipleSelectCell.m in Sources */,
 				4AD5569922B7790F003B49FE /* RegisterVC.m in Sources */,
 				4AF663A8225F747600E551B9 /* SVIndefiniteAnimatedView.m in Sources */,
 				4A092CAF2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
@@ -5257,6 +5454,7 @@
 				4AF663BF2265DE6600E551B9 /* TeamTF.m in Sources */,
 				CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */,
+				4A00DE3522DC449C008462AF /* UtilsConstManager.m in Sources */,
 				CAD9CAC32243EBF10063ABFF /* PasswordVerifyVC.m in Sources */,
 				4A3CDA97229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569E22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
@@ -5346,6 +5544,8 @@
 				6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */,
 				6B6E212F7577BC8116AFB13A /* ClusterDiagnosisVC.m in Sources */,
 				4AF663A5225F747600E551B9 /* SVProgressHUD.m in Sources */,
+				4A00DE1C22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
+				4A00DE2622D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */,
 				6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,

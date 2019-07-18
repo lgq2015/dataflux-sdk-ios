@@ -184,7 +184,7 @@
 }
 -(UILabel *)passwordTipLab{
     if (!_passwordTipLab) {
-        _passwordTipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#F6584C"] text:@"密码为8-15位，至少包含字母、数字、符号中的两种"];
+        _passwordTipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#F6584C"] text:NSLocalizedString(@"tip.correctPasswordFormat", @"")];
         _passwordTipLab.hidden = YES;
         [self.view addSubview:_passwordTipLab];
     }
@@ -210,7 +210,7 @@
 }
 -(UIButton *)registerBtn{
     if (!_registerBtn) {
-        _registerBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"注册"];
+        _registerBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"login.register", @"")];
         [_registerBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_registerBtn];
     }
@@ -248,7 +248,7 @@
 }
 -(TTTAttributedLabel *)agreementLab{
     if (!_agreementLab) {
-        NSString *linkText = @"《服务协议》";
+        NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
         NSString *linkText2 = @"《隐私权政策》";
         NSString *promptText = @"同意《服务协议》与《隐私权政策》";
         NSRange linkRange = [promptText rangeOfString:linkText];
@@ -274,7 +274,7 @@
 #pragma mark ========== TTTAttributedLabelDelegate ==========
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
-    NSString *title = @"服务协议";
+    NSString *title = NSLocalizedString(@"local.serviceAgreement", @"");
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
         title = @"隐私权政策";
     }
@@ -420,7 +420,7 @@
         }];
        
     }else{
-        [iToast alertWithTitleCenter:@"请输入正确的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
     }
 
 }

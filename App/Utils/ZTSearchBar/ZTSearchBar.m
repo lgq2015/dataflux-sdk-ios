@@ -88,7 +88,7 @@
 - (UIButton *)cancelBtn{
     if (!_cancelBtn){
         _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelBtn setTitle:NSLocalizedString(@"local.cancel", @"") forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [_cancelBtn setTitleColor:[UIColor colorWithHexString:@"#027DFB"] forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(cancelClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -111,7 +111,7 @@
 - (void)exitBtnClick{
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定退出登录吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultCancel] track];
     }];
     UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -148,7 +148,7 @@
         }];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
         __block MineViewCell *cell = (MineViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             [cell setSwitchBtnisOn:YES];
         }];
         [alert addAction:confirm];
@@ -210,8 +210,8 @@
 
             [[[ZhugeIOMineHelper new] eventClearCache] track];
         }];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
         }];
         [cleanAlert addAction:confirm];
         [cleanAlert addAction:cancle];

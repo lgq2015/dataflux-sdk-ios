@@ -9,7 +9,7 @@
 @implementation NSString (ErrorCode)
 
 - (NSString *)toErrString {
-    return NSLocalizedString(self, nil);
+    return [NSLocalizedString(self, nil) isEqualToString:self]?@"服务器正忙，请稍后重试":NSLocalizedString(self, nil);
 }
 
 @end

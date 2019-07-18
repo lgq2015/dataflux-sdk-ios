@@ -566,14 +566,15 @@
             break;
 
     }
-    switch (sel.issueViewType) {
-        case IssueViewTypeNormal:
-            statesStr =@"needAttention = true AND status = 'created'";
-            break;
-        case IssueViewTypeAll:
-            statesStr = @"";
-            break;
-    }
+//    switch (sel.issueViewType) {
+//        case IssueViewTypeNormal:
+//            statesStr =@"needAttention = true AND status = 'created'";
+//            break;
+//        case IssueViewTypeAll:
+//            statesStr = @"";
+//            break;
+//    }
+     statesStr =@"status = 'created'";
     switch (sel.issueFrom) {
         case IssueFromMe:
             fromMeStr = [NSString stringWithFormat:@"watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID];
@@ -589,7 +590,7 @@
         __block NSString *appendStr= @"";
         NSArray *formatStr ;
         if (fromMeStr.length>0) {
-          formatStr = @[typeStr,levelStr,fromMeStr];
+          formatStr = @[statesStr,typeStr,levelStr,fromMeStr];
         }else{
           formatStr = @[statesStr,typeStr,levelStr];
         }
