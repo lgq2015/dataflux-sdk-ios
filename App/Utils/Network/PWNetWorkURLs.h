@@ -162,6 +162,15 @@
 #define PW_Calendar_count             API_SEVERID@"/v1/issue/log/count"
 //日历上对应区间情报列表
 #define PW_Calendar_list              API_SEVERID@"/v1/issue/log/keypoint/list"
+//总情报
+#define PW_General_list               API_SEVERID@"/v1/issue/general-list"
+//情报日志列表
+#define PW_IssueLog_list              API_SEVERID@"/v1/issue/log/list"
+//分组统计情报日志数量
+#define PW_IssueLog_count             API_SEVERID@"/v1/issue/log/count-by-group"
+//分组统计总情报数量
+#define PW_General_count              API_SEVERID@"/v1/issue/general-count-by-group"
+
 #pragma mark ========== 智库 ==========
 //文章详情链接：
 #define PW_articleDetails(ID) [NSString stringWithFormat:@"%@/forum/a/%@",API_H5_HOST,ID]
