@@ -13,13 +13,17 @@
 #import "TeamInfoModel.h"
 #import "EditBeizhuVC.h"
 #import "NSString+Regex.h"
+#define phoneViewTag 35
 @interface MemberInfoVC ()
-@property (nonatomic, strong) UIImageView *headerIcon;
+@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UILabel *subTitleLab;
 @property (nonatomic, strong) UILabel *memberName;
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) UIButton *beizhuBtn;
 @property (nonatomic, strong) UIButton *noteNameBtn;
+@property (nonatomic, strong) UILabel *phoneLab;
+@property (nonatomic, strong) UILabel *emailLab;
+@property (nonatomic, strong) UIButton *callBtn;
 @end
 
 @implementation MemberInfoVC
@@ -27,51 +31,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    self.isShowWhiteBack = YES;
-    [self.topNavBar clearNavBarBackgroundColor];
-    self.headerIcon.userInteractionEnabled = YES;
 }
 - (void)createUI{
-    self.view.backgroundColor = PWWhiteColor;
-    self.headerIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(330))];
-    self.headerIcon.image = [UIImage imageNamed:@"team_header"];
-    
-    [self.view addSubview:self.headerIcon];
-    
-   
+    self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(169)+kTopHeight-64)];
+    self.headerView.backgroundColor = PWWhiteColor;
+    [self.view addSubview:self.headerView];
+    [self.view sendSubviewToBack:self.headerView];
+    self.topNavBar.backgroundColor = PWWhiteColor;
     [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.view).offset(kTopHeight);
-        make.width.height.offset(ZOOM_SCALE(110));
+        make.bottom.mas_equalTo(self.headerView).offset(-ZOOM_SCALE(21));
+        make.width.height.offset(ZOOM_SCALE(70));
+        make.left.mas_equalTo(self.view).offset(Interval(16));
     }];
     //对成员名称的位置做处理
-    NSString  *titleName = self.model.name;
-    CGFloat memberNameW = [self getMemberNameWidth:titleName withFont:MediumFONT(16)];
-    CGFloat memberLabLeft = 0.0;
-    //如果点击了管理员或专家
-    if (self.model.isAdmin || self.model.isSpecialist){
-        memberLabLeft = (self.view.width - memberNameW - 10 - ZOOM_SCALE(46)) * 0.5;
-    }else{
-        memberLabLeft = (self.view.width - memberNameW) * 0.5;
-    }
+    
     
     [self.memberName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.iconImgView.mas_bottom).offset(Interval(5));
-        make.height.offset(ZOOM_SCALE(22));
-        make.left.equalTo(@(memberLabLeft));
+        make.top.mas_equalTo(self.iconImgView.mas_top).offset(Interval(6));
+        make.height.offset(ZOOM_SCALE(25));
+        make.left.mas_equalTo(self.iconImgView.mas_right).offset(16);
     }];
     [self.subTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.memberName.mas_right).offset(10);
+        make.left.mas_equalTo(self.memberName.mas_right).offset(16);
         make.centerY.equalTo(self.memberName.mas_centerY);
         make.width.equalTo(@(ZOOM_SCALE(46)));
         make.height.equalTo(@(ZOOM_SCALE(18)));
     }];
+    [self.beizhuBtn sizeToFit];
+    CGFloat width = self.beizhuBtn.frame.size.width+20+ZOOM_SCALE(14);
     [self.beizhuBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.memberName.mas_bottom).offset(17);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.width.equalTo(self.view);
-        make.height.equalTo(@30);
+        make.top.equalTo(self.memberName.mas_bottom).offset(8);
+        make.left.mas_equalTo(self.memberName);
+        make.width.offset(width);
+        make.height.offset(ZOOM_SCALE(22));
     }];
+    UIView *email = [self createEmailView];
+    [email mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.width.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.headerView.mas_bottom).offset(12);
+        make.height.offset(ZOOM_SCALE(42)+23);
+    }];
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#DDDDDD"];
+    [self.view addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.width.mas_equalTo(self.view);
+        make.height.offset(SINGLE_LINE_WIDTH);
+        make.top.mas_equalTo(email.mas_bottom);
+    }];
+    UIView *phone = [self createPhoneView];
+    phone.tag = phoneViewTag;
+    [phone mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.width.mas_equalTo(self.view);
+        make.top.mas_equalTo(line.mas_bottom);
+        make.height.offset(ZOOM_SCALE(42)+23);
+    }];
+    self.phoneLab.text  =[self phoneChange:self.model.mobile];
+    self.emailLab.text = self.model.email;
     switch (self.type) {
         case PWMemberViewTypeTeamMember:{
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
@@ -122,46 +138,27 @@
             break;
     }
     
-    [self.view bringSubviewToFront:self.whiteBackBtn];
 }
 -(void)createBtnExpert{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"400 882 3320"];
-    [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:callPhone];
-    [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(16));
-        make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(30));
-        make.height.offset(ZOOM_SCALE(47));
-    }];
+    self.phoneLab.text = @"400 882 3320";
 }
 - (void)createBtnPhone{
-    UIButton *callPhone = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:[NSString stringWithFormat:@"%@",[self phoneChange:self.model.mobile]]];
-    callPhone.titleLabel.font = RegularFONT(18);
-    [callPhone addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:callPhone];
-    [callPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(Interval(36));
-        make.right.mas_equalTo(self.view).offset(-Interval(36));
-        make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(30));
-        make.height.offset(ZOOM_SCALE(44));
-    }];
+   
     if (userManager.teamModel.isAdmin) {
+        UIView *phone = [self.view viewWithTag:phoneViewTag];
         UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
         [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
-        [delectTeam setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
+        [delectTeam setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateNormal];
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:delectTeam];
         [delectTeam mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.view).offset(Interval(36));
             make.right.mas_equalTo(self.view).offset(-Interval(36));
-            make.top.mas_equalTo(callPhone.mas_bottom).offset(Interval(20));
+            make.top.mas_equalTo(phone.mas_bottom).offset(Interval(20));
             make.height.offset(ZOOM_SCALE(44));
         }];
     }
 
-    BOOL visible = self.model.mobile.length>0;
-    callPhone.hidden = !visible;
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
@@ -170,19 +167,26 @@
         _iconImgView.layer.cornerRadius = ZOOM_SCALE(55);
         _iconImgView.layer.masksToBounds = YES;
         _iconImgView.contentMode =  UIViewContentModeScaleAspectFill;
-        [self.headerIcon addSubview:_iconImgView];
+        [self.headerView addSubview:_iconImgView];
     }
     return _iconImgView;
 }
 -(UILabel *)memberName{
     if (!_memberName) {
-       _memberName = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:PWWhiteColor text:@""];
-        _memberName.textAlignment = NSTextAlignmentCenter;
-        [self.headerIcon addSubview:_memberName];
+        _memberName = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWTextBlackColor text:@""];
+        _memberName.textAlignment = NSTextAlignmentLeft;
+        [self.headerView addSubview:_memberName];
     }
     return _memberName;
 }
-
+-(UIButton *)callBtn{
+    if (!_callBtn) {
+        _callBtn = [[UIButton alloc]init];
+        [_callBtn setImage:[UIImage imageNamed:@"icon_call"] forState:UIControlStateNormal];
+        [_callBtn addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _callBtn;
+}
 
 -(UILabel *)subTitleLab{
     if (!_subTitleLab) {
@@ -192,28 +196,27 @@
         _subTitleLab.layer.cornerRadius = 2;
         _subTitleLab.layer.masksToBounds = YES;
         _subTitleLab.hidden = YES;
-        [self.headerIcon addSubview:_subTitleLab];
+        [self.headerView addSubview:_subTitleLab];
     }
     return _subTitleLab;
 }
 - (UIButton *)beizhuBtn{
     if (!_beizhuBtn){
         _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _beizhuBtn.userInteractionEnabled = YES;
+        _beizhuBtn.backgroundColor = [UIColor colorWithHexString:@"#EEF5FF"];
+        _beizhuBtn.layer.cornerRadius = 11.f;
         CGFloat spacing = 8.0;
-        _beizhuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         if (self.model.inTeamNote.length > 0){
             [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
         }else{
-            [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+            [_beizhuBtn setTitle:@"标签" forState:UIControlStateNormal];
         }
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
         }
-        [_beizhuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _beizhuBtn.titleLabel.font = RegularFONT(14);
-        [_beizhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_beizhuBtn setTitleColor:[UIColor colorWithHexString:@"#595860"] forState:UIControlStateNormal];
+        _beizhuBtn.titleLabel.font = RegularFONT(13);
         [_beizhuBtn sizeToFit];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             CGSize imageSize = _beizhuBtn.imageView.frame.size;
@@ -221,7 +224,7 @@
             CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
             _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
         }
-        [self.headerIcon addSubview:_beizhuBtn];
+        [self.headerView addSubview:_beizhuBtn];
         [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             if ([getTeamState isEqualToString:PW_isPersonal] || self.model.isSpecialist){
@@ -242,25 +245,59 @@
     }
     return _beizhuBtn;
 }
+- (UIView *)createEmailView{
+    UIView *emailView = [[UIView alloc]init];
+    emailView.backgroundColor = PWWhiteColor;
+    [self.view addSubview:emailView];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"邮箱"];
+    [emailView addSubview:tip];
+    self.emailLab = [[UILabel alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
+    self.emailLab.font = RegularFONT(16);
+    self.emailLab.textColor = PWTextBlackColor;
+    [emailView addSubview:self.emailLab];
+    return emailView;
+}
+- (UIView *)createPhoneView{
+    UIView *phoneView = [[UIView alloc]init];
+    phoneView.backgroundColor = PWWhiteColor;
+    [self.view addSubview:phoneView];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"电话"];
+    [phoneView addSubview:tip];
+    self.phoneLab = [[UILabel alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
+    self.phoneLab.font = RegularFONT(16);
+    self.phoneLab.textColor = PWTextBlackColor;
+    [phoneView addSubview:self.phoneLab];
+    [phoneView addSubview:self.callBtn];
+    [self.callBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.offset(ZOOM_SCALE(26));
+        make.right.mas_equalTo(phoneView.mas_right).offset(-24);
+        make.centerY.mas_equalTo(phoneView);
+    }];
+    return phoneView;
+}
 - (void)callPhone{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(btnClickedOperations) object:nil];
     [self performSelector:@selector(btnClickedOperations) withObject:nil afterDelay:0.4];
 }
 - (void)btnClickedOperations{
     NSString *mobile = self.type==PWMemberViewTypeExpert? @"400 882 3320":self.model.mobile;
+    if (mobile == nil ||[mobile isEqualToString:@""]) {
+        return;
+    }
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
 }
 - (void)createBtnTrans{
+    UIView *phone = [self.view viewWithTag:phoneViewTag];
     UIButton *transBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
     [transBtn addTarget:self action:@selector(transBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:transBtn];
     [transBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
         make.right.mas_equalTo(self.view).offset(-Interval(16));
-        make.top.mas_equalTo(self.headerIcon.mas_bottom).offset(Interval(112));
+        make.top.mas_equalTo(phone.mas_bottom).offset(Interval(112));
         make.height.offset(ZOOM_SCALE(47));
     }];
 }
@@ -269,7 +306,6 @@
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSString *uid =self.model.memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-//            [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 [SVProgressHUD showSuccessWithStatus:@"移除成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
