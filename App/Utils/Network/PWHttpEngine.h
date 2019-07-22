@@ -61,7 +61,7 @@
  * @param start  查询日历起始时间
  * @param end    查询日历终止时间
  */
-- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSString *)start EndTime:(NSString *)end callBack:(void (^)(id response))callback;
 /**
  * @param start  查询日历起始时间
  * @param end    查询日历终止时间

@@ -371,15 +371,18 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
-- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end callBack:(void (^)(id))callback{
+- (PWURLSessionTask *)getCalendarDotWithStartTime:(NSString *)start EndTime:(NSString *)end callBack:(void (^)(id))callback{
     CountListModel *model = [CountListModel new];
-    NSDictionary *param = @{@"createDateTs_start":start,
-                            @"createDateTs_end":end,
-                            @"dataMethod":@"between",
-                            @"subType":
-                                @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered"
+    /*
+     createDate_start=2019-06-29T16:00:00.000Z&createDate_end=2019-08-10T16:00:00.000Z&_groupBy=DATE
+     */
+    NSDictionary *param = @{@"createDate_start":start,
+                            @"createDate_end":end,
+                            @"_groupBy":@"DATE",
+                            @"type":
+                                @"keyPoint,bizPoint"
                             };
-    return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_count
+    return [PWNetworking requsetHasTokenWithUrl:PW_IssueLog_count
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
                                           cache:NO
@@ -546,12 +549,12 @@
 - (PWURLSessionTask *)deviceRegistration:(NSString *)deviceId registrationId:(NSString *)registrationId callBack:(void (^)(id response))callback {
     BaseReturnModel *model = [BaseReturnModel new];
     NSDictionary *params = @{
-            @"data":
-            @{
-                    @"deviceId": deviceId,
-                    @"registrationId": registrationId
-            }
-    };
+                             @"data":
+                                 @{
+                                     @"deviceId": deviceId,
+                                     @"registrationId": registrationId
+                                     }
+                             };
     return [PWNetworking requsetHasTokenWithUrl:PW_jpushDidLogin withRequestType:NetworkPostType refreshRequest:YES
                                           cache:NO params:params
                                   progressBlock:nil
