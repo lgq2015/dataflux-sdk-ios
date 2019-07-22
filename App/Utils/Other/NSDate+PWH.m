@@ -213,4 +213,17 @@
        return [NSString stringWithFormat:@"%ld年 %ld 月 %ld 日 %@",(long)[self year],(long)[self month],(long)[self day],week];
     }
 }
+- (NSDate *)beginningOfMonth:(NSDate *)date{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    calendar.timeZone = [NSTimeZone localTimeZone];
+    NSDateComponents *componentsCurrentDate =[calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday|NSCalendarUnitWeekOfMonth fromDate:date];
+    NSDateComponents *componentsNewDate = [NSDateComponents new];
+    componentsNewDate.year = componentsCurrentDate.year;
+    componentsNewDate.month = componentsCurrentDate.month;
+    componentsNewDate.weekOfMonth = 1;
+    componentsNewDate.weekday = calendar.firstWeekday;
+    
+    return [calendar dateFromComponents:componentsNewDate];
+    
+}
 @end

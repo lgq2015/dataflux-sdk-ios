@@ -94,7 +94,7 @@
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
     [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
 }
-- (void)loadMoreCalendarDotWithStartTime:(NSNumber *)start endTime:(NSNumber *)end {
+- (void)loadMoreCalendarDotWithStartTime:(NSString *)start endTime:(NSString *)end {
     
     WeakSelf
     [[PWHttpEngine sharedInstance]getCalendarDotWithStartTime:start EndTime:end callBack:^(id o) {
@@ -107,7 +107,7 @@
             }];
             [weakSelf.manager reloadAppearanceAndData];
         }else{
-//            [iToast alertWithTitleCenter:model.errorMsg];
+            //            [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
 }
@@ -229,7 +229,7 @@
 }
 
 #pragma mark ========== LTSCalendarEventSource ==========
-- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first currentDate:(NSDate *)currentDate{
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first lastDay:(NSDate *)last currentDate:(NSDate *)currentDate{
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
     NSDate *today = [NSDate date];
     if (month>[today month]) {
@@ -299,9 +299,7 @@
     return NO;
 }
 
-- (void)calendarDidLoadPageCurrentDate:(NSDate *)date{
-    DLog(@"CurrentDate  == %@",date);
-}
+
 -(void)tableViewDidSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CalendarIssueModel *model = self.manager.calenderScrollView.calendarList[indexPath.section][indexPath.row];
     if (model.issueId && model.issueId.length>0) {

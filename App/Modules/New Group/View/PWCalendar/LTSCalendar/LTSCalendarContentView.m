@@ -74,7 +74,7 @@
     self.flowLayout.rowCount = [LTSCalendarAppearance share].weeksToDisplay;
     self.flowLayout.minimumLineSpacing = 0;
     self.flowLayout.minimumInteritemSpacing = 0;
-     
+    
     self.collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:self.flowLayout];
     [self addSubview:self.collectionView];
     self.collectionView.delegate = self;
@@ -276,15 +276,14 @@
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
     }];
-
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
-        [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
-    }
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:currentDate:)]) {
+    
+    
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:lastDay:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
         LTSCalendarDayItem *item = self.daysInMonth[self.currentSelectedIndexPath.section][0];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date currentDate:self.currentDate];
+        LTSCalendarDayItem *lastItem = [self.daysInMonth[self.currentSelectedIndexPath.section] lastObject];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date lastDay:lastItem.date currentDate:self.currentDate];
     }
     isOwnChangePage = false;
     
@@ -311,14 +310,13 @@
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadData];
     }];
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidLoadPageCurrentDate:)]) {
-        [self.eventSource calendarDidLoadPageCurrentDate:self.currentDate];
-    }
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:currentDate:)]) {
+    
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:lastDay:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
         LTSCalendarDayItem *item =self.daysInMonth[self.currentSelectedIndexPath.section][0];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date currentDate:self.currentDate];
+        LTSCalendarDayItem *lastItem = [self.daysInMonth[self.currentSelectedIndexPath.section] lastObject];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date lastDay:lastItem.date  currentDate:self.currentDate];
     }
     
     
