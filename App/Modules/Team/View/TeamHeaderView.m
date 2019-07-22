@@ -54,7 +54,7 @@
         make.height.offset(ZOOM_SCALE(17));
         make.width.offset(ZOOM_SCALE(50));
     }];
-   
+    
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.tipLab.mas_right).offset(18);
         make.height.offset(SINGLE_LINE_WIDTH/2);
@@ -70,12 +70,10 @@
 }
 -(void)updataUIWithDatas:(NSDictionary *)datas{
     [self.specialProjectView removeAllSubviews];
-    [self.bgContentView.layer.sublayers enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:CAGradientLayer.class]) {
-            [obj removeFromSuperlayer];
-            *stop = YES;
-        }
-    }];
+    if([[self.bgContentView.layer.sublayers firstObject] isKindOfClass:CAGradientLayer.class]){
+        [[self.bgContentView.layer.sublayers firstObject] removeFromSuperlayer];
+    }
+    
     NSDictionary *CloudCare = PWSafeDictionaryVal(datas, @"CloudCare");
     NSString *code = [CloudCare stringValueForKey:@"code" default:@""];
     UtilsConstManager *manager = [[UtilsConstManager alloc]init];
@@ -90,7 +88,7 @@
             self.tipLab.hidden = YES;
             self.line.hidden = YES;
             height +=ZOOM_SCALE(15)+12;
-//            self.subLayer.frame= CGRectMake(16, 12, kWidth-32, height-6);
+            //            self.subLayer.frame= CGRectMake(16, 12, kWidth-32, height-6);
             [self.specialProjectView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.offset(ZOOM_SCALE(15)+12);
             }];
@@ -143,58 +141,66 @@
             }
         }
     }
-    self.subLayer.frame = self.bgContentView.frame;
+    //    self.subLayer.frame = self.bgContentView.frame;
     self.titleLab.textColor = PWWhiteColor;
     self.tipLab.textColor = PWWhiteColor;
     self.line.backgroundColor = PWWhiteColor;
     self.bgImgView.image = [UIImage imageNamed:code];
  
     UIColor *shadowColor;
+    NSString *startColor,*mediumColor,*endColor;
+    BOOL isDefault = NO;
     if ([code isEqualToString:@"CloudCare_default"]) {
         self.titleLab.textColor = PWTextBlackColor;
         self.tipLab.textColor = [UIColor colorWithHexString:@"#949499"];
         self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
-        [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#F4F4FA" mediumColor:@"" toColor:@"#FFFFFF" isDefault:NO]  atIndex:0];
+        startColor =@"#F4F4FA";
+        mediumColor = @"";
+        endColor =@"#FFFFFF";
+        isDefault = YES;
         shadowColor = PWBlackColor;
-
     }
     if ([code isEqualToString:@"CloudCare_1"]) {
-         [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#0CCAB8" mediumColor:@"#38D8C4" toColor:@"#24D8C5" isDefault:YES] atIndex:0];
+        startColor =@"#0CCAB8";
+        mediumColor = @"#38D8C4";
+        endColor =@"#24D8C5";
         shadowColor = [UIColor colorWithHexString:@"#95E9DE"];
     }
     if ([code isEqualToString:@"CloudCare_2"]) {
-          [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#895DFF" mediumColor:@"" toColor:@"#8A79FF" isDefault:YES] atIndex:0];
+        startColor =@"#895DFF";
+        mediumColor = @"";
+        endColor =@"#8A79FF";
         shadowColor= [UIColor colorWithHexString:@"#BEAAFF"];
     }
     if ([code isEqualToString:@"CloudCare_3"]) {
-         [self.bgContentView.layer insertSublayer:[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:@"#FF8033" mediumColor:@"#FDC55E" toColor:@"#FFB04F" isDefault:YES] atIndex:0];
+        startColor =@"#FF8033";
+        mediumColor = @"#FDC55E";
+        endColor =@"#FFB04F";
         shadowColor = [UIColor colorWithHexString:@"#FFC994"];
     }
+    self.subLayer.frame = CGRectMake(16, 12, kWidth-32, height-6);
     self.subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
     if ([code isEqualToString:@"CloudCare_default"]) {
-      self.subLayer.backgroundColor=PWBackgroundColor.CGColor;
-      self.subLayer.shadowOpacity = 0.06;
+        self.subLayer.backgroundColor=PWBackgroundColor.CGColor;
+        self.subLayer.shadowOpacity = 0.06;
     }else{
         self.subLayer.backgroundColor=shadowColor.CGColor;
         self.subLayer.shadowOpacity = 1;
     }
-
-   
+    
+    //    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    CAGradientLayer *bgLayer =[UIColor setGradualChangingColorWithFrame:CGRectMake(0, 0, kWidth-32, height)  fromColor:startColor mediumColor:mediumColor toColor:endColor isDefault:isDefault];
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    [self.bgContentView.layer insertSublayer:bgLayer atIndex:0];
+    //        });
+    //    });
 }
 -(CALayer *)subLayer{
     if (!_subLayer) {
         _subLayer=[CALayer layer];
-//        _subLayer.frame= self.bgContentView.frame;
         _subLayer.cornerRadius=3;
-//        subLayer.backgroundColor=shadowColor.CGColor;
         _subLayer.masksToBounds=NO;
-//        subLayer.shadowColor = shadowColor.CGColor;//shadowColor阴影颜色
         _subLayer.shadowOffset = CGSizeMake(0,2);//shadowOffset阴影偏移,x向右偏移3，y向下偏移2，默认(0, -3),这个跟shadowRadius配合使用
-//        if ([code isEqualToString:@"CloudCare_default"]) {
-//            subLayer.shadowOpacity = 0.06;
-//        }else{
-//            subLayer.shadowOpacity = 1;
-//        }
         _subLayer.shadowRadius = 6;//阴影半径，默认3
         [self.layer insertSublayer:_subLayer below:self.bgContentView.layer];
     }

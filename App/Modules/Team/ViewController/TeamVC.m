@@ -130,15 +130,15 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.headerView updataUIWithDatas:content];
-                self.tableView.tableHeaderView = self.headerView;
-                [self.tableView layoutIfNeeded];
-            });
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            [self.headerView updataUIWithDatas:content];
+            self.tableView.tableHeaderView = self.headerView;
+            [self.tableView layoutIfNeeded];
+            //            });
         }
-         [self.header endRefreshing];
+        [self.header endRefreshing];
     } failBlock:^(NSError *error) {
-         [self.header endRefreshing];
+        [self.header endRefreshing];
     }];
 }
 
@@ -146,7 +146,7 @@
 - (void)loadTeamMemberInfo{
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
-         [self dealWithDatas:member];
+            [self dealWithDatas:member];
         }
     }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -212,6 +212,7 @@
         }
     }
     member.model = model;
+    member.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:member animated:YES];
 }
 
