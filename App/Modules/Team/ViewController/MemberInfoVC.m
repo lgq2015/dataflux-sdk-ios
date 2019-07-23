@@ -13,17 +13,21 @@
 #import "TeamInfoModel.h"
 #import "EditBeizhuVC.h"
 #import "NSString+Regex.h"
+#import "CopyLable.h"
+
 #define phoneViewTag 35
-@interface MemberInfoVC ()
+@interface MemberInfoVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UILabel *subTitleLab;
 @property (nonatomic, strong) UILabel *memberName;
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) UIButton *beizhuBtn;
 @property (nonatomic, strong) UIButton *noteNameBtn;
-@property (nonatomic, strong) UILabel *phoneLab;
-@property (nonatomic, strong) UILabel *emailLab;
+@property (nonatomic, strong) CopyLable *phoneLab;
+@property (nonatomic, strong) CopyLable *emailLab;
 @property (nonatomic, strong) UIButton *callBtn;
+
+@property (nonatomic, strong) UIView *temp;
 @end
 
 @implementation MemberInfoVC
@@ -65,10 +69,12 @@
         make.width.offset(width);
         make.height.offset(ZOOM_SCALE(22));
     }];
+    self.temp =self.headerView;
+    if(self.model.email.length>0){
     UIView *email = [self createEmailView];
     [email mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.width.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.headerView.mas_bottom).offset(12);
+        make.top.mas_equalTo(self.temp.mas_bottom).offset(12);
         make.height.offset(ZOOM_SCALE(42)+23);
     }];
     UIView *line = [[UIView alloc]init];
@@ -79,15 +85,25 @@
         make.height.offset(SINGLE_LINE_WIDTH);
         make.top.mas_equalTo(email.mas_bottom);
     }];
-    UIView *phone = [self createPhoneView];
-    phone.tag = phoneViewTag;
-    [phone mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.width.mas_equalTo(self.view);
-        make.top.mas_equalTo(line.mas_bottom);
-        make.height.offset(ZOOM_SCALE(42)+23);
-    }];
-    self.phoneLab.text  =[self phoneChange:self.model.mobile];
-    self.emailLab.text = self.model.email;
+        self.emailLab.text = self.model.email;
+        self.temp = line;
+    }
+    if (self.model.mobile.length>0 || self.type == PWMemberViewTypeSpecialist||self.type ==PWMemberViewTypeExpert) {
+        UIView *phone = [self createPhoneView];
+        phone.tag = phoneViewTag;
+        [phone mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.width.mas_equalTo(self.view);
+            if([self.temp isEqual:self.headerView]){
+                make.top.mas_equalTo(self.temp.mas_bottom).offset(12);
+            }else{
+            make.top.mas_equalTo(self.temp.mas_bottom);
+            }
+            make.height.offset(ZOOM_SCALE(42)+23);
+        }];
+        self.phoneLab.text  =[self phoneChange:self.model.mobile];
+        self.temp = self.phoneLab;
+    }
+    
     switch (self.type) {
         case PWMemberViewTypeTeamMember:{
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
@@ -129,6 +145,7 @@
             NSString *url = [userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
+            self.callBtn.hidden = YES;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
                 self.subTitleLab.text = @"管理员";
@@ -145,17 +162,18 @@
 - (void)createBtnPhone{
    
     if (userManager.teamModel.isAdmin) {
-        UIView *phone = [self.view viewWithTag:phoneViewTag];
-        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:[NSString stringWithFormat:@"移除成员"]];
-        [delectTeam.layer setBorderColor:[UIColor clearColor].CGColor];
-        [delectTeam setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateNormal];
+        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(42)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(42)+SafeAreaBottom_Height)];
+        bgView.backgroundColor = PWWhiteColor;
+        [self.view addSubview:bgView];
+        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:[NSString stringWithFormat:@"移除成员"]];
+        [delectTeam setTitleColor:[UIColor colorWithHexString:@"#F6584C"] forState:UIControlStateNormal];
+        delectTeam.backgroundColor = PWWhiteColor;
+        [delectTeam setTitleColor:[UIColor colorWithHexString:@"#F6584C"] forState:UIControlStateHighlighted];
         [delectTeam addTarget:self action:@selector(delectTeamClick) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:delectTeam];
+        [bgView addSubview:delectTeam];
         [delectTeam mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.view).offset(Interval(36));
-            make.right.mas_equalTo(self.view).offset(-Interval(36));
-            make.top.mas_equalTo(phone.mas_bottom).offset(Interval(20));
-            make.height.offset(ZOOM_SCALE(44));
+            make.left.right.top.mas_equalTo(bgView);
+            make.height.offset(ZOOM_SCALE(42));
         }];
     }
 
@@ -163,8 +181,7 @@
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {
         _iconImgView = [[UIImageView alloc]init];
-        _iconImgView.layer.cornerRadius =ZOOM_SCALE(110)/2.0;
-        _iconImgView.layer.cornerRadius = ZOOM_SCALE(55);
+        _iconImgView.layer.cornerRadius = ZOOM_SCALE(35);
         _iconImgView.layer.masksToBounds = YES;
         _iconImgView.contentMode =  UIViewContentModeScaleAspectFill;
         [self.headerView addSubview:_iconImgView];
@@ -209,7 +226,7 @@
         if (self.model.inTeamNote.length > 0){
             [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
         }else{
-            [_beizhuBtn setTitle:@"标签" forState:UIControlStateNormal];
+            [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
@@ -251,7 +268,7 @@
     [self.view addSubview:emailView];
     UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"邮箱"];
     [emailView addSubview:tip];
-    self.emailLab = [[UILabel alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
+    self.emailLab = [[CopyLable alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
     self.emailLab.font = RegularFONT(16);
     self.emailLab.textColor = PWTextBlackColor;
     [emailView addSubview:self.emailLab];
@@ -263,7 +280,7 @@
     [self.view addSubview:phoneView];
     UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"电话"];
     [phoneView addSubview:tip];
-    self.phoneLab = [[UILabel alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
+    self.phoneLab = [[CopyLable alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, ZOOM_SCALE(200), ZOOM_SCALE(22))];
     self.phoneLab.font = RegularFONT(16);
     self.phoneLab.textColor = PWTextBlackColor;
     [phoneView addSubview:self.phoneLab];
@@ -420,5 +437,7 @@
                                                                     range:NSMakeRange(0, [tenDigitNumber length])];
     return tenDigitNumber;
 }
-
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return NO;
+}
 @end
