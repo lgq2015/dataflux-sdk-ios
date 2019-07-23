@@ -14,7 +14,8 @@
 #import "EditBeizhuVC.h"
 #import "NSString+Regex.h"
 #import "CopyLable.h"
-
+#import "ZhugeIOIssueHelper.h"
+#import "ZhugeIOTeamHelper.h"
 #define phoneViewTag 35
 @interface MemberInfoVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *headerView;
