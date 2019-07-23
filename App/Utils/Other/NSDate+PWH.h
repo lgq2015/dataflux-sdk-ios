@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray *)getDateMonthFirstLastDayTimeStamp;
 - (NSInteger )getTimeStamp;
 - (NSString *)getCalenarTimeStr;
-- (NSDate *)beginningOfMonth:(NSDate *)date;
-
+- (NSDate *)beginningOfMonth;
+-(NSString *)getUTCTimeStr;
+- (NSString *)getTimeStr;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -84,4 +84,5 @@
 - (BOOL)deptNumInputShouldNumber;
 - (NSString *)dealWithTimeFormatted;
 - (NSString *)getIssueStateLevel;
++(NSInteger)timeSwitchTimestamp:(NSString *)formatTime andFormatter:(NSString *)format;
 @end

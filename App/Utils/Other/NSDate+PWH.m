@@ -121,24 +121,27 @@
     
 }
 -(NSString *)getNowUTCTimeStr{
-     NSString *timeString = [[self getNowTimestamp] stringByReplacingOccurrencesOfString:@"." withString:@""];
-    if (timeString.length >= 10) {
-        NSString *second = [timeString substringToIndex:10];
-        NSString *milliscond = [timeString substringFromIndex:10];
-        NSString * timeStampString = [NSString stringWithFormat:@"%@.%@",second,milliscond];
-        NSTimeInterval _interval=[timeStampString doubleValue];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:_interval];
-        
+    return [[NSDate date] getUTCTimeStr];
+}
+- (NSString *)getTimeStr{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    //   createTime    __NSCFString *    @"2019-04-10T12:21:45.000Z"    0x00000001708527b0
+    NSString *dateString = [dateFormatter stringFromDate:self];
+    
+    return dateString;
+}
+-(NSString *)getUTCTimeStr{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
         [dateFormatter setTimeZone:timeZone];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
      //   createTime    __NSCFString *    @"2019-04-10T12:21:45.000Z"    0x00000001708527b0
-        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *dateString = [dateFormatter stringFromDate:self];
         
         return dateString;
-    }
-    return @"";
 }
 -(NSArray *)getDateMonthFirstLastDayTimeStamp{
     double interval = 0;
@@ -213,10 +216,10 @@
        return [NSString stringWithFormat:@"%ld年 %ld 月 %ld 日 %@",(long)[self year],(long)[self month],(long)[self day],week];
     }
 }
-- (NSDate *)beginningOfMonth:(NSDate *)date{
+- (NSDate *)beginningOfMonth{
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     calendar.timeZone = [NSTimeZone localTimeZone];
-    NSDateComponents *componentsCurrentDate =[calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday|NSCalendarUnitWeekOfMonth fromDate:date];
+    NSDateComponents *componentsCurrentDate =[calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday|NSCalendarUnitWeekOfMonth fromDate:self];
     NSDateComponents *componentsNewDate = [NSDateComponents new];
     componentsNewDate.year = componentsCurrentDate.year;
     componentsNewDate.month = componentsCurrentDate.month;
