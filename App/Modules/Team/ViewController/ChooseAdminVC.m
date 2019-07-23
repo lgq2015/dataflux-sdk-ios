@@ -11,6 +11,7 @@
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
 #import "ZTSearchBar.h"
+#import "ChangeUserInfoVC.h"
 @interface ChooseAdminVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -106,19 +107,38 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-        MemberInfoVC *member = [[MemberInfoVC alloc]init];
-        member.isHidenNaviBar = YES;
-        member.type = PWMemberViewTypeTrans;
-        member.teamMemberRefresh =^(){
-            [self loadTeamMemberInfo];
-        };
-        member.memberBeizhuChangeBlock = ^(NSString * _Nonnull name) {
-            model.inTeamNote = name;
-            [self.tableView reloadData];
-        };
-        member.model = model;
-        [self.navigationController pushViewController:member animated:YES];
+    NSString *message = @"* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录";
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认转移" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
+        verify.isShowCustomNaviBar = YES;
+        verify.type = ChangeUITTeamTransfer;
+        verify.memberID =model.memberID;
+        [self.navigationController pushViewController:verify animated:YES];
+    }];
+    UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+//        MemberInfoModel *model = self.teamMemberArray[indexPath.row];
+//        MemberInfoVC *member = [[MemberInfoVC alloc]init];
+//        member.isHidenNaviBar = YES;
+//        member.type = PWMemberViewTypeTrans;
+//        member.teamMemberRefresh =^(){
+//            [self loadTeamMemberInfo];
+//        };
+//        member.memberBeizhuChangeBlock = ^(NSString * _Nonnull name) {
+//            model.inTeamNote = name;
+//            [self.tableView reloadData];
+//        };
+//        member.model = model;
+//        [self.navigationController pushViewController:member animated:YES];
     
 }
 #pragma mark - UISearchResultsUpdating
