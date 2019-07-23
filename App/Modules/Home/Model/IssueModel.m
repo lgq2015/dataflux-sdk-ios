@@ -42,6 +42,7 @@
 //        self.lastIssueLogSeq = [logs[0] longLongValueForKey:@"seq" default:0];
         self.latestIssueLogsStr = logstr;
     }
+    
     self.lastIssueLogSeq = [dict longLongValueForKey:@"lastIssueLogSeq" default:0];
     NSDictionary *tags = PWSafeDictionaryVal(dict, @"tags");
     if (tags) {

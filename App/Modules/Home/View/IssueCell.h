@@ -13,7 +13,6 @@
 @interface IssueCell : UITableViewCell
 @property (nonatomic, strong) IssueListViewModel *model;
 @property (nonatomic, assign) BOOL isService;
-- (CGFloat)heightForModel:(NSDictionary *)model;
 @end
 
 

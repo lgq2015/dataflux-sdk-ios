@@ -12,6 +12,7 @@
 #import "IssueListManger.h"
 #import "SelectObject.h"
 #import "TriangleDrawRect.h"
+#define TagSourcenFrom  100
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *stateLab;
@@ -24,11 +25,13 @@
 //类别名称 类别头像
 @property (nonatomic, strong) UILabel *issTypeLab;
 @property (nonatomic, strong) UIImageView *issIcon;
-@property (nonatomic, strong) UILabel *issueStateLab;
+//@property (nonatomic, strong) UILabel *issueStateLab;
 //标记状态 标记用户头像
 @property (nonatomic, strong) UILabel *markStatusLab;
 @property (nonatomic, strong) UIImageView *markUserIcon;
-
+@property (nonatomic, strong) UILabel *chatLab;
+@property (nonatomic, strong) UIView *horizontalLine;
+@property (nonatomic, strong) UIView *verticalLine;
 @end
 @implementation IssueCell
 -(void)setFrame:(CGRect)frame{
@@ -46,14 +49,9 @@
 }
 
 - (void)createUI{
-    
-    [self.issueStateLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(16));
-        make.centerY.mas_equalTo(self.stateLab.mas_centerY);
-        make.height.offset(ZOOM_SCALE(20));
-    }];
+
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.issueStateLab.mas_right).offset(Interval(10));
+        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(10));
         make.centerY.mas_equalTo(self.stateLab.mas_centerY);
         make.right.mas_equalTo(self).offset(-15);
         make.height.offset(ZOOM_SCALE(20));
@@ -63,88 +61,71 @@
         make.centerY.mas_equalTo(self.sourceIcon);
         make.height.offset(ZOOM_SCALE(18));
     }];
-    [self.issTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self).offset(-Interval(15));
-        make.centerY.mas_equalTo(self.stateLab);
-        make.height.offset(ZOOM_SCALE(20));
+    
+    self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.stateLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
+
+    UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"类型："];
+    [self addSubview:categoryLab];
+    [categoryLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.stateLab);
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
+        make.width.offset(ZOOM_SCALE(30));
+        make.height.offset(ZOOM_SCALE(14));
     }];
-    [self.issIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.issTypeLab.mas_left).offset(-5);
-        make.centerY.mas_equalTo(self.issTypeLab);
-        make.height.width.offset(ZOOM_SCALE(18));
+    [self.issTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(categoryLab.mas_right);
+        make.centerY.mas_equalTo(categoryLab);
+        make.height.offset(ZOOM_SCALE(14));
     }];
     [self.markUserIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-16);
         make.width.height.offset(ZOOM_SCALE(18));
-        make.centerY.mas_equalTo(self.sourcenNameLab);
+        make.centerY.mas_equalTo(self.issTypeLab);
     }];
-    
-//    [self.markStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.markUserIcon.mas_right).offset(Interval(10));
-//        make.centerY.mas_equalTo(self.markUserIcon);
-//        make.height.offset(ZOOM_SCALE(18));
-//    }];
-    self.titleLab.numberOfLines = 0;
-  
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.sourceIcon.mas_bottom).offset(Interval(10));
-        make.left.equalTo(self.stateLab.mas_left);
-        make.right.mas_equalTo(self).offset(-Interval(21));
+    [self.verticalLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.markUserIcon.mas_left).offset(-10);
+        make.centerY.mas_equalTo(self.markUserIcon);
+        make.height.offset(10);
+        make.width.offset(SINGLE_LINE_WIDTH);
     }];
-
+    [self.horizontalLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.titleLab);
+        make.height.offset(SINGLE_LINE_WIDTH);
+        make.top.mas_equalTo(categoryLab.mas_bottom).offset(10);
+    }];
     [self.chatTimeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
         make.right.mas_equalTo(self).offset(-17);
         make.height.offset(ZOOM_SCALE(18));
-        make.bottom.offset(-Interval(11));
+        make.top.mas_equalTo(categoryLab.mas_bottom).offset(18);
     }];
-    self.chatTimeLab.text = self.model.chatTime;
-    
-    UILabel *sublab  = [[UILabel alloc]initWithFrame:CGRectZero];
-    sublab.font = RegularFONT(12);
-    sublab.textColor = PWTextBlackColor;
-    sublab.tag = 22;
-    [[self viewWithTag:22] removeFromSuperview];
-    [self addSubview:sublab];
-    
-    [sublab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
+
+    [self.chatLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(categoryLab.mas_bottom).offset(18);
         make.left.mas_equalTo(self.stateLab);
         make.right.mas_equalTo(self.chatTimeLab.mas_left).offset(-10);
         make.height.offset(ZOOM_SCALE(18));
-        make.bottom.offset(-Interval(11));
     }];
-    if (_model.isCallME) {
-        NSString *str = [NSString stringWithFormat:@"[有人@我] %@",self.model.issueLog];
-        NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:str];
-        NSRange range = [str rangeOfString:@"[有人@我]"];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FE563E"] range:range];
-        sublab.attributedText = attrStr;
-    }else{
-    sublab.text = self.model.issueLog;
-    }
+   
 }
 - (void)setModel:(IssueListViewModel *)model{
     _model = model;
-    if (model.recovered) {
-        self.issueStateLab.text = @"已恢复";
-        self.issueStateLab.textColor = [UIColor colorWithHexString:@"#26DBAC"];
-    }else{
-        self.issueStateLab.text = @"活跃";
-        self.issueStateLab.textColor = PWBlueColor;
-    }
-    [self.issueStateLab sizeToFit];
-    CGFloat labWidth = self.issueStateLab.frame.size.width;
-    [self.issueStateLab mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(labWidth);
-    }];
+    self.chatTimeLab.text = model.chatTime;
+    self.titleLab.height = model.titleHeight;
   SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     if (selObj.issueSortType == IssueSortTypeCreate) {
     self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time listAccurateTimeStr]];
     }else{
     self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime listAccurateTimeStr]];
     }
-
+    if (_model.isCallME) {
+        NSString *str = [NSString stringWithFormat:@"[有人@我] %@",self.model.issueLog];
+        NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:str];
+        NSRange range = [str rangeOfString:@"[有人@我]"];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FE563E"] range:range];
+        self.chatLab.attributedText = attrStr;
+    }else{
+        self.chatLab.text = self.model.issueLog;
+    }
     switch (self.model.state) {
         case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
@@ -192,10 +173,9 @@
     self.issIcon.image = [UIImage imageNamed:icon];
     self.sourceIcon.image = [UIImage imageNamed:self.model.icon];
     self.sourcenNameLab.text = self.model.sourceName;
-//    [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:model.markUserIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
-//    self.markStatusLab.text = model.markStatusStr;
-   
-   self.markUserIcon.hidden = model.assignedToAccountInfo ? NO:YES;
+    self.markUserIcon.hidden = model.assignedToAccountInfo ? NO:YES;
+    self.verticalLine.hidden = model.assignedToAccountInfo ? NO:YES;
+    self.horizontalLine.hidden = self.model.issueLog.length>0?NO:YES;
     if (model.assignedToAccountInfo) {
         NSString *pwAvatar;
         NSDictionary *tags = PWSafeDictionaryVal(model.assignedToAccountInfo, @"tags");
@@ -204,16 +184,29 @@
         }
         [self.markUserIcon sd_setImageWithURL:[NSURL URLWithString:pwAvatar] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     }
-    self.titleLab.preferredMaxLayoutWidth = kWidth-Interval(78);
-    
     self.titleLab.text = self.model.title;
+
      [self.sourcenNameLab sizeToFit];
     CGSize size =self.sourcenNameLab.frame.size;
-    [self.sourcenNameLab mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(size.width);
-    }];
+    self.sourcenNameLab.frame = CGRectMake(kWidth-size.width-46, 19, size.width, ZOOM_SCALE(18));
+    self.sourceIcon.frame = CGRectMake(CGRectGetMinX(self.sourcenNameLab.frame)-8-ZOOM_SCALE(27), 0, ZOOM_SCALE(27), ZOOM_SCALE(19));
+    self.sourceIcon.centerY = self.sourcenNameLab.centerY;
     [self.markStatusLab mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-5);
+    }];
+    [[self viewWithTag:TagSourcenFrom] removeFromSuperview];
+    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
+    sourceFromLab.tag =TagSourcenFrom;
+    sourceFromLab.textAlignment = NSTextAlignmentRight;
+    [self addSubview:sourceFromLab];
+    [sourceFromLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (self.markUserIcon.hidden) {
+            make.right.mas_equalTo(self).offset(-14);
+        }else{
+            make.right.mas_equalTo(self.verticalLine.mas_left).offset(-10);
+        }
+        make.height.offset(ZOOM_SCALE(14));
+        make.centerY.mas_equalTo(self.issTypeLab);
     }];
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
@@ -222,13 +215,7 @@
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
 }
--(UILabel *)issueStateLab{
-    if (!_issueStateLab) {
-        _issueStateLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:@"活跃"];
-        [self addSubview:_issueStateLab];
-    }
-    return _issueStateLab;
-}
+
 - (TriangleDrawRect *)triangleView{
     if (!_triangleView) {
         _triangleView =[[TriangleDrawRect alloc]initStartPoint:CGPointMake(0, 0) middlePoint:CGPointMake(8, 0) endPoint:CGPointMake(8, 8) color:PWRedColor];
@@ -237,6 +224,22 @@
         [self addSubview:_triangleView];
     }
     return _triangleView;
+}
+-(UIView *)horizontalLine{
+    if (!_horizontalLine) {
+        _horizontalLine = [[UIView alloc]initWithFrame:CGRectZero];
+        _horizontalLine.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
+        [self addSubview:_horizontalLine];
+    }
+    return _horizontalLine;
+}
+-(UIView *)verticalLine{
+    if (!_verticalLine) {
+        _verticalLine =[[UIView alloc]initWithFrame:CGRectZero];
+        _verticalLine.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
+        [self addSubview:_verticalLine];
+    }
+    return _verticalLine;
 }
 -(UIImageView *)issIcon{
     if (!_issIcon) {
@@ -247,7 +250,7 @@
 }
 -(UILabel *)issTypeLab{
     if (!_issTypeLab) {
-        _issTypeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@""];
+        _issTypeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWBlackColor text:@""];
         [self addSubview:_issTypeLab];
     }
     return _issTypeLab;
@@ -255,8 +258,8 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.font = RegularFONT(12);
-        _timeLab.textColor = [UIColor colorWithHexString:@"C7C7CC"];
+        _timeLab.font = RegularFONT(10);
+        _timeLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
         [self addSubview:_timeLab];
     }
     return _timeLab;
@@ -264,13 +267,22 @@
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _titleLab.font = RegularFONT(16);
+        _titleLab.font = RegularFONT(15);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.textColor = [UIColor colorWithRed:36/255.0 green:41/255.0 blue:44/255.0 alpha:1/1.0];
         _titleLab.numberOfLines = 0;
         [self addSubview:_titleLab];
     }
     return _titleLab;
+}
+-(UILabel *)chatLab{
+    if (!_chatLab) {
+        _chatLab  = [[UILabel alloc]initWithFrame:CGRectZero];
+        _chatLab.font = RegularFONT(11);
+        _chatLab.textColor = PWTextBlackColor;
+        [self addSubview:_chatLab];
+    }
+    return _chatLab;
 }
 -(UILabel *)markStatusLab{
     if (!_markStatusLab) {
@@ -304,16 +316,17 @@
 }
 -(UILabel *)chatTimeLab{
     if (!_chatTimeLab) {
-        _chatTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextBlackColor text:@""];
+        _chatTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#909095"] text:@""];
+        _chatTimeLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_chatTimeLab];
     }
     return _chatTimeLab;
 }
 -(UILabel *)stateLab{
     if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(15), Interval(14), ZOOM_SCALE(50), ZOOM_SCALE(24))];
+        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(14), Interval(19), ZOOM_SCALE(42), ZOOM_SCALE(18))];
         _stateLab.textColor = [UIColor whiteColor];
-        _stateLab.font =  RegularFONT(14);
+        _stateLab.font =  RegularFONT(12);
         _stateLab.textAlignment = NSTextAlignmentCenter;
         _stateLab.layer.cornerRadius = 4.0f;
         _stateLab.layer.masksToBounds = YES;
@@ -321,14 +334,7 @@
     }
     return _stateLab;
 }
-- (CGFloat)heightForModel:(IssueListViewModel *)model{
-   
-    [self setModel:model];
-    [self layoutIfNeeded];
-    CGFloat cellHeight = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height+12;
-    
-    return cellHeight;
-}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

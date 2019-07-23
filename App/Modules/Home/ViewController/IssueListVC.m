@@ -331,16 +331,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.monitorData[indexPath.row];
-    if (!model.cellHeight||model.cellHeight == 0) {
-        CGFloat cellHeight = [self.tempCell heightForModel:self.monitorData[indexPath.row]];
-        // 缓存给model
-        [[IssueListManger sharedIssueListManger] updateIssueListCellHeight:cellHeight issueId:model.issueId];
-        model.cellHeight = cellHeight;
-
-        return cellHeight;
-    } else {
-        return model.cellHeight;
-    }
+    
+    return model.titleHeight+ZOOM_SCALE(48)+82;
 
 }
 

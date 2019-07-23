@@ -178,15 +178,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueListViewModel *model =self.dataSource[indexPath.row];
-    if (model.cellHeight == 0 || !model.cellHeight) {
-        CGFloat cellHeight = [self.tempCell heightForModel:self.dataSource[indexPath.row]];
-        // 缓存给model
-        model.cellHeight = cellHeight;
-        
-        return cellHeight;
-    } else {
-        return model.cellHeight;
-    }
+   
+    return model.cellHeight;
+    
     
 }
 /*
