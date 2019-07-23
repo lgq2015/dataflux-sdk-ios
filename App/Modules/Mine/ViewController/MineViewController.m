@@ -19,6 +19,8 @@
 #import "IssueSourceListVC.h"
 #import "MineMessageVC.h"
 #import "MineCollectionVC.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIImageView *iconImgView;
@@ -180,6 +182,7 @@
     return _companyName;
 }
 - (void)personalBtnClick{
+    [[[ZhugeIOMineHelper new] eventLookInfo] track];
     PersonalInfoVC *personal = [[PersonalInfoVC alloc]init];
     [self.navigationController pushViewController:personal animated:YES];
 }
@@ -189,26 +192,31 @@
     MineViewCell *cell = (MineViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     switch (cell.data.type) {
         case MineCellTypeSetting:{
+            [[[ZhugeIOMineHelper new] eventClickSetting] track];
             SettingUpVC *settingVC = [[SettingUpVC alloc]init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }
             break;
         case MineCellTypeContactuUs:{
+            [[[ZhugeIOMineHelper new] eventClickContactUs] track];
             ContactUsVC *contactVC = [[ContactUsVC alloc]init];
             [self.navigationController pushViewController:contactVC animated:YES];
         }
             break;
         case MineCellTypeOpinion:{
+            [[[ZhugeIOMineHelper new] eventClickSuggest] track];
             FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
             [self.navigationController pushViewController:opinionVC animated:YES];
         }
             break;
         case MineCellTypeCollect:{
+            [[[ZhugeIOMineHelper new] eventClickCollection] track];
             MineCollectionVC *collection = [[MineCollectionVC alloc]init];
             [self.navigationController pushViewController:collection animated: YES];
         }
             break;
         case MineCellTypeAboutPW:{
+            [[[ZhugeIOMineHelper new] eventClickAboutProfWang] track];
             AboutUsVC *aboutVC = [[AboutUsVC alloc]init];
             [self.navigationController pushViewController:aboutVC animated:YES];
         }
@@ -218,6 +226,7 @@
             break;
         
         case MineCellTypeInformation:{
+            [[[ZhugeIOMineHelper new] eventClickMessage] track];
             MineMessageVC *messageVC = [[MineMessageVC alloc]init];
             messageVC.ownership = Account_Message;
             [self.navigationController pushViewController:messageVC animated:YES];

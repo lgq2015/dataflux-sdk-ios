@@ -12,6 +12,9 @@
 #import "SecurityPrivacyVC.h"
 #import "JPUSHService.h"
 #import "changeUserInfoVC.h"
+#import "ZhugeIOLoginHelper.h"
+#import "ZhugeIOMineHelper.h"
+
 @interface SetNewPasswordVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextField *passwordTf;
 @property (nonatomic, strong) UIButton *confirmBtn;
@@ -129,6 +132,7 @@
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {
+                    [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrSceneChangePwd] track];
                     [iToast alertWithTitleCenter:@"密码设置成功"];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         for (UIViewController *temp in self.navigationController.viewControllers) {
@@ -138,6 +142,7 @@
                         }
                     });
                 } else {
+                    [[[[ZhugeIOLoginHelper new] eventSetPassword] attrSceneForget] track];
                     self.confirmBtn.enabled = YES;
                     [userManager saveUserInfoLoginStateisChange:YES success:nil];
                 }

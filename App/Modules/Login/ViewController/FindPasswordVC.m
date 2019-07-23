@@ -10,6 +10,8 @@
 #import "SetNewPasswordVC.h"
 #import "VerifyCodeVC.h"
 #import "VerificationCodeNetWork.h"
+#import "ZhugeIOLoginHelper.h"
+
 #define phoneLabTag 99
 @interface FindPasswordVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *userTf;

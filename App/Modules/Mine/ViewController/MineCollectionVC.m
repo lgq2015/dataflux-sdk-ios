@@ -11,6 +11,7 @@
 #import "NewsWebView.h"
 #import "NewsListCell.h"
 #import "NewsListImageCell.h"
+#import "ZhugeIOMineHelper.h"
 
 #define DeletBtnTag 200
 
@@ -140,32 +141,32 @@
 {   UITableViewCell *cell;
     NewsListModel *model = self.dataSource[indexPath.row];
     if (model.type == NewListCellTypText) {
-    NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
-     cell.model = self.dataSource[indexPath.row];
+        NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
+        cell.model = self.dataSource[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            [self delectCollection:indexPath.row];
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
+            [self deleteCollection:indexPath.row];
             return NO;
         }];
         button.titleLabel.font = RegularFONT(14);
-        
+
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
         return cell;
-    }else{
-     NewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListImageCell"];
-       cell.model = self.dataSource[indexPath.row];
-        
+    } else {
+        NewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListImageCell"];
+        cell.model = self.dataSource[indexPath.row];
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            [self delectCollection:indexPath.row];
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
+            [self deleteCollection:indexPath.row];
             return NO;
         }];
         button.titleLabel.font = RegularFONT(14);
-        
+
         [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
@@ -175,7 +176,7 @@
 
     
 }
-- (void)delectCollection:(NSInteger)index{
+- (void)deleteCollection:(NSInteger)index{
     NewsListModel *model = self.dataSource[index];
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(model.favoID) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -186,6 +187,8 @@
         }
         [self.header endRefreshing];
         [self.footer endRefreshing];
+        [[[[ZhugeIOMineHelper new] eventDeleteCollection]
+                attrMessageTitle:model.title.length>0?model.title:@""]track];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
         [self.header endRefreshing];

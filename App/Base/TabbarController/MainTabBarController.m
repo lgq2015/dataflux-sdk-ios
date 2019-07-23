@@ -19,6 +19,11 @@
 #import "LibraryVC.h"
 #import "HomeIssueListVC.h"
 #import "CalendarVC.h"
+#import "ZhugeIOIssueHelper.h"
+#import "ZhugeIOCalendarHelper.h"
+#import "ZhugeIOLibraryHelper.h"
+#import "ZhugeIOTeamHelper.h"
+#import "ZhugeIOMineHelper.h"
 
 @interface MainTabBarController ()
 @property (nonatomic,strong) NSMutableArray * VCS;//tabbar root VC
@@ -55,11 +60,13 @@
     TeamVC *team = [TeamVC new];
     team.isHidenNaviBar = YES;
     [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
-    
+
     MineViewController *mineVC = [[MineViewController alloc]init];
     [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_personal" seleceImageName:@"icon_personals"];
-    
+
     self.viewControllers = _VCS;
+
+    self.delegate =self;
 }
 -(void)setupChildViewController:(UIViewController*)controller title:(NSString *)title imageName:(NSString *)imageName seleceImageName:(NSString *)selectImageName{
     controller.title = title;
@@ -68,7 +75,7 @@
     controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //未选中字体颜色
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:CTabbarTextColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateNormal];
-    
+
     //选中字体颜色
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWBlueColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateSelected];
     //包装导航控制器
@@ -81,6 +88,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+
+    switch( tabBarController.selectedIndex){
+        case 0:
+            [[[[ZhugeIOIssueHelper new] eventClickBottomTab] attrTabName] track];
+            break;
+        case 1:
+            [[[[ZhugeIOCalendarHelper new] eventClickBottomTab] attrTabName] track];
+
+            break;
+        case 2:
+            [[[[ZhugeIOLibraryHelper new] eventClickBottomTab] attrTabName] track];
+
+            break;
+        case 3:
+            [[[[ZhugeIOTeamHelper new] eventBottomTab] attrTabName] track];
+
+            break;
+        case 4:
+            [[[[ZhugeIOMineHelper new] eventBottomTab] attrTabName] track];
+
+            break;
+
+        default:
+            break;
+    }
+
+}
+
+
 
 /*
 #pragma mark - Navigation

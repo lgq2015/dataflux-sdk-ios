@@ -305,6 +305,13 @@
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
+
+    if(self.type==PWMemberViewTypeExpert){
+        [[[[ZhugeIOIssueHelper new] eventCallExpert] attrCallPhone:YES] track];
+    } else{
+        [[[ZhugeIOTeamHelper new] eventCallMember] track];
+    }
+
 }
 - (void)createBtnTrans{
     UIView *phone = [self.view viewWithTag:phoneViewTag];

@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, FromVC){//从哪个控制器进来的
     FromVCHandBookArticle,
     FromVCHandBookIndex,
+    FromVCForum
 };
 NS_ASSUME_NONNULL_BEGIN
 @class NewsListModel;

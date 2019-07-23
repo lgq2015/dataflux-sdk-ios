@@ -15,6 +15,8 @@
 #import "HandbookIndexVC.h"
 #import "LibrarySearchVC.h"
 #import "HandBookManager.h"
+#import "ZhugeIOLibraryHelper.h"
+
 static NSUInteger kLineCount = 3;
 static NSUInteger ItemHeight = 136;
 static NSUInteger ItemWidth = 104;
@@ -217,8 +219,8 @@ static NSUInteger ItemWidth = 104;
         indexVC.model = model;
         [self.navigationController pushViewController:indexVC animated:YES];
     }
-   
-    
+
+    [[[[ZhugeIOLibraryHelper new] eventLookHandBook] attrHandBookName:model.name] track];
 }
 #pragma mark ========== PWDraggableItemDelegate ==========
 - (void)dragButton:(LibraryDraggableItem *)dragButton dragButtons:(NSArray *)dragButtons startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex{

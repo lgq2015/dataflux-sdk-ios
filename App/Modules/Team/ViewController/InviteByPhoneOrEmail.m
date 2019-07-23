@@ -7,6 +7,7 @@
 //
 
 #import "InviteByPhoneOrEmail.h"
+#import "ZhugeIOTeamHelper.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface InviteByPhoneOrEmail ()<UITextFieldDelegate>
@@ -90,6 +91,7 @@
 - (void)commitTeamClick{
     NSDictionary *param ;
     if (self.isPhone) {
+        
         NSString *phone = [self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         BOOL  is = [phone validatePhoneNumber];
         if (is == NO){
@@ -97,6 +99,8 @@
             return;
         }
         param = @{@"data":@{@"invite_type":@"mobile",@"invite_id":[self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]}};
+        [[[ZhugeIOTeamHelper new] eventSurePhoneInvite] track];
+
     }else{
         BOOL  isEmail = [self.codeTF.text validateEmail];
         if (isEmail == NO){
@@ -104,6 +108,8 @@
             return;
         }
         param = @{@"data":@{@"invite_type":@"email",@"invite_id":self.codeTF.text}};
+        [[[ZhugeIOTeamHelper new] eventSureEmailInvite] track];
+
     }
     [SVProgressHUD show];
     [PWNetworking requsetHasTokenWithUrl:PW_teamInvite withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {

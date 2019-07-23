@@ -15,6 +15,10 @@
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
 #import "RootNavigationController.h"
+#import "HomeIssueListVC.h"
+#import "TeamVC.h"
+#import "ZhugeIOIssueHelper.h"
+#import "ZhugeIOTeamHelper.h"
 
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong)  UIView *backgroundGrayView;//!<透明背景View
@@ -197,6 +201,13 @@
         if ([model.teamID isEqualToString:currentTeam.teamID]){
             return;
         }
+
+        if ([self.fromVC isKindOfClass:HomeIssueListVC.class]) {
+            [[[ZhugeIOIssueHelper new] eventSwitchTeam] track];
+        } else if ([self.fromVC isKindOfClass:TeamVC.class]) {
+            [[[ZhugeIOTeamHelper new] eventSwitchTeam] track];
+        }
+
         [self changeTeamWithGroupModel:model];
     }else{
         if (self.fromVC){

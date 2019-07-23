@@ -18,6 +18,8 @@
 #import "IssueListViewModel.h"
 #import "IssueDetailsVC.h"
 #import "IssueChatDataManager.h"
+#import "ZhugeIOIssueHelper.h"
+
 #define NavRightBtnTag  100  // 右侧图片
 
 @interface AddIssueVC ()<UITableViewDelegate, UITableViewDataSource>
@@ -368,7 +370,9 @@
                     }
                     self.navigationController.viewControllers = delect;
                 });
-               
+
+                [[[ZhugeIOIssueHelper new] eventCreateProblem] attrAddEnclosure:self.attachmentArray.count > 0];
+
             }else{
                 [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
                 [SVProgressHUD dismiss];

@@ -7,6 +7,8 @@
 //
 
 #import "VerificationCodeNetWork.h"
+#import "ZhugeIOLoginHelper.h"
+
 @interface VerificationCodeNetWork()
 @property (nonatomic,copy) PWResponseSuccessBlock successBlock;   //-> 回掉
 @property (nonatomic,copy) PWResponseFailBlock failBlock;
@@ -20,16 +22,20 @@
     NSString *t;
     switch (type) {
         case VerifyCodeVCTypeLogin:
+            [[[[[ZhugeIOLoginHelper new] eventGetVeryCode] attrSceneLogin] attrPhone:phone] track];
+
             t =@"login";
              [self getVerifyCodeWithPhone:phoneText to:t];
             break;
         case VerifyCodeVCTypeFindPassword:
-            if( [phone validateEmail]){
+            if ([phone validateEmail]) {
+                [[[[[ZhugeIOLoginHelper new] eventGetVeryCode] attrSceneForget] attrEmail:phone] track];
                 [self getCodeWithEmail:phone];
                 break;
-            }else{
-                  t = @"forgotten_password";
-             [self getVerifyCodeWithPhone:phoneText to:t];
+            } else {
+                [[[[[ZhugeIOLoginHelper new] eventGetVeryCode] attrSceneForget] attrPhone:phone] track];
+                t = @"forgotten_password";
+                [self getVerifyCodeWithPhone:phoneText to:t];
                 break;
             }
             
@@ -46,6 +52,7 @@
             [self getVerifyCodeWithTokenPhone:phoneText to:t];
             break;
         case VerifyCodeVCTypeUpdateMobileNewMobile:
+            [[[[[ZhugeIOLoginHelper new] eventGetVeryCode] attrSceneNewAccount] attrPhone:phone] track];
             [self getCodeUpdateMobileNewMobileWithPhone:phone uuid:uuid];
             break;
         case VerifyCodeVCTypeTeamDissolve:

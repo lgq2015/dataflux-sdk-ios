@@ -16,6 +16,8 @@
 #import "HandBookManager.h"
 #import "IssueSourceManger.h"
 #import "IssueChatDataManager.h"
+#import "ZhugeIOLoginHelper.h"
+#import "ZhugeIOUserDataHelper.h"
 
 typedef void(^completeBlock)(id response);
 
@@ -61,21 +63,21 @@ SINGLETON_FOR_CLASS(UserManager);
                     }
                     [kUserDefaults synchronize];
                 }
-                
+
             }
         } failBlock:^(NSError *error) {
             if (isSuccess) {
                 isSuccess(NO);
             }
         }];
-    
+
 }
 
 -(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion{
     NSMutableDictionary *param = [params mutableCopy];
     [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
     NSDictionary *data = @{@"data":param};
-    
+
     [PWNetworking requsetWithUrl:PW_register withRequestType:NetworkPostType refreshRequest:NO cache:NO params:data progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
@@ -101,9 +103,12 @@ SINGLETON_FOR_CLASS(UserManager);
                 if (completion) {
                     completion(NO,nil);
                 }
-             [SVProgressHUD dismiss];
-             [iToast alertWithTitleCenter:@"账号或密码错误"];
-                
+                [SVProgressHUD dismiss];
+                [iToast alertWithTitleCenter:@"账号或密码错误"];
+                NSString *errorMsg = NSLocalizedString(errCode, @"");
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
+
+
             }else{
                 if (completion) {
                     completion(YES,nil);
@@ -113,8 +118,10 @@ SINGLETON_FOR_CLASS(UserManager);
                 setXAuthToken(content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
                 [self saveUserInfoLoginStateisChange:YES success:nil];
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
+
             }
-            
+
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
             if (completion) {
@@ -130,41 +137,51 @@ SINGLETON_FOR_CLASS(UserManager);
                 self.isLogined = YES;
                 NSDictionary *content = response[@"content"];
                 setXAuthToken(content[@"authAccessToken"]);
-                [kUserDefaults synchronize];                
+                [kUserDefaults synchronize];
+
+                [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
+
                 BOOL isRegister = [content[@"isRegister"] boolValue];
-             if (isRegister) {
-                 NSString *changePasswordToken = content[@"changePasswordToken"];
+                if (isRegister) {
+                    NSString *changePasswordToken = content[@"changePasswordToken"];
                     if (completion) {
-                        completion(YES,changePasswordToken);
+                        completion(YES, changePasswordToken);
                     }
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }else{
                     [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
             }else{
                 [SVProgressHUD dismiss];
                 if (completion) {
-                    completion(NO,@"");
+                    completion(NO, @"");
                 }
-                if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
-                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+
+                NSString *errorCode = response[ERROR_CODE];
+                NSString *errorMsg = NSLocalizedString(errorCode, @"");
+                [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultNoPass] track];
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
+
+                if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
+                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试", (long) [response longValueForKey:@"ttl" default:0]];
                     [SVProgressHUD showErrorWithStatus:toast];
-                }else{
+                } else {
                     [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
                 }
-               
+
             }
-            
-        } failBlock:^(NSError *error) {
+
+        }                  failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
             if (completion) {
-                completion(NO,@"");
+                completion(NO, @"");
             }
             [error errorToast];
 
         }];
     }
-    
+
 }
 #pragma mark ========== 储存用户信息 ==========
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess{
@@ -172,7 +189,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
     dispatch_queue_t queueT = dispatch_queue_create("group.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
     dispatch_group_t grpupT = dispatch_group_create();//一个线程组
-    
+
     dispatch_group_async(grpupT, queueT,^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -190,20 +207,21 @@ SINGLETON_FOR_CLASS(UserManager);
                     [cache setObject:dic forKey:KUserModelCache];
                     setPWUserID(self.curUserInfo.userID);
                     [kUserDefaults synchronize];
+                    [[ZhugeIOUserDataHelper new] bindUserData:self.curUserInfo];
                     dispatch_group_leave(grpupT);
                 }else{
                   dispatch_group_leave(grpupT);
                 }
             }
-           
+
         } failBlock:^(NSError *error) {
             DLog(@"%@",error);
-           
+
             dispatch_group_leave(grpupT);
         }];
-        
+
     });
-   
+
     dispatch_group_async(grpupT, queueT, ^{
         dispatch_group_enter(grpupT);
         [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -230,9 +248,9 @@ SINGLETON_FOR_CLASS(UserManager);
             }else{
                   dispatch_group_leave(grpupT);
             }
-          
+
         } failBlock:^(NSError *error) {
-           
+
             dispatch_group_leave(grpupT);
         }];
     });
@@ -253,7 +271,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 [iToast alertWithTitleCenter:@"网络异常"];
             }
         });
-        
+
     });
     [self loadExperGroups:nil];
 }
@@ -294,12 +312,12 @@ SINGLETON_FOR_CLASS(UserManager);
 - (void)reloadTeamInfo
 {
     [self addTeamSuccess:^(BOOL isSuccess) {
-        
+
     }];
 }
 #pragma mark ========== 退出登录 ==========
 - (void)logout:(void (^)(BOOL, NSString *))completion{
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -389,7 +407,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 name([self privateGetExpertNameByKey:key]);
             }
         }];
-        
+
     }else{
         if (name) {
             name([self privateGetExpertNameByKey:key]);
@@ -433,7 +451,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
             completion ? completion(nil):nil;
         }
-        
+
     } failBlock:^(NSError *error) {
         completion ? completion(nil):nil;
         [error errorToast];
@@ -462,7 +480,7 @@ SINGLETON_FOR_CLASS(UserManager);
         }else{
            completion ? completion(nil):nil;
         }
-        
+
     } failBlock:^(NSError *error) {
         completion ? completion(nil):nil;
         [error errorToast];
@@ -583,7 +601,7 @@ SINGLETON_FOR_CLASS(UserManager);
             memberBlock? memberBlock(nil):nil;
         }];
     }
-   
+
 }
 #pragma mark ========== 团队列表===============
 - (void)setAuthTeamList:(NSArray *)teamList{
@@ -695,13 +713,13 @@ SINGLETON_FOR_CLASS(UserManager);
 
 - (void)setLastFetchTime{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
-    
+
     NSString *key =[self getTeamModel].teamID;
     [cache setObject:[NSDate date] forKey:key];
 }
 - (NSDate *)getLastFetchTime{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
-   
+
     NSString *key = [self getTeamModel].teamID;
     NSDate *date = (NSDate *)[cache objectForKey:key];
     if(date){

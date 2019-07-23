@@ -14,6 +14,7 @@
 #import "PWPhotoPickerViewController.h"
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "UIImage+fixOrientation.h"
+#import "ZhugeIOMineHelper.h"
 
 @interface PersonalInfoVC ()<UITableViewDelegate,UITableViewDataSource,PWPhotoPickerProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -121,6 +122,8 @@
         }];
         picker.isHidenNaviBar = YES;
         [self.navigationController pushViewController:picker animated:YES];
+        [[[ZhugeIOMineHelper new] eventChangeHeadImage] track];
+
     }else if(indexPath.row == 1){
         BindEmailOrPhoneVC *nameVC = [[BindEmailOrPhoneVC alloc]init];
         nameVC.isShowCustomNaviBar = YES;

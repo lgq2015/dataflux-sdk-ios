@@ -19,6 +19,9 @@
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
 #import "JPUSHService.h"
+#import "ZhugeIOLoginHelper.h"
+#import "ZhugeIOMineHelper.h"
+#import "ZhugeIOTeamHelper.h"
 
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
@@ -256,31 +259,38 @@
   
 }
 - (void)btnClickWithCode:(NSString *)code{
+
     switch (self.type) {
         case VerifyCodeVCTypeLogin:
             [self loginWithCode:code];
             break;
         case VerifyCodeVCTypeFindPassword:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneChangePwd] track];
             [self findPasswordWithCode:code];
             break;
         case VerifyCodeVCTypeChangePassword:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneChangePwd] track];
             [self changePasswordWithCode:code];
             break;
         case VerifyCodeVCTypeUpdateEmail:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneChangeEmail] track];
             [self updateEmailWithCode:code];
             break;
         case VerifyCodeVCTypeUpdateMobile:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneChangeMobile] track];
             [self updateMobileWithCode:code];
             break;
         case VerifyCodeVCTypeUpdateMobileNewMobile:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneChangeMobile] track];
             [self updateNewMobileWithCode:code];
             break;
         case VerifyCodeVCTypeTeamDissolve:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneVerify] track];
             [self teamDissolveWithCode:code];
             break;
         case VerifyCodeVCTypeTeamTransfer:
+            [[[[ZhugeIOMineHelper new] eventInputVerifyCode] attrSceneVerify] track];
             [self teamTransferWithCode:code];
-
             break;
     }
 }
@@ -327,11 +337,14 @@
             SetNewPasswordVC *newPasswordVC = [[SetNewPasswordVC alloc]init];
             newPasswordVC.isShowCustomNaviBar = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
+            [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultPass] track];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
         }else{
+            [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultNoPass] track];
             [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
+        [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultNoPass] track];
         [iToast alertWithTitleCenter:@"网络异常"];
     }];
 }
@@ -349,6 +362,8 @@
             newPasswordVC.isChange = YES;
             newPasswordVC.changePasswordToken = content[@"changePasswordToken"];
             [self.navigationController pushViewController:newPasswordVC animated:YES];
+            [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrVerifyWayMobile] track];
+
         }else{
             [self dealWithError:response];
         }
@@ -370,6 +385,8 @@
             bindemail.isFirst = userManager.curUserInfo.email == nil? YES:NO;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
+            [[[[ZhugeIOMineHelper new] eventChangeEmail] attrVerifyWayMobile] track];
+
         }else{
             [self dealWithError:response];
         }
@@ -389,6 +406,8 @@
             bindemail.changeType = BindUserInfoTypeMobile;
             bindemail.isShowCustomNaviBar = YES;
             [self.navigationController pushViewController:bindemail animated:YES];
+            [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrVerifyWayMobile] track];
+
         }else{
             [self dealWithError:response];
         }
@@ -406,6 +425,7 @@
             [SVProgressHUD showSuccessWithStatus:@"修改成功"];
             userManager.curUserInfo.mobile = self.phoneNumber;
             KPostNotification(KNotificationUserInfoChange, nil);
+            [[[[ZhugeIOMineHelper new] eventChangePhone] attrVerifyWayMobile] track];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 for(UIViewController *temp in self.navigationController.viewControllers) {
                     if([temp isKindOfClass:[PersonalInfoVC class]]){
@@ -454,6 +474,8 @@
     NSDictionary *param = @{@"data":@{@"uuid":uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_OwnertTransfer(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if([response[ERROR_CODE] isEqualToString:@""]){
+            [[[ZhugeIOTeamHelper new] eventCancelTeam] track];
+
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = YES;
             [self presentViewController:success animated:YES completion:nil];
@@ -478,6 +500,8 @@
             TeamSuccessVC *success = [[TeamSuccessVC alloc]init];
             success.isTrans = NO;
             [self presentViewController:success animated:YES completion:nil];
+            [[[ZhugeIOTeamHelper new] eventTransferManager] track];
+
         }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -496,6 +520,10 @@
     NSString *title = NSLocalizedString(@"local.serviceAgreement", @"");
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
         title = @"隐私权政策";
+        [[[[ZhugeIOLoginHelper new] eventServiceProtocols] attrSceneLogin] track];
+    } else{
+        [[[[ZhugeIOLoginHelper new] eventPrivacyPolicy] attrSceneLogin] track];
+
     }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];

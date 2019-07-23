@@ -8,6 +8,7 @@
 
 #import "IssueSelectView.h"
 #import "TouchLargeButton.h"
+#import "ZhugeIOIssueHelper.h"
 
 #define LevelTag  200
 #define TypeTag   300
@@ -173,6 +174,7 @@
     if ((NSInteger)self.currSelType == button.tag+1-TypeTag) {
         return;
     }else{
+        [[[ZhugeIOIssueHelper new] eventClickIssueClass] track];
         UIButton *lastBtn = [self.contentView viewWithTag:TypeTag+(int)self.currSelType-1];
         lastBtn.selected = NO;
         [lastBtn.layer setBorderColor:[UIColor colorWithHexString:@"#E4E4E4"].CGColor];

@@ -8,6 +8,8 @@
 
 #import "QrCodeInviteVC.h"
 #import "PrivacySecurityControls.h"
+#import "ZhugeIOTeamHelper.h"
+
 @interface QrCodeInviteVC ()
 @property (nonatomic, strong) UIImageView *qrImgView;
 @end
@@ -90,6 +92,7 @@
         [SVProgressHUD showErrorWithStatus:@"保存失败"];
     }else{
         if (self.qrImgView.image){
+            [[[ZhugeIOTeamHelper new] eventSaveQRCode] track];
             [SVProgressHUD showSuccessWithStatus:@"保存成功"];
         }else{
             [SVProgressHUD showErrorWithStatus:@"保存失败"];

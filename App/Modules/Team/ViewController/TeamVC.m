@@ -26,6 +26,8 @@
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "CloudCareVC.h"
+#import "ZhugeIOTeamHelper.h"
+
 #import "NotificationRuleVC.h"
 #import "TeamHeaderView.h"
 #import "UtilsConstManager.h"
@@ -70,7 +72,7 @@
 - (void)s_UI{
     //判断是否购买了产品
     self.tableView.mj_header = self.header;
-    
+
     self.tableView.frame = CGRectMake(0, kTopHeight+25, kWidth, kHeight-kTabBarHeight-2 - kTopHeight-25);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -214,6 +216,9 @@
     member.model = model;
     member.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:member animated:YES];
+
+    [[[ZhugeIOTeamHelper new] eventLookMember] track];
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -305,11 +310,15 @@
             }
             InviteMembersVC *invite = [[InviteMembersVC alloc]init];
             [self.navigationController pushViewController:invite animated:YES];
+            [[[ZhugeIOTeamHelper new] eventClickInvite] track];
+
         }
             break;
         case cloudServerType:{
             IssueSourceListVC *infoSource = [[IssueSourceListVC alloc]init];
             [self.navigationController pushViewController:infoSource animated:YES];
+            [[[ZhugeIOTeamHelper new] eventConfigIssue] track];
+
         }
             break;
         case teamManagerType:{
@@ -326,6 +335,8 @@
                 }];};
             fillVC.count = self.teamMemberArray.count;
             [self.navigationController pushViewController:fillVC animated:YES];
+            [[[ZhugeIOTeamHelper new] eventClickTeamManager] track];
+
         }
             break;
         case server:{
@@ -334,7 +345,7 @@
             [self.navigationController pushViewController:makeFriendVC animated:YES];
         }
             break;
-       
+
         case notificationRule: {
             NotificationRuleVC *ruleVC = [[NotificationRuleVC alloc]init];
             [self.navigationController pushViewController:ruleVC animated:YES];

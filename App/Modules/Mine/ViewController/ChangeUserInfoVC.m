@@ -11,6 +11,7 @@
 #import "ChangeCardItem.h"
 #import "PasswordVerifyVC.h"
 #import "VerificationCodeNetWork.h"
+#import "ZhugeIOMineHelper.h"
 
 #define TagPhoneItem  100  // 右侧图片
 #define TagPasswordItem 200
@@ -81,27 +82,26 @@
 }
 
 - (void)itemPhoneClick{
-        NSString *t;
         VerifyCodeVCType type;
         switch (self.type) {
             case ChangeUITPhoneNumber:
-                t = @"update_mobile";
+                [[[[ZhugeIOMineHelper new] eventGetVerifyCode] attrSceneChangeMobile] track];
                 type = VerifyCodeVCTypeUpdateMobile;
                 break;
             case ChangeUITPassword:
-                t = @"forgotten_password";
+                [[[[ZhugeIOMineHelper new] eventGetVerifyCode] attrSceneChangePwd] track];
                 type = VerifyCodeVCTypeChangePassword;
                 break;
             case ChangeUITEmail:
-                t = @"update_email";
+                [[[[ZhugeIOMineHelper new] eventGetVerifyCode] attrSceneChangeEmail] track];
                 type = VerifyCodeVCTypeUpdateEmail;
                 break;
             case ChangeUITTeamDissolve:
-                t = @"team_cancel";
+                [[[[ZhugeIOMineHelper new] eventGetVerifyCode] attrSceneVerify] track];
                 type =VerifyCodeVCTypeTeamDissolve;
                 break;
             case ChangeUITTeamTransfer:
-                t = @"owner_transfer";
+                [[[[ZhugeIOMineHelper new] eventGetVerifyCode] attrSceneVerify] track];
                 type =VerifyCodeVCTypeTeamTransfer;
                 break;
         }

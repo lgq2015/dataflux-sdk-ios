@@ -11,6 +11,7 @@
 #import "VerifyCodeVC.h"
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
+#import "ZhugeIOMineHelper.h"
 
 #define tipLabTag 88
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
@@ -204,6 +205,7 @@
                         }
                     }
                 });
+                
             }else{
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
                     [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
@@ -243,6 +245,8 @@
             verify.phoneNumber =[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             verify.uuid = self.uuid;
             [self.navigationController pushViewController:verify animated:YES];
+            [[[ZhugeIOMineHelper new] eventChangePhone] track];
+
         }else {
             if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
                 [iToast alertWithTitleCenter:@"该手机号已被注册"];
@@ -277,7 +281,8 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
               [self.navigationController popViewControllerAnimated:YES];
             });
-           
+            [[[ZhugeIOMineHelper new] eventChangeName] track];
+
         }else{
             [SVProgressHUD showErrorWithStatus:@"修改失败"];
         }

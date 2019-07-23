@@ -10,6 +10,7 @@
 #import "InviteCardView.h"
 #import "InviteByPhoneOrEmail.h"
 #import "QrCodeInviteVC.h"
+#import "ZhugeIOTeamHelper.h"
 
 #define SccanTag 21
 #define EmailTag 22
@@ -52,14 +53,20 @@
     if (tap.view.tag == SccanTag) {
         QrCodeInviteVC *qrCode = [[QrCodeInviteVC alloc]init];
         [self.navigationController pushViewController:qrCode animated:YES];
+        [[[ZhugeIOTeamHelper new] eventJoinScan] track];
+
     }else if(tap.view.tag == PhoneTag){
         InviteByPhoneOrEmail *invite = [[InviteByPhoneOrEmail alloc]init];
         invite.isPhone = YES;
         [self.navigationController pushViewController:invite animated:YES];
+        [[[ZhugeIOTeamHelper new] eventInviteEmail] track];
+
     }else{
         InviteByPhoneOrEmail *invite = [[InviteByPhoneOrEmail alloc]init];
         invite.isPhone = NO;
         [self.navigationController pushViewController:invite animated:YES];
+        [[[ZhugeIOTeamHelper new] eventInvitePhone] track];
+
     }
 }
 

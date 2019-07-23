@@ -29,7 +29,7 @@
     [self initService];
     [self initWindow];
 //    [self initUserManager];
-//    [self initZhuge];
+    [self initZhuge:launchOptions];
 //    [self initUMeng];
     [self initSVProgressHUD];
     [self configLog];
