@@ -66,7 +66,7 @@
  * @param start  查询日历起始时间
  * @param end    查询日历终止时间
  */
-- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)getCalendarListWithStartTime:(NSString *)start EndTime:(NSString *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)checkRegisterWithPhone:(NSString *)phone callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback;
 

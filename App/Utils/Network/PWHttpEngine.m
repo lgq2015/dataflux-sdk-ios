@@ -373,16 +373,26 @@
 
 - (PWURLSessionTask *)getCalendarDotWithStartTime:(NSString *)start EndTime:(NSString *)end callBack:(void (^)(id))callback{
     CountListModel *model = [CountListModel new];
-    /*
-     createDate_start=2019-06-29T16:00:00.000Z&createDate_end=2019-08-10T16:00:00.000Z&_groupBy=DATE
-     */
-    NSDictionary *param = @{@"createDate_start":start,
-                            @"createDate_end":end,
-                            @"_groupBy":@"DATE",
-                            @"type":
-                                @"keyPoint,bizPoint"
-                            };
-    return [PWNetworking requsetHasTokenWithUrl:PW_IssueLog_count
+    NSString *url ;
+    NSDictionary *param ;
+    CalendarViewType type = [userManager getCurrentCalendarViewType];
+    if (type == CalendarViewTypeGeneral) {
+        url = PW_General_count;
+        param = @{@"createDate_start":start,
+                  @"createDate_end":end,
+                  @"_groupBy":@"DATE",
+                  };
+    }else{
+        url = PW_IssueLog_count;
+        param = @{@"createDate_start":start,
+                  @"createDate_end":end,
+                  @"_groupBy":@"DATE",
+                  @"type":
+                      @"keyPoint,bizPoint"
+                  };
+    }
+   
+    return [PWNetworking requsetHasTokenWithUrl:url
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
                                           cache:NO
@@ -392,25 +402,40 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
 
-- (PWURLSessionTask *)getCalendarListWithStartTime:(NSNumber *)start EndTime:(NSNumber *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
+- (PWURLSessionTask *)getCalendarListWithStartTime:(NSString *)start EndTime:(NSString *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
     CalendarListModel *model = [CalendarListModel new];
-
-    NSMutableDictionary *param =[@{
-
-                                   @"subType":
-                                       @"issueCreated,issueRecovered,exitExpertGroups,issueDiscarded,updateExpertGroups,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning,issueFixed",
-                                   @"orderBy":@"seq",
-                                   @"orderMethod":orderMethod
-                                   } mutableCopy];
+    ////pageMarker=14542&orderMethod=desc&orderBy=seq&pageSize=20&fieldKicking=extraJSON,metaJSON,reference,tags&_needReadInfo=true
+    NSMutableDictionary *param ;
+    NSString *url;
+     CalendarViewType type = [userManager getCurrentCalendarViewType];
+    if (type == CalendarViewTypeGeneral) {
+        url = PW_General_list;
+        param =[@{
+                  
+                  @"orderMethod":orderMethod,
+                  @"fieldKicking":@"extraJSON,metaJSON,reference,tags",
+                  @"_needReadInfo":@YES,
+                  @"orderBy":@"seq",
+                  } mutableCopy];
+    }else{
+        url = PW_IssueLog_list;
+        param =[@{
+                  @"orderMethod":orderMethod,
+                  @"type":
+                      @"keyPoint,bizPoint",
+                  @"orderBy":@"seq",
+                  } mutableCopy];
+    }
+    
     if (pageMarker>0) {
         [param addEntriesFromDictionary:@{@"pageMarker":[NSNumber numberWithLong:pageMarker],@"pageSize":@40}];
     }else{
         [param addEntriesFromDictionary:@{@"pageSize":@40}];
     }
-    if (![start isEqualToNumber:@0]) {
-        [param addEntriesFromDictionary:@{@"createDateTs_start":start,@"createDateTs_end":end, @"dataMethod":@"between"}];
+    if (![start isEqualToString:@""]) {
+        [param addEntriesFromDictionary:@{@"createDate_start":start,@"createDate_end":end}];
     }
-    return [PWNetworking requsetHasTokenWithUrl:PW_Calendar_list
+    return [PWNetworking requsetHasTokenWithUrl:url
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
                                           cache:NO
