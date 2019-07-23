@@ -725,5 +725,19 @@ SINGLETON_FOR_CLASS(UserManager);
             @"deviceVersion":device_version,
     };
 }
-
+-(CalendarViewType)getCurrentCalendarViewType{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    BOOL isContain= [cache containsObjectForKey:KCurrentCalendarViewType];
+    if (isContain) {
+        NSNumber *currentType = (NSNumber *)[cache objectForKey:KCurrentCalendarViewType];
+        return (CalendarViewType)[currentType integerValue];
+    }else{
+        return CalendarViewTypeGeneral;
+    }
+}
+-(void)setCurrentIssueSortType:(CalendarViewType)type{
+    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
+    [cache removeObjectForKey:KCurrentCalendarViewType];
+    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentCalendarViewType];
+}
 @end

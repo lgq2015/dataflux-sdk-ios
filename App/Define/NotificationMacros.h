@@ -40,6 +40,7 @@
 #define KIssueListType @"KIssueListType"
 #define KCurrentIssueListType   @"KCurrentIssueListType"
 #define KCurrentIssueViewType   @"KCurrentIssueViewType"
+#define KCurrentCalendarViewType @"KCurrentCalendarViewType"
 //当前团队
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员

@@ -21,6 +21,10 @@ typedef NS_ENUM(NSInteger, CodeType){
     CodeTypeCode= 0,//未知
     CodeTypeImg,//
 };
+typedef NS_ENUM(NSInteger ,CalendarViewType){
+    CalendarViewTypeLog = 1,
+    CalendarViewTypeGeneral = 2,
+};
 typedef void (^loginBlock)(BOOL success, NSString * des);
 typedef void (^codeBlock) (CodeStatus status, NSString * des);
 @class UserInfo,CurrentUserModel,TeamInfoModel;
@@ -164,4 +168,7 @@ SINGLETON_FOR_HEADER(UserManager)
 -(CurrentUserModel *)getCurrentUserModel;
 - (void)setLastFetchTime;
 - (NSDate *)getLastFetchTime;
+
+-(CalendarViewType)getCurrentCalendarViewType;
+-(void)setCurrentIssueSortType:(CalendarViewType)type;
 @end
