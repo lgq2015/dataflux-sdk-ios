@@ -30,12 +30,12 @@
 - (void)createCellUI{
     self.backgroundColor = PWWhiteColor;
     
-    self.timeLabel = [[YYLabel alloc]initWithFrame:CGRectMake(kWidth-Interval(20)-ZOOM_SCALE(50), 0, ZOOM_SCALE(50), ZOOM_SCALE(17))];
+    self.timeLabel = [[YYLabel alloc]init];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.font = RegularFONT(12);
     self.timeLabel.textColor = PWSubTitleColor;
     [self addSubview:self.timeLabel];
-    self.titleLable = [[YYLabel alloc]initWithFrame: CGRectMake(Interval(45), 0, CGRectGetMinX(self.timeLabel.frame)-Interval(45), ZOOM_SCALE(20))];
+    self.titleLable = [[YYLabel alloc]initWithFrame: CGRectMake(Interval(45), 0, kWidth-ZOOM_SCALE(66)-Interval(69), ZOOM_SCALE(20))];
     self.titleLable.numberOfLines = 0;
     self.titleLable.font = RegularFONT(12);
     self.titleLable.textColor = PWTextBlackColor;
@@ -71,7 +71,7 @@
 -(void)setModel:(CalendarIssueModel *)model{
     _model = model;
     BOOL isHidden = [model.typeText isEqualToString:@"今日无情报"];
-   
+    self.statesLabel.hidden = isHidden;
     self.timeLabel.hidden = isHidden;
     self.titleLable.hidden = isHidden;
     self.dotView.hidden = isHidden;
@@ -80,11 +80,27 @@
     self.titleLable.text = model.typeText;
     self.timeLabel.text = model.timeText;
     self.contentTextView.text = model.contentText;
+    if (model.isEnd) {
+        self.statesLabel.text = @"已恢复";
+        self.statesLabel.textColor = [UIColor colorWithHexString:@"#54DBAD"];
+    }else{
+        self.statesLabel.text = @"活跃";
+        self.statesLabel.textColor = PWBlueColor;
+    }
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);
-    if (model.titleH>0) {
-        self.titleLable.height = model.titleH;
-        if (model.titleH<=ZOOM_SCALE(17)) {
+    if (model.titleSize.height>0) {
+        self.titleLable.height = model.titleSize.height;
+        self.titleLable.width = model.titleSize.width;
+        if ([model.typeText isEqualToString:@""]) {
+           self.timeLabel.frame = CGRectMake(ZOOM_SCALE(45), 0, ZOOM_SCALE(32), ZOOM_SCALE(17));
+        }else{
+        if (model.titleSize.height<=ZOOM_SCALE(17)) {
             self.titleLable.centerY = self.dotView.centerY;
+            self.timeLabel.frame = CGRectMake(CGRectGetMaxX(self.titleLable.frame)+8, 0, ZOOM_SCALE(32), ZOOM_SCALE(17));
+            self.timeLabel.centerY = self.titleLable.centerY;
+        }else{
+            self.timeLabel.frame = CGRectMake(kWidth-ZOOM_SCALE(84), 0, ZOOM_SCALE(32), ZOOM_SCALE(17));
+        }
         }
     }else{
         self.noDataLable.text = model.typeText;
@@ -95,27 +111,37 @@
     switch (model.state) {
         case IssueStateWarning:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.statesLabel.text = @"警告";
+//            self.statesLabel.text = @"警告";
             break;
         case IssueStateSeriousness:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.statesLabel.text = @"严重";
+//            self.statesLabel.text = @"严重";
             break;
         case IssueStateCommon:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.statesLabel.text = @"提示";
+//            self.statesLabel.text = @"提示";
             break;
         case IssueStateRecommend:
-            self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.statesLabel.text = @"已恢复";
+            self.dotView.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
+//            self.statesLabel.text = @"已恢复";
 
             break;
         case IssueStateLoseeEfficacy:
-            self.statesLabel.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.statesLabel.text = @"失效";
+            self.dotView.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+//            self.statesLabel.text = @"失效";
             break;
     }
-    self.lineView.height = model.calendarContentH +Interval(28)+model.titleH;
+    self.lineView.height = model.calendarContentH +Interval(28)+model.titleSize.height;
+}
+-(YYLabel *)statesLabel{
+    if (!_statesLabel) {
+        _statesLabel =  [[YYLabel alloc]initWithFrame:CGRectMake(kWidth-16-ZOOM_SCALE(36), 0, ZOOM_SCALE(36), ZOOM_SCALE(17))];
+        _statesLabel.font = RegularFONT(12);
+        _statesLabel.textColor = PWBlueColor;
+        _statesLabel.textAlignment = NSTextAlignmentRight;
+        [self addSubview:_statesLabel];
+    }
+    return _statesLabel;
 }
 -(YYLabel *)noDataLable{
     if (!_noDataLable) {

@@ -262,8 +262,10 @@
     }
     
     
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:)]) {
-        [self.eventSource calendarDidSelectedDate:self.currentDate];
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidSelectedDate:firstDay:lastDay:)]) {
+        LTSCalendarDayItem *item = self.daysInMonth[self.currentSelectedIndexPath.section][0];
+        LTSCalendarDayItem *lastItem = [self.daysInMonth[self.currentSelectedIndexPath.section] lastObject];
+        [self.eventSource calendarDidSelectedDate:self.currentDate firstDay:item.date lastDay:lastItem.date];
     }
 }
 #pragma mark -- UIScrollView --

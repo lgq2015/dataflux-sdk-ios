@@ -24,12 +24,16 @@
     NSDictionary *issueSnapshotJSON_cache = PWSafeDictionaryVal(dict, @"issueSnapshotJSON_cache");
     if (issueSnapshotJSON_cache) {
         self.contentText = [issueSnapshotJSON_cache stringValueForKey:@"title" default:@""];
+        self.isEnd = [[issueSnapshotJSON_cache stringValueForKey:@"status" default:@""] isEqualToString:@""];
+
     }
     if ([issueSnapshotJSON_cache containsObjectForKey:@"renderedText"]) {
         NSDictionary *renderedText = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"renderedText");
         self.contentText = [renderedText stringValueForKey:@"title" default:@""];
     }
+    
     NSString *updateTime = [dict stringValueForKey:@"updateTime" default:@""];
+    NSString *createTime = [dict stringValueForKey:@"createTime" default:@""];
     NSString *subType = [dict stringValueForKey:@"subType" default:@""];
     NSString *type = [dict stringValueForKey:@"type" default:@""];
     if ([type isEqualToString:@"bizPoint"]&& [subType isEqualToString:@"updateExpertGroups"]) {
@@ -70,20 +74,7 @@
     }else{
         self.state =IssueStateCommon;
     }
-//    NSString *status = [issueSnapshotJSON_cache stringValueForKey:@"status" default:@""];
-//    if ([status isEqualToString:@"recovered"]) {
-//        self.state =IssueStateRecommend;
-//    }else if ([status isEqualToString:@"discarded"]){
-//        self.state = IssueStateLoseeEfficacy;
-//    }
     self.issueId = [issueSnapshotJSON_cache stringValueForKey:@"id" default:@""];
-    self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
-    CGFloat titleH  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(50)-Interval(65) withFont:RegularFONT(12)].height;
-    if (titleH<=ZOOM_SCALE(17)) {
-        self.titleH = ZOOM_SCALE(17);
-    }else{
-        self.titleH = titleH+5;
-    }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //输入格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
@@ -92,7 +83,33 @@
     NSDate *dateFormatteds = [dateFormatter dateFromString:updateTime];
     self.dayDate = dateFormatteds;
     self.groupTitle = [dateFormatteds getCalenarTimeStr];
+    if (self.contentText == nil ||[self.contentText isEqualToString:@""]) {
+        self.contentText = [dict stringValueForKey:@"title" default:@""];
+        self.typeText = @"";
+        self.issueId = [dict stringValueForKey:@"id" default:@""];
+        self.timeText = [NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"hh:mm"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //输入格式
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+        [dateFormatter setTimeZone:localTimeZone];
+        NSDate *dateFormatteds = [dateFormatter dateFromString:createTime];
+        self.dayDate = dateFormatteds;
+        self.groupTitle = [dateFormatteds getCalenarTimeStr];
+        self.isEnd = [[dict stringValueForKey:@"status" default:@""] isEqualToString:@""];
+    }
+
+    self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
+    CGSize titleSize  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(66)-Interval(69) withFont:RegularFONT(12)];
+    if (titleSize.height<=ZOOM_SCALE(17)) {
+        titleSize.height = ZOOM_SCALE(17);
+    }else{
+        titleSize.height = titleSize.height+5;
+    }
+    self.titleSize = titleSize;
+    
     self.seq = [dict longValueForKey:@"seq" default:0];
+    
 }
 
 @end

@@ -61,6 +61,7 @@
     if (@available(iOS 11.0, *)) {
         self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
+    self.viewType = [userManager getCurrentCalendarViewType];
     self.isUser= YES;
     self.delegate = self;
     self.bounces = false;
@@ -146,7 +147,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CalendarIssueModel *model = self.calendarList[indexPath.section][indexPath.row];
     if (model.calendarContentH) {
-       return model.calendarContentH +Interval(28)+model.titleH;
+       return model.calendarContentH +Interval(28)+model.titleSize.height;
     }else{
         return ZOOM_SCALE(30);
     }
@@ -187,6 +188,7 @@
     if(_calendarList.count > 0  && indexPath.section<_calendarList.count){
         
     CalendarListCell *cell =[tableView dequeueReusableCellWithIdentifier:@"CalendarListCell"];
+    
     cell.model =(CalendarIssueModel *)self.calendarList[indexPath.section][indexPath.row];
     WeakSelf
     cell.CalendarListCellClick = ^(void){

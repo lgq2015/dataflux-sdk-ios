@@ -11,7 +11,6 @@
 @implementation CountListModel
 - (void)setValueWithDict:(NSDictionary *)dict {
     [super setValueWithDict:dict];
-    NSDictionary *content = PWSafeDictionaryVal(dict, @"content");
-    self.count_list = PWSafeArrayVal(content, @"count_list");
+    self.count_list = PWSafeArrayVal(dict, @"content");
 }
 @end

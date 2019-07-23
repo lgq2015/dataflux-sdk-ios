@@ -13,8 +13,9 @@
 #import "CalendarIssueModel.h"
 #import "IssueDetailsVC.h"
 #import "HLSafeMutableArray.h"
+#import "CalendarSelView.h"
 
-@interface CalendarVC ()<LTSCalendarEventSource>{
+@interface CalendarVC ()<LTSCalendarEventSource,CalendarSelDelegate>{
     NSMutableDictionary *eventsByDate;
     NSMutableDictionary *dotLoadDate;
 
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray *loadMonth;
 @property (nonatomic, assign) BOOL isLoadTop;
 @property (nonatomic, strong) HLSafeMutableArray *calendarList;
+@property (nonatomic, strong) CalendarSelView *selView;
 @end
 
 @implementation CalendarVC
@@ -48,6 +50,15 @@
     }
     return _calendarList;
 }
+-(CalendarSelView *)selView{
+    if (!_selView) {
+        _selView = [[CalendarSelView alloc]initWithTop:kTopHeight+25];
+        _selView.disMissClick = ^(){
+        };
+        _selView.delegate = self;
+    }
+    return _selView;
+}
 - (void)issueTeamSwitch:(NSNotification *)notification{
     [self.manager showSingleWeek];
     [eventsByDate removeAllObjects];
@@ -70,9 +81,25 @@
         make.centerX.mas_equalTo(nav);
         make.bottom.mas_equalTo(nav.mas_bottom).offset(-20);
     }];
+    UIButton *changeViewBtn = [[UIButton alloc]init];
+    [changeViewBtn setImage:[UIImage imageNamed:@"calendar_navbtn"] forState:UIControlStateNormal];
+    [changeViewBtn addTarget:self action:@selector(switchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [nav addSubview:changeViewBtn];
+    [changeViewBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(nav).offset(-20);
+        make.right.mas_equalTo(nav).offset(-13);
+        make.width.height.offset(28);
+    }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
+}
+- (void)switchBtnClick{
+    if (self.selView.isShow) {
+        [self.selView disMissView];
+    }else{
+    [self.selView showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 - (void)createUI{
     self.manager = [LTSCalendarManager new];
@@ -90,9 +117,10 @@
     eventsByDate = [NSMutableDictionary new];
     dotLoadDate = [NSMutableDictionary new];
     NSDate *currentDate = [NSDate date];
-    NSArray *dateary= [currentDate getDateMonthFirstLastDayTimeStamp];
-    [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    [self loadMoreCalendarDotWithStartTime:dateary[0] endTime:dateary[1]];
+    NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+    [dotLoadDate addEntriesFromDictionary:@{start:@1}];
+    
+    [self loadMoreCalendarDotWithStartTime:start endTime:[currentDate getUTCTimeStr]];
 }
 - (void)loadMoreCalendarDotWithStartTime:(NSString *)start endTime:(NSString *)end {
     
@@ -102,22 +130,26 @@
         if (model.isSuccess) {
             NSArray *dotAry = model.count_list;
             [dotAry enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSString *key =[NSString stringWithFormat:@"%ld",[obj longValueForKey:@"timestamp" default:0]];
+               
+                NSString *key =[obj stringValueForKey:@"DATE" default:0];
+    
                 eventsByDate[key] =[NSNumber numberWithLong:[obj longValueForKey:@"count" default:0]];
             }];
             [weakSelf.manager reloadAppearanceAndData];
         }else{
-            //            [iToast alertWithTitleCenter:model.errorMsg];
+          
         }
     }];
 }
 - (void)loadCurrentList{
     self.isLoadTop = YES;
-    [self loadListWithStartTime:@0 endTime:@0 loadNew:YES];
+    NSDate *currentDate = [NSDate date];
+    NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+    [self loadListWithStartTime:start endTime:[currentDate getUTCTimeStr] loadNew:YES];
     [self.manager endRefreshing];
 
 }
-- (void)loadListWithStartTime:(NSNumber *)start endTime:(NSNumber *)end loadNew:(BOOL)new{
+- (void)loadListWithStartTime:(NSString *)start endTime:(NSString *)end loadNew:(BOOL)new{
     [self.manager.calenderScrollView showLoadFooterView];
     [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:end pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
         [self.manager endRefreshing];
@@ -176,7 +208,7 @@
 - (void)loadMoreList{
     NSArray *array = [self.manager.calenderScrollView.calendarList lastObject];
     CalendarIssueModel *model =  [array lastObject];
-    [[PWHttpEngine sharedInstance]getCalendarListWithStartTime:@0 EndTime:@0 pageMarker:model.seq orderMethod:@"desc" callBack:^(id response) {
+    [[PWHttpEngine sharedInstance]getCalendarListWithStartTime:@"" EndTime:@"" pageMarker:model.seq orderMethod:@"desc" callBack:^(id response) {
         [self.manager endRefreshing];
         CalendarListModel *model = (CalendarListModel *)response;
         if (model.isSuccess) {
@@ -244,10 +276,9 @@
         return;
     }
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    NSNumber *firstNum = first?[NSNumber numberWithInteger:[first getTimeStamp]]:dateary[0];
-    [self loadMoreCalendarDotWithStartTime:firstNum endTime:dateary[1]];
+    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[currentDate getUTCTimeStr]];
 }
-- (void)calendarDidSelectedDate:(NSDate *)date{
+- (void)calendarDidSelectedDate:(NSDate *)date firstDay:(NSDate *)first lastDay:(NSDate *)last{
     
     DLog(@"sel date == %@ weekday == %ld",date, (long)[date weekday]);
     if ([date isToday]) {
@@ -277,22 +308,20 @@
         if ([date isToday]) {
             [self loadCurrentList];
         }else{
-        NSArray *dateary= [date getDateMonthFirstLastDayTimeStamp];
             if ([date isToday]) {
                 [self loadCurrentList];
             }else{
                 self.isLoadTop = NO;
-        [self loadListWithStartTime:dateary[0] endTime:[NSNumber numberWithInteger:[[date dateByAddingDays:1] getTimeStamp]] loadNew:NO];
+        [self loadListWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr] loadNew:NO];
             }
     }
     }
 }
 -(BOOL)calendarHaveEventWithDate:(NSDate *)date{
-    NSInteger stamp = [date getTimeStamp];
-    NSString *key = [NSString stringWithFormat:@"%ld",(long)stamp];
+  
+    NSString *key = [date getTimeStr];
     
     if(eventsByDate[key] && [eventsByDate[key] longValue]>0){
-        DLog(@"DotCurrentDate  == %@ stamp == %ld",date,stamp);
 
         return YES;
     }
@@ -325,8 +354,9 @@
 - (void)loadTopDatas{
     __block NSMutableArray *ary = [self.manager.calenderScrollView.calendarList mutableCopy];
     if (self.isLoadTop) {
-        NSDate *today = [NSDate date];
-        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:[NSNumber numberWithInteger:[today getTimeStamp]] EndTime:[NSNumber numberWithInteger:[[today dateByAddingDays:1] getTimeStamp]] pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
+        NSDate *currentDate = [NSDate date];
+        NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:[currentDate getUTCTimeStr] pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
             [self.manager endRefreshing];
             CalendarListModel *model = (CalendarListModel *)response;
             if (model.isSuccess) {
@@ -343,7 +373,7 @@
         NSMutableArray *first = [ary firstObject];
         CalendarIssueModel *firstmodel = [first firstObject];
         WeakSelf
-        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:@0 EndTime:@0 pageMarker:firstmodel.seq orderMethod:@"asc" callBack:^(id response) {
+        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:@"" EndTime:@"" pageMarker:firstmodel.seq orderMethod:@"asc" callBack:^(id response) {
             [self.manager endRefreshing];
             CalendarListModel *model = (CalendarListModel *)response;
             if (model.isSuccess) {
@@ -411,6 +441,23 @@
             [self loadCurrentList];
         }
     }
+}
+#pragma mark ========== CalendarSelDelegate ==========
+-(void)selectCalendarViewType:(CalendarViewType )type{
+    [userManager setCurrentIssueSortType:type];
+    if(self.manager.calenderScrollView.viewType != type){
+        self.manager.calenderScrollView.viewType = type;
+        [self.manager.calenderScrollView backToday];
+        [self.manager showSingleWeek];
+        [eventsByDate removeAllObjects];
+        [dotLoadDate removeAllObjects];
+        [_calendarList removeAllObjects];
+        [self.manager goToDate:[NSDate date]];
+        [self loadCalendarDot];
+        [self loadCurrentList];
+        [self.manager reloadAppearanceAndData];
+    }
+    [self.selView disMissView];
 }
 /*
 #pragma mark - Navigation

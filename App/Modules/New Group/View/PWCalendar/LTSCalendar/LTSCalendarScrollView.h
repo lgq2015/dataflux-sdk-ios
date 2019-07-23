@@ -19,6 +19,8 @@
 
 @property (nonatomic, assign) BOOL isUser;
 @property (nonatomic, strong) UIColor *bgColor;
+@property (nonatomic, assign) CalendarViewType viewType;
+- (void)backToday;
 - (void)scrollToSingleWeek;
 - (void)scrollToAllWeek;
 - (void)showNomoreDatasFooter;
