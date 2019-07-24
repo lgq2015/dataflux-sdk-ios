@@ -43,6 +43,7 @@
     self.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
     self.atInfoJSONStr = atInfoJSON ?[atInfoJSON jsonStringEncoded]:@"";
     self.atInfoJSON = atInfoJSON;
+    self.childIssueStr = PWSafeDictionaryVal(dict, @"childIssue")?[PWSafeDictionaryVal(dict, @"childIssue") jsonPrettyStringEncoded]:@"";
     if ([dict containsObjectForKey:@"assignedToAccountInfo"]) {
         NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
         self.assignedToAccountInfoStr = assignedToAccountInfo?[assignedToAccountInfo jsonStringEncoded]:@"";

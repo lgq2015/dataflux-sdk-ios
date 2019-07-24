@@ -183,6 +183,13 @@
                 self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,key];
             }
 
+        }else if([model.subType isEqualToString:@"issueChildAdded"]){
+            
+            NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
+            NSString *key = [childIssue stringValueForKey:@"title" default:@""];
+            self.stuffName = key;
+            self.messageFrom = PWChatMessageFromOther;
+
         }else{
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
             self.stuffName  = NSLocalizedString(key, @"");

@@ -227,10 +227,11 @@
     NSMutableDictionary *param = [@{
                                     @"pageSize": @(pageSize),
                                     @"type": @"attachment,bizPoint,text,keyPoint",
-                                    @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
+                                    @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning,updateExpertGroups,call,issueChildAdded",
                                     @"_withAttachmentExternalDownloadURL": @YES,
                                     @"orderBy": @"seq",
                                     @"orderMethod": orderMethod,
+                                    @"_withChildIssueDetail":@YES,
                                     @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
 
     if (pageMarker > 0) {

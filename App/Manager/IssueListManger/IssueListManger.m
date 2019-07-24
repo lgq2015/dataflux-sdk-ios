@@ -106,6 +106,7 @@
             @"atStatusStr": SQL_TEXT,
             @"issueSnapshotJSON_cacheStr":SQL_TEXT,
             @"assignedToAccountInfoStr":SQL_TEXT,
+            @"childIssueStr":SQL_TEXT,
     }];
 
 
