@@ -66,10 +66,12 @@
 
     UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"类型："];
     [self addSubview:categoryLab];
+    [categoryLab sizeToFit];
+    CGFloat width = categoryLab.frame.size.width;
     [categoryLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
-        make.width.offset(ZOOM_SCALE(30));
+        make.width.offset(width);
         make.height.offset(ZOOM_SCALE(14));
     }];
     [self.issTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
