@@ -7,7 +7,7 @@
 //
 
 #import "CalendarIssueModel.h"
-
+#import "IssueModel.h"
 @implementation CalendarIssueModel
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
@@ -18,13 +18,22 @@
     }
     return self;
 }
+-(instancetype)initWithIssueModel:(IssueModel *)dict{
+    if (![dict isKindOfClass:[IssueModel class]]) return nil;
+    if (self = [super init]) {
+        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self setValueWithModel:dict];
+        //        });
+    }
+    return self;
+}
 - (void)setValueWithDict:(NSDictionary *)dict{
     
     NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
     NSDictionary *issueSnapshotJSON_cache = PWSafeDictionaryVal(dict, @"issueSnapshotJSON_cache");
     if (issueSnapshotJSON_cache) {
         self.contentText = [issueSnapshotJSON_cache stringValueForKey:@"title" default:@""];
-        self.isEnd = [[issueSnapshotJSON_cache stringValueForKey:@"status" default:@""] isEqualToString:@""];
+        self.isEnd = [[issueSnapshotJSON_cache stringValueForKey:@"status" default:@""] isEqualToString:@"recovered"];
 
     }
     if ([issueSnapshotJSON_cache containsObjectForKey:@"renderedText"]) {
@@ -33,7 +42,6 @@
     }
     
     NSString *updateTime = [dict stringValueForKey:@"updateTime" default:@""];
-    NSString *createTime = [dict stringValueForKey:@"createTime" default:@""];
     NSString *subType = [dict stringValueForKey:@"subType" default:@""];
     NSString *type = [dict stringValueForKey:@"type" default:@""];
     if ([type isEqualToString:@"bizPoint"]&& [subType isEqualToString:@"updateExpertGroups"]) {
@@ -65,7 +73,7 @@
           NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
           self.typeText = NSLocalizedString(key, @"");
     }
-    self.timeText = [NSString getLocalDateFormateUTCDate:updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"hh:mm"];
+    self.timeText = [NSString getLocalDateFormateUTCDate:updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"HH:mm"];
     NSString *level = [issueSnapshotJSON_cache stringValueForKey:@"level" default:@""];
     if ([level isEqualToString:@"danger"]) {
         self.state = IssueStateSeriousness;
@@ -83,22 +91,10 @@
     NSDate *dateFormatteds = [dateFormatter dateFromString:updateTime];
     self.dayDate = dateFormatteds;
     self.groupTitle = [dateFormatteds getCalenarTimeStr];
-    if (self.contentText == nil ||[self.contentText isEqualToString:@""]) {
-        self.contentText = [dict stringValueForKey:@"title" default:@""];
-        self.typeText = @"";
-        self.issueId = [dict stringValueForKey:@"id" default:@""];
-        self.timeText = [NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"hh:mm"];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //输入格式
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
-        [dateFormatter setTimeZone:localTimeZone];
-        NSDate *dateFormatteds = [dateFormatter dateFromString:createTime];
-        self.dayDate = dateFormatteds;
-        self.groupTitle = [dateFormatteds getCalenarTimeStr];
-        self.isEnd = [[dict stringValueForKey:@"status" default:@""] isEqualToString:@""];
+   
+    if (self.contentText.length == 0) {
+        self.contentText = @"该情报日志显示异常";
     }
-
     self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
     CGSize titleSize  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(66)-Interval(69) withFont:RegularFONT(12)];
     if (titleSize.height<=ZOOM_SCALE(17)) {
@@ -111,5 +107,42 @@
     self.seq = [dict longValueForKey:@"seq" default:0];
     
 }
-
+- (void)setValueWithModel:(IssueModel *)model{
+//    self.contentText = .title;
+    if (![model.renderedTextStr isEqualToString:@""]) {
+        NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
+        self.contentText = [dict stringValueForKey:@"title" default:@""];
+    }else{
+        self.self.contentText = model.title;
+    }
+    self.timeText =[NSString getLocalDateFormateUTCDate:model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"HH:mm"];
+    self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
+    self.typeText = @"";
+    CGSize titleSize  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(66)-Interval(69) withFont:RegularFONT(12)];
+    if (titleSize.height<=ZOOM_SCALE(17)) {
+        titleSize.height = ZOOM_SCALE(17);
+    }else{
+        titleSize.height = titleSize.height+5;
+    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //输入格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:localTimeZone];
+    NSDate *dateFormatteds = [dateFormatter dateFromString:model.createTime];
+    self.dayDate = dateFormatteds;
+    self.groupTitle = [dateFormatteds getCalenarTimeStr];
+    self.titleSize = titleSize;
+    self.issueId = model.issueId;
+    if ([model.level isEqualToString:@"danger"]) {
+        self.state = IssueStateSeriousness;
+    }else if([model.level isEqualToString:@"warning"]){
+        self.state = IssueStateWarning;
+    }else{
+        self.state =IssueStateCommon;
+    }
+    self.isEnd =  [model.status isEqualToString:@"recovered"];
+    self.seq = model.seq;
+    self.isIssue = YES;
+}
 @end

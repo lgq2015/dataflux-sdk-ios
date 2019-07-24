@@ -187,11 +187,11 @@
                 model1.seq= -1;
                 [calendarList insertObject:@[model1] atIndex:0];
             }
-            if (model.pageSize>model.count) {
-                [self.manager.calenderScrollView showNomoreDatasFooter];
-            }else{
+//            if (model.count == 0) {
+//                [self.manager.calenderScrollView showNomoreDatasFooter];
+//            }else{
                 self.manager.calenderScrollView.tableView.tableFooterView = nil;
-            }
+//            }
             
              [self.calendarList removeAllObjects];
              [self.calendarList addObjectsFromArray:[calendarList copy]];
