@@ -61,6 +61,7 @@
 }
 - (void)issueTeamSwitch:(NSNotification *)notification{
     [self.manager showSingleWeek];
+    [self.manager.calenderScrollView backToday];
     [eventsByDate removeAllObjects];
     [dotLoadDate removeAllObjects];
     [_calendarList removeAllObjects];
@@ -276,7 +277,7 @@
         return;
     }
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[currentDate getUTCTimeStr]];
+    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr]];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date firstDay:(NSDate *)first lastDay:(NSDate *)last{
     
