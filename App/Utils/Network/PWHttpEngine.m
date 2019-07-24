@@ -404,7 +404,7 @@
 
 - (PWURLSessionTask *)getCalendarListWithStartTime:(NSString *)start EndTime:(NSString *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
     CalendarListModel *model = [CalendarListModel new];
-    ////pageMarker=14542&orderMethod=desc&orderBy=seq&pageSize=20&fieldKicking=extraJSON,metaJSON,reference,tags&_needReadInfo=true
+   
     NSMutableDictionary *param ;
     NSString *url;
      CalendarViewType type = [userManager getCurrentCalendarViewType];

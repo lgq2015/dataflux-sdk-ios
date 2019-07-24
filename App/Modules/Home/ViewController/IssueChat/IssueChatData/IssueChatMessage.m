@@ -38,6 +38,7 @@
         self.messageFrom = PWChatMessageFromOther;
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
+        self.isAdmin  = [self.memberId isEqualToString:[userManager getTeamAdminId]];
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([userID  isEqualToString:getPWUserID]) {
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];

@@ -171,4 +171,7 @@ SINGLETON_FOR_HEADER(UserManager)
 
 -(CalendarViewType)getCurrentCalendarViewType;
 -(void)setCurrentIssueSortType:(CalendarViewType)type;
+- (void)setTeamAdminIdWithId:(NSString *)memberId;
+- (NSString *)getTeamAdminId;
+-(void)loadTeamMember;
 @end

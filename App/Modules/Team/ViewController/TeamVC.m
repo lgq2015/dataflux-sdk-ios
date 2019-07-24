@@ -179,6 +179,7 @@
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
         if (model.isAdmin) {
+        [userManager setTeamAdminIdWithId:model.memberID];
          [self.teamMemberArray insertObject:model atIndex:0];
         }else{
          [self.teamMemberArray addObject:model];
@@ -263,15 +264,9 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
-//        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
-//        CGFloat height = [cell caculateRowHeight];
         return ZOOM_SCALE(86);
     }else{
-        if (indexPath.row == 0){
-            return 80;
-        }else{
             return 60;
-        }
     }
 }
 
@@ -481,13 +476,13 @@
     }];
     //请求当前团队，请求成员列表，刷新界面
     [userManager addTeamSuccess:^(BOOL isSuccess) {
-        if (isSuccess){
-            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
-                if (isSuccess){
-                    [self dealWithDatas:content];
-                }
-            }];
-        }
+//        if (isSuccess){
+//            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
+//                if (isSuccess){
+//                    [self dealWithDatas:content];
+//                }
+//            }];
+//        }
     }];
     //请求团队未读消息
     [self requestTeamSystemUnreadCount];
@@ -512,6 +507,10 @@
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
+    if (self.tableView) {
+        self.tableView.tableHeaderView = self.headerView;
+        [self.headerView layoutIfNeeded];
+    }
 }
 //TODO:丽蕾 （点击切换团队阴影）
 - (void)clickTeamChangeViewBlackBG{

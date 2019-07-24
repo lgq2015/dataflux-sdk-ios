@@ -45,6 +45,8 @@
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员
 #define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+#define KTeamAdminId    [NSString stringWithFormat:@"%@/KTeamAdminId", getPWDefaultTeamID]
+
 //账号ISPs常量数组
 #define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWUserID]
 #define KTeamServiceCode      @"KTeamServiceCode"

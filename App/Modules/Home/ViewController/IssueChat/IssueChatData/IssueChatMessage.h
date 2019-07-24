@@ -125,6 +125,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageSendStates) {
 @property (nonatomic, strong) IssueLogModel *model;
 // 系统消息
 @property (nonatomic, strong) NSString    *systermStr;
+@property (nonatomic, assign) BOOL isAdmin;
 //拓展消息
 @property(nonatomic,strong)NSDictionary *dict;
 - (instancetype)initWithIssueLogModel:(IssueLogModel *)model;

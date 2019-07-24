@@ -280,11 +280,12 @@
             [[IssueListManger sharedIssueListManger] shutDown];
             [[PWSocketManager sharedPWSocketManager] shutDown];
             [[IssueSourceManger sharedIssueSourceManger] logout];
-            
             setXAuthToken(token);
             setPWDefaultTeamID(model.teamID);
             userManager.teamModel = model;
             [userManager updateTeamModelWithGroupID:model.teamID];
+            [userManager loadTeamMember];
+
             //更新当前team状态
             if ([model.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
