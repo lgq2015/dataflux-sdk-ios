@@ -312,7 +312,7 @@
                 [self loadCurrentList];
             }else{
                 self.isLoadTop = NO;
-        [self loadListWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr] loadNew:NO];
+        [self loadListWithStartTime:[first getUTCTimeStr] endTime:[[date dateByAddingDays:1] getUTCTimeStr] loadNew:NO];
             }
     }
     }
