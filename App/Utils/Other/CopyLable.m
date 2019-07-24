@@ -42,7 +42,7 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(copy:)) {
-        return NO;
+        return YES;
     }
     if (action == @selector(paste:)) {
         return NO;
@@ -51,7 +51,7 @@
         return NO;
     }
     if (action == @selector(selectAll:)) {
-        return YES;
+        return NO;
     }
     if (action == @selector(cut:)) {
         return NO;
