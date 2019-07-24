@@ -423,7 +423,9 @@
                   @"orderMethod":orderMethod,
                   @"type":
                       @"keyPoint,bizPoint",
+                  @"subType":@"comment,call,updateExpertGroups,issueChildAdded,issueCreated,issueFixed,issueRecovered,issueDiscarded,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning",
                   @"orderBy":@"seq",
+                  @"_withChildIssueDetail":@YES,
                   } mutableCopy];
     }
     

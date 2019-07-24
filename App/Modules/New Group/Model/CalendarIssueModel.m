@@ -45,7 +45,10 @@
     NSString *subType = [dict stringValueForKey:@"subType" default:@""];
     NSString *type = [dict stringValueForKey:@"type" default:@""];
     if ([type isEqualToString:@"bizPoint"]&& [subType isEqualToString:@"updateExpertGroups"]) {
-        
+        NSDictionary *metaJSON = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"metaJSON");
+         [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
+         self.typeText = [NSString stringWithFormat:@"您邀请的%@已加入讨论",name];
+         }];
     }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSString *text = NSLocalizedString(subType, @"");
@@ -69,9 +72,17 @@
         self.typeText  = [NSString stringWithFormat:@"%@ %@",name,key];
      
         
+    }else if([subType isEqualToString:@"issueChildAdded"]){
+        NSDictionary *childIssue = PWSafeDictionaryVal(dict, @"childIssue");
+        NSString *key = [childIssue stringValueForKey:@"title" default:@""];
+        self.typeText = key;
+
     }else{
           NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
           self.typeText = NSLocalizedString(key, @"");
+        if ([self.typeText isEqualToString:key]) {
+            self.typeText = @"";
+        }
     }
     self.timeText = [NSString getLocalDateFormateUTCDate:updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"HH:mm"];
     NSString *level = [issueSnapshotJSON_cache stringValueForKey:@"level" default:@""];

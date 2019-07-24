@@ -147,6 +147,9 @@
 "markTookOver"  =  "由#处理";
 "markRecovered" = "被#解决";
 "issue.issueDiscarded"="情报失效";
+"issue.ticketClosed" = "专家退出讨论";
+"issue.exitExpertGroups" ="专家退出讨论";
+"issue.ticketSubmitted" = "";
 "issue.issueFixed" = "被 # 修复";
 "danger" = "严重";
 "info" = "提示";
