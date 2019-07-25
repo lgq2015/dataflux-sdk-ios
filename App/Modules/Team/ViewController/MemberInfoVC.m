@@ -420,6 +420,11 @@
             [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
             weakSelf.beizhuBtn.selected = YES;
         }
+        [self.beizhuBtn sizeToFit];
+        CGFloat width = self.beizhuBtn.frame.size.width+20+ZOOM_SCALE(14);
+        [weakSelf.beizhuBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.width.offset(width);
+        }];
         weakSelf.model.inTeamNote = noteName;
         CGFloat spacing = 8.0;
         // 图片右移
