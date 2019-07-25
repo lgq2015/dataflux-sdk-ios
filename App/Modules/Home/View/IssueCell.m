@@ -64,7 +64,7 @@
     
     self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.stateLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
 
-    UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"类型："];
+    UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"类型："];
     [self addSubview:categoryLab];
     [categoryLab sizeToFit];
     CGFloat width = categoryLab.frame.size.width;
@@ -72,12 +72,17 @@
         make.left.mas_equalTo(self.stateLab);
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
         make.width.offset(width);
-        make.height.offset(ZOOM_SCALE(14));
+        make.height.offset(ZOOM_SCALE(16));
     }];
-    [self.issTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.issIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(categoryLab.mas_right);
         make.centerY.mas_equalTo(categoryLab);
-        make.height.offset(ZOOM_SCALE(14));
+        make.height.width.offset(ZOOM_SCALE(16));
+    }];
+    [self.issTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.issIcon.mas_right).offset(5);
+        make.centerY.mas_equalTo(categoryLab);
+        make.height.offset(ZOOM_SCALE(16));
     }];
     [self.markUserIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-16);
@@ -197,7 +202,7 @@
         make.right.mas_equalTo(self).offset(-5);
     }];
     [[self viewWithTag:TagSourcenFrom] removeFromSuperview];
-    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
+    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
     sourceFromLab.tag =TagSourcenFrom;
     sourceFromLab.textAlignment = NSTextAlignmentRight;
     [self addSubview:sourceFromLab];
@@ -207,7 +212,7 @@
         }else{
             make.right.mas_equalTo(self.verticalLine.mas_left).offset(-10);
         }
-        make.height.offset(ZOOM_SCALE(14));
+        make.height.offset(ZOOM_SCALE(16));
         make.centerY.mas_equalTo(self.issTypeLab);
     }];
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
@@ -252,7 +257,7 @@
 }
 -(UILabel *)issTypeLab{
     if (!_issTypeLab) {
-        _issTypeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWBlackColor text:@""];
+        _issTypeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlackColor text:@""];
         [self addSubview:_issTypeLab];
     }
     return _issTypeLab;
@@ -260,7 +265,7 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
-        _timeLab.font = RegularFONT(10);
+        _timeLab.font = RegularFONT(12);
         _timeLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
         [self addSubview:_timeLab];
     }
@@ -318,7 +323,7 @@
 }
 -(UILabel *)chatTimeLab{
     if (!_chatTimeLab) {
-        _chatTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#909095"] text:@""];
+        _chatTimeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#909095"] text:@""];
         _chatTimeLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_chatTimeLab];
     }
