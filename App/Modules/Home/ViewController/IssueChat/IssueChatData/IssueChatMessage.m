@@ -62,7 +62,7 @@
         self.nameStr = [time accurateTimeStr];
 
     }else if([model.origin isEqualToString:@"bizSystem"]){
-        self.messageFrom = PWChatMessageFromSystem;
+        self.messageFrom = PWChatMessageFromOther;
     }
     
     NSString *type = model.type;
@@ -188,7 +188,6 @@
             NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
             NSString *key = [childIssue stringValueForKey:@"title" default:@""];
             self.stuffName = key;
-            self.messageFrom = PWChatMessageFromOther;
 
         }else{
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
