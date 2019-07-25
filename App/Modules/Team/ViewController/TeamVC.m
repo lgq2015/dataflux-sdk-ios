@@ -80,9 +80,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
+
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.mas_equalTo(self.tableView);
-        make.width.equalTo(self.tableView);
+        make.top.width.right.left.mas_equalTo(self.tableView);
     }];
     [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
@@ -124,19 +124,19 @@
     [userManager getTeamProduct:^(BOOL isSuccess, NSDictionary *product) {
         if (isSuccess) {
             [self.headerView updataUIWithDatas:product];
+            [self.headerView layoutIfNeeded];
             self.tableView.tableHeaderView = self.headerView;
-            [self.tableView layoutIfNeeded];
         }
     }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
-            //            dispatch_async(dispatch_get_main_queue(), ^{
             [self.headerView updataUIWithDatas:content];
-            self.tableView.tableHeaderView = self.headerView;
-            [self.tableView layoutIfNeeded];
-            //            });
+            [self.headerView layoutIfNeeded];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.tableView.tableHeaderView = self.headerView;
+            });
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
@@ -476,13 +476,13 @@
     }];
     //请求当前团队，请求成员列表，刷新界面
     [userManager addTeamSuccess:^(BOOL isSuccess) {
-//        if (isSuccess){
-//            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
-//                if (isSuccess){
-//                    [self dealWithDatas:content];
-//                }
-//            }];
-//        }
+        if (isSuccess){
+            [self requestTeamMember:^(bool isSuccess,NSArray *content) {
+                if (isSuccess){
+                    [self dealWithDatas:content];
+                }
+            }];
+        }
     }];
     //请求团队未读消息
     [self requestTeamSystemUnreadCount];
@@ -507,7 +507,8 @@
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
-    if (self.tableView) {
+    if (_headerView) {
+        [self.headerView layoutIfNeeded];
         self.tableView.tableHeaderView = self.headerView;
         [self.headerView layoutIfNeeded];
     }

@@ -141,7 +141,7 @@
             }
         }
     }
-    //    self.subLayer.frame = self.bgContentView.frame;
+    
     self.titleLab.textColor = PWWhiteColor;
     self.tipLab.textColor = PWWhiteColor;
     self.line.backgroundColor = PWWhiteColor;
@@ -194,6 +194,7 @@
     [self.bgContentView.layer insertSublayer:bgLayer atIndex:0];
     //        });
     //    });
+    [self layoutIfNeeded];
 }
 -(CALayer *)subLayer{
     if (!_subLayer) {
