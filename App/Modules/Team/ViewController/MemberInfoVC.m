@@ -226,14 +226,16 @@
         CGFloat spacing = 8.0;
         if (self.model.inTeamNote.length > 0){
             [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
+            _beizhuBtn.selected = YES;
         }else{
             [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
         }
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
-            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateHighlighted];
+            [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhub"] forState:UIControlStateSelected];
         }
         [_beizhuBtn setTitleColor:[UIColor colorWithHexString:@"#595860"] forState:UIControlStateNormal];
+         [_beizhuBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
         _beizhuBtn.titleLabel.font = RegularFONT(13);
         [_beizhuBtn sizeToFit];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
@@ -243,7 +245,6 @@
             _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
         }
         [self.headerView addSubview:_beizhuBtn];
-        [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             if ([getTeamState isEqualToString:PW_isPersonal] || self.model.isSpecialist){
                 _beizhuBtn.hidden = YES;
@@ -251,10 +252,13 @@
                 _beizhuBtn.hidden = NO;
                 _beizhuBtn.enabled = YES;
             }
+            [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
+
         }else{
             if (self.model.inTeamNote.length > 0){
                 _beizhuBtn.hidden = NO;
-                _beizhuBtn.enabled = NO;
+                _beizhuBtn.selected = YES;
+                [_beizhuBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
             }else{
                 _beizhuBtn.hidden = YES;
             }
@@ -411,8 +415,10 @@
     vc.editTeamMemberNote = ^(NSString *noteName) {
         if (noteName.length == 0){
             [weakSelf.beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+            weakSelf.beizhuBtn.selected = NO;
         }else{
             [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];
+            weakSelf.beizhuBtn.selected = YES;
         }
         weakSelf.model.inTeamNote = noteName;
         CGFloat spacing = 8.0;

@@ -38,7 +38,7 @@
     self.titleLable = [[YYLabel alloc]initWithFrame: CGRectMake(Interval(45), 0, kWidth-ZOOM_SCALE(66)-Interval(69), ZOOM_SCALE(20))];
     self.titleLable.numberOfLines = 0;
     self.titleLable.font = RegularFONT(12);
-    self.titleLable.textColor = PWTextBlackColor;
+    self.titleLable.textColor = [UIColor colorWithHexString:@"#8E8E93"];
     [self addSubview:self.titleLable];
     self.timeLabel.centerY = self.titleLable.centerY;
 
