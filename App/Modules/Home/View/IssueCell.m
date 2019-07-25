@@ -50,17 +50,7 @@
 
 - (void)createUI{
 
-    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.stateLab.mas_centerY);
-        make.right.mas_equalTo(self).offset(-15);
-        make.height.offset(ZOOM_SCALE(20));
-    }];
-    [self.sourcenNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.sourceIcon.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(self.sourceIcon);
-        make.height.offset(ZOOM_SCALE(18));
-    }];
+ 
     
     self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.stateLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
 
@@ -118,7 +108,7 @@
     _model = model;
     self.chatTimeLab.text = model.chatTime;
     self.titleLab.height = model.titleHeight;
-  SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     if (selObj.issueSortType == IssueSortTypeCreate) {
     self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time listAccurateTimeStr]];
     }else{
@@ -158,7 +148,9 @@
             self.stateLab.text = @"失效";
             break;
     }
- 
+    [self.timeLab sizeToFit];
+    CGFloat timeWidth = self.timeLab.frame.size.width;
+    self.timeLab.width =timeWidth;
     NSString *title,*icon;
     if ([model.type isEqualToString:@"alarm"]) {
         title = @"监控";
@@ -194,9 +186,14 @@
     self.titleLab.text = self.model.title;
 
      [self.sourcenNameLab sizeToFit];
-    CGSize size =self.sourcenNameLab.frame.size;
-    self.sourcenNameLab.frame = CGRectMake(kWidth-size.width-46, 19, size.width, ZOOM_SCALE(18));
-    self.sourceIcon.frame = CGRectMake(CGRectGetMinX(self.sourcenNameLab.frame)-8-ZOOM_SCALE(27), 0, ZOOM_SCALE(27), ZOOM_SCALE(19));
+    
+    CGFloat souWidth = self.sourcenNameLab.frame.size.width;
+    CGFloat maxTimeX = CGRectGetMaxX(self.timeLab.frame);
+    if (maxTimeX+ZOOM_SCALE(27)+64+souWidth>kWidth) {
+        souWidth =kWidth-maxTimeX-ZOOM_SCALE(27)-64;
+    }
+    self.sourcenNameLab.frame = CGRectMake(kWidth-souWidth-46, 19, souWidth, ZOOM_SCALE(18));
+    self.sourceIcon.frame = CGRectMake(CGRectGetMinX(self.sourcenNameLab.frame)-6-ZOOM_SCALE(27), 0, ZOOM_SCALE(27), ZOOM_SCALE(19));
     self.sourceIcon.centerY = self.sourcenNameLab.centerY;
     [self.markStatusLab mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-5);
@@ -264,7 +261,8 @@
 }
 -(UILabel *)timeLab{
     if (!_timeLab) {
-        _timeLab = [[UILabel alloc]initWithFrame:CGRectZero];
+        _timeLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(25)+ZOOM_SCALE(42), 0, ZOOM_SCALE(95), ZOOM_SCALE(18))];
+        _timeLab.centerY = self.stateLab.centerY;
         _timeLab.font = RegularFONT(12);
         _timeLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
         [self addSubview:_timeLab];
@@ -317,6 +315,7 @@
 -(UILabel *)sourcenNameLab{
     if (!_sourcenNameLab) {
         _sourcenNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@""];
+        _sourcenNameLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_sourcenNameLab];
     }
     return _sourcenNameLab;
