@@ -507,9 +507,13 @@
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
+}
+-(void)viewDidAppear:(BOOL)animated{
     if (_headerView) {
         [self.headerView layoutIfNeeded];
-        self.tableView.tableHeaderView = self.headerView;
+        dispatch_async(dispatch_get_main_queue(), ^{
+         self.tableView.tableHeaderView = self.headerView;
+        });
         [self.headerView layoutIfNeeded];
     }
 }
