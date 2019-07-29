@@ -195,6 +195,7 @@
         make.right.mas_equalTo(self).offset(-5);
     }];
     [[self viewWithTag:TagSourcenFrom] removeFromSuperview];
+    if (_model.originName.length>0) {
     UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
     sourceFromLab.tag =TagSourcenFrom;
     sourceFromLab.textAlignment = NSTextAlignmentRight;
@@ -208,6 +209,7 @@
         make.height.offset(ZOOM_SCALE(14));
         make.centerY.mas_equalTo(self.issTypeLab);
     }];
+    }
     self.triangleView.hidden =self.model.isRead == YES?YES:NO;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

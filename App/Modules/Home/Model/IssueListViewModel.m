@@ -225,7 +225,7 @@
     }else if([model.origin isEqualToString:@"crontab"] || [model.origin isEqualToString:@"issueEngine"]){
         self.originName = @"诊断";
     }else if([model.origin isEqualToString:@"alertHub"]){
-        self.originName = @"外部接入";
+//        self.originName = @"外部接入";
         if (model.originInfoJSONStr) {
             NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
             NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
