@@ -17,17 +17,23 @@
     [aCoder encodeInteger:(NSInteger)_issueLevel forKey:@"issueLevel"];
     [aCoder encodeInteger:(NSInteger)_issueType forKey:@"issueType"];
     [aCoder encodeInteger:(NSInteger)_issueSortType forKey:@"issueSortType"];
-    [aCoder encodeInteger:(NSInteger)_issueViewType forKey:@"issueViewType"];
+    //    [aCoder encodeInteger:(NSInteger)_issueViewType forKey:@"issueViewType"];
     [aCoder encodeInteger:(NSInteger)_issueFrom forKey:@"issueFrom"];
-
+    [aCoder encodeObject:_issueOrigin forKey:@"issueOrigin"];
+    [aCoder encodeObject:_issueSource forKey:@"issueSource"];
+    [aCoder encodeObject:_issueAssigned forKey:@"issueAssigned"];
+    
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
-    _issueLevel =(IssueLevel)[aDecoder decodeIntegerForKey:@"issueLevel"];
-    _issueType = (IssueType)[aDecoder decodeIntegerForKey:@"issueType"];
-    _issueSortType = (IssueSortType)[aDecoder decodeIntegerForKey:@"issueSortType"];
-    _issueViewType = (IssueViewType)[aDecoder decodeIntegerForKey:@"issueViewType"];
-    _issueFrom = (IssueFrom)[aDecoder decodeIntegerForKey:@"issueFrom"];
+        _issueLevel =(IssueLevel)[aDecoder decodeIntegerForKey:@"issueLevel"];
+        _issueType = (IssueType)[aDecoder decodeIntegerForKey:@"issueType"];
+        _issueSortType = (IssueSortType)[aDecoder decodeIntegerForKey:@"issueSortType"];
+        //    _issueViewType = (IssueViewType)[aDecoder decodeIntegerForKey:@"issueViewType"];
+        _issueFrom = (IssueFrom)[aDecoder decodeIntegerForKey:@"issueFrom"];
+        _issueOrigin = [aDecoder decodeObjectForKey:@"issueOrigin"];
+        _issueSource = [aDecoder decodeObjectForKey:@"issueSource"];
+        _issueAssigned = [aDecoder decodeObjectForKey:@"issueAssigned"];
     }
     return self;
 }

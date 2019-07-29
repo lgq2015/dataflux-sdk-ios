@@ -17,10 +17,10 @@ typedef NS_ENUM(NSInteger ,IssueType){
     IssueTypeOptimization,
     IssueTypeMisc,
 };
-typedef NS_ENUM(NSInteger ,IssueViewType){
-    IssueViewTypeNormal = 1,
-    IssueViewTypeAll = 2,
-};
+//typedef NS_ENUM(NSInteger ,IssueViewType){
+//    IssueViewTypeNormal = 1,
+//    IssueViewTypeAll = 2,
+//};
 typedef NS_ENUM(NSInteger ,IssueFrom){
     IssueFromMe = 1,   //与我相关的 包括@ 指派 标记 创建等
     IssueFromAll = 2,
@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger ,IssueLevel){
 @class IssueLogModel;
 @class SelectObject;
 NS_ASSUME_NONNULL_BEGIN
-
+extern NSString *const ILMStringAll;
 @interface IssueListManger : BaseSqlHelper
 @property (nonatomic, strong) NSMutableArray<IssueBoardModel *> *infoDatas;
 

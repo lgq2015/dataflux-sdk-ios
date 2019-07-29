@@ -17,10 +17,6 @@
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, assign) IssueLevel currSelLevel;
 @property (nonatomic, assign) IssueType currSelType;
-@property (nonatomic, assign) IssueViewType selViewType;
-@property (nonatomic, strong) TouchLargeButton *selViewBtn;
-@property (nonatomic, strong) UILabel *viewTypeTip;
-@property (nonatomic, strong) UILabel *subTip ;
 @property (nonatomic, strong) UIView *line;
 @property (nonatomic, strong) UIButton *cancle;
 @property (nonatomic, strong) UIButton *commit;
@@ -66,18 +62,8 @@
         
         [button addTarget:self action:@selector(typeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    self.selViewBtn = [[TouchLargeButton alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(265), ZOOM_SCALE(13), ZOOM_SCALE(13))];
-    [self.selViewBtn setImage:[UIImage imageNamed:@"icon_noSelect"] forState:UIControlStateNormal];
-    [self.selViewBtn setImage:[UIImage imageNamed:@"icon_succeed"] forState:UIControlStateSelected];
-    [self.contentView addSubview:self.selViewBtn];
-    [self.selViewBtn addTarget:self action:@selector(selViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-   self.viewTypeTip= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(23)+ZOOM_SCALE(13), 0, ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTextBlackColor text:@"开启智能推荐"];
-    self.viewTypeTip.centerY = self.selViewBtn.centerY;
-    [self.contentView addSubview:self.viewTypeTip];
-    self.subTip = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(23)+ZOOM_SCALE(13), CGRectGetMaxY(self.viewTypeTip.frame)+2, ZOOM_SCALE(323), ZOOM_SCALE(32)) font:RegularFONT(11) textColor:PWSubTitleColor text:@"智能推荐功能为您过滤了一些不太影响您的应用或系统的情报，便于您能更有针对性地处理问题"];
-    self.subTip.numberOfLines = 2;
-    [self.contentView addSubview:self.subTip];
-    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.subTip.frame)+ZOOM_SCALE(16), kWidth, SINGLE_LINE_WIDTH)];
+    
+    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(260), kWidth, SINGLE_LINE_WIDTH)];
     self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self.contentView addSubview:self.line];
     
@@ -111,30 +97,15 @@
     SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     self.currSelType = sel.issueType;
     self.currSelLevel = sel.issueLevel;
-    self.selViewType = sel.issueViewType;
-    CGFloat contentHeight = ZOOM_SCALE(400);
-//    if(sel.issueFrom == IssueFromMe){
-        self.selViewBtn.hidden = YES;
-        self.viewTypeTip.hidden = YES;
-        self.subTip.hidden = YES;
-        self.line.frame =CGRectMake(0, ZOOM_SCALE(260), kWidth, SINGLE_LINE_WIDTH);
-        contentHeight = ZOOM_SCALE(330);
-//    }else{
-//        self.selViewBtn.hidden = NO;
-//        self.viewTypeTip.hidden = NO;
-//        self.subTip.hidden = NO;
-//        self.line.frame = CGRectMake(0, CGRectGetMaxY(self.subTip.frame)+ZOOM_SCALE(16), kWidth, SINGLE_LINE_WIDTH);
-//    }
-    self.cancle.frame =CGRectMake(Interval(16), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40));
-    self.commit.frame =CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40));
+    CGFloat contentHeight = ZOOM_SCALE(330);
+    
     UIButton *typeBtn = [self.contentView viewWithTag:(int)sel.issueType+TypeTag-1];
     typeBtn.selected = YES;
     [typeBtn.layer setBorderColor:PWBlueColor.CGColor];
     UIButton *levelBtn = [self.contentView viewWithTag:(int)sel.issueLevel+LevelTag-1];
     levelBtn.selected = YES;
     [levelBtn.layer setBorderColor:PWBlueColor.CGColor];
-    self.selViewBtn.selected = self.selViewType == IssueViewTypeNormal;
-
+    
     [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(400), kWidth,contentHeight)];
     _contentView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
@@ -212,9 +183,6 @@
     SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     sel.issueLevel = self.currSelLevel;
     sel.issueType = self.currSelType;
-    if (sel.issueFrom == IssueFromAll) {
-        sel.issueViewType = IssueViewTypeNormal;
-    }
     [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
     if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueWithSelectObject:)]){
         [self.delegate selectIssueWithSelectObject:sel];

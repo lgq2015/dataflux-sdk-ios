@@ -25,7 +25,7 @@
 
 #define ISSUE_LIST_PAGE_SIZE  100
 
-
+NSString *const ILMStringAll = @"ALL";
 @interface IssueListManger ()
 @property(nonatomic, assign) BOOL isFetching;
 @end
@@ -38,82 +38,83 @@
         // 要使用self来调用
         _sharedManger = [[self alloc] init];
         [_sharedManger createData];
-
+        
     });
     return _sharedManger;
 }
 
 - (void)onDBInit {
     [self.getHelper pw_inDatabase:^{
-
-       // [self creatIssueBoardTable];
+        
+        // [self creatIssueBoardTable];
         [self createIssueSourceTable];
         [self createIssueListTable];
         [self createIssueLogTable];
         [self createIssueLogChatReadTable];
-
+        
     }];
-
+    
     // issue source update
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME
                        dicOrModel:@{@"isVirtual": SQL_INTEGER,
-                       }];
-
+                                    }];
+    
     // issue udpate
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
-            @"tagsStr": SQL_TEXT,
-            @"issueSourceId": SQL_TEXT,
-            @"credentialJSONStr": SQL_TEXT,
-            @"markStatus": SQL_TEXT,
-            @"markTookOverInfoJSONStr": SQL_TEXT,
-            @"markEndAccountInfoStr": SQL_TEXT,
-            @"endTime":SQL_TEXT,
-            @"readAtInfoStr":SQL_TEXT,
-            @"isEnded":SQL_BLOB,
-            @"needAttention":SQL_BLOB,
-            @"statusChangeAccountInfoStr":SQL_TEXT,
-            @"assignAccountInfoStr":SQL_TEXT,
-            @"assignedToAccountInfoStr":SQL_TEXT,
-            @"watchInfoJSONStr":SQL_TEXT,
-    }];
+                                                                                 @"tagsStr": SQL_TEXT,
+                                                                                 @"issueSourceId": SQL_TEXT,
+                                                                                 @"credentialJSONStr": SQL_TEXT,
+                                                                                 @"markStatus": SQL_TEXT,
+                                                                                 @"markTookOverInfoJSONStr": SQL_TEXT,
+                                                                                 @"markEndAccountInfoStr": SQL_TEXT,
+                                                                                 @"endTime":SQL_TEXT,
+                                                                                 @"readAtInfoStr":SQL_TEXT,
+                                                                                 @"isEnded":SQL_BLOB,
+                                                                                 @"needAttention":SQL_BLOB,
+                                                                                 @"statusChangeAccountInfoStr":SQL_TEXT,
+                                                                                 @"assignAccountInfoStr":SQL_TEXT,
+                                                                                 @"assignedToAccountInfoStr":SQL_TEXT,
+                                                                                 @"watchInfoJSONStr":SQL_TEXT,
+                                                                                 }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
-            @"scanCheckEndTime":SQL_TEXT,
-    }];
-
+                                                                                   @"scanCheckEndTime":SQL_TEXT,
+                                                                                   }];
+    
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
-            @"createTime": SQL_TEXT,
-            @"lastIssueLogSeq": SQL_INTEGER,
-            @"issueLogRead": SQL_INTEGER,
-            @"seq": SQL_INTEGER,
-            @"atLogSeq": SQL_INTEGER,
-            @"cellHeight":SQL_INTEGER,
-    }];
-
+                                                                                 @"createTime": SQL_TEXT,
+                                                                                 @"lastIssueLogSeq": SQL_INTEGER,
+                                                                                 @"issueLogRead": SQL_INTEGER,
+                                                                                 @"seq": SQL_INTEGER,
+                                                                                 @"atLogSeq": SQL_INTEGER,
+                                                                                 @"cellHeight":SQL_INTEGER,
+                                                                                 }];
+    
     //issue log update
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-            @"imageData": SQL_BLOB,
-            @"fileData": SQL_BLOB,
-            @"text": SQL_TEXT,
-            @"fileName": SQL_TEXT,
-            @"fileType": SQL_TEXT,
-            @"imageName": SQL_TEXT,
-            @"sendError": SQL_INTEGER,
-    }];
-
+                                                                                @"imageData": SQL_BLOB,
+                                                                                @"fileData": SQL_BLOB,
+                                                                                @"text": SQL_TEXT,
+                                                                                @"fileName": SQL_TEXT,
+                                                                                @"fileType": SQL_TEXT,
+                                                                                @"imageName": SQL_TEXT,
+                                                                                @"sendError": SQL_INTEGER,
+                                                                                }];
+    
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME dicOrModel:@{
-            @"dataCheckFlag": SQL_INTEGER,
-            @"atInfoJSONStr": SQL_TEXT,
-            @"atStatusStr": SQL_TEXT,
-            @"issueSnapshotJSON_cacheStr":SQL_TEXT,
-            @"assignedToAccountInfoStr":SQL_TEXT,
-    }];
-
-
-
+                                                                                @"dataCheckFlag": SQL_INTEGER,
+                                                                                @"atInfoJSONStr": SQL_TEXT,
+                                                                                @"atStatusStr": SQL_TEXT,
+                                                                                @"issueSnapshotJSON_cacheStr":SQL_TEXT,
+                                                                                @"assignedToAccountInfoStr":SQL_TEXT,
+                                                                                @"childIssueStr":SQL_TEXT,
+                                                                                }];
+    
+    
+    
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:@{
-            @"localUpdateTime": SQL_TEXT,
-    }];
-
+                                                                                 @"localUpdateTime": SQL_TEXT,
+                                                                                 }];
+    
 }
 - (void)createIssueLogChatReadTable{
     NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_READ_NAME;
@@ -135,17 +136,19 @@
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
     BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
     if (isContain) {
-    
+        
         SelectObject *currentType = (SelectObject *)[cache objectForKey:KCurrentIssueListType];
         
         return  currentType;
     }else{
         SelectObject *sel = [[SelectObject alloc]init];
-        sel.issueViewType = 1;
         sel.issueSortType = 1;
         sel.issueType = 1;
         sel.issueLevel = 1;
         sel.issueFrom = 1;
+        sel.issueOrigin = ILMStringAll;
+        sel.issueSource = ILMStringAll;
+        sel.issueAssigned = ILMStringAll;
         return sel;
     }
 }
@@ -153,7 +156,7 @@
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
     BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
     if(isContain){
-    cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
+        cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
     }
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
@@ -183,103 +186,103 @@
 }
 
 - (void)createIssueListTable {
-
+    
     NSString *tableName = PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME;
     if (![self.getHelper pw_isExistTable:tableName]) {
-
+        
         NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
         NSDictionary *params =
-                @{
-                        @"type": SQL_TEXT,
-                        @"title": SQL_TEXT,
-                        @"content": SQL_TEXT,
-                        @"level": SQL_TEXT,
-                        @"issueId": SQL_TEXT,
-                        @"issueSourceId": SQL_TEXT,
-                        @"createTime": SQL_TEXT,
-                        @"updateTime": SQL_TEXT,
-                        @"actSeq": SQL_INTEGER,
-                        @"seq": SQL_INTEGER,
-                        @"isRead": SQL_INTEGER,
-                        @"status": SQL_TEXT,
-                        @"latestIssueLogsStr": SQL_TEXT,
-                        @"renderedTextStr": SQL_TEXT,
-                        @"origin": SQL_TEXT,
-                        @"accountId": SQL_TEXT,
-                        @"subType": SQL_TEXT,
-                        @"originInfoJSONStr": SQL_TEXT,
-                        @"lastIssueLogSeq": SQL_INTEGER,
-                        @"issueLogRead": SQL_INTEGER,
-                };
+        @{
+          @"type": SQL_TEXT,
+          @"title": SQL_TEXT,
+          @"content": SQL_TEXT,
+          @"level": SQL_TEXT,
+          @"issueId": SQL_TEXT,
+          @"issueSourceId": SQL_TEXT,
+          @"createTime": SQL_TEXT,
+          @"updateTime": SQL_TEXT,
+          @"actSeq": SQL_INTEGER,
+          @"seq": SQL_INTEGER,
+          @"isRead": SQL_INTEGER,
+          @"status": SQL_TEXT,
+          @"latestIssueLogsStr": SQL_TEXT,
+          @"renderedTextStr": SQL_TEXT,
+          @"origin": SQL_TEXT,
+          @"accountId": SQL_TEXT,
+          @"subType": SQL_TEXT,
+          @"originInfoJSONStr": SQL_TEXT,
+          @"lastIssueLogSeq": SQL_INTEGER,
+          @"issueLogRead": SQL_INTEGER,
+          };
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
-
+        
     }
-
+    
 }
 
 
 - (void)createIssueSourceTable {
     NSString *tableName = PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME;
     NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
-
+    
     if (![self.getHelper pw_isExistTable:tableName]) {
         NSDictionary *params =
-                @{
-                        @"provider": SQL_TEXT,
-                        @"name": SQL_TEXT,
-                        @"teamId": SQL_TEXT,
-                        @"scanCheckStatus": SQL_TEXT,
-                        @"provider": SQL_TEXT,
-                        @"teamId": SQL_TEXT,
-                        @"updateTime": SQL_TEXT,
-                        @"id": SQL_TEXT,
-                        @"credentialJSONStr": SQL_TEXT,
-                        @"scanCheckStartTime": SQL_TEXT,
-                        @"scanCheckInQueueTime": SQL_TEXT,
-                        @"optionsJSONStr": SQL_TEXT,
-                        @"isVirtual": SQL_INTEGER,
-                };
-
+        @{
+          @"provider": SQL_TEXT,
+          @"name": SQL_TEXT,
+          @"teamId": SQL_TEXT,
+          @"scanCheckStatus": SQL_TEXT,
+          @"provider": SQL_TEXT,
+          @"teamId": SQL_TEXT,
+          @"updateTime": SQL_TEXT,
+          @"id": SQL_TEXT,
+          @"credentialJSONStr": SQL_TEXT,
+          @"scanCheckStartTime": SQL_TEXT,
+          @"scanCheckInQueueTime": SQL_TEXT,
+          @"optionsJSONStr": SQL_TEXT,
+          @"isVirtual": SQL_INTEGER,
+          };
+        
         [dict addEntriesFromDictionary:params];
         [self.getHelper pw_createTable:tableName dicOrModel:params];
     }
-
+    
 }
 
 - (void)createIssueLogTable {
-
+    
     NSString *tableName = PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME;
     NSMutableDictionary *dict = [self.getHelper getSimplyFyDefaultTable];
-
+    
     NSDictionary *params = @{
-            @"type": SQL_TEXT,
-            @"subType": SQL_TEXT,
-            @"content": SQL_TEXT,
-            @"subType": SQL_TEXT,
-            @"updateTime": SQL_TEXT,
-            @"sendStatus": SQL_INTEGER,
-            @"issueId": SQL_TEXT,
-            @"id": SQL_TEXT,
-            @"seq": SQL_INTEGER,
-            @"origin": SQL_TEXT,
-            @"originInfoJSONStr": SQL_TEXT,
-            @"metaJsonStr": SQL_TEXT,
-            @"externalDownloadURLStr": SQL_TEXT,
-            @"accountInfoStr": SQL_TEXT,
-            @"createTime": SQL_TEXT,
-            @"dataCheckFlag": SQL_TEXT,
-    };
-
+                             @"type": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"content": SQL_TEXT,
+                             @"subType": SQL_TEXT,
+                             @"updateTime": SQL_TEXT,
+                             @"sendStatus": SQL_INTEGER,
+                             @"issueId": SQL_TEXT,
+                             @"id": SQL_TEXT,
+                             @"seq": SQL_INTEGER,
+                             @"origin": SQL_TEXT,
+                             @"originInfoJSONStr": SQL_TEXT,
+                             @"metaJsonStr": SQL_TEXT,
+                             @"externalDownloadURLStr": SQL_TEXT,
+                             @"accountInfoStr": SQL_TEXT,
+                             @"createTime": SQL_TEXT,
+                             @"dataCheckFlag": SQL_TEXT,
+                             };
+    
     [dict addEntriesFromDictionary:params];
-
+    
     if (![self.getHelper pw_isExistTable:tableName]) {
-
+        
         [self.getHelper pw_createTable:tableName dicOrModel:dict];
-
+        
     }
-
-
+    
+    
 }
 
 
@@ -298,7 +301,7 @@
         model.read = YES;
         model.typeName = nameArray[i];
         model.messageCount = @"0";
-//        model.pageMaker = @0;
+        //        model.pageMaker = @0;
         [self.infoDatas addObject:model];
     }
 }
@@ -316,18 +319,18 @@
         IssueListModel *listModel = (IssueListModel *) o;
         DLog(@"PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME = %@", [self.getHelper pw_columnNameArray:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME]);
         if (listModel.isSuccess) {
-
+            
             [allDatas addObjectsFromArray:listModel.list];
             if (listModel.list.count < ISSUE_LIST_PAGE_SIZE) {
-
+                
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-
+                        
                         if (clearCache) {
                             [self mergeReadData:allDatas];
                             [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
                         }
-
+                        
                         [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
                             NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
                             NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
@@ -348,41 +351,41 @@
                                 [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
                             }
                         }];
-
-                 //       [self refreshIssueBoardDatas];
-
+                        
+                        //       [self refreshIssueBoardDatas];
+                        
                         rollback = NO;
-
+                        
                     }];
                     dispatch_async_on_main_queue(^{
                         [userManager setLastFetchTime];
                         if (callBackStatus == nil) {
-//                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
-//                        userInfo:@{@"updateView":@(YES)}];
+                            //                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+                            //                        userInfo:@{@"updateView":@(YES)}];
                         } else{
-                        callBackStatus(listModel);
-                      
+                            callBackStatus(listModel);
+                            
                         }
                         _isFetching =NO;
                     });
                 });
-
+                
             } else {
                 long long lastPageMaker = ((IssueModel *) [allDatas lastObject]).actSeq;
                 [self fetchAllIssueWithPageMarker:lastPageMaker allDatas:allDatas lastDataStatus:callBackStatus
                                        clearCache:clearCache];
             }
-
+            
         } else{
             if (callBackStatus != nil) {
                 callBackStatus(listModel);
             }
             _isFetching =NO;
-//            [SVProgressHUD dismiss];
+            //            [SVProgressHUD dismiss];
         }
-
+        
     }];
-
+    
 }
 
 
@@ -429,17 +432,17 @@
         }
         return;
     }
-
+    
     _isFetching = YES;
-
+    
     BOOL needGetAllData = [self isNeedUpdateAll] || getAllDatas;
-
+    
     [[IssueSourceManger sharedIssueSourceManger] downLoadAllIssueSourceList:^(BaseReturnModel *model) {
-
+        
         if (model.isSuccess) {
             NSMutableArray *allDatas = [NSMutableArray new];
             long long lastPagerMaker = needGetAllData ? 0 : [self getLastPageMarker];
-
+            
             [self fetchAllIssueWithPageMarker:lastPagerMaker allDatas:allDatas
                                lastDataStatus:callBackStatus clearCache:needGetAllData];
         } else {
@@ -499,14 +502,14 @@
         }
     }];
     return seqAct;
-
+    
 }
 -(void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId{
     [self.getHelper pw_inDatabase:^{
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                                              dicOrModel:@{@"cellHeight": SQL_INTEGER} whereFormat:@"WHERE issueId='%@'", issueId];
         if (array.count > 0) {
-//            NSString *lastMsgTime = [array[0] stringValueForKey:@"cellHeight" default:@""];
+            //            NSString *lastMsgTime = [array[0] stringValueForKey:@"cellHeight" default:@""];
             [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                                 dicOrModel:@{@"cellHeight": [NSNumber numberWithFloat:cellHeight]} whereFormat:@"WHERE issueId='%@'", issueId];
         }
@@ -520,7 +523,7 @@
             sel.issueFrom = IssueFromAll;
         }
     }
-    NSString *typeStr,*statesStr,*sortStr,*levelStr,*fromMeStr;
+    NSString *typeStr,*statesStr,*sortStr,*levelStr,*fromMeStr,*sourceStr,*orignStr,*assignStr;
     NSMutableArray *array = [NSMutableArray new];
     switch (sel.issueSortType) {
         case IssueSortTypeCreate:
@@ -564,17 +567,10 @@
         case IssueTypeAll:
             typeStr = @"";
             break;
-
+            
     }
-//    switch (sel.issueViewType) {
-//        case IssueViewTypeNormal:
-//            statesStr =@"needAttention = true AND status = 'created'";
-//            break;
-//        case IssueViewTypeAll:
-//            statesStr = @"";
-//            break;
-//    }
-     statesStr =@"status = 'created'";
+    
+    statesStr =@"status = 'created'";
     switch (sel.issueFrom) {
         case IssueFromMe:
             fromMeStr = [NSString stringWithFormat:@"watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID];
@@ -588,21 +584,40 @@
         whereFormat = sortStr;
     }else{
         __block NSString *appendStr= @"";
-        NSArray *formatStr ;
+        NSMutableArray *formatStr ;
         if (fromMeStr.length>0) {
-          formatStr = @[statesStr,typeStr,levelStr,fromMeStr];
+            formatStr = [@[statesStr,typeStr,levelStr,fromMeStr] mutableCopy];
         }else{
-          formatStr = @[statesStr,typeStr,levelStr];
+            formatStr = [@[statesStr,typeStr,levelStr] mutableCopy];
         }
-       
+        if (![sel.issueAssigned isEqualToString:ILMStringAll]) {
+            if(sel.issueAssigned.length>0){
+                assignStr = [NSString stringWithFormat:@"assignedToAccountInfo LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueAssigned];
+            }else{
+                assignStr = @"assignedToAccountInfo =''";
+            }
+            [formatStr addObject:assignStr];
+        }
+        if (![sel.issueSource isEqualToString:ILMStringAll]) {
+            if (sel.issueSource.length>0) {
+                sourceStr = [NSString stringWithFormat:@"issueSourceId = '%@'",sel.issueSource];
+            }else{
+                sourceStr =@"issueSourceId = ''";
+            }
+            [formatStr addObject:sourceStr];
+        }
+        if (![sel.issueOrigin isEqualToString:ILMStringAll]) {
+            orignStr = sel.issueOrigin.length>0?[NSString stringWithFormat:@"origin = '%@'",sel.issueOrigin]:@"";
+        }
+        
         [formatStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (appendStr.length == 0) {
-            appendStr =  [appendStr stringByAppendingString:obj];
+                appendStr =  [appendStr stringByAppendingString:obj];
             }else{
                 if (obj.length>0) {
-                appendStr=   [appendStr stringByAppendingString:[NSString stringWithFormat:@" AND %@",obj]];
+                    appendStr=   [appendStr stringByAppendingString:[NSString stringWithFormat:@" AND %@",obj]];
                 }
-           
+                
             }
         }];
         whereFormat = [NSString stringWithFormat:@"WHERE %@ %@",appendStr,sortStr];
@@ -617,79 +632,79 @@
     return array;
     
 }
-- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType{
-    
-    if(type == 0){
-      type = [self getCurrentIssueType];
-    }else{
-        [self setCurrentIssueType:type];
-    }
-    if (sortType == 0) {
-        sortType = [self getCurrentIssueSortType];
-    }else{
-        [self setCurrentIssueSortType:sortType];
-    }
-    NSMutableArray *array = [NSMutableArray new];
-    NSString *typeStr,*whereFormat,*statesStr;
-    BOOL isALL = NO;
-    switch (type) {
-        case IssueTypeAlarm:
-            typeStr = @"AND type = 'alarm'";
-            break;
-        case IssueTypeSecurity:
-            typeStr = @"AND type = 'security'";
-            break;
-        case IssueTypeExpense:
-            typeStr = @"AND type = 'expense'";
-            break;
-        case IssueTypeOptimization:
-            typeStr = @"AND type = 'optimization'";
-            break;
-        case IssueTypeMisc:
-            typeStr = @"AND type = 'misc'";
-            break;
-        case IssueTypeAll:
-            typeStr = @"";
-            break;
-    };
-    switch (sortType) {
-        case IssueSortTypeCreate:
-            statesStr =@"AND needAttention = true AND status = 'created'";
-            break;
-        case IssueSortTypeUpdate:
-            statesStr = @"";
-            break;
-    }
-    if (isALL) {
-        if(statesStr.length>0){
-            //WHERE needattention = true
-            whereFormat =@"WHERE needAttention = true AND status = 'created'  ORDER by seq DESC";
-        }else{
-            whereFormat =@" ORDER by seq DESC";
-        }
-        
-    }else{
-       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' %@  ORDER by seq DESC ", typeStr,statesStr];
-    }
-    [self.getHelper pw_inDatabase:^{
-
-        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-        [array addObjectsFromArray:itemDatas];
-    }];
-
-    return array;
-}
-- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type{
-    NSMutableArray *array = [NSMutableArray new];
-    [self.getHelper pw_inDatabase:^{
-        
-        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status ='recovered' ORDER by seq DESC ", type];
-        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-        [array addObjectsFromArray:itemDatas];
-    }];
-    
-    return array;
-}
+//- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType{
+//
+//    if(type == 0){
+//      type = [self getCurrentIssueType];
+//    }else{
+//        [self setCurrentIssueType:type];
+//    }
+//    if (sortType == 0) {
+//        sortType = [self getCurrentIssueSortType];
+//    }else{
+//        [self setCurrentIssueSortType:sortType];
+//    }
+//    NSMutableArray *array = [NSMutableArray new];
+//    NSString *typeStr,*whereFormat,*statesStr;
+//    BOOL isALL = NO;
+//    switch (type) {
+//        case IssueTypeAlarm:
+//            typeStr = @"AND type = 'alarm'";
+//            break;
+//        case IssueTypeSecurity:
+//            typeStr = @"AND type = 'security'";
+//            break;
+//        case IssueTypeExpense:
+//            typeStr = @"AND type = 'expense'";
+//            break;
+//        case IssueTypeOptimization:
+//            typeStr = @"AND type = 'optimization'";
+//            break;
+//        case IssueTypeMisc:
+//            typeStr = @"AND type = 'misc'";
+//            break;
+//        case IssueTypeAll:
+//            typeStr = @"";
+//            break;
+//    };
+//    switch (sortType) {
+//        case IssueSortTypeCreate:
+//            statesStr =@"AND needAttention = true AND status = 'created'";
+//            break;
+//        case IssueSortTypeUpdate:
+//            statesStr = @"";
+//            break;
+//    }
+//    if (isALL) {
+//        if(statesStr.length>0){
+//            //WHERE needattention = true
+//            whereFormat =@"WHERE needAttention = true AND status = 'created'  ORDER by seq DESC";
+//        }else{
+//            whereFormat =@" ORDER by seq DESC";
+//        }
+//
+//    }else{
+//       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' %@  ORDER by seq DESC ", typeStr,statesStr];
+//    }
+//    [self.getHelper pw_inDatabase:^{
+//
+//        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+//        [array addObjectsFromArray:itemDatas];
+//    }];
+//
+//    return array;
+//}
+//- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type{
+//    NSMutableArray *array = [NSMutableArray new];
+//    [self.getHelper pw_inDatabase:^{
+//
+//        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status ='recovered' ORDER by seq DESC ", type];
+//        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+//        [array addObjectsFromArray:itemDatas];
+//    }];
+//
+//    return array;
+//}
 - (IssueModel *)getIssueDataByData:(NSString *)issueId {
     __block IssueModel *data = nil;
     [self.getHelper pw_inDatabase:^{
@@ -699,10 +714,10 @@
             data = datas[0];
         }
     }];
-
+    
     return data;
-
-
+    
+    
 }
 
 - (NSArray *)getAllIssueData {
@@ -710,7 +725,7 @@
     NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                                              dicOrModel:[IssueModel class] whereFormat:nil];
     [array addObjectsFromArray:itemDatas];
-
+    
     return array;
 }
 
@@ -728,9 +743,9 @@
 }
 - (BOOL)checkIssueEngineIsHasIssue{
     NSString *tableName = PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME;
-
+    
     NSString *whereFormat = @"where origin = 'issueEngine' AND status!='discarded' AND status!='recovered'";
-     NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
+    NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:tableName dicOrModel:[IssueModel class] whereFormat:whereFormat];
     if (itemDatas.count>0) {
         return YES;
     }else{
@@ -741,7 +756,7 @@
 
 
 /**
- * 
+ *
  * @param issueId
  * @param data
  */
@@ -774,11 +789,11 @@
             }
             [self.getHelper pw_updateTable:table dicOrModel:dic
                                whereFormat:sql, issueId];
-
+            
         }
-
+        
     }];
-
+    
 }
 
 
@@ -787,18 +802,18 @@
  * @param issueId
  */
 - (void)readIssue:(NSString *)issueId {
-
+    
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
-                dicOrModel:[IssueModel class] whereFormat:whereFormat];
+                                                               dicOrModel:[IssueModel class] whereFormat:whereFormat];
         if (itemDatas.count > 0) {
             itemDatas[0].isRead = YES;
             [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0]
                                whereFormat:whereFormat];
         }
     }];
-
+    
 }
 
 /**
@@ -809,7 +824,7 @@
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray<IssueModel *> *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
-                dicOrModel:[IssueModel class] whereFormat:whereFormat];
+                                                               dicOrModel:[IssueModel class] whereFormat:whereFormat];
         if (itemDatas.count > 0) {
             itemDatas[0].issueLogRead = YES;
             [self.getHelper pw_updateTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:itemDatas[0]
@@ -828,7 +843,7 @@
     [self.getHelper pw_inDatabase:^{
         NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@'", issueId];
         NSArray * array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
-                dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
+                                              dicOrModel:@{@"issueLogRead":SQL_INTEGER} whereFormat:whereFormat];
         if(array.count>0){
             isRead =[array[0] boolValueForKey:@"issueLogRead" default:YES];
         }
@@ -852,11 +867,11 @@
  */
 - (long long)getLastIssueLogSeqFromIssue:(NSString *)issueId {
     __block long long seq = 1L;
-
+    
     [self.getHelper pw_inDatabase:^{
         NSDictionary *dic = @{@"lastIssueLogSeq": SQL_INTEGER};
         NSString *whereFormat = [NSString stringWithFormat:@"WHERE issueId = '%@' ORDER BY lastIssueLogSeq DESC LIMIT 1",
-                                                           issueId];
+                                 issueId];
         NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME
                                              dicOrModel:dic whereFormat:whereFormat];
         if (array.count > 0) {
@@ -882,16 +897,16 @@
  */
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds {
     [self.getHelper pw_inTransaction:^(BOOL *rollback) {
-
+        
         [sourceIds enumerateObjectsUsingBlock:^(NSString *issueSourceId, NSUInteger idx, BOOL *_Nonnull stop) {
             NSString *whereFormat = [NSString stringWithFormat:@"where issueSourceId = '%@'", issueSourceId];
             [self.getHelper pw_deleteTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME whereFormat:whereFormat];
         }];
-
+        
         rollback = NO;
-
+        
     }];
-
+    
 }
 
 
@@ -899,8 +914,8 @@
     [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
     [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LOG_TABLE_NAME];
     [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME];
-
-
+    
+    
 }
 
 - (void)shutDown {
