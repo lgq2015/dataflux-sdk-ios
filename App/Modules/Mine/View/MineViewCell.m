@@ -13,7 +13,6 @@
 @interface MineViewCell()
 @property (nonatomic, assign) MineVCCellType type;
 @property (nonatomic, strong) UIImageView *iconImgView;
-@property (nonatomic, strong) UIImageView *arrowImgView;
 @property (nonatomic, strong) UILabel *describeLab;
 @property (nonatomic, strong) UIImageView *rightImg;
 @end
@@ -54,6 +53,9 @@
             break;
         case MineVCCellTypeImage:
             [self createUIImage];
+        case MineVCCellTypeSelect:
+            [self createUISelect];
+            break;
     }
 }
 #pragma mark ========== 有icon、title ==========
@@ -153,6 +155,59 @@
     [self.titleLab setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.describeLab setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
 
+}
+#pragma mark ========== 有title,右侧有lab有icon ==========
+- (void)createUISelect{
+    self.titleLab.font = RegularFONT(14);
+    self.titleLab.textColor = [UIColor colorWithHexString:@"#66666A"];
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(16);
+        make.height.offset(ZOOM_SCALE(20));
+        make.centerY.mas_equalTo(self);
+    }];
+    self.titleLab.text = _data.title;
+    [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.width.height.offset(16);
+        make.centerY.mas_equalTo(self.titleLab);
+    }];
+    self.describeLab.text = _data.describeText;
+    [self.describeLab sizeToFit];
+    CGFloat labWidth = self.describeLab.frame.size.width;
+    self.describeLab.hidden = NO;
+    self.describeLab.textColor = PWTextBlackColor;
+    [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
+        make.centerY.mas_equalTo(self);
+        make.height.offset(20);
+        make.width.offset(labWidth);
+    }];
+    self.rightImg.hidden = YES;
+    if (_data.rightIcon.length>0) {
+        self.rightImg.hidden = NO;
+        CGFloat width,height;
+        if(!_data.isIssueSource){
+            width = ZOOM_SCALE(20);
+            height = ZOOM_SCALE(20);
+            self.rightImg.layer.cornerRadius = ZOOM_SCALE(10);
+        }else{
+            width = ZOOM_SCALE(25);
+            height = ZOOM_SCALE(16);
+        }
+        [self.rightImg mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.describeLab.mas_left).offset(-Interval(6));
+            make.centerY.mas_equalTo(self.arrowImgView);
+            if (_data.isIssueSource) {
+                make.width.offset(ZOOM_SCALE(25));
+                make.height.offset(ZOOM_SCALE(16));
+            }else{
+                make.width.height.offset(20);
+            }
+        }];
+        
+        [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:_data.rightIcon]];
+    }
+    
 }
 - (void)createUIDot{
     self.iconImgView.image = [UIImage imageNamed:_data.icon];

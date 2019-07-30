@@ -199,12 +199,8 @@
         make.right.mas_equalTo(self).offset(-5);
     }];
     [[self viewWithTag:TagSourcenFrom] removeFromSuperview];
-<<<<<<< HEAD
     if (_model.originName.length>0) {
     UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
-=======
-    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
->>>>>>> 70967a923377e9d5f1cb1cbe94d6c58763241780
     sourceFromLab.tag =TagSourcenFrom;
     sourceFromLab.textAlignment = NSTextAlignmentRight;
     [self addSubview:sourceFromLab];

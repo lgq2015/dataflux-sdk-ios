@@ -17,6 +17,7 @@ typedef NS_ENUM(NSInteger, MineVCCellType) {
     MineVCCellTypeOnlyTitle,
     MineVCCellTypeDot,             //有icon,有title
     MineVCCellTypeImage,
+    MineVCCellTypeSelect,          //有title,右边有icon和lab
 };
 
 @class MineCellModel;
@@ -26,11 +27,11 @@ typedef void (^switchBlock)(BOOL isOn);
 @property (nonatomic, copy) switchBlock switchChange;
 @property (nonatomic, strong) UISwitch *switchBtn;
 @property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UIImageView *arrowImgView;
 
 -(void)initWithData:(MineCellModel *)data type:(MineVCCellType)type;
 -(void)setSwitchBtnisOn:(BOOL)ison;
 -(void)setDescribeLabText:(NSString *)text;
 -(void)setAlermDescribeLabText:(NSString *)text;
-
 -(void)setTeamTradesSelect;
 @end
