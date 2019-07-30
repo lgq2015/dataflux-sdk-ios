@@ -227,10 +227,11 @@
     NSMutableDictionary *param = [@{
                                     @"pageSize": @(pageSize),
                                     @"type": @"attachment,bizPoint,text,keyPoint",
-                                    @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning",
+                                    @"subType": @"comment,markTookOver,markRecovered,issueCreated,issueRecovered,issueExpired,issueLevelChanged,issueDiscarded,issueFixed,issueAssigned,issueCancelAssigning,updateExpertGroups,call,issueChildAdded",
                                     @"_withAttachmentExternalDownloadURL": @YES,
                                     @"orderBy": @"seq",
                                     @"orderMethod": orderMethod,
+                                    @"_withChildIssueDetail":@YES,
                                     @"_attachmentExternalDownloadURLOSSExpires": @3600} mutableCopy];
 
     if (pageMarker > 0) {
@@ -404,7 +405,7 @@
 
 - (PWURLSessionTask *)getCalendarListWithStartTime:(NSString *)start EndTime:(NSString *)end pageMarker:(long)pageMarker orderMethod:(NSString *)orderMethod  callBack:(void (^)(id response))callback{
     CalendarListModel *model = [CalendarListModel new];
-    ////pageMarker=14542&orderMethod=desc&orderBy=seq&pageSize=20&fieldKicking=extraJSON,metaJSON,reference,tags&_needReadInfo=true
+   
     NSMutableDictionary *param ;
     NSString *url;
      CalendarViewType type = [userManager getCurrentCalendarViewType];
@@ -423,7 +424,9 @@
                   @"orderMethod":orderMethod,
                   @"type":
                       @"keyPoint,bizPoint",
+                  @"subType":@"comment,call,updateExpertGroups,issueChildAdded,issueCreated,issueFixed,issueRecovered,issueDiscarded,issueLevelChanged,markTookOver,markRecovered,issueAssigned,issueCancelAssigning",
                   @"orderBy":@"seq",
+                  @"_withChildIssueDetail":@YES,
                   } mutableCopy];
     }
     

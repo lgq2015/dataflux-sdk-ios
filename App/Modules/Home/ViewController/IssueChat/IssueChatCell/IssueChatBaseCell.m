@@ -41,6 +41,18 @@
     [_mHeaderImgBtn addTarget:self action:@selector(iconPressed) forControlEvents:UIControlEventTouchUpInside];
     
     
+    _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:@"管理员"];
+    _adminLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+    _adminLab.textAlignment = NSTextAlignmentCenter;
+    _adminLab.layer.cornerRadius = 2.0f;
+    _adminLab.layer.masksToBounds = YES;
+    [self.contentView addSubview:_adminLab];
+    [_adminLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_mHeaderImgBtn).offset(ZOOM_SCALE(31));
+        make.centerX.mas_equalTo(_mHeaderImgBtn);
+        make.width.offset(ZOOM_SCALE(40));
+        make.height.offset(ZOOM_SCALE(14));
+    }];
     //背景按钮
     _mBackImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _mBackImgButton.backgroundColor =  [PWChatCellColor colorWithAlphaComponent:0.4];
@@ -76,6 +88,7 @@
     self.mNameLab.text = layout.message.nameStr;
     self.mNameLab.frame = layout.nameLabRect;
     self.mHeaderImgBtn.frame = layout.headerImgRect;
+        self.adminLab.hidden = !layout.message.isAdmin;
     [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
         _mExpertLab.hidden = YES;

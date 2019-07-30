@@ -2061,7 +2061,6 @@
 		6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOCalendarHelper.m; sourceTree = "<group>"; };
 		6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOUserDataHelper.m; sourceTree = "<group>"; };
 		6B6E206D33FC79F101DB0167 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		6B6E2077A5A8C8441B8F7EB4 /* IssueProblemDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueProblemDetailsVC.h; sourceTree = "<group>"; };
 		6B6E207E4871BF6B4CF5AD6F /* ZhugeIOLoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOLoginHelper.h; sourceTree = "<group>"; };
 		6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibrarySearchVC.m; sourceTree = "<group>"; };
 		6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIssueSourceMoreServicesVC.m; sourceTree = "<group>"; };
@@ -4489,7 +4488,6 @@
 				4A00DE2922D8ADB0008462AF /* MoreRuleBtnCell.m in Sources */,
 				4AE9C51021D4E1B1003BB9CB /* PrimaryCompanyModel.m in Sources */,
 				4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */,
-				4ABF44A221C0FD7E002AF34E,
 				4A3CDA90229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				4ABF426321ACDCBE002AF34E /* IssueListViewModel.m in Sources */,
 				4A3CDA62229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
@@ -4889,7 +4887,6 @@
 				4A3CDA91229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				CA1CF59F221ECB3A00D15316 /* PrimaryCompanyModel.m in Sources */,
 				4A3CDA63229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
-				CA1CF5A0221ECB3A00D15316,
 				4A47137422AF886B00EB90F7 /* IssueSelectView.m in Sources */,
 				4A092CF82229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D58222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
@@ -5284,7 +5281,6 @@
 				4A3CDA92229EAE6200C2EC62 /* CalendarListCell.m in Sources */,
 				CA1CF644221ECB5000D15316 /* PrimaryCompanyModel.m in Sources */,
 				4A3CDA64229C095900C2EC62 /* LTSCalendarScrollView.m in Sources */,
-				CA1CF645221ECB5000D15316,
 				4A47137522AF886B00EB90F7 /* IssueSelectView.m in Sources */,
 				4A092CF92229294A00FB2A35 /* MGSwipeImageButton.m in Sources */,
 				4A092D59222D38FF00FB2A35 /* MineMessageModel.m in Sources */,

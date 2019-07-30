@@ -45,7 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UIButton   *atReadBtn;
 //图片消息
 @property(nonatomic,strong) UIImageView *mImgView;
-
+//管理员标签
+@property (nonatomic, strong) UILabel *adminLab;
 //文件信息
 @property (nonatomic, strong) UIView *mFileView;
 //系统消息

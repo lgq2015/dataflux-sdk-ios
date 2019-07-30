@@ -18,7 +18,7 @@
 #import "IssueChatDataManager.h"
 #import "ZhugeIOLoginHelper.h"
 #import "ZhugeIOUserDataHelper.h"
-
+#import "MemberInfoModel.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -264,6 +264,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     [self requestMemberList:nil];
                     [self requestTeamIssueCount:nil];
                     [self loadISPs];
+                    if ([self getTeamAdminId].length == 0) {
+                        [self loadTeamMember];
+                    }
                 }
                 isSuccess? isSuccess(YES):nil;
             }else{
@@ -532,6 +535,16 @@ SINGLETON_FOR_CLASS(UserManager);
         memberBlock ? memberBlock(NO,nil):nil;
     }
 }
+- (NSString *)getTeamAdminId{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    NSString *memberId =(NSString *)[cache objectForKey:KTeamAdminId];
+    return memberId;
+}
+- (void)setTeamAdminIdWithId:(NSString *)memberId{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+    [cache removeObjectForKey:KTeamAdminId];
+    [cache setObject:memberId forKey:KTeamAdminId];
+}
 - (void)setTeamMember:(NSArray *)memberArray{
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     [cache removeObjectForKey:KTeamMemberCacheName];
@@ -752,6 +765,25 @@ SINGLETON_FOR_CLASS(UserManager);
     }else{
         return CalendarViewTypeGeneral;
     }
+}
+-(void)loadTeamMember{
+    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSArray *content = response[@"content"];
+            [userManager setTeamMember:content];
+            [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSError *error;
+                MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+                if (model.isAdmin) {
+                    [userManager setTeamAdminIdWithId:model.memberID];
+                    *stop = YES;
+                }
+            }];
+        }
+       
+    } failBlock:^(NSError *error) {
+
+    }];
 }
 -(void)setCurrentIssueSortType:(CalendarViewType)type{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];

@@ -10,7 +10,7 @@
 #import "IssueListViewModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-
+@class  IssueModel;
 @interface CalendarIssueModel : NSObject
 @property (nonatomic, strong) NSString *typeText;
 @property (nonatomic, strong) NSString *timeText;
@@ -23,7 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGSize titleSize;           // 情报状态的高度
 @property (nonatomic, strong) NSDate *dayDate;
 @property (nonatomic, assign) long seq;
+@property (nonatomic, assign) BOOL isIssue;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithIssueModel:(IssueModel *)dict;
+
 @end
 
 NS_ASSUME_NONNULL_END

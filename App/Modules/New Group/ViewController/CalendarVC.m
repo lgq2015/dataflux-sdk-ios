@@ -61,6 +61,7 @@
 }
 - (void)issueTeamSwitch:(NSNotification *)notification{
     [self.manager showSingleWeek];
+    [self.manager.calenderScrollView backToday];
     [eventsByDate removeAllObjects];
     [dotLoadDate removeAllObjects];
     [_calendarList removeAllObjects];
@@ -187,11 +188,11 @@
                 model1.seq= -1;
                 [calendarList insertObject:@[model1] atIndex:0];
             }
-            if (model.pageSize>model.count) {
-                [self.manager.calenderScrollView showNomoreDatasFooter];
-            }else{
+//            if (model.count == 0) {
+//                [self.manager.calenderScrollView showNomoreDatasFooter];
+//            }else{
                 self.manager.calenderScrollView.tableView.tableFooterView = nil;
-            }
+//            }
             
              [self.calendarList removeAllObjects];
              [self.calendarList addObjectsFromArray:[calendarList copy]];
@@ -276,7 +277,7 @@
         return;
     }
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[currentDate getUTCTimeStr]];
+    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr]];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date firstDay:(NSDate *)first lastDay:(NSDate *)last{
     
@@ -312,7 +313,7 @@
                 [self loadCurrentList];
             }else{
                 self.isLoadTop = NO;
-        [self loadListWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr] loadNew:NO];
+        [self loadListWithStartTime:[first getUTCTimeStr] endTime:[[date dateByAddingDays:1] getUTCTimeStr] loadNew:NO];
             }
     }
     }

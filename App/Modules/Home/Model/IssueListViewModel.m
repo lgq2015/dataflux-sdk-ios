@@ -214,7 +214,7 @@
     }
     self.titleHeight = [self.title strSizeWithMaxWidth:kWidth-60 withFont:RegularFONT(15)].height+5;
     if (!model.cellHeight||model.cellHeight == 0) {
-        self.cellHeight = self.titleHeight+ZOOM_SCALE(48)+82;
+        self.cellHeight = self.titleHeight+ZOOM_SCALE(48)+86;
     }else{
         self.cellHeight = model.cellHeight;
     }

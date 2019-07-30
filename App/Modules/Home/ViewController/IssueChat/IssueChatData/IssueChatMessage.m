@@ -38,6 +38,7 @@
         self.messageFrom = PWChatMessageFromOther;
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
+        self.isAdmin  = [self.memberId isEqualToString:[userManager getTeamAdminId]];
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([userID  isEqualToString:getPWUserID]) {
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
@@ -61,7 +62,7 @@
         self.nameStr = [time accurateTimeStr];
 
     }else if([model.origin isEqualToString:@"bizSystem"]){
-        self.messageFrom = PWChatMessageFromSystem;
+        self.messageFrom = PWChatMessageFromOther;
     }
     
     NSString *type = model.type;
@@ -181,6 +182,12 @@
                 NSString *key = NSLocalizedString(model.subType, @"");
                 self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,key];
             }
+
+        }else if([model.subType isEqualToString:@"issueChildAdded"]){
+            
+            NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
+            NSString *key = [childIssue stringValueForKey:@"title" default:@""];
+            self.stuffName = key;
 
         }else{
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];

@@ -80,9 +80,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
+
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.mas_equalTo(self.tableView);
-        make.width.equalTo(self.tableView);
+        make.top.width.right.left.mas_equalTo(self.tableView);
     }];
     [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
@@ -124,19 +124,19 @@
     [userManager getTeamProduct:^(BOOL isSuccess, NSDictionary *product) {
         if (isSuccess) {
             [self.headerView updataUIWithDatas:product];
+            [self.headerView layoutIfNeeded];
             self.tableView.tableHeaderView = self.headerView;
-            [self.tableView layoutIfNeeded];
         }
     }];
     [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             NSDictionary *content = response[@"content"];
             [userManager setTeamProduct:content];
-            //            dispatch_async(dispatch_get_main_queue(), ^{
             [self.headerView updataUIWithDatas:content];
-            self.tableView.tableHeaderView = self.headerView;
-            [self.tableView layoutIfNeeded];
-            //            });
+            [self.headerView layoutIfNeeded];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.tableView.tableHeaderView = self.headerView;
+            });
         }
         [self.header endRefreshing];
     } failBlock:^(NSError *error) {
@@ -179,6 +179,7 @@
         NSError *error;
         MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
         if (model.isAdmin) {
+        [userManager setTeamAdminIdWithId:model.memberID];
          [self.teamMemberArray insertObject:model atIndex:0];
         }else{
          [self.teamMemberArray addObject:model];
@@ -263,15 +264,9 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
-//        ZTTeamVCTopCell *cell = (ZTTeamVCTopCell *)[tableView dequeueReusableCellWithIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
-//        CGFloat height = [cell caculateRowHeight];
         return ZOOM_SCALE(86);
     }else{
-        if (indexPath.row == 0){
-            return 80;
-        }else{
             return 60;
-        }
     }
 }
 
@@ -512,6 +507,15 @@
     [super viewWillAppear:animated];
     [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    if (_headerView) {
+        [self.headerView layoutIfNeeded];
+        dispatch_async(dispatch_get_main_queue(), ^{
+         self.tableView.tableHeaderView = self.headerView;
+        });
+        [self.headerView layoutIfNeeded];
+    }
 }
 //TODO:丽蕾 （点击切换团队阴影）
 - (void)clickTeamChangeViewBlackBG{

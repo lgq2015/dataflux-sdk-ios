@@ -135,6 +135,9 @@
 "issue.issueRecovered" = "情报恢复";
 "issue.issueExpired" = "情报过期";
 "issue.updateExpertGroups" = "加入讨论";
+"issue.ticketClosed" = "专家退出讨论";
+"issue.exitExpertGroups" ="专家退出讨论";
+"issue.ticketSubmitted" = "";
 
 "issue.issueLevelChanged" ="情报等级变更为";
 

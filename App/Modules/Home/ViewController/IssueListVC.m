@@ -119,6 +119,7 @@
     self.view.backgroundColor = PWWhiteColor;
     NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:nil];
     self.monitorData = [NSMutableArray new];
+    self.tableView.contentInset = UIEdgeInsetsMake(12, 0, 0, 0); 
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;

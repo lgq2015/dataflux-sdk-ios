@@ -8,10 +8,15 @@
 
 #import "CalendarListModel.h"
 #import "CalendarIssueModel.h"
-
+#import "IssueModel.h"
 @implementation CalendarListModel
 - (id)getItemData:(NSDictionary *)dic {
-   
+    CalendarViewType type = [userManager getCurrentCalendarViewType];
+    if (type == CalendarViewTypeGeneral) {
+        IssueModel *issue = [[IssueModel alloc]initWithDictionary:dic];
+    return [[CalendarIssueModel alloc] initWithIssueModel:issue];
+    }else{
     return [[CalendarIssueModel alloc] initWithDictionary:dic];
+    }
 }
 @end
