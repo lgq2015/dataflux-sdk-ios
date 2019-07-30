@@ -229,4 +229,21 @@
     return [calendar dateFromComponents:componentsNewDate];
     
 }
+- (NSArray *)getMonthBeginAndEnd{
+
+      NSDate *newDate=self;
+      double interval = 0;
+      NSDate *beginDate = nil;
+      NSDate *endDate = nil;
+      NSCalendar *calendar = [NSCalendar currentCalendar];
+      [calendar setFirstWeekday:1];//设定周一为周首日
+      BOOL ok = [calendar rangeOfUnit:NSCalendarUnitMonth startDate:&beginDate interval:&interval forDate:newDate];
+     //分别修改为 NSDayCalendarUnit NSWeekCalendarUnit NSYearCalendarUnit
+     if (ok) {
+         endDate = [beginDate dateByAddingTimeInterval:interval-1];
+       }else {
+           return @[];
+       }
+       return @[beginDate,endDate];
+}
 @end

@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDate *)beginningOfMonth;
 -(NSString *)getUTCTimeStr;
 - (NSString *)getTimeStr;
+- (NSArray *)getMonthBeginAndEnd;
 @end
 
 NS_ASSUME_NONNULL_END
