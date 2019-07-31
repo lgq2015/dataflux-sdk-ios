@@ -12,12 +12,18 @@
 #import "TeamMemberCell.h"
 #import "NoAssignCell.h"
 #import "IssueListViewModel.h"
+#import "ZTSearchBar.h"
 @interface ChooseAssignVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 // 索引标题数组(排序后的出现过的拼音首字母数组)
 @property(nonatomic, strong) NSMutableArray *indexArr;
 @property (nonatomic, strong) MemberInfoModel *currentModel;
+@property (nonatomic, strong) ZTSearchBar *ztsearchbar;
+@property (nonatomic, assign) BOOL isSearch;
+@property (nonatomic, strong) NSMutableArray *results;
+
+
 @end
 
 @implementation ChooseAssignVC
@@ -28,11 +34,19 @@
     [self createUI];
 }
 - (void)createUI{
+    _results= [NSMutableArray new];
+    _ztsearchbar = [[ZTSearchBar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 55)];
+    _ztsearchbar.backgroundColor = PWWhiteColor;
+    WeakSelf
+    _ztsearchbar.cancleClick = ^{
+        [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
+    };
     [self addNavigationItemWithTitles:@[@"完成"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@11]];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 67;
+    self.tableView.tableHeaderView = _ztsearchbar;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:TeamMemberCell.class forCellReuseIdentifier:@"TeamMemberCell"];
@@ -58,6 +72,35 @@
             [error errorToast];
         }];
     }];
+    //对搜索框中输入的内容进行监听
+    [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
+        [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
+    }];
+}
+- (void)updateSearchResultsForSearchBar:(ZTSearchBar *)searchBar{
+    NSString *inputStr = searchBar.tf.text ;
+    if (self.results.count > 0) {
+        [self.results removeAllObjects];
+    }
+    //排除直接点击searchbar显示问题
+    if (inputStr == nil || inputStr.length == 0){
+        self.tableView.sc_indexViewDataSource = self.indexArr;
+        self.isSearch = NO;
+        [self.results addObjectsFromArray:self.dataSource];
+        [self.tableView reloadData];
+        return;
+    }
+    self.isSearch = YES;
+    self.tableView.sc_indexViewDataSource = nil;
+    NSMutableArray *array = [NSMutableArray new];
+    [self.teamMemberArray enumerateObjectsUsingBlock:^(MemberInfoModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *name =obj.name;
+        if (name != nil &&[name rangeOfString:inputStr].location != NSNotFound) {
+            [array addObject:obj];
+        }
+    }];
+    [self.results addObject:array];
+    [self.tableView reloadData];
 }
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
@@ -108,9 +151,7 @@
     if (model.isSelect) {
         self.currentModel = model;
     }
-//    if (self.teamMemberArray.count == index) {
-//        [self.dataSource addObject:self.teamMemberArray];
-//    }else{
+
     
         NSArray *data = [self.teamMemberArray subarrayWithRange:NSMakeRange(index, self.teamMemberArray.count-index)];
         self.indexArr = [ZLChineseToPinyin indexWithArray:data Key:@"name"];
@@ -121,6 +162,8 @@
         [self.indexArr insertObject:@"" atIndex:0];
         [self.indexArr insertObject:@"" atIndex:1];
         self.tableView.sc_indexViewDataSource = self.indexArr;
+        [self.results removeAllObjects];
+        [self.results addObjectsFromArray:self.dataSource];
         [self.tableView reloadData];
 //    }
 }
@@ -158,34 +201,42 @@
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.count;
+    return self.results.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    NSArray *sectionItem = self.dataSource[section];
+    NSArray *sectionItem = self.results[section];
     return sectionItem.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (self.isSearch) {
+        TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
+        MemberInfoModel *model = self.results[indexPath.section][indexPath.row];
+        model.isMultiChoice = YES;
+        NSArray *array =self.results[indexPath.section];
+        cell.line.hidden = indexPath.row == array.count-1?YES:NO;
+        cell.model = model;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else{
     if (indexPath.section == 0 && indexPath.row == 0) {
     NoAssignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoAssignCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     cell.model = self.dataSource[indexPath.section][indexPath.row];
+     cell.model = self.results[indexPath.section][indexPath.row];
     return cell;
 
     }else{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
-    MemberInfoModel *model = self.dataSource[indexPath.section][indexPath.row];
+    MemberInfoModel *model = self.results[indexPath.section][indexPath.row];
     model.isMultiChoice = YES;
-    NSArray *array =self.dataSource[indexPath.section];
+    NSArray *array =self.results[indexPath.section];
     cell.line.hidden = indexPath.row == array.count-1?YES:NO;
     cell.model = model;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
-
-    //    cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
+    }
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
@@ -206,7 +257,7 @@
    
         self.currentModel.isSelect = NO;
 //        TeamMemberCell *cell = (TeamMemberCell *)[tableView cellForRowAtIndexPath:indexPath];
-        MemberInfoModel *model =self.dataSource[indexPath.section][indexPath.row];
+        MemberInfoModel *model =self.results[indexPath.section][indexPath.row];
         model.isSelect = YES;
         self.currentModel = model;
         [self.tableView reloadData];
