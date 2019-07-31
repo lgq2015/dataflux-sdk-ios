@@ -174,7 +174,8 @@
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
         }
-        [self.selView showInView:[UIApplication sharedApplication].keyWindow];
+        [self.selView showInView:self.superview];
+       
     }else{
         [self.selView disMissView];
     }
@@ -239,6 +240,13 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
         [self.delegate selectIssueSelectObject:sel];
     }
+}
+- (void)teamSwitchChangeBtnTitle{
+    SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    NSString *title = selO.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
+    NSString *title2 = selO.issueFrom == IssueFromMe?@"我的情报":@"全部情报";
+    [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
+    [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
 }
 - (void)disMissView{
     if(_selView.isShow){

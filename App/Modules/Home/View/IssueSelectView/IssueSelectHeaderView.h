@@ -16,11 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)selectIssueSelectObject:(SelectObject *)sel;
 @end
 @interface IssueSelectHeaderView : UIView
-@property (nonatomic, strong) IssueSelectView *selView;
-@property (nonatomic, strong) IssueSelectSortTypeView *sortView;
-@property (nonatomic, strong) IssueSelectSortTypeView *isMineView;
+@property (nonatomic, strong) IssueSelectView *selView;//筛选
+@property (nonatomic, strong) IssueSelectSortTypeView *sortView;//时间排序
+@property (nonatomic, strong) IssueSelectSortTypeView *isMineView;//我的情报
 @property (nonatomic, assign) id<IssueSelectHeaderDelegate> delegate;
 - (void)disMissView;
+- (void)teamSwitchChangeBtnTitle;
 @end
 
 NS_ASSUME_NONNULL_END
