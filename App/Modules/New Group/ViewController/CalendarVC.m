@@ -68,7 +68,6 @@
     [self.manager goToDate:[NSDate date]];
     [self loadCalendarDot];
     [self loadCurrentList];
-//    [self.manager reloadAppearanceAndData];
 }
 #pragma mark ========== UI ==========
 - (void)createNav{
