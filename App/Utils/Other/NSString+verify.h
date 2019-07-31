@@ -85,4 +85,6 @@
 - (NSString *)dealWithTimeFormatted;
 - (NSString *)getIssueStateLevel;
 +(NSInteger)timeSwitchTimestamp:(NSString *)formatTime andFormatter:(NSString *)format;
+- (NSString *)getOriginStr;
+- (NSString *)getIssueSourceIcon;
 @end

@@ -8,7 +8,7 @@
 
 #import "NSString+verify.h"
 #import <sys/utsname.h>
-
+#import "IssueListManger.h"
 @implementation NSString (verify)
 
 
@@ -522,5 +522,47 @@
     NSInteger timeSp = [[NSNumber numberWithDouble:[date timeIntervalSince1970]] integerValue];
     return timeSp;
 }
-
+- (NSString *)getOriginStr{
+    if ([self isEqualToString:@"user"]) {
+        return @"自建";
+    }else if([self isEqualToString:@"bizSystem"]){
+        return @"系统";
+    }else if([self isEqualToString:@"crontab"] || [self isEqualToString:@"issueEngine"]){
+        return @"诊断";
+    }else if([self isEqualToString:@"alertHub"]){
+        return @"自定义来源";
+    }else if([self isEqualToString:ILMStringAll]){
+        return @"全部来源";
+    }else if([self isEqualToString:@""]){
+        return @"<未知来源>";
+    }else{
+        return self;
+    }
+  
+}
+- (NSString *)getIssueSourceIcon{
+    NSString *icon;
+    if ([self isEqualToString:@"carrier.corsairmaster"]){
+        icon = @"icon_foresight_small";
+    }else if([self isEqualToString:@"aliyun"]) {
+        icon = @"icon_alis";
+    }else if([self isEqualToString:@"qcloud"]){
+        icon = @"icon_tencent_small";
+    }else if([self isEqualToString:@"aws"]){
+        icon = @"icon_aws_small";
+    }else if([self isEqualToString:@"ucloud"]){
+        icon = @"icon_tencent_small";
+    }else if ([self isEqualToString:@"domain"]){
+        icon = @"icon_domainname_small";
+    }else if([self isEqualToString:@"carrier.corsair"]){
+        icon =@"icon_mainframe_small";
+    }else if([self isEqualToString:@"carrier.alert"]){
+        icon = @"message_docks";
+    }else if ([self isEqualToString:@"aliyun.finance"]){
+        icon = @"icon_alis";
+    }else if ([self isEqualToString:@"aliyun.cainiao"]){
+        icon = @"cainiao_s";
+    }
+    return icon;
+}
 @end
