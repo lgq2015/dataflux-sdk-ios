@@ -12,14 +12,12 @@
 #import "IssueChatBaseCell.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "IssueChatDatas.h"
-#import "ExpertsSuggestVC.h"
 #import "IssueChatDataManager.h"
 #import "IssueModel.h"
 #import "IssueLogModel.h"
 #import "PWSocketManager.h"
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "HLSafeMutableArray.h"
-#import "ExpertsMoreVC.h"
 #import "TeamInfoModel.h"
 #import "PWImageGroupView.h"
 #import "MemberInfoVC.h"
@@ -825,12 +823,12 @@
                 NSDictionary *tags =userManager.teamModel.tags;
                 NSDictionary *product = PWSafeDictionaryVal(tags, @"product");
                 if (product ==nil) {
-                    [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
+//                    [self.navigationController pushViewController:[ExpertsMoreVC new] animated:YES];
                     return;
                 }
-                ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
-                expert.model = self.model;
-                [self.navigationController pushViewController:expert animated:YES];
+//                ExpertsSuggestVC *expert = [[ExpertsSuggestVC alloc]init];
+//                expert.model = self.model;
+//                [self.navigationController pushViewController:expert animated:YES];
             }
         }
     }];

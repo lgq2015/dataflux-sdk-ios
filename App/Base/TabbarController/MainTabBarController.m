@@ -10,7 +10,6 @@
 #import "RootViewController.h"
 #import "RootNavigationController.h"
 #import "UITabBar+CustomBadge.h"
-#import "HomeViewController.h"
 #import "MineViewController.h"
 #import "TeamVC.h"
 #import "PWTabBar.h"

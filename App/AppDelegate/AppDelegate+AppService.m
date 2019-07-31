@@ -32,7 +32,6 @@
 #import "NewsWebView.h"
 #import "NewsListModel.h"
 #import <AlipaySDK/AlipaySDK.h>
-#import "HomeViewController.h"
 #import "HomeIssueIndexGuidanceView.h"
 #import "IssueListManger.h"
 #import "IssueDetailsVC.h"
@@ -284,9 +283,9 @@
     [[self getCurrentUIVC].navigationController popToRootViewControllerAnimated:NO];
     MainTabBarController *maintabbar = (MainTabBarController *)self.window.rootViewController;
     [maintabbar setSelectedIndex:0];
-    if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
-        [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
-    }
+//    if ([[self getCurrentUIVC] isKindOfClass:HomeViewController.class]){
+//        [(HomeViewController *)[self getCurrentUIVC] setSelectedIndex:0];
+//    }
 }
 //处理情报数
 - (void)dealNotificationIssueEngineCount{

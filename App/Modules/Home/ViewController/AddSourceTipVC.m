@@ -8,7 +8,6 @@
 
 #import "AddSourceTipVC.h"
 #import "AddSourceTipView.h"
-#import "AddSourceVC.h"
 #import "MainTabBarController.h"
 
 @interface AddSourceTipVC ()

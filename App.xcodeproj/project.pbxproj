@@ -32,9 +32,6 @@
 		2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
 		2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
 		2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */; };
-		2B535313226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
-		2B535314226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
-		2B535315226EE3DD00A4AC22 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B535312226EE3DD00A4AC22 /* OrderListVC.m */; };
 		2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
 		2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
 		2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */; };
@@ -375,9 +372,6 @@
 		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
-		4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
-		4A19548E21A7F7BF007ADFCA /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
-		4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
 		4A3A136A228060B200098DFA /* AtListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A1369228060B100098DFA /* AtListVC.m */; };
 		4A3A136B228060B200098DFA /* AtListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A1369228060B100098DFA /* AtListVC.m */; };
 		4A3A136C228060B200098DFA /* AtListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A1369228060B100098DFA /* AtListVC.m */; };
@@ -620,9 +614,6 @@
 		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
-		4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
-		4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
-		4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */; };
 		4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC14202276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
@@ -895,7 +886,6 @@
 		6B6E217D9A6DDC83F62E24CC /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E21A4D4D99C3495F990B2 /* IssueSourceListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */; };
 		6B6E21B2573F76761357C45E /* ZhugeIOUserDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */; };
-		6B6E21B78A8409F6DE2539F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E206D33FC79F101DB0167 /* HomeViewController.m */; };
 		6B6E21D9B912823DCDB7C91F /* IssueChatKeyBordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */; };
 		6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C2D3CD112469EF49F0B /* ScanViewController.m */; };
 		6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
@@ -911,9 +901,7 @@
 		6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B8CDBE037075EEE0072 /* IssueChatBaseCell.m */; };
 		6B6E227C6F0782567AE3C7D0 /* HeartBeatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E264F8ABB58970A07936D /* HeartBeatManager.m */; };
 		6B6E2284726714D0C5C3FE6E /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
-		6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */; };
 		6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F8F577E7263475A5404 /* LibraryVC.m */; };
-		6B6E22AF17266A5900D40334 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E206D33FC79F101DB0167 /* HomeViewController.m */; };
 		6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */; };
 		6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */; };
 		6B6E22EE6662B46C6837F468 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
@@ -926,12 +914,10 @@
 		6B6E2324F28DD05D317AB1AA /* IssueChatKeyBordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */; };
 		6B6E2330AA22D110F06E8C19 /* ZhugeIOMineHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2202B14631AF21BB503A /* ZhugeIOMineHelper.m */; };
 		6B6E233BD4BDD2FB28CC1471 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
-		6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */; };
 		6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F653962505AE565BFBD /* IssueListVC.m */; };
 		6B6E238D7E703151708B8567 /* CarrierItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26F6B14FCD0E4454564E /* CarrierItemModel.m */; };
 		6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F331858745A2216176D /* NewsWebView.m */; };
-		6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
 		6B6E23BF10C0ADA14CB88CC7 /* ZhugeIOTeamHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E24FEED5BB49C6046894E /* ZhugeIOTeamHelper.m */; };
 		6B6E23E2B8002D885C122407 /* PWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */; };
 		6B6E2412EB7220B16F651FEC /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
@@ -967,24 +953,19 @@
 		6B6E26DA119DE6C751E5A67C /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E2737B887CDF6B196AB85 /* IssueChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2468C56FC8E147D4D8D2 /* IssueChatVC.m */; };
 		6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */; };
-		6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */; };
 		6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */; };
 		6B6E275937941ED9EE477F40 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
 		6B6E27631A6099819A86B2ED /* ToolsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2188F811955A7DCCF384 /* ToolsVC.m */; };
-		6B6E279062CF87E37FE1DBF4 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E206D33FC79F101DB0167 /* HomeViewController.m */; };
 		6B6E27B0BF8DDD157910D16F /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
 		6B6E27B421ACBADB501FF6E3 /* HandbookIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25221972ECF638142FC3 /* HandbookIndexVC.m */; };
 		6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
-		6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */; };
 		6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F8F577E7263475A5404 /* LibraryVC.m */; };
 		6B6E2847C190BBFD3C610D4A /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
 		6B6E284C535341D3EB3A852D /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
-		6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
 		6B6E28669D2E0C2DA6B7D2CA /* ZhugeIOIssueHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */; };
 		6B6E28A04E4A1C5E6DA34AF0 /* ZhugeIOIssueHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */; };
 		6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E28AD301A4EE4893DE9F3 /* ReadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */; };
-		6B6E28B415D4B40427B36E26 /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
 		6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E28BF0B24D3318B1D2C4B /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
 		6B6E28C6D5584444F4D46187 /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
@@ -992,13 +973,11 @@
 		6B6E28EC0A4EB66C269E423C /* ZhugeIOCalendarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */; };
 		6B6E28FFCD3839E8DA55C895 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 6B6E25C0EE0A4AA575CF0FAF /* CHANGELOG */; };
 		6B6E29024B6A96A1E9D161FA /* ZhugeIOLoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2BC30E7BECF225EFD59E /* ZhugeIOLoginHelper.m */; };
-		6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
 		6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */; };
 		6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2460A72F4A7A678D1444 /* AddIssueVC.m */; };
 		6B6E29546EC51700A6FB341A /* IssueSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */; };
 		6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2460A72F4A7A678D1444 /* AddIssueVC.m */; };
 		6B6E295E51A9A345441BA0E7 /* ZhugeIOMineHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2202B14631AF21BB503A /* ZhugeIOMineHelper.m */; };
-		6B6E296AC76922097B333F5F /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
 		6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */; };
 		6B6E2997FED1653E79EB5023 /* ClusterDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */; };
 		6B6E29B9063E83C65F29860C /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
@@ -1006,20 +985,15 @@
 		6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */; };
 		6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */; };
 		6B6E29E505B6D2E250140FC3 /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */; };
-		6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */; };
 		6B6E29EBB975D7946CE96343 /* IssueChatMessagelLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E22D9ABC2352C57F37648 /* IssueChatMessagelLayout.m */; };
 		6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2A15E3B9033201251096 /* AddIssueLogReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */; };
 		6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */; };
-		6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
-		6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */; };
 		6B6E2A69D69678EF6F3FEDB0 /* ZhugeIOUserDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */; };
-		6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */; };
 		6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */; };
 		6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */; };
 		6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2AFE43A95D1FED215D99 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
-		6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */; };
 		6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */; };
 		6B6E2B4A3B280555816CF33B /* HostDiagnosisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E254BE1D4503BAF835B81 /* HostDiagnosisVC.m */; };
 		6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E269CB1332A74C7EFD5A4 /* IssueChatImageCell.m */; };
@@ -1032,22 +1006,17 @@
 		6B6E2BF32AB1BEFA3DA7ADDE /* AddSourceTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */; };
 		6B6E2C01FD9FE84D3CD27906 /* HeartBeatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E264F8ABB58970A07936D /* HeartBeatManager.m */; };
 		6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2F8F577E7263475A5404 /* LibraryVC.m */; };
-		6B6E2C5A6F38B0F90D9BFA36 /* IssueSourceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */; };
 		6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25CC23C4FF8DA743B325 /* IssueChatTextCell.m */; };
 		6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */; };
 		6B6E2CAF5D6B7F655E94C140 /* ZhugeIOLoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2BC30E7BECF225EFD59E /* ZhugeIOLoginHelper.m */; };
 		6B6E2CBB1E7C14CD0D62C1AA /* IssueListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E270F54D0301125C8BF69 /* IssueListModel.m */; };
-		6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */; };
 		6B6E2CF970093FF974F66360 /* ZhugeIOLibraryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */; };
 		6B6E2CFDAC12F11A4C3BF259 /* IssueChatKeyBordFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */; };
 		6B6E2D01AED54A03EAFE5E6E /* ZhugeIOCalendarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */; };
-		6B6E2D128A3CDB9307318A6D /* IssueSourceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */; };
 		6B6E2D2D518272EAADF5E5C6 /* IssueChatKeyBoardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C1FDC83C2975C00CF60 /* IssueChatKeyBoardInputView.m */; };
 		6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2FD21643811CED0DBB73 /* NSDictionary+URL.m */; };
 		6B6E2D784207F002F84F9BD7 /* ZhugeIOUserDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */; };
-		6B6E2D9097F2353A0AAD7BF9 /* ExpertsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */; };
 		6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */; };
-		6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */; };
 		6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C2D3CD112469EF49F0B /* ScanViewController.m */; };
 		6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */; };
 		6B6E2E045BE0DB56B4B97513 /* IssueLogListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */; };
@@ -1065,8 +1034,6 @@
 		6B6E2F908B1F3B11902D9102 /* IssueChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E265814A874D256AF5F56 /* IssueChatMessage.m */; };
 		6B6E2F918EA96FEDF7651E80 /* IssueSourceListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E25178037681B06F0B3B3 /* IssueSourceListModel.m */; };
 		6B6E2F91AD7D40F7345FC895 /* IssueChatDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E26479B84137576BC5358 /* IssueChatDataManager.m */; };
-		6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */; };
-		6B6E2FC4DFCDDA647155A7CA /* IssueSourceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */; };
 		6B6E2FF4601DC2D375A35302 /* InformationStatusReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2A66C056459C5499058A /* InformationStatusReadManager.m */; };
 		B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */; };
 		CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
@@ -1118,7 +1085,6 @@
 		CA1CF5B3221ECB3A00D15316 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
 		CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
-		CA1CF5B6221ECB3A00D15316 /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
 		CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
 		CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
@@ -1132,7 +1098,6 @@
 		CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
 		CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EC21D361A6003BB9CB /* CurrentUserModel.m */; };
 		CA1CF5C6221ECB3A00D15316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BB94217DAD6100FC2979 /* main.m */; };
-		CA1CF5C7221ECB3A00D15316 /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
 		CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7321FC473E009F9E94 /* UITabBarItem+PPBadgeView.m */; };
 		CA1CF5CA221ECB3A00D15316 /* PWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375621C743CC004CF320 /* PWContentView.m */; };
 		CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
@@ -1163,7 +1128,6 @@
 		CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
-		CA1CF5EE221ECB3A00D15316 /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
 		CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
 		CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
@@ -1253,7 +1217,6 @@
 		CA1CF658221ECB5000D15316 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1421C282DA007730E6 /* iToast+SYCategory.m */; };
 		CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53521D73F05003BB9CB /* UIView+SDExtension.m */; };
 		CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
-		CA1CF65B221ECB5000D15316 /* IssueBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */; };
 		CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
 		CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
@@ -1267,7 +1230,6 @@
 		CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE3221A8C16009F9E94 /* ChangeCardItem.m */; };
 		CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4EC21D361A6003BB9CB /* CurrentUserModel.m */; };
 		CA1CF66B221ECB5000D15316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BB94217DAD6100FC2979 /* main.m */; };
-		CA1CF66C221ECB5000D15316 /* IssueBoardInitialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */; };
 		CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7321FC473E009F9E94 /* UITabBarItem+PPBadgeView.m */; };
 		CA1CF66F221ECB5000D15316 /* PWContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375621C743CC004CF320 /* PWContentView.m */; };
 		CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43AF21B8BACE002AF34E /* GridViewItem.m */; };
@@ -1298,7 +1260,6 @@
 		CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
 		CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43A721B8BACE002AF34E /* TAAnimatedDotView.m */; };
-		CA1CF693221ECB5000D15316 /* IssueBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A19548821A7F7BE007ADFCA /* IssueBoard.m */; };
 		CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44D421C2080B002AF34E /* OpenUDID.m */; };
 		CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53621D73F05003BB9CB /* SDCollectionViewCell.m */; };
 		CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA32201C0B4009F9E94 /* IssueModel.m */; };
@@ -1374,7 +1335,6 @@
 		2B53530C226DBE6900A4AC22 /* ZYPayWayUIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYPayWayUIManager.h; sourceTree = "<group>"; };
 		2B53530D226DBE6900A4AC22 /* ZYPayWayUIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYPayWayUIManager.m; sourceTree = "<group>"; };
 		2B535311226EE3DD00A4AC22 /* OrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListVC.h; sourceTree = "<group>"; };
-		2B535312226EE3DD00A4AC22 /* OrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
 		2B53531B226EEB4F00A4AC22 /* ZTOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZTOrderListCell.h; sourceTree = "<group>"; };
 		2B53531C226EEB4F00A4AC22 /* ZTOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZTOrderListCell.m; sourceTree = "<group>"; };
 		2B53531D226EEB4F00A4AC22 /* ZTOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZTOrderListCell.xib; sourceTree = "<group>"; };
@@ -1587,12 +1547,6 @@
 		4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeNetWork.m; sourceTree = "<group>"; };
 		4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZImageCropper.h; sourceTree = "<group>"; };
 		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
-		4A19548721A7F7BE007ADFCA /* IssueBoardInitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoardInitialView.h; sourceTree = "<group>"; };
-		4A19548821A7F7BE007ADFCA /* IssueBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoard.m; sourceTree = "<group>"; };
-		4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoardCell.m; sourceTree = "<group>"; };
-		4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueBoardInitialView.m; sourceTree = "<group>"; };
-		4A19548B21A7F7BE007ADFCA /* IssueBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoardCell.h; sourceTree = "<group>"; };
-		4A19548C21A7F7BE007ADFCA /* IssueBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueBoard.h; sourceTree = "<group>"; };
 		4A19549021A7FEDE007ADFCA /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		4A19549121A8060D007ADFCA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4A3A1368228060B100098DFA /* AtListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtListVC.h; sourceTree = "<group>"; };
@@ -1797,8 +1751,6 @@
 		4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSelectCell.m; sourceTree = "<group>"; };
 		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
-		4AAC14162275AA290043AD5E /* IssueIndexHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueIndexHeaderView.h; sourceTree = "<group>"; };
-		4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueIndexHeaderView.m; sourceTree = "<group>"; };
 		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
 		4AAC141D2276F3500043AD5E /* NoDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoDataView.m; sourceTree = "<group>"; };
 		4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueRecoveredListVC.h; sourceTree = "<group>"; };
@@ -2090,21 +2042,17 @@
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
 		6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOCalendarHelper.m; sourceTree = "<group>"; };
 		6B6E20431378224178B1392F /* ZhugeIOUserDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOUserDataHelper.m; sourceTree = "<group>"; };
-		6B6E206D33FC79F101DB0167 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		6B6E207E4871BF6B4CF5AD6F /* ZhugeIOLoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOLoginHelper.h; sourceTree = "<group>"; };
 		6B6E208C20D02417DC2FAC6F /* LibrarySearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibrarySearchVC.m; sourceTree = "<group>"; };
-		6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIssueSourceMoreServicesVC.m; sourceTree = "<group>"; };
 		6B6E20E3ACBEC20ECB30944C /* IssueListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListModel.h; sourceTree = "<group>"; };
 		6B6E20F23F0B52D81B1F3467 /* HandBookManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandBookManager.h; sourceTree = "<group>"; };
 		6B6E2129A458FF4168A00732 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
-		6B6E213CBF8D8551EC6FC07F /* IssueSourceDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceDetailVC.h; sourceTree = "<group>"; };
 		6B6E21580CB0771C1641C1E4 /* LibrarySearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibrarySearchVC.h; sourceTree = "<group>"; };
 		6B6E2166BD1F79E6596756B2 /* HandBookArticleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookArticleVC.m; sourceTree = "<group>"; };
 		6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSqlHelper.m; sourceTree = "<group>"; };
 		6B6E2188F811955A7DCCF384 /* ToolsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsVC.m; sourceTree = "<group>"; };
 		6B6E219BA3FC613B341070F3 /* ToolsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsVC.h; sourceTree = "<group>"; };
 		6B6E21AC0AF1063B86FDDDAD /* IssueChatFileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatFileCell.m; sourceTree = "<group>"; };
-		6B6E21B5EF3E93FD0771906C /* ExpertsMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsMoreVC.h; sourceTree = "<group>"; };
 		6B6E21DE9CB717E138D3AA5D /* IssueLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueLogModel.h; sourceTree = "<group>"; };
 		6B6E21EAE85CB3985DF3B9B8 /* ZhugeIOLibraryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOLibraryHelper.m; sourceTree = "<group>"; };
 		6B6E2202B14631AF21BB503A /* ZhugeIOMineHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOMineHelper.m; sourceTree = "<group>"; };
@@ -2120,7 +2068,6 @@
 		6B6E239AFED77AD55CBA88A5 /* InformationStatusReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationStatusReadManager.h; sourceTree = "<group>"; };
 		6B6E23AB7E5321F85D095071 /* ZhugeIOIssueHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOIssueHelper.m; sourceTree = "<group>"; };
 		6B6E23D7EB75C361C7563CDE /* IssueLogListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogListModel.m; sourceTree = "<group>"; };
-		6B6E243DEBD6CDF05812520A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		6B6E24481601F546E06BB546 /* CarrierItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarrierItemModel.h; sourceTree = "<group>"; };
 		6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchVC.m; sourceTree = "<group>"; };
 		6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseReturnModel.m; sourceTree = "<group>"; };
@@ -2142,7 +2089,6 @@
 		6B6E26479B84137576BC5358 /* IssueChatDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDataManager.m; sourceTree = "<group>"; };
 		6B6E264F8ABB58970A07936D /* HeartBeatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartBeatManager.m; sourceTree = "<group>"; };
 		6B6E265814A874D256AF5F56 /* IssueChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatMessage.m; sourceTree = "<group>"; };
-		6B6E2697A53CFDD35F4EBBBD /* AddIssueSourceMoreServicesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIssueSourceMoreServicesVC.h; sourceTree = "<group>"; };
 		6B6E269CB1332A74C7EFD5A4 /* IssueChatImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatImageCell.m; sourceTree = "<group>"; };
 		6B6E26C2DC79FEF0B51C6CC4 /* ZhugeIOUserDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOUserDataHelper.h; sourceTree = "<group>"; };
 		6B6E26D5277BD0E3FC22B4B8 /* ZhugeIOTeamHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOTeamHelper.h; sourceTree = "<group>"; };
@@ -2152,7 +2098,6 @@
 		6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListReturnModel.m; sourceTree = "<group>"; };
 		6B6E2774D6F85C939EECE784 /* IssueChatBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatBaseCell.h; sourceTree = "<group>"; };
 		6B6E279ABDD933179C7571A1 /* ScanResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanResultVC.m; sourceTree = "<group>"; };
-		6B6E279B88172BC2B3835339 /* AddSourceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceVC.h; sourceTree = "<group>"; };
 		6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandBookManager.m; sourceTree = "<group>"; };
 		6B6E27D39B66BF3A896026B0 /* PWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWLogFormatter.m; sourceTree = "<group>"; };
 		6B6E27F80EABBDB21909FF83 /* NSString+ErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ErrorCode.m"; sourceTree = "<group>"; };
@@ -2161,14 +2106,12 @@
 		6B6E286AA1D4FE3E1CC4F9C8 /* IssueSourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceModel.m; sourceTree = "<group>"; };
 		6B6E28CBA035973F209069F9 /* ZhugeIOLibraryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOLibraryHelper.h; sourceTree = "<group>"; };
 		6B6E28F8DB0A218F6629EC70 /* IssueChatTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatTextCell.h; sourceTree = "<group>"; };
-		6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsDetailVC.m; sourceTree = "<group>"; };
 		6B6E2909DDC81286E9B84FD7 /* ReadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadStatusModel.h; sourceTree = "<group>"; };
 		6B6E290FF524A1DA8BA0EA3A /* NewsWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsWebView.h; sourceTree = "<group>"; };
 		6B6E2948803DE38E776FBF2A /* PWFMDB+Simplefy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PWFMDB+Simplefy.h"; sourceTree = "<group>"; };
 		6B6E296288EC18A08DCA56BA /* AddIssueLogReturnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIssueLogReturnModel.m; sourceTree = "<group>"; };
 		6B6E298B6311361707A04794 /* IssueChatKeyBoardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatKeyBoardInputView.h; sourceTree = "<group>"; };
 		6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatSystermCell.m; sourceTree = "<group>"; };
-		6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewIssueIndexVC.m; sourceTree = "<group>"; };
 		6B6E29F0B051337D2E55A205 /* ClusterDiagnosisVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterDiagnosisVC.h; sourceTree = "<group>"; };
 		6B6E2A1FF928D06D9093D65A /* IssueChatMessagelLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatMessagelLayout.h; sourceTree = "<group>"; };
 		6B6E2A59CF51997F2D6ECAE9 /* IssueChatDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDatas.h; sourceTree = "<group>"; };
@@ -2176,7 +2119,6 @@
 		6B6E2AAB03F3C52B0AB380F7 /* ZhugeIOCalendarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOCalendarHelper.h; sourceTree = "<group>"; };
 		6B6E2AD9299DB3AEA63DDAD9 /* NSString+ErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ErrorCode.h"; sourceTree = "<group>"; };
 		6B6E2AE17E5C9BA751F7C6FB /* PWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWLogFormatter.h; sourceTree = "<group>"; };
-		6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsMoreVC.m; sourceTree = "<group>"; };
 		6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDatas.m; sourceTree = "<group>"; };
 		6B6E2B7EE3C8F68E44C8B24D /* IssueChatKeyBordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyBordView.m; sourceTree = "<group>"; };
 		6B6E2B813786893A2987D808 /* BaseReturnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseReturnModel.h; sourceTree = "<group>"; };
@@ -2189,25 +2131,19 @@
 		6B6E2C2D3CD112469EF49F0B /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		6B6E2C3BC2AE9855C7FF68DB /* PWHttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWHttpEngine.h; sourceTree = "<group>"; };
 		6B6E2C3DB07F1DF9A4FD9827 /* ReadStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadStatusModel.m; sourceTree = "<group>"; };
-		6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceDetailVC.m; sourceTree = "<group>"; };
 		6B6E2C50F5C0956C6E1B472D /* IssueChatDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueChatDataModel.h; sourceTree = "<group>"; };
 		6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatDataModel.m; sourceTree = "<group>"; };
-		6B6E2C7D4036366921844EF0 /* ExpertsDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsDetailVC.h; sourceTree = "<group>"; };
 		6B6E2CFE166E34F4FD8B9714 /* NSDictionary+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URL.h"; sourceTree = "<group>"; };
-		6B6E2D0040AFC9957E14AB94 /* HomeViewIssueIndexVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewIssueIndexVC.h; sourceTree = "<group>"; };
 		6B6E2D06129E8A307DB63FD6 /* ScanResultVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanResultVC.h; sourceTree = "<group>"; };
 		6B6E2D08CF5BC37DE12B4CDB /* IssueLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueLogModel.m; sourceTree = "<group>"; };
 		6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSourceTipVC.m; sourceTree = "<group>"; };
 		6B6E2D447AF50BD9551F08D0 /* ZhugeIOBaseEventHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhugeIOBaseEventHelper.h; sourceTree = "<group>"; };
 		6B6E2D4B41D723CAC6B2D614 /* IssueListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueListVC.h; sourceTree = "<group>"; };
-		6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertsSuggestVC.m; sourceTree = "<group>"; };
 		6B6E2D9501D08001C9EEB8FF /* IssueChatKeyBordFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueChatKeyBordFunctionView.m; sourceTree = "<group>"; };
 		6B6E2D95168CCFF1CFB70E73 /* ZhugeIOBaseEventHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOBaseEventHelper.m; sourceTree = "<group>"; };
 		6B6E2D989814AAC24D22D341 /* BaseListReturnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListReturnModel.h; sourceTree = "<group>"; };
 		6B6E2DFBB81F2190ED5BA9D7 /* IssueSourceListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueSourceListModel.h; sourceTree = "<group>"; };
-		6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSourceVC.m; sourceTree = "<group>"; };
 		6B6E2E222EE3D262B69AC3E5 /* AddIssueVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIssueVC.h; sourceTree = "<group>"; };
-		6B6E2E9BA908CB20CED7B736 /* ExpertsSuggestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertsSuggestVC.h; sourceTree = "<group>"; };
 		6B6E2EA23B7EF46677429CCD /* AddSourceTipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSourceTipVC.h; sourceTree = "<group>"; };
 		6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueSourceListVC.m; sourceTree = "<group>"; };
 		6B6E2ED012C28A0E6B365DE3 /* HostDiagnosisVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostDiagnosisVC.h; sourceTree = "<group>"; };
@@ -2589,20 +2525,12 @@
 		4A19548621A7F7BE007ADFCA /* IssueBoard */ = {
 			isa = PBXGroup;
 			children = (
-				4A19548C21A7F7BE007ADFCA /* IssueBoard.h */,
-				4A19548821A7F7BE007ADFCA /* IssueBoard.m */,
-				4A19548721A7F7BE007ADFCA /* IssueBoardInitialView.h */,
-				4A19548A21A7F7BE007ADFCA /* IssueBoardInitialView.m */,
-				4A19548B21A7F7BE007ADFCA /* IssueBoardCell.h */,
-				4A19548921A7F7BE007ADFCA /* IssueBoardCell.m */,
 				2B84E41F22658699008E7B29 /* ZTHandBookNoPicCell.h */,
 				2B84E42022658699008E7B29 /* ZTHandBookNoPicCell.m */,
 				2B84E42122658699008E7B29 /* ZTHandBookNoPicCell.xib */,
 				2B84E4282265D6C9008E7B29 /* ZTHandBookHasPicCell.h */,
 				2B84E4292265D6C9008E7B29 /* ZTHandBookHasPicCell.m */,
 				2B84E42A2265D6C9008E7B29 /* ZTHandBookHasPicCell.xib */,
-				4AAC14162275AA290043AD5E /* IssueIndexHeaderView.h */,
-				4AAC14172275AA290043AD5E /* IssueIndexHeaderView.m */,
 			);
 			path = IssueBoard;
 			sourceTree = "<group>";
@@ -3515,7 +3443,6 @@
 				2BFEF386225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.h */,
 				2BFEF387225F649F008A0233 /* ServiceDetailVC+ChangeNavColor.m */,
 				2B535311226EE3DD00A4AC22 /* OrderListVC.h */,
-				2B535312226EE3DD00A4AC22 /* OrderListVC.m */,
 				2BF9F77722700FE000C9B0C3 /* OrderStatusVC.h */,
 				2BF9F77822700FE000C9B0C3 /* OrderStatusVC.m */,
 				2BF9F78E2270686800C9B0C3 /* RootViewController+ZYChangeNavColor.h */,
@@ -3801,12 +3728,8 @@
 				6B6E2F653962505AE565BFBD /* IssueListVC.m */,
 				6B6E2237311CA9E45817A4B2 /* IssueSourceListVC.h */,
 				6B6E2ECEE1A57B752938F42F /* IssueSourceListVC.m */,
-				6B6E279B88172BC2B3835339 /* AddSourceVC.h */,
-				6B6E2E150612A8FB8B5680D1 /* AddSourceVC.m */,
 				6B6E2E222EE3D262B69AC3E5 /* AddIssueVC.h */,
 				6B6E2460A72F4A7A678D1444 /* AddIssueVC.m */,
-				6B6E213CBF8D8551EC6FC07F /* IssueSourceDetailVC.h */,
-				6B6E2C410A412ED724301823 /* IssueSourceDetailVC.m */,
 				4AC21FD0228BDCE20098848C /* IssueDetailsVC.h */,
 				4AC21FD1228BDCE20098848C /* IssueDetailsVC.m */,
 				6B6E219BA3FC613B341070F3 /* ToolsVC.h */,
@@ -3817,14 +3740,6 @@
 				6B6E2712727CBC892C768BFC /* ClusterDiagnosisVC.m */,
 				6B6E22DD504C319385163A70 /* IssueSourceHelperVC.h */,
 				6B6E2F4707A6CD13CD958C96 /* IssueSourceHelperVC.m */,
-				6B6E2697A53CFDD35F4EBBBD /* AddIssueSourceMoreServicesVC.h */,
-				6B6E2095FB32C3253A0738F0 /* AddIssueSourceMoreServicesVC.m */,
-				6B6E2E9BA908CB20CED7B736 /* ExpertsSuggestVC.h */,
-				6B6E2D8F43E57EE581A91DF5 /* ExpertsSuggestVC.m */,
-				6B6E2C7D4036366921844EF0 /* ExpertsDetailVC.h */,
-				6B6E28FC4A5190FEB1FD7E42 /* ExpertsDetailVC.m */,
-				6B6E21B5EF3E93FD0771906C /* ExpertsMoreVC.h */,
-				6B6E2B16D40A1FDB438D2F07 /* ExpertsMoreVC.m */,
 				6B6E2EA23B7EF46677429CCD /* AddSourceTipVC.h */,
 				6B6E2D288B134CDAEC816E26 /* AddSourceTipVC.m */,
 				4AAC14212277E7F70043AD5E /* IssueRecoveredListVC.h */,
@@ -4591,7 +4506,6 @@
 				4A3CDA65229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4ABF43BA21B8BACE002AF34E /* TAPageControl.m in Sources */,
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
-				4AAC14182275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531E226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */,
@@ -4614,7 +4528,6 @@
 				4AE9C53821D73F06003BB9CB /* UIView+SDExtension.m in Sources */,
 				4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */,
 				4A7599D4224116830057BD02 /* NSDate+PWH.m in Sources */,
-				4A19548E21A7F7BF007ADFCA /* IssueBoardCell.m in Sources */,
 				4ABF43C321B8BB1D002AF34E /* LibraryModel.m in Sources */,
 				4A092C9D2226B14600FB2A35 /* CreateSuccessVC.m in Sources */,
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
@@ -4651,7 +4564,6 @@
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A47137D22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				4A00DDDE22D5BA27008462AF /* TagViewCell.m in Sources */,
-				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
 				4A01C65F22EF14FF008D1609 /* DefineOriginVC.m in Sources */,
@@ -4750,7 +4662,6 @@
 				4A092CBC2227C70800FB2A35 /* InviteByPhoneOrEmail.m in Sources */,
 				4ABF43BB21B8BACE002AF34E /* TAAnimatedDotView.m in Sources */,
 				4AC85718223269FB00DAE1F6 /* CloudCareVC.m in Sources */,
-				4A19548D21A7F7BF007ADFCA /* IssueBoard.m in Sources */,
 				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
@@ -4801,25 +4712,20 @@
 				6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */,
 				2B3A44A92271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
-				6B6E22AF17266A5900D40334 /* HomeViewController.m in Sources */,
-				6B6E2285FAC9228A6C459537 /* HomeViewIssueIndexVC.m in Sources */,
 				4AA4CEF5228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
 				4A3CDA34229C041B00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B69225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E22495AF751FE668ECAD1 /* IssueSourceListVC.m in Sources */,
-				6B6E2A8A72BABC9C13EAC9CF /* AddSourceVC.m in Sources */,
 				4A4FF17A22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535327226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF282289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA53229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E20B0AC6BADF6B53C912B /* AddIssueVC.m in Sources */,
 				4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */,
-				6B6E2D128A3CDB9307318A6D /* IssueSourceDetailVC.m in Sources */,
 				6B6E20AA5CDE84A1F4CDB90B /* ToolsVC.m in Sources */,
 				6B6E21FF4E97DF906AEC2F38 /* NewsWebView.m in Sources */,
-				2B535313226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				4AC21FE3228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E2BECF9EECD7FE827C5E7 /* HandBookArticleVC.m in Sources */,
 				6B6E2F367D1AE927F4ADF821 /* HandbookIndexVC.m in Sources */,
@@ -4831,11 +4737,7 @@
 				4A00DE1A22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2422D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E25F720FF5D815B572AF3 /* IssueSourceHelperVC.m in Sources */,
-				6B6E2FA0E0DD3003FB4D6ED3 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
-				6B6E28B415D4B40427B36E26 /* ExpertsSuggestVC.m in Sources */,
-				6B6E2A667BB330E87FFE4461 /* ExpertsDetailVC.m in Sources */,
-				6B6E2A6127438297A41AEE51 /* ExpertsMoreVC.m in Sources */,
 				6B6E247AD1C1857E2253AA88 /* AddSourceTipVC.m in Sources */,
 				4AF663A0225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE12283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
@@ -4991,7 +4893,6 @@
 				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
-				4AAC14192275AA2A0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B53531F226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4A759AD0224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
@@ -5016,7 +4917,6 @@
 				CA1CF5B3221ECB3A00D15316 /* iToast+SYCategory.m in Sources */,
 				CA1CF5B4221ECB3A00D15316 /* UIView+SDExtension.m in Sources */,
 				CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */,
-				CA1CF5B6221ECB3A00D15316 /* IssueBoardCell.m in Sources */,
 				CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */,
 				4A759B532254B6A20057BD02 /* EchartListView.m in Sources */,
 				2BFEF2FD225B4572008A0233 /* NSString+Regex.m in Sources */,
@@ -5059,7 +4959,6 @@
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF5C6221ECB3A00D15316 /* main.m in Sources */,
 				4AA4CF3922898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
-				CA1CF5C7221ECB3A00D15316 /* IssueBoardInitialView.m in Sources */,
 				4A7599D5224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
@@ -5149,7 +5048,6 @@
 				CAD9CAC02243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF5ED221ECB3A00D15316 /* TAAnimatedDotView.m in Sources */,
-				CA1CF5EE221ECB3A00D15316 /* IssueBoard.m in Sources */,
 				CA1CF5EF221ECB3A00D15316 /* OpenUDID.m in Sources */,
 				2B9ECBEF2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
@@ -5201,25 +5099,20 @@
 				6B6E20646B3AB3460999FB95 /* ScanViewController.m in Sources */,
 				2B3A44AA2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
-				6B6E279062CF87E37FE1DBF4 /* HomeViewController.m in Sources */,
-				6B6E29E7BE914747EFA4F290 /* HomeViewIssueIndexVC.m in Sources */,
 				4AA4CEF6228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
 				4A3CDA35229C041C00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B6A225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E298F9C67A7A822B4E38B /* IssueSourceListVC.m in Sources */,
-				6B6E2740485FF719D69DD199 /* AddSourceVC.m in Sources */,
 				4A4FF17B22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535328226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF292289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA54229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E295864FA2AE5C03A6C3A /* AddIssueVC.m in Sources */,
 				4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */,
-				6B6E2FC4DFCDDA647155A7CA /* IssueSourceDetailVC.m in Sources */,
 				6B6E244F067A6DD9EF30F3D5 /* ToolsVC.m in Sources */,
 				6B6E233BD4BDD2FB28CC1471 /* NewsWebView.m in Sources */,
-				2B535314226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				4AC21FE4228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E273C5AA789EDE89BADAE /* HandBookArticleVC.m in Sources */,
 				6B6E27B421ACBADB501FF6E3 /* HandbookIndexVC.m in Sources */,
@@ -5231,11 +5124,7 @@
 				4A00DE1B22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2522D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E208E675F7914200AD103 /* IssueSourceHelperVC.m in Sources */,
-				6B6E23B6E880E32362FE1F74 /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
-				6B6E2B0F26FFAD82FECA44CA /* ExpertsSuggestVC.m in Sources */,
-				6B6E2CF433138D0C75D5DCFC /* ExpertsDetailVC.m in Sources */,
-				6B6E2851CD371A6ED84D3AB4 /* ExpertsMoreVC.m in Sources */,
 				6B6E2BF32AB1BEFA3DA7ADDE /* AddSourceTipVC.m in Sources */,
 				4AF663A1225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE22283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
@@ -5391,7 +5280,6 @@
 				4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4A092CC32227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4AF66391225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
-				4AAC141A2275AA2B0043AD5E /* IssueIndexHeaderView.m in Sources */,
 				2B535320226EEB4F00A4AC22 /* ZTOrderListCell.m in Sources */,
 				4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
@@ -5416,7 +5304,6 @@
 				CA1CF658221ECB5000D15316 /* iToast+SYCategory.m in Sources */,
 				CA1CF659221ECB5000D15316 /* UIView+SDExtension.m in Sources */,
 				CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */,
-				CA1CF65B221ECB5000D15316 /* IssueBoardCell.m in Sources */,
 				CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */,
 				4A759B542254B6A20057BD02 /* EchartListView.m in Sources */,
 				2BFEF2FE225B4572008A0233 /* NSString+Regex.m in Sources */,
@@ -5459,7 +5346,6 @@
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF66B221ECB5000D15316 /* main.m in Sources */,
 				4AA4CF3A22898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
-				CA1CF66C221ECB5000D15316 /* IssueBoardInitialView.m in Sources */,
 				4A7599D6224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
@@ -5549,7 +5435,6 @@
 				CAD9CAC12243EBE60063ABFF /* TeamSuccessVC.m in Sources */,
 				CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */,
 				CA1CF692221ECB5000D15316 /* TAAnimatedDotView.m in Sources */,
-				CA1CF693221ECB5000D15316 /* IssueBoard.m in Sources */,
 				CA1CF694221ECB5000D15316 /* OpenUDID.m in Sources */,
 				2B9ECBF02254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
@@ -5601,25 +5486,20 @@
 				6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */,
 				2B3A44AB2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
-				6B6E21B78A8409F6DE2539F3 /* HomeViewController.m in Sources */,
-				6B6E233FBE3BB2C329D93292 /* HomeViewIssueIndexVC.m in Sources */,
 				4AA4CEF7228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,
 				4A3CDA36229C041C00C2EC62 /* CalendarAppearance.m in Sources */,
 				4A759B6B225B0B080057BD02 /* UIImage+fixOrientation.m in Sources */,
 				6B6E2DF77819B44BC42F1A62 /* IssueSourceListVC.m in Sources */,
-				6B6E27DACEB09AC7A9EF628E /* AddSourceVC.m in Sources */,
 				4A4FF17C22C9A7F800F8985E /* TriangleDrawRect.m in Sources */,
 				2B535329226F0B2300A4AC22 /* ZTOrderListExceptNotPayStatusCell.m in Sources */,
 				4AA4CF2A2289183200A2CBE1 /* HomeIssueListVC.m in Sources */,
 				4A3CDA55229C095800C2EC62 /* LTSCircleView.m in Sources */,
 				6B6E294462FC47A01BC49067 /* AddIssueVC.m in Sources */,
 				4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */,
-				6B6E2C5A6F38B0F90D9BFA36 /* IssueSourceDetailVC.m in Sources */,
 				6B6E27631A6099819A86B2ED /* ToolsVC.m in Sources */,
 				6B6E239EB00E71B0BC82C1F2 /* NewsWebView.m in Sources */,
-				2B535315226EE3DD00A4AC22 /* OrderListVC.m in Sources */,
 				4AC21FE5228D031A0098848C /* IssueChatKeyPointCell.m in Sources */,
 				6B6E23018BA988522794E257 /* HandBookArticleVC.m in Sources */,
 				6B6E269B81B53508574A58FE /* HandbookIndexVC.m in Sources */,
@@ -5631,11 +5511,7 @@
 				4A00DE1C22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2622D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				6B6E266CC11E159E9C8B420F /* IssueSourceHelperVC.m in Sources */,
-				6B6E29084CA8EE002B106EAD /* AddIssueSourceMoreServicesVC.m in Sources */,
 				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,
-				6B6E296AC76922097B333F5F /* ExpertsSuggestVC.m in Sources */,
-				6B6E2D9097F2353A0AAD7BF9 /* ExpertsDetailVC.m in Sources */,
-				6B6E2DA678354226E84FB6F3 /* ExpertsMoreVC.m in Sources */,
 				6B6E29E505B6D2E250140FC3 /* AddSourceTipVC.m in Sources */,
 				4AF663A2225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE32283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,

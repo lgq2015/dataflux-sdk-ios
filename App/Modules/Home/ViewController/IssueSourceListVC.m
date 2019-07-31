@@ -9,8 +9,6 @@
 #import "IssueSourceListVC.h"
 #import "InformationSourceCell.h"
 #import "TeamInfoModel.h"
-#import "AddSourceVC.h"
-#import "IssueSourceDetailVC.h"
 #import "IssueSourceManger.h"
 #import "BaseReturnModel.h"
 
@@ -36,14 +34,6 @@
                                                object:nil];
 }
 - (void)createUI{
-    NSMutableArray *marr = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-    NSMutableArray *newMarr = [NSMutableArray arrayWithArray:marr];
-    for (UIViewController *vc in marr) {
-        if ([vc isKindOfClass:[IssueSourceDetailVC class]] || [vc isKindOfClass:[AddSourceVC class]]) {
-            [newMarr removeObject:vc];
-        }
-    }
-    self.navigationController.viewControllers = newMarr;
     self.currentPage = 1;
     self.dataSource = [NSMutableArray new];
     self.tableView.delegate = self;
@@ -168,8 +158,8 @@
 }
 // 添加云服务跳转
 - (void)addInfoSource{
-    AddSourceVC *addVC = [[AddSourceVC alloc]init];
-    [self.navigationController pushViewController:addVC animated:YES];
+//    AddSourceVC *addVC = [[AddSourceVC alloc]init];
+//    [self.navigationController pushViewController:addVC animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
