@@ -33,6 +33,9 @@
     self.actSeq = [dict longValueForKey:@"actSeq" default:0];
     self.seq = [dict longValueForKey:@"seq" default:0];
     self.origin = [dict stringValueForKey:@"origin" default:@""];
+    if ([dict stringValueForKey:@"originExecMode" default:@""].length>0) {
+        self.originExecMode = [dict stringValueForKey:@"originExecMode" default:@""];
+    }
     self.ticketStatus = [dict stringValueForKey:@"ticketStatus" default:@""];
     self.subType = [dict stringValueForKey:@"subType" default:@""];
     self.needAttention = [dict boolValueForKey:@"needAttention" default:YES];
@@ -65,9 +68,13 @@
     self.markStatus = [dict stringValueForKey:@"markStatus" default:@""];
     NSDictionary *originInfoJSON = PWSafeDictionaryVal(dict, @"originInfoJSON");
     if (originInfoJSON) {
-
+        self.originInfoJSONStr = [originInfoJSON jsonPrettyStringEncoded];
+        NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
+        if ([alertInfo stringValueForKey:@"origin" default:@""].length>0) {
+            self.alertHubTitle =[alertInfo stringValueForKey:@"origin" default:@""];
+        }
     }
-    self.originInfoJSONStr = originInfoJSON ? [originInfoJSON jsonPrettyStringEncoded] : @"";
+    
     self.isRead = NO;
     self.issueLogRead= self.lastIssueLogSeq <= 0;
     self.cellHeight = 0;

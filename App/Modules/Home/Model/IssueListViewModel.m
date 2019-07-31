@@ -218,14 +218,18 @@
     }else{
         self.cellHeight = model.cellHeight;
     }
-    if ([[model.origin getOriginStr] isEqualToString:@"alertHub"]) {
-        if (model.originInfoJSONStr) {
-            NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
-            NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
-            if ([alertInfo stringValueForKey:@"origin" default:@""].length>0) {
-                self.originName =[alertInfo stringValueForKey:@"origin" default:@""];
+    if (model.originExecMode.length>0) {
+        self.originName = [model.originExecMode getOriginStr];
+        if ([model.originExecMode isEqualToString:@"alertHub"]) {
+            if (model.originInfoJSONStr) {
+                NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
+                NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
+                if ([alertInfo stringValueForKey:@"origin" default:@""].length>0) {
+                    self.originName =[alertInfo stringValueForKey:@"origin" default:@""];
+                }
             }
         }
+       
     }else{
         self.originName = [model.origin getOriginStr];
     }

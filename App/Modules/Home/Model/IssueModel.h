@@ -27,7 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) long long actSeq;
 @property (nonatomic, assign) long long seq;
 @property (nonatomic, strong) NSString *origin;
-@property (nonatomic, strong) NSString * ticketStatus;
+@property (nonatomic, strong) NSString *originExecMode;
+@property (nonatomic, strong) NSString *alertHubTitle;
+@property (nonatomic, strong) NSString *ticketStatus;
 @property (nonatomic, strong) NSString *subType;
 @property (nonatomic, assign) long long atLogSeq;
 //转译为json 用于保存数据库

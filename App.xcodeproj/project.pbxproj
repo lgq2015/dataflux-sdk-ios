@@ -2661,13 +2661,6 @@
 			path = IssueSelectView;
 			sourceTree = "<group>";
 		};
-		4A50D91722F1317A00B2493F /* abandon */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = abandon;
-			sourceTree = "<group>";
-		};
 		4A6114AE21E4B29C00E4138B /* GestureLock */ = {
 			isa = PBXGroup;
 			children = (
@@ -3715,7 +3708,6 @@
 		6B6E213300922D047134A345 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4A50D91722F1317A00B2493F /* abandon */,
 				6B6E253E2F8F66DCCE33B200 /* IssueChat */,
 				6B6E2BC8D9B7C776ED88D370 /* Scan */,
 				4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */,

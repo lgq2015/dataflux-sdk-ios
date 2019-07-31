@@ -76,6 +76,7 @@ NSString *const ILMStringAll = @"ALL";
                                                                                  @"assignAccountInfoStr":SQL_TEXT,
                                                                                  @"assignedToAccountInfoStr":SQL_TEXT,
                                                                                  @"watchInfoJSONStr":SQL_TEXT,
+                                                                                 @"originExecMode":SQL_TEXT,
                                                                                  }];
     [self.getHelper pw_alterTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:@{
                                                                                    @"scanCheckEndTime":SQL_TEXT,
@@ -88,6 +89,7 @@ NSString *const ILMStringAll = @"ALL";
                                                                                  @"seq": SQL_INTEGER,
                                                                                  @"atLogSeq": SQL_INTEGER,
                                                                                  @"cellHeight":SQL_INTEGER,
+                                                                                 @"alertHubTitle":SQL_TEXT,
                                                                                  }];
     
     //issue log update
@@ -650,14 +652,14 @@ NSString *const ILMStringAll = @"ALL";
             orignStr = sel.issueOrigin.origin;
             if (orignStr.length>0) {
                 if([orignStr isEqualToString:@"issueEngine"]){
-                orignStr = @"(origin ='issueEngine' OR origin ='crontab')";
+                    orignStr = @"originExecMode ='crontab'";
                 }else if([orignStr isEqualToString:@"alertHub"]){
-                    orignStr = [NSString stringWithFormat:@"origin ='alertHub' AND originInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueOrigin.name];
+                    orignStr = [NSString stringWithFormat:@"originExecMode ='alertHub' AND originInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueOrigin.name];
                 }else{
                     orignStr =[NSString stringWithFormat:@"origin ='%@'",orignStr];
                 }
             }else{
-                orignStr = @"origin ='alertHub'";
+                orignStr = @"originExecMode ='alertHub'";
             }
             [formatStr addObject:orignStr];
         }
