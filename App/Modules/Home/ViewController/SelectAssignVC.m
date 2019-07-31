@@ -40,21 +40,20 @@
     _ztsearchbar.cancleClick = ^{
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     };
+    [self.view addSubview:_ztsearchbar];
     self.dataSource = [NSMutableArray new];
     self.teamMemberArray = [NSMutableArray new];
     self.indexArr = [NSMutableArray new];
     self.results = [NSMutableArray new];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, kWidth, kHeight-kTopHeight-55) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(60);
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:TeamMemberCell.class forCellReuseIdentifier:@"TeamMemberCell"];
     [self.tableView registerClass:NoAssignCell.class forCellReuseIdentifier:@"NoAssignCell"];
-    self.tableView.tableHeaderView = self.ztsearchbar;
 
     [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
@@ -141,6 +140,7 @@
         self.tableView.sc_indexViewDataSource = self.indexArr;
         self.isSearch = NO;
         [self.results addObjectsFromArray:self.dataSource];
+        [self hideNoSearchView];
         [self.tableView reloadData];
         return;
     }
@@ -153,7 +153,12 @@
             [array addObject:obj];
         }
     }];
-    [self.results addObject:array];
+    if (array.count == 0) {
+        [self showNoSearchView];
+    }else{
+        [self.results addObject:array];
+        [self hideNoSearchView];
+    }
     [self.tableView reloadData];
 }
 #pragma mark ========== UITableViewDataSource ==========

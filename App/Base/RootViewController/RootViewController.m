@@ -211,6 +211,8 @@
         }
     }];
     self.noSearchView.hidden = NO;
+    CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12)+CGRectGetMinY(self.tableView.frame);
+    self.noSearchView.frame =CGRectMake(0, height, kWidth, kHeight-kTopHeight);
     [self.view addSubview:self.noSearchView];
 }
 -(void)showNoNetWorkView{

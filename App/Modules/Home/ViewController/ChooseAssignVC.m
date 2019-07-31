@@ -41,12 +41,12 @@
     _ztsearchbar.cancleClick = ^{
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     };
+    [self.view addSubview:_ztsearchbar];
     [self addNavigationItemWithTitles:@[@"完成"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@11]];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-kTopHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, kWidth, kHeight-kTopHeight-55) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.rowHeight = 67;
-    self.tableView.tableHeaderView = _ztsearchbar;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;     //让tableview不显示分割线
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:TeamMemberCell.class forCellReuseIdentifier:@"TeamMemberCell"];
@@ -87,6 +87,7 @@
         self.tableView.sc_indexViewDataSource = self.indexArr;
         self.isSearch = NO;
         [self.results addObjectsFromArray:self.dataSource];
+        [self hideNoSearchView];
         [self.tableView reloadData];
         return;
     }
@@ -99,7 +100,12 @@
             [array addObject:obj];
         }
     }];
-    [self.results addObject:array];
+    if (array.count == 0) {
+        [self showNoSearchView];
+    }else{
+        [self.results addObject:array];
+        [self hideNoSearchView];
+    }
     [self.tableView reloadData];
 }
 -(NSMutableArray *)dataSource{

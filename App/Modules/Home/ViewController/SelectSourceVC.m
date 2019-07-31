@@ -31,16 +31,17 @@
     _ztsearchbar.cancleClick = ^{
        [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     };
+    [self.view addSubview:_ztsearchbar];
     self.dataSource = [NSMutableArray new];
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(44);
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
+    self.tableView.frame = CGRectMake(0, 55, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:SelectSourceCell.class forCellReuseIdentifier:@"SelectSourceCell"];
-    self.tableView.tableHeaderView = self.ztsearchbar;
+//    self.tableView.tableHeaderView = self.ztsearchbar;
     
     [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
@@ -59,10 +60,10 @@
             
             if (array.count > 0) {
                 [self.dataSource addObjectsFromArray:array];
-                [self.results removeAllObjects];
-                [self.results addObjectsFromArray:self.dataSource];
-                [self.tableView reloadData];
             }
+            [self.results removeAllObjects];
+            [self.results addObjectsFromArray:self.dataSource];
+            [self.tableView reloadData];
             
         });
         
@@ -84,6 +85,7 @@
     //排除直接点击searchbar显示问题
     if (inputStr == nil || inputStr.length == 0){
         [self.results addObjectsFromArray:self.dataSource];
+        [self hideNoSearchView];
         [self.tableView reloadData];
         return;
     }
@@ -93,6 +95,11 @@
             [self.results addObject:obj];
         }
     }];
+    if (self.results.count == 0) {
+        [self showNoSearchView];
+    }else{
+        [self hideNoSearchView];
+    }
     [self.tableView reloadData];
 }
 #pragma mark ========== UITableViewDataSource ==========
