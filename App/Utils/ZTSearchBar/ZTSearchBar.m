@@ -100,6 +100,9 @@
 - (void)cancelClick:(UIButton *)sender{
     _tf.text = @"";
     [_tf resignFirstResponder];
+    if (self.cancleClick) {
+        self.cancleClick();
+    }
 }
 
 #pragma mark ====UITextFieldDelegate===

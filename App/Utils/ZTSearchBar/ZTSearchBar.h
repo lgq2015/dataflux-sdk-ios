@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZTSearchBar : UIView
 @property (nonatomic, strong)UITextField *tf;
+@property (nonatomic, copy) void(^cancleClick)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END
