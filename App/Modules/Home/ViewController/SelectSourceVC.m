@@ -111,7 +111,7 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSError *error;
-    SourceModel *model = [[SourceModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
+    SourceModel *model = [[SourceModel alloc]initWithDictionary:self.results[indexPath.row] error:&error];
     if (self.itemClick) {
         self.itemClick(model);
     }
