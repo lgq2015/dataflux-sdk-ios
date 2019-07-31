@@ -280,12 +280,12 @@
     }];
     
     
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:lastDay:currentDate:)]) {
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
         LTSCalendarDayItem *item = self.daysInMonth[self.currentSelectedIndexPath.section][0];
         LTSCalendarDayItem *lastItem = [self.daysInMonth[self.currentSelectedIndexPath.section] lastObject];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date lastDay:lastItem.date currentDate:self.currentDate];
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month currentDate:self.currentDate];
     }
     isOwnChangePage = false;
     
@@ -313,12 +313,11 @@
         [self.collectionView reloadData];
     }];
     
-    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:firstDay:lastDay:currentDate:)]) {
+    if (self.eventSource && [self.eventSource respondsToSelector:@selector(calendarDidScrolledYear:month:currentDate:)]) {
         NSCalendar *calendar = [LTSCalendarAppearance share].calendar;
         NSDateComponents *comps = [calendar components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self.currentDate];
-        LTSCalendarDayItem *item =self.daysInMonth[self.currentSelectedIndexPath.section][0];
-        LTSCalendarDayItem *lastItem = [self.daysInMonth[self.currentSelectedIndexPath.section] lastObject];
-        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month firstDay:item.date lastDay:lastItem.date  currentDate:self.currentDate];
+
+        [self.eventSource calendarDidScrolledYear:comps.year month:comps.month   currentDate:self.currentDate];
     }
     
     
@@ -446,7 +445,9 @@
     }
     
     self.currentDate = currentDate;
-    [self getDateDatas];
+    if (isNew) {
+        [self getDateDatas];
+    }
 }
 
 

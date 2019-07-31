@@ -68,7 +68,7 @@
     [self.manager goToDate:[NSDate date]];
     [self loadCalendarDot];
     [self loadCurrentList];
-    [self.manager reloadAppearanceAndData];
+//    [self.manager reloadAppearanceAndData];
 }
 #pragma mark ========== UI ==========
 - (void)createNav{
@@ -119,9 +119,10 @@
     dotLoadDate = [NSMutableDictionary new];
     NSDate *currentDate = [NSDate date];
     NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+    NSString *end =[[[currentDate getMonthBeginAndEnd] lastObject]getUTCTimeStr];
     [dotLoadDate addEntriesFromDictionary:@{start:@1}];
     
-    [self loadMoreCalendarDotWithStartTime:start endTime:[currentDate getUTCTimeStr]];
+    [self loadMoreCalendarDotWithStartTime:start endTime:end];
 }
 - (void)loadMoreCalendarDotWithStartTime:(NSString *)start endTime:(NSString *)end {
     
@@ -146,6 +147,7 @@
     self.isLoadTop = YES;
     NSDate *currentDate = [NSDate date];
     NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+    [SVProgressHUD show];
     [self loadListWithStartTime:start endTime:[currentDate getUTCTimeStr] loadNew:YES];
     [self.manager endRefreshing];
 
@@ -153,6 +155,7 @@
 - (void)loadListWithStartTime:(NSString *)start endTime:(NSString *)end loadNew:(BOOL)new{
     [self.manager.calenderScrollView showLoadFooterView];
     [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:end pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
+        [SVProgressHUD dismiss];
         [self.manager endRefreshing];
         CalendarListModel *model = (CalendarListModel *)response;
         if (model.isSuccess) {
@@ -262,7 +265,7 @@
 }
 
 #pragma mark ========== LTSCalendarEventSource ==========
-- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first lastDay:(NSDate *)last currentDate:(NSDate *)currentDate{
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month currentDate:(NSDate *)currentDate{
     DLog(@"year == %ld  month == %ld",(long)year,(long)month);
     NSDate *today = [NSDate date];
     if (month>[today month]) {
@@ -276,8 +279,10 @@
     if ([dotLoadDate containsObjectForKey:dateary[0]]) {
         return;
     }
+    NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
+    NSString *end =[[[currentDate getMonthBeginAndEnd] lastObject]getUTCTimeStr];
     [dotLoadDate addEntriesFromDictionary:@{dateary[0]:@1}];
-    [self loadMoreCalendarDotWithStartTime:[first getUTCTimeStr] endTime:[last getUTCTimeStr]];
+    [self loadMoreCalendarDotWithStartTime:start endTime:end];
 }
 - (void)calendarDidSelectedDate:(NSDate *)date firstDay:(NSDate *)first lastDay:(NSDate *)last{
     
@@ -456,7 +461,7 @@
         [self.manager goToDate:[NSDate date]];
         [self loadCalendarDot];
         [self loadCurrentList];
-        [self.manager reloadAppearanceAndData];
+//        [self.manager reloadAppearanceAndData];
     }
     [self.selView disMissView];
 }

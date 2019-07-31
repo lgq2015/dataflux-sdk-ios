@@ -27,7 +27,7 @@
 - (void)calendarDidSelectedDate:(NSDate *)date firstDay:(NSDate *)first lastDay:(NSDate *)last;
 
 //获取当前滑动的年月
-- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month firstDay:(NSDate *)first lastDay:(NSDate *)last currentDate:(NSDate*)currentDate;
+- (void)calendarDidScrolledYear:(NSInteger)year month:(NSInteger)month currentDate:(NSDate*)currentDate;
 /**
  翻页完成后的操作
 
