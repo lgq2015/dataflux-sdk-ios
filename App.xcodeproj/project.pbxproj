@@ -245,6 +245,18 @@
 		4A00DE4222E6F311008462AF /* CalendarSelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE4122E6F311008462AF /* CalendarSelView.m */; };
 		4A00DE4322E6F312008462AF /* CalendarSelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE4122E6F311008462AF /* CalendarSelView.m */; };
 		4A00DE4422E6F312008462AF /* CalendarSelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DE4122E6F311008462AF /* CalendarSelView.m */; };
+		4A01C65022EF1320008D1609 /* SelectOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C64F22EF131F008D1609 /* SelectOriginVC.m */; };
+		4A01C65122EF1320008D1609 /* SelectOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C64F22EF131F008D1609 /* SelectOriginVC.m */; };
+		4A01C65222EF1320008D1609 /* SelectOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C64F22EF131F008D1609 /* SelectOriginVC.m */; };
+		4A01C65522EF1350008D1609 /* SelectAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65422EF1350008D1609 /* SelectAssignVC.m */; };
+		4A01C65622EF1350008D1609 /* SelectAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65422EF1350008D1609 /* SelectAssignVC.m */; };
+		4A01C65722EF1350008D1609 /* SelectAssignVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65422EF1350008D1609 /* SelectAssignVC.m */; };
+		4A01C65A22EF138B008D1609 /* SelectSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65922EF138B008D1609 /* SelectSourceVC.m */; };
+		4A01C65B22EF138B008D1609 /* SelectSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65922EF138B008D1609 /* SelectSourceVC.m */; };
+		4A01C65C22EF138B008D1609 /* SelectSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65922EF138B008D1609 /* SelectSourceVC.m */; };
+		4A01C65F22EF14FF008D1609 /* DefineOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */; };
+		4A01C66022EF14FF008D1609 /* DefineOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */; };
+		4A01C66122EF14FF008D1609 /* DefineOriginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */; };
 		4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */; };
 		4A092C692224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
 		4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092C682224D79100FB2A35 /* ClearCacheTool.m */; };
@@ -456,12 +468,18 @@
 		4A4FF17A22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
 		4A4FF17B22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
 		4A4FF17C22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
+		4A50D91A22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
+		4A50D91B22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
+		4A50D91C22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
 		4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
 		4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
+		4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
+		4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
+		4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
@@ -1481,6 +1499,14 @@
 		4A00DE3C22E6EB06008462AF /* CopyLable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CopyLable.m; sourceTree = "<group>"; };
 		4A00DE4022E6F311008462AF /* CalendarSelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarSelView.h; sourceTree = "<group>"; };
 		4A00DE4122E6F311008462AF /* CalendarSelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarSelView.m; sourceTree = "<group>"; };
+		4A01C64E22EF131F008D1609 /* SelectOriginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectOriginVC.h; sourceTree = "<group>"; };
+		4A01C64F22EF131F008D1609 /* SelectOriginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectOriginVC.m; sourceTree = "<group>"; };
+		4A01C65322EF1350008D1609 /* SelectAssignVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectAssignVC.h; sourceTree = "<group>"; };
+		4A01C65422EF1350008D1609 /* SelectAssignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectAssignVC.m; sourceTree = "<group>"; };
+		4A01C65822EF138B008D1609 /* SelectSourceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectSourceVC.h; sourceTree = "<group>"; };
+		4A01C65922EF138B008D1609 /* SelectSourceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectSourceVC.m; sourceTree = "<group>"; };
+		4A01C65D22EF14FF008D1609 /* DefineOriginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineOriginVC.h; sourceTree = "<group>"; };
+		4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefineOriginVC.m; sourceTree = "<group>"; };
 		4A092C6422241B3800FB2A35 /* PasswordVerifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordVerifyVC.h; sourceTree = "<group>"; };
 		4A092C6522241B3800FB2A35 /* PasswordVerifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordVerifyVC.m; sourceTree = "<group>"; };
 		4A092C672224D79100FB2A35 /* ClearCacheTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearCacheTool.h; sourceTree = "<group>"; };
@@ -1630,10 +1656,14 @@
 		4A47138622B2401300EB90F7 /* NoAssignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoAssignCell.m; sourceTree = "<group>"; };
 		4A4FF17822C9A7F800F8985E /* TriangleDrawRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleDrawRect.h; sourceTree = "<group>"; };
 		4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleDrawRect.m; sourceTree = "<group>"; };
+		4A50D91822F13B6100B2493F /* OriginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OriginModel.h; sourceTree = "<group>"; };
+		4A50D91922F13B6100B2493F /* OriginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OriginModel.m; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
 		4A50F3F92293A18000AD7715 /* IgnoreItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IgnoreItemView.m; sourceTree = "<group>"; };
+		4A56F77F22F0610F00E56ED0 /* SourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceModel.h; sourceTree = "<group>"; };
+		4A56F78022F0610F00E56ED0 /* SourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceModel.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
 		4A61144621DCAE4000E4138B /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
 		4A61144821DCAE6C00E4138B /* NewsListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsListModel.h; sourceTree = "<group>"; };
@@ -2703,6 +2733,17 @@
 			path = IssueSelectView;
 			sourceTree = "<group>";
 		};
+		4A50D91722F1317A00B2493F /* abandon */ = {
+			isa = PBXGroup;
+			children = (
+				6B6E243DEBD6CDF05812520A /* HomeViewController.h */,
+				6B6E206D33FC79F101DB0167 /* HomeViewController.m */,
+				6B6E2D0040AFC9957E14AB94 /* HomeViewIssueIndexVC.h */,
+				6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */,
+			);
+			path = abandon;
+			sourceTree = "<group>";
+		};
 		4A6114AE21E4B29C00E4138B /* GestureLock */ = {
 			isa = PBXGroup;
 			children = (
@@ -3240,6 +3281,10 @@
 				4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */,
 				4AC21FDC228C16510098848C /* ChatMessageLayout.h */,
 				4AC21FDD228C16510098848C /* ChatMessageLayout.m */,
+				4A56F77F22F0610F00E56ED0 /* SourceModel.h */,
+				4A56F78022F0610F00E56ED0 /* SourceModel.m */,
+				4A50D91822F13B6100B2493F /* OriginModel.h */,
+				4A50D91922F13B6100B2493F /* OriginModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3747,12 +3792,9 @@
 		6B6E213300922D047134A345 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4A50D91722F1317A00B2493F /* abandon */,
 				6B6E253E2F8F66DCCE33B200 /* IssueChat */,
 				6B6E2BC8D9B7C776ED88D370 /* Scan */,
-				6B6E243DEBD6CDF05812520A /* HomeViewController.h */,
-				6B6E206D33FC79F101DB0167 /* HomeViewController.m */,
-				6B6E2D0040AFC9957E14AB94 /* HomeViewIssueIndexVC.h */,
-				6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */,
 				4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */,
 				4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */,
 				6B6E2D4B41D723CAC6B2D614 /* IssueListVC.h */,
@@ -3789,6 +3831,14 @@
 				4AAC14222277E7F70043AD5E /* IssueRecoveredListVC.m */,
 				4A47138022B22C8800EB90F7 /* ChooseAssignVC.h */,
 				4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */,
+				4A01C64E22EF131F008D1609 /* SelectOriginVC.h */,
+				4A01C64F22EF131F008D1609 /* SelectOriginVC.m */,
+				4A01C65322EF1350008D1609 /* SelectAssignVC.h */,
+				4A01C65422EF1350008D1609 /* SelectAssignVC.m */,
+				4A01C65822EF138B008D1609 /* SelectSourceVC.h */,
+				4A01C65922EF138B008D1609 /* SelectSourceVC.m */,
+				4A01C65D22EF14FF008D1609 /* DefineOriginVC.h */,
+				4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4417,6 +4467,7 @@
 				4A092DC3222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
+				4A50D91A22F13B6100B2493F /* OriginModel.m in Sources */,
 				4AB48AE1221A473D009F9E94 /* NaviBarView.m in Sources */,
 				4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */,
 				2BF9F79622707BAA00C9B0C3 /* OrderStatusWithNumAndTime.m in Sources */,
@@ -4517,6 +4568,7 @@
 				4AC21FC8228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42B2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
 				4A7599DA224212DD0057BD02 /* EchartTableView.m in Sources */,
+				4A01C65522EF1350008D1609 /* SelectAssignVC.m in Sources */,
 				4ABF44D921C20B68002AF34E /* FindPasswordVC.m in Sources */,
 				4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */,
 				2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
@@ -4550,6 +4602,7 @@
 				4ABF43BC21B8BACE002AF34E /* TAAbstractDotView.m in Sources */,
 				4AC857CD223D1A2100DAE1F6 /* OrderListModel.m in Sources */,
 				4A092D9F222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
+				4A01C65022EF1320008D1609 /* SelectOriginVC.m in Sources */,
 				4A759ADA224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4A00DE2E22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
@@ -4601,6 +4654,7 @@
 				4A19548F21A7F7BF007ADFCA /* IssueBoardInitialView.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
+				4A01C65F22EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
 				4AA4CF3822898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
 				4A092DA4222E84C200FB2A35 /* PWGradientView.m in Sources */,
@@ -4687,6 +4741,7 @@
 				4A3CDA95229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569C22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
 				4ABF437921B76B6D002AF34E /* PWTabBar.m in Sources */,
+				4A01C65A22EF138B008D1609 /* SelectSourceVC.m in Sources */,
 				4A95BBB7217DB76100FC2979 /* UIFont+runtime.m in Sources */,
 				4A092D80222E1D2600FB2A35 /* CollectionModel.m in Sources */,
 				2BF9F77E2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
@@ -4724,6 +4779,7 @@
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
 				6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */,
+				4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */,
 				6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */,
 				6B6E26DA119DE6C751E5A67C /* NSDictionary+URL.m in Sources */,
 				6B6E2324F28DD05D317AB1AA /* IssueChatKeyBordView.m in Sources */,
@@ -4811,6 +4867,7 @@
 				CA1CF57E221ECB3A00D15316 /* MineCellModel.m in Sources */,
 				CA1CF580221ECB3A00D15316 /* SettingUpVC.m in Sources */,
 				CA1CF581221ECB3A00D15316 /* NaviBarView.m in Sources */,
+				4A50D91B22F13B6100B2493F /* OriginModel.m in Sources */,
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
 				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
@@ -4911,6 +4968,7 @@
 				4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FC9228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42C2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
+				4A01C65622EF1350008D1609 /* SelectAssignVC.m in Sources */,
 				4A092CD12228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9B222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA8224B16B50057BD02 /* GuideCell.m in Sources */,
@@ -4944,6 +5002,7 @@
 				4A759ADB224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4A092D44222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF5AE221ECB3A00D15316 /* SecurityPrivacyVC.m in Sources */,
+				4A01C65122EF1320008D1609 /* SelectOriginVC.m in Sources */,
 				CA1CF5AF221ECB3A00D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A00DE2F22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
@@ -4995,6 +5054,7 @@
 				4A47137E22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
+				4A01C66022EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4A092D62222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF5C6221ECB3A00D15316 /* main.m in Sources */,
@@ -5081,6 +5141,7 @@
 				4A3CDA96229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569D22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
 				CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */,
+				4A01C65B22EF138B008D1609 /* SelectSourceVC.m in Sources */,
 				CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */,
 				4A759AAD224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
 				2BF9F77F2270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
@@ -5118,6 +5179,7 @@
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
+				4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */,
 				6B6E238D7E703151708B8567 /* CarrierItemModel.m in Sources */,
 				6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */,
 				6B6E2138E9C37E7E2A793BEA /* IssueChatKeyBordView.m in Sources */,
@@ -5205,6 +5267,7 @@
 				CA1CF623221ECB5000D15316 /* MineCellModel.m in Sources */,
 				CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */,
 				CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */,
+				4A50D91C22F13B6100B2493F /* OriginModel.m in Sources */,
 				4A092D97222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */,
 				CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */,
@@ -5305,6 +5368,7 @@
 				4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FCA228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
 				2B84E42D2265D6C9008E7B29 /* ZTHandBookHasPicCell.m in Sources */,
+				4A01C65722EF1350008D1609 /* SelectAssignVC.m in Sources */,
 				4A092CD22228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				4A092D9C222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A759AA9224B16B50057BD02 /* GuideCell.m in Sources */,
@@ -5338,6 +5402,7 @@
 				4A759ADC224F08C80057BD02 /* PrivacySecurityControls.m in Sources */,
 				4A092D45222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				CA1CF653221ECB5000D15316 /* SecurityPrivacyVC.m in Sources */,
+				4A01C65222EF1320008D1609 /* SelectOriginVC.m in Sources */,
 				CA1CF654221ECB5000D15316 /* UITabBar+CustomBadge.m in Sources */,
 				4A00DE3022DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
@@ -5389,6 +5454,7 @@
 				4A47137F22B1EB9600EB90F7 /* AssignView.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
+				4A01C66122EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4A092D63222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF66B221ECB5000D15316 /* main.m in Sources */,
@@ -5475,6 +5541,7 @@
 				4A3CDA97229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				4AD5569E22B779E5003B49FE /* LoginVerifyCodeVC.m in Sources */,
 				CA1CF68D221ECB5000D15316 /* iToast.m in Sources */,
+				4A01C65C22EF138B008D1609 /* SelectSourceVC.m in Sources */,
 				CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */,
 				4A759AAE224B3F8B0057BD02 /* IssueSourceView.m in Sources */,
 				2BF9F7802270232A00C9B0C3 /* ZTTopCustomTabHeaderView.m in Sources */,
@@ -5512,6 +5579,7 @@
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
 				6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */,
+				4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */,
 				6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */,
 				6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */,
 				6B6E21D9B912823DCDB7C91F /* IssueChatKeyBordView.m in Sources */,

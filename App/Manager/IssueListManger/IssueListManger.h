@@ -90,6 +90,8 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel;
 -(SelectObject *)getCurrentSelectObject;
 -(void)setCurrentSelectObject:(SelectObject *)sel;
+- (NSArray *)getHostoryOriginInput;
+- (void)setHostoryOriginInputWithArray:(NSArray *)array;
 /**
  24内恢复的情报列表o
  */

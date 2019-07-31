@@ -218,14 +218,7 @@
     }else{
         self.cellHeight = model.cellHeight;
     }
-    if ([model.origin isEqualToString:@"user"]) {
-        self.originName = @"自建";
-    }else if([model.origin isEqualToString:@"bizSystem"]){
-        self.originName = @"系统";
-    }else if([model.origin isEqualToString:@"crontab"] || [model.origin isEqualToString:@"issueEngine"]){
-        self.originName = @"诊断";
-    }else if([model.origin isEqualToString:@"alertHub"]){
-//        self.originName = @"外部接入";
+    if ([[model.origin getOriginStr] isEqualToString:@"alertHub"]) {
         if (model.originInfoJSONStr) {
             NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
             NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
@@ -234,7 +227,7 @@
             }
         }
     }else{
-        self.originName = model.origin;
+        self.originName = [model.origin getOriginStr];
     }
 }
 

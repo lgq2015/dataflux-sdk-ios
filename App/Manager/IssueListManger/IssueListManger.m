@@ -21,8 +21,9 @@
 #import "IssueLogListModel.h"
 #import "IssueLogModel.h"
 #import "SelectObject.h"
-
-
+#import "MemberInfoModel.h"
+#import "SourceModel.h"
+#import "OriginModel.h"
 #define ISSUE_LIST_PAGE_SIZE  100
 
 NSString *const ILMStringAll = @"ALL";
@@ -138,7 +139,20 @@ NSString *const ILMStringAll = @"ALL";
     if (isContain) {
         
         SelectObject *currentType = (SelectObject *)[cache objectForKey:KCurrentIssueListType];
-        
+        if (currentType.issueOrigin == nil) {
+            OriginModel *origin = [OriginModel new];
+            origin.name = @"全部来源";
+            origin.origin =ILMStringAll;
+            currentType.issueOrigin = origin;
+            SourceModel *source = [SourceModel new];
+            source.sourceID =ILMStringAll;
+            source.name = @"全部云服务";
+            currentType.issueSource = source;
+            MemberInfoModel *model = [MemberInfoModel new];
+            model.memberID = ILMStringAll;
+            model.name =@"全部处理人";
+            currentType.issueAssigned = model;
+        }
         return  currentType;
     }else{
         SelectObject *sel = [[SelectObject alloc]init];
@@ -146,9 +160,18 @@ NSString *const ILMStringAll = @"ALL";
         sel.issueType = 1;
         sel.issueLevel = 1;
         sel.issueFrom = 1;
-        sel.issueOrigin = ILMStringAll;
-        sel.issueSource = ILMStringAll;
-        sel.issueAssigned = ILMStringAll;
+        OriginModel *origin = [OriginModel new];
+        origin.name = @"全部来源";
+        origin.origin =ILMStringAll;
+        sel.issueOrigin = origin;
+        SourceModel *source = [SourceModel new];
+        source.sourceID =ILMStringAll;
+        source.name = @"全部云服务";
+        sel.issueSource = source;
+        MemberInfoModel *model = [MemberInfoModel new];
+        model.memberID = ILMStringAll;
+        model.name =@"全部处理人";
+        sel.issueAssigned = model;
         return sel;
     }
 }
@@ -160,7 +183,23 @@ NSString *const ILMStringAll = @"ALL";
     }
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
-
+- (NSArray *)getHostoryOriginInput{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KHistoryOriginSearch];
+    if (isContain) {
+        return  (NSArray *)[cache objectForKey:KHistoryOriginSearch];
+    }else{
+        return nil;
+    }
+}
+- (void)setHostoryOriginInputWithArray:(NSArray *)array{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KHistoryOriginSearch];
+    if(isContain){
+        cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
+    }
+    [cache setObject:array forKey:KHistoryOriginSearch];
+}
 /**
  * @param type 存储用户使用记录 当前issueType选择
  */
@@ -517,7 +556,7 @@ NSString *const ILMStringAll = @"ALL";
     }];
 }
 - (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel{
-    if (sel == nil) {
+    if (sel == nil || sel.issueOrigin == nil) {
      sel= [self getCurrentSelectObject];
         if(sel.issueFrom != IssueFromAll &&sel.issueFrom != IssueFromMe ){
             sel.issueFrom = IssueFromAll;
@@ -590,24 +629,37 @@ NSString *const ILMStringAll = @"ALL";
         }else{
             formatStr = [@[statesStr,typeStr,levelStr] mutableCopy];
         }
-        if (![sel.issueAssigned isEqualToString:ILMStringAll]) {
-            if(sel.issueAssigned.length>0){
-                assignStr = [NSString stringWithFormat:@"assignedToAccountInfo LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueAssigned];
+        if (![sel.issueAssigned.memberID isEqualToString:ILMStringAll]) {
+            if(sel.issueAssigned.memberID.length>0){
+                assignStr = [NSString stringWithFormat:@"assignedToAccountInfoStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueAssigned.memberID];
             }else{
-                assignStr = @"assignedToAccountInfo =''";
+                assignStr = @"assignedToAccountInfoStr =''";
             }
             [formatStr addObject:assignStr];
         }
-        if (![sel.issueSource isEqualToString:ILMStringAll]) {
-            if (sel.issueSource.length>0) {
-                sourceStr = [NSString stringWithFormat:@"issueSourceId = '%@'",sel.issueSource];
+        if (![sel.issueSource.sourceID isEqualToString:ILMStringAll]) {
+            if (sel.issueSource.sourceID.length>0) {
+                sourceStr = [NSString stringWithFormat:@"issueSourceId = '%@'",sel.issueSource.sourceID];
             }else{
                 sourceStr =@"issueSourceId = ''";
             }
             [formatStr addObject:sourceStr];
         }
-        if (![sel.issueOrigin isEqualToString:ILMStringAll]) {
-            orignStr = sel.issueOrigin.length>0?[NSString stringWithFormat:@"origin = '%@'",sel.issueOrigin]:@"";
+        if (![sel.issueOrigin.origin isEqualToString:ILMStringAll]) {
+            
+            orignStr = sel.issueOrigin.origin;
+            if (orignStr.length>0) {
+                if([orignStr isEqualToString:@"issueEngine"]){
+                orignStr = @"(origin ='issueEngine' OR origin ='crontab')";
+                }else if([orignStr isEqualToString:@"alertHub"]){
+                    orignStr = [NSString stringWithFormat:@"origin ='alertHub' AND originInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueOrigin.name];
+                }else{
+                    orignStr =[NSString stringWithFormat:@"origin ='%@'",orignStr];
+                }
+            }else{
+                orignStr = @"origin ='alertHub'";
+            }
+            [formatStr addObject:orignStr];
         }
         
         [formatStr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -632,79 +684,7 @@ NSString *const ILMStringAll = @"ALL";
     return array;
     
 }
-//- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType{
-//
-//    if(type == 0){
-//      type = [self getCurrentIssueType];
-//    }else{
-//        [self setCurrentIssueType:type];
-//    }
-//    if (sortType == 0) {
-//        sortType = [self getCurrentIssueSortType];
-//    }else{
-//        [self setCurrentIssueSortType:sortType];
-//    }
-//    NSMutableArray *array = [NSMutableArray new];
-//    NSString *typeStr,*whereFormat,*statesStr;
-//    BOOL isALL = NO;
-//    switch (type) {
-//        case IssueTypeAlarm:
-//            typeStr = @"AND type = 'alarm'";
-//            break;
-//        case IssueTypeSecurity:
-//            typeStr = @"AND type = 'security'";
-//            break;
-//        case IssueTypeExpense:
-//            typeStr = @"AND type = 'expense'";
-//            break;
-//        case IssueTypeOptimization:
-//            typeStr = @"AND type = 'optimization'";
-//            break;
-//        case IssueTypeMisc:
-//            typeStr = @"AND type = 'misc'";
-//            break;
-//        case IssueTypeAll:
-//            typeStr = @"";
-//            break;
-//    };
-//    switch (sortType) {
-//        case IssueSortTypeCreate:
-//            statesStr =@"AND needAttention = true AND status = 'created'";
-//            break;
-//        case IssueSortTypeUpdate:
-//            statesStr = @"";
-//            break;
-//    }
-//    if (isALL) {
-//        if(statesStr.length>0){
-//            //WHERE needattention = true
-//            whereFormat =@"WHERE needAttention = true AND status = 'created'  ORDER by seq DESC";
-//        }else{
-//            whereFormat =@" ORDER by seq DESC";
-//        }
-//
-//    }else{
-//       whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' %@  ORDER by seq DESC ", typeStr,statesStr];
-//    }
-//    [self.getHelper pw_inDatabase:^{
-//
-//        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-//        [array addObjectsFromArray:itemDatas];
-//    }];
-//
-//    return array;
-//}
-//- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type{
-//    NSMutableArray *array = [NSMutableArray new];
-//    [self.getHelper pw_inDatabase:^{
-//
-//        NSString *whereFormat = [NSString stringWithFormat:@"WHERE type = '%@' AND status ='recovered' ORDER by seq DESC ", type];
-//        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
-//        [array addObjectsFromArray:itemDatas];
-//    }];
-//
-//    return array;
-//}
+
 - (IssueModel *)getIssueDataByData:(NSString *)issueId {
     __block IssueModel *data = nil;
     [self.getHelper pw_inDatabase:^{
