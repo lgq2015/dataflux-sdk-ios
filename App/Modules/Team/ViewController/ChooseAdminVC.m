@@ -32,6 +32,10 @@
 - (void)createUI{
     _ztsearchbar = [[ZTSearchBar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
     _ztsearchbar.backgroundColor = PWWhiteColor;
+    WeakSelf
+    _ztsearchbar.cancleClick = ^{
+        [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
+    };
     self.tableView.tableHeaderView = _ztsearchbar;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-50);
     self.tableView.delegate = self;
@@ -42,9 +46,8 @@
     [self.view addSubview:self.tableView];
     [self.tableView reloadData];
     //对搜索框中输入的内容进行监听
-    __weak typeof(self) zt_weakSelf = self;
     [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
-        [zt_weakSelf updateSearchResultsForSearchBar:zt_weakSelf.ztsearchbar];
+        [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     }];
 }
 - (void)loadTeamMemberInfo{
