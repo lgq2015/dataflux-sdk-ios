@@ -2664,10 +2664,6 @@
 		4A50D91722F1317A00B2493F /* abandon */ = {
 			isa = PBXGroup;
 			children = (
-				6B6E243DEBD6CDF05812520A /* HomeViewController.h */,
-				6B6E206D33FC79F101DB0167 /* HomeViewController.m */,
-				6B6E2D0040AFC9957E14AB94 /* HomeViewIssueIndexVC.h */,
-				6B6E29D6DB2980BDC6BED83D /* HomeViewIssueIndexVC.m */,
 			);
 			path = abandon;
 			sourceTree = "<group>";
