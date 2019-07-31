@@ -38,9 +38,11 @@
 #define KSelectObject  @"KSelectObject"
 #define KCurrentSelectObject @"KCurrentSelectObject"
 #define KIssueListType @"KIssueListType"
-#define KCurrentIssueListType   @"KCurrentIssueListType"
+//筛选
+#define KCurrentIssueListType   [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
 #define KCurrentIssueViewType   @"KCurrentIssueViewType"
 #define KCurrentCalendarViewType @"KCurrentCalendarViewType"
+#define KHistoryOriginSearch [NSString stringWithFormat:@"%@/KHistoryOriginSearch", getPWDefaultTeamID]
 //当前团队
 #define KTeamModelCache @"KTeamModelCache"
 //团队成员
