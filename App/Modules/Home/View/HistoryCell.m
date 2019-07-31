@@ -17,33 +17,7 @@
     [super awakeFromNib];
     // Initialization code
 }
--(void)layoutSubviews{
-    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_history"]];
-//    icon.contentMode = UIViewContentModeScaleAspectFill;
-    [self.contentView addSubview:icon];
-    [icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.contentView).offset(Interval(16));
-        make.width.height.offset(ZOOM_SCALE(20));
-        make.centerY.mas_equalTo(self.contentView);
-    }];
-    UIButton *delect = [[UIButton alloc]init];
-    [delect setImage:[UIImage imageNamed:@"handbook_x"] forState:UIControlStateNormal];
-    [delect addTarget:self action:@selector(delectBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:delect];
-    [delect mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(icon);
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
-        make.width.height.offset(ZOOM_SCALE(24));
-    }];
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(icon.mas_right).offset(Interval(10));
-        make.centerY.mas_equalTo(icon);
-        make.height.offset(ZOOM_SCALE(20));
-        make.right.mas_equalTo(delect.mas_left).offset(-5);
-    }];
-    
-   
-}
+
 -(void)delectBtnClick{
     if (self.delectClick) {
         self.delectClick();
@@ -51,6 +25,44 @@
 }
 - (void)setTitle:(NSString *)title{
     _title = title;
+    UIButton *delect = [[UIButton alloc]init];
+    [delect setImage:[UIImage imageNamed:@"handbook_x"] forState:UIControlStateNormal];
+    [delect addTarget:self action:@selector(delectBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:delect];
+    [delect mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.contentView);
+        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+        make.width.height.offset(ZOOM_SCALE(24));
+    }];
+    if (!self.isNoIcon) {
+        UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_history"]];
+        //    icon.contentMode = UIViewContentModeScaleAspectFill;
+        [self.contentView addSubview:icon];
+        [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView).offset(Interval(16));
+            make.width.height.offset(ZOOM_SCALE(20));
+            make.centerY.mas_equalTo(self.contentView);
+        }];
+        [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(icon.mas_right).offset(Interval(10));
+            make.centerY.mas_equalTo(icon);
+            make.height.offset(ZOOM_SCALE(20));
+            make.right.mas_equalTo(delect.mas_left).offset(-5);
+        }];
+    }else{
+        self.titleLab.font = RegularFONT(16);
+        self.titleLab.textColor = PWTextBlackColor;
+        [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView).offset(Interval(16));
+            make.centerY.mas_equalTo(self.contentView);
+            make.height.offset(ZOOM_SCALE(20));
+            make.right.mas_equalTo(delect.mas_left).offset(-5);
+        }];
+    }
+   
+  
+   
+    
     self.titleLab.text = title;
 }
 -(UILabel *)titleLab{

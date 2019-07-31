@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HistoryCell : UITableViewCell
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) BOOL isNoIcon;
 @property (nonatomic, copy) void(^delectClick)(void);
 
 @end
