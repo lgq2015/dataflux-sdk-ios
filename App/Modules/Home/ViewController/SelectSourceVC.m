@@ -10,7 +10,7 @@
 #import "IssueSourceManger.h"
 #import "SelectSourceCell.h"
 #import "ZTSearchBar.h"
-
+#import "SourceModel.h"
 @interface SelectSourceVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ZTSearchBar *ztsearchbar;
@@ -27,6 +27,10 @@
 - (void)createUI{
     _ztsearchbar = [[ZTSearchBar alloc] initWithFrame:CGRectMake(0, 0, kWidth, 55)];
     _ztsearchbar.backgroundColor = PWWhiteColor;
+    WeakSelf
+    _ztsearchbar.cancleClick = ^{
+       [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
+    };
     self.dataSource = [NSMutableArray new];
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
@@ -37,7 +41,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:SelectSourceCell.class forCellReuseIdentifier:@"SelectSourceCell"];
     self.tableView.tableHeaderView = self.ztsearchbar;
-    WeakSelf
+    
     [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     }];
@@ -48,7 +52,7 @@
 }
 - (void)loadFromDB {
     [self.dataSource removeAllObjects];
-    [self.dataSource addObjectsFromArray:@[@{@"name":@"全部云服务"},@{@"name":@"<无云服务>"}]];
+    [self.dataSource addObjectsFromArray:@[@{@"name":@"全部云服务",@"id":@"ALL"},@{@"name":@"<无云服务>"}]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
         dispatch_async_on_main_queue(^{
@@ -106,10 +110,17 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSError *error;
+    SourceModel *model = [[SourceModel alloc]initWithDictionary:self.dataSource[indexPath.row] error:&error];
     if (self.itemClick) {
-        self.itemClick(self.results[indexPath.row]);
+        self.itemClick(model);
     }
     [self.navigationController popViewControllerAnimated:YES];    
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    if (self.disMissClick) {
+        self.disMissClick();
+    }
 }
 /*
 #pragma mark - Navigation

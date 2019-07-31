@@ -9,9 +9,10 @@
 #import "RootViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class OriginModel;
 @interface SelectOriginVC : RootViewController
-@property (nonatomic, copy) void(^itemClick)(NSString *origin);
+@property (nonatomic, copy) void(^itemClick)(OriginModel *origin);
+@property (nonatomic, copy) void(^disMissClick)(void);
 
 @end
 

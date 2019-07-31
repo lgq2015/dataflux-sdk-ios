@@ -9,9 +9,10 @@
 #import "RootViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class MemberInfoModel;
 @interface SelectAssignVC : RootViewController
-@property (nonatomic, copy) void(^itemClick)(NSString *assign);
+@property (nonatomic, copy) void(^itemClick)(MemberInfoModel *model);
+@property (nonatomic, copy) void(^disMissClick)(void);
 
 @end
 

@@ -10,7 +10,7 @@
 #import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "DefineOriginVC.h"
-
+#import "OriginModel.h"
 @interface SelectOriginVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<MineCellModel*> *dataSource;
 
@@ -62,15 +62,30 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+   __block OriginModel *model = [OriginModel new];
+    model.origin= self.dataSource[indexPath.row].describeText;
+    model.name = self.dataSource[indexPath.row].title;
     if (indexPath.row == self.dataSource.count-1) {
         DefineOriginVC *define = [DefineOriginVC new];
+   
+        WeakSelf
+        define.navBtnClick = ^(NSString * _Nonnull origin) {
+            model.name = origin;
+            if (weakSelf.itemClick) {
+              weakSelf.itemClick(model);
+            }
+        };
         [self.navigationController pushViewController:define animated:YES];
     }else{
         if (self.itemClick) {
-            self.itemClick(self.dataSource[indexPath.row].describeText);
+            self.itemClick(model);
         }
         [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    if (self.disMissClick) {
+        self.disMissClick();
     }
 }
 /*
