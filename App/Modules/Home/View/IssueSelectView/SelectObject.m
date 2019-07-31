@@ -7,6 +7,7 @@
 //
 
 #import "SelectObject.h"
+#import "OriginModel.h"
 
 @implementation SelectObject
 + (BOOL)supportsSecureCoding {
@@ -31,9 +32,9 @@
         _issueSortType = (IssueSortType)[aDecoder decodeIntegerForKey:@"issueSortType"];
         //    _issueViewType = (IssueViewType)[aDecoder decodeIntegerForKey:@"issueViewType"];
         _issueFrom = (IssueFrom)[aDecoder decodeIntegerForKey:@"issueFrom"];
-        _issueOrigin = [aDecoder decodeObjectForKey:@"issueOrigin"];
-        _issueSource = [aDecoder decodeObjectForKey:@"issueSource"];
-        _issueAssigned = [aDecoder decodeObjectForKey:@"issueAssigned"];
+        _issueOrigin = (OriginModel *)[aDecoder decodeObjectForKey:@"issueOrigin"];
+        _issueSource = (SourceModel *)[aDecoder decodeObjectForKey:@"issueSource"];
+        _issueAssigned =(MemberInfoModel *)[aDecoder decodeObjectForKey:@"issueAssigned"];
     }
     return self;
 }
