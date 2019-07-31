@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MainTabBarController : UITabBarController <UITabBarControllerDelegate>
-
+- (void)addCoverView;
+- (void)removeCoverView;
 @end

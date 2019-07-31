@@ -88,7 +88,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)addCoverView{
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTabBarHeight)];
+    bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    bgView.tag = 345;
+    [self.tabBar addSubview:bgView];
+}
+- (void)removeCoverView{
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.tabBar viewWithTag:345].backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
+    } completion:^(BOOL finished) {
+        [[self.tabBar viewWithTag:345] removeFromSuperview];
+    }];
+}
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
     switch( tabBarController.selectedIndex){
