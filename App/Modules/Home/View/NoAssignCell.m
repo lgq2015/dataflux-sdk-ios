@@ -17,6 +17,7 @@
 
 -(void)setModel:(MemberInfoModel *)model{
     _model = model;
+    if (model.name.length==0) {
     UIImageView *selImage = [[UIImageView alloc]init];
     selImage.tag = 55;
     [[self.contentView viewWithTag:55] removeFromSuperview];
@@ -43,6 +44,16 @@
         selImage.image = [UIImage imageNamed:@"team_success"];
     }else{
         selImage.image = [UIImage imageNamed:@"icon_noSelect"];
+    }
+    }else{
+        [[self.contentView viewWithTag:33] removeFromSuperview];
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(16, 0, 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:[UIColor colorWithHexString:@"#373D41"] text:model.name];
+        title.tag = 33;
+        title.centerY = self.contentView.centerY;
+        [self.contentView addSubview:title];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, SINGLE_LINE_WIDTH)];
+        line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+        [self.contentView addSubview:line];
     }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

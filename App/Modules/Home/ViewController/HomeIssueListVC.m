@@ -45,6 +45,10 @@
                                              selector:@selector(editTeamNote:)
                                                  name:KNotificationEditTeamNote
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hometeamSwitch)
+                                                 name:KNotificationSwitchTeam
+                                               object:nil];
     // Do any additional setup after loading the view.
 }
 - (void)createNav{
@@ -114,6 +118,9 @@
     }else{
         [self.changeTeamView  dismiss];
     }
+}
+- (void)hometeamSwitch{
+    [self.headerView teamSwitchChangeBtnTitle];
 }
 - (void)addTeamSuccess:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];

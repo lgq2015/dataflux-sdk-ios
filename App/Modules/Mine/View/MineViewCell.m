@@ -172,15 +172,12 @@
         make.centerY.mas_equalTo(self.titleLab);
     }];
     self.describeLab.text = _data.describeText;
-    [self.describeLab sizeToFit];
-    CGFloat labWidth = self.describeLab.frame.size.width;
     self.describeLab.hidden = NO;
     self.describeLab.textColor = PWTextBlackColor;
     [self.describeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.arrowImgView.mas_left).offset(-Interval(8));
         make.centerY.mas_equalTo(self);
         make.height.offset(20);
-        make.width.offset(labWidth);
     }];
     self.rightImg.hidden = YES;
     if (_data.rightIcon.length>0) {
@@ -189,23 +186,26 @@
         if(!_data.isIssueSource){
             width = ZOOM_SCALE(20);
             height = ZOOM_SCALE(20);
+            [self.rightImg mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(self.describeLab.mas_left).offset(-Interval(6));
+                make.centerY.mas_equalTo(self.arrowImgView);
+                make.width.offset(width);
+                make.height.offset(height);
+            }];
             self.rightImg.layer.cornerRadius = ZOOM_SCALE(10);
+            [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
         }else{
             width = ZOOM_SCALE(25);
             height = ZOOM_SCALE(16);
+            [self.rightImg mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(self.describeLab.mas_left).offset(-Interval(6));
+                make.centerY.mas_equalTo(self.arrowImgView);
+                make.width.offset(width);
+                make.height.offset(height);
+            }];
+            self.rightImg.layer.cornerRadius = 0;
+            self.rightImg.image =[UIImage imageNamed:_data.rightIcon];
         }
-        [self.rightImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(self.describeLab.mas_left).offset(-Interval(6));
-            make.centerY.mas_equalTo(self.arrowImgView);
-            if (_data.isIssueSource) {
-                make.width.offset(ZOOM_SCALE(25));
-                make.height.offset(ZOOM_SCALE(16));
-            }else{
-                make.width.height.offset(20);
-            }
-        }];
-        
-        [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:_data.rightIcon]];
     }
     
 }

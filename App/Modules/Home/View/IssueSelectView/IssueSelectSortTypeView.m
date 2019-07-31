@@ -53,8 +53,6 @@
         _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(108))];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.masksToBounds = YES;
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentTap)];
-//        [_contentView addGestureRecognizer:tap];
         [self addSubview:_contentView];
     }
     return _contentView;

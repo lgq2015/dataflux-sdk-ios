@@ -8,10 +8,27 @@
 
 #import "SelectSourceCell.h"
 @interface SelectSourceCell()
-@property (nonatomic, strong) UILabel *sourceNameLab;
 @property (nonatomic, strong) UIImageView *sourceIcon;
 @end
 @implementation SelectSourceCell
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+            [self createCellUI];
+     }
+    return self;
+}
+- (void)createCellUI{
+   
+    self.sourceIcon = [[UIImageView alloc]init];
+    [self addSubview:self.sourceIcon];
+    [self.sourceIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(16);
+        make.centerY.mas_equalTo(self);
+        make.width.offset(ZOOM_SCALE(27));
+        make.height.offset(ZOOM_SCALE(19));
+    }];
+}
 -(void)setSource:(NSDictionary *)source{
     _source = source;
        NSString *icon = @"",*sourceName;
@@ -39,21 +56,16 @@
         }else if ([type isEqualToString:@"aliyun.cainiao"]){
             icon = @"cainiao_s";
         }
-
+    
+    [[self viewWithTag:22] removeFromSuperview];
+    UILabel *sourceNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:sourceName];
+    sourceNameLab.tag = 22;
+    [self addSubview:sourceNameLab];
     if (icon.length>0) {
-        
-        self.sourceIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:icon]];
-        [self addSubview:self.sourceIcon];
+        self.sourceIcon.image = [UIImage imageNamed:icon];
         self.sourceIcon.hidden = NO;
-        [self.sourceIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self).offset(16);
-            make.centerY.mas_equalTo(self);
-            make.width.offset(ZOOM_SCALE(27));
-            make.height.offset(ZOOM_SCALE(19));
-        }];
-        self.sourceNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:sourceName];
-        [self addSubview:self.sourceNameLab];
-        [self.sourceNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        [sourceNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.sourceIcon.mas_right).offset(12);
             make.centerY.mas_equalTo(self);
             make.height.offset(ZOOM_SCALE(22));
@@ -61,16 +73,14 @@
         }];
     }else{
         self.sourceIcon.hidden = YES;
-        self.sourceNameLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:sourceName];
-        [self addSubview:self.sourceNameLab];
-        [self.sourceNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        [sourceNameLab mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self).offset(16);
             make.centerY.mas_equalTo(self);
             make.height.offset(ZOOM_SCALE(22));
             make.right.mas_equalTo(self).offset(-16);
         }];
     }
-    
+    [self layoutIfNeeded];
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
