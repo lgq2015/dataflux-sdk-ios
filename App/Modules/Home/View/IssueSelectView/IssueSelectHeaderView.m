@@ -85,7 +85,7 @@
         _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(75));
         _timeTypeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
         SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-        NSString *title = selO.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
+        NSString *title = selO.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
         [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
@@ -101,7 +101,7 @@
         _mineTypeBtn.largeWidth = 20;
         _mineTypeBtn.largeHeight = 14;
         SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-        NSString *title = selO.issueFrom == IssueFromMe?@"我的情报":@"全部情报";
+        NSString *title = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
         [_mineTypeBtn setTitle:title forState:UIControlStateNormal];
         [_mineTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_mineTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
@@ -233,7 +233,7 @@
 }
 -(void)selectSortWithSelectObject:(SelectObject *)sel{
     NSString *title = sel.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
-    NSString *title2 = sel.issueFrom == IssueFromMe?@"我的情报":@"全部情报";
+    NSString *title2 = sel.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
     [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
@@ -244,7 +244,7 @@
 - (void)teamSwitchChangeBtnTitle{
     SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     NSString *title = selO.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
-    NSString *title2 = selO.issueFrom == IssueFromMe?@"我的情报":@"全部情报";
+    NSString *title2 = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
 }

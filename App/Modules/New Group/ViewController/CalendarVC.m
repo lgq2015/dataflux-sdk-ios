@@ -74,7 +74,7 @@
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
     [self.view addSubview:nav];
     nav.backgroundColor = PWWhiteColor;
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:@"日历"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:NSLocalizedString(@"local.calender", @"")];
     title.textAlignment = NSTextAlignmentCenter;
     [nav addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,7 +186,7 @@
                 CalendarIssueModel *model1 = [CalendarIssueModel new];
                 model1.groupTitle = [[NSDate date] getCalenarTimeStr];
                 model1.dayDate = [NSDate date];
-                model1.typeText = @"今日无情报";
+                model1.typeText = NSLocalizedString(@"local.NoIssueToday", @"");
                 model1.seq= -1;
                 [calendarList insertObject:@[model1] atIndex:0];
             }
@@ -410,7 +410,7 @@
                         CalendarIssueModel *model1 = [CalendarIssueModel new];
                         model1.groupTitle = [[NSDate date] getCalenarTimeStr];
                         model1.dayDate = [NSDate date];
-                        model1.typeText = @"今日无情报";
+                        model1.typeText = NSLocalizedString(@"local.NoIssueToday", @"");
                         model1.seq= -1;
                         [ary insertObject:@[model1] atIndex:0];
                     }

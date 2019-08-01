@@ -232,5 +232,5 @@
 "local.AllOrigin" = "全部来源";
 "local.AllIssueSource" = "全部云服务";
 "local.AllAssigned" = "全部处理人";
-"local.NoIssueToday" = "今日无情报"
+"local.NoIssueToday" = "今日无情报";
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

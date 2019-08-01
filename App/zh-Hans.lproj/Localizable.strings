@@ -217,5 +217,18 @@
 "local.pleaseSelectStartTime" = "请选择开始时间";
 "local.pleaseSelectEndTime" = "请选择结束时间";
 "home.getCode" = "获取验证码";
-
+"local.mine" = "我的";
+"local.team" = "团队";
+"local.calender" = "日历";
+"local.libriary" = "智库";
+"local.issue" = "情报";
+"local.NotHaveRelevantPermissions" = "您没有相关权限";
+"local.AllOrigin" = "全部来源";
+"local.AllIssueSource" = "全部云服务";
+"local.AllAssigned" = "全部处理人";
+"local.NoIssueToday" = "今日无情报";
+"local.SortingByCreateDate" = "产生时间排序";
+"local.SortingByUpdateDate" = "更新时间排序";
+"local.MyIssue" = "我的情报";
+"local.AllIssue" = "全部情报";
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";
