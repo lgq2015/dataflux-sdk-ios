@@ -277,27 +277,7 @@
         if (source) {
             NSString *type = [source stringValueForKey:@"provider" default:@""];
             sourceName = [source stringValueForKey:@"name" default:@""];
-            if ([type isEqualToString:@"carrier.corsairmaster"]){
-                icon = @"icon_foresight_small";
-            }else if([type isEqualToString:@"aliyun"]) {
-                 icon = @"icon_alis";
-            }else if([type isEqualToString:@"qcloud"]){
-                icon = @"icon_tencent_small";
-            }else if([type isEqualToString:@"aws"]){
-                icon = @"icon_aws_small";
-            }else if([type isEqualToString:@"ucloud"]){
-                icon = @"icon_tencent_small";
-            }else if ([type isEqualToString:@"domain"]){
-                icon = @"icon_domainname_small";
-            }else if([type isEqualToString:@"carrier.corsair"]){
-                icon =@"icon_mainframe_small";
-            }else if([type isEqualToString:@"carrier.alert"]){
-                icon = @"message_docks";
-            }else if ([type isEqualToString:@"aliyun.finance"]){
-                icon = @"icon_alis";
-            }else if ([type isEqualToString:@"aliyun.cainiao"]){
-                icon = @"cainiao_s";
-            }
+            icon = [type getIssueSourceIcon];
         }
         UIImageView *sourceIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:icon]];
         [upContentView addSubview:sourceIcon];
