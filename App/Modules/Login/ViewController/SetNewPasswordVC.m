@@ -158,7 +158,7 @@
             }
         }failBlock:^(NSError *error) {
             self.confirmBtn.enabled = YES;
-            [iToast alertWithTitleCenter:@"网络异常"];
+            [error errorToast];
         }];
     } else {
         [iToast alertWithTitleCenter:@"密码格式有误"];

@@ -242,11 +242,9 @@
         if (self.tableView.contentOffset.y > _oldY) {
             // 上滑
             _isUpScroll = YES;
-//            DLog(@"上滑");
         }else{
             // 下滑
             _isUpScroll = NO;
-//            DLog(@"下滑");
         }
         _isFirstLoad = NO;
     }

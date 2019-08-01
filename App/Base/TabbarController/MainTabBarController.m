@@ -48,20 +48,20 @@
     _VCS = @[].mutableCopy;
     HomeIssueListVC *homeVC = [[HomeIssueListVC alloc]init];
     homeVC.isHidenNaviBar = YES;
-    [self setupChildViewController:homeVC title:@"情报" imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
+    [self setupChildViewController:homeVC title:NSLocalizedString(@"local.issue", @"") imageName:@"issuetab_nor" seleceImageName:@"issuetab_sel"];
     CalendarVC *calendar = [[CalendarVC alloc]init];
     calendar.isHidenNaviBar = YES;
-     [self setupChildViewController:calendar title:@"日历" imageName:@"calender_nor" seleceImageName:@"calender_sel"];
+     [self setupChildViewController:calendar title:NSLocalizedString(@"local.calender", @"") imageName:@"calender_nor" seleceImageName:@"calender_sel"];
     LibraryVC *libriary = [[LibraryVC alloc]init];
     libriary.isHidenNaviBar = YES;
 
-    [self setupChildViewController:libriary title:@"智库" imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
+    [self setupChildViewController:libriary title:NSLocalizedString(@"local.libriary", @"") imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
     team.isHidenNaviBar = YES;
-    [self setupChildViewController:team title:@"团队" imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
+    [self setupChildViewController:team title:NSLocalizedString(@"local.team", @"") imageName:@"icon_team" seleceImageName:@"icon_teamselect"];
 
     MineViewController *mineVC = [[MineViewController alloc]init];
-    [self setupChildViewController:mineVC title:@"我的" imageName:@"icon_personal" seleceImageName:@"icon_personals"];
+    [self setupChildViewController:mineVC title:NSLocalizedString(@"local.mine", @"") imageName:@"icon_personal" seleceImageName:@"icon_personals"];
 
     self.viewControllers = _VCS;
 
@@ -79,8 +79,6 @@
     [controller.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:PWBlueColor,NSFontAttributeName:SYSTEMFONT(10.0f)} forState:UIControlStateSelected];
     //包装导航控制器
     RootNavigationController *nav = [[RootNavigationController alloc]initWithRootViewController:controller];
-
-    //    [self addChildViewController:nav];
     [_VCS addObject:nav];
 }
 - (void)didReceiveMemoryWarning {

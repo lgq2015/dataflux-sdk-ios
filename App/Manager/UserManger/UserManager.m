@@ -104,7 +104,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(NO,nil);
                 }
                 [SVProgressHUD dismiss];
-                [iToast alertWithTitleCenter:@"账号或密码错误"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordIncorrect", @"")];
                 NSString *errorMsg = NSLocalizedString(errCode, @"");
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
 
@@ -271,7 +271,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 isSuccess? isSuccess(YES):nil;
             }else{
                 isSuccess? isSuccess(NO):nil;
-                [iToast alertWithTitleCenter:@"网络异常"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.err.netWorkError", @"")];
             }
         });
 

@@ -254,7 +254,7 @@
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
         }
     } failBlock:^(NSError *error) {
-      [iToast alertWithTitleCenter:@"网络异常，请稍后再试！"];
+        [error errorToast];
     }];
   
 }
@@ -345,7 +345,7 @@
         }
     } failBlock:^(NSError *error) {
         [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneForget] attrResultNoPass] track];
-        [iToast alertWithTitleCenter:@"网络异常"];
+       [error errorToast];
     }];
 }
 #pragma mark ========== 我的/修改密码 ==========
@@ -368,7 +368,7 @@
             [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"网络异常"];
+        [error errorToast];
     }];
 }
 #pragma mark ========== 我的/修改邮件 ==========
@@ -391,7 +391,7 @@
             [self dealWithError:response];
         }
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"网络异常"];
+        [error errorToast];
     }];
 }
 #pragma mark ========== 我的/修改手机号 验证旧手机 ==========

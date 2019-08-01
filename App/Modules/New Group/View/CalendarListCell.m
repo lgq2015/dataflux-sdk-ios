@@ -70,7 +70,7 @@
 }
 -(void)setModel:(CalendarIssueModel *)model{
     _model = model;
-    BOOL isHidden = [model.typeText isEqualToString:@"今日无情报"];
+    BOOL isHidden = [model.typeText isEqualToString:NSLocalizedString(@"local.NoIssueToday", @"")];
     self.statesLabel.hidden = isHidden;
     self.timeLabel.hidden = isHidden;
     self.titleLable.hidden = isHidden;
@@ -112,24 +112,19 @@
     switch (model.state) {
         case IssueStateWarning:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-//            self.statesLabel.text = @"警告";
             break;
         case IssueStateSeriousness:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-//            self.statesLabel.text = @"严重";
             break;
         case IssueStateCommon:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-//            self.statesLabel.text = @"提示";
             break;
         case IssueStateRecommend:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-//            self.statesLabel.text = @"已恢复";
 
             break;
         case IssueStateLoseeEfficacy:
             self.dotView.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-//            self.statesLabel.text = @"失效";
             break;
     }
     self.lineView.height = model.calendarContentH +Interval(28)+model.titleSize.height;

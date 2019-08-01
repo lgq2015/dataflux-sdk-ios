@@ -142,15 +142,7 @@
     return _iconImgV;
 }
 - (void)createView:(NSInteger)index{
-//    IssueViewType type = index+1;
-//    switch (type) {
-//        case IssueViewTypeAll:
-//            self.titleLab.text = @"全部视图";
-//            break;
-//        case IssueViewTypeNormal:
-//            self.titleLab.text = @"标准视图";
-//            break;
-//    }
+    
     self.titleLab.textAlignment = NSTextAlignmentCenter;
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.contentView);

@@ -99,26 +99,13 @@
 
 #pragma mark ========== 初始化用户系统 ==========
 -(void)initUserManager{
-//    DLog(@"设备IMEI ：%@",[OpenUDID value]);
-//
+
     if([userManager loadUserInfo]){
         [[PWSocketManager sharedPWSocketManager] forceRestart];
         //如果有本地数据，先展示TabBar 随后异步自动登录
         [self DetectNewVersion];
         self.mainTabBar = [MainTabBarController new];
         self.window.rootViewController = self.mainTabBar;
-        //自动登录
-//        [userManager autoLoginToServer:^(BOOL success, NSString *des) {
-//            if (success) {
-//                DLog(@"自动登录成功");
-//                // [MBProgressHUD showSuccessMessage:@"自动登录成功"];
-//                KPostNotification(KNotificationAutoLoginSuccess, nil);
-//            }else{
-////                [MBProgressHUD showErrorMessage:NSStringFormat(@"自动登录失败：%@",des)];
-//            }
-//        }];
-
-
     }else{
         DLogE("Can't get UserInfo")
         KPostNotification(KNotificationLoginStateChange, @NO)
@@ -458,12 +445,12 @@
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"支付宝result = %@",resultDic);
+            DLog(@"Alipay result = %@",resultDic);
             [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
         }];
         // 授权跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"支付宝result = %@",resultDic);
+            DLog(@"Alipay result = %@",resultDic);
             // 解析 auth code
             NSString *result = resultDic[@"result"];
             NSString *authCode = nil;
@@ -726,7 +713,7 @@
         }else{
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@"home.account.teamNotJoined"]) {
-                [iToast alertWithTitleCenter:@"您没有相关权限"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotHaveRelevantPermissions", @"")];
             }else{
             [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
             }
