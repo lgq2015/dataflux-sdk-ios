@@ -117,7 +117,7 @@
     NSArray *type = @[@"danger",@"warning",@"info"];
     NSArray *name = @[NSLocalizedString(@"local.danger", @""),NSLocalizedString(@"local.warning", @""),NSLocalizedString(@"local.info", @"")];
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
-    allmodel.name = @"全部等级";
+    allmodel.name = NSLocalizedString(@"local.allIssueLevel", @"");
     allmodel.allSelect = YES;
     if (self.model.level.count == 0 || self.model.level.count == 5) {
         allmodel.isSelect = YES;
@@ -141,7 +141,7 @@
     NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"alert"];
     NSArray *name = @[[type[0] getIssueTypeStr],[type[1] getIssueTypeStr],[type[2] getIssueTypeStr],[type[3] getIssueTypeStr],[type[4] getIssueTypeStr]];
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
-    allmodel.name = @"全部类型";
+    allmodel.name = NSLocalizedString(@"local.allIssueType", @"");
     allmodel.allSelect = YES;
     if (self.model.type.count == 0 || self.model.type.count == 5) {
         allmodel.isSelect = YES;
@@ -163,7 +163,7 @@
 }
 - (void)loadFromDB {
     [self.dataSource removeAllObjects];
-    [self.dataSource addObject:@{@"name":@"全部云服务"}];
+    [self.dataSource addObject:@{@"name":NSLocalizedString(@"local.AllIssueSource", @"")}];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
         dispatch_async_on_main_queue(^{

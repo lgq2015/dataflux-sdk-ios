@@ -36,7 +36,7 @@
         NSString *name = [_model.statusChangeAccountInfo stringValueForKey:@"name" default:@""];
         
      self.nameLab.textColor = PWTextBlackColor;
-      self.nameLab.text =[NSString stringWithFormat:@"被 %@ 修复",name];
+        self.nameLab.text =[NSLocalizedString(@"issue.issueFixed", @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
     
        [self recoveredUI];
     }else{
@@ -75,7 +75,7 @@
 }
 - (void)noAssignUI{
     self.iconImg.image = [UIImage imageNamed:@"icon_handler"];
-    self.nameLab.text = @"设置处理人";
+    self.nameLab.text = NSLocalizedString(@"local.SetHandler", @"");
     self.nameLab.textColor = [UIColor colorWithHexString:@"#C7C7CC"];
     [self.arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-16);
@@ -122,7 +122,7 @@
 }
 -(UILabel *)handlerLab{
     if (!_handlerLab) {
-        _handlerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"处理人"];
+        _handlerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:NSLocalizedString(@"local.Assigned", @"")];
         _handlerLab.textAlignment = NSTextAlignmentRight;
         [self addSubview:_handlerLab];
     }
@@ -172,7 +172,7 @@
 }
 -(void)repair{
     
-   self.nameLab.text =[NSString stringWithFormat:@"被 %@ 修复", userManager.curUserInfo.name];
+   self.nameLab.text =[NSLocalizedString(@"issue.issueFixed", @"") stringByReplacingOccurrencesOfString:@"#" withString:userManager.curUserInfo.name];
     [self recoveredUI];
 }
 /*

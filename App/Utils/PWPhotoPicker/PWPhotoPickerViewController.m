@@ -296,9 +296,7 @@
     //没有权限时隐藏部分控件
     self.isNotAllowed = YES;
     self.selectTip.hidden = YES;
-//    self.titleLabel.text = @"无权限访问相册";
-//    NSString *tipTitle = self.sourceType == 2? @"请开启照片权限":@"请开启相机权限";
-//    NSString *tipMessage = type == 2?@"可依次进入[设置-隐私-照片]，允许访问手机相册":@"可依次进入[设置-隐私]中，允许访问相机";
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请开启照片权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         

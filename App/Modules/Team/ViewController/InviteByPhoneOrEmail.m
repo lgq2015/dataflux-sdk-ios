@@ -26,7 +26,7 @@
 - (void)createUI{
     NSDictionary *dict ;
     if (self.isPhone) {
-        dict = @{@"title":@"手机号",@"placeholder":@"请输入邀请成员手机号码"};
+        dict = @{@"title":NSLocalizedString(@"local.MobilePhoneNo", @""),@"placeholder":@"请输入邀请成员手机号码"};
     }else{
         dict = @{@"title":@"邮箱",@"placeholder":@"请输入邀请成员邮箱"};
     }

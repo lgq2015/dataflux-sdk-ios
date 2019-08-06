@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"邀请成员";
+    self.title = NSLocalizedString(@"local.TeamInviteMembers", @"");
     [self createUI];
 }
 - (void)createUI{

@@ -112,7 +112,7 @@
             self.memberName.text = self.model.name;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
-                self.subTitleLab.text = @"管理员";
+                self.subTitleLab.text = NSLocalizedString(@"local.TeamAdministrator", @"");
                 self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
              [self createBtnPhone];
@@ -130,7 +130,7 @@
             self.memberName.text = self.model.name;
             [self.iconImgView setImage:[UIImage imageNamed:@"professor_wang_header"]];
             self.subTitleLab.hidden = NO;
-            self.subTitleLab.text = @"专家";
+            self.subTitleLab.text = NSLocalizedString(@"local.experts", @"");
             self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];
             [self createBtnExpert];
         }
@@ -149,7 +149,7 @@
             self.callBtn.hidden = YES;
             if (self.model.isAdmin) {
                 self.subTitleLab.hidden = NO;
-                self.subTitleLab.text = @"管理员";
+                self.subTitleLab.text = NSLocalizedString(@"local.TeamAdministrator", @"");
                 self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
             }
         }
@@ -228,7 +228,7 @@
             [_beizhuBtn setTitle:self.model.inTeamNote forState:UIControlStateNormal];
             _beizhuBtn.selected = YES;
         }else{
-            [_beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+            [_beizhuBtn setTitle:NSLocalizedString(@"local.SetTheNote", @"") forState:UIControlStateNormal];
         }
         if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
@@ -414,7 +414,7 @@
     __weak typeof(self) weakSelf = self;
     vc.editTeamMemberNote = ^(NSString *noteName) {
         if (noteName.length == 0){
-            [weakSelf.beizhuBtn setTitle:@"设置备注" forState:UIControlStateNormal];
+            [weakSelf.beizhuBtn setTitle:NSLocalizedString(@"local.SetTheNote", @"") forState:UIControlStateNormal];
             weakSelf.beizhuBtn.selected = NO;
         }else{
             [weakSelf.beizhuBtn setTitle:noteName forState:UIControlStateNormal];

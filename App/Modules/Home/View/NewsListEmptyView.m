@@ -34,7 +34,7 @@ static const CGFloat EmptyImage_W = 120.0f;
     if (!_emptyLb) {
         _emptyLb = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_emptyImage.frame), CGRectGetWidth(self.frame), 40)];
         _emptyLb.textColor = [UIColor colorWithHexString:@"#999999"];
-        _emptyLb.text = @"暂无列表";
+        _emptyLb.text = NSLocalizedString(@"local.NoList", @"");
         _emptyLb.font = [UIFont systemFontOfSize:14];
         _emptyLb.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_emptyLb];

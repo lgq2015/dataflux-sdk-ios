@@ -58,20 +58,12 @@
 }
 - (UIButton *)sendBtn{
     if (!_sendBtn){
-        _sendBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"发送"];
+        _sendBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.sendIssueLog", @"")];
         _sendBtn.titleLabel.font = RegularFONT(16);
         [self addSubview:_sendBtn];
    
     }
     return _sendBtn;
 }
-- (void)photoBtnClick{
-    
-}
-- (void)atBtnClick{
-    
-}
-- (void)sendBtnClick{
-    
-}
+
 @end

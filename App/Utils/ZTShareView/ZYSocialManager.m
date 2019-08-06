@@ -99,7 +99,7 @@
 
 - (void)showAlter:(NSString *)title{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.confirm", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alert addAction:confirm];

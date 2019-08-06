@@ -59,16 +59,7 @@
 }
 - (void)setItem:(LTSCalendarDayItem *)item{
     _item = item;
-    static NSArray *dayArray;
-    static NSArray *monthArray;
-    static dispatch_once_t once;
-    
-    dispatch_once(&once, ^{
-        dayArray  = @[ @"初一", @"初二", @"初三", @"初四", @"初五", @"初六", @"初七", @"初八", @"初九", @"初十",@"十一", @"十二", @"十三", @"十四", @"十五", @"十六", @"十七", @"十八", @"十九", @"二十",@"廿一", @"廿二", @"廿三", @"廿四", @"廿五", @"廿六", @"廿七", @"廿八", @"廿九", @"三十"];
-        
-        monthArray = @[@"正月",@"二月",@"三月",@"四月",@"五月",@"六月",@"七月",@"八月",@"九月",@"十月",@"冬月",@"腊月"];
-    });
-    
+
     
     static NSDateFormatter *dateFormatter;
     if(!dateFormatter){
@@ -78,29 +69,7 @@
     }
    
     textLabel.text = [dateFormatter stringFromDate:item.date];
-    
-    //获取农历
-#ifdef __IPHONE_8_0
-    
-    NSCalendar *localeCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
-    
-    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
-    
-    NSDateComponents *localeComp = [localeCalendar components:unitFlags fromDate:item.date];
-#else
-    NSCalendar *localeCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSChineseCalendar];
-    
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    
-    NSDateComponents *localeComp = [localeCalendar components:unitFlags fromDate:date];
-#endif
-    
-    lunarTextLabel.text = dayArray[localeComp.day-1];
-    if (localeComp.day-1 == 0) {
-        lunarTextLabel.text = monthArray[localeComp.month-1];
-    }
-    
-    
+
     isToday = -1;
     cacheCurrentDateText = nil;
     
@@ -170,7 +139,7 @@
     
     dotView.layer.cornerRadius = sizeDot / 2.;
     if ([self isToday]) {
-        textLabel.text = @"今";
+        textLabel.text = NSLocalizedString(@"local.Today", @"");
     }
 }
 

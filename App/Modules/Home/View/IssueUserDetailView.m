@@ -101,7 +101,7 @@
         make.height.offset(ZOOM_SCALE(54));
         make.bottom.mas_equalTo(self.upContainerView);
     }];
-    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
+    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.TheDetailedInformation", @"")];
     [self.subContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.subContainerView).offset(Interval(16));
@@ -127,7 +127,7 @@
     [self.expireData addObjectsFromArray:array];
         if (array.count>0) {
             self.mTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-            UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"附件"];
+            UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.accessory", @"")];
             [self.subContainerView addSubview:title];
             [title mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(self.contentLab.mas_bottom).offset(Interval(16));
@@ -159,8 +159,8 @@
 //    if (self.recoverClick) {
 //        self.recoverClick();
 //    }
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"手动修复情报后，该情报将不会再出现在您的活跃情报中" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *commit = [PWCommonCtrl actionWithTitle:@"确认修复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.RepairTips", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *commit = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRepair", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
         
         [[PWHttpEngine sharedInstance]recoveIssueWithIssueid:self.model.issueId callBack:^(id response) {
             BaseReturnModel *model = response;
@@ -184,7 +184,7 @@
 }
 - (void)recoveUI{
     [self.assignView repair];
-    [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+    [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
     _repairBtn.enabled = NO;
     [_repairIcon setImage:[UIImage imageNamed:@"issue_tick"]];
     _repairIcon.userInteractionEnabled = NO;
@@ -227,11 +227,11 @@
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已恢复";
+            self.stateLab.text = NSLocalizedString(@"issue.recovered", @"");
             break;
         case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = @"失效";
+            self.stateLab.text = NSLocalizedString(@"local.Discarded", @"");
             break;
     }
 }
@@ -316,10 +316,10 @@
         _repairBtn.titleLabel.font = RegularFONT(14);
         [_repairBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         if (self.model.recovered) {
-            [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+            [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
             _repairBtn.enabled = NO;
         }else{
-            [_repairBtn setTitle:@"修复" forState:UIControlStateNormal];
+            [_repairBtn setTitle:NSLocalizedString(@"local.repair", @"") forState:UIControlStateNormal];
         }
          [_repairBtn addTarget:self action:@selector(recoveClick) forControlEvents:UIControlEventTouchUpInside];
         [self.upContainerView addSubview:_repairBtn];
@@ -367,12 +367,12 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"rar"]
         || [ext isEqualToString:@"zip"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotAvailableForThisFile", @"")];
         return;
     }else if( [ext isEqualToString:@"txt"]){//下载后用QL预览
         [self previewInternet:model.fileUrl];
     }else{
-        PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"附件" andURL:[NSURL URLWithString:model.fileUrl]];
+        PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:NSLocalizedString(@"local.accessory", @"") andURL:[NSURL URLWithString:model.fileUrl]];
         [self.viewController.navigationController pushViewController:webView animated:YES];
     }
 }
@@ -433,15 +433,15 @@
     self.fileURL = filePath;
     QLPreviewController *vc  =  [[QLPreviewController alloc]  init];
     vc.dataSource  = self;
-    vc.qltitle = @"附件";
+    vc.qltitle = NSLocalizedString(@"local.accessory", @"");
     self.viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.viewController.navigationController pushViewController:vc animated:YES];
     [vc refreshCurrentPreviewItem];
 }
 //跳转到Docuement预览界面
 - (void)presentDocumentViewController:(NSURL *)filePath{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"文件无法预览，是否使用第三方打开" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.FileOpenInThirdPartyTip", @"") preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.confirm", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIDocumentInteractionController *vc = [UIDocumentInteractionController interactionControllerWithURL:filePath];
         vc.delegate = self;
         [vc presentOpenInMenuFromRect:CGRectZero inView:self animated:YES];

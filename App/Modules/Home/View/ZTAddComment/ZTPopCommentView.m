@@ -52,7 +52,6 @@
 
 - (void)setOldData:(NSString *)oldData{
     _oldData = oldData;
-    self.topView.state = self.state;
    [self s_UI];
 }
 - (void)show{
@@ -174,7 +173,7 @@
 
 - (UITextView *)mTextView{
     if (!_mTextView){
-        _mTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"输入您的内容" font:RegularFONT(14)];
+        _mTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:NSLocalizedString(@"local.EnterYourContent", @"") font:RegularFONT(14)];
         _mTextView.delegate = self;
         _mTextView.text = _oldData;
         [self addSubview:_mTextView];
@@ -471,6 +470,5 @@
 }
 - (void)ChooseChatStateViewCellIndex:(NSInteger)index{
     self.state = (IssueDealState)(index);
-    [self.topView setState:self.state];
 }
 @end

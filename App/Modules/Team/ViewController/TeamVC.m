@@ -11,11 +11,9 @@
 #import "TeamInfoModel.h"
 #import "IssueSourceListVC.h"
 #import "InviteMembersVC.h"
-#import "ServiceLogVC.h"
 #import "MemberInfoModel.h"
 #import "TeamMemberCell.h"
 #import "MemberInfoVC.h"
-#import "ServiceLogVC.h"
 #import "TeamVC+ChangeNavColor.h"
 #import "ZYChangeTeamUIManager.h"
 #import "MineMessageVC.h"
@@ -25,7 +23,6 @@
 #import "ZTTeamProductCell.h"
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTBuChongTeamInfoUIManager.h"
-#import "CloudCareVC.h"
 #import "ZhugeIOTeamHelper.h"
 
 #import "NotificationRuleVC.h"
@@ -272,7 +269,7 @@
 
 
 - (void)delectMember:(NSInteger )row{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"移除成员后，成员将不在团队管理中，并不再接收团队任何消息" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TeamDelectMemberTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSString *uid =self.teamMemberArray[row].memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
@@ -334,13 +331,6 @@
 
         }
             break;
-        case server:{
-            CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
-            makeFriendVC.isHideProgress = NO;
-            [self.navigationController pushViewController:makeFriendVC animated:YES];
-        }
-            break;
-
         case notificationRule: {
             NotificationRuleVC *ruleVC = [[NotificationRuleVC alloc]init];
             [self.navigationController pushViewController:ruleVC animated:YES];

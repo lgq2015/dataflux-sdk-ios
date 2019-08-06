@@ -79,7 +79,7 @@
         make.bottom.mas_equalTo(topView).offset(-Interval(19));
         make.height.offset(ZOOM_SCALE(22));
     }];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWWhiteColor text:@"扫一扫"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWWhiteColor text:NSLocalizedString(@"local.scan", @"")];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [topView addSubview:titleLab];
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -223,15 +223,15 @@
 {
     if (!strResult) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"照片中未识别二维码" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         [alert addAction:confirm];
         [self presentViewController:alert animated:YES completion:nil];
        
     }else{
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"扫描结果" message:strResult preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.ScanResults", @"") message:strResult preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];
         [alert addAction:confirm];
@@ -244,7 +244,7 @@
 - (void)showNextVCWithScanResult:(LBXScanResult*)strResult
 {
     if ([strResult.strScanned isUrlAddress]) {
-        ScanResultVC *web = [[ScanResultVC alloc]initWithTitle:@"扫描结果" andURLString:strResult.strScanned];
+        ScanResultVC *web = [[ScanResultVC alloc]initWithTitle:NSLocalizedString(@"local.ScanResults", @"") andURLString:strResult.strScanned];
         [self.navigationController pushViewController:web animated:YES];
     }else{
         

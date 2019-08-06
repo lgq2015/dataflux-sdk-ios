@@ -81,10 +81,10 @@
     self.timeLabel.text = model.timeText;
     self.contentTextView.text = model.contentText;
     if (model.isEnd) {
-        self.statesLabel.text = @"已恢复";
+        self.statesLabel.text = NSLocalizedString(@"issue.recovered", @"");
         self.statesLabel.textColor = [UIColor colorWithHexString:@"#54DBAD"];
     }else{
-        self.statesLabel.text = @"活跃";
+        self.statesLabel.text = NSLocalizedString(@"local.active", @"");
         self.statesLabel.textColor = PWBlueColor;
     }
     CGFloat calendarContentH = model.calendarContentH?model.calendarContentH :ZOOM_SCALE(44);

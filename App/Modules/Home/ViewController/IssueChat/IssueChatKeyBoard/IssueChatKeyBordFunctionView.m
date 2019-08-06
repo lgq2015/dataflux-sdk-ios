@@ -20,7 +20,7 @@
         count = 8;
         
         //添加功能只需要在标题和图片数组里面直接添加就行
-        titles = @[@"照片"];
+        titles = @[NSLocalizedString(@"local.picture", @"")];
         images = @[@"file_img"];
         
         NSInteger number = titles.count/count+1;

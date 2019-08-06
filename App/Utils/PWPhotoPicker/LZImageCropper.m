@@ -364,7 +364,7 @@
 
 -(UIButton *)sureButton{
     if (!_sureButton) {
-        _sureButton = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"完成"];
+        _sureButton = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.complete", @"")];
         [_sureButton addTarget:self action:@selector(sureButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sureButton;

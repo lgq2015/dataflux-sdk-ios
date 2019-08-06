@@ -189,25 +189,25 @@
     NSString *week;
     switch ((long)[self weekday]) {
         case 1:
-            week = @"周日";
+            week = NSLocalizedString(@"local.Sunday", @"");
             break;
         case 2:
-            week = @"周一";
+            week = NSLocalizedString(@"local.Monday", @"");
             break;
         case 3:
-            week = @"周二";
+            week = NSLocalizedString(@"local.Tuesday", @"");
             break;
         case 4:
-            week = @"周三";
+            week = NSLocalizedString(@"local.Wednesday", @"");
             break;
         case 5:
-            week = @"周四";
+            week = NSLocalizedString(@"local.Thursday", @"");
             break;
         case 6:
-            week = @"周五";
+            week = NSLocalizedString(@"local.Friday", @"");
             break;
         case 7:
-            week = @"周六";
+            week = NSLocalizedString(@"local.Saturday", @"");
             break;
     }
     if([self isThisYear]){

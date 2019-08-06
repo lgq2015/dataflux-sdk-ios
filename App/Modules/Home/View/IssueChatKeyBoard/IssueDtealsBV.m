@@ -38,16 +38,7 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickComentlab)];
     [self addGestureRecognizer:tap];
-//    self.typeIcon.image = [UIImage imageNamed:@"reply_big"];
-//    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow_down"]];
-//    arrow.tag = 35;
-//    [[self viewWithTag:35] removeFromSuperview];
-//    [self addSubview:arrow];
-//    [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.typeIcon.mas_right).offset(Interval(6));
-//        make.centerY.mas_equalTo(self.typeIcon);
-//        make.width.height.offset(ZOOM_SCALE(18));
-//    }];
+
     UIView *contentView = [[UIView alloc]init];
     contentView.backgroundColor = PWWhiteColor;
     [self addSubview:contentView];
@@ -70,18 +61,12 @@
     
 }
 #pragma mark ========== lazy ==========
-//-(UIImageView *)typeIcon{
-//    if (!_typeIcon) {
-//        _typeIcon = [[UIImageView alloc]initWithFrame:CGRectMake(Interval(15), ZOOM_SCALE(19), ZOOM_SCALE(28), ZOOM_SCALE(28))];
-//        [self addSubview:_typeIcon];
-//    }
-//    return _typeIcon;
-//}
+
 
 - (UILabel *)commentTextLab{
     if (!_commentTextLab){
         _commentTextLab = [[UILabel alloc] init];
-        _commentTextLab.text = @"添加记录";
+        _commentTextLab.text = NSLocalizedString(@"local.AddIssueLog", @"");
         _commentTextLab.textColor = [UIColor colorWithHexString:@"#C7C7CC"];
         _commentTextLab.userInteractionEnabled = YES;
         _commentTextLab.backgroundColor = [UIColor whiteColor];
@@ -94,7 +79,7 @@
 - (void)setOldStr:(NSString *)oldStr{
     _oldStr = oldStr;
     if (oldStr.length==0) {
-        _commentTextLab.text = @"添加记录";
+        _commentTextLab.text = NSLocalizedString(@"local.AddIssueLog", @"");
         _commentTextLab.textColor = [UIColor colorWithHexString:@"#C7C7CC"];
     }else{
         _commentTextLab.text = oldStr;

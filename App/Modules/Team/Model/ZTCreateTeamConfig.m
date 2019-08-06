@@ -12,7 +12,7 @@
 @implementation ZTCreateTeamConfig
 - (void)createTeamConfige{
     TeamTF *nameTf = [TeamTF new];
-    nameTf.title = @"团队名称";
+    nameTf.title = NSLocalizedString(@"local.TeamName", @"");
     nameTf.placeholder = @"请输入您的团队名称";
     nameTf.showArrow = NO;
     TeamTF *placeTf = [TeamTF new];

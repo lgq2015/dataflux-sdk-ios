@@ -52,7 +52,6 @@
         [self.mIndicator startAnimating];
     }else if(layout.message.sendStates == ChatSentStatesSendError){
         [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
-//        [_retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];
         [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.mBackImgButton);
             make.right.mas_equalTo(self.mBackImgButton.mas_left).offset(-5);
@@ -61,31 +60,31 @@
         self.retryBtn.hidden = NO;
     }
     self.atReadBtn.hidden = YES;
-    if (layout.message.isHasAtStr) {
-        NSString *arStr = [self atString];
-        self.atReadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:arStr];
-        [self.atReadBtn setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
-
-        self.atReadBtn.titleLabel.font = RegularFONT(13);
-        self.atReadBtn.hidden = NO;
-        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
-            self.atReadBtn.enabled = NO;
-        }else{
-            self.atReadBtn.enabled = YES;
-        }
-        [self.contentView addSubview:self.atReadBtn];
-        [self.atReadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(self.mBackImgButton);
-            make.top.mas_equalTo(self.mBackImgButton.mas_bottom).offset(4);
-            make.height.offset(ZOOM_SCALE(18));
-        }];
-        [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        if (self.layout.message.sendStates == ChatSentStatesIsSending) {
-            self.atReadBtn.hidden = YES;
-        }else{
-            self.atReadBtn.hidden = NO;
-        }
-    }
+//    if (layout.message.isHasAtStr) {
+//        NSString *arStr = [self atString];
+//        self.atReadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:arStr];
+//        [self.atReadBtn setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
+//
+//        self.atReadBtn.titleLabel.font = RegularFONT(13);
+//        self.atReadBtn.hidden = NO;
+//        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
+//            self.atReadBtn.enabled = NO;
+//        }else{
+//            self.atReadBtn.enabled = YES;
+//        }
+//        [self.contentView addSubview:self.atReadBtn];
+//        [self.atReadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.mas_equalTo(self.mBackImgButton);
+//            make.top.mas_equalTo(self.mBackImgButton.mas_bottom).offset(4);
+//            make.height.offset(ZOOM_SCALE(18));
+//        }];
+//        [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        if (self.layout.message.sendStates == ChatSentStatesIsSending) {
+//            self.atReadBtn.hidden = YES;
+//        }else{
+//            self.atReadBtn.hidden = NO;
+//        }
+//    }
 }
 -(NSString *)atString{
     __block NSString *atStr;
@@ -97,22 +96,22 @@
     if (unreadAccounts.count>0) {
         if (unreadAccounts.count == 1 ) {
             if (readAccounts.count>0) {
-                atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
+                atStr = [NSLocalizedString(@"local.issueLogNotReadCount", @"") stringByReplacingOccurrencesOfString:@"#" withString:[NSString stringWithFormat:@"%ld",unreadAccounts.count]];
             }else{
                 if (serviceMap == nil || serviceMap.allKeys.count ==0) {
                     NSDictionary *read = unreadAccounts[0];
                     [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
                         if (member.allKeys.count>0) {
-                            atStr = [NSString stringWithFormat:@"%@未读",[member stringValueForKey:@"name" default:@""]];
+                            atStr = [NSString stringWithFormat:@"%@%@",[member stringValueForKey:@"name" default:@""],NSLocalizedString(@"local.issueLogNotRead", @"")];
                             
                         }
                     }];
                 }else{
-                    atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
+                    atStr = [NSLocalizedString(@"local.issueLogNotReadCount", @"") stringByReplacingOccurrencesOfString:@"#" withString:[NSString stringWithFormat:@"%ld",unreadAccounts.count]];
                 }
             }
         }else{
-        atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
+        atStr = [NSLocalizedString(@"local.issueLogNotReadCount", @"") stringByReplacingOccurrencesOfString:@"#" withString:[NSString stringWithFormat:@"%ld",unreadAccounts.count]];
         }
     }else if(readAccounts.count == 0 && unreadAccounts.count == 0){
         if (serviceMap.allKeys.count>0) {
@@ -122,9 +121,9 @@
             if (self.layout.message.sendStates == ChatSentStatesSendError) {
                 atStr = @"";
             }else if(self.layout.message.sendStates ==ChatSentStatesIsSending){
-                atStr = [NSString stringWithFormat:@"%@未读",name];
+                atStr = [NSString stringWithFormat:@"%@%@",name,NSLocalizedString(@"local.issueLogNotRead", @"")];
             }else{
-                atStr = [NSString stringWithFormat:@"%@已读",name];
+                atStr = [NSString stringWithFormat:@"%@%@",name,NSLocalizedString(@"local.issueLogAlreadyRead", @"")];
             }
         }
     }else{
@@ -134,7 +133,7 @@
             NSDictionary *read = readAccounts[0];
             [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
                     if (member.allKeys.count>0) {
-                    atStr = [NSString stringWithFormat:@"%@已读",[member stringValueForKey:@"name" default:@""]];
+                    atStr = [NSString stringWithFormat:@"%@%@",[member stringValueForKey:@"name" default:@""],NSLocalizedString(@"local.issueLogAlreadyRead", @"")];
                 
             }
             }];

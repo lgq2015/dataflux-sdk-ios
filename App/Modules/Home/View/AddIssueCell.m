@@ -17,21 +17,21 @@
 @end
 @implementation AddIssueCell
 -(void)setTitleWithProgress:(float)progress{
-    self.titleLab.text = [NSString stringWithFormat:@"正在上传… (%d%%)",(int)(progress*100)];
+    self.titleLab.text = [NSString stringWithFormat:@"%@… (%d%%)",NSLocalizedString(@"local.BeUploading", @""),(int)(progress*100)];
     self.titleLab.hidden = NO;
 }
 -(void)setModel:(CreateQuestionModel *)model{
     _model = model;
     switch (_model.type) {
         case UploadTypeSuccess:
-          self.uploadStateLab.text = @"上传成功";
+          self.uploadStateLab.text = NSLocalizedString(@"local.UploadSuccess", @"");
           self.uploadStateLab.hidden = NO;
           self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#9B9EA0"];
           self.reloadBtn.hidden = YES;
           self.sizeLab.text = _model.size;
             break;
         case UploadTypeError:
-          self.uploadStateLab.text = @"上传失败！";
+          self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
           self.uploadStateLab.hidden = NO;
           self.reloadBtn.hidden = NO;
           self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];
@@ -47,7 +47,7 @@
     self.reloadBtn.hidden = NO;
     self.titleLab.text = self.model.name;
     self.sizeLab.text = self.model.size;
-    self.uploadStateLab.text = @"上传失败！";
+    self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
     self.uploadStateLab.hidden = NO;
     self.reloadBtn.hidden = NO;
     self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];
@@ -55,7 +55,7 @@
 -(void)completeUpload{
     self.titleLab.text = self.model.name;
     self.sizeLab.text = self.model.size;
-    self.uploadStateLab.text = @"上传成功";
+    self.uploadStateLab.text = NSLocalizedString(@"local.UploadSuccess", @"");
     self.uploadStateLab.hidden = NO;
     self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#9B9EA0"];
 }
@@ -72,7 +72,7 @@
 }
 - (UIButton *)reloadBtn{
     if (!_reloadBtn) {
-        _reloadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新上传"];
+        _reloadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.UploadAgain", @"")];
         _reloadBtn.titleLabel.font = RegularFONT(14);
         [_reloadBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_reloadBtn addTarget:self action:@selector(reloadBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -81,7 +81,7 @@
     return _reloadBtn;
 }
 - (void)reloadBtnClick{
-    self.titleLab.text = @"正在上传…";
+    self.titleLab.text =[NSString stringWithFormat:@"%@…",NSLocalizedString(@"local.BeUploading", @"")];
     self.uploadStateLab.text = @"";
     self.reloadBtn.hidden = YES;
     if (self.reUpload) {

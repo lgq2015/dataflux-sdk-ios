@@ -22,8 +22,8 @@
     self.beginBtn.hidden = YES;
     if (_index == 0) {
       
-        self.titleLab.text = @"问题诊断";
-        self.subTitleLab.text = @"让王教授为您诊断";
+        self.titleLab.text = NSLocalizedString(@"Guide.Title1", @"");
+        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle1", @"");
         self.backImgView.image = [UIImage imageNamed:@"page1"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(47));
@@ -33,8 +33,8 @@
         }];
     }else if(_index == 1){
         
-        self.titleLab.text = @"覆盖面广";
-        self.subTitleLab.text = @"IT 问题无处遁形";
+        self.titleLab.text = NSLocalizedString(@"Guide.Title2", @"");
+        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle2", @"");
         self.backImgView.image = [UIImage imageNamed:@"page2"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(38));
@@ -44,8 +44,8 @@
         }];
     }else{
         
-        self.titleLab.text = @"多年积淀";
-        self.subTitleLab.text = @"专业值得信赖";
+        self.titleLab.text = NSLocalizedString(@"Guide.Title3", @"");
+        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle3", @"");
         self.backImgView.image = [UIImage imageNamed:@"page3"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(14));
@@ -78,7 +78,7 @@
 }
 -(UIButton *)beginBtn{
     if (!_beginBtn) {
-        _beginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(63)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(25)) type:PWButtonTypeWord text:@"立即开启"];
+        _beginBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(63)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(25)) type:PWButtonTypeWord text:NSLocalizedString(@"local.ImmediatelyOpen", @"")];
         _beginBtn.titleLabel.font = MediumFONT(18);
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateNormal];
         [_beginBtn setTitleColor:PWWhiteColor forState:UIControlStateSelected];

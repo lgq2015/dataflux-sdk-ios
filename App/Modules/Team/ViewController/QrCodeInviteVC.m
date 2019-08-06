@@ -122,7 +122,7 @@
 
 - (void)showOpenPhotoAuth{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请开启相册权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alert addAction:confirm];

@@ -11,7 +11,6 @@
 #import "MineCellModel.h"
 #import "UserManager.h"
 #import "ChangePasswordVC.h"
-#import "IgnoreListVC.h"
 #import "AboutUsVC.h"
 #import "SecurityPrivacyVC.h"
 #import "ClearCacheTool.h"
@@ -40,7 +39,7 @@
     BOOL isSwitch=  [self checkNotification];
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
-//    MineCellModel *ignore = [[MineCellModel alloc]initWithTitle:@"忽略情报"];
+
     MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];
     NSArray *array =@[changePassword,notification,aboutUs];
@@ -114,7 +113,7 @@
     UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultCancel] track];
     }];
-    UIAlertAction *confim = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confim = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //发送退出登录请求，让后台清空存储的token
         [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultLogout] track];
 
@@ -199,7 +198,7 @@
         [self.navigationController pushViewController:securityVC animated:YES];
     }else if(indexPath.row == 2){
         UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:@"确定清理所有缓存" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
             [ClearCacheTool clearCacheWithFilePath:path];
             NSString *totalSize = [ClearCacheTool getCacheSizeWithFilePath:path];

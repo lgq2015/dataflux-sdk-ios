@@ -92,7 +92,7 @@
     UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
-    UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:@"文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.file", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     }];
     UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];

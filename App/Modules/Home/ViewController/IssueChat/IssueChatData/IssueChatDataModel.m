@@ -64,41 +64,12 @@
         NSDictionary *metaJSON = dict[@"metaJSON"];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
-            if ([type isEqualToString:@"pdf"]) {
-                self.fileIcon = @"file_PDF";
-            }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
-                self.fileIcon = @"file_word";
-            }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
-                self.fileIcon = @"file_img";
-            }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
-                self.fileIcon = @"file_PPT";
-            }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
-                self.fileIcon = @"file_excel";
-            }else if([type isEqualToString:@"key"]){
-                self.fileIcon = @"file_keynote";
-            }else if([type isEqualToString:@"numbers"]){
-                self.fileIcon = @"file_numbers";
-            }else if([type isEqualToString:@"pages"]){
-                self.fileIcon = @"file_pages";
-            }else if([type isEqualToString:@"zip"]){
-                self.fileIcon = @"file_zip";
-            }else if([type isEqualToString:@"rar"]){
-                self.fileIcon = @"file_rar";
-            }else if([type isEqualToString:@"txt"]){
-                self.fileIcon = @"file_txt";
-            }else{
-                self.fileIcon = @"file";
-            }
+            self.fileIcon = [type getFileIcon];
         }
        
     }else{
         NSString *subType = dict[@"subType"];
-        if ([subType isEqualToString:@"updateExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已加入讨论";
-        }
-        if ([subType isEqualToString:@"exitExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已退出讨论";
-        }
+        self.systermStr = [NSLocalizedString(subType, @"") stringByReplacingOccurrencesOfString:@"#" withString:NSLocalizedString(@"local.experts", @"")];
         self.type = 4;
     }
 }
@@ -143,35 +114,12 @@
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
-            if ([type isEqualToString:@"pdf"]) {
-                self.fileIcon = @"file_PDF";
-            }else if([type isEqualToString:@"docx"]){
-                self.fileIcon = @"file_word";
-            }else if([type isEqualToString:@"ppt"]){
-                self.fileIcon = @"file_PPT";
-            }else if([type isEqualToString:@"xlsx"]){
-                self.fileIcon = @"file_excel";
-            }else if([type isEqualToString:@"key"]){
-                self.fileIcon = @"file_keynote";
-            }else if([type isEqualToString:@"numbers"]){
-                self.fileIcon = @"file_numbers";
-            }else if([type isEqualToString:@"pages"]){
-                self.fileIcon = @"file_pages";
-            }else if([type isEqualToString:@"zip"]){
-                self.fileIcon = @"file_zip";
-            }else if([type isEqualToString:@"rar"]){
-                self.fileIcon = @"file_rar";
-            }
+            self.fileIcon = [type getFileIcon];
         }
         
     }else{
         NSString *subType = model.subType;
-        if ([subType isEqualToString:@"updateExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已加入讨论";
-        }
-        if ([subType isEqualToString:@"exitExpertGroups"]) {
-            self.systermStr = @"您邀请的专家已退出讨论";
-        }
+        self.systermStr = [NSLocalizedString(subType, @"") stringByReplacingOccurrencesOfString:@"#" withString:NSLocalizedString(@"local.experts", @"")];
         self.type = 4;
     }
 }

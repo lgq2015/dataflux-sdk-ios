@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.title = @"情报详情";
+     self.title = NSLocalizedString(@"local.IssueDetails", @"");
     [self createUI];
     [self loadIssueLog];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addCommentNotif:) name:@"zt_add_comment" object:nil];
@@ -89,11 +89,8 @@
         [self.userHeader mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.width.right.left.mas_equalTo(self.tableView);
         }];
-//        if (([self.model.accountId isEqualToString:userManager.curUserInfo.userID] || userManager.teamModel.isAdmin )&& self.model.state != IssueStateLoseeEfficacy&&self.model.state != IssueStateRecommend) {
-//            [self addNavigationItemWithImageNames:@[@"web_more"] isLeft:NO target:self action:@selector(ignoreClick) tags:@[@22]];
-//        }
+
         [self loadIssueDetailExtra];
-//        [self loadInfoDeatil];
 
     }else{
         self.tableView.tableHeaderView = self.engineHeader;
@@ -371,7 +368,7 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"zip"]
         || [ext isEqualToString:@"rar"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotAvailableForThisFile", @"")];
         return;
     }
     IssueLogModel *logModel = layout.message.model;
@@ -674,7 +671,7 @@
             levelTitle = NSLocalizedString(@"local.danger", @"");
             break;
         case IssueStateCommon:
-            levelTitle = @"提示";
+            levelTitle = NSLocalizedString(@"local.info", @"");
             break;
         default:
             break;

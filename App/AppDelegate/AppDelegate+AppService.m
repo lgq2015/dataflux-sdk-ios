@@ -407,7 +407,7 @@
     [SVProgressHUD setMinimumDismissTimeInterval:0.5];
     [SVProgressHUD setKeyBoardMove:YES];
 
-    //分享
+    //share
     [WXApi registerApp:WX_APPKEY];
     self.tencentOAuth =  [[TencentOAuth alloc] initWithAppId:QQ_APPKEY andDelegate:nil];
     [DTOpenAPI registerApp:DINGDING_APPKEY];

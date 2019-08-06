@@ -217,9 +217,9 @@
     [self.contentView addSubview:upContentView];
     NSArray *titleAry;
     if ([self.model.rule.tags allKeys].count == 0) {
-        titleAry = @[@"云账号",@"类型",@"等级"];
+        titleAry = @[NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @"")];
     }else{
-        titleAry = @[@"标签",@"云账号",@"类型",@"等级"];
+        titleAry = @[NSLocalizedString(@"local.ruleTag", @""),NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @"")];
     }
     NSMutableArray *labAry = [NSMutableArray new];
     UIView *temp = nil;
@@ -262,7 +262,7 @@
     }
     if(self.model.rule.issueSource.count == 0){
         
-        UILabel *sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:@"全部云账号"];
+        UILabel *sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:NSLocalizedString(@"local.allIssueSource", @"")];
         [upContentView addSubview:sourceLab];
         [sourceLab mas_makeConstraints:^(MASConstraintMaker *make) {
            make.left.mas_equalTo(upContentView).offset(ZOOM_SCALE(150)-16);
@@ -299,7 +299,7 @@
     referenceLab = labAry[index];
     NSString *typeStr = @"";
     if (self.model.rule.type.count == 0 || self.model.rule.type.count == 5) {
-        typeStr = @"全部类型";
+        typeStr = NSLocalizedString(@"local.allIssueType", @"");
     }else{
         for (NSInteger i=0; i<self.model.rule.type.count; i++) {
             typeStr = [typeStr stringByAppendingString:@"、"];
@@ -318,7 +318,7 @@
     index ++;
     referenceLab = labAry[index];
     if (self.model.rule.level.count == 0 || self.model.rule.level.count == 3) {
-        UILabel *sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:@"全部等级"];
+        UILabel *sourceLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:NSLocalizedString(@"local.allIssueLevel", @"")];
         [upContentView addSubview:sourceLab];
         [sourceLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(upContentView).offset(ZOOM_SCALE(150)-16);

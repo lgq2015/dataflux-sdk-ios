@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"处理人";
+    self.title = NSLocalizedString(@"local.Assigned", @"");
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -109,7 +109,7 @@
         return;
     }
     MemberInfoModel *model = [MemberInfoModel new];
-    model.name = @"全部处理人";
+    model.name = NSLocalizedString(@"local.AllAssigned", @"");
     model.memberID = ILMStringAll;
     MemberInfoModel *model2 = [MemberInfoModel new];
     model2.name = @"<无处理人>";
@@ -204,7 +204,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section== 1) {
-        return @"我";
+        return NSLocalizedString(@"local.Me", @"");
     }
     return self.indexArr[section];
 }

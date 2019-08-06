@@ -170,9 +170,9 @@
     if ([self.model.rule.tags allKeys].count>0) {
         NSString *key =[self.model.rule.tags allKeys][0];
         if ([[self.model.rule.tags stringValueForKey:key default:@""] isEqualToString:@""]) {
-            [condition appendFormat:@"标签：%@",key];
+            [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.ruleTag", @""),key];
         }else{
-            [condition appendFormat:@"标签：%@:%@",key,[self.model.rule.tags stringValueForKey:key default:@""]];
+            [condition appendFormat:@"%@：%@:%@",NSLocalizedString(@"local.ruleTag", @""),key,[self.model.rule.tags stringValueForKey:key default:@""]];
         }
         
     }
@@ -180,7 +180,7 @@
             if (condition.length>0) {
                 [condition appendString:@"、"];
             }
-                [condition appendString:@"云账号：全部云账号"];
+            [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.allIssueSource", @"")];
         }else{
             NSDictionary *source = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:[self.model.rule.issueSource firstObject]];
             NSString *sourceName;
@@ -189,12 +189,12 @@
                 if (condition.length>0) {
                     [condition appendString:@"、"];
                 }
-                    [condition appendFormat:@"云账号：%@",sourceName];
+                    [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.issueSourceAccount", @""),sourceName];
             }
         }
            [condition appendString:@"、"];
         if (self.model.rule.type.count == 0 ||self.model.rule.type.count == 5) {
-            [condition appendString:@"类型：全部类型"];
+            [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.allIssueType", @"")];
         }else{
             NSString *typeStr = @"";
             for (NSInteger i=0; i<self.model.rule.type.count; i++) {
@@ -202,11 +202,11 @@
                 typeStr= [typeStr stringByAppendingString:[self.model.rule.type[i] getIssueTypeStr]];
             }
             typeStr = [typeStr substringFromIndex:1];
-            [condition appendFormat:@"类型：%@",typeStr];
+            [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.type", @""),typeStr];
         }
     [condition appendString:@"、"];
     if(self.model.rule.level.count == 0 || self.model.rule.level.count == 3){
-        [condition appendString:@"等级：全部等级"];
+        [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.level", @""),NSLocalizedString(@"local.allIssueLevel", @"")];
     }else{
         NSString *levelStr = @"";
         for (NSInteger i=0; i<self.model.rule.level.count; i++) {
@@ -220,7 +220,7 @@
             }
     }
         levelStr =   [levelStr substringFromIndex:1];
-        [condition appendFormat:@"等级：%@",levelStr];
+        [condition appendFormat:@"%@：%@",NSLocalizedString(@"local.allIssueLevel", @""),levelStr];
 
     }
     return condition;

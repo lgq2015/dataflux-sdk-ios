@@ -89,9 +89,9 @@
                 NSString *fileName = [issueLogDict[@"metaJSON"] stringValueForKey:@"originalFileName" default:@""];
                 NSString *type =  [fileName pathExtension];
                 if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
-                    content =@"[图片]";
+                    content = [NSString stringWithFormat:@"[%@]",NSLocalizedString(@"local.picture", @"")];
                 }else{
-                    content = [NSString stringWithFormat:@"[文件]%@",fileName];
+                    content = [NSString stringWithFormat:@"[%@]%@",NSLocalizedString(@"local.file", @""),fileName];
                 }
             }else{
                 content =[issueLogDict stringValueForKey:@"content" default:@""];
@@ -131,16 +131,6 @@
         self.markUserIcon = [tags2 stringValueForKey:@"pwAvatar" default:@""];
     }
 
-    //标记状态
-    if ([model.markStatus isEqualToString:@"tookOver"]){
-        NSString *name = [markTookOverInfoJSON stringValueForKey:@"name" default:@""];
-        self.markStatusStr = [NSString stringWithFormat:@"%@正在处理",name];
-    }else if ([model.markStatus isEqualToString:@"recovered"]){
-        NSString *name = [markEndAccountInfo stringValueForKey:@"name" default:@""];
-        self.markStatusStr = [NSString stringWithFormat:@"%@标记为解决",name];
-    }
-   
-    
    
         if (model.atLogSeq && model.atLogSeq>0) {
             long long seq = [[IssueChatDataManager sharedInstance] getLastReadChatIssueLogMarker:model.issueId];
@@ -179,7 +169,7 @@
     
     if ((model.issueSourceId == nil || model.issueSourceId.length == 0) && [model.origin isEqualToString:@"user"]) {
         self.icon = @"issue_selfbuild";
-        self.sourceName = @"自建情报";
+        self.sourceName = NSLocalizedString(@"local.selfBuildIssue", @"");
          self.isFromUser = YES;
     }else{
         self.isFromUser = NO;

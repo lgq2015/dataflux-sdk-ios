@@ -39,7 +39,7 @@
     [self addSubview:line];
     self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(12), 0, ZOOM_SCALE(100), ZOOM_SCALE(18));
     self.timeTypeBtn.centerY = self.typeBtn.centerY;
-    UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"创建情报"];
+    UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"issue.create", @"")];
     addIssueBtn.titleLabel.font = RegularFONT(13);
     
     [self addSubview:addIssueBtn];

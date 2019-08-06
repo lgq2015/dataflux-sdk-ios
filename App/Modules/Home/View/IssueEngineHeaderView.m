@@ -121,7 +121,7 @@
         make.bottom.mas_equalTo(self.upContainerView);
     }];
     }
-    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"详细信息"];
+    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.TheDetailedInformation", @"")];
     [self.subContainerView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.stateLab);
@@ -151,7 +151,7 @@
         }
     }];
     if(self.model.attrs.length>0){
-        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"建议"];
+        UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.suggestion", @"")];
         [self.subContainerView addSubview:title];
         [title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.echartContenterView.mas_bottom).offset(Interval(20));
@@ -203,11 +203,11 @@
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已恢复";
+            self.stateLab.text = NSLocalizedString(@"issue.recovered", @"");
             break;
         case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = @"失效";
+            self.stateLab.text = NSLocalizedString(@"local.Discarded", @"");
             break;
     }
 }
@@ -269,7 +269,7 @@
 }
 -(void)setSuggestSubView{
     [self.bookContainerView addSubview:self.mTableView];
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:@"相关文章"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(16), 200, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.RelatedArticles", @"")];
     [self.bookContainerView addSubview:tipLab];
     self.mTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.bookContainerView addSubview:self.mTableView];
@@ -461,10 +461,10 @@
         _repairBtn.titleLabel.font = RegularFONT(14);
         [_repairBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         if (self.model.recovered) {
-            [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+            [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
             _repairBtn.enabled = NO;
         }else{
-            [_repairBtn setTitle:@"修复" forState:UIControlStateNormal];
+            [_repairBtn setTitle:NSLocalizedString(@"local.repair", @"") forState:UIControlStateNormal];
         }
         [_repairBtn addTarget:self action:@selector(recoveClick) forControlEvents:UIControlEventTouchUpInside];
         [self.upContainerView addSubview:_repairBtn];
@@ -472,8 +472,8 @@
     return _repairBtn;
 }
 - (void)recoveClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"手动修复情报后，该情报将不会再出现在您的活跃情报中" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *commit = [PWCommonCtrl actionWithTitle:@"确认修复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.RepairTips", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *commit = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRepair", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
         
         [[PWHttpEngine sharedInstance]recoveIssueWithIssueid:self.model.issueId callBack:^(id response) {
             BaseReturnModel *model = response;
@@ -496,7 +496,7 @@
 }
 - (void)recoveUI{
     [self.assignView repair];
-    [_repairBtn setTitle:@"已恢复" forState:UIControlStateNormal];
+    [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
     _repairBtn.enabled = NO;
     [_repairIcon setImage:[UIImage imageNamed:@"issue_tick"]];
     _repairIcon.userInteractionEnabled = NO;

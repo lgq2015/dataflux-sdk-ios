@@ -19,8 +19,8 @@
 - (void)setTeamFillConfige{
     TeamInfoModel *model = userManager.teamModel;
     TeamTF *nameTf = [TeamTF new];
-    nameTf.title = @"团队名称";
-    nameTf.placeholder = @"请输入您的团队名称";
+    nameTf.title = NSLocalizedString(@"local.TeamName", @"");
+    nameTf.placeholder = NSLocalizedString(@"local.PleaseInputTeamName", @"");
     nameTf.showArrow = NO;
     TeamTF *placeTf = [TeamTF new];
     placeTf.title = @"所在地";
@@ -40,7 +40,7 @@
         nameTf.enabled = YES;
         placeTf.showArrow = YES;
     }else if(userManager.teamModel.isAdmin){
-        self.title = @"团队管理";
+        self.title = NSLocalizedString(@"local.TeamManagement", @"");
         self.type = FillinTeamTypeIsAdmin;
         nameTf.enabled = YES;
         nameTf.text = model.name;
@@ -52,7 +52,7 @@
         self.describeStr = [model.tags stringValueForKey:@"introduction" default:@""];
     }else{
         self.type = FillinTeamTypeIsMember;
-        self.title = @"团队管理";
+        self.title = NSLocalizedString(@"local.TeamManagement", @"");
         nameTf.enabled = NO;
         nameTf.text = model.name;
         placeTf.showArrow = NO;

@@ -50,10 +50,10 @@
     UITapGestureRecognizer *tap=   [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)];
     [self addGestureRecognizer:tap];
     tap.delegate =self;
-    UILabel *levelName = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(12), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:@"等级"];
+    UILabel *levelName = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(12), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:NSLocalizedString(@"local.level", @"")];
     [self.contentView addSubview:levelName];
    
-    NSArray *levelNameAry = @[@"全部",NSLocalizedString(@"local.danger", @""),NSLocalizedString(@"local.warning", @""),NSLocalizedString(@"local.info", @"")];
+    NSArray *levelNameAry = @[NSLocalizedString(@"local.ALL", @""),NSLocalizedString(@"local.danger", @""),NSLocalizedString(@"local.warning", @""),NSLocalizedString(@"local.info", @"")];
     CGFloat space = ZOOM_SCALE(8);
     for (NSInteger i=0; i<levelNameAry.count; i++) {
         UIButton *button = [self selButton];
@@ -67,9 +67,9 @@
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(84), kWidth, SINGLE_LINE_WIDTH)];
     line.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
     [self.contentView addSubview:line];
-    UILabel *typeLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(97), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:@"类型"];
+    UILabel *typeLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(97), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:NSLocalizedString(@"local.type", @"")];
     [self.contentView addSubview:typeLab];
-    NSArray *typeNameAry = @[@"全部",NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @"")];
+    NSArray *typeNameAry = @[NSLocalizedString(@"local.ALL", @""),NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @"")];
     for (NSInteger i=0; i<typeNameAry.count; i++) {
         UIButton *button = [self selButton];
         [button setTitle:typeNameAry[i] forState:UIControlStateNormal];
@@ -89,16 +89,16 @@
     [self.cancle setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
     [self.cancle addTarget:self action:@selector(disMissView) forControlEvents:UIControlEventTouchUpInside];
     self.cancle.layer.borderColor = [UIColor colorWithHexString:@"#E4E4E4"].CGColor;
-    self.commit = [PWCommonCtrl buttonWithFrame:CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeContain text:@"确定"];
+    self.commit = [PWCommonCtrl buttonWithFrame:CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeContain text:NSLocalizedString(@"local.confirm", @"")];
     [self.commit addTarget:self action:@selector(commitClick) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.cancle];
     [self.contentView addSubview:self.commit];
     MineCellModel *orign = [MineCellModel new];
-    orign.title = @"来源";
+    orign.title = NSLocalizedString(@"local.Origin", @"");
     MineCellModel *source = [MineCellModel new];
-    source.title = @"云服务";
+    source.title = NSLocalizedString(@"local.issueSource", @"");
     MineCellModel *assign = [MineCellModel new];
-    assign.title = @"处理人";
+    assign.title = NSLocalizedString(@"local.Assigned", @"");
     [self.dataSource addObjectsFromArray:@[orign,source,assign]];
 }
 -(UITableView *)mTableView{

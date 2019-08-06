@@ -28,7 +28,7 @@
         make.centerY.mas_equalTo(self.contentView);
     }];
     selImage.userInteractionEnabled = YES;
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:[UIColor colorWithHexString:@"#373D41"] text:@"未指派"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(16) textColor:[UIColor colorWithHexString:@"#373D41"] text:NSLocalizedString(@"local.NotAssigned", @"")];
     titleLab.tag = 34;
     [[self.contentView viewWithTag:34] removeFromSuperview];
     [self.contentView addSubview:titleLab];

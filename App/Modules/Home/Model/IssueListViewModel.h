@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, IssueState){
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *attrs;
 @property (nonatomic, strong) NSString *issueLog; //最后一条日志
-@property (nonatomic, strong) NSString *markStatusStr;
+//@property (nonatomic, strong) NSString *markStatusStr;
 @property (nonatomic, strong) NSString *markUserIcon;
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, assign) IssueState state;

@@ -42,7 +42,7 @@
      NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
     MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
     MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
-    MineCellModel *phone = [[MineCellModel alloc]initWithTitle:@"手机号" describeText:phoneText];
+    MineCellModel *phone = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.MobilePhoneNo", @"") describeText:phoneText];
     MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
 
     NSArray *array =@[icon,name,phone,email];
@@ -64,7 +64,7 @@
     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
     MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
     MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
-    MineCellModel *phone = [[MineCellModel alloc]initWithTitle:@"手机号" describeText:phoneText];
+    MineCellModel *phone = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.MobilePhoneNo", @"") describeText:phoneText];
     MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
     NSArray *array =@[icon,name,phone,email];
     [self.dataSource removeAllObjects];
@@ -172,7 +172,7 @@
         [SVProgressHUD showSuccessWithStatus:@"更改头像成功"];
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
-        [SVProgressHUD showErrorWithStatus:@"上传失败"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
 
     }];
 

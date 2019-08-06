@@ -121,7 +121,7 @@
 -(UIButton *)confirmBtn{
     if(!_confirmBtn){
         _confirmBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmBtn setTitle:NSLocalizedString(@"local.confirm", @"") forState:UIControlStateNormal];
         [_confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_confirmBtn setBackgroundColor:PWBlueColor];
         _confirmBtn.enabled = NO;

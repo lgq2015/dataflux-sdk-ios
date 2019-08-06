@@ -63,7 +63,7 @@
         make.right.mas_equalTo(self.view).offset(-Interval(36));
         make.height.offset(SINGLE_LINE_WIDTH);
     }];
-    UIButton *confirmBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"确认"];
+    UIButton *confirmBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.verify", @"")];
     [confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirmBtn];
     [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -190,7 +190,7 @@
     [mTextView sizeToFit];
     _systermLabRect = mTextView.bounds;
     _cellHeight = _systermLabRect.size.height;
-    if ([_message.systermStr isEqualToString:@"在这里讨论该情报"]) {
+    if ([_message.systermStr isEqualToString:@""]) {
         _cellHeight = _systermLabRect.size.height+Interval(28);
 
     }

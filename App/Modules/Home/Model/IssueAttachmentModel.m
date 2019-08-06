@@ -25,32 +25,7 @@
     self.fileSize = [NSString transformedValue:byteSize];
     NSString *type =  [self.fileName pathExtension];
     self.fileType = type;
-
-    if ([type isEqualToString:@"pdf"]) {
-        self.fileIcon = @"file_PDF";
-    }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
-        self.fileIcon = @"file_word";
-    }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]||[type isEqualToString:@"jpeg"]){
-        self.fileIcon = @"file_img";
-    }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
-        self.fileIcon = @"file_PPT";
-    }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
-        self.fileIcon = @"file_excel";
-    }else if([type isEqualToString:@"key"]){
-        self.fileIcon = @"file_keynote";
-    }else if([type isEqualToString:@"numbers"]){
-        self.fileIcon = @"file_numbers";
-    }else if([type isEqualToString:@"pages"]){
-        self.fileIcon = @"file_pages";
-    }else if([type isEqualToString:@"zip"]){
-        self.fileIcon = @"file_zip";
-    }else if([type isEqualToString:@"rar"]){
-        self.fileIcon = @"file_rar";
-    }else if([type isEqualToString:@"txt"]){
-        self.fileIcon = @"file_txt";
-    }else{
-        self.fileIcon = @"file";
-    }
+    self.fileIcon = [type getFileIcon];
 }
 
 

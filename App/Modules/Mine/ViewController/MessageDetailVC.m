@@ -45,39 +45,10 @@
         make.height.offset(ZOOM_SCALE(24));
         make.top.mas_equalTo(titleLab.mas_bottom).offset(Interval(10));
     }];
-    UIColor *color;
-    NSString *type;
-    if ([_model.messageType isEqualToString:@"team"]) {
-        color = [UIColor colorWithHexString:@"#2EB5F3"];
-        type = @"团队";
-    }else if([_model.messageType isEqualToString:@"account"]){
-        color = [UIColor colorWithHexString:@"#FFCF27"];
-        type = @"账号";
-    }else if([_model.messageType isEqualToString:@"issue_source"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"云服务";
-    }else if([_model.messageType isEqualToString:@"service_package"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"服务";
-    }else if([_model.messageType isEqualToString:@"service"]){
-        color = [UIColor colorWithHexString:@"#FFA46B"];
-        type = @"权益";
-    }else if([_model.messageType isEqualToString:@"system"]){
-        color = [UIColor colorWithHexString:@"#49DADD"];
-        type = @"系统";
-    }else if([_model.messageType isEqualToString:@"member"]){
-        color = [UIColor colorWithHexString:@"#26DBAC"];
-        type = @"成员";
-    }else if([_model.messageType isEqualToString:@"role"]){
-        color = [UIColor colorWithHexString:@"#936AF2"];
-        type = @"角色";
-    }else{
-        color = RGBACOLOR(85, 220, 117, 1);
-        type = @"服务";
-    }
-    [self.sourceLab setTextColor:color];
-    self.sourceLab.text = type;
-    self.sourceLab.layer.borderColor = color.CGColor;
+   
+    [self.sourceLab setTextColor:[UIColor colorWithHexString:_model.colorStr]];
+    self.sourceLab.text = _model.typeStr;
+    self.sourceLab.layer.borderColor = [UIColor colorWithHexString:_model.colorStr].CGColor;
     
     UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@""];
     [self.contentView addSubview:timeLab];

@@ -26,7 +26,6 @@
 #import "IssueListManger.h"
 #import "IssueLogListModel.h"
 #import "IssueLogAttachmentUrl.h"
-#import "AtListVC.h"
 #import "IssueLastReadInfoModel.h"
 #import "IssueLogAtReadInfo.h"
 #import "AtReadSeqAndAccountID.h"
@@ -583,7 +582,7 @@
     if ([ext isEqualToString:@"csv"]
         || [ext isEqualToString:@"zip"]
         || [ext isEqualToString:@"rar"]){
-        [iToast alertWithTitleCenter:@"抱歉，该文件暂时不支持预览"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotAvailableForThisFile", @"")];
         return;
     }
     IssueLogModel *logModel = layout.message.model;
@@ -788,10 +787,10 @@
 //    NSDictionary *accountIdMap = PWSafeDictionaryVal(atInfoJSON, @"accountIdMap");
 
     if ((unreadAccounts.count+readAccounts.count)>1) {
-        AtListVC *atVC = [[AtListVC alloc]init];
-        atVC.atStatus = atStatus;
-        atVC.isHasStuff = serviceMap.allKeys.count>0?YES:NO;
-        [self.navigationController pushViewController:atVC animated:YES];
+//        AtListVC *atVC = [[AtListVC alloc]init];
+//        atVC.atStatus = atStatus;
+//        atVC.isHasStuff = serviceMap.allKeys.count>0?YES:NO;
+//        [self.navigationController pushViewController:atVC animated:YES];
     }
    
 }

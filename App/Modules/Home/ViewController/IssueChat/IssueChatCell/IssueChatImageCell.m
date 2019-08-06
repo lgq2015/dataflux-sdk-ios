@@ -70,10 +70,6 @@
     }else if(layout.message.sendStates == ChatSentStatesSendError){
          self.retryBtn.hidden = NO;
         [self.retryBtn setImage:[UIImage imageNamed:@"send_error"] forState:UIControlStateNormal];
-//        [self.retryBtn setTitle:@"重新发送" forState:UIControlStateNormal];
-//        CGFloat offset = 10;
-//        self.retryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -self.retryBtn.imageView.frame.size.width, -self.retryBtn.imageView.frame.size.height-offset/2, 0);
-//        self.retryBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.retryBtn.titleLabel.intrinsicContentSize.height-offset/2, 0, 0, -self.retryBtn.titleLabel.intrinsicContentSize.width);
         [self.retryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.mas_equalTo(self.mBackImgButton);
             make.width.height.offset(ZOOM_SCALE(30));

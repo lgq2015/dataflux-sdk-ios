@@ -56,7 +56,7 @@
         case BindUserInfoTypeMobile:
             title =@"修改手机";
             placeholder = @"请输入新的手机号";
-            tipTitle = @"手机号";
+            tipTitle = NSLocalizedString(@"local.MobilePhoneNo", @"");
             break;
     }
 
@@ -166,7 +166,7 @@
 }
 -(UIButton *)commitBtn{
     if(!_commitBtn){
-        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44)) type:PWButtonTypeContain text:@"确定"];
+        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(ZOOM_SCALE(40), ZOOM_SCALE(377), ZOOM_SCALE(280), ZOOM_SCALE(44)) type:PWButtonTypeContain text:NSLocalizedString(@"local.confirm", @"")];
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _commitBtn.enabled = NO;
         [self.view addSubview:_commitBtn];

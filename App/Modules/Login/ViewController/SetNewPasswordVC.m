@@ -96,7 +96,7 @@
 -(UIButton *)confirmBtn{
     if(!_confirmBtn){
         _confirmBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_confirmBtn setTitle:NSLocalizedString(@"local.confirm", @"") forState:UIControlStateNormal];
         [_confirmBtn addTarget:self action:@selector(confirmBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_confirmBtn setBackgroundColor:PWBlueColor];
         _confirmBtn.enabled = NO;
@@ -199,7 +199,7 @@
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.confirm", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {self.navigationController.interactivePopGestureRecognizer.delegate =nil;
         }
         [self naviSkip];

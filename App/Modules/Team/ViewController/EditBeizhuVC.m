@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.beizhuTF.text = self.noteName;
-    self.title = @"设置备注";
+    self.title = NSLocalizedString(@"local.SetTheNote", @"");
     [self.beizhuTF becomeFirstResponder];
     self.beizhuTF.hll_limitTextLength = 20;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftNavBtn];

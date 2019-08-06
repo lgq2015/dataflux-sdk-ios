@@ -92,8 +92,7 @@
     [self.footer endRefreshing];
 }
 - (void)delectRule:(NSInteger)index{
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您正在进行删除通知规则操作" preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+
         NotiRuleModel *model = self.dataSource[index];
         NSString *ruleId =model.ruleId;
         [SVProgressHUD show];

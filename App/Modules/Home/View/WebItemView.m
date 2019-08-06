@@ -50,18 +50,18 @@
         _contentView = [[UIView alloc]initWithFrame:CGRectMake(kWidth-166, -self.itemHeight, 150, self.itemHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.cornerRadius = 8;
-        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":@"分享"}];
+        UIView *share = [self dropItemWithData:@{@"icon":@"web_share",@"title":NSLocalizedString(@"local.share", @"")}];
         share.frame = CGRectMake(0, 0, 150, 38);
         share.tag = ShareBtnTag;
         [_contentView addSubview:share];
         if (self.style == WebItemViewStyleNormal) {
-            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":@"收藏"}];
+            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_collection",@"title":NSLocalizedString(@"local.collect", @"")}];
             collect.frame = CGRectMake(0, 38, 150, 38);
             collect.tag = CollectionBtnTag;
             [_contentView addSubview:collect];
         }
         if (self.style == WebItemViewStyleCollected) {
-            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_canclecollect",@"title":@"取消收藏"}];
+            UIView *collect = [self dropItemWithData:@{@"icon":@"icon_canclecollect",@"title":NSLocalizedString(@"local.CancelTheCollection", @"")}];
             collect.frame = CGRectMake(0, 38, 150, 38);
             collect.tag = CollectionBtnTag;
             [_contentView addSubview:collect];

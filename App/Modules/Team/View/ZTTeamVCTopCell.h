@@ -12,7 +12,6 @@ typedef enum: NSUInteger{
     inviteMemberType,
     cloudServerType,
     teamManagerType,
-    server,
     notificationRule,
 }TeamTopType;
 @protocol ZTTeamVCTopCellDelegate <NSObject>

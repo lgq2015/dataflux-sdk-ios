@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"指派处理人";
+    self.title = NSLocalizedString(@"local.DesignatedHandler", @"");
     [self createUI];
 }
 - (void)createUI{
@@ -42,7 +42,7 @@
         [weakSelf updateSearchResultsForSearchBar:weakSelf.ztsearchbar];
     };
     [self.view addSubview:_ztsearchbar];
-    [self addNavigationItemWithTitles:@[@"完成"] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@11]];
+    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.complete", @"")] isLeft:NO target:self action:@selector(navBtnClick) tags:@[@11]];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 55, kWidth, kHeight-kTopHeight-55) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -247,7 +247,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section== 1) {
-        return @"我";
+        return NSLocalizedString(@"local.Me", @"");
     }
     return self.indexArr[section];
 }

@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"创建情报";
+    self.title = NSLocalizedString(@"issue.create", @"");
     self.isShowLiftBack = NO;
     [self createUI];
 }
@@ -67,7 +67,7 @@
         make.height.offset(ZOOM_SCALE(56));
     }];
     UILabel *leve = [[UILabel alloc]init];
-    leve.text = @"等级";
+    leve.text = NSLocalizedString(@"local.level", @"");
     leve.font = RegularFONT(16);
     leve.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
     [levelView addSubview:leve];
@@ -136,7 +136,7 @@
         make.height.offset(ZOOM_SCALE(56));
     }];
     UILabel *typeTip = [[UILabel alloc]init];
-    typeTip.text = @"类别";
+    typeTip.text = NSLocalizedString(@"local.category", @"");
     typeTip.font = RegularFONT(16);
     typeTip.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
     [typeView addSubview:typeTip];
@@ -287,7 +287,7 @@
     if (!_navRightBtn) {
         _navRightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
-        [_navRightBtn setTitle:@"完成" forState:UIControlStateNormal];
+        [_navRightBtn setTitle:NSLocalizedString(@"local.complete", @"") forState:UIControlStateNormal];
         [_navRightBtn addTarget:self action:@selector(navigationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _navRightBtn.titleLabel.font = RegularFONT(16);
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
@@ -311,7 +311,7 @@
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             
         }];
-        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
         [alert addAction:cancle];
@@ -339,7 +339,7 @@
 
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
-                [SVProgressHUD showSuccessWithStatus:@"创建情报成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.issueCreateSuccess", @"")];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 if ([self.level isEqualToString:@"danger"]) {
                     model.state =IssueStateSeriousness;

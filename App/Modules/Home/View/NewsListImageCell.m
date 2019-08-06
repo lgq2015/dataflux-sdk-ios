@@ -92,7 +92,7 @@
 -(UILabel *)topStateLab{
     if (!_topStateLab) {
         _topStateLab = [[UILabel alloc]init];
-        _topStateLab.text = @"置顶";
+        _topStateLab.text = NSLocalizedString(@"local.Stick", @"");
         _topStateLab.backgroundColor = PWWhiteColor;
         _topStateLab.textColor = [UIColor colorWithHexString:@"6F85FF"];
         _topStateLab.font =   RegularFONT(14);

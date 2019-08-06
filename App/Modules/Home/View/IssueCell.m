@@ -54,7 +54,7 @@
     
     self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.stateLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
 
-    UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"类型："];
+    UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"%@：",NSLocalizedString(@"local.type", @"")]];
     [self addSubview:categoryLab];
     [categoryLab sizeToFit];
     CGFloat width = categoryLab.frame.size.width;
@@ -110,14 +110,14 @@
     self.titleLab.height = model.titleHeight;
     SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     if (selObj.issueSortType == IssueSortTypeCreate) {
-    self.timeLab.text = [NSString stringWithFormat:@"产生时间：%@",[self.model.time listAccurateTimeStr]];
+    self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.CreateDate", @""),[self.model.time listAccurateTimeStr]];
     }else{
-    self.timeLab.text = [NSString stringWithFormat:@"更新时间：%@",[self.model.updataTime listAccurateTimeStr]];
+    self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.UpdateDate", @""),[self.model.updataTime listAccurateTimeStr]];
     }
     if (_model.isCallME) {
-        NSString *str = [NSString stringWithFormat:@"[有人@我] %@",self.model.issueLog];
+        NSString *str = [NSString stringWithFormat:@"[%@] %@",NSLocalizedString(@"local.SomeOneAtMe", @""),self.model.issueLog];
         NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:str];
-        NSRange range = [str rangeOfString:@"[有人@我]"];
+        NSRange range = [str rangeOfString:[NSString stringWithFormat:@"[%@]",NSLocalizedString(@"local.SomeOneAtMe", @"")]];
         [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FE563E"] range:range];
         self.chatLab.attributedText = attrStr;
     }else{
@@ -138,14 +138,13 @@
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = @"已恢复";
+            self.stateLab.text = NSLocalizedString(@"issue.recovered", @"");
             self.timeLab.text =@"";
-            //[NSString stringWithFormat:@"恢复时间：%@",[self.model.time accurateTimeStr]];
 
             break;
         case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = @"失效";
+            self.stateLab.text = NSLocalizedString(@"local.Discarded", @"");
             break;
     }
     [self.timeLab sizeToFit];
@@ -196,7 +195,7 @@
     }];
     [[self viewWithTag:TagSourcenFrom] removeFromSuperview];
     if (_model.originName.length>0) {
-    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"来源：%@",_model.originName]];
+    UILabel *sourceFromLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.Origin", @""),_model.originName]];
     sourceFromLab.tag =TagSourcenFrom;
     sourceFromLab.textAlignment = NSTextAlignmentRight;
     [self addSubview:sourceFromLab];

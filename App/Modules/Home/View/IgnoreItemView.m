@@ -48,7 +48,7 @@
 }
 -(UIButton *)ignoreBtn{
     if (!_ignoreBtn) {
-        _ignoreBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(kWidth-100, -40, 80, 35) type:PWButtonTypeWord text:@"关闭情报"];
+        _ignoreBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(kWidth-100, -40, 80, 35) type:PWButtonTypeWord text:NSLocalizedString(@"local.CloseTheIssue", @"")];
         _ignoreBtn.titleLabel.font = RegularFONT(13);
         [_ignoreBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [_ignoreBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateSelected];

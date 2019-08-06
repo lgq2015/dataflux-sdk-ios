@@ -113,7 +113,7 @@
         _adminLab.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_adminLab];
     }
-    _adminLab.text = _model.isAdmin ? @"管理员" : @"专家";
+    _adminLab.text = _model.isAdmin ? NSLocalizedString(@"local.TeamAdministrator", @"") : NSLocalizedString(@"local.experts", @"");
     if (_model.isAdmin){
         _adminLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
     }else{

@@ -74,10 +74,6 @@
     }];
     [self.zhifubaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.zhifubaoLab);
-        //TODO:zhangtao
-//        make.right.equalTo(self.payWayView);
-//        make.width.equalTo(@76);
-//        make.height.equalTo(@36);
         make.right.equalTo(self.payWayView).offset(-28);
         make.width.equalTo(@20);
         make.height.equalTo(@20);

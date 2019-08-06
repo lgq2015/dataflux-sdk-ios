@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"云服务";
+    self.title = NSLocalizedString(@"local.issueSource", @"");
     [self createUI];
 }
 - (void)createUI{
@@ -53,7 +53,7 @@
 }
 - (void)loadFromDB {
     [self.dataSource removeAllObjects];
-    [self.dataSource addObjectsFromArray:@[@{@"name":@"全部云服务",@"id":@"ALL"},@{@"name":@"<无云服务>"}]];
+    [self.dataSource addObjectsFromArray:@[@{@"name":NSLocalizedString(@"local.AllIssueSource", @""),@"id":@"ALL"},@{@"name":@"<无云服务>"}]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
         dispatch_async_on_main_queue(^{

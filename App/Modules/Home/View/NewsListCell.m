@@ -8,7 +8,6 @@
 
 #import "NewsListCell.h"
 
-static NSString *const NoImgTips =@"该图片无法显示";
 @interface NewsListCell()
 @property (nonatomic, strong) UIImageView *iconImgVie;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -92,7 +91,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
 -(UILabel *)topStateLab{
     if (!_topStateLab) {
         _topStateLab = [[UILabel alloc]init];
-        _topStateLab.text = @"置顶";
+        _topStateLab.text = NSLocalizedString(@"local.Stick", @"");
         _topStateLab.backgroundColor = PWWhiteColor;
         _topStateLab.textColor = [UIColor colorWithHexString:@"6F85FF"];
         _topStateLab.font =   RegularFONT(14);
@@ -150,7 +149,7 @@ static NSString *const NoImgTips =@"该图片无法显示";
         _noImgLab = [[UILabel alloc]initWithFrame:CGRectZero];
         _noImgLab.textColor =  [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1/1.0];
         _noImgLab.font = [UIFont systemFontOfSize:16];
-        _noImgLab.text = NoImgTips;
+        _noImgLab.text = NSLocalizedString(@"local.NoImgTips", @"");
         [self.contentView addSubview:_noImgLab];
     }
     return _noImgLab;

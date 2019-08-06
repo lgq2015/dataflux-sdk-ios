@@ -26,6 +26,31 @@
     self.updateAccountId = [dict stringValueForKey:@"updateAccountId" default:@""];
     self.updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     self.uri = [dict stringValueForKey:@"uri" default:@""];
+    if ([self.messageType isEqualToString:@"team"]) {
+        self.colorStr = @"#2EB5F3";
+        self.typeStr = NSLocalizedString(@"local.team", @"");
+    }else if([self.messageType isEqualToString:@"account"]){
+        self.colorStr = @"#FFCF27";
+        self.typeStr = NSLocalizedString(@"local.account", @"");
+    }else if([self.messageType isEqualToString:@"issue_source"]){
+        self.colorStr = @"#3B85F8";
+        self.typeStr = NSLocalizedString(@"local.issueSource", @"");
+    }else if([self.messageType isEqualToString:@"service_package"]){
+        self.colorStr = @"#3B85F8";
+        self.typeStr = NSLocalizedString(@"local.service_package", @"");
+    }else if([self.messageType isEqualToString:@"service"]){
+        self.colorStr = @"#FFA46B";
+        self.typeStr = NSLocalizedString(@"local.service", @"");
+    }else if([self.messageType isEqualToString:@"system"]){
+        self.colorStr = @"#49DADD";
+        self.typeStr = NSLocalizedString(@"local.system", @"");
+    }else if([self.messageType isEqualToString:@"member"]){
+        self.colorStr = @"#26DBAC";
+        self.typeStr = NSLocalizedString(@"local.member", @"");
+    }else if([self.messageType isEqualToString:@"role"]){
+        self.colorStr = @"#936AF2";
+        self.typeStr = NSLocalizedString(@"local.role", @"");
+    }
 }
 
 

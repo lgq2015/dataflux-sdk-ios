@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"来源";
+    self.title = NSLocalizedString(@"local.Origin", @"");
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -35,7 +35,7 @@
     self.originTf = [[UITextField alloc]initWithFrame:CGRectMake(16, 12, kWidth-32, ZOOM_SCALE(21))];
     self.originTf.font = RegularFONT(15);
     self.originTf.textColor = PWTextBlackColor;
-    self.originTf.placeholder = @"输入来源";
+    self.originTf.placeholder = NSLocalizedString(@"local.InputOrigin", @"");
     [self.view addSubview:self.originTf];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.originTf.frame)+11, kWidth, SINGLE_LINE_WIDTH)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
@@ -67,7 +67,7 @@
     if (!_navRightBtn) {
         _navRightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         _navRightBtn.frame = CGRectMake(0, 0, 40, 30);
-        [_navRightBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [_navRightBtn setTitle:NSLocalizedString(@"local.confirm", @"") forState:UIControlStateNormal];
         [_navRightBtn addTarget:self action:@selector(navRightClick) forControlEvents:UIControlEventTouchUpInside];
         _navRightBtn.titleLabel.font = RegularFONT(16);
         [_navRightBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];

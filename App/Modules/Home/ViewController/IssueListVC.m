@@ -15,7 +15,6 @@
 #import "IssueListManger.h"
 #import "IssueLogModel.h"
 #import "AddIssueGuideView.h"
-#import "IssueRecoveredListVC.h"
 #import "ZTCreateTeamVC.h"
 #import "IssueDetailsVC.h"
 #import "SelectObject.h"

@@ -53,7 +53,7 @@
     if (!_historyFooterView) {
         _historyFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30))];
         _historyFooterView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
-        UIButton *button = [PWCommonCtrl buttonWithFrame:CGRectMake(0, ZOOM_SCALE(5), ZOOM_SCALE(120), ZOOM_SCALE(20)) type:PWButtonTypeWord text:@"清空搜索历史"];
+        UIButton *button = [PWCommonCtrl buttonWithFrame:CGRectMake(0, ZOOM_SCALE(5), ZOOM_SCALE(120), ZOOM_SCALE(20)) type:PWButtonTypeWord text:NSLocalizedString(@"local.ClearSearchHistory", @"")];
         [button setTitleColor:PWTitleColor forState:UIControlStateNormal];
         button.titleLabel.font = RegularFONT(14);
         [button addTarget:self action:@selector(delectAllClick) forControlEvents:UIControlEventTouchUpInside];

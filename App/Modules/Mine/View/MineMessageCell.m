@@ -50,39 +50,9 @@
 -(void)setModel:(MineMessageModel *)model{
     _model = model;
     self.titleLab.text = _model.title;
-    UIColor *color;
-    NSString *type;
-    if ([_model.messageType isEqualToString:@"team"]) {
-        color = [UIColor colorWithHexString:@"#2EB5F3"];
-        type = @"团队";
-    }else if([_model.messageType isEqualToString:@"account"]){
-        color = [UIColor colorWithHexString:@"#FFCF27"];
-        type = @"账号";
-    }else if([_model.messageType isEqualToString:@"issue_source"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"云服务";
-    }else if([_model.messageType isEqualToString:@"service_package"]){
-        color = [UIColor colorWithHexString:@"#3B85F8"];
-        type = @"服务";
-    }else if([_model.messageType isEqualToString:@"service"]){
-        color = [UIColor colorWithHexString:@"#FFA46B"];
-        type = @"权益";
-    }else if([_model.messageType isEqualToString:@"system"]){
-        color = [UIColor colorWithHexString:@"#49DADD"];
-        type = @"系统";
-    }else if([_model.messageType isEqualToString:@"member"]){
-        color = [UIColor colorWithHexString:@"#26DBAC"];
-        type = @"成员";
-    }else if([_model.messageType isEqualToString:@"role"]){
-        color = [UIColor colorWithHexString:@"#936AF2"];
-        type = @"角色";
-    }else{
-        color = RGBACOLOR(85, 220, 117, 1);
-        type = @"服务";
-    }
-    [self.sourceLab setTextColor:color];
-    self.sourceLab.text = type;
-    self.sourceLab.layer.borderColor = color.CGColor;
+    [self.sourceLab setTextColor:[UIColor colorWithHexString:_model.colorStr]];
+    self.sourceLab.text = _model.typeStr;
+    self.sourceLab.layer.borderColor = [UIColor colorWithHexString:_model.colorStr].CGColor;
     self.triangleView.hidden = _model.isReaded;
     self.timeLab.text = [[NSString getLocalDateFormateUTCDate:_model.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"] accurateTimeStr];
 }

@@ -58,7 +58,7 @@
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
         NSArray *isps = [userManager getTeamISPs];
         NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
-        self.stuffName = [displayName stringValueForKey:@"zh_CN" default:@"王教授"];
+        self.stuffName = [displayName stringValueForKey:@"zh_CN" default:@""];
         self.nameStr = [time accurateTimeStr];
 
     }else if([model.origin isEqualToString:@"bizSystem"]){
@@ -116,32 +116,7 @@
             NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
             self.fileName = [metaJSON stringValueForKey:@"originalFileName" default:@""];
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
-     
-            if ([type isEqualToString:@"pdf"]) {
-                self.fileIcon = @"file_PDF";
-            }else if([type isEqualToString:@"docx"]||[type isEqualToString:@"doc"]){
-                self.fileIcon = @"file_word";
-            }else if([type isEqualToString:@"jpg"]||[type isEqualToString:@"png"]){
-                self.fileIcon = @"file_img";
-            }else if([type isEqualToString:@"ppt"] ||[type isEqualToString:@"pptx"]){
-                self.fileIcon = @"file_PPT";
-            }else if([type isEqualToString:@"xlsx"]||[type isEqualToString:@"xls"]||[type isEqualToString:@"csv"]){
-                self.fileIcon = @"file_excel";
-            }else if([type isEqualToString:@"key"]){
-                self.fileIcon = @"file_keynote";
-            }else if([type isEqualToString:@"numbers"]){
-                self.fileIcon = @"file_numbers";
-            }else if([type isEqualToString:@"pages"]){
-                self.fileIcon = @"file_pages";
-            }else if([type isEqualToString:@"zip"]){
-                self.fileIcon = @"file_zip";
-            }else if([type isEqualToString:@"rar"]){
-                self.fileIcon = @"file_rar";
-            }else if([type isEqualToString:@"txt"]){
-                self.fileIcon = @"file_txt";
-            }else{
-                self.fileIcon = @"file";
-            }
+            self.fileIcon = [type getFileIcon];
         }
     }else if([model.type isEqualToString:@"keyPoint"]){
         NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
@@ -149,17 +124,18 @@
        
         self.messageType = PWChatMessageTypeKeyPoint;
         if ([model.subType isEqualToString:@"markTookOver"]) {
-            self.stuffName = [NSString stringWithFormat:@"由%@处理",name];
+            NSString *text = NSLocalizedString(model.subType, @"");
+            self.stuffName = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
+
         }else if([model.subType isEqualToString:@"issueCreated"]){
             if (self.messageFrom == PWChatMessageFromOther) {
                 self.stuffName = [NSString stringWithFormat:@"由%@创建",name];
             }else{
-             self.stuffName = @"情报产生";
+             self.stuffName = NSLocalizedString(@"issue.issueCreated", @"");
             }
-            //if ([subType isEqualToString:@"markRecovered"]){
         }else if([model.subType isEqualToString:@"markRecovered"]){
-            self.stuffName = [NSString stringWithFormat:@"被%@解决",name];
-
+            NSString *text = NSLocalizedString(model.subType, @"");
+            self.stuffName = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
         }else if([model.subType isEqualToString:@"issueFixed"]){
             NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
             self.stuffName = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
@@ -200,7 +176,7 @@
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
         NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
-         self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:@"专家"];
+         self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:NSLocalizedString(@"local.experts", @"")];
         if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
             [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
                 if ([subType isEqualToString:@"updateExpertGroups"] || [subType isEqualToString:@"exitExpertGroups"]) {

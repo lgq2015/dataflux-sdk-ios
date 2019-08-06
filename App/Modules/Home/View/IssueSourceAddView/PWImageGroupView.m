@@ -283,7 +283,7 @@
     UIDevice *device = [UIDevice currentDevice];
     switch (device.orientation) {
         case UIDeviceOrientationLandscapeLeft:
-            NSLog(@"屏幕向左横置");
+            NSLog(@"The screen is left tapped");
             if(_deviceOrientation==UIDeviceOrientationPortrait||
                _deviceOrientation==UIDeviceOrientationLandscapeRight||
                _deviceOrientation==UIDeviceOrientationUnknown){
@@ -293,7 +293,7 @@
             break;
             
         case UIDeviceOrientationLandscapeRight:
-            NSLog(@"屏幕向右橫置");
+            NSLog(@"The screen is right tapped");
             if(_deviceOrientation==UIDeviceOrientationLandscapeLeft||
                _deviceOrientation==UIDeviceOrientationPortrait||
                _deviceOrientation==UIDeviceOrientationUnknown){
@@ -303,7 +303,7 @@
             break;
             
         case UIDeviceOrientationPortrait:
-            NSLog(@"屏幕直立");
+            NSLog(@"The screen is portrait tapped");
             if(_deviceOrientation==UIDeviceOrientationLandscapeLeft||
                _deviceOrientation==UIDeviceOrientationLandscapeRight){
                 [self portrait];

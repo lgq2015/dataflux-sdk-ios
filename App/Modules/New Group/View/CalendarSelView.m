@@ -29,11 +29,11 @@
     self.userInteractionEnabled = YES;
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissView)]];
    
-    UILabel *issueLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(144), ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#333333"] text:@"情报视图"];
+    UILabel *issueLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(144), ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#333333"] text:NSLocalizedString(@"local.IssueView", @"")];
     issueLab.textAlignment = NSTextAlignmentCenter;
     issueLab.centerX = self.issueBtn.centerX;
     [self.contentView addSubview:issueLab];
-    UILabel *issueLogLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(144), ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#333333"] text:@"日志视图"];
+    UILabel *issueLogLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(144), ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#333333"] text:NSLocalizedString(@"local.IssueLogView", @"")];
     issueLogLab.textAlignment = NSTextAlignmentCenter;
     issueLogLab.centerX = self.issueLogBtn.centerX;
     [self.contentView addSubview:issueLogLab];

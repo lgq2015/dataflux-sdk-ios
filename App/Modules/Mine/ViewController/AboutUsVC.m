@@ -63,7 +63,7 @@
         make.top.mas_equalTo(icon.mas_bottom).offset(Interval(15));
         make.height.offset(ZOOM_SCALE(20));
     }];
-//    MineCellModel *service = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
+
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.serviceAgreement", @"")];
     MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
     MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
