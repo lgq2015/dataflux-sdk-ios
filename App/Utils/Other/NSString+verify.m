@@ -486,13 +486,13 @@
     if ([self isEqualToString:@"user"]) {
         return @"自建";
     }else if([self isEqualToString:@"bizSystem"]){
-        return @"系统";
+        return NSLocalizedString(@"local.system", @"");
     }else if([self isEqualToString:@"crontab"] || [self isEqualToString:@"issueEngine"]){
         return @"诊断";
     }else if([self isEqualToString:@"alertHub"]){
         return @"自定义来源";
     }else if([self isEqualToString:ILMStringAll]){
-        return @"全部来源";
+        return NSLocalizedString(@"local.AllOrigin", @"");
     }else if([self isEqualToString:@""]){
         return @"<未知来源>";
     }else{
@@ -541,5 +541,34 @@
         icon = @"source_customs";
     }
     return icon;
+}
+- (NSString *)getFileIcon{
+    NSString *fileIcon;
+    if ([self isEqualToString:@"pdf"]) {
+        fileIcon = @"file_PDF";
+    }else if([self isEqualToString:@"docx"]||[self isEqualToString:@"doc"]){
+        fileIcon = @"file_word";
+    }else if([self isEqualToString:@"jpg"]||[self isEqualToString:@"png"]||[self isEqualToString:@"jpeg"]){
+        fileIcon = @"file_img";
+    }else if([self isEqualToString:@"ppt"] ||[self isEqualToString:@"pptx"]){
+        fileIcon = @"file_PPT";
+    }else if([self isEqualToString:@"xlsx"]||[self isEqualToString:@"xls"]||[self isEqualToString:@"csv"]){
+        fileIcon = @"file_excel";
+    }else if([self isEqualToString:@"key"]){
+        fileIcon = @"file_keynote";
+    }else if([self isEqualToString:@"numbers"]){
+        fileIcon = @"file_numbers";
+    }else if([self isEqualToString:@"pages"]){
+        fileIcon = @"file_pages";
+    }else if([self isEqualToString:@"zip"]){
+        fileIcon = @"file_zip";
+    }else if([self isEqualToString:@"rar"]){
+        fileIcon = @"file_rar";
+    }else if([self isEqualToString:@"txt"]){
+        fileIcon = @"file_txt";
+    }else{
+        fileIcon = @"file";
+    }
+    return fileIcon;
 }
 @end

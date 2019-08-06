@@ -87,4 +87,5 @@
 - (NSString *)getOriginStr;
 - (NSString *)getIssueTypeStr;
 - (NSString *)getIssueSourceIcon;
+- (NSString *)getFileIcon;
 @end
