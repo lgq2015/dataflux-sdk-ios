@@ -241,7 +241,7 @@
         [image setImage:[UIImage imageNamed:@"no_message"]];
         image.centerX = self.view.centerX;
         [_noSearchView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"暂无搜索结果"];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(328), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.NoSearchResults", @"")];
         no.textAlignment = NSTextAlignmentCenter;
         [_noSearchView addSubview:no];
     }
@@ -258,7 +258,7 @@
         [image setImage:[UIImage imageNamed:@"no_network"]];
         image.centerX = self.view.centerX;
         [_noNetWordView addSubview:image];
-        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(412), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:@"没有网络"];
+        UILabel *no = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(412), kWidth, ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.NoNetwork", @"")];
         no.textAlignment = NSTextAlignmentCenter;
         [_noNetWordView addSubview:no];
     }

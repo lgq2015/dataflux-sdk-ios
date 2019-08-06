@@ -224,7 +224,7 @@
     if ([object isEqual:self.webView] && [keyPath isEqualToString:@"estimatedProgress"]) { // 进度条
         
         CGFloat newprogress = [[change objectForKey:NSKeyValueChangeNewKey] doubleValue];
-        NSLog(@"打印测试进度值：%f", newprogress);
+        NSLog(@"progress：%f", newprogress);
         
         if (newprogress == 1) { // 加载完成
             // 首先加载到头

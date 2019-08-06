@@ -365,7 +365,7 @@
     if([getTeamState isEqualToString:PW_isTeam]){
         titleString = userManager.teamModel.name;
     }else{
-        titleString = @"我的团队";
+        titleString = NSLocalizedString(@"local.MyTeam", @"");
     }
     _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:BOLDFONT(20)];
     [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -385,28 +385,6 @@
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, SINGLE_LINE_WIDTH)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
-   
-//    self.navigationItem.title = @"";
-//    NSString *titleString = @"";
-//    if([getTeamState isEqualToString:PW_isTeam]){
-//        titleString = userManager.teamModel.name;
-//    }else{
-//        titleString = @"我的团队";
-//    }
-//    //导航栏左侧按钮设置
-//    UIFont *font = [UIFont boldSystemFontOfSize:20];
-//    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:font];
-//    [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
-//    _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
-//    [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
-//    NSString *version = [UIDevice currentDevice].systemVersion;
-//    if (version.doubleValue <= 11.0) {
-//        _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:NO];
-//    }
-//    UIBarButtonItem * leftItem=[[UIBarButtonItem alloc]initWithCustomView:_changeTeamNavView];
-//    self.navigationItem.leftBarButtonItem = leftItem;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavButton];
 }
 -(TeamHeaderView *)headerView{
     if (!_headerView) {
@@ -550,11 +528,7 @@
     [alert addAction:add];
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
-//    [[ZTBuChongTeamInfoUIManager shareInstance] show:^{
-//        ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
-//        vc.dowhat = supplementTeamInfo;
-//        [weakSelf.navigationController pushViewController:vc animated:YES];
-//    }];
+
 }
 
 - (UIView *)teamMemberCellHeaderView{
@@ -588,23 +562,7 @@
     view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
     return view;
 }
-- (UIView *)teamProductCellHeaderView{
-    UIView *view = [[UIView alloc] init];
-    //团队名称
-    UILabel *teamLab = [[UILabel alloc] init];
-    teamLab.text = @"尊享权益";
-    teamLab.font = RegularFONT(16);
-    teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
-    [view addSubview:teamLab];
-    //布局
-    [teamLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(view).offset(15);
-        make.top.equalTo(view);
-        make.bottom.equalTo(view);
-    }];
-    view.backgroundColor = [UIColor colorWithHexString:@"#F2F4F7"];
-    return view;
-}
+
 - (TeamMemberCell *)teamMemberCell:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath{
     TeamMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TeamMemberCell"];
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
@@ -613,7 +571,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (userManager.teamModel.isAdmin) {//我是管理员
         if (!model.isAdmin && !model.isSpecialist){//可以对非管理员和非专家执行删除操作
-            MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
                 [self delectMember:indexPath.row];
                 return NO;
             }];
@@ -629,7 +587,7 @@
 - (void)changeTopLeftNavTitleName{
     NSString *currentTeamType = userManager.teamModel.type;
     if ([currentTeamType isEqualToString:@"singleAccount"]){
-        [_changeTeamNavView changeTitle:@"我的团队"];
+        [_changeTeamNavView changeTitle:NSLocalizedString(@"local.MyTeam", @"")];
     }else{
         [_changeTeamNavView changeTitle:userManager.teamModel.name];
     }

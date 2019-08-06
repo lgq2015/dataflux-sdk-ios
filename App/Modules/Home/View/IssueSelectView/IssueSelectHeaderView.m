@@ -57,8 +57,7 @@
         _typeBtn =[[TouchLargeButton alloc]init];
         _typeBtn.largeWidth = 20;
         _typeBtn.largeHeight = 14;
-        //[ buttonWithFrame: type:PWButtonTypeWord text:@"筛选"];
-        [_typeBtn setTitle:@"筛选" forState:UIControlStateNormal];
+        [_typeBtn setTitle:NSLocalizedString(@"local.filtrate", @"") forState:UIControlStateNormal];
         [_typeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_typeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
         _typeBtn.titleLabel.font = RegularFONT(13);
@@ -232,7 +231,7 @@
     }
 }
 -(void)selectSortWithSelectObject:(SelectObject *)sel{
-    NSString *title = sel.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
+    NSString *title = sel.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
     NSString *title2 = sel.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
@@ -243,7 +242,7 @@
 }
 - (void)teamSwitchChangeBtnTitle{
     SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-    NSString *title = selO.issueSortType == IssueSortTypeCreate?@"产生时间排序":@"更新时间排序";
+    NSString *title = selO.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
     NSString *title2 = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];

@@ -8,7 +8,6 @@
 
 #import "ChooseChatStateView.h"
 #import "ChatInputHeaderView.h"
-#import "HomeSelectCell.h"
 @interface ChooseChatStateView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, assign) IssueDealState state;
 @property (nonatomic, strong) NSArray *dataSource;
@@ -24,13 +23,13 @@
 }
 - (void)createUI{
     self.backgroundColor = PWWhiteColor;
-    self.dataSource = @[@1,@2,@3];
-    [self.mTableView registerClass:HomeSelectCell.class forCellReuseIdentifier:@"HomeSelectCell"];
-    [self addSubview:self.mTableView];
-    [self.mTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.width.mas_equalTo(self);
-        make.height.offset(0);
-    }];
+//    self.dataSource = @[@1,@2,@3];
+//    [self.mTableView registerClass:HomeSelectCell.class forCellReuseIdentifier:@"HomeSelectCell"];
+//    [self addSubview:self.mTableView];
+//    [self.mTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.width.mas_equalTo(self);
+//        make.height.offset(0);
+//    }];
 }
 - (void)showWithState:(NSInteger)state{
     self.hidden = NO;
@@ -72,20 +71,20 @@
     return self.dataSource.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HomeSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeSelectCell"];
-    cell.type = SelectTypeIssueChat;
-    cell.index = indexPath.row;
-    cell.titleLab.textColor = PWTitleColor;
-    WeakSelf
-    cell.changeChatStateClick = ^(){
-        if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(ChooseChatStateViewCellIndex:)]){
-            [weakSelf.delegate ChooseChatStateViewCellIndex:indexPath.row+1];
-            }
-     [weakSelf disMissView];
-    };
-    return cell;
-}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    HomeSelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeSelectCell"];
+//    cell.type = SelectTypeIssueChat;
+//    cell.index = indexPath.row;
+//    cell.titleLab.textColor = PWTitleColor;
+//    WeakSelf
+//    cell.changeChatStateClick = ^(){
+//        if(weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(ChooseChatStateViewCellIndex:)]){
+//            [weakSelf.delegate ChooseChatStateViewCellIndex:indexPath.row+1];
+//            }
+//     [weakSelf disMissView];
+//    };
+//    return cell;
+//}
 
 
 #pragma mark ========== UITableViewDelegate ==========

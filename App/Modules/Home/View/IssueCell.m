@@ -126,15 +126,15 @@
     switch (self.model.state) {
         case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.stateLab.text = @"警告";
+            self.stateLab.text = NSLocalizedString(@"local.warning", @"");
             break;
         case IssueStateSeriousness:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"严重";
+            self.stateLab.text = NSLocalizedString(@"local.danger", @"");
             break;
         case IssueStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"提示";
+            self.stateLab.text = NSLocalizedString(@"local.info", @"");
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
@@ -152,20 +152,16 @@
     CGFloat timeWidth = self.timeLab.frame.size.width;
     self.timeLab.width =timeWidth;
     NSString *title,*icon;
+    title = [model.type getIssueTypeStr];
     if ([model.type isEqualToString:@"alarm"]) {
-        title = @"监控";
         icon = @"alarm_g";
     }else if ([model.type isEqualToString:@"security"]){
-        title = @"安全";
         icon = @"security_g";
     }else if ([model.type isEqualToString:@"expense"]){
-        title = @"费用";
         icon = @"expense_g";
     }else if ([model.type isEqualToString:@"optimization"]){
-        title = @"优化";
         icon = @"optimization_g";
     }else{
-        title = @"提醒";
         icon = @"misc_g";
     }
     self.issTypeLab.text = title;

@@ -83,39 +83,6 @@
     return count;
 }
 
-/**
- * 返回检测描述
- * @return
- */
-- (NSString *)getLastDetectionTimeStatement {
-
-    __block NSString *statement = @"";
-
-    [self.getHelper pw_inDatabase:^{
-        NSString *whereFormat = @"ORDER BY scanCheckEndTime DESC";
-        NSDictionary *dict = @{@"scanCheckEndTime": SQL_TEXT};
-        NSArray *array = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_SOURCE_TABLE_NAME dicOrModel:dict whereFormat:whereFormat];
-        if (array.count == 0) {
-            statement = @"尚未进行检测";
-        } else {
-            NSString *time = [array[0] stringValueForKey:@"scanCheckEndTime" default:@""];
-            if (time.length > 0) {
-               BOOL ishas= [[IssueListManger sharedIssueListManger] checkIssueEngineIsHasIssue];
-                NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-                statement = [NSString stringWithFormat:@"%@为您检测", [NSString compareCurrentTime:local]];
-                if (!ishas) {
-                  statement = [NSString stringWithFormat:@"%@为您检测\n恭喜您，您的系统非常健康", [NSString compareCurrentTime:local]];
-                }
-                
-            } else {
-                statement = @"尚未进行检测";
-            }
-        }
-    }];
-
-    return statement;
-
-}
 
 
 /**
@@ -210,17 +177,17 @@
  * 页面刷新时间小于30秒则不起效
  * @param time
  */
-- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime {
-    if (self.lastRefreshTime && ![self.lastRefreshTime timeIntervalAboveThirtySecond]) {
-
-
-    } else {
-        getTime([self getLastDetectionTimeStatement]);
-        self.lastRefreshTime = [NSDate getNowTimeTimestamp];
-
-    }
-
-}
+//- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime {
+//    if (self.lastRefreshTime && ![self.lastRefreshTime timeIntervalAboveThirtySecond]) {
+//
+//
+//    } else {
+//        getTime([self getLastDetectionTimeStatement]);
+//        self.lastRefreshTime = [NSDate getNowTimeTimestamp];
+//
+//    }
+//
+//}
 
 
 - (void)deleteIssueSourceById:(NSArray *)issueSourceIds {

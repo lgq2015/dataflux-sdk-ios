@@ -77,18 +77,8 @@
         issueType =NSLocalizedString(@"local.allIssueType",@"");
     }else{
         for (NSInteger i=0; i<self.model.type.count; i++) {
-            if ([self.model.type[i] isEqualToString:@"alarm"]) {
-                issueType= [issueType stringByAppendingString:@"、监控"];
-            }else if ([self.model.type[i]  isEqualToString:@"security"]){
-                issueType= [issueType stringByAppendingString:@"、安全"];
-            }else if ([self.model.type[i]  isEqualToString:@"expense"]){
-                issueType= [issueType stringByAppendingString:@"、费用"];
-                
-            }else if ([self.model.type[i]  isEqualToString:@"optimization"]){
-                issueType= [issueType stringByAppendingString:@"、优化"];
-            }else{
-                issueType= [issueType stringByAppendingString:@"、提醒"];
-            }
+            [issueType stringByAppendingString:@"、"];
+            issueType= [issueType stringByAppendingString:[self.model.type[i] getIssueTypeStr]];
         }
         issueType = [issueType substringFromIndex:1];
     }
@@ -100,13 +90,13 @@
         issueLevel =NSLocalizedString(@"local.allIssueLevel",@"");
     }else{
         for (NSInteger i=0; i<self.model.level.count; i++) {
-            
+            [issueLevel stringByAppendingString:@"、"];
             if ([self.model.level[i] isEqualToString:@"danger"]) {
-              issueLevel = [issueLevel stringByAppendingString:@"、严重"];
+              issueLevel = [issueLevel stringByAppendingString:NSLocalizedString(@"local.danger", @"")];
             }else if([self.model.level[i] isEqualToString:@"warning"]){
-              issueLevel=  [issueLevel stringByAppendingString:@"、警告"];
+              issueLevel=  [issueLevel stringByAppendingString:NSLocalizedString(@"local.warning", @"")];
             }else{
-              issueLevel=  [issueLevel stringByAppendingString:@"、提示"];
+              issueLevel=  [issueLevel stringByAppendingString:NSLocalizedString(@"local.info", @"")];
             }
     }
         issueLevel =   [issueLevel substringFromIndex:1];

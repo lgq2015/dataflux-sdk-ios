@@ -192,7 +192,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             if (![response[ERROR_CODE] isKindOfClass:[NSNull class]] && [response[ERROR_CODE] isEqualToString:@"home.auth.unauthorized"]) {
                 [userManager logout:^(BOOL success, NSString *des) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [iToast alertWithTitleCenter:@"登录信息失效"];
+                        [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.loginInfoInvalid", @"")];
 
                     });
                 }];

@@ -564,7 +564,8 @@
     [self.codeTfView codeView_showWarnState];
     
     if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
-        NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试",(long)[response longValueForKey:@"ttl" default:0]];
+        NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
+        NSString *toast =[NSLocalizedString(@"home.auth.tooManyIncorrectAttempts", @"") stringByReplacingOccurrencesOfString:@"#" withString:time];
         [SVProgressHUD showErrorWithStatus:toast];
     }else{
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];

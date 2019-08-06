@@ -465,6 +465,9 @@
 		4A50D91A22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
 		4A50D91B22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
 		4A50D91C22F13B6100B2493F /* OriginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91922F13B6100B2493F /* OriginModel.m */; };
+		4A50D91F22F9106200B2493F /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91E22F9106200B2493F /* CALayer+Anim.m */; };
+		4A50D92022F9106200B2493F /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91E22F9106200B2493F /* CALayer+Anim.m */; };
+		4A50D92122F9106200B2493F /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50D91E22F9106200B2493F /* CALayer+Anim.m */; };
 		4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
 		4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */; };
@@ -481,13 +484,7 @@
 		4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A021DF6FB900E4138B /* AboutUsVC.m */; };
 		4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
-		4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
 		4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
-		4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
-		4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
-		4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
-		4A6114C321E5C31600E4138B /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
-		4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -602,15 +599,6 @@
 		4AA4CF282289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
 		4AA4CF292289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
 		4AA4CF2A2289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
-		4AA4CF2D228962A400A2CBE1 /* IssueListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF2C228962A400A2CBE1 /* IssueListHeaderView.m */; };
-		4AA4CF2E228962A600A2CBE1 /* IssueListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF2C228962A400A2CBE1 /* IssueListHeaderView.m */; };
-		4AA4CF2F228962A600A2CBE1 /* IssueListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF2C228962A400A2CBE1 /* IssueListHeaderView.m */; };
-		4AA4CF322289843800A2CBE1 /* SelectIssueTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF312289843800A2CBE1 /* SelectIssueTypeView.m */; };
-		4AA4CF332289843800A2CBE1 /* SelectIssueTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF312289843800A2CBE1 /* SelectIssueTypeView.m */; };
-		4AA4CF342289843800A2CBE1 /* SelectIssueTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF312289843800A2CBE1 /* SelectIssueTypeView.m */; };
-		4AA4CF3822898CEA00A2CBE1 /* HomeSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */; };
-		4AA4CF3922898CEA00A2CBE1 /* HomeSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */; };
-		4AA4CF3A22898CEA00A2CBE1 /* HomeSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */; };
 		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
@@ -1042,7 +1030,6 @@
 		CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
 		CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
 		CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448421BFBDD4002AF34E /* UserManager.m */; };
-		CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
 		CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375321C74194004CF320 /* PWScrollPageView.m */; };
 		CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */; };
 		CA1CF589221ECB3A00D15316 /* PWTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448B21C0A52A002AF34E /* PWTransition.m */; };
@@ -1051,13 +1038,10 @@
 		CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
 		CA1CF58D221ECB3A00D15316 /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
 		CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
-		CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
 		CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
 		CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
 		CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
-		CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
 		CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
-		CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
 		CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		CA1CF598221ECB3A00D15316 /* MineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E521D2035C003BB9CB /* MineViewCell.m */; };
 		CA1CF599221ECB3A00D15316 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
@@ -1087,7 +1071,6 @@
 		CA1CF5B5221ECB3A00D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		CA1CF5B7221ECB3A00D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
-		CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
 		CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
 		CA1CF5BC221ECB3A00D15316 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		CA1CF5BD221ECB3A00D15316 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448021BFA170002AF34E /* MineViewController.m */; };
@@ -1114,7 +1097,6 @@
 		CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
 		CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442421BD326F002AF34E /* PWMemoryCache.m */; };
 		CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
-		CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
 		CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442A21BD3393002AF34E /* PWLRUManager.m */; };
 		CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
@@ -1174,7 +1156,6 @@
 		CA1CF627221ECB5000D15316 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
 		CA1CF628221ECB5000D15316 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C53721D73F06003BB9CB /* SDCycleScrollView.m */; };
 		CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448421BFBDD4002AF34E /* UserManager.m */; };
-		CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B121E590ED00E4138B /* GestureViewController.m */; };
 		CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5375321C74194004CF320 /* PWScrollPageView.m */; };
 		CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5377421CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m */; };
 		CA1CF62E221ECB5000D15316 /* PWTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448B21C0A52A002AF34E /* PWTransition.m */; };
@@ -1183,13 +1164,10 @@
 		CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA62202A72F009F9E94 /* VerifyCodeVC.m */; };
 		CA1CF632221ECB5000D15316 /* VerifyCodeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF44DB21C20BD6002AF34E /* VerifyCodeLoginVC.m */; };
 		CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43B021B8BACE002AF34E /* ItemContentCell.m */; };
-		CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */; };
 		CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7B21FC4741009F9E94 /* UIView+PPBadgeView.m */; };
 		CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C51221D5D435003BB9CB /* PWFMDB.m */; };
 		CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AA922031D27009F9E94 /* PasswordSetVC.m */; };
-		CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114BF21E5A2E200E4138B /* PWCircleView.m */; };
 		CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
-		CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C221E5C31600E4138B /* PWCircle.m */; };
 		CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		CA1CF63D221ECB5000D15316 /* MineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE9C4E521D2035C003BB9CB /* MineViewCell.m */; };
 		CA1CF63E221ECB5000D15316 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
@@ -1219,7 +1197,6 @@
 		CA1CF65A221ECB5000D15316 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		CA1CF65C221ECB5000D15316 /* LibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C221B8BB1D002AF34E /* LibraryModel.m */; };
 		CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF449A21C0B82C002AF34E /* AppManager.m */; };
-		CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B821E5998600E4138B /* CALayer+Anim.m */; };
 		CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF447D21BF8C2D002AF34E /* GridViewModel.m */; };
 		CA1CF661221ECB5000D15316 /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		CA1CF662221ECB5000D15316 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF448021BFA170002AF34E /* MineViewController.m */; };
@@ -1246,7 +1223,6 @@
 		CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C288E219D59700059BB08 /* RefreshTableView.m */; };
 		CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442421BD326F002AF34E /* PWMemoryCache.m */; };
 		CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43FC21B8FD88002AF34E /* LoginPasswordVC.m */; };
-		CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */; };
 		CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF442A21BD3393002AF34E /* PWLRUManager.m */; };
 		CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		CA1CF684221ECB5000D15316 /* PWNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF441921BD1F68002AF34E /* PWNetworking.m */; };
@@ -1612,6 +1588,8 @@
 		4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleDrawRect.m; sourceTree = "<group>"; };
 		4A50D91822F13B6100B2493F /* OriginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OriginModel.h; sourceTree = "<group>"; };
 		4A50D91922F13B6100B2493F /* OriginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OriginModel.m; sourceTree = "<group>"; };
+		4A50D91D22F9106200B2493F /* CALayer+Anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
+		4A50D91E22F9106200B2493F /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
 		4A50F3EE228E9D7D00AD7715 /* ChooseChatStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseChatStateView.h; sourceTree = "<group>"; };
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
@@ -1632,20 +1610,8 @@
 		4A6114A321E2EB8500E4138B /* ContactUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsVC.m; sourceTree = "<group>"; };
 		4A6114A821E3491700E4138B /* PWCommonCtrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCommonCtrl.h; sourceTree = "<group>"; };
 		4A6114A921E3491700E4138B /* PWCommonCtrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCommonCtrl.m; sourceTree = "<group>"; };
-		4A6114B021E590ED00E4138B /* GestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GestureViewController.h; sourceTree = "<group>"; };
-		4A6114B121E590ED00E4138B /* GestureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GestureViewController.m; sourceTree = "<group>"; };
 		4A6114B321E5958300E4138B /* MultimodeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultimodeLabel.h; sourceTree = "<group>"; };
 		4A6114B421E5958300E4138B /* MultimodeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultimodeLabel.m; sourceTree = "<group>"; };
-		4A6114B721E5998600E4138B /* CALayer+Anim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
-		4A6114B821E5998600E4138B /* CALayer+Anim.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
-		4A6114BB21E59BDB00E4138B /* PWCircleViewConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleViewConst.h; sourceTree = "<group>"; };
-		4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleViewConst.m; sourceTree = "<group>"; };
-		4A6114BE21E5A2E200E4138B /* PWCircleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleView.h; sourceTree = "<group>"; };
-		4A6114BF21E5A2E200E4138B /* PWCircleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleView.m; sourceTree = "<group>"; };
-		4A6114C121E5C31600E4138B /* PWCircle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircle.h; sourceTree = "<group>"; };
-		4A6114C221E5C31600E4138B /* PWCircle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircle.m; sourceTree = "<group>"; };
-		4A6114C521E5E70C00E4138B /* PWCircleInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCircleInfoView.h; sourceTree = "<group>"; };
-		4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCircleInfoView.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -1743,12 +1709,6 @@
 		4AA4CF182285482900A2CBE1 /* AtReadSeqAndAccountID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtReadSeqAndAccountID.m; sourceTree = "<group>"; };
 		4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIssueListVC.h; sourceTree = "<group>"; };
 		4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeIssueListVC.m; sourceTree = "<group>"; };
-		4AA4CF2B228962A400A2CBE1 /* IssueListHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueListHeaderView.h; sourceTree = "<group>"; };
-		4AA4CF2C228962A400A2CBE1 /* IssueListHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueListHeaderView.m; sourceTree = "<group>"; };
-		4AA4CF302289843800A2CBE1 /* SelectIssueTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectIssueTypeView.h; sourceTree = "<group>"; };
-		4AA4CF312289843800A2CBE1 /* SelectIssueTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectIssueTypeView.m; sourceTree = "<group>"; };
-		4AA4CF3622898CEA00A2CBE1 /* HomeSelectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSelectCell.h; sourceTree = "<group>"; };
-		4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSelectCell.m; sourceTree = "<group>"; };
 		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
 		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
@@ -2457,7 +2417,6 @@
 				4A47136122AE4EEA00EB90F7 /* IssueSelectView */,
 				4AC2200B228D8F780098848C /* IssueChatKeyBoard */,
 				4AC21FF1228D3DA80098848C /* ZTAddComment */,
-				4AA4CF352289887300A2CBE1 /* HomeSelectView */,
 				4AE9C52E21D73B1E003BB9CB /* HomeNoticeScrollView */,
 				4ABF439A21B8BACE002AF34E /* LibraryView */,
 				4ABF43AC21B8BACE002AF34E /* PWGridView */,
@@ -2661,57 +2620,6 @@
 			path = IssueSelectView;
 			sourceTree = "<group>";
 		};
-		4A6114AE21E4B29C00E4138B /* GestureLock */ = {
-			isa = PBXGroup;
-			children = (
-				4A6114C421E5E6EE00E4138B /* View */,
-				4A6114BA21E59BAD00E4138B /* FrameWork */,
-				4A6114B621E5995600E4138B /* Gategory */,
-				4A6114AF21E58C1400E4138B /* Controller */,
-			);
-			path = GestureLock;
-			sourceTree = "<group>";
-		};
-		4A6114AF21E58C1400E4138B /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4A6114B021E590ED00E4138B /* GestureViewController.h */,
-				4A6114B121E590ED00E4138B /* GestureViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		4A6114B621E5995600E4138B /* Gategory */ = {
-			isa = PBXGroup;
-			children = (
-				4A6114B721E5998600E4138B /* CALayer+Anim.h */,
-				4A6114B821E5998600E4138B /* CALayer+Anim.m */,
-			);
-			path = Gategory;
-			sourceTree = "<group>";
-		};
-		4A6114BA21E59BAD00E4138B /* FrameWork */ = {
-			isa = PBXGroup;
-			children = (
-				4A6114BB21E59BDB00E4138B /* PWCircleViewConst.h */,
-				4A6114BC21E59BDB00E4138B /* PWCircleViewConst.m */,
-				4A6114BE21E5A2E200E4138B /* PWCircleView.h */,
-				4A6114BF21E5A2E200E4138B /* PWCircleView.m */,
-				4A6114C121E5C31600E4138B /* PWCircle.h */,
-				4A6114C221E5C31600E4138B /* PWCircle.m */,
-			);
-			path = FrameWork;
-			sourceTree = "<group>";
-		};
-		4A6114C421E5E6EE00E4138B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4A6114C521E5E70C00E4138B /* PWCircleInfoView.h */,
-				4A6114C621E5E70C00E4138B /* PWCircleInfoView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		4A6C2863219BF75E0059BB08 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -2803,7 +2711,6 @@
 				4AC856ED223147A300DAE1F6 /* SCIndexView */,
 				4A092D83222E6D3B00FB2A35 /* PWPhotoPicker */,
 				4AB489CC21EECE63009F9E94 /* BadgeButton */,
-				4A6114AE21E4B29C00E4138B /* GestureLock */,
 				4ABF43A321B8BACE002AF34E /* PageControl */,
 				4AE5377221CA2CC9004CF320 /* PWPhotoOrAlbumImagePicker */,
 				4AE5374521C68B89004CF320 /* PWScrollPageView */,
@@ -2940,8 +2847,8 @@
 				6B6E2D3A02750BD79E352166 /* IssueChatDataManager */,
 				6B6E23D786959C2B92752C02 /* HandBookManager */,
 				6B6E24DE691DA564CD398535 /* ZhugeIO */,
-				6B6E264F8ABB58970A07936D /* HeartBeatManager.m */,
 				6B6E2224F185D1FD61F47E08 /* HeartBeatManager.h */,
+				6B6E264F8ABB58970A07936D /* HeartBeatManager.m */,
 				4A00DE3122DC449C008462AF /* UtilsConstManager.h */,
 				4A00DE3222DC449C008462AF /* UtilsConstManager.m */,
 			);
@@ -3106,19 +3013,6 @@
 				6B6E237451A2A62D66ACF99C /* PWHttpEngine.m */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		4AA4CF352289887300A2CBE1 /* HomeSelectView */ = {
-			isa = PBXGroup;
-			children = (
-				4AA4CF302289843800A2CBE1 /* SelectIssueTypeView.h */,
-				4AA4CF312289843800A2CBE1 /* SelectIssueTypeView.m */,
-				4AA4CF3622898CEA00A2CBE1 /* HomeSelectCell.h */,
-				4AA4CF3722898CEA00A2CBE1 /* HomeSelectCell.m */,
-				4AA4CF2B228962A400A2CBE1 /* IssueListHeaderView.h */,
-				4AA4CF2C228962A400A2CBE1 /* IssueListHeaderView.m */,
-			);
-			path = HomeSelectView;
 			sourceTree = "<group>";
 		};
 		4AB489CC21EECE63009F9E94 /* BadgeButton */ = {
@@ -3293,6 +3187,8 @@
 		4ABF449C21C0B892002AF34E /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4A50D91D22F9106200B2493F /* CALayer+Anim.h */,
+				4A50D91E22F9106200B2493F /* CALayer+Anim.m */,
 				4A4FF17822C9A7F800F8985E /* TriangleDrawRect.h */,
 				4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */,
 				4A7599D2224116830057BD02 /* NSDate+PWH.h */,
@@ -3749,8 +3645,8 @@
 		6B6E23D786959C2B92752C02 /* HandBookManager */ = {
 			isa = PBXGroup;
 			children = (
-				6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */,
 				6B6E20F23F0B52D81B1F3467 /* HandBookManager.h */,
+				6B6E27C036967EE5BD0C65C5 /* HandBookManager.m */,
 			);
 			path = HandBookManager;
 			sourceTree = "<group>";
@@ -4385,7 +4281,6 @@
 				2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4AC8576F2238EBAA00DAE1F6 /* AddIssueSourceTipView.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
-				4A6114B221E590ED00E4138B /* GestureViewController.m in Sources */,
 				4A092CFF22293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
@@ -4407,7 +4302,6 @@
 				4ABF44DC21C20BD6002AF34E /* VerifyCodeLoginVC.m in Sources */,
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
 				4A759AF3224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
-				4A6114BD21E59BDB00E4138B /* PWCircleViewConst.m in Sources */,
 				4AC21FFF228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */,
@@ -4416,10 +4310,8 @@
 				4AE9C51321D5D435003BB9CB /* PWFMDB.m in Sources */,
 				4A092C8E2226620100FB2A35 /* DistrictCell.m in Sources */,
 				4AB48AAA22031D27009F9E94 /* PasswordSetVC.m in Sources */,
-				4A6114C021E5A2E200E4138B /* PWCircleView.m in Sources */,
 				4A759A932248F8730057BD02 /* GuideVC.m in Sources */,
 				4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */,
-				4A6114C321E5C31600E4138B /* PWCircle.m in Sources */,
 				4A47136922AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
 				4A759AE9224FA1400057BD02 /* Reachability.m in Sources */,
@@ -4521,7 +4413,6 @@
 				4ABF449B21C0B82C002AF34E /* AppManager.m in Sources */,
 				4A759B522254B6A20057BD02 /* EchartListView.m in Sources */,
 				2BFEF2FC225B4572008A0233 /* NSString+Regex.m in Sources */,
-				4A6114B921E5998600E4138B /* CALayer+Anim.m in Sources */,
 				4ABF447E21BF8C2D002AF34E /* GridViewModel.m in Sources */,
 				4A3CDA56229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
 				4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */,
@@ -4545,7 +4436,6 @@
 				4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */,
 				4A092CCB2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				4A00DDB622D326AC008462AF /* AddNotiRuleModel.m in Sources */,
-				4AA4CF2D228962A400A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD2228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77922700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				4AE9C4ED21D361A7003BB9CB /* CurrentUserModel.m in Sources */,
@@ -4556,7 +4446,6 @@
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
 				4A01C65F22EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4ABF43BF21B8BACE002AF34E /* GridViewItem.m in Sources */,
-				4AA4CF3822898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
 				4A092DA4222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				4AC857412233D82000DAE1F6 /* AddSourceItemView.m in Sources */,
 				4ABF43B921B8BACE002AF34E /* TADotView.m in Sources */,
@@ -4585,7 +4474,6 @@
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				2BF9F7A72270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
 				4A00DDCF22D487FE008462AF /* RuleModel.m in Sources */,
-				4AA4CF322289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14232277E7F80043AD5E /* IssueRecoveredListVC.m in Sources */,
 				4A7599E9224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
@@ -4603,7 +4491,6 @@
 				4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */,
 				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
 				4ABF43FD21B8FD89002AF34E /* LoginPasswordVC.m in Sources */,
-				4A6114C721E5E70C00E4138B /* PWCircleInfoView.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
 				4A759A4C2247F5060057BD02 /* AddIssueCell.m in Sources */,
 				4AC856E9223121BA00DAE1F6 /* HandbookModel.m in Sources */,
@@ -4658,6 +4545,7 @@
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
 				4AF6638A225F2DCA00E551B9 /* PWImageGroupItem.m in Sources */,
 				4AB48AA42201C0B5009F9E94 /* IssueModel.m in Sources */,
+				4A50D91F22F9106200B2493F /* CALayer+Anim.m in Sources */,
 				4AB48A2121F7282C009F9E94 /* NetworkToolboxView.m in Sources */,
 				4AC857D3223D1A4500DAE1F6 /* OrderListCell.m in Sources */,
 				4AB48A2B21F86331009F9E94 /* IgnoreListVC.m in Sources */,
@@ -4765,7 +4653,6 @@
 				4AC22014228E521D0098848C /* ChatInputHeaderView.m in Sources */,
 				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF585221ECB3A00D15316 /* UserManager.m in Sources */,
-				CA1CF586221ECB3A00D15316 /* GestureViewController.m in Sources */,
 				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				2BF9F7B62270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
@@ -4798,17 +4685,14 @@
 				4AC22000228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8922489C330057BD02 /* CreateQuestionModel.m in Sources */,
-				CA1CF58F221ECB3A00D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C742225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF590221ECB3A00D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF591221ECB3A00D15316 /* PWFMDB.m in Sources */,
 				4A092C7E22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF593221ECB3A00D15316 /* PasswordSetVC.m in Sources */,
 				4A759A942248F8730057BD02 /* GuideVC.m in Sources */,
-				CA1CF594221ECB3A00D15316 /* PWCircleView.m in Sources */,
 				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
 				4A47136A22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
-				CA1CF596221ECB3A00D15316 /* PWCircle.m in Sources */,
 				4A759AEA224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */,
 				4AC857C7223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
@@ -4911,7 +4795,6 @@
 				4AC8570522323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF5B9221ECB3A00D15316 /* AppManager.m in Sources */,
 				4A3CDA57229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
-				CA1CF5BA221ECB3A00D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EA224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B79D0FE2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
 				CA1CF5BB221ECB3A00D15316 /* GridViewModel.m in Sources */,
@@ -4933,7 +4816,6 @@
 				4A092DA5222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				4A00DDB722D326AC008462AF /* AddNotiRuleModel.m in Sources */,
 				CA1CF5C1221ECB3A00D15316 /* BasicInformationVC.m in Sources */,
-				4AA4CF2E228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD3228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77A22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C5221ED77200D15316 /* FeedbackVC.m in Sources */,
@@ -4946,7 +4828,6 @@
 				4A092D62222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF5C6221ECB3A00D15316 /* main.m in Sources */,
-				4AA4CF3922898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
 				4A7599D5224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF5C9221ECB3A00D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
@@ -4973,7 +4854,6 @@
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
 				4A00DDD022D487FE008462AF /* RuleModel.m in Sources */,
 				2BF9F7A82270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
-				4AA4CF332289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14242277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				4A00DE0C22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
@@ -4995,7 +4875,6 @@
 				CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */,
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF5DB221ECB3A00D15316 /* LoginPasswordVC.m in Sources */,
-				CA1CF5DC221ECB3A00D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
@@ -5045,6 +4924,7 @@
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AF6638B225F2DCA00E551B9 /* PWImageGroupItem.m in Sources */,
 				CA1CF5F1221ECB3A00D15316 /* IssueModel.m in Sources */,
+				4A50D92022F9106200B2493F /* CALayer+Anim.m in Sources */,
 				4A759A4D2247F5330057BD02 /* AddIssueCell.m in Sources */,
 				CA1CF5F2221ECB3A00D15316 /* NetworkToolboxView.m in Sources */,
 				CA1CF5F3221ECB3A00D15316 /* IgnoreListVC.m in Sources */,
@@ -5152,7 +5032,6 @@
 				4AC22015228E521D0098848C /* ChatInputHeaderView.m in Sources */,
 				4A092CCD2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
 				CA1CF62A221ECB5000D15316 /* UserManager.m in Sources */,
-				CA1CF62B221ECB5000D15316 /* GestureViewController.m in Sources */,
 				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				2BF9F7B72270898F00C9B0C3 /* OrderStatusStepCell.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
@@ -5185,17 +5064,14 @@
 				4AC22001228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */,
 				4A759A8A22489C330057BD02 /* CreateQuestionModel.m in Sources */,
-				CA1CF634221ECB5000D15316 /* PWCircleViewConst.m in Sources */,
 				4A092C752225306B00FB2A35 /* BindEmailOrPhoneVC.m in Sources */,
 				CA1CF635221ECB5000D15316 /* UIView+PPBadgeView.m in Sources */,
 				CA1CF636221ECB5000D15316 /* PWFMDB.m in Sources */,
 				4A092C7F22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				CA1CF638221ECB5000D15316 /* PasswordSetVC.m in Sources */,
 				4A759A952248F8730057BD02 /* GuideVC.m in Sources */,
-				CA1CF639221ECB5000D15316 /* PWCircleView.m in Sources */,
 				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
 				4A47136B22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
-				CA1CF63B221ECB5000D15316 /* PWCircle.m in Sources */,
 				4A759AEB224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */,
 				4AC857C8223D0CA500DAE1F6 /* PurchaseHistoryVC.m in Sources */,
@@ -5298,7 +5174,6 @@
 				4AC8570622323C9200DAE1F6 /* ZLChineseToPinyin.m in Sources */,
 				CA1CF65E221ECB5000D15316 /* AppManager.m in Sources */,
 				4A3CDA58229C095800C2EC62 /* LTSCalendarAppearance.m in Sources */,
-				CA1CF65F221ECB5000D15316 /* CALayer+Anim.m in Sources */,
 				4A7599EB224274BC0057BD02 /* ExpertCell.m in Sources */,
 				2B79D0FF2275A7EB00D14902 /* ZTCreateTeamVC.m in Sources */,
 				CA1CF660221ECB5000D15316 /* GridViewModel.m in Sources */,
@@ -5320,7 +5195,6 @@
 				4A092DA6222E84C200FB2A35 /* PWGradientView.m in Sources */,
 				4A00DDB822D326AC008462AF /* AddNotiRuleModel.m in Sources */,
 				CA1CF666221ECB5000D15316 /* BasicInformationVC.m in Sources */,
-				4AA4CF2F228962A600A2CBE1 /* IssueListHeaderView.m in Sources */,
 				4AC21FD4228BDCE20098848C /* IssueDetailsVC.m in Sources */,
 				2BF9F77B22700FE000C9B0C3 /* OrderStatusVC.m in Sources */,
 				CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */,
@@ -5333,7 +5207,6 @@
 				4A092D63222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,
 				CA1CF66B221ECB5000D15316 /* main.m in Sources */,
-				4AA4CF3A22898CEA00A2CBE1 /* HomeSelectCell.m in Sources */,
 				4A7599D6224116830057BD02 /* NSDate+PWH.m in Sources */,
 				4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */,
 				CA1CF66E221ECB5000D15316 /* UITabBarItem+PPBadgeView.m in Sources */,
@@ -5360,7 +5233,6 @@
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
 				4A00DDD122D487FE008462AF /* RuleModel.m in Sources */,
 				2BF9F7A92270815700C9B0C3 /* ZTDeleteLabel.m in Sources */,
-				4AA4CF342289843800A2CBE1 /* SelectIssueTypeView.m in Sources */,
 				4AAC14252277E7F90043AD5E /* IssueRecoveredListVC.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				4A00DE0D22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
@@ -5382,7 +5254,6 @@
 				CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */,
 				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF680221ECB5000D15316 /* LoginPasswordVC.m in Sources */,
-				CA1CF681221ECB5000D15316 /* PWCircleInfoView.m in Sources */,
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				CA1CF683221ECB5000D15316 /* NewsListCell.m in Sources */,
@@ -5432,6 +5303,7 @@
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AF6638C225F2DCA00E551B9 /* PWImageGroupItem.m in Sources */,
 				CA1CF696221ECB5000D15316 /* IssueModel.m in Sources */,
+				4A50D92122F9106200B2493F /* CALayer+Anim.m in Sources */,
 				4A759A4E2247F5340057BD02 /* AddIssueCell.m in Sources */,
 				CA1CF697221ECB5000D15316 /* NetworkToolboxView.m in Sources */,
 				CA1CF698221ECB5000D15316 /* IgnoreListVC.m in Sources */,

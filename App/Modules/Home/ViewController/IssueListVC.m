@@ -17,7 +17,6 @@
 #import "AddIssueGuideView.h"
 #import "IssueRecoveredListVC.h"
 #import "ZTCreateTeamVC.h"
-#import "IssueListHeaderView.h"
 #import "IssueDetailsVC.h"
 #import "SelectObject.h"
 #import "HLSafeMutableArray.h"

@@ -51,7 +51,6 @@
  */
 + (NSString *)compareCurrentTime:(NSString *)str;
 - (BOOL)validateNumber;
-+ (NSString *)progressLabText:(NSDictionary *)dict;
 - (NSString *)getTimeFromTimestamp;
 /**
   时间间隔超过30秒
@@ -86,5 +85,6 @@
 - (NSString *)getIssueStateLevel;
 +(NSInteger)timeSwitchTimestamp:(NSString *)formatTime andFormatter:(NSString *)format;
 - (NSString *)getOriginStr;
+- (NSString *)getIssueTypeStr;
 - (NSString *)getIssueSourceIcon;
 @end

@@ -1,10 +1,3 @@
-/*
- Localizable.strings
- App
- 
- Created by 胡蕾蕾 on 2018/10/25.
- Copyright © 2018年 hll. All rights reserved.
- */
 
 /*
  Localizable.strings
@@ -49,7 +42,7 @@
 "home.account.operationError"= "操作错误";
 "ff.team.to_scout_miss_params"= "缺少参数";
 "ff.account.format_error"= "手机号格式错误，请重新输入";
-"home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请稍后再尝试";
+"home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请 # 后再尝试";
 "home.auth.noSuchMobile"= "手机号码不存在";
 "home.issueSource.invalidDomain"= "域名格式错误";
 "home.account.notTheSameTeam"= "不是同一个团队";
@@ -138,8 +131,8 @@
 "issue.issueCreated" = "情报产生";
 "issue.issueRecovered" = "情报恢复";
 "issue.issueExpired" = "情报过期";
-"issue.updateExpertGroups" = "加入讨论";
-
+"issue.updateExpertGroups" = "您邀请的#已加入讨论";
+"issue.exitExpertGroups" = "您邀请的#已退出讨论";
 "issue.issueLevelChanged" ="情报等级变更为";
 
 "issue.issueLogLevelChanged" =  "情报等级变更";
@@ -233,4 +226,29 @@
 "local.AllIssueSource" = "全部云服务";
 "local.AllAssigned" = "全部处理人";
 "local.NoIssueToday" = "今日无情报";
+"local.SortingByCreateDate" = "产生时间排序";
+"local.SortingByUpdateDate" = "更新时间排序";
+"local.MyIssue" = "我的情报";
+"local.AllIssue" = "全部情报";
+"local.filtrate" = "筛选";
+"local.BackToday" = "回到今天";
+"local.danger" = "严重";
+"local.warning" = "警告";
+"local.info" = "提示";
+"local.SubscribeRule" = "订阅规则";
+"local.CancleSubscribe" = "取消订阅";
+"local.RuleNameNotAllowNull" = "规则名称不能为空";
+"local.ConditionNotAllowNull" = "条件不能为空";
+"local.notificationRuleSubscribeSuccess" = "通知规则订阅成功";
+"local.email" = "邮件";
+"local.SendEmail" = "发送邮件";
+"local.NoSearchResults" = "暂无搜索结果";
+"local.NoNetwork" = "没有网络";
+"local.alarm" = "监控";
+"local.security" = "安全";
+"local.expense" = "费用";
+"local.optimization" = "优化";
+"local.misc" = "提醒";
+"local.MyTeam" = "我的团队";
+"local.delete" = "删除";
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

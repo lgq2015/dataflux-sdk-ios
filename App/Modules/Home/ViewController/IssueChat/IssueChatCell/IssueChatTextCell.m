@@ -140,50 +140,7 @@
             }];
         }
     }
-//    if (unreadAccounts.count>0) {
-//        if(unreadAccounts.count == 1 && readAccounts.count == 0 && (atInfoJSON == nil || atInfoJSON.allKeys.count == 1)){
-//            NSDictionary *unread = unreadAccounts[0];
-//            [userManager getTeamMenberWithId:unread[unread.allKeys[0]] memberBlock:^(NSDictionary *member) {
-//                if (member.allKeys.count>0) {
-//                    atStr = [NSString stringWithFormat:@"%@未读",[member stringValueForKey:@"name" default:@""]];
-//                }
-//            }];
-//
-//        }else{
-//            atStr = [NSString stringWithFormat:@"%ld 人未读",unreadAccounts.count];
-//        }
-//    }
-//    if ((unreadAccounts.count == 0 && readAccounts.count>0 )||(readAccounts.count == 1 && atInfoJSON.allKeys.count == 2)) {
-//        if (readAccounts.count > 1) {
-//            atStr = @"全部已读";
-//        }else{
-//            NSDictionary *read = readAccounts[0];
-//            atStr = [NSString stringWithFormat:@"%@已读",read[read.allKeys[0]]];
-//            [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
-//                if (member.allKeys.count>0) {
-//                    atStr = [NSString stringWithFormat:@"%@已读",[member stringValueForKey:@"name" default:@""]];
-//
-//                }
-//            }];
-//        }
-//    }
-//    if (unreadAccounts.count == 0 && readAccounts.count == 0) {
-//
-//
-//        if(accountIdMap.allKeys.count>0){
-//            atStr = [NSString stringWithFormat:@"%ld 人未读",accountIdMap.allKeys.count];
-//        }else if(serviceMap.allKeys.count>0){
-//            NSArray *isps = [userManager getTeamISPs];
-//            NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
-//            NSString *name = [displayName stringValueForKey:@"zh_CN" default:@"王教授"];
-//            if (self.layout.message.isSend) {
-//                atStr = [NSString stringWithFormat:@"%@未读",name];
-//            }else{
-//                atStr = [NSString stringWithFormat:@"%@已读",name];
-//            }
-//        }
-//
-//    }
+
     return atStr;
 }
 - (void)readBtnClick{

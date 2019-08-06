@@ -37,8 +37,8 @@
 - (void)initSubView{
     
     self.subscribeBtn = [[TouchLargeButton alloc]init];
-    [self.subscribeBtn setTitle:@"订阅规则" forState:UIControlStateNormal];
-    [self.subscribeBtn setTitle:@"取消订阅" forState:UIControlStateSelected];
+    [self.subscribeBtn setTitle:NSLocalizedString(@"local.SubscribeRule", @"") forState:UIControlStateNormal];
+    [self.subscribeBtn setTitle:NSLocalizedString(@"local.CancleSubscribe", @"") forState:UIControlStateSelected];
     [self.subscribeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
     [self.subscribeBtn addTarget:self action:@selector(subscribeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.subscribeBtn.titleLabel.font = RegularFONT(13);
@@ -164,10 +164,9 @@
     }
     if (self.model.emailNotification) {
         if (notiMethod.length>0) {
-            [notiMethod appendString:@"、邮件"];
-        }else{
-            [notiMethod appendString:@"邮件"];
+            [notiMethod appendString:@"、"];
         }
+          [notiMethod appendString:NSLocalizedString(@"local.email", @"")];
     }
     self.notiWayLab.text = notiMethod;
     NSArray *week = [model.weekday componentsSeparatedByString:@","];
@@ -323,18 +322,8 @@
         typeStr = @"全部类型";
     }else{
         for (NSInteger i=0; i<self.model.rule.type.count; i++) {
-            if ([self.model.rule.type[i] isEqualToString:@"alarm"]) {
-            typeStr= [typeStr stringByAppendingString:@"、监控"];
-            }else if ([self.model.rule.type[i]  isEqualToString:@"security"]){
-               typeStr= [typeStr stringByAppendingString:@"、安全"];
-            }else if ([self.model.rule.type[i]  isEqualToString:@"expense"]){
-                typeStr= [typeStr stringByAppendingString:@"、费用"];
-
-            }else if ([self.model.rule.type[i]  isEqualToString:@"optimization"]){
-                typeStr= [typeStr stringByAppendingString:@"、优化"];
-            }else{
-                typeStr= [typeStr stringByAppendingString:@"、提醒"];
-            }
+            typeStr = [typeStr stringByAppendingString:@"、"];
+            typeStr= [typeStr stringByAppendingString:[self.model.rule.type[i] getIssueTypeStr]];
         }
         typeStr = [typeStr substringFromIndex:1];
     }
@@ -364,13 +353,13 @@
             UIColor *levelColor;
             if ([self.model.rule.level[i] isEqualToString:@"danger"]) {
                 levelColor= [UIColor colorWithHexString:@"FC7676"];
-                levelStr = @"严重";
+                levelStr = NSLocalizedString(@"local.danger", @"");
             }else if([self.model.rule.level[i] isEqualToString:@"warning"]){
                 levelColor= [UIColor colorWithHexString:@"FFC163"];
-                levelStr = @"警告";
+                levelStr = NSLocalizedString(@"local.warning", @"");
             }else{
                 levelColor= [UIColor colorWithHexString:@"599AFF"];
-                levelStr = @"提示";
+                levelStr = NSLocalizedString(@"local.info", @"");
             }
             UILabel *levelLab= [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:PWWhiteColor text:levelStr];
                                 levelLab.backgroundColor = levelColor;
@@ -465,10 +454,10 @@
             if (model.isSuccess) {
                 self.subscribeLab.hidden = NO;
                 self.subscribeBtn.selected = !self.subscribeBtn.selected;
-                [SVProgressHUD showSuccessWithStatus:@"通知规则订阅成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.notificationRuleSubscribeSuccess", @"")];
             }else{
                 if ([model.errorCode isEqualToString:@"home.team.notificationRuleAlreadySubscribe"]) {
-                   [SVProgressHUD showSuccessWithStatus:@"通知规则订阅成功"];
+                   [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.notificationRuleSubscribeSuccess", @"")];
                     self.subscribeLab.hidden = NO;
                     self.subscribeBtn.selected = !self.subscribeBtn.selected;
                 }else{

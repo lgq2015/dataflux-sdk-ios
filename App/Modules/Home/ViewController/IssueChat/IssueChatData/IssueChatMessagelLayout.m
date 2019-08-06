@@ -96,24 +96,7 @@
     
 }
 - (void)setImage{
-//   __block CGFloat imgActualHeight;
-//  __block  CGFloat imgActualWidth;
-//    if (_message.image) {
-//        UIImage *image = _message.image;
-//        CGFloat imgWidth  = CGImageGetWidth(image.CGImage);
-//        CGFloat imgHeight = CGImageGetHeight(image.CGImage);
-//         imgActualHeight = PWChatImageMaxSize;
-//         imgActualWidth =  PWChatImageMaxSize * imgWidth/imgHeight;
-//        [self setImageWidth:imgActualWidth Height:imgActualHeight];
-//    }else{
-//        UIImageView *imageView = [[UIImageView alloc]init];
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:_message.imageString] placeholderImage:nil options:SDWebImageRetryFailed completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            NSLog(@"宽：%f, 高：%f", image.size.width, image.size.height);
-//            imgActualHeight = PWChatImageMaxSize;
-//            imgActualWidth =  PWChatImageMaxSize * image.size.width/image.size.height;
-//            [self setImageWidth:image.size.width Height:image.size.height];
-//        }];
-//    }
+
     [self setImageWidth:ZOOM_SCALE(102) Height:ZOOM_SCALE(102)];
 
     

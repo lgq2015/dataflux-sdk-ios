@@ -7,7 +7,6 @@
 //
 
 #import "HomeIssueListVC.h"
-#import "IssueListHeaderView.h"
 #import "IssueListVC.h"
 #import "IssueListManger.h"
 #import "ScanViewController.h"
@@ -68,7 +67,7 @@
     if([getTeamState isEqualToString:PW_isTeam]){
         titleString = userManager.teamModel.name;
     }else{
-        titleString = @"我的团队";
+        titleString = NSLocalizedString(@"local.MyTeam", @"");
     }
     _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:BOLDFONT(20)];
     [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -189,7 +188,7 @@
 - (void)changeTopLeftNavTitleName{
     NSString *currentTeamType = userManager.teamModel.type;
     if ([currentTeamType isEqualToString:@"singleAccount"]){
-        [_changeTeamNavView changeTitle:@"我的团队"];
+        [_changeTeamNavView changeTitle:NSLocalizedString(@"local.MyTeam", @"")];
     }else{
         [_changeTeamNavView changeTitle:userManager.teamModel.name];
     }

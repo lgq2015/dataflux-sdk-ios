@@ -314,55 +314,15 @@
     NSPredicate *urlPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", reg];
     return [urlPredicate evaluateWithObject:self];
 }
-+ (NSString *)progressLabText:(NSDictionary *)dict{
-    NSString *time = dict[@"updateTime"];
-    NSString *local = [NSString getLocalDateFormateUTCDate:time formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-    NSString *needTime = [NSString compareCurrentTime:local];
-    NSString *subType = dict[@"subType"];
-    __block  NSString *type;
-    
-    if ([subType isEqualToString:@"issueCreated"]) {
-        type = @"情报创建";
-    }else if([subType isEqualToString:@"issueRecovered"]){
-        type = @"情报恢复";
-    }else if([subType isEqualToString:@"issueExpired"]){
-        type = @"情报失效";
-    }else if([subType isEqualToString:@"ticketClosed"] ||[subType isEqualToString:@"exitExpertGroups"]){
-        type = @"专家退出讨论";
-    }else if([subType isEqualToString:@"issueDiscarded"]){
-        type = @"情报失效";
-    }
-    else if([subType isEqualToString:@"updateExpertGroups"]){
-        NSDictionary *metaJSON = dict[@"metaJSON"];
-        NSArray *expertGroups = metaJSON[@"expertGroups"];
-        [userManager getExpertNameByKey:expertGroups[0] name:^(NSString *name) {
-            type =[NSString stringWithFormat:@"%@加入讨论",name];
-        }];
-    }else if([subType isEqualToString:@"issueLevelChanged"]){
-        NSDictionary *issueSnapshotJSON_cache = dict[@"issueSnapshotJSON_cache"];
-           type = [NSString stringWithFormat:@"情报等级变更为%@",[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
-    }else if ([subType isEqualToString:@"markTookOver"]){
-      
-        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
-        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-        type = [NSString stringWithFormat:@"%@正在处理",name];
-    }else if ([subType isEqualToString:@"markRecovered"]){
-        NSDictionary *accountInfo = PWSafeDictionaryVal(dict, @"accountInfo");
-      
-        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-                 type = [NSString stringWithFormat:@"已由%@解决",name];
-    
-    }
-    return [NSString stringWithFormat:@"%@  %@",needTime,type];
-}
+
 - (NSString *)getIssueStateLevel{
     NSString *level;
     if ([self isEqualToString:@"danger"]) {
-        level = @"严重";
+        level = NSLocalizedString(@"local.danger", @"");
     }else if([self isEqualToString:@"info"]){
-        level = @"提示";
+        level = NSLocalizedString(@"local.info", @"");
     }else{
-        level = @"警告";
+        level = NSLocalizedString(@"local.warning", @"");
     }
     return level;
 }
@@ -539,6 +499,21 @@
         return self;
     }
   
+}
+- (NSString *)getIssueTypeStr{
+    if ([self isEqualToString:@"alarm"]) {
+        return NSLocalizedString(@"local.alarm", @"");
+    }else if([self isEqualToString:@"security"]){
+        return NSLocalizedString(@"local.security", @"");
+    }else if([self isEqualToString:@"expense"]){
+        return NSLocalizedString(@"local.expense", @"");
+    }else if([self isEqualToString:@"optimization"]){
+        return NSLocalizedString(@"local.optimization", @"");
+    }else if([self isEqualToString:@"misc"]){
+        return NSLocalizedString(@"local.misc", @"");
+    }else{
+        return self;
+    }
 }
 - (NSString *)getIssueSourceIcon{
     NSString *icon;

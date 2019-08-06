@@ -215,15 +215,15 @@
     switch (self.model.state) {
         case IssueStateWarning:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.stateLab.text = @"警告";
+            self.stateLab.text = NSLocalizedString(@"local.warning", @"");
             break;
         case IssueStateSeriousness:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = @"严重";
+            self.stateLab.text = NSLocalizedString(@"local.danger", @"");
             break;
         case IssueStateCommon:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = @"提示";
+            self.stateLab.text = NSLocalizedString(@"local.info", @"");
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];

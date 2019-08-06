@@ -52,7 +52,7 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource name 与 provider
  */
 - (NSDictionary *)getIssueSourceNameAndProviderWithID:(NSString *)issueSourceID;
-- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
+//- (void)checkToGetDetectionStatement:(void (^)(NSString *))getTime;
 
 - (void)deleteIssueSourceById:(NSArray *)issueSourceIds;
 

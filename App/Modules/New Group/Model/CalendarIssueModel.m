@@ -44,10 +44,11 @@
     NSString *updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     NSString *subType = [dict stringValueForKey:@"subType" default:@""];
     NSString *type = [dict stringValueForKey:@"type" default:@""];
-    if ([type isEqualToString:@"bizPoint"]&& [subType isEqualToString:@"updateExpertGroups"]) {
+    if ([type isEqualToString:@"bizPoint"]&& ([subType isEqualToString:@"updateExpertGroups"]||[subType isEqualToString:@"exitExpertGroups"])) {
+        NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
         NSDictionary *metaJSON = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"metaJSON");
          [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
-         self.typeText = [NSString stringWithFormat:@"您邀请的%@已加入讨论",name];
+             self.typeText = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
          }];
     }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];

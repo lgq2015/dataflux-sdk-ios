@@ -115,7 +115,7 @@
 }
 - (void)createLevelAry{
     NSArray *type = @[@"danger",@"warning",@"info"];
-    NSArray *name = @[@"严重",@"警告",@"提示"];
+    NSArray *name = @[NSLocalizedString(@"local.danger", @""),NSLocalizedString(@"local.warning", @""),NSLocalizedString(@"local.info", @"")];
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
     allmodel.name = @"全部等级";
     allmodel.allSelect = YES;
@@ -139,7 +139,7 @@
 }
 - (void)createIssueTypeAry{
     NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"alert"];
-    NSArray *name = @[@"监控",@"安全",@"费用",@"优化",@"提醒"];
+    NSArray *name = @[[type[0] getIssueTypeStr],[type[1] getIssueTypeStr],[type[2] getIssueTypeStr],[type[3] getIssueTypeStr],[type[4] getIssueTypeStr]];
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
     allmodel.name = @"全部类型";
     allmodel.allSelect = YES;

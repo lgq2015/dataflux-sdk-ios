@@ -84,7 +84,7 @@
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtPath:directory error:&error];
             if (error) {
-                NSLog(@"清理缓存是出现错误：%@",error.localizedDescription);
+                NSLog(@"delectError：%@",error.localizedDescription);
             }
         }
     }
@@ -96,10 +96,10 @@
             NSError *error = nil;
             [[NSFileManager defaultManager] removeItemAtPath:fileUrl error:&error];
             if (error) {
-                NSLog(@"删除文件出现错误出现错误：%@",error.localizedDescription);
+                NSLog(@"delectError：%@",error.localizedDescription);
             }
         }else {
-            NSLog(@"不存在文件");
+            NSLog(@"NO File");
         }
     }
 }

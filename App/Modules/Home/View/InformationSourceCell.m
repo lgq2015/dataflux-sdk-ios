@@ -28,18 +28,15 @@
     switch (_model.state) {
         case SourceStateNotDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"36C4E5"].CGColor;
-//            self.stateLab.textColor = [UIColor colorWithHexString:@"36C4E5"];
-//            self.stateLab.text = @"未开始检测";
+
             break;
         case SourceStateDetected:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"4578FC"].CGColor;
-//            self.stateLab.textColor = [UIColor colorWithHexString:@"4578FC"];
-//            self.stateLab.text = @"已纳入检测";
+
             break;
         case SourceStateAbnormal:
             self.stateLab.layer.borderColor = [UIColor colorWithHexString:@"FC7676"].CGColor;
-//            self.stateLab.textColor = [UIColor colorWithHexString:@"FC7676"];
-//            self.stateLab.text = @"云服务异常";
+
             break;
     }
     switch (_model.type) {

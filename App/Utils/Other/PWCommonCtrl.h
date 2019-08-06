@@ -30,6 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(UITextField *_Nullable)passwordTextFieldWithFrame:(CGRect)frame font:(UIFont *_Nullable)font;
 +(UITextField *_Nullable)passwordTextFieldWithFrame:(CGRect)frame;
 +(YYLabel *_Nullable)zy_lableWithFrame:(CGRect)frame font:(UIFont *_Nullable)font textColor:(UIColor *_Nullable)color text:(NSString *_Nonnull)text;
-+(UIAlertController *)alertControllerWithTitle:(NSString *)title message:(NSString *)message preferredStyle:(UIAlertControllerStyle)style;
++(UIAlertController *)alertControllerWithTitle:(NSString *_Nullable)title message:(NSString *)message preferredStyle:(UIAlertControllerStyle)style;
 @end
 NS_ASSUME_NONNULL_END

@@ -145,7 +145,7 @@
         cell.model = self.dataSource[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
             [self deleteCollection:indexPath.row];
             return NO;
         }];
@@ -161,7 +161,7 @@
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
             [self deleteCollection:indexPath.row];
             return NO;
         }];

@@ -153,7 +153,6 @@
 //navigation切换是会走这个代理
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
 {
-    NSLog(@"转场动画代理方法");
     self.isSystemSlidBack = YES;
     //如果来源VC和目标VC都实现协议，那么都做动画
     if ([fromVC conformsToProtocol:@protocol(PWTransitionProtocol)] && [toVC conformsToProtocol:@protocol(PWTransitionProtocol)]) {
@@ -227,7 +226,7 @@
 {
     CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width);
     //    progress = MIN(1.0, MAX(0.0, progress));
-    NSLog(@"右划progress %.2f",progress);
+    NSLog(@"right progress %.2f",progress);
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         self.interactivePopTransition = [[UIPercentDrivenInteractiveTransition alloc] init];

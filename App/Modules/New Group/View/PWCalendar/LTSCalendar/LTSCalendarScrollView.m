@@ -216,7 +216,6 @@
         _currentSection = section;
         CalendarIssueModel *model = self.calendarList[_currentSection][0];
         [self goDate:model.dayDate];
-        DLog(@"willDisplayHeaderView显示第%ld组",(long)section);
         
     }
     
@@ -230,7 +229,6 @@
         //最上面的组头被顶出去
         CalendarIssueModel *model = self.calendarList[_currentSection][0];
         [self goDate:model.dayDate];
-        DLog(@"didEndDisplayingHeaderView显示第%ld组",(long)section + 1);
     }
     
 }

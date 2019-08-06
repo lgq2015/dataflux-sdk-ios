@@ -168,7 +168,7 @@
             if (model.issueSnapshotJSON_cacheStr){
              self.stuffName = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[[model.issueSnapshotJSON_cacheStr jsonValueDecoded][@"level"] getIssueStateLevel]];
             }else{
-                self.stuffName = @"情报等级变更";
+                self.stuffName = NSLocalizedString(@"issue.issueLogLevelChanged", @"");
             }
       
         }else if([model.subType isEqualToString:@"issueAssigned"]){
@@ -199,22 +199,17 @@
     }else{
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
-        if ([subType isEqualToString:@"exitExpertGroups"]) {
-            self.systermStr =@"您邀请的专家已退出讨论";
-        }
+        NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
+         self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:@"专家"];
         if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
             [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
-                if ([subType isEqualToString:@"updateExpertGroups"]) {
-                    self.systermStr = [NSString stringWithFormat:@"您邀请的%@已加入讨论",name];
-                }
-                if ([subType isEqualToString:@"exitExpertGroups"]) {
-                    self.systermStr =[NSString stringWithFormat:@"您邀请的%@已退出讨论",name];
+                if ([subType isEqualToString:@"updateExpertGroups"] || [subType isEqualToString:@"exitExpertGroups"]) {
+                    self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
                 }
             }];
         }
-        
-        self.messageType = PWChatMessageTypeSysterm;
-        self.cellString = PWChatSystermCellId;
+        self.messageType = PWChatMessageTypeKeyPoint;
+        self.cellString = PWChatKeyPointCellId;
 
     }
     if(self.messageFrom == PWChatMessageFromSystem){

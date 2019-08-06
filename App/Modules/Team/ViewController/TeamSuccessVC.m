@@ -133,10 +133,7 @@
          [self.timer invalidate];
     
         [userManager logout:^(BOOL success, NSString *des) {
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [iToast alertWithTitleCenter:@"登录信息失效"];
-//                
-//            });
+
                 }];
     
             }
@@ -144,10 +141,7 @@
 - (void)logoutClick{
     [self.timer invalidate];
     [userManager logout:^(BOOL success, NSString *des) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [iToast alertWithTitleCenter:@"登录信息失效"];
-//
-//        });
+
     }];
     
 }

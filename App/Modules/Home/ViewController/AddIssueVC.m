@@ -78,17 +78,17 @@
         make.centerY.mas_equalTo(levelView.centerY);
     }];
     UIButton *waringBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FFC163"]];
-    [waringBtn setTitle:@"警告" forState:UIControlStateNormal];
+    [waringBtn setTitle:NSLocalizedString(@"local.warning", @"") forState:UIControlStateNormal];
     waringBtn.tag = 10;
     [levelView addSubview:waringBtn];
     UIButton *seriousBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FC7676"]];
     seriousBtn.tag = 11;
     seriousBtn.selected = YES;
     self.level = @"danger";
-    [seriousBtn setTitle:@"严重" forState:UIControlStateNormal];
+    [seriousBtn setTitle:NSLocalizedString(@"local.danger", @"") forState:UIControlStateNormal];
     [levelView addSubview:seriousBtn];
     UIButton *infoBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"599AFF"]];
-    [infoBtn setTitle:@"提示" forState:UIControlStateNormal];
+    [infoBtn setTitle:NSLocalizedString(@"local.info", @"") forState:UIControlStateNormal];
     infoBtn.tag = 12;
     [levelView addSubview:infoBtn];
     [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,8 +236,9 @@
 }
 - (void)issueTypeChoose{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSArray *title = @[@"监控",@"安全",@"费用",@"优化",@"提醒"];
     NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
+    NSArray *title = @[[type[0] getIssueTypeStr],[type[1] getIssueTypeStr],[type[2] getIssueTypeStr],[type[3] getIssueTypeStr],[type[4] getIssueTypeStr]];
+
     for (NSInteger i=0; i<title.count; i++) {
         UIAlertAction *alarm = [PWCommonCtrl actionWithTitle:title[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
             self.type = type[i];

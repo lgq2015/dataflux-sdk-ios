@@ -99,10 +99,9 @@
     }
     if (self.model.customAddress.count>0) {
         if (text.length>0) {
-            text = [text stringByAppendingString:@"、自定义回调:已开启"];
-        }else{
-            text =@"自定义回调:已开启";
+            text = [text stringByAppendingString:@"、"];
         }
+        [text stringByAppendingString:@"自定义回调:已开启"];
     }
     return text;
 }
@@ -113,10 +112,9 @@
     }
     if (self.model.emailNotification) {
         if (notiMethod.length>0) {
-            [notiMethod appendString:@"、邮件"];
-        }else{
-            [notiMethod appendString:@"邮件"];
+            [notiMethod appendString:@"、"];
         }
+         [notiMethod appendString:NSLocalizedString(@"local.email", @"")];
     }
 
     return notiMethod;
@@ -180,60 +178,49 @@
     }
         if (self.model.rule.issueSource.count == 0) {
             if (condition.length>0) {
-                [condition appendString:@"、云账号：全部云账号"];
-            }else{
-                [condition appendString:@"云账号：全部云账号"];
+                [condition appendString:@"、"];
             }
+                [condition appendString:@"云账号：全部云账号"];
         }else{
             NSDictionary *source = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:[self.model.rule.issueSource firstObject]];
             NSString *sourceName;
             if (source) {
                 sourceName = [source stringValueForKey:@"name" default:@""];
                 if (condition.length>0) {
-                    [condition appendFormat:@"、云账号：%@",sourceName];
-                }else{
-                    [condition appendFormat:@"云账号：%@",sourceName];
+                    [condition appendString:@"、"];
                 }
+                    [condition appendFormat:@"云账号：%@",sourceName];
             }
         }
+           [condition appendString:@"、"];
         if (self.model.rule.type.count == 0 ||self.model.rule.type.count == 5) {
-            [condition appendString:@"、类型：全部类型"];
+            [condition appendString:@"类型：全部类型"];
         }else{
             NSString *typeStr = @"";
             for (NSInteger i=0; i<self.model.rule.type.count; i++) {
-                if ([self.model.rule.type[i] isEqualToString:@"alarm"]) {
-                    typeStr= [typeStr stringByAppendingString:@"、监控"];
-                }else if ([self.model.rule.type[i]  isEqualToString:@"security"]){
-                    typeStr= [typeStr stringByAppendingString:@"、安全"];
-                }else if ([self.model.rule.type[i]  isEqualToString:@"expense"]){
-                    typeStr= [typeStr stringByAppendingString:@"、费用"];
-                    
-                }else if ([self.model.rule.type[i]  isEqualToString:@"optimization"]){
-                    typeStr= [typeStr stringByAppendingString:@"、优化"];
-                }else{
-                    typeStr= [typeStr stringByAppendingString:@"、提醒"];
-                }
+                [typeStr stringByAppendingString:@"、"];
+                typeStr= [typeStr stringByAppendingString:[self.model.rule.type[i] getIssueTypeStr]];
             }
             typeStr = [typeStr substringFromIndex:1];
-            [condition appendFormat:@"、类型：%@",typeStr];
+            [condition appendFormat:@"类型：%@",typeStr];
         }
-       
+    [condition appendString:@"、"];
     if(self.model.rule.level.count == 0 || self.model.rule.level.count == 3){
-        [condition appendString:@"、等级：全部等级"];
+        [condition appendString:@"等级：全部等级"];
     }else{
         NSString *levelStr = @"";
         for (NSInteger i=0; i<self.model.rule.level.count; i++) {
-           
+            [levelStr stringByAppendingString:@"、"];
             if ([self.model.rule.level[i] isEqualToString:@"danger"]) {
-             levelStr = [levelStr stringByAppendingString:@"、严重"];
+             levelStr = [levelStr stringByAppendingString:NSLocalizedString(@"local.danger", @"")];
             }else if([self.model.rule.level[i] isEqualToString:@"warning"]){
-              levelStr =  [levelStr stringByAppendingString:@"、警告"];
+              levelStr =  [levelStr stringByAppendingString:NSLocalizedString(@"local.warning", @"")];
             }else{
-               levelStr = [levelStr stringByAppendingString:@"、提示"];
+               levelStr = [levelStr stringByAppendingString:NSLocalizedString(@"local.info", @"")];
             }
     }
         levelStr =   [levelStr substringFromIndex:1];
-        [condition appendFormat:@"、等级：%@",levelStr];
+        [condition appendFormat:@"等级：%@",levelStr];
 
     }
     return condition;
@@ -248,11 +235,11 @@
 - (void)navRightBtnClick{
     [self resignTheFirstResponder];
     if (self.model.name == nil || [self.model.name isEqualToString:@""]) {
-        [iToast alertWithTitleCenter:@"规则名称不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.RuleNameNotAllowNull", @"")];
         return;
     }
     if (self.model.rule == nil) {
-        [iToast alertWithTitleCenter:@"条件不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.ConditionNotAllowNull", @"")];
         return;
     }
     if (self.model.appNotification== NO && self.model.emailNotification == NO) {

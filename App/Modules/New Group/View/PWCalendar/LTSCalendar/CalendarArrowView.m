@@ -86,7 +86,7 @@
         _backTodayBtn.layer.borderWidth = 1;
         _backTodayBtn.layer.borderColor = PWSubTitleColor.CGColor;
         _backTodayBtn.layer.cornerRadius = 4;
-        [_backTodayBtn setTitle:@"回到今天" forState:UIControlStateNormal];
+        [_backTodayBtn setTitle:NSLocalizedString(@"local.BackToday", @"") forState:UIControlStateNormal];
         _backTodayBtn.titleLabel.font = RegularFONT(13);
         [_backTodayBtn setTitleColor:PWSubTitleColor forState:UIControlStateNormal];
         [_backTodayBtn addTarget:self action:@selector(backTodayBtnClick) forControlEvents:UIControlEventTouchUpInside];

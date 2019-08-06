@@ -164,7 +164,8 @@ SINGLETON_FOR_CLASS(UserManager);
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
 
                 if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
-                    NSString *toast = [NSString stringWithFormat:@"您尝试的错误次数过多，请 %lds 后再尝试", (long) [response longValueForKey:@"ttl" default:0]];
+                    NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
+                    NSString *toast =[NSLocalizedString(@"home.auth.tooManyIncorrectAttempts", @"") stringByReplacingOccurrencesOfString:@"#" withString:time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
                     [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -263,7 +264,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     //存储的团队列表、团队情报数、ISPs都和当前账号有关系，所以请求成功做处理
                     [self requestMemberList:nil];
                     [self requestTeamIssueCount:nil];
-                    [self loadISPs];
+                    [self loadConst];
                     if ([self getTeamAdminId].length == 0) {
                         [self loadTeamMember];
                     }
@@ -487,21 +488,6 @@ SINGLETON_FOR_CLASS(UserManager);
     } failBlock:^(NSError *error) {
         completion ? completion(nil):nil;
         [error errorToast];
-    }];
-}
-
-- (void)loadISPs{
-    NSDictionary *param = @{@"keys":@"ISPs"};
-    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
-            NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
-            if (constISPs == nil || constISPs.count == 0) return ;
-            NSMutableArray *ISPs = [NSMutableArray array];
-            [ISPs addObjectsFromArray:constISPs];
-            [userManager setTeamISPs:ISPs];
-        }
-    } failBlock:^(NSError *error) {
     }];
 }
 #pragma mark ========== 被踢下线 ==========
@@ -789,5 +775,21 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
     [cache removeObjectForKey:KCurrentCalendarViewType];
     [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentCalendarViewType];
+}
+#pragma mark ========== Const/常量 ==========
+- (void)loadConst{
+    NSDictionary *param = @{@"keys":@"ISPs,issueLevel"};
+    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
+        if ([response[ERROR_CODE] isEqualToString:@""]) {
+            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+            NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
+            NSArray *issueLevel = PWSafeArrayVal(content, @"issueLevel");
+            if (constISPs == nil || constISPs.count == 0) return ;
+            NSMutableArray *ISPs = [NSMutableArray array];
+            [ISPs addObjectsFromArray:constISPs];
+            [userManager setTeamISPs:ISPs];
+        }
+    } failBlock:^(NSError *error) {
+    }];
 }
 @end

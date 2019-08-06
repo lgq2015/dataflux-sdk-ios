@@ -26,7 +26,7 @@
 - (void)setModel:(TeamInfoModel *)model{
     _model = model;
     if([model.type isEqualToString:@"singleAccount"]){
-        _teamName.text = @"我的团队";
+        _teamName.text = NSLocalizedString(@"local.MyTeam", @"");
     }else{
         _teamName.text = model.name;
     }
@@ -47,9 +47,9 @@
         _teamName.textColor = [UIColor colorWithHexString:@"#140F26"];
         _numLab.hidden = NO;
         if (model.issueCount == nil ){
-            _numLab.text = @"我的情报：0";
+            _numLab.text = [NSString stringWithFormat:@"%@：0",NSLocalizedString(@"local.MyIssue", @"")];
         }else{
-            _numLab.text = [NSString stringWithFormat:@"我的情报： %@",model.issueCount];
+            _numLab.text = [NSString stringWithFormat:@"%@： %@",NSLocalizedString(@"local.MyIssue", @""),model.issueCount];
         }
     }
     //@显示

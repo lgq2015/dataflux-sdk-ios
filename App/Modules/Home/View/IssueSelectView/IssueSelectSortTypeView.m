@@ -71,7 +71,7 @@
     [self addSubview:self.contentView];
     SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     self.mySel = sel;
-    self.dataSource =self.isSleTime?@[@"产生时间排序",@"更新时间排序"]:@[@"我的情报",@"全部情报"];
+    self.dataSource =self.isSleTime?@[NSLocalizedString(@"local.SortingByCreateDate", @""),NSLocalizedString(@"local.SortingByUpdateDate", @"")]:@[NSLocalizedString(@"local.MyIssue", @""),NSLocalizedString(@"local.AllIssue", @"")];
     [self.mTableView reloadData];
     [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(108), kWidth,ZOOM_SCALE(108))];
     _contentView.alpha = 0;

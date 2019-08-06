@@ -53,7 +53,7 @@
     UILabel *levelName = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(12), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:@"等级"];
     [self.contentView addSubview:levelName];
    
-    NSArray *levelNameAry = @[@"全部",@"严重",@"警告",@"提示"];
+    NSArray *levelNameAry = @[@"全部",NSLocalizedString(@"local.danger", @""),NSLocalizedString(@"local.warning", @""),NSLocalizedString(@"local.info", @"")];
     CGFloat space = ZOOM_SCALE(8);
     for (NSInteger i=0; i<levelNameAry.count; i++) {
         UIButton *button = [self selButton];
@@ -69,7 +69,7 @@
     [self.contentView addSubview:line];
     UILabel *typeLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(97), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:@"类型"];
     [self.contentView addSubview:typeLab];
-    NSArray *typeNameAry = @[@"全部",@"监控",@"安全",@"费用",@"优化",@"提醒"];
+    NSArray *typeNameAry = @[@"全部",NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @"")];
     for (NSInteger i=0; i<typeNameAry.count; i++) {
         UIButton *button = [self selButton];
         [button setTitle:typeNameAry[i] forState:UIControlStateNormal];

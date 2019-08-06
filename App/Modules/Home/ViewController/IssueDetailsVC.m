@@ -668,10 +668,10 @@
     NSString *levelTitle = @"";
     switch (self.model.state) {
         case IssueStateWarning:
-            levelTitle = @"警告";
+            levelTitle = NSLocalizedString(@"local.warning", @"");
             break;
         case IssueStateSeriousness:
-            levelTitle = @"严重";
+            levelTitle = NSLocalizedString(@"local.danger", @"");
             break;
         case IssueStateCommon:
             levelTitle = @"提示";
@@ -680,18 +680,8 @@
             break;
     }
 
-    NSString *type;
-    if ([self.model.type isEqualToString:@"alarm"]) {
-        type = @"监控";
-    }else if ([self.model.type isEqualToString:@"security"]){
-        type = @"安全";
-    }else if ([self.model.type isEqualToString:@"expense"]){
-        type = @"费用";
-    }else if ([self.model.type isEqualToString:@"optimization"]){
-        type = @"优化";
-    }else{
-        type = @"提醒";
-    }
+    NSString *type = [self.model.type getIssueTypeStr];
+    
 
     [[[[[[ZhugeIOIssueHelper new] eventIssueLookTime] attrIssueLevel:levelTitle]
             attrIssueTitle:self.model.title] attrIssueType:type] endTrack];

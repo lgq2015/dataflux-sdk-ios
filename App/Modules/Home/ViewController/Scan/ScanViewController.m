@@ -183,7 +183,7 @@
 }
 - (void)showError:(NSString*)str
 {
-//    [LBXAlertAction showAlertWithTitle:@"提示" msg:str buttonsStatement:@[@"知道了"] chooseBlock:nil];
+
 }
 - (void)scanResultWithArray:(NSArray<LBXScanResult*>*)array
 {

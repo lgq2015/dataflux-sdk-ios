@@ -63,13 +63,7 @@
         make.right.mas_equalTo(contentView).offset(-Interval(16));
     }];
     
-//    UILabel *subTitle =  [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"准备工作："];
-//    [contentView addSubview:subTitle];
-//    [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(mediumContent.mas_bottom).offset(ZOOM_SCALE(88));
-//        make.left.mas_equalTo(contentView).offset(Interval(16));
-//        make.height.offset(ZOOM_SCALE(25));
-//    }];
+
     
     BorderView *boder = [[BorderView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(690), kWidth, ZOOM_SCALE(46))];
     boder.backgroundColor = PWWhiteColor;
@@ -104,33 +98,7 @@
         make.centerY.mas_equalTo(boder);
         make.height.offset(ZOOM_SCALE(17));
     }];
-//    UIView *temp =nil;
-//    NSArray *subContentAry = @[@"实例 ID： 集群环境中的每个主机都需要提供主机的云实例 ID，例如阿里云一般是以 i 开头的22 位字符 i-uf6h8c7rfv50ainm0pdp",@"管控节点要求是 CentOS 6.8 以上或者 Ubuntu14.04 以上，要求能访问外网，可以使用集群中的原有的一台主机。",@"为了不影响现有主机上的业务，建议您单独部署一台管控节点机器，推荐配置 2 核 4G。"];
-//    for (NSInteger i=0; i<3; i++) {
-//
-//        UIView *dot = [[UIView alloc]init];
-//        dot.backgroundColor = PWBlueColor;
-//        dot.layer.cornerRadius = ZOOM_SCALE(4);
-//        [contentView addSubview:dot];
-//        [dot mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(contentView).offset(Interval(16));
-//            make.width.height.offset(ZOOM_SCALE(8));
-//            if (temp == nil) {
-//                make.top.mas_equalTo(subTitle.mas_bottom).offset(ZOOM_SCALE(12));
-//            }else{
-//                make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(20));
-//            }
-//        }];
-//        UILabel *subContent = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:subContentAry[i]];
-//        subContent.numberOfLines = 0;
-//        [contentView addSubview:subContent];
-//        [subContent mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(dot.mas_right).offset(Interval(6));
-//            make.top.mas_equalTo(dot).offset(-ZOOM_SCALE(8));
-//            make.right.mas_equalTo(contentView).offset(-Interval(16));
-//        }];
-//        temp = subContent;
-//    }
+
     UIView *subview = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-kTopHeight-ZOOM_SCALE(47-Interval(40)), kWidth, ZOOM_SCALE(47)+Interval(40))];
     subview.backgroundColor = PWWhiteColor;
     [self.view  addSubview:subview];

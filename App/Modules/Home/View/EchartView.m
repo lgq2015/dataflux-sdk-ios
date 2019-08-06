@@ -58,7 +58,6 @@
     title.subtextEqual(data[@"yAxis"][@"name"]);
     title.textStyle.fontSize = @16;
     title.textStyle.fontStyle = PYTextStyleFontStyleNormal;
-    //    option.title.subtext = @"数值";
     option.title = title;
     /** 提示框 */
     PYTooltip *tooltip = [[PYTooltip alloc] init];

@@ -246,7 +246,7 @@
 }
 - (UILabel *)emailLab{
     if (!_emailLab){
-        _emailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@"发送邮件"];
+        _emailLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:NSLocalizedString(@"local.SendEmail", @"")];
         _emailLab.textAlignment = NSTextAlignmentCenter;
     }
     return _emailLab;

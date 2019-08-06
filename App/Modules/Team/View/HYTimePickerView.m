@@ -134,7 +134,7 @@
     //添加确定和取消按钮
     for (int i = 0; i < 2; i ++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((self.frame.size.width - 60) * i, 0, 60, 40)];
-        [button setTitle:i == 0 ? @"取消" : @"确定" forState:UIControlStateNormal];
+        [button setTitle:i == 0 ? NSLocalizedString(@"local.cancel", @"") : @"确定" forState:UIControlStateNormal];
         if (i == 0) {
             [button setTitleColor:PWCancelBtnColor forState:UIControlStateNormal];
         } else {
