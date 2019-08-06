@@ -32,18 +32,17 @@
     [self addSubview:image];
     switch (self.style) {
         case NoDataViewNormal:
-            tip = @"暂无列表";
+            tip = NSLocalizedString(@"local.NoList", @"");
             hideBtn = YES;
             break;
         case NoDataViewIssueList:
-            tip = @"暂无情报，试试更改筛选条件";
+            tip = NSLocalizedString(@"local.NoFiltrateIssueListTip", @"");
             hideBtn = YES;
-            btnTitle = @"查看过去 24 小时恢复的情报";
             break;
-        case NoDataViewLastDay:
-            tip = @"过去 24 小时无情报";
+        case NoDataViewWebAdd:
+            [image setImage:[UIImage imageNamed:@"goToWebAdd"]];
+            tip = NSLocalizedString(@"local.NoIssueSourceListTip", @"");
             hideBtn = YES;
-            btnTitle = @"进入日历";
             break;
     }
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:tip];
