@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, SourceType) {
     SourceTypeMessageDock,         //消息坞
     SourceTypeAliFinance,          //阿里金融云
     SourceTypeAliCainiao,          //菜鸟物流云
+    SourceTypeCustum               //自定义
 };
 typedef NS_ENUM(NSInteger, SourceState) {
     SourceStateNotDetected = 1,        //未开始检测

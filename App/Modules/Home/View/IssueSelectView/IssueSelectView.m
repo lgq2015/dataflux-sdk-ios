@@ -106,6 +106,7 @@
         _mTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(172), kWidth, ZOOM_SCALE(132)) style:UITableViewStylePlain];
         _mTableView.rowHeight = ZOOM_SCALE(44);
         _mTableView.backgroundColor = PWWhiteColor;
+        _mTableView.scrollEnabled = NO;
         _mTableView.delegate = self;
         _mTableView.dataSource =self;
     }

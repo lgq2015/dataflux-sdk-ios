@@ -537,6 +537,8 @@
         icon = @"icon_alis";
     }else if ([self isEqualToString:@"aliyun.cainiao"]){
         icon = @"cainiao_s";
+    }else if([self isEqualToString:@"CUSTOM"]){
+        icon = @"source_customs";
     }
     return icon;
 }

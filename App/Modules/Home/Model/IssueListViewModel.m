@@ -187,29 +187,7 @@
         if (source) {
             NSString *type = [source stringValueForKey:@"provider" default:@""];
             self.sourceName = [source stringValueForKey:@"name" default:@""];
-            if ([type isEqualToString:@"carrier.corsairmaster"]){
-                self.icon = @"icon_foresight_small";
-                
-            }else if([type isEqualToString:@"aliyun"]) {
-                self.icon = @"icon_alis";
-            }else if([type isEqualToString:@"qcloud"]){
-                self.icon = @"icon_tencent_small";
-            }else if([type isEqualToString:@"aws"]){
-                self.icon = @"icon_aws_small";
-            }else if([type isEqualToString:@"ucloud"]){
-                self.icon = @"icon_tencent_small";
-            }else if ([type isEqualToString:@"domain"]){
-                self.icon = @"icon_domainname_small";
-            }else if([type isEqualToString:@"carrier.corsair"]){
-                self.icon =@"icon_mainframe_small";
-            }else if([type isEqualToString:@"carrier.alert"]){
-                self.sourceName = @"消息坞";
-                self.icon = @"message_docks";
-            }else if ([type isEqualToString:@"aliyun.finance"]){
-                self.icon = @"icon_alis";
-            }else if ([type isEqualToString:@"aliyun.cainiao"]){
-                self.icon = @"cainiao_s";
-            }
+            self.icon =  [type getIssueSourceIcon];
         }
     }
     self.titleHeight = [self.title strSizeWithMaxWidth:kWidth-60 withFont:RegularFONT(15)].height+5;

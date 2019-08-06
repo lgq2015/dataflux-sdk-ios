@@ -70,6 +70,9 @@
         case SourceTypeAliCainiao:
             self.iconImgView.image = [UIImage imageNamed:@"cainiao_b"];
             break;
+        case SourceTypeCustum:
+            self.iconImgView.image = [UIImage imageNamed:@"source_customb"];
+            break;
     }
     self.iconImgView.centerY = self.contentView.centerY;
     [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {

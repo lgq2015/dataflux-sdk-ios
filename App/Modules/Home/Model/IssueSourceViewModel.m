@@ -55,6 +55,8 @@
         self.type = SourceTypeAliCainiao;
     }else if([provider isEqualToString:@"aliyun.finance"]){
         self.type = SourceTypeAliFinance;
+    }else if([provider isEqualToString:@"CUSTOM"]){
+        self.type = SourceTypeCustum;
     }
     if (self.type == SourceTypeClusterDiagnose || self.type == SourceTypeSingleDiagnose) {
        
