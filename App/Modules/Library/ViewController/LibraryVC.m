@@ -46,7 +46,7 @@ static NSUInteger ItemWidth = 104;
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
     [self.view addSubview:nav];    
     nav.backgroundColor = PWWhiteColor;
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:@"智库"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:NSLocalizedString(@"local.libriary", @"")];
     title.textAlignment = NSTextAlignmentCenter;
     [nav addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,7 +66,7 @@ static NSUInteger ItemWidth = 104;
         make.width.height.offset(ZOOM_SCALE(32));
         make.centerX.mas_equalTo(self.view).offset(-ZOOM_SCALE(21));
     }];
-    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"搜索"];
+    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:NSLocalizedString(@"local.search", @"")];
     [self.searchView addSubview:searchLab];
     [searchLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(ZOOM_SCALE(6));
@@ -180,7 +180,7 @@ static NSUInteger ItemWidth = 104;
             btn.iconImgVie.image = [UIImage imageNamed:@"icon_book"];
         }
         btn.clickBlock = ^(NSInteger index){
-            NSLog(@"点击的是%ld",(long)index);
+            DLog(@"Click Index ==%ld",(long)index);
             [self loadHandBookDetail:index];
         };
         [[self.mainScrollView viewWithTag:10+index]removeFromSuperview];

@@ -83,7 +83,7 @@
 }
 -(UIButton *)commitBtn{
     if (!_commitBtn) {
-        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"提交"];
+        _commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.submit", @"")];
         [_commitBtn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_commitBtn];
     }
@@ -114,16 +114,16 @@
         [PWNetworking requsetHasTokenWithUrl:PW_addFeedback withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SubmitSuccess", @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }else{
-                [SVProgressHUD showErrorWithStatus:@"提交失败"];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.SubmitFailure", @"")];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:@"提交失败"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.SubmitFailure", @"")];
         }];
     
 }

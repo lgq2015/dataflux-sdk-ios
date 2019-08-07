@@ -67,7 +67,7 @@
     if (!_centerBtn){
         _centerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_centerBtn setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-        [_centerBtn setTitle:@"搜索" forState:UIControlStateNormal];
+        [_centerBtn setTitle:NSLocalizedString(@"local.search", @"") forState:UIControlStateNormal];
         _centerBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [_centerBtn setTitleColor:[UIColor colorWithHexString:@"#8E8E93"] forState:UIControlStateNormal];
         _centerBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
@@ -112,7 +112,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     self.centerBtn.hidden = YES;
     self.tf.leftView = self.leftSearchBtn;
-    self.tf.placeholder = @"搜索";
+    self.tf.placeholder = NSLocalizedString(@"local.search", @"");
     self.tf.leftViewMode =  UITextFieldViewModeAlways;
     [UIView animateWithDuration:0.15 animations:^{
         self.cancelBtn.hidden = NO;

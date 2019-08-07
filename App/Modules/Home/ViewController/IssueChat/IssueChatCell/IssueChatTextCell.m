@@ -60,32 +60,34 @@
         self.retryBtn.hidden = NO;
     }
     self.atReadBtn.hidden = YES;
-//    if (layout.message.isHasAtStr) {
-//        NSString *arStr = [self atString];
-//        self.atReadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:arStr];
-//        [self.atReadBtn setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
-//
-//        self.atReadBtn.titleLabel.font = RegularFONT(13);
-//        self.atReadBtn.hidden = NO;
-//        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
-//            self.atReadBtn.enabled = NO;
-//        }else{
-//            self.atReadBtn.enabled = YES;
-//        }
-//        [self.contentView addSubview:self.atReadBtn];
-//        [self.atReadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(self.mBackImgButton);
-//            make.top.mas_equalTo(self.mBackImgButton.mas_bottom).offset(4);
-//            make.height.offset(ZOOM_SCALE(18));
-//        }];
-//        [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        if (self.layout.message.sendStates == ChatSentStatesIsSending) {
-//            self.atReadBtn.hidden = YES;
-//        }else{
-//            self.atReadBtn.hidden = NO;
-//        }
-//    }
+    //已读未读btn显示
+    /* if (layout.message.isHasAtStr) {
+        NSString *arStr = [self atString];
+        self.atReadBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:arStr];
+        [self.atReadBtn setTitleColor:[UIColor colorWithHexString:@"#C7C7CC"] forState:UIControlStateDisabled];
+
+        self.atReadBtn.titleLabel.font = RegularFONT(13);
+        self.atReadBtn.hidden = NO;
+        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
+            self.atReadBtn.enabled = NO;
+        }else{
+            self.atReadBtn.enabled = YES;
+        }
+        [self.contentView addSubview:self.atReadBtn];
+        [self.atReadBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self.mBackImgButton);
+            make.top.mas_equalTo(self.mBackImgButton.mas_bottom).offset(4);
+            make.height.offset(ZOOM_SCALE(18));
+        }];
+        [self.atReadBtn addTarget:self action:@selector(readBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        if (self.layout.message.sendStates == ChatSentStatesIsSending) {
+            self.atReadBtn.hidden = YES;
+        }else{
+            self.atReadBtn.hidden = NO;
+        }
+    }*/
 }
+/*
 -(NSString *)atString{
     __block NSString *atStr;
     NSDictionary *atStatus = [self.layout.message.model.atStatusStr jsonValueDecoded];
@@ -117,7 +119,7 @@
         if (serviceMap.allKeys.count>0) {
             NSArray *isps = [userManager getTeamISPs];
             NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
-            NSString *name = [displayName stringValueForKey:@"zh_CN" default:@"王教授"];
+            NSString *name = [displayName stringValueForKey:@"zh_CN" default:NSLocalizedString(@"local.ProWang", @"")];
             if (self.layout.message.sendStates == ChatSentStatesSendError) {
                 atStr = @"";
             }else if(self.layout.message.sendStates ==ChatSentStatesIsSending){
@@ -142,6 +144,7 @@
 
     return atStr;
 }
+ */
 - (void)readBtnClick{
 //  
 //        if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatReadUnreadBtnClickLayout:)]){

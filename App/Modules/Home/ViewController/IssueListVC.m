@@ -65,7 +65,7 @@
 
 }
 - (void)hometeamSwitch:(NSNotification *)notification{
-    DLog(@"homevc----团队切换请求成功后通知");
+    DLog(@"homevc----switch-team-success");
     [SVProgressHUD show];
     WeakSelf
     [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
@@ -256,7 +256,7 @@
 }
 - (UILabel *)tipLab{
     if (!_tipLab) {
-        NSString *string =@"您有新情报，点击刷新";
+        NSString *string =NSLocalizedString(@"local.HaveNewInformationClickRefresh", @"");
         _tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30)) font:RegularFONT(14) textColor:PWBlueColor text:string];
         _tipLab.textAlignment = NSTextAlignmentCenter;
         _tipLab.backgroundColor = [UIColor colorWithHexString:@"#D3E4F5"];
@@ -266,7 +266,7 @@
         [_tipLab addGestureRecognizer:tap];
     NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:string];
     //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-    NSRange range = [string rangeOfString:@"点击刷新"];
+    NSRange range = [string rangeOfString:NSLocalizedString(@"local.ClickRefresh", @"")];
     NSRange pointRange = NSMakeRange(0, range.location);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[NSForegroundColorAttributeName] = PWTextColor;

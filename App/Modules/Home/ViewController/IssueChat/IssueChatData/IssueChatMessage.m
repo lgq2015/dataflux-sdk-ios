@@ -129,7 +129,7 @@
 
         }else if([model.subType isEqualToString:@"issueCreated"]){
             if (self.messageFrom == PWChatMessageFromOther) {
-                self.stuffName = [NSString stringWithFormat:@"由%@创建",name];
+                self.stuffName = [NSString stringWithFormat:NSLocalizedString(@"issue.create%@", @""),name];
             }else{
              self.stuffName = NSLocalizedString(@"issue.issueCreated", @"");
             }
@@ -137,8 +137,8 @@
             NSString *text = NSLocalizedString(model.subType, @"");
             self.stuffName = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
         }else if([model.subType isEqualToString:@"issueFixed"]){
-            NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
-            self.stuffName = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
+            NSString *reText=[NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),name];
+            self.stuffName = reText;
         }else if([model.subType isEqualToString:@"issueLevelChanged"]){
             NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
             if (model.issueSnapshotJSON_cacheStr){

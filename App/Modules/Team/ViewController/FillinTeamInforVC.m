@@ -195,7 +195,7 @@
 }
 #pragma mark ========== 创建团队 ==========
 - (void)createBtnViewAdd{
-    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"提交"];
+    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.submit", @"")];
     commitTeam.enabled = NO;
     [commitTeam addTarget:self action:@selector(commitTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitTeam];

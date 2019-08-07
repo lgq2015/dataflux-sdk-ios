@@ -104,8 +104,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(NO,nil);
                 }
                 [SVProgressHUD dismiss];
-                [iToast alertWithTitleCenter:NSLocalizedString(@"home.auth.passwordIncorrect", @"")];
+                
                 NSString *errorMsg = NSLocalizedString(errCode, @"");
+                [iToast alertWithTitleCenter:errorMsg];
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
 
 

@@ -28,7 +28,7 @@
     if (self.isPhone) {
         dict = @{@"title":NSLocalizedString(@"local.MobilePhoneNo", @""),@"placeholder":@"请输入邀请成员手机号码"};
     }else{
-        dict = @{@"title":@"邮箱",@"placeholder":@"请输入邀请成员邮箱"};
+        dict = @{@"title":NSLocalizedString(@"local.mailbox", @""),@"placeholder":@"请输入邀请成员邮箱"};
     }
     UIView *item = [self itemWithData:dict];
     [self.view addSubview:item];

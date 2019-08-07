@@ -36,7 +36,7 @@
         NSString *name = [_model.statusChangeAccountInfo stringValueForKey:@"name" default:@""];
         
      self.nameLab.textColor = PWTextBlackColor;
-        self.nameLab.text =[NSLocalizedString(@"issue.issueFixed", @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
+        self.nameLab.text = [NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),name];
     
        [self recoveredUI];
     }else{
@@ -172,7 +172,7 @@
 }
 -(void)repair{
     
-   self.nameLab.text =[NSLocalizedString(@"issue.issueFixed", @"") stringByReplacingOccurrencesOfString:@"#" withString:userManager.curUserInfo.name];
+   self.nameLab.text =[NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),userManager.curUserInfo.name];
     [self recoveredUI];
 }
 /*

@@ -187,7 +187,7 @@
             [[[[ZhugeIOMineHelper new] eventChangeEmail] attrVerifyWayPwd] track];
 
         }else{
-            [iToast alertWithTitleCenter:@"密码错误"];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
 
         }
     } failBlock:^(NSError *error) {

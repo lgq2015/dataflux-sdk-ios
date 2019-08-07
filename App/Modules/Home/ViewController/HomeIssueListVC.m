@@ -133,7 +133,7 @@
     }];
 }
 - (void)editTeamNote:(NSNotification *)notification{
-    DLog(@"teamvc----修改备注");
+    DLog(@"teamvc----Modify the remark");
 }
 - (void)tapTopArrow:(UITapGestureRecognizer *)ges{
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];

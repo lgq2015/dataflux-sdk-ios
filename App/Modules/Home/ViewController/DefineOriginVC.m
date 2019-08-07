@@ -102,7 +102,7 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(31))];
-    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectMake(16, 0, 200, ZOOM_SCALE(18)) font:RegularFONT(13) textColor:[UIColor colorWithHexString:@"#939396"] text:@"历史输入"];
+    UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectMake(16, 0, 200, ZOOM_SCALE(18)) font:RegularFONT(13) textColor:[UIColor colorWithHexString:@"#939396"] text:NSLocalizedString(@"local.HistoricalInput", @"")];
     lab.centerY = header.centerY;
     [header addSubview:lab];
     return header;
@@ -112,7 +112,7 @@
         _historyFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(30))];
         _historyFooterView.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
         TouchLargeButton *button =[[TouchLargeButton alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(5), ZOOM_SCALE(120), ZOOM_SCALE(20))];
-        [button setTitle:@"清空历史" forState:UIControlStateNormal];
+        [button setTitle:NSLocalizedString(@"local.ClearHistory", @"") forState:UIControlStateNormal];
         [button setTitleColor:PWTitleColor forState:UIControlStateNormal];
         button.titleLabel.font = RegularFONT(12);
         [button addTarget:self action:@selector(delectAllClick) forControlEvents:UIControlEventTouchUpInside];

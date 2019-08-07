@@ -148,7 +148,7 @@
                 }
             } else {
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                  [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+                  [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                          [self naviSkip];
                     });

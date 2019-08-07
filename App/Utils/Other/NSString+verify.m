@@ -246,7 +246,7 @@
     NSDate *timeDate = [dateFormatter dateFromString:self];
     NSString *timeStr;
     if ([timeDate isToday]) {
-        timeStr = [NSString stringWithFormat:@"今天 %@",[timeDate hourMinutesTimeStr]];
+        timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.TodayDate", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isYesterday]){
         timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
     }else if([timeDate isThisYear]){
@@ -263,7 +263,7 @@
     NSDate *timeDate = [dateFormatter dateFromString:self];
     NSString *timeStr;
     if ([timeDate isToday]) {
-        timeStr = [NSString stringWithFormat:@"今天 %@",[timeDate hourMinutesTimeStr]];
+        timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.TodayDate", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isYesterday]){
         timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
     }else if([timeDate isThisYear]){
@@ -484,17 +484,17 @@
 }
 - (NSString *)getOriginStr{
     if ([self isEqualToString:@"user"]) {
-        return @"自建";
+        return NSLocalizedString(@"local.selfBuild", @"");
     }else if([self isEqualToString:@"bizSystem"]){
         return NSLocalizedString(@"local.system", @"");
     }else if([self isEqualToString:@"crontab"] || [self isEqualToString:@"issueEngine"]){
-        return @"诊断";
+        return NSLocalizedString(@"local.diagnose", @"");
     }else if([self isEqualToString:@"alertHub"]){
-        return @"自定义来源";
+        return NSLocalizedString(@"local.CustomSource", @"");
     }else if([self isEqualToString:ILMStringAll]){
         return NSLocalizedString(@"local.AllOrigin", @"");
     }else if([self isEqualToString:@""]){
-        return @"<未知来源>";
+        return [NSString stringWithFormat:@"<%@>",NSLocalizedString(@"local.TheUnknownSources", @"")];
     }else{
         return self;
     }

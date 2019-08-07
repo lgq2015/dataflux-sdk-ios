@@ -223,20 +223,12 @@
 }
 - (UILabel *)titleLab{
     if (!_titleLab){
-//        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:_realName == nil ? @"王教授" : _realName];
-        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:@"王教授"];
+        _titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.ProWang", @"")];
         _titleLab.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLab;
 }
-//- (UILabel *)subTip{
-//    if (!_subTip){
-//        _subTip = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(13) textColor:PWSubTitleColor text:@"服务格言：\n对客户负责，是我们始终的态度"];
-//        _subTip.textAlignment = NSTextAlignmentCenter;
-//        _subTip.numberOfLines = 0;
-//    }
-//    return _subTip;
-//}
+
 - (UILabel *)phoneLab{
     if (!_phoneLab){
         _phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@"拨打电话"];

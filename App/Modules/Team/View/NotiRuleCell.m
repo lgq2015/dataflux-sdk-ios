@@ -67,7 +67,7 @@
         make.top.mas_equalTo(line.mas_bottom).offset(14);
         make.width.height.offset(ZOOM_SCALE(20));
     }];
-    UILabel *conditionLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"条件"];
+    UILabel *conditionLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.condition", @"")];
     conditionLab.tag = 22;
     [self.contentView addSubview:conditionLab];
     [conditionLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -80,7 +80,7 @@
 
 -(UILabel *)subscribeLab{
     if (!_subscribeLab) {
-        _subscribeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#39D1AA"] text:@"已订阅"];
+        _subscribeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#39D1AA"] text:NSLocalizedString(@"local.HaveSubscribed", @"")];
         _subscribeLab.textAlignment = NSTextAlignmentCenter;
         _subscribeLab.layer.cornerRadius = 3.;//边框圆角大小
         _subscribeLab.layer.masksToBounds = YES;
@@ -96,7 +96,7 @@
         _subContentView.backgroundColor = PWWhiteColor;
         [self.contentView addSubview:_subContentView];
         NSArray *iconAry = @[@"icon_noti",@"icon_ding",@"icon_customcallbacks",@"icon_time",@"icon_weekc"];
-        NSArray *titleAry = @[@"通知方式",@"钉钉通知",@"自定义回调",@"时间",@"周期"];
+        NSArray *titleAry = @[NSLocalizedString(@"local.notificationWay", @""),NSLocalizedString(@"local.DingDingNotification", @""),NSLocalizedString(@"local.CustomCallbacks", @""),NSLocalizedString(@"local.time", @""),NSLocalizedString(@"local.cycle", @"")];
         NSArray *labAry = @[self.notiWayLab,self.dingNoti,self.customNoti,self.timeLab,self.weekLab];
         UIView *temp = nil;
         for (NSInteger i=0; i<iconAry.count; i++) {
@@ -155,8 +155,8 @@
         make.bottom.mas_equalTo(self.contentView);
     }];
   
-    self.dingNoti.text = model.dingtalkAddress.count>0?@"已开启":@"未开启";
-    self.customNoti.text = model.customAddress.count>0?@"已开启":@"未开启";
+    self.dingNoti.text = model.dingtalkAddress.count>0?NSLocalizedString(@"local.HasBeenOpen", @""):NSLocalizedString(@"local.NotOpen", @"");
+    self.customNoti.text = model.customAddress.count>0?NSLocalizedString(@"local.HasBeenOpen", @""):NSLocalizedString(@"local.NotOpen", @"");
     self.timeLab.text = [NSString stringWithFormat:@"%@:%@",model.startTime,model.endTime];
     NSMutableString *notiMethod = [NSMutableString new];
     if (self.model.appNotification) {

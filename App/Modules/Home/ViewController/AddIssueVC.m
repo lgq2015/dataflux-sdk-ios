@@ -171,12 +171,12 @@
         make.height.offset(ZOOM_SCALE(180));
     }];
     UILabel *desTitleLab =[[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(8), 100, ZOOM_SCALE(20))];
-    desTitleLab.text = @"描述";
+    desTitleLab.text = NSLocalizedString(@"local.description", @"");
     desTitleLab.font = RegularFONT(14);
     desTitleLab.textColor = PWTitleColor;
     [describeView addSubview:desTitleLab];
     if (!_describeTextView) {
-        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"请输入..." font:RegularFONT(16)];
+        self.describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:[NSString stringWithFormat:@"%@...",NSLocalizedString(@"local.PleaseInput", @"")] font:RegularFONT(16)];
         [describeView addSubview:self.describeTextView];
         [self.describeTextView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(desTitleLab.mas_bottom).offset(ZOOM_SCALE(6));
@@ -271,13 +271,13 @@
        _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, Interval(12), kWidth, ZOOM_SCALE(65))];
         _titleView.backgroundColor = PWWhiteColor;
         UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(8), ZOOM_SCALE(40), ZOOM_SCALE(20))];
-        lab.text = @"标题";
+        lab.text = NSLocalizedString(@"local.headline", @"");
         lab.font = RegularFONT(14);
         lab.textColor = PWTitleColor;
         lab.textAlignment = NSTextAlignmentLeft;
         [_titleView addSubview:lab];
         self.titleTf = [PWCommonCtrl textFieldWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(34), ZOOM_SCALE(350), ZOOM_SCALE(22))];
-        self.titleTf.placeholder = @"请输入...";
+        self.titleTf.placeholder =[NSString stringWithFormat:@"%@...",NSLocalizedString(@"local.PleaseInput", @"")];
         [_titleView addSubview:self.titleTf];
         [self.mainScrollView addSubview:_titleView];
     }
@@ -307,7 +307,7 @@
 }
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认取消本次新建情报吗？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@?",NSLocalizedString(@"local.ConfirmToCancelThisNewIssue", @"")] preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             
         }];
@@ -397,15 +397,12 @@
                 NSData *data = UIImageJPEGRepresentation(obj.image, 0.5);
                 totleSize+=[data length]*1.0;
         }];
-        if (totleSize>1024*1024*50) {
-            [iToast alertWithTitleCenter:@"文件过大"];
+        if (totleSize>1024*1024*50 || convertedValue>1024*1024*10) {
+            [iToast alertWithTitleCenter:NSLocalizedString(@"home.base.payloadTooLarge", @"")];
             return;
         }
-        if (convertedValue>1024*1024*10) {
-            [iToast alertWithTitleCenter:@"文件过大"];
-            return;
-        }
-                
+    
+        
         NSString *size =[self calulateImageFileSize:data];
         if (!name) {
             name = [NSDate getNowTimeTimestamp];

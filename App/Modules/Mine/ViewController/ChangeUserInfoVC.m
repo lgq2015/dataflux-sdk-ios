@@ -37,7 +37,7 @@
             break;
         case ChangeUITEmail:
         if (userManager.curUserInfo.email == nil ||[userManager.curUserInfo.email isEqualToString:@""]) {
-            [self setNaviTitle:@"绑定邮箱"];
+            [self setNaviTitle:NSLocalizedString(@"local.BindingEmail", @"")];
         }else{
             [self setNaviTitle:@"修改邮箱"];
         }

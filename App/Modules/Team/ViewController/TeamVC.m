@@ -457,7 +457,7 @@
 }
 //修改备注
 - (void)editTeamNote:(NSNotification *)notification{
-    DLog(@"teamvc----修改备注");
+    DLog(@"teamvc----Modify the remark");
     [self loadTeamMemberInfo];
 }
 #pragma mark ====常用按钮交互=====
@@ -503,7 +503,7 @@
 }
 //补充团队信息
 - (void)supplementMessage{
-    DLog(@"补充信息");
+    DLog(@"supplementMessage");
     __weak typeof(self) weakSelf = self;
     
     UIAlertController *alert = [PWCommonCtrl alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];

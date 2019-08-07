@@ -428,9 +428,9 @@
         [[PWHttpEngine sharedInstance] deviceRegistration:openUDID registrationId:registrationId callBack:^(id response) {
             BaseReturnModel* data = response;
             if(data.isSuccess){
-                DLog(@"绑定成功----");
+                DLog(@"Bind Success----");
             } else{
-                DLog(@"绑定失败----");
+                DLog(@"Bind Failure----");
             }
             
         }];
@@ -463,7 +463,7 @@
                     }
                 }
             }
-            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+            DLog(@"AliPay authCode = %@", authCode?:@"");
             [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
         }];
     }
@@ -476,11 +476,11 @@
     if ([url.host isEqualToString:@"safepay"]) {
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"支付宝result = %@",resultDic);
+            DLog(@"AliPay result = %@",resultDic);
         }];
         // 授权跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"支付宝result = %@",resultDic);
+            DLog(@"AliPay result = %@",resultDic);
             // 解析 auth code
             NSString *result = resultDic[@"result"];
             NSString *authCode = nil;
@@ -493,7 +493,7 @@
                     }
                 }
             }
-            DLog(@"支付宝授权结果 authCode = %@", authCode?:@"");
+            DLog(@"AliPay Result authCode = %@", authCode?:@"");
         }];
          return YES;
     }

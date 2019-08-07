@@ -203,7 +203,7 @@
     
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-          [self.engineHeader setContentLabText:[NSString stringWithFormat:@"您的 %@云服务 %@ 最近一次检测失效，请检查该云服务是否存在问题。",name1,self.model.sourceName]];
+          [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips%@%@", @""),name1,self.model.sourceName]];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
@@ -234,7 +234,7 @@
                     [self.engineHeader setIssueNameLabText:[source stringValueForKey:@"name" default:@""]];
                     if (self.model.isInvalidIssue) {
                         [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
-                            [self.engineHeader setContentLabText:[NSString stringWithFormat:@"您的 %@云服务 %@ 最近一次检测失效，请检查该云服务是否存在问题。",name1,[source stringValueForKey:@"name" default:@""]]];
+                            [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips%@%@", @""),name1,[source stringValueForKey:@"name" default:@""]]];
                         }];
                     }
                 }
@@ -277,7 +277,7 @@
         BaseReturnModel *model = response;
         button.enabled = YES;
         if (model.isSuccess) {
-            NSString *showTip = button.selected?@"已取消关注":@"关注成功";
+            NSString *showTip = button.selected? NSLocalizedString(@"local.AlreadyUnfollowed", @""):NSLocalizedString(@"local.FocusOnSuccess", @"");
             self.navBtn.selected = !button.selected;
             [SVProgressHUD showSuccessWithStatus:showTip];
             KPostNotification(KNotificationReloadIssueList, nil);
@@ -305,7 +305,7 @@
 - (void)ignoreIssue{
     [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"关闭成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.CloseSuccess", @"")];
             self.refreshClick?self.refreshClick():nil;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
@@ -341,7 +341,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 50)];
     view.backgroundColor = PWWhiteColor;
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"情报记录"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.IssueRecords", @"")];
     [view addSubview:title];
     [title mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(view).offset(16);

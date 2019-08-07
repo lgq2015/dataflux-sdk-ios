@@ -112,7 +112,7 @@
     model.name = NSLocalizedString(@"local.AllAssigned", @"");
     model.memberID = ILMStringAll;
     MemberInfoModel *model2 = [MemberInfoModel new];
-    model2.name = @"<无处理人>";
+    model2.name = [NSString stringWithFormat:@"<%@>",NSLocalizedString(@"local.NoAssigned", @"")];
     model2.memberID = @"";
     
     NSArray *data = [self.teamMemberArray subarrayWithRange:NSMakeRange(index, self.teamMemberArray.count-index)];

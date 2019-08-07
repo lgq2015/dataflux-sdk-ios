@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"来源";
+    self.title = NSLocalizedString(@"local.Origin", @"");
     [self createUI];
     // Do any additional setup after loading the view.
 }

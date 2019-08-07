@@ -88,7 +88,7 @@
         make.width.offset(ZOOM_SCALE(100));
         make.height.offset(ZOOM_SCALE(25));
     }];
-    UIButton *album =[PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"相册"];
+    UIButton *album =[PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.PhotoAlbum", @"")];
     [album setTitleColor:PWWhiteColor forState:UIControlStateNormal];
     album.titleLabel.font = RegularFONT(16);
     [album addTarget:self action:@selector(albumBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -100,7 +100,7 @@
     }];
 }
 - (void)drawTipLab{
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"扫描团队二维码以加入团队"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:NSLocalizedString(@"local.ScanQrCodeJoinTheTeam", @"")];
     tipLab.textAlignment = NSTextAlignmentCenter;
     tipLab.backgroundColor = [UIColor colorWithHexString:@"#EDEDED"];
     tipLab.layer.masksToBounds = YES;
@@ -222,7 +222,7 @@
 - (void)popAlertMsgWithScanResult:(NSString*)strResult
 {
     if (!strResult) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"照片中未识别二维码" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TheQrCodeNotIdentifiedInThePhoto", @"") preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
         }];

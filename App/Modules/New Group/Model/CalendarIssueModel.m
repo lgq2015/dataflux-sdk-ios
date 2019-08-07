@@ -58,9 +58,8 @@
          NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
         self.typeText = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
     }else if([subType isEqualToString:@"issueFixed"]){
-        NSString *reText=NSLocalizedString(@"issue.issueFixed", @"");
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-        self.typeText = [reText stringByReplacingOccurrencesOfString:@"#" withString:name];
+        self.typeText = [NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),name];
     }else if([subType isEqualToString:@"issueAssigned"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");

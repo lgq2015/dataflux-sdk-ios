@@ -35,15 +35,15 @@
 }
 - (void)createUI{
     self.dataSource = [NSMutableArray new];
-    NSString *emailText = userManager.curUserInfo.email ==nil? @"去绑定":userManager.curUserInfo.email;
+    NSString *emailText = userManager.curUserInfo.email ==nil? NSLocalizedString(@"local.ToBind", @""):userManager.curUserInfo.email;
     NSString *phoneText = userManager.curUserInfo.mobile ;
     NSString *nameText =  userManager.curUserInfo.name;
 ;
      NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
-    MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
+    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ProfilePhoto", @"") rightIcon:avatar];
+    MineCellModel *name = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.name", @"") describeText:nameText];
     MineCellModel *phone = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.MobilePhoneNo", @"") describeText:phoneText];
-    MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
+    MineCellModel *email = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.mailbox", @"") describeText:emailText];
 
     NSArray *array =@[icon,name,phone,email];
     [self.dataSource addObjectsFromArray:array];
@@ -58,14 +58,14 @@
     [self.view addSubview:self.tableView];
 }
 - (void)updateUser{
-    NSString *emailText = userManager.curUserInfo.email ==nil? @"去绑定":userManager.curUserInfo.email;
+    NSString *emailText = userManager.curUserInfo.email ==nil? NSLocalizedString(@"local.ToBind", @""):userManager.curUserInfo.email;
     NSString *phoneText = userManager.curUserInfo.mobile ;
     NSString *nameText = userManager.curUserInfo.name;
     NSString *avatar =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
-    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:@"头像" rightIcon:avatar];
-    MineCellModel *name = [[MineCellModel alloc]initWithTitle:@"姓名" describeText:nameText];
+    MineCellModel *icon = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ProfilePhoto", @"") rightIcon:avatar];
+    MineCellModel *name = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.name", @"") describeText:nameText];
     MineCellModel *phone = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.MobilePhoneNo", @"") describeText:phoneText];
-    MineCellModel *email = [[MineCellModel alloc]initWithTitle:@"邮箱" describeText:emailText];
+    MineCellModel *email = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.mailbox", @"") describeText:emailText];
     NSArray *array =@[icon,name,phone,email];
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:array];
@@ -103,7 +103,7 @@
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kWidth);
     }
     if (userManager.curUserInfo.email ==nil && indexPath.row == 3) {
-        [cell setAlermDescribeLabText:@"去绑定"];
+        [cell setAlermDescribeLabText:NSLocalizedString(@"local.ToBind", @"")];
     }else if(indexPath.row == 3){
         [cell setDescribeLabText:userManager.curUserInfo.email];
     }

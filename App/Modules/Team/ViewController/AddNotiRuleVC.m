@@ -95,13 +95,13 @@
 - (NSString *)moreRuleLinkStr{
     NSString *text = @"";
     if (self.model.dingtalkAddress.count>0) {
-        text = @"钉钉通知:已开启";
+        text = [NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"local.DingDingNotification", @""),NSLocalizedString(@"local.HasBeenOpen", @"")];
     }
     if (self.model.customAddress.count>0) {
         if (text.length>0) {
             text = [text stringByAppendingString:@"、"];
         }
-        [text stringByAppendingString:@"自定义回调:已开启"];
+        [text stringByAppendingString:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"local.CustomCallbacks", @""),NSLocalizedString(@"local.HasBeenOpen", @"")]];
     }
     return text;
 }

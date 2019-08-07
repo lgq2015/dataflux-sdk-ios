@@ -70,13 +70,13 @@
     appScheme = @"prof-wang";
     #endif
     [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-        DLog(@"ServiceDetailVC支付宝结果 = %@",resultDic);
+        DLog(@"ServiceDetailVC PayResult = %@",resultDic);
         int statusCode = [resultDic[@"resultStatus"]  intValue];
         if (statusCode == 9000){
-            DLog(@"支付成功");
+            DLog(@"Pay Success");
         }
         else{
-            DLog(@"支付失败")
+            DLog(@"Pay failed")
         }
     }];
 }
@@ -84,7 +84,7 @@
 - (void)zhifubaoCallBack:(NSNotification *)notif{
     NSDictionary *dic = [notif object];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    DLog(@"收到的回调结果---%@",dic);
+    DLog(@"callback result---%@",dic);
 }
 #pragma mark ====导航栏的显示和隐藏====
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

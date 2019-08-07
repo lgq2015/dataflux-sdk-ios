@@ -37,19 +37,19 @@
             if (self.isFirst) {
                 placeholder = NSLocalizedString(@"login.placeholder.email", @"");
             }else{
-                placeholder = @"请输入新邮箱";
+                placeholder = NSLocalizedString(@"local.PleaseInputNewEmail", @"");
             }
-            title = @"绑定邮箱";
-            tipTitle = @"邮箱";
+            title = NSLocalizedString(@"local.BindingEmail", @"");
+            tipTitle = NSLocalizedString(@"local.mailbox", @"");
             break;
         case BindUserInfoTypeName:
             title =@"修改姓名";
             if (self.isFirst) {
                 placeholder = NSLocalizedString(@"login.placeholder.name", "");
             }else{
-                placeholder = @"请输入新的姓名";
+                placeholder = NSLocalizedString(@"local.PleaseInputNewName", @"");
             }
-            tipTitle = @"姓名";
+            tipTitle = NSLocalizedString(@"local.name", @"");
             self.emailTF.text = userManager.curUserInfo.name;
             [self.emailTF becomeFirstResponder];
             break;
@@ -208,7 +208,7 @@
                 
             }else{
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                    [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+                        [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         for(UIViewController *temp in self.navigationController.viewControllers) {
                             if([temp isKindOfClass:[ChangeUserInfoVC class]]){
@@ -251,7 +251,7 @@
             if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
                 [iToast alertWithTitleCenter:@"该手机号已被注册"];
             }else if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                [iToast alertWithTitleCenter:@"身份验证已过期，请重新验证"];
+               [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     for(UIViewController *temp in self.navigationController.viewControllers) {
                         if([temp isKindOfClass:[ChangeUserInfoVC class]]){

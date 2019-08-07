@@ -59,7 +59,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"讨论";
+    self.title = NSLocalizedString(@"local.discussion", @"");
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
 
     [self createUI];
@@ -85,7 +85,7 @@
                 IssueChatMessage *message = [IssueChatMessage new];
                 message.messageType = PWChatMessageTypeSysterm;
                 message.cellString = PWChatSystermCellId;
-                message.systermStr = @"在这里讨论该情报";
+                message.systermStr = NSLocalizedString(@"local.ThisInformationDiscussedHere", @"");
                 IssueChatMessagelLayout *layout = [[IssueChatMessagelLayout alloc]initWithMessage:message];
                 [self.datas addObject:layout];
                 [self.mTableView reloadData];

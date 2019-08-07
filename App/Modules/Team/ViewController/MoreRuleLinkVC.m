@@ -111,9 +111,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *title;
     if (section == 0) {
-        title = @"钉钉通知";
+        title = NSLocalizedString(@"local.DingDingNotification", @"");
     }else{
-        title = @"自定义通知";
+        title = NSLocalizedString(@"local.CustomCallbacks", @"");
     }
     UIView *content = [[UIView alloc]init];
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(15, 10, ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTextBlackColor text:title];

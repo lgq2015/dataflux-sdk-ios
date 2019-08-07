@@ -95,7 +95,7 @@
 }
 - (void)createNotificationWayData{
     NSArray *type = @[@"App",@"email"];
-    NSArray *name = @[@"App",@"邮箱"];
+    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @"")];
    
         MultipleSelectModel *model = [MultipleSelectModel new];
         model.name = name[0];
