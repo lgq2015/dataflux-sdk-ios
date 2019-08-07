@@ -12,7 +12,7 @@
 #import "PWGradientView.h"
 @interface PWPhotoListCell()
 @property (weak, nonatomic) UIImageView *imageView;
-@property (nonatomic, strong) UIImageView *camerImg;
+@property (nonatomic, strong) UIImageView *cameraImg;
 @property (weak, nonatomic) PWPhotoListCellTapView *tapAssetView;
 @property (strong, nonatomic) ALAsset *asset;
 @property (weak, nonatomic) PWGradientView *gradientView;
@@ -41,10 +41,10 @@
     
     if ([asset isKindOfClass:[UIImage class]]) {
     
-        [self.camerImg setImage:(UIImage *)asset];
-        self.camerImg.hidden = NO;
+        [self.cameraImg setImage:(UIImage *)asset];
+        self.cameraImg.hidden = NO;
     } else {
-        self.camerImg.hidden = YES;
+        self.cameraImg.hidden = YES;
         [self.imageView setImage:[UIImage imageWithCGImage:asset.aspectRatioThumbnail]];
         if ([asset valueForProperty:ALAssetPropertyType] == ALAssetTypeVideo) {
             if (!self.gradientView) {
@@ -77,13 +77,14 @@
     _tapAssetView.disabled = ![selectionFilter evaluateWithObject:asset];
     _tapAssetView.selected = isSelected;
 }
--(UIImageView *)camerImg{
-    if (!_camerImg) {
-        _camerImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width/2, self.bounds.size.height/2)];
-         _camerImg.center = self.contentView.center;
-        [self.contentView addSubview:_camerImg];
+-(UIImageView *)cameraImg{
+    if (!_cameraImg) {
+        _cameraImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width/2, self.bounds.size.height/2)];
+         _cameraImg.center = self.contentView.center;
+         _cameraImg.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:_cameraImg];
     }
-    return _camerImg;
+    return _cameraImg;
 }
 - (void)isSelected:(BOOL)isSelected {
     _tapAssetView.selected = isSelected;

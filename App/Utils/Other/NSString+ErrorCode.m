@@ -9,7 +9,12 @@
 @implementation NSString (ErrorCode)
 
 - (NSString *)toErrString {
-    return [NSLocalizedString(self, nil) isEqualToString:self]?@"服务器正忙，请稍后重试":NSLocalizedString(self, nil);
+    NSString * mergeValue = @"";
+    if (![self hasPrefix:@"local.err"]) {
+        mergeValue = [@"server.err." stringByAppendingString:self];
+    }
+
+    return [NSLocalizedString(mergeValue, nil) isEqualToString:self]?@"服务器正忙，请稍后重试":NSLocalizedString(self, nil);
 }
 
 @end

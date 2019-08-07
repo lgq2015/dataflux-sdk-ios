@@ -53,6 +53,7 @@
             break;
         case MineVCCellTypeImage:
             [self createUIImage];
+            break;
         case MineVCCellTypeSelect:
             [self createUISelect];
             break;
