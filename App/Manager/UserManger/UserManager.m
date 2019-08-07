@@ -167,7 +167,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
                 if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
                     NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
-                    NSString *toast =[NSLocalizedString(@"home.auth.tooManyIncorrectAttempts", @"") stringByReplacingOccurrencesOfString:@"#" withString:time];
+                    NSString *toast =[[errorCode toErrString] stringByReplacingOccurrencesOfString:@"#" withString:time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
                     [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
