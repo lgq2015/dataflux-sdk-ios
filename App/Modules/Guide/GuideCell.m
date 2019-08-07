@@ -22,7 +22,7 @@
     self.beginBtn.hidden = YES;
     if (_index == 0) {
       
-        self.titleLab.text = NSLocalizedString(@"Guide.Title1", @"");
+        self.titleLab.text = NSLocalizedString(@"local.guide.Title1", @"");
         self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle1", @"");
         self.backImgView.image = [UIImage imageNamed:@"page1"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {

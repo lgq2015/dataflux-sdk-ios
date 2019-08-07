@@ -108,7 +108,7 @@
         make.center.mas_equalTo(self);
     }];
     self.titleLab.textAlignment = NSTextAlignmentCenter;
-    self.titleLab.text = @"退出";
+    self.titleLab.text = NSLocalizedString(@"local.quit", @"");
     self.titleLab.textColor = PWOrangeTextColor;
     
 }

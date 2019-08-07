@@ -210,7 +210,7 @@
 }
 -(UIButton *)registerBtn{
     if (!_registerBtn) {
-        _registerBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"login.register", @"")];
+        _registerBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.login.register", @"")];
         [_registerBtn addTarget:self action:@selector(registerBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_registerBtn];
     }
@@ -249,7 +249,7 @@
 -(TTTAttributedLabel *)agreementLab{
     if (!_agreementLab) {
         NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
-        NSString *linkText2 = @"《隐私权政策》";
+        NSString *linkText2 = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.PrivacyPolicy", @"")];
         NSString *promptText = @"同意《服务协议》与《隐私权政策》";
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
@@ -276,7 +276,7 @@
    didSelectLinkWithURL:(NSURL *)url{
     NSString *title = NSLocalizedString(@"local.serviceAgreement", @"");
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
-        title = @"隐私权政策";
+        title = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.PrivacyPolicy", @"")];
     }
     PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:title andURL:url];
     [self.navigationController pushViewController:webView animated:YES];

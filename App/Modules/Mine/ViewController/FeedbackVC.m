@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"意见与反馈";
+    self.title = NSLocalizedString(@"local.CommentsAndFeedback", @"");
     [self createUI];
 }
 - (void)createUI{
@@ -100,7 +100,7 @@
 }
 -(UITextView *)describeTextView{
     if (!_describeTextView) {
-        _describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:@"我们很重视您的宝贵建议，请在此输入。" font:RegularFONT(14)];
+        _describeTextView = [PWCommonCtrl textViewWithFrame:CGRectZero placeHolder:NSLocalizedString(@"local.feedback.placeholder", @"") font:RegularFONT(14)];
 //        _describeTextView.font =RegularFONT(14);
         [self.describeView addSubview:_describeTextView];
     }

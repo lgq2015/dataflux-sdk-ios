@@ -268,7 +268,7 @@
 #pragma mark ========== 团队/管理员 ==========
 - (void)createBtnViewAdmin{
 
-    UIButton *transferTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
+    UIButton *transferTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.TransferManager", @"")];
     [transferTeam addTarget:self action:@selector(transferClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:transferTeam];
     [transferTeam mas_makeConstraints:^(MASConstraintMaker *make) {

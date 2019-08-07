@@ -7,7 +7,6 @@
 //
 
 #import "AppManager.h"
-#import "LoginPasswordVC.h"
 #import "YYFPSLabel.h"
 @implementation AppManager
 +(void)appStart{

@@ -22,13 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"安全与隐私";
+    self.title = NSLocalizedString(@"lcoal.SecurityAndPrivacy", @"");
     [self createUI];
 }
 - (void)createUI{
-    MineCellModel *changeWord = [[MineCellModel alloc]initWithTitle:@"修改密码"];
-//    MineCellModel *serviceContract = [[MineCellModel alloc]initWithTitle:@"服务协议"];
-    MineCellModel *privacyPolicy = [[MineCellModel alloc]initWithTitle:@"隐私权政策"];
+    MineCellModel *changeWord = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ChangeThePassword", @"")];
+    MineCellModel *privacyPolicy = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.PrivacyPolicy", @"")];
     NSArray *group1 = @[changeWord];
     NSArray *group2 =@[privacyPolicy];
     self.dataSource = [NSArray new];
@@ -76,7 +75,7 @@
     }else{
         if (indexPath.row == 0) {
          //隐私权
-            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:@"隐私权政策" andURLString:PW_privacylegal];
+            PWBaseWebVC *webView = [[PWBaseWebVC alloc]initWithTitle:NSLocalizedString(@"local.PrivacyPolicy", @"") andURLString:PW_privacylegal];
             [self.navigationController pushViewController:webView animated:YES];
         }
     }

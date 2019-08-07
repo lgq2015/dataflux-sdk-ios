@@ -35,8 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"联系我们";
-//    [self requesetContactUserData];
+    self.title = NSLocalizedString(@"local.ContactUs", @"");
     self.contactUSType = VIP_Type;
     [self createUI];
 }
@@ -44,7 +43,6 @@
     self.view.backgroundColor = PWWhiteColor;
     [self.view addSubview:self.iconImg];
     [self.view addSubview:self.titleLab];
-//    [self.view addSubview:self.subTip];
     if (self.contactUSType == VIP_Type){
         [self.view addSubview:self.phoneBtn];
         [self.view addSubview:self.emailBtn];
@@ -63,11 +61,7 @@
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(33));
     }];
-//    [self.subTip mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.mas_equalTo(self.view);
-//        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(Interval(12));
-//        make.width.offset(ZOOM_SCALE(50));
-//    }];
+
     if (self.contactUSType == VIP_Type){
         [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.view).offset(Interval(100));
@@ -175,7 +169,7 @@
     [PWNetworking requsetHasTokenWithUrl:PW_CMSCall withRequestType:NetworkPostType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if (![response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showErrorWithStatus:@"拨打失败"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.CallFailed", @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -231,7 +225,7 @@
 
 - (UILabel *)phoneLab{
     if (!_phoneLab){
-        _phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:@"拨打电话"];
+        _phoneLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWSubTitleColor text:NSLocalizedString(@"local.RingUp", @"")];
         _phoneLab.textAlignment = NSTextAlignmentCenter;
     }
     return _phoneLab;
@@ -262,14 +256,14 @@
 }
 - (UILabel *)zoonLab{
     if (!_zoonLab){
-        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? @"上海浦东新区" : _city];
+        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? NSLocalizedString(@"local.company.addresscity", @"") : _city];
         _zoonLab.textAlignment = NSTextAlignmentCenter;
     }
     return _zoonLab;
 }
 - (UILabel *)addressLab{
     if (!_addressLab){
-        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:_address == nil ? @"上海浦东新区科苑路399号张江创新园7号楼" : _address];
+        _addressLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTitleColor text:_address == nil ? NSLocalizedString(@"local.company.address", @"") : _address];
         _addressLab.textAlignment = NSTextAlignmentCenter;
         _addressLab.numberOfLines = 0;
     }

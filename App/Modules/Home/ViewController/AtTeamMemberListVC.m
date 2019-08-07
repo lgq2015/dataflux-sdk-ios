@@ -203,7 +203,7 @@
 }
 -(UILabel *)chooseLab{
     if (!_chooseLab) {
-        _chooseLab = [PWCommonCtrl lableWithFrame:CGRectMake(44, 20, ZOOM_SCALE(100), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWBlueColor text:@"已选择: 0 人"];
+        _chooseLab = [PWCommonCtrl lableWithFrame:CGRectMake(44, 20, ZOOM_SCALE(100), ZOOM_SCALE(22)) font:RegularFONT(16) textColor:PWBlueColor text:[NSString stringWithFormat:NSLocalizedString(@"local.AlreadySelectPeople%lu", @""),0]];
     }
     return _chooseLab;
 }
@@ -273,7 +273,7 @@
             [self backBtnClicked];
         }
     }
-    self.chooseLab.text = [NSString stringWithFormat:@"已选择: %lu 人",(unsigned long)self.chooseArr.count];
+    self.chooseLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.AlreadySelectPeople%lu", @""),(unsigned long)self.chooseArr.count];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }

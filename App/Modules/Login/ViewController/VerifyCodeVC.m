@@ -11,7 +11,6 @@
 #import "PWMNView.h"
 #import "UserManager.h"
 #import "OpenUDID.h"
-#import "PasswordSetVC.h"
 #import "PWWeakProxy.h"
 #import "SetNewPasswordVC.h"
 #import <TTTAttributedLabel.h>
@@ -185,7 +184,7 @@
 -(TTTAttributedLabel *)agreementLab{
     if (!_agreementLab) {
         NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
-        NSString *linkText2 = @"《隐私权政策》";
+        NSString *linkText2 = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.PrivacyPolicy", @"")];
         NSString *promptText = @"同意《服务协议》与《隐私权政策》";
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
@@ -312,9 +311,9 @@
     [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
 //        [SVProgressHUD dismiss];
         if (success) {
-            PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
-            passwordVC.changePasswordToken = des;
-            [self.navigationController pushViewController:passwordVC animated:YES];
+//            PasswordSetVC *passwordVC = [[PasswordSetVC alloc]init];
+//            passwordVC.changePasswordToken = des;
+//            [self.navigationController pushViewController:passwordVC animated:YES];
         }else{
             [self.codeTfView setItemEmpty];
             [self.codeTfView codeView_showWarnState];
@@ -519,7 +518,7 @@
    didSelectLinkWithURL:(NSURL *)url{
     NSString *title = NSLocalizedString(@"local.serviceAgreement", @"");
     if ([url isEqual:[NSURL URLWithString:PW_privacylegal]]) {
-        title = @"隐私权政策";
+        title = NSLocalizedString(@"local.PrivacyPolicy", @"");
         [[[[ZhugeIOLoginHelper new] eventServiceProtocols] attrSceneLogin] track];
     } else{
         [[[[ZhugeIOLoginHelper new] eventPrivacyPolicy] attrSceneLogin] track];

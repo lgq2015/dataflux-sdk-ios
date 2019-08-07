@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于王教授";
+    self.title = NSLocalizedString(@"local.AboutProfessorWang", @"");
     [self createUI];
 }
 - (void)createUI{

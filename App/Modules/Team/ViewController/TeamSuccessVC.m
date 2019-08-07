@@ -68,7 +68,7 @@
 }
 - (void)createUI{
     if(self.isTrans){
-        self.titleLabel.text = @"转移管理员";
+        self.titleLabel.text = NSLocalizedString(@"local.TransferManager", @"");
     }else{
         self.titleLabel.text = @"解散团队";
     }

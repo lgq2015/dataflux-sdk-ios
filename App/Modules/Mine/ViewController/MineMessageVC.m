@@ -23,9 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.ownership == Account_Message){
-        self.title = @"我的消息";
+        self.title = NSLocalizedString(@"local.MineMessage", @"");
     }else if (self.ownership == Team_Message){
-        self.title = @"团队消息";
+        self.title = NSLocalizedString(@"local.TeamMessage", @"");
     }
     [self createUI];
     [self loadData];

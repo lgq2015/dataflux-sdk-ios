@@ -127,8 +127,8 @@
 "local.err.netWorkError"="网络异常";
 
 "home.auth.passwordLength.scaleOut" = "内容长度超限";
-"issue.issueCreated" = "情报产生";
-"issue.issueRecovered" = "情报恢复";
+"local.issue.issueCreated" = "情报产生";
+"local.issue.issueRecovered" = "情报恢复";
 "issue.issueExpired" = "情报过期";
 "issue.updateExpertGroups" = "您邀请的#已加入讨论";
 "issue.exitExpertGroups" = "您邀请的#已退出讨论";
@@ -168,8 +168,8 @@
 "tip.enterCorrectPhoneNumber" = "请输入正确的手机号码";
 "tip.correctPasswordFormat" = "密码为8-15位，至少包含字母、数字、符号中的两种";
 
-"login.login" = "登录";
-"login.register" = "注册";
+"local.login.login" = "登录";
+"local.login.register" = "注册";
 "local.serviceAgreement" = "服务协议";
 "local.notificationRule" = "通知规则";
 "local.addRule" = "添加规则";
@@ -306,7 +306,7 @@
 "local.role" = "角色";
 "local.complete" = "完成";
 "local.verify" = "确认";
-"Guide.Title1" = "问题诊断";
+"local.guide.Title1" = "问题诊断";
 "Guide.Title2" = "覆盖面广";
 "Guide.Title2" = "多年积淀";
 "Guide.SubTitle1" = "让王教授为您诊断";
@@ -317,7 +317,7 @@
 "local.SetHandler" = "设置处理人";
 "local.TeamAdministrator" = "管理员";
 "local.experts" = "专家";
-"Lunch.Title" = "云计算时代的智能诊断专家";
+"local.lunch.Title" = "云计算时代的智能诊断专家";
 "local.TeamName" = "团队名称";
 "local.PleaseInputTeamName" = "请输入您的团队名称";
 "local.TeamManagement" = "团队管理";

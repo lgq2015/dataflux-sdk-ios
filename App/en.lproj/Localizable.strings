@@ -135,8 +135,8 @@
 "local.err.netWorkError"="网络异常";
 
 "home.auth.passwordLength.scaleOut" = "内容长度超限";
-"issue.issueCreated" = "情报产生";
-"issue.issueRecovered" = "情报恢复";
+"local.issue.issueCreated" = "情报产生";
+"local.issue.issueRecovered" = "情报恢复";
 "issue.issueExpired" = "情报过期";
 "issue.updateExpertGroups" = "您邀请的#已加入讨论";
 "issue.exitExpertGroups" = "您邀请的#已退出讨论";
@@ -176,8 +176,8 @@
 "tip.enterCorrectPhoneNumber" = "请输入正确的手机号码";
 "tip.correctPasswordFormat" = "密码为8-15位，至少包含字母、数字、符号中的两种";
 
-"login.login" = "登录";
-"login.register" = "注册";
+"local.login.login" = "登录";
+"local.login.register" = "注册";
 "local.serviceAgreement" = "服务协议";
 "local.notificationRule" = "通知规则";
 "local.addRule" = "添加规则";
@@ -314,7 +314,7 @@
 "local.role" = "角色";
 "local.complete" = "完成";
 "local.verify" = "确认";
-"Guide.Title1" = "问题诊断";
+"local.guide.Title1" = "问题诊断";
 "Guide.Title2" = "覆盖面广";
 "Guide.Title2" = "多年积淀";
 "Guide.SubTitle1" = "让王教授为您诊断";
@@ -325,7 +325,7 @@
 "local.SetHandler" = "设置处理人";
 "local.TeamAdministrator" = "管理员";
 "local.experts" = "专家";
-"Lunch.Title" = "云计算时代的智能诊断专家";
+"local.lunch.Title" = "云计算时代的智能诊断专家";
 "local.TeamName" = "团队名称";
 "local.PleaseInputTeamName" = "请输入您的团队名称";
 "local.TeamManagement" = "团队管理";
@@ -382,4 +382,28 @@
 "local.submit" = "提交";
 "local.SubmitSuccess" = "提交成功";
 "local.SubmitFailure" = "提交失败";
+"local.MineMessage" = "我的消息";
+"local.CommentsAndFeedback" = "意见与反馈";
+"local.feedback.placeholder" = "我们很重视您的宝贵建议，请在此输入。";
+"local.ContactUs" = "联系我们";
+"local.company.address" = "上海浦东新区科苑路399号张江创新园7号楼";
+"local.company.addresscity" = "上海浦东新区";
+"local.RingUp" = "拨打电话";
+"local.CallFailed" = "拨打失败";
+"local.library.placeholder" = "您好，请问有什么可以帮您？";
+"local.AlreadySelectPeople%lu" = "已选择: %lu 人";
+"local.SearchFound" = "搜索发现";
+"local.tip.CollectionSuccess" = "收藏成功";
+"local.tip.CancelCollectionSuccess" = "取消收藏成功";
+"local.quit" = "退出";
+"local.EncourageUs" = "鼓励我们";
+"local.AboutProfessorWang" = "关于王教授";
+"local.SettingUp" = "设置";
+"lcoal.SecurityAndPrivacy" = "安全与隐私";
+"local.ChangeThePassword" = "修改密码";
+"local.PrivacyPolicy" = "隐私权政策";
+"local.tip.BindingSuccess" = "绑定成功";
+"local.TransferManager" = "转移管理员";
+"local.MineCollection" = "我的收藏";
+"local.TeamMessage" = "团队消息";
 "login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";

@@ -42,7 +42,7 @@
         make.width.height.offset(ZOOM_SCALE(32));
         make.centerX.mas_equalTo(self.view).offset(-ZOOM_SCALE(21));
     }];
-    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:@"搜索"];
+    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:NSLocalizedString(@"local.search", @"")];
     [self.searchView addSubview:searchLab];
     [searchLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(ZOOM_SCALE(6));
@@ -73,7 +73,7 @@
 - (void)searchClick{
     LibrarySearchVC *search = [[LibrarySearchVC alloc]init];
     search.isHidenNaviBar = YES;
-    search.placeHolder = @"搜索发现";
+    search.placeHolder = NSLocalizedString(@"local.SearchFound", @"");
     search.isLocal = YES;
     search.totalData = self.totalData;
     [self.navigationController pushViewController:search animated:YES];

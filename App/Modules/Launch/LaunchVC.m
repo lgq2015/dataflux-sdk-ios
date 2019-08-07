@@ -51,7 +51,7 @@
     }];
 
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.text = NSLocalizedString(@"Lunch.Title", @"");
+    label.text = NSLocalizedString(@"local.lunch.Title", @"");
 
     [self.view addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {

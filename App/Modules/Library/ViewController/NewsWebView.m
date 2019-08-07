@@ -135,11 +135,11 @@
             if ([response[ERROR_CODE] isEqualToString:@""]) {
                 weakSelf.isCollect = YES;
                 weakSelf.favoId = response[@"content"][@"id"];
-                [iToast alertWithTitleCenter:@"收藏成功"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.CollectionSuccess", @"")];
 
-                if (self.handbookModel) {
+                if (weakSelf.handbookModel) {
                     [[[[[ZhugeIOLibraryHelper new] eventCollectionHandBookArticle]
-                            attrArticleTitle:self.handbookModel.title] attrBlongTopic:self.handbookModel.handbookName] track];
+                            attrArticleTitle:weakSelf.handbookModel.title] attrBlongTopic:weakSelf.handbookModel.handbookName] track];
                 }
 
 
@@ -154,7 +154,7 @@
                 if([response[ERROR_CODE] isEqualToString:@""]){
                     weakSelf.isCollect = NO;
                     weakSelf.favoId = @"";
-                    [iToast alertWithTitleCenter:@"取消收藏成功"];
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.CancelCollectionSuccess", @"")];
                 }else{
                     [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 }

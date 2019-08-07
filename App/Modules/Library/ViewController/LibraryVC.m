@@ -204,7 +204,7 @@ static NSUInteger ItemWidth = 104;
 - (void)searchClick{
     LibrarySearchVC *search = [[LibrarySearchVC alloc]init];
     search.isHidenNaviBar = YES;
-    search.placeHolder = @"您好，请问有什么可以帮您？";
+    search.placeHolder = NSLocalizedString(@"local.library.placeholder", @"");
     [self.navigationController pushViewController:search animated:YES];
 }
 - (void)loadHandBookDetail:(NSInteger)index{

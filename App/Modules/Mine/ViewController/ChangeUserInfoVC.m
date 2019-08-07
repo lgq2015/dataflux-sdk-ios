@@ -33,7 +33,7 @@
            [self setNaviTitle:@"修改手机"];
             break;
         case ChangeUITPassword:
-           [self setNaviTitle:@"修改密码"];
+           [self setNaviTitle:NSLocalizedString(@"local.ChangeThePassword", @"")];
             break;
         case ChangeUITEmail:
         if (userManager.curUserInfo.email == nil ||[userManager.curUserInfo.email isEqualToString:@""]) {

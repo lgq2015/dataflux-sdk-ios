@@ -8,7 +8,6 @@
 
 #import "SetNewPasswordVC.h"
 #import "OpenUDID.h"
-#import "LoginPasswordVC.h"
 #import "SecurityPrivacyVC.h"
 #import "JPUSHService.h"
 #import "changeUserInfoVC.h"
@@ -45,7 +44,7 @@
         [self.view addSubview:_passwordTf];
     }
     if(self.isChange){
-        titleLab.text = @"修改密码";
+        titleLab.text = NSLocalizedString(@"local.ChangeThePassword", @"");
         _passwordTf.placeholder = @"请输入新密码";
     }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -187,11 +186,11 @@
             }
         }
     }else{
-        for(UIViewController *temp in self.navigationController.viewControllers) {
-            if([temp isKindOfClass:[LoginPasswordVC class]]){
-                [self.navigationController popToViewController:temp animated:YES];
-            }
-        }
+//        for(UIViewController *temp in self.navigationController.viewControllers) {
+//            if([temp isKindOfClass:[LoginPasswordVC class]]){
+//                [self.navigationController popToViewController:temp animated:YES];
+//            }
+//        }
     }
 }
 -(void)backBtnClicked{

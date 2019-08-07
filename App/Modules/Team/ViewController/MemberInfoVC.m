@@ -320,7 +320,7 @@
 }
 - (void)createBtnTrans{
     UIView *phone = [self.view viewWithTag:phoneViewTag];
-    UIButton *transBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"转移管理员"];
+    UIButton *transBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.TransferManager", @"")];
     [transBtn addTarget:self action:@selector(transBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:transBtn];
     [transBtn mas_makeConstraints:^(MASConstraintMaker *make) {

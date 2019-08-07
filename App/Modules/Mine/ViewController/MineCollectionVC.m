@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的收藏";
+    self.title = NSLocalizedString(@"local.MineCollection", @"");
     [self createUI];
     [self loadData];
 }

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设置";
+    self.title = NSLocalizedString(@"local.SettingUp", @"");
     [self createUI];
     [self calculateStorage];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -38,7 +38,7 @@
 - (void)createUI{
     BOOL isSwitch=  [self checkNotification];
     self.dataSource = [NSMutableArray new];
-    MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:@"安全与隐私"];
+    MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"lcoal.SecurityAndPrivacy", @"")];
 
     MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];

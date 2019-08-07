@@ -195,7 +195,7 @@
         [PWNetworking requsetHasTokenWithUrl:PW_verifycodesend withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [iToast alertWithTitleCenter:@"绑定成功"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.BindingSuccess", @"")];
                 userManager.curUserInfo.email = self.emailTF.text;
                 KPostNotification(KNotificationUserInfoChange, nil);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

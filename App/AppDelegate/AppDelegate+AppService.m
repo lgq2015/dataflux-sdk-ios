@@ -9,8 +9,6 @@
 #import "AppDelegate+AppService.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "RootNavigationController.h"
-#import "LoginPasswordVC.h"
-#import "VerifyCodeLoginVC.h"
 #import "UserManager.h"
 #import "AppManager.h"
 #import "IssueListManger.h"

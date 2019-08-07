@@ -111,7 +111,7 @@
 #pragma mark ========== init ==========
 -(UIButton *)loginBtn{
     if (!_loginBtn) {
-        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"login.login", @"")];
+        _loginBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.login.login", @"")];
         [_loginBtn addTarget:self action:@selector(loginBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_loginBtn];
     }
