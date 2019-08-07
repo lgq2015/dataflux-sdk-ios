@@ -13,6 +13,8 @@
 #import "OpenUDID.h"
 #import "VerifyCodeVC.h"
 #import "VerificationCodeNetWork.h"
+#import "NSString+ErrorCode.h"
+
 #define phoneLabTag  55
 
 @interface VerifyCodeLoginVC ()<UITextFieldDelegate>
@@ -191,7 +193,8 @@
             codeVC.phoneNumber = [self.phoneTf.text stringByReplacingOccurrencesOfString:@" " withString:@""];
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(response[@"de"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         

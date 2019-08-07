@@ -12,6 +12,7 @@
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define tipLabTag 88
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
@@ -217,7 +218,7 @@
                         }
                     });
                 }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }}
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
@@ -260,7 +261,7 @@
                     }
                 });
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
     } failBlock:^(NSError *error) {

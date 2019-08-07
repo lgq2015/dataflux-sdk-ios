@@ -22,6 +22,7 @@
 #import "ZhugeIOLoginHelper.h"
 #import "ZhugeIOMineHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
@@ -251,7 +252,7 @@
             UILabel *lab = [self.view viewWithTag:10];
             lab.hidden = NO;
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -483,7 +484,7 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
             });
@@ -503,7 +504,7 @@
             [[[ZhugeIOTeamHelper new] eventTransferManager] track];
 
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });

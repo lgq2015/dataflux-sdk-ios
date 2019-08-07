@@ -10,6 +10,8 @@
 #import "FounctionIntroductionModel.h"
 #import "FounctionIntroCell.h"
 #import "UITableViewCell+ZTCategory.h"
+#import "NSString+ErrorCode.h"
+
 @interface FounctionIntroductionVC ()<UITableViewDelegate,UITableViewDataSource,FounctionIntroCellDelegate>
 @property (nonatomic, strong)NSMutableArray *dataArr;
 @property (weak, nonatomic) IBOutlet UITableView *tab;
@@ -72,7 +74,7 @@
             }
             [self.tab reloadData];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

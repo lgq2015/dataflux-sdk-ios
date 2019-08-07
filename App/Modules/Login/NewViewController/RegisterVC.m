@@ -13,6 +13,7 @@
 #import "UITextField+HLLHelper.h"
 #import "VerificationCodeNetWork.h"
 #import "PWWeakProxy.h"
+#import "NSString+ErrorCode.h"
 
 @interface RegisterVC ()<TTTAttributedLabelDelegate,UITextFieldDelegate>
 
@@ -404,7 +405,7 @@
                         //对前后台状态进行监听
                         [self observeApplicationActionNotification];
                     }else{
-                        [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                        [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                     }
                 } failBlock:^(NSError *error) {
                     [SVProgressHUD dismiss];

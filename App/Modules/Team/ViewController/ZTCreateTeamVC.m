@@ -19,6 +19,7 @@
 #import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "NSString+ErrorCode.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -202,7 +203,7 @@
             
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 setTeamState(PW_isTeam);
                 KPostNotification(KNotificationTeamStatusChange, @YES);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

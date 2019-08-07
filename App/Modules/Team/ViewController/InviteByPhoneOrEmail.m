@@ -8,6 +8,7 @@
 
 #import "InviteByPhoneOrEmail.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface InviteByPhoneOrEmail ()<UITextFieldDelegate>
@@ -120,7 +121,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else {
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

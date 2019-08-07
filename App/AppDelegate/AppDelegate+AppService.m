@@ -40,6 +40,7 @@
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
 #import "LoginPWVC.h"
+#import "NSString+ErrorCode.h"
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -715,7 +716,7 @@
             if ([response[ERROR_CODE] isEqualToString:@"home.account.teamNotJoined"]) {
                 [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotHaveRelevantPermissions", @"")];
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE]toErrString]];
             }
             completeBlock ? completeBlock(NO) : nil;
         }

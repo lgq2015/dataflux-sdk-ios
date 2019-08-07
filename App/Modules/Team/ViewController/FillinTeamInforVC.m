@@ -16,6 +16,7 @@
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -248,14 +249,14 @@
             [self presentViewController:create animated:YES completion:nil];  
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 KPostNotification(KNotificationTeamStatusChange, @YES);
                 setTeamState(PW_isTeam);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:NO];
                 });
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
         [SVProgressHUD dismiss];

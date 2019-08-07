@@ -16,6 +16,8 @@
 #import "CopyLable.h"
 #import "ZhugeIOIssueHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
+
 #define phoneViewTag 35
 @interface MemberInfoVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *headerView;
@@ -355,7 +357,7 @@
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 }else{
-                    [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }
             }
         } failBlock:^(NSError *error) {

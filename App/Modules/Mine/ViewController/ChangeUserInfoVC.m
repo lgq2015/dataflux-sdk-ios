@@ -12,6 +12,7 @@
 #import "PasswordVerifyVC.h"
 #import "VerificationCodeNetWork.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define TagPhoneItem  100  // 右侧图片
 #define TagPasswordItem 200
@@ -117,7 +118,7 @@
             }
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         

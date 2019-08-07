@@ -13,6 +13,7 @@
 #import "ZYSocialManager.h"
 #import "ZhugeIOLibraryHelper.h"
 #import "ZhugeIOIssueHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface NewsWebView ()
 @property (nonatomic, strong) UIView *dropdownView;
@@ -156,7 +157,7 @@
                     weakSelf.favoId = @"";
                     [iToast alertWithTitleCenter:@"取消收藏成功"];
                 }else{
-                    [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }
             } failBlock:^(NSError *error) {
               

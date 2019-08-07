@@ -10,6 +10,8 @@
 #import "RegisterVC.h"
 #import "PWWeakProxy.h"
 #import "VerificationCodeNetWork.h"
+#import "NSString+ErrorCode.h"
+
 @interface LoginVerifyCodeVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *passwordBtn;
@@ -217,7 +219,7 @@
                             //对前后台状态进行监听
                             [self observeApplicationActionNotification];
                         }else{
-                            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                         }
                     } failBlock:^(NSError *error) {
                         

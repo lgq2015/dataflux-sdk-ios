@@ -8,6 +8,7 @@
 
 #import "EditBeizhuVC.h"
 #import "UITextField+HLLHelper.h"
+#import "NSString+ErrorCode.h"
 #import <IQKeyboardManager.h>
 
 @interface EditBeizhuVC ()
@@ -62,7 +63,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

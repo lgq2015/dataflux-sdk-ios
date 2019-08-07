@@ -11,6 +11,7 @@
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface PasswordVerifyVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
@@ -230,7 +231,7 @@
             if ([response[ERROR_CODE] isEqualToString:@"home.auth.passwordIncorrect"]) {
                 [iToast alertWithTitleCenter:@"密码错误"];
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
         [SVProgressHUD dismiss];
@@ -249,7 +250,7 @@
             NSString * uuid =response[@"content"][@"uuid"];
             [self doteamDissolve:uuid];
         }else{
-           [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
         [SVProgressHUD dismiss];
         
@@ -267,7 +268,7 @@
                 success.isTrans = YES;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
                 });
@@ -286,7 +287,7 @@
                 success.isTrans = NO;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 });

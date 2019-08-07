@@ -15,6 +15,7 @@
 #import "ZTHandBookHasPicCell.h"
 #import "UITableViewCell+ZTCategory.h"
 #import "ZhugeIOLibraryHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define seperatorLineH 4.0
 @interface LibrarySearchVC ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -220,7 +221,7 @@
                     [self showNoSearchView];
                 }
             } else {
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }                          failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
