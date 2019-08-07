@@ -172,7 +172,7 @@
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.tip.ChangeAvatarSuccess", @"")];
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"server.err.home.recommendation.uploadFailed", @"")];
 
     }];
 
