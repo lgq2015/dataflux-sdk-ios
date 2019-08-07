@@ -38,14 +38,14 @@
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
-        _passwordTf.placeholder = NSLocalizedString(@"lcoal.PleaseEnterANewPassword", @"");
+        _passwordTf.placeholder = NSLocalizedString(@"local.PleaseEnterANewPassword", @"");
         _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
         _passwordTf.font = RegularFONT(15);
         [self.view addSubview:_passwordTf];
     }
     if(self.isChange){
         titleLab.text = NSLocalizedString(@"local.ChangeThePassword", @"");
-        _passwordTf.placeholder = NSLocalizedString(@"lcoal.PleaseEnterANewPassword", @"");
+        _passwordTf.placeholder = NSLocalizedString(@"local.PleaseEnterANewPassword", @"");
     }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view).offset(-Interval(36));
@@ -160,7 +160,7 @@
             [error errorToast];
         }];
     } else {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"lcoal.ThePasswordFormatIsIncorrect", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.ThePasswordFormatIsIncorrect", @"")];
     }
 }
 - (void)pwdTextSwitch:(UIButton *)sender{

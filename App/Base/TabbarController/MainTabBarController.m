@@ -55,7 +55,7 @@
     LibraryVC *libriary = [[LibraryVC alloc]init];
     libriary.isHidenNaviBar = YES;
 
-    [self setupChildViewController:libriary title:NSLocalizedString(@"local.libriary", @"") imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
+    [self setupChildViewController:libriary title:NSLocalizedString(@"local.library", @"") imageName:@"handbook_nor" seleceImageName:@"handbook_sel"];
     TeamVC *team = [TeamVC new];
     team.isHidenNaviBar = YES;
     [self setupChildViewController:team title:NSLocalizedString(@"local.team", @"") imageName:@"icon_team" seleceImageName:@"icon_teamselect"];

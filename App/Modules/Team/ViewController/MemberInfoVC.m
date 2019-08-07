@@ -338,7 +338,7 @@
         NSString *uid =self.model.memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfullyRemoved", @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if(self.teamMemberRefresh){
                         self.teamMemberRefresh();
@@ -349,7 +349,7 @@
             }else{
                 NSString *errorCode = response[@"errorCode"];
                 if ([errorCode isEqualToString:@"home.auth.noSuchAccount"]){
-                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfullyRemoved", @"")];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if(self.teamMemberRefresh){
                             self.teamMemberRefresh();

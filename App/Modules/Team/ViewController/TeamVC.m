@@ -275,7 +275,7 @@
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfullyRemoved", @"")];
                 [self loadTeamMemberInfo];
             }else{
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.RemovalFailed", @"")];

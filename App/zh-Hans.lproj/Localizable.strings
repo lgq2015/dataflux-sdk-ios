@@ -224,7 +224,7 @@
 "local.Me" = "我";
 "local.team" = "团队";
 "local.calender" = "日历";
-"local.libriary" = "智库";
+"local.library" = "智库";
 "local.issue" = "情报";
 "local.NotHaveRelevantPermissions" = "您没有相关权限";
 "local.AllOrigin" = "全部来源";
@@ -440,7 +440,7 @@
 "local.GoToOpen" = "去开启";
 "local.ConfirmRemoval" = "确认移除";
 "local.RemovalFailed" = "移除失败";
-"lcoal.SuccessfullyRemoved" = "移除成功";
+"local.SuccessfullyRemoved" = "移除成功";
 "local.location" = "所在地";
 "local.placeholder.selectLocation" = "请选择您的团队所在区域";
 "local.industry" = "行业";
@@ -496,7 +496,7 @@
 "local.DetectNewVersion" = "检测新版本";
 "local.Features" = "功能介绍";
 "local.PersonalInformation" = "个人信息";
-"lcoal.tip.ChangeAvatarSuccess" = "更改头像成功";
+"local.tip.ChangeAvatarSuccess" = "更改头像成功";
 "local.tip.AuthenticationTip" = "为了保障您的账号安全 \n请选择一种身份验证";
 "local.VerifyIdentityByPhoneCode" = "通过手机验证码验证身份";
 "local.VerifyIdentityByPassword" = "通过密码验证身份";
@@ -509,12 +509,12 @@
 "local.LoggingIn" = "登录中...";
 "local.PhoneNumberCannotBeEmpty" = "手机号不能为空";
 "local.PleaseEnterThe11-digitMobileNumber" = "请输入11位的手机号码";
-"lcoal.VerificationCodeMustBeFilled" = "验证码不能为空";
+"local.VerificationCodeMustBeFilled" = "验证码不能为空";
 "local.NameCannotBeEmpty" = "姓名不能为空";
-"lcoal.PleaseEnterANewPassword" = "请输入新密码";
+"local.PleaseEnterANewPassword" = "请输入新密码";
 "local.EnterANewPassword" = "输入新密码";
 "local.PasswordSettingIsSuccessful" = "密码设置成功";
-"lcoal.ThePasswordFormatIsIncorrect" = "密码格式有误";
+"local.ThePasswordFormatIsIncorrect" = "密码格式有误";
 "local.PasswordCannotBeLessThan8Digits" = "密码不能少于 8 位";
 "local.PasswordContainsLimit" = "至少包含字母、数字、字符中的 2 种";
 "local.tip.AgreeAgreementTip" = "同意《服务协议》《隐私权政策》后，方可注册";

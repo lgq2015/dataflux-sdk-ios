@@ -46,7 +46,7 @@ static NSUInteger ItemWidth = 104;
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
     [self.view addSubview:nav];    
     nav.backgroundColor = PWWhiteColor;
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:NSLocalizedString(@"local.libriary", @"")];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectZero font:BOLDFONT(18) textColor:PWBlackColor text:NSLocalizedString(@"local.library", @"")];
     title.textAlignment = NSTextAlignmentCenter;
     [nav addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {

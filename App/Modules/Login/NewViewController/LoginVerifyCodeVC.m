@@ -247,7 +247,7 @@
         return;
     }
     if ([self.codeTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"lcoal.VerificationCodeMustBeFilled", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.VerificationCodeMustBeFilled", @"")];
         return;
     }
    
