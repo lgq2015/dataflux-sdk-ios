@@ -13,6 +13,7 @@
 #import "UITextField+HLLHelper.h"
 #import "VerificationCodeNetWork.h"
 #import "PWWeakProxy.h"
+#import "NSString+ErrorCode.h"
 
 @interface RegisterVC ()<TTTAttributedLabelDelegate,UITextFieldDelegate>
 
@@ -232,9 +233,9 @@
     if (!_loginBtn) {
         _loginBtn = [[UIButton alloc]init];
         _loginBtn.titleLabel.font = RegularFONT(14);
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:@"已有账号？去登录"];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"local.AlreadyHaveAnAccount?GoToLogin", @"")];
         //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [@"已有账号？去登录" rangeOfString:@"去登录"];
+        NSRange range = [NSLocalizedString(@"local.AlreadyHaveAnAccount?GoToLogin", @"") rangeOfString:NSLocalizedString(@"local.GoToLogin", @"")];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         dic[NSForegroundColorAttributeName] = PWBlueColor;
         //赋值
@@ -250,7 +251,7 @@
     if (!_agreementLab) {
         NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
         NSString *linkText2 = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.PrivacyPolicy", @"")];
-        NSString *promptText = @"同意《服务协议》与《隐私权政策》";
+        NSString *promptText = NSLocalizedString(@"local.AgreeToTheServiceAgreementAndThePrivacyPolicy", @"");
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
         _agreementLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
@@ -299,19 +300,19 @@
 }
 - (void)registerBtnClick{
     if ([self.phoneTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:@"手机号不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PhoneNumberCannotBeEmpty", @"")];
         return;
     }
     if (![[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        [iToast alertWithTitleCenter:@"请输入11位的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseEnterThe11-digitMobileNumber", @"")];
         return;
     }
     if ([self.codeTF.text removeFrontBackBlank].length == 0) {
-        [iToast  alertWithTitleCenter:@"验证码不能为空"];
+        [iToast  alertWithTitleCenter:NSLocalizedString(@"lcoal.VerificationCodeMustBeFilled", @"")];
         return;
     }
     if ([self.nameTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:@"姓名不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.NameCannotBeEmpty", @"")];
         return;
     }
     if ([self.passwordTF.text removeFrontBackBlank].length == 0) {
@@ -319,11 +320,11 @@
         return;
     }
     if ([self.passwordTF.text removeFrontBackBlank].length<8) {
-        [iToast alertWithTitleCenter:@"密码不能少于 8 位"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordCannotBeLessThan8Digits", @"")];
         return;
     }
     if (![[self.passwordTF.text removeFrontBackBlank] validatePassWordForm]) {
-        [iToast alertWithTitleCenter:@"至少包含字母、数字、字符中的 2 种"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordContainsLimit", @"")];
         return;
     }
     
@@ -332,11 +333,11 @@
         return;
     }
     if (![[self.emailTF.text removeFrontBackBlank] validateEmail]) {
-        [iToast alertWithTitleCenter:@"请输入正确格式的邮箱"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.enterCorrectEmail", @"")];
         return;
     }
     if (!self.selectBtn.selected) {
-        [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可注册"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.AgreeAgreementTip", @"")];
         return;
     }
     NSDictionary *param = @{@"email":[self.emailTF.text removeFrontBackBlank],@"mobile":[self.phoneTF.text removeFrontBackBlank],@"name":[self.nameTF.text removeFrontBackBlank],@"password":[self.passwordTF.text removeFrontBackBlank],@"marker":@"mobile",@"verificationCode":[self.codeTF.text removeFrontBackBlank]};
@@ -404,7 +405,7 @@
                         //对前后台状态进行监听
                         [self observeApplicationActionNotification];
                     }else{
-                        [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                        [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                     }
                 } failBlock:^(NSError *error) {
                     [SVProgressHUD dismiss];
@@ -452,11 +453,11 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ldS后重发",(long)self.second] forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend%ld", @""),(long)self.second] forState:UIControlStateNormal];
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];
-        [self.getCodeBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:NSLocalizedString(@"local.Resend", @"") forState:UIControlStateNormal];
     }
 }
 - (void)selectBtnClick{

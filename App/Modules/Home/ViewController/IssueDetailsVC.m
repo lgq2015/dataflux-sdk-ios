@@ -29,6 +29,7 @@
 #import "IgnoreItemView.h"
 #import "TouchLargeButton.h"
 #import "ZhugeIOIssueHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
@@ -240,7 +241,7 @@
                 }
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -311,7 +312,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             if ([response[ERROR_CODE] isEqualToString:@"home.issue.AlreadyIsRecovered"]) {
                 self.refreshClick?self.refreshClick():nil;
                 IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];

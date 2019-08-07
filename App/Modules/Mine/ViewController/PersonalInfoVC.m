@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"个人信息";
+    self.title = NSLocalizedString(@"local.PersonalInformation", @"");
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateUser)
                                                  name:KNotificationUserInfoChange
@@ -169,7 +169,7 @@
             
         }
         [SVProgressHUD dismiss];
-        [SVProgressHUD showSuccessWithStatus:@"更改头像成功"];
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.tip.ChangeAvatarSuccess", @"")];
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"home.recommendation.uploadFailed", @"")];

@@ -16,6 +16,7 @@
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -92,7 +93,7 @@
         make.height.offset(ZOOM_SCALE(130));
     }];
    
-        UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
+        UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:NSLocalizedString(@"local.TeamIntroduction", @"")];
         [textItem addSubview:titel];
     
 
@@ -145,7 +146,7 @@
 #pragma mark ========== 团队/个人 ==========
 - (void)createBtnViewMember{
     self.textView.editable = NO;
-    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"退出团队"];
+    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.ExitTheTeam", @"")];
     [commitTeam addTarget:self action:@selector(exictTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitTeam];
     [commitTeam mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -161,19 +162,19 @@
 }
 
 -(void)exictTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@" * 退出团队后，您当前有关该团队的所有信息都将被清空，并不再接收该团队的任何消息\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.tip.ExitTheTeamTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
      UIView *messageParentView = [self getParentViewOfTitleAndMessageFromView:alert.view];
      if (messageParentView && [messageParentView isKindOfClass:UILabel.class]) {
         UILabel *lable = (UILabel *)messageParentView;
          lable.textAlignment = NSTextAlignmentLeft;
      }
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认退出" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmExit", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [SVProgressHUD show];
         NSString *uid =userManager.curUserInfo.userID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"退出成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.ExitSuccessfully", @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [userManager logout:nil];
                 });
@@ -248,14 +249,14 @@
             [self presentViewController:create animated:YES completion:nil];  
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 KPostNotification(KNotificationTeamStatusChange, @YES);
                 setTeamState(PW_isTeam);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:NO];
                 });
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
         [SVProgressHUD dismiss];
@@ -280,7 +281,7 @@
     if(self.count<2){
         transferTeam.enabled = NO;
     }
-    UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"解散团队"];
+    UIButton *logoutTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:NSLocalizedString(@"local.DissolutionTeam", @"")];
     [logoutTeam addTarget:self action:@selector(logoutTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:logoutTeam];
     [logoutTeam mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -293,8 +294,8 @@
 
 }
 - (void)logoutTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"* 解散团队意味着您团队成员、连接的云服务、所有的情报数据都将会被消除。\n* 操作完成将会强制退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认解散" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.tip.DissolutionTeamTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmDissolution", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self logoutTeamRequest];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
@@ -319,7 +320,7 @@
             NSCharacterSet  *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
              NSString *name = [self.tfAry[0].text stringByTrimmingCharactersInSet:set];
             if ([name isEqualToString:@""]) {
-                [iToast alertWithTitleCenter:@"团队名称不能为空"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.TeamNameCannotBeEmpty", @"")];
             }else{
                 [SVProgressHUD show];
                 NSDictionary *param ;
@@ -365,7 +366,7 @@
 -(UITextView *)textView{
     if (!_textView) {
 
-        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队（可选）" font:RegularFONT(16)];
+        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:NSLocalizedString(@"local.placeholder.teamIntroduction", @"") font:RegularFONT(16)];
     }
     return _textView;
 }

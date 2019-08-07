@@ -31,21 +31,21 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(24) textColor:PWTextBlackColor text:@"输入新密码"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.EnterANewPassword", @"")];
     [self.view addSubview:titleLab];
     UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(12), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(16) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero];
-        _passwordTf.placeholder = @"请输入新密码";
+        _passwordTf.placeholder = NSLocalizedString(@"lcoal.PleaseEnterANewPassword", @"");
         _passwordTf.clearButtonMode=UITextFieldViewModeWhileEditing;
         _passwordTf.font = RegularFONT(15);
         [self.view addSubview:_passwordTf];
     }
     if(self.isChange){
         titleLab.text = NSLocalizedString(@"local.ChangeThePassword", @"");
-        _passwordTf.placeholder = @"请输入新密码";
+        _passwordTf.placeholder = NSLocalizedString(@"lcoal.PleaseEnterANewPassword", @"");
     }
    [self.showWordsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view).offset(-Interval(36));
@@ -132,7 +132,7 @@
                 setXAuthToken(response[@"content"][@"authAccessToken"]);
                 if (self.isChange) {
                     [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrSceneChangePwd] track];
-                    [iToast alertWithTitleCenter:@"密码设置成功"];
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordSettingIsSuccessful", @"")];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         for (UIViewController *temp in self.navigationController.viewControllers) {
                             if ([temp isKindOfClass:[SecurityPrivacyVC class]]) {
@@ -160,7 +160,7 @@
             [error errorToast];
         }];
     } else {
-        [iToast alertWithTitleCenter:@"密码格式有误"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"lcoal.ThePasswordFormatIsIncorrect", @"")];
     }
 }
 - (void)pwdTextSwitch:(UIButton *)sender{

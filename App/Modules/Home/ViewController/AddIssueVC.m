@@ -19,6 +19,7 @@
 #import "IssueDetailsVC.h"
 #import "IssueChatDataManager.h"
 #import "ZhugeIOIssueHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define NavRightBtnTag  100  // 右侧图片
 
@@ -375,7 +376,7 @@
                 [[[ZhugeIOIssueHelper new] eventCreateProblem] attrAddEnclosure:self.attachmentArray.count > 0];
 
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 [SVProgressHUD dismiss];
             }
         } failBlock:^(NSError *error) {

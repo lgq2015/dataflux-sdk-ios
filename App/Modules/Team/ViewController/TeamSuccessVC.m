@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self setupNavBar];
     [self createUI];
 }
@@ -70,7 +69,7 @@
     if(self.isTrans){
         self.titleLabel.text = NSLocalizedString(@"local.TransferManager", @"");
     }else{
-        self.titleLabel.text = @"解散团队";
+        self.titleLabel.text = NSLocalizedString(@"local.DissolutionTeam", @"");
     }
     UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+Interval(12), kWidth, kHeight-kTopHeight-Interval(12))];
     contentView.backgroundColor = PWWhiteColor;
@@ -83,7 +82,7 @@
         make.width.height.offset(ZOOM_SCALE(80));
         make.centerX.mas_equalTo(contentView);
     }];
-    NSString *tipstr = self.isTrans?@"转移成功":@"解散成功";
+    NSString *tipstr = self.isTrans?NSLocalizedString(@"local.TransferSuccess", @""):NSLocalizedString(@"local.DissolutionSuccess", @"");
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:tipstr];
     [contentView addSubview:tipLab];
     tipLab.textAlignment = NSTextAlignmentCenter;
@@ -101,7 +100,7 @@
         make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(20));
     }];
-    timeLab.text = @"将在 5s 后退出登录";
+    timeLab.text =[NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown%ld", @""),5];
     self.timeLab = timeLab;
     self.second = 5;
     __weak typeof(self) weakSelf = self;
@@ -113,7 +112,7 @@
         self.timer = [NSTimer timerWithTimeInterval:1.0 target:[PWWeakProxy proxyWithTarget:self] selector:@selector(timerRun) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
     }
-    UIButton *logout = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"我知道了"];
+    UIButton *logout = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.Iknow", @"")];
     [contentView addSubview:logout];
     [logout mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(timeLab.mas_bottom).offset(Interval(94));
@@ -128,7 +127,7 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        self.timeLab.text = [NSString stringWithFormat:@"将在 %lds 后退出登录",(long)self.second];
+        self.timeLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown%ld", @""),(long)self.second];
     }else if(self.second == 0){
          [self.timer invalidate];
     

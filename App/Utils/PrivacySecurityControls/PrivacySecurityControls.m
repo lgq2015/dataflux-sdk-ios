@@ -18,11 +18,11 @@
    
     NSString *tipTitle;
     NSString *tipMessage;
-    NSString *goBtnTitle = @"去开启";
+    NSString *goBtnTitle = NSLocalizedString(@"local.GoToOpen", @"");
     switch (type) {
         case PrivacyTypePHPhotoLibrary:
-            tipTitle = @"请开启照片权限";
-            tipMessage = @"可依次进入[设置-隐私-照片]，允许访问手机相册";
+            tipTitle = NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @"");
+            tipMessage = NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @"");
             break;
         case PrivacyTypeAVCaptureDevice:
             tipTitle = @"请开启相机权限";

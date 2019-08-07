@@ -8,6 +8,7 @@
 
 #import "EditBeizhuVC.h"
 #import "UITextField+HLLHelper.h"
+#import "NSString+ErrorCode.h"
 #import <IQKeyboardManager.h>
 
 @interface EditBeizhuVC ()
@@ -54,7 +55,7 @@
         if ([response[ERROR_CODE] isEqualToString:@""]) {
             BOOL content = [response[@"content"] boolValue];
             if (content){
-                [SVProgressHUD showSuccessWithStatus:@"备注添加成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.NoteAddedSuccessfully", @"")];
                 if (_editTeamMemberNote){
                     _editTeamMemberNote(inTeamNote);
                 }
@@ -62,7 +63,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

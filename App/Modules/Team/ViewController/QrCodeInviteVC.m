@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"二维码邀请";
+    self.title = NSLocalizedString(@"local.InvitationByQr", @"");
     [self createUI];
     [self loadQrData];
 }
@@ -64,12 +64,12 @@
         make.top.mas_equalTo(self.view).offset(Interval(56));
         make.width.height.offset(ZOOM_SCALE(145));
     }];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(95)+ZOOM_SCALE(145), kWidth, ZOOM_SCALE(48)) font:RegularFONT(16) textColor:PWTitleColor text:@"成员扫描此二维码即可加入团队\n二维码 30 分钟内有效"];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(95)+ZOOM_SCALE(145), kWidth, ZOOM_SCALE(48)) font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.tip.InviteByQrTip", @"")];
     tip.numberOfLines = 2;
     tip.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tip];
     
-    UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"保存二维码到相册"];
+    UIButton *commitBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.SaveTheQrCodeToTheAlbum", @"")];
     [commitBtn addTarget:self action:@selector(commitClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitBtn];
     [commitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,13 +89,13 @@
 }
 -(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     if(error){
-        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.SaveFailure", @"")];
     }else{
         if (self.qrImgView.image){
             [[[ZhugeIOTeamHelper new] eventSaveQRCode] track];
-            [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SaveSuccess", @"")];
         }else{
-            [SVProgressHUD showErrorWithStatus:@"保存失败"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.SaveFailure", @"")];
         }
     }
 }
@@ -121,13 +121,13 @@
 }
 
 - (void)showOpenPhotoAuth{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请开启相册权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @"") message:NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @"") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [alert addAction:confirm];
 
-    UIAlertAction *open = [UIAlertAction actionWithTitle:@"去开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"local.GoToOpen", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }];
     [alert addAction:open];

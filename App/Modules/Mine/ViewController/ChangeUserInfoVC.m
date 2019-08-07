@@ -12,6 +12,7 @@
 #import "PasswordVerifyVC.h"
 #import "VerificationCodeNetWork.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define TagPhoneItem  100  // 右侧图片
 #define TagPasswordItem 200
@@ -30,7 +31,7 @@
 - (void)createUI{
     switch (self.type) {
         case ChangeUITPhoneNumber:
-           [self setNaviTitle:@"修改手机"];
+           [self setNaviTitle:NSLocalizedString(@"local.ModifyThePhone", @"")];
             break;
         case ChangeUITPassword:
            [self setNaviTitle:NSLocalizedString(@"local.ChangeThePassword", @"")];
@@ -39,22 +40,22 @@
         if (userManager.curUserInfo.email == nil ||[userManager.curUserInfo.email isEqualToString:@""]) {
             [self setNaviTitle:NSLocalizedString(@"local.BindingEmail", @"")];
         }else{
-            [self setNaviTitle:@"修改邮箱"];
+            [self setNaviTitle:NSLocalizedString(@"local.ModifyTheEmail", @"")];
         }
             break;
         case ChangeUITTeamDissolve:
-            [self setNaviTitle:@"身份验证"];
+            [self setNaviTitle:NSLocalizedString(@"local.Authentication", @"")];
             break;
         case ChangeUITTeamTransfer:
-            [self setNaviTitle:@"身份验证"];
+            [self setNaviTitle:NSLocalizedString(@"local.Authentication", @"")];
             break;
     }
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:RegularFONT(18) textColor:PWTextBlackColor text:@"为了保障您的账号安全 \n请选择一种身份验证"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(58)+kTopHeight, kWidth, ZOOM_SCALE(55)) font:RegularFONT(18) textColor:PWTextBlackColor text:NSLocalizedString(@"local.tip.AuthenticationTip", @"")];
     tipLab.numberOfLines = 2;
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];
-    NSDictionary *phoneDict = @{@"icon":@"icon_phone",@"phone":userManager.curUserInfo.mobile,@"tip":@"通过手机验证码验证身份"};
-    NSDictionary *passwordDict = @{@"icon":@"icon_minecode",@"phone":@"密码验证",@"tip":@"通过密码验证身份"};
+    NSDictionary *phoneDict = @{@"icon":@"icon_phone",@"phone":userManager.curUserInfo.mobile,@"tip":NSLocalizedString(@"local.VerifyIdentityByPhoneCode", @"")};
+    NSDictionary *passwordDict = @{@"icon":@"icon_minecode",@"phone":NSLocalizedString(@"local.PasswordAuthenticationl", @""),@"tip":NSLocalizedString(@"local.VerifyIdentityByPassword", @"")};
     
     ChangeCardItem *phoneItem = [[ChangeCardItem alloc]initWithFrame:CGRectZero data:phoneDict];
     phoneItem.itemClick=^(){
@@ -117,7 +118,7 @@
             }
             [self.navigationController pushViewController:codeVC animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         

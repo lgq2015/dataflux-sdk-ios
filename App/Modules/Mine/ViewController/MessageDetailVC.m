@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"消息详情";
+    self.title = NSLocalizedString(@"local.MessageDetails", @"");
     [self createUI];
     [self setMessageRead];
 }
@@ -121,8 +121,8 @@
             NSDictionary *dic = text.attributes;
             YYTextHighlight *user = [dic valueForKey:@"YYTextHighlight"];
             NSString *linkUrl = [user.userInfo valueForKey:@"linkUrl"];
-            if ([text.string containsString:@"立即购买"]){
-                CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:@"服务" andURLString:PW_cloudcare];
+            if ([text.string containsString:NSLocalizedString(@"local.BuyNow", @"")]){
+                CloudCareVC  *makeFriendVC = [[CloudCareVC alloc]initWithTitle:NSLocalizedString(@"local.service_package", @"") andURLString:PW_cloudcare];
                 makeFriendVC.isHideProgress = YES;
                 [weakSelf.navigationController pushViewController:makeFriendVC animated:YES];
 

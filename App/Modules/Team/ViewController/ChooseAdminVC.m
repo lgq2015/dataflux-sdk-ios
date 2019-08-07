@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"选择管理员";
+    self.title = NSLocalizedString(@"local.SelectAdministrator", @"");
     [self loadTeamMemberInfo];
     [self createUI];
     
@@ -110,12 +110,12 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSString *message = @"* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录";
+    NSString *message = NSLocalizedString(@"local.tip.TransferManagerTip", @"");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认转移" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmTransfer", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
         verify.isShowCustomNaviBar = YES;
         verify.type = ChangeUITTeamTransfer;
@@ -129,19 +129,7 @@
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
     
-//        MemberInfoModel *model = self.teamMemberArray[indexPath.row];
-//        MemberInfoVC *member = [[MemberInfoVC alloc]init];
-//        member.isHidenNaviBar = YES;
-//        member.type = PWMemberViewTypeTrans;
-//        member.teamMemberRefresh =^(){
-//            [self loadTeamMemberInfo];
-//        };
-//        member.memberBeizhuChangeBlock = ^(NSString * _Nonnull name) {
-//            model.inTeamNote = name;
-//            [self.tableView reloadData];
-//        };
-//        member.model = model;
-//        [self.navigationController pushViewController:member animated:YES];
+
     
 }
 #pragma mark - UISearchResultsUpdating

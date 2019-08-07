@@ -41,9 +41,9 @@
     }];
     NSString *titleString = @"";
     if (_isSupplement){
-        titleString = @"补全团队信息成功！";
+        titleString = NSLocalizedString(@"local.CompletingTheTeamInformationSuccessfully", @"");
     }else{
-        titleString = @"恭喜您创建团队成功！";
+        titleString = NSLocalizedString(@"local.CreatingATeamSuccess", @"");
     }
     UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(24) textColor:PWTextBlackColor text:titleString];
     tipLab.textAlignment = NSTextAlignmentCenter;
@@ -55,7 +55,7 @@
         make.right.mas_equalTo(self.view);
         make.height.offset(ZOOM_SCALE(33));
     }];
-    UILabel *inviteLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:@"现在就去邀请小伙伴加入团队吧"];
+    UILabel *inviteLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWSubTitleColor text:NSLocalizedString(@"local.tip.InviteFriendsJoinTheTeam", @"")];
     [self.view addSubview:inviteLab];
     [inviteLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(16));
@@ -64,7 +64,7 @@
     }];
     NSArray *icon = @[@{@"name":@"team_weChat"},@{@"name":@"team_qq"},@{@"name":@"team_ding"}];
     NSArray *btnTag = @[@WeChatBtnTag,@QQBtnTag,@DingBtnTag];
-    NSArray *iconName = @[@"微信好友",@"QQ 好友",@"钉钉"];
+    NSArray *iconName = @[NSLocalizedString(@"local.WeChatFriends", @""),NSLocalizedString(@"local.QQFriends", @""),NSLocalizedString(@"local.dingding", @"")];
     for (NSInteger i=0; i<icon.count; i++) {
         UIImageView *imgView = [self inviteBtnWithDict:icon[i]];
         [self.view addSubview:imgView];
@@ -106,7 +106,7 @@
 -(UIButton *)skipBtn{
     if (!_skipBtn) {
         _skipBtn = [[UIButton alloc]initWithFrame:CGRectZero];
-        [_skipBtn setTitle:@"跳过" forState:UIControlStateNormal];
+        [_skipBtn setTitle:NSLocalizedString(@"local.JumpOver", @"") forState:UIControlStateNormal];
         [_skipBtn addTarget:self action:@selector(skipBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _skipBtn.titleLabel.font = RegularFONT(16);
         [_skipBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
@@ -138,7 +138,7 @@
 }
 - (void)popShareUI:(NSInteger)btnTag{
     __weak typeof(self) weakself = self;
-    NSString *titleDesc = @"团队邀请您加入，加入团队后您可以共享团队数据和信息，并与团队成员进行协作";
+    NSString *titleDesc = NSLocalizedString(@"local.tip.InviteYouJoinTheTeamTip", @"");
     NSString *title = [NSString stringWithFormat:@"%@ %@",self.groupName,titleDesc];
     ZYSocialManager *manager = [[ZYSocialManager alloc]initWithTitle:title descr:@"" thumImage:[UIImage imageNamed:@"144-144"]];
     manager.webpageUrl = weakself.shareUrl;

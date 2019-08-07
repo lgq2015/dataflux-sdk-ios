@@ -16,6 +16,8 @@
 #import "CopyLable.h"
 #import "ZhugeIOIssueHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
+
 #define phoneViewTag 35
 @interface MemberInfoVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *headerView;
@@ -166,7 +168,7 @@
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(42)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(42)+SafeAreaBottom_Height)];
         bgView.backgroundColor = PWWhiteColor;
         [self.view addSubview:bgView];
-        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:[NSString stringWithFormat:@"移除成员"]];
+        UIButton *delectTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:[NSString stringWithFormat:NSLocalizedString(@"local.RemoveMember", @"")]];
         [delectTeam setTitleColor:[UIColor colorWithHexString:@"#F6584C"] forState:UIControlStateNormal];
         delectTeam.backgroundColor = PWWhiteColor;
         [delectTeam setTitleColor:[UIColor colorWithHexString:@"#F6584C"] forState:UIControlStateHighlighted];
@@ -271,7 +273,7 @@
     UIView *emailView = [[UIView alloc]init];
     emailView.backgroundColor = PWWhiteColor;
     [self.view addSubview:emailView];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"邮箱"];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:NSLocalizedString(@"local.mailbox", @"")];
     [emailView addSubview:tip];
     self.emailLab = [[CopyLable alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, kWidth-32, ZOOM_SCALE(22))];
     self.emailLab.font = RegularFONT(16);
@@ -283,7 +285,7 @@
     UIView *phoneView = [[UIView alloc]init];
     phoneView.backgroundColor = PWWhiteColor;
     [self.view addSubview:phoneView];
-    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:@"电话"];
+    UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(16, 8, ZOOM_SCALE(35), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:NSLocalizedString(@"local.phone", @"")];
     [phoneView addSubview:tip];
     self.phoneLab = [[CopyLable alloc]initWithFrame:CGRectMake(16, CGRectGetMaxY(tip.frame)+6, ZOOM_SCALE(200), ZOOM_SCALE(22))];
     self.phoneLab.font = RegularFONT(16);
@@ -331,12 +333,12 @@
     }];
 }
 - (void)delectTeamClick{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"移除成员后，成员将不在团队管理中，并不再接收团队任何消息" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TeamDelectMemberTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRemoval", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSString *uid =self.model.memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if(self.teamMemberRefresh){
                         self.teamMemberRefresh();
@@ -347,7 +349,7 @@
             }else{
                 NSString *errorCode = response[@"errorCode"];
                 if ([errorCode isEqualToString:@"home.auth.noSuchAccount"]){
-                    [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if(self.teamMemberRefresh){
                             self.teamMemberRefresh();
@@ -355,11 +357,11 @@
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 }else{
-                    [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }
             }
         } failBlock:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:@"移除失败"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.RemovalFailed", @"")];
         }];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -371,7 +373,7 @@
 }
 
 - (void)transBtnClick{
-    NSString *message = @"* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录";
+    NSString *message = NSLocalizedString(@"local.tip.TransferManagerTip", @"");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleActionSheet];
    
     UIView *messageParentView = [self getParentViewOfTitleAndMessageFromView:alert.view];
@@ -379,7 +381,7 @@
         UILabel *lable = (UILabel *)messageParentView;
         lable.textAlignment = NSTextAlignmentLeft;
     }
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认转移" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmTransfer", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         ChangeUserInfoVC *verify = [[ChangeUserInfoVC alloc]init];
         verify.isShowCustomNaviBar = YES;
         verify.type = ChangeUITTeamTransfer;

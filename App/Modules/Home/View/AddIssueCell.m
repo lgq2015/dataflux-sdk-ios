@@ -31,7 +31,7 @@
           self.sizeLab.text = _model.size;
             break;
         case UploadTypeError:
-          self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
+          self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"server.err.home.recommendation.uploadFailed", @"")];
           self.uploadStateLab.hidden = NO;
           self.reloadBtn.hidden = NO;
           self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];
@@ -47,7 +47,7 @@
     self.reloadBtn.hidden = NO;
     self.titleLab.text = self.model.name;
     self.sizeLab.text = self.model.size;
-    self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
+    self.uploadStateLab.text = [NSString stringWithFormat:@"%@！",NSLocalizedString(@"server.err.home.recommendation.uploadFailed", @"")];
     self.uploadStateLab.hidden = NO;
     self.reloadBtn.hidden = NO;
     self.uploadStateLab.textColor = [UIColor colorWithHexString:@"#D50000"];

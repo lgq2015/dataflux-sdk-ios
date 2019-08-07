@@ -145,7 +145,7 @@
 - (UILabel *)topTileLab{
     if (!_topTileLab){
         _topTileLab = [[UILabel alloc] init];
-        _topTileLab.text = @"此功能需要补充完整团队信息方可使用";
+        _topTileLab.text = NSLocalizedString(@"local.tip.fillTeamInfoTip", @"");
         _topTileLab.font = RegularFONT(14);
         _topTileLab.backgroundColor = [UIColor whiteColor];
         _topTileLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
@@ -165,7 +165,7 @@
         _messageLab = [[UILabel alloc] init];
         _messageLab.textColor = [UIColor colorWithHexString:@"#2A7AF7"];
         _messageLab.font = RegularFONT(17);
-        _messageLab.text = @"补充团队信息";
+        _messageLab.text = NSLocalizedString(@"local.SupplementaryTeamInformation", @"");
         _messageLab.backgroundColor = [UIColor whiteColor];
         _messageLab.textAlignment = NSTextAlignmentCenter;
         _messageLab.userInteractionEnabled = YES;

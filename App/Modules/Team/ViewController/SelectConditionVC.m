@@ -106,7 +106,7 @@
 -(void)backBtnClicked{
      [self resignTheFirstResponder];
     if (self.valueStr.length>0 &&(self.keyStr == nil||self.keyStr.length==0)) {
-        [iToast alertWithTitleCenter:@"标签键不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.LabelKeyCannotBeEmpty", @"")];
         return;
     }
     if (self.keyStr.length>0) {

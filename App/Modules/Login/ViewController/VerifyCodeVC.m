@@ -21,6 +21,7 @@
 #import "ZhugeIOLoginHelper.h"
 #import "ZhugeIOMineHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface VerifyCodeVC ()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) NSTimer *timer;
@@ -95,7 +96,7 @@
         make.height.offset(ZOOM_SCALE(22));
         make.width.offset(ZOOM_SCALE(150));
     }];
-    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:@"后重发"];
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:NSLocalizedString(@"local.resend", @"")];
     timeLab.tag = 10;
     [self.view addSubview:timeLab];
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -131,7 +132,7 @@
         codeTfView.completeBlock = ^(NSString *completeStr){
             weakSelf.code = completeStr;
             if (weakSelf.type == VerifyCodeVCTypeLogin &&!weakSelf.selectBtn.selected && weakSelf.code.length == 6) {
-                [iToast alertWithTitleCenter:@"同意《服务协议》《隐私权政策》后，方可登录哦"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.AgreeAgreementToLoginTip", @"")];
             }else{
                 [weakSelf btnClickWithCode:completeStr];
             }
@@ -185,7 +186,7 @@
     if (!_agreementLab) {
         NSString *linkText = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.serviceAgreement", @"")];
         NSString *linkText2 = [NSString stringWithFormat:@"《%@》",NSLocalizedString(@"local.PrivacyPolicy", @"")];
-        NSString *promptText = @"同意《服务协议》与《隐私权政策》";
+        NSString *promptText = NSLocalizedString(@"local.AgreeToTheServiceAgreementAndThePrivacyPolicy", @"");
         NSRange linkRange = [promptText rangeOfString:linkText];
         NSRange linkRange2 = [promptText rangeOfString:linkText2];
         _agreementLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
@@ -208,7 +209,7 @@
 }
 -(UIButton *)resendCodeBtn{
     if (!_resendCodeBtn) {
-        _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"重新发送"];
+        _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.Resend", @"")];
         _resendCodeBtn.titleLabel.font = RegularFONT(14);
         [_resendCodeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_resendCodeBtn addTarget:self action:@selector(resendCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -250,7 +251,7 @@
             UILabel *lab = [self.view viewWithTag:10];
             lab.hidden = NO;
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [error errorToast];
@@ -295,7 +296,7 @@
 }
 #pragma mark ========== 验证码登录 ==========
 -(void)loginWithCode:(NSString *)code{
-    [SVProgressHUD showWithStatus:@"登录中..."];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"local.LoggingIn", @"")];
     NSMutableDictionary * data = [@{
             @"username": self.phoneNumber,
             @"verificationCode": code,
@@ -421,7 +422,7 @@
     NSDictionary *param = @{@"data":@{@"verificationCode":code,@"uuid":self.uuid}};
     [PWNetworking requsetHasTokenWithUrl:PW_modify_un withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.ModifySuccess", @"")];
             userManager.curUserInfo.mobile = self.phoneNumber;
             KPostNotification(KNotificationUserInfoChange, nil);
             [[[[ZhugeIOMineHelper new] eventChangePhone] attrVerifyWayMobile] track];
@@ -482,7 +483,7 @@
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
             });
@@ -502,7 +503,7 @@
             [[[ZhugeIOTeamHelper new] eventTransferManager] track];
 
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });

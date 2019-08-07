@@ -10,6 +10,8 @@
 #import "RegisterVC.h"
 #import "PWWeakProxy.h"
 #import "VerificationCodeNetWork.h"
+#import "NSString+ErrorCode.h"
+
 @interface LoginVerifyCodeVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIButton *passwordBtn;
@@ -119,7 +121,7 @@
 }
 -(UIButton *)passwordBtn{
     if (!_passwordBtn) {
-        _passwordBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:@"密码登录"];
+        _passwordBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:NSLocalizedString(@"local.PasswordLogin", @"")];
         [_passwordBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [_passwordBtn setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateHighlighted];
         [_passwordBtn.layer setBorderColor:PWBlueColor.CGColor];
@@ -194,7 +196,7 @@
         [[PWHttpEngine sharedInstance] checkRegisterWithPhone:[self.phoneTF.text removeFrontBackBlank] callBack:^(id response) {
             BaseReturnModel *model = response;
             if (model.isSuccess) {
-                [iToast alertWithTitleCenter:@"该手机号尚未注册"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.ThePhoneNumberHasNotBeenRegistered", @"")];
             }else{
                 if ([model.errorCode isEqualToString:@"home.auth.alreadyRegister"]) {
                     VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
@@ -217,7 +219,7 @@
                             //对前后台状态进行监听
                             [self observeApplicationActionNotification];
                         }else{
-                            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                         }
                     } failBlock:^(NSError *error) {
                         
@@ -237,19 +239,19 @@
 }
 - (void)loginBtnClick{
     if ([self.phoneTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:@"手机号不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PhoneNumberCannotBeEmpty", @"")];
         return;
     }
     if (![[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        [iToast alertWithTitleCenter:@"请输入11位的手机号码"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseEnterThe11-digitMobileNumber", @"")];
         return;
     }
     if ([self.codeTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:@"验证码不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"lcoal.VerificationCodeMustBeFilled", @"")];
         return;
     }
    
-            [SVProgressHUD showWithStatus:@"登录中..."];
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"local.LoggingIn", @"")];
             NSMutableDictionary * data = [@{
                                             @"username": [self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                                             @"verificationCode": [self.codeTF.text removeFrontBackBlank],
@@ -300,11 +302,11 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ldS后重发",(long)self.second] forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend%ld", @""),(long)self.second] forState:UIControlStateNormal];
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];
-        [self.getCodeBtn setTitle:@"重新发送" forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:NSLocalizedString(@"local.Resend", @"") forState:UIControlStateNormal];
     }
 }
 /*

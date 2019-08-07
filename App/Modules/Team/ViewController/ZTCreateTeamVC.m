@@ -19,6 +19,7 @@
 #import "IssueChatDataManager.h"
 #import "PWSocketManager.h"
 #import "IssueSourceManger.h"
+#import "NSString+ErrorCode.h"
 
 #define AddressTag 15
 #define TradesTag  20
@@ -52,7 +53,7 @@
     if(_dowhat == newCreateTeam){
         self.title = self.mConfige.title;
     }else{
-        self.title = @"补充团队信息";
+        self.title = NSLocalizedString(@"local.SupplementaryTeamInformation", @"");
     }
     self.currentCity = self.mConfige.currentCity;
     self.currentProvince = self.mConfige.currentProvince;
@@ -98,7 +99,7 @@
         make.height.offset(ZOOM_SCALE(130));
     }];
     
-    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:@"团队介绍"];
+    UILabel *titel = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), Interval(8), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTitleColor text:NSLocalizedString(@"local.TeamIntroduction", @"")];
     [textItem addSubview:titel];
     
     
@@ -202,7 +203,7 @@
             
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.account.alreadyInTeam"]) {
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 setTeamState(PW_isTeam);
                 KPostNotification(KNotificationTeamStatusChange, @YES);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -228,7 +229,7 @@
 #pragma mark ========== UI ==========
 -(UITextView *)textView{
     if (!_textView) {
-        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:@"请简单介绍一下您的团队（可选）" font:RegularFONT(16)];
+        _textView = [PWCommonCtrl textViewWithFrame:CGRectMake(kWidth-ZOOM_SCALE(110), ZOOM_SCALE(110), ZOOM_SCALE(100), ZOOM_SCALE(20)) placeHolder:NSLocalizedString(@"local.placeholder.teamIntroduction", @"") font:RegularFONT(16)];
     }
     return _textView;
 }

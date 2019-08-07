@@ -11,6 +11,7 @@
 #import "BindEmailOrPhoneVC.h"
 #import "TeamSuccessVC.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface PasswordVerifyVC ()
 @property (nonatomic, strong) UITextField *passwordTf;
@@ -25,9 +26,9 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120),ZOOM_SCALE(33)) font:MediumFONT(24) textColor:PWTextBlackColor text:@"密码验证"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120),ZOOM_SCALE(33)) font:MediumFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.PasswordAuthenticationl", @"")];
     [self.view addSubview:title];
-    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:@"您的登录账号为"];
+    UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.YouLoginAccountIs", @"")];
     [self.view addSubview:subTitle];
     [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(Interval(7));
@@ -166,7 +167,7 @@
             [[[[ZhugeIOMineHelper new] eventClickChangePwd] attrVerifyWayPwd] track];
 
         }else{
-            [iToast alertWithTitleCenter:@"密码错误" delay:0.3];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordMistake", @"") delay:0.3];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -209,7 +210,7 @@
             [[[[ZhugeIOMineHelper new] eventChangePhone] attrVerifyWayPwd] track];
 
         }else{
-            [iToast alertWithTitleCenter:@"密码错误"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordMistake", @"")];
 
         }
 
@@ -228,9 +229,9 @@
             [self doTeamTransfer:uuid];
         }else{
             if ([response[ERROR_CODE] isEqualToString:@"home.auth.passwordIncorrect"]) {
-                [iToast alertWithTitleCenter:@"密码错误"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.PasswordMistake", @"")];
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
         [SVProgressHUD dismiss];
@@ -249,7 +250,7 @@
             NSString * uuid =response[@"content"][@"uuid"];
             [self doteamDissolve:uuid];
         }else{
-           [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
         [SVProgressHUD dismiss];
         
@@ -267,7 +268,7 @@
                 success.isTrans = YES;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self popToAppointViewController:@"FillinTeamInforVC" animated:YES];
                 });
@@ -286,7 +287,7 @@
                 success.isTrans = NO;
                 [self presentViewController:success animated:YES completion:nil];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 });

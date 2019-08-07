@@ -76,7 +76,7 @@
         NSString *week = [NSString stringWithFormat:@"%@、%@、%@、%@、%@",NSLocalizedString(@"local.Monday", @""),NSLocalizedString(@"local.Tuesday", @""),NSLocalizedString(@"local.Wednesday", @""),NSLocalizedString(@"local.Thursday", @""),NSLocalizedString(@"local.Friday", @"")];
         subTitleAry  = @[@"",@"",@"",@"00:00-23:59",week,@""];
         MineCellModel *model = [[MineCellModel alloc]init];
-        model.title = @"同时订阅该规则";
+        model.title = NSLocalizedString(@"local.SubscribeRuleAtTheSameTime", @"");
         NSArray *array2= @[model];
         [self.dataSource addObject:array2];
     }
@@ -243,14 +243,14 @@
         return;
     }
     if (self.model.appNotification== NO && self.model.emailNotification == NO) {
-        [iToast alertWithTitleCenter:@"请至少选择一种通知方式"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseSelectAtLeastOneNotificationMethod", @"")];
         return;
     }
 
     if(self.model.weekday.length > 0) {
 
     } else{
-        [iToast alertWithTitleCenter:@"通知周期不能为空"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.NotificationPeriodCannotBeEmpty", @"")];
         return;
     }
 
@@ -303,7 +303,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 if([model.errorCode isEqualToString:model.errorMsg]){
-                    [iToast alertWithTitleCenter:@"请稍后重试"];
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"local.err.PleaseTryAgainLater", @"")];
                 }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
                 }

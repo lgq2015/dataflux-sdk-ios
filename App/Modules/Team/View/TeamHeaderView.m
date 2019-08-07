@@ -223,7 +223,7 @@
 }
 -(UILabel *)tipLab{
     if (!_tipLab) {
-        _tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWWhiteColor text:@"专项权益"];
+        _tipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWWhiteColor text:NSLocalizedString(@"local.SpecialInterest", @"")];
         [self.bgContentView addSubview:_tipLab];
     }
     return _tipLab;

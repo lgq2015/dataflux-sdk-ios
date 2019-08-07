@@ -420,7 +420,7 @@
             if (model.isSuccess) {
                 self.subscribeBtn.selected = !self.subscribeBtn.selected;
                 self.subscribeLab.hidden = YES;
-                [SVProgressHUD showSuccessWithStatus:@"通知规则订阅取消成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.NotificationRuleSubscriptionCanceledSuccessfully", @"")];
             }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
             }

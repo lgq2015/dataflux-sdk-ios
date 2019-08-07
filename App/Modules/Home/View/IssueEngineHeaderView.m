@@ -19,6 +19,7 @@
 #import "AssignView.h"
 #import "TouchLargeButton.h"
 #import "ZhugeIOIssueHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface IssueEngineHeaderView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) IssueListViewModel *model;
@@ -548,7 +549,7 @@
             webview.handbookModel = model1;
             [self.viewController.navigationController pushViewController:webview animated:YES];
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];

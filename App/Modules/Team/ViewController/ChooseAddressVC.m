@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"选择所在地";
+    self.title = NSLocalizedString(@"local.ChooseTheLocation", @"");
     self.cityAry = [NSMutableArray new];
     [self createUI];
     [self grtAdressData];
@@ -86,7 +86,7 @@
         }];
     }else{
         NSString *city = self.currentCity?self.currentCity:self.currentProvince;
-        self.currentDisLab.text = [NSString stringWithFormat:@"当前选择城市：%@",city];
+        self.currentDisLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.CurrentCitySelection", @""),city];
         [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.currentDisLab.mas_bottom);
             make.left.mas_equalTo(self.view);

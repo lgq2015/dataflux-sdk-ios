@@ -65,8 +65,8 @@
     }];
 
     MineCellModel *privacy = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.serviceAgreement", @"")];
-    MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:@"检测新版本" describeText:@""];
-    MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:@"功能介绍"];
+    MineCellModel *newVersion = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.DetectNewVersion", @"") describeText:@""];
+    MineCellModel *founctionIntro = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.Features", @"")];
     self.dataSource = [NSMutableArray arrayWithArray:@[founctionIntro,privacy,newVersion]];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

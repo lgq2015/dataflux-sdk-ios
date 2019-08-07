@@ -8,6 +8,7 @@
 
 #import "InviteByPhoneOrEmail.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface InviteByPhoneOrEmail ()<UITextFieldDelegate>
@@ -19,20 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.isPhone == YES?@"手机号邀请":@"邮箱邀请";
+    self.title = self.isPhone == YES?NSLocalizedString(@"local.InvitationByPhoneNumber", @""):NSLocalizedString(@"local.InvitationByEmail", @"");
     [self createUI];
-    // Do any additional setup after loading the view.
 }
 - (void)createUI{
     NSDictionary *dict ;
     if (self.isPhone) {
-        dict = @{@"title":NSLocalizedString(@"local.MobilePhoneNo", @""),@"placeholder":@"请输入邀请成员手机号码"};
+        dict = @{@"title":NSLocalizedString(@"local.MobilePhoneNo", @""),@"placeholder":NSLocalizedString(@"local.placeholder.inviteByPhone", @"")};
     }else{
-        dict = @{@"title":NSLocalizedString(@"local.mailbox", @""),@"placeholder":@"请输入邀请成员邮箱"};
+        dict = @{@"title":NSLocalizedString(@"local.mailbox", @""),@"placeholder":NSLocalizedString(@"local.placeholder.inviteByEmail", @"")};
     }
     UIView *item = [self itemWithData:dict];
     [self.view addSubview:item];
-    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:@"确认邀请"];
+    UIButton *commitTeam = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.ConfirmTheInvitation", @"")];
     commitTeam.enabled = NO;
     [commitTeam addTarget:self action:@selector(commitTeamClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:commitTeam];
@@ -95,7 +95,7 @@
         NSString *phone = [self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         BOOL  is = [phone validatePhoneNumber];
         if (is == NO){
-            [iToast alertWithTitleCenter:@"手机号错误"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
             return;
         }
         param = @{@"data":@{@"invite_type":@"mobile",@"invite_id":[self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]}};
@@ -104,7 +104,7 @@
     }else{
         BOOL  isEmail = [self.codeTF.text validateEmail];
         if (isEmail == NO){
-            [iToast alertWithTitleCenter:@"邮箱格式错误"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.enterCorrectEmail", @"")];
             return;
         }
         param = @{@"data":@{@"invite_type":@"email",@"invite_id":self.codeTF.text}};
@@ -115,16 +115,16 @@
     [PWNetworking requsetHasTokenWithUrl:PW_teamInvite withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:@"邀请成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.InviteSuccess", @"")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }else {
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-        [SVProgressHUD showErrorWithStatus:@"邀请失败"];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.InviteFailure", @"")];
 
     }];
     

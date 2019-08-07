@@ -42,9 +42,9 @@
 }
 -(void)setIsDing:(BOOL)isDing{
     if(isDing){
-    self.linkTf.placeholder = @"请输入钉钉回调地址";
+    self.linkTf.placeholder = NSLocalizedString(@"local.PleaseInputDingDingCallbackAddress", @"");
     }else{
-    self.linkTf.placeholder = @"请输入自定义回调地址";
+    self.linkTf.placeholder = NSLocalizedString(@"local.PleaseInputCustomCallbackAddress", @"");
     }
 }
 - (void)minusBtnClick{

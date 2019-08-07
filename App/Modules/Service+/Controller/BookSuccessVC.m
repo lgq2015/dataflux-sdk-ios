@@ -82,8 +82,7 @@
         make.left.right.mas_equalTo(contentView);
         make.centerX.mas_equalTo(contentView);
     }];
-//    NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
-    NSString *str = @"我知道了";
+    NSString *str = NSLocalizedString(@"local.Iknow", @"");
     _confirm = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:str];
     _confirm.titleLabel.font = RegularFONT(18);
     [contentView addSubview:_confirm];
@@ -137,7 +136,7 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        NSString *str = [NSString stringWithFormat:@"我知道了（%ld）",(long)self.second];
+        NSString *str = [NSString stringWithFormat:@"%@（%ld）",NSLocalizedString(@"local.Iknow", @""),(long)self.second];
         [_confirm setTitle:str forState:UIControlStateNormal];
     }else if(self.second == 0){
         [self.timer setFireDate:[NSDate distantFuture]];

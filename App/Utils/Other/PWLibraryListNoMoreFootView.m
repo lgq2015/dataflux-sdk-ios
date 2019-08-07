@@ -8,7 +8,6 @@
 
 #import "PWLibraryListNoMoreFootView.h"
 
-static NSString *const   kNoMoreText           = @"已经到底了";
 static CGFloat   const   kContentW             = 90;
 static CGFloat   const   kContentH             = 20;
 
@@ -28,7 +27,7 @@ static CGFloat   const   kContentH             = 20;
 -(void)setup{
     
     UILabel *text = [[UILabel alloc]initWithFrame:CGRectMake((kWidth - kContentW)/2, (CGRectGetHeight(self.frame)-kContentH)/2, kContentW, kContentH)];
-    text.text = kNoMoreText;
+    text.text = NSLocalizedString(@"local.tip.NoMoreFooter", @"");
     text.textColor = [UIColor colorWithHexString:@"#D2D2D2"];
     text.backgroundColor = [UIColor clearColor];
     text.font = [UIFont systemFontOfSize:14];

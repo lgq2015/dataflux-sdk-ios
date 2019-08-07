@@ -26,7 +26,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"更多";
+    self.title = NSLocalizedString(@"local.more", @"");
     [self creteUI];
 }
 
@@ -49,8 +49,8 @@
     if (self.sendModel.customAddress.count>0) {
         [customAry addObjectsFromArray:self.sendModel.customAddress];
     }
-    [dingAry addObject:@"添加钉钉回调地址"];
-    [customAry addObject:@"添加自定义回调地址"];
+    [dingAry addObject:NSLocalizedString(@"local.AddDingDingCallbackAddress", @"")];
+    [customAry addObject:NSLocalizedString(@"local.AddCustomCallbackAddress", @"")];
     [self.dataSource addObject:dingAry];
     [self.dataSource addObject:customAry];
     [self.tableView reloadData];
@@ -70,7 +70,7 @@
         }
     }];
     if (isEmpty) {
-        [iToast alertWithTitleCenter:@"请输入钉钉回调地址"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseInputDingDingCallbackAddress", @"")];
         return;
     }
     [array2 enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -80,7 +80,7 @@
         }
     }];
     if (isEmpty) {
-        [iToast alertWithTitleCenter:@"请输入自定义回调地址"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseInputCustomCallbackAddress", @"")];
         return;
     }
     self.sendModel.dingtalkAddress = [array1 subarrayWithRange:NSMakeRange(0, array1.count-1)];
@@ -118,7 +118,7 @@
     UIView *content = [[UIView alloc]init];
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(15, 10, ZOOM_SCALE(70), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:PWTextBlackColor text:title];
     [content addSubview:titleLab];
-    UIButton *linkBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(kWidth-ZOOM_SCALE(60)-15, 10, ZOOM_SCALE(60), ZOOM_SCALE(20)) type:PWButtonTypeWord text:@"查看帮助"];
+    UIButton *linkBtn = [PWCommonCtrl buttonWithFrame:CGRectMake(kWidth-ZOOM_SCALE(60)-15, 10, ZOOM_SCALE(60), ZOOM_SCALE(20)) type:PWButtonTypeWord text:NSLocalizedString(@"local.ViewHelp", @"")];
     linkBtn.titleLabel.font = RegularFONT(14);
     content.backgroundColor = PWBackgroundColor;
     [content addSubview:linkBtn];
@@ -141,7 +141,7 @@
 }
 
 -(void)viewHelpWithUrl:(NSString *)url{
-    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:@"查看帮助" andURL:[[NSURL alloc] initWithString:url]];
+    PWBaseWebVC *web = [[PWBaseWebVC alloc]initWithTitle:NSLocalizedString(@"local.ViewHelp", @"") andURL:[[NSURL alloc] initWithString:url]];
     [self.navigationController pushViewController:web animated: YES];
 }
 

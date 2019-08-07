@@ -447,7 +447,6 @@
 		4A61144721DCAE4000E4138B /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144521DCAE4000E4138B /* NewsListCell.m */; };
 		4A61144A21DCAE6C00E4138B /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61146621DE0B5300E4138B /* MineCellModel.m */; };
-		4A61149E21DF6DA400E4138B /* ChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */; };
 		4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A021DF6FB900E4138B /* AboutUsVC.m */; };
 		4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
@@ -1011,7 +1010,6 @@
 		CA1CF5E4221ECB3A00D15316 /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
 		CA1CF5E5221ECB3A00D15316 /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */; };
-		CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */; };
 		CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		CA1CF5E9221ECB3A00D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF5EA221ECB3A00D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
@@ -1131,7 +1129,6 @@
 		CA1CF689221ECB5000D15316 /* RootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437B21B76BC5002AF34E /* RootNavigationController.m */; };
 		CA1CF68A221ECB5000D15316 /* NewsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61144921DCAE6C00E4138B /* NewsListModel.m */; };
 		CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A7A21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m */; };
-		CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */; };
 		CA1CF68D221ECB5000D15316 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C4B1221C282DA007730E6 /* iToast.m */; };
 		CA1CF68E221ECB5000D15316 /* PWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF437721B76B6D002AF34E /* PWTabBar.m */; };
 		CA1CF68F221ECB5000D15316 /* UIFont+runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A95BBB5217DB76100FC2979 /* UIFont+runtime.m */; };
@@ -1481,8 +1478,6 @@
 		4A61144921DCAE6C00E4138B /* NewsListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsListModel.m; sourceTree = "<group>"; };
 		4A61146521DE0B5300E4138B /* MineCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineCellModel.h; sourceTree = "<group>"; };
 		4A61146621DE0B5300E4138B /* MineCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineCellModel.m; sourceTree = "<group>"; };
-		4A61149C21DF6DA400E4138B /* ChangePasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordVC.h; sourceTree = "<group>"; };
-		4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordVC.m; sourceTree = "<group>"; };
 		4A61149F21DF6FB900E4138B /* AboutUsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		4A6114A021DF6FB900E4138B /* AboutUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		4A6114A221E2EB8500E4138B /* ContactUsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactUsVC.h; sourceTree = "<group>"; };
@@ -3203,8 +3198,6 @@
 				4ABF448021BFA170002AF34E /* MineViewController.m */,
 				4AE9C4E721D205B5003BB9CB /* SettingUpVC.h */,
 				4AE9C4E821D205B5003BB9CB /* SettingUpVC.m */,
-				4A61149C21DF6DA400E4138B /* ChangePasswordVC.h */,
-				4A61149D21DF6DA400E4138B /* ChangePasswordVC.m */,
 				4A61149F21DF6FB900E4138B /* AboutUsVC.h */,
 				4A6114A021DF6FB900E4138B /* AboutUsVC.m */,
 				4A6114A221E2EB8500E4138B /* ContactUsVC.h */,
@@ -4250,7 +4243,6 @@
 				4A092D57222D38FF00FB2A35 /* MineMessageModel.m in Sources */,
 				4AB48A7E21FC4741009F9E94 /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				4AF663BD2265DE6600E551B9 /* TeamTF.m in Sources */,
-				4A61149E21DF6DA400E4138B /* ChangePasswordVC.m in Sources */,
 				4A7C4B1521C282DA007730E6 /* iToast.m in Sources */,
 				4A00DE3322DC449C008462AF /* UtilsConstManager.m in Sources */,
 				4AC856E622311E3800DAE1F6 /* HandbookCell.m in Sources */,
@@ -4598,7 +4590,6 @@
 				4A092D49222D303D00FB2A35 /* MineCollectionVC.m in Sources */,
 				4AF663BE2265DE6600E551B9 /* TeamTF.m in Sources */,
 				CA1CF5E6221ECB3A00D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
-				CA1CF5E7221ECB3A00D15316 /* ChangePasswordVC.m in Sources */,
 				4A00DE3422DC449C008462AF /* UtilsConstManager.m in Sources */,
 				CAD9CAC22243EBF00063ABFF /* PasswordVerifyVC.m in Sources */,
 				4A3CDA96229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
@@ -4947,7 +4938,6 @@
 				4A092D4A222D303D00FB2A35 /* MineCollectionVC.m in Sources */,
 				4AF663BF2265DE6600E551B9 /* TeamTF.m in Sources */,
 				CA1CF68B221ECB5000D15316 /* UIBarButtonItem+PPBadgeView.m in Sources */,
-				CA1CF68C221ECB5000D15316 /* ChangePasswordVC.m in Sources */,
 				4A00DE3522DC449C008462AF /* UtilsConstManager.m in Sources */,
 				CAD9CAC32243EBF10063ABFF /* PasswordVerifyVC.m in Sources */,
 				4A3CDA97229FCA4200C2EC62 /* CalendarListModel.m in Sources */,

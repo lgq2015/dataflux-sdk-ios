@@ -10,7 +10,6 @@
 #import "MineViewCell.h"
 #import "MineCellModel.h"
 #import "UserManager.h"
-#import "ChangePasswordVC.h"
 #import "AboutUsVC.h"
 #import "SecurityPrivacyVC.h"
 #import "ClearCacheTool.h"
@@ -40,8 +39,8 @@
     self.dataSource = [NSMutableArray new];
     MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"lcoal.SecurityAndPrivacy", @"")];
 
-    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:@"消息通知" isSwitch:isSwitch];
-    MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:@"清除缓存" describeText:@""];
+    MineCellModel *notification = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.notification", @"") isSwitch:isSwitch];
+    MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ClearCache", @"") describeText:@""];
     NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
     self.tableView.frame = CGRectMake(0, 5, kWidth, self.dataSource.count*45);
@@ -100,7 +99,7 @@
     if (!_exitBtn) {
         _exitBtn = [[UIButton alloc]init];
         [_exitBtn setBackgroundColor:PWBlueColor];
-        [_exitBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        [_exitBtn setTitle:NSLocalizedString(@"local.SignOut", @"") forState:UIControlStateNormal];
         _exitBtn.layer.cornerRadius = 4.0f;
         [_exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_exitBtn];
@@ -109,7 +108,7 @@
 }
 - (void)exitBtnClick{
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定退出登录吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.tip.logoutJudgeTip", @"") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancel = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [[[[ZhugeIOMineHelper new] eventLoginOut] attrResultCancel] track];
     }];
@@ -139,8 +138,8 @@
             setUserNotificationSettings(PWRegister);
         }
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"关闭后，手机将不再接收新的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.tip.closeNotiTip", @"") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmClosed", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             [[[[ZhugeIOMineHelper new] eventSetNotifySwitch] attrResultNoReceive] track];
             [[UIApplication sharedApplication] unregisterForRemoteNotifications];
             setUserNotificationSettings(PWUnRegister);
@@ -197,7 +196,7 @@
         SecurityPrivacyVC *securityVC = [[SecurityPrivacyVC alloc]init];
         [self.navigationController pushViewController:securityVC animated:YES];
     }else if(indexPath.row == 2){
-        UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:@"确定清理所有缓存" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *cleanAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.tip.cleanUpTip", @"") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
             [ClearCacheTool clearCacheWithFilePath:path];

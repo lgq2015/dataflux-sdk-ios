@@ -12,6 +12,7 @@
 #import "NewsListCell.h"
 #import "NewsListImageCell.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define DeletBtnTag 200
 
@@ -209,7 +210,7 @@
                 PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
                 [self.navigationController pushViewController:newsweb animated:YES];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
@@ -224,7 +225,7 @@
                 PWBaseWebVC *newsweb = [[PWBaseWebVC alloc]initWithTitle:model.title andURLString:model.url];
                 [self.navigationController pushViewController:newsweb animated:YES];
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(@"home.hdbk.articleNotExists", @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];

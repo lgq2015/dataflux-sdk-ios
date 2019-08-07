@@ -165,7 +165,7 @@
     [contentView addSubview:pickerView];
     
     //在时间选择器上 - 时分
-    NSArray * labelArr = @[@"时",@"分"];
+    NSArray * labelArr = @[NSLocalizedString(@"local.hour", @""),NSLocalizedString(@"local.minute", @"")];
     for (int i = 0; i < 2; i++) {
         UILabel * label = [[UILabel alloc] init];
         if (i==0) {

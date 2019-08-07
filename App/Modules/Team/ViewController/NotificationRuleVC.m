@@ -99,7 +99,7 @@
         [[PWHttpEngine sharedInstance] deleteNotificationRuleWithRuleId:ruleId callBack:^(id response) {
             BaseReturnModel *model = response;
             if (model.isSuccess||[model.errorCode isEqualToString:@"home.team.notificationRuleNotExists"]) {
-                [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfullyDeleted", @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self headerRefreshing];
                 });
@@ -138,7 +138,7 @@
         return NO;
     }];
     
-    MGSwipeButton *button2 = [MGSwipeButton buttonWithTitle:@"编辑" icon:[UIImage imageNamed:@"icon_edit"] backgroundColor:PWBlueColor padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+    MGSwipeButton *button2 = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.edit", @"") icon:[UIImage imageNamed:@"icon_edit"] backgroundColor:PWBlueColor padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
         AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:AddNotiRuleEdit];
         detailVC.sendModel = weakSelf.dataSource[indexPath.row];
         [weakSelf.navigationController pushViewController:detailVC animated:YES];

@@ -147,7 +147,7 @@
         self.sharePlatformType = QQ_PlatformType;
     }else if ([titleStr isEqualToString:@"QQ空间"]){
         self.sharePlatformType = Qzone_PlatformType;
-    }else if ([titleStr isEqualToString:@"钉钉"]){
+    }else if ([titleStr isEqualToString:NSLocalizedString(@"local.dingding", @"")]){
         self.sharePlatformType = Dingding_PlatformType;
     }else{
         self.sharePlatformType = System_PlatformType;
@@ -218,7 +218,7 @@
             
         }
         if (self.isDing == YES) {
-            [_titleArr addObject:@"钉钉"];
+            [_titleArr addObject:NSLocalizedString(@"local.dingding", @"")];
         }
         [_titleArr addObject:@"系统分享"];
     }
@@ -248,7 +248,7 @@
         [self.titleArr addObject:@"朋友圈"];
         [self.titleArr addObject:@"QQ"];
         [self.titleArr addObject:@"QQ空间"];
-        [self.titleArr addObject:@"钉钉"];
+        [self.titleArr addObject:NSLocalizedString(@"local.dingding", @"")];
         
         [self.imageArr addObject:@"zysocial_wechat"];
         [self.imageArr addObject:@"zysocial_wechat_timeline"];

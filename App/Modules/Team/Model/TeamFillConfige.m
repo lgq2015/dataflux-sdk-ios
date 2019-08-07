@@ -23,12 +23,12 @@
     nameTf.placeholder = NSLocalizedString(@"local.PleaseInputTeamName", @"");
     nameTf.showArrow = NO;
     TeamTF *placeTf = [TeamTF new];
-    placeTf.title = @"所在地";
-    placeTf.placeholder = @"请选择您的团队所在区域";
+    placeTf.title = NSLocalizedString(@"local.location", @"");
+    placeTf.placeholder = NSLocalizedString(@"local.placeholder.selectLocation", @"");
     placeTf.enabled = NO;
     TeamTF *industryTf = [TeamTF new];
-    industryTf.title = @"行业";
-    industryTf.placeholder = @"请选择您的团队所属行业";
+    industryTf.title = NSLocalizedString(@"local.industry", @"");
+    industryTf.placeholder = NSLocalizedString(@"local.placeholder.selectIndustry", @"");
     industryTf.enabled = NO;
     industryTf.showArrow = YES;
     self.showDescribe = YES;
@@ -36,7 +36,7 @@
 
     if (userManager.teamModel == nil) {
         self.type = FillinTeamTypeAdd;
-        self.title = @"填写团队信息";
+        self.title = NSLocalizedString(@"local.FillInTeamInformation", @"");
         nameTf.enabled = YES;
         placeTf.showArrow = YES;
     }else if(userManager.teamModel.isAdmin){

@@ -19,6 +19,7 @@
 #import "TeamVC.h"
 #import "ZhugeIOIssueHelper.h"
 #import "ZhugeIOTeamHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface ZYChangeTeamUIManager()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic,strong)  UIView *backgroundGrayView;//!<透明背景View
@@ -298,7 +299,7 @@
             [self dealNoTeamVCAndCurrentPageIsHome];
         }else{
             //切换团队失败，移出缓存中的这一条
-            [iToast alertWithTitleCenter:NSLocalizedString(response[@"errorCode"], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             NSInteger index = [_teamlists indexOfObject:model];
             NSMutableArray *mTeams = [[NSMutableArray alloc] initWithArray:_teamlists];
             [mTeams removeObjectAtIndex:index];

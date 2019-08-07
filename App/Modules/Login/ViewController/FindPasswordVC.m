@@ -11,6 +11,7 @@
 #import "VerifyCodeVC.h"
 #import "VerificationCodeNetWork.h"
 #import "ZhugeIOLoginHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define phoneLabTag 99
 @interface FindPasswordVC ()<UITextFieldDelegate>
@@ -104,7 +105,7 @@
                 [self.navigationController pushViewController:codeVC animated:YES];
             }else{
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.exceededSendIntervalLimit"]) {
-                    [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }else{
                     [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
                 }

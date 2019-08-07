@@ -37,7 +37,7 @@
             make.left.right.mas_equalTo(_contentView);
             make.top.bottom.mas_equalTo(_contentView);
         }];
-        UILabel *tip  =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(20) textColor:PWWhiteColor text:@"发现新版本"];
+        UILabel *tip  =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(20) textColor:PWWhiteColor text:NSLocalizedString(@"local.DiscoverNewVersion", @"")];
         [_contentView addSubview:tip];
         [tip mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(_contentView).offset(ZOOM_SCALE(42));
@@ -53,7 +53,7 @@
             make.width.mas_equalTo(tip);
             make.centerX.mas_equalTo(tip);
         }];
-        UILabel *update = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:@"更新内容"];
+        UILabel *update = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTextBlackColor text:NSLocalizedString(@"local.TheUpdateContent", @"")];
         [_contentView addSubview:update];
         [update mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(_contentView).offset(ZOOM_SCALE(132));
@@ -89,7 +89,7 @@
             make.width.offset(1);
             make.bottom.mas_equalTo(_contentView).offset(-ZOOM_SCALE(10));
         }];
-        UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"下次再说"];
+        UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.ToDoNextTime", @"")];
         [cancle setTitleColor:[UIColor colorWithHexString:@"#8E8E93"] forState:UIControlStateNormal];
         cancle.titleLabel.font = RegularFONT(15);
         [_contentView addSubview:cancle];
@@ -100,7 +100,7 @@
             make.bottom.mas_equalTo(line2.mas_bottom);
         }];
         [cancle addTarget:self action:@selector(cancleClick) forControlEvents:UIControlEventTouchUpInside];
-        UIButton *updateBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:@"立即更新"];
+        UIButton *updateBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.UpdateRightNow", @"")];
         updateBtn.titleLabel.font = RegularFONT(15);
         [_contentView addSubview:updateBtn];
         [updateBtn mas_makeConstraints:^(MASConstraintMaker *make) {

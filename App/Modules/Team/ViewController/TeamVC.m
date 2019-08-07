@@ -270,19 +270,19 @@
 
 - (void)delectMember:(NSInteger )row{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TeamDelectMemberTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:@"确认移除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRemoval", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSString *uid =self.teamMemberArray[row].memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             [SVProgressHUD dismiss];
             if ([response[ERROR_CODE] isEqualToString:@""]) {
-                [SVProgressHUD showSuccessWithStatus:@"移除成功"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"lcoal.SuccessfullyRemoved", @"")];
                 [self loadTeamMemberInfo];
             }else{
-                [SVProgressHUD showSuccessWithStatus:@"移除失败"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.RemovalFailed", @"")];
             }
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
-            [SVProgressHUD showSuccessWithStatus:@"移除失败"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.RemovalFailed", @"")];
         }];
     }];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -506,8 +506,8 @@
     DLog(@"supplementMessage");
     __weak typeof(self) weakSelf = self;
     
-    UIAlertController *alert = [PWCommonCtrl alertControllerWithTitle:nil message:@"此功能需要补充完整团队信息方可使用" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *add = [PWCommonCtrl actionWithTitle:@"补充团队信息" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertController *alert = [PWCommonCtrl alertControllerWithTitle:nil message:NSLocalizedString(@"local.tip.fillTeamInfoTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *add = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.SupplementaryTeamInformation", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         ZTCreateTeamVC *vc = [ZTCreateTeamVC new];
         vc.dowhat = supplementTeamInfo;
         [weakSelf.navigationController pushViewController:vc animated:YES];
@@ -525,14 +525,14 @@
     UIView *view = [[UIView alloc] init];
     //团队名称
     UILabel *teamLab = [[UILabel alloc] init];
-    NSString *titleString = @"团队成员";
+    NSString *titleString = NSLocalizedString(@"local.TeamMember", @"");
     teamLab.text = titleString;
     teamLab.font = RegularFONT(16);
     teamLab.textColor = [UIColor colorWithHexString:@"#140F26"];
     [view addSubview:teamLab];
     //团队人数
     UILabel *teamMemNumLab = [[UILabel alloc] init];
-    teamMemNumLab.text = [NSString stringWithFormat:@"共 %lu 人",(unsigned long)self.teamMemberArray.count];
+    teamMemNumLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.teamMemberCount%lu", @""),(unsigned long)self.teamMemberArray.count];
     teamMemNumLab.font = RegularFONT(13);
     teamMemNumLab.textColor = [UIColor colorWithHexString:@"#140F26"];
     [view addSubview:teamMemNumLab];

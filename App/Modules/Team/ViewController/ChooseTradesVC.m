@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"选择行业";
+    self.title = NSLocalizedString(@"local.ChooseIndustry", @"");
     [self createUI];
     [self loadTradesData];
 }

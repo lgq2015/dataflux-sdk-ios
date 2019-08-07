@@ -27,7 +27,7 @@
     [self createUI];
 }
 - (void)createUI{
-    NSArray *cardAry = @[@{@"icon":@"team_scan",@"title":@"二维码邀请"},@{@"icon":@"team_email",@"title":@"邮箱邀请"},@{@"icon":@"team_mobile",@"title":@"手机号邀请"}];
+    NSArray *cardAry = @[@{@"icon":@"team_scan",@"title":NSLocalizedString(@"local.InvitationByQr", @"")},@{@"icon":@"team_email",@"title":NSLocalizedString(@"local.InvitationByEmail", @"")},@{@"icon":@"team_mobile",@"title":NSLocalizedString(@"local.InvitationByPhoneNumber", @"")}];
     UIView *temp;
     for (NSInteger i=0; i<cardAry.count; i++) {
          UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cardClick:)];

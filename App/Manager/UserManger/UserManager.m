@@ -19,6 +19,8 @@
 #import "ZhugeIOLoginHelper.h"
 #import "ZhugeIOUserDataHelper.h"
 #import "MemberInfoModel.h"
+#import "NSString+ErrorCode.h"
+
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -104,9 +106,9 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(NO,nil);
                 }
                 [SVProgressHUD dismiss];
-                
+
+                [iToast alertWithTitleCenter:NSLocalizedString(@"server.err.home.auth.passwordIncorrect", @"")];
                 NSString *errorMsg = NSLocalizedString(errCode, @"");
-                [iToast alertWithTitleCenter:errorMsg];
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
 
 
@@ -166,7 +168,7 @@ SINGLETON_FOR_CLASS(UserManager);
 
                 if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
                     NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
-                    NSString *toast =[NSLocalizedString(@"home.auth.tooManyIncorrectAttempts", @"") stringByReplacingOccurrencesOfString:@"#" withString:time];
+                    NSString *toast =[[errorCode toErrString] stringByReplacingOccurrencesOfString:@"#" withString:time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
                     [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
@@ -197,7 +199,7 @@ SINGLETON_FOR_CLASS(UserManager);
         [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             NSString *errCode = response[ERROR_CODE];
             if(errCode.length>0){
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                  dispatch_group_leave(grpupT);
             }else{
                 isUserSuccess = YES;
@@ -305,7 +307,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if (isHave){
                 isHave(NO,nil);
             }
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         if (isHave){

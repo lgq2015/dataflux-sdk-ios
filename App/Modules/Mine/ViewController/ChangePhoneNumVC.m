@@ -22,7 +22,7 @@
     [self crateUI];
 }
 - (void)crateUI{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(10, kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:@"修改手机"];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(10, kTopHeight+Interval(16), ZOOM_SCALE(120), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:NSLocalizedString(@"local.ModifyThePhone", @"")];
     [self.view addSubview:title];
     [self.phoneTf mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(Interval(54));

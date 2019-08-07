@@ -80,7 +80,7 @@
         _orderNoDataFooterView  = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(60))];
         _orderNoDataFooterView.backgroundColor = PWBackgroundColor;
         UILabel *text = [[UILabel alloc]initWithFrame:CGRectMake((kWidth - 90)/2, 10, 90, 20)];
-        text.text = @"已经到底了";
+        text.text = NSLocalizedString(@"local.tip.NoMoreFooter", @"");
         text.textColor = [UIColor colorWithHexString:@"#D2D2D2"];
         text.backgroundColor = [UIColor clearColor];
         text.font = [UIFont systemFontOfSize:14];

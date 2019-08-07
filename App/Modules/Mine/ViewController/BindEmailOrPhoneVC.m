@@ -12,6 +12,7 @@
 #import "ChangeUserInfoVC.h"
 #import "UITextField+HLLHelper.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 #define tipLabTag 88
 @interface BindEmailOrPhoneVC ()<UITextFieldDelegate>
@@ -43,7 +44,7 @@
             tipTitle = NSLocalizedString(@"local.mailbox", @"");
             break;
         case BindUserInfoTypeName:
-            title =@"修改姓名";
+            title =NSLocalizedString(@"local.ModifyTheName", @"");
             if (self.isFirst) {
                 placeholder = NSLocalizedString(@"login.placeholder.name", "");
             }else{
@@ -54,8 +55,8 @@
             [self.emailTF becomeFirstResponder];
             break;
         case BindUserInfoTypeMobile:
-            title =@"修改手机";
-            placeholder = @"请输入新的手机号";
+            title =NSLocalizedString(@"local.ModifyThePhone", @"");
+            placeholder = NSLocalizedString(@"local.placeholder.InputNewPhone", @"");
             tipTitle = NSLocalizedString(@"local.MobilePhoneNo", @"");
             break;
     }
@@ -217,14 +218,14 @@
                         }
                     });
                 }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                    [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }}
         } failBlock:^(NSError *error) {
             [SVProgressHUD dismiss];
-            [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.enterCorrectEmail", @"")];
         }];
     }else{
-        [iToast alertWithTitleCenter:@"请输入正确的邮箱"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.enterCorrectEmail", @"")];
     }
  
 }
@@ -249,7 +250,7 @@
 
         }else {
             if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
-                [iToast alertWithTitleCenter:@"该手机号已被注册"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.ThePhoneNumberHasBeenRegistered", @"")];
             }else if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -260,12 +261,11 @@
                     }
                 });
             }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
     } failBlock:^(NSError *error) {
-//        [iToast alertWithTitleCenter:@"绑定失败"];
-        
+        [error errorToast];
     }];
 }
 - (void)commitNameClick{
@@ -277,18 +277,18 @@
             userManager.curUserInfo.name = [self.emailTF.text removeFrontBackBlank];
             [userManager saveChangeUserInfo];
             KPostNotification(KNotificationUserInfoChange, nil);
-            [SVProgressHUD showSuccessWithStatus:@"修改成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.ModifySuccess", @"")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
               [self.navigationController popViewControllerAnimated:YES];
             });
             [[[ZhugeIOMineHelper new] eventChangeName] track];
 
         }else{
-            [SVProgressHUD showErrorWithStatus:@"修改失败"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.ModifyFailure", @"")];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
-         [SVProgressHUD showErrorWithStatus:@"修改失败"];
+         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"local.ModifyFailure", @"")];
     }];
 }
 #pragma mark ========== <UITextFieldDelegate> ==========

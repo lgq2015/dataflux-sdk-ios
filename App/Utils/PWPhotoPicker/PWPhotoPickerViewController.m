@@ -297,7 +297,7 @@
     self.isNotAllowed = YES;
     self.selectTip.hidden = YES;
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请开启照片权限" message:@"可依次进入[设置-隐私-照片]，允许访问手机相册" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @"") message:NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @"") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
     }];
