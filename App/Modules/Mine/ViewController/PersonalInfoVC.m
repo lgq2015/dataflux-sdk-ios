@@ -172,7 +172,7 @@
         [SVProgressHUD showSuccessWithStatus:@"更改头像成功"];
     } failBlock:^(NSError *error) {
         DLog(@"%@",error);
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"home.recommendation.uploadFailed", @"")];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"server.err.home.recommendation.uploadFailed", @"")];
 
     }];
 
