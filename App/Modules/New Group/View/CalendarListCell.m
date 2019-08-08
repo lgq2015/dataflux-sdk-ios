@@ -81,7 +81,7 @@
     self.timeLabel.text = model.timeText;
     self.contentTextView.text = model.contentText;
     if (model.isEnd) {
-        self.statesLabel.text = NSLocalizedString(@"issue.recovered", @"");
+        self.statesLabel.text = NSLocalizedString(@"local.issue.recovered", @"");
         self.statesLabel.textColor = [UIColor colorWithHexString:@"#54DBAD"];
     }else{
         self.statesLabel.text = NSLocalizedString(@"local.active", @"");

@@ -298,10 +298,10 @@
     self.selectTip.hidden = YES;
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @"") message:NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @"") preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.Refuse", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
     }];
-    UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:@"去开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.GoToOpen", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         // 无权限 引导去开启
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if ([[UIApplication sharedApplication]canOpenURL:url]) {

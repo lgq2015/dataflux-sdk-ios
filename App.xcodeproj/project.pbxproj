@@ -510,9 +510,6 @@
 		4A759AEE224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */; };
 		4A759AEF224FD4A20057BD02 /* HomeIssueIndexGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */; };
 		4A759AF0224FD4A30057BD02 /* HomeIssueIndexGuidanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */; };
-		4A759AF3224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
-		4A759AF4224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
-		4A759AF5224FF2490057BD02 /* AddIssueGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */; };
 		4A759B3122522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3222522E160057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
 		4A759B3322522E170057BD02 /* NewsListEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A759B3022522E150057BD02 /* NewsListEmptyView.m */; };
@@ -1533,8 +1530,6 @@
 		4A759AE8224FA13F0057BD02 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4A759AEC224FD4A10057BD02 /* HomeIssueIndexGuidanceView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIssueIndexGuidanceView.h; sourceTree = "<group>"; };
 		4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeIssueIndexGuidanceView.m; sourceTree = "<group>"; };
-		4A759AF1224FF2490057BD02 /* AddIssueGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddIssueGuideView.h; sourceTree = "<group>"; };
-		4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddIssueGuideView.m; sourceTree = "<group>"; };
 		4A759B2F22522E150057BD02 /* NewsListEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListEmptyView.h; sourceTree = "<group>"; };
 		4A759B3022522E150057BD02 /* NewsListEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListEmptyView.m; sourceTree = "<group>"; };
 		4A759B502254B6A20057BD02 /* EchartListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EchartListView.h; sourceTree = "<group>"; };
@@ -3480,8 +3475,6 @@
 				6B6E24488D1D28B3F4720DF0 /* LaunchVC.m */,
 				4A759AEC224FD4A10057BD02 /* HomeIssueIndexGuidanceView.h */,
 				4A759AED224FD4A10057BD02 /* HomeIssueIndexGuidanceView.m */,
-				4A759AF1224FF2490057BD02 /* AddIssueGuideView.h */,
-				4A759AF2224FF2490057BD02 /* AddIssueGuideView.m */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -4036,7 +4029,6 @@
 				4A00DE3D22E6EB07008462AF /* CopyLable.m in Sources */,
 				4A092D8B222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4ABF43C021B8BACE002AF34E /* ItemContentCell.m in Sources */,
-				4A759AF3224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				4AC21FFF228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4AB48A7F21FC4741009F9E94 /* UIView+PPBadgeView.m in Sources */,
 				4A759A8822489C330057BD02 /* CreateQuestionModel.m in Sources */,
@@ -4385,7 +4377,6 @@
 				CA1CF58C221ECB3A00D15316 /* VerifyCodeVC.m in Sources */,
 				4A00DE3E22E6EB0C008462AF /* CopyLable.m in Sources */,
 				4AC8573D2233B39900DAE1F6 /* BaseTextField.m in Sources */,
-				4A759AF4224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				CA1CF58E221ECB3A00D15316 /* ItemContentCell.m in Sources */,
 				4AC22000228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B7223FB1510057BD02 /* PWSocketManager.m in Sources */,
@@ -4733,7 +4724,6 @@
 				CA1CF631221ECB5000D15316 /* VerifyCodeVC.m in Sources */,
 				4A00DE3F22E6EB0D008462AF /* CopyLable.m in Sources */,
 				4AC8573E2233B39900DAE1F6 /* BaseTextField.m in Sources */,
-				4A759AF5224FF2490057BD02 /* AddIssueGuideView.m in Sources */,
 				CA1CF633221ECB5000D15316 /* ItemContentCell.m in Sources */,
 				4AC22001228D3DA80098848C /* ZTPopCommentToolView.m in Sources */,
 				4A7599B8223FB1510057BD02 /* PWSocketManager.m in Sources */,

@@ -204,7 +204,7 @@
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = NSLocalizedString(@"issue.recovered", @"");
+            self.stateLab.text = NSLocalizedString(@"local.issue.recovered", @"");
             break;
         case IssueStateLoseeEfficacy:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
@@ -462,7 +462,7 @@
         _repairBtn.titleLabel.font = RegularFONT(14);
         [_repairBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         if (self.model.recovered) {
-            [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
+            [_repairBtn setTitle:NSLocalizedString(@"local.issue.recovered", @"") forState:UIControlStateNormal];
             _repairBtn.enabled = NO;
         }else{
             [_repairBtn setTitle:NSLocalizedString(@"local.repair", @"") forState:UIControlStateNormal];
@@ -497,7 +497,7 @@
 }
 - (void)recoveUI{
     [self.assignView repair];
-    [_repairBtn setTitle:NSLocalizedString(@"issue.recovered", @"") forState:UIControlStateNormal];
+    [_repairBtn setTitle:NSLocalizedString(@"local.issue.recovered", @"") forState:UIControlStateNormal];
     _repairBtn.enabled = NO;
     [_repairIcon setImage:[UIImage imageNamed:@"issue_tick"]];
     _repairIcon.userInteractionEnabled = NO;

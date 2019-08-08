@@ -55,7 +55,7 @@
     tipLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:tipLab];
     NSDictionary *phoneDict = @{@"icon":@"icon_phone",@"phone":userManager.curUserInfo.mobile,@"tip":NSLocalizedString(@"local.VerifyIdentityByPhoneCode", @"")};
-    NSDictionary *passwordDict = @{@"icon":@"icon_minecode",@"phone":NSLocalizedString(@"local.PasswordAuthenticationl", @""),@"tip":NSLocalizedString(@"local.VerifyIdentityByPassword", @"")};
+    NSDictionary *passwordDict = @{@"icon":@"icon_minecode",@"phone":NSLocalizedString(@"local.PasswordAuthentication", @""),@"tip":NSLocalizedString(@"local.VerifyIdentityByPassword", @"")};
     
     ChangeCardItem *phoneItem = [[ChangeCardItem alloc]initWithFrame:CGRectZero data:phoneDict];
     phoneItem.itemClick=^(){

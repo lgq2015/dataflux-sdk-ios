@@ -33,7 +33,7 @@
     ZYSocialUIManager *manger = [ZYSocialUIManager shareInstance];
     if (type == WechatSession_PlatformType || type ==  WechatTimeLine_PlatformType){
         if (!manger.isWX){
-            [self showAlter:@"尚未安装微信"];
+            [self showAlter:NSLocalizedString(@"local.WeChatHasNotBeenInstalledYet", @"")];
             return;
         }
         WXMediaMessage *message = [WXMediaMessage message];
@@ -50,7 +50,7 @@
         [WXApi sendReq:sendReq];//发送对象实例
     }else if (type == QQ_PlatformType || type == Qzone_PlatformType){
         if (!manger.isQQ){
-            [self showAlter:@"尚未安装QQ"];
+            [self showAlter:NSLocalizedString(@"local.QQHasNotBeenInstalledYet", @"")];
             return;
         }
         QQApiNewsObject *msgContentObj =
@@ -67,7 +67,7 @@
         }
     }else if (type == Dingding_PlatformType){
         if (!manger.isDing){
-            [self showAlter:@"尚未安装钉钉"];
+            [self showAlter:NSLocalizedString(@"local.DingHasNotBeenInstalledYet", @"")];
             return;
         }
         DTSendMessageToDingTalkReq *sendMessageReq = [[DTSendMessageToDingTalkReq alloc] init];

@@ -135,7 +135,7 @@
 -(UITextField *)phoneTF{
     if (!_phoneTF) {
         _phoneTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _phoneTF.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
+        _phoneTF.placeholder = NSLocalizedString(@"local.login.placeholder.phone", @"");
         _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTF.clearButtonMode=UITextFieldViewModeNever;
         [self.view addSubview:_phoneTF];
@@ -157,9 +157,9 @@
     if (!_registerBtn) {
         _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"tip.noAccountGoRegister", @"")];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"local.login.tip.noAccountGoRegister", @"")];
         //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [NSLocalizedString(@"tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"tip.goRegister", @"")];
+        NSRange range = [NSLocalizedString(@"local.login.tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"local.login.tip.goRegister", @"")];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         dic[NSForegroundColorAttributeName] = PWBlueColor;
         //赋值
@@ -173,7 +173,7 @@
 }
 -(UIButton *)getCodeBtn{
     if (!_getCodeBtn) {
-        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"home.getCode", @"")];
+        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.getCode", @"")];
         _getCodeBtn.titleLabel.font = RegularFONT(14);
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateDisabled];
@@ -233,7 +233,7 @@
     
       
     }else{
-        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.enterCorrectPhoneNumber", @"")];
     }
 
 }
@@ -302,7 +302,7 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend%ld", @""),(long)self.second] forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend", @""),(long)self.second] forState:UIControlStateNormal];
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];

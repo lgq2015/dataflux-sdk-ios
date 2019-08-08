@@ -24,7 +24,7 @@
 }
 - (void)createUI{
     self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
-    [self addNavigationItemWithTitles:@[@"购买记录"] isLeft:NO target:self action:@selector(navRightBtnClick) tags:@[@11]];
+    [self addNavigationItemWithTitles:@[NSLocalizedString(@"local.PurchaseHistory", @"")] isLeft:NO target:self action:@selector(navRightBtnClick) tags:@[@11]];
     UIImageView *logo_icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_icon"]];
     UIImageView *logo_text = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloud_care_logo_text"]];
 

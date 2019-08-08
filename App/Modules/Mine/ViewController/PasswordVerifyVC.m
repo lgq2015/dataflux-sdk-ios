@@ -26,7 +26,7 @@
     [self createUI];
 }
 - (void)createUI{
-    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120),ZOOM_SCALE(33)) font:MediumFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.PasswordAuthenticationl", @"")];
+    UILabel *title = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), kTopHeight+Interval(46), ZOOM_SCALE(120),ZOOM_SCALE(33)) font:MediumFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.PasswordAuthentication", @"")];
     [self.view addSubview:title];
     UILabel *subTitle = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.YouLoginAccountIs", @"")];
     [self.view addSubview:subTitle];
@@ -89,7 +89,7 @@
     if (!_passwordTf) {
         _passwordTf = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
         _passwordTf.secureTextEntry = YES;
-        _passwordTf.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
+        _passwordTf.placeholder = NSLocalizedString(@"local.login.placeholder.password", @"");
         [self.view addSubview:_passwordTf];
     }
     return _passwordTf;

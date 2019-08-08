@@ -25,12 +25,12 @@
             tipMessage = NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @"");
             break;
         case PrivacyTypeAVCaptureDevice:
-            tipTitle = @"请开启相机权限";
-            tipMessage= @"可依次进入[设置-隐私]中，允许访问相机";
+            tipTitle = NSLocalizedString(@"local.PleaseTurnOnCameraPermissions", @"");
+            tipMessage= NSLocalizedString(@"local.tip.TurnOnCameraPermissionsTip", @"");
             break;
         case PrivacyTypeUserNotification:
-            tipTitle = @"开启通知权限";
-            tipMessage= @"可依次进入[设置-隐私-通知]中，允许通知";
+            tipTitle = NSLocalizedString(@"local.TurnOnNotificationPermissions", @"");
+            tipMessage= NSLocalizedString(@"local.tip.TurnOnNotificationPermissionsTip", @"");
         default:
             break;
     }
@@ -45,9 +45,9 @@
         }
         else
         {
-            tipTitle = @"关闭通知权限";
-            tipMessage= @"可依次进入[设置-隐私-通知]中，关闭通知";
-            goBtnTitle = @"去关闭";
+            tipTitle = NSLocalizedString(@"local.TurnOffNotificationPermissions", @"");
+            tipMessage= NSLocalizedString(@"local.tip.TurnOffNotificationPermissionsTip", @"");
+            goBtnTitle = NSLocalizedString(@"local.GoToClose", @"");
         }
     }else{
     cameragranted = [self AVAuthorizationStatusIsGranted:type];
@@ -55,7 +55,7 @@
    
     if (cameragranted == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tipTitle message:tipMessage preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.Refuse", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (self.refuseBlock) {
                 self.refuseBlock();
             }

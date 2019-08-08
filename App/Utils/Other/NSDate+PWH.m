@@ -34,25 +34,25 @@
 }
 -(NSString *)currentYearTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"MM 月 dd 日";
+    fmt.dateFormat = [NSString stringWithFormat:@"MM %@ dd %@",NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return  selfStr;
 }
 -(NSString *)yearMonthDayTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"yyyy年MM月dd日";
+    fmt.dateFormat =[NSString stringWithFormat:@"yyyy%@MM%@dd%@",NSLocalizedString(@"local.Date.Year", @""),NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
 -(NSString *)listCurrentYearHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"MM 月 dd 日";
+    fmt.dateFormat = [NSString stringWithFormat:@"MM %@ dd %@",NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return  selfStr;
 }
 -(NSString *)currentYearHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"MM 月 dd 日 HH:mm";
+    fmt.dateFormat =[NSString stringWithFormat:@"MM %@ dd %@ HH:mm",NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return  selfStr;
 }
@@ -64,13 +64,13 @@
 }
 -(NSString *)listYearMonthDayHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"yyyy 年 MM 月 dd 日";
+    fmt.dateFormat = [NSString stringWithFormat:@"yyyy%@MM%@dd%@",NSLocalizedString(@"local.Date.Year", @""),NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
 -(NSString *)yearMonthDayHourMinutesTimeStr{
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"yyyy 年 MM 月 dd 日 HH:mm";
+    fmt.dateFormat =[NSString stringWithFormat:@"yyyy%@MM%@dd%@ HH:mm",NSLocalizedString(@"local.Date.Year", @""),NSLocalizedString(@"local.Date.Month", @""),NSLocalizedString(@"local.Date.Day", @"")];
     NSString *selfStr = [fmt stringFromDate:self];
     return selfStr;
 }
@@ -211,9 +211,9 @@
             break;
     }
     if([self isThisYear]){
-        return [NSString stringWithFormat:@"%ld 月 %ld 日 %@",(long)[self month],(long)[self day],week];
+        return [NSString stringWithFormat:@"%ld %@ %ld %@ %@",(long)[self month],NSLocalizedString(@"local.Date.Month", @""),(long)[self day],NSLocalizedString(@"local.Date.Day", @""),week];
     }else{
-       return [NSString stringWithFormat:@"%ld年 %ld 月 %ld 日 %@",(long)[self year],(long)[self month],(long)[self day],week];
+       return [NSString stringWithFormat:@"%ld%@ %ld %@ %ld %@ %@",(long)[self year],NSLocalizedString(@"local.Date.Year", @""),(long)[self month],NSLocalizedString(@"local.Date.Month", @""),(long)[self day],NSLocalizedString(@"local.Date.Day", @""),week];
     }
 }
 - (NSDate *)beginningOfMonth{

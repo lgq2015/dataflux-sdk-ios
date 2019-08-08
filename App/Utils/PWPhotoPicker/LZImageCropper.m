@@ -345,7 +345,7 @@
         _titleLabel = [[UILabel alloc]init];
         [_titleLabel setFont:[UIFont systemFontOfSize:14]];
         [_titleLabel setTextColor:[UIColor whiteColor]];
-        [_titleLabel setText:@"通过移动缩放来选择"];
+        [_titleLabel setText:NSLocalizedString(@"locla.SelectByMovingTheZoom", @"")];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
     }
     return _titleLabel;
@@ -375,7 +375,7 @@
         _bottomLabel = [[UILabel alloc]init];
         [_bottomLabel setFont:[UIFont systemFontOfSize:14]];
         [_bottomLabel setTextColor:[UIColor whiteColor]];
-        [_bottomLabel setText:@"选取有效区域"];
+        [_bottomLabel setText:NSLocalizedString(@"local.SelectEffectiveArea", @"")];
         [_bottomLabel setTextAlignment:NSTextAlignmentCenter];
         [_bottomLabel setTextAlignment:NSTextAlignmentCenter];
     }

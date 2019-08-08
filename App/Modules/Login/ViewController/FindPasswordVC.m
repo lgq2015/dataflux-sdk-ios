@@ -31,15 +31,15 @@
 #pragma mark ========== UI布局 ==========
 - (void)createUI{
    
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(34), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:NSLocalizedString(@"login.forget.password", "")];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(34), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(26) textColor:PWTextBlackColor text:NSLocalizedString(@"local.login.forget.password", "")];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(40), ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:@"手机号/邮箱"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(40), ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"8E8E93"] text:NSLocalizedString(@"local.MobilePhoneNumberOrEmail", @"")];
     tipLab.hidden = YES;
     tipLab.tag =phoneLabTag;
     [self.view addSubview:tipLab];
     if (!_userTf) {
         _userTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _userTf.placeholder = NSLocalizedString(@"tip.enterPhoneOrEmail", "");
+        _userTf.placeholder = NSLocalizedString(@"local.login.tip.enterPhoneOrEmail", "");
         _userTf.delegate = self;
         _userTf.keyboardType = UIKeyboardTypeDefault;
         _userTf.clearButtonMode=UITextFieldViewModeNever;
@@ -84,7 +84,7 @@
 }
 -(UIButton *)veritfyCodeBtn{
     if(!_veritfyCodeBtn){
-        _veritfyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"home.getCode", @"")];
+        _veritfyCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeContain text:NSLocalizedString(@"local.getCode", @"")];
         [_veritfyCodeBtn addTarget:self action:@selector(veritfyCodeClick) forControlEvents:UIControlEventTouchUpInside];
         _veritfyCodeBtn.enabled = NO;
         [self.view addSubview:_veritfyCodeBtn];
@@ -107,7 +107,7 @@
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.exceededSendIntervalLimit"]) {
                     [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 }else{
-                    [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"local.MobilePhoneNumberOrEmailIsIncorrect", @"")];
                 }
             }
         } failBlock:^(NSError *error) {
@@ -115,7 +115,7 @@
         }];
 
     }else{
-        [iToast alertWithTitleCenter:@"手机号/邮箱有误"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.MobilePhoneNumberOrEmailIsIncorrect", @"")];
     }
     
 }

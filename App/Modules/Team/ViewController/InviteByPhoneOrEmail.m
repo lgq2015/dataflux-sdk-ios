@@ -95,7 +95,7 @@
         NSString *phone = [self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         BOOL  is = [phone validatePhoneNumber];
         if (is == NO){
-            [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.enterCorrectPhoneNumber", @"")];
             return;
         }
         param = @{@"data":@{@"invite_type":@"mobile",@"invite_id":[self.codeTF.text stringByReplacingOccurrencesOfString:@" " withString:@""]}};

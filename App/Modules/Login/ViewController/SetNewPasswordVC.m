@@ -33,7 +33,7 @@
 - (void)createUI{
     UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), Interval(46)+kTopHeight, ZOOM_SCALE(200), ZOOM_SCALE(37)) font:MediumFONT(24) textColor:PWTextBlackColor text:NSLocalizedString(@"local.EnterANewPassword", @"")];
     [self.view addSubview:titleLab];
-    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(12), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(16) textColor:PWTitleColor text:@"密码格式为 8-25 位，\n至少含字母、数字、字符 2 种组合"];
+    UILabel *tipLab= [PWCommonCtrl lableWithFrame:CGRectMake(Interval(36), CGRectGetMaxY(titleLab.frame)+Interval(12), ZOOM_SCALE(300), ZOOM_SCALE(52)) font:RegularFONT(16) textColor:PWTitleColor text:NSLocalizedString(@"local.tip.PasswordFormatRequirements", @"")];
     tipLab.numberOfLines = 2;
     [self.view addSubview:tipLab];
     if (!_passwordTf) {
@@ -152,7 +152,7 @@
                          [self naviSkip];
                     });
                 }else{
-                [iToast alertWithTitleCenter:@"密码设置失败，请重试"];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.PasswordSettingFailed", @"")];
                 }
             }
         }failBlock:^(NSError *error) {
@@ -194,7 +194,7 @@
     }
 }
 -(void)backBtnClicked{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"您确定放弃设置新密码吗？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.tip.GiveUpSettingNewPassword", @"") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         
     }];

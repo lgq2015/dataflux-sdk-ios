@@ -138,7 +138,7 @@
             break;
         case IssueStateRecommend:
             self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = NSLocalizedString(@"issue.recovered", @"");
+            self.stateLab.text = NSLocalizedString(@"local.issue.recovered", @"");
             self.timeLab.text =@"";
 
             break;

@@ -88,7 +88,7 @@
 -(UITextField *)phoneTf{
     if (!_phoneTf) {
         _phoneTf = [PWCommonCtrl textFieldWithFrame:CGRectZero];
-        _phoneTf.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
+        _phoneTf.placeholder = NSLocalizedString(@"local.login.placeholder.phone", @"");
         _phoneTf.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_phoneTf];
     }

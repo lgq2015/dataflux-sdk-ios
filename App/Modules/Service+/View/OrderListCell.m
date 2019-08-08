@@ -26,7 +26,7 @@
 }
 -(void)setModel:(OrderListModel *)model{
     _model = model;
-    self.orderNumLab.text = [NSString stringWithFormat:@"订单号：%@",_model.orderId];
+    self.orderNumLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.OrderNumber", @""),_model.orderId];
     self.orderTitleLab.text = _model.commodityPackageName;
     NSString *timeStr = [NSString yearMonthDayDateUTC:_model.updateTime formatter:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     self.orderTimeLab.text = timeStr;

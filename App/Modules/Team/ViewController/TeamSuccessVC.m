@@ -100,7 +100,7 @@
         make.top.mas_equalTo(tipLab.mas_bottom).offset(Interval(16));
         make.height.offset(ZOOM_SCALE(20));
     }];
-    timeLab.text =[NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown%ld", @""),5];
+    timeLab.text =[NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown", @""),5];
     self.timeLab = timeLab;
     self.second = 5;
     __weak typeof(self) weakSelf = self;
@@ -127,7 +127,7 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        self.timeLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown%ld", @""),(long)self.second];
+        self.timeLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.tip.quitCountDown", @""),(long)self.second];
     }else if(self.second == 0){
          [self.timer invalidate];
     

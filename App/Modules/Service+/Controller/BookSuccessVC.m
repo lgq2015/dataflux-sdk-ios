@@ -41,7 +41,7 @@
     UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
     navView.backgroundColor = PWWhiteColor;
     [self.view addSubview:navView];
-    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
+    UILabel *titleLab = [PWCommonCtrl lableWithFrame:CGRectZero font:MediumFONT(18) textColor:PWTextBlackColor text:NSLocalizedString(@"local.SuccessfulAppointment", @"")];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [navView addSubview:titleLab];
     UIView *line = [[UIView alloc]init];
@@ -68,7 +68,7 @@
         make.height.with.offset(ZOOM_SCALE(80));
         make.centerX.mas_equalTo(contentView);
     }];
-    UILabel *tip1 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:@"预约成功"];
+    UILabel *tip1 = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(18) textColor:PWTextBlackColor text:NSLocalizedString(@"local.SuccessfulAppointment", @"")];
     tip1.textAlignment = NSTextAlignmentCenter;
     [contentView addSubview:tip1];
     [tip1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +101,7 @@
     if (!_tipsLab) {
         //    Access Key 可在您的阿里云 RAM 账号中找到，详细步骤请点击这里
         NSString *linkText = @"4008823320";
-        NSString *promptText = [NSString stringWithFormat:@"您的购买预约已经提交成功\n我们会尽快安排客服人员与您联系\n您也可以直接拨打%@咨询",linkText];
+        NSString *promptText = [NSString stringWithFormat:NSLocalizedString(@"local.tip.BookSuccessTip", @""),linkText];
         NSRange linkRange = [promptText rangeOfString:linkText];
         _tipsLab = [[TTTAttributedLabel alloc] initWithFrame: CGRectZero];
         _tipsLab.font = RegularFONT(14);

@@ -75,7 +75,7 @@
 }
 -(UIButton *)codeBtn{
     if (!_codeBtn) {
-        _codeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:NSLocalizedString(@"login.verificationCodeLogin", @"")];
+        _codeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeSummarize text:NSLocalizedString(@"local.login.verificationCodeLogin", @"")];
         _codeBtn.titleLabel.font = RegularFONT(16);
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
         [_codeBtn setBackgroundImage:[UIImage imageWithColor:PWBackgroundColor] forState:UIControlStateHighlighted];
@@ -88,7 +88,7 @@
 }
 -(UIButton *)forgetBtn{
     if (!_forgetBtn) {
-        _forgetBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"login.forget.password", "")];
+        _forgetBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.login.forget.password", "")];
         [_forgetBtn addTarget:self action:@selector(forgetBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _forgetBtn.titleLabel.font = RegularFONT(14);
         [self.view addSubview:_forgetBtn];
@@ -98,7 +98,7 @@
 -(UITextField *)accountTf{
     if (!_accountTf) {
         _accountTf = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _accountTf.placeholder = NSLocalizedString(@"tip.enterPhoneOrEmail", "");
+        _accountTf.placeholder = NSLocalizedString(@"local.login.tip.enterPhoneOrEmail", "");
         [self.view addSubview:_accountTf];
     }
     return _accountTf;
@@ -106,7 +106,7 @@
 -(UITextField *)passwordTF{
     if (!_passwordTF) {
         _passwordTF = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _passwordTF.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
+        _passwordTF.placeholder = NSLocalizedString(@"local.login.placeholder.password", @"");
         [self.view addSubview:_passwordTF];
     }
     return _passwordTF;
@@ -115,9 +115,9 @@
     if (!_registerBtn) {
         _registerBtn = [[UIButton alloc]init];
         _registerBtn.titleLabel.font = RegularFONT(14);
-        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"tip.noAccountGoRegister", @"")];
+        NSMutableAttributedString *attribut = [[NSMutableAttributedString alloc]initWithString:NSLocalizedString(@"local.login.tip.noAccountGoRegister", @"")];
         //目的是想改变 ‘/’前面的字体的属性，所以找到目标的range
-        NSRange range = [NSLocalizedString(@"tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"tip.goRegister", @"")];
+        NSRange range = [NSLocalizedString(@"local.login.tip.noAccountGoRegister", @"") rangeOfString:NSLocalizedString(@"local.login.tip.goRegister", @"")];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         dic[NSForegroundColorAttributeName] = PWBlueColor;
         //赋值
@@ -138,11 +138,11 @@
 }
 - (void)loginBtnClick{
     if ([self.accountTf.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.emailOrPhoneNotNull", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.emailOrPhoneNotNull", @"")];
         return;
     }
     if(self.passwordTF.text.length == 0){
-        [iToast alertWithTitleCenter:NSLocalizedString(@"login.password.empty", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.password.empty", @"")];
         return;
     }
     [SVProgressHUD show];
