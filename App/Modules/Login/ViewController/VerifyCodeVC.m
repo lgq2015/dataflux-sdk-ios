@@ -58,13 +58,13 @@
 - (void)createUI{
     __weak typeof(self) weakSelf = self;
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(Interval(36), Interval(46)+kTopHeight, 250, ZOOM_SCALE(37))];
-    title.text = @"输入验证码";
+    title.text = NSLocalizedString(@"local.login.InputCode", @"");
     title.font = MediumFONT(24);
     title.textColor = PWTextBlackColor;
     [self.view addSubview:title];
     UILabel *subTitle = [[UILabel alloc]init];
     subTitle.textColor = PWTitleColor;
-    subTitle.text = @"验证码已发送至";
+    subTitle.text = NSLocalizedString(@"local.login.VerificationCodeSentTo", @"");
     subTitle.font = RegularFONT(16);
     [self.view addSubview:subTitle];
     [subTitle mas_makeConstraints:^(MASConstraintMaker *make) {

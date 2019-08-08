@@ -40,11 +40,11 @@
     self.viewController = controller;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ChooseFromAnAlbum", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:1];
     }];
     
-    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.TakeAPhoto", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
     
@@ -63,11 +63,11 @@
     self.viewController = controller;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ChooseFromAnAlbum", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:1];
     }];
 
-    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.TakeAPhoto", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
    
@@ -85,11 +85,11 @@
     self.viewController = controller;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ChooseFromAnAlbum", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:1];
     }];
     
-    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.TakeAPhoto", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getAlertActionType:2];
     }];
     UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.file", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -131,11 +131,11 @@
     // 获取不同媒体类型下的授权类型
     NSInteger cameragranted = [self AVAuthorizationStatusIsGranted];
     // 如果确定未授权 cameragranted ==0 弹框提示；如果确定已经授权 cameragranted == 1；如果第一次触发授权 cameragranted == 2，这里不处理
-    NSString *tipTitle = self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary? NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @""):@"请开启相机权限";
-    NSString *tipMessage = self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary?NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @""):@"可依次进入[设置-隐私]中，允许访问相机";
+    NSString *tipTitle = self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary? NSLocalizedString(@"local.PleaseOpenPhotoAlbumPermissions", @""):NSLocalizedString(@"local.PleaseTurnOnCameraPermissions", @"");
+    NSString *tipMessage = self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary?NSLocalizedString(@"local.tip.OpenPhotoAlbumPermissionsTip", @""):NSLocalizedString(@"local.tip.TurnOnCameraPermissionsTip", @"");
     if (cameragranted == 0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:tipTitle message:tipMessage preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.Refuse", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
         }];
         UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.GoToOpen", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

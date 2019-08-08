@@ -185,7 +185,7 @@
     if (!_payWayLab){
         _payWayLab = [[UILabel alloc] init];
         _payWayLab.font = [UIFont systemFontOfSize:20];
-        _payWayLab.text = @"支付方式";
+        _payWayLab.text = NSLocalizedString(@"local.PaymentMethod", @"");
     }
     return _payWayLab;
 }
@@ -193,7 +193,7 @@
     if (!_zhifubaoLab){
         _zhifubaoLab = [[UILabel alloc] init];
         _zhifubaoLab.font = [UIFont systemFontOfSize:20];
-        _zhifubaoLab.text = @"支付宝";
+        _zhifubaoLab.text = NSLocalizedString(@"local.Alipay", @"");
     }
     return _zhifubaoLab;
 }
@@ -201,7 +201,7 @@
     if (!_contactsaleLab){
         _contactsaleLab = [[UILabel alloc] init];
         _contactsaleLab.font = [UIFont systemFontOfSize:20];
-        _contactsaleLab.text = @"联系销售";
+        _contactsaleLab.text = NSLocalizedString(@"local.ContactSales", @"");
     }
     return _contactsaleLab;
 }
@@ -242,7 +242,7 @@
         _surePayBtn.layer.masksToBounds = YES;
         _surePayBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         [_surePayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_surePayBtn setTitle:@"￥1000，000  去支付" forState:UIControlStateNormal];
+        [_surePayBtn setTitle:@"" forState:UIControlStateNormal];
         [_surePayBtn addTarget:self action:@selector(sureBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 
     }

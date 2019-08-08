@@ -181,7 +181,7 @@
         return  cell;
     }else{
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
-        cell.textLabel.text = @"创建新团队";
+        cell.textLabel.text = NSLocalizedString(@"local.CreateANewTeam", @"");
         cell.textLabel.font = RegularFONT(16);
         cell.textLabel.textColor = [UIColor colorWithHexString:@"#C7C7CC"];
         return  cell;
@@ -308,7 +308,7 @@
         //重新发送loadlist请求
         [userManager requestMemberList:nil];
     } failBlock:^(NSError *error) {
-        [iToast alertWithTitleCenter:@"切换团队失败"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.SwitchingTeamFailed", @"")];
     }];
 }
 //请求团队列表和团队情报数

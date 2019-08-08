@@ -532,7 +532,7 @@
     [view addSubview:teamLab];
     //团队人数
     UILabel *teamMemNumLab = [[UILabel alloc] init];
-    teamMemNumLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.teamMemberCount%lu", @""),(unsigned long)self.teamMemberArray.count];
+    teamMemNumLab.text = [NSString stringWithFormat:NSLocalizedString(@"local.teamMemberCount", @""),(unsigned long)self.teamMemberArray.count];
     teamMemNumLab.font = RegularFONT(13);
     teamMemNumLab.textColor = [UIColor colorWithHexString:@"#140F26"];
     [view addSubview:teamMemNumLab];

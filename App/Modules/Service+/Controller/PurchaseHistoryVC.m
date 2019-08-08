@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"购买记录";
+    self.title = NSLocalizedString(@"local.PurchaseHistory", @"");
     [self createUI];
     [self loadData];
 
@@ -97,7 +97,7 @@
         UIView *rightView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(text.frame),20, CGRectGetMinX(text.frame) - 72, 1)];
         rightView.backgroundColor = [UIColor colorWithHexString:@"#DFE4E6"];
         [_orderNoDataFooterView addSubview:rightView];
-        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(40), kWidth, ZOOM_SCALE(17)) font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@"以上所有商品与服务，由上海驻云信息科技有限公司提供支持"];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(40), kWidth, ZOOM_SCALE(17)) font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:NSLocalizedString(@"local.tip.CommodityTip", @"")];
         tip.textAlignment = NSTextAlignmentCenter;
         [_orderNoDataFooterView addSubview:tip];
     }
@@ -108,7 +108,7 @@
         _orderFooterView  = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(40))];
         _orderFooterView.backgroundColor = PWBackgroundColor;
        
-        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(10), kWidth, ZOOM_SCALE(17)) font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:@"以上所有商品与服务，由上海驻云信息科技有限公司提供支持"];
+        UILabel *tip = [PWCommonCtrl lableWithFrame:CGRectMake(0, Interval(10), kWidth, ZOOM_SCALE(17)) font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#C7C7CC"] text:NSLocalizedString(@"local.tip.CommodityTip", @"")];
         tip.textAlignment = NSTextAlignmentCenter;
         [_orderFooterView addSubview:tip];
     }

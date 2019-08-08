@@ -174,13 +174,13 @@
     NSString *result;
     if (timeInterval/60 < 1)
     {
-        result = [NSString stringWithFormat:@"刚刚"];
+        result = NSLocalizedString(@"local.Date.JustRecently", @"");
     }
     else if((temp = timeInterval/60) <60){
-        result = [NSString stringWithFormat:@"%ld 分钟前",temp];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.MinutesAgo", @""),temp];
     }
     else if((temp = temp/60) <24){
-        result = [NSString stringWithFormat:@"%ld 小时前",temp];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.HoursAgo", @""),temp];
     }
     else if((temp = temp/24) <7){
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -189,7 +189,7 @@
         [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:timeDate];
         [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
         NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
-        result = [NSString stringWithFormat:@"%ld 天前",dayComponents.day];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.DaysAgo", @""),dayComponents.day];
         if (dayComponents.day == 7) {
             result = [timeDate yearMonthDayTimeStr];
         }
@@ -214,14 +214,14 @@
     NSString *result;
     if (timeInterval/60 < 1)
     {
-        result = [NSString stringWithFormat:@"刚刚"];
+        result = NSLocalizedString(@"local.Date.JustRecently", @"");
     }
     else if((temp = timeInterval/60) <60){
-        result = [NSString stringWithFormat:@"持续 %ld 分钟",temp];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.LastMinute", @""),temp];
     }
     else if((tempHour = temp/60) <24){
         long min =temp%60;
-        result = [NSString stringWithFormat:@"持续 %ld 小时 %ld 分钟",tempHour,min];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.LastHourMinute", @""),tempHour,min];
     }
     else if((tempDay = tempHour/24) <7){
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -230,13 +230,13 @@
         [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:timeDate];
         [gregorian rangeOfUnit:NSCalendarUnitDay startDate:&toDate interval:NULL forDate:currentDate];
         NSDateComponents *dayComponents = [gregorian components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0];
-        result = [NSString stringWithFormat:@"持续 %ld 天",dayComponents.day];
+        result = [NSString stringWithFormat:NSLocalizedString(@"local.Date.LastDay", @""),dayComponents.day];
         if (dayComponents.day == 7) {
-            result = @"持续超过 1 周";
+            result = NSLocalizedString(@"local.Date.LastingMoreThan1Week", @"");
         }
     }
     else {
-        result = @"持续超过 1 周";
+        result = NSLocalizedString(@"local.Date.LastingMoreThan1Week", @"");
     }
     return  result;
 }
@@ -248,7 +248,7 @@
     if ([timeDate isToday]) {
         timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.TodayDate", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isYesterday]){
-        timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
+        timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.Date.Yesterday", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isThisYear]){
         timeStr = [timeDate listCurrentYearHourMinutesTimeStr];
     }else{
@@ -265,7 +265,7 @@
     if ([timeDate isToday]) {
         timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.TodayDate", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isYesterday]){
-        timeStr = [NSString stringWithFormat:@"昨天 %@",[timeDate hourMinutesTimeStr]];
+        timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.Date.Yesterday", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isThisYear]){
         timeStr = [timeDate currentYearHourMinutesTimeStr];
     }else{

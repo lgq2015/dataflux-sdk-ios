@@ -153,7 +153,7 @@
 -(UITextField *)phoneTF{
     if (!_phoneTF) {
         _phoneTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _phoneTF.placeholder = NSLocalizedString(@"login.placeholder.phone", @"");
+        _phoneTF.placeholder = NSLocalizedString(@"local.login.placeholder.phone", @"");
         _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTF.delegate = self;
         _phoneTF.clearButtonMode=UITextFieldViewModeNever;
@@ -175,7 +175,7 @@
 -(UITextField *)nameTF{
     if (!_nameTF) {
         _nameTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _nameTF.placeholder = NSLocalizedString(@"login.placeholder.name", @"");
+        _nameTF.placeholder = NSLocalizedString(@"local.login.placeholder.name", @"");
         _nameTF.hll_limitTextLength = 30;
         _nameTF.delegate = self;
         _nameTF.spellCheckingType = UITextSpellCheckingTypeNo;// 禁用拼写检查
@@ -185,7 +185,7 @@
 }
 -(UILabel *)passwordTipLab{
     if (!_passwordTipLab) {
-        _passwordTipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#F6584C"] text:NSLocalizedString(@"tip.correctPasswordFormat", @"")];
+        _passwordTipLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#F6584C"] text:NSLocalizedString(@"local.tip.correctPasswordFormat", @"")];
         _passwordTipLab.hidden = YES;
         [self.view addSubview:_passwordTipLab];
     }
@@ -195,7 +195,7 @@
     if (!_passwordTF) {
         _passwordTF = [PWCommonCtrl passwordTextFieldWithFrame:CGRectZero font:RegularFONT(15)];
         _passwordTF.delegate = self;
-        _passwordTF.placeholder = NSLocalizedString(@"login.placeholder.password", @"");
+        _passwordTF.placeholder = NSLocalizedString(@"local.login.placeholder.password", @"");
         [self.view addSubview:_passwordTF];
     }
     return _passwordTF;
@@ -203,7 +203,7 @@
 -(UITextField *)emailTF{
     if (!_emailTF) {
         _emailTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _emailTF.placeholder = NSLocalizedString(@"login.placeholder.email", @"");
+        _emailTF.placeholder = NSLocalizedString(@"local.login.placeholder.email", @"");
         _emailTF.delegate = self;
         [self.view addSubview:_emailTF];
     }
@@ -219,7 +219,7 @@
 }
 -(UIButton *)getCodeBtn{
     if (!_getCodeBtn) {
-        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"home.getCode", @"")];
+        _getCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.getCode", @"")];
         _getCodeBtn.titleLabel.font = RegularFONT(14);
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateNormal];
         [_getCodeBtn setTitleColor:PWBlueColor forState:UIControlStateDisabled];
@@ -316,7 +316,7 @@
         return;
     }
     if ([self.passwordTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"login.password.empty", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.password.empty", @"")];
         return;
     }
     if ([self.passwordTF.text removeFrontBackBlank].length<8) {
@@ -329,7 +329,7 @@
     }
     
     if ([self.emailTF.text removeFrontBackBlank].length == 0) {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.emailNotNull", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.emailNotNull", @"")];
         return;
     }
     if (![[self.emailTF.text removeFrontBackBlank] validateEmail]) {
@@ -413,7 +413,7 @@
             }else{
                 [SVProgressHUD dismiss];
                 if ([model.errorCode isEqualToString:@"home.auth.alreadyRegister"]) {
-                    [iToast alertWithTitleCenter:NSLocalizedString(@"login.auth.alreadyRegister", @"")];
+                    [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.auth.alreadyRegister", @"")];
                 }else{
                      [iToast alertWithTitleCenter:model.errorMsg];
                 }
@@ -421,7 +421,7 @@
         }];
        
     }else{
-        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.enterCorrectPhoneNumber", @"")];
     }
 
 }
@@ -453,7 +453,7 @@
 - (void)timerRun{
     if (self.second>0) {
         self.second--;
-        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend%ld", @""),(long)self.second] forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:[NSString stringWithFormat:NSLocalizedString(@"local.Resend", @""),(long)self.second] forState:UIControlStateNormal];
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];

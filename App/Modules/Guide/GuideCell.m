@@ -23,7 +23,7 @@
     if (_index == 0) {
       
         self.titleLab.text = NSLocalizedString(@"local.guide.Title1", @"");
-        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle1", @"");
+        self.subTitleLab.text = NSLocalizedString(@"local.guide.SubTitle1", @"");
         self.backImgView.image = [UIImage imageNamed:@"page1"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(47));
@@ -33,8 +33,8 @@
         }];
     }else if(_index == 1){
         
-        self.titleLab.text = NSLocalizedString(@"Guide.Title2", @"");
-        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle2", @"");
+        self.titleLab.text = NSLocalizedString(@"local.guide.Title2", @"");
+        self.subTitleLab.text = NSLocalizedString(@"local.guide.SubTitle2", @"");
         self.backImgView.image = [UIImage imageNamed:@"page2"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(38));
@@ -44,8 +44,8 @@
         }];
     }else{
         
-        self.titleLab.text = NSLocalizedString(@"Guide.Title3", @"");
-        self.subTitleLab.text = NSLocalizedString(@"Guide.SubTitle3", @"");
+        self.titleLab.text = NSLocalizedString(@"local.guide.Title3", @"");
+        self.subTitleLab.text = NSLocalizedString(@"local.guide.SubTitle3", @"");
         self.backImgView.image = [UIImage imageNamed:@"page3"];
         [self.backImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.subTitleLab.mas_bottom).offset(ZOOM_SCALE(14));

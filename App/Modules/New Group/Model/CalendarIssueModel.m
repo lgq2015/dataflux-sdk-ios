@@ -44,42 +44,33 @@
     NSString *updateTime = [dict stringValueForKey:@"updateTime" default:@""];
     NSString *subType = [dict stringValueForKey:@"subType" default:@""];
     NSString *type = [dict stringValueForKey:@"type" default:@""];
+    NSString *key = [NSString stringWithFormat:@"local.issue.%@",subType];
     if ([type isEqualToString:@"bizPoint"]&& ([subType isEqualToString:@"updateExpertGroups"]||[subType isEqualToString:@"exitExpertGroups"])) {
-        NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
         NSDictionary *metaJSON = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"metaJSON");
          [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
-             self.typeText = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
+             self.typeText = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
          }];
-    }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]){
+    }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]||[subType isEqualToString:@"issueFixed"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-        NSString *text = NSLocalizedString(subType, @"");
-        self.typeText = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
+        self.typeText = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
     }else if([subType isEqualToString:@"issueLevelChanged"]){
-         NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
         self.typeText = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[issueSnapshotJSON_cache[@"level"] getIssueStateLevel]];
-    }else if([subType isEqualToString:@"issueFixed"]){
-        NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-        self.typeText = [NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),name];
     }else if([subType isEqualToString:@"issueAssigned"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
         NSDictionary *assignedToAccountInfo = PWSafeDictionaryVal(dict, @"assignedToAccountInfo");
-            NSString *key = NSLocalizedString(subType, @"");
-            self.typeText  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
+        self.typeText  = [NSString stringWithFormat:@"%@ %@ %@",name,NSLocalizedString(key, @""),assignedToAccountInfo[@"name"]];
         
     }else if([subType isEqualToString:@"issueCancelAssigning"]){
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
-        NSString *key = NSLocalizedString(subType, @"");
-        self.typeText  = [NSString stringWithFormat:@"%@ %@",name,key];
-     
-        
+        self.typeText  = [NSString stringWithFormat:@"%@ %@",name,NSLocalizedString(key, @"")];
+             
     }else if([subType isEqualToString:@"issueChildAdded"]){
         NSDictionary *childIssue = PWSafeDictionaryVal(dict, @"childIssue");
         NSString *key = [childIssue stringValueForKey:@"title" default:@""];
         self.typeText = key;
 
     }else{
-          NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
-          self.typeText = NSLocalizedString(key, @"");
+        self.typeText = NSLocalizedString(key, @"");
         if ([self.typeText isEqualToString:key]) {
             self.typeText = @"";
         }

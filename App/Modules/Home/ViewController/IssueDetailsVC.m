@@ -204,7 +204,7 @@
     
     if (self.model.isInvalidIssue) {
         [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
-          [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips%@%@", @""),name1,self.model.sourceName]];
+          [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips", @""),name1,self.model.sourceName]];
         }];
     }
     if ([type isEqualToString:@"carrier.corsairmaster"]){
@@ -235,7 +235,7 @@
                     [self.engineHeader setIssueNameLabText:[source stringValueForKey:@"name" default:@""]];
                     if (self.model.isInvalidIssue) {
                         [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
-                            [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips%@%@", @""),name1,[source stringValueForKey:@"name" default:@""]]];
+                            [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips", @""),name1,[source stringValueForKey:@"name" default:@""]]];
                         }];
                     }
                 }

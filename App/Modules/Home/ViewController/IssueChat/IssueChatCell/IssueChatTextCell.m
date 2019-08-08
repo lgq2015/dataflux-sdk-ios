@@ -68,7 +68,7 @@
 
         self.atReadBtn.titleLabel.font = RegularFONT(13);
         self.atReadBtn.hidden = NO;
-        if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:@"已读"]){
+     if([[arStr substringWithRange:NSMakeRange(arStr.length-2, 2)] isEqualToString:    NSLocalizedString(@"local.HaveRead", @"")]){
             self.atReadBtn.enabled = NO;
         }else{
             self.atReadBtn.enabled = YES;
@@ -130,7 +130,7 @@
         }
     }else{
         if (readAccounts.count>1 || (readAccounts.count == 1&& serviceMap&& serviceMap.allKeys.count>0)) {
-            atStr = @"全部已读";
+         atStr = NSLocalizedString(@"local.AllRead", @"");
         }else{
             NSDictionary *read = readAccounts[0];
             [userManager getTeamMenberWithId:read[@"accountId"] memberBlock:^(NSDictionary *member) {
@@ -146,7 +146,7 @@
 }
  */
 - (void)readBtnClick{
-//  
+//
 //        if(self.delegate && [self.delegate respondsToSelector:@selector(PWChatReadUnreadBtnClickLayout:)]){
 //            [self.delegate PWChatReadUnreadBtnClickLayout:self.layout];
 //        }

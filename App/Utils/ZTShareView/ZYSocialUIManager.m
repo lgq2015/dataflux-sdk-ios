@@ -139,13 +139,13 @@
 #pragma mark - Click点击分享
 -(void)shareNewClick:(UIButton *)btn{
     NSString * titleStr = _titleArr[btn.tag - 401];
-    if ([titleStr isEqualToString:@"朋友圈"]) {
+    if ([titleStr isEqualToString:NSLocalizedString(@"local.CircleOfFriends", @"")]) {
         self.sharePlatformType = WechatTimeLine_PlatformType;
-    }else if ([titleStr isEqualToString:@"微信"]){
+    }else if ([titleStr isEqualToString:NSLocalizedString(@"local.WeChat", @"")]){
         self.sharePlatformType = WechatSession_PlatformType;
     }else if ([titleStr isEqualToString:@"QQ"]){
         self.sharePlatformType = QQ_PlatformType;
-    }else if ([titleStr isEqualToString:@"QQ空间"]){
+    }else if ([titleStr isEqualToString:NSLocalizedString(@"local.QQSpace", @"")]){
         self.sharePlatformType = Qzone_PlatformType;
     }else if ([titleStr isEqualToString:NSLocalizedString(@"local.dingding", @"")]){
         self.sharePlatformType = Dingding_PlatformType;
@@ -209,18 +209,18 @@
     if (!_titleArr) {
         _titleArr = [[NSMutableArray alloc]init];
         if (self.isWX == YES) {
-            [_titleArr addObject:@"微信"];
-            [_titleArr addObject:@"朋友圈"];
+            [_titleArr addObject:NSLocalizedString(@"local.WeChat", @"")];
+            [_titleArr addObject:NSLocalizedString(@"local.CircleOfFriends", @"")];
         }
         if (self.isQQ == YES) {
             [_titleArr addObject:@"QQ"];
-            [_titleArr addObject:@"QQ空间"];
+            [_titleArr addObject:NSLocalizedString(@"local.QQSpace", @"")];
             
         }
         if (self.isDing == YES) {
             [_titleArr addObject:NSLocalizedString(@"local.dingding", @"")];
         }
-        [_titleArr addObject:@"系统分享"];
+        [_titleArr addObject:NSLocalizedString(@"local.SystemSharing", @"")];
     }
     return _titleArr;
 }
@@ -244,10 +244,10 @@
 }
 -(void)testInit{
     if (!_titleArr) {
-        [self.titleArr addObject:@"微信"];
-        [self.titleArr addObject:@"朋友圈"];
+        [self.titleArr addObject:NSLocalizedString(@"local.WeChat", @"")];
+        [self.titleArr addObject:NSLocalizedString(@"local.CircleOfFriends", @"")];
         [self.titleArr addObject:@"QQ"];
-        [self.titleArr addObject:@"QQ空间"];
+        [self.titleArr addObject:NSLocalizedString(@"local.QQSpace", @"")];
         [self.titleArr addObject:NSLocalizedString(@"local.dingding", @"")];
         
         [self.imageArr addObject:@"zysocial_wechat"];

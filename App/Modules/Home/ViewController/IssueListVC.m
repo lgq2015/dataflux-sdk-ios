@@ -14,7 +14,6 @@
 #import "FillinTeamInforVC.h"
 #import "IssueListManger.h"
 #import "IssueLogModel.h"
-#import "AddIssueGuideView.h"
 #import "ZTCreateTeamVC.h"
 #import "IssueDetailsVC.h"
 #import "SelectObject.h"

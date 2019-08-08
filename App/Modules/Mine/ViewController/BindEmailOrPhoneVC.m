@@ -36,7 +36,7 @@
     switch (self.changeType) {
         case BindUserInfoTypeEmail:
             if (self.isFirst) {
-                placeholder = NSLocalizedString(@"login.placeholder.email", @"");
+                placeholder = NSLocalizedString(@"local.login.placeholder.email", @"");
             }else{
                 placeholder = NSLocalizedString(@"local.PleaseInputNewEmail", @"");
             }
@@ -46,7 +46,7 @@
         case BindUserInfoTypeName:
             title =NSLocalizedString(@"local.ModifyTheName", @"");
             if (self.isFirst) {
-                placeholder = NSLocalizedString(@"login.placeholder.name", "");
+                placeholder = NSLocalizedString(@"local.login.placeholder.name", "");
             }else{
                 placeholder = NSLocalizedString(@"local.PleaseInputNewName", @"");
             }
@@ -111,7 +111,7 @@
         RAC(self.commitBtn,enabled) = emailSignal;
         
     }else if(self.changeType == BindUserInfoTypeMobile){
-        [self.commitBtn setTitle:NSLocalizedString(@"home.getCode", @"") forState:UIControlStateNormal];
+        [self.commitBtn setTitle:NSLocalizedString(@"local.getCode", @"") forState:UIControlStateNormal];
         self.emailTF.keyboardType = UIKeyboardTypeNumberPad;
         RACSignal *phoneSignal= [[self.emailTF rac_textSignal] map:^id(NSString *value) {
             
@@ -234,7 +234,7 @@
 }
 - (void)commitPhoneClick{
     if (![[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
-        [iToast alertWithTitleCenter:NSLocalizedString(@"tip.enterCorrectPhoneNumber", @"")];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.login.tip.enterCorrectPhoneNumber", @"")];
         return;
     }
     NSDictionary *param = @{@"data":@{@"username":[self.emailTF.text stringByReplacingOccurrencesOfString:@" " withString:@""],@"uType":@"mobile",@"uuid":self.uuid}};

@@ -123,64 +123,51 @@
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
        
         self.messageType = PWChatMessageTypeKeyPoint;
-        if ([model.subType isEqualToString:@"markTookOver"]) {
-            NSString *text = NSLocalizedString(model.subType, @"");
-            self.stuffName = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
+        NSString *key = [NSString stringWithFormat:@"local.issue.%@",model.subType];
 
+        if ([model.subType isEqualToString:@"markTookOver"] ||[model.subType isEqualToString:@"markRecovered"] ||[model.subType isEqualToString:@"issueFixed"]) {
+            self.stuffName = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
         }else if([model.subType isEqualToString:@"issueCreated"]){
             if (self.messageFrom == PWChatMessageFromOther) {
-                self.stuffName = [NSString stringWithFormat:NSLocalizedString(@"issue.create%@", @""),name];
+                self.stuffName = [NSString stringWithFormat:NSLocalizedString(@"local.issue.issueCreatedBy", @""),name];
             }else{
-             self.stuffName = NSLocalizedString(@"issue.issueCreated", @"");
+             self.stuffName = NSLocalizedString(key, @"");
             }
-        }else if([model.subType isEqualToString:@"markRecovered"]){
-            NSString *text = NSLocalizedString(model.subType, @"");
-            self.stuffName = [text stringByReplacingOccurrencesOfString:@"#" withString:name];
-        }else if([model.subType isEqualToString:@"issueFixed"]){
-            NSString *reText=[NSString stringWithFormat:NSLocalizedString(@"issue.issueFixed%@", @""),name];
-            self.stuffName = reText;
         }else if([model.subType isEqualToString:@"issueLevelChanged"]){
-            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
             if (model.issueSnapshotJSON_cacheStr){
              self.stuffName = [NSString stringWithFormat:@"%@%@",NSLocalizedString(key, @""),[[model.issueSnapshotJSON_cacheStr jsonValueDecoded][@"level"] getIssueStateLevel]];
             }else{
-                self.stuffName = NSLocalizedString(@"issue.issueLogLevelChanged", @"");
+                self.stuffName = NSLocalizedString(key, @"");
             }
-      
         }else if([model.subType isEqualToString:@"issueAssigned"]){
             if (model.assignedToAccountInfoStr.length>0) {
                 NSDictionary *assignedToAccountInfo = [model.assignedToAccountInfoStr jsonValueDecoded];
-                NSString *key = NSLocalizedString(model.subType, @"");
-                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",name,key,assignedToAccountInfo[@"name"]];
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@ %@",name,NSLocalizedString(key, @""),assignedToAccountInfo[@"name"]];
             }
         }else if([model.subType isEqualToString:@"issueCancelAssigning"]){
             if (model.issueSnapshotJSON_cacheStr.length>0) {
-                NSString *key = NSLocalizedString(model.subType, @"");
-                self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,key];
+                self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,NSLocalizedString(key, @"")];
             }
 
         }else if([model.subType isEqualToString:@"issueChildAdded"]){
-            
             NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
             NSString *key = [childIssue stringValueForKey:@"title" default:@""];
             self.stuffName = key;
 
         }else{
-            NSString *key = [NSString stringWithFormat:@"issue.%@",model.subType];
             self.stuffName  = NSLocalizedString(key, @"");
-
         }
         self.cellString = PWChatKeyPointCellId;
         self.nameStr = [NSString compareCurrentTime:time];
     }else{
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
-        NSString *key = [NSString stringWithFormat:@"issue.%@",subType];
-         self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:NSLocalizedString(@"local.experts", @"")];
+        NSString *key = [NSString stringWithFormat:@"local.issue.%@",subType];
+         self.systermStr =[NSString stringWithFormat:NSLocalizedString(key, @""),NSLocalizedString(@"local.experts", @"")];
         if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
             [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
                 if ([subType isEqualToString:@"updateExpertGroups"] || [subType isEqualToString:@"exitExpertGroups"]) {
-                    self.systermStr = [NSLocalizedString(key, @"") stringByReplacingOccurrencesOfString:@"#" withString:name];
+                    self.systermStr = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
                 }
             }];
         }
