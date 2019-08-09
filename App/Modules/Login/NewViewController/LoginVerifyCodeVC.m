@@ -145,7 +145,7 @@
 -(UITextField *)codeTF{
     if (!_codeTF) {
         _codeTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(15)];
-        _codeTF.placeholder = NSLocalizedString(@"login.placeholder.code", @"");
+        _codeTF.placeholder = NSLocalizedString(@"local.login.placeholder.code", @"");
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.clearButtonMode=UITextFieldViewModeNever;
         _codeTF.delegate = self;

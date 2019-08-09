@@ -13,6 +13,7 @@
 #import "changeUserInfoVC.h"
 #import "ZhugeIOLoginHelper.h"
 #import "ZhugeIOMineHelper.h"
+#import "NSString+ErrorCode.h"
 
 @interface SetNewPasswordVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextField *passwordTf;
@@ -147,7 +148,7 @@
                 }
             } else {
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                  [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                  [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                          [self naviSkip];
                     });

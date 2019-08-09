@@ -209,7 +209,7 @@
                 
             }else{
                 if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-                        [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                        [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         for(UIViewController *temp in self.navigationController.viewControllers) {
                             if([temp isKindOfClass:[ChangeUserInfoVC class]]){
@@ -252,7 +252,7 @@
             if ([response[ERROR_CODE] isEqualToString:@"home.account.mobileExists"]) {
                 [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.ThePhoneNumberHasBeenRegistered", @"")];
             }else if ([response[ERROR_CODE] isEqualToString:@"home.auth.invalidIdentityToken"]) {
-               [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+               [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     for(UIViewController *temp in self.navigationController.viewControllers) {
                         if([temp isKindOfClass:[ChangeUserInfoVC class]]){

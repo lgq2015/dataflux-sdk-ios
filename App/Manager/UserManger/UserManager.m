@@ -88,7 +88,7 @@ SINGLETON_FOR_CLASS(UserManager);
             [self saveUserInfoLoginStateisChange:YES success:nil];
         }else
         {    [SVProgressHUD dismiss];
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE],"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
@@ -168,10 +168,10 @@ SINGLETON_FOR_CLASS(UserManager);
 
                 if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
                     NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
-                    NSString *toast =[[errorCode toErrString] stringByReplacingOccurrencesOfString:@"#" withString:time];
+                    NSString *toast =[NSString stringWithFormat:[errorCode toErrString],time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
-                    [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+                    [SVProgressHUD showErrorWithStatus:[response[ERROR_CODE] toErrString]];
                 }
 
             }

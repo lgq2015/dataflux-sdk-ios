@@ -565,10 +565,10 @@
     
     if([response[ERROR_CODE] isEqualToString:@"home.auth.tooManyIncorrectAttempts"]){
         NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
-        NSString *toast =[NSLocalizedString(@"home.auth.tooManyIncorrectAttempts", @"") stringByReplacingOccurrencesOfString:@"#" withString:time];
+       NSString *toast =[NSString stringWithFormat:[response[ERROR_CODE] toErrString],time];
         [SVProgressHUD showErrorWithStatus:toast];
     }else{
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(response[ERROR_CODE], @"")];
+        [SVProgressHUD showErrorWithStatus:[response[ERROR_CODE] toErrString]];
     }
 }
 #pragma mark --寻找控制器返回--

@@ -210,7 +210,7 @@
                     [self.navigationController popViewControllerAnimated:NO];
                 });
             }else{
-                [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
             }
         }
         [SVProgressHUD dismiss];

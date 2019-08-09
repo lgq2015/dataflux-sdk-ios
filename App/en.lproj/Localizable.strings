@@ -41,7 +41,7 @@
 "server.err.home.account.operationError"= "操作错误";
 "server.err.ff.team.to_scout_miss_params"= "缺少参数";
 "server.err.ff.account.format_error"= "手机号格式错误，请重新输入";
-"server.err.home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请 {count}s 后再尝试";
+"server.err.home.auth.tooManyIncorrectAttempts"= "您尝试的错误次数过多，请 %@s 后再尝试";
 "server.err.home.auth.noSuchMobile"= "手机号码不存在";
 "server.err.home.issueSource.invalidDomain"= "域名格式错误";
 "server.err.home.account.notTheSameTeam"= "不是同一个团队";
@@ -152,7 +152,7 @@
 
 "local.login.placeholder.name" = "请输入姓名";
 "local.PleaseInputNewName" = "请输入新的姓名";
-"login.placeholder.code" = "请输入验证码";
+"local.login.placeholder.code" = "请输入验证码";
 "local.login.InputCode" = "输入验证码";
 "local.login.VerificationCodeSentTo" = "验证码已发送至";
 "local.login.placeholder.password" = "请输入密码";

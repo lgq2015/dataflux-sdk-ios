@@ -167,7 +167,7 @@
         _codeTF.keyboardType = UIKeyboardTypeNumberPad;
         _codeTF.clearButtonMode=UITextFieldViewModeNever;
         _codeTF.delegate = self;
-        _codeTF.placeholder = NSLocalizedString(@"login.placeholder.code", @"");
+        _codeTF.placeholder = NSLocalizedString(@"local.login.placeholder.code", @"");
         [self.view addSubview:_codeTF];
     }
     return _codeTF;

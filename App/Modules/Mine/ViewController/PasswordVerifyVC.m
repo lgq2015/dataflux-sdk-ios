@@ -188,7 +188,7 @@
             [[[[ZhugeIOMineHelper new] eventChangeEmail] attrVerifyWayPwd] track];
 
         }else{
-            [iToast alertWithTitleCenter:NSLocalizedString(response[ERROR_CODE], @"")];
+            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
 
         }
     } failBlock:^(NSError *error) {
