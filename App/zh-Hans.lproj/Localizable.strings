@@ -400,7 +400,7 @@
 "local.EncourageUs" = "鼓励我们";
 "local.AboutProfessorWang" = "关于王教授";
 "local.SettingUp" = "设置";
-"lcoal.SecurityAndPrivacy" = "安全与隐私";
+"local.SecurityAndPrivacy" = "安全与隐私";
 "local.ChangeThePassword" = "修改密码";
 "local.PrivacyPolicy" = "隐私权政策";
 "local.tip.BindingSuccess" = "绑定成功";
@@ -566,6 +566,7 @@
 "local.tip.TurnOffNotificationPermissionsTip" = "可依次进入[设置-隐私-通知]中，关闭通知";
 "local.login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";
 "local.err.PleaseTryAgainLater" = "请稍后重试";
+
 
 "locla.SelectByMovingTheZoom" = "通过移动缩放来选择";
 "local.SelectEffectiveArea" = "选取有效区域";

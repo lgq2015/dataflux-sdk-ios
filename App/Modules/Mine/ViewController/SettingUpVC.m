@@ -37,7 +37,7 @@
 - (void)createUI{
     BOOL isSwitch=  [self checkNotification];
     self.dataSource = [NSMutableArray new];
-    MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"lcoal.SecurityAndPrivacy", @"")];
+    MineCellModel *changePassword = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.SecurityAndPrivacy", @"")];
 
     MineCellModel *notification = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.notification", @"") isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ClearCache", @"") describeText:@""];

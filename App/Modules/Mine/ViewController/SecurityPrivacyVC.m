@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"lcoal.SecurityAndPrivacy", @"");
+    self.title = NSLocalizedString(@"local.SecurityAndPrivacy", @"");
     [self createUI];
 }
 - (void)createUI{

@@ -345,7 +345,7 @@
         _titleLabel = [[UILabel alloc]init];
         [_titleLabel setFont:[UIFont systemFontOfSize:14]];
         [_titleLabel setTextColor:[UIColor whiteColor]];
-        [_titleLabel setText:NSLocalizedString(@"locla.SelectByMovingTheZoom", @"")];
+        [_titleLabel setText:NSLocalizedString(@"local.SelectByMovingTheZoom", @"")];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
     }
     return _titleLabel;
