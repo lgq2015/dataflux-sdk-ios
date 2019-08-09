@@ -35,8 +35,6 @@
     [self createUI];
     [self loadCalendarDot];
     [self loadCurrentList];
-    NSString *nameStr= NSLocalizedString(@"(sdd)issueLevelChanged", @"no");
-    DLog(@"nameStr === %@",nameStr);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(issueTeamSwitch:)
                                                  name:KNotificationSwitchTeam
