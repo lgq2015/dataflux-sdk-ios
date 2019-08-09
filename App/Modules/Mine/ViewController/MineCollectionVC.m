@@ -139,12 +139,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{   UITableViewCell *cell;
+{
     NewsListModel *model = self.dataSource[indexPath.row];
     if (model.type == NewListCellTypText) {
         NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
         cell.model = self.dataSource[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
             [self deleteCollection:indexPath.row];
@@ -237,6 +236,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model = self.dataSource[indexPath.row];
     [self recollectWithModel:model];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NewsListModel *model =self.dataSource[indexPath.row];

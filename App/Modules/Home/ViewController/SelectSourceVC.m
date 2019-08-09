@@ -111,12 +111,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
         SelectSourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelectSourceCell"];
         cell.source = self.results[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSError *error;
     SourceModel *model = [[SourceModel alloc]initWithDictionary:self.results[indexPath.row] error:&error];
     if (self.itemClick) {

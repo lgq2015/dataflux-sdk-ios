@@ -214,6 +214,7 @@
     member.model = model;
     member.isShowCustomNaviBar = YES;
     [self.navigationController pushViewController:member animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
     [[[ZhugeIOTeamHelper new] eventLookMember] track];
 
@@ -404,7 +405,6 @@
     }
     return _rightNavButton;
 }
-//TODO:丽蕾 (点击切换团队按钮)
 - (void)navLeftBtnclick:(UIButton *)sender{
     sender.userInteractionEnabled = NO;
     sender.selected = !sender.selected;
@@ -425,7 +425,6 @@
         [self.changeTeamView dismiss];
     }
 }
-//TODO:丽蕾 (点击切换团队箭头)
 - (void)tapTopArrow:(UITapGestureRecognizer *)ges{
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
 }
@@ -485,7 +484,6 @@
         [self.headerView layoutIfNeeded];
     }
 }
-//TODO:丽蕾 （点击切换团队阴影）
 - (void)clickTeamChangeViewBlackBG{
     WeakSelf
     self.changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
@@ -558,7 +556,6 @@
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
     cell.model = model;
     cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (userManager.teamModel.isAdmin) {//我是管理员
         if (!model.isAdmin && !model.isSpecialist){//可以对非管理员和非专家执行删除操作
             MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {

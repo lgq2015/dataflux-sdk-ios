@@ -52,7 +52,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell initWithData:self.dataSource[indexPath.row] type:MineVCCellTypeTitle];
     if (!(indexPath.row == self.dataSource.count-1)) {
         cell.arrowImgView.hidden = YES;
@@ -82,6 +81,7 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     if (self.disMissClick) {

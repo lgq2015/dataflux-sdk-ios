@@ -69,12 +69,10 @@
     if ([model.imageUrl isEqualToString:@""]) {
         ZTHandBookNoPicCell *cell = (ZTHandBookNoPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookNoPicCell cellReuseIdentifier]];
         cell.isSearch = NO;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = model;
         return cell;
     }else{
         ZTHandBookHasPicCell *cell = (ZTHandBookHasPicCell *)[tableView dequeueReusableCellWithIdentifier:[ZTHandBookHasPicCell cellReuseIdentifier]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.isSearch = NO;
         cell.model = model;
         return cell;
@@ -88,6 +86,7 @@
     NewsWebView *webview = [[NewsWebView alloc]initWithTitle:model.title andURLString:PW_handbookUrl(model.articleId)];
     webview.handbookModel = model;
     [self.navigationController pushViewController:webview animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

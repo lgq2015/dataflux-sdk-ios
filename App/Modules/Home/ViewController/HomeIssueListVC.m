@@ -44,7 +44,7 @@
                                              selector:@selector(editTeamNote:)
                                                  name:KNotificationEditTeamNote
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
+    [kNotificationCenter addObserver:self
                                              selector:@selector(hometeamSwitch)
                                                  name:KNotificationSwitchTeam
                                                object:nil];

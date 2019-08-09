@@ -223,12 +223,10 @@
         NSArray *array =self.results[indexPath.section];
         cell.line.hidden = indexPath.row == array.count-1?YES:NO;
         cell.model = model;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
     if (indexPath.section == 0 && indexPath.row == 0) {
     NoAssignCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoAssignCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
      cell.model = self.results[indexPath.section][indexPath.row];
     return cell;
 
@@ -239,7 +237,6 @@
     NSArray *array =self.results[indexPath.section];
     cell.line.hidden = indexPath.row == array.count-1?YES:NO;
     cell.model = model;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     }
