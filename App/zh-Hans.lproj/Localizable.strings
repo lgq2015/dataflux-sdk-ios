@@ -144,7 +144,7 @@
 "local.issue.exitExpertGroups" ="专家退出讨论";
 "local.issue.issueFixed" = "被 %@ 修复";
 "local.issue.exitExpertGroups" = "您邀请的专家已退出讨论";
-"local.issue.issueCreated" = "创建情报";
+"local.issueCreate" = "创建情报";
 "local.issue.issueCreatedBy" = "由%@创建";
 "local.issue.issueCreateSuccess" = "创建情报成功";
 "local.issue.issueAssigned" = "将该情报指派给";

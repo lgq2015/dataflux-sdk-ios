@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"local.issue.issueCreated", @"");
+    self.title = NSLocalizedString(@"local.issueCreate", @"");
     self.isShowLiftBack = NO;
     [self createUI];
 }
