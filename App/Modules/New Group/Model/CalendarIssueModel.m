@@ -95,7 +95,7 @@
     self.groupTitle = [dateFormatteds getCalenarTimeStr];
    
     if (self.contentText.length == 0) {
-        self.contentText = NSLocalizedString(@"issue.issueLogAbnormalDisplay", @"");
+        self.contentText = NSLocalizedString(@"local.issue.issueLogAbnormalDisplay", @"");
     }
     self.calendarContentH = [self.contentText strSizeWithMaxWidth:kWidth-Interval(61) withFont:RegularFONT(15)].height+10;
     CGSize titleSize  = [self.typeText strSizeWithMaxWidth:kWidth-ZOOM_SCALE(66)-Interval(69) withFont:RegularFONT(12)];

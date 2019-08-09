@@ -256,7 +256,7 @@
 }
 - (UILabel *)zoonLab{
     if (!_zoonLab){
-        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? NSLocalizedString(@"local.company.addresscity", @"") : _city];
+        _zoonLab =[PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWBlueColor text:_city == nil ? NSLocalizedString(@"local.company.addressCity", @"") : _city];
         _zoonLab.textAlignment = NSTextAlignmentCenter;
     }
     return _zoonLab;

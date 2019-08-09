@@ -269,7 +269,7 @@
 
 
 - (void)delectMember:(NSInteger )row{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TeamDelectMemberTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.TeamDeleteMemberTip", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRemoval", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         NSString *uid =self.teamMemberArray[row].memberID;
         [PWNetworking requsetHasTokenWithUrl:PW_AccountRemove(uid) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {

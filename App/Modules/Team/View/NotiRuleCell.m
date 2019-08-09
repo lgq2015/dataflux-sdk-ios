@@ -38,7 +38,7 @@
     
     self.subscribeBtn = [[TouchLargeButton alloc]init];
     [self.subscribeBtn setTitle:NSLocalizedString(@"local.SubscribeRule", @"") forState:UIControlStateNormal];
-    [self.subscribeBtn setTitle:NSLocalizedString(@"local.CancleSubscribe", @"") forState:UIControlStateSelected];
+    [self.subscribeBtn setTitle:NSLocalizedString(@"local.CancelSubscribe", @"") forState:UIControlStateSelected];
     [self.subscribeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
     [self.subscribeBtn addTarget:self action:@selector(subscribeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.subscribeBtn.titleLabel.font = RegularFONT(13);

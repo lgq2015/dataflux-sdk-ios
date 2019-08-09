@@ -135,7 +135,7 @@
 "local.issue.updateExpertGroups" = "您邀请的%@已加入讨论";
 "local.issue.exitExpertGroups" = "您邀请的%@已退出讨论";
 "local.issue.issueLevelChanged" ="情报等级变更为";
-"lcoal.issue.issueLogAbnormalDisplay" = "该情报日志显示异常";
+"local.issue.issueLogAbnormalDisplay" = "该情报日志显示异常";
 "local.issue.issueLogLevelChanged" =  "情报等级变更";
 "local.issue.markTookOver"  =  "由%@处理";
 "local.issue.markRecovered" = "被%@解决";
@@ -177,7 +177,6 @@
 "local.login.register" = "注册";
 "local.serviceAgreement" = "服务协议";
 "local.notificationRule" = "通知规则";
-"local.addRule" = "添加规则";
 "local.addNotificationRule" = "添加规则";
 "local.save" = "保存";
 "local.ruleName" = "规则名称";
@@ -250,7 +249,7 @@
 "local.warning" = "警告";
 "local.info" = "提示";
 "local.SubscribeRule" = "订阅规则";
-"local.CancleSubscribe" = "取消订阅";
+"local.CancelSubscribe" = "取消订阅";
 "local.RuleNameNotAllowNull" = "规则名称不能为空";
 "local.ConditionNotAllowNull" = "条件不能为空";
 "local.notificationRuleSubscribeSuccess" = "通知规则订阅成功";
@@ -334,7 +333,7 @@
 "local.ScanResults" = "扫描结果";
 "local.scan" = "扫一扫";
 "local.category" = "类别";
-"local.TeamDelectMemberTip" = "移除成员后，成员将不在团队管理中，并不再接收团队任何消息";
+"local.TeamDeleteMemberTip" = "移除成员后，成员将不在团队管理中，并不再接收团队任何消息";
 "local.MobilePhoneNo" = "手机号";
 "local.SetTheNote" = "设置备注";
 "local.IssueDetails" = "情报详情";
@@ -388,7 +387,7 @@
 "local.feedback.placeholder" = "我们很重视您的宝贵建议，请在此输入。";
 "local.ContactUs" = "联系我们";
 "local.company.address" = "上海浦东新区科苑路399号张江创新园7号楼";
-"local.company.addresscity" = "上海浦东新区";
+"local.company.addressCity" = "上海浦东新区";
 "local.RingUp" = "拨打电话";
 "local.CallFailed" = "拨打失败";
 "local.library.placeholder" = "您好，请问有什么可以帮您？";
