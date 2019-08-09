@@ -566,3 +566,19 @@
 "local.tip.TurnOffNotificationPermissionsTip" = "可依次进入[设置-隐私-通知]中，关闭通知";
 "local.login.auth.alreadyRegister" = "该手机号已经注册，请直接登录";
 "local.err.PleaseTryAgainLater" = "请稍后重试";
+
+"locla.SelectByMovingTheZoom" = "通过移动缩放来选择";
+"local.SelectEffectiveArea" = "选取有效区域";
+"local.PaymentMethod" = "支付方式";
+"local.Alipay" = "支付宝";
+"local.ContactSales" = "联系销售";
+"local.SuccessfulAppointment" = "预约成功";
+"local.PurchaseHistory" = "购买记录";
+"local.tip.CommodityTip" = "以上所有商品与服务，由上海驻云信息科技有限公司提供支持";
+"local.tip.BookSuccessTip" = "您的购买预约已经提交成功\n我们会尽快安排客服人员与您联系\n您也可以直接拨打%@咨询";
+"local.OrderNumber" = "订单号";
+"local.AllRead" = "全部已读";
+"local.HaveRead" = "已读";
+"local.tip.DeveloperMode" ="开发者模式";
+"local.tip.AlreadyInDeveloperMode" = "已经是开发者模式";
+"local.tip.AlreadyTheLatestVersion" = "已是最新版本";

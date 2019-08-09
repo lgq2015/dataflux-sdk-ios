@@ -84,12 +84,12 @@
     if (self.clickTimes >= MODE_SWITCH_COUNT) {
         [NBULog setAppLogLevel:DDLogLevelVerbose];
         setIsDevMode(YES);
-        [iToast alertWithTitleCenter:@"开发者模式"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.DeveloperMode", @"")];
     }
 }
 - (void)tapDetected {
     if(getIsDevMode) {
-        [iToast alertWithTitleCenter:@"已经是开发者模式"];
+        [iToast alertWithTitleCenter:NSLocalizedString(@"local.tip.AlreadyInDeveloperMode", @"")];
         return;
     }
 
@@ -138,7 +138,7 @@
     }else{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
         MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-        [cell setDescribeLabText:@"已是最新版本"];
+        [cell setDescribeLabText:NSLocalizedString(@"local.tip.AlreadyTheLatestVersion", @"")];
     }
 }
 #pragma mark ========== UITableViewDelegate ==========
