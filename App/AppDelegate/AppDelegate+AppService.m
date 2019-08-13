@@ -736,7 +736,6 @@
         completeBlock ? completeBlock(isSuccess) : nil;
     }];
 }
-
 - (void)deleteAllNavViewController{
     UINavigationController *nav = [self getCurrentUIVC].navigationController;
     NSMutableArray *vcs = nav.viewControllers.mutableCopy;

@@ -125,7 +125,7 @@
                         @"marker": @"mobile",
                 } mutableCopy];
 
-        [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+        [data addEntriesFromDictionary:[userManager getDeviceInfo]];
         NSDictionary *params = @{@"data":data
         };
         [PWNetworking requsetWithUrl:PW_changePassword withRequestType:NetworkPostType refreshRequest:NO cache:YES params:params progressBlock:nil successBlock:^(id response) {

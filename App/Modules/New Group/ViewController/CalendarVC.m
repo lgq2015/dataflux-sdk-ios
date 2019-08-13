@@ -458,7 +458,6 @@
         [self.manager goToDate:[NSDate date]];
         [self loadCalendarDot];
         [self loadCurrentList];
-//        [self.manager reloadAppearanceAndData];
     }
     [self.selView disMissView];
 }

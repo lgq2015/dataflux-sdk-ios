@@ -28,15 +28,14 @@ typedef NS_ENUM(NSInteger ,CalendarViewType){
 typedef void (^loginBlock)(BOOL success, NSString * des);
 typedef void (^codeBlock) (CodeStatus status, NSString * des);
 @class UserInfo,CurrentUserModel,TeamInfoModel;
-#define isLogin [UserManager sharedUserManager].isLogined
-#define curUser [UserManager sharedUserManager].curUserInfo
+
 #define userManager [UserManager sharedUserManager]
 @interface UserManager : NSObject
 
 //单例
 SINGLETON_FOR_HEADER(UserManager)
 
-+ (NSDictionary *)getDeviceInfo;
+- (NSDictionary *)getDeviceInfo;
 
 //当前用户
 @property (nonatomic, strong) CurrentUserModel *curUserInfo;
@@ -44,13 +43,7 @@ SINGLETON_FOR_HEADER(UserManager)
 @property (nonatomic, assign) UserLoginType loginType;
 @property (nonatomic, strong) NSMutableArray *expertGroups;
 @property (nonatomic, assign) BOOL isLogined;
-/**
- 获取验证码
- 
- @param params 参数，手机和账号登录需要
- @param completion 回调
- */
--(void)getVerificationCodeType:(CodeType)codeType WithParams:(NSDictionary *)params completion:(codeBlock)completion;
+
 -(void)registerWithParam:(NSDictionary *)params completion:(codeBlock)completion;
 /**
  带参登录
@@ -65,7 +58,7 @@ SINGLETON_FOR_HEADER(UserManager)
  
  @param completion 回调
  */
--(void)autoLoginToServer:(loginBlock)completion;
+//-(void)autoLoginToServer:(loginBlock)completion;
 
 /**
  退出登录
@@ -81,20 +74,11 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 -(BOOL)loadUserInfo;
 -(void)saveUserInfoLoginStateisChange:(BOOL)change success:(void(^)(BOOL isSuccess))isSuccess;
-//-(void)judgeIsHaveTeam:(void(^)(BOOL isHave, NSDictionary *content))isHave;
 - (void)addTeamSuccess:(void(^)(BOOL isSuccess))isSuccess;
 /**
  更改用户信息后需要重新请求
  */
 -(void)saveChangeUserInfo;
-/**
- 获取专家名
- */
-- (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
-/**
- 获取云服务名称
- */
-- (void)getissueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 /**
  获取当前团队
  */
@@ -120,11 +104,6 @@ SINGLETON_FOR_HEADER(UserManager)
  */
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave;
 /**
-   获取专家组
- */
-- (void)loadExperGroups:(void (^)(NSArray *experGroups))completion;
-
-/**
    获取TeamMemberInfo
  */
 - (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock;
@@ -133,10 +112,6 @@ SINGLETON_FOR_HEADER(UserManager)
   authTeamList 缓存
  */
 - (void)setAuthTeamList:(NSArray *)teamList;
-/**
-  获取TeamList(异步)
- */
-- (void)getAuthTeamList:(void(^)(id obj))resultBlock;
 /**
   获取TeamList(同步)
  */
@@ -157,18 +132,7 @@ SINGLETON_FOR_HEADER(UserManager)
  获取活跃情报红点
  */
 - (NSDictionary *)getAuthTeamIssueCount;
-/**
- 存储团队ISPs
- */
-- (void)setTeamISPs:(NSArray *)ispsArray;
-/**
- 获取团队ISPs
- */
-- (NSArray *)getTeamISPs;
 -(CurrentUserModel *)getCurrentUserModel;
-- (void)setLastFetchTime;
-- (NSDate *)getLastFetchTime;
-
 -(CalendarViewType)getCurrentCalendarViewType;
 -(void)setCurrentIssueSortType:(CalendarViewType)type;
 - (void)setTeamAdminIdWithId:(NSString *)memberId;

@@ -155,7 +155,7 @@
     if (lastLoginTeamId.length > 0){
         [param setValue:lastLoginTeamId forKey:@"teamId"];
     }
-    [param addEntriesFromDictionary:[UserManager getDeviceInfo]];
+    [param addEntriesFromDictionary:[userManager getDeviceInfo]];
     NSDictionary *data = @{@"data":param};
     [[UserManager sharedUserManager] login:UserLoginTypePwd params:data completion:^(BOOL success, NSString *des) {
     }];

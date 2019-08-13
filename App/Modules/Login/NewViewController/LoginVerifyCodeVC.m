@@ -262,7 +262,7 @@
             if (lastLoginTeamId.length > 0){
                 [data setValue:lastLoginTeamId forKey:@"teamId"];
             }
-            [data addEntriesFromDictionary:[UserManager getDeviceInfo]];
+            [data addEntriesFromDictionary:[userManager getDeviceInfo]];
             NSDictionary *param = @{@"data": data};
             [[UserManager sharedUserManager] login:UserLoginTypeVerificationCode params:param completion:^(BOOL success, NSString *des) {
                 
