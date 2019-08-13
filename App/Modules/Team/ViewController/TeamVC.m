@@ -372,7 +372,7 @@
         make.height.offset(ZOOM_SCALE(25));
     }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, SINGLE_LINE_WIDTH)];
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    line.backgroundColor = PWLineColor;
     [nav addSubview:line];
 }
 -(TeamHeaderView *)headerView{

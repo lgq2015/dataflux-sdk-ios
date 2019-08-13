@@ -115,7 +115,7 @@
 //颜色
 #define PWChatCellColor  RGBACOLOR(250,250,250,1)
 #define CellLineColor    RGBACOLOR(200,200,200,1)
-
+#define PWLineColor  [UIColor colorWithHexString:@"#E4E4E4"]
 #define PWClearColor [UIColor clearColor]
 #define PWWhiteColor [UIColor whiteColor]
 #define PWBlackColor [UIColor blackColor]

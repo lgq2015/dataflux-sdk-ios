@@ -172,7 +172,7 @@
     groupHeader.backgroundColor = PWWhiteColor;
     CalendarIssueModel *model = self.calendarList[section][0];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, SINGLE_LINE_WIDTH)];
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    line.backgroundColor = PWLineColor;
     [groupHeader addSubview:line];
     UILabel *groupTitle = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(11), kWidth-30, ZOOM_SCALE(18)) font:RegularFONT(13) textColor:PWSubTitleColor text:model.groupTitle];
     [groupHeader addSubview:groupTitle];
@@ -454,9 +454,7 @@
     self.arrorView.selDateLab.text = [[NSDate date] getCalenarTimeStr];
     [self.tableView scrollToRow:0 inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.arrorView.backTodayBtn.hidden = YES;
-//    if ([self.calendarView.currentDate month] != [[NSDate date] month]) {
-//        [self.calendarView.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3] atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
-//    }
+
     [LTSCalendarAppearance share].defaultDate = [NSDate date];
     [self.calendarView reloadDefaultDate];
     [self.calendarView reloadAppearance];

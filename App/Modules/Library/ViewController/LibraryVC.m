@@ -54,7 +54,7 @@ static NSUInteger ItemWidth = 104;
         make.bottom.mas_equalTo(nav.mas_bottom).offset(-20);
     }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    line.backgroundColor = PWLineColor;
     [nav addSubview:line];
 }
 

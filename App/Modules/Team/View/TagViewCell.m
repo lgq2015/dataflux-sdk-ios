@@ -33,7 +33,7 @@
         make.height.offset(ZOOM_SCALE(22));
     }];
     UIView *line = [[UIView alloc]init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    line.backgroundColor = PWLineColor;
     [self addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLab);

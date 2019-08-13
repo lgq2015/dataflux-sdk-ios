@@ -152,7 +152,7 @@
     if ([code isEqualToString:@"CloudCare_default"]) {
         self.titleLab.textColor = PWTextBlackColor;
         self.tipLab.textColor = [UIColor colorWithHexString:@"#949499"];
-        self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+        self.line.backgroundColor = PWLineColor;
         startColor =@"#F4F4FA";
         mediumColor = @"";
         endColor =@"#FFFFFF";

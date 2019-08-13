@@ -110,7 +110,7 @@
         _searchBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
         [self.view addSubview:_searchBar];
         UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
-        line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+        line.backgroundColor = PWLineColor;
         [_searchBar addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.width.left.right.mas_equalTo(_searchBar);

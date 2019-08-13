@@ -51,7 +51,7 @@
     self.ruleNameLab.numberOfLines = 0;
     [self.contentView addSubview:self.ruleNameLab];
     UIView *line = [[UIView alloc]init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    line.backgroundColor = PWLineColor;
     [self.contentView addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.ruleNameLab.mas_bottom).offset(14);
