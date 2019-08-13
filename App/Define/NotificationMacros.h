@@ -10,6 +10,7 @@
 #define NotificationMacros_h
 //发送通知
 #define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
+#pragma mark ----------      通知     ----------
 #pragma mark - ——————— 用户相关 ————————
 //登录状态改变通知
 #define KNotificationLoginStateChange @"loginStateChange"
@@ -30,38 +31,6 @@
 #define KNotificationOnKick @"KNotificationOnKick"
 //监听重新拉取讨论数据
 #define KNotificationSocketConnecting @"KNotificationRefetchIssChatDatas"
-//用户信息缓存 名称
-#define KUserCacheName @"KUserCacheName"
-#define KTeamCacheName @"KTeamCacheName"
-#define KTeamLastFetchTime @"KTeamLastFetchTime"
-//用户issueList 选择type类型
-#define KSelectObject  @"KSelectObject"
-#define KCurrentSelectObject @"KCurrentSelectObject"
-#define KIssueListType @"KIssueListType"
-//筛选
-#define KCurrentIssueListType   [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
-#define KCurrentIssueViewType   @"KCurrentIssueViewType"
-#define KCurrentCalendarViewType @"KCurrentCalendarViewType"
-#define KHistoryOriginSearch [NSString stringWithFormat:@"%@/KHistoryOriginSearch", getPWDefaultTeamID]
-//当前团队
-#define KTeamModelCache @"KTeamModelCache"
-//团队成员
-#define KTeamMemberCacheName    [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
-#define KTeamAdminId    [NSString stringWithFormat:@"%@/KTeamAdminId", getPWDefaultTeamID]
-
-//账号ISPs常量数组
-#define KTeamISPsCacheName    [NSString stringWithFormat:@"%@/KTeamISPsCacheName", getPWUserID]
-#define KTeamServiceCode      @"KTeamServiceCode"
-//团队产品
-#define KTeamProductDict       [NSString stringWithFormat:@"%@/KTeamProductDict", getPWDefaultTeamID]
-//团队列表
-#define KTeamListCacheName @"KTeamListCacheName"
-#define kAuthTeamListDict       [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]
-#define kAuthTeamIssueCountDict       [NSString stringWithFormat:@"%@/kAuthTeamIssueCountDict",  getPWUserID]
-// 常量显示
-#define KUtilsConst   @"KUtilsConst"
-//用户model缓存
-#define KUserModelCache @"KUserModelCache"
 #define KNotificationIssueSourceChange @"KNotificationIssueSourceChange"
 #define KNotificationConnectStateCheck @"KNotificationConnectStateCheck"
 
@@ -79,14 +48,58 @@
 #pragma mark - ——————— 我的 ————————
 #define KNotificationUserInfoChange    @"KNotificationUserInfoChange"
 #define KNotificationFeedBack          @"KNotificationFeedBack"
-
-#define KNotificationAppResignActive @"KNotificationAppResignActive"
-
-#pragma mark ========== 常量 ==========
-#define KUtilsConstCacheName      @"KUtilsConstCacheName"
-
-#define KIssueSourceNameModelCache @"KIssueSourceNameModelCache"
+#define KNotificationAppResignActive   @"KNotificationAppResignActive"
 //支付宝支付回调
 #define KZhifubaoPayResult @"KZhifubaoPayResult"
+#pragma mark ----------      cache     ----------
+#pragma mark ========== 常量 ==========
+//库名
+#define KUtilsConstCacheName       @"KUtilsConstCacheName"
+//表名
+#define KIssueSourceNameModelCache @"KIssueSourceNameModelCache"
+//账号ISPs常量数组
+#define KTeamISPsCacheName         @"KTeamISPsCacheName"
+#define KIssueLevel                @"KIssueLevel"
+#define KExpertGroups              @"KExpertGroups"
+#define KTeamServiceCode           @"KTeamServiceCode"
+#define KTeamIndustry              @"KTeamIndustry"
+#define KTeamDistrict              @"KTeamDistrict"
+#pragma mark ========== Team相关 ==========
+//库名
+#define KTeamCacheName             @"KTeamCacheName"
+//当前团队
+#define KTeamModelCache            @"KTeamModelCache"
+#define kAuthTeamIssueCountDict    [NSString stringWithFormat:@"%@/kAuthTeamIssueCountDict",  getPWUserID]
+//团队成员
+#define KTeamMemberCacheName       [NSString stringWithFormat:@"%@/KTeamMemberCacheName", getPWDefaultTeamID]
+#define KTeamAdminId               [NSString stringWithFormat:@"%@/KTeamAdminId", getPWDefaultTeamID]
+//团队产品
+#define KTeamProductDict           [NSString stringWithFormat:@"%@/KTeamProductDict", getPWDefaultTeamID]
+
+//库名
+#define KTeamListCacheName         @"KTeamListCacheName"
+#define kAuthTeamListDict          [NSString stringWithFormat:@"%@/kAuthTeamListDict",  getPWUserID]
+
+//库名  teamId为表名
+#define KTeamLastFetchTime         @"KTeamLastFetchTime"
+
+#pragma mark ========== 筛选相关 ==========
+//库名
+#define KSelectObject              @"KSelectObject"
+#define KCurrentSelectObject       @"KCurrentSelectObject"
+#define KCurrentIssueListType      [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
+#define KHistoryOriginSearch       [NSString stringWithFormat:@"%@/KHistoryOriginSearch", getPWDefaultTeamID]
+//库名
+#define KIssueListType             @"KIssueListType"
+#define KCurrentIssueViewType      @"KCurrentIssueViewType"
+#define KCurrentCalendarViewType   @"KCurrentCalendarViewType"
+
+#pragma mark ========== 用户信息 ==========
+//库名
+#define KUserCacheName             @"KUserCacheName"
+//用户model缓存
+#define KUserModelCache            @"KUserModelCache"
+
+
 
 #endif /* NotificationMacros_h */
