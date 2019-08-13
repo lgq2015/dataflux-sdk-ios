@@ -78,5 +78,20 @@
                                               callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)addNotificationRuleWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)editNotificationRuleWithParam:(NSDictionary *)param ruleId:(NSString *)ruleId callBack:(void (^)(id response))callback;
-
+/**
+ * 获取当前团队成员列表
+ */
+-(PWURLSessionTask *)getCurrentTeamMemberListWithCallBack:(void (^)(id response))callback;
+/**
+ * 获取当前用户信息
+ */
+-(PWURLSessionTask *)getCurrentAccountInfoWithCallBack:(void (^)(id response))callback;
+/**
+ * 获取当前Team信息
+ */
+-(PWURLSessionTask *)getCurrentTeamInfoWithCallBack:(void (^)(id response))callback;
+/**
+ * 获取常量字典
+ */
+-(PWURLSessionTask *)getUtilsConstWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
 @end

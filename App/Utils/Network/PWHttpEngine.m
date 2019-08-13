@@ -590,6 +590,38 @@
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 
 }
+-(PWURLSessionTask *)getCurrentTeamMemberListWithCallBack:(void (^)(id response))callback{
+    BaseListReturnModel *model = [BaseListReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getCurrentAccountInfoWithCallBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_currentUser withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getCurrentTeamInfoWithCallBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_CurrentTeam withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getUtilsConstWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 
 @end
 
