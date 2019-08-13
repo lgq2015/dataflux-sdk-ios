@@ -406,7 +406,7 @@
         
         NSString *size =[self calulateImageFileSize:data];
         if (!name) {
-            name = [NSDate getNowTimeTimestamp];
+            name = [NSDate getCurrentTimestamp];
         }
         model.name = [NSString stringWithFormat:@"%@.jpg",name];
         model.image = image;
@@ -423,7 +423,7 @@
 
     NSIndexPath *index = [NSIndexPath indexPathForRow:tag-100 inSection:0];
     AddIssueCell *cell = (AddIssueCell *)[self.tableView cellForRowAtIndexPath:index];
-    NSString *time = [NSDate getNowTimeTimestamp];
+    NSString *time = [NSDate getCurrentTimestamp];
         if (self.upBatchId==nil) {
             self.upBatchId = [NSString stringWithFormat:@"%@%@",time,getPWUserID];
         }

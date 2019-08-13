@@ -47,7 +47,7 @@
     self.tableView.backgroundColor = PWWhiteColor;
     self.tableView.frame = CGRectMake(0, ZOOM_SCALE(44)+1, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    NSArray *ary = [[IssueListManger sharedIssueListManger] getHostoryOriginInput];
+    NSArray *ary = [[IssueListManger sharedIssueListManger] getHistoryOriginInput];
     if (ary.count!=0) {
         [self.dataSource addObjectsFromArray:ary];
         self.tableView.tableFooterView = self.historyFooterView;
@@ -98,7 +98,7 @@
     if (self.dataSource.count>10) {
         [self.dataSource removeObjectAtIndex:10];
     }
-    [[IssueListManger sharedIssueListManger] setHostoryOriginInputWithArray:self.dataSource];
+    [[IssueListManger sharedIssueListManger] setHistoryOriginInputWithArray:self.dataSource];
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(31))];
@@ -122,7 +122,7 @@
     return _historyFooterView;
 }
 - (void)delectAllClick{
-    [[IssueListManger sharedIssueListManger] setHostoryOriginInputWithArray:@[]];
+    [[IssueListManger sharedIssueListManger] setHistoryOriginInputWithArray:@[]];
     [self.dataSource removeAllObjects];
     self.tableView.hidden = YES;
 }
@@ -143,7 +143,7 @@
          }else{
              [weakSelf.tableView reloadData];
          }
-         [[IssueListManger sharedIssueListManger] setHostoryOriginInputWithArray:weakSelf.dataSource];
+         [[IssueListManger sharedIssueListManger] setHistoryOriginInputWithArray:weakSelf.dataSource];
      };
      cell.selectionStyle = UITableViewCellSelectionStyleNone;
      return cell;

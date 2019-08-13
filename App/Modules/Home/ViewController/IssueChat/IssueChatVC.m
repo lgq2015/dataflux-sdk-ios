@@ -522,11 +522,11 @@
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
         logModel.imageData = data;
         if (!name) {
-            name = [NSDate getNowTimeTimestamp];
+            name = [NSDate getCurrentTimestamp];
         }
         logModel.imageName = [NSString stringWithFormat:@"%@.jpg",name];
         logModel.issueId = self.issueID;
-        logModel.id = [NSDate getNowTimeTimestamp];
+        logModel.id = [NSDate getCurrentTimestamp];
         logModel.sendError = NO;
         if(![[PWSocketManager sharedPWSocketManager] isConnect]){
             [self dealSocketNotConnectWithModel:logModel];
@@ -679,7 +679,7 @@
     IssueLogModel *logModel = [[IssueLogModel alloc]initSendIssueLogDefaultLogModel];
     logModel.text = dic[@"text"];
     logModel.issueId = self.issueID;
-    logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.id = [NSDate getCurrentTimestamp];
     logModel.sendError = NO;
     if(![[PWSocketManager sharedPWSocketManager] isConnect]){
         [self dealSocketNotConnectWithModel:logModel];
@@ -766,7 +766,7 @@
     logModel.text = string;
     logModel.issueId = self.issueID;
     logModel.atInfoJSONStr = [atInfoJSON jsonStringEncoded];
-    logModel.id = [NSDate getNowTimeTimestamp];
+    logModel.id = [NSDate getCurrentTimestamp];
     logModel.sendError = NO;
     logModel.atStatusStr = atStatus?[atStatus jsonStringEncoded]:@"";
    

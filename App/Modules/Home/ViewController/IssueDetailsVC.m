@@ -504,7 +504,7 @@
         [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:weakSelf photoBlock:^(UIImage *image, NSString *name) {
             NSData *data = UIImageJPEGRepresentation(image, 0.5);
             if (!name) {
-                name = [NSDate getNowTimeTimestamp];
+                name = [NSDate getCurrentTimestamp];
                 name=  [NSString stringWithFormat:@"%@.jpg",name];
             }
             [SVProgressHUD show];

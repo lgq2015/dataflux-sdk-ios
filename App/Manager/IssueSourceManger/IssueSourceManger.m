@@ -25,14 +25,11 @@
     dispatch_once(&onceToken, ^{
         // 要使用self来调用
         _sharedManger = [[self alloc] init];
-        [_sharedManger createData];
     });
     return _sharedManger;
 }
 
-- (void)createData {
 
-}
 
 // 重构脏代码，之后有时间再重新写
 - (PWFMDB *)getHelper {
@@ -183,7 +180,7 @@
 //
 //    } else {
 //        getTime([self getLastDetectionTimeStatement]);
-//        self.lastRefreshTime = [NSDate getNowTimeTimestamp];
+//        self.lastRefreshTime = [NSDate getCurrentTimestamp];
 //
 //    }
 //
