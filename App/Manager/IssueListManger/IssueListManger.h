@@ -43,7 +43,6 @@ typedef NS_ENUM(NSInteger ,IssueLevel){
 NS_ASSUME_NONNULL_BEGIN
 extern NSString *const ILMStringAll;
 @interface IssueListManger : BaseSqlHelper
-@property (nonatomic, strong) NSMutableArray<IssueBoardModel *> *infoDatas;
 
 //单例
 SINGLETON_FOR_HEADER(IssueListManger)
@@ -72,35 +71,19 @@ SINGLETON_FOR_HEADER(IssueListManger)
 
 - (IssueModel *)getIssueDataByData:(NSString *)issueId;
 
-/**
- 首页infoBoard数据提供
- */
-- (NSArray *)getIssueBoardData;
 
 - (void)checkSocketConnectAndFetchIssue:(void (^)(BaseReturnModel *))callBackStatus;
 - (void)checkSocketConnectAndFetchNewIssue:(void (^)(BaseReturnModel *))callBackStatus;
 
-- (BOOL)isInfoBoardInit;
--(IssueSortType)getCurrentIssueSortType;
--(IssueType)getCurrentIssueType;
-/**
- 情报分类页数据源获取
- */
-- (NSArray *)getIssueListWithIssueType:(IssueType)type issueLevel:(IssueLevel)issueLevel issueSortType:(IssueSortType)sortType;
-- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel;
--(SelectObject *)getCurrentSelectObject;
--(void)setCurrentSelectObject:(SelectObject *)sel;
-- (NSArray *)getHostoryOriginInput;
-- (void)setHostoryOriginInputWithArray:(NSArray *)array;
-/**
- 24内恢复的情报列表o
- */
-- (NSArray *)getRecoveredIssueListWithIssueType:(NSString *)type;
 
-/**
-  切换账号 清空首页infoBoard缓存信息
- */
-- (void)createData;
+-(IssueSortType)getCurrentIssueSortType;
+
+- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel;
+- (SelectObject *)getCurrentSelectObject;
+- (void)setCurrentSelectObject:(SelectObject *)sel;
+- (NSArray *)getHistoryOriginInput;
+- (void)setHistoryOriginInputWithArray:(NSArray *)array;
+
 /**
  首页 判断非自建情报 是否存在严重、紧急、一般状态的情报
  @return YES 存在  NO 不存在

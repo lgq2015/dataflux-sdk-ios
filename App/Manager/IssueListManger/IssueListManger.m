@@ -37,9 +37,7 @@ NSString *const ILMStringAll = @"ALL";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // 要使用self来调用
-        _sharedManger = [[self alloc] init];
-        [_sharedManger createData];
-        
+        _sharedManger = [[self alloc] init];        
     });
     return _sharedManger;
 }
@@ -185,7 +183,7 @@ NSString *const ILMStringAll = @"ALL";
     }
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
-- (NSArray *)getHostoryOriginInput{
+- (NSArray *)getHistoryOriginInput{
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
     BOOL isContain= [cache containsObjectForKey:KHistoryOriginSearch];
     if (isContain) {
@@ -194,7 +192,7 @@ NSString *const ILMStringAll = @"ALL";
         return nil;
     }
 }
-- (void)setHostoryOriginInputWithArray:(NSArray *)array{
+- (void)setHistoryOriginInputWithArray:(NSArray *)array{
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
     BOOL isContain= [cache containsObjectForKey:KHistoryOriginSearch];
     if(isContain){
@@ -202,14 +200,7 @@ NSString *const ILMStringAll = @"ALL";
     }
     [cache setObject:array forKey:KHistoryOriginSearch];
 }
-/**
- * @param type 存储用户使用记录 当前issueType选择
- */
--(void)setCurrentIssueType:(IssueType)type{
-    YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
-    [cache removeObjectForKey:KCurrentIssueListType];
-    [cache setObject:[NSNumber numberWithInteger:(NSInteger)type] forKey:KCurrentIssueListType];
-}
+
 -(IssueSortType)getCurrentIssueSortType{
     YYCache *cache = [[YYCache alloc]initWithName:KIssueListType];
     BOOL isContain= [cache containsObjectForKey:KCurrentIssueViewType];
@@ -331,21 +322,21 @@ NSString *const ILMStringAll = @"ALL";
     return NSStringFormat(@"%@/%@/%@", getPWUserIDWithDBCompat,getPWDefaultTeamID, PW_DBNAME_ISSUE);
 }
 
-- (void)createData {
-    self.infoDatas = [NSMutableArray new];
-    NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
-    for (NSInteger i = 0; i < 5; i++) {
-        IssueBoardModel *model = [IssueBoardModel new];
-        model.type = i;
-        model.subTitle = @"";
-        model.state = PWInfoBoardItemStateRecommend;
-        model.read = YES;
-        model.typeName = nameArray[i];
-        model.messageCount = @"0";
-        //        model.pageMaker = @0;
-        [self.infoDatas addObject:model];
-    }
-}
+//- (void)createData {
+//    self.infoDatas = [NSMutableArray new];
+//    NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
+//    for (NSInteger i = 0; i < 5; i++) {
+//        IssueBoardModel *model = [IssueBoardModel new];
+//        model.type = i;
+//        model.subTitle = @"";
+//        model.state = PWInfoBoardItemStateRecommend;
+//        model.read = YES;
+//        model.typeName = nameArray[i];
+//        model.messageCount = @"0";
+//        //        model.pageMaker = @0;
+//        [self.infoDatas addObject:model];
+//    }
+//}
 
 #pragma mark ========== public method ==========
 
@@ -399,7 +390,7 @@ NSString *const ILMStringAll = @"ALL";
                         
                     }];
                     dispatch_async_on_main_queue(^{
-                        [userManager setLastFetchTime];
+                        [self setLastFetchTime];
                         if (callBackStatus == nil) {
                             //                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
                             //                        userInfo:@{@"updateView":@(YES)}];
@@ -544,6 +535,22 @@ NSString *const ILMStringAll = @"ALL";
     }];
     return seqAct;
     
+}
+#pragma mark ========== LastFetchTime ==========
+- (void)setLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+    NSString *key =[userManager getTeamModel].teamID;
+    [cache setObject:[NSDate date] forKey:key];
+}
+- (NSDate *)getLastFetchTime{
+    YYCache *cache = [[YYCache alloc]initWithName:KTeamLastFetchTime];
+    NSString *key = [userManager getTeamModel].teamID;
+    NSDate *date = (NSDate *)[cache objectForKey:key];
+    if(date){
+        return date;
+    }else{
+        return nil;
+    }
 }
 -(void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId{
     [self.getHelper pw_inDatabase:^{
@@ -716,7 +723,7 @@ NSString *const ILMStringAll = @"ALL";
 
 // 判断是否需要全量更新
 - (BOOL)isNeedUpdateAll {
-    NSDate *lastTime =[userManager getLastFetchTime];
+    NSDate *lastTime =[self getLastFetchTime];
     if (lastTime == nil) {
         return YES;
     } else {
