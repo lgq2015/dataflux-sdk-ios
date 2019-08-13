@@ -16,15 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
  
  时间戳
  */
-+(NSString *)getNowTimeTimestamp;
++(NSString *)getCurrentTimestamp;
 
 -(NSString *)currentYearTimeStr;
 -(NSString *)yearMonthDayTimeStr;
 -(NSString *)currentYearHourMinutesTimeStr;
 -(NSString *)hourMinutesTimeStr;
 -(NSString *)yearMonthDayHourMinutesTimeStr;
--(NSString *)listCurrentYearHourMinutesTimeStr;
--(NSString *)listYearMonthDayHourMinutesTimeStr;
+-(NSString *)listThisYearHourMinutesFormatTimeStr;
+-(NSString *)listYearMonthDayHourMinutesFormatTimeStr;
 -(NSString *)getNowUTCTimeStr;
 -(NSArray *)getDateMonthFirstLastDayTimeStamp;
 - (NSInteger )getTimeStamp;

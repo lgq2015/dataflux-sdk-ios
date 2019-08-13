@@ -250,9 +250,9 @@
     }else if([timeDate isYesterday]){
         timeStr = [NSString stringWithFormat:@"%@ %@",NSLocalizedString(@"local.Date.Yesterday", @""),[timeDate hourMinutesTimeStr]];
     }else if([timeDate isThisYear]){
-        timeStr = [timeDate listCurrentYearHourMinutesTimeStr];
+        timeStr = [timeDate listThisYearHourMinutesFormatTimeStr];
     }else{
-        timeStr = [timeDate listYearMonthDayHourMinutesTimeStr];
+        timeStr = [timeDate listYearMonthDayHourMinutesFormatTimeStr];
     }
     return timeStr;
 }
