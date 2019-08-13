@@ -9,6 +9,7 @@
 #import "ChooseAddressVC.h"
 #import "DistrictCell.h"
 #import "CityCell.h"
+#import "UtilsConstManager.h"
 
 @interface ChooseAddressVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic, strong) NSMutableArray *districtAry;
@@ -31,27 +32,19 @@
 }
 - (void)grtAdressData{
     [SVProgressHUD show];
-    NSDictionary *param = @{@"keys":@"district"};
-    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if (![response[ERROR_CODE] isKindOfClass:[NSNull class]] &&[response[ERROR_CODE] isEqualToString:@""] ) {
-            NSDictionary *content  =response[@"content"];
-            NSArray *district = content[@"district"];
-            if (district.count>0) {
-                self.districtAry = [NSMutableArray arrayWithArray:district];
-                //再次进入，定位所选城市
-                _selectProvInd = [self selectedProvinceIndex];
-                [self setFistSelect:_selectProvInd];
-                _selectCityInd = [self selectedCityIndex];
-                [self.tableView reloadData];
-                [self.cityCollectionView reloadData];
-            }
-            [SVProgressHUD dismiss];
-            
+    WeakSelf
+    [[UtilsConstManager sharedUtilsConstManager] getDistrictData:^(NSArray * _Nonnull district) {
+        if (district.count>0) {
+            weakSelf.districtAry = [NSMutableArray arrayWithArray:district];
+            //再次进入，定位所选城市
+            _selectProvInd = [weakSelf selectedProvinceIndex];
+            [weakSelf setFistSelect:_selectProvInd];
+            _selectCityInd = [weakSelf selectedCityIndex];
+            [weakSelf.tableView reloadData];
+            [weakSelf.cityCollectionView reloadData];
         }
-    } failBlock:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
     }];
-    
 }
 - (void)setFistSelect:(NSInteger)selectedIndex{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:selectedIndex inSection:0];

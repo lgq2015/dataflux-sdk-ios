@@ -30,6 +30,7 @@
 #import "TouchLargeButton.h"
 #import "ZhugeIOIssueHelper.h"
 #import "NSString+ErrorCode.h"
+#import "UtilsConstManager.h"
 
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
@@ -203,7 +204,7 @@
     NSString *type = [dict stringValueForKey:@"itAssetProvider_cache" default:@""];
     
     if (self.model.isInvalidIssue) {
-        [userManager getissueSourceNameByKey:type name:^(NSString *name1) {
+        [[UtilsConstManager sharedUtilsConstManager] getIssueSourceNameByKey:type name:^(NSString *name1) {
           [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips", @""),name1,self.model.sourceName]];
         }];
     }
@@ -234,7 +235,7 @@
                     NSDictionary *source  = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceNameAndProviderWithID:[dict stringValueForKey:@"parentId" default:@""]];
                     [self.engineHeader setIssueNameLabText:[source stringValueForKey:@"name" default:@""]];
                     if (self.model.isInvalidIssue) {
-                        [userManager getissueSourceNameByKey:provider name:^(NSString *name1) {
+                        [[UtilsConstManager sharedUtilsConstManager] getIssueSourceNameByKey:provider name:^(NSString *name1) {
                             [self.engineHeader setContentLabText:[NSString stringWithFormat:NSLocalizedString(@"local.InvalidIssueTips", @""),name1,[source stringValueForKey:@"name" default:@""]]];
                         }];
                     }

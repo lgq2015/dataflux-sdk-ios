@@ -84,8 +84,6 @@
     [self.tableView registerNib:[ZTTeamVCTopCell cellWithNib] forCellReuseIdentifier:[ZTTeamVCTopCell cellReuseIdentifier]];
     [self.tableView registerClass:[TeamMemberCell class] forCellReuseIdentifier:@"TeamMemberCell"];
     [self.tableView registerNib:[ZTTeamProductCell cellWithNib] forCellReuseIdentifier:[ZTTeamProductCell cellReuseIdentifier]];
-    UtilsConstManager *manger = [[UtilsConstManager alloc]init];
-    [manger loadServiceCodeName:nil];
     [self loadTeamMemberInfo];
     [self loadTeamProductData];
 }
@@ -622,29 +620,31 @@
     NSDictionary *tags = model.tags;
     NSArray *ISPs = PWSafeArrayVal(tags, @"ISPs");
     if (ISPs == nil || ISPs.count == 0) return;
-    NSArray *constISPs = [userManager getTeamISPs];
-    if (constISPs == nil || constISPs.count == 0) return;
-    NSMutableArray *ipsDics = [NSMutableArray array];
-    //找出当前团队所有的专家对象数组
-    [ISPs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [constISPs enumerateObjectsUsingBlock:^(NSDictionary *ispDic, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *ispName = ispDic[@"ISP"];
-            if ([obj isEqualToString:ispName]){
-                [ipsDics addObject:ispDic];
-                *stop = YES;
-            }
-        }];
-    }];
-    [ipsDics enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *displayName = dic[@"displayName"][@"zh_CN"];
-        NSString *mobile = dic[@"mobile"];
-        NSString *ISP = dic[@"ISP"];
-        MemberInfoModel *model =[[MemberInfoModel alloc]init];
-        model.mobile = mobile;
-        model.name = displayName;
-        model.ISP = ISP;
-        model.isSpecialist = YES;
-        [self.teamMemberArray insertObject:model atIndex:1];
+    [[UtilsConstManager sharedUtilsConstManager] getTeamISPs:^(NSArray * _Nonnull isps) {
+        if (isps.count>0) {
+            NSMutableArray *ipsDics = [NSMutableArray array];
+            //找出当前团队所有的专家对象数组
+            [ISPs enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [isps enumerateObjectsUsingBlock:^(NSDictionary *ispDic, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *ispName = ispDic[@"ISP"];
+                    if ([obj isEqualToString:ispName]){
+                        [ipsDics addObject:ispDic];
+                        *stop = YES;
+                    }
+                }];
+            }];
+            [ipsDics enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *displayName = dic[@"displayName"][@"zh_CN"];
+                NSString *mobile = dic[@"mobile"];
+                NSString *ISP = dic[@"ISP"];
+                MemberInfoModel *model =[[MemberInfoModel alloc]init];
+                model.mobile = mobile;
+                model.name = displayName;
+                model.ISP = ISP;
+                model.isSpecialist = YES;
+                [self.teamMemberArray insertObject:model atIndex:1];
+            }];
+        }
     }];
 }
 

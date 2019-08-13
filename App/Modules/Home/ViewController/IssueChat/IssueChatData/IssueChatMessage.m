@@ -8,6 +8,7 @@
 
 #import "IssueChatMessage.h"
 #import "IssueLogModel.h"
+#import "UtilsConstManager.h"
 
 @implementation IssueChatMessage
 - (instancetype)initWithIssueLogModel:(IssueLogModel *)model{
@@ -56,9 +57,11 @@
         self.messageFrom = PWChatMessageFromStaff;
         NSString *createTime = model.createTime;
         NSString *time =[NSString getLocalDateFormateUTCDate:createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        NSArray *isps = [userManager getTeamISPs];
-        NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
-        self.stuffName = [displayName stringValueForKey:@"zh_CN" default:@""];
+        WeakSelf
+        [[UtilsConstManager sharedUtilsConstManager] getTeamISPs:^(NSArray * _Nonnull isps) {
+            NSDictionary *displayName = PWSafeDictionaryVal(isps[0], @"displayName");
+            weakSelf.stuffName = [displayName stringValueForKey:@"zh_CN" default:NSLocalizedString(@"local.ProWang", @"")];
+        }];
         self.nameStr = [time accurateTimeStr];
 
     }else if([model.origin isEqualToString:@"bizSystem"]){
@@ -165,7 +168,7 @@
         NSString *key = [NSString stringWithFormat:@"local.issue.%@",subType];
          self.systermStr =[NSString stringWithFormat:NSLocalizedString(key, @""),NSLocalizedString(@"local.experts", @"")];
         if ([metaJSON[@"expertGroups"] isKindOfClass:NSArray.class]) {
-            [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
+            [[UtilsConstManager sharedUtilsConstManager]getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
                 if ([subType isEqualToString:@"updateExpertGroups"] || [subType isEqualToString:@"exitExpertGroups"]) {
                     self.systermStr = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
                 }
@@ -173,7 +176,6 @@
         }
         self.messageType = PWChatMessageTypeKeyPoint;
         self.cellString = PWChatKeyPointCellId;
-
     }
     if(self.messageFrom == PWChatMessageFromSystem){
         self.messageType = PWChatMessageTypeSysterm;

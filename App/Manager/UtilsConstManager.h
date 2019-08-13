@@ -11,8 +11,23 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UtilsConstManager : NSObject
+SINGLETON_FOR_HEADER(UtilsConstManager)
+
+- (void)getAllUtilsConst;
 - (void)getserviceCodeNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
-- (void)loadServiceCodeName:(nullable void (^)(NSDictionary *serviceCode))completion;
+/**
+ 获取专家名称
+ */
+- (void)getExpertNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+/**
+ 获取云服务名称
+ */
+- (void)getIssueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+- (void)getIssueLevelNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+
+- (void)getTeamISPs:(void(^)(NSArray *isps))ISPs;
+- (void)getTradesData:(void(^)(NSArray *data))trades;
+- (void)getDistrictData:(void(^)(NSArray *data))district;
 @end
 
 NS_ASSUME_NONNULL_END

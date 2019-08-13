@@ -9,6 +9,8 @@
 #import "ChooseTradesVC.h"
 #import "MineViewCell.h"
 #import "MineCellModel.h"
+#import "UtilsConstManager.h"
+
 @interface ChooseTradesVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @end
@@ -38,16 +40,10 @@
 - (void)loadTradesData{
     self.dataSource = [NSMutableArray new];
     [SVProgressHUD show];
-    NSDictionary *param = @{@"keys":@"industry"};
-    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content  =response[@"content"];
-            [self.dataSource addObjectsFromArray:content[@"industry"]];
-            [self.tableView reloadData];
-            [SVProgressHUD dismiss];
-        }
-    } failBlock:^(NSError *error) {
-        
+    [[UtilsConstManager sharedUtilsConstManager] getTradesData:^(NSArray * _Nonnull data) {
+        [self.dataSource addObjectsFromArray:data];
+        [self.tableView reloadData];
+        [SVProgressHUD dismiss];
     }];
 }
 #pragma mark ========== UITableViewDataSource ==========

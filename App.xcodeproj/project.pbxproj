@@ -2305,6 +2305,17 @@
 			path = IssueBoard;
 			sourceTree = "<group>";
 		};
+		4A241F622301376A00DC47A9 /* BaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				6B6E2B813786893A2987D808 /* BaseReturnModel.h */,
+				6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */,
+				6B6E2D989814AAC24D22D341 /* BaseListReturnModel.h */,
+				6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */,
+			);
+			path = BaseModel;
+			sourceTree = "<group>";
+		};
 		4A3CDA28229BDABB00C2EC62 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2477,15 +2488,12 @@
 		4A6C2867219C074C0059BB08 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4A241F622301376A00DC47A9 /* BaseModel */,
 				4A6C2889219D58820059BB08 /* RefreshTableView */,
 				4A6C287A219C1B6F0059BB08 /* NavigationController */,
 				4A6C2879219C1B6F0059BB08 /* RootViewController */,
 				4A6C2878219C1B6F0059BB08 /* TabbarController */,
 				4A6C2877219C1B6F0059BB08 /* WebViewController */,
-				6B6E245DA5D5FADFE97C924A /* BaseReturnModel.m */,
-				6B6E2B813786893A2987D808 /* BaseReturnModel.h */,
-				6B6E2758FA52A828DBC46530 /* BaseListReturnModel.m */,
-				6B6E2D989814AAC24D22D341 /* BaseListReturnModel.h */,
 			);
 			path = Base;
 			sourceTree = "<group>";

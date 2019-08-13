@@ -8,6 +8,7 @@
 
 #import "CalendarIssueModel.h"
 #import "IssueModel.h"
+#import "UtilsConstManager.h"
 @implementation CalendarIssueModel
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     if (![dict isKindOfClass:[NSDictionary class]]) return nil;
@@ -47,7 +48,7 @@
     NSString *key = [NSString stringWithFormat:@"local.issue.%@",subType];
     if ([type isEqualToString:@"bizPoint"]&& ([subType isEqualToString:@"updateExpertGroups"]||[subType isEqualToString:@"exitExpertGroups"])) {
         NSDictionary *metaJSON = PWSafeDictionaryVal(issueSnapshotJSON_cache, @"metaJSON");
-         [userManager getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
+         [[UtilsConstManager sharedUtilsConstManager] getExpertNameByKey:metaJSON[@"expertGroups"][0] name:^(NSString *name) {
              self.typeText = [NSString stringWithFormat:NSLocalizedString(key, @""),name];
          }];
     }else if([subType isEqualToString:@"markTookOver"] || [subType isEqualToString:@"markRecovered"]||[subType isEqualToString:@"issueFixed"]){

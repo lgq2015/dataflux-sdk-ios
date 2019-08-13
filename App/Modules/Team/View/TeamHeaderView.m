@@ -76,8 +76,7 @@
     
     NSDictionary *CloudCare = PWSafeDictionaryVal(datas, @"CloudCare");
     NSString *code = [CloudCare stringValueForKey:@"code" default:@""];
-    UtilsConstManager *manager = [[UtilsConstManager alloc]init];
-    [manager getserviceCodeNameByKey:code name:^(NSString * _Nonnull name) {
+    [[UtilsConstManager sharedUtilsConstManager] getserviceCodeNameByKey:code name:^(NSString * _Nonnull name) {
         self.titleLab.text = name;
     }];
     CGFloat height = ZOOM_SCALE(47)+50;
@@ -108,7 +107,7 @@
                 UIImageView *iconImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:icon]];
                 [self.specialProjectView addSubview:iconImg];
                 UILabel *lab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:labColor text:@""];
-                [manager getserviceCodeNameByKey:manageCode name:^(NSString * _Nonnull name) {
+                [[UtilsConstManager sharedUtilsConstManager]getserviceCodeNameByKey:manageCode name:^(NSString * _Nonnull name) {
                     lab.text = name;
                 }];
                 [self.specialProjectView addSubview:lab];
