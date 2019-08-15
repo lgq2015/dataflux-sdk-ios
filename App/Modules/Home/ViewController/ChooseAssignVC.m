@@ -13,6 +13,8 @@
 #import "NoAssignCell.h"
 #import "IssueListViewModel.h"
 #import "ZTSearchBar.h"
+#import "TeamAccountListModel.h"
+
 @interface ChooseAssignVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -62,15 +64,15 @@
         }else{
             [self showNoDataImage];
         }
-        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                NSArray *content = response[@"content"];
-                [userManager setTeamMember:content];
-                [self dealMemberWithDatas:content];
-            }
-        } failBlock:^(NSError *error) {
-            [error errorToast];
-        }];
+    }];
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        if (model.isSuccess) {
+            [userManager setTeamMember:model.list];
+            [self dealMemberWithDatas:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
     }];
     //对搜索框中输入的内容进行监听
     [[_ztsearchbar.tf rac_textSignal] subscribeNext:^(id x) {
@@ -127,9 +129,7 @@
     }
      [self removeNoDataImage];
     __block  NSInteger index = self.teamMemberArray.count>0?1:0;
-    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+    [content enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         if([model.memberID isEqualToString:self.assignID]){
             model.isSelect = YES;
             self.currentModel = model;
@@ -140,11 +140,8 @@
         }else{
             [self.teamMemberArray addObject:model];
         }
-        
     }];
-    
     [self dealGroupDataWithIgnoreIndex:index];
-
 }
 - (void)dealGroupDataWithIgnoreIndex:(NSInteger)index{
     if (self.teamMemberArray.count == 0) {

@@ -94,4 +94,13 @@
  * 获取常量字典
  */
 -(PWURLSessionTask *)getUtilsConstWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+/**
+ * 获取teamList
+ */
+-(PWURLSessionTask *)getAuthTeamListCallBack:(void (^)(id response))callback;
+/**
+ * 获取teamIssueCount
+ */
+-(PWURLSessionTask *)getTeamIssueCountCallBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)getTeamProductCallBack:(void (^)(id response))callback;
 @end

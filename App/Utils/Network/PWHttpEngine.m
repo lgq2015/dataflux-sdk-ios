@@ -24,6 +24,8 @@
 #import "CalendarListModel.h"
 #import "NotiRuleListModel.h"
 #import "NotiRuleModel.h"
+#import "TeamAccountListModel.h"
+#import "AuthTeamListModel.h"
 @implementation PWHttpEngine {
 
 }
@@ -591,7 +593,7 @@
 
 }
 -(PWURLSessionTask *)getCurrentTeamMemberListWithCallBack:(void (^)(id response))callback{
-    BaseListReturnModel *model = [BaseListReturnModel new];
+    TeamAccountListModel *model = [TeamAccountListModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:YES
                                           cache:NO params:nil
                                   progressBlock:nil
@@ -622,7 +624,31 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
-
+-(PWURLSessionTask *)getAuthTeamListCallBack:(void (^)(id response))callback{
+    AuthTeamListModel *model = [AuthTeamListModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_AuthTeamList withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getTeamIssueCountCallBack:(void (^)(id response))callback{
+    NSDictionary *param = @{@"_onlyIsWatch":@"true"};
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getTeamProductCallBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 

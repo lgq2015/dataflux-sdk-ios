@@ -15,6 +15,7 @@
 #import "ZLChineseToPinyin.h"
 #import "UITableView+SCIndexView.h"
 #import "IssueListManger.h"
+#import "TeamAccountListModel.h"
 @interface SelectAssignVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) ZTSearchBar *ztsearchbar;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
@@ -69,15 +70,15 @@
         }else{
             [self showNoDataImage];
         }
-        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                NSArray *content = response[@"content"];
-                [userManager setTeamMember:content];
-                [self dealMemberWithDatas:content];
-            }
-        } failBlock:^(NSError *error) {
-            [error errorToast];
-        }];
+    }];
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        if (model.isSuccess) {
+            [userManager setTeamMember:model.list];
+            [self dealMemberWithDatas:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
     }];
 }
 - (void)dealMemberWithDatas:(NSArray *)content{
@@ -87,21 +88,15 @@
     }
     [self removeNoDataImage];
     __block  NSInteger index = self.teamMemberArray.count>0?1:0;
-    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
-      
+    [content enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([model.memberID isEqualToString:userManager.curUserInfo.userID]) {
             [self.teamMemberArray insertObject:model atIndex:0];
             index+=1;
         }else{
             [self.teamMemberArray addObject:model];
         }
-        
     }];
-    
     [self dealGroupDataWithIgnoreIndex:index];
-    
 }
 - (void)dealGroupDataWithIgnoreIndex:(NSInteger)index{
     if (self.teamMemberArray.count == 0) {

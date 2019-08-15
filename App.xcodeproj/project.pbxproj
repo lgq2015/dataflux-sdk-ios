@@ -324,6 +324,12 @@
 		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
+		4A241F6B2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
+		4A241F6C2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
+		4A241F6D2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
+		4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
+		4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
+		4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
 		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
@@ -1388,6 +1394,10 @@
 		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
 		4A19549021A7FEDE007ADFCA /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		4A19549121A8060D007ADFCA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4A241F692303E32E00DC47A9 /* TeamAccountListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamAccountListModel.h; sourceTree = "<group>"; };
+		4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAccountListModel.m; sourceTree = "<group>"; };
+		4A241F6E23040AE200DC47A9 /* AuthTeamListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthTeamListModel.h; sourceTree = "<group>"; };
+		4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthTeamListModel.m; sourceTree = "<group>"; };
 		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
 		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
 		4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
@@ -2174,6 +2184,10 @@
 				4A00DDD822D5886C008462AF /* NotiRuleListModel.m */,
 				4A00DE1822D87DB7008462AF /* MultipleSelectModel.h */,
 				4A00DE1922D87DB7008462AF /* MultipleSelectModel.m */,
+				4A241F692303E32E00DC47A9 /* TeamAccountListModel.h */,
+				4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */,
+				4A241F6E23040AE200DC47A9 /* AuthTeamListModel.h */,
+				4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4293,6 +4307,7 @@
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
 				4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */,
+				4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
@@ -4303,6 +4318,7 @@
 				6B6E2DBD956564F4BCB07AE5 /* ScanViewController.m in Sources */,
 				2B3A44A92271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E22F7A0AB1CAA2CB24069 /* ScanResultVC.m in Sources */,
+				4A241F6B2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */,
 				4AA4CEF5228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E282A2F35F9C93069DD2A /* LibraryVC.m in Sources */,
 				6B6E2300261740FF8092E855 /* IssueListVC.m in Sources */,
@@ -4640,6 +4656,7 @@
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
 				4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */,
+				4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
@@ -4650,6 +4667,7 @@
 				6B6E20646B3AB3460999FB95 /* ScanViewController.m in Sources */,
 				2B3A44AA2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E2089D8203C62940F066A /* ScanResultVC.m in Sources */,
+				4A241F6C2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */,
 				4AA4CEF6228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E229699B21B337B906F8B /* LibraryVC.m in Sources */,
 				6B6E20A76CCE1DB29AD87034 /* IssueListVC.m in Sources */,
@@ -4987,6 +5005,7 @@
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
 				4AAC14202276F3520043AD5E /* NoDataView.m in Sources */,
+				4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
@@ -4997,6 +5016,7 @@
 				6B6E21F2E39D2DC794B62B4B /* ScanViewController.m in Sources */,
 				2B3A44AB2271A18F0059761E /* ZYChangeTeamUIManager.m in Sources */,
 				6B6E20CD458ED223BE6A9804 /* ScanResultVC.m in Sources */,
+				4A241F6D2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */,
 				4AA4CEF7228416AC00A2CBE1 /* IssueLogAtReadInfo.m in Sources */,
 				6B6E2C58CA76863AC9FCAF9B /* LibraryVC.m in Sources */,
 				6B6E2350AB9F68B61F3C395B /* IssueListVC.m in Sources */,

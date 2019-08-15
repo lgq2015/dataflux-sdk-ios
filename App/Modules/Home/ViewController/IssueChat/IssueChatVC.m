@@ -666,11 +666,9 @@
     [self.navigationController pushViewController:iconVC animated:YES];
 }
 - (void)getMemberAndTransModelInfo:(IssueChatMessagelLayout *)layout vc:(MemberInfoVC *)iconVC{
-    [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(NSDictionary *member) {
+    [userManager getTeamMenberWithId:layout.message.memberId memberBlock:^(MemberInfoModel *member) {
         if (member) {
-            NSError *error;
-            MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:member error:&error];
-            iconVC.model = model;
+            iconVC.model = member;
         }
     }];
 }

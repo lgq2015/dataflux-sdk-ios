@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger ,CalendarViewType){
 };
 typedef void (^loginBlock)(BOOL success, NSString * des);
 typedef void (^codeBlock) (CodeStatus status, NSString * des);
-@class UserInfo,CurrentUserModel,TeamInfoModel;
+@class UserInfo,CurrentUserModel,TeamInfoModel,MemberInfoModel;
 
 #define userManager [UserManager sharedUserManager]
 @interface UserManager : NSObject
@@ -106,7 +106,7 @@ SINGLETON_FOR_HEADER(UserManager)
 /**
    获取TeamMemberInfo
  */
-- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock;
+- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(MemberInfoModel *member))memberBlock;
 - (void)onKick;
 /**
   authTeamList 缓存

@@ -13,7 +13,7 @@
 #import "UITableView+SCIndexView.h"
 #import "TeamMemberCell.h"
 #import "UtilsConstManager.h"
-
+#import "TeamAccountListModel.h"
 @interface AtTeamMemberListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -56,15 +56,15 @@
         }else{
             [self showNoDataImage];
         }
-        [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                NSArray *content = response[@"content"];
-                [userManager setTeamMember:content];
-                [self dealMemberWithDatas:content];
-            }
-        } failBlock:^(NSError *error) {
-            [error errorToast];
-        }];
+    }];
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        if (model.isSuccess) {
+            [userManager setTeamMember:model.list];
+            [self dealMemberWithDatas:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
     }];
 }
 - (void)backBtnClicked:(UIButton*)button{
@@ -82,9 +82,7 @@
     //判断是否要添加专家
 //    [self addAtSpecialist];
   __block  NSInteger index = self.teamMemberArray.count>0?1:0;
-    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+    [content enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         if(![model.memberID isEqualToString:userManager.curUserInfo.userID]){
             if (model.isAdmin) {
                 [self.teamMemberArray insertObject:model atIndex:0];
@@ -94,9 +92,7 @@
             }
         }
     }];
-    
     [self dealGroupDataWithIgnoreIndex:index];
-
 }
 - (void)addAtSpecialist{
     TeamInfoModel *model = [userManager getTeamModel];

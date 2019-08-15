@@ -9,7 +9,7 @@
 #import "IssueChatMessage.h"
 #import "IssueLogModel.h"
 #import "UtilsConstManager.h"
-
+#import "MemberInfoModel.h"
 @implementation IssueChatMessage
 - (instancetype)initWithIssueLogModel:(IssueLogModel *)model{
     if (![model isKindOfClass:[IssueLogModel class]]) return nil;
@@ -44,10 +44,9 @@
         if ([userID  isEqualToString:getPWUserID]) {
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
         }else{
-            [userManager getTeamMenberWithId:userID memberBlock:^(NSDictionary *member) {
+            [userManager getTeamMenberWithId:userID memberBlock:^(MemberInfoModel *member) {
                 if (member) {
-                    NSDictionary *tags =PWSafeDictionaryVal(member,@"tags");
-                    self.headerImgurl = [tags stringValueForKey:@"pwAvatar" default:@""];
+                    self.headerImgurl = [member.tags stringValueForKey:@"pwAvatar" default:@""];
                 }
             }];
         }

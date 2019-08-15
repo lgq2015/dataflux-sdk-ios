@@ -22,7 +22,8 @@
 #import "NSString+ErrorCode.h"
 #import "BaseListReturnModel.h"
 #import "UtilsConstManager.h"
-
+#import "TeamAccountListModel.h"
+#import "AuthTeamListModel.h"
 typedef void(^completeBlock)(id response);
 
 @implementation UserManager
@@ -267,7 +268,7 @@ SINGLETON_FOR_CLASS(UserManager);
     });
 }
 -(void)judgeIsHaveTeam:(void(^)(BOOL isSuccess,NSDictionary *content))isHave{
-    [[PWHttpEngine sharedInstance]getCurrentTeamMemberListWithCallBack:^(id response) {
+    [[PWHttpEngine sharedInstance]getCurrentTeamInfoWithCallBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
             NSError *error;
@@ -275,20 +276,14 @@ SINGLETON_FOR_CLASS(UserManager);
             setPWDefaultTeamID(self.teamModel.teamID);
             if ([self.teamModel.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
-                if (isHave){
-                    isHave(NO,nil);
-                }
+                isHave? isHave(NO,nil):nil;
             }else{
                 setTeamState(PW_isTeam);
-                if (isHave){
-                    isHave(YES,model.content);
-                }
+                isHave? isHave(YES,model.content):nil;
             }
             [kUserDefaults synchronize];
         }else{
-            if (isHave){
-                isHave(NO,nil);
-            }
+                isHave?isHave(NO,nil):nil;
             [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
@@ -419,36 +414,33 @@ SINGLETON_FOR_CLASS(UserManager);
     [cache removeObjectForKey:KTeamMemberCacheName];
     [cache setObject:memberArray forKey:KTeamMemberCacheName];
 }
-- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(NSDictionary *member))memberBlock{
+- (void)getTeamMenberWithId:(NSString *)memberId memberBlock:(void(^)(MemberInfoModel *member))memberBlock{
     if (memberId==nil || [memberId isEqualToString:@""]) {
         memberBlock? memberBlock(nil):nil;
     }
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
-    __block NSDictionary *memberDict = nil;
+    __block MemberInfoModel *memberDict = nil;
     if (teamMember) {
-        [teamMember enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSDictionary.class]) {
-                if( [[obj stringValueForKey:@"id" default:@""] isEqualToString:memberId]){
-                    memberDict = obj;
+        [teamMember enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if( [obj.memberID  isEqualToString:memberId]){
+                    memberDict = [obj copy];
                     *stop = YES;
                 }
-            }
         }];
         memberBlock? memberBlock(memberDict):nil;
     }else{
         [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
-            BaseListReturnModel *model = response;
+            TeamAccountListModel *model = response;
             if(model.isSuccess){
                 [userManager setTeamMember:model.list];
-                [model.list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isKindOfClass:NSDictionary.class]) {
-                        if( [[obj stringValueForKey:@"id" default:@""] isEqualToString:memberId]){
-                            memberDict = obj;
+                [model.list enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if( [obj.memberID  isEqualToString:memberId]){
+                            memberDict = [obj copy];
                             *stop = YES;
                         }
-                    }
                 }];
+                memberBlock? memberBlock(memberDict):nil;
             }else{
                 memberBlock? memberBlock(nil):nil;
             }
@@ -457,12 +449,10 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 -(void)loadTeamMember{
     [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
-        BaseListReturnModel *model = response;
+        TeamAccountListModel *model = response;
         if(model.isSuccess){
             [userManager setTeamMember:model.list];
-            [[model.list copy] enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSError *error;
-                MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+            [[model.list copy] enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (model.isAdmin) {
                     [userManager setTeamAdminIdWithId:model.memberID];
                     *stop = YES;
@@ -524,64 +514,25 @@ SINGLETON_FOR_CLASS(UserManager);
 }
 #pragma mark ========== 团队列表 ==========
 - (void)requestMemberList:(void(^)(BOOL isFinished))isFinished{
-    NSMutableArray *teamlists = [NSMutableArray array];
-    [PWNetworking requsetHasTokenWithUrl:PW_AuthTeamList withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
-            if (content.count == 0 || content == nil){
-                if (isFinished){
-                    isFinished(NO);
-                }
-                return ;
-            }
-            for(NSDictionary *dic in content){
-                NSError * error = nil;
-                TeamInfoModel *model = [[TeamInfoModel alloc] initWithDictionary:dic error:&error];
-                [teamlists addObject:model];
-            }
-            //缓存
-            [userManager setAuthTeamList:teamlists];
-            //回调
-            if (isFinished){
-                isFinished(YES);
-            }
+    [[PWHttpEngine sharedInstance] getAuthTeamListCallBack:^(id response) {
+        AuthTeamListModel *model = response;
+        if (model.isSuccess && model.list.count !=0) {
+            [userManager setAuthTeamList:model.list];
+            isFinished? isFinished(YES):nil;
         }else{
-            //回调
-            if (isFinished){
-                isFinished(NO);
-            }
-        }
-    } failBlock:^(NSError *error) {
-        if (isFinished){
-            isFinished(NO);
+            isFinished? isFinished(NO):nil;
         }
     }];
 }
 //团队活跃情报树
 - (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
-    NSDictionary *param = @{@"_onlyIsWatch":@"true"};
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamIssueCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            if (content.allKeys.count == 0 || content == nil){
-                if (completeBlock){
-                    completeBlock(NO);
-                }
-                return ;
-            }
-            [self setAuthTeamIssueCount:content];
-            if (completeBlock){
-                completeBlock(YES);
-            }
-            //缓存团队列表红点
+    [[PWHttpEngine sharedInstance] getTeamIssueCountCallBack:^(id response) {
+        BaseReturnModel *model = response;
+        if (model.isSuccess && model.content.allKeys.count>0) {
+            [self setAuthTeamIssueCount:model.content];
+            completeBlock? completeBlock(YES):nil;
         }else{
-            if (completeBlock){
-                completeBlock(NO);
-            }
-        }
-    } failBlock:^(NSError *error) {
-        if (completeBlock){
-            completeBlock(NO);
+            completeBlock? completeBlock(NO):nil;
         }
     }];
 }

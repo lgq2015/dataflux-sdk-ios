@@ -24,11 +24,10 @@
 #import "UITableViewCell+ZTCategory.h"
 #import "ZTBuChongTeamInfoUIManager.h"
 #import "ZhugeIOTeamHelper.h"
-
 #import "NotificationRuleVC.h"
 #import "TeamHeaderView.h"
 #import "UtilsConstManager.h"
-
+#import "TeamAccountListModel.h"
 #define DeletBtnTag 100
 @interface TeamVC ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ZTTeamVCTopCellDelegate>
 @property (nonatomic, strong) NSDictionary *teamDict;
@@ -67,7 +66,6 @@
     return _changeTeamView;
 }
 - (void)s_UI{
-    //判断是否购买了产品
     self.tableView.mj_header = self.header;
 
     self.tableView.frame = CGRectMake(0, kTopHeight+25, kWidth, kHeight-kTabBarHeight-2 - kTopHeight-25);
@@ -123,41 +121,35 @@
             self.tableView.tableHeaderView = self.headerView;
         }
     }];
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            [userManager setTeamProduct:content];
-            [self.headerView updataUIWithDatas:content];
+    [[PWHttpEngine sharedInstance] getTeamProductCallBack:^(id response) {
+        BaseReturnModel *model = response;
+        [self.header endRefreshing];
+        if (model.isSuccess) {
+           [userManager setTeamProduct:model.content];
+            [self.headerView updataUIWithDatas:model.content];
             [self.headerView layoutIfNeeded];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.tableHeaderView = self.headerView;
             });
         }
-        [self.header endRefreshing];
-    } failBlock:^(NSError *error) {
-        [self.header endRefreshing];
     }];
 }
-
-
 - (void)loadTeamMemberInfo{
     [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
         if (isSuccess) {
             [self dealWithDatas:member];
         }
     }];
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
-            [userManager setTeamMember:content];
-            [self dealWithDatas:content];
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        [self.header endRefreshing];
+        if (model.isSuccess) {
+            [userManager setTeamMember:model.list];
+            [self dealWithDatas:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
         }
-        [self.header endRefreshing];
-    } failBlock:^(NSError *error) {
-        [error errorToast];
-        [self.header endRefreshing];
     }];
-    
 }
 -(NSMutableArray<MemberInfoModel *> *)teamMemberArray{
     if (!_teamMemberArray) {
@@ -170,9 +162,7 @@
     if (self.teamMemberArray.count>0) {
         [self.teamMemberArray removeAllObjects];
     }
-    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+    [content enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (model.isAdmin) {
         [userManager setTeamAdminIdWithId:model.memberID];
          [self.teamMemberArray insertObject:model atIndex:0];
@@ -339,7 +329,6 @@
 }
 
 #pragma mark =====系统导航栏设置=====
-//TODO:丽蕾 （对导航栏进行配置）
 - (void)initSystemNav{
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
     [self.view addSubview:nav];
@@ -430,7 +419,6 @@
 #pragma mark ===通知回调=====
 //团队切换
 - (void)teamSwitch:(NSNotification *)notification{
-    NSLog(@"zhangtao----");
     [self loadTeamProductData];
     [self changeTopLeftNavTitleName];
     //如果有成员缓存，直接刷新
@@ -599,19 +587,16 @@
 }
 //请求团队成员信息
 - (void)requestTeamMember:(void(^)(bool isSuccess,NSArray *content))finished{
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
-            [userManager setTeamMember:content];
-            finished(YES,content);
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        [self.header endRefreshing];
+        if (model.isSuccess) {
+            [userManager setTeamMember:model.list];
+            finished(YES,model.list);
         }else{
             finished(NO,nil);
+            [iToast alertWithTitleCenter:model.errorMsg];
         }
-        [self.header endRefreshing];
-    } failBlock:^(NSError *error) {
-        finished(NO,nil);
-        [error errorToast];
-        [self.header endRefreshing];
     }];
 }
 //判断用户有没有购买服务，如果有就添加专家
