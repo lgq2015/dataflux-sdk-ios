@@ -27,14 +27,16 @@
     self.localeIdentifier =@"zh_CN";
 }
 -(void)getAllUtilsConst{
-    NSDictionary *param = @{@"keys":@"ISPs,issueLevel,issueSourceProvider,expertGroups,serviceCode"};
-    [PWNetworking requsetWithUrl:PW_utilsConst withRequestType:NetworkGetType refreshRequest:YES cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+    NSDictionary *param = @{@"keys":@"ISPs,issueLevel,issueSourceProvider,expertGroups,serviceCode,systemMessageTypes"};
+    [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
+         BaseReturnModel *model = response;
+        if (model.isSuccess) {
+            NSDictionary *content = model.content;
             NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
             NSArray *issueLevel = PWSafeArrayVal(content, @"issueLevel");
             NSArray *IssueSourceName =PWSafeArrayVal(content, @"issueSourceProvider");
             NSArray *expertGroups =PWSafeArrayVal(content, @"expertGroups");
+            NSArray *systemMessageTypes = PWSafeArrayVal(content, @"systemMessageTypes");
             NSDictionary *serviceCode =PWSafeDictionaryVal(content, @"serviceCode");
             if (IssueSourceName.count>0) {
                 [self.cache removeObjectForKey:KIssueSourceNameModelCache];
@@ -56,8 +58,11 @@
                 [self.cache removeObjectForKey:KTeamServiceCode];
                 [self.cache setObject:serviceCode forKey:KTeamServiceCode];
             }
+            if (systemMessageTypes.count>0) {
+                [self.cache removeObjectForKey:KSystemMessageTypes];
+                [self.cache setObject:systemMessageTypes forKey:KSystemMessageTypes];
+            }
         }
-    } failBlock:^(NSError *error) {
     }];
 }
 #pragma mark ========== TeamServiceCode ==========
@@ -289,6 +294,44 @@
             NSArray *district =PWSafeArrayVal(model.content, @"district");
             [self.cache setObject:district forKey:KTeamDistrict];
             completion ? completion(district):nil;
+        }else{
+            completion ? completion(nil):nil;
+        }
+    }];
+}
+#pragma mark ========== SystemMessageTypes ==========
+- (void)getSystemMessageTypeNameByKey:(NSString *)key name:(void(^)(NSString *name))name{
+    NSString *nameStr = [self privateSystemMessageTypeNameByKey:key];
+    if ([nameStr isEqualToString:@""]) {
+        [self loadSystemMessageTypes:^(NSArray *experGroups) {
+            name? name([self privateSystemMessageTypeNameByKey:key]):nil;
+        }];
+    }else{
+        name? name([self privateSystemMessageTypeNameByKey:key]):nil;
+    }
+}
+- (NSString *)privateSystemMessageTypeNameByKey:(NSString *)key{
+    NSArray *systemMessageTypes= (NSArray *)[self.cache objectForKey:KSystemMessageTypes];
+    __block NSString *messageName = @"";
+    if(systemMessageTypes.count>0){
+        [systemMessageTypes enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([key isEqualToString:[obj stringValueForKey:@"systemMessageType" default:@""]]) {
+                NSDictionary *displayName = PWSafeDictionaryVal(obj, @"displayName");
+                messageName = [displayName stringValueForKey:self.localeIdentifier default:@""];
+                *stop = YES;
+            }
+        }];
+    }
+    return messageName;
+}
+- (void)loadSystemMessageTypes:(void (^)(NSArray *data))completion{
+    NSDictionary *param = @{@"keys":@"systemMessageTypes"};
+    [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
+        BaseReturnModel *model = response;
+        if (model.isSuccess) {
+            NSArray *systemMessageTypes =PWSafeArrayVal(model.content, @"systemMessageTypes");
+            [self.cache setObject:systemMessageTypes forKey:KSystemMessageTypes];
+            completion ? completion(systemMessageTypes):nil;
         }else{
             completion ? completion(nil):nil;
         }

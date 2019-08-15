@@ -24,6 +24,7 @@ SINGLETON_FOR_HEADER(UtilsConstManager)
  */
 - (void)getIssueSourceNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 - (void)getIssueLevelNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
+- (void)getSystemMessageTypeNameByKey:(NSString *)key name:(void(^)(NSString *name))name;
 
 - (void)getTeamISPs:(void(^)(NSArray *isps))ISPs;
 - (void)getTradesData:(void(^)(NSArray *data))trades;
