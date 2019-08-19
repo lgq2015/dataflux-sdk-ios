@@ -26,6 +26,8 @@
 #import "NotiRuleModel.h"
 #import "TeamAccountListModel.h"
 #import "AuthTeamListModel.h"
+#import "FavoritesListModel.h"
+
 @implementation PWHttpEngine {
 
 }
@@ -644,6 +646,31 @@
 -(PWURLSessionTask *)getTeamProductCallBack:(void (^)(id response))callback{
     BaseReturnModel *model = [BaseReturnModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_TeamProduct withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:nil
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)getSystemMessageUnreadCountWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+
+}
+-(PWURLSessionTask *)getFavoritesListWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback{
+    FavoritesListModel *model = [FavoritesListModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)deleteFavoritesWithFavoID:(NSString *)favoID callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(favoID) withRequestType:NetworkPostType refreshRequest:YES
                                           cache:NO params:nil
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]

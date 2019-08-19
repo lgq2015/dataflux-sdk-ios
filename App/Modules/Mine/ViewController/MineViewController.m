@@ -53,7 +53,6 @@
     [self createUI];
 }
 #pragma mark ========== UI布局 ==========
-
 - (void)updateUser{
     [userManager saveChangeUserInfo];
     self.userName.text= userManager.curUserInfo.name;
@@ -78,23 +77,15 @@
 }
 - (void)getSystemMessagCount{
     NSDictionary *params = @{@"ownership":@"account"};
-    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            self.unread = [content longValueForKey:@"unread" default:0];
-            if (self.tableView) {
-                NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
-                MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-                long count =(long)self.unread;
-                [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",count]];
-            }
+    [[PWHttpEngine sharedInstance] getSystemMessageUnreadCountWithParam:params callBack:^(id response) {
+        BaseReturnModel *model = response;
+        if (model.isSuccess) {
+          self.unread = [model.content longValueForKey:@"unread" default:0];
         }
-    } failBlock:^(NSError *error) {
         if (self.tableView) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
             MineViewCell *cell = (MineViewCell *)[self.tableView cellForRowAtIndexPath:index];
-            [cell setDescribeLabText:@"0"];
-
+            [cell setDescribeLabText:[NSString stringWithFormat:@"%ld",self.unread]];
         }
     }];
 }

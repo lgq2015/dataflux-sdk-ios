@@ -103,4 +103,16 @@
  */
 -(PWURLSessionTask *)getTeamIssueCountCallBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)getTeamProductCallBack:(void (^)(id response))callback;
+/**
+ * 获取系统消息未读个数
+ */
+-(PWURLSessionTask *)getSystemMessageUnreadCountWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+/**
+ * 获取收藏列表
+ */
+-(PWURLSessionTask *)getFavoritesListWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+/**
+ * 删除收藏的文章
+ */
+-(PWURLSessionTask *)deleteFavoritesWithFavoID:(NSString *)favoID callBack:(void (^)(id response))callback;
 @end

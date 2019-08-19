@@ -573,16 +573,14 @@
 //请求团队系统消息，未读数量
 - (void)requestTeamSystemUnreadCount{
     NSDictionary *params = @{@"ownership":@"team"};
-    [PWNetworking requsetHasTokenWithUrl:PW_systemMessageCount withRequestType:NetworkGetType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSDictionary *content = response[@"content"];
-            NSInteger unread = [content longValueForKey:@"unread" default:0];
-            UIView *view = [self.rightNavButton viewWithTag:20];
-            view.hidden = unread > 0 ? NO:YES;
-        }
-    } failBlock:^(NSError *error) {
+    [[PWHttpEngine sharedInstance] getSystemMessageUnreadCountWithParam:params callBack:^(id response) {
+        BaseReturnModel *model = response;
         UIView *view = [self.rightNavButton viewWithTag:20];
-        view.hidden = YES;
+        NSInteger unread = 0;
+        if (model.isSuccess) {
+          unread = [model.content longValueForKey:@"unread" default:0];
+        }
+        view.hidden = unread > 0 ? NO:YES;
     }];
 }
 //请求团队成员信息

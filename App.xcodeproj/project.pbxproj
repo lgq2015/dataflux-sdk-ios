@@ -330,6 +330,9 @@
 		4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
 		4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
 		4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */; };
+		4A241F7A230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
+		4A241F7B230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
+		4A241F7C230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
 		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
@@ -1398,6 +1401,8 @@
 		4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAccountListModel.m; sourceTree = "<group>"; };
 		4A241F6E23040AE200DC47A9 /* AuthTeamListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthTeamListModel.h; sourceTree = "<group>"; };
 		4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthTeamListModel.m; sourceTree = "<group>"; };
+		4A241F78230A4D0B00DC47A9 /* FavoritesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesListModel.h; sourceTree = "<group>"; };
+		4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesListModel.m; sourceTree = "<group>"; };
 		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
 		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
 		4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
@@ -3277,6 +3282,8 @@
 				4A092D7F222E1D2600FB2A35 /* CollectionModel.m */,
 				2B9ECC1F225482BE00BAC47A /* FounctionIntroductionModel.h */,
 				2B9ECC20225482BE00BAC47A /* FounctionIntroductionModel.m */,
+				4A241F78230A4D0B00DC47A9 /* FavoritesListModel.h */,
+				4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4202,6 +4209,7 @@
 				4A759AB1224B61AB0057BD02 /* EchartView.m in Sources */,
 				4AF663B82265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137822B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
+				4A241F7A230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */,
 				4A6C2887219D50980059BB08 /* RootViewController.m in Sources */,
 				4A092C9322266C6700FB2A35 /* CityCell.m in Sources */,
 				4A50D92822F98F8400B2493F /* CloudCareVC.m in Sources */,
@@ -4551,6 +4559,7 @@
 				4AF663B92265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137922B09E1D00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF5CB221ECB3A00D15316 /* GridViewItem.m in Sources */,
+				4A241F7B230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */,
 				4A092DC4222FC11B00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A00DDDA22D5886C008462AF /* NotiRuleListModel.m in Sources */,
 				4A50D92922F98F8400B2493F /* CloudCareVC.m in Sources */,
@@ -4900,6 +4909,7 @@
 				4AF663BA2265B1F900E551B9 /* UITextView+HLLHelper.m in Sources */,
 				4A47137A22B09E1E00EB90F7 /* IssueSelectSortTypeView.m in Sources */,
 				CA1CF670221ECB5000D15316 /* GridViewItem.m in Sources */,
+				4A241F7C230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */,
 				4A092DC5222FC11C00FB2A35 /* VerificationCodeNetWork.m in Sources */,
 				4A00DDDB22D5886C008462AF /* NotiRuleListModel.m in Sources */,
 				4A50D92A22F98F8400B2493F /* CloudCareVC.m in Sources */,

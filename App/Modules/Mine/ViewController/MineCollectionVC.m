@@ -13,7 +13,7 @@
 #import "NewsListImageCell.h"
 #import "ZhugeIOMineHelper.h"
 #import "NSString+ErrorCode.h"
-
+#import "FavoritesListModel.h"
 #define DeletBtnTag 200
 
 @interface MineCollectionVC ()<UITableViewDelegate, UITableViewDataSource,MGSwipeTableCellDelegate>
@@ -29,6 +29,8 @@
     [super viewDidLoad];
     self.title = NSLocalizedString(@"local.MineCollection", @"");
     [self createUI];
+    self.page = 1;
+    self.dataSource = [NSMutableArray new];
     [self loadData];
 }
 - (void)createUI{
@@ -49,79 +51,32 @@
     self.tableView.tableHeaderView = header;
 }
 - (void)loadData{
-    self.page = 1;
-    self.dataSource = [NSMutableArray new];
     [SVProgressHUD show];
     NSDictionary *param = @{@"pageSize":@10,@"pageIndex":[NSNumber numberWithInteger:self.page]};
-    [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+    [[PWHttpEngine sharedInstance] getFavoritesListWithParam:param callBack:^(id response) {
+        FavoritesListModel *model = response;
         [SVProgressHUD dismiss];
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            //content 内容为nil,安全处理
-            NSDictionary *contentDic = PWSafeDictionaryVal(response, @"content");
-            if (!contentDic){
-                [self showNoDataImage];
-                [self.header endRefreshing];
-                [self.footer endRefreshing];
-                return ;
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
+        if(model.isSuccess){
+            if (self.page == 1) {
+                [self.dataSource removeAllObjects];
             }
-            //data 内容为nil,安全处理
-            NSArray *data = PWSafeArrayVal(contentDic, @"data");
-            if (!data){
+            if (model.list.count == 0 && self.dataSource.count == 0) {
                 [self showNoDataImage];
-                [self.header endRefreshing];
-                [self.footer endRefreshing];
-                return ;
-            }
-            if (data.count == 0) {
-                [self showNoDataImage];
-            }else if(data.count<10){
-                [self showNoMoreDataFooter];
-                 [self dealWithData:data];
             }else{
-                [self dealWithData:data];
-                self.page ++;
+                [self.dataSource addObjectsFromArray:model.list];
+                [self.tableView reloadData];
+                if (model.list.count < 10) {
+                   [self showNoMoreDataFooter];
+                }
+            }
+        }else{
+            if(self.dataSource.count == 0){
+                [self showNoNetWorkView];
             }
         }
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-        if(self.dataSource.count == 0){
-            [self showNoNetWorkView];
-        }
     }];
-}
-- (void)loadMoreData{
-    NSDictionary *param = @{@"pageSize":@10,@"pageIndex":[NSNumber numberWithInteger:self.page]};
-    [PWNetworking requsetHasTokenWithUrl:PW_favoritesList withRequestType:NetworkGetType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *data = response[@"content"][@"data"];
-            if(data.count<10){
-                [self showNoMoreDataFooter];
-                [self dealWithData:data];
-            }else{
-                [self dealWithData:data];
-                self.page ++;
-            }
-        }
-        [SVProgressHUD dismiss];
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-    }];
-}
-- (void)dealWithData:(NSArray *)data{
-    [data enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NewsListModel *model = [[NewsListModel alloc]initWithCollectionDictionary:dict];
-        [self.dataSource addObject:model];
-    }];
-    [self.tableView reloadData];
-
 }
 - (void)headerRefreshing{
     self.page = 1;
@@ -129,72 +84,55 @@
     [self loadData];
 }
 -(void)footerRefreshing{
-    
-    [self loadMoreData];
-    
+    self.page ++;
+    [self loadData];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewsListModel *model = self.dataSource[indexPath.row];
+    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
+        [self deleteCollection:indexPath.row];
+        return NO;
+    }];
+    button.titleLabel.font = RegularFONT(14);
+    [button centerIconOverTextWithSpacing:5];
     if (model.type == NewListCellTypText) {
         NewsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListCell"];
         cell.model = self.dataSource[indexPath.row];
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
-            [self deleteCollection:indexPath.row];
-            return NO;
-        }];
-        button.titleLabel.font = RegularFONT(14);
-
-        [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
         return cell;
     } else {
         NewsListImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewsListImageCell"];
         cell.model = self.dataSource[indexPath.row];
-
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell layoutIfNeeded];
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"] padding:10 callback:^BOOL(MGSwipeTableCell *_Nonnull cell) {
-            [self deleteCollection:indexPath.row];
-            return NO;
-        }];
-        button.titleLabel.font = RegularFONT(14);
-
-        [button centerIconOverTextWithSpacing:5];
         cell.rightButtons = @[button];
         cell.delegate = self;
         return cell;
     }
-   
-
-    
 }
 - (void)deleteCollection:(NSInteger)index{
-    NewsListModel *model = self.dataSource[index];
+    NewsListModel *newsModel = self.dataSource[index];
     [SVProgressHUD show];
-    [PWNetworking requsetHasTokenWithUrl:PW_favoritesDelete(model.favoID) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+    [[PWHttpEngine sharedInstance] deleteFavoritesWithFavoID:newsModel.favoID callBack:^(id response) {
+        BaseReturnModel *model = response;
         [SVProgressHUD dismiss];
-
-        if([response[ERROR_CODE] isEqualToString:@""]){
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
+        if (model.isSuccess) {
+            self.page = 1;
             [self loadData];
+            [[[[ZhugeIOMineHelper new] eventDeleteCollection]
+              attrMessageTitle:newsModel.title.length>0?newsModel.title:@""]track];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
         }
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-        [[[[ZhugeIOMineHelper new] eventDeleteCollection]
-                attrMessageTitle:model.title.length>0?model.title:@""]track];
-    } failBlock:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
     }];
-    
 }
 - (void)recollectWithModel:(NewsListModel*)model{
     NSMutableDictionary *param = [@{@"id":model.newsID} mutableCopy];
