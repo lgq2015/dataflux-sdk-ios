@@ -60,7 +60,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
 // 更新列表高度缓存
 - (void)updateIssueListCellHeight:(CGFloat)cellHeight issueId:(NSString *)issueId;
 
-- (void)updateIssueBoardGetMsgTime:(NSString *)type;
+//- (void)updateIssueBoardGetMsgTime:(NSString *)type;
 
 /**
  每次打开app需要判断首页展示的数据 会内部判断是否需要更新

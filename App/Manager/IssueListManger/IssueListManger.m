@@ -322,21 +322,6 @@ NSString *const ILMStringAll = @"ALL";
     return NSStringFormat(@"%@/%@/%@", getPWUserIDWithDBCompat,getPWDefaultTeamID, PW_DBNAME_ISSUE);
 }
 
-//- (void)createData {
-//    self.infoDatas = [NSMutableArray new];
-//    NSArray *nameArray = @[@"alarm", @"security", @"expense", @"optimization", @"misc"];
-//    for (NSInteger i = 0; i < 5; i++) {
-//        IssueBoardModel *model = [IssueBoardModel new];
-//        model.type = i;
-//        model.subTitle = @"";
-//        model.state = PWInfoBoardItemStateRecommend;
-//        model.read = YES;
-//        model.typeName = nameArray[i];
-//        model.messageCount = @"0";
-//        //        model.pageMaker = @0;
-//        [self.infoDatas addObject:model];
-//    }
-//}
 
 #pragma mark ========== public method ==========
 
@@ -361,7 +346,8 @@ NSString *const ILMStringAll = @"ALL";
                         if (clearCache) {
                             [self mergeReadData:allDatas];
                             [self.getHelper pw_deleteAllDataFromTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME];
-                        }
+                            [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModelArray:allDatas];
+                        }else{
                         
                         [allDatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL *_Nonnull stop) {
                             NSString *whereFormat = [NSString stringWithFormat:@"where issueId = '%@' ", model.issueId];
@@ -383,10 +369,10 @@ NSString *const ILMStringAll = @"ALL";
                                 [self.getHelper pw_insertTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:model];
                             }
                         }];
-                        
+                        }
                         //       [self refreshIssueBoardDatas];
                         
-                        rollback = NO;
+//                        rollback = NO;
                         
                     }];
                     dispatch_async_on_main_queue(^{
@@ -426,9 +412,14 @@ NSString *const ILMStringAll = @"ALL";
  * @param allDatas 合并已读数据
  */
 - (void)mergeReadData:(NSMutableArray *)allDatas {
-    NSArray *cacheArr = [self getAllIssueData];
+    NSMutableArray *cacheArr = [[self getAllIssueData] mutableCopy];
+    if (cacheArr.count == 0 && allDatas.count>0) {
+        [allDatas enumerateObjectsUsingBlock:^(IssueModel  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.isRead = YES;
+        }];
+    }else{
     [allDatas enumerateObjectsUsingBlock:^(IssueModel *newModel, NSUInteger idx, BOOL *_Nonnull stop) {
-        [cacheArr enumerateObjectsUsingBlock:^(IssueModel *cacheModel, NSUInteger idx, BOOL *_Nonnull stop) {
+        [[cacheArr copy] enumerateObjectsUsingBlock:^(IssueModel *cacheModel, NSUInteger idx, BOOL *_Nonnull stop) {
 
             if ([newModel.issueId isEqualToString:cacheModel.issueId]) {
                 if (newModel.lastIssueLogSeq <= cacheModel.lastIssueLogSeq) {
@@ -442,10 +433,12 @@ NSString *const ILMStringAll = @"ALL";
                 } else {
                     newModel.localUpdateTime = cacheModel.updateTime;
                 }
-
+                *stop = YES;
+                [cacheArr removeObjectAtIndex:idx];
             }
         }];
     }];
+    }
 }
 
 - (void)fetchIssueList:(BOOL)getAllDatas {
@@ -618,13 +611,14 @@ NSString *const ILMStringAll = @"ALL";
             
     }
     
-    statesStr =@"status = 'created'";
     switch (sel.issueFrom) {
         case IssueFromMe:
             fromMeStr = [NSString stringWithFormat:@"watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID];
+            statesStr = @"";
             break;
         case IssueFromAll:
             fromMeStr = @"";
+            statesStr =@"status = 'created'";
             break;
     }
     NSString *whereFormat = [NSString new];
