@@ -48,6 +48,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(80);
+    self.tableView.contentInset =UIEdgeInsetsMake(12, 0, 0, 0);
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
@@ -370,7 +371,7 @@
 #pragma mark ========== UITableViewDelegate ==========
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return 10;
+        return 0;
     }else{
         return 30;
     }
