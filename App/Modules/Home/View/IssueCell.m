@@ -15,7 +15,8 @@
 #define TagSourcenFrom  100
 @interface IssueCell ()
 @property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UILabel *stateLab;
+@property (nonatomic, strong) UILabel *levelLab;
+@property (nonatomic, strong) UILabel *issueStateLab;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) TriangleDrawRect *triangleView;
 @property (nonatomic, strong) UILabel *chatTimeLab;
@@ -50,16 +51,14 @@
 
 - (void)createUI{
 
- 
-    
-    self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.stateLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
+    self.titleLab.frame = CGRectMake(14, CGRectGetMaxY(self.levelLab.frame)+10, kWidth-60, ZOOM_SCALE(40));
 
     UILabel *categoryLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:[NSString stringWithFormat:@"%@：",NSLocalizedString(@"local.type", @"")]];
     [self addSubview:categoryLab];
     [categoryLab sizeToFit];
     CGFloat width = categoryLab.frame.size.width;
     [categoryLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.stateLab);
+        make.left.mas_equalTo(self.levelLab);
         make.top.mas_equalTo(self.titleLab.mas_bottom).offset(10);
         make.width.offset(width);
         make.height.offset(ZOOM_SCALE(16));
@@ -98,7 +97,7 @@
 
     [self.chatLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(categoryLab.mas_bottom).offset(18);
-        make.left.mas_equalTo(self.stateLab);
+        make.left.mas_equalTo(self.levelLab);
         make.right.mas_equalTo(self.chatTimeLab.mas_left).offset(-10);
         make.height.offset(ZOOM_SCALE(18));
     }];
@@ -114,6 +113,21 @@
     }else{
     self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.UpdateDate", @""),[self.model.updataTime listAccurateTimeStr]];
     }
+    if(selObj.issueFrom == IssueFromMe){
+        self.issueStateLab.hidden = NO;
+        if(model.recovered){
+            self.issueStateLab.text = @"已恢复";
+            self.issueStateLab.textColor =[UIColor colorWithHexString:@"#8E8E93"];
+        }else{
+            self.issueStateLab.text = @"活跃";
+            self.issueStateLab.textColor = PWBlueColor;
+        }
+        [self.issueStateLab sizeToFit];
+        self.timeLab.frame =CGRectMake(CGRectGetMaxX(self.issueStateLab.frame)+Interval(10), Interval(19), ZOOM_SCALE(95), ZOOM_SCALE(18));
+    }else{
+        self.issueStateLab.hidden = YES;
+        self.timeLab.frame = CGRectMake(Interval(25)+ZOOM_SCALE(42), Interval(19), ZOOM_SCALE(95), ZOOM_SCALE(18));
+    }
     if (_model.isCallME) {
         NSString *str = [NSString stringWithFormat:@"[%@] %@",NSLocalizedString(@"local.SomeOneAtMe", @""),self.model.issueLog];
         NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithString:str];
@@ -125,26 +139,26 @@
     }
     switch (self.model.state) {
         case IssueStateWarning:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
-            self.stateLab.text = NSLocalizedString(@"local.warning", @"");
+            self.levelLab.backgroundColor = [UIColor colorWithHexString:@"FFC163"];
+            self.levelLab.text = NSLocalizedString(@"local.warning", @"");
             break;
         case IssueStateSeriousness:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
-            self.stateLab.text = NSLocalizedString(@"local.danger", @"");
+            self.levelLab.backgroundColor = [UIColor colorWithHexString:@"FC7676"];
+            self.levelLab.text = NSLocalizedString(@"local.danger", @"");
             break;
         case IssueStateCommon:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
-            self.stateLab.text = NSLocalizedString(@"local.info", @"");
+            self.levelLab.backgroundColor = [UIColor colorWithHexString:@"599AFF"];
+            self.levelLab.text = NSLocalizedString(@"local.info", @"");
             break;
         case IssueStateRecommend:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
-            self.stateLab.text = NSLocalizedString(@"local.issue.recovered", @"");
+            self.levelLab.backgroundColor = [UIColor colorWithHexString:@"70E1BC"];
+            self.levelLab.text = NSLocalizedString(@"local.issue.recovered", @"");
             self.timeLab.text =@"";
 
             break;
         case IssueStateLoseeEfficacy:
-            self.stateLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
-            self.stateLab.text = NSLocalizedString(@"local.Discarded", @"");
+            self.levelLab.backgroundColor = [UIColor colorWithHexString:@"DDDDDD"];
+            self.levelLab.text = NSLocalizedString(@"local.Discarded", @"");
             break;
     }
     [self.timeLab sizeToFit];
@@ -256,10 +270,16 @@
     }
     return _issTypeLab;
 }
+-(UILabel *)issueStateLab{
+    if (!_issueStateLab) {
+        _issueStateLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(25)+ZOOM_SCALE(42), Interval(19), 0, ZOOM_SCALE(18)) font:RegularFONT(12) textColor:PWBlueColor text:@"活跃"];
+        [self addSubview:_issueStateLab];
+    }
+    return _issueStateLab;
+}
 -(UILabel *)timeLab{
     if (!_timeLab) {
-        _timeLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(25)+ZOOM_SCALE(42), 0, ZOOM_SCALE(95), ZOOM_SCALE(18))];
-        _timeLab.centerY = self.stateLab.centerY;
+        _timeLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(25)+ZOOM_SCALE(42), Interval(19), ZOOM_SCALE(95), ZOOM_SCALE(18))];
         _timeLab.font = RegularFONT(12);
         _timeLab.textColor = [UIColor colorWithHexString:@"#8E8E93"];
         [self addSubview:_timeLab];
@@ -325,17 +345,17 @@
     }
     return _chatTimeLab;
 }
--(UILabel *)stateLab{
-    if (!_stateLab) {
-        _stateLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(14), Interval(19), ZOOM_SCALE(42), ZOOM_SCALE(18))];
-        _stateLab.textColor = [UIColor whiteColor];
-        _stateLab.font =  RegularFONT(12);
-        _stateLab.textAlignment = NSTextAlignmentCenter;
-        _stateLab.layer.cornerRadius = 4.0f;
-        _stateLab.layer.masksToBounds = YES;
-        [self addSubview:_stateLab];
+-(UILabel *)levelLab{
+    if (!_levelLab) {
+        _levelLab = [[UILabel alloc]initWithFrame:CGRectMake(Interval(14), Interval(19), ZOOM_SCALE(42), ZOOM_SCALE(18))];
+        _levelLab.textColor = [UIColor whiteColor];
+        _levelLab.font =  RegularFONT(12);
+        _levelLab.textAlignment = NSTextAlignmentCenter;
+        _levelLab.layer.cornerRadius = 4.0f;
+        _levelLab.layer.masksToBounds = YES;
+        [self addSubview:_levelLab];
     }
-    return _stateLab;
+    return _levelLab;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
