@@ -269,12 +269,14 @@
 #pragma mark ========== UI 懒加载 ==========
 -(UIImageView *)iconImgView{
     if(!_iconImgView){
-        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(18, 0, 30, 30)];
-        CGPoint center = _iconImgView.center;
+        _iconImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
         _iconImgView.contentMode =  UIViewContentModeScaleAspectFit;
-        center.y = self.center.y;
-        _iconImgView.center = center;
         [self addSubview:_iconImgView];
+
+        [_iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.offset(18);
+            make.centerY.mas_equalTo(self.contentView);
+        }];
     }
     return _iconImgView;
 }
