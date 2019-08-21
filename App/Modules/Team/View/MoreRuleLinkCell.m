@@ -55,6 +55,7 @@
 -(TouchLargeButton *)minusBtn{
     if (!_minusBtn) {
         _minusBtn = [[TouchLargeButton alloc]init];
+        _minusBtn.largeHeight = 30;
         [_minusBtn setImage:[UIImage imageNamed:@"link_minus"] forState:UIControlStateNormal];
         [_minusBtn addTarget:self action:@selector(minusBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_minusBtn];
