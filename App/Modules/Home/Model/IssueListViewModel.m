@@ -42,10 +42,6 @@
     if ([model.status isEqualToString:@"recovered"]) {
         self.recovered = YES;
     }
-    //else if ([model.status isEqualToString:@"discarded"]){
-//        self.state = IssueStateLoseeEfficacy;
-//    }
-    
     if (![model.renderedTextStr isEqualToString:@""]) {
         NSDictionary *dict = [model.renderedTextStr jsonValueDecoded];
         self.title = [dict stringValueForKey:@"title" default:@""];
@@ -186,21 +182,22 @@
     }else{
         self.cellHeight = model.cellHeight;
     }
-    if (model.originExecMode.length>0) {
-        self.originName = [model.originExecMode getOriginStr];
-        if ([model.originExecMode isEqualToString:@"alertHub"]) {
-            if (model.originInfoJSONStr) {
-                NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
-                NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
-                if ([alertInfo stringValueForKey:@"origin" default:@""].length>0) {
-                    self.originName =[alertInfo stringValueForKey:@"origin" default:@""];
-                }
-            }
-        }
-       
-    }else{
-        self.originName = [model.origin getOriginStr];
-    }
+    self.originName = model.origin_forSearch;
+//    if (model.originExecMode.length>0) {
+//        self.originName = [model.originExecMode getOriginStr];
+//        if ([model.originExecMode isEqualToString:@"alertHub"]) {
+//            if (model.originInfoJSONStr) {
+//                NSDictionary *originInfoJSON = [model.originInfoJSONStr jsonValueDecoded];
+//                NSDictionary *alertInfo = PWSafeDictionaryVal(originInfoJSON, @"alertInfo");
+//                if ([alertInfo stringValueForKey:@"origin" default:@""].length>0) {
+//                    self.originName =[alertInfo stringValueForKey:@"origin" default:@""];
+//                }
+//            }
+//        }
+//       
+//    }else{
+//        self.originName = [model.origin getOriginStr];
+//    }
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict{

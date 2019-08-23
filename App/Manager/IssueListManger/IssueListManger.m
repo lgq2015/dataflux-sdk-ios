@@ -88,6 +88,7 @@ NSString *const ILMStringAll = @"ALL";
                                                                                  @"atLogSeq": SQL_INTEGER,
                                                                                  @"cellHeight":SQL_INTEGER,
                                                                                  @"alertHubTitle":SQL_TEXT,
+                                                                            @"origin_forSearch":SQL_TEXT,
                                                                                  }];
     
     //issue log update
