@@ -14,7 +14,7 @@
 #define ERROR_CODE_LOCAL_ERROR_NETWORK_Time_Out  @"local.err.networkTimeOut"
 
 @interface BaseReturnModel : NSObject
-@property(nonatomic, strong) NSDictionary *content;
+@property(nonatomic, strong) NSDictionary *contentDict;
 @property(nonatomic, strong) NSString *errorCode;
 @property(nonatomic, strong) NSString *errorMsg;
 

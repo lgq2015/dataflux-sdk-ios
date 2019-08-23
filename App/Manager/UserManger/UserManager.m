@@ -50,7 +50,7 @@ SINGLETON_FOR_CLASS(UserManager);
         BaseReturnModel *model = response;
         if (model.isSuccess) {
             NSError *error;
-            self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.content error:&error];
+            self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.contentDict error:&error];
             if ([self.teamModel.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
             }else{
@@ -199,7 +199,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if(model.isSuccess){
                isUserSuccess = YES;
                 NSError *error;
-                weakSelf.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:model.content error:&error];
+                weakSelf.curUserInfo = [[CurrentUserModel alloc]initWithDictionary:model.contentDict error:&error];
                 if (weakSelf.curUserInfo) {
                     YYCache *cache = [[YYCache alloc]initWithName:KUserCacheName];
                     NSDictionary *dic = [weakSelf.curUserInfo modelToJSONObject];
@@ -225,7 +225,7 @@ SINGLETON_FOR_CLASS(UserManager);
             if(model.isSuccess){
                 isTeamSuccess = YES;
                 NSError *error;
-                weakSelf.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.content error:&error];
+                weakSelf.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.contentDict error:&error];
                 if (weakSelf.teamModel) {
                     setPWDefaultTeamID(self.teamModel.teamID);
                     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
@@ -272,14 +272,14 @@ SINGLETON_FOR_CLASS(UserManager);
         BaseReturnModel *model = response;
         if (model.isSuccess) {
             NSError *error;
-            self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.content error:&error];
+            self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.contentDict error:&error];
             setPWDefaultTeamID(self.teamModel.teamID);
             if ([self.teamModel.type isEqualToString:@"singleAccount"]){
                 setTeamState(PW_isPersonal);
                 isHave? isHave(NO,nil):nil;
             }else{
                 setTeamState(PW_isTeam);
-                isHave? isHave(YES,model.content):nil;
+                isHave? isHave(YES,model.contentDict):nil;
             }
             [kUserDefaults synchronize];
         }else{
@@ -528,8 +528,8 @@ SINGLETON_FOR_CLASS(UserManager);
 - (void)requestTeamIssueCount:(void(^)(bool isFinished))completeBlock{
     [[PWHttpEngine sharedInstance] getTeamIssueCountCallBack:^(id response) {
         BaseReturnModel *model = response;
-        if (model.isSuccess && model.content.allKeys.count>0) {
-            [self setAuthTeamIssueCount:model.content];
+        if (model.isSuccess && model.contentDict.allKeys.count>0) {
+            [self setAuthTeamIssueCount:model.contentDict];
             completeBlock? completeBlock(YES):nil;
         }else{
             completeBlock? completeBlock(NO):nil;
