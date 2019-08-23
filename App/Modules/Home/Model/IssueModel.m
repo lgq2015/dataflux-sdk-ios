@@ -97,7 +97,7 @@
     }else{
         self.assignedToAccountInfoStr = @"";
     }
-    
+    self.origin_forSearch = [dict stringValueForKey:@"origin_forSearch" default:@""];
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict {

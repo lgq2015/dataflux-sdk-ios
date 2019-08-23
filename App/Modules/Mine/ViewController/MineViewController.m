@@ -80,7 +80,7 @@
     [[PWHttpEngine sharedInstance] getSystemMessageUnreadCountWithParam:params callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-          self.unread = [model.content longValueForKey:@"unread" default:0];
+          self.unread = [model.contentDict longValueForKey:@"unread" default:0];
         }
         if (self.tableView) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];

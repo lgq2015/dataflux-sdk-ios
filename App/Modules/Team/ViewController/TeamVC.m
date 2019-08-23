@@ -125,8 +125,8 @@
         BaseReturnModel *model = response;
         [self.header endRefreshing];
         if (model.isSuccess) {
-           [userManager setTeamProduct:model.content];
-            [self.headerView updataUIWithDatas:model.content];
+           [userManager setTeamProduct:model.contentDict];
+            [self.headerView updataUIWithDatas:model.contentDict];
             [self.headerView layoutIfNeeded];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.tableHeaderView = self.headerView;
@@ -578,7 +578,7 @@
         UIView *view = [self.rightNavButton viewWithTag:20];
         NSInteger unread = 0;
         if (model.isSuccess) {
-          unread = [model.content longValueForKey:@"unread" default:0];
+          unread = [model.contentDict longValueForKey:@"unread" default:0];
         }
         view.hidden = unread > 0 ? NO:YES;
     }];

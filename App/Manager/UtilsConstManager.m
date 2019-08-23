@@ -31,7 +31,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
          BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSDictionary *content = model.content;
+            NSDictionary *content = model.contentDict;
             NSArray *constISPs =PWSafeArrayVal(content, @"ISPs");
             NSArray *issueLevel = PWSafeArrayVal(content, @"issueLevel");
             NSArray *IssueSourceName =PWSafeArrayVal(content, @"issueSourceProvider");
@@ -95,7 +95,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSDictionary *serviceCode =PWSafeDictionaryVal(model.content, @"serviceCode");
+            NSDictionary *serviceCode =PWSafeDictionaryVal(model.contentDict, @"serviceCode");
             if (serviceCode.allKeys.count>0){
                 [self.cache removeObjectForKey:KTeamServiceCode];
                 [self.cache setObject:serviceCode forKey:KTeamServiceCode];
@@ -139,7 +139,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *expertGroups =PWSafeArrayVal(model.content, @"expertGroups");
+            NSArray *expertGroups =PWSafeArrayVal(model.contentDict, @"expertGroups");
             [self.cache setObject:expertGroups forKey:KExpertGroups];
              completion ? completion(expertGroups):nil;
         }else{
@@ -163,7 +163,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *ISPs =PWSafeArrayVal(model.content, @"ISPs");
+            NSArray *ISPs =PWSafeArrayVal(model.contentDict, @"ISPs");
             [self.cache removeObjectForKey:KTeamISPsCacheName];
             [self.cache setObject:ISPs forKey:KTeamISPsCacheName];
             completion ? completion(ISPs):nil;
@@ -205,7 +205,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *issueLevel =PWSafeArrayVal(model.content, @"issueLevel");
+            NSArray *issueLevel =PWSafeArrayVal(model.contentDict, @"issueLevel");
             [self.cache setObject:issueLevel forKey:KIssueLevel];
             completion ? completion(issueLevel):nil;
         }else{
@@ -243,7 +243,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *IssueSourceName =PWSafeArrayVal(model.content, @"issueSourceProvider");
+            NSArray *IssueSourceName =PWSafeArrayVal(model.contentDict, @"issueSourceProvider");
             [self.cache setObject:IssueSourceName forKey:KIssueSourceNameModelCache];
             completion ? completion(IssueSourceName):nil;
         }else{
@@ -267,7 +267,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *industry =PWSafeArrayVal(model.content, @"industry");
+            NSArray *industry =PWSafeArrayVal(model.contentDict, @"industry");
             [self.cache setObject:industry forKey:KTeamIndustry];
             completion ? completion(industry):nil;
         }else{
@@ -291,7 +291,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *district =PWSafeArrayVal(model.content, @"district");
+            NSArray *district =PWSafeArrayVal(model.contentDict, @"district");
             [self.cache setObject:district forKey:KTeamDistrict];
             completion ? completion(district):nil;
         }else{
@@ -329,7 +329,7 @@
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            NSArray *systemMessageTypes =PWSafeArrayVal(model.content, @"systemMessageTypes");
+            NSArray *systemMessageTypes =PWSafeArrayVal(model.contentDict, @"systemMessageTypes");
             [self.cache setObject:systemMessageTypes forKey:KSystemMessageTypes];
             completion ? completion(systemMessageTypes):nil;
         }else{

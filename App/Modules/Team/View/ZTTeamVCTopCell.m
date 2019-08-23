@@ -9,7 +9,7 @@
 #import "ZTTeamVCTopCell.h"
 #import "TouchLargeButton.h"
 
-#define leftMargin 30.0
+//#define leftMargin 30.0
 @interface ZTTeamVCTopCell()
 @property (nonatomic, strong)NSMutableArray *labs;
 @property (nonatomic, assign)TeamTopType type;
@@ -52,6 +52,7 @@
     }
     //布局
     CGFloat imgViewW = ZOOM_SCALE(24);
+    CGFloat  leftMargin = ZOOM_SCALE(30.0);
     CGFloat imgViewMargin = (kWidth-imgViewW*4-leftMargin*2)/3.0;
     for (NSInteger i = 0; i< imageViews.count; i++){
         //布局图片
