@@ -97,90 +97,60 @@ SINGLETON_FOR_CLASS(UserManager);
 -(void)login:(UserLoginType )loginType params:(NSDictionary *)params completion:(loginBlock)completion{
     if(loginType == UserLoginTypePwd){
       //密码登录
-        [PWNetworking requsetWithUrl:PW_loginUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            NSString *errCode = response[ERROR_CODE];
-            if(errCode.length>0){
-                if (completion) {
-                    completion(NO,nil);
-                }
-                [SVProgressHUD dismiss];
-
-                [iToast alertWithTitleCenter:NSLocalizedString(@"server.err.home.auth.passwordIncorrect", @"")];
-                NSString *errorMsg = NSLocalizedString(errCode, @"");
-                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
-
-
-            }else{
+        [[PWHttpEngine sharedInstance] authPasswordLoginWithParam:params callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if(model.isSuccess){
                 if (completion) {
                     completion(YES,nil);
                 }
                 self.isLogined = YES;
-                NSDictionary *content = response[@"content"];
-                setXAuthToken(content[@"authAccessToken"]);
+                setXAuthToken(model.content[@"authAccessToken"]);
                 [kUserDefaults synchronize];
                 [self saveUserInfoLoginStateisChange:YES success:nil];
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
-
+            }else{
+                [SVProgressHUD dismiss];
+                [iToast alertWithTitleCenter:NSLocalizedString(@"server.err.home.auth.passwordIncorrect", @"")];
+                NSString *errorMsg = NSLocalizedString(model.errorCode, @"");
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
             }
-
-        } failBlock:^(NSError *error) {
-            DLog(@"%@",error);
-            if (completion) {
-                completion(NO,nil);
-            }
-            [SVProgressHUD dismiss];
-            [error errorToast];
         }];
     }else{
       //验证码登录
-        [PWNetworking requsetWithUrl:PW_checkCodeUrl withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if ([response[ERROR_CODE] isEqualToString:@""]) {
-                self.isLogined = YES;
-                NSDictionary *content = response[@"content"];
-                setXAuthToken(content[@"authAccessToken"]);
-                [kUserDefaults synchronize];
-
-                [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
-
-                BOOL isRegister = [content[@"isRegister"] boolValue];
+        [[PWHttpEngine sharedInstance] authSmsLoginWithParam:params callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if (model.isSuccess) {
+              self.isLogined = YES;
+              setXAuthToken(model.content[@"authAccessToken"]);
+             [kUserDefaults synchronize];
+             [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
+                BOOL isRegister = [model.content[@"isRegister"] boolValue];
                 if (isRegister) {
-                    NSString *changePasswordToken = content[@"changePasswordToken"];
+                    NSString *changePasswordToken = model.content[@"changePasswordToken"];
                     if (completion) {
                         completion(YES, changePasswordToken);
                     }
                     [self saveUserInfoLoginStateisChange:YES success:nil];
-                }else{
-                    [self saveUserInfoLoginStateisChange:YES success:nil];
                 }
+                [self saveUserInfoLoginStateisChange:YES success:nil];
+                
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
             }else{
                 [SVProgressHUD dismiss];
                 if (completion) {
                     completion(NO, @"");
                 }
-
-                NSString *errorCode = response[ERROR_CODE];
-                NSString *errorMsg = NSLocalizedString(errorCode, @"");
                 [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultNoPass] track];
-                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:errorMsg] track];
-
-                if ([errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
+                [[[[ZhugeIOLoginHelper new] eventLoginFail] attrLoginFail:model.errorMsg] track];
+                
+                if ([model.errorCode isEqualToString:@"home.auth.tooManyIncorrectAttempts"]) {
                     NSString *time =[NSString stringWithFormat:@"%ld",[response longValueForKey:@"ttl" default:0]];
-                    NSString *toast =[NSString stringWithFormat:[errorCode toErrString],time];
+                    NSString *toast =[NSString stringWithFormat:model.errorMsg,time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
                     [SVProgressHUD showErrorWithStatus:[response[ERROR_CODE] toErrString]];
                 }
-
             }
-
-        }                  failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-            if (completion) {
-                completion(NO, @"");
-            }
-            [error errorToast];
-
         }];
     }
 

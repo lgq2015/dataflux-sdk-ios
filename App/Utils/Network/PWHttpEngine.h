@@ -115,4 +115,9 @@
  * 删除收藏的文章
  */
 -(PWURLSessionTask *)deleteFavoritesWithFavoID:(NSString *)favoID callBack:(void (^)(id response))callback;
+/**
+ * 验证码登录
+ */
+-(PWURLSessionTask *)authSmsLoginWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)authPasswordLoginWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
 @end
