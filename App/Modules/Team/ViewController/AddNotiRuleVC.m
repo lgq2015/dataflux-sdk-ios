@@ -43,9 +43,7 @@
 
 - (void)createUI{
     self.dataSource = [NSMutableArray new];
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
-    self.navigationItem.rightBarButtonItem = item;
-    [self.view addSubview:self.tableView];
+   
     self.tableView.dataSource = self;
     self.tableView.rowHeight = ZOOM_SCALE(80);
     self.tableView.contentInset =UIEdgeInsetsMake(12, 0, 0, 0);
@@ -63,25 +61,46 @@
     NSArray *array = @[@"local.ruleName",@"local.condition",@"local.notificationWay",@"local.time",@"local.cycle",@"local.more"];
     NSArray *placeholderAry = @[@"local.pleaseInputRuleName",@"local.pleaseInputCondition",@"local.pleaseSelectNotiMethod",@"local.pleaseSelectTime",@"local.pleaseSelectCycle",@"local.addMoreNotiRule"];
     NSArray *subTitleAry;
-    if (self.style == AddNotiRuleEdit) {
-        self.model = [self.sendModel copy];
-       
-        NSString *time = [NSString stringWithFormat:@"%@-%@",self.model.startTime,self.model.endTime];
-        
-        subTitleAry = @[self.model.name,[self conditionStr],[self subNotificationWayStr],time ,[self weekStr],[self moreRuleLinkStr]];
-        
-    }else{
-        self.model = [[NotiRuleModel alloc]init];
-        self.model.weekday = @"0,1,2,3,4";
-        
-        NSString *week = [NSString stringWithFormat:@"%@、%@、%@、%@、%@",NSLocalizedString(@"local.Monday", @""),NSLocalizedString(@"local.Tuesday", @""),NSLocalizedString(@"local.Wednesday", @""),NSLocalizedString(@"local.Thursday", @""),NSLocalizedString(@"local.Friday", @"")];
-        subTitleAry  = @[@"",@"",@"",@"00:00-23:59",week,@""];
-        MineCellModel *model = [[MineCellModel alloc]init];
-        model.title = NSLocalizedString(@"local.SubscribeRuleAtTheSameTime", @"");
-        NSArray *array2= @[model];
-        [self.dataSource addObject:array2];
+    [self.view addSubview:self.tableView];
+
+    switch (self.style) {
+        case AddNotiRuleAdd:{
+            self.model = [[NotiRuleModel alloc]init];
+            self.model.weekday = @"0,1,2,3,4";
+            
+            NSString *week = [NSString stringWithFormat:@"%@、%@、%@、%@、%@",NSLocalizedString(@"local.Monday", @""),NSLocalizedString(@"local.Tuesday", @""),NSLocalizedString(@"local.Wednesday", @""),NSLocalizedString(@"local.Thursday", @""),NSLocalizedString(@"local.Friday", @"")];
+            subTitleAry  = @[@"",@"",@"",@"00:00-23:59",week,@""];
+            MineCellModel *model = [[MineCellModel alloc]init];
+            model.title = NSLocalizedString(@"local.SubscribeRuleAtTheSameTime", @"");
+            NSArray *array2= @[model];
+            [self.dataSource addObject:array2];
+            UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
+            self.navigationItem.rightBarButtonItem = item;
+            }
+            break;
+        case AddNotiRuleEdit:{
+            self.model = [self.sendModel copy];
+            
+            NSString *time = [NSString stringWithFormat:@"%@-%@",self.model.startTime,self.model.endTime];
+            
+            subTitleAry = @[self.model.name,[self conditionStr],[self subNotificationWayStr],time ,[self weekStr],[self moreRuleLinkStr]];
+            UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
+            self.navigationItem.rightBarButtonItem = item;
+        }
+            break;
+            
+            
+        case AddNotiRuleLookOver:{
+            self.model = [self.sendModel copy];
+            
+            NSString *time = [NSString stringWithFormat:@"%@-%@",self.model.startTime,self.model.endTime];
+            
+            subTitleAry = @[self.model.name,[self conditionStr],[self subNotificationWayStr],time ,[self weekStr],[self moreRuleLinkStr]];
+        }
+            
+            break;
     }
-    
+  
     NSMutableArray *datas = [NSMutableArray new];
     for(NSInteger i = 0;i<array.count;i++){
         AddNotiRuleModel *model = [[AddNotiRuleModel alloc]init];

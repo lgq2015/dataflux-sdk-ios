@@ -10,6 +10,7 @@
 typedef NS_ENUM(NSInteger, AddNotiRuleStyle){
     AddNotiRuleAdd,
     AddNotiRuleEdit,
+    AddNotiRuleLookOver,
 };
 NS_ASSUME_NONNULL_BEGIN
 @class NotiRuleModel;

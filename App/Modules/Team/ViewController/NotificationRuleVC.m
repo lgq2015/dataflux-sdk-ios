@@ -138,17 +138,17 @@
         return NO;
     }];
     
-    MGSwipeButton *button2 = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.edit", @"") icon:[UIImage imageNamed:@"icon_edit"] backgroundColor:PWBlueColor padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-        AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:AddNotiRuleEdit];
-        detailVC.sendModel = weakSelf.dataSource[indexPath.row];
-        [weakSelf.navigationController pushViewController:detailVC animated:YES];
-        return YES;
-    }];
+//    MGSwipeButton *button2 = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.edit", @"") icon:[UIImage imageNamed:@"icon_edit"] backgroundColor:PWBlueColor padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+//        AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:AddNotiRuleEdit];
+//        detailVC.sendModel = weakSelf.dataSource[indexPath.row];
+//        [weakSelf.navigationController pushViewController:detailVC animated:YES];
+//        return YES;
+//    }];
     button.titleLabel.font = RegularFONT(14);
     [button centerIconOverTextWithSpacing:5];
-    button2.titleLabel.font = RegularFONT(14);
-    [button2 centerIconOverTextWithSpacing:5];
-    cell.rightButtons = @[button,button2];
+//    button2.titleLabel.font = RegularFONT(14);
+//    [button2 centerIconOverTextWithSpacing:5];
+    cell.rightButtons = @[button];
     cell.delegate = self;
    
     cell.tag = indexPath.row+1;
@@ -170,6 +170,11 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AddNotiRuleStyle style;
+    style = [self handlePermissonWithModel:self.dataSource[indexPath.row]]?AddNotiRuleEdit:AddNotiRuleLookOver;
+    AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:style];
+    detailVC.sendModel = self.dataSource[indexPath.row];
+    [self.navigationController pushViewController:detailVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
 }
