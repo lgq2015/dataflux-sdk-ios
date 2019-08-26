@@ -31,6 +31,7 @@
 #import "ZhugeIOIssueHelper.h"
 #import "NSString+ErrorCode.h"
 #import "UtilsConstManager.h"
+static const int IgnoreBtnTag = 15;
 
 @interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
@@ -41,7 +42,9 @@
 @property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
 @property (nonatomic, assign) IssueDealState state;
 @property (nonatomic, strong) IgnoreItemView *itemView;
-@property (nonatomic, strong) TouchLargeButton *navBtn;
+@property (nonatomic, strong) TouchLargeButton *watchBtn;
+@property (nonatomic, strong) TouchLargeButton *ignoreBtn;
+
 @property (nonatomic, copy) NSString *oldStr;     //输入内容
 @end
 @implementation IssueDetailsVC
@@ -68,10 +71,14 @@
 
 - (void)createUI{
     
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.navBtn];
-    self.navigationItem.rightBarButtonItem = item;
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.watchBtn];
+    self.navigationItem.rightBarButtonItems = @[item];
+    if (self.model.allowIgnore) {
+      UIBarButtonItem * ignoreItem = [[UIBarButtonItem alloc] initWithCustomView:self.ignoreBtn];
+      self.navigationItem.rightBarButtonItems = @[ignoreItem,item];
+    }
     if (self.model.watchInfoJSONStr) {
-        self.navBtn.selected =[self.model.watchInfoJSONStr containsString:userManager.curUserInfo.userID];
+        self.watchBtn.selected =[self.model.watchInfoJSONStr containsString:userManager.curUserInfo.userID];
     }
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight-SafeAreaBottom_Height-ZOOM_SCALE(67));
     [self.view addSubview:self.tableView];
@@ -149,7 +156,7 @@
         WeakSelf
         _engineHeader.recoverClick = ^(BOOL navSel){
             if (navSel) {
-                weakSelf.navBtn.selected = YES;
+                weakSelf.watchBtn.selected = YES;
             }
             [weakSelf getNewChatDatasAndScrollTop:NO];
         };
@@ -163,21 +170,29 @@
         WeakSelf
         _userHeader.recoverClick = ^(BOOL navSel){
             if (navSel) {
-                weakSelf.navBtn.selected = YES;
+                weakSelf.watchBtn.selected = YES;
             }
              [weakSelf getNewChatDatasAndScrollTop:NO];
         };
     }
     return _userHeader;
 }
--(TouchLargeButton *)navBtn{
-    if (!_navBtn) {
-        _navBtn = [[TouchLargeButton alloc]init];
-        [_navBtn setImage:[UIImage imageNamed:@"issue_noattention"] forState:UIControlStateNormal];
-        [_navBtn setImage:[UIImage imageNamed:@"issue_attention"] forState:UIControlStateSelected];
-        [_navBtn addTarget:self action:@selector(navBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+-(TouchLargeButton *)watchBtn{
+    if (!_watchBtn) {
+        _watchBtn = [[TouchLargeButton alloc]init];
+        [_watchBtn setImage:[UIImage imageNamed:@"issue_noattention"] forState:UIControlStateNormal];
+        [_watchBtn setImage:[UIImage imageNamed:@"issue_attention"] forState:UIControlStateSelected];
+        [_watchBtn addTarget:self action:@selector(navBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _navBtn;
+    return _watchBtn;
+}
+-(TouchLargeButton *)ignoreBtn{
+    if (!_ignoreBtn) {
+        _ignoreBtn = [[TouchLargeButton alloc]init];
+        [_ignoreBtn setImage:[UIImage imageNamed:@"icon_more"] forState:UIControlStateNormal];
+        [_ignoreBtn addTarget:self action:@selector(ignoreClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _ignoreBtn;
 }
 #pragma mark ========== networking ==========
 - (void)loadInfoDeatil{
@@ -274,19 +289,23 @@
 }
 #pragma mark ========== navBtnClick ==========
 -(void)navBtnClick:(UIButton *)button{
+    if (button.tag == IgnoreBtnTag) {
+    
+    }else{
     button.enabled = NO;
     [[PWHttpEngine sharedInstance] issueWatchWithIssueId:self.model.issueId isWatch:!button.selected callBack:^(id response) {
         BaseReturnModel *model = response;
         button.enabled = YES;
         if (model.isSuccess) {
             NSString *showTip = button.selected? NSLocalizedString(@"local.AlreadyUnfollowed", @""):NSLocalizedString(@"local.FocusOnSuccess", @"");
-            self.navBtn.selected = !button.selected;
+            self.watchBtn.selected = !button.selected;
             [SVProgressHUD showSuccessWithStatus:showTip];
             KPostNotification(KNotificationReloadIssueList, nil);
         }else{
             [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
+    }
 }
 #pragma mark ========== bottomBtnClick ==========
 - (void)issueDtealsBVClick{
@@ -305,25 +324,26 @@
     };
 }
 - (void)ignoreIssue{
-    [PWNetworking requsetHasTokenWithUrl:PW_issueRecover(self.model.issueId) withRequestType:NetworkPostType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.CloseSuccess", @"")];
-            self.refreshClick?self.refreshClick():nil;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }else{
-            [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
-            if ([response[ERROR_CODE] isEqualToString:@"home.issue.AlreadyIsRecovered"]) {
-                self.refreshClick?self.refreshClick():nil;
-                IssueModel *model = [[IssueListManger sharedIssueListManger] getIssueDataByData:self.model.issueId];
-                self.model =[[IssueListViewModel alloc]initWithJsonDictionary:model];
-                [self.userHeader reloadHeaderUI];
+    WeakSelf
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.info", @"") message:@"二次确认提示语" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+        [[PWHttpEngine sharedInstance] issueIgnoreWithIssueId:self.model.issueId callBack:^(id response) {
+            BaseReturnModel *model = response;
+            if (model.isSuccess) {
+                weakSelf.updateAllClick();
+                [weakSelf backBtnClicked];
+            }else{
+                [iToast alertWithTitleCenter:model.errorMsg];
             }
-        }
-    } failBlock:^(NSError *error) {
-        [error errorToast];
+        }];
     }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
+        
+    }];
+    [alert addAction:confirm];
+    [alert addAction:cancle];
+    [self presentViewController:alert animated:YES completion:nil];
+   
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

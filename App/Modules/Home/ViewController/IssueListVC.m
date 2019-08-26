@@ -253,6 +253,23 @@
     }];
     [self.tableView reloadData];
 }
+- (void)updateAllData{
+    WeakSelf
+    [SVProgressHUD show];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel * response) {
+        [SVProgressHUD dismiss];
+        NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:nil];
+        if (datas.count == 0) {
+            [weakSelf showNoDataViewWithStyle:NoDataViewIssueList];
+        }else{
+            [weakSelf removeNoDataImage];
+            [weakSelf.datas removeAllObjects];
+            [weakSelf.datas addObjectsFromArray:datas];
+            weakSelf.currentPage = 1;
+            [weakSelf dealDatas];
+        }
+    } getAllDatas:YES];
+}
 - (UILabel *)tipLab{
     if (!_tipLab) {
         NSString *string =NSLocalizedString(@"local.HaveNewInformationClickRefresh", @"");
@@ -324,6 +341,10 @@
     model.isRead = YES;
     IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
     detailsVC.model = model;
+    WeakSelf
+    detailsVC.updateAllClick = ^(void){
+        [weakSelf updateAllData];
+    };
     [self.navigationController pushViewController:detailsVC animated:YES];
     [self.tableView reloadData];
     [[[ZhugeIOIssueHelper new] eventLookIssue] track];

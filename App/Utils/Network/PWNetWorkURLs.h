@@ -119,7 +119,8 @@
 
 //情报列表
 #define PW_issueList                   API_SEVERID@"/v1/issue/list"
-
+//情报忽略
+#define PW_issueIgnore(issueId)        [NSString stringWithFormat:@"%@/v1/issue/%@/ignore", API_SEVERID,issueId]
 //云服务添加
 #define PW_addIssueSource  [NSString stringWithFormat:@"%@/v1/issue_source/add", API_SEVERID]
 //云服务列表
