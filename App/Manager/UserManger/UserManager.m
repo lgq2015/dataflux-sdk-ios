@@ -104,7 +104,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     completion(YES,nil);
                 }
                 self.isLogined = YES;
-                setXAuthToken(model.content[@"authAccessToken"]);
+                setXAuthToken(model.contentDict[@"authAccessToken"]);
                 [kUserDefaults synchronize];
                 [self saveUserInfoLoginStateisChange:YES success:nil];
                 [[[[ZhugeIOLoginHelper new] eventLoginFail] eventLoginSuccess] track];
@@ -121,12 +121,12 @@ SINGLETON_FOR_CLASS(UserManager);
             BaseReturnModel *model = response;
             if (model.isSuccess) {
               self.isLogined = YES;
-              setXAuthToken(model.content[@"authAccessToken"]);
+              setXAuthToken(model.contentDict[@"authAccessToken"]);
              [kUserDefaults synchronize];
              [[[[[ZhugeIOLoginHelper new] eventInputGetVeryCode] attrSceneLogin] attrResultPass] track];
-                BOOL isRegister = [model.content[@"isRegister"] boolValue];
+                BOOL isRegister = [model.contentDict[@"isRegister"] boolValue];
                 if (isRegister) {
-                    NSString *changePasswordToken = model.content[@"changePasswordToken"];
+                    NSString *changePasswordToken = model.contentDict[@"changePasswordToken"];
                     if (completion) {
                         completion(YES, changePasswordToken);
                     }
