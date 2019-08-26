@@ -581,3 +581,4 @@
 "local.tip.DeveloperMode" ="开发者模式";
 "local.tip.AlreadyInDeveloperMode" = "已经是开发者模式";
 "local.tip.AlreadyTheLatestVersion" = "已是最新版本";
+"local.IgnoreIssue" = "不再诊断";
