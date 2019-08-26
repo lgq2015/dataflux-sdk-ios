@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger, IssueState){
 @property (nonatomic, strong) NSString *watchInfoJSONStr;
 @property (nonatomic, assign) CGFloat titleHeight;
 @property (nonatomic, assign) BOOL recovered;
+@property (nonatomic, assign) BOOL allowIgnore;
 @property (nonatomic, strong) NSString *originName;
 - (instancetype)initWithJsonDictionary:(IssueModel *)model;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

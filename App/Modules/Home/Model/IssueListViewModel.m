@@ -198,6 +198,9 @@
 //    }else{
 //        self.originName = [model.origin getOriginStr];
 //    }
+    if ([model.itAssetRefOrigin isEqualToString:@"issueEngine"] && model.issueSourceId && model.itAssetId) {
+        self.allowIgnore = YES;
+    }
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict{

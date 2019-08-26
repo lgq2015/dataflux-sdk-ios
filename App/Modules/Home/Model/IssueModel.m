@@ -98,6 +98,8 @@
         self.assignedToAccountInfoStr = @"";
     }
     self.origin_forSearch = [dict stringValueForKey:@"origin_forSearch" default:@""];
+    self.itAssetId = [dict stringValueForKey:@"itAssetId" default:@""];
+    self.itAssetRefOrigin = [dict stringValueForKey:@"itAssetRefOrigin" default:@""];
 }
 
 - (void)setValueWithDict:(NSDictionary *)dict {

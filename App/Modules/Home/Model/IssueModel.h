@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *assignedToAccountInfoStr;
 @property (nonatomic, strong) NSString *watchInfoJSONStr;
 @property (nonatomic, strong) NSString *origin_forSearch;
+@property (nonatomic, strong) NSString *itAssetRefOrigin;
+@property (nonatomic, strong) NSString *itAssetId;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (void)checkInvalidIssue;
