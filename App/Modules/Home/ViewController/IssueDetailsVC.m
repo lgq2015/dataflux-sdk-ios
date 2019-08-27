@@ -325,7 +325,7 @@ static const int IgnoreBtnTag = 15;
 }
 - (void)ignoreIssue{
     WeakSelf
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.info", @"") message:@"二次确认提示语" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.tip.IgnoreTipTitle", @"") message:NSLocalizedString(@"local.tip.IgnoreTipContent", @"") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
         [[PWHttpEngine sharedInstance] issueIgnoreWithIssueId:self.model.issueId callBack:^(id response) {
             BaseReturnModel *model = response;
