@@ -583,3 +583,6 @@
 "local.tip.AlreadyInDeveloperMode" = "已经是开发者模式";
 "local.tip.AlreadyTheLatestVersion" = "已是最新版本";
 "local.IgnoreIssue" = "不再诊断";
+
+"local.tip.IgnoreTipTitle" = "关闭此项诊断";
+"local.tip.IgnoreTipContent" = "此操作意味着系统不再对此情报的关联资产进行此项诊断，请确认。";
