@@ -43,7 +43,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:AddNotiRuleCell.class forCellReuseIdentifier:@"AddNotiRuleCell"];
     [self.tableView registerClass:TagViewCell.class forCellReuseIdentifier:@"TagViewCell"];
-    NSArray *titleAry = @[@"local.issueSource",@"local.type",@"local.level"];
+    NSArray *titleAry = @[@"local.Origin",@"local.issueSource",@"local.type",@"local.level"];
     NSArray *subtitleAry ;
     if (self.model == nil) {
         self.model =[RuleModel new];

@@ -94,23 +94,29 @@
     [self.tableView reloadData];
 }
 - (void)createNotificationWayData{
-    NSArray *type = @[@"App",@"email"];
-    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @"")];
-   
-        MultipleSelectModel *model = [MultipleSelectModel new];
-        model.name = name[0];
-        model.selectId = type[0];
-        model.allSelect = NO;
-        model.isSelect = self.sendModel.appNotification;
+    NSArray *type = @[@"App",@"email",@"SMS"];
+    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @""),NSLocalizedString(@"local.SMS", @"")];
+    MultipleSelectModel *model = [MultipleSelectModel new];
+    model.name = name[0];
+    model.selectId = type[0];
+    model.allSelect = NO;
+    model.isSelect = self.sendModel.appNotification;
     
-        [self.dataSource addObject:model];
-     MultipleSelectModel *emailModel = [MultipleSelectModel new];
-     emailModel.name = name[1];
-     emailModel.selectId = type[1];
-     emailModel.allSelect = NO;
-     emailModel.isSelect = self.sendModel.emailNotification;
+    [self.dataSource addObject:model];
     
+    MultipleSelectModel *emailModel = [MultipleSelectModel new];
+    emailModel.name = name[1];
+    emailModel.selectId = type[1];
+    emailModel.allSelect = NO;
+    emailModel.isSelect = self.sendModel.emailNotification;
     [self.dataSource addObject:emailModel];
+
+    MultipleSelectModel *SMSModel = [MultipleSelectModel new];
+    SMSModel.name = name[2];
+    SMSModel.selectId = type[2];
+    SMSModel.allSelect = NO;
+    SMSModel.isSelect = self.sendModel.emailNotification;
+    [self.dataSource addObject:SMSModel];
     [self.tableView reloadData];
 }
 - (void)createLevelAry{
