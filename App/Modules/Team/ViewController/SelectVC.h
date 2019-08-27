@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, SelectStyle){
     SelectIssueType,
     SelectIssueSource,
     SelectNotificationWay,
+    SelectIssueOrigin,
 };
 NS_ASSUME_NONNULL_BEGIN
 @class RuleModel;

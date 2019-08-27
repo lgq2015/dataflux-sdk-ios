@@ -47,9 +47,9 @@
     NSArray *subtitleAry ;
     if (self.model == nil) {
         self.model =[RuleModel new];
-    subtitleAry =   @[NSLocalizedString(@"local.allIssueSource",@"") ,NSLocalizedString(@"local.allIssueType",@""),NSLocalizedString(@"local.allIssueLevel",@"")];
+    subtitleAry =   @[NSLocalizedString(@"local.AllOrigin",@""),NSLocalizedString(@"local.allIssueSource",@"") ,NSLocalizedString(@"local.allIssueType",@""),NSLocalizedString(@"local.allIssueLevel",@"")];
     }else{
-        subtitleAry = @[[self sourceStr],[self issueTypeStr],[self issueLevelStr]];
+        subtitleAry = @[[self originStr],[self sourceStr],[self issueTypeStr],[self issueLevelStr]];
     }
     for (NSInteger i=0; i<titleAry.count; i++) {
         
@@ -58,6 +58,10 @@
         model.subTitle =subtitleAry[i];
         [self.dataSource addObject:model];
     }
+}
+- (NSString *)originStr{
+//    NSString *origin;
+    return NSLocalizedString(@"local.AllOrigin",@"");
 }
 - (NSString *)sourceStr{
     NSString *source;
@@ -77,7 +81,7 @@
         issueType =NSLocalizedString(@"local.allIssueType",@"");
     }else{
         for (NSInteger i=0; i<self.model.type.count; i++) {
-            [issueType stringByAppendingString:@"、"];
+            issueType= [issueType stringByAppendingString:@"、"];
             issueType= [issueType stringByAppendingString:[self.model.type[i] getIssueTypeStr]];
         }
         issueType = [issueType substringFromIndex:1];
@@ -90,7 +94,7 @@
         issueLevel =NSLocalizedString(@"local.allIssueLevel",@"");
     }else{
         for (NSInteger i=0; i<self.model.level.count; i++) {
-            [issueLevel stringByAppendingString:@"、"];
+              issueLevel =[issueLevel stringByAppendingString:@"、"];
             if ([self.model.level[i] isEqualToString:@"danger"]) {
               issueLevel = [issueLevel stringByAppendingString:NSLocalizedString(@"local.danger", @"")];
             }else if([self.model.level[i] isEqualToString:@"warning"]){
@@ -166,6 +170,17 @@
         WeakSelf
     switch (indexPath.row) {
         case 1:{
+            SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueOrigin];
+            select.model = weakSelf.model;
+            select.selectBlock = ^(RuleModel * _Nonnull ruleModel) {
+                weakSelf.model = weakSelf.model;
+                model.subTitle = [weakSelf originStr];
+                [weakSelf.tableView reloadData];
+            };
+            [self.navigationController pushViewController:select animated:YES];
+        }
+            break;
+        case 2:{
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueSource];
             select.model = weakSelf.model;
             select.selectBlock = ^(RuleModel * _Nonnull ruleModel) {
@@ -176,7 +191,7 @@
             [self.navigationController pushViewController:select animated:YES];
         }
             break;
-        case 2:
+        case 3:
         {
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueType];
             select.model = self.model;
@@ -188,7 +203,7 @@
             [self.navigationController pushViewController:select animated:YES];
         }
             break;
-        case 3:
+        case 4:
         {
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueLevel];
             select.model = self.model;

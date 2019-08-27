@@ -64,6 +64,10 @@
             [self createNotificationWayData];
 
             break;
+        case SelectIssueOrigin:
+            self.title = NSLocalizedString(@"local.SelectOrigin", @"");
+            [self createOriginData];
+            break;
     }
     [self.view addSubview:self.tableView];
     self.tableView.contentInset =  UIEdgeInsetsMake(12, 0, 0, 0);
@@ -144,7 +148,7 @@
     [self.tableView reloadData];
 }
 - (void)createIssueTypeAry{
-    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"alert"];
+    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
     NSArray *name = @[[type[0] getIssueTypeStr],[type[1] getIssueTypeStr],[type[2] getIssueTypeStr],[type[3] getIssueTypeStr],[type[4] getIssueTypeStr]];
     MultipleSelectModel *allmodel = [MultipleSelectModel new];
     allmodel.name = NSLocalizedString(@"local.allIssueType", @"");
@@ -183,7 +187,10 @@
         
     });
 }
-
+- (void)createOriginData{
+    NSArray *type = @[@"ALL",@"",@"issueEngine",@"user",@"bizSystem",@"alertHub"];
+    
+}
 
 -(void)saveData{
     WeakSelf
@@ -257,6 +264,9 @@
             }
         }
             break;
+        case SelectIssueOrigin:
+            
+             break;
     }
 }
 

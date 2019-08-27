@@ -586,3 +586,4 @@
 "local.tip.IgnoreTipTitle" = "关闭此项诊断";
 "local.tip.IgnoreTipContent" = "此操作意味着系统不再对此情报的关联资产进行此项诊断，请确认。";
 "local.SMS" = "短信";
+"local.SelectOrigin" = "选择来源";
