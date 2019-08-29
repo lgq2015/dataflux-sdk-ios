@@ -1,0 +1,16 @@
+/* 
+  InfoPlist.strings
+  App
+
+  Created by 胡蕾蕾 on 2018/10/25.
+  Copyright © 2018年 hll. All rights reserved.
+*/
+CFBundleDisplayName = "王教授";
+
+NSCameraUsageDescription="用于拍摄图片、扫一扫等功能";
+
+NSPhotoLibraryUsageDescription="您可以分享相机胶卷中的照片、将照片保存";
+
+UILaunchStoryboardName="LaunchScreen";
+
+
