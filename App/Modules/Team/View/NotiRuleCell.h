@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @class NotiRuleModel;
 @interface NotiRuleCell : MGSwipeTableCell
+@property (nonatomic, assign) NotiRuleStyle ruleStyle;
+
 @property (nonatomic, strong) NotiRuleModel *model;
 @end
 

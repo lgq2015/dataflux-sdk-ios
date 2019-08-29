@@ -15,7 +15,6 @@
 @property (nonatomic, strong) UILabel *subscribeLab;
 @property (nonatomic, strong) TouchLargeButton *subscribeBtn;
 @property (nonatomic, strong) UIView *line;
-@property (nonatomic, strong) UIView *subContentView;
 @property (nonatomic, strong) UILabel *notiWayLab;
 @property (nonatomic, strong) UILabel *dingNoti;
 @property (nonatomic, strong) UILabel *customNoti;
@@ -91,28 +90,55 @@
     return _subscribeLab;
 }
 -(UIView *)subContentView{
-    if (!_subContentView) {
-        _subContentView = [[UIView alloc]init];
-        _subContentView.backgroundColor = PWWhiteColor;
-        [self.contentView addSubview:_subContentView];
-        NSArray *iconAry = @[@"icon_noti",@"icon_ding",@"icon_customcallbacks",@"icon_time",@"icon_weekc"];
-        NSArray *titleAry = @[NSLocalizedString(@"local.notificationWay", @""),NSLocalizedString(@"local.DingDingNotification", @""),NSLocalizedString(@"local.CustomCallbacks", @""),NSLocalizedString(@"local.time", @""),NSLocalizedString(@"local.cycle", @"")];
-        NSArray *labAry = @[self.notiWayLab,self.dingNoti,self.customNoti,self.timeLab,self.weekLab];
+        UIView *subView = [[UIView alloc]init];
+        subView.backgroundColor = PWWhiteColor;
+        subView.tag = 88;
+        [[self.contentView viewWithTag:88] removeFromSuperview];
+        [self.contentView addSubview:subView];
+        NSArray *iconAry,*titleAry,*labAry;
+        switch (self.ruleStyle) {
+            case NotiRuleBasic:
+                iconAry = @[@"icon_noti",@"icon_time",@"icon_weekc"];
+                titleAry = @[NSLocalizedString(@"local.notificationWay", @""),NSLocalizedString(@"local.time", @""),NSLocalizedString(@"local.cycle", @"")];
+                labAry = @[self.notiWayLab,self.timeLab,self.weekLab];
+                [subView addSubview:self.notiWayLab];
+                [subView addSubview:self.timeLab];
+                [subView addSubview:self.weekLab];
+                break;
+            case NotiRuleDing:
+                iconAry = @[@"icon_ding",@"icon_time",@"icon_weekc"];
+                titleAry = @[NSLocalizedString(@"local.DingDingNotification", @""),NSLocalizedString(@"local.time", @""),NSLocalizedString(@"local.cycle", @"")];
+                labAry = @[self.dingNoti,self.timeLab,self.weekLab];
+                [subView addSubview:self.dingNoti];
+                [subView addSubview:self.timeLab];
+                [subView addSubview:self.weekLab];
+                break;
+            case NotiRuleCustom:
+                iconAry = @[@"icon_customcallbacks",@"icon_time",@"icon_weekc"];
+                titleAry = @[NSLocalizedString(@"local.CustomCallbacks", @""),NSLocalizedString(@"local.time", @""),NSLocalizedString(@"local.cycle", @"")];
+                labAry = @[self.customNoti,self.timeLab,self.weekLab];
+                [subView addSubview:self.customNoti];
+                [subView addSubview:self.timeLab];
+                [subView addSubview:self.weekLab];
+                break;
+        }
+       
+       
         UIView *temp = nil;
         for (NSInteger i=0; i<iconAry.count; i++) {
             UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:iconAry[i]]];
-            [_subContentView addSubview:icon];
+            [subView addSubview:icon];
             [icon mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.ruleNameLab);
                 if (temp == nil) {
-                    make.top.mas_equalTo(_subContentView).offset(14);
+                    make.top.mas_equalTo(subView).offset(14);
                 }else{
                     make.top.mas_equalTo(temp.mas_bottom).offset(ZOOM_SCALE(15));
                 }
                 make.width.height.offset(ZOOM_SCALE(20));
             }];
             UILabel *conditionLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(16) textColor:PWTitleColor text:titleAry[i]];
-            [self.contentView addSubview:conditionLab];
+            [subView addSubview:conditionLab];
             [conditionLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(icon.mas_right).offset(8);
                 make.centerY.height.mas_equalTo(icon);
@@ -122,12 +148,12 @@
             [lab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.offset(ZOOM_SCALE(150));
                 make.top.mas_equalTo(icon);
-                make.right.mas_equalTo(_subContentView).offset(-10);
+                make.right.mas_equalTo(subView).offset(-10);
             }];
             temp = icon;
         }
-    }
-    return _subContentView;
+    
+    return subView;
 }
 -(void)setModel:(NotiRuleModel *)model{
     _model = model;
@@ -144,12 +170,13 @@
         make.left.mas_equalTo(self.contentView).offset(16);
         make.right.mas_equalTo(self.contentView).offset(-16);
          if ([model.rule.tags allKeys].count == 0) {
-        make.height.offset(ZOOM_SCALE(108));
+        make.height.offset(ZOOM_SCALE(137));
          }else{
-           make.height.offset(ZOOM_SCALE(139));
-         }
+        make.height.offset(ZOOM_SCALE(168));
+        }
     }];
-    [self.subContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *subContentView = [self subContentView];
+    [subContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(upContentView.mas_bottom).offset(16);
         make.left.right.width.mas_equalTo(self.contentView);
         make.bottom.mas_equalTo(self.contentView);
@@ -158,17 +185,8 @@
     self.dingNoti.text = model.dingtalkAddress.count>0?NSLocalizedString(@"local.HasBeenOpen", @""):NSLocalizedString(@"local.NotOpen", @"");
     self.customNoti.text = model.customAddress.count>0?NSLocalizedString(@"local.HasBeenOpen", @""):NSLocalizedString(@"local.NotOpen", @"");
     self.timeLab.text = [NSString stringWithFormat:@"%@:%@",model.startTime,model.endTime];
-    NSMutableString *notiMethod = [NSMutableString new];
-    if (self.model.appNotification) {
-        [notiMethod appendString:@"App"];
-    }
-    if (self.model.emailNotification) {
-        if (notiMethod.length>0) {
-            [notiMethod appendString:@"、"];
-        }
-          [notiMethod appendString:NSLocalizedString(@"local.email", @"")];
-    }
-    self.notiWayLab.text = notiMethod;
+   
+    self.notiWayLab.text = [self subNotificationWayStr];
     NSArray *week = [model.weekday componentsSeparatedByString:@","];
    
     NSMutableString *weekStr = [NSMutableString new];
@@ -209,6 +227,31 @@
     
     [self layoutSubviews];
 }
+- (NSString *)subNotificationWayStr{
+    NSMutableString *notiMethod = [NSMutableString new];
+    if (self.model.appNotification) {
+        [notiMethod appendString:@"App"];
+    }
+    if (self.model.emailNotification) {
+        if (notiMethod.length>0) {
+            [notiMethod appendString:@"、"];
+        }
+        [notiMethod appendString:NSLocalizedString(@"local.email", @"")];
+    }
+    if(self.model.smsNotification){
+        if (notiMethod.length>0) {
+            [notiMethod appendString:@"、"];
+        }
+        [notiMethod appendString:NSLocalizedString(@"local.SMS", @"")];
+    }
+    if (self.model.voiceNotification) {
+        if (notiMethod.length>0) {
+            [notiMethod appendString:@"、"];
+        }
+        [notiMethod appendString:NSLocalizedString(@"local.voice", @"")];
+    }
+    return notiMethod;
+}
 - (UIView *)createUpView{
     UIView *upContentView = [[UIView alloc]init];
     upContentView.backgroundColor = [UIColor colorWithHexString:@"#F9FBFF"];
@@ -217,9 +260,9 @@
     [self.contentView addSubview:upContentView];
     NSArray *titleAry;
     if ([self.model.rule.tags allKeys].count == 0) {
-        titleAry = @[NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @"")];
+        titleAry = @[NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @""),NSLocalizedString(@"local.Origin", @"")];
     }else{
-        titleAry = @[NSLocalizedString(@"local.ruleTag", @""),NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @"")];
+        titleAry = @[NSLocalizedString(@"local.ruleTag", @""),NSLocalizedString(@"local.issueSourceAccount", @""),NSLocalizedString(@"local.type", @""),NSLocalizedString(@"local.level", @""),NSLocalizedString(@"local.Origin", @"")];
     }
     NSMutableArray *labAry = [NSMutableArray new];
     UIView *temp = nil;
@@ -244,7 +287,7 @@
     }
     NSInteger index = 0;
     UILabel *referenceLab = labAry[index];
-    if (labAry.count==4) {
+    if (labAry.count==5) {
         NSString *key =  [self.model.rule.tags allKeys][0];
         NSString *value = [self.model.rule.tags stringValueForKey:key default:@""];
         
@@ -360,6 +403,22 @@
             levelTemp = levelLab;
         }
     }
+    index ++;
+    referenceLab = labAry[index];
+    NSString *origin;
+    if (self.model.rule.origin.count ==0) {
+        origin= [@"ALL" getOriginStr];
+    }else{
+        origin = [[self.model.rule.origin firstObject] getOriginStr];
+    }
+   UILabel *originLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:origin];
+    [upContentView addSubview:originLab];
+    [originLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(upContentView).offset(ZOOM_SCALE(150)-16);
+        make.height.offset(ZOOM_SCALE(24));
+        make.width.offset(ZOOM_SCALE(60));
+        make.centerY.mas_equalTo(referenceLab);
+    }];
     return upContentView;
 }
 - (void)createRuleUI{
@@ -378,28 +437,24 @@
 -(UILabel *)notiWayLab{
     if (!_notiWayLab) {
         _notiWayLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
-        [self.subContentView addSubview:_notiWayLab];
     }
     return _notiWayLab;
 }
 -(UILabel *)dingNoti{
     if (!_dingNoti) {
         _dingNoti = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
-        [self.subContentView addSubview:_dingNoti];
     }
     return _dingNoti;
 }
 -(UILabel *)customNoti{
     if (!_customNoti) {
         _customNoti = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
-        [self.subContentView addSubview:_customNoti];
     }
     return _customNoti;
 }
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
-        [self.subContentView addSubview:_timeLab];
     }
     return _timeLab;
 }
@@ -407,7 +462,6 @@
     if (!_weekLab) {
         _weekLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTextBlackColor text:@""];
         _weekLab.numberOfLines = 0;
-        [self.subContentView addSubview:_weekLab];
     }
     return _weekLab;
 }
