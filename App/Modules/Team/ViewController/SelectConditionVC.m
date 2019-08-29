@@ -13,7 +13,8 @@
 #import "RuleModel.h"
 #import "IssueSourceManger.h"
 #import "SelectVC.h"
-
+#import "SelectOriginVC.h"
+#import "OriginModel.h"
 @interface SelectConditionVC ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSString *keyStr;
@@ -43,13 +44,14 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:AddNotiRuleCell.class forCellReuseIdentifier:@"AddNotiRuleCell"];
     [self.tableView registerClass:TagViewCell.class forCellReuseIdentifier:@"TagViewCell"];
-    NSArray *titleAry = @[@"local.issueSource",@"local.type",@"local.level"];
+    NSArray *titleAry = @[@"local.Origin",@"local.issueSource",@"local.type",@"local.level"];
     NSArray *subtitleAry ;
     if (self.model == nil) {
         self.model =[RuleModel new];
-    subtitleAry =   @[NSLocalizedString(@"local.allIssueSource",@"") ,NSLocalizedString(@"local.allIssueType",@""),NSLocalizedString(@"local.allIssueLevel",@"")];
+    subtitleAry =   @[NSLocalizedString(@"local.AllOrigin",@""),NSLocalizedString(@"local.allIssueSource",@"") ,NSLocalizedString(@"local.allIssueType",@""),NSLocalizedString(@"local.allIssueLevel",@"")];
     }else{
-        subtitleAry = @[[self sourceStr],[self issueTypeStr],[self issueLevelStr]];
+        
+        subtitleAry = @[[self originStr],[self sourceStr],[self issueTypeStr],[self issueLevelStr]];
     }
     for (NSInteger i=0; i<titleAry.count; i++) {
         
@@ -57,6 +59,13 @@
         model.title = NSLocalizedString(titleAry[i], @"");
         model.subTitle =subtitleAry[i];
         [self.dataSource addObject:model];
+    }
+}
+- (NSString *)originStr{
+    if (self.model.origin.count == 0) {
+        return NSLocalizedString(@"local.AllOrigin",@"");
+    }else{
+      return  [self.model.origin[0] getOriginStr];
     }
 }
 - (NSString *)sourceStr{
@@ -77,7 +86,7 @@
         issueType =NSLocalizedString(@"local.allIssueType",@"");
     }else{
         for (NSInteger i=0; i<self.model.type.count; i++) {
-            [issueType stringByAppendingString:@"、"];
+            issueType= [issueType stringByAppendingString:@"、"];
             issueType= [issueType stringByAppendingString:[self.model.type[i] getIssueTypeStr]];
         }
         issueType = [issueType substringFromIndex:1];
@@ -90,7 +99,7 @@
         issueLevel =NSLocalizedString(@"local.allIssueLevel",@"");
     }else{
         for (NSInteger i=0; i<self.model.level.count; i++) {
-            [issueLevel stringByAppendingString:@"、"];
+              issueLevel =[issueLevel stringByAppendingString:@"、"];
             if ([self.model.level[i] isEqualToString:@"danger"]) {
               issueLevel = [issueLevel stringByAppendingString:NSLocalizedString(@"local.danger", @"")];
             }else if([self.model.level[i] isEqualToString:@"warning"]){
@@ -166,6 +175,17 @@
         WeakSelf
     switch (indexPath.row) {
         case 1:{
+            SelectOriginVC *origin = [[SelectOriginVC alloc]init];
+            origin.itemClick = ^(OriginModel * _Nonnull origin) {
+                weakSelf.model.origin = @[origin.name];
+                model.subTitle = origin.name;
+                [weakSelf.tableView reloadData];
+            };
+            
+            [self.navigationController pushViewController:origin animated:YES];
+        }
+            break;
+        case 2:{
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueSource];
             select.model = weakSelf.model;
             select.selectBlock = ^(RuleModel * _Nonnull ruleModel) {
@@ -176,7 +196,7 @@
             [self.navigationController pushViewController:select animated:YES];
         }
             break;
-        case 2:
+        case 3:
         {
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueType];
             select.model = self.model;
@@ -188,7 +208,7 @@
             [self.navigationController pushViewController:select animated:YES];
         }
             break;
-        case 3:
+        case 4:
         {
             SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueLevel];
             select.model = self.model;

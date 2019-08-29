@@ -373,7 +373,9 @@
 "local.TheUnknownSources" = "未知来源";
 "local.HaveSubscribed" = "已订阅";
 "local.DingDingNotification" = "钉钉通知";
+"local.DingDingNotificationAdress" = "钉钉通知地址";
 "local.CustomCallbacks" = "自定义回调";
+"local.CustomCallbacksAddress" = "自定义回调地址";
 "local.AddCustomCallbackAddress" = "添加自定义回调地址";
 "local.PleaseInputDingDingCallbackAddress" = "请输入钉钉回调地址";
 "local.PleaseInputCustomCallbackAddress" = "请输入自定义回调地址";
@@ -583,6 +585,11 @@
 "local.tip.AlreadyInDeveloperMode" = "已经是开发者模式";
 "local.tip.AlreadyTheLatestVersion" = "已是最新版本";
 "local.IgnoreIssue" = "不再诊断";
-
 "local.tip.IgnoreTipTitle" = "关闭此项诊断";
 "local.tip.IgnoreTipContent" = "此操作意味着系统不再对此情报的关联资产进行此项诊断，请确认。";
+"local.SMS" = "短信";
+"local.voice" = "语音";
+"local.SelectOrigin" = "选择来源";
+"local.BasicNotificationRule" = "基础通知规则";
+"local.DingNotificationRule" = "通知到钉钉";
+"local.CustomNotificationRule" = "通知到自定义地址";

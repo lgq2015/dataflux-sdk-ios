@@ -35,7 +35,7 @@
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
-    NSArray *array = @[@"ALL",@"",@"issueEngine",@"user",@"bizSystem",@"alertHub"];
+    NSArray *array = @[@"ALL",@"",@"crontab",@"user",@"bizSystem",@"alertHub"];
     [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         MineCellModel *model = [MineCellModel new];
         model.title = [obj getOriginStr];

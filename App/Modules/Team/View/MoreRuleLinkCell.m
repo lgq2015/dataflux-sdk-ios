@@ -32,6 +32,13 @@
         make.right.mas_equalTo(self).offset(-16);
     }];
 }
+- (void)noBtn{
+    self.minusBtn.hidden = YES;
+    [self.linkTf mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(16);
+    }];
+    self.linkTf.enabled = NO;
+}
 -(void)setLinkStr:(NSString *)linkStr{
     _linkStr = linkStr;
     self.linkTf.text = linkStr;

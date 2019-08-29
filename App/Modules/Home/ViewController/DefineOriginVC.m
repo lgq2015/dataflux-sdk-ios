@@ -10,7 +10,7 @@
 #import "TouchLargeButton.h"
 #import "IssueListManger.h"
 #import "HistoryCell.h"
-
+#import "SelectConditionVC.h"
 @interface DefineOriginVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITextField *originTf;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -84,8 +84,19 @@
         }
         [self saveHistoryData:[self.originTf.text removeFrontBackBlank]];
     }
-    [self.navigationController popToRootViewControllerAnimated:YES];
+   __block BOOL isHave = NO;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[SelectConditionVC class]]) {
+            *stop = YES;
+             isHave = YES;
+            [self.navigationController popToViewController:obj animated:YES];
+        }
+    }];
 
+    if (isHave == NO) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
 }
 - (void)saveHistoryData:(NSString *)text{
     [self.dataSource enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -150,8 +161,23 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     [self saveHistoryData:self.dataSource[indexPath.row]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.navBtnClick) {
+        self.navBtnClick(self.dataSource[indexPath.row]);
+    }
+    __block BOOL isHave = NO;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[SelectConditionVC class]]) {
+            *stop = YES;
+            isHave = YES;
+            [self.navigationController popToViewController:obj animated:YES];
+        }
+    }];
+    
+    if (isHave == NO) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 /*
 #pragma mark - Navigation

@@ -16,8 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *createAccountId;
 @property (nonatomic, strong) NSString *teamId;
 @property (nonatomic, assign) BOOL appNotification;
-@property (nonatomic, assign) BOOL dingtalkNotification;
+@property (nonatomic, assign) BOOL smsNotification;
+@property (nonatomic, assign) BOOL voiceNotification;
 @property (nonatomic, assign) BOOL emailNotification;
+
+@property (nonatomic, assign) BOOL customNotification;
+@property (nonatomic, assign) BOOL dingtalkNotification;
+
 @property (nonatomic, assign) BOOL subscribed;
 @property (nonatomic, assign) BOOL isDefault;
 @property (nonatomic, strong) NSString *startTime;

@@ -505,11 +505,24 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
-- (PWURLSessionTask *)getNotificationRuleListWithPage:(NSInteger )page  callBack:(void (^)(id response))callback{
+- (PWURLSessionTask *)getNotificationRuleListWithRuleStyle:(NotiRuleStyle)ruleStyle page:(NSInteger)page callBack:(void (^)(id))callback{
     NotiRuleListModel *model = [NotiRuleListModel new];
-    NSDictionary *param = @{@"pageSize":@10,
+    NSMutableDictionary *param  = [NSMutableDictionary new];
+    param = [@{@"pageSize":@10,
                             @"pageIndex":[NSNumber numberWithInteger:page]
-                            };
+                            } mutableCopy];
+    switch (ruleStyle) {
+        case NotiRuleBasic:
+            [param addEntriesFromDictionary:@{@"filter":@"app,sms,voice,email"}];
+            break;
+        case NotiRuleDing:{
+            [param addEntriesFromDictionary:@{@"filter":@"dingtalk"}];
+        }
+            break;
+        case NotiRuleCustom:
+            [param addEntriesFromDictionary:@{@"filter":@"custom"}];
+            break;
+    }
     return [PWNetworking requsetHasTokenWithUrl:PW_nofiticationRuleList
                                 withRequestType:NetworkGetType
                                  refreshRequest:NO
