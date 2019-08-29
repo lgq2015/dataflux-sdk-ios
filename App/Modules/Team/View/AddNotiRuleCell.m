@@ -39,6 +39,23 @@
         make.height.offset(ZOOM_SCALE(16));
     }];
 }
+-(void)hideArrow{
+    UIImageView *arrow =[self viewWithTag:22];
+    arrow.hidden = YES;
+}
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    for (UIView *subview in self.contentView.superview.subviews) {
+        if ([NSStringFromClass(subview.class) hasSuffix:@"SeparatorView"]) {
+            subview.hidden = NO;
+            CGRect frame = subview.frame;
+            frame.origin.x += self.separatorInset.left;
+            frame.size.width -= self.separatorInset.right;
+            subview.frame =frame;
+        }
+    }
+}
+
 -(void)setModel:(AddNotiRuleModel *)model{
     _model = model;
     self.titleLab.text = model.title;

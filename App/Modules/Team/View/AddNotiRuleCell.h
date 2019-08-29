@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) AddNotiRuleModel *model;
 @property (nonatomic, copy) void (^ruleNameClick)(NSString *ruleName);
 @property (nonatomic, assign) BOOL isTF;
+-(void)hideArrow;
 @end
 
 NS_ASSUME_NONNULL_END
