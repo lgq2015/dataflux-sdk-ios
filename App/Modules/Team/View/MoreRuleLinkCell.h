@@ -15,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *linkStr;
 @property (nonatomic, copy) void (^linkBlock)(NSString *str);
 @property (nonatomic, copy) void (^minusBlock)(void);
-
-
+- (void)noBtn;
 @end
 
 NS_ASSUME_NONNULL_END
