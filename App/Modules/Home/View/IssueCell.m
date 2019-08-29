@@ -117,7 +117,7 @@
         self.issueStateLab.hidden = NO;
         if(model.recovered){
             self.issueStateLab.text = @"已恢复";
-            self.issueStateLab.textColor =[UIColor colorWithHexString:@"#8E8E93"];
+            self.issueStateLab.textColor =[UIColor colorWithHexString:@"#54DBAD"];
         }else{
             self.issueStateLab.text = @"活跃";
             self.issueStateLab.textColor = PWBlueColor;
