@@ -5,7 +5,11 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-
+typedef NS_ENUM(NSInteger, NotiRuleStyle){
+    NotiRuleBasic = 1,
+    NotiRuleDing,
+    NotiRuleCustom,
+};
 @interface PWHttpEngine : NSObject
 
 + (instancetype)sharedInstance;
@@ -71,7 +75,7 @@
 - (PWURLSessionTask *)issueWatchWithIssueId:(NSString *)issueId isWatch:(BOOL)isWatch callBack:(void (^)(id response))callback;
 
 - (PWURLSessionTask *)deviceRegistration:(NSString *)deviceId registrationId:(NSString *)registrationId callBack:(void (^)(id response))callback;
-- (PWURLSessionTask *)getNotificationRuleListWithPage:(NSInteger )page  callBack:(void (^)(id response))callback;
+- (PWURLSessionTask *)getNotificationRuleListWithRuleStyle:(NotiRuleStyle)ruleStyle page:(NSInteger )page  callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)subscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)unsubscribeNotificationRuleWithID:(NSString *)ruleID callBack:(void (^)(id response))callback;
 - (PWURLSessionTask *)deleteNotificationRuleWithRuleId:(NSString *)ruleID
