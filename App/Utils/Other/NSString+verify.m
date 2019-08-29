@@ -493,7 +493,7 @@
         return NSLocalizedString(@"local.CustomSource", @"");
     }else if([self isEqualToString:ILMStringAll]){
         return NSLocalizedString(@"local.AllOrigin", @"");
-    }else if([self isEqualToString:@""]){
+    }else if([self isEqualToString:@""] || [self isEqualToString:NSLocalizedString(@"local.TheUnknownSources", @"")]){
         return [NSString stringWithFormat:@"<%@>",NSLocalizedString(@"local.TheUnknownSources", @"")];
     }else{
         return self;
