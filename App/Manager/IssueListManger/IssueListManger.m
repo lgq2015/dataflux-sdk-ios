@@ -655,7 +655,7 @@ NSString *const ILMStringAll = @"ALL";
             
             orignStr = sel.issueOrigin.origin;
             if (orignStr.length>0) {
-                if([orignStr isEqualToString:@"issueEngine"]){
+                if([orignStr isEqualToString:@"crontab"]){
                     orignStr = @"originExecMode ='crontab'";
                 }else if([orignStr isEqualToString:@"alertHub"]){
                     orignStr = [NSString stringWithFormat:@"originExecMode ='alertHub' AND originInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueOrigin.name];
