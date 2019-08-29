@@ -13,7 +13,8 @@
 #import "RuleModel.h"
 #import "IssueSourceManger.h"
 #import "SelectVC.h"
-
+#import "SelectOriginVC.h"
+#import "OriginModel.h"
 @interface SelectConditionVC ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSString *keyStr;
@@ -49,6 +50,7 @@
         self.model =[RuleModel new];
     subtitleAry =   @[NSLocalizedString(@"local.AllOrigin",@""),NSLocalizedString(@"local.allIssueSource",@"") ,NSLocalizedString(@"local.allIssueType",@""),NSLocalizedString(@"local.allIssueLevel",@"")];
     }else{
+        
         subtitleAry = @[[self originStr],[self sourceStr],[self issueTypeStr],[self issueLevelStr]];
     }
     for (NSInteger i=0; i<titleAry.count; i++) {
@@ -60,8 +62,11 @@
     }
 }
 - (NSString *)originStr{
-//    NSString *origin;
-    return NSLocalizedString(@"local.AllOrigin",@"");
+    if (self.model.origin.count == 0) {
+        return NSLocalizedString(@"local.AllOrigin",@"");
+    }else{
+      return  [self.model.origin[0] getOriginStr];
+    }
 }
 - (NSString *)sourceStr{
     NSString *source;
@@ -170,14 +175,14 @@
         WeakSelf
     switch (indexPath.row) {
         case 1:{
-            SelectVC *select = [[SelectVC alloc]initWithStyle:SelectIssueOrigin];
-            select.model = weakSelf.model;
-            select.selectBlock = ^(RuleModel * _Nonnull ruleModel) {
-                weakSelf.model = weakSelf.model;
-                model.subTitle = [weakSelf originStr];
+            SelectOriginVC *origin = [[SelectOriginVC alloc]init];
+            origin.itemClick = ^(OriginModel * _Nonnull origin) {
+                weakSelf.model.origin = @[origin.name];
+                model.subTitle = origin.name;
                 [weakSelf.tableView reloadData];
             };
-            [self.navigationController pushViewController:select animated:YES];
+            
+            [self.navigationController pushViewController:origin animated:YES];
         }
             break;
         case 2:{

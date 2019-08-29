@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DefineOriginVC : RootViewController
 @property (nonatomic, copy) void(^navBtnClick)(NSString *origin);
-
+@property (nonatomic, assign) BOOL back;
 @end
 
 NS_ASSUME_NONNULL_END

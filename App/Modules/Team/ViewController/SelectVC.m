@@ -13,6 +13,9 @@
 #import "MultipleSelectModel.h"
 #import "MultipleSelectCell.h"
 #import "NotiRuleModel.h"
+#import "MineCellModel.h"
+#import "MineViewCell.h"
+#import "DefineOriginVC.h"
 @interface SelectVC ()<UIGestureRecognizerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, assign) SelectStyle style;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -64,10 +67,6 @@
             [self createNotificationWayData];
 
             break;
-        case SelectIssueOrigin:
-            self.title = NSLocalizedString(@"local.SelectOrigin", @"");
-            [self createOriginData];
-            break;
     }
     [self.view addSubview:self.tableView];
     self.tableView.contentInset =  UIEdgeInsetsMake(12, 0, 0, 0);
@@ -98,8 +97,8 @@
     [self.tableView reloadData];
 }
 - (void)createNotificationWayData{
-    NSArray *type = @[@"App",@"email",@"SMS"];
-    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @""),NSLocalizedString(@"local.SMS", @"")];
+    NSArray *type = @[@"App",@"email",@"SMS",@"voice"];
+    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @""),NSLocalizedString(@"local.SMS", @""),NSLocalizedString(@"local.voice", @"")];
     MultipleSelectModel *model = [MultipleSelectModel new];
     model.name = name[0];
     model.selectId = type[0];
@@ -119,8 +118,16 @@
     SMSModel.name = name[2];
     SMSModel.selectId = type[2];
     SMSModel.allSelect = NO;
-    SMSModel.isSelect = self.sendModel.emailNotification;
+    SMSModel.isSelect = self.sendModel.smsNotification;
     [self.dataSource addObject:SMSModel];
+
+    MultipleSelectModel *voiceModel = [MultipleSelectModel new];
+    voiceModel.name = name[3];
+    voiceModel.selectId = type[3];
+    voiceModel.allSelect = NO;
+    voiceModel.isSelect = self.sendModel.voiceNotification;
+    [self.dataSource addObject:voiceModel];
+
     [self.tableView reloadData];
 }
 - (void)createLevelAry{
@@ -187,11 +194,6 @@
         
     });
 }
-- (void)createOriginData{
-    NSArray *type = @[@"ALL",@"",@"issueEngine",@"user",@"bizSystem",@"alertHub"];
-    
-}
-
 -(void)saveData{
     WeakSelf
     switch (self.style) {
@@ -255,18 +257,19 @@
             break;
         case SelectNotificationWay:{
             MultipleSelectModel *appModel = [self.dataSource firstObject];
-            MultipleSelectModel *email = [self.dataSource lastObject];
+            MultipleSelectModel *email = self.dataSource[1];
+            MultipleSelectModel *sms = self.dataSource[2];
+            MultipleSelectModel *voice = self.dataSource[3];
 
             self.sendModel.appNotification = appModel.isSelect;
             self.sendModel.emailNotification = email.isSelect;
+            self.sendModel.smsNotification = sms.isSelect;
+            self.sendModel.voiceNotification = voice.isSelect;
             if (self.selectRuleBlock) {
                 self.selectRuleBlock(weakSelf.sendModel);
             }
         }
             break;
-        case SelectIssueOrigin:
-            
-             break;
     }
 }
 
@@ -341,17 +344,6 @@
                     }
                 }
             }
-//            if (self.selectCount == self.dataSource.count-1) {
-//                for (MultipleSelectModel *model in self.dataSource) {
-//                    if( model.allSelect == NO && model.isSelect){
-//                        model.isSelect = NO;
-//                    }else{
-//                        model.isSelect = YES;
-//                        self.hasAllCell = YES;
-//                        self.selectCount = 1;
-//                    }
-//                }
-//            }
         }
 
       

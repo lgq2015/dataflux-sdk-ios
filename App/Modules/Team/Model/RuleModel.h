@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *issueSource;
 @property (nonatomic, strong) NSArray *level;
 @property (nonatomic, strong) NSArray *type;
+@property (nonatomic, strong) NSArray *origin;
 @property (nonatomic, strong) NSDictionary *tags;
 @end
 
