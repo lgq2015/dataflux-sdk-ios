@@ -7,16 +7,17 @@
 //
 
 #import "RootViewController.h"
-typedef NS_ENUM(NSInteger, AddNotiRuleStyle){
+typedef NS_ENUM(NSInteger, AddNotiRuleViewStyle){
     AddNotiRuleAdd,
     AddNotiRuleEdit,
     AddNotiRuleLookOver,
 };
+
 NS_ASSUME_NONNULL_BEGIN
 @class NotiRuleModel;
 @interface AddNotiRuleVC : RootViewController
 @property (nonatomic, strong) NotiRuleModel *sendModel;
--(instancetype)initWithStyle:(AddNotiRuleStyle)style;
+-(instancetype)initWithStyle:(AddNotiRuleViewStyle)style ruleStyle:(NotiRuleStyle)ruleStyle;
 @end
 
 NS_ASSUME_NONNULL_END

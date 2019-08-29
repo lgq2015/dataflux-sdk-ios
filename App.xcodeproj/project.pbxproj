@@ -333,6 +333,9 @@
 		4A241F7A230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
 		4A241F7B230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
 		4A241F7C230A4D0B00DC47A9 /* FavoritesListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */; };
+		4A241F7F2316595E00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
+		4A241F802316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
+		4A241F812316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
 		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
@@ -1403,6 +1406,8 @@
 		4A241F6F23040AE200DC47A9 /* AuthTeamListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthTeamListModel.m; sourceTree = "<group>"; };
 		4A241F78230A4D0B00DC47A9 /* FavoritesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesListModel.h; sourceTree = "<group>"; };
 		4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesListModel.m; sourceTree = "<group>"; };
+		4A241F7D2316595E00DC47A9 /* SelectNotiRuleTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectNotiRuleTypeView.h; sourceTree = "<group>"; };
+		4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectNotiRuleTypeView.m; sourceTree = "<group>"; };
 		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
 		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
 		4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
@@ -2162,6 +2167,8 @@
 				4A00DE2322D8AC81008462AF /* MoreRuleLinkCell.m */,
 				4A00DE2C22DC1AB6008462AF /* TeamHeaderView.h */,
 				4A00DE2D22DC1AB6008462AF /* TeamHeaderView.m */,
+				4A241F7D2316595E00DC47A9 /* SelectNotiRuleTypeView.h */,
+				4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4348,6 +4355,7 @@
 				4A00DE1A22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2422D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				2BE9F168225A4B4300C33669 /* ZYSocialManager.m in Sources */,
+				4A241F7F2316595E00DC47A9 /* SelectNotiRuleTypeView.m in Sources */,
 				4AF663A0225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE12283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E22E595C2226F86093CE9 /* LaunchVC.m in Sources */,
@@ -4698,6 +4706,7 @@
 				4A00DE1B22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2522D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				2BE9F169225A4B4300C33669 /* ZYSocialManager.m in Sources */,
+				4A241F802316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */,
 				4AF663A1225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE22283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E22655F19E0F542A22653 /* LaunchVC.m in Sources */,
@@ -5048,6 +5057,7 @@
 				4A00DE1C22D87DB7008462AF /* MultipleSelectModel.m in Sources */,
 				4A00DE2622D8AC81008462AF /* MoreRuleLinkCell.m in Sources */,
 				2BE9F16A225A4B4300C33669 /* ZYSocialManager.m in Sources */,
+				4A241F812316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */,
 				4AF663A2225F747600E551B9 /* SVProgressAnimatedView.m in Sources */,
 				4AA4CEE32283F0ED00A2CBE1 /* IssueLastReadInfoModel.m in Sources */,
 				6B6E267E89BE5B1F93FE06E0 /* LaunchVC.m in Sources */,
