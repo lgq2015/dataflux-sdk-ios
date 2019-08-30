@@ -460,10 +460,27 @@
 }
 - (void)dealLink{
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    NSMutableArray *linkArray = [[NSMutableArray alloc]initWithArray:[self.dataSource lastObject]];
+    NSMutableArray *linkArray = [NSMutableArray new];
+    __block BOOL hasNull = NO;
+    [[self.dataSource lastObject] enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj removeFrontBackBlank].length == 0) {
+            *stop = YES;
+            hasNull = YES;
+        }else{
+            [linkArray addObject:[obj removeFrontBackBlank]];
+        }
+    }];
     if (self.ruleStyle == NotiRuleDing) {
+        if (hasNull) {
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseInputDingDingCallbackAddress", @"")];
+            return;
+        }
         self.model.dingtalkAddress = [linkArray subarrayWithRange:NSMakeRange(0, linkArray.count-1)];
     }else{
+        if (hasNull) {
+            [iToast alertWithTitleCenter:NSLocalizedString(@"local.PleaseInputCustomCallbackAddress", @"")];
+            return;
+        }
         self.model.customAddress = [linkArray subarrayWithRange:NSMakeRange(0, linkArray.count-1)];
     }
 }
