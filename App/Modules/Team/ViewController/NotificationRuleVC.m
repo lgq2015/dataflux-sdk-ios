@@ -90,6 +90,7 @@
                 [self showNoDataImage];
             }else{
             if(model.list.count<10 ){
+                [self removeNoDataImage];
                 [self showNoMoreDataFooter];
             }else{
             self.currentPage ++;
