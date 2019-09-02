@@ -112,6 +112,7 @@
             }];
         }
     }];
+    [self loadTeamProductData];
 }
 - (void)loadTeamProductData{
     [userManager getTeamProduct:^(BOOL isSuccess, NSDictionary *product) {
