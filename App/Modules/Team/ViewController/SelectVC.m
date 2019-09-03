@@ -98,7 +98,7 @@
 }
 - (void)createNotificationWayData{
     NSArray *type = @[@"App",@"email",@"SMS",@"voice"];
-    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @""),NSLocalizedString(@"local.SMS", @""),NSLocalizedString(@"local.voice", @"")];
+    NSArray *name = @[@"App",NSLocalizedString(@"local.mailbox", @""),NSLocalizedString(@"local.SMS", @"")];
     MultipleSelectModel *model = [MultipleSelectModel new];
     model.name = name[0];
     model.selectId = type[0];
@@ -121,12 +121,12 @@
     SMSModel.isSelect = self.sendModel.smsNotification;
     [self.dataSource addObject:SMSModel];
 
-    MultipleSelectModel *voiceModel = [MultipleSelectModel new];
-    voiceModel.name = name[3];
-    voiceModel.selectId = type[3];
-    voiceModel.allSelect = NO;
-    voiceModel.isSelect = self.sendModel.voiceNotification;
-    [self.dataSource addObject:voiceModel];
+//    MultipleSelectModel *voiceModel = [MultipleSelectModel new];
+//    voiceModel.name = name[3];
+//    voiceModel.selectId = type[3];
+//    voiceModel.allSelect = NO;
+//    voiceModel.isSelect = self.sendModel.voiceNotification;
+//    [self.dataSource addObject:voiceModel];
 
     [self.tableView reloadData];
 }
@@ -259,12 +259,12 @@
             MultipleSelectModel *appModel = [self.dataSource firstObject];
             MultipleSelectModel *email = self.dataSource[1];
             MultipleSelectModel *sms = self.dataSource[2];
-            MultipleSelectModel *voice = self.dataSource[3];
+//            MultipleSelectModel *voice = self.dataSource[3];
 
             self.sendModel.appNotification = appModel.isSelect;
             self.sendModel.emailNotification = email.isSelect;
             self.sendModel.smsNotification = sms.isSelect;
-            self.sendModel.voiceNotification = voice.isSelect;
+//            self.sendModel.voiceNotification = voice.isSelect;
             if (self.selectRuleBlock) {
                 self.selectRuleBlock(weakSelf.sendModel);
             }
