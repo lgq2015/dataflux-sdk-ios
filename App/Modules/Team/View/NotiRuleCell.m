@@ -104,6 +104,9 @@
                 [subView addSubview:self.notiWayLab];
                 [subView addSubview:self.timeLab];
                 [subView addSubview:self.weekLab];
+                self.subscribeBtn.hidden = NO;
+                self.subscribeLab.hidden = NO;
+
                 break;
             case NotiRuleDing:
                 iconAry = @[@"icon_ding",@"icon_time",@"icon_weekc"];
@@ -112,6 +115,8 @@
                 [subView addSubview:self.dingNoti];
                 [subView addSubview:self.timeLab];
                 [subView addSubview:self.weekLab];
+                self.subscribeBtn.hidden = YES;
+                self.subscribeLab.hidden = YES;
                 break;
             case NotiRuleCustom:
                 iconAry = @[@"icon_customcallbacks",@"icon_time",@"icon_weekc"];
@@ -120,6 +125,8 @@
                 [subView addSubview:self.customNoti];
                 [subView addSubview:self.timeLab];
                 [subView addSubview:self.weekLab];
+                self.subscribeBtn.hidden = YES;
+                self.subscribeLab.hidden = YES;
                 break;
         }
        
