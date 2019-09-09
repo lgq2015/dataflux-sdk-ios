@@ -12,7 +12,7 @@
 #import "MessageDetailVC.h"
 #import "PWBaseWebVC.h"
 #import "ZhugeIOMineHelper.h"
-
+#import "UtilsConstManager.h"
 @interface MineMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger pageIndex;
@@ -45,6 +45,8 @@
     self.tableView.tableHeaderView = header;
 }
 -(void)loadData{
+    [[UtilsConstManager sharedUtilsConstManager] getSystemMessageTypeNameByKey:@"system" name:^(NSString * _Nonnull name) {
+    }];
     [SVProgressHUD show];
     self.dataSource = [NSMutableArray new];
     self.pageIndex = 1;
