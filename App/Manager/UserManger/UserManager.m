@@ -413,7 +413,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 *stop = YES;
             }
                if( [memberModel.memberID  isEqualToString:memberId]){
-                    memberDict = [obj copy];
+                    memberDict = [memberModel copy];
                     *stop = YES;
                 }
         }];
