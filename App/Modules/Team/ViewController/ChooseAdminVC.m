@@ -12,6 +12,7 @@
 #import "MemberInfoVC.h"
 #import "ZTSearchBar.h"
 #import "ChangeUserInfoVC.h"
+#import "TeamAccountListModel.h"
 @interface ChooseAdminVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -56,16 +57,15 @@
            [self dealWithDatas:member];
         }
     }];
-  
-    [PWNetworking requsetHasTokenWithUrl:PW_TeamAccount withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
-        if ([response[ERROR_CODE] isEqualToString:@""]) {
-            NSArray *content = response[@"content"];
-            [self dealWithDatas:content];
+    [[PWHttpEngine sharedInstance] getCurrentTeamMemberListWithCallBack:^(id response) {
+        TeamAccountListModel *model = response;
+        [self.header endRefreshing];
+        if (model.isSuccess) {
+            [self dealWithDatas:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
         }
-    } failBlock:^(NSError *error) {
-        
     }];
-    
 }
 - (void)dealWithDatas:(NSArray *)content{
     self.teamMemberArray = [NSMutableArray new];
