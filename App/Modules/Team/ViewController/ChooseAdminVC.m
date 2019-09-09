@@ -69,9 +69,7 @@
 }
 - (void)dealWithDatas:(NSArray *)content{
     self.teamMemberArray = [NSMutableArray new];
-    [content enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSError *error;
-        MemberInfoModel *model =[[MemberInfoModel alloc]initWithDictionary:dict error:&error];
+    [content enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *memberID= model.memberID;
         if (![memberID isEqualToString:getPWUserID]) {
          [self.teamMemberArray addObject:model];

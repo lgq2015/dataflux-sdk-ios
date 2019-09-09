@@ -362,7 +362,17 @@ SINGLETON_FOR_CLASS(UserManager);
     YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
     if (teamMember) {
-        memberBlock ? memberBlock(YES,teamMember):nil;
+        NSMutableArray *array = [NSMutableArray new];
+        [[teamMember copy]enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSDictionary.class]) {
+                NSError *error;
+                MemberInfoModel *model = [[MemberInfoModel alloc]initWithDictionary:obj error:&error];
+                [array addObject:model];
+            }else if([obj isKindOfClass:MemberInfoModel.class]){
+                [array addObjectsFromArray:teamMember];
+            }
+        } ];
+        memberBlock ? memberBlock(YES,array):nil;
     }else{
         memberBlock ? memberBlock(NO,nil):nil;
     }
@@ -392,8 +402,17 @@ SINGLETON_FOR_CLASS(UserManager);
     NSArray *teamMember = (NSArray *)[cache objectForKey:KTeamMemberCacheName];
     __block MemberInfoModel *memberDict = nil;
     if (teamMember) {
-        [teamMember enumerateObjectsUsingBlock:^(MemberInfoModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if( [obj.memberID  isEqualToString:memberId]){
+        [teamMember enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            MemberInfoModel *memberModel;
+            if ([obj isKindOfClass:MemberInfoModel.class] ) {
+                memberModel = obj;
+            }else if([obj isKindOfClass:NSDictionary.class]){
+                NSError *error;
+                memberModel = [[MemberInfoModel alloc]initWithDictionary:obj error:&error];
+            }else{
+                *stop = YES;
+            }
+               if( [memberModel.memberID  isEqualToString:memberId]){
                     memberDict = [obj copy];
                     *stop = YES;
                 }
