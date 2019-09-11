@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class NotiRuleModel;
 @interface AddNotiRuleVC : RootViewController
 @property (nonatomic, strong) NotiRuleModel *sendModel;
+@property (nonatomic, copy) void(^refreshList)(void);
 -(instancetype)initWithStyle:(AddNotiRuleViewStyle)style ruleStyle:(NotiRuleStyle)ruleStyle;
 @end
 

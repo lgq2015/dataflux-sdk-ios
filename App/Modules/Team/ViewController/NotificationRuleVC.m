@@ -38,7 +38,6 @@
     self.dingDataSource = [NSMutableArray new];
       self.currentPage = 1;
     [self loadData];
-    [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadRuleList object:nil];
     // Do any additional setup after loading the view.
 }
 - (void)createUI{
@@ -61,6 +60,10 @@
 }
 - (void)navBtnClick{
     AddNotiRuleVC *addRule = [[AddNotiRuleVC alloc]initWithStyle:AddNotiRuleAdd ruleStyle:self.ruleStyle];
+    WeakSelf
+    addRule.refreshList = ^{
+        [weakSelf headerRefreshing];
+    };
     [self.navigationController pushViewController:addRule animated:YES];
 }
 - (void)loadData{
@@ -253,6 +256,10 @@
     style = [self handlePermissonWithModel:self.dataSource[indexPath.row]]?AddNotiRuleEdit:AddNotiRuleLookOver;
     AddNotiRuleVC *detailVC = [[AddNotiRuleVC alloc]initWithStyle:style ruleStyle:self.ruleStyle];
     detailVC.sendModel = self.dataSource[indexPath.row];
+    WeakSelf
+    detailVC.refreshList = ^{
+        [weakSelf headerRefreshing];
+    };
     [self.navigationController pushViewController:detailVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 

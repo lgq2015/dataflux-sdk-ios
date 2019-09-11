@@ -432,7 +432,9 @@
             [SVProgressHUD dismiss];
             BaseReturnModel *model = response;
             if (model.isSuccess) {
-                KPostNotification(KNotificationReloadRuleList, nil);
+                if (self.refreshList) {
+                    self.refreshList();
+                }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 if([model.errorCode isEqualToString:model.errorMsg]){
@@ -448,8 +450,9 @@
              [SVProgressHUD dismiss];
             BaseReturnModel *model = response;
             if (model.isSuccess) {
-                KPostNotification(KNotificationReloadRuleList, nil);
-
+                if (self.refreshList) {
+                    self.refreshList();
+                }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
