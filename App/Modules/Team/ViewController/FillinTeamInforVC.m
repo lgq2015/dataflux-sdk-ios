@@ -337,13 +337,15 @@
                     param= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
                 }
                 [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+                    [SVProgressHUD dismiss];
                     if ([response[ERROR_CODE] isEqualToString:@""]) {
                         if (self.changeSuccess) {
                             self.changeSuccess();
                         }
                         [self.navigationController popViewControllerAnimated:YES];
+                    }else{
+                        [iToast alertWithTitleCenter:NSLocalizedString([response[ERROR_CODE] toErrString], @"")];
                     }
-                    [SVProgressHUD dismiss];
                     
                 } failBlock:^(NSError *error) {
                     [SVProgressHUD dismiss];
