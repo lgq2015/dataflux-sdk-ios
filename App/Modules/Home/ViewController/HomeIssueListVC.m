@@ -15,6 +15,7 @@
 #import "TeamInfoModel.h"
 #import "ZYChangeTeamUIManager.h"
 #import "IssueSelectHeaderView.h"
+#import "SearchIssueVC.h"
 
 @interface HomeIssueListVC ()<IssueSelectHeaderDelegate>
 @property (nonatomic, strong) IssueSelectHeaderView *headerView;
@@ -60,6 +61,15 @@
     [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(nav).offset(-20);
         make.right.mas_equalTo(nav).offset(-13);
+        make.width.height.offset(28);
+    }];
+    UIButton *searchBtn = [[UIButton alloc]init];
+    [searchBtn setImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [nav addSubview:searchBtn];
+    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(nav).offset(-20);
+        make.right.mas_equalTo(scanBtn.mas_left).offset(-20);
         make.width.height.offset(28);
     }];
     nav.backgroundColor = PWWhiteColor;
@@ -159,7 +169,19 @@
     RootNavigationController *nav = [[RootNavigationController alloc] initWithRootViewController:scan];
     [self presentViewController:nav animated:YES completion:nil];
 }
-
+- (void)searchBtnClick{
+    if(self.headerView.selView.isShow){
+        [self.headerView.selView disMissView];
+    }else if (self.headerView.sortView.isShow) {
+        [self.headerView.sortView disMissView];
+    }else if(self.headerView.isMineView.isShow){
+        [self.headerView.isMineView disMissView];
+    }
+    [_changeTeamView dismiss];
+    SearchIssueVC *search = [[SearchIssueVC alloc]init];
+    search.isHidenNaviBar = YES;
+    [self.navigationController pushViewController:search animated:YES];
+}
 -(ZYChangeTeamUIManager *)changeTeamView{
     if (!_changeTeamView) {
         _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
