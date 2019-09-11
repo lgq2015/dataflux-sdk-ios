@@ -186,6 +186,23 @@ NSString *const ILMStringAll = @"ALL";
     }
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
+- (void)setSearchIssueTitleArray:(NSArray *)array{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KHistoryTitleSearch];
+    if(isContain){
+        cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
+    }
+    [cache setObject:array forKey:KHistoryTitleSearch];
+}
+- (NSArray *)getHistoryTitleInput{
+    YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    BOOL isContain= [cache containsObjectForKey:KHistoryTitleSearch];
+    if (isContain) {
+        return  (NSArray *)[cache objectForKey:KHistoryTitleSearch];
+    }else{
+        return nil;
+    }
+}
 - (NSArray *)getHistoryOriginInput{
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
     BOOL isContain= [cache containsObjectForKey:KHistoryOriginSearch];

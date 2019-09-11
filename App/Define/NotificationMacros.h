@@ -89,6 +89,7 @@
 #define KCurrentSelectObject       @"KCurrentSelectObject"
 #define KCurrentIssueListType      [NSString stringWithFormat:@"%@/KCurrentIssueListType", getPWDefaultTeamID]
 #define KHistoryOriginSearch       [NSString stringWithFormat:@"%@/KHistoryOriginSearch", getPWDefaultTeamID]
+#define KHistoryTitleSearch        [NSString stringWithFormat:@"%@/KHistoryTitleSearch", getPWDefaultTeamID]
 //库名
 #define KIssueListType             @"KIssueListType"
 #define KCurrentIssueViewType      @"KCurrentIssueViewType"

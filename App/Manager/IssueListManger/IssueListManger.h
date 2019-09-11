@@ -82,8 +82,9 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (SelectObject *)getCurrentSelectObject;
 - (void)setCurrentSelectObject:(SelectObject *)sel;
 - (NSArray *)getHistoryOriginInput;
+- (NSArray *)getHistoryTitleInput;
 - (void)setHistoryOriginInputWithArray:(NSArray *)array;
-
+- (void)setSearchIssueTitleArray:(NSArray *)array;
 /**
  首页 判断非自建情报 是否存在严重、紧急、一般状态的情报
  @return YES 存在  NO 不存在
