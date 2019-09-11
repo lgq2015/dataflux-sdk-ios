@@ -16,9 +16,10 @@
 #import "UITableViewCell+ZTCategory.h"
 #import "ZhugeIOLibraryHelper.h"
 #import "NSString+ErrorCode.h"
+#import "SearchBarView.h"
 
 #define seperatorLineH 4.0
-@interface LibrarySearchVC ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface LibrarySearchVC ()<UITableViewDelegate,UITableViewDataSource,SearchBarViewDelegate>
 
 
 /**
@@ -27,10 +28,8 @@
 @property (copy, nonatomic) NSString *inputText;
 
 @property (nonatomic, strong) HistoryTableView *historytableView;
-@property (nonatomic, strong) UIView *searchBar;
+@property (nonatomic, strong) SearchBarView *searchBar;
 @property (nonatomic, strong) NSMutableArray *historyData;
-@property (nonatomic, strong) UITextField *searchTF;
-
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
@@ -45,16 +44,16 @@
 - (void)initSearchBar
 {
     self.searchBar.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
+    self.searchBar.isSynchronous = self.isLocal;
+    self.searchBar.placeHolder = self.placeHolder;
     self.historytableView = [[HistoryTableView alloc]initWithFrame:CGRectMake(0, kTopHeight, kWidth, kHeight-kTopHeight)];
     WeakSelf;
     self.historytableView.searchItem =^(NSString *search){
-        [weakSelf.searchTF resignFirstResponder];
-        weakSelf.searchTF.text = search;
+        weakSelf.searchBar.searchText = search;
         [weakSelf saveHistoryData:search];
         [weakSelf searchHandBookWith:search];
     };
     [self.view addSubview:self.historytableView];
-    self.searchTF.placeholder = self.placeHolder;
 }
 - (void)createUI{
     self.historyData = [NSMutableArray new];
@@ -71,14 +70,7 @@
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableView];
     self.tableView.hidden = YES;
-    [self.searchTF becomeFirstResponder];
-    if (self.isLocal) {
-        [[self.searchTF rac_textSignal] subscribeNext:^(NSString *x) {
-            if (x.length>0) {
-            [self searchLocalDataWith:x];
-            }
-        }];
-    }
+    
 }
 -(void)searchLocalDataWith:(NSString *)text{
     self.dataSource = [NSMutableArray new];
@@ -103,81 +95,30 @@
     }
    
 }
-- (UIView *)searchBar
+- (SearchBarView *)searchBar
 {
     if (!_searchBar)
     {
-        _searchBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
+        _searchBar = [[SearchBarView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight)];
         [self.view addSubview:_searchBar];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
-        line.backgroundColor = PWLineColor;
-        [_searchBar addSubview:line];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.width.left.right.mas_equalTo(_searchBar);
-            make.height.offset(1);
-        }];
-       UIView * searchView = [[UIView alloc]initWithFrame:CGRectZero];
-        searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
-        searchView.layer.cornerRadius = 4.0f;
-        [_searchBar addSubview:searchView];
-        [searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(_searchBar).offset(16);
-            make.width.offset(ZOOM_SCALE(290));
-            make.height.offset(36);
-            make.bottom.mas_equalTo(_searchBar).offset(-Interval(3));
-        }];
-        UIButton *cancle = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.cancel", @"")];
-        [cancle addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [cancle setTitleColor:PWBlueColor forState:UIControlStateNormal];
-        [_searchBar addSubview:cancle];
-        [cancle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(searchView);
-            make.right.mas_equalTo(self.view).offset(-Interval(14));
-            make.height.offset(ZOOM_SCALE(22));
-        }];
-       UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_search_gray"]];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(searchClick)];
-        [icon addGestureRecognizer:tap];
-        [_searchBar addSubview:icon];
-        [icon mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(searchView);
-            make.left.mas_equalTo(searchView).offset(5);
-            make.width.height.offset(30);
-        }];
-        [_searchBar addSubview:self.searchTF];
-        [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(icon.mas_right).offset(3);
-            make.centerY.mas_equalTo(icon);
-            make.right.mas_equalTo(searchView);
-            make.height.mas_equalTo(searchView);
-        }];
+        _searchBar.delegate = self;
     }
     return _searchBar;
 }
--(UITextField *)searchTF{
-    if (!_searchTF) {
-        _searchTF = [PWCommonCtrl textFieldWithFrame:CGRectZero font:RegularFONT(14)];
-        _searchTF.delegate = self;
-    }
-    return  _searchTF;
-}
+#pragma mark ========== SearchBarViewDelegate ==========
 - (void)cancleBtnClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)searchClick{
+- (void)searchWithText:(NSString *)text{
     if (self.isLocal) {
-        [self searchLocalDataWith:self.searchTF.text];
+        [self searchLocalDataWith:text];
     }else{
-        [self searchHandBookWith:self.searchTF.text];
+        [self searchHandBookWith:text];
     }
+    [self saveHistoryData:text];
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    if(textField.text.length != 0){
-        [self saveHistoryData:textField.text];
-        [self searchHandBookWith:textField.text];
-    }
-    return YES;
+- (void)synchronousSearchText:(NSString *)text{
+     [self searchLocalDataWith:text];
 }
 - (void)saveHistoryData:(NSString *)text{
     self.historyData = [NSMutableArray new];

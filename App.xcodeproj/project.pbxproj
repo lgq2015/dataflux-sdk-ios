@@ -463,6 +463,12 @@
 		4A6114A421E2EB8500E4138B /* ContactUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A321E2EB8500E4138B /* ContactUsVC.m */; };
 		4A6114AA21E3491700E4138B /* PWCommonCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114A921E3491700E4138B /* PWCommonCtrl.m */; };
 		4A6114B521E5958300E4138B /* MultimodeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6114B421E5958300E4138B /* MultimodeLabel.m */; };
+		4A63A3322328C7C60027C7A1 /* SearchIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */; };
+		4A63A3332328C7C60027C7A1 /* SearchIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */; };
+		4A63A3342328C7C60027C7A1 /* SearchIssueVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */; };
+		4A63A3382328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
+		4A63A3392328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
+		4A63A33A2328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -1500,6 +1506,10 @@
 		4A6114A921E3491700E4138B /* PWCommonCtrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCommonCtrl.m; sourceTree = "<group>"; };
 		4A6114B321E5958300E4138B /* MultimodeLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultimodeLabel.h; sourceTree = "<group>"; };
 		4A6114B421E5958300E4138B /* MultimodeLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultimodeLabel.m; sourceTree = "<group>"; };
+		4A63A3302328C7C60027C7A1 /* SearchIssueVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchIssueVC.h; sourceTree = "<group>"; };
+		4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchIssueVC.m; sourceTree = "<group>"; };
+		4A63A3362328D7B90027C7A1 /* SearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarView.h; sourceTree = "<group>"; };
+		4A63A3372328D7B90027C7A1 /* SearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarView.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -2501,6 +2511,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4A63A3352328D7840027C7A1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4A63A3362328D7B90027C7A1 /* SearchBarView.h */,
+				4A63A3372328D7B90027C7A1 /* SearchBarView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4A6C2863219BF75E0059BB08 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -3108,6 +3127,7 @@
 		4AC21FC5228BB2790098848C /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4A63A3352328D7840027C7A1 /* View */,
 				4AC21FD5228C05640098848C /* ViewController */,
 			);
 			path = Library;
@@ -3420,6 +3440,8 @@
 				4A01C65E22EF14FF008D1609 /* DefineOriginVC.m */,
 				4A50D94A22F99B7000B2493F /* AtTeamMemberListVC.h */,
 				4A50D94922F99B7000B2493F /* AtTeamMemberListVC.m */,
+				4A63A3302328C7C60027C7A1 /* SearchIssueVC.h */,
+				4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4135,6 +4157,7 @@
 				4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */,
 				4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */,
 				4AE5375121C6A143004CF320 /* UIView+PWFrame.m in Sources */,
+				4A63A3322328C7C60027C7A1 /* SearchIssueVC.m in Sources */,
 				4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4A00DE1022D87581008462AF /* SelectSourceCell.m in Sources */,
 				4AC21FC8228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
@@ -4338,6 +4361,7 @@
 				6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */,
 				6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */,
 				4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */,
+				4A63A3382328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
@@ -4486,6 +4510,7 @@
 				4AC857B0223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF5A5221ECB3A00D15316 /* IssueBoardModel.m in Sources */,
 				4A00DE1122D87581008462AF /* SelectSourceCell.m in Sources */,
+				4A63A3332328C7C60027C7A1 /* SearchIssueVC.m in Sources */,
 				CA1CF5A7221ECB3A00D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FC9228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
@@ -4689,6 +4714,7 @@
 				6B6E24708569EF0DB041AE81 /* IssueChatDatas.m in Sources */,
 				6B6E211D338880EC9104E7AA /* IssueChatDataModel.m in Sources */,
 				4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */,
+				4A63A3392328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
@@ -4837,6 +4863,7 @@
 				4AC857B1223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
 				CA1CF64A221ECB5000D15316 /* IssueBoardModel.m in Sources */,
 				4A00DE1222D87581008462AF /* SelectSourceCell.m in Sources */,
+				4A63A3342328C7C60027C7A1 /* SearchIssueVC.m in Sources */,
 				CA1CF64C221ECB5000D15316 /* MultimodeLabel.m in Sources */,
 				4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */,
 				4AC21FCA228BB53D0098848C /* IssueEngineHeaderView.m in Sources */,
@@ -5040,6 +5067,7 @@
 				6B6E250BDDB9A9DB24D258A8 /* IssueChatDatas.m in Sources */,
 				6B6E29E4F885EDEF35A3BB66 /* IssueChatDataModel.m in Sources */,
 				4AAC14202276F3520043AD5E /* NoDataView.m in Sources */,
+				4A63A33A2328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
