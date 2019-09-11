@@ -370,6 +370,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 [array addObject:model];
             }else if([obj isKindOfClass:MemberInfoModel.class]){
                 [array addObjectsFromArray:teamMember];
+                *stop = YES;
             }
         } ];
         memberBlock ? memberBlock(YES,array):nil;
