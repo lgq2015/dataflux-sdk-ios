@@ -340,7 +340,7 @@
 
         [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
             if([response[@"errorCode"] isEqualToString:@""]){
-                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.issueCreateSuccess", @"")];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.issue.issueCreateSuccess", @"")];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 if ([self.level isEqualToString:@"danger"]) {
                     model.state =IssueStateSeriousness;
