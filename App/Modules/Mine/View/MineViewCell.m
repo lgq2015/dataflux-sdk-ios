@@ -82,7 +82,7 @@
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(Interval(16));
         make.height.offset(22);
-        make.centerY.mas_equalTo(self.contentView);
+        make.centerY.mas_equalTo(self);
     }];
     self.titleLab.text = _data.title;
     [self.arrowImgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,7 +97,7 @@
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(Interval(16));
         make.height.offset(22);
-        make.centerY.mas_equalTo(self.contentView);
+        make.centerY.mas_equalTo(self);
     }];
     self.titleLab.text = _data.title;
 }
@@ -259,9 +259,8 @@
     [self.rightImg sd_setImageWithURL:[NSURL URLWithString:_data.rightIcon] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
 }
 -(void)setTeamTradesSelect{
-    [self.iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.contentView);
-        make.right.mas_equalTo(self.contentView).offset(-Interval(16));
+    [self.iconImgView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(kWidth-35);
         make.width.height.offset(19);
     }];
     self.iconImgView.image = [UIImage imageNamed:@"team_success"];
@@ -275,7 +274,7 @@
 
         [_iconImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(18);
-            make.centerY.mas_equalTo(self.contentView);
+            make.centerY.mas_equalTo(self);
         }];
     }
     return _iconImgView;
