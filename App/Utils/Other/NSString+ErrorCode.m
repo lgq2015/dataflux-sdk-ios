@@ -12,9 +12,11 @@
     NSString * mergeValue = @"";
     if (![self hasPrefix:@"local.err"]) {
         mergeValue = [@"server.err." stringByAppendingString:self];
+    }else{
+        mergeValue = self;
     }
 
-    return [NSLocalizedString(mergeValue, nil) isEqualToString:self]? NSLocalizedString(@"local.NetErr.TheServerIsBusyPleaseTryAgainLater", @""):NSLocalizedString(self, nil);
+    return [NSLocalizedString(mergeValue, nil) isEqualToString:mergeValue]? NSLocalizedString(@"local.NetErr.TheServerIsBusyPleaseTryAgainLater", @""):NSLocalizedString(mergeValue, nil);
 }
 
 @end
