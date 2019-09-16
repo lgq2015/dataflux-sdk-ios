@@ -168,14 +168,17 @@
 }
 -(void)showNoDataViewWithStyle:(NoDataViewStyle)style
 {
+    CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
+    [self showNoDataViewWithStyle:style height:height];
+}
+-(void)showNoDataViewWithStyle:(NoDataViewStyle)style height:(CGFloat)height{
     [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[UITableView class]]) {
             obj.hidden = YES;
         }
     }];
-    CGFloat height = self.isHidenNaviBar?Interval(12)+kTopHeight:Interval(12);
     if (!_noDataView) {
-       _noDataView = [[NoDataView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight) style:style];
+        _noDataView = [[NoDataView alloc]initWithFrame:CGRectMake(0, height, kWidth, kHeight-kTopHeight) style:style];
         WeakSelf
         _noDataView.btnClickBlock = ^(){
             [weakSelf noDataBtnClick];

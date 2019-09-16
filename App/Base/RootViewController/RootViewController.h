@@ -38,7 +38,7 @@
  */
 -(void)showNoDataImage;
 -(void)showNoDataViewWithStyle:(NoDataViewStyle)style;
-
+-(void)showNoDataViewWithStyle:(NoDataViewStyle)style height:(CGFloat)height;
 -(void)setBackgroundColor:(UIColor *)color;
 /**
  *  移除无数据页面
