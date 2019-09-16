@@ -17,7 +17,7 @@
     if (attributes.count > 0) {
         UICollectionViewLayoutAttributes *firstAttributes = attributes[0];
         CGRect frame = firstAttributes.frame;
-        frame.origin.x = maximumSpacing;
+        frame.origin.x = 16;
         firstAttributes.frame = frame;
     }
     
@@ -37,7 +37,7 @@
             currentLayoutAttributes.frame = frame;
         } else {
             CGRect frame = currentLayoutAttributes.frame;
-            frame.origin.x = maximumSpacing;
+            frame.origin.x = 16;
             currentLayoutAttributes.frame = frame;
         }
     }
