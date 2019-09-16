@@ -107,13 +107,16 @@
     _model = model;
     self.chatTimeLab.text = model.chatTime;
     self.titleLab.height = model.titleHeight;
-    SelectObject *selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-    if (selObj.issueSortType == IssueSortTypeCreate) {
+    if (!self.selObj) {
+        self.selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    }
+    
+    if (self.selObj.issueSortType == IssueSortTypeCreate) {
     self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.CreateDate", @""),[self.model.time listAccurateTimeStr]];
     }else{
     self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.UpdateDate", @""),[self.model.updataTime listAccurateTimeStr]];
     }
-    if(selObj.issueFrom == IssueFromMe){
+    if(self.selObj.issueFrom == IssueFromMe){
         self.issueStateLab.hidden = NO;
         if(model.recovered){
             self.issueStateLab.text = @"已恢复";

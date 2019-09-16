@@ -69,18 +69,18 @@
     [self.contentView addSubview:line];
     UILabel *typeLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(97), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:NSLocalizedString(@"local.type", @"")];
     [self.contentView addSubview:typeLab];
-    NSArray *typeNameAry = @[NSLocalizedString(@"local.ALL", @""),NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @"")];
+    NSArray *typeNameAry = @[NSLocalizedString(@"local.ALL", @""),NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @""),NSLocalizedString(@"local.report", @""),NSLocalizedString(@"local.task", @"")];
     for (NSInteger i=0; i<typeNameAry.count; i++) {
         UIButton *button = [self selButton];
         [button setTitle:typeNameAry[i] forState:UIControlStateNormal];
         [self.contentView addSubview:button];
-        button.frame = CGRectMake(Interval(16)+(ZOOM_SCALE(50)+space)*i, CGRectGetMaxY(typeLab.frame)+Interval(10), ZOOM_SCALE(50), ZOOM_SCALE(32));
+        button.frame = CGRectMake(Interval(16)+(ZOOM_SCALE(50)+space)*(i%6), CGRectGetMaxY(typeLab.frame)+Interval(10)+(i/6)*(ZOOM_SCALE(32)+Interval(10)), ZOOM_SCALE(50), ZOOM_SCALE(32));
         button.tag = TypeTag+i;
         
         [button addTarget:self action:@selector(typeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(304), kWidth, SINGLE_LINE_WIDTH)];
+    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(344), kWidth, SINGLE_LINE_WIDTH)];
     self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [self.contentView addSubview:self.line];
     [self.mTableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
@@ -103,7 +103,7 @@
 }
 -(UITableView *)mTableView{
     if (!_mTableView) {
-        _mTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(172), kWidth, ZOOM_SCALE(132)) style:UITableViewStylePlain];
+        _mTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(212), kWidth, ZOOM_SCALE(132)) style:UITableViewStylePlain];
         _mTableView.rowHeight = ZOOM_SCALE(44);
         _mTableView.backgroundColor = PWWhiteColor;
         _mTableView.scrollEnabled = NO;
@@ -137,23 +137,22 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     self.layer.masksToBounds = YES;
     [self addSubview:self.contentView];
-    SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-    self.currSelType = sel.issueType;
-    self.currSelLevel = sel.issueLevel;
-    self.issueOrigin = sel.issueOrigin;
-    self.issueSource = sel.issueSource;
-    self.issueAssigned = sel.issueAssigned;
-    self.dataSource[0].describeText =  sel.issueOrigin.name;
+    self.currSelType = self.selectObj.issueType;
+    self.currSelLevel = self.selectObj.issueLevel;
+    self.issueOrigin = self.selectObj.issueOrigin;
+    self.issueSource = self.selectObj.issueSource;
+    self.issueAssigned = self.selectObj.issueAssigned;
+    self.dataSource[0].describeText =  self.selectObj.issueOrigin.name;
     self.dataSource[1].describeText = self.issueSource.name;
     self.dataSource[1].rightIcon = [self.issueSource.provider getIssueSourceIcon];
-    self.dataSource[2].describeText = sel.issueAssigned.name;
-    self.dataSource[2].rightIcon = [sel.issueAssigned.tags stringValueForKey:@"pwAvatar" default:@""];
-    CGFloat contentHeight = ZOOM_SCALE(369);
+    self.dataSource[2].describeText = self.selectObj.issueAssigned.name;
+    self.dataSource[2].rightIcon = [self.selectObj.issueAssigned.tags stringValueForKey:@"pwAvatar" default:@""];
+    CGFloat contentHeight = ZOOM_SCALE(409);
     [self.mTableView reloadData];
-    UIButton *typeBtn = [self.contentView viewWithTag:(int)sel.issueType+TypeTag-1];
+    UIButton *typeBtn = [self.contentView viewWithTag:(int)self.selectObj.issueType+TypeTag-1];
     typeBtn.selected = YES;
     [typeBtn.layer setBorderColor:PWBlueColor.CGColor];
-    UIButton *levelBtn = [self.contentView viewWithTag:(int)sel.issueLevel+LevelTag-1];
+    UIButton *levelBtn = [self.contentView viewWithTag:(int)self.selectObj.issueLevel+LevelTag-1];
     levelBtn.selected = YES;
     [levelBtn.layer setBorderColor:PWBlueColor.CGColor];
     
@@ -169,6 +168,10 @@
     } completion:nil];
     
 }
+- (void)showInView:(UIView *)view selectObj:(SelectObject *)selectObj{
+    self.selectObj = selectObj;
+    [self showInView:view];
+}
 -(NSMutableArray<MineCellModel *> *)dataSource{
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
@@ -177,7 +180,7 @@
 }
 -(UIView *)contentView{
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(369))];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(409))];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentTap)];
@@ -231,7 +234,7 @@
     [[AppDelegate shareAppDelegate].mainTabBar removeCoverView];
     [UIView animateWithDuration:0.25 animations:^{
         self.contentView.alpha = 0;
-        self.contentView.frame = CGRectMake(0, -ZOOM_SCALE(400), kWidth, ZOOM_SCALE(400));
+        self.contentView.frame = CGRectMake(0, -ZOOM_SCALE(409), kWidth, ZOOM_SCALE(400));
          self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -247,8 +250,7 @@
     sel.issueOrigin = self.issueOrigin;
     sel.issueAssigned = self.issueAssigned;
     sel.issueSource = self.issueSource;
-    [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueWithSelectObject:)]){
+       if(self.delegate && [self.delegate respondsToSelector:@selector(selectIssueWithSelectObject:)]){
         [self.delegate selectIssueWithSelectObject:sel];
     }
     [self disMissView];

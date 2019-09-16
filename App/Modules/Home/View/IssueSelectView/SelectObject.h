@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SelectObject : NSObject<NSCoding>
 @property(nonatomic, assign) IssueLevel issueLevel;
 @property(nonatomic, assign) IssueSortType issueSortType;
-//@property(nonatomic, assign) IssueViewType issueViewType;
 @property(nonatomic, assign) IssueType issueType;
 @property(nonatomic, assign) IssueFrom issueFrom;
 @property(nonatomic, strong) SourceModel *issueSource;

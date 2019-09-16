@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)id<SelectSortViewDelegate> delegate;
 
 -(instancetype)initWithTop:(CGFloat)top AndSelectTypeIsTime:(BOOL)istime;
-- (void)showInView:(UIView *)view;
+- (void)showInView:(UIView *)view selectObj:(SelectObject *)selectObj;
 - (void)disMissView;
 @end
 

@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@class IssueListViewModel;
+@class IssueListViewModel,SelectObject;
 @interface IssueCell : UITableViewCell
 @property (nonatomic, strong) IssueListViewModel *model;
+@property (nonatomic, strong) SelectObject *selObj;
 @end
 
 

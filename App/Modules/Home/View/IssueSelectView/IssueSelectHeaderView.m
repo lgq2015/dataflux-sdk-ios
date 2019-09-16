@@ -15,11 +15,24 @@
 @property (nonatomic, strong) TouchLargeButton *typeBtn;
 @property (nonatomic, strong) TouchLargeButton *timeTypeBtn;
 @property (nonatomic, strong) TouchLargeButton *mineTypeBtn;
+@property (nonatomic, strong) SelectObject *selObj;
+@property (nonatomic, assign) BOOL isSave;
 @end
 @implementation IssueSelectHeaderView
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.isSave = YES;
+        self.selObj = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+        [self createUI];
+    }
+    return self;
+}
+-(instancetype)initWithFrame:(CGRect)frame selectObject:(SelectObject *)selObj{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.isSave = NO;
+        self.selObj = selObj;
         [self createUI];
     }
     return self;
@@ -39,15 +52,17 @@
     [self addSubview:line];
     self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(12), 0, ZOOM_SCALE(100), ZOOM_SCALE(18));
     self.timeTypeBtn.centerY = self.typeBtn.centerY;
-    UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreate", @"")];
-    addIssueBtn.titleLabel.font = RegularFONT(13);
-    
-    [self addSubview:addIssueBtn];
-    [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self).offset(-Interval(16));
-        make.height.top.bottom.mas_equalTo(self);
-    }];
-    [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    if (_isSave) {
+        UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreate", @"")];
+        addIssueBtn.titleLabel.font = RegularFONT(13);
+        
+        [self addSubview:addIssueBtn];
+        [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(self).offset(-Interval(16));
+            make.height.top.bottom.mas_equalTo(self);
+        }];
+        [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
     UIView *lineb =  [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(42)-1, kWidth, 0.5)];
     lineb.backgroundColor =[UIColor colorWithHexString:@"#E4E4E4"];
     [self addSubview:lineb];
@@ -83,8 +98,7 @@
         [_timeTypeBtn setImage:[UIImage imageNamed:@"order_highlight"] forState:UIControlStateSelected];
         _timeTypeBtn.imageEdgeInsets = UIEdgeInsetsMake(ZOOM_SCALE(3), 0, ZOOM_SCALE(3), ZOOM_SCALE(75));
         _timeTypeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-        SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-        NSString *title = selO.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
+        NSString *title = self.selObj.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
         [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_timeTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
@@ -99,8 +113,7 @@
         _mineTypeBtn = [[TouchLargeButton alloc]init];
         _mineTypeBtn.largeWidth = 20;
         _mineTypeBtn.largeHeight = 14;
-        SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-        NSString *title = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
+        NSString *title = self.selObj.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
         [_mineTypeBtn setTitle:title forState:UIControlStateNormal];
         [_mineTypeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_mineTypeBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
@@ -158,7 +171,7 @@
             self.typeBtn.selected = NO;
             [self.selView disMissView];
         }
-        [self.isMineView showInView:[UIApplication sharedApplication].keyWindow];
+        [self.isMineView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
     }else{
         [self.isMineView disMissView];
     }
@@ -173,7 +186,7 @@
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
         }
-        [self.selView showInView:self.superview];
+        [self.selView showInView:self.superview selectObj:self.selObj];
        
     }else{
         [self.selView disMissView];
@@ -189,7 +202,7 @@
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
         }
-         [self.sortView showInView:[UIApplication sharedApplication].keyWindow];
+         [self.sortView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
     }else{
         [self.sortView disMissView];
     }
@@ -225,23 +238,33 @@
         }];
     }
 }
+#pragma mark ========== SelectViewDelegate ==========
 -(void)selectIssueWithSelectObject:(SelectObject *)sel{
+    self.selObj = sel;
+    if (self.isSave) {
+        [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
         [self.delegate selectIssueSelectObject:sel];
     }
 }
+#pragma mark ========== SelectSortViewDelegate ==========
 -(void)selectSortWithSelectObject:(SelectObject *)sel{
     NSString *title = sel.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
     NSString *title2 = sel.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];
     [_timeTypeBtn setTitle:title forState:UIControlStateNormal];
-    [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
+    self.selObj = sel;
+    if (self.isSave) {
+        [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
+    }
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectIssueSelectObject:)]) {
         [self.delegate selectIssueSelectObject:sel];
     }
 }
 - (void)teamSwitchChangeBtnTitle{
     SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    self.selObj = selO;
     NSString *title = selO.issueSortType == IssueSortTypeCreate?NSLocalizedString(@"local.SortingByCreateDate", @""):NSLocalizedString(@"local.SortingByUpdateDate", @"");
     NSString *title2 = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [_mineTypeBtn setTitle:title2 forState:UIControlStateNormal];

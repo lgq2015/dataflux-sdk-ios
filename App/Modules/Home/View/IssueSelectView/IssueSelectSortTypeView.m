@@ -17,6 +17,7 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) SelectObject *mySel;
 @property (nonatomic, assign) BOOL isSleTime;
+@property (nonatomic, assign) BOOL isSearchView;
 @end
 @implementation IssueSelectSortTypeView
 -(instancetype)initWithTop:(CGFloat)top AndSelectTypeIsTime:(BOOL)istime{
@@ -69,8 +70,6 @@
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     self.layer.masksToBounds = YES;
     [self addSubview:self.contentView];
-    SelectObject *sel = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-    self.mySel = sel;
     self.dataSource =self.isSleTime?@[NSLocalizedString(@"local.SortingByCreateDate", @""),NSLocalizedString(@"local.SortingByUpdateDate", @"")]:@[NSLocalizedString(@"local.MyIssue", @""),NSLocalizedString(@"local.AllIssue", @"")];
     [self.mTableView reloadData];
     [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(108), kWidth,ZOOM_SCALE(108))];
@@ -83,6 +82,11 @@
         
     } completion:nil];
 }
+- (void)showInView:(UIView *)view selectObj:(SelectObject *)selectObj{
+    self.mySel = selectObj;
+    [self showInView:view];
+}
+
 -(void)disMissView{
     if (self.disMissClick) {
         self.disMissClick();
