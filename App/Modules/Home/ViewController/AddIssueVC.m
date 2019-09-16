@@ -163,6 +163,8 @@
     }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(issueTypeChoose)];
     [typeView addGestureRecognizer:tap];
+    self.type = @"task";
+    self.typeLab.text = [self.type getIssueTypeStr];
     UIView *describeView = [[UIView alloc]init];
     describeView.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:describeView];
@@ -237,9 +239,11 @@
 }
 - (void)issueTypeChoose{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc"];
-    NSArray *title = @[[type[0] getIssueTypeStr],[type[1] getIssueTypeStr],[type[2] getIssueTypeStr],[type[3] getIssueTypeStr],[type[4] getIssueTypeStr]];
-
+    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc",@"report",@"task"];
+    NSMutableArray *title =[NSMutableArray new];
+    [type enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [title addObject:[obj getIssueTypeStr]];
+    }];
     for (NSInteger i=0; i<title.count; i++) {
         UIAlertAction *alarm = [PWCommonCtrl actionWithTitle:title[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
             self.type = type[i];

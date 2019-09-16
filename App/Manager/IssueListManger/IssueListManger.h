@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger ,IssueType){
     IssueTypeExpense,
     IssueTypeOptimization,
     IssueTypeMisc,
+    IssueTypeReport,
+    IssueTypeTask,
 };
 //typedef NS_ENUM(NSInteger ,IssueViewType){
 //    IssueViewTypeNormal = 1,
@@ -79,6 +81,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
 -(IssueSortType)getCurrentIssueSortType;
 
 - (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel;
+- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel issueTitle:(NSString *)title;
 - (SelectObject *)getCurrentSelectObject;
 - (void)setCurrentSelectObject:(SelectObject *)sel;
 - (NSArray *)getHistoryOriginInput;

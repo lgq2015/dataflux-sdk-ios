@@ -578,13 +578,17 @@ NSString *const ILMStringAll = @"ALL";
     }];
 }
 - (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel{
+  return  [self getIssueListWithSelectObject:sel issueTitle:@""];
+}
+- (NSArray *)getIssueListWithSelectObject:(nullable SelectObject *)sel issueTitle:(NSString *)title;
+{
     if (sel == nil || sel.issueOrigin == nil) {
-     sel= [self getCurrentSelectObject];
+        sel= [self getCurrentSelectObject];
         if(sel.issueFrom != IssueFromAll &&sel.issueFrom != IssueFromMe ){
             sel.issueFrom = IssueFromAll;
         }
     }
-    NSString *typeStr,*statesStr,*sortStr,*levelStr,*fromMeStr,*sourceStr,*orignStr,*assignStr;
+    NSString *typeStr,*statesStr,*sortStr,*levelStr,*fromMeStr,*sourceStr,*orignStr,*assignStr,*titleStr;
     NSMutableArray *array = [NSMutableArray new];
     switch (sel.issueSortType) {
         case IssueSortTypeCreate:
@@ -628,7 +632,12 @@ NSString *const ILMStringAll = @"ALL";
         case IssueTypeAll:
             typeStr = @"";
             break;
-            
+        case IssueTypeReport:
+            typeStr = @"type = 'report'";
+            break;
+        case IssueTypeTask:
+            typeStr = @"type = 'task'";
+            break;
     }
     
     switch (sel.issueFrom) {
@@ -641,17 +650,17 @@ NSString *const ILMStringAll = @"ALL";
             statesStr =@"status = 'created'";
             break;
     }
+     titleStr = @"";
+    if (title.length>0) {
+        titleStr = [NSString stringWithFormat:@"(title LIKE '%%%%%%%%%@%%%%%%%%' OR renderedTextStr LIKE '%%%%%%%%%@%%%%%%%%')",title,title];
+    }
     NSString *whereFormat = [NSString new];
-    if ([statesStr isEqualToString:@""] && [levelStr isEqualToString:@""] && [typeStr isEqualToString:@""]&&[fromMeStr isEqualToString:@""]) {
+    if ([statesStr isEqualToString:@""] && [levelStr isEqualToString:@""] && [typeStr isEqualToString:@""]&&[fromMeStr isEqualToString:@""] && [titleStr isEqualToString:@""]) {
         whereFormat = sortStr;
     }else{
         __block NSString *appendStr= @"";
         NSMutableArray *formatStr ;
-        if (fromMeStr.length>0) {
-            formatStr = [@[statesStr,typeStr,levelStr,fromMeStr] mutableCopy];
-        }else{
-            formatStr = [@[statesStr,typeStr,levelStr] mutableCopy];
-        }
+        formatStr = [@[statesStr,typeStr,levelStr,fromMeStr,titleStr] mutableCopy];
         if (![sel.issueAssigned.memberID isEqualToString:ILMStringAll]) {
             if(sel.issueAssigned.memberID.length>0){
                 assignStr = [NSString stringWithFormat:@"assignedToAccountInfoStr LIKE '%%%%%%%%%@%%%%%%%%'",sel.issueAssigned.memberID];
