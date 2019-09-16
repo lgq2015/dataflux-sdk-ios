@@ -19,6 +19,7 @@
     return self;
 }
 - (void)createUI{
+    self.backgroundColor = PWWhiteColor;
     UIView *line = [[UIView alloc]initWithFrame:CGRectZero];
     line.backgroundColor = PWLineColor;
     [self addSubview:line];
@@ -80,6 +81,18 @@
                 }
             }
        }];
+    }
+}
+- (void)setIsClear:(BOOL)isClear{
+    if (isClear) {
+        WeakSelf
+        [[self.searchTF rac_textSignal] subscribeNext:^(NSString *x) {
+            if (x.length == 0) {
+                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(textFiledClear)]) {
+                    [weakSelf.delegate textFiledClear];
+                }
+            }
+        }];
     }
 }
 -(UITextField *)searchTF{
