@@ -27,7 +27,7 @@
     self.localeIdentifier =@"zh_CN";
 }
 -(void)getAllUtilsConst{
-    NSDictionary *param = @{@"keys":@"ISPs,issueLevel,issueSourceProvider,expertGroups,serviceCode,systemMessageTypes"};
+    NSDictionary *param = @{@"keys":@"ISPs,issueLevel,issueSourceProvider,expertGroups,serviceCode,systemMessageTypes,issueTypes"};
     [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
          BaseReturnModel *model = response;
         if (model.isSuccess) {
@@ -38,6 +38,7 @@
             NSArray *expertGroups =PWSafeArrayVal(content, @"expertGroups");
             NSArray *systemMessageTypes = PWSafeArrayVal(content, @"systemMessageTypes");
             NSDictionary *serviceCode =PWSafeDictionaryVal(content, @"serviceCode");
+            NSArray *issueTypes = PWSafeArrayVal(content, @"issueTypes");
             if (IssueSourceName.count>0) {
                 [self.cache removeObjectForKey:KIssueSourceNameModelCache];
                 [self.cache setObject:IssueSourceName forKey:KIssueSourceNameModelCache];
@@ -61,6 +62,10 @@
             if (systemMessageTypes.count>0) {
                 [self.cache removeObjectForKey:KSystemMessageTypes];
                 [self.cache setObject:systemMessageTypes forKey:KSystemMessageTypes];
+            }
+            if (issueTypes.count>0){
+                [self.cache removeObjectForKey:KIssueTypes];
+                [self.cache setObject:issueTypes forKey:KIssueTypes];
             }
         }
     }];
@@ -221,7 +226,7 @@
             name? name([self privateGetissueSourceNameByKey:key]):nil;
         }];
     }else{
-        name? name([self privateGetissueSourceNameByKey:key]):nil;
+        name? name(nameStr):nil;
     }
 }
 - (NSString *)privateGetissueSourceNameByKey:(NSString *)key{
@@ -277,7 +282,7 @@
 }
 #pragma mark ========== 地域 ==========
 - (void)getDistrictData:(void(^)(NSArray *data))district{
-    NSArray *districtData = (NSArray *)[self.cache objectForKey:KTeamDistrict];;
+    NSArray *districtData = (NSArray *)[self.cache objectForKey:KTeamDistrict];
     if (districtData.count == 0) {
         [self loadDistrictsData:^(NSArray *data) {
             district? district(data):nil;
@@ -332,6 +337,51 @@
             NSArray *systemMessageTypes =PWSafeArrayVal(model.contentDict, @"systemMessageTypes");
             [self.cache setObject:systemMessageTypes forKey:KSystemMessageTypes];
             completion ? completion(systemMessageTypes):nil;
+        }else{
+            completion ? completion(nil):nil;
+        }
+    }];
+}
+#pragma mark ========== issueTypes ==========
+-(NSArray *)getIssueTypesArray{
+    NSArray *issueTypes = (NSArray *)[self.cache objectForKey:KIssueTypes];
+    if (issueTypes.count>0) {
+        return issueTypes;
+    }
+    return nil;
+}
+- (void)getIssueTypeNameByKey:(NSString *)key name:(void(^)(NSString *name))name{
+    NSString *nameStr = [self privateIssueTypeNameByKey:key];
+    if ([nameStr isEqualToString:@""]) {
+        [self loadIssueTypes:^(NSArray *issueTypes) {
+            name? name([self privateIssueTypeNameByKey:key]):nil;
+        }];
+    }else{
+        name? name(nameStr):nil;
+    }
+}
+- (NSString *)privateIssueTypeNameByKey:(NSString *)key{
+    NSArray *issueTypes= (NSArray *)[self.cache objectForKey:KIssueTypes];
+    __block NSString *issueType = @"";
+    if(issueTypes.count>0){
+        [issueTypes enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([key isEqualToString:[obj stringValueForKey:@"issueType" default:@""]]) {
+                NSDictionary *displayName = PWSafeDictionaryVal(obj, @"displayName");
+                issueType = [displayName stringValueForKey:self.localeIdentifier default:@""];
+                *stop = YES;
+            }
+        }];
+    }
+    return issueType;
+}
+- (void)loadIssueTypes:(void (^)(NSArray *data))completion{
+    NSDictionary *param = @{@"keys":@"issueTypes"};
+    [[PWHttpEngine sharedInstance] getUtilsConstWithParam:param callBack:^(id response) {
+        BaseReturnModel *model = response;
+        if (model.isSuccess) {
+            NSArray *issueTypes =PWSafeArrayVal(model.contentDict, @"issueTypes");
+            [self.cache setObject:issueTypes forKey:KIssueTypes];
+            completion ? completion(issueTypes):nil;
         }else{
             completion ? completion(nil):nil;
         }

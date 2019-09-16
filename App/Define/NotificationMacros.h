@@ -64,6 +64,7 @@
 #define KTeamIndustry              @"KTeamIndustry"
 #define KTeamDistrict              @"KTeamDistrict"
 #define KSystemMessageTypes        @"KSystemMessageTypes"
+#define KIssueTypes                @"KIssueTypes"
 #pragma mark ========== Team相关 ==========
 //库名
 #define KTeamCacheName             @"KTeamCacheName"
