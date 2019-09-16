@@ -64,12 +64,12 @@
         make.width.height.offset(28);
     }];
     UIButton *searchBtn = [[UIButton alloc]init];
-    [searchBtn setImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+    [searchBtn setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [nav addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(nav).offset(-20);
-        make.right.mas_equalTo(scanBtn.mas_left).offset(-20);
+        make.right.mas_equalTo(scanBtn.mas_left).offset(-16);
         make.width.height.offset(28);
     }];
     nav.backgroundColor = PWWhiteColor;
