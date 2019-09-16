@@ -469,6 +469,15 @@
 		4A63A3382328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
 		4A63A3392328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
 		4A63A33A2328D7B90027C7A1 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A3372328D7B90027C7A1 /* SearchBarView.m */; };
+		4A63A33D232A19D20027C7A1 /* SearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */; };
+		4A63A33E232A19D20027C7A1 /* SearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */; };
+		4A63A33F232A19D30027C7A1 /* SearchHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */; };
+		4A63A342232A3F550027C7A1 /* SelfSizingCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */; };
+		4A63A343232A3F560027C7A1 /* SelfSizingCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */; };
+		4A63A344232A3F560027C7A1 /* SelfSizingCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */; };
+		4A63A34C232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A34B232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m */; };
+		4A63A34D232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A34B232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m */; };
+		4A63A34E232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A63A34B232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m */; };
 		4A6C2866219BF75F0059BB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2865219BF75E0059BB08 /* AppDelegate.m */; };
 		4A6C2872219C156D0059BB08 /* PWMNInputItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C286E219C156D0059BB08 /* PWMNInputItem.m */; };
 		4A6C2873219C156D0059BB08 /* PWMNView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A6C2871219C156D0059BB08 /* PWMNView.m */; };
@@ -1510,6 +1519,12 @@
 		4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchIssueVC.m; sourceTree = "<group>"; };
 		4A63A3362328D7B90027C7A1 /* SearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarView.h; sourceTree = "<group>"; };
 		4A63A3372328D7B90027C7A1 /* SearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarView.m; sourceTree = "<group>"; };
+		4A63A33B232A19D20027C7A1 /* SearchHistoryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHistoryView.h; sourceTree = "<group>"; };
+		4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryView.m; sourceTree = "<group>"; };
+		4A63A340232A3F550027C7A1 /* SelfSizingCollectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelfSizingCollectCell.h; sourceTree = "<group>"; };
+		4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelfSizingCollectCell.m; sourceTree = "<group>"; };
+		4A63A34A232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		4A63A34B232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		4A6C2864219BF75E0059BB08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A6C2865219BF75E0059BB08 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4A6C286E219C156D0059BB08 /* PWMNInputItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMNInputItem.m; sourceTree = "<group>"; };
@@ -2325,6 +2340,10 @@
 				4A47137C22B1EB9500EB90F7 /* AssignView.m */,
 				4A47138522B2401300EB90F7 /* NoAssignCell.h */,
 				4A47138622B2401300EB90F7 /* NoAssignCell.m */,
+				4A63A33B232A19D20027C7A1 /* SearchHistoryView.h */,
+				4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */,
+				4A63A340232A3F550027C7A1 /* SelfSizingCollectCell.h */,
+				4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3120,6 +3139,8 @@
 				4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */,
 				4A00DE3B22E6EB06008462AF /* CopyLable.h */,
 				4A00DE3C22E6EB06008462AF /* CopyLable.m */,
+				4A63A34A232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.h */,
+				4A63A34B232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -4200,6 +4221,7 @@
 				4A00DE2E22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4ABF442821BD334A002AF34E /* PWDiskCache.m in Sources */,
 				4A092D61222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
+				4A63A34C232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */,
 				4ABF449F21C0B8A3002AF34E /* YYFPSLabel.m in Sources */,
 				2BD42124227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				4A7599B6223FB1510057BD02 /* PWSocketManager.m in Sources */,
@@ -4346,6 +4368,7 @@
 				4A50D93722F9900500B2493F /* OrderListModel.m in Sources */,
 				2B03D039226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3CDA59229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
+				4A63A33D232A19D20027C7A1 /* SearchHistoryView.m in Sources */,
 				6B6E2912D561199B1ABE354A /* NSString+ErrorCode.m in Sources */,
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
 				6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */,
@@ -4416,6 +4439,7 @@
 				6B6E2F8873D636378453A056 /* ZhugeIOTeamHelper.m in Sources */,
 				6B6E2D01AED54A03EAFE5E6E /* ZhugeIOCalendarHelper.m in Sources */,
 				6B6E2CF970093FF974F66360 /* ZhugeIOLibraryHelper.m in Sources */,
+				4A63A342232A3F550027C7A1 /* SelfSizingCollectCell.m in Sources */,
 				4A50D93222F98FDE00B2493F /* OrderListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4553,6 +4577,7 @@
 				4A00DE2F22DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DB224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF5B0221ECB3A00D15316 /* TAAbstractDotView.m in Sources */,
+				4A63A34D232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */,
 				4A092D4E222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				2BD42125227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				CA1CF5B1221ECB3A00D15316 /* PWDiskCache.m in Sources */,
@@ -4699,6 +4724,7 @@
 				4A50D93822F9900500B2493F /* OrderListModel.m in Sources */,
 				2B03D03A226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3CDA5A229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
+				4A63A33E232A19D20027C7A1 /* SearchHistoryView.m in Sources */,
 				6B6E22ED2E53EEE1889E4C2A /* NSString+ErrorCode.m in Sources */,
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
@@ -4769,6 +4795,7 @@
 				6B6E28E7AD0117F26FA0F0F8 /* ZhugeIOTeamHelper.m in Sources */,
 				6B6E28EC0A4EB66C269E423C /* ZhugeIOCalendarHelper.m in Sources */,
 				6B6E2655B65204A000BAA3FA /* ZhugeIOLibraryHelper.m in Sources */,
+				4A63A343232A3F560027C7A1 /* SelfSizingCollectCell.m in Sources */,
 				4A50D93322F98FDE00B2493F /* OrderListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4906,6 +4933,7 @@
 				4A00DE3022DC1AB6008462AF /* TeamHeaderView.m in Sources */,
 				4A7599DC224212DD0057BD02 /* EchartTableView.m in Sources */,
 				CA1CF655221ECB5000D15316 /* TAAbstractDotView.m in Sources */,
+				4A63A34E232A4EF70027C7A1 /* AutoCollectionViewFlowLayout.m in Sources */,
 				4A092D4F222D310000FB2A35 /* MineMessageVC.m in Sources */,
 				2BD42126227A8669009E854A /* ZTTeamProductCell.m in Sources */,
 				CA1CF656221ECB5000D15316 /* PWDiskCache.m in Sources */,
@@ -5052,6 +5080,7 @@
 				4A50D93922F9900500B2493F /* OrderListModel.m in Sources */,
 				2B03D03B226D646200FBDB74 /* ZTSearchBar.m in Sources */,
 				4A3CDA5B229C095800C2EC62 /* LTSCalendarContentView.m in Sources */,
+				4A63A33F232A19D30027C7A1 /* SearchHistoryView.m in Sources */,
 				6B6E2F85C9E5E8C8547A9562 /* NSString+ErrorCode.m in Sources */,
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
 				6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */,
@@ -5122,6 +5151,7 @@
 				6B6E23BF10C0ADA14CB88CC7 /* ZhugeIOTeamHelper.m in Sources */,
 				6B6E213DC3477084A3AE9A07 /* ZhugeIOCalendarHelper.m in Sources */,
 				6B6E24B073E3761F114C8512 /* ZhugeIOLibraryHelper.m in Sources */,
+				4A63A344232A3F560027C7A1 /* SelfSizingCollectCell.m in Sources */,
 				4A50D93422F98FDE00B2493F /* OrderListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
