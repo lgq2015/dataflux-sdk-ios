@@ -12,7 +12,7 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSMutableArray * attributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
     // 设置的最大间距，根据需要修改
-    CGFloat maximumSpacing = 10;
+    CGFloat maximumSpacing = 8;
     
     if (attributes.count > 0) {
         UICollectionViewLayoutAttributes *firstAttributes = attributes[0];

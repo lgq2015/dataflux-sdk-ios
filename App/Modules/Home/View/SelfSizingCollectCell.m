@@ -7,7 +7,7 @@
 //
 
 #import "SelfSizingCollectCell.h"
-#define itemHeight 30
+#define itemHeight ZOOM_SCALE(32)
 
 @implementation SelfSizingCollectCell
 
@@ -18,7 +18,8 @@
         // 用约束来初始化控件:
         self.textLabel = [[UILabel alloc] init];
         self.textLabel.textAlignment =NSTextAlignmentCenter;
-        self.textLabel.font = RegularFONT(14);
+        self.textLabel.font = RegularFONT(13);
+        self.textLabel.textColor = PWTextBlackColor;
         self.textLabel.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
         self.textLabel.layer.cornerRadius = 5;
         self.textLabel.layer.masksToBounds  = YES;
@@ -41,9 +42,9 @@
 #pragma mark — 实现自适应文字宽度的关键步骤:item的layoutAttributes
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
     UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
-    CGRect rect = [self.textLabel.text boundingRectWithSize:CGSizeMake(kWidth-20, itemHeight) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: RegularFONT(14)} context:nil];
-    rect.size.width+=8;
-    rect.size.height+=8;
+    CGRect rect = [self.textLabel.text boundingRectWithSize:CGSizeMake(kWidth-20, itemHeight) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: RegularFONT(13)} context:nil];
+    rect.size.width+=24;
+    rect.size.height+=14;
     attributes.frame = rect;
     return attributes;
     
