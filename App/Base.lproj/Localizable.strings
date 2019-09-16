@@ -257,11 +257,13 @@
 "local.SendEmail" = "发送邮件";
 "local.NoSearchResults" = "暂无搜索结果";
 "local.NoNetwork" = "没有网络";
-"local.alarm" = "监控";
+"local.alarm" = "告警";
 "local.security" = "安全";
 "local.expense" = "费用";
 "local.optimization" = "优化";
 "local.misc" = "提醒";
+"local.report" = "报告";
+"local.task" = "任务";
 "local.MyTeam" = "我的团队";
 "local.delete" = "删除";
 "local.TeamInviteMembers" = "邀请成员";

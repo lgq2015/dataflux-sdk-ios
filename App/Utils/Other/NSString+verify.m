@@ -511,6 +511,10 @@
         return NSLocalizedString(@"local.optimization", @"");
     }else if([self isEqualToString:@"misc"]){
         return NSLocalizedString(@"local.misc", @"");
+    }else if([self isEqualToString:@"report"]){
+        return NSLocalizedString(@"local.report", @"");
+    }else if([self isEqualToString:@"task"]){
+         return NSLocalizedString(@"local.task", @"");
     }else{
         return self;
     }
