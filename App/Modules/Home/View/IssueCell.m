@@ -107,10 +107,6 @@
     _model = model;
     self.chatTimeLab.text = model.chatTime;
     self.titleLab.height = model.titleHeight;
-    if (!self.selObj) {
-        self.selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
-    }
-    
     if (self.selObj.issueSortType == IssueSortTypeCreate) {
     self.timeLab.text = [NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.CreateDate", @""),[self.model.time listAccurateTimeStr]];
     }else{

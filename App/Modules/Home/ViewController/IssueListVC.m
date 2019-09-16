@@ -331,6 +331,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     IssueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IssueCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selObj =  [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
     [cell setModel:self.monitorData[indexPath.row]];
     cell.backgroundColor = PWWhiteColor;
     return cell;
