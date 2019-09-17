@@ -88,8 +88,8 @@
         WeakSelf
         [[self.searchTF rac_textSignal] subscribeNext:^(NSString *x) {
             if (x.length == 0) {
-                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(textFiledClear)]) {
-                    [weakSelf.delegate textFiledClear];
+                if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(textFieldClear)]) {
+                    [weakSelf.delegate textFieldClear];
                 }
             }
         }];
@@ -108,6 +108,7 @@
     }
 }
 - (void)searchClick{
+    [self.searchTF resignFirstResponder];
     if (self.delegate && [self.delegate respondsToSelector:@selector(searchWithText:)]) {
         [self.delegate searchWithText:self.searchTF.text];
     }
@@ -120,6 +121,11 @@
         }
     }
     return YES;
+}
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(searcgBarTextFieldBecomeFirstResponder)]) {
+        [self.delegate searcgBarTextFieldBecomeFirstResponder];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

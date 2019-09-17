@@ -13,7 +13,8 @@
 -(void)searchWithText:(NSString *)text;
 @optional
 -(void)synchronousSearchText:(NSString *)text;
--(void)textFiledClear;
+-(void)textFieldClear;
+-(void)searcgBarTextFieldBecomeFirstResponder;
 @end
 NS_ASSUME_NONNULL_BEGIN
 
