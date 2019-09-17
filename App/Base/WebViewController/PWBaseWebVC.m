@@ -82,6 +82,42 @@
     }
     return _webView;
 }
+-(WKWebView *)resetWKWebView{
+        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+        // 偏好设置
+        config.preferences = [[WKPreferences alloc] init];
+        config.preferences.minimumFontSize = 10;
+        config.preferences.javaScriptEnabled = YES;
+        config.preferences.javaScriptCanOpenWindowsAutomatically = NO;
+        
+        // 设置cookie
+        config.processPool = [[WKProcessPool alloc] init];
+        if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
+            NSDictionary *dic = @{@"loginTokenName":getXAuthToken};
+            // 将所有cookie以document.cookie = 'key=value';形式进行拼接
+            NSMutableString *cookie = @"".mutableCopy;
+            
+            if (dic) {
+                for (NSString *key in dic.allKeys) {
+                    [cookie appendFormat:@"document.cookie = '%@=%@';\n",key,dic[key]];
+                }
+            }
+            WKUserContentController *userContentController = [[WKUserContentController alloc] init];
+            WKUserScript *cookieScript = [[WKUserScript alloc] initWithSource:cookie injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+            [userContentController addUserScript:cookieScript];
+            
+            config.userContentController = userContentController;
+        }
+        
+        
+        config.selectionGranularity = WKSelectionGranularityDynamic;
+        config.allowsInlineMediaPlayback = YES;
+        config.mediaPlaybackRequiresUserAction = false;
+        
+      WKWebView  *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    
+    return webView;
+}
 // UIProgressView初始化
 -(UIProgressView *)progressView{
     if (!_progressView) {
@@ -94,47 +130,51 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
-    UIWebView *webView = [[UIWebView alloc]init];
-   
-
-    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    NSString *newUserAgent = userAgent;
-    if ([userAgent rangeOfString:@"cloudcare"].location == NSNotFound) {
-        newUserAgent = [userAgent stringByAppendingString:@"cloudcare;Prof.Wang_iOS"];
-    }
-
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    WeakSelf
     [self.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
-        DLog(@"%@", result);
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        NSString *userAgent = result;
+        NSString *newUserAgent = [userAgent stringByAppendingString:@"cloudcare;Prof.Wang_iOS"];
+
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:newUserAgent, @"UserAgent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        
+        self.webView = [weakSelf resetWKWebView];
+        // After this point the web view will use a custom appended user agent
+        [strongSelf.webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+            NSLog(@"%@", result);
+            [self setWkwebview];
+        }];
     }];
+}
+- (void)setWkwebview{
     if (self.isHidenNaviBar) {
         [self.navigationController setNavigationBarHidden:YES animated:NO];
         self.webView.frame = self.view.bounds;
     }else{
         self.webView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     }
-
-   
+    
+    
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:self.webUrl];
     if (![getXAuthToken isKindOfClass:NSNull.class] &&getXAuthToken != nil) {
-       [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
+        [request setValue:[NSString stringWithFormat:@"%@=%@",@"loginTokenName", getXAuthToken] forHTTPHeaderField:@"Cookie"];
     }
-    
+    // KVO，监听webView属性值得变化(estimatedProgress,title为特定的key)
     [self dealWithProgressView];
-
+    
     //对文件格式做兼容处理
     [self dealFileFormat:request];
     [self.view addSubview:self.webView];
-
+    
     self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dict = [data jsonValueDecoded];
         DLog(@"%@",dict);
         [self dealWithDict:dict];
-
+        
     }];
     [self.jsBridge callHandler:@"JS Echo" data:nil responseCallback:^(id responseData) {
         NSLog(@"ObjC received response: %@", responseData);
@@ -184,9 +224,6 @@
     
 }
 - (void)eventFeedback{
-//    [self.tabBarController setSelectedIndex:2];
-//    [self.navigationController popToRootViewControllerAnimated:NO];
-//    KPostNotification(KNotificationFeedBack,nil);
     FeedbackVC *opinionVC = [[FeedbackVC alloc]init];
     [self.navigationController pushViewController:opinionVC animated:YES];
 }
@@ -203,10 +240,8 @@
 - (void)eventCall:(NSDictionary *)extra{
     NSString *phone = [extra stringValueForKey:@"phone" default:@""];
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",phone];
-    UIWebView * callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
     
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 -(void)backBtnClicked{
     if ([self.webView canGoBack]) {
