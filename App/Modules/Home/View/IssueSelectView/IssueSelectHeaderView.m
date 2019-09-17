@@ -139,16 +139,16 @@
     }
     return _selView;
 }
--(IssueSelectSortTypeView *)sortView{
-    if (!_sortView) {
-        _sortView = [[IssueSelectSortTypeView alloc]initWithTop:CGRectGetMaxY(self.frame)AndSelectTypeIsTime:YES];
-        _sortView.delegate = self;
+-(IssueSelectSortTypeView *)sortByTimeView{
+    if (!_sortByTimeView) {
+        _sortByTimeView = [[IssueSelectSortTypeView alloc]initWithTop:CGRectGetMaxY(self.frame)AndSelectTypeIsTime:YES];
+        _sortByTimeView.delegate = self;
         WeakSelf
-        _sortView.disMissClick = ^(){
+        _sortByTimeView.disMissClick = ^(){
             weakSelf.timeTypeBtn.selected = NO;
         };
     }
-    return _sortView;
+    return _sortByTimeView;
 }
 -(IssueSelectSortTypeView *)isMineView{
     if (!_isMineView) {
@@ -164,9 +164,9 @@
 - (void)mineTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
     if (button.selected) {
-        if (self.sortView.isShow) {
+        if (self.sortByTimeView.isShow) {
             self.timeTypeBtn.selected = NO;
-            [self.sortView disMissView];
+            [self.sortByTimeView disMissView];
         }else if(self.selView.isShow){
             self.typeBtn.selected = NO;
             [self.selView disMissView];
@@ -179,9 +179,9 @@
 - (void)typeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
     if (button.selected) {
-        if (self.sortView.isShow) {
+        if (self.sortByTimeView.isShow) {
             self.timeTypeBtn.selected = NO;
-            [self.sortView disMissView];
+            [self.sortByTimeView disMissView];
         }else if(self.isMineView.isShow){
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
@@ -202,16 +202,16 @@
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
         }
-         [self.sortView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
+         [self.sortByTimeView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
     }else{
-        [self.sortView disMissView];
+        [self.sortByTimeView disMissView];
     }
 }
 - (void)addIssueBtnClick{
     if(self.selView.isShow){
         [self.selView disMissView];
-    }else if (self.sortView.isShow) {
-        [self.sortView disMissView];
+    }else if (self.sortByTimeView.isShow) {
+        [self.sortByTimeView disMissView];
     }
     
     if([getTeamState isEqualToString:PW_isTeam]){
@@ -273,8 +273,8 @@
 - (void)disMissView{
     if(_selView.isShow){
         [self.selView disMissView];
-    }else if(_sortView.isShow){
-        [self.sortView disMissView];
+    }else if(_sortByTimeView.isShow){
+        [self.sortByTimeView disMissView];
     }else if(_isMineView.isShow){
         [self.isMineView disMissView];
     }

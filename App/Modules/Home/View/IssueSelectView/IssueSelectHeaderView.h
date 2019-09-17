@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface IssueSelectHeaderView : UIView
 @property (nonatomic, strong) IssueSelectView *selView;//筛选
-@property (nonatomic, strong) IssueSelectSortTypeView *sortView;//时间排序
+@property (nonatomic, strong) IssueSelectSortTypeView *sortByTimeView;//时间排序
 @property (nonatomic, strong) IssueSelectSortTypeView *isMineView;//我的情报
 @property (nonatomic, assign) id<IssueSelectHeaderDelegate> delegate;
 -(instancetype)initWithFrame:(CGRect)frame selectObject:(SelectObject *)selObj;

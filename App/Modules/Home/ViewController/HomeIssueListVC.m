@@ -149,15 +149,15 @@
     [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
     if(self.headerView.selView.isShow){
         [self.headerView.selView disMissView];
-    }else if (self.headerView.sortView.isShow) {
-        [self.headerView.sortView disMissView];
+    }else if (self.headerView.sortByTimeView.isShow) {
+        [self.headerView.sortByTimeView disMissView];
     }
 }
 - (void)scanBtnClick{
     if(self.headerView.selView.isShow){
         [self.headerView.selView disMissView];
-    }else if (self.headerView.sortView.isShow) {
-        [self.headerView.sortView disMissView];
+    }else if (self.headerView.sortByTimeView.isShow) {
+        [self.headerView.sortByTimeView disMissView];
     }else if(self.headerView.isMineView.isShow){
         [self.headerView.isMineView disMissView];
     }
@@ -172,8 +172,8 @@
 - (void)searchBtnClick{
     if(self.headerView.selView.isShow){
         [self.headerView.selView disMissView];
-    }else if (self.headerView.sortView.isShow) {
-        [self.headerView.sortView disMissView];
+    }else if (self.headerView.sortByTimeView.isShow) {
+        [self.headerView.sortByTimeView disMissView];
     }else if(self.headerView.isMineView.isShow){
         [self.headerView.isMineView disMissView];
     }
@@ -225,8 +225,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     if(self.headerView.selView.isShow){
         [self.headerView.selView disMissView];
-    }else if (self.headerView.sortView.isShow) {
-        [self.headerView.sortView disMissView];
+    }else if (self.headerView.sortByTimeView.isShow) {
+        [self.headerView.sortByTimeView disMissView];
     }else if(self.headerView.isMineView.isShow){
         [self.headerView.isMineView disMissView];
     }
