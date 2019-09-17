@@ -173,6 +173,10 @@
         icon = @"expense_g";
     }else if ([model.type isEqualToString:@"optimization"]){
         icon = @"optimization_g";
+    }else if([model.type isEqualToString:@"report"]){
+        icon = @"report_g";
+    }else if([model.type isEqualToString:@"task"]){
+        icon = @"task_g";
     }else{
         icon = @"misc_g";
     }
