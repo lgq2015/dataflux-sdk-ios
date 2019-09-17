@@ -19,6 +19,8 @@
 #import "OriginModel.h"
 #define LevelTag  200
 #define TypeTag   300
+#define ContentViewHeight ZOOM_SCALE(409)
+
 @interface IssueSelectView()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic, assign) CGFloat topCons;
 @property (nonatomic, strong) UIView *contentView;
@@ -147,7 +149,6 @@
     self.dataSource[1].rightIcon = [self.issueSource.provider getIssueSourceIcon];
     self.dataSource[2].describeText = self.selectObj.issueAssigned.name;
     self.dataSource[2].rightIcon = [self.selectObj.issueAssigned.tags stringValueForKey:@"pwAvatar" default:@""];
-    CGFloat contentHeight = ZOOM_SCALE(409);
     [self.mTableView reloadData];
     UIButton *typeBtn = [self.contentView viewWithTag:(int)self.selectObj.issueType+TypeTag-1];
     typeBtn.selected = YES;
@@ -156,14 +157,14 @@
     levelBtn.selected = YES;
     [levelBtn.layer setBorderColor:PWBlueColor.CGColor];
     
-    [_contentView setFrame:CGRectMake(0, -ZOOM_SCALE(400), kWidth,contentHeight)];
+    [_contentView setFrame:CGRectMake(0, -ContentViewHeight, kWidth,ContentViewHeight)];
     _contentView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
         self.hidden = NO;
         self.alpha = 1.0;
         _contentView.alpha =1.0;
         [[AppDelegate shareAppDelegate].mainTabBar addCoverView];
-        [_contentView setFrame:CGRectMake(0, 0, kWidth, contentHeight)];
+        [_contentView setFrame:CGRectMake(0, 0, kWidth, ContentViewHeight)];
         
     } completion:nil];
     
@@ -180,7 +181,7 @@
 }
 -(UIView *)contentView{
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(409))];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ContentViewHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentTap)];
@@ -234,7 +235,7 @@
     [[AppDelegate shareAppDelegate].mainTabBar removeCoverView];
     [UIView animateWithDuration:0.25 animations:^{
         self.contentView.alpha = 0;
-        self.contentView.frame = CGRectMake(0, -ZOOM_SCALE(409), kWidth, ZOOM_SCALE(400));
+        self.contentView.frame = CGRectMake(0, -ContentViewHeight, kWidth, ContentViewHeight);
          self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
