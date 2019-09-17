@@ -123,7 +123,7 @@
 - (void)attributedLabel:(TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url{
    
-    UIWebView * callWebview = [[UIWebView alloc] init];
+    WKWebView * callWebview = [[WKWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:url]];
     [self.view addSubview:callWebview];
 }
