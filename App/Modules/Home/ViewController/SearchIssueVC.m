@@ -48,7 +48,6 @@
     self.currentPage = 1;
     self.view.backgroundColor = PWWhiteColor;
     self.issueData = [NSMutableArray new];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
@@ -126,7 +125,7 @@
     return _currentSelect;
 }
 -(void)resetCurrentSelect{
-    _currentSelect.issueType = IssueTypeAll;
+    self.currentSelect.issueType = IssueTypeAll;
     _currentSelect.issueFrom = IssueFromAll;
     _currentSelect.issueLevel = IssueLevelAll;
     _currentSelect.issueSortType = IssueSortTypeCreate;
@@ -177,7 +176,9 @@
             self.headerView.hidden = YES;
             [self showNoDataViewWithStyle:NoDataViewIssueList];
         }else{
-            [self showNoDataViewWithStyle:NoDataViewIssueList height:kTopHeight+ZOOM_SCALE(45)+10];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showNoDataViewWithStyle:NoDataViewIssueList height:kTopHeight+ZOOM_SCALE(45)+10];
+            });
         }
     }else{
         self.headerView.hidden = NO;
@@ -201,7 +202,16 @@
     [self dealWithSearchText:text SelectObject:self.currentSelect];
     [self.historyView saveHistoryData:text];
 }
--(void)textFiledClear{
+-(void)textFieldClear{
+    [self removeNoDataImage];
+    [self resetCurrentSelect];
+    self.tableView.hidden = YES;
+    self.headerView.hidden = YES;
+    self.historyView.hidden = NO;
+    [self.historyView reloadHistoryData];
+}
+-(void)searcgBarTextFieldBecomeFirstResponder{
+    [self.headerView disMissView];
     [self removeNoDataImage];
     [self resetCurrentSelect];
     self.tableView.hidden = YES;
@@ -256,6 +266,9 @@
     [cell setModel:self.issueData[indexPath.row]];
     cell.backgroundColor = PWWhiteColor;
     return cell;
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 /*
 #pragma mark - Navigation
