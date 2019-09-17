@@ -9,7 +9,7 @@
 #import "EchartView.h"
 #import "iOS-Echarts.h"
 @interface EchartView()
-@property (nonatomic, strong) PYZoomEchartsView *kEchartView;
+@property (nonatomic, strong) WKEchartsView *kEchartView;
 @end
 @implementation EchartView
 - (instancetype)initWithDict:(NSDictionary *)dict{
@@ -164,7 +164,7 @@
     [option setSeries:seriesArr];
     
     /** 初始化图表 */
-    self.kEchartView = [[PYZoomEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
+    self.kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
     [self addSubview:self.kEchartView];
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
