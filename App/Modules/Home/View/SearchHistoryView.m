@@ -25,9 +25,9 @@
 }
 - (void)createUI{
     self.backgroundColor = PWWhiteColor;
-    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(16, 16, 200, ZOOM_SCALE(20)) font:RegularFONT(15) textColor:PWTitleColor text:@"最近搜索"];
+    UILabel *tipLab = [PWCommonCtrl lableWithFrame:CGRectMake(16, ZOOM_SCALE(16), 200, ZOOM_SCALE(20)) font:RegularFONT(15) textColor:PWTitleColor text:@"最近搜索"];
     [self addSubview:tipLab];
-    UIButton *clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWidth-16-ZOOM_SCALE(20), 16, ZOOM_SCALE(20), ZOOM_SCALE(20))];
+    UIButton *clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWidth-16-ZOOM_SCALE(20), ZOOM_SCALE(16), ZOOM_SCALE(20), ZOOM_SCALE(20))];
     [clearBtn setImage:[UIImage imageNamed:@"search_delect"] forState:UIControlStateNormal];
     [self addSubview:clearBtn];
    
@@ -57,8 +57,8 @@
         // 设置滑动的方向 (默认是竖着滑动的)
         layout.scrollDirection =  UICollectionViewScrollDirectionVertical;
         // 设置item的内边距
-        layout.sectionInset = UIEdgeInsetsMake(10,16,10,16);
-        _historyCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 40, kWidth, self.height-30) collectionViewLayout:layout];
+        layout.sectionInset = UIEdgeInsetsMake(10,10,10,10);
+        _historyCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(53), kWidth, self.height-30) collectionViewLayout:layout];
         _historyCollection.backgroundColor = PWWhiteColor;
         _historyCollection.delegate = self;
         _historyCollection.dataSource = self;
