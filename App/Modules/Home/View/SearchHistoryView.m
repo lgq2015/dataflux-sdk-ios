@@ -49,15 +49,15 @@
         AutoCollectionViewFlowLayout  *layout = [[AutoCollectionViewFlowLayout alloc] init];
         // 设置具体属性
         // 1.设置 最小行间距
-        layout.minimumLineSpacing = 20;
+        layout.minimumLineSpacing = 12;
         // 2.设置 最小列间距
-        layout.minimumInteritemSpacing  = 20;
+        layout.minimumInteritemSpacing  = 8;
         // 3.设置item块的大小 (可以用于自适应)
-        layout.estimatedItemSize = CGSizeMake(20, 30);
+        layout.estimatedItemSize = CGSizeMake(20, 32);
         // 设置滑动的方向 (默认是竖着滑动的)
         layout.scrollDirection =  UICollectionViewScrollDirectionVertical;
         // 设置item的内边距
-        layout.sectionInset = UIEdgeInsetsMake(10,10,10,10);
+        layout.sectionInset = UIEdgeInsetsMake(0,16,0,16);
         _historyCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(53), kWidth, self.height-30) collectionViewLayout:layout];
         _historyCollection.backgroundColor = PWWhiteColor;
         _historyCollection.delegate = self;

@@ -42,7 +42,7 @@
 #pragma mark — 实现自适应文字宽度的关键步骤:item的layoutAttributes
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
     UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
-    CGRect rect = [self.textLabel.text boundingRectWithSize:CGSizeMake(kWidth-20, itemHeight) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: RegularFONT(13)} context:nil];
+    CGRect rect = [self.textLabel.text boundingRectWithSize:CGSizeMake(kWidth-32, itemHeight) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: RegularFONT(13)} context:nil];
     rect.size.width+=24;
     rect.size.height+=14;
     attributes.frame = rect;
