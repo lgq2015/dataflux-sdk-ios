@@ -60,7 +60,7 @@
     [scanBtn addTarget:self action:@selector(scanBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [nav addSubview:scanBtn];
     [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(nav).offset(-ZOOM_SCALE(50));
+        make.top.mas_equalTo(nav).offset(kTopHeight-23);
         make.right.mas_equalTo(nav).offset(-13);
         make.width.height.offset(Interval(28));
     }];
@@ -101,7 +101,7 @@
     [nav addSubview:_changeTeamNavView];
     [_changeTeamNavView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(15));
-        make.bottom.mas_equalTo(nav).offset(-Interval(50));
+        make.centerY.mas_equalTo(scanBtn);
         make.height.offset(Interval(25));
     }];
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, HomeNavHeight-0.5, kWidth, 0.5)];
