@@ -17,6 +17,7 @@
 #import "IssueSelectHeaderView.h"
 #import "SearchIssueVC.h"
 
+#define HomeNavHeight Interval(98)+kStatusBarHeight
 @interface HomeIssueListVC ()<IssueSelectHeaderDelegate>
 @property (nonatomic, strong) IssueSelectHeaderView *headerView;
 @property (nonatomic, strong) IssueListVC *listVC;
@@ -52,26 +53,35 @@
     // Do any additional setup after loading the view.
 }
 - (void)createNav{
-    UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kTopHeight+25)];
+    UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, HomeNavHeight)];
     [self.view addSubview:nav];
     UIButton *scanBtn = [[UIButton alloc]init];
     [scanBtn setImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
     [scanBtn addTarget:self action:@selector(scanBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [nav addSubview:scanBtn];
     [scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(nav).offset(-20);
+        make.bottom.mas_equalTo(nav).offset(-ZOOM_SCALE(50));
         make.right.mas_equalTo(nav).offset(-13);
-        make.width.height.offset(28);
+        make.width.height.offset(Interval(28));
     }];
-    UIButton *searchBtn = [[UIButton alloc]init];
-    [searchBtn setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [nav addSubview:searchBtn];
-    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(nav).offset(-20);
-        make.right.mas_equalTo(scanBtn.mas_left).offset(-16);
-        make.width.height.offset(28);
+    UIView *searchView = [[UIView alloc]init];
+    [nav addSubview:searchView];
+    searchView.layer.cornerRadius = 4.0;
+    searchView.backgroundColor = [UIColor colorWithHexString:@"#F1F2F5"];
+    [searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(nav).offset(Interval(16));
+        make.right.mas_equalTo(nav).offset(-Interval(16));
+        make.height.offset(Interval(30));
+        make.bottom.mas_equalTo(nav).offset(-Interval(10));
     }];
+    UITapGestureRecognizer *searchTap = [[UITapGestureRecognizer alloc]init];
+    [searchTap addTarget:self action:@selector(searchBtnClick)];
+    [searchView addGestureRecognizer:searchTap];
+    UIImageView *icon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_search_gray"]];
+    [searchView addSubview:icon];
+    icon.frame = CGRectMake(6, 0, Interval(30), Interval(30));
+    UILabel *searchLab = [PWCommonCtrl lableWithFrame:CGRectMake(CGRectGetMaxX(icon.frame)+5, 0, 200, Interval(30)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#8E8E93"] text:NSLocalizedString(@"local.search", @"")];
+    [searchView addSubview:searchLab];
     nav.backgroundColor = PWWhiteColor;
     NSString *titleString;
     if([getTeamState isEqualToString:PW_isTeam]){
@@ -91,13 +101,13 @@
     [nav addSubview:_changeTeamNavView];
     [_changeTeamNavView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(Interval(15));
-        make.bottom.mas_equalTo(nav).offset(-20);
-        make.height.offset(ZOOM_SCALE(25));
+        make.bottom.mas_equalTo(nav).offset(-Interval(50));
+        make.height.offset(Interval(25));
     }];
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kTopHeight+24.5, kWidth, 0.5)];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, HomeNavHeight-0.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
-    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, kTopHeight+25, kWidth, ZOOM_SCALE(42))];
+    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, HomeNavHeight, kWidth, ZOOM_SCALE(42))];
     self.headerView.delegate = self;
     [self.view addSubview:self.headerView];
     CGFloat topHeight = CGRectGetMaxY(self.headerView.frame);
@@ -123,7 +133,7 @@
     //显示
     if (sender.isSelected){
         [self.headerView disMissView];
-        [self.changeTeamView showWithOffsetY:kTopHeight+24];
+        [self.changeTeamView showWithOffsetY:HomeNavHeight];
     }else{
         [self.changeTeamView  dismiss];
     }
@@ -185,7 +195,7 @@
 -(ZYChangeTeamUIManager *)changeTeamView{
     if (!_changeTeamView) {
         _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
-        [_changeTeamView showWithOffsetY:kTopHeight+24];
+        [_changeTeamView showWithOffsetY:HomeNavHeight];
         _changeTeamView.fromVC = self;
         WeakSelf
         _changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
