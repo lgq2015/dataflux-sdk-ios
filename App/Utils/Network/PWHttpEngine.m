@@ -713,6 +713,14 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+-(PWURLSessionTask *)issueAddWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback{
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 
