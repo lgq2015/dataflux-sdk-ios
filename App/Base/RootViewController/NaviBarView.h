@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, nonatomic) UIButton *backBtn;    // 返回按钮
 @property (retain, nonatomic) UILabel *titleLabel;  // 标题
 @property(nonatomic, strong)UIView *lineView;   // 底部分割线
+@property (retain, nonatomic) UIButton *rightBtn;
 - (instancetype)initWithController:(RootViewController *)controller;
 - (void)addBackBtn;
 // 添加底部分割线
@@ -28,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 设置导航条透明
 - (void)clearNavBarBackgroundColor;
 // 右侧添加按钮
+- (void)addNavRightBtnWithImage:(NSString *)imageName;
 //- (UILabel *)addRightMenu:(NSString *)actionName withAction:(SEL)action;
 @end
 

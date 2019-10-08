@@ -120,4 +120,5 @@
 -(void)hideNoSearchView;
 -(void)showNoNetWorkView;
 -(void)hideNoNetworkView;
+-(void)rightBtnClick;
 @end

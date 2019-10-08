@@ -362,7 +362,9 @@
     }
     
 }
-
+-(void)rightBtnClick{
+    
+}
 
 #pragma mark ————— 导航栏 添加图片按钮 —————
 /**

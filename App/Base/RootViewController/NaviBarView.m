@@ -28,6 +28,7 @@
     UIView *_lineView;
     UIButton *_backBtn;
     UIButton *_closeBtn;
+    UIButton *_rightBtn;
 }
 - (instancetype)initWithController:(RootViewController *)controller {
     _controller = controller;
@@ -67,6 +68,9 @@
 - (UIButton *)backBtn {
     return _backBtn;
 }
+-(UIButton *)rightBtn{
+    return _rightBtn;
+}
 #pragma mark ========== draw ==========
 - (void)addBackBtn {
     // 不能添加多个
@@ -86,6 +90,14 @@
     [self addGestureRecognizer:tap];
     _backBtn = button;
 }
+- (void)addNavRightBtnWithImage:(NSString *)imageName{
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWidth-60, 0, 60, 44)];
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    rightBtn.contentEdgeInsets = UIEdgeInsetsMake(7, -20, 7, -7);
+    [_navigationBar addSubview:rightBtn];
+    _rightBtn = rightBtn;
+}
 - (void)addBottomSepLine {
     UIView *lineView = [_navigationBar viewWithTag:kTagLine];
     if (lineView) {
@@ -103,10 +115,14 @@
     if (view == nil){
         //转换坐标
         CGPoint tempPoint = [self.backBtn convertPoint:point fromView:self];
+        CGPoint rightPoint = [self.rightBtn convertPoint:point fromView:self];
         //判断点击的点是否在按钮区域内
         if (CGRectContainsPoint(self.backBtn.bounds, tempPoint)){
             //返回按钮
             return _backBtn;
+        }
+        if (CGRectContainsPoint(self.rightBtn.bounds, rightPoint)) {
+            return _rightBtn;
         }
     }
     return view;
@@ -115,6 +131,10 @@
 - (void)doBackPrev{
     if (_controller)
         [_controller backBtnClicked];
+}
+- (void)rightBtnClick{
+    if (_controller)
+        [_controller rightBtnClick];
 }
 #pragma mark ========== set ==========
 - (void)clearNavBarBackgroundColor {
@@ -154,6 +174,7 @@
     if (_backBtn) _backBtn = nil;
     if (_closeBtn) _closeBtn = nil;
     if (_searchBarView) _searchBarView = nil;
+    if (_rightBtn) _rightBtn = nil;
 }
 /*
 // Only override drawRect: if you perform custom drawing.
