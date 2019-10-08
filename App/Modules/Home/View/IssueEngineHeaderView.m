@@ -241,7 +241,7 @@
 }
 - (void)dealWithEchartView:(NSDictionary *)dict{
     if ([dict[@"extraJSON"] isKindOfClass:NSDictionary.class]) {
-        NSArray *displayItems = dict[@"extraJSON"][@"displayItems"];
+        NSArray *displayItems =PWSafeArrayVal(dict[@"extraJSON"], @"displayItems");
         UIView *temp1 = nil;
         for (NSInteger j=0; j<displayItems.count ;j++) {
             if ([displayItems[j] isKindOfClass:NSDictionary.class]){
@@ -255,7 +255,10 @@
                     }else{
                         make.top.mas_equalTo(temp1.mas_bottom).offset(Interval(15));
                     }
-                    if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
+                    if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"] ){
+                        make.height.offset(300);
+                    }
+                    if ([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"pieGraph"]) {
                         make.height.offset(300);
                     }
                     if (j==displayItems.count-1) {
