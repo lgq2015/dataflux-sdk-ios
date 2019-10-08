@@ -171,6 +171,21 @@
 //    }
 }
 - (void)navBtnClick{
+    if(!self.model){
+        if (self.currentModel.noAssign) {
+            MemberInfoModel *model = [MemberInfoModel new];
+            model.name = NSLocalizedString(@"local.NotAssigned", @"");
+            if (self.MemberInfo) {
+                self.MemberInfo(model);
+            }
+        }else{
+        if (self.MemberInfo) {
+            self.MemberInfo(self.currentModel);
+        }
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     NSString *accountId;
     if (self.currentModel.noAssign) {
         accountId = @"";
