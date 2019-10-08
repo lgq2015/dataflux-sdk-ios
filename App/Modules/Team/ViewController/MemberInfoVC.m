@@ -165,6 +165,8 @@
 - (void)createBtnPhone{
    
     if (userManager.teamModel.isAdmin) {
+        [self.topNavBar addNavRightBtnWithImage:@"icon_more"];
+       
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(42)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(42)+SafeAreaBottom_Height)];
         bgView.backgroundColor = PWWhiteColor;
         [self.view addSubview:bgView];
@@ -180,6 +182,39 @@
         }];
     }
 
+}
+-(void)rightBtnClick{
+   __block BOOL isManger = NO;
+    [self.model.permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *ruleId = [obj stringValueForKey:@"id" default:@""];
+        if ([ruleId isEqualToString:@"Home.team.RW"]) {
+            isManger = YES;
+            *stop = YES;
+        }
+    }];
+    NSString *name = isManger?NSLocalizedString(@"local.CancelAdministrator", @""):NSLocalizedString(@"local.SetAsAdministrator", @"");
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *action = [PWCommonCtrl actionWithTitle:name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+        [self changeTeamRoleToManger:isManger];
+    }];
+    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:action];
+    [alertVC addAction:cancle];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+- (void)changeTeamRoleToManger:(BOOL )now{
+    [SVProgressHUD show];
+    [[PWHttpEngine sharedInstance] setTeamRolesIsManger:!now userId:self.model.memberID callBack:^(id response) {
+        BaseReturnModel *model = response;
+        if (model.isSuccess) {
+            [SVProgressHUD showSuccessWithStatus:@"设置成功"];
+            if (self.teamMemberRefresh) {
+                self.teamMemberRefresh();
+            }
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+    }];
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {

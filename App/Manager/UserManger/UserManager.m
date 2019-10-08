@@ -231,6 +231,7 @@ SINGLETON_FOR_CLASS(UserManager);
                 isSuccess? isSuccess(YES):nil;
             }else{
                 isSuccess? isSuccess(NO):nil;
+                [SVProgressHUD dismiss];
                 [iToast alertWithTitleCenter:NSLocalizedString(@"local.err.netWorkError", @"")];
             }
         });
@@ -488,19 +489,49 @@ SINGLETON_FOR_CLASS(UserManager);
     return dic;
 }
 #pragma mark ========== 更新默认团队===============
-- (void)updateTeamModelWithGroupID:(NSString *)groupID{
-    NSArray *lists = [self getAuthTeamList];
-    [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        TeamInfoModel *model = (TeamInfoModel *)obj;
-        if ([model.teamID isEqualToString:groupID]){
-            //更新teammodel缓存
-            YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
-            NSDictionary *dic = [model modelToJSONObject];
-            [cacheteam removeObjectForKey:KTeamModelCache];
-            [cacheteam setObject:dic forKey:KTeamModelCache];
+- (void)updateCurrentTeamModel{
+    [[PWHttpEngine sharedInstance] getCurrentTeamInfoWithCallBack:^(id response) {
+        BaseReturnModel *model = response;
+        if(model.isSuccess){
+            NSError *error;
+            self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.contentDict error:&error];
+            if (self.teamModel) {
+                setPWDefaultTeamID(self.teamModel.teamID);
+                YYCache *cache = [[YYCache alloc]initWithName:KTeamCacheName];
+                NSDictionary *dic = [self.teamModel modelToJSONObject];
+                [cache setObject:dic forKey:KTeamModelCache];
+            }
+            if ([self.teamModel.type isEqualToString:@"singleAccount"]){
+                setTeamState(PW_isPersonal);
+            }else{
+                setTeamState(PW_isTeam);
+            }
+            [kUserDefaults synchronize];
+        }
+    }];
+//    NSArray *lists = [self getAuthTeamList];
+//    [lists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        TeamInfoModel *model = (TeamInfoModel *)obj;
+//        if ([model.teamID isEqualToString:groupID]){
+//            //更新teammodel缓存
+//            YYCache *cacheteam = [[YYCache alloc]initWithName:KTeamCacheName];
+//            NSDictionary *dic = [model modelToJSONObject];
+//            [cacheteam removeObjectForKey:KTeamModelCache];
+//            [cacheteam setObject:dic forKey:KTeamModelCache];
+//            *stop = YES;
+//        }
+//    }];
+}
+-(BOOL)isTeamAccountCanManageTeamMember{
+    __block BOOL isAdimin = NO;
+    [self.teamModel.permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *ruleId = [obj stringValueForKey:@"id" default:@""];
+        if ([ruleId isEqualToString:@"Home.teamAccount.RW"]) {
+            isAdimin = YES;
             *stop = YES;
         }
     }];
+    return isAdimin;
 }
 #pragma mark ========== 团队列表 ==========
 - (void)requestMemberList:(void(^)(BOOL isFinished))isFinished{

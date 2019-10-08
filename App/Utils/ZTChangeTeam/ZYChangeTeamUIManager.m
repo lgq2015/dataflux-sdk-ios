@@ -284,7 +284,7 @@
             setXAuthToken(token);
             setPWDefaultTeamID(model.teamID);
             userManager.teamModel = model;
-            [userManager updateTeamModelWithGroupID:model.teamID];
+            [userManager updateCurrentTeamModel];
             [userManager loadTeamMember];
 
             //更新当前team状态

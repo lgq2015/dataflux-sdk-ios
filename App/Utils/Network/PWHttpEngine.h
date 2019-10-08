@@ -126,4 +126,5 @@ typedef NS_ENUM(NSInteger, NotiRuleStyle){
 -(PWURLSessionTask *)authPasswordLoginWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)issueIgnoreWithIssueId:(NSString *)issueId callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)issueAddWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)setTeamRolesIsManger:(BOOL)isManger userId:(NSString *)userId callBack:(void (^)(id response))callback;
 @end

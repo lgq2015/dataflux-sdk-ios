@@ -44,7 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, assign) BOOL noAssign;
 @property (nonatomic, copy) NSString<Ignore> *ISP;
-
+@property (nonatomic, strong) NSArray *permissions;
+@property (nonatomic, strong) NSArray *teamRoles;
 @end
 
 NS_ASSUME_NONNULL_END

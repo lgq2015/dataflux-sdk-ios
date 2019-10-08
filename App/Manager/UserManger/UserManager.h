@@ -119,7 +119,7 @@ SINGLETON_FOR_HEADER(UserManager)
 /**
   更新teammodel
  */
-- (void)updateTeamModelWithGroupID:(NSString *)groupID;
+- (void)updateCurrentTeamModel;
 /**
   请求团队列表
  */
@@ -138,4 +138,5 @@ SINGLETON_FOR_HEADER(UserManager)
 - (void)setTeamAdminIdWithId:(NSString *)memberId;
 - (NSString *)getTeamAdminId;
 -(void)loadTeamMember;
+-(BOOL)isTeamAccountCanManageTeamMember;
 @end

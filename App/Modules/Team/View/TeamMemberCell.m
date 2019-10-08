@@ -99,6 +99,17 @@
         }
        
     }
+    if (!_model.isAdmin) {
+        [_model.teamRoles enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *roleId = [obj stringValueForKey:@"id" default:@""];
+            NSString *name = [obj stringValueForKey:@"name" default:@""];
+            if ([roleId isEqualToString:@"tmro-buildIn-admin"]) {
+                self.adminLab.text = name;
+                self.adminLab.hidden = NO;
+                *stop = YES;
+            }
+        }];
+    }
 }
 -(void)layoutSubviews{
    
@@ -113,11 +124,12 @@
         _adminLab.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_adminLab];
     }
-    _adminLab.text = _model.isAdmin ? NSLocalizedString(@"local.TeamAdministrator", @"") : NSLocalizedString(@"local.experts", @"");
+  
     if (_model.isAdmin){
         _adminLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+        _adminLab.text =  NSLocalizedString(@"local.owner", @"");
     }else{
-        _adminLab.backgroundColor = [UIColor colorWithHexString:@"#89B7FF"];
+        _adminLab.backgroundColor = PWBlueColor;
     }
     return _adminLab;
 }

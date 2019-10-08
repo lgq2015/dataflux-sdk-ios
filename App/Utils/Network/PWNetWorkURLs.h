@@ -217,7 +217,7 @@
 #define PW_updateNotiRule(str)        [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/update/%@", API_SEVERID,str]
 #define PW_notificationRuleAdd        API_SEVERID@"/v1/team/nofitication/rule/add"
 #define PW_notificationRuleDelete(str)  [NSString stringWithFormat:@"%@/v1/team/nofitication/rule/delete/%@", API_SEVERID,str]
-
+#define PW_teamRolesModify          API_SEVERID@"/v1/team/account-team-roles/modify"
 #pragma mark ========== 我的 ==========
 //添加反馈信息
 #define PW_addFeedback                 API_SEVERID@"/v1/feedback/add"

@@ -543,7 +543,7 @@
     MemberInfoModel *model = self.teamMemberArray[indexPath.row];
     cell.model = model;
     cell.line.hidden = indexPath.row == self.teamMemberArray.count-1?YES:NO;
-    if (userManager.teamModel.isAdmin) {//我是管理员
+    if (userManager.teamModel.isAdmin) {//我是拥有者
         if (!model.isAdmin && !model.isSpecialist){//可以对非管理员和非专家执行删除操作
             MGSwipeButton *button = [MGSwipeButton buttonWithTitle:NSLocalizedString(@"local.delete", @"") icon:[UIImage imageNamed:@"team_trashcan"] backgroundColor:[UIColor colorWithHexString:@"#F6584C"]padding:10 callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
                 [self delectMember:indexPath.row];

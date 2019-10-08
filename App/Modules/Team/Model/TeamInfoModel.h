@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString <Ignore>*atCount;
 //用于区分是个人：singleAccount 还是 团队
 @property (nonatomic, copy)NSString *type;
+@property (nonatomic, strong) NSArray *permissions;
 @end
 
 NS_ASSUME_NONNULL_END

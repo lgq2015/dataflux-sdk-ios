@@ -721,6 +721,16 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
+-(PWURLSessionTask *)setTeamRolesIsManger:(BOOL)isManger userId:(NSString *)userId callBack:(void (^)(id response))callback{
+    NSString *operation = isManger?@"add":@"remove";
+    NSDictionary *param = @{@"accounts":@[@{@"id":userId,@"teamRoles":@[@{@"id":@"tmro-buildIn-admin",@"operation":operation}]}]};
+    BaseReturnModel *model = [BaseReturnModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_teamRolesModify withRequestType:NetworkPostType refreshRequest:YES
+                                          cache:NO params:param
+                                  progressBlock:nil
+                                   successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                      failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 
