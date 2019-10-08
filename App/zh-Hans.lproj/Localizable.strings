@@ -598,3 +598,6 @@
 "local.CreateAssociatedIssue" = "创建关联情报";
 "local.AssociatedIssue" = "关联情报";
 "local.pleaseSelect" = "请选择";
+"local.owner" = "拥有者";
+"local.SetAsAdministrator" = "设为管理员";
+"local.CancelAdministrator" = "取消管理员";
