@@ -9,7 +9,7 @@
 #import "EchartView.h"
 #import "iOS-Echarts.h"
 @interface EchartView()
-@property (nonatomic, strong) PYZoomEchartsView *kEchartView;
+@property (nonatomic, strong) PYEchartsView *kEchartView;
 @end
 @implementation EchartView
 - (instancetype)initWithDict:(NSDictionary *)dict{
@@ -21,13 +21,17 @@
     return self;
 }
 - (void)setupEchartWithDict:(NSDictionary *)data{
+   
     NSArray *series = PWSafeArrayVal(data, @"series");
+    NSArray *xdata = series[0][@"data"];
+    if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {
+        [self createPieWithDict:data];
+    }else{
    __block  NSMutableArray *lineX  = [NSMutableArray new];
     NSDictionary *xAxisDict = PWSafeDictionaryVal(data, @"xAxis");
     NSDictionary *yAxisDict = PWSafeDictionaryVal(data, @"yAxis");
     NSString *type = [xAxisDict stringValueForKey:@"type" default:@"category"];
     
-        NSArray *xdata = series[0][@"data"];
         [xdata enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *time = [NSString stringWithFormat:@"%@",obj[0]];
             if([type isEqualToString:@"time"]){
@@ -169,12 +173,108 @@
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
     // 添加到 scrollView 上
+ }
+}
+- (void)createPieWithDict:(NSDictionary *)dict{
+    NSArray *series = PWSafeArrayVal(dict, @"series");
+    NSArray *xdata = series[0][@"data"];
+   __block NSMutableArray *nameArray = [NSMutableArray new];
+    __block NSMutableArray *itemArray = [NSMutableArray new];
+
+    [xdata enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [nameArray addObject:@{@"icon":@"rect",@"name":[obj stringValueForKey:@"name" default:@""]}];
+        NSDictionary *itemStyle = @{@"itemStyle":@{@"normal":@{@"color":[self addItemStyleColorWithType:obj[@"id"]]}}};
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        [dict addEntriesFromDictionary:obj];
+        [dict addEntriesFromDictionary:itemStyle];
+        [itemArray addObject:dict];
+    }];
+    PYOption *option = [[PYOption alloc] init];
+    //拖拽重计算，设置no可以提高加载速度
+    option.calculable = NO;
+    option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
+        title.textEqual(dict[@"title"][@"text"]);
+        title.xEqual(PYPositionCenter);
+        title.yEqual(PYPositionCenter);
+    }]);
+    PYTooltip *tooltip = [[PYTooltip alloc] init];
+    tooltip.trigger = PYTooltipTriggerItem;
+    tooltip.formatter = @"{a} <br/>{b}:{c}({d}%)";
+    option.tooltip = tooltip;
+    
+    PYLegend *legend = [[PYLegend alloc] init];
+    //提示栏 布局方式 'horizontal' 横| 'vertical' 竖
+    legend.orient = PYOrientVertical;
+    //对齐位置
+    legend.x = PYPositionRight;
+    legend.show = @NO;
+    legend.itemHeight = @10;
+    legend.itemWidth = @20;
+    legend.data =nameArray;
+    option.legend = legend;
+    
+    //toolbox 用于切换数据视图，暂且不写
+    NSMutableArray *dataArr = [NSMutableArray array];
+    PYPieSeries *series1 = [[PYPieSeries alloc] init];
+    series1.name = dict[@"title"][@"text"];
+    series1.type = PYSeriesTypePie;
+    series1.data = itemArray;
+    series1.legendHoverLink = NO;
+    series1.radius = @[@"60%",@"80%"];
+    //圆心坐标
+    //    series1.center = @[@"50%",@"50%"];
+    PYItemStyle *itemStyle = [[PYItemStyle alloc] init];
+//    itemStyle.normal.color = @[[PYColor colorWithHexString:@"#028BFF"],[PYColor colorWithHexString:@"#FFB23F"],[PYColor colorWithHexString:@"#FF7A6A"]];
+    series1.itemStyle = itemStyle;
+    //圈外数据 normal
+    //    series1.itemStyle.normal = [[PYItemStyleProp alloc] init];
+    //圈外数据信息label
+    series1.itemStyle.normal.label.show = NO;
+    //圈外数据圆柱图连线
+    series1.itemStyle.normal.labelLine.show = NO;
+    
+   
+    
+    
+    
+    [dataArr addObject:series1];
+    
+    [option setSeries:dataArr];
+    /* 初始化图标 */
+    self.kEchartView = [[PYEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth  , 300)];
+    [self addSubview:self.kEchartView];
+    [self.kEchartView setOption:option];
+    [self.kEchartView loadEcharts];
+}
+-(NSString *)addItemStyleColorWithType:(NSString *)str{
+    if ([str isEqualToString:@"info"]) {
+        return @"#028BFF";
+    }else if([str isEqualToString:@"danger"]){
+        return @"#FF7A6A";
+    }else if([str isEqualToString:@"warning"]){
+        return @"#FFB23F";
+    }else if ([str isEqualToString:@"alarm"]) {
+        return @"#F9BA04";
+    }else if([str isEqualToString:@"security"]){
+        return @"#60D837";
+    }else if([str isEqualToString:@"expense"]){
+        return @"#FF2501";
+    }else if([str isEqualToString:@"optimization"]){
+        return @"#028BFF";
+    }else if([str isEqualToString:@"misc"]){
+        return @"#4AD1FF";
+    }else if([str isEqualToString:@"report"]){
+        return @"#8061CB ";
+    }else if([str isEqualToString:@"task"]){
+        return @"#C24885 ";
+    }
+    return @"#FF7A6A";
 }
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+ Only override drawRect: if you perform custom drawing.
+ An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
+     Drawing code
 }
 */
 
