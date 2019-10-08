@@ -7,9 +7,10 @@
 //
 
 #import "RootViewController.h"
-
+@class IssueListViewModel;
 @interface AddIssueVC : RootViewController
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, strong) IssueListViewModel *parentModel;
 @property (nonatomic, copy) void(^refresh)(void);
 
 @end

@@ -20,6 +20,7 @@
 #import "IssueChatDataManager.h"
 #import "ZhugeIOIssueHelper.h"
 #import "NSString+ErrorCode.h"
+#import "ChooseAssignVC.h"
 
 #define NavRightBtnTag  100  // 右侧图片
 
@@ -32,7 +33,9 @@
 @property (nonatomic, strong) NSMutableArray<CreateQuestionModel *> *attachmentArray;
 @property (nonatomic, copy) NSString *batchId;
 @property (nonatomic, strong) UILabel *typeLab;
+@property (nonatomic, strong) UILabel *assignLab;
 @property (nonatomic, copy) NSString *upBatchId;
+@property (nonatomic, copy) NSString *assignedToAccountId;
 // type = 1 严重 type = 2  警告 3  一般
 @property (nonatomic, assign) NSString *level;
 @end
@@ -58,118 +61,77 @@
     
     self.titleView.backgroundColor = PWWhiteColor;
     
-    UIView *levelView = [[UIView alloc]init];
-    levelView.backgroundColor = PWWhiteColor;
-    [self.mainScrollView addSubview:levelView];
-    
-    [levelView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).offset(Interval(12));
-        make.width.offset(kWidth);
-        make.height.offset(ZOOM_SCALE(56));
-    }];
-    UILabel *leve = [[UILabel alloc]init];
-    leve.text = NSLocalizedString(@"local.level", @"");
-    leve.font = RegularFONT(16);
-    leve.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
-    [levelView addSubview:leve];
-    [leve mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(levelView).offset(Interval(16));
-        make.height.offset(ZOOM_SCALE(22));
-        make.width.offset(ZOOM_SCALE(100));
-        make.centerY.mas_equalTo(levelView.centerY);
-    }];
-    UIButton *waringBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FFC163"]];
-    [waringBtn setTitle:NSLocalizedString(@"local.warning", @"") forState:UIControlStateNormal];
-    waringBtn.tag = 10;
-    [levelView addSubview:waringBtn];
-    UIButton *seriousBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FC7676"]];
-    seriousBtn.tag = 11;
-    seriousBtn.selected = YES;
-    self.level = @"danger";
-    [seriousBtn setTitle:NSLocalizedString(@"local.danger", @"") forState:UIControlStateNormal];
-    [levelView addSubview:seriousBtn];
-    UIButton *infoBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"599AFF"]];
-    [infoBtn setTitle:NSLocalizedString(@"local.info", @"") forState:UIControlStateNormal];
-    infoBtn.tag = 12;
-    [levelView addSubview:infoBtn];
-    [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(levelView).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(24));
-        make.width.offset(ZOOM_SCALE(50));
-        make.centerY.mas_equalTo(levelView.centerY);
-    }];
-    [waringBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(infoBtn.mas_left).offset(-Interval(16));
-        make.height.offset(ZOOM_SCALE(24));
-        make.width.offset(ZOOM_SCALE(50));
-        make.centerY.mas_equalTo(levelView.centerY);
-    }];
-    [seriousBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(waringBtn.mas_left).offset(-Interval(20));
-        make.height.offset(ZOOM_SCALE(24));
-        make.width.offset(ZOOM_SCALE(50));
-        make.centerY.mas_equalTo(levelView.centerY);
-    }];
-    [[waringBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        self.level = @"warning";
-        waringBtn.selected = YES;
-        seriousBtn.selected = NO;
-        infoBtn.selected = NO;
-    }];
-    [[seriousBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        self.level = @"danger";
-        seriousBtn.selected = YES;
-        waringBtn.selected = NO;
-        infoBtn.selected = NO;
-    }];
-    [[infoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        self.level = @"info";
-        infoBtn.selected = YES;
-        seriousBtn.selected = NO;
-        waringBtn.selected = NO;
-    }];
-    UIView *typeView = [[UIView alloc]init];
-    typeView.backgroundColor = PWWhiteColor;
-    [self.mainScrollView addSubview:typeView];
-    [typeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(levelView.mas_bottom).offset(Interval(12));
-        make.width.offset(kWidth);
-        make.height.offset(ZOOM_SCALE(56));
-    }];
-    UILabel *typeTip = [[UILabel alloc]init];
-    typeTip.text = NSLocalizedString(@"local.category", @"");
-    typeTip.font = RegularFONT(16);
-    typeTip.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
-    [typeView addSubview:typeTip];
-    [typeTip mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(typeView).offset(Interval(16));
-        make.height.offset(ZOOM_SCALE(22));
-        make.width.offset(ZOOM_SCALE(100));
-        make.centerY.mas_equalTo(typeView.centerY);
-    }];
-    UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
-    [typeView addSubview:arrow];
-    [arrow mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(typeView).offset(-16);
-        make.centerY.mas_equalTo(typeView);
-        make.width.offset(ZOOM_SCALE(11));
-        make.height.offset(ZOOM_SCALE(16));
-    }];
-    self.typeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:@""];
-    [typeView addSubview:self.typeLab];
-    [self.typeLab mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(arrow.mas_left).offset(-10);
-        make.centerY.mas_equalTo(arrow);
-    }];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(issueTypeChoose)];
-    [typeView addGestureRecognizer:tap];
-    self.type = @"task";
-    self.typeLab.text = [self.type getIssueTypeStr];
+   NSArray *itemName = @[@"local.level",@"local.category",@"local.Assigned"];
+    if (self.parentModel) {
+        itemName = @[@"local.level",@"local.category",@"local.Assigned",@"local.AssociatedIssue"];
+    }
+    UIView *temp = self.titleView;
+    for (NSInteger i=0; i<itemName.count; i++) {
+        UIView *itemView = [[UIView alloc]init];
+        itemView.backgroundColor = PWWhiteColor;
+        [self.mainScrollView addSubview:itemView];
+        
+        [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(temp.mas_bottom).offset(Interval(12));
+            make.width.offset(kWidth);
+            make.height.offset(ZOOM_SCALE(56));
+        }];
+        temp = itemView;
+        UILabel *itemNameLab = [[UILabel alloc]init];
+        itemNameLab.text = NSLocalizedString(itemName[i], @"");
+        itemNameLab.font = RegularFONT(16);
+        itemNameLab.textColor = [UIColor colorWithRed:89/255.0 green:88/255.0 blue:96/255.0 alpha:1/1.0];
+        [itemView addSubview:itemNameLab];
+        [itemNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(itemView).offset(Interval(16));
+            make.height.offset(ZOOM_SCALE(22));
+            make.width.offset(ZOOM_SCALE(100));
+            make.centerY.mas_equalTo(itemView.centerY);
+        }];
+        if(i==0){
+            [self bindViewBtn:itemView];
+        }else if (i==1||i==2) {
+            UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
+            [itemView addSubview:arrow];
+            [arrow mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(itemView).offset(-16);
+                make.centerY.mas_equalTo(itemView);
+                make.width.offset(ZOOM_SCALE(11));
+                make.height.offset(ZOOM_SCALE(16));
+            }];
+            if(i==1){
+                [itemView addSubview:self.typeLab];
+                [self.typeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(arrow.mas_left).offset(-10);
+                    make.centerY.mas_equalTo(arrow);
+                }];
+            }else{
+                [itemView addSubview:self.assignLab];
+                [self.assignLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(arrow.mas_left).offset(-10);
+                    make.centerY.mas_equalTo(arrow);
+                }];
+            }
+            itemView.tag = i+10;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(itemClick:)];
+
+            [itemView addGestureRecognizer:tap];
+        }else{
+          UILabel *parentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:self.parentModel.title];
+            [itemView addSubview:parentLab];
+            [parentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(itemView).offset(-16);
+                make.centerY.mas_equalTo(itemView);
+            }];
+        }
+        
+    }
+
     UIView *describeView = [[UIView alloc]init];
     describeView.backgroundColor = PWWhiteColor;
     [self.mainScrollView addSubview:describeView];
     [describeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(typeView.mas_bottom).offset(Interval(12));
+        make.top.equalTo(temp.mas_bottom).offset(Interval(12));
         make.width.offset(kWidth);
         make.height.offset(ZOOM_SCALE(180));
     }];
@@ -188,7 +150,6 @@
             make.bottom.mas_equalTo(describeView).offset(-Interval(19));
         }];
     }
-    
     UIButton *accessoryBtn = [[UIButton alloc]init];
     [accessoryBtn addTarget:self action:@selector(accessoryBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [accessoryBtn setImage:[UIImage imageNamed:@"paper-clip"] forState:UIControlStateNormal];
@@ -218,10 +179,8 @@
     }];
     RACSignal *describeTextView = [self.describeTextView rac_textSignal];
     RACSignal *titleSignal = [self.titleTf rac_textSignal];
-    RACSignal *state = RACObserve(seriousBtn, selected);
-    RACSignal *state2 = RACObserve(waringBtn, selected);
     RACSignal *typeSignal = RACObserve(self.typeLab, text);
-    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,state,state2,typeSignal] reduce:^id(NSString * title,NSString * content,NSString *typeStr){
+    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,typeSignal] reduce:^id(NSString * title,NSString * content,NSString *typeStr){
         NSString *describe = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
         return @(title.length>0 && describe.length>0 && self.level.length>0&&self.type.length>0);
     }];
@@ -236,6 +195,84 @@
         make.left.right.mas_equalTo(self.view);
     make.height.offset(self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
     }];
+}
+-(UILabel *)typeLab{
+    if(!_typeLab){
+      self.type = @"task";
+      _typeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:[self.type getIssueTypeStr]];
+    }
+    return _typeLab;
+}
+-(UILabel *)assignLab{
+    if(!_assignLab){
+        _assignLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:NSLocalizedString(@"local.pleaseSelect", @"")];
+    }
+    return _assignLab;
+}
+- (void)bindViewBtn:(UIView *)view{
+    UIButton *waringBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FFC163"]];
+    [waringBtn setTitle:NSLocalizedString(@"local.warning", @"") forState:UIControlStateNormal];
+    waringBtn.tag = 10;
+    [view addSubview:waringBtn];
+    UIButton *seriousBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"FC7676"]];
+    seriousBtn.tag = 11;
+    seriousBtn.selected = YES;
+    self.level = @"danger";
+    [seriousBtn setTitle:NSLocalizedString(@"local.danger", @"") forState:UIControlStateNormal];
+    [view addSubview:seriousBtn];
+    UIButton *infoBtn = [self levalBtnWithColor:[UIColor colorWithHexString:@"599AFF"]];
+    [infoBtn setTitle:NSLocalizedString(@"local.info", @"") forState:UIControlStateNormal];
+    infoBtn.tag = 12;
+    [view addSubview:infoBtn];
+    [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(view).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(24));
+        make.width.offset(ZOOM_SCALE(50));
+        make.centerY.mas_equalTo(view.centerY);
+    }];
+    [waringBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(infoBtn.mas_left).offset(-Interval(16));
+        make.height.offset(ZOOM_SCALE(24));
+        make.width.offset(ZOOM_SCALE(50));
+        make.centerY.mas_equalTo(view.centerY);
+    }];
+    [seriousBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(waringBtn.mas_left).offset(-Interval(20));
+        make.height.offset(ZOOM_SCALE(24));
+        make.width.offset(ZOOM_SCALE(50));
+        make.centerY.mas_equalTo(view.centerY);
+    }];
+    [[waringBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        self.level = @"warning";
+        waringBtn.selected = YES;
+        seriousBtn.selected = NO;
+        infoBtn.selected = NO;
+    }];
+    [[seriousBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        self.level = @"danger";
+        seriousBtn.selected = YES;
+        waringBtn.selected = NO;
+        infoBtn.selected = NO;
+    }];
+    [[infoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        self.level = @"info";
+        infoBtn.selected = YES;
+        seriousBtn.selected = NO;
+        waringBtn.selected = NO;
+    }];
+}
+-(void)itemClick:(UITapGestureRecognizer*)tap{
+    if(tap.view.tag == 11){
+        [self issueTypeChoose];
+    }else{
+        ChooseAssignVC *chooseVC = [[ChooseAssignVC alloc]init];
+        chooseVC.assignID = self.assignedToAccountId;
+        chooseVC.MemberInfo = ^(MemberInfoModel * _Nonnull model) {
+            self.assignLab.text = model.name;
+            self.assignedToAccountId = model.memberID;
+        };
+        [self.navigationController pushViewController:chooseVC animated:YES];
+    }
 }
 - (void)issueTypeChoose{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -325,6 +362,15 @@
     }else if (button.tag == NavRightBtnTag){
         self.navigationItem.rightBarButtonItem.enabled = NO;
         NSDictionary *params;
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        data =  [@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text} mutableCopy];
+        if (self.assignedToAccountId.length>0) {
+            [data addEntriesFromDictionary:@{@"assignedToAccountId":self.assignedToAccountId}];
+        }
+        if (self.parentModel.issueId.length>0) {
+            [data addEntriesFromDictionary:@{@"parentId":self.parentModel.issueId}];
+        }
+           params = @{@"data":data};
         if (self.attachmentArray.count>0 && self.batchId !=nil) {
             NSMutableArray *confirmFormUids = [NSMutableArray new];
             [self.attachmentArray enumerateObjectsUsingBlock:^(CreateQuestionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -333,17 +379,16 @@
             if (confirmFormUids.count>0) {
                 NSDictionary *issueLogForm = @{@"batchId":self.batchId,@"confirmFormUids":confirmFormUids};
                 
-                params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text},@"issueLogForm":issueLogForm};
+                params = @{@"data":data,@"issueLogForm":issueLogForm};
             }else{
-              params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
+              params = @{@"data":data};
             }
-        }else{
-        params = @{@"data":@{@"level":self.level,@"type":self.type,@"title":self.titleTf.text,@"content":self.describeTextView.text}};
         }
         [SVProgressHUD show];
-
-        [PWNetworking requsetHasTokenWithUrl:PW_issueAdd withRequestType:NetworkPostType refreshRequest:NO cache:NO params:params progressBlock:nil successBlock:^(id response) {
-            if([response[@"errorCode"] isEqualToString:@""]){
+        [[PWHttpEngine sharedInstance] issueAddWithParam:params callBack:^(id response) {
+            [SVProgressHUD dismiss];
+            BaseReturnModel *responseModel = response;
+            if (responseModel.isSuccess) {
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.issue.issueCreateSuccess", @"")];
                 IssueListViewModel *model = [[IssueListViewModel alloc]init];
                 if ([self.level isEqualToString:@"danger"]) {
@@ -355,7 +400,7 @@
                 }
                 model.title = self.titleTf.text;
                 model.content = self.describeTextView.text;
-                model.issueId = [response[@"content"] stringValueForKey:@"id" default:@""];
+                model.issueId = [responseModel.contentDict stringValueForKey:@"id" default:@""];
                 model.accountId = getPWUserID;
                 model.isFromUser = YES;
                 model.watchInfoJSONStr = userManager.curUserInfo.userID;
@@ -376,17 +421,12 @@
                     }
                     self.navigationController.viewControllers = delect;
                 });
-
+                
                 [[[ZhugeIOIssueHelper new] eventCreateProblem] attrAddEnclosure:self.attachmentArray.count > 0];
-
             }else{
-                [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
-                [SVProgressHUD dismiss];
+                [iToast alertWithTitleCenter:responseModel.errorMsg];
+                self.navigationItem.rightBarButtonItem.enabled = YES;
             }
-        } failBlock:^(NSError *error) {
-            [SVProgressHUD dismiss];
-            [error errorToast];
-            self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
     }
 }
