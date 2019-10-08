@@ -263,7 +263,7 @@
 "local.security" = "安全";
 "local.expense" = "费用";
 "local.optimization" = "优化";
-"local.misc" = "提醒";
+"local.misc" = "记录";
 "local.MyTeam" = "我的团队";
 "local.delete" = "删除";
 "local.TeamInviteMembers" = "邀请成员";
@@ -595,3 +595,6 @@
 "local.BasicNotificationRule" = "基础通知规则";
 "local.DingNotificationRule" = "通知到钉钉";
 "local.CustomNotificationRule" = "通知到自定义地址";
+"local.CreateAssociatedIssue" = "创建关联情报";
+"local.AssociatedIssue" = "关联情报";
+"local.pleaseSelect" = "请选择";

@@ -576,6 +576,9 @@
 		4AA4CF282289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
 		4AA4CF292289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
 		4AA4CF2A2289183200A2CBE1 /* HomeIssueListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */; };
+		4AA73E352339B755009FD4BE /* PopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA73E342339B755009FD4BE /* PopItemView.m */; };
+		4AA73E362339B755009FD4BE /* PopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA73E342339B755009FD4BE /* PopItemView.m */; };
+		4AA73E372339B755009FD4BE /* PopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AA73E342339B755009FD4BE /* PopItemView.m */; };
 		4AAC141322706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141422706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
 		4AAC141522706CFE0043AD5E /* IssueLogAttachmentUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */; };
@@ -1607,6 +1610,8 @@
 		4AA4CF182285482900A2CBE1 /* AtReadSeqAndAccountID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtReadSeqAndAccountID.m; sourceTree = "<group>"; };
 		4AA4CF262289183200A2CBE1 /* HomeIssueListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIssueListVC.h; sourceTree = "<group>"; };
 		4AA4CF272289183200A2CBE1 /* HomeIssueListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeIssueListVC.m; sourceTree = "<group>"; };
+		4AA73E332339B755009FD4BE /* PopItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopItemView.h; sourceTree = "<group>"; };
+		4AA73E342339B755009FD4BE /* PopItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopItemView.m; sourceTree = "<group>"; };
 		4AAC141122706CFE0043AD5E /* IssueLogAttachmentUrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueLogAttachmentUrl.h; sourceTree = "<group>"; };
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
 		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
@@ -2344,6 +2349,8 @@
 				4A63A33C232A19D20027C7A1 /* SearchHistoryView.m */,
 				4A63A340232A3F550027C7A1 /* SelfSizingCollectCell.h */,
 				4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */,
+				4AA73E332339B755009FD4BE /* PopItemView.h */,
+				4AA73E342339B755009FD4BE /* PopItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4289,6 +4296,7 @@
 				2B84E42222658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A00DE0622D6D6B7008462AF /* NoticeTimeVC.m in Sources */,
 				4A3CDA86229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
+				4AA73E352339B755009FD4BE /* PopItemView.m in Sources */,
 				4A092D9A222E834600FB2A35 /* PWPhotoListCell.m in Sources */,
 				4A00DDCF22D487FE008462AF /* RuleModel.m in Sources */,
 				2B5211032257CA60004DA56D /* ZTOpenUrl.m in Sources */,
@@ -4645,6 +4653,7 @@
 				2B84E42322658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A3CDA87229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
 				CA1CF5CE221ECB3A00D15316 /* LibraryDraggableItem.m in Sources */,
+				4AA73E362339B755009FD4BE /* PopItemView.m in Sources */,
 				4A00DDD022D487FE008462AF /* RuleModel.m in Sources */,
 				CA1CF5CF221ECB3A00D15316 /* RootViewController.m in Sources */,
 				4A00DE0C22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
@@ -5001,6 +5010,7 @@
 				2B84E42422658699008E7B29 /* ZTHandBookNoPicCell.m in Sources */,
 				4A3CDA88229E670F00C2EC62 /* SectionBgNumberView.m in Sources */,
 				CA1CF673221ECB5000D15316 /* LibraryDraggableItem.m in Sources */,
+				4AA73E372339B755009FD4BE /* PopItemView.m in Sources */,
 				4A00DDD122D487FE008462AF /* RuleModel.m in Sources */,
 				CA1CF674221ECB5000D15316 /* RootViewController.m in Sources */,
 				4A00DE0D22D6DEA6008462AF /* HYTimePickerView.m in Sources */,
