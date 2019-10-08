@@ -120,7 +120,9 @@
             self.fileSize = [NSString transformedValue:[metaJSON stringValueForKey:@"byteSize" default:@""]];
             self.fileIcon = [type getFileIcon];
         }
-    }else if([model.type isEqualToString:@"keyPoint"]){
+    }else if([model.type isEqualToString:@"keyPoint"] && ![model.subType isEqualToString:@"issueChildAdded"]){
+        self.cellString = PWChatKeyPointCellId;
+        self.nameStr = [NSString compareCurrentTime:time];
         NSDictionary *accountInfo =[model.accountInfoStr jsonValueDecoded];
         NSString *name = [accountInfo stringValueForKey:@"name" default:@""];
        
@@ -151,17 +153,20 @@
                 self.stuffName  = [NSString stringWithFormat:@"%@ %@",name,NSLocalizedString(key, @"")];
             }
 
-        }else if([model.subType isEqualToString:@"issueChildAdded"]){
-            NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
-            NSString *key = [childIssue stringValueForKey:@"title" default:@""];
-            self.stuffName = key;
-
         }else{
             self.stuffName  = NSLocalizedString(key, @"");
         }
-        self.cellString = PWChatKeyPointCellId;
-        self.nameStr = [NSString compareCurrentTime:time];
     }else{
+        if ([model.subType isEqualToString:@"issueChildAdded"]) {
+           
+                NSDictionary *childIssue = [model.childIssueStr jsonValueDecoded];
+            NSString *key =[NSString stringWithFormat:@"%@：%@",NSLocalizedString(@"local.issue", @""),[childIssue stringValueForKey:@"title" default:@""]];
+                NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:key];
+                self.textString = str;
+                self.cellString = PWChatChildAddCellId;
+                self.messageFrom = PWChatMessageFromOther;
+            self.messageType = PWChatMessageTypeText;
+        }else{
         NSDictionary *metaJSON = [model.metaJsonStr jsonValueDecoded];
         NSString *subType = model.subType;
         NSString *key = [NSString stringWithFormat:@"local.issue.%@",subType];
@@ -175,6 +180,7 @@
         }
         self.messageType = PWChatMessageTypeKeyPoint;
         self.cellString = PWChatKeyPointCellId;
+        }
     }
     if(self.messageFrom == PWChatMessageFromSystem){
         self.messageType = PWChatMessageTypeSysterm;

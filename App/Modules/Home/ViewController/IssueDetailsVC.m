@@ -89,6 +89,8 @@ static const int IgnoreBtnTag = 15;
     [self.tableView registerClass:NSClassFromString(@"IssueChatFileCell") forCellReuseIdentifier:PWChatFileCellId];
     [self.tableView registerClass:NSClassFromString(@"IssueChatSystermCell") forCellReuseIdentifier:PWChatSystermCellId];
     [self.tableView registerClass:NSClassFromString(@"IssueChatKeyPointCell") forCellReuseIdentifier:PWChatKeyPointCellId];
+    [self.tableView registerClass:NSClassFromString(@"IssueChatChildCell") forCellReuseIdentifier:PWChatChildAddCellId];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         
     
@@ -428,7 +430,23 @@ static const int IgnoreBtnTag = 15;
     }];
     
 }
-
+-(void)PWChatChildCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout{
+  NSDictionary *childIssue = [layout.message.model.childIssueStr jsonValueDecoded];
+    NSString *issueId = [childIssue stringValueForKey:@"id" default:@""];
+    if (issueId && issueId.length>0) {
+        [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+            if ([response[ERROR_CODE] isEqualToString:@""]) {
+                NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+                IssueListViewModel *detailModel = [[IssueListViewModel alloc]initWithDictionary:content];
+                IssueDetailsVC *detail = [[IssueDetailsVC alloc]init];
+                detail.model = detailModel;
+                [self.navigationController pushViewController:detail animated:YES];
+            }
+        } failBlock:^(NSError *error) {
+            [error errorToast];
+        }];
+    }
+}
 - (void)PWChatHeaderImgCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout {
     MemberInfoVC *iconVC = [[MemberInfoVC alloc]init];
     

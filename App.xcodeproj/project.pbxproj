@@ -324,6 +324,9 @@
 		4A092DC8222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DC9222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
 		4A092DCA222FFE2E00FB2A35 /* LZImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */; };
+		4A165A26234C312000F6CDD1 /* IssueChatChildCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A165A25234C312000F6CDD1 /* IssueChatChildCell.m */; };
+		4A165A27234C312000F6CDD1 /* IssueChatChildCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A165A25234C312000F6CDD1 /* IssueChatChildCell.m */; };
+		4A165A28234C312000F6CDD1 /* IssueChatChildCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A165A25234C312000F6CDD1 /* IssueChatChildCell.m */; };
 		4A241F6B2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
 		4A241F6C2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
 		4A241F6D2303E32E00DC47A9 /* TeamAccountListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F6A2303E32E00DC47A9 /* TeamAccountListModel.m */; };
@@ -1413,6 +1416,8 @@
 		4A092DC2222FC11A00FB2A35 /* VerificationCodeNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationCodeNetWork.m; sourceTree = "<group>"; };
 		4A092DC6222FFE2D00FB2A35 /* LZImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZImageCropper.h; sourceTree = "<group>"; };
 		4A092DC7222FFE2E00FB2A35 /* LZImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZImageCropper.m; sourceTree = "<group>"; };
+		4A165A24234C312000F6CDD1 /* IssueChatChildCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChatChildCell.h; sourceTree = "<group>"; };
+		4A165A25234C312000F6CDD1 /* IssueChatChildCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChatChildCell.m; sourceTree = "<group>"; };
 		4A19549021A7FEDE007ADFCA /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		4A19549121A8060D007ADFCA /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4A241F692303E32E00DC47A9 /* TeamAccountListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamAccountListModel.h; sourceTree = "<group>"; };
@@ -3545,6 +3550,8 @@
 				6B6E29B6543EC4EA421E8B13 /* IssueChatSystermCell.m */,
 				4AC21FE1228D031A0098848C /* IssueChatKeyPointCell.h */,
 				4AC21FE2228D031A0098848C /* IssueChatKeyPointCell.m */,
+				4A165A24234C312000F6CDD1 /* IssueChatChildCell.h */,
+				4A165A25234C312000F6CDD1 /* IssueChatChildCell.m */,
 			);
 			path = IssueChatCell;
 			sourceTree = "<group>";
@@ -4268,6 +4275,7 @@
 				4A95BB95217DAD6100FC2979 /* main.m in Sources */,
 				4A47137D22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				4A00DDDE22D5BA27008462AF /* TagViewCell.m in Sources */,
+				4A165A26234C312000F6CDD1 /* IssueChatChildCell.m in Sources */,
 				4AB48A7C21FC4741009F9E94 /* UITabBarItem+PPBadgeView.m in Sources */,
 				4AE5375721C743CC004CF320 /* PWContentView.m in Sources */,
 				4A01C65F22EF14FF008D1609 /* DefineOriginVC.m in Sources */,
@@ -4625,6 +4633,7 @@
 				4A47137E22B1EB9500EB90F7 /* AssignView.m in Sources */,
 				CA1CF5C2221ECB3A00D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF52229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
+				4A165A27234C312000F6CDD1 /* IssueChatChildCell.m in Sources */,
 				4A01C66022EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4A092D62222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF5C5221ECB3A00D15316 /* CurrentUserModel.m in Sources */,
@@ -4982,6 +4991,7 @@
 				4A47137F22B1EB9600EB90F7 /* AssignView.m in Sources */,
 				CA1CF667221ECB5000D15316 /* ChangeCardItem.m in Sources */,
 				4A092CF62229294A00FB2A35 /* MGSwipeTableCell.m in Sources */,
+				4A165A28234C312000F6CDD1 /* IssueChatChildCell.m in Sources */,
 				4A01C66122EF14FF008D1609 /* DefineOriginVC.m in Sources */,
 				4A092D63222E1BEA00FB2A35 /* CollectionCell.m in Sources */,
 				CA1CF66A221ECB5000D15316 /* CurrentUserModel.m in Sources */,

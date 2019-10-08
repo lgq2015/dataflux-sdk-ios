@@ -35,6 +35,12 @@
             case PWChatMessageTypeKeyPoint:
                 [self setKeyPoint];
                 break;
+            case PWChatMessageTypeAtText:
+                
+                break;
+            case PWChatMessageTypeChild:
+                [self setChild];
+                break;
         }
 
     
@@ -100,6 +106,23 @@
     [self setImageWidth:ZOOM_SCALE(102) Height:ZOOM_SCALE(102)];
 
     
+}
+-(void)setChild{
+    UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(13) textColor:PWWhiteColor text:_message.nameStr];
+    [nameLab sizeToFit];
+    _nameLabRect = nameLab.bounds;
+    CGFloat nameWidth  = _nameLabRect.size.width;
+    _message.contentMode =  UIViewContentModeScaleAspectFit;
+    _headerImgRect = CGRectMake(PWChatIcon_RX, PWChatCellTop, PWChatIconWH, PWChatIconWH);
+    _nameLabRect = CGRectMake(PWChatIcon_RX-PWChatIconRight-nameWidth, self.headerImgRect.origin.y, kWidth-80, ZOOM_SCALE(16));
+    _backImgButtonRect = CGRectMake(PWChatIcon_RX-PWChatFileWidth-PWChatDetailRight, CGRectGetMaxY(_nameLabRect)+8, PWChatFileWidth, ZOOM_SCALE(39));
+    
+    _imageInsets = UIEdgeInsetsMake(PWChatAirTop, PWChatAirLRS, PWChatAirBottom, PWChatAirLRB);
+    
+    _textLabRect.origin.x = PWChatTextLRS;
+    _textLabRect.origin.y = PWChatTextTop;
+    _cellHeight = _backImgButtonRect.size.height + _backImgButtonRect.origin.y + PWChatCellBottom;
+
 }
 -(void)setImageWidth:(CGFloat)imgActualWidth Height:(CGFloat)imgActualHeight{
     UILabel *nameLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, 0, kWidth, 20) font:RegularFONT(13) textColor:PWWhiteColor text:_message.nameStr];

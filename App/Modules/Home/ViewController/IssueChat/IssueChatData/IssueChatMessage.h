@@ -14,6 +14,7 @@
 #define PWChatFileCellId        @"PWChatFileCellId"
 #define PWChatSystermCellId     @"PWChatSystermCellId"
 #define PWChatKeyPointCellId    @"PWChatKeyPointCellId"
+#define PWChatChildAddCellId    @"PWChatChildAddCellId"
 
 #define PWChatCellTop           8           //顶部距离cell
 #define PWChatCellBottom        15           //底部距离cell
@@ -83,6 +84,7 @@ typedef NS_ENUM(NSInteger, PWChatMessageType) {
     PWChatMessageTypeSysterm,
     PWChatMessageTypeKeyPoint,
     PWChatMessageTypeAtText,
+    PWChatMessageTypeChild,
 };
 typedef NS_ENUM(NSInteger, PWChatMessageSendStates) {
     ChatSentStatesIsSending =1,

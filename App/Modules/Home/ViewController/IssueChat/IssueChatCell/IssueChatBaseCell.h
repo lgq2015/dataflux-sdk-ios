@@ -16,7 +16,8 @@
 //点击文本cell
 -(void)PWChatTextCellClick:(NSIndexPath*)indexPath index:(NSInteger)index layout:(IssueChatMessagelLayout *)layout;
 -(void)PWChatFileCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
-//-(void)PWChatRetryClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
+//点击关联情报cell
+-(void)PWChatChildCellClick:(NSIndexPath*)indexPath layout:(IssueChatMessagelLayout *)layout;
 //点击cell图片和短视频
 -(void)PWChatImageCellClick:(NSIndexPath *)indexPath layout:(IssueChatMessagelLayout *)layout;
 //图片链接异常
