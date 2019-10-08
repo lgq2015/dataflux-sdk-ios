@@ -26,14 +26,15 @@
 #import "PWBaseWebVC.h"
 #import "IssueListManger.h"
 #import "TeamInfoModel.h"
-#import "IgnoreItemView.h"
+#import "PopItemView.h"
+#import "AddIssueVC.h"
 #import "TouchLargeButton.h"
 #import "ZhugeIOIssueHelper.h"
 #import "NSString+ErrorCode.h"
 #import "UtilsConstManager.h"
 static const int IgnoreBtnTag = 15;
 
-@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate>
+@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate,PopItemViewDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -41,7 +42,7 @@ static const int IgnoreBtnTag = 15;
 @property (nonatomic, strong) IssueDtealsBV *bottomBtnView; //底部伪输入框
 @property (nonatomic, strong) ZTPopCommentView *popCommentView; //弹出输入框
 @property (nonatomic, assign) IssueDealState state;
-@property (nonatomic, strong) IgnoreItemView *itemView;
+@property (nonatomic, strong) PopItemView *itemView;
 @property (nonatomic, strong) TouchLargeButton *watchBtn;
 @property (nonatomic, strong) TouchLargeButton *ignoreBtn;
 
@@ -72,11 +73,9 @@ static const int IgnoreBtnTag = 15;
 - (void)createUI{
     
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.watchBtn];
-    self.navigationItem.rightBarButtonItems = @[item];
-    if (self.model.allowIgnore) {
-      UIBarButtonItem * ignoreItem = [[UIBarButtonItem alloc] initWithCustomView:self.ignoreBtn];
-      self.navigationItem.rightBarButtonItems = @[ignoreItem,item];
-    }
+    UIBarButtonItem * ignoreItem = [[UIBarButtonItem alloc] initWithCustomView:self.ignoreBtn];
+    self.navigationItem.rightBarButtonItems = @[ignoreItem,item];
+    
     if (self.model.watchInfoJSONStr) {
         self.watchBtn.selected =[self.model.watchInfoJSONStr containsString:userManager.curUserInfo.userID];
     }
@@ -307,6 +306,14 @@ static const int IgnoreBtnTag = 15;
     }];
     }
 }
+#pragma mark ========== PopItemViewDelegate ==========
+- (void)itemClick:(NSInteger)index{
+    if (index==0) {
+      [self createAssociatedIssue];
+    }else{
+      [self ignoreIssue];
+    }
+}
 #pragma mark ========== bottomBtnClick ==========
 - (void)issueDtealsBVClick{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -316,12 +323,19 @@ static const int IgnoreBtnTag = 15;
     });
 }
 - (void)ignoreClick{
-    _itemView = [[IgnoreItemView alloc]init];
     [self.itemView showInView:[UIApplication sharedApplication].keyWindow];
-    WeakSelf
-    _itemView.itemClick=^(){
-        [weakSelf ignoreIssue];
-    };
+}
+-(PopItemView *)itemView{
+    if (!_itemView) {
+        _itemView = [[PopItemView alloc]init];
+        _itemView.delegate = self;
+        if (self.model.allowIgnore) {
+            _itemView.itemDatas = @[NSLocalizedString(@"local.CreateAssociatedIssue", @""),NSLocalizedString(@"local.IgnoreIssue", @"")];
+        }else{
+            _itemView.itemDatas = @[NSLocalizedString(@"local.CreateAssociatedIssue", @"")];
+        }
+    }
+    return _itemView;
 }
 - (void)ignoreIssue{
     WeakSelf
@@ -344,6 +358,11 @@ static const int IgnoreBtnTag = 15;
     [alert addAction:cancle];
     [self presentViewController:alert animated:YES completion:nil];
    
+}
+- (void)createAssociatedIssue{
+    AddIssueVC *addVC = [[AddIssueVC alloc]init];
+    addVC.parentModel = self.model;
+    [self.navigationController pushViewController:addVC animated:YES];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
