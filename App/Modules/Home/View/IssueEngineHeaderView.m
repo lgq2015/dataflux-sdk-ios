@@ -111,7 +111,11 @@
     [self.upContainerView addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.width.mas_equalTo(self.upContainerView);
+        if (self.model.sourceName.length == 0 && self.model.icon.length == 0) {
+        make.top.mas_equalTo(self.stateLab.mas_bottom).offset(10);
+        }else{
         make.top.mas_equalTo(self.issueNameLab.mas_bottom).offset(Interval(17));
+        }
         make.height.offset(1);
         make.bottom.mas_equalTo(self.upContainerView.mas_bottom).offset(ZOOM_SCALE(-54));
     }];
