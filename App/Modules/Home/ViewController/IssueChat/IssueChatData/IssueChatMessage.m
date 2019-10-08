@@ -64,7 +64,7 @@
         self.nameStr = [time accurateTimeStr];
 
     }else if([model.origin isEqualToString:@"bizSystem"]){
-        self.messageFrom = PWChatMessageFromOther;
+        self.messageFrom = PWChatMessageFromStaff;
     }
     
     NSString *type = model.type;
