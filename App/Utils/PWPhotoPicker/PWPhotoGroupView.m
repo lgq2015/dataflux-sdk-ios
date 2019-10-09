@@ -11,7 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PWPhotoPickerViewController.h"
 #import "PrivacySecurityControls.h"
-#import <Photos/PhotosDefines.h>
+//#import <Photos/PhotosDefines.h>
 #import <Photos/PHPhotoLibrary.h>
 @interface PWPhotoGroupView()<UITableViewDataSource,UITableViewDelegate>
 
