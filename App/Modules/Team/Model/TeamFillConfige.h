@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, FillinTeamType){
     FillinTeamTypeAdd = 1,
     FillinTeamTypeIsAdmin,
     FillinTeamTypeIsMember,
+    FillinTeamTypeIsManger,
 };
 NS_ASSUME_NONNULL_BEGIN
 

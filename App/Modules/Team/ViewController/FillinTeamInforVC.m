@@ -140,6 +140,11 @@
         case FillinTeamTypeIsMember:
             [self createBtnViewMember];
             break;
+        case FillinTeamTypeIsManger:
+            self.tfAry[0].hll_limitTextLength = 30;
+            [self createBtnViewMember];
+            self.textView.editable = YES;
+            break;
     }
     
 }
@@ -312,7 +317,7 @@
     
 }
 - (void)backBtnClicked{
-    if (self.mConfige.type == FillinTeamTypeIsAdmin) {
+    if (self.mConfige.type == FillinTeamTypeIsAdmin || self.mConfige.type == FillinTeamTypeIsManger) {
         TeamInfoModel *model = userManager.teamModel;
         if ([self.tfAry[0].text isEqualToString:model.name] &&[self.currentProvince isEqualToString:model.province] && [self.currentCity isEqualToString:model.city]&& [self.tfAry[2].text isEqualToString: model.industry] && [self.textView.text isEqualToString:[model.tags stringValueForKey:@"introduction" default:@""]] ) {
             [self.navigationController popViewControllerAnimated:YES];
@@ -336,20 +341,20 @@
                 }else{
                     param= @{@"data":@{@"name":name,@"city":city,@"industry":self.tfAry[2].text,@"province":province,@"tags":@{@"introduction":self.textView.text}}};
                 }
-                [PWNetworking requsetHasTokenWithUrl:PW_TeamModify withRequestType:NetworkPostType refreshRequest:NO cache:NO params:param progressBlock:nil successBlock:^(id response) {
+                [[PWHttpEngine sharedInstance] teamModifyWithParam:param callBack:^(id response) {
                     [SVProgressHUD dismiss];
-                    if ([response[ERROR_CODE] isEqualToString:@""]) {
+                    BaseReturnModel *model = response;
+                    if (model.isSuccess) {
                         if (self.changeSuccess) {
                             self.changeSuccess();
                         }
                         [self.navigationController popViewControllerAnimated:YES];
                     }else{
-                        [iToast alertWithTitleCenter:NSLocalizedString([response[ERROR_CODE] toErrString], @"")];
+                        [iToast alertWithTitleCenter:model.errorMsg];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
                     }
-                    
-                } failBlock:^(NSError *error) {
-                    [SVProgressHUD dismiss];
-                    [error errorToast];
                 }];
             }
         }

@@ -50,6 +50,17 @@
         self.currentProvince = model.province;
         self.currentCity = city;
         self.describeStr = [model.tags stringValueForKey:@"introduction" default:@""];
+    }else if([userManager isBuildInAdmin]){
+        self.title = NSLocalizedString(@"local.TeamManagement", @"");
+        self.type = FillinTeamTypeIsManger;
+        nameTf.enabled = YES;
+        nameTf.text = model.name;
+        placeTf.showArrow = YES;
+        placeTf.text = city;
+        industryTf.text = model.industry;
+        self.currentProvince = model.province;
+        self.currentCity = city;
+        self.describeStr = [model.tags stringValueForKey:@"introduction" default:@""];
     }else{
         self.type = FillinTeamTypeIsMember;
         self.title = NSLocalizedString(@"local.TeamManagement", @"");
