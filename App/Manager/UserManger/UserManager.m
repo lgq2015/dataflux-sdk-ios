@@ -326,6 +326,9 @@ SINGLETON_FOR_CLASS(UserManager);
             if (userDic && teamDic) {
                 self.curUserInfo = [CurrentUserModel modelWithJSON:userDic];
                 self.teamModel = [TeamInfoModel modelWithJSON:teamDic];
+                if (!self.teamModel.permissions) {
+                    [self updateCurrentTeamModel];
+                }
                 return YES;
             }
         } else {
@@ -492,7 +495,7 @@ SINGLETON_FOR_CLASS(UserManager);
 - (void)updateCurrentTeamModel{
     [[PWHttpEngine sharedInstance] getCurrentTeamInfoWithCallBack:^(id response) {
         BaseReturnModel *model = response;
-        if(model.isSuccess){
+        if(model.isSuccess && model.contentDict.allKeys.count>0){
             NSError *error;
             self.teamModel = [[TeamInfoModel alloc]initWithDictionary:model.contentDict error:&error];
             if (self.teamModel) {
