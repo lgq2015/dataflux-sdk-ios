@@ -53,15 +53,15 @@
     [PWNetworking requsetHasTokenWithUrl:PW_TeamAccountModify withRequestType:NetworkPostType refreshRequest:YES cache:NO params:params progressBlock:nil successBlock:^(id response) {
         [SVProgressHUD dismiss];
         if ([response[ERROR_CODE] isEqualToString:@""]) {
-            BOOL content = [response[@"content"] boolValue];
-            if (content){
+//            BOOL content = [response[@"content"] boolValue];
+//            if (content){
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.NoteAddedSuccessfully", @"")];
                 if (_editTeamMemberNote){
                     _editTeamMemberNote(inTeamNote);
                 }
                 KPostNotification(KNotificationEditTeamNote, nil);
                 [self.navigationController popViewControllerAnimated:YES];
-            }
+//            }
         }else{
             [iToast alertWithTitleCenter:[response[ERROR_CODE] toErrString]];
         }

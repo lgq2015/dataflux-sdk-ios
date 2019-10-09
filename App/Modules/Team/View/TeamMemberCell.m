@@ -126,7 +126,7 @@
     }
   
     if (_model.isAdmin){
-        _adminLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+        _adminLab.backgroundColor = [UIColor colorWithHexString:@"#F97B00"];
         _adminLab.text =  NSLocalizedString(@"local.owner", @"");
     }else{
         _adminLab.backgroundColor = PWBlueColor;

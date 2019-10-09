@@ -112,10 +112,9 @@
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
-            if (self.model.isAdmin) {
+            if ([userManager isBuildInAdmin]) {
                 self.subTitleLab.hidden = NO;
-                self.subTitleLab.text = NSLocalizedString(@"local.TeamAdministrator", @"");
-                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+                self.subTitleLab.text = self.model.isAdmin?NSLocalizedString(@"local.owner", @""): NSLocalizedString(@"local.TeamAdministrator", @"");
             }
              [self createBtnPhone];
         }
@@ -149,10 +148,10 @@
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
             self.callBtn.hidden = YES;
-            if (self.model.isAdmin) {
+            if ([userManager isBuildInAdmin]) {
                 self.subTitleLab.hidden = NO;
-                self.subTitleLab.text = NSLocalizedString(@"local.TeamAdministrator", @"");
-                self.subTitleLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+                self.subTitleLab.text = self.model.isAdmin?NSLocalizedString(@"local.owner", @""): NSLocalizedString(@"local.TeamAdministrator", @"");
+               
             }
         }
             break;
@@ -166,7 +165,8 @@
    
     if (userManager.teamModel.isAdmin) {
         [self.topNavBar addNavRightBtnWithImage:@"icon_more"];
-       
+    }
+    if (([userManager isBuildInAdmin] && ![userManager isMemberIsMangerWithMemberPermissions:self.model.permissions])||userManager.teamModel.isAdmin) {
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(42)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(42)+SafeAreaBottom_Height)];
         bgView.backgroundColor = PWWhiteColor;
         [self.view addSubview:bgView];
@@ -181,6 +181,8 @@
             make.height.offset(ZOOM_SCALE(42));
         }];
     }
+    
+    
 
 }
 -(void)rightBtnClick{
@@ -207,11 +209,12 @@
     [[PWHttpEngine sharedInstance] setTeamRolesIsManger:!now userId:self.model.memberID callBack:^(id response) {
         BaseReturnModel *model = response;
         if (model.isSuccess) {
-            [SVProgressHUD showSuccessWithStatus:@"设置成功"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfulSetup", @"")];
             if (self.teamMemberRefresh) {
                 self.teamMemberRefresh();
             }
         }else{
+            [SVProgressHUD dismiss];
             [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
@@ -251,6 +254,9 @@
         _subTitleLab.layer.cornerRadius = 2;
         _subTitleLab.layer.masksToBounds = YES;
         _subTitleLab.hidden = YES;
+       
+        _subTitleLab.backgroundColor = _model.isAdmin? [UIColor colorWithHexString:@"#F97B00"]:PWBlueColor;
+    
         [self.headerView addSubview:_subTitleLab];
     }
     return _subTitleLab;
@@ -267,7 +273,7 @@
         }else{
             [_beizhuBtn setTitle:NSLocalizedString(@"local.SetTheNote", @"") forState:UIControlStateNormal];
         }
-        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+        if ([userManager isBuildInAdmin] || self.type == PWMemberViewTypeMe){
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhu"] forState:UIControlStateNormal];
             [_beizhuBtn setImage:[UIImage imageNamed:@"edit_beizhub"] forState:UIControlStateSelected];
         }
@@ -275,14 +281,11 @@
          [_beizhuBtn setTitleColor:PWBlueColor forState:UIControlStateSelected];
         _beizhuBtn.titleLabel.font = RegularFONT(13);
         [_beizhuBtn sizeToFit];
-        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
+        if ([userManager isBuildInAdmin] || self.type == PWMemberViewTypeMe){
             CGSize imageSize = _beizhuBtn.imageView.frame.size;
             _beizhuBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0, - imageSize.width * 2 - spacing, 0.0, 0.0);
             CGSize titleSize = _beizhuBtn.titleLabel.frame.size;
             _beizhuBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
-        }
-        [self.headerView addSubview:_beizhuBtn];
-        if (userManager.teamModel.isAdmin || self.type == PWMemberViewTypeMe){
             if ([getTeamState isEqualToString:PW_isPersonal] || self.model.isSpecialist){
                 _beizhuBtn.hidden = YES;
             }else{
@@ -290,7 +293,6 @@
                 _beizhuBtn.enabled = YES;
             }
             [_beizhuBtn addTarget:self action:@selector(beizhuclick) forControlEvents:UIControlEventTouchUpInside];
-
         }else{
             if (self.model.inTeamNote.length > 0){
                 _beizhuBtn.hidden = NO;
@@ -300,7 +302,7 @@
                 _beizhuBtn.hidden = YES;
             }
         }
-        
+        [self.headerView addSubview:_beizhuBtn];
     }
     return _beizhuBtn;
 }

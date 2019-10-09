@@ -243,7 +243,7 @@
     if (model.isDefault) {
         return NO;
     }
-    if (model.teamId&& [userManager isCanNotification]) {
+    if (model.teamId&& [userManager isBuildInAdmin]) {
         return YES;
     }
     if (model.accountId && [model.accountId isEqualToString:userManager.curUserInfo.userID]) {
