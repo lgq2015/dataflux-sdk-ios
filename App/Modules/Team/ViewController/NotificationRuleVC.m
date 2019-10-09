@@ -238,11 +238,12 @@
 
     return cell;
 }
+#pragma mark ========== 判断通知编辑删除权限 ==========
 - (BOOL )handlePermissonWithModel:(NotiRuleModel *)model{
     if (model.isDefault) {
         return NO;
     }
-    if (model.teamId&& userManager.teamModel.isAdmin) {
+    if (model.teamId&& [userManager isCanNotification]) {
         return YES;
     }
     if (model.accountId && [model.accountId isEqualToString:userManager.curUserInfo.userID]) {
