@@ -407,7 +407,7 @@
 "local.ChangeThePassword" = "修改密码";
 "local.PrivacyPolicy" = "隐私权政策";
 "local.tip.BindingSuccess" = "绑定成功";
-"local.TransferManager" = "转移管理员";
+"local.TransferManager" = "转移团队";
 "local.MineCollection" = "我的收藏";
 "local.TeamMessage" = "团队消息";
 "local.tip.NoMoreFooter" = "已经到底了";
@@ -445,6 +445,7 @@
 "local.GoToOpen" = "去开启";
 "local.ConfirmRemoval" = "确认移除";
 "local.RemovalFailed" = "移除失败";
+"local.SuccessfullyRemoved" = "移除成功";
 "local.SwitchingTeamFailed" = "切换团队失败";
 "local.location" = "所在地";
 "local.placeholder.selectLocation" = "请选择您的团队所在区域";
@@ -480,9 +481,9 @@
 "local.tip.InviteYouJoinTheTeamTip" = "团队邀请您加入，加入团队后您可以共享团队数据和信息，并与团队成员进行协作";
 "local.RemoveMember" = "移除成员";
 "local.phone" = "电话";
-"local.tip.TransferManagerTip" = "* 转移管理员后，您将不再对团队具有管理权限，确认要将管理员转移给他吗？\n* 操作完成将会强制退出登录";
+"local.tip.TransferManagerTip" = "* 转移团队后，您将不再拥有此团队，确认要将团队转移给他吗？\n* 操作完成将会强制退出登录";
 "local.ConfirmTransfer" = "确认转移";
-"local.SelectAdministrator" = "选择管理员";
+"local.SelectAdministrator" = "选择拥有者";
 "local.NoteAddedSuccessfully" = "备注添加成功";
 "local.SuccessfullyDeleted" = "删除成功";
 "local.edit" = "编辑";
@@ -601,3 +602,4 @@
 "local.owner" = "拥有者";
 "local.SetAsAdministrator" = "设为管理员";
 "local.CancelAdministrator" = "取消管理员";
+"local.SuccessfulSetup" = "设置成功";
