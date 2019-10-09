@@ -112,7 +112,7 @@
             NSString *url = [self.model.tags stringValueForKey:@"pwAvatar" default:@""];
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
-            if ([userManager isBuildInAdmin]) {
+            if ([userManager isMemberIsMangerWithMemberPermissions:self.model.permissions]) {
                 self.subTitleLab.hidden = NO;
                 self.subTitleLab.text = self.model.isAdmin?NSLocalizedString(@"local.owner", @""): NSLocalizedString(@"local.TeamAdministrator", @"");
             }
@@ -148,7 +148,7 @@
             [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"team_memicon"]];
             self.memberName.text = self.model.name;
             self.callBtn.hidden = YES;
-            if ([userManager isBuildInAdmin]) {
+            if ([userManager isMemberIsMangerWithMemberPermissions:self.model.permissions]) {
                 self.subTitleLab.hidden = NO;
                 self.subTitleLab.text = self.model.isAdmin?NSLocalizedString(@"local.owner", @""): NSLocalizedString(@"local.TeamAdministrator", @"");
                
