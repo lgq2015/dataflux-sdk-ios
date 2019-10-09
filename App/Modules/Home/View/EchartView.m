@@ -191,7 +191,7 @@
     }];
     PYOption *option = [[PYOption alloc] init];
     //拖拽重计算，设置no可以提高加载速度
-    option.calculable = NO;
+    option.calculable = YES;
     option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
         title.textEqual(dict[@"title"][@"text"]);
         title.xEqual(PYPositionCenter);
@@ -220,6 +220,7 @@
     series1.type = PYSeriesTypePie;
     series1.data = itemArray;
     series1.legendHoverLink = NO;
+    series1.selectedModeEqual(@"single");
     series1.radius = @[@"60%",@"80%"];
     //圆心坐标
     //    series1.center = @[@"50%",@"50%"];
