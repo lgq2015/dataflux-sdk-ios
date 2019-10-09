@@ -191,7 +191,7 @@
     }];
     PYOption *option = [[PYOption alloc] init];
     //拖拽重计算，设置no可以提高加载速度
-    option.calculable = YES;
+    option.calculable = NO;
     option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
         title.textEqual(dict[@"title"][@"text"]);
         title.xEqual(PYPositionCenter);
