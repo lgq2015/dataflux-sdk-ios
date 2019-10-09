@@ -140,4 +140,5 @@ SINGLETON_FOR_HEADER(UserManager)
 -(void)loadTeamMember;
 -(BOOL)isBuildInAdmin;
 -(BOOL)isCanNotification;
+-(BOOL)isMemberIsMangerWithMemberPermissions:(NSArray *)permissions;
 @end

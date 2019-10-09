@@ -523,8 +523,11 @@ SINGLETON_FOR_CLASS(UserManager);
 //    }];
 }
 -(BOOL)isBuildInAdmin{
+    return [self isMemberIsMangerWithMemberPermissions:self.teamModel.permissions];
+}
+-(BOOL)isMemberIsMangerWithMemberPermissions:(NSArray *)permissions{
     __block BOOL isAdimin = NO;
-    [self.teamModel.permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *ruleId = [obj stringValueForKey:@"id" default:@""];
         if ([ruleId isEqualToString:@"buildIn.admin.RW"]) {
             isAdimin = YES;
