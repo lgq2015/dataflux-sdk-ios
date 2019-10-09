@@ -17,7 +17,7 @@
 #import "ZhugeIOIssueHelper.h"
 #import "ZhugeIOTeamHelper.h"
 #import "NSString+ErrorCode.h"
-
+#import "ChangeManagerResultModel.h"
 #define phoneViewTag 35
 @interface MemberInfoVC ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *headerView;
@@ -207,9 +207,11 @@
 - (void)changeTeamRoleToManger:(BOOL )now{
     [SVProgressHUD show];
     [[PWHttpEngine sharedInstance] setTeamRolesIsManger:!now userId:self.model.memberID callBack:^(id response) {
-        BaseReturnModel *model = response;
+        ChangeManagerResultModel *model = response;
         if (model.isSuccess) {
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"local.SuccessfulSetup", @"")];
+            self.model = [model.list firstObject];
+            [self refreshUI];
             if (self.teamMemberRefresh) {
                 self.teamMemberRefresh();
             }
@@ -218,6 +220,14 @@
             [iToast alertWithTitleCenter:model.errorMsg];
         }
     }];
+}
+-(void)refreshUI{
+    if ([userManager isMemberIsMangerWithMemberPermissions:self.model.permissions]) {
+        self.subTitleLab.hidden = NO;
+        self.subTitleLab.text = self.model.isAdmin?NSLocalizedString(@"local.owner", @""): NSLocalizedString(@"local.TeamAdministrator", @"");
+    }else{
+        self.subTitleLab.hidden = YES;
+    }
 }
 -(UIImageView *)iconImgView{
     if (!_iconImgView) {

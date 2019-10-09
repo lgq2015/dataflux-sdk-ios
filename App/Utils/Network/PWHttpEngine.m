@@ -27,6 +27,7 @@
 #import "TeamAccountListModel.h"
 #import "AuthTeamListModel.h"
 #import "FavoritesListModel.h"
+#import "ChangeManagerResultModel.h"
 
 @implementation PWHttpEngine {
 
@@ -724,7 +725,7 @@
 -(PWURLSessionTask *)setTeamRolesIsManger:(BOOL)isManger userId:(NSString *)userId callBack:(void (^)(id response))callback{
     NSString *operation = isManger?@"add":@"remove";
     NSDictionary *param = @{@"accounts":@[@{@"id":userId,@"teamRoles":@[@{@"id":@"tmro-buildIn-admin",@"operation":operation}]}]};
-    BaseReturnModel *model = [BaseReturnModel new];
+    ChangeManagerResultModel *model = [ChangeManagerResultModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_teamRolesModify withRequestType:NetworkPostType refreshRequest:YES
                                           cache:NO params:param
                                   progressBlock:nil
