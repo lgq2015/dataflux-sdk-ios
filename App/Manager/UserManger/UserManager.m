@@ -522,16 +522,27 @@ SINGLETON_FOR_CLASS(UserManager);
 //        }
 //    }];
 }
--(BOOL)isTeamAccountCanManageTeamMember{
+-(BOOL)isBuildInAdmin{
     __block BOOL isAdimin = NO;
     [self.teamModel.permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *ruleId = [obj stringValueForKey:@"id" default:@""];
-        if ([ruleId isEqualToString:@"Home.teamAccount.RW"]) {
+        if ([ruleId isEqualToString:@"buildIn.admin.RW"]) {
             isAdimin = YES;
             *stop = YES;
         }
     }];
     return isAdimin;
+}
+-(BOOL)isCanNotification{
+    __block BOOL isNotification = NO;
+    [self.teamModel.permissions enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *ruleId = [obj stringValueForKey:@"id" default:@""];
+        if ([ruleId isEqualToString:@"Home.Notification.RW"]) {
+            isNotification = YES;
+            *stop = YES;
+        }
+    }];
+    return isNotification;
 }
 #pragma mark ========== 团队列表 ==========
 - (void)requestMemberList:(void(^)(BOOL isFinished))isFinished{

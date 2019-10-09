@@ -138,5 +138,6 @@ SINGLETON_FOR_HEADER(UserManager)
 - (void)setTeamAdminIdWithId:(NSString *)memberId;
 - (NSString *)getTeamAdminId;
 -(void)loadTeamMember;
--(BOOL)isTeamAccountCanManageTeamMember;
+-(BOOL)isBuildInAdmin;
+-(BOOL)isCanNotification;
 @end
