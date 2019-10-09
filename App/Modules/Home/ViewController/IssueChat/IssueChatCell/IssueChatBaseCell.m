@@ -41,8 +41,8 @@
     [_mHeaderImgBtn addTarget:self action:@selector(iconPressed) forControlEvents:UIControlEventTouchUpInside];
     
     
-    _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:NSLocalizedString(@"local.TeamAdministrator", @"")];
-    _adminLab.backgroundColor = [UIColor colorWithHexString:@"#FFD3A2"];
+    _adminLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(10) textColor:PWWhiteColor text:NSLocalizedString(@"local.owner", @"")];
+    _adminLab.backgroundColor = [UIColor colorWithHexString:@"#F97B00"];
     _adminLab.textAlignment = NSTextAlignmentCenter;
     _adminLab.layer.cornerRadius = 2.0f;
     _adminLab.layer.masksToBounds = YES;
@@ -76,7 +76,10 @@
     self.mNameLab.text = layout.message.nameStr;
     self.mNameLab.frame = layout.nameLabRect;
     self.mHeaderImgBtn.frame = layout.headerImgRect;
-        self.adminLab.hidden = !layout.message.isAdmin;
+    self.adminLab.hidden = !layout.message.isManger;
+    
+    self.adminLab.text = layout.message.isAdmin?NSLocalizedString(@"local.owner", @""):NSLocalizedString(@"local.TeamAdministrator", @"");
+        self.adminLab.backgroundColor = layout.message.isAdmin?[UIColor colorWithHexString:@"#F97B00"]:PWBlueColor;
     [self.mHeaderImgBtn sd_setImageWithURL:[NSURL URLWithString:layout.message.headerImgurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"team_memicon"]];
     self.mHeaderImgBtn.layer.cornerRadius = self.mHeaderImgBtn.height*0.5;
         _mExpertLab.hidden = YES;

@@ -40,6 +40,17 @@
         NSString *userID = [accountInfo stringValueForKey:@"id" default:@""];
         self.memberId = userID;
         self.isAdmin  = [self.memberId isEqualToString:[userManager getTeamAdminId]];
+        WeakSelf
+        [userManager getTeamMember:^(BOOL isSuccess, NSArray *member) {
+            if (isSuccess) {
+                [member enumerateObjectsUsingBlock:^(MemberInfoModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([model.memberID isEqualToString:self.memberId]) {
+                        weakSelf.isManger = [userManager isMemberIsMangerWithMemberPermissions:model.permissions];
+                        *stop = YES;
+                    }
+                }];
+            }
+        }];
         self.nameStr = [NSString stringWithFormat:@"%@ %@",name,[time accurateTimeStr]];
         if ([userID  isEqualToString:getPWUserID]) {
             self.headerImgurl =[userManager.curUserInfo.tags stringValueForKey:@"pwAvatar" default:@""];
