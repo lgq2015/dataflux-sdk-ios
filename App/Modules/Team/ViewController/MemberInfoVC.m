@@ -166,7 +166,7 @@
     if (userManager.teamModel.isAdmin) {
         [self.topNavBar addNavRightBtnWithImage:@"icon_more"];
     }
-    if (([userManager isBuildInAdmin] && ![userManager isMemberIsMangerWithMemberPermissions:self.model.permissions])||userManager.teamModel.isAdmin) {
+    if (([userManager isBuildInAdmin] && ![userManager isMemberIsMangerWithMemberPermissions:self.model.permissions]&&!self.model.isAdmin)||userManager.teamModel.isAdmin) {
         UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-ZOOM_SCALE(42)-SafeAreaBottom_Height, kWidth, ZOOM_SCALE(42)+SafeAreaBottom_Height)];
         bgView.backgroundColor = PWWhiteColor;
         [self.view addSubview:bgView];
