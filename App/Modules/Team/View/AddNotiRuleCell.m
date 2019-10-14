@@ -13,7 +13,6 @@
 @interface AddNotiRuleCell()<UITextFieldDelegate>
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UILabel *subTitleLab;
-@property (nonatomic, strong) UITextField *subTf;
 @end
 @implementation AddNotiRuleCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -42,6 +41,7 @@
 -(void)hideArrow{
     UIImageView *arrow =[self viewWithTag:22];
     arrow.hidden = YES;
+    if(_subTf) _subTf.enabled = NO;
 }
 - (void)layoutSubviews {
     [super layoutSubviews];

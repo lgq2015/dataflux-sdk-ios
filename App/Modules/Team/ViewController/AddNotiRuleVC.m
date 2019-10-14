@@ -519,6 +519,7 @@
         cell.model = self.dataSource[indexPath.section][indexPath.row];
         if (self.style == AddNotiRuleLookOver) {
             [cell hideArrow];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         return cell;
     }else{

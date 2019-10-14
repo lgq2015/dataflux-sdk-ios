@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AddNotiRuleCell : UITableViewCell
 @property (nonatomic, strong) AddNotiRuleModel *model;
 @property (nonatomic, copy) void (^ruleNameClick)(NSString *ruleName);
+@property (nonatomic, strong) UITextField *subTf;
 @property (nonatomic, assign) BOOL isTF;
 -(void)hideArrow;
 @end
