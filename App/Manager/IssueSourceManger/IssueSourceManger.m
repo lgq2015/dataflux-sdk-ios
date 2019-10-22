@@ -113,8 +113,7 @@
 
 }
 
-- (NSArray *)getIssueSourceListWithoutLock {
-    NSString *whereFormat = @"WHERE provider != 'CUSTOM'";
+- (NSArray *)getIssueSourceListWithoutLockWithWhereFormat:(NSString *) whereFormat{
     NSDictionary *dict =
             @{
                     @"provider": SQL_TEXT,
@@ -138,11 +137,17 @@
 - (NSArray *)getIssueSourceList {
     NSMutableArray *datas = [NSMutableArray new];
     [[self getHelper] pw_inDatabase:^{
-        [datas addObjectsFromArray:self.getIssueSourceListWithoutLock];
+        [datas addObjectsFromArray:[self getIssueSourceListWithoutLockWithWhereFormat:@""]];
     }];
     return datas;
 }
-
+-(NSArray *)getFiltercCustomIssueSourceList{
+    NSMutableArray *datas = [NSMutableArray new];
+       [[self getHelper] pw_inDatabase:^{
+           [datas addObjectsFromArray:[self getIssueSourceListWithoutLockWithWhereFormat:@"WHERE provider != 'CUSTOM'"]];
+       }];
+       return datas;
+}
 - (NSInteger)getIssueSourceCount {
     __block NSInteger count = 0;
     [[self getHelper] pw_inDatabase:^{

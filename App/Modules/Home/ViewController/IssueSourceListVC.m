@@ -69,7 +69,7 @@
 
 - (void)loadFromDB {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getIssueSourceList];
+        NSArray *array = [[IssueSourceManger sharedIssueSourceManger] getFiltercCustomIssueSourceList];
         dispatch_async_on_main_queue(^{
             self.dataSource = [array mutableCopy];
             if (self.dataSource.count > 0) {

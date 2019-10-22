@@ -45,6 +45,10 @@ SINGLETON_FOR_HEADER(IssueSourceManger)
  预展示 issuesource
  */
 - (NSArray *)getIssueSourceList;
+/**
+预展示 过滤来源为Custom的issuesource
+*/
+-(NSArray *)getFiltercCustomIssueSourceList;
 
 - (NSInteger)getIssueSourceCount;
 
