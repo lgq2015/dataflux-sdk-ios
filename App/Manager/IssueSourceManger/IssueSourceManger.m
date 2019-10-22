@@ -114,7 +114,7 @@
 }
 
 - (NSArray *)getIssueSourceListWithoutLock {
-    NSString *whereFormat = @"";
+    NSString *whereFormat = @"WHERE provider != 'CUSTOM'";
     NSDictionary *dict =
             @{
                     @"provider": SQL_TEXT,
