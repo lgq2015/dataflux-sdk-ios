@@ -459,6 +459,12 @@
 		4A50F3FA2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
 		4A50F3FB2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
 		4A50F3FC2293A18000AD7715 /* IgnoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A50F3F92293A18000AD7715 /* IgnoreItemView.m */; };
+		4A52638C235FF8CB0075BC93 /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
+		4A52638D235FF8CB0075BC93 /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
+		4A52638E235FF8CB0075BC93 /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
+		4A526391235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
+		4A526392235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
+		4A526393235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
 		4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
@@ -1512,6 +1518,10 @@
 		4A50F3EF228E9D7D00AD7715 /* ChooseChatStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseChatStateView.m; sourceTree = "<group>"; };
 		4A50F3F82293A18000AD7715 /* IgnoreItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IgnoreItemView.h; sourceTree = "<group>"; };
 		4A50F3F92293A18000AD7715 /* IgnoreItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IgnoreItemView.m; sourceTree = "<group>"; };
+		4A52638A235FF8CB0075BC93 /* iCloudManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iCloudManager.h; sourceTree = "<group>"; };
+		4A52638B235FF8CB0075BC93 /* iCloudManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloudManager.m; sourceTree = "<group>"; };
+		4A52638F235FFABF0075BC93 /* PWDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDocument.h; sourceTree = "<group>"; };
+		4A526390235FFABF0075BC93 /* PWDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDocument.m; sourceTree = "<group>"; };
 		4A56F77F22F0610F00E56ED0 /* SourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceModel.h; sourceTree = "<group>"; };
 		4A56F78022F0610F00E56ED0 /* SourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceModel.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
@@ -2549,6 +2559,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4A526389235FF8030075BC93 /* iCloudManger */ = {
+			isa = PBXGroup;
+			children = (
+				4A52638A235FF8CB0075BC93 /* iCloudManager.h */,
+				4A52638B235FF8CB0075BC93 /* iCloudManager.m */,
+				4A52638F235FFABF0075BC93 /* PWDocument.h */,
+				4A526390235FFABF0075BC93 /* PWDocument.m */,
+			);
+			path = iCloudManger;
+			sourceTree = "<group>";
+		};
 		4A63A3352328D7840027C7A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2755,6 +2776,7 @@
 		4A6C2888219D586D0059BB08 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				4A526389235FF8030075BC93 /* iCloudManger */,
 				4A7599B3223FB1360057BD02 /* PWSocketManager */,
 				4AC8576722374B5200DAE1F6 /* IssueSourceManger */,
 				4AB48AC92212BE2D009F9E94 /* IssueListManger */,
@@ -4156,6 +4178,7 @@
 				4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */,
 				4A47136922AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
 				4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */,
+				4A526391235FFABF0075BC93 /* PWDocument.m in Sources */,
 				4A759AE9224FA1400057BD02 /* Reachability.m in Sources */,
 				4AE9C4E621D2035C003BB9CB /* MineViewCell.m in Sources */,
 				4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */,
@@ -4166,6 +4189,7 @@
 				4A6114A121DF6FB900E4138B /* AboutUsVC.m in Sources */,
 				4A092D95222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				4ABF449421C0B246002AF34E /* AppDelegate+AppService.m in Sources */,
+				4A52638C235FF8CB0075BC93 /* iCloudManager.m in Sources */,
 				2B9ECBF12254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				4A759ACA224CF0B90057BD02 /* ChangePhoneNumVC.m in Sources */,
 				4A092D4D222D310000FB2A35 /* MineMessageVC.m in Sources */,
@@ -4515,6 +4539,7 @@
 				4A092C7E22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A759A942248F8730057BD02 /* GuideVC.m in Sources */,
 				CA1CF595221ECB3A00D15316 /* UIScrollView+UITouch.m in Sources */,
+				4A526392235FFABF0075BC93 /* PWDocument.m in Sources */,
 				4A47136A22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
 				4A759AEA224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF597221ECB3A00D15316 /* AddSourceCell.m in Sources */,
@@ -4525,6 +4550,7 @@
 				2B24274022608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */,
 				4AC8574C2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				CA1CF59A221ECB3A00D15316 /* PWCacheManager.m in Sources */,
+				4A52638D235FF8CB0075BC93 /* iCloudManager.m in Sources */,
 				2B9ECBF22254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF59B221ECB3A00D15316 /* AboutUsVC.m in Sources */,
 				CA1CF59C221ECB3A00D15316 /* AppDelegate+AppService.m in Sources */,
@@ -4874,6 +4900,7 @@
 				4A092C7F22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A759A952248F8730057BD02 /* GuideVC.m in Sources */,
 				CA1CF63A221ECB5000D15316 /* UIScrollView+UITouch.m in Sources */,
+				4A526393235FFABF0075BC93 /* PWDocument.m in Sources */,
 				4A47136B22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */,
 				4A759AEB224FA1400057BD02 /* Reachability.m in Sources */,
 				CA1CF63C221ECB5000D15316 /* AddSourceCell.m in Sources */,
@@ -4884,6 +4911,7 @@
 				2B24274122608137005A45D0 /* TeamVC+ChangeNavColor.m in Sources */,
 				4AC8574D2235FEE300DAE1F6 /* InformationSourceCell.m in Sources */,
 				CA1CF63F221ECB5000D15316 /* PWCacheManager.m in Sources */,
+				4A52638E235FF8CB0075BC93 /* iCloudManager.m in Sources */,
 				2B9ECBF32254509D00BAC47A /* ZTShowTipButton.m in Sources */,
 				CA1CF640221ECB5000D15316 /* AboutUsVC.m in Sources */,
 				CA1CF641221ECB5000D15316 /* AppDelegate+AppService.m in Sources */,
