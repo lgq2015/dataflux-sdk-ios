@@ -684,15 +684,11 @@ static const int IgnoreBtnTag = 15;
     NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
     NSString *fileName = [array lastObject];
     fileName = [fileName stringByRemovingPercentEncoding];
-    NSString *type =  [url pathExtension];
-
     if ([iCloudManager iCloudEnable]) {
         WeakSelf
         [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
             NSData *data = obj;
             [weakSelf uploadFileData:data fileName:fileName];
-        
-            
         }];
     }
 }
@@ -706,7 +702,6 @@ static const int IgnoreBtnTag = 15;
          [SVProgressHUD dismiss];
         if([response[ERROR_CODE] isEqualToString:@""]){
             NSDictionary *content =PWSafeDictionaryVal(response, @"content");
-            NSDictionary *data = PWSafeDictionaryVal(content, @"data");
          //待处理：刷新机制
             [weakSelf getNewChatDatasAndScrollTop:YES];
         }else{
