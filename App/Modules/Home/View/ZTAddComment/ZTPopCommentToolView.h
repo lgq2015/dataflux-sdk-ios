@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *photoBtn;
 @property (nonatomic, strong) UIButton *atBtn;
 @property (nonatomic, strong) UIButton *sendBtn;
-@property (nonatomic, strong) UIButton *iCloudBtn;
 @end
 
 NS_ASSUME_NONNULL_END

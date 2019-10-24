@@ -23,21 +23,15 @@
     self.backgroundColor = PWWhiteColor;
     [self addSubview:self.photoBtn];
     [self addSubview:self.atBtn];
-    [self addSubview:self.iCloudBtn];
     [self.photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.centerY.mas_equalTo(self);
         make.width.height.offset(ZOOM_SCALE(20));
     }];
-    [self.iCloudBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.atBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.photoBtn);
         make.width.height.equalTo(self.photoBtn);
         make.left.mas_equalTo(self.photoBtn.mas_right).offset(14);
-    }];
-    [self.atBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.iCloudBtn);
-        make.width.height.equalTo(self.iCloudBtn);
-        make.left.mas_equalTo(self.iCloudBtn.mas_right).offset(14);
     }];
     [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-10);
@@ -51,7 +45,7 @@
 - (UIButton *)photoBtn{
     if (!_photoBtn){
         _photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_photoBtn setImage:[UIImage imageNamed:@"uploadimg"] forState:UIControlStateNormal];
+        [_photoBtn setImage:[UIImage imageNamed:@"paper-clip_g"] forState:UIControlStateNormal];
     }
     return _photoBtn;
 }
@@ -71,11 +65,5 @@
     }
     return _sendBtn;
 }
--(UIButton *)iCloudBtn{
-    if (!_iCloudBtn) {
-       _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-       [_iCloudBtn setImage:[UIImage imageNamed:@"pw_icon_call_person"] forState:UIControlStateNormal];
-    }
-    return _iCloudBtn;
-}
+
 @end

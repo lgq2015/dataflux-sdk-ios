@@ -10,7 +10,6 @@
 #import "ChatInputHeaderView.h"
 @protocol IssueKeyBoardDelegate <NSObject>
 - (void)IssueKeyBoardInputViewChooeseImageClick;
-- (void)IssueKeyBoardInputViewChooeseiCloudFileClick;
 - (void)IssueKeyBoardInputViewSendText:(NSString *_Nullable)text;
 - (void)IssueKeyBoardInputViewSendAtText:(NSString *_Nullable)text atInfoJSON:(NSDictionary *_Nonnull)atInfoJSON;
 @end

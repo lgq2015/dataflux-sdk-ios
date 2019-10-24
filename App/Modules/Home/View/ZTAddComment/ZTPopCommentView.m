@@ -19,7 +19,7 @@
 #define zt_topViewH 44.0
 #define zt_toolViewH 44.0
 #define zt_tabbarH   76
-@interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate,UIDocumentPickerDelegate>
+@interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITextView *mTextView;
 @property (nonatomic, strong) UIWindow * window;
 @property (nonatomic, strong) UIView *backgroundGrayView; //!<透明背景View
@@ -186,7 +186,7 @@
         [_toolView.sendBtn addTarget:self action:@selector(sendBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolView.photoBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolView.atBtn addTarget:self action:@selector(atBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [_toolView.iCloudBtn addTarget:self action:@selector(presentDocumentPicker) forControlEvents:UIControlEventTouchUpInside];
+//        [_toolView.iCloudBtn addTarget:self action:@selector(presentDocumentPicker) forControlEvents:UIControlEventTouchUpInside];
       [self addSubview:_toolView];
     }
     return _toolView;
@@ -236,23 +236,6 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"%s",__func__);
-}
-#pragma mark - UIDocumentPickerDelegate
-
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
-    
-    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
-    NSString *fileName = [array lastObject];
-    fileName = [fileName stringByRemovingPercentEncoding];
-    
-    if ([iCloudManager iCloudEnable]) {
-        [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
-            NSData *data = obj;
-            
-           
-            
-        }];
-    }
 }
 #pragma mark ---用户交互行为---
 //点击了展开
@@ -369,13 +352,7 @@
         [self.mTextView.superview layoutIfNeeded];
     }];
 }
-- (void)presentDocumentPicker {
-    [self.chooseStateView disMissView];
-       [self dismiss];
-       if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewChooeseiCloudFileClick)]) {
-           [self.delegate IssueKeyBoardInputViewChooeseiCloudFileClick];
-       }
-}
+
 - (void)sendBtnClick{
    [self.chooseStateView disMissView];
     __block NSString *message = [_mTextView.attributedText string];
