@@ -557,7 +557,10 @@ static const int IgnoreBtnTag = 15;
 - (void)IssueKeyBoardInputViewChooeseImageClick{
         self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
         WeakSelf
-        [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:weakSelf photoBlock:^(UIImage *image, NSString *name) {
+    [self.myPicker getFileOrPhotoAndNameWithController:self fileOrPhoto:^(UIImage *image, NSString *name, BOOL isFile) {
+        if (isFile) {
+            [weakSelf chooeseiCloudFileClick];
+        }else{
             NSData *data = UIImageJPEGRepresentation(image, 0.5);
             if (!name) {
                 name = [NSDate getCurrentTimestamp];
@@ -570,8 +573,6 @@ static const int IgnoreBtnTag = 15;
             } successBlock:^(id response) {
                  [SVProgressHUD dismiss];
                 if([response[ERROR_CODE] isEqualToString:@""]){
-                    NSDictionary *content =PWSafeDictionaryVal(response, @"content");
-                    NSDictionary *data = PWSafeDictionaryVal(content, @"data");
                  //待处理：刷新机制
                     [weakSelf getNewChatDatasAndScrollTop:YES];
                 }else{
@@ -580,6 +581,7 @@ static const int IgnoreBtnTag = 15;
                 [SVProgressHUD dismiss];
                 [error errorToast];
             }];
+        }
         }];
    }
 
@@ -671,7 +673,7 @@ static const int IgnoreBtnTag = 15;
     }
  
 }
--(void)IssueKeyBoardInputViewChooeseiCloudFileClick{
+-(void)chooeseiCloudFileClick{
     NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
     
     UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
@@ -701,7 +703,6 @@ static const int IgnoreBtnTag = 15;
     } successBlock:^(id response) {
          [SVProgressHUD dismiss];
         if([response[ERROR_CODE] isEqualToString:@""]){
-            NSDictionary *content =PWSafeDictionaryVal(response, @"content");
          //待处理：刷新机制
             [weakSelf getNewChatDatasAndScrollTop:YES];
         }else{

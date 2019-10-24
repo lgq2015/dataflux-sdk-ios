@@ -13,10 +13,12 @@
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "iCloudManager.h"
 @interface PWPhotoOrAlbumImagePicker()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic,copy) PWPhotoOrAlbumImagePickerBlock photoBlock;   //-> 回掉
 @property (nonatomic,copy) PWFileBlock fileBlock;
 @property (nonatomic, copy) PWPhotoOrAlbumImageAndNameBlock nameBlock;
+@property (nonatomic,copy) PWFileOrImageBlock fileOrImageBlock;
 @property (nonatomic,strong) UIImagePickerController *picker; //-> 多媒体选择控制器
 @property (nonatomic,weak) UIViewController  *viewController; //-> 一定是weak 避免循环引用
 @property (nonatomic,assign) NSInteger sourceType;            //-> 媒体来源 （相册/相机）
@@ -56,7 +58,30 @@
     [alertController addAction:photoAlbumAction];
     [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
-
+- (void)getFileOrPhotoAndNameWithController:(UIViewController *)controller fileOrPhoto:(PWFileOrImageBlock)fileOrImageBlock{
+    self.fileOrImageBlock = fileOrImageBlock;
+       self.viewController = controller;
+       UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+       
+       UIAlertAction *photoAlbumAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ChooseFromAnAlbum", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+           [self getAlertActionType:1];
+       }];
+       
+       UIAlertAction *cemeraAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.TakeAPhoto", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+           [self getAlertActionType:2];
+       }];
+       UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.file", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+              self.fileOrImageBlock? self.fileOrImageBlock(nil,nil,YES):nil;
+           }];
+       UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+       }];
+       [alertController addAction:cancleAction];
+       // 判断是否支持拍照
+       [self imagePickerControlerIsAvailabelToCamera] ? [alertController addAction:cemeraAction]:nil;
+    [alertController addAction:photoAlbumAction];
+    [alertController addAction:fileAction];
+       [self.viewController presentViewController:alertController animated:YES completion:nil];
+}
 
 - (void)getPhotoAlbumOrTakeAPhotoWithController:(UIViewController *)controller photoBlock:(PWPhotoOrAlbumImagePickerBlock)photoBlock{
     self.photoBlock = photoBlock;
@@ -231,6 +256,7 @@
     [picker dismissViewControllerAnimated:YES completion:^{
          self.photoBlock ?  self.photoBlock(image): nil;
         self.nameBlock ? self.nameBlock(image,filename):nil;
+        self.fileOrImageBlock? self.fileOrImageBlock(image,filename,NO):nil;
         // 这个部分代码 视情况而定
         if (@available(iOS 11.0, *)){
             [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
