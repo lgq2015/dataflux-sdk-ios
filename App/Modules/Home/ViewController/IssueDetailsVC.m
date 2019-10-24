@@ -32,9 +32,10 @@
 #import "ZhugeIOIssueHelper.h"
 #import "NSString+ErrorCode.h"
 #import "UtilsConstManager.h"
+#import "iCloudManager.h"
 static const int IgnoreBtnTag = 15;
 
-@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate,PopItemViewDelegate>
+@interface IssueDetailsVC ()<UITableViewDelegate, UITableViewDataSource,PWChatBaseCellDelegate,IssueDtealsBVDelegate,IssueKeyBoardDelegate,PopItemViewDelegate,UIDocumentPickerDelegate>
 @property (nonatomic, strong) IssueEngineHeaderView *engineHeader;  //来自情报源
 @property (nonatomic, strong) IssueUserDetailView *userHeader;      //来自自建问题
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -553,7 +554,7 @@ static const int IgnoreBtnTag = 15;
     
 }
 #pragma mark ========== IssueKeyBoardDelegate ==========
-- (void)IssueKeyBoardInputViewBtnClickFunction:(NSInteger)index{
+- (void)IssueKeyBoardInputViewChooeseImageClick{
         self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
         WeakSelf
         [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:weakSelf photoBlock:^(UIImage *image, NSString *name) {
@@ -669,6 +670,52 @@ static const int IgnoreBtnTag = 15;
             break;
     }
  
+}
+-(void)IssueKeyBoardInputViewChooeseiCloudFileClick{
+    NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
+    
+    UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
+                                                                                                                          inMode:UIDocumentPickerModeOpen];
+    documentPickerViewController.delegate = self;
+    [self presentViewController:documentPickerViewController animated:YES completion:nil];
+}
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
+    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+    NSString *fileName = [array lastObject];
+    fileName = [fileName stringByRemovingPercentEncoding];
+    NSString *type =  [url pathExtension];
+
+    if ([iCloudManager iCloudEnable]) {
+        WeakSelf
+        [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
+            NSData *data = obj;
+            [weakSelf uploadFileData:data fileName:fileName];
+        
+            
+        }];
+    }
+}
+- (void)uploadFileData:(NSData *)data fileName:(NSString *)fileName{
+    [SVProgressHUD show];
+    NSDictionary *param = @{@"type":@"attachment",@"subType":@"comment"};
+    WeakSelf
+    [PWNetworking uploadFileWithUrl:PW_issueUploadAttachment(self.model.issueId) params:param fileData:data type:@"jpg" name:@"files" fileName:fileName mimeType:@"application/octet-stream" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+
+    } successBlock:^(id response) {
+         [SVProgressHUD dismiss];
+        if([response[ERROR_CODE] isEqualToString:@""]){
+            NSDictionary *content =PWSafeDictionaryVal(response, @"content");
+            NSDictionary *data = PWSafeDictionaryVal(content, @"data");
+         //待处理：刷新机制
+            [weakSelf getNewChatDatasAndScrollTop:YES];
+        }else{
+        }
+    } failBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        [error errorToast];
+    }];
+
 }
 - (void)getNewChatDatasAndScrollTop:(BOOL)scroll{
     [SVProgressHUD show];

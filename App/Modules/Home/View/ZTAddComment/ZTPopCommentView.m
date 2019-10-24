@@ -370,12 +370,11 @@
     }];
 }
 - (void)presentDocumentPicker {
-    NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
-    
-    UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
-                                                                                                                          inMode:UIDocumentPickerModeOpen];
-    documentPickerViewController.delegate = self;
-    [self.viewController presentViewController:documentPickerViewController animated:YES completion:nil];
+    [self.chooseStateView disMissView];
+       [self dismiss];
+       if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewChooeseiCloudFileClick)]) {
+           [self.delegate IssueKeyBoardInputViewChooeseiCloudFileClick];
+       }
 }
 - (void)sendBtnClick{
    [self.chooseStateView disMissView];
@@ -429,8 +428,8 @@
 - (void)photoBtnClick{
     [self.chooseStateView disMissView];
     [self dismiss];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewBtnClickFunction:)]) {
-        [self.delegate IssueKeyBoardInputViewBtnClickFunction:1];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(IssueKeyBoardInputViewChooeseImageClick)]) {
+        [self.delegate IssueKeyBoardInputViewChooeseImageClick];
     }
 }
 - (void)atBtnClick{

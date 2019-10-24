@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ChatInputHeaderView.h"
 @protocol IssueKeyBoardDelegate <NSObject>
-// index :1 图片 2.@
-- (void)IssueKeyBoardInputViewBtnClickFunction:(NSInteger)index;
-- (void)IssueKeyBoardInputViewSendText:(NSString *)text;
-- (void)IssueKeyBoardInputViewSendAtText:(NSString *)text atInfoJSON:(NSDictionary *)atInfoJSON;
+- (void)IssueKeyBoardInputViewChooeseImageClick;
+- (void)IssueKeyBoardInputViewChooeseiCloudFileClick;
+- (void)IssueKeyBoardInputViewSendText:(NSString *_Nullable)text;
+- (void)IssueKeyBoardInputViewSendAtText:(NSString *_Nullable)text atInfoJSON:(NSDictionary *_Nonnull)atInfoJSON;
 @end
 NS_ASSUME_NONNULL_BEGIN
 

@@ -10,6 +10,7 @@
 
 @implementation PWDocument
 - (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError * _Nullable __autoreleasing *)outError {
+    DLog(@"typeName === %@",typeName);
     self.data = contents;
     return YES;
 }
