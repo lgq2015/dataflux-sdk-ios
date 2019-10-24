@@ -13,13 +13,13 @@
 #import "MemberInfoModel.h"
 #import "ChooseChatStateView.h"
 #import "ZhugeIOIssueHelper.h"
-
+#import "iCloudManager.h"
 #define PWChatTextMaxHeight     85
 #define PWChatTextHeight        45
 #define zt_topViewH 44.0
 #define zt_toolViewH 44.0
 #define zt_tabbarH   76
-@interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate>
+@interface ZTPopCommentView()<UITextViewDelegate,ChooseChatStateViewDelegate,UIGestureRecognizerDelegate,UIDocumentPickerDelegate>
 @property (nonatomic, strong) UITextView *mTextView;
 @property (nonatomic, strong) UIWindow * window;
 @property (nonatomic, strong) UIView *backgroundGrayView; //!<透明背景View
@@ -186,10 +186,12 @@
         [_toolView.sendBtn addTarget:self action:@selector(sendBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolView.photoBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_toolView.atBtn addTarget:self action:@selector(atBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_toolView.iCloudBtn addTarget:self action:@selector(presentDocumentPicker) forControlEvents:UIControlEventTouchUpInside];
       [self addSubview:_toolView];
     }
     return _toolView;
 }
+
 - (ChatInputHeaderView *)topView{
     if (!_topView){
         _topView = [[ChatInputHeaderView alloc] initWithFrame:CGRectZero];
@@ -235,7 +237,23 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"%s",__func__);
 }
+#pragma mark - UIDocumentPickerDelegate
 
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
+    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+    NSString *fileName = [array lastObject];
+    fileName = [fileName stringByRemovingPercentEncoding];
+    
+    if ([iCloudManager iCloudEnable]) {
+        [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
+            NSData *data = obj;
+            
+           
+            
+        }];
+    }
+}
 #pragma mark ---用户交互行为---
 //点击了展开
 - (void)zhankaiBtnClick:(UIButton *)sender{
@@ -351,7 +369,14 @@
         [self.mTextView.superview layoutIfNeeded];
     }];
 }
-
+- (void)presentDocumentPicker {
+    NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
+    
+    UIDocumentPickerViewController *documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
+                                                                                                                          inMode:UIDocumentPickerModeOpen];
+    documentPickerViewController.delegate = self;
+    [self.viewController presentViewController:documentPickerViewController animated:YES completion:nil];
+}
 - (void)sendBtnClick{
    [self.chooseStateView disMissView];
     __block NSString *message = [_mTextView.attributedText string];
