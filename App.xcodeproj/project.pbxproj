@@ -465,6 +465,9 @@
 		4A526391235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
 		4A526392235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
 		4A526393235FFABF0075BC93 /* PWDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A526390235FFABF0075BC93 /* PWDocument.m */; };
+		4A52639623628C260075BC93 /* PWDocumentPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52639523628C260075BC93 /* PWDocumentPickerViewController.m */; };
+		4A52639723628C260075BC93 /* PWDocumentPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52639523628C260075BC93 /* PWDocumentPickerViewController.m */; };
+		4A52639823628C260075BC93 /* PWDocumentPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52639523628C260075BC93 /* PWDocumentPickerViewController.m */; };
 		4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
@@ -1522,6 +1525,8 @@
 		4A52638B235FF8CB0075BC93 /* iCloudManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iCloudManager.m; sourceTree = "<group>"; };
 		4A52638F235FFABF0075BC93 /* PWDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDocument.h; sourceTree = "<group>"; };
 		4A526390235FFABF0075BC93 /* PWDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDocument.m; sourceTree = "<group>"; };
+		4A52639423628C260075BC93 /* PWDocumentPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWDocumentPickerViewController.h; sourceTree = "<group>"; };
+		4A52639523628C260075BC93 /* PWDocumentPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDocumentPickerViewController.m; sourceTree = "<group>"; };
 		4A56F77F22F0610F00E56ED0 /* SourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceModel.h; sourceTree = "<group>"; };
 		4A56F78022F0610F00E56ED0 /* SourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceModel.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
@@ -2566,6 +2571,8 @@
 				4A52638B235FF8CB0075BC93 /* iCloudManager.m */,
 				4A52638F235FFABF0075BC93 /* PWDocument.h */,
 				4A526390235FFABF0075BC93 /* PWDocument.m */,
+				4A52639423628C260075BC93 /* PWDocumentPickerViewController.h */,
+				4A52639523628C260075BC93 /* PWDocumentPickerViewController.m */,
 			);
 			path = iCloudManger;
 			sourceTree = "<group>";
@@ -4234,6 +4241,7 @@
 				4AC856EC223127DD00DAE1F6 /* TeamSuccessVC.m in Sources */,
 				2B9ECC342254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				4A759AA7224B16B50057BD02 /* GuideCell.m in Sources */,
+				4A52639623628C260075BC93 /* PWDocumentPickerViewController.m in Sources */,
 				2BD4211B227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */,
 				4A3CDA8B229E71C400C2EC62 /* CanlendarBgLayoutAttributes.m in Sources */,
@@ -4595,6 +4603,7 @@
 				4A759AA8224B16B50057BD02 /* GuideCell.m in Sources */,
 				2B9ECC352254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF5A8221ECB3A00D15316 /* IssueSourceViewModel.m in Sources */,
+				4A52639723628C260075BC93 /* PWDocumentPickerViewController.m in Sources */,
 				CAD9CABA2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				2BD4211C227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				CA1CF5A9221ECB3A00D15316 /* UIView+PWFrame.m in Sources */,
@@ -4956,6 +4965,7 @@
 				4A759AA9224B16B50057BD02 /* GuideCell.m in Sources */,
 				2B9ECC362254977700BAC47A /* UITableViewCell+ZTCategory.m in Sources */,
 				CA1CF64D221ECB5000D15316 /* IssueSourceViewModel.m in Sources */,
+				4A52639823628C260075BC93 /* PWDocumentPickerViewController.m in Sources */,
 				CAD9CABB2243EBBC0063ABFF /* HandbookModel.m in Sources */,
 				2BD4211D227A03B9009E854A /* ZTTeamVCTopCell.m in Sources */,
 				CA1CF64E221ECB5000D15316 /* UIView+PWFrame.m in Sources */,
