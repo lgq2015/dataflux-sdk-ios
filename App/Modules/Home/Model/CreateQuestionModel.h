@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *size;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *fileID;
+@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSString *fileIcon;
 @property (nonatomic, assign) UploadType type;
 @end
 

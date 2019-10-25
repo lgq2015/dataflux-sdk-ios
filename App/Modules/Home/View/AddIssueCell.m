@@ -41,7 +41,12 @@
           self.reloadBtn.hidden = YES;
             break;
     }
-    self.iconView.image = _model.image;
+    
+    if (_model.fileIcon.length>0) {
+        self.iconView.image = [UIImage imageNamed:_model.fileIcon];
+    }else{
+        self.iconView.image = _model.image;
+    }
 }
 -(void)uploadError{
     self.reloadBtn.hidden = NO;

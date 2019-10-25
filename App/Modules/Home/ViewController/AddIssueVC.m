@@ -343,9 +343,21 @@
 - (void)accessoryBtnClick{
       [[UIResponder currentFirstResponder] resignFirstResponder];
     self.myPicker = [[PWPhotoOrAlbumImagePicker alloc]init];
-    [self.myPicker getPhotoAlbumTakeAPhotoAndNameWithController:self photoBlock:^(UIImage *image, NSString *name) {
-        [self upLoadImageWithImage:image name:name tag:self.attachmentArray.count+100];
+    [self.myPicker getFileOrPhotoAndNameWithController:self fileOrPhoto:^(UIImage *image, NSString *name, NSData *file, BOOL isFile) {
+        if (!isFile) {
+            NSData *data = UIImageJPEGRepresentation(image, 0.5);
+            if (!name) {
+                name = [NSDate getCurrentTimestamp];
+                name = [NSString stringWithFormat:@"%@.jpg",name];
+            }
+            [self upLoadAccessoryWithImage:image data:data  name:name tag:self.attachmentArray.count+100];
+        }else{
+            
+            [self upLoadAccessoryWithImage:image data:file  name:name tag:self.attachmentArray.count+100];
+        }
+        
     }];
+    
 }
 - (void)navigationBtnClick:(UIButton *)button{
     if (button.tag == 5) {
@@ -430,11 +442,11 @@
         }];
     }
 }
--(void)upLoadImageWithImage:(UIImage *)image name:(NSString *)name tag:(NSInteger)tag{
-    NSData *data = UIImageJPEGRepresentation(image, 0.5);
+-(void)upLoadAccessoryWithImage:(UIImage *)image data:(NSData *)data name:(NSString *)name tag:(NSInteger)tag{
    
     CreateQuestionModel *model = [[CreateQuestionModel alloc]init];
-
+    NSString *type = @"jpg";
+    NSString *mimeType = @"image/jpeg";
     if (self.attachmentArray.count<=tag-100) {
         double convertedValue = [data length] * 1.0;
         __block double totleSize;
@@ -449,22 +461,26 @@
     
         
         NSString *size =[self calulateImageFileSize:data];
-        if (!name) {
-            name = [NSDate getCurrentTimestamp];
-        }
-        model.name = [NSString stringWithFormat:@"%@.jpg",name];
+        model.name = name;
         model.image = image;
         model.size = size;
+        model.data = data;
         model.fileID = [NSString stringWithFormat:@"%ld",(long)tag];
         model.type = UploadTypeNotStarted;
-    
+        if(![[name pathExtension] isEqualToString:@"jpg"]){
+            model.fileIcon = [[name pathExtension] getFileIcon];
+        }
        [self.attachmentArray addObject:model];
        [self.tableView reloadData];
        [self updateTableViewFrame];
     }else{
         model = self.attachmentArray[tag-100];
     }
-
+   if(![[name pathExtension] isEqualToString:@"jpg"]){
+       type = @"files";
+       mimeType = @"application/octet-stream";
+   }
+    
     NSIndexPath *index = [NSIndexPath indexPathForRow:tag-100 inSection:0];
     AddIssueCell *cell = (AddIssueCell *)[self.tableView cellForRowAtIndexPath:index];
     NSString *time = [NSDate getCurrentTimestamp];
@@ -472,7 +488,7 @@
             self.upBatchId = [NSString stringWithFormat:@"%@%@",time,getPWUserID];
         }
     NSDictionary *param = @{@"type":@"attachment",@"subType":@"issueDetailExtra",@"batchId":self.upBatchId};
-    [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:@"jpg" name:@"files" fileName:[NSString stringWithFormat:@"%@.jpg",name] mimeType:@"image/jpeg" progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
+    [PWNetworking uploadFileWithUrl:PW_AdduploaAttachment params:param fileData:data type:type name:@"files" fileName:name mimeType:mimeType progressBlock:^(int64_t bytesWritten, int64_t totalBytes) {
         DLog(@"bytesWritten = %lld totalBytes = %lld",bytesWritten,totalBytes);
        float progress = 1.0*bytesWritten/totalBytes;
         //回到主线程刷新cell进度
@@ -527,7 +543,7 @@
     cell.model = self.attachmentArray[indexPath.row];
     cell.reUpload = ^(NSIndexPath *index){
         CreateQuestionModel *model = self.attachmentArray[index.row];
-        [self upLoadImageWithImage:model.image name:model.name tag:indexPath.row+100];
+        [self upLoadAccessoryWithImage:model.image data:model.data name:model.name tag:indexPath.row+100];
     };
     cell.removeFile = ^(NSIndexPath *index){
         CreateQuestionModel *model = self.attachmentArray[index.row];
