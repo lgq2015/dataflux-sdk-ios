@@ -14,7 +14,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "iCloudManager.h"
-@interface PWPhotoOrAlbumImagePicker()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+#import "PWDocumentPickerViewController.h"
+
+@interface PWPhotoOrAlbumImagePicker()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIDocumentPickerDelegate>
 @property (nonatomic,copy) PWPhotoOrAlbumImagePickerBlock photoBlock;   //-> 回掉
 @property (nonatomic,copy) PWFileBlock fileBlock;
 @property (nonatomic, copy) PWPhotoOrAlbumImageAndNameBlock nameBlock;
@@ -71,7 +73,7 @@
            [self getAlertActionType:2];
        }];
        UIAlertAction *fileAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.file", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-              self.fileOrImageBlock? self.fileOrImageBlock(nil,nil,YES):nil;
+            [self getAlertActionType:3];
            }];
        UIAlertAction *cancleAction = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
        }];
@@ -135,6 +137,14 @@
  @param type 点击的类型
  */
 - (void)getAlertActionType:(NSInteger)type {
+    if (type == 3) {
+        NSArray *documentTypes = @[@"public.content", @"public.text", @"public.source-code ", @"public.image", @"public.audiovisual-content", @"com.adobe.pdf", @"com.apple.keynote.key", @"com.microsoft.word.doc", @"com.microsoft.excel.xls", @"com.microsoft.powerpoint.ppt"];
+        
+        PWDocumentPickerViewController *documentPickerViewController = [[PWDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes
+                                                                                                                              inMode:UIDocumentPickerModeOpen];
+        documentPickerViewController.delegate = self;
+        [self.viewController presentViewController:documentPickerViewController animated:YES completion:nil];
+    }else{
     NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     if (type == 1) {
         sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -143,8 +153,21 @@
     }
     [self creatUIImagePickerControllerWithAlertActionType:sourceType];
 }
+}
 
-
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    
+    NSArray *array = [[url absoluteString] componentsSeparatedByString:@"/"];
+    NSString *fileName = [array lastObject];
+    fileName = [fileName stringByRemovingPercentEncoding];
+    if ([iCloudManager iCloudEnable]) {
+        WeakSelf
+        [iCloudManager downloadWithDocumentURL:url callBack:^(id obj) {
+            NSData *data = obj;
+             weakSelf.fileOrImageBlock? weakSelf.fileOrImageBlock(nil,fileName,data,YES):nil;
+        }];
+    }
+}
 
 /**
  点击事件出发的方法
@@ -256,7 +279,7 @@
     [picker dismissViewControllerAnimated:YES completion:^{
          self.photoBlock ?  self.photoBlock(image): nil;
         self.nameBlock ? self.nameBlock(image,filename):nil;
-        self.fileOrImageBlock? self.fileOrImageBlock(image,filename,NO):nil;
+        self.fileOrImageBlock? self.fileOrImageBlock(image,filename,nil,NO):nil;
         // 这个部分代码 视情况而定
         if (@available(iOS 11.0, *)){
             [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];

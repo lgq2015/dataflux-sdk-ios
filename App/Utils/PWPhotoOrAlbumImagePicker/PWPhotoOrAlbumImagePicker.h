@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 typedef void (^PWPhotoOrAlbumImagePickerBlock)(UIImage *image);
 typedef void (^PWPhotoOrAlbumImageAndNameBlock)(UIImage *image,NSString *name);
-typedef void (^PWFileOrImageBlock)(UIImage *image,NSString *name,BOOL isFile);
+typedef void (^PWFileOrImageBlock)(UIImage *image,NSString *name,NSData *file,BOOL isFile);
 typedef void (^PWFileBlock)(NSData *file);
 
 @interface PWPhotoOrAlbumImagePicker : NSObject
