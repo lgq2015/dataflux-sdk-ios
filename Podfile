@@ -27,7 +27,7 @@ target 'App' do
   pod 'AlipaySDK-iOS', '~> 15.5.9'
   pod 'NullSafe', '~> 2.0'
   #分享
-  pod 'WechatOpenSDK', '~> 1.8.4'
+  pod 'WechatOpenSDK', '~> 1.8.6'
   pod 'Tencent_Open_SDK', '~> 1.0.3'
   pod 'MCDingTalk', '~> 1.0.1'
   pod 'NBULog', '~> 2.0.0'
@@ -60,7 +60,7 @@ target 'AppDev' do
     pod 'AlipaySDK-iOS', '~> 15.5.9'
     pod 'NullSafe', '~> 2.0'
     #分享
-    pod 'WechatOpenSDK', '~> 1.8.4'
+    pod 'WechatOpenSDK', '~> 1.8.6'
     pod 'Tencent_Open_SDK', '~> 1.0.3'
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
@@ -93,7 +93,7 @@ target 'AppPreMade' do
     pod 'AlipaySDK-iOS', '~> 15.5.9'
     pod 'NullSafe', '~> 2.0'
     #分享
-    pod 'WechatOpenSDK', '~> 1.8.4'
+    pod 'WechatOpenSDK', '~> 1.8.6'
     pod 'Tencent_Open_SDK', '~> 1.0.3'
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'

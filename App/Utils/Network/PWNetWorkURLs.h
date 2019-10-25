@@ -34,6 +34,7 @@
 #define JPUSH_ID            @"e008337585ca5df269038d4f"
 #define QQ_APPKEY           @"1108030178"
 #define WX_APPKEY           @"wx6d7b153b7387b5c4"
+#define UNIVERSAL_LINK      @"https://testing-app.prof.wang/"
 #define DINGDING_APPKEY     @"dingoagikluhqlvit4wovq"
 #define ZHUGE_APPKEY     @"84172f6680f6406e9f6ec0c132613104"
 #elif PREPROD //预发环境
@@ -58,6 +59,7 @@
 #define JPUSH_ID            @"557856f95bfb15efc965ff99"
 #define QQ_APPKEY           @"1108154997"
 #define WX_APPKEY           @"wx26ac01021209f766"
+#define UNIVERSAL_LINK      @"https://preprod-app.prof.wang/"
 #define DINGDING_APPKEY     @"dingoaq9v3khnry2ayokri"
 #define ZHUGE_APPKEY     @"3a42da8847084453aa759c8379181524"
 
@@ -82,6 +84,7 @@
 #define JPUSH_ID           @"a0d40a210d0969b07a9c472e"
 #define QQ_APPKEY          @"1108030042"
 #define WX_APPKEY          @"wx1c3b94b644454727"
+#define UNIVERSAL_LINK      @"https://app.prof.wang/"
 #define DINGDING_APPKEY    @"dingoagfockwplqrickp6y"
 #define ZHUGE_APPKEY     @"6545d1143506459d92fd0b080a071ac0"
 

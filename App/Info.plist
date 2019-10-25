@@ -21,30 +21,6 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.wangjiao.prof.wang.pre</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>prof-wang-pre</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.wangjiao.prof.wang.test</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>prof-wang-dev</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.wangjiao.prof.wang</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>prof-wang</string>
-			</array>
-		</dict>
-		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
@@ -83,12 +59,6 @@
 			<array>
 				<string>tencent1108030042</string>
 			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
@@ -142,6 +112,7 @@
 		<string>timapiV1</string>
 		<string>dingtalk</string>
 		<string>dingtalk-open</string>
+		<string>weixinULAPI</string>
 	</array>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>

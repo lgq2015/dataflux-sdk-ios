@@ -47,7 +47,10 @@
         sendReq.bText = NO;//不使用文本信息
         sendReq.message = message;  //WXSceneTimeline WXSceneSession
         sendReq.scene = (type == WechatSession_PlatformType ? WXSceneSession : WXSceneTimeline);
-        [WXApi sendReq:sendReq];//发送对象实例
+//        [WXApi sendReq:sendReq];//发送对象实例
+        [WXApi sendReq:sendReq completion:^(BOOL success) {
+
+        }];
     }else if (type == QQ_PlatformType || type == Qzone_PlatformType){
         if (!manger.isQQ){
             [self showAlter:NSLocalizedString(@"local.QQHasNotBeenInstalledYet", @"")];

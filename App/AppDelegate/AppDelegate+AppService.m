@@ -407,7 +407,8 @@
     [SVProgressHUD setKeyBoardMove:YES];
 
     //share
-    [WXApi registerApp:WX_APPKEY];
+//    [WXApi registerApp:WX_APPKEY];
+    [WXApi registerApp:WX_APPKEY universalLink:UNIVERSAL_LINK];
     self.tencentOAuth =  [[TencentOAuth alloc] initWithAppId:QQ_APPKEY andDelegate:nil];
     [DTOpenAPI registerApp:DINGDING_APPKEY];
 }
@@ -466,6 +467,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
         }];
     }
+    [WXApi handleOpenURL:url delegate:self];
     return YES;
 }
 
@@ -496,6 +498,7 @@
         }];
          return YES;
     }
+    [WXApi handleOpenURL:url delegate:self];
     [self handleOpenUrl:url];
     return YES;
 }
@@ -506,6 +509,7 @@
         NSURL *webUrl = userActivity.webpageURL;
         [self handleOpenUrl:webUrl];
     }
+    [WXApi handleOpenUniversalLink:userActivity delegate:self];
     return YES;
 }
 
