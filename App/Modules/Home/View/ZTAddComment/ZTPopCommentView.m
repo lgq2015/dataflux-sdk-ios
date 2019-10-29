@@ -440,8 +440,8 @@
     NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
     
     if(array.count == 0){
-        [addStr appendString:@"@"];
-        self.mTextView.text = addStr;
+//        [addStr appendString:@"@"];
+//        self.mTextView.text = addStr;
         return;
     }
     [array enumerateObjectsUsingBlock:^(MemberInfoModel *newObj, NSUInteger idx, BOOL * _Nonnull stop) {
