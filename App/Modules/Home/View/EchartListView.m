@@ -17,7 +17,6 @@
     return self;
 }
 - (void)createListWithDict:(NSDictionary *)dict{
-//    NSString *header = [dict stringValueForKey:@"header" default:@""];
     if([dict[@"body"] isKindOfClass:NSArray.class]){
         NSArray *body = dict[@"body"];
         UIView *temp = nil;
@@ -51,16 +50,6 @@
             }];
         }
     }
-//    UIView *listView = [[UIView alloc]init];
-    //    UILabel *headerLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(12) textColor:PWTextColor text:header];
-    //    [listView addSubview:headerLab];
-    //    [headerLab mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.left.mas_equalTo(listView).offset(Interval(16));
-    //        make.top.mas_equalTo(listView);
-    //        make.right.mas_equalTo(listView).offset(-Interval(16));
-    //    }];
-    
-
 }
 /*
 // Only override drawRect: if you perform custom drawing.
