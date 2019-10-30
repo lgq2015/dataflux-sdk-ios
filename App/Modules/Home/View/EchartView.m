@@ -20,12 +20,19 @@
     }
     return self;
 }
+- (instancetype)initWithDayPieDict:(NSDictionary *)dict{
+    if (self) {
+        self= [super init];
+        [self createPieWithDict:dict isDayReport:YES];
+    }
+    return self;
+}
 - (void)setupEchartWithDict:(NSDictionary *)data{
    
     NSArray *series = PWSafeArrayVal(data, @"series");
     NSArray *xdata = series[0][@"data"];
     if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {
-        [self createPieWithDict:data];
+        [self createPieWithDict:data isDayReport:NO];
     }else{
    __block  NSMutableArray *lineX  = [NSMutableArray new];
     NSDictionary *xAxisDict = PWSafeDictionaryVal(data, @"xAxis");
@@ -175,7 +182,7 @@
     // 添加到 scrollView 上
  }
 }
-- (void)createPieWithDict:(NSDictionary *)dict{
+- (void)createPieWithDict:(NSDictionary *)dict isDayReport:(BOOL)isDay{
     NSArray *series = PWSafeArrayVal(dict, @"series");
     NSArray *xdata = series[0][@"data"];
    __block NSMutableArray *nameArray = [NSMutableArray new];
@@ -183,11 +190,13 @@
 
     [xdata enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [nameArray addObject:@{@"icon":@"rect",@"name":[obj stringValueForKey:@"name" default:@""]}];
-        NSDictionary *itemStyle = @{@"itemStyle":@{@"normal":@{@"color":[self addItemStyleColorWithType:obj[@"id"]]}}};
-        NSMutableDictionary *dict = [NSMutableDictionary new];
-        [dict addEntriesFromDictionary:obj];
-        [dict addEntriesFromDictionary:itemStyle];
-        [itemArray addObject:dict];
+        if (isDay) {
+            NSDictionary *itemStyle = @{@"itemStyle":@{@"normal":@{@"color":[self addItemStyleColorWithType:obj[@"id"]]}}};
+            NSMutableDictionary *dict = [NSMutableDictionary new];
+            [dict addEntriesFromDictionary:obj];
+            [dict addEntriesFromDictionary:itemStyle];
+            [itemArray addObject:dict];
+        }
     }];
     PYOption *option = [[PYOption alloc] init];
     //拖拽重计算，设置no可以提高加载速度
@@ -218,7 +227,7 @@
     PYPieSeries *series1 = [[PYPieSeries alloc] init];
     series1.name = dict[@"title"][@"text"];
     series1.type = PYSeriesTypePie;
-    series1.data = itemArray;
+    series1.data =isDay?itemArray:xdata;
     series1.legendHoverLink = NO;
     series1.selectedModeEqual(@"single");
     series1.radius = @[@"60%",@"80%"];
@@ -269,7 +278,7 @@
     }else if([str isEqualToString:@"task"]){
         return @"#C24885 ";
     }
-    return @"#FF7A6A";
+    return @"";
 }
 /*
  Only override drawRect: if you perform custom drawing.

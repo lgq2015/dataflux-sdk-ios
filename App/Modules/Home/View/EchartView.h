@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EchartView : UIView
 - (instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDayPieDict:(NSDictionary *)dict;
 @end
 
 NS_ASSUME_NONNULL_END

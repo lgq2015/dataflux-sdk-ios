@@ -308,6 +308,10 @@
         EchartListView *listView = [[EchartListView alloc]initWithDict:dict[@"data"]];
         [self.echartContenterView addSubview:listView];
         return listView;
+    }else if([[dict stringValueForKey:@"subType" default:@""] isEqualToString:@"daily_report"]){
+        EchartView *pieView = [[EchartView alloc]initWithDayPieDict:dict[@"data"]];
+        [self.echartContenterView addSubview:pieView];
+        return pieView;
     }else{
         EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
         [self.echartContenterView addSubview:chart];
