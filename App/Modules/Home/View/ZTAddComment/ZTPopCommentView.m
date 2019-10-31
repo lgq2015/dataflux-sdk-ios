@@ -286,8 +286,8 @@
                     NSMutableString *str = [NSMutableString stringWithString:self.oldData];
                     [str deleteCharactersInRange:strrange];
                     self.mTextView.text = str;
+                    [self.mTextView setSelectedRange:NSMakeRange(strrange.location, 0)];
                     self.oldData = str;
-                    DLog(@"self.mTextView.text ==%@;",self.mTextView.text)
                     isAt = YES;
                     [self.rangeArray removeObjectAtIndex:idx1];
                     *stop = YES;
