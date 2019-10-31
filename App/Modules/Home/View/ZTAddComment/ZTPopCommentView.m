@@ -437,13 +437,13 @@
     return rangeArray;
 }
 - (void)dealAtMessageWithArray:(NSArray *)array{
+    [self.mTextView becomeFirstResponder];
     NSMutableString *addStr = [NSMutableString stringWithString:self.mTextView.text];
-    
+    NSRange range = [self.mTextView selectedRange];
     if(array.count == 0){
-//        [addStr appendString:@"@"];
-//        self.mTextView.text = addStr;
         return;
     }
+     __block  NSString *insertStr;
     [array enumerateObjectsUsingBlock:^(MemberInfoModel *newObj, NSUInteger idx, BOOL * _Nonnull stop) {
         __block  BOOL isNew = YES;
         if (self.choseMember.count == 0) {
@@ -460,14 +460,14 @@
             }
         }
         [self.rangeArray addObject:[NSString stringWithFormat:@"@%@ ",newObj.name]];
-        [addStr appendFormat:@"@%@ ",newObj.name];
-        
+        insertStr = [NSString stringWithFormat:@"@%@ ",newObj.name];
+        [addStr insertString:insertStr atIndex:range.location];
     }];
     
     
     self.mTextView.text =addStr;
     [self textViewDidChange:self.mTextView];
-    [self.mTextView becomeFirstResponder];
+    [self.mTextView setSelectedRange:NSMakeRange(range.location+insertStr.length, 0)];
 }
 - (void)ChooseChatStateViewCellIndex:(NSInteger)index{
     self.state = (IssueDealState)(index);
