@@ -282,7 +282,7 @@
             NSArray *rangeAry =[self rangeOfSubString:obj inString:self.oldData];
             [rangeAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSRange strrange = [obj rangeValue];
-                if(strrange.location<range.location&&range.location<(strrange.location+strrange.length)) {
+                if(range.location!=0&& strrange.location<=range.location&&range.location<(strrange.location+strrange.length)) {
                     NSMutableString *str = [NSMutableString stringWithString:self.oldData];
                     [str deleteCharactersInRange:strrange];
                     self.mTextView.text = str;
