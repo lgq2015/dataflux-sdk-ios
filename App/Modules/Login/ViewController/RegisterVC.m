@@ -381,8 +381,8 @@
     WeakSelf
     if ([[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] validatePhoneNumber]) {
         [SVProgressHUD show];
-        [[PWHttpEngine sharedInstance] checkRegisterWithPhone:[self.phoneTF.text removeFrontBackBlank] callBack:^(id response) {
-            BaseReturnModel *model = response;
+        [[PWHttpEngine sharedInstance] checkRegisterWithPhone:[self.phoneTF.text removeFrontBackBlank] callBack:^(id responseModel) {
+            BaseReturnModel *model = responseModel;
             if (model.isSuccess) {
                 VerificationCodeNetWork *code = [[VerificationCodeNetWork alloc]init];
                 [code VerificationCodeWithType:VerifyCodeVCTypeLogin phone:[self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""] uuid:@"" successBlock:^(id response) {
@@ -457,7 +457,7 @@
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];
-        [self.getCodeBtn setTitle:NSLocalizedString(@"local.Resend", @"") forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:NSLocalizedString(@"local.ResendCode", @"") forState:UIControlStateNormal];
     }
 }
 - (void)selectBtnClick{

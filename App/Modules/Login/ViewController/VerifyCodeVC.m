@@ -96,7 +96,7 @@
         make.height.offset(ZOOM_SCALE(22));
         make.width.offset(ZOOM_SCALE(150));
     }];
-    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:NSLocalizedString(@"local.resend", @"")];
+    UILabel *timeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(14) textColor:PWTitleColor text:NSLocalizedString(@"local.ResendCode", @"")];
     timeLab.tag = 10;
     [self.view addSubview:timeLab];
     [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,7 +209,7 @@
 }
 -(UIButton *)resendCodeBtn{
     if (!_resendCodeBtn) {
-        _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.Resend", @"")];
+        _resendCodeBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.ResendCode", @"")];
         _resendCodeBtn.titleLabel.font = RegularFONT(14);
         [_resendCodeBtn setTitleColor:PWTextBlackColor forState:UIControlStateNormal];
         [_resendCodeBtn addTarget:self action:@selector(resendCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];

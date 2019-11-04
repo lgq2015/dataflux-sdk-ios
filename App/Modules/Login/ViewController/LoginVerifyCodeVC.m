@@ -306,7 +306,7 @@
     }else if(self.second == 0){
         self.getCodeBtn.enabled = YES;
         [self.timer setFireDate:[NSDate distantFuture]];
-        [self.getCodeBtn setTitle:NSLocalizedString(@"local.Resend", @"") forState:UIControlStateNormal];
+        [self.getCodeBtn setTitle:NSLocalizedString(@"local.ResendCode", @"") forState:UIControlStateNormal];
     }
 }
 /*

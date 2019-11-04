@@ -511,7 +511,7 @@
 "local.AlreadyHaveAnAccount?GoToLogin" = "已有账号？去登录";
 "local.GoToLogin" = "去登录";
 "local.AgreeToTheServiceAgreementAndThePrivacyPolicy" = "同意《服务协议》与《隐私权政策》";
-"local.Resend" = "重新发送";
+"local.ResendCode" = "重新发送";
 "local.LoggingIn" = "登录中...";
 "local.PhoneNumberCannotBeEmpty" = "手机号不能为空";
 "local.PleaseEnterThe11-digitMobileNumber" = "请输入11位的手机号码";
