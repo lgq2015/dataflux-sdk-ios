@@ -148,7 +148,7 @@ SINGLETON_FOR_CLASS(UserManager);
                     NSString *toast =[NSString stringWithFormat:model.errorMsg,time];
                     [SVProgressHUD showErrorWithStatus:toast];
                 } else {
-                    [SVProgressHUD showErrorWithStatus:[response[ERROR_CODE] toErrString]];
+                    [SVProgressHUD showErrorWithStatus:model.errorMsg];
                 }
             }
         }];
