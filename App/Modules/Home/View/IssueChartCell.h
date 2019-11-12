@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ClassifyModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueChartCell : UITableViewCell
-
+@property (nonatomic, strong) ClassifyModel *model;
+- (void)initCardItem;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,7 +14,9 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+-(void)initCardItem{
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

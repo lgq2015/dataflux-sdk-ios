@@ -7,12 +7,20 @@
 //
 
 #import "IssueChartEchartCell.h"
+#import "EchartView.h"
 
+@interface IssueChartEchartCell()
+@property (nonatomic, strong) EchartView *echartView;
+@end
 @implementation IssueChartEchartCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+-(void)setModel:(ClassifyModel *)model{
+    [super setModel:model];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
