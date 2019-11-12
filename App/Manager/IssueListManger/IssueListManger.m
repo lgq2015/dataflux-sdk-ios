@@ -716,7 +716,66 @@ NSString *const ILMStringAll = @"ALL";
     return array;
     
 }
+- (ClassifyModel *)getIssueWithClassifyType:(ClassifyType)type{
+   SelectObject *sel= [self getCurrentSelectObject];
+    ClassifyModel *model = [ClassifyModel new];
+    model.type = type;
+    NSString *whereFormt,*danger,*warning,*common;
+    switch (type) {
+        case ClassifyTypeCrontab:
+            whereFormt=@"WHERE originExecMode ='crontab'";
+            model.cellHeight = ZOOM_SCALE(132)+Interval(20);
+            model.title = NSLocalizedString(@"local.diagnose", @"");
+            model.cellIdentifier = @"IssueChartCell";
+            break;
+        case ClassifyTypeTask:
+            whereFormt = @"WHERE type = 'task'";
+            model.cellHeight = ZOOM_SCALE(132)+Interval(20);
+            model.title = NSLocalizedString(@"local.task", @"");
+            model.cellIdentifier = @"IssueChartCell";
+            break;
+        case ClassifyTypeAlarm:
+            whereFormt = @"originExecMode ='alertHub' AND type = 'alarm'";
+            model.cellHeight = ZOOM_SCALE(367)+Interval(20);
+            model.title = NSLocalizedString(@"local.MonitoringAlarm", @"");
+            model.cellIdentifier = @"IssueChartEchartCell";
+            break;
+        case ClassifyTypeReport:
+            whereFormt = @"type = 'report'";
+            model.cellHeight = ZOOM_SCALE(189)+Interval(20);
+            model.title = NSLocalizedString(@"local.report", @"");
+            model.cellIdentifier = @"IssueChartListCell";
+            break;
+    }
+    if(sel.issueFrom == IssueFromMe){
+        whereFormt = [whereFormt stringByAppendingFormat:@"%@", [NSString stringWithFormat:@"AND watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID]];
+    }else{
+        whereFormt = [whereFormt stringByAppendingFormat:@"AND status = 'created'"];
+    }
+    danger = [whereFormt stringByAppendingFormat:@"AND level = 'danger'"];
+    warning =[whereFormt stringByAppendingFormat:@"AND level = 'warning'"];
+    common =[whereFormt stringByAppendingFormat:@"AND level = 'common'"];
+    
+    model.dangerAry = [self getIssueListWithWhereFormat:danger];
+    model.commonAry = [self getIssueListWithWhereFormat:common];
+    model.warningAry = [self getIssueListWithWhereFormat:warning];
+    model.allAry = [self getIssueListWithWhereFormat:whereFormt];
+    if (type == ClassifyTypeAlarm) {
+        
+    }
+    return model;
+}
+-(NSArray *)getIssueListWithWhereFormat:(NSString *)whereFormat{
+   NSMutableArray *array = [NSMutableArray new];
 
+    [self.getHelper pw_inDatabase:^{
+        
+        NSArray *itemDatas = [self.getHelper pw_lookupTable:PW_DB_ISSUE_ISSUE_LIST_TABLE_NAME dicOrModel:[IssueModel class] whereFormat:whereFormat];
+        [array addObjectsFromArray:itemDatas];
+    }];
+    
+    return array;
+}
 - (IssueModel *)getIssueDataByData:(NSString *)issueId {
     __block IssueModel *data = nil;
     [self.getHelper pw_inDatabase:^{

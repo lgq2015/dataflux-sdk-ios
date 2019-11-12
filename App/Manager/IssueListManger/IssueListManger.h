@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseSqlHelper.h"
+#import "ClassifyModel.h"
 
 typedef NS_ENUM(NSInteger ,IssueType){
     IssueTypeAll = 1,
@@ -19,10 +20,6 @@ typedef NS_ENUM(NSInteger ,IssueType){
     IssueTypeReport,
     IssueTypeTask,
 };
-//typedef NS_ENUM(NSInteger ,IssueViewType){
-//    IssueViewTypeNormal = 1,
-//    IssueViewTypeAll = 2,
-//};
 typedef NS_ENUM(NSInteger ,IssueFrom){
     IssueFromMe = 1,   //与我相关的 包括@ 指派 标记 创建等
     IssueFromAll = 2,
@@ -98,6 +95,7 @@ SINGLETON_FOR_HEADER(IssueListManger)
 - (void)deleteIssueWithIssueSourceID:(NSArray *)sourceIds ;
 
 - (void)clearAllIssueData;
+- (ClassifyModel *)getIssueWithClassifyType:(ClassifyType)type;
 @end
 
 NS_ASSUME_NONNULL_END
