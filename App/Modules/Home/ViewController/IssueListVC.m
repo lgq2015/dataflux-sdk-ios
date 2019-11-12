@@ -121,7 +121,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
-    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-kTopHeight-25-ZOOM_SCALE(42));
+    self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTabBarHeight-Interval(98)-kStatusBarHeight-84);
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
 
     //让tableview不显示分割线
