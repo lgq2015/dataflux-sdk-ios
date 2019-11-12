@@ -145,6 +145,7 @@
 "local.issue.issueFixed" = "被 %@ 修复";
 "local.issue.exitExpertGroups" = "您邀请的专家已退出讨论";
 "local.issueCreate" = "创建情报";
+"local.issueCreateTypeTask" = "创建任务";
 "local.issue.issueCreatedBy" = "由%@创建";
 "local.issue.issueCreateSuccess" = "创建情报成功";
 "local.issue.issueAssigned" = "将该情报指派给";
@@ -264,6 +265,7 @@
 "local.misc" = "记录";
 "local.report" = "报告";
 "local.task" = "任务";
+"local.MonitoringAlarm" = "监控告警";
 "local.MyTeam" = "我的团队";
 "local.delete" = "删除";
 "local.TeamInviteMembers" = "邀请成员";
@@ -603,3 +605,5 @@
 "local.SetAsAdministrator" = "设为管理员";
 "local.CancelAdministrator" = "取消管理员";
 "local.SuccessfulSetup" = "设置成功";
+"local.BackToTheList" = "回到列表";
+"local.EnterTheStatisticsView" = "进入统计视图";

@@ -477,6 +477,9 @@
 		4A5263A72366DDB30075BC93 /* LoginVerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5263A62366DDB30075BC93 /* LoginVerifyCodeVC.m */; };
 		4A5263A82366DDB30075BC93 /* LoginVerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5263A62366DDB30075BC93 /* LoginVerifyCodeVC.m */; };
 		4A5263A92366DDB30075BC93 /* LoginVerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5263A62366DDB30075BC93 /* LoginVerifyCodeVC.m */; };
+		4A52643123742DE70075BC93 /* IssueChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52643023742DE70075BC93 /* IssueChartVC.m */; };
+		4A52643223742DE70075BC93 /* IssueChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52643023742DE70075BC93 /* IssueChartVC.m */; };
+		4A52643323742DE70075BC93 /* IssueChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52643023742DE70075BC93 /* IssueChartVC.m */; };
 		4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
 		4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A56F78022F0610F00E56ED0 /* SourceModel.m */; };
@@ -609,6 +612,21 @@
 		4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
 		4AAC14202276F3520043AD5E /* NoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC141D2276F3500043AD5E /* NoDataView.m */; };
+		4AB126532375719A008A657B /* ClassifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB126522375719A008A657B /* ClassifyModel.m */; };
+		4AB126542375719A008A657B /* ClassifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB126522375719A008A657B /* ClassifyModel.m */; };
+		4AB126552375719A008A657B /* ClassifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB126522375719A008A657B /* ClassifyModel.m */; };
+		4AB1265823790BF5008A657B /* IssueChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265723790BF5008A657B /* IssueChartCell.m */; };
+		4AB1265923790BF5008A657B /* IssueChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265723790BF5008A657B /* IssueChartCell.m */; };
+		4AB1265A23790BF5008A657B /* IssueChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265723790BF5008A657B /* IssueChartCell.m */; };
+		4AB1265D237AAE63008A657B /* IssueChartListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265C237AAE63008A657B /* IssueChartListVC.m */; };
+		4AB1265E237AAE63008A657B /* IssueChartListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265C237AAE63008A657B /* IssueChartListVC.m */; };
+		4AB1265F237AAE63008A657B /* IssueChartListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1265C237AAE63008A657B /* IssueChartListVC.m */; };
+		4AB12667237ABA52008A657B /* IssueChartEchartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12666237ABA52008A657B /* IssueChartEchartCell.m */; };
+		4AB12668237ABA52008A657B /* IssueChartEchartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12666237ABA52008A657B /* IssueChartEchartCell.m */; };
+		4AB12669237ABA52008A657B /* IssueChartEchartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12666237ABA52008A657B /* IssueChartEchartCell.m */; };
+		4AB1266C237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
+		4AB1266D237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
+		4AB1266E237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
 		4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* IssueCell.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -1533,6 +1551,8 @@
 		4A52639E2366DD910075BC93 /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
 		4A5263A52366DDB20075BC93 /* LoginVerifyCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVerifyCodeVC.h; sourceTree = "<group>"; };
 		4A5263A62366DDB30075BC93 /* LoginVerifyCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVerifyCodeVC.m; sourceTree = "<group>"; };
+		4A52642F23742DE70075BC93 /* IssueChartVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartVC.h; sourceTree = "<group>"; };
+		4A52643023742DE70075BC93 /* IssueChartVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartVC.m; sourceTree = "<group>"; };
 		4A56F77F22F0610F00E56ED0 /* SourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceModel.h; sourceTree = "<group>"; };
 		4A56F78022F0610F00E56ED0 /* SourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceModel.m; sourceTree = "<group>"; };
 		4A61144521DCAE4000E4138B /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
@@ -1647,6 +1667,16 @@
 		4AAC141222706CFE0043AD5E /* IssueLogAttachmentUrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueLogAttachmentUrl.m; sourceTree = "<group>"; };
 		4AAC141C2276F3500043AD5E /* NoDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoDataView.h; sourceTree = "<group>"; };
 		4AAC141D2276F3500043AD5E /* NoDataView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoDataView.m; sourceTree = "<group>"; };
+		4AB126512375719A008A657B /* ClassifyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassifyModel.h; sourceTree = "<group>"; };
+		4AB126522375719A008A657B /* ClassifyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassifyModel.m; sourceTree = "<group>"; };
+		4AB1265623790BF5008A657B /* IssueChartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartCell.h; sourceTree = "<group>"; };
+		4AB1265723790BF5008A657B /* IssueChartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartCell.m; sourceTree = "<group>"; };
+		4AB1265B237AAE63008A657B /* IssueChartListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartListVC.h; sourceTree = "<group>"; };
+		4AB1265C237AAE63008A657B /* IssueChartListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartListVC.m; sourceTree = "<group>"; };
+		4AB12665237ABA52008A657B /* IssueChartEchartCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartEchartCell.h; sourceTree = "<group>"; };
+		4AB12666237ABA52008A657B /* IssueChartEchartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartEchartCell.m; sourceTree = "<group>"; };
+		4AB1266A237ABBB2008A657B /* IssueChartListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartListCell.h; sourceTree = "<group>"; };
+		4AB1266B237ABBB2008A657B /* IssueChartListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartListCell.m; sourceTree = "<group>"; };
 		4AB489B121EC6640009F9E94 /* IssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
 		4AB489B221EC6640009F9E94 /* IssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -2378,6 +2408,12 @@
 				4A63A341232A3F550027C7A1 /* SelfSizingCollectCell.m */,
 				4AA73E332339B755009FD4BE /* PopItemView.h */,
 				4AA73E342339B755009FD4BE /* PopItemView.m */,
+				4AB1265623790BF5008A657B /* IssueChartCell.h */,
+				4AB1265723790BF5008A657B /* IssueChartCell.m */,
+				4AB12665237ABA52008A657B /* IssueChartEchartCell.h */,
+				4AB12666237ABA52008A657B /* IssueChartEchartCell.m */,
+				4AB1266A237ABBB2008A657B /* IssueChartListCell.h */,
+				4AB1266B237ABBB2008A657B /* IssueChartListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3043,6 +3079,8 @@
 				4A56F78022F0610F00E56ED0 /* SourceModel.m */,
 				4A50D91822F13B6100B2493F /* OriginModel.h */,
 				4A50D91922F13B6100B2493F /* OriginModel.m */,
+				4AB126512375719A008A657B /* ClassifyModel.h */,
+				4AB126522375719A008A657B /* ClassifyModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3503,6 +3541,10 @@
 				4A50D94922F99B7000B2493F /* AtTeamMemberListVC.m */,
 				4A63A3302328C7C60027C7A1 /* SearchIssueVC.h */,
 				4A63A3312328C7C60027C7A1 /* SearchIssueVC.m */,
+				4A52642F23742DE70075BC93 /* IssueChartVC.h */,
+				4A52643023742DE70075BC93 /* IssueChartVC.m */,
+				4AB1265B237AAE63008A657B /* IssueChartListVC.h */,
+				4AB1265C237AAE63008A657B /* IssueChartListVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4148,12 +4190,14 @@
 				4A092C7D22256DB000FB2A35 /* FillinTeamInforVC.m in Sources */,
 				4A092C6622241B3800FB2A35 /* PasswordVerifyVC.m in Sources */,
 				2B5211062257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
+				4AB1265823790BF5008A657B /* IssueChartCell.m in Sources */,
 				4ABF448521BFBDD4002AF34E /* UserManager.m in Sources */,
 				4A092CFF22293A1000FB2A35 /* MemberInfoVC.m in Sources */,
 				4AE5375421C74194004CF320 /* PWScrollPageView.m in Sources */,
 				4AE5377521CA2CF1004CF320 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4A092D48222D303D00FB2A35 /* MineCollectionVC.m in Sources */,
 				4ABF448C21C0A52A002AF34E /* PWTransition.m in Sources */,
+				4AB1265D237AAE63008A657B /* IssueChartListVC.m in Sources */,
 				4AA4CF192285482A00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
 				4A00DE4222E6F311008462AF /* CalendarSelView.m in Sources */,
 				4A092CB72227BE5300FB2A35 /* InviteCardView.m in Sources */,
@@ -4396,6 +4440,7 @@
 				2B9ECBEE2254509D00BAC47A /* UIViewController+ZTSwizzling.m in Sources */,
 				2B53530E226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC21225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
+				4AB1266C237ABBB2008A657B /* IssueChartListCell.m in Sources */,
 				4A759B63225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
 				4ABF44D621C2080C002AF34E /* OpenUDID.m in Sources */,
 				4AE9C53921D73F06003BB9CB /* SDCollectionViewCell.m in Sources */,
@@ -4410,7 +4455,9 @@
 				4AF6639D225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4D229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2AF59E4A440D87F2D2B7 /* IssueLogModel.m in Sources */,
+				4AB126532375719A008A657B /* ClassifyModel.m in Sources */,
 				6B6E2CA435844C02642E805E /* HandBookManager.m in Sources */,
+				4A52643123742DE70075BC93 /* IssueChartVC.m in Sources */,
 				4A3CDA81229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEEB228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				4A50D93722F9900500B2493F /* OrderListModel.m in Sources */,
@@ -4421,6 +4468,7 @@
 				6B6E2D979883C6BEF6CCA74D /* PWHttpEngine.m in Sources */,
 				6B6E2A26FE43AFC204C916A5 /* BaseReturnModel.m in Sources */,
 				4A56F78122F0610F00E56ED0 /* SourceModel.m in Sources */,
+				4AB12667237ABA52008A657B /* IssueChartEchartCell.m in Sources */,
 				6B6E269345E9EBAA634F012C /* CarrierItemModel.m in Sources */,
 				6B6E26DA119DE6C751E5A67C /* NSDictionary+URL.m in Sources */,
 				4A50D94622F9906000B2493F /* ServiceDetailVC+ChangeNavColor.m in Sources */,
@@ -4510,12 +4558,14 @@
 				4A759A712248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF587221ECB3A00D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0022293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				4AB1265923790BF5008A657B /* IssueChartCell.m in Sources */,
 				2B5211072257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092D8C222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F8223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA0222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CA92227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4AC8571E223278DD00DAE1F6 /* HistoryCell.m in Sources */,
+				4AB1265E237AAE63008A657B /* IssueChartListVC.m in Sources */,
 				CA1CF588221ECB3A00D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4AA4CF1A2285482B00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
 				4A00DE4322E6F312008462AF /* CalendarSelView.m in Sources */,
@@ -4758,6 +4808,7 @@
 				2B53530F226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC22225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4A759B64225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
+				4AB1266D237ABBB2008A657B /* IssueChartListCell.m in Sources */,
 				CA1CF5F0221ECB3A00D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D53222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AF6638B225F2DCA00E551B9 /* PWImageGroupItem.m in Sources */,
@@ -4772,7 +4823,9 @@
 				4AF6639E225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4E229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E2B319D0FB6758487BE57 /* IssueLogModel.m in Sources */,
+				4AB126542375719A008A657B /* ClassifyModel.m in Sources */,
 				6B6E231681A20061F2A613D3 /* HandBookManager.m in Sources */,
+				4A52643223742DE70075BC93 /* IssueChartVC.m in Sources */,
 				4A3CDA82229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEEC228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				4A50D93822F9900500B2493F /* OrderListModel.m in Sources */,
@@ -4783,6 +4836,7 @@
 				6B6E2305E1210792FD803A81 /* PWHttpEngine.m in Sources */,
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
 				4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */,
+				4AB12668237ABA52008A657B /* IssueChartEchartCell.m in Sources */,
 				6B6E238D7E703151708B8567 /* CarrierItemModel.m in Sources */,
 				6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */,
 				4A50D94722F9906000B2493F /* ServiceDetailVC+ChangeNavColor.m in Sources */,
@@ -4872,12 +4926,14 @@
 				4A759A722248891F0057BD02 /* PWFMDB+Simplefy.m in Sources */,
 				CA1CF62C221ECB5000D15316 /* PWScrollPageView.m in Sources */,
 				4A092D0122293A1000FB2A35 /* MemberInfoVC.m in Sources */,
+				4AB1265A23790BF5008A657B /* IssueChartCell.m in Sources */,
 				2B5211082257CA60004DA56D /* ZYSocialUIManager.m in Sources */,
 				4A092D8D222E6FB900FB2A35 /* PWPhotoGroupView.m in Sources */,
 				4AC856F9223147A300DAE1F6 /* SCIndexView.m in Sources */,
 				4A092DA1222E841D00FB2A35 /* PWPhotoListCellTapView.m in Sources */,
 				4A092CAA2227AA7000FB2A35 /* TeamInfoModel.m in Sources */,
 				4AC8571F223278DD00DAE1F6 /* HistoryCell.m in Sources */,
+				4AB1265F237AAE63008A657B /* IssueChartListVC.m in Sources */,
 				CA1CF62D221ECB5000D15316 /* PWPhotoOrAlbumImagePicker.m in Sources */,
 				4AA4CF1B2285482B00A2CBE1 /* AtReadSeqAndAccountID.m in Sources */,
 				4A00DE4422E6F312008462AF /* CalendarSelView.m in Sources */,
@@ -5120,6 +5176,7 @@
 				2B535310226DBE6900A4AC22 /* ZYPayWayUIManager.m in Sources */,
 				2B9ECC23225482BE00BAC47A /* FounctionIntroductionModel.m in Sources */,
 				4A759B65225B0AFC0057BD02 /* NSError+CommonToast.m in Sources */,
+				4AB1266E237ABBB2008A657B /* IssueChartListCell.m in Sources */,
 				CA1CF695221ECB5000D15316 /* SDCollectionViewCell.m in Sources */,
 				4A092D54222D318C00FB2A35 /* MineMessageCell.m in Sources */,
 				4AF6638C225F2DCA00E551B9 /* PWImageGroupItem.m in Sources */,
@@ -5134,7 +5191,9 @@
 				4AF6639F225F747600E551B9 /* SVRadialGradientLayer.m in Sources */,
 				4A3CDA4F229C095800C2EC62 /* LTSCalendarDayItem.m in Sources */,
 				6B6E29F56720C4E6686BE6DC /* IssueLogModel.m in Sources */,
+				4AB126552375719A008A657B /* ClassifyModel.m in Sources */,
 				6B6E20B2B2E3D0653A734686 /* HandBookManager.m in Sources */,
+				4A52643323742DE70075BC93 /* IssueChartVC.m in Sources */,
 				4A3CDA83229E201100C2EC62 /* CountListModel.m in Sources */,
 				4AA4CEED228400F000A2CBE1 /* IssueReadInfo.m in Sources */,
 				4A50D93922F9900500B2493F /* OrderListModel.m in Sources */,
@@ -5145,6 +5204,7 @@
 				6B6E2E22D5B486B8179910F9 /* PWHttpEngine.m in Sources */,
 				6B6E2210E24A337B2157C470 /* BaseReturnModel.m in Sources */,
 				4A56F78322F0610F00E56ED0 /* SourceModel.m in Sources */,
+				4AB12669237ABA52008A657B /* IssueChartEchartCell.m in Sources */,
 				6B6E262094A2F84019BACBA3 /* CarrierItemModel.m in Sources */,
 				6B6E28BC3744716BF2825DF0 /* NSDictionary+URL.m in Sources */,
 				4A50D94822F9906000B2493F /* ServiceDetailVC+ChangeNavColor.m in Sources */,
