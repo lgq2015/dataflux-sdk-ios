@@ -230,7 +230,7 @@
     series1.data =isDay?itemArray:xdata;
     series1.legendHoverLink = NO;
     series1.selectedModeEqual(@"single");
-    series1.radius = @[@"60%",@"80%"];
+    series1.radius = @[@"40%",@"60%"];
     //圆心坐标
     //    series1.center = @[@"50%",@"50%"];
     PYItemStyle *itemStyle = [[PYItemStyle alloc] init];
@@ -239,9 +239,9 @@
     //圈外数据 normal
     //    series1.itemStyle.normal = [[PYItemStyleProp alloc] init];
     //圈外数据信息label
-    series1.itemStyle.normal.label.show = NO;
+    series1.itemStyle.normal.label.show = YES;
     //圈外数据圆柱图连线
-    series1.itemStyle.normal.labelLine.show = NO;
+    series1.itemStyle.normal.labelLine.show = YES;
     
    
     
