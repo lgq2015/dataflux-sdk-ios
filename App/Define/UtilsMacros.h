@@ -113,6 +113,9 @@
 #define PWTitleColor [UIColor colorWithHexString:@"595860"]
 #define PWSubTitleColor [UIColor colorWithHexString:@"8E8E93"] 
 //颜色
+#define PWWarningColor         [UIColor colorWithHexString:@"FFC163"]
+#define PWDangerColor  [UIColor colorWithHexString:@"FC7676"]
+#define PWCommonColor  [UIColor colorWithHexString:@"599AFF"]
 #define PWChatCellColor  RGBACOLOR(250,250,250,1)
 #define CellLineColor    RGBACOLOR(200,200,200,1)
 #define PWLineColor  [UIColor colorWithHexString:@"#E4E4E4"]
