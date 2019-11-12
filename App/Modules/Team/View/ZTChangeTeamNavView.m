@@ -7,17 +7,26 @@
 //
 
 #import "ZTChangeTeamNavView.h"
+#import "TeamInfoModel.h"
+#import "ZYChangeTeamUIManager.h"
+
 #import <Masonry.h>
 #define TitleMaxW 250.0
 @interface ZTChangeTeamNavView()
 @property (nonatomic, copy)NSString *titleString;
 @property (nonatomic, strong)UIFont *font;
 @property (nonatomic, assign)CGFloat navViewLeftBtnW;
+@property (nonatomic, assign)CGFloat offset;
+
+@property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
+
 @end
+
 @implementation ZTChangeTeamNavView
 
-- (instancetype)initWithTitle:(NSString *)titleString font:(UIFont *)font{
+- (instancetype)initWithTitle:(NSString *)titleString font:(UIFont *)font showWithOffsetY:(CGFloat)offset{
     _font = font;
+    _offset = offset;
     _titleString = titleString;
     if (self = [super init]){
         [self s_UI];
@@ -44,8 +53,68 @@
         make.width.height.offset(self.navViewImageView.bounds.size.width);
         make.right.equalTo(self.mas_right);
     }];
+    NSString *titleString;
+       if([getTeamState isEqualToString:PW_isTeam]){
+           titleString = userManager.teamModel.name;
+       }else{
+           titleString = NSLocalizedString(@"local.MyTeam", @"");
+       }
+       
+       [self.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
+       self.navViewImageView.userInteractionEnabled = YES;
+       UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
+       [self.navViewImageView addGestureRecognizer:tap];
 }
+- (void)navLeftBtnclick:(UIButton *)sender{
+    sender.userInteractionEnabled = NO;
+    sender.selected = !sender.selected;
+    //设置动画
+    [UIView animateWithDuration:0.2 animations:^{
+        if (sender.selected){
+            self.navViewImageView.transform = CGAffineTransformMakeRotation(M_PI);
+        }else{
+            self.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+        }
+    } completion:^(BOOL finished) {
+        sender.userInteractionEnabled = YES;
+    }];
+    //显示
+    if (sender.isSelected){
+        [self.changeTeamView showWithOffsetY:_offset];
+    }else{
+        [self.changeTeamView  dismiss];
+    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(changeTeamViewShow)]) {
+        [self.delegate changeTeamViewShow];
+    }
+}
+
 #pragma mark ---lazy---
+-(ZYChangeTeamUIManager *)changeTeamView{
+    if (!_changeTeamView) {
+        _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
+//        [_changeTeamView showWithOffsetY:HomeNavHeight];
+//        _changeTeamView.fromVC = self;
+        WeakSelf
+        _changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
+            if (isDismissed){
+                weakSelf.navViewLeftBtn.selected = NO;
+                //设置动画
+                weakSelf.navViewLeftBtn.userInteractionEnabled = NO;
+                [UIView animateWithDuration:0.2 animations:^{
+                    weakSelf.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
+                } completion:^(BOOL finished) {
+                    weakSelf.navViewLeftBtn.userInteractionEnabled = YES;
+                }];
+            }
+        };
+    }
+    return _changeTeamView;
+}
+- (void)tapTopArrow:(UITapGestureRecognizer *)ges{
+    [self navLeftBtnclick:self.navViewLeftBtn];
+   
+}
 - (UIButton *)navViewLeftBtn{
     if (!_navViewLeftBtn){
         _navViewLeftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -92,5 +161,8 @@
     }else{
         return CGRectMake(0, 0, width, height);
     }
+}
+- (void)dissMissView{
+    [self.changeTeamView dismiss];
 }
 @end

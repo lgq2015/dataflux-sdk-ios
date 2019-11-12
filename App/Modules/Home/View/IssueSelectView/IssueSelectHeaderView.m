@@ -40,20 +40,9 @@
 - (void)createUI{
    
     self.backgroundColor = PWWhiteColor;
-    self.mineTypeBtn.frame = CGRectMake(Interval(16), (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(70), ZOOM_SCALE(18));
-    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.mineTypeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
-    line1.centerY = self.mineTypeBtn.centerY;
-    line1.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
-    [self addSubview:line1];
-    self.typeBtn.frame = CGRectMake(CGRectGetMaxX(line1.frame)+Interval(12), (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(44), ZOOM_SCALE(18));
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.typeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
-    line.centerY = self.typeBtn.centerY;
-    line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
-    [self addSubview:line];
-    self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(12), 0, ZOOM_SCALE(100), ZOOM_SCALE(18));
-    self.timeTypeBtn.centerY = self.typeBtn.centerY;
+    CGFloat typeX = Interval(16);
     if (_isSave) {
-        UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreate", @"")];
+        UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreateTypeTask", @"")];
         addIssueBtn.titleLabel.font = RegularFONT(13);
         
         [self addSubview:addIssueBtn];
@@ -62,7 +51,21 @@
             make.height.top.bottom.mas_equalTo(self);
         }];
         [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        self.mineTypeBtn.frame = CGRectMake(Interval(16), (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(70), ZOOM_SCALE(18));
+                  UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.mineTypeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
+                  line1.centerY = self.mineTypeBtn.centerY;
+                  line1.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+                  [self addSubview:line1];
+        typeX =CGRectGetMaxX(line1.frame)+Interval(12);
     }
+    self.typeBtn.frame = CGRectMake(typeX, (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(44), ZOOM_SCALE(18));
+       UIView *line = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.typeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
+       line.centerY = self.typeBtn.centerY;
+       line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+       [self addSubview:line];
+       self.timeTypeBtn.frame = CGRectMake(CGRectGetMaxX(line.frame)+Interval(12), 0, ZOOM_SCALE(100), ZOOM_SCALE(18));
+       self.timeTypeBtn.centerY = self.typeBtn.centerY;
     UIView *lineb =  [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(42)-1, kWidth, 0.5)];
     lineb.backgroundColor =[UIColor colorWithHexString:@"#E4E4E4"];
     [self addSubview:lineb];

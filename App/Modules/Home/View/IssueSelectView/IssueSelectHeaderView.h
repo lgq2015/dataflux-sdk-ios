@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "IssueSelectView.h"
 #import "IssueSelectSortTypeView.h"
-
 NS_ASSUME_NONNULL_BEGIN
 @protocol IssueSelectHeaderDelegate <NSObject>
 

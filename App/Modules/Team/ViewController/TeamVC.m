@@ -35,7 +35,6 @@
 @property (nonatomic, strong) UIButton *rightNavButton;
 @property (nonatomic, strong) NSMutableArray<MemberInfoModel *> *teamMemberArray;
 @property (nonatomic, strong) ZTChangeTeamNavView *changeTeamNavView;
-@property (nonatomic, strong) ZYChangeTeamUIManager *changeTeamView;
 @property (nonatomic, strong) TeamHeaderView *headerView;
 @end
 
@@ -57,13 +56,6 @@
     
     [self initSystemNav];
     [self s_UI];
-}
--(ZYChangeTeamUIManager *)changeTeamView{
-    if (!_changeTeamView) {
-        _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
-        _changeTeamView.fromVC = self;
-    }
-    return _changeTeamView;
 }
 - (void)s_UI{
     self.tableView.mj_header = self.header;
@@ -346,11 +338,7 @@
     }else{
         titleString = NSLocalizedString(@"local.MyTeam", @"");
     }
-    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:BOLDFONT(20)];
-    [_changeTeamNavView.navViewLeftBtn addTarget:self action:@selector(navLeftBtnclick:) forControlEvents:UIControlEventTouchUpInside];
-    _changeTeamNavView.navViewImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTopArrow:)];
-    [_changeTeamNavView.navViewImageView addGestureRecognizer:tap];
+    _changeTeamNavView = [[ZTChangeTeamNavView alloc] initWithTitle:titleString font:BOLDFONT(20) showWithOffsetY:kTopHeight+24];
     NSString *version = [UIDevice currentDevice].systemVersion;
     if (version.doubleValue <= 11.0) {
         _changeTeamNavView.frame = [_changeTeamNavView getChangeTeamNavViewFrame:NO];
@@ -393,29 +381,6 @@
     }
     return _rightNavButton;
 }
-- (void)navLeftBtnclick:(UIButton *)sender{
-    sender.userInteractionEnabled = NO;
-    sender.selected = !sender.selected;
-    //设置动画
-    [UIView animateWithDuration:0.2 animations:^{
-        if (sender.selected){
-            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(M_PI);
-        }else{
-            _changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
-        }
-    } completion:^(BOOL finished) {
-        sender.userInteractionEnabled = YES;
-    }];
-    //显示
-    if (sender.isSelected){
-        [self.changeTeamView showWithOffsetY:kTopHeight+24];
-    }else{
-        [self.changeTeamView dismiss];
-    }
-}
-- (void)tapTopArrow:(UITapGestureRecognizer *)ges{
-    [self navLeftBtnclick:_changeTeamNavView.navViewLeftBtn];
-}
 
 #pragma mark ===通知回调=====
 //团队切换
@@ -448,10 +413,7 @@
 }
 #pragma mark ====常用按钮交互=====
 - (void)rightNavClick{
-    
-    if (self.changeTeamView.isShowTeamView){
-        [self.changeTeamView dismiss];
-    }
+    [self.changeTeamNavView dissMissView];
     MineMessageVC *messageVC = [[MineMessageVC alloc]init];
     messageVC.ownership = Team_Message;
     [self.navigationController pushViewController:messageVC animated:YES];
@@ -459,7 +421,6 @@
 #pragma mark ====其他========
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self clickTeamChangeViewBlackBG];
     [self requestTeamSystemUnreadCount];
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -470,21 +431,6 @@
         });
         [self.headerView layoutIfNeeded];
     }
-}
-- (void)clickTeamChangeViewBlackBG{
-    WeakSelf
-    self.changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
-        if (isDismissed){
-            weakSelf.changeTeamNavView.navViewLeftBtn.selected = NO;
-            //设置动画
-            weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = NO;
-            [UIView animateWithDuration:0.2 animations:^{
-                weakSelf.changeTeamNavView.navViewImageView.transform = CGAffineTransformMakeRotation(0.01 *M_PI/180);
-            } completion:^(BOOL finished) {
-                weakSelf.changeTeamNavView.navViewLeftBtn.userInteractionEnabled = YES;
-            }];
-        }
-    };
 }
 //补充团队信息
 - (void)supplementMessage{
