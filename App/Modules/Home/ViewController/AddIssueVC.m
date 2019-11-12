@@ -32,7 +32,6 @@
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, strong) NSMutableArray<CreateQuestionModel *> *attachmentArray;
 @property (nonatomic, copy) NSString *batchId;
-@property (nonatomic, strong) UILabel *typeLab;
 @property (nonatomic, strong) UILabel *assignLab;
 @property (nonatomic, copy) NSString *upBatchId;
 @property (nonatomic, copy) NSString *assignedToAccountId;
@@ -44,8 +43,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"local.issueCreate", @"");
+    self.title = NSLocalizedString(@"local.issueCreateTypeTask", @"");
     self.isShowLiftBack = NO;
+    self.type = @"task";
     [self createUI];
 }
 - (void)createUI{
@@ -61,9 +61,9 @@
     
     self.titleView.backgroundColor = PWWhiteColor;
     
-   NSArray *itemName = @[@"local.level",@"local.category",@"local.Assigned"];
+   NSArray *itemName = @[@"local.level",@"local.Assigned"];
     if (self.parentModel) {
-        itemName = @[@"local.level",@"local.category",@"local.Assigned",@"local.AssociatedIssue"];
+        itemName = @[@"local.level",@"local.Assigned",@"local.AssociatedIssue"];
     }
     UIView *temp = self.titleView;
     for (NSInteger i=0; i<itemName.count; i++) {
@@ -90,7 +90,7 @@
         }];
         if(i==0){
             [self bindViewBtn:itemView];
-        }else if (i==1||i==2) {
+        }else if (i==1) {
             UIImageView *arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_nextgray"]];
             [itemView addSubview:arrow];
             [arrow mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -99,19 +99,12 @@
                 make.width.offset(ZOOM_SCALE(11));
                 make.height.offset(ZOOM_SCALE(16));
             }];
-            if(i==1){
-                [itemView addSubview:self.typeLab];
-                [self.typeLab mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.right.mas_equalTo(arrow.mas_left).offset(-10);
-                    make.centerY.mas_equalTo(arrow);
-                }];
-            }else{
+          
                 [itemView addSubview:self.assignLab];
                 [self.assignLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.right.mas_equalTo(arrow.mas_left).offset(-10);
                     make.centerY.mas_equalTo(arrow);
                 }];
-            }
             itemView.tag = i+10;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(itemClick:)];
 
@@ -179,8 +172,7 @@
     }];
     RACSignal *describeTextView = [self.describeTextView rac_textSignal];
     RACSignal *titleSignal = [self.titleTf rac_textSignal];
-    RACSignal *typeSignal = RACObserve(self.typeLab, text);
-    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView,typeSignal] reduce:^id(NSString * title,NSString * content,NSString *typeStr){
+    RACSignal * navBtnSignal = [RACSignal combineLatest:@[titleSignal,describeTextView] reduce:^id(NSString * title,NSString * content){
         NSString *describe = [content stringByReplacingOccurrencesOfString:@" " withString:@""];
         return @(title.length>0 && describe.length>0 && self.level.length>0&&self.type.length>0);
     }];
@@ -196,13 +188,7 @@
     make.height.offset(self.attachmentArray.count*(ZOOM_SCALE(60)+Interval(30)));
     }];
 }
--(UILabel *)typeLab{
-    if(!_typeLab){
-      self.type = @"task";
-      _typeLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:[self.type getIssueTypeStr]];
-    }
-    return _typeLab;
-}
+
 -(UILabel *)assignLab{
     if(!_assignLab){
         _assignLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:NSLocalizedString(@"local.pleaseSelect", @"")];
@@ -262,9 +248,6 @@
     }];
 }
 -(void)itemClick:(UITapGestureRecognizer*)tap{
-    if(tap.view.tag == 11){
-        [self issueTypeChoose];
-    }else{
         ChooseAssignVC *chooseVC = [[ChooseAssignVC alloc]init];
         chooseVC.assignID = self.assignedToAccountId;
         chooseVC.MemberInfo = ^(MemberInfoModel * _Nonnull model) {
@@ -272,28 +255,6 @@
             self.assignedToAccountId = model.memberID;
         };
         [self.navigationController pushViewController:chooseVC animated:YES];
-    }
-}
-- (void)issueTypeChoose{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSArray *type = @[@"alarm",@"security",@"expense",@"optimization",@"misc",@"report",@"task"];
-    NSMutableArray *title =[NSMutableArray new];
-    [type enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [title addObject:[obj getIssueTypeStr]];
-    }];
-    for (NSInteger i=0; i<title.count; i++) {
-        UIAlertAction *alarm = [PWCommonCtrl actionWithTitle:title[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
-            self.type = type[i];
-            self.typeLab.text = title[i];
-        }];
-        [alert addAction:alarm];
-    }
-    UIAlertAction *cancle = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nullable action) {
-        
-    }];
-    [alert addAction:cancle];
-    [self presentViewController:alert animated:YES completion:nil];
-    
 }
 -(UIButton *)levalBtnWithColor:(UIColor *)color{
     UIButton *button = [[UIButton alloc]init];
