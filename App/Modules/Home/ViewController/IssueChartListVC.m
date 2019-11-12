@@ -7,8 +7,15 @@
 //
 
 #import "IssueChartListVC.h"
-
-@interface IssueChartListVC ()
+#import "ClassifyModel.h"
+#import "IssueCell.h"
+#import "IssueListManger.h"
+#import "IssueListViewModel.h"
+#import "IssueDetailsVC.h"
+#import "IssueSelectHeaderView.h"
+@interface IssueChartListVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSMutableArray *issueData;
+@property (nonatomic, strong) SelectObject *currentSelect;
 
 @end
 
@@ -16,7 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = self.model.title;
+    [self createUI];
     // Do any additional setup after loading the view.
+}
+-(void)createUI{
+    
 }
 
 /*
