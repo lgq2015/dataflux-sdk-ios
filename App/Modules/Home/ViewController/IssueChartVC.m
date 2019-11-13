@@ -12,6 +12,7 @@
 #import "IssueChartListVC.h"
 #import "IssueChartEchartCell.h"
 #import "IssueChartListCell.h"
+#import "IssueReportListView.h"
 
 @interface IssueChartVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray<ClassifyModel *> *dataSource;
@@ -71,8 +72,28 @@
     ClassifyModel *model =self.dataSource[indexPath.row];
     IssueChartCell *cell = [tableView dequeueReusableCellWithIdentifier:model.cellIdentifier];
     cell.model = model;
+    if ([cell.model.cellIdentifier isEqualToString:@"IssueChartListCell"]) {
+       WeakSelf
+        cell.block = ^(NSInteger ide){
+            [weakSelf pushListViewWithIdentify:ide];
+        };
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+- (void)pushListViewWithIdentify:(NSInteger)ide{
+    IssueReportListView *list = [IssueReportListView new];
+    if (ide==1) {
+        list.datas = [self.dataSource lastObject].dayAry;
+        list.title = NSLocalizedString(@"local.dailyReport", @"");
+    }else if (ide==2){
+        list.datas = [self.dataSource lastObject].webAry;
+        list.title = NSLocalizedString(@"local.webSecurityReport", @"");
+    }else{
+        list.datas = [self.dataSource lastObject].serviceAry;
+        list.title = NSLocalizedString(@"local.serviceReport", @"");
+    }
+    [self.navigationController pushViewController:list animated:YES];
 }
 /*
 #pragma mark - Navigation
