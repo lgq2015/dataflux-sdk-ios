@@ -627,6 +627,9 @@
 		4AB1266C237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
 		4AB1266D237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
 		4AB1266E237ABBB2008A657B /* IssueChartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1266B237ABBB2008A657B /* IssueChartListCell.m */; };
+		4AB12671237C11E3008A657B /* IssueReportListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12670237C11E3008A657B /* IssueReportListView.m */; };
+		4AB12672237C11E3008A657B /* IssueReportListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12670237C11E3008A657B /* IssueReportListView.m */; };
+		4AB12673237C11E3008A657B /* IssueReportListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB12670237C11E3008A657B /* IssueReportListView.m */; };
 		4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489B221EC6640009F9E94 /* IssueCell.m */; };
 		4AB489DE21F02E8E009F9E94 /* AddSourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB489DD21F02E8E009F9E94 /* AddSourceCell.m */; };
 		4AB48A1B21F2CD9C009F9E94 /* UIScrollView+UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48A1A21F2CD9B009F9E94 /* UIScrollView+UITouch.m */; };
@@ -1677,6 +1680,8 @@
 		4AB12666237ABA52008A657B /* IssueChartEchartCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartEchartCell.m; sourceTree = "<group>"; };
 		4AB1266A237ABBB2008A657B /* IssueChartListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueChartListCell.h; sourceTree = "<group>"; };
 		4AB1266B237ABBB2008A657B /* IssueChartListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueChartListCell.m; sourceTree = "<group>"; };
+		4AB1266F237C11E3008A657B /* IssueReportListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueReportListView.h; sourceTree = "<group>"; };
+		4AB12670237C11E3008A657B /* IssueReportListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueReportListView.m; sourceTree = "<group>"; };
 		4AB489B121EC6640009F9E94 /* IssueCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueCell.h; sourceTree = "<group>"; };
 		4AB489B221EC6640009F9E94 /* IssueCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		4AB489DC21F02E8E009F9E94 /* AddSourceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSourceCell.h; sourceTree = "<group>"; };
@@ -3545,6 +3550,8 @@
 				4A52643023742DE70075BC93 /* IssueChartVC.m */,
 				4AB1265B237AAE63008A657B /* IssueChartListVC.h */,
 				4AB1265C237AAE63008A657B /* IssueChartListVC.m */,
+				4AB1266F237C11E3008A657B /* IssueReportListView.h */,
+				4AB12670237C11E3008A657B /* IssueReportListView.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4484,6 +4491,7 @@
 				4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
+				4AB12671237C11E3008A657B /* IssueReportListView.m in Sources */,
 				6B6E28A38F246984086C2678 /* IssueChatTextCell.m in Sources */,
 				6B6E26D8FDBAEEC6BFEC1739 /* IssueChatFileCell.m in Sources */,
 				6B6E27CD90A657ED45FBE386 /* IssueChatSystermCell.m in Sources */,
@@ -4852,6 +4860,7 @@
 				4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
+				4AB12672237C11E3008A657B /* IssueReportListView.m in Sources */,
 				6B6E2396FE1ABC8014E3FE68 /* IssueChatTextCell.m in Sources */,
 				6B6E27423B4EF45D0E88404B /* IssueChatFileCell.m in Sources */,
 				6B6E250543288417AC3F38FD /* IssueChatSystermCell.m in Sources */,
@@ -5220,6 +5229,7 @@
 				4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
+				4AB12673237C11E3008A657B /* IssueReportListView.m in Sources */,
 				6B6E2C9A953925BD52934276 /* IssueChatTextCell.m in Sources */,
 				6B6E29DB9A6C2A6C0B934CC1 /* IssueChatFileCell.m in Sources */,
 				6B6E2A94F133B34A80F41F4D /* IssueChatSystermCell.m in Sources */,
