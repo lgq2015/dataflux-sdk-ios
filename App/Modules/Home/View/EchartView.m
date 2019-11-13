@@ -7,9 +7,7 @@
 //
 
 #import "EchartView.h"
-#import "iOS-Echarts.h"
 @interface EchartView()
-@property (nonatomic, strong) PYEchartsView *kEchartView;
 @end
 @implementation EchartView
 - (instancetype)initWithDict:(NSDictionary *)dict{
@@ -28,7 +26,7 @@
     return self;
 }
 - (void)setupEchartWithDict:(NSDictionary *)data{
-   
+    DLog(@"echartData ==== %@",data);
     NSArray *series = PWSafeArrayVal(data, @"series");
     NSArray *xdata = series[0][@"data"];
     if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {

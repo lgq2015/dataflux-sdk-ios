@@ -21,10 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray *commonAry;
 @property (nonatomic, strong) NSArray *allAry;
 @property (nonatomic, assign) ClassifyType type;
-@property (nonatomic, strong) NSArray *echartDatas;
+@property (nonatomic, strong) NSDictionary *echartDatas;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *cellIdentifier;
+@property (nonatomic, strong) NSArray *dayAry;
+@property (nonatomic, strong) NSArray *serviceAry;
+@property (nonatomic, strong) NSArray *webAry;
 @end
 
 NS_ASSUME_NONNULL_END
