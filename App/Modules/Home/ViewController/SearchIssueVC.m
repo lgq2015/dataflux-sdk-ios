@@ -54,7 +54,7 @@
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, kTopHeight+ZOOM_SCALE(42), kWidth, kHeight-kTopHeight-ZOOM_SCALE(42));
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
-    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, kTopHeight, kWidth, ZOOM_SCALE(42)) selectObject:self.currentSelect];
+    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, kTopHeight, kWidth, ZOOM_SCALE(42)) selectObject:self.currentSelect type:SelectHeaderSearch];
     self.headerView.delegate = self;
     [self.view addSubview:self.headerView];
     self.headerView.hidden = YES;
@@ -266,6 +266,11 @@
     [cell setModel:self.issueData[indexPath.row]];
     cell.backgroundColor = PWWhiteColor;
     return cell;
+}
+-(void)viewDidDisappear:(BOOL)animated{
+   if (_headerView.selView.isShow) {
+        [_headerView.selView disMissView];
+    }
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

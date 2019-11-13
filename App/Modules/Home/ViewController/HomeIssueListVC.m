@@ -110,7 +110,7 @@
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, HomeNavHeight-0.5, kWidth, 0.5)];
     line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
     [nav addSubview:line];
-    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, HomeNavHeight+Interval(42), kWidth, ZOOM_SCALE(42))];
+    self.headerView = [[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, HomeNavHeight+Interval(42), kWidth, ZOOM_SCALE(42)) type:SelectHeaderAddIssue];
     self.headerView.delegate = self;
     [self.view addSubview:self.headerView];
     UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0,HomeNavHeight , kWidth, kHeight-kTabBarHeight-HomeNavHeight)];
@@ -128,6 +128,7 @@
             [self transitionFromViewController:self.chartVC toViewController:self.listVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
                 
             }];
+            self.mineTypeBtn.hidden = NO;
         }else{
             contentView.frame = CGRectMake(0,HomeNavHeight , kWidth, kHeight-kTabBarHeight-HomeNavHeight);
             nav.frame = CGRectMake(0, 0, kWidth, HomeNavHeight);
@@ -135,6 +136,7 @@
             [self transitionFromViewController:self.listVC toViewController:self.chartVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
                 
             }];
+            self.mineTypeBtn.hidden = YES;
         }
     }];
 }

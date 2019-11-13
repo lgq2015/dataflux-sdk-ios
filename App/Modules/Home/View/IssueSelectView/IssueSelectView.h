@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)id<SelectViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isShow;
 @property (nonatomic, strong) SelectObject *selectObj;
-
 -(instancetype)initWithTop:(CGFloat)top;
+-(instancetype)initWithTop:(CGFloat)top classifyType:(ClassifyType)type;
 - (void)showInView:(UIView *)view selectObj:(SelectObject *)selectObj;
 - (void)disMissView;
 @end

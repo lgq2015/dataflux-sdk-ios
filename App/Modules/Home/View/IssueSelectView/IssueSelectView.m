@@ -19,7 +19,6 @@
 #import "OriginModel.h"
 #define LevelTag  200
 #define TypeTag   300
-#define ContentViewHeight ZOOM_SCALE(409)
 
 @interface IssueSelectView()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (nonatomic, assign) CGFloat topCons;
@@ -34,6 +33,9 @@
 @property (nonatomic, strong) UIButton *commit;
 @property (nonatomic, strong) UITableView *mTableView;
 @property (nonatomic, strong) NSMutableArray<MineCellModel*>*dataSource;
+@property (nonatomic, assign) ClassifyType type;
+@property (nonatomic, assign) CGFloat contentViewHeight;
+
 @end
 @implementation IssueSelectView
 -(instancetype)initWithTop:(CGFloat)top{
@@ -43,6 +45,15 @@
         [self setupContent];
     }
     return self;
+}
+-(instancetype)initWithTop:(CGFloat)top classifyType:(ClassifyType)type{
+    if (self) {
+           self= [super init];
+           _topCons = top;
+           _type = type;
+           [self setupContent];
+       }
+       return self;
 }
 - (void)setupContent{
     self.frame = CGRectMake(0, self.topCons, kWidth, kHeight-self.topCons);
@@ -69,6 +80,58 @@
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(84), kWidth, SINGLE_LINE_WIDTH)];
     line.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
     [self.contentView addSubview:line];
+  
+       MineCellModel *orign = [MineCellModel new];
+       orign.title = NSLocalizedString(@"local.Origin", @"");
+       MineCellModel *source = [MineCellModel new];
+       source.title = NSLocalizedString(@"local.issueSource", @"");
+       MineCellModel *assign = [MineCellModel new];
+       assign.title = NSLocalizedString(@"local.Assigned", @"");
+    CGFloat tableTop = CGRectGetMaxY(line.frame)+ZOOM_SCALE(12);
+    if (self.type) {
+        switch (self.type) {
+            case ClassifyTypeCrontab:
+                [self.dataSource addObjectsFromArray:@[source,assign]];
+                [self createTypeItem];
+                tableTop =ZOOM_SCALE(212);
+                break;
+            case ClassifyTypeTask:
+                   [self.dataSource addObjectsFromArray:@[source,assign]];
+                break;
+            case ClassifyTypeAlarm:
+                   [self.dataSource addObjectsFromArray:@[source,assign]];
+                break;
+            case ClassifyTypeReport:
+                   [self.dataSource addObjectsFromArray:@[orign,source,assign]];
+                break;
+        }
+    }else{
+         [self.dataSource addObjectsFromArray:@[orign,source,assign]];
+         [self createTypeItem];
+         tableTop =ZOOM_SCALE(212);
+    }
+    self.mTableView.frame = CGRectMake(0, tableTop, kWidth, ZOOM_SCALE(44)*self.dataSource.count);
+    [self.mTableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
+    [self.contentView addSubview:self.mTableView];
+
+   
+    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.mTableView.frame), kWidth, SINGLE_LINE_WIDTH)];
+    self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+    [self.contentView addSubview:self.line];
+  
+    self.cancle = [PWCommonCtrl buttonWithFrame:CGRectMake(Interval(16), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeSummarize text:NSLocalizedString(@"local.cancel", @"")];
+    [self.cancle setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
+    [self.cancle addTarget:self action:@selector(disMissView) forControlEvents:UIControlEventTouchUpInside];
+    self.cancle.layer.borderColor = [UIColor colorWithHexString:@"#E4E4E4"].CGColor;
+    self.commit = [PWCommonCtrl buttonWithFrame:CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeContain text:NSLocalizedString(@"local.confirm", @"")];
+    [self.commit addTarget:self action:@selector(commitClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.cancle];
+    [self.contentView addSubview:self.commit];
+    self.contentViewHeight = CGRectGetMaxY(self.commit.frame)+ZOOM_SCALE(14);
+    self.contentView.frame =CGRectMake(0, 0, kWidth, self.contentViewHeight);
+}
+-(void)createTypeItem{
+    CGFloat space = ZOOM_SCALE(8);
     UILabel *typeLab = [PWCommonCtrl lableWithFrame:CGRectMake(Interval(16), ZOOM_SCALE(97), ZOOM_SCALE(35), ZOOM_SCALE(21)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#66666A"] text:NSLocalizedString(@"local.type", @"")];
     [self.contentView addSubview:typeLab];
     NSArray *typeNameAry = @[NSLocalizedString(@"local.ALL", @""),NSLocalizedString(@"local.alarm", @""),NSLocalizedString(@"local.security", @""),NSLocalizedString(@"local.expense", @""),NSLocalizedString(@"local.optimization", @""),NSLocalizedString(@"local.misc", @""),NSLocalizedString(@"local.report", @""),NSLocalizedString(@"local.task", @"")];
@@ -81,27 +144,6 @@
         
         [button addTarget:self action:@selector(typeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    self.line = [[UIView alloc]initWithFrame:CGRectMake(0, ZOOM_SCALE(344), kWidth, SINGLE_LINE_WIDTH)];
-    self.line.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
-    [self.contentView addSubview:self.line];
-    [self.mTableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
-    [self.contentView addSubview:self.mTableView];
-    self.cancle = [PWCommonCtrl buttonWithFrame:CGRectMake(Interval(16), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(12), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeSummarize text:NSLocalizedString(@"local.cancel", @"")];
-    [self.cancle setBackgroundImage:[UIImage imageWithColor:PWWhiteColor] forState:UIControlStateNormal];
-    [self.cancle addTarget:self action:@selector(disMissView) forControlEvents:UIControlEventTouchUpInside];
-    self.cancle.layer.borderColor = [UIColor colorWithHexString:@"#E4E4E4"].CGColor;
-    self.commit = [PWCommonCtrl buttonWithFrame:CGRectMake(CGRectGetMaxX(self.cancle.frame)+ZOOM_SCALE(17), CGRectGetMaxY(self.line.frame)+ZOOM_SCALE(14), ZOOM_SCALE(163), ZOOM_SCALE(40)) type:PWButtonTypeContain text:NSLocalizedString(@"local.confirm", @"")];
-    [self.commit addTarget:self action:@selector(commitClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.cancle];
-    [self.contentView addSubview:self.commit];
-    MineCellModel *orign = [MineCellModel new];
-    orign.title = NSLocalizedString(@"local.Origin", @"");
-    MineCellModel *source = [MineCellModel new];
-    source.title = NSLocalizedString(@"local.issueSource", @"");
-    MineCellModel *assign = [MineCellModel new];
-    assign.title = NSLocalizedString(@"local.Assigned", @"");
-    [self.dataSource addObjectsFromArray:@[orign,source,assign]];
 }
 -(UITableView *)mTableView{
     if (!_mTableView) {
@@ -144,27 +186,37 @@
     self.issueOrigin = self.selectObj.issueOrigin;
     self.issueSource = self.selectObj.issueSource;
     self.issueAssigned = self.selectObj.issueAssigned;
-    self.dataSource[0].describeText =  self.selectObj.issueOrigin.name;
-    self.dataSource[1].describeText = self.issueSource.name;
-    self.dataSource[1].rightIcon = [self.issueSource.provider getIssueSourceIcon];
-    self.dataSource[2].describeText = self.selectObj.issueAssigned.name;
-    self.dataSource[2].rightIcon = [self.selectObj.issueAssigned.tags stringValueForKey:@"pwAvatar" default:@""];
+    for (MineCellModel *model in self.dataSource) {
+        if ([model.title isEqualToString:NSLocalizedString(@"local.Origin", @"")]) {
+          model.describeText =  self.selectObj.issueOrigin.name;
+        }else if([model.title isEqualToString:NSLocalizedString(@"local.issueSource", @"")]){
+            model.describeText = self.issueSource.name;
+            model.rightIcon = [self.issueSource.provider getIssueSourceIcon];
+        }else{
+            model.describeText = self.selectObj.issueAssigned.name;
+            model.rightIcon = [self.selectObj.issueAssigned.tags stringValueForKey:@"pwAvatar" default:@""];
+        }
+    }
     [self.mTableView reloadData];
     UIButton *typeBtn = [self.contentView viewWithTag:(int)self.selectObj.issueType+TypeTag-1];
+    if (typeBtn) {
     typeBtn.selected = YES;
     [typeBtn.layer setBorderColor:PWBlueColor.CGColor];
+    }
     UIButton *levelBtn = [self.contentView viewWithTag:(int)self.selectObj.issueLevel+LevelTag-1];
     levelBtn.selected = YES;
     [levelBtn.layer setBorderColor:PWBlueColor.CGColor];
     
-    [_contentView setFrame:CGRectMake(0, -ContentViewHeight, kWidth,ContentViewHeight)];
+    [_contentView setFrame:CGRectMake(0, -self.contentViewHeight, kWidth,self.contentViewHeight)];
     _contentView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
         self.hidden = NO;
         self.alpha = 1.0;
         _contentView.alpha =1.0;
+        if(self.type == 0){
         [[AppDelegate shareAppDelegate].mainTabBar addCoverView];
-        [_contentView setFrame:CGRectMake(0, 0, kWidth, ContentViewHeight)];
+        }
+        [_contentView setFrame:CGRectMake(0, 0, kWidth, self.contentViewHeight)];
         
     } completion:nil];
     
@@ -181,7 +233,7 @@
 }
 -(UIView *)contentView{
     if (!_contentView) {
-        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ContentViewHeight)];
+        _contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, self.contentViewHeight)];
         _contentView.backgroundColor = PWWhiteColor;
         _contentView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentTap)];
@@ -235,7 +287,7 @@
     [[AppDelegate shareAppDelegate].mainTabBar removeCoverView];
     [UIView animateWithDuration:0.25 animations:^{
         self.contentView.alpha = 0;
-        self.contentView.frame = CGRectMake(0, -ContentViewHeight, kWidth, ContentViewHeight);
+        self.contentView.frame = CGRectMake(0, -self.contentViewHeight, kWidth, self.contentViewHeight);
          self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -265,7 +317,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     MineCellModel *model = self.dataSource[indexPath.row];
-    if (indexPath.row==1) {
+    if ([model.title isEqualToString:NSLocalizedString(@"local.issueSource", @"")]) {
         model.isIssueSource = YES;
     }
     [cell initWithData:model type:MineVCCellTypeSelect];
@@ -278,54 +330,44 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.isShow = NO;
     WeakSelf
-    switch (indexPath.row) {
-        case 0:{
-            SelectOriginVC *origin = [SelectOriginVC new];
-            origin.itemClick = ^(OriginModel * _Nonnull origin) {
-                weakSelf.issueOrigin = origin;
-                weakSelf.dataSource[0].describeText = origin.name;
-                [weakSelf.mTableView reloadData];
-            };
-            origin.disMissClick = ^{
-                weakSelf.isShow = YES;
-            };
-            [self.viewController.navigationController pushViewController:origin animated:YES];
-        }
-            break;
-        case 1:{
-            SelectSourceVC *source = [SelectSourceVC new];
-            source.itemClick = ^(SourceModel * _Nonnull source) {
-                weakSelf.issueSource = source;
-                weakSelf.dataSource[1].describeText = source.name;
-                weakSelf.dataSource[1].rightIcon = [source.provider getIssueSourceIcon];
-                [weakSelf.mTableView reloadData];
-            };
-            source.disMissClick = ^{
-                weakSelf.isShow = YES;
-            };
-            [self.viewController.navigationController pushViewController:source animated:YES];
-        }
-            break;
-        case 2:{
-            SelectAssignVC *assign = [SelectAssignVC new];
-            
-            assign.itemClick = ^(MemberInfoModel * _Nonnull model) {
-                weakSelf.issueAssigned = model;
-                weakSelf.dataSource[2].describeText = model.name;
-                weakSelf.dataSource[2].rightIcon = [model.tags stringValueForKey:@"pwAvatar" default:@""];
-                [weakSelf.mTableView reloadData];
-            };
-            assign.disMissClick = ^{
-                weakSelf.isShow = YES;
-            };
-            [self.viewController.navigationController pushViewController:assign animated:YES];
-        }
-            break;
-        default:
-            break;
+    MineCellModel *selModel = self.dataSource[indexPath.row];
+    if ([selModel.title isEqualToString:NSLocalizedString(@"local.issueSource", @"")]) {
+        SelectSourceVC *source = [SelectSourceVC new];
+                   source.itemClick = ^(SourceModel * _Nonnull source) {
+                       weakSelf.issueSource = source;
+                       selModel.describeText = source.name;
+                       selModel.rightIcon = [source.provider getIssueSourceIcon];
+                       [weakSelf.mTableView reloadData];
+                   };
+                   source.disMissClick = ^{
+                       weakSelf.isShow = YES;
+                   };
+                   [self.viewController.navigationController pushViewController:source animated:YES];
+    }else if([selModel.title isEqualToString:NSLocalizedString(@"local.Origin", @"")]){
+        SelectOriginVC *origin = [SelectOriginVC new];
+                   origin.itemClick = ^(OriginModel * _Nonnull origin) {
+                       weakSelf.issueOrigin = origin;
+                       selModel.describeText = origin.name;
+                       [weakSelf.mTableView reloadData];
+                   };
+                   origin.disMissClick = ^{
+                       weakSelf.isShow = YES;
+                   };
+                   [self.viewController.navigationController pushViewController:origin animated:YES];
+    }else{
+        SelectAssignVC *assign = [SelectAssignVC new];
+                   
+                   assign.itemClick = ^(MemberInfoModel * _Nonnull model) {
+                       weakSelf.issueAssigned = model;
+                       selModel.describeText = model.name;
+                       selModel.rightIcon = [model.tags stringValueForKey:@"pwAvatar" default:@""];
+                       [weakSelf.mTableView reloadData];
+                   };
+                   assign.disMissClick = ^{
+                       weakSelf.isShow = YES;
+                   };
+                   [self.viewController.navigationController pushViewController:assign animated:YES];
     }
-    
-    
 }
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

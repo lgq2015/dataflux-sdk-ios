@@ -17,47 +17,64 @@
 @property (nonatomic, strong) TouchLargeButton *mineTypeBtn;
 @property (nonatomic, strong) SelectObject *selObj;
 @property (nonatomic, assign) BOOL isSave;
+@property (nonatomic, assign) SelectHeaderType selectType;
+@property (nonatomic, assign) ClassifyType classifyType;
 @end
 @implementation IssueSelectHeaderView
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame type:(SelectHeaderType)selectType{
     self = [super initWithFrame:frame];
     if (self) {
         self.isSave = YES;
+        self.selectType = selectType;
         self.selObj = [[IssueListManger sharedIssueListManger] getCurrentSelectObject];
         [self createUI];
     }
     return self;
 }
--(instancetype)initWithFrame:(CGRect)frame selectObject:(SelectObject *)selObj{
+-(instancetype)initWithFrame:(CGRect)frame selectObject:(SelectObject *)selObj type:(SelectHeaderType)selectType classifyType:(ClassifyType)classifyType{
     self = [super initWithFrame:frame];
-    if (self) {
-        self.isSave = NO;
-        self.selObj = selObj;
-        [self createUI];
-    }
-    return self;
+       if (self) {
+           self.isSave = NO;
+           self.selectType = selectType;
+           self.selObj = selObj;
+           if (classifyType!=0) {
+               self.classifyType = classifyType;
+           }
+           [self createUI];
+       }
+       return self;
+}
+-(instancetype)initWithFrame:(CGRect)frame selectObject:(SelectObject *)selObj type:(SelectHeaderType)selectType{
+    return [self initWithFrame:frame selectObject:selObj type:selectType classifyType:0];
 }
 - (void)createUI{
    
     self.backgroundColor = PWWhiteColor;
     CGFloat typeX = Interval(16);
-    if (_isSave) {
-        UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreateTypeTask", @"")];
-        addIssueBtn.titleLabel.font = RegularFONT(13);
-        
-        [self addSubview:addIssueBtn];
-        [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(self).offset(-Interval(16));
-            make.height.top.bottom.mas_equalTo(self);
-        }];
-        [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }else{
-        self.mineTypeBtn.frame = CGRectMake(Interval(16), (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(70), ZOOM_SCALE(18));
-                  UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.mineTypeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
-                  line1.centerY = self.mineTypeBtn.centerY;
-                  line1.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
-                  [self addSubview:line1];
-        typeX =CGRectGetMaxX(line1.frame)+Interval(12);
+    switch (self.selectType) {
+        case SelectHeaderAddIssue:{
+            UIButton *addIssueBtn = [PWCommonCtrl buttonWithFrame:CGRectZero type:PWButtonTypeWord text:NSLocalizedString(@"local.issueCreateTypeTask", @"")];
+            addIssueBtn.titleLabel.font = RegularFONT(13);
+            
+            [self addSubview:addIssueBtn];
+            [addIssueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(self).offset(-Interval(16));
+                make.height.top.bottom.mas_equalTo(self);
+            }];
+            [addIssueBtn addTarget:self action:@selector(addIssueBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case SelectHeaderSearch:{
+            self.mineTypeBtn.frame = CGRectMake(Interval(16), (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(70), ZOOM_SCALE(18));
+                      UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.mineTypeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
+                      line1.centerY = self.mineTypeBtn.centerY;
+                      line1.backgroundColor = [UIColor colorWithHexString:@"#E4E4E4"];
+                      [self addSubview:line1];
+            typeX =CGRectGetMaxX(line1.frame)+Interval(12);
+        }
+            break;
+        case SelectHeaderStatistical:
+            break;
     }
     self.typeBtn.frame = CGRectMake(typeX, (self.height-ZOOM_SCALE(18))/2.0, ZOOM_SCALE(44), ZOOM_SCALE(18));
        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.typeBtn.frame)+Interval(9), 0, SINGLE_LINE_WIDTH, ZOOM_SCALE(20))];
@@ -133,7 +150,11 @@
 }
 -(IssueSelectView *)selView{
     if (!_selView) {
+        if (self.selectType==SelectHeaderStatistical) {
+        _selView = [[IssueSelectView alloc]initWithTop:CGRectGetMaxY(self.frame) classifyType:self.classifyType];
+        }else{
         _selView = [[IssueSelectView alloc]initWithTop:CGRectGetMaxY(self.frame)];
+        }
         WeakSelf
         _selView.disMissClick = ^(){
             weakSelf.typeBtn.selected = NO;
@@ -205,7 +226,12 @@
             self.mineTypeBtn.selected = NO;
             [self.isMineView disMissView];
         }
-         [self.sortByTimeView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
+        if (self.selectType == SelectHeaderAddIssue) {
+        [self.sortByTimeView showInView:[UIApplication sharedApplication].keyWindow selectObj:self.selObj];
+        }else{
+        [self.sortByTimeView showInView:self.superview selectObj:self.selObj];
+
+        }
     }else{
         [self.sortByTimeView disMissView];
     }
