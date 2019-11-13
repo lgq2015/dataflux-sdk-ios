@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 @class ClassifyModel;
 NS_ASSUME_NONNULL_BEGIN
+typedef void (^reportClickBlock)(NSInteger indentify);
 
 @interface IssueChartCell : UITableViewCell
 @property (nonatomic, strong) ClassifyModel *model;
+@property (nonatomic, copy) reportClickBlock block;
 - (void)initCardItem;
 @end
 
