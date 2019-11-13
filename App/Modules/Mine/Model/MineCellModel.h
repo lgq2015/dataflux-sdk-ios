@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, MineCellType) {
 @property (nonatomic, strong) NSString *rightIcon;
 @property (nonatomic, assign) BOOL isOn;
 @property (nonatomic, assign) BOOL isIssueSource;
+@property (nonatomic, assign) NSInteger identify;
 - (instancetype)initWithTitle:(NSString *)title icon:(NSString *)icon cellType:(MineCellType)type;
 - (instancetype)initWithTitle:(NSString *)title;
 - (instancetype)initWithTitle:(NSString *)title isSwitch:(BOOL)isOn;
