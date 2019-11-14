@@ -10,6 +10,9 @@
 #import "ClassifyModel.h"
 #import "MineCellModel.h"
 #import "IssueModel.h"
+@interface IssueChartListCell()
+@property (nonatomic, strong) UILabel *noDataTipLab;
+@end
 @implementation IssueChartListCell
 
 - (void)awakeFromNib {
@@ -46,7 +49,7 @@
      [[self viewWithTag:501] removeFromSuperview];
      [[self viewWithTag:502] removeFromSuperview];
      [[self viewWithTag:503] removeFromSuperview];
-
+    self.noDataTipLab.hidden = titleAry.count == 0?NO:YES;
     for (NSInteger i=0; i<titleAry.count; i++) {
         UIView *item =[self creatItemWithData:titleAry[i]];
         item.frame = CGRectMake(0, ZOOM_SCALE(46)+i*ZOOM_SCALE(44), kWidth-Interval(32), ZOOM_SCALE(44));
@@ -74,6 +77,14 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(itemTap:)];
     [item addGestureRecognizer:tap];
     return item;
+}
+-(UILabel *)noDataTipLab{
+    if (!_noDataTipLab) {
+        _noDataTipLab = [PWCommonCtrl lableWithFrame:CGRectMake(0, ZOOM_SCALE(46), kWidth-Interval(32), ZOOM_SCALE(44)) font:RegularFONT(14) textColor:PWTextLight text:NSLocalizedString(@"local.noReportTip", @"")];
+        _noDataTipLab.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_noDataTipLab];
+    }
+    return _noDataTipLab;
 }
 - (void)itemTap:(UITapGestureRecognizer *)tap{
     NSInteger i = tap.view.tag-500;
