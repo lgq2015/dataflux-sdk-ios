@@ -86,6 +86,7 @@
 -(TouchLargeButton *)arrowBtn{
     if (!_arrowBtn) {
         _arrowBtn = [[TouchLargeButton alloc]initWithFrame:CGRectMake(kWidth-Interval(80)-ZOOM_SCALE(22), ZOOM_SCALE(12), ZOOM_SCALE(100), ZOOM_SCALE(22))];
+        _arrowBtn.largeWidth = kWidth*2-Interval(64);
         [_arrowBtn setImage:[UIImage imageNamed:@"icon_nextgray"] forState:UIControlStateNormal];
         [_arrowBtn addTarget:self action:@selector(arrowBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_arrowBtn];
