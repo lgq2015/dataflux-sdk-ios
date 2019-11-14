@@ -354,7 +354,7 @@
     series1.itemStyle.normal.label.show = YES;
     //圈外数据圆柱图连线
     series1.itemStyle.normal.labelLine.show = YES;
-    
+    series1.itemStyle.normal.labelLine.length = @10;
     series1.itemStyle.normal.label.formatter= @"{b}:{c}({d}%)";
     
     
