@@ -318,6 +318,10 @@
         title.textEqual(dict[@"title"][@"text"]);
         title.xEqual(PYPositionCenter);
         title.yEqual(PYPositionCenter);
+        title.textStyleEqual([PYTextStyle initPYTextStyleWithBlock:^(PYTextStyle *textStyle) {
+            textStyle.fontSizeEqual(@14);
+            textStyle.colorEqual(@"#333333");
+        }]);
     }]);
     PYTooltip *tooltip = [[PYTooltip alloc] init];
     tooltip.trigger = PYTooltipTriggerItem;
@@ -344,7 +348,7 @@
     series1.data =isDay?itemArray:xdata;
     series1.legendHoverLink = NO;
     series1.selectedModeEqual(@"single");
-    series1.radius = @[@"40%",@"60%"];
+    series1.radius = @[@"35%",@"55%"];
     //圆心坐标
     //    series1.center = @[@"50%",@"50%"];
     PYItemStyle *itemStyle = [[PYItemStyle alloc] init];
@@ -354,9 +358,8 @@
     series1.itemStyle.normal.label.show = YES;
     //圈外数据圆柱图连线
     series1.itemStyle.normal.labelLine.show = YES;
-    series1.itemStyle.normal.labelLine.length = @10;
+    series1.itemStyle.normal.labelLine.length = @5;
     series1.itemStyle.normal.label.formatter= @"{b}:{c}({d}%)";
-    
     
     
     [dataArr addObject:series1];
