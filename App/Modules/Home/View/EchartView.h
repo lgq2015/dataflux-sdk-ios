@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDayPieDict:(NSDictionary *)dict;
+- (void)refreshEchartsWithNewData:(NSDictionary *)data;
 @end
 
 NS_ASSUME_NONNULL_END
