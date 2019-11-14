@@ -315,6 +315,9 @@
             [[PWSocketManager sharedPWSocketManager] shutDown];
             [[IssueSourceManger sharedIssueSourceManger] logout];
             setXAuthToken(token);
+            NSString *signInTeamId = response[@"content"][@"signInTeamId"];
+            setPWDefaultTeamID(signInTeamId);
+            [userManager updateCurrentTeamModel];
             [self otherDealAfterNetwork];
         }
     } failBlock:^(NSError *error) {
