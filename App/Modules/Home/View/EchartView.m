@@ -326,9 +326,10 @@
     
     PYLegend *legend = [[PYLegend alloc] init];
     //提示栏 布局方式 'horizontal' 横| 'vertical' 竖
-    legend.orient = PYOrientVertical;
+    legend.orient = PYOrientHorizontal;
     //对齐位置
-    legend.x = PYPositionRight;
+    legend.x = PYPositionCenter;
+    legend.y = PYPositionBottom;
     legend.show = @NO;
     legend.itemHeight = @10;
     legend.itemWidth = @20;
