@@ -127,7 +127,7 @@
 }
 - (UIImageView *)navViewImageView{
     if (!_navViewImageView){
-        _navViewImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_down"]];
+        _navViewImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_down_c"]];
         [self addSubview:_navViewImageView];
     }
     return _navViewImageView;
