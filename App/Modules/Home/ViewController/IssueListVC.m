@@ -40,10 +40,7 @@
                                              selector:@selector(dealWithNotificationData)
                                                  name:KNotificationNewRemoteNoti
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hometeamSwitch:)
-                                                 name:KNotificationSwitchTeam
-                                               object:nil];
+
     [kNotificationCenter addObserver:self
                             selector:@selector(onNewIssueAddUpdate:)
                                 name:KNotificationNewIssue
@@ -55,50 +52,6 @@
     [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadIssueList object:nil];
 
     [self createUI];
-    WeakSelf
-    [self loadAllIssueList:^{
-        [weakSelf reloadDataWithSelectObject:nil refresh:NO];
-        [weakSelf dealWithNotificationData];
-    }];
-    
-
-}
-- (void)hometeamSwitch:(NSNotification *)notification{
-    DLog(@"homevc----switch-team-success");
-    [SVProgressHUD show];
-    WeakSelf
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
-        [SVProgressHUD dismiss];
-        NSArray *datas = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:nil];
-        if (datas.count == 0) {
-             [weakSelf showNoDataViewWithStyle:NoDataViewIssueList];
-        }else{
-            [weakSelf removeNoDataImage];
-            [weakSelf.datas removeAllObjects];
-            [weakSelf.datas addObjectsFromArray:datas];
-            weakSelf.currentPage = 1;
-            [weakSelf dealDatas];
-        }
-       
-    }];
-}
-- (void)loadAllIssueList:(void (^)(void))complete{
-  
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         [SVProgressHUD show];
-    });
-
-    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-         complete();
-        if (!model.isSuccess) {
-            [iToast alertWithTitleCenter:model.errorMsg];
-        }
-        
-    }];
-   
 }
 - (void)dealWithNotificationData{
     DLog(@"dealWithNotificationData");

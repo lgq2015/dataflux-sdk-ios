@@ -47,7 +47,32 @@
                                              selector:@selector(hometeamSwitch)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
+    WeakSelf
+    [self loadAllIssueList:^{
+        
+        [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
+        [weakSelf.listVC dealWithNotificationData];
+        [weakSelf.chartVC refreshData];
+    }];
     // Do any additional setup after loading the view.
+}
+- (void)loadAllIssueList:(void (^)(void))complete{
+  
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         [SVProgressHUD show];
+    });
+
+    [[IssueListManger sharedIssueListManger] checkSocketConnectAndFetchNewIssue:^(BaseReturnModel *model) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+        });
+         complete();
+        if (!model.isSuccess) {
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+        
+    }];
+   
 }
 - (void)createNav{
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, HomeNavHeight)];
@@ -207,7 +232,11 @@
 - (void)hometeamSwitch{
     [self.headerView teamSwitchChangeBtnTitle];
     [self changeTopLeftNavTitleName];
-    [self.chartVC refreshData];
+    WeakSelf
+    [self loadAllIssueList:^{
+           [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
+           [weakSelf.chartVC refreshData];
+       }];
 }
 - (void)addTeamSuccess:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];

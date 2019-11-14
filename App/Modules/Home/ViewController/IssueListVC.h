@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueListVC : RootViewController
 - (void)reloadDataWithSelectObject:(nullable SelectObject *)sel refresh:(BOOL)refresh;
+- (void)dealWithNotificationData;
 @end
 
 NS_ASSUME_NONNULL_END
