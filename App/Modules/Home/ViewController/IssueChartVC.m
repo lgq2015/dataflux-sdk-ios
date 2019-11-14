@@ -22,11 +22,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataSource = [NSMutableArray new];
+
     [self createUI];
+    [kNotificationCenter addObserver:self
+                               selector:@selector(headerRefreshing)
+                                   name:KNotificationUpdateIssueList
+                                 object:nil];
     [self refreshData];
 }
 - (void)refreshData{
-    self.dataSource = [NSMutableArray new];
+    [self.dataSource removeAllObjects];
        ClassifyModel *crontabModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeCrontab];
        ClassifyModel *taskModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeTask];
        ClassifyModel *alarmModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeAlarm];
@@ -48,22 +54,26 @@
     [self.tableView registerClass:IssueChartCell.class forCellReuseIdentifier:@"IssueChartCell"];
     [self.tableView registerClass:IssueChartEchartCell.class forCellReuseIdentifier:@"IssueChartEchartCell"];
     [self.tableView registerClass:IssueChartListCell.class forCellReuseIdentifier:@"IssueChartListCell"];
+   self.tableView.mj_header = self.header;
 
-
+}
+-(void)headerRefreshing{
+    [self refreshData];
+    [self.header endRefreshing];
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return self.dataSource[indexPath.row].cellHeight;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.dataSource[indexPath.row].type == ClassifyTypeReport) {
-        return;
-    }else{
-        IssueChartListVC *chartList = [IssueChartListVC new];
-        chartList.model = self.dataSource[indexPath.row];
-        [self.navigationController pushViewController:chartList animated:YES];
-    }
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (self.dataSource[indexPath.row].type == ClassifyTypeReport) {
+//        return;
+//    }else{
+//        IssueChartListVC *chartList = [IssueChartListVC new];
+//        chartList.model = self.dataSource[indexPath.row];
+//        [self.navigationController pushViewController:chartList animated:YES];
+//    }
+//}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
@@ -76,6 +86,14 @@
        WeakSelf
         cell.block = ^(NSInteger ide){
             [weakSelf pushListViewWithIdentify:ide];
+        };
+    }else{
+       WeakSelf
+        cell.block = ^(NSInteger ide){
+           IssueChartListVC *chartList = [IssueChartListVC new];
+           chartList.model = weakSelf.dataSource[indexPath.row];
+           chartList.level = ide;
+           [weakSelf.navigationController pushViewController:chartList animated:YES];
         };
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

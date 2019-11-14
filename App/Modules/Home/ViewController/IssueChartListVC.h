@@ -7,11 +7,14 @@
 //
 
 #import "RootViewController.h"
+#import "IssueListManger.h"
+
 @class ClassifyModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueChartListVC : RootViewController
 @property (nonatomic, strong) ClassifyModel *model;
+@property (nonatomic, assign) IssueLevel level;
 @end
 
 NS_ASSUME_NONNULL_END

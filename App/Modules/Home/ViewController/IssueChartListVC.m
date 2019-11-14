@@ -9,7 +9,6 @@
 #import "IssueChartListVC.h"
 #import "ClassifyModel.h"
 #import "IssueCell.h"
-#import "IssueListManger.h"
 #import "IssueListViewModel.h"
 #import "IssueDetailsVC.h"
 #import "IssueSelectHeaderView.h"
@@ -33,6 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.model.title;
+    [kNotificationCenter addObserver:self
+                                  selector:@selector(updateAllData)
+                                      name:KNotificationUpdateIssueList
+                                    object:nil];
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -59,7 +62,7 @@
         }
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
-    [self.datas addObjectsFromArray:self.model.allAry];
+    [self updateAllData];
     [self dealDatas];
 }
 -(SelectObject *)currentSelect{
@@ -70,7 +73,7 @@
 }
 -(void)resetCurrentSelect{
     self.currentSelect.issueType = IssueTypeAll;
-    self.currentSelect.issueLevel = IssueLevelAll;
+    self.currentSelect.issueLevel = self.level;
     _currentSelect.issueSortType = IssueSortTypeCreate;
     _currentSelect.issueFrom = IssueFromAll;
 
