@@ -43,7 +43,10 @@
         service.identify = 3;
         [titleAry addObject:service];
        }
-    
+     [[self viewWithTag:501] removeFromSuperview];
+     [[self viewWithTag:502] removeFromSuperview];
+     [[self viewWithTag:503] removeFromSuperview];
+
     for (NSInteger i=0; i<titleAry.count; i++) {
         UIView *item =[self creatItemWithData:titleAry[i]];
         item.frame = CGRectMake(0, ZOOM_SCALE(46)+i*ZOOM_SCALE(44), kWidth-Interval(32), ZOOM_SCALE(44));
@@ -60,7 +63,7 @@
 - (UIView *)creatItemWithData:(MineCellModel *)data{
     UIView *item = [UIView new];
     item.tag = data.identify+500;
-    [[self viewWithTag:data.identify+55] removeFromSuperview];
+    [[self viewWithTag:data.identify+500] removeFromSuperview];
     item.backgroundColor = PWWhiteColor;
     UILabel *titleLab =[PWCommonCtrl lableWithFrame:CGRectMake(Interval(20), ZOOM_SCALE(12), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:data.title];
     [item addSubview:titleLab];
