@@ -717,7 +717,6 @@ NSString *const ILMStringAll = @"ALL";
     
 }
 - (ClassifyModel *)getIssueWithClassifyType:(ClassifyType)type{
-   SelectObject *sel= [self getCurrentSelectObject];
     ClassifyModel *model = [ClassifyModel new];
     model.type = type;
     NSString *whereFormt,*danger,*warning,*common;
@@ -735,35 +734,102 @@ NSString *const ILMStringAll = @"ALL";
             model.cellIdentifier = @"IssueChartCell";
             break;
         case ClassifyTypeAlarm:
-            whereFormt = @"originExecMode ='alertHub' AND type = 'alarm'";
+            whereFormt = @"WHERE originExecMode ='alertHub' AND type = 'alarm'";
             model.cellHeight = ZOOM_SCALE(367)+Interval(20);
             model.title = NSLocalizedString(@"local.MonitoringAlarm", @"");
             model.cellIdentifier = @"IssueChartEchartCell";
             break;
         case ClassifyTypeReport:
-            whereFormt = @"type = 'report'";
+            whereFormt = @"WHERE type = 'report'";
             model.cellHeight = ZOOM_SCALE(189)+Interval(20);
             model.title = NSLocalizedString(@"local.report", @"");
             model.cellIdentifier = @"IssueChartListCell";
             break;
     }
-    if(sel.issueFrom == IssueFromMe){
-        whereFormt = [whereFormt stringByAppendingFormat:@"%@", [NSString stringWithFormat:@"AND watchInfoJSONStr LIKE '%%%%%%%%%@%%%%%%%%'",userManager.curUserInfo.userID]];
-    }else{
-        whereFormt = [whereFormt stringByAppendingFormat:@"AND status = 'created'"];
+
+    
+    if (type == ClassifyTypeReport) {
+        NSString *day =[whereFormt stringByAppendingFormat:@"AND subType = 'daily_report'  ORDER by seq DESC"];
+        model.dayAry = [self getIssueListWithWhereFormat:day];
+        model.serviceAry = [self getIssueListWithWhereFormat:[whereFormt stringByAppendingFormat:@"AND subType = 'service_report'  ORDER by seq DESC"]];
+        model.webAry = [self getIssueListWithWhereFormat:[whereFormt stringByAppendingFormat:@"AND subType = 'web_security_report'  ORDER by seq DESC"]];
+        NSInteger i=0;
+
+        i = model.dayAry.count>0?i+1:i;
+        i = model.serviceAry.count>0?i+1:i;
+        i = model.webAry.count>0?i+1:i;
+        model.cellHeight = ZOOM_SCALE(54)+i*ZOOM_SCALE(44);
     }
+    whereFormt = [whereFormt stringByAppendingFormat:@"AND status = 'created'"];
     danger = [whereFormt stringByAppendingFormat:@"AND level = 'danger'"];
     warning =[whereFormt stringByAppendingFormat:@"AND level = 'warning'"];
-    common =[whereFormt stringByAppendingFormat:@"AND level = 'common'"];
+    common =[whereFormt stringByAppendingFormat:@"AND level = 'info'"];
     
     model.dangerAry = [self getIssueListWithWhereFormat:danger];
     model.commonAry = [self getIssueListWithWhereFormat:common];
     model.warningAry = [self getIssueListWithWhereFormat:warning];
     model.allAry = [self getIssueListWithWhereFormat:whereFormt];
     if (type == ClassifyTypeAlarm) {
+       NSArray *data = [self getWeekAlarmData:model.allAry];
+
+        NSMutableDictionary *echartData = [NSMutableDictionary new];
+        [echartData addEntriesFromDictionary:@{@"xAxis":@{@"type":@"time",
+                                                          @"name":@"",
+        },
+                                               @"yAxis":@{@"interval":@5,
+                                                          @"type":@"value",
+                                                          @"name":@"",
+                                               },
+                                               @"title":@{@"text":NSLocalizedString(@"local.AlarmEchartTitle", @"")},
+                                               @"legend":@{@"data":NSLocalizedString(@"local.alarm", @"")},
+        }];
         
-    }
+        [echartData addEntriesFromDictionary:@{@"series":@[@{@"data":data,
+                                                           @"id":@"itemA",
+                                                           @"name":NSLocalizedString(@"local.alarm", @""),
+                                                           @"type":@"line",
+        }]}];
+        model.echartDatas = echartData;
+       }
     return model;
+}
+-(NSArray *)getWeekAlarmData:(NSArray *)allData{
+     
+    NSMutableArray *datas = [NSMutableArray new];
+    NSMutableArray *issueAry = [NSMutableArray arrayWithArray:allData];
+   
+    for (NSInteger i=1; i<8; i++) {
+        NSDate *currentdate = [NSDate date];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentdate];
+        NSDate *startDate = [calendar dateFromComponents:components];
+        NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+        [datecomps setDay:-i];
+        NSDate *calculatedate = [calendar dateByAddingComponents:datecomps toDate:startDate options:0];
+       
+        NSMutableArray *item = [NSMutableArray new];
+        [item addObject:[NSString stringWithFormat:@"%ld",(long)[calculatedate timeIntervalSince1970]*1000]];
+        __block NSInteger count = 0;
+        NSArray *itemdatas = issueAry;
+        [itemdatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+               //输入格式
+            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+            NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+            [dateFormatter setTimeZone:localTimeZone];
+            NSDate *dateFormatteds = [dateFormatter dateFromString:model.createTime];
+            if (dateFormatteds.timeIntervalSince1970>calculatedate.timeIntervalSince1970) {
+                [issueAry removeObjectAtIndex:idx];
+                count = count+1;
+            }
+           }];
+        [item addObject:[NSString stringWithFormat:@"%ld",count]];
+        [datas insertObject:item atIndex:0];
+    }
+   
+            
+       
+    return datas;
 }
 -(NSArray *)getIssueListWithWhereFormat:(NSString *)whereFormat{
    NSMutableArray *array = [NSMutableArray new];
