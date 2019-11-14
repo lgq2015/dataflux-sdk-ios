@@ -476,7 +476,7 @@
                                 withRequestType:NetworkPostType
                                  refreshRequest:NO
                                           cache:NO
-                                         params:nil
+                                         params:@{}
                                   progressBlock:nil
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
