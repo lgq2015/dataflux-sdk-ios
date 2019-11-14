@@ -758,6 +758,7 @@ NSString *const ILMStringAll = @"ALL";
         i = model.dayAry.count>0?i+1:i;
         i = model.serviceAry.count>0?i+1:i;
         i = model.webAry.count>0?i+1:i;
+        i = i==0?i+1:i;
         model.cellHeight = ZOOM_SCALE(54)+i*ZOOM_SCALE(44);
     }
     whereFormt = [whereFormt stringByAppendingFormat:@"AND status = 'created'"];
@@ -810,9 +811,9 @@ NSString *const ILMStringAll = @"ALL";
         NSMutableArray *item = [NSMutableArray new];
         [item addObject:[NSString stringWithFormat:@"%ld",(long)[calculatedate timeIntervalSince1970]*1000]];
         __block NSInteger count = 0;
-        NSArray *itemdatas = issueAry;
-        [itemdatas enumerateObjectsUsingBlock:^(IssueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSArray *itemdatas = [issueAry mutableCopy];
+        [itemdatas enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(IssueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+           NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                //输入格式
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
             NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
@@ -822,13 +823,10 @@ NSString *const ILMStringAll = @"ALL";
                 [issueAry removeObjectAtIndex:idx];
                 count = count+1;
             }
-           }];
+        }];
         [item addObject:[NSString stringWithFormat:@"%ld",count]];
         [datas insertObject:item atIndex:0];
     }
-   
-            
-       
     return datas;
 }
 -(NSArray *)getIssueListWithWhereFormat:(NSString *)whereFormat{
