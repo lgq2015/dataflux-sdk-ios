@@ -74,8 +74,10 @@ static const int IgnoreBtnTag = 15;
     
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:self.watchBtn];
     UIBarButtonItem * ignoreItem = [[UIBarButtonItem alloc] initWithCustomView:self.ignoreBtn];
-    self.navigationItem.rightBarButtonItems = @[ignoreItem,item];
-    
+    if (!self.model.recovered) {
+           self.navigationItem.rightBarButtonItems = @[ignoreItem,item];
+
+    }
     if (self.model.watchInfoJSONStr) {
         self.watchBtn.selected =[self.model.watchInfoJSONStr containsString:userManager.curUserInfo.userID];
     }
@@ -155,11 +157,15 @@ static const int IgnoreBtnTag = 15;
         _engineHeader = [[IssueEngineHeaderView alloc]initHeaderWithIssueModel:self.model];
         _engineHeader.backgroundColor = PWBackgroundColor;
         WeakSelf
-        _engineHeader.recoverClick = ^(BOOL navSel){
+        _engineHeader.assignClick = ^(BOOL navSel){
             if (navSel) {
                 weakSelf.watchBtn.selected = YES;
             }
             [weakSelf getNewChatDatasAndScrollTop:NO];
+        };
+        
+        _engineHeader.recoverClick = ^(){
+            weakSelf.navigationItem.rightBarButtonItems = nil;
         };
     }
     return _engineHeader;
@@ -169,11 +175,14 @@ static const int IgnoreBtnTag = 15;
         _userHeader = [[IssueUserDetailView alloc]initHeaderWithIssueModel:self.model];
         _userHeader.backgroundColor = PWBackgroundColor;
         WeakSelf
-        _userHeader.recoverClick = ^(BOOL navSel){
+        _userHeader.assignClick = ^(BOOL navSel){
             if (navSel) {
                 weakSelf.watchBtn.selected = YES;
             }
              [weakSelf getNewChatDatasAndScrollTop:NO];
+        };
+        _userHeader.recoverClick = ^(){
+            weakSelf.navigationItem.rightBarButtonItems = nil;
         };
     }
     return _userHeader;

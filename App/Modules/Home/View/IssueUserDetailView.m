@@ -156,9 +156,7 @@
     
 }
 - (void)recoveClick{
-//    if (self.recoverClick) {
-//        self.recoverClick();
-//    }
+
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"local.RepairTips", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *commit = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.ConfirmRepair", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
         
@@ -202,7 +200,7 @@
         make.width.height.offset(ZOOM_SCALE(16));
     }];
     if (self.recoverClick) {
-        self.recoverClick(NO);
+        self.recoverClick();
     }
 }
 
@@ -331,8 +329,8 @@
         _assignView = [[AssignView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(54)) IssueModel:self.model];
         WeakSelf
         _assignView.AssignClick = ^(BOOL isAssignSelf){
-            if (weakSelf.recoverClick) {
-                weakSelf.recoverClick(isAssignSelf);
+            if (weakSelf.assignClick) {
+                weakSelf.assignClick(isAssignSelf);
             }
         };
         [self.upContainerView addSubview:_assignView];

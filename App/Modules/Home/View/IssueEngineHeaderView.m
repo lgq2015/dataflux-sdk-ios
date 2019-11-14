@@ -373,8 +373,8 @@
         _assignView = [[AssignView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(54)) IssueModel:self.model];
         WeakSelf
         _assignView.AssignClick = ^(BOOL isAssignSelf){
-            if (weakSelf.recoverClick) {
-                weakSelf.recoverClick(isAssignSelf);
+            if (weakSelf.assignClick) {
+                weakSelf.assignClick(isAssignSelf);
             }
         };
         [self.upContainerView addSubview:_assignView];
@@ -526,7 +526,7 @@
         make.width.height.offset(ZOOM_SCALE(16));
     }];
     if (self.recoverClick) {
-        self.recoverClick(NO);
+        self.recoverClick();
     }
 }
 #pragma mark ========== UITableViewDataSource ==========
