@@ -93,8 +93,7 @@
 -(ZYChangeTeamUIManager *)changeTeamView{
     if (!_changeTeamView) {
         _changeTeamView = [[ZYChangeTeamUIManager alloc]init];
-//        [_changeTeamView showWithOffsetY:HomeNavHeight];
-//        _changeTeamView.fromVC = self;
+        _changeTeamView.fromVC = self.viewController;
         WeakSelf
         _changeTeamView.dismissedBlock = ^(BOOL isDismissed) {
             if (isDismissed){
