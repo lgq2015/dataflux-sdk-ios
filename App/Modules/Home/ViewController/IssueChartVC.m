@@ -113,6 +113,9 @@
     }
     [self.navigationController pushViewController:list animated:YES];
 }
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 /*
 #pragma mark - Navigation
 
