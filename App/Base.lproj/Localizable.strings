@@ -611,3 +611,4 @@
 "local.webSecurityReport" = "网站威胁扫描报告";
 "local.serviceReport" = "月度运维报告";
 "local.AlarmEchartTitle" = "近 7 日告警走势";
+"local.noReportTip" = "暂无报告";
