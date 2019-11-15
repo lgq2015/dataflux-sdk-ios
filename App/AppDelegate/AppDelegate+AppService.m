@@ -324,7 +324,6 @@
     BOOL loginSuccess = [notification.object boolValue];
     
     if (loginSuccess) {//登陆成功加载主窗口控制器
-//        [[PWSocketManager sharedPWSocketManager] connect];
         [self DetectNewVersion];
 
         //为避免自动登录成功刷新tabbar
@@ -341,12 +340,6 @@
             [kAppWindow.layer addAnimation:anima forKey:@"revealAnimation"];
             
         }
-      
-//        BOOL connect =  [[IssueListManger sharedIssueListManger] judgeIssueConnectState];
-//        if (connect) {
-//            [[IssueListManger sharedIssueListManger] downLoadAllIssueList];
-//        }
-        
     }else {//登陆失败加载登陆页面控制器
         self.mainTabBar = nil;
         RootNavigationController *loginNavi =[[RootNavigationController alloc] initWithRootViewController:[LoginPWVC new]];
