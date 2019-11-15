@@ -799,7 +799,7 @@ NSString *const ILMStringAll = @"ALL";
     NSMutableArray *datas = [NSMutableArray new];
     NSMutableArray *issueAry = [NSMutableArray arrayWithArray:allData];
    
-    for (NSInteger i=1; i<8; i++) {
+    for (NSInteger i=0; i<7; i++) {
         NSDate *currentdate = [NSDate date];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
         NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentdate];
@@ -809,7 +809,7 @@ NSString *const ILMStringAll = @"ALL";
         NSDate *calculatedate = [calendar dateByAddingComponents:datecomps toDate:startDate options:0];
        
         NSMutableArray *item = [NSMutableArray new];
-        [item addObject:[NSString stringWithFormat:@"%ld",(long)[calculatedate timeIntervalSince1970]*1000]];
+        [item addObject:[calculatedate getMonthDayTimeStr]];
         __block NSInteger count = 0;
         NSArray *itemdatas = [issueAry mutableCopy];
         [itemdatas enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(IssueModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

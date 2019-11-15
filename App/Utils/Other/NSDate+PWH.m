@@ -110,6 +110,16 @@
     
     return dateString;
 }
+- (NSString *)getMonthDayTimeStr{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"MM-dd"];
+    //   createTime    __NSCFString *    @"2019-04-10T12:21:45.000Z"    0x00000001708527b0
+    NSString *dateString = [dateFormatter stringFromDate:self];
+    
+    return dateString;
+}
 -(NSString *)getUTCTimeStr{
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
