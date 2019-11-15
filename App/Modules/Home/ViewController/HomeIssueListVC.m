@@ -145,22 +145,24 @@
     [self addChildViewController:self.listVC];
     [self addChildViewController:self.chartVC];
     [contentView addSubview:self.listVC.view];
+
     [RACObserve(changeBtn, selected) subscribeNext:^(id x) {
         if ([x boolValue]) {
-            contentView.frame = CGRectMake(0,HomeNavHeight+84, kWidth, kHeight-kTabBarHeight-HomeNavHeight-84);
+            [self transitionFromViewController:self.chartVC toViewController:self.listVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
+                    [contentView addSubview:[self.childViewControllers[0] view]];
+            }];
             nav.frame = CGRectMake(0, 0, kWidth, HomeNavHeight+84);
             line.frame = CGRectMake(0, HomeNavHeight+41.5, kWidth, 0.5);
-            [self transitionFromViewController:self.chartVC toViewController:self.listVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
-                
-            }];
+            contentView.frame = CGRectMake(0,HomeNavHeight+84, kWidth, kHeight-kTabBarHeight-HomeNavHeight-84);
             self.mineTypeBtn.hidden = NO;
         }else{
-            contentView.frame = CGRectMake(0,HomeNavHeight , kWidth, kHeight-kTabBarHeight-HomeNavHeight);
+            [self transitionFromViewController:self.listVC toViewController:self.chartVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
+                [contentView addSubview:self.chartVC.view];
+                   
+            }];
             nav.frame = CGRectMake(0, 0, kWidth, HomeNavHeight);
             line.frame = CGRectMake(0, HomeNavHeight-0.5, kWidth, 0.5);
-            [self transitionFromViewController:self.listVC toViewController:self.chartVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
-                
-            }];
+            contentView.frame = CGRectMake(0,HomeNavHeight , kWidth, kHeight-kTabBarHeight-HomeNavHeight);
             self.mineTypeBtn.hidden = YES;
         }
     }];
@@ -212,8 +214,9 @@
     return searchView;
 }
 - (void)changeViewClick:(UIButton *)btn{
-    btn.selected = !btn.selected;
     [self dissMissAlertView];
+    btn.selected = !btn.selected;
+
 }
 - (void)mineTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
