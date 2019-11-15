@@ -101,6 +101,7 @@
 }
 - (void)pushListViewWithIdentify:(NSInteger)ide{
     IssueReportListView *list = [IssueReportListView new];
+    list.type = ide;
     if (ide==1) {
         list.datas = [self.dataSource lastObject].dayAry;
         list.title = NSLocalizedString(@"local.dailyReport", @"");

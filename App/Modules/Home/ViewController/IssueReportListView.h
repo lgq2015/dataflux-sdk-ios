@@ -7,11 +7,16 @@
 //
 
 #import "RootViewController.h"
-
+typedef  NS_ENUM(NSInteger, ReportListType){
+  ReportListTypeDaily = 1,
+  ReportListTypeWebSecurity,
+  ReportListTypeService,
+};
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueReportListView : RootViewController
 @property (nonatomic, strong) NSArray *datas;
+@property (nonatomic, assign) ReportListType type;
 @end
 
 NS_ASSUME_NONNULL_END

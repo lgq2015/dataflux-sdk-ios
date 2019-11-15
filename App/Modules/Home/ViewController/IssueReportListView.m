@@ -12,6 +12,8 @@
 #import "IssueModel.h"
 #import "IssueListViewModel.h"
 #import "IssueDetailsVC.h"
+#import "IssueListManger.h"
+#import "ClassifyModel.h"
 @interface IssueReportListView ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -20,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [kNotificationCenter addObserver:self
+                                    selector:@selector(updateAllData)
+                                        name:KNotificationUpdateIssueList
+                                      object:nil];
     [self createUI];
 }
 - (void)createUI{
@@ -37,6 +43,21 @@
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
     self.tableView.tableFooterView = self.footView;
     [self.view addSubview:self.tableView];
+}
+- (void)updateAllData{
+     ClassifyModel *reportModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeReport];
+    switch (self.type) {
+        case ReportListTypeDaily:
+            self.datas = reportModel.dayAry;
+            break;
+        case ReportListTypeWebSecurity:
+            self.datas = reportModel.webAry;
+            break;
+        case ReportListTypeService:
+            self.datas = reportModel.serviceAry;
+            break;
+    }
+    [self.tableView reloadData];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
