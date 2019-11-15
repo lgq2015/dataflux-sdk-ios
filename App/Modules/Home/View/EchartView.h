@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EchartView : UIView
-@property (nonatomic, strong) PYEchartsView *kEchartView;
+@property (nonatomic, strong) WKEchartsView *kEchartView;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDayPieDict:(NSDictionary *)dict;

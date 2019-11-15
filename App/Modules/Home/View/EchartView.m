@@ -288,10 +288,12 @@
     [option setSeries:seriesArr];
     
     /** 初始化图表 */
-    self.kEchartView = [[PYZoomEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
+    self.kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
     [self addSubview:self.kEchartView];
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
+        self.kEchartView.scrollView.bounces = NO;
+        self.kEchartView.scrollView.scrollEnabled = NO;
     // 添加到 scrollView 上
  }
 }
@@ -346,11 +348,12 @@
     series1.name = dict[@"title"][@"text"];
     series1.type = PYSeriesTypePie;
     series1.data =isDay?itemArray:xdata;
-    series1.legendHoverLink = NO;
+    series1.legendHoverLink = YES;
     series1.selectedModeEqual(@"single");
     series1.radius = @[@"35%",@"55%"];
+    series1.selectedOffset = @(10);
     //圆心坐标
-    //    series1.center = @[@"50%",@"50%"];
+    series1.center = @[@"50%",@"50%"];
     PYItemStyle *itemStyle = [[PYItemStyle alloc] init];
     series1.itemStyle = itemStyle;
     //圈外数据 normal
@@ -366,7 +369,7 @@
     
     [option setSeries:dataArr];
     /* 初始化图标 */
-    self.kEchartView = [[PYEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth  , 300)];
+    self.kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth  , 300)];
     [self addSubview:self.kEchartView];
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
