@@ -220,7 +220,12 @@
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
+    @try {
     [JPUSHService registerDeviceToken:deviceToken];
+    }
+    @catch (NSException *exception) {
+        DLog(@"registerDeviceToken === %@",exception);
+    }
 
 }
 // ios 7.0
