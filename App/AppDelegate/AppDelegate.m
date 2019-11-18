@@ -221,10 +221,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
     @try {
-    [JPUSHService registerDeviceToken:deviceToken];
+        if (!deviceToken || ![deviceToken isKindOfClass:[NSData class]] || deviceToken.length == 0) {
+            DLog(@"deviceToken invalid");
+            return;
+        }
+        DLog(@"deviceToken === %@", deviceToken);
+
+        [JPUSHService registerDeviceToken:deviceToken];
     }
     @catch (NSException *exception) {
-        DLog(@"registerDeviceToken === %@",exception);
+        DLog(@"registerDeviceToken Exception === %@", exception);
     }
 
 }
