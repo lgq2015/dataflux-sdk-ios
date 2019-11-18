@@ -47,6 +47,10 @@
                                              selector:@selector(hometeamSwitch)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
+    [kNotificationCenter addObserver:self
+                                  selector:@selector(issueUpdate)
+                                      name:KNotificationUpdateIssueList
+                                    object:nil];
     WeakSelf
     [self loadAllIssueList:^{
         
@@ -217,6 +221,10 @@
     [self dissMissAlertView];
     btn.selected = !btn.selected;
 
+}
+- (void)issueUpdate{
+    [self.listVC reloadDataWithSelectObject:nil refresh:NO];
+    [self.chartVC refreshData];
 }
 - (void)mineTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;

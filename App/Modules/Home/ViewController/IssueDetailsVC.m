@@ -702,7 +702,7 @@ static const int IgnoreBtnTag = 15;
                self.tableView.tableFooterView = self.footer;
             }
             });
-                [self postLastReadSeq];
+//                [self postLastReadSeq];
           }];
     }];
    
@@ -729,7 +729,7 @@ static const int IgnoreBtnTag = 15;
    
 }
 -(void)dealloc{
-    [self postLastReadSeq];
+//    [self postLastReadSeq];
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
     [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
     [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil

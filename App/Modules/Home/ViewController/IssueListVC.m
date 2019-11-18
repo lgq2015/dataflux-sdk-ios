@@ -45,10 +45,6 @@
                             selector:@selector(onNewIssueAddUpdate:)
                                 name:KNotificationNewIssue
                               object:nil];
-    [kNotificationCenter addObserver:self
-                            selector:@selector(onNewIssueUpdate:)
-                                name:KNotificationUpdateIssueList
-                              object:nil];
     [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadIssueList object:nil];
 
     [self createUI];
@@ -114,12 +110,6 @@
         _datas = [HLSafeMutableArray new];
     }
     return _datas;
-}
-- (void)onNewIssueUpdate:(NSNotification *)notification{
-    NSDictionary *pass = [notification userInfo];
-    if ([pass boolValueForKey:@"updateView" default:NO]) {
-        [self reloadDataWithSelectObject:nil refresh:NO];
-    }
 }
 - (void)onNewIssueAddUpdate:(NSNotification *)notification{
     NSDictionary *pass = [notification userInfo];

@@ -25,10 +25,6 @@
     self.dataSource = [NSMutableArray new];
 
     [self createUI];
-    [kNotificationCenter addObserver:self
-                               selector:@selector(headerRefreshing)
-                                   name:KNotificationUpdateIssueList
-                                 object:nil];
     [self refreshData];
 }
 - (void)refreshData{

@@ -302,7 +302,7 @@
                 if(isEnd){
                     [self scrollToBottom:NO];
                 }
-                [self postLastReadSeq];
+//                [self postLastReadSeq];
             }
         }
     }
