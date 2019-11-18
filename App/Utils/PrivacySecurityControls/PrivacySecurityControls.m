@@ -62,6 +62,9 @@
         }];
         UIAlertAction *comfirmAction = [PWCommonCtrl actionWithTitle:goBtnTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             // 无权限 引导去开启
+            if(type == PrivacyTypeUserNotification){
+                [AppDelegate shareAppDelegate].goSetiingNoti = YES;
+            }
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication]canOpenURL:url]) {
                 [[UIApplication sharedApplication]openURL:url];

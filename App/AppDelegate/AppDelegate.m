@@ -160,8 +160,11 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
+    if (self.goSetiingNoti) {
+        ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
+        self.goSetiingNoti = NO;
+    }
     KPostNotification(KNotificationAppResignActive, nil);
-    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     [[HeartBeatManager new] sendHeartBeat];
     [[PWSocketManager sharedPWSocketManager] forceRestart];
 

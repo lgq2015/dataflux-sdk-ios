@@ -17,7 +17,7 @@
 @property (strong, nonatomic) MainTabBarController *mainTabBar;
 @property (strong, nonatomic) Reachability *conn;
 @property (nonatomic, strong)TencentOAuth *tencentOAuth;
-
+@property (nonatomic, assign) BOOL goSetiingNoti;
 
 @end
 
