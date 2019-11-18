@@ -245,8 +245,10 @@
     [self changeTopLeftNavTitleName];
     WeakSelf
     [self loadAllIssueList:^{
-           [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
-           [weakSelf.chartVC refreshData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
+        [weakSelf.chartVC refreshData];
+        });
        }];
 }
 - (void)addTeamSuccess:(NSNotification *)notification{
