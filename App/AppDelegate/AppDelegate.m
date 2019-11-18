@@ -51,11 +51,16 @@
             // NSSet<UNNotificationCategory *> *categories for iOS10 or later
             // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
         }
-
+        BOOL production;
+#ifdef DEBUG
+        production = NO;
+#else
+        production = YES;
+#endif
         [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
         [JPUSHService setupWithOption:launchOptions appKey:JPUSH_ID
                               channel:@"App Store"
-                     apsForProduction:YES
+                     apsForProduction:production
                 advertisingIdentifier:nil];
     }
         return YES;
@@ -247,8 +252,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     else {
         // 本地通知
-     //   [self networkDidReceiveMessage:userInfo];
-
     }
     completionHandler();  // 系统要求执行这个方法
 
@@ -256,7 +259,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 // 前台通知  需求：不对前台通知进行处理
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
-
 //    NSDictionary * userInfo = notification.request.content.userInfo;
 //    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
 //        [JPUSHService handleRemoteNotification:userInfo];
