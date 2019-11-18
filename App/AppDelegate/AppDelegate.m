@@ -55,57 +55,10 @@
         [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
         [JPUSHService setupWithOption:launchOptions appKey:JPUSH_ID
                               channel:@"App Store"
-                     apsForProduction:NO
+                     apsForProduction:YES
                 advertisingIdentifier:nil];
-        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            NSLog(@"Requesting permission for push notifications..."); // iOS 8
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
-                                                    UIUserNotificationTypeAlert | UIUserNotificationTypeBadge |
-                                                    UIUserNotificationTypeSound categories:nil];
-            [UIApplication.sharedApplication registerUserNotificationSettings:settings];
-        } else {
-            NSLog(@"Registering device for push notifications..."); // iOS 7 and earlier
-            [UIApplication.sharedApplication registerForRemoteNotificationTypes:
-             UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge |
-             UIRemoteNotificationTypeSound];
-        }
-
-        //    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        //    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
-
-#if TARGET_IPHONE_SIMULATOR
-        return YES;
-#else
-        if ([[UIDevice currentDevice] systemVersion].floatValue > 9.999) {
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (granted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                });
-            }
-        }];
-
-    } else {
-        UIUserNotificationType types = UIUserNotificationTypeBadge |
-                UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *mySettings =
-                [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
-    return YES;
-
-#endif
-    } else{
         return YES;
-    }
-
-
-
-
-
 }
 
 - (void)networkDidReceiveMessage:(NSDictionary *)userInfo {
@@ -218,7 +171,6 @@
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
     /// Required - 注册 DeviceToken
     @try {
         if (!deviceToken || ![deviceToken isKindOfClass:[NSData class]] || deviceToken.length == 0) {
@@ -267,7 +219,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 #pragma mark ========== JPUSHRegisterDelegate ========== // 2.1.9 版新增JPUSHRegisterDelegate,需实现以下两个方法
 //后台得到的的通知对象(当用户点击通知栏的时候) ios 10.0以上
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler API_AVAILABLE(ios(10.0)){
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler API_AVAILABLE(ios(10.0)){
 
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
