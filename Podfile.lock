@@ -32,7 +32,7 @@ PODS:
   - LBXScan/Types (2.3)
   - LBXScan/UI (2.3):
     - LBXScan/Types (~> 2.2)
-  - LumberjackConsole (3.3.1):
+  - LumberjackConsole (3.6.0):
     - CocoaLumberjack (>= 3.x)
     - NBUCore (>= 2.1.0)
   - Masonry (1.1.0)
@@ -82,7 +82,7 @@ DEPENDENCIES:
   - FMDB (~> 2.7.5)
   - iOS-Echarts (~> 1.4.4)
   - IQKeyboardManager (~> 6.2.0)
-  - JPush (~> 3.2.1)
+  - JPush (~> 3.2.6)
   - JSONModel (~> 1.8.0)
   - LBXScan/LBXNative (~> 2.3)
   - LBXScan/UI (~> 2.3)
@@ -145,7 +145,7 @@ SPEC CHECKSUMS:
   JPush: 41dd48a69bd8c08abc692dc7f2b23c0fb281471f
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
-  LumberjackConsole: c5fcf48e08da5313d060225901737496cf9140ca
+  LumberjackConsole: fd454c900893c83ca8f3dc0248a705b9634850d1
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
@@ -164,6 +164,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 87c5ec4b2e1783b9837a6ea9ca21818285523bc1
 
-PODFILE CHECKSUM: af839b320d8de9747ba1207b37da9d8091dda680
+PODFILE CHECKSUM: 084184f4085aee49f39fe750923d05e012df5b42
 
 COCOAPODS: 1.8.3
