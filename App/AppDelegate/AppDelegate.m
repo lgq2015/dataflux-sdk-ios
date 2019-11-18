@@ -160,8 +160,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [JPUSHService resetBadge];
-    if (self.goSetiingNoti) {
-        ![getUserNotificationSettings isEqualToString:PWUnRegister]? [application registerForRemoteNotifications]:nil;
+    if (self.goSetiingNoti && !([UIApplication sharedApplication].currentUserNotificationSettings.types == UIUserNotificationTypeNone)) {
         self.goSetiingNoti = NO;
     }
     KPostNotification(KNotificationAppResignActive, nil);
