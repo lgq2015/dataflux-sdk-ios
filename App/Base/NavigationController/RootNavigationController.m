@@ -34,6 +34,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
     self.popDelegate = self.interactivePopGestureRecognizer.delegate;
     self.delegate = self;
     
