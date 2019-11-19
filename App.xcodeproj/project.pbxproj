@@ -835,6 +835,12 @@
 		4AF663BD2265DE6600E551B9 /* TeamTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF663BC2265DE6600E551B9 /* TeamTF.m */; };
 		4AF663BE2265DE6600E551B9 /* TeamTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF663BC2265DE6600E551B9 /* TeamTF.m */; };
 		4AF663BF2265DE6600E551B9 /* TeamTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AF663BC2265DE6600E551B9 /* TeamTF.m */; };
+		4AFB77EA23839BF200C58E8C /* AlarmChartListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77E923839BF200C58E8C /* AlarmChartListModel.m */; };
+		4AFB77EB23839BF200C58E8C /* AlarmChartListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77E923839BF200C58E8C /* AlarmChartListModel.m */; };
+		4AFB77EC23839BF200C58E8C /* AlarmChartListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77E923839BF200C58E8C /* AlarmChartListModel.m */; };
+		4AFB77EF2383B8B300C58E8C /* AlarmItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77EE2383B8B300C58E8C /* AlarmItemModel.m */; };
+		4AFB77F02383B8B300C58E8C /* AlarmItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77EE2383B8B300C58E8C /* AlarmItemModel.m */; };
+		4AFB77F12383B8B300C58E8C /* AlarmItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB77EE2383B8B300C58E8C /* AlarmItemModel.m */; };
 		6B6E2031C4E2A342BC743A8B /* IssueChatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2C771A1091868D00DD59 /* IssueChatDataModel.m */; };
 		6B6E203217DB70BDBD721E3A /* BaseSqlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E216D805EED9890D87E6C /* BaseSqlHelper.m */; };
 		6B6E205C6E12876FD6BAAA93 /* IssueChatDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E2B6D368443FF31065FE7 /* IssueChatDatas.m */; };
@@ -1931,6 +1937,10 @@
 		4AF663B72265B1F900E551B9 /* UITextView+HLLHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+HLLHelper.m"; sourceTree = "<group>"; };
 		4AF663BB2265DE6600E551B9 /* TeamTF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamTF.h; sourceTree = "<group>"; };
 		4AF663BC2265DE6600E551B9 /* TeamTF.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamTF.m; sourceTree = "<group>"; };
+		4AFB77E823839BF100C58E8C /* AlarmChartListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmChartListModel.h; sourceTree = "<group>"; };
+		4AFB77E923839BF200C58E8C /* AlarmChartListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmChartListModel.m; sourceTree = "<group>"; };
+		4AFB77ED2383B8B300C58E8C /* AlarmItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmItemModel.h; sourceTree = "<group>"; };
+		4AFB77EE2383B8B300C58E8C /* AlarmItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmItemModel.m; sourceTree = "<group>"; };
 		62C62DFDEDDCCD32D0A33765 /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		64B35A03E3ED1AA7E9D23603 /* Pods-AppDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppDev.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppDev/Pods-AppDev.release.xcconfig"; sourceTree = "<group>"; };
 		6B6E201CE8E4F50926D93D2D /* ZhugeIOCalendarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhugeIOCalendarHelper.m; sourceTree = "<group>"; };
@@ -3086,6 +3096,10 @@
 				4A50D91922F13B6100B2493F /* OriginModel.m */,
 				4AB126512375719A008A657B /* ClassifyModel.h */,
 				4AB126522375719A008A657B /* ClassifyModel.m */,
+				4AFB77E823839BF100C58E8C /* AlarmChartListModel.h */,
+				4AFB77E923839BF200C58E8C /* AlarmChartListModel.m */,
+				4AFB77ED2383B8B300C58E8C /* AlarmItemModel.h */,
+				4AFB77EE2383B8B300C58E8C /* AlarmItemModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4298,6 +4312,7 @@
 				4AC21FCD228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A092CAD2227BD3900FB2A35 /* InviteMembersVC.m in Sources */,
 				4A50D92D22F98FBE00B2493F /* PurchaseHistoryVC.m in Sources */,
+				4AFB77EA23839BF200C58E8C /* AlarmChartListModel.m in Sources */,
 				4A092C8722263FA000FB2A35 /* ChooseAddressVC.m in Sources */,
 				4A00DDB122D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4A759AE4224F38B80057BD02 /* NewsListImageCell.m in Sources */,
@@ -4406,6 +4421,7 @@
 				4ABF442521BD326F002AF34E /* PWMemoryCache.m in Sources */,
 				4ABF442B21BD3393002AF34E /* PWLRUManager.m in Sources */,
 				4A759A4C2247F5060057BD02 /* AddIssueCell.m in Sources */,
+				4AFB77EF2383B8B300C58E8C /* AlarmItemModel.m in Sources */,
 				4AC856E9223121BA00DAE1F6 /* HandbookModel.m in Sources */,
 				4A092D43222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
 				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
@@ -4667,6 +4683,7 @@
 				4AC856F5223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCE228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A50D92E22F98FBE00B2493F /* PurchaseHistoryVC.m in Sources */,
+				4AFB77EB23839BF200C58E8C /* AlarmChartListModel.m in Sources */,
 				4A00DDB222D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4A092C9422266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -4775,6 +4792,7 @@
 				CA1CF5D8221ECB3A00D15316 /* MainTabBarController.m in Sources */,
 				4A092C9922268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF5D9221ECB3A00D15316 /* RefreshTableView.m in Sources */,
+				4AFB77F02383B8B300C58E8C /* AlarmItemModel.m in Sources */,
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
@@ -5036,6 +5054,7 @@
 				4AC856F6223147A300DAE1F6 /* SCIndexViewConfiguration.m in Sources */,
 				4AC21FCF228BB5590098848C /* IssueUserDetailView.m in Sources */,
 				4A50D92F22F98FBE00B2493F /* PurchaseHistoryVC.m in Sources */,
+				4AFB77EC23839BF200C58E8C /* AlarmChartListModel.m in Sources */,
 				4A00DDB322D315CA008462AF /* AddNotiRuleCell.m in Sources */,
 				4A092C9522266C6700FB2A35 /* CityCell.m in Sources */,
 				4A3CDA67229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
@@ -5144,6 +5163,7 @@
 				CA1CF67D221ECB5000D15316 /* MainTabBarController.m in Sources */,
 				4A092C9A22268D7300FB2A35 /* ChooseTradesVC.m in Sources */,
 				CA1CF67E221ECB5000D15316 /* RefreshTableView.m in Sources */,
+				4AFB77F12383B8B300C58E8C /* AlarmItemModel.m in Sources */,
 				CA1CF67F221ECB5000D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF682221ECB5000D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34C225E0A54008A0233 /* QLPreviewController+title.m in Sources */,

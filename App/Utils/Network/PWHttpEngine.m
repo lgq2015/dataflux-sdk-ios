@@ -28,6 +28,7 @@
 #import "AuthTeamListModel.h"
 #import "FavoritesListModel.h"
 #import "ChangeManagerResultModel.h"
+#import "AlarmChartListModel.h"
 
 @implementation PWHttpEngine {
 
@@ -740,7 +741,20 @@
                                    successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
                                       failBlock:[self pw_createFailBlock:model withCallBack:callback]];
 }
-
+-(PWURLSessionTask *)alarmEchartWithStartTime:(NSString *)start endTime:(NSString *)end callBack:(void (^)(id response))callback{
+    NSDictionary *param = @{@"_groupBy":@"DATE",
+                            @"createDate_start":start,
+                            @"createDate_end":end,
+                            @"originExecMode":@"alertHub",
+                            @"type":@"alarm",
+    };
+    AlarmChartListModel *model = [AlarmChartListModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_General_count withRequestType:NetworkGetType refreshRequest:YES
+                                             cache:NO params:param
+                                     progressBlock:nil
+                                      successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                         failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
 @end
 
 
