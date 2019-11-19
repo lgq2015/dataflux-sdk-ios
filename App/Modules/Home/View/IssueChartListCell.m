@@ -68,7 +68,7 @@
     item.tag = data.identify+500;
     [[self viewWithTag:data.identify+500] removeFromSuperview];
     item.backgroundColor = PWWhiteColor;
-    UILabel *titleLab =[PWCommonCtrl lableWithFrame:CGRectMake(Interval(20), ZOOM_SCALE(12), ZOOM_SCALE(100), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:data.title];
+    UILabel *titleLab =[PWCommonCtrl lableWithFrame:CGRectMake(Interval(20), ZOOM_SCALE(12), ZOOM_SCALE(130), ZOOM_SCALE(20)) font:RegularFONT(14) textColor:[UIColor colorWithHexString:@"#595860"] text:data.title];
     [item addSubview:titleLab];
     UILabel *desLab =[PWCommonCtrl lableWithFrame:CGRectMake(kWidth-Interval(52)-ZOOM_SCALE(150), ZOOM_SCALE(12), ZOOM_SCALE(150), ZOOM_SCALE(20)) font:RegularFONT(11) textColor:[UIColor colorWithHexString:@"#595860"] text:[NSString getLocalDateFormateUTCDate:data.describeText formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"yyyy-MM-dd"]];
 

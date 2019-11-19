@@ -16,9 +16,12 @@
 #import "AlarmChartListModel.h"
 #import "HLSafeMutableArray.h"
 #import "AlarmItemModel.h"
+#import "ReportListModel.h"
+
 @interface IssueChartVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) HLSafeMutableArray *dataSource;
 @property (nonatomic, strong) NSDictionary *currentChart;
+@property (nonatomic, strong) ClassifyModel *reportModel;
 @end
 
 @implementation IssueChartVC
@@ -26,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataSource = [HLSafeMutableArray new];
-
+    self.reportModel = [ClassifyModel new];
     [self createUI];
     [self refreshDataWithIsChangeTeam:YES];
 }
@@ -35,36 +38,88 @@
        ClassifyModel *crontabModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeCrontab];
        ClassifyModel *taskModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeTask];
        ClassifyModel *alarmModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeAlarm];
-       ClassifyModel *reportModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeReport];
-       [self.dataSource addObjectsFromArray:@[crontabModel,taskModel,alarmModel,reportModel]];
+//       ClassifyModel *reportModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeReport];
+       [self.dataSource addObjectsFromArray:@[crontabModel,taskModel,alarmModel]];
     if (isChange) {
-     NSDate *currentdate = [NSDate date];
-     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
-     NSDateComponents *datecomps = [[NSDateComponents alloc] init];
-    [datecomps setDay:-6];
-    NSDate *startcalculatedate = [calendar dateByAddingComponents:datecomps toDate:currentdate options:0];
-    NSString *end=[currentdate getUTCTimeStr];
-    NSString *start = [startcalculatedate getUTCTimeStr];
-   WeakSelf
-    [[PWHttpEngine sharedInstance] alarmEchartWithStartTime:start endTime:end callBack:^(id response) {
-        AlarmChartListModel *model = response;
-        if (model.isSuccess) {
-            
-            if (self.dataSource.count>0) {
-                ClassifyModel *chart = self.dataSource[2];
-                weakSelf.currentChart =[weakSelf getWeekAlarmData:model.list];
-                chart.echartDatas =weakSelf.currentChart;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                });
-            }
-        }
-    }];
+        NSDate *currentdate = [NSDate date];
+             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+             NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+            [datecomps setDay:-6];
+            NSDate *startcalculatedate = [calendar dateByAddingComponents:datecomps toDate:currentdate options:0];
+            NSString *end=[currentdate getUTCTimeStr];
+            NSString *start = [startcalculatedate getUTCTimeStr];
+           WeakSelf
+            [[PWHttpEngine sharedInstance] alarmEchartWithStartTime:start endTime:end callBack:^(id response) {
+                AlarmChartListModel *model = response;
+                if (model.isSuccess) {
+                    if (self.dataSource.count>0) {
+                        ClassifyModel *chart = self.dataSource[2];
+                        weakSelf.currentChart =[weakSelf getWeekAlarmData:model.list];
+                        chart.echartDatas =weakSelf.currentChart;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakSelf.tableView reloadData];
+                        });
+                       }
+                }
+            }];
+        [self getRepprtList];
     }else{
         self.currentChart?alarmModel.echartDatas = self.currentChart:nil;
+        self.reportModel? [self.dataSource addObject:self.reportModel]:nil;
         [self.tableView reloadData];
     }
-
+}
+-(void)getRepprtList{
+    __block ClassifyModel *reportModel = [ClassifyModel new];
+    WeakSelf
+       dispatch_queue_t queueT = dispatch_queue_create("report.queue", DISPATCH_QUEUE_CONCURRENT);//一个并发队列
+       dispatch_group_t grpupT = dispatch_group_create();//一个线程组
+   
+    dispatch_group_async(grpupT, queueT,^{
+        dispatch_group_enter(grpupT);
+        [[PWHttpEngine sharedInstance] reportListWithSubType:@"daily_report" pageMarker:-1  callBack:^(id response) {
+                   ReportListModel *model = response;
+                   if (model.isSuccess) {
+                       reportModel.dayAry = model.list;
+                   }
+                 dispatch_group_leave(grpupT);
+               }];
+    });
+    dispatch_group_async(grpupT, queueT,^{
+        dispatch_group_enter(grpupT);
+        [[PWHttpEngine sharedInstance] reportListWithSubType:@"service_report" pageMarker:-1  callBack:^(id response) {
+                   ReportListModel *model = response;
+                   if (model.isSuccess) {
+                       reportModel.serviceAry = model.list;
+                   }
+                 dispatch_group_leave(grpupT);
+               }];
+    });
+    dispatch_group_async(grpupT, queueT,^{
+           dispatch_group_enter(grpupT);
+           [[PWHttpEngine sharedInstance] reportListWithSubType:@"web_security_report" pageMarker:-1 callBack:^(id response) {
+                      ReportListModel *model = response;
+                      if (model.isSuccess) {
+                          reportModel.webAry = model.list;
+                      }
+                    dispatch_group_leave(grpupT);
+                  }];
+       });
+    dispatch_group_notify(grpupT, queueT, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSInteger i=0;
+            i = reportModel.dayAry.count>0?i+1:i;
+            i = reportModel.serviceAry.count>0?i+1:i;
+            i = reportModel.webAry.count>0?i+1:i;
+            i = i==0?i+1:i;
+            reportModel.title = NSLocalizedString(@"local.report", @"");
+            reportModel.cellIdentifier = @"IssueChartListCell";
+            reportModel.cellHeight = ZOOM_SCALE(54)+i*ZOOM_SCALE(44);
+            weakSelf.reportModel = reportModel;
+            [weakSelf.dataSource addObject:reportModel];
+            [weakSelf.tableView reloadData];
+        });
+    });
 }
 -(NSDictionary *)getWeekAlarmData:(NSArray *)allData{
      

@@ -14,25 +14,38 @@
 #import "IssueDetailsVC.h"
 #import "IssueListManger.h"
 #import "ClassifyModel.h"
-@interface IssueReportListView ()<UITableViewDelegate,UITableViewDataSource>
+#import "ReportListModel.h"
 
+@interface IssueReportListView ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, copy) NSString *subType;
 @end
 
 @implementation IssueReportListView
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [kNotificationCenter addObserver:self
-                                    selector:@selector(updateAllData)
-                                        name:KNotificationUpdateIssueList
-                                      object:nil];
     [self createUI];
 }
 - (void)createUI{
+    switch (self.type) {
+        case ReportListTypeDaily:
+            self.subType = @"daily_report";
+            break;
+        case ReportListTypeWebSecurity:
+            self.subType = @"web_security_report";
+            break;
+        case ReportListTypeService:
+            self.subType = @"service_report";
+            break;
+    }
+    self.dataSource = [NSMutableArray new];
+    
+    self.currentPage =1;
     self.tableView.rowHeight = ZOOM_SCALE(45);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.bounces = NO;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 12, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -41,33 +54,68 @@
     }
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
-    self.tableView.tableFooterView = self.footView;
+
+    self.tableView.mj_header = self.header;
+    self.tableView.mj_footer = self.footer;
     [self.view addSubview:self.tableView];
+    [self dealWithData:self.datas];
+}
+-(void)headerRefreshing{
+   self.currentPage = 1;
+    [SVProgressHUD show];
+    WeakSelf
+    [[PWHttpEngine sharedInstance] reportListWithSubType:self.subType pageMarker:-1 callBack:^(id response) {
+        ReportListModel *model = response;
+        [SVProgressHUD dismiss];
+        if (model.isSuccess) {
+            [self.dataSource removeAllObjects];
+            [self dealWithData:model.list];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+        [weakSelf.header endRefreshing];
+    }];
+}
+-(void)footerRefreshing{
+    IssueModel *model = [self.dataSource lastObject];
+    [[PWHttpEngine sharedInstance] reportListWithSubType:self.subType pageMarker:model.seq  callBack:^(id response) {
+        ReportListModel *model = response;
+        [SVProgressHUD dismiss];
+        if (model.isSuccess) {
+            [self dealWithData:model.list];
+            [self.footer endRefreshing];
+        }else{
+            [iToast alertWithTitleCenter:model.errorMsg];
+        }
+    }];
+}
+- (void)dealWithData:(NSArray *)array{
+    [self.dataSource addObjectsFromArray:array];
+     if (self.dataSource.count == 0) {
+            [self showNoDataImage];
+        }else{
+            [self removeNoDataImage];
+            if (array.count<20) {
+                self.tableView.tableFooterView = self.footView;
+            }else{
+                self.tableView.tableFooterView = self.footer;
+            }
+        }
+    [self.tableView reloadData];
 }
 - (void)updateAllData{
-     ClassifyModel *reportModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeReport];
-    switch (self.type) {
-        case ReportListTypeDaily:
-            self.datas = reportModel.dayAry;
-            break;
-        case ReportListTypeWebSecurity:
-            self.datas = reportModel.webAry;
-            break;
-        case ReportListTypeService:
-            self.datas = reportModel.serviceAry;
-            break;
-    }
+    
     [self.tableView reloadData];
 }
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.datas.count;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
       MineViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineViewCell"];
     MineCellModel *model = [MineCellModel new];
-    IssueModel *issue = self.datas[indexPath.row];
+    IssueModel *issue = self.dataSource[indexPath.row];
     
     model.title =[NSString getLocalDateFormateUTCDate:issue.createTime formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ" outdateFormatted:@"yyyy-MM-dd"];
     [cell initWithData:model type:MineVCCellTypeOnlyTitle];
@@ -75,14 +123,19 @@
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    IssueModel *model =self.datas[indexPath.row];
-    IssueListViewModel *viewModel = [[IssueListViewModel alloc]initWithJsonDictionary:model];
-    model.isRead = YES;
-    IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
-    detailsVC.model = viewModel;
-    [self.navigationController pushViewController:detailsVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    IssueModel *model = self.dataSource[indexPath.row];
+    [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
+              if ([response[ERROR_CODE] isEqualToString:@""]) {
+                  NSDictionary *content = PWSafeDictionaryVal(response, @"content");
+                  IssueListViewModel *detailModel = [[IssueListViewModel alloc]initWithDictionary:content];
+                  IssueDetailsVC *detail = [[IssueDetailsVC alloc]init];
+                  detail.model = detailModel;
+                  [self.navigationController pushViewController:detail animated:YES];
+              }
+          } failBlock:^(NSError *error) {
+              [error errorToast];
+          }];
 }
 /*
 #pragma mark - Navigation
