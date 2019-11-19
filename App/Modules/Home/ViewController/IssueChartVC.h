@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueChartVC : RootViewController
-- (void)refreshData;
+- (void)refreshDataWithIsChangeTeam:(BOOL)isChange;
 @end
 
 NS_ASSUME_NONNULL_END

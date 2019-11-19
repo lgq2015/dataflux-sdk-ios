@@ -761,6 +761,28 @@ NSString *const ILMStringAll = @"ALL";
         i = i==0?i+1:i;
         model.cellHeight = ZOOM_SCALE(54)+i*ZOOM_SCALE(44);
     }
+//    if (type == ClassifyTypeAlarm) {
+//     NSArray *issueAry = [self getIssueListWithWhereFormat:whereFormt];
+//     NSArray *data = [self getWeekAlarmData:issueAry];
+//     NSMutableDictionary *echartData = [NSMutableDictionary new];
+//     [echartData addEntriesFromDictionary:@{@"xAxis":@{@"type":@"time",
+//                                                       @"name":@"",
+//     },
+//                                            @"yAxis":@{@"interval":@5,
+//                                                       @"type":@"value",
+//                                                       @"name":@"",
+//                                            },
+//                                            @"title":@{@"text":NSLocalizedString(@"local.AlarmEchartTitle", @"")},
+//                                            @"legend":@{@"data":NSLocalizedString(@"local.alarm", @"")},
+//     }];
+//
+//     [echartData addEntriesFromDictionary:@{@"series":@[@{@"data":data,
+//                                                        @"id":@"itemA",
+//                                                        @"name":NSLocalizedString(@"local.alarm", @""),
+//                                                        @"type":@"line",
+//     }]}];
+//     model.echartDatas = echartData;
+//    }
     whereFormt = [whereFormt stringByAppendingFormat:@"AND status = 'created'"];
     danger = [whereFormt stringByAppendingFormat:@"AND level = 'danger'"];
     warning =[whereFormt stringByAppendingFormat:@"AND level = 'warning'"];
@@ -770,28 +792,7 @@ NSString *const ILMStringAll = @"ALL";
     model.commonAry = [self getIssueListWithWhereFormat:common];
     model.warningAry = [self getIssueListWithWhereFormat:warning];
     model.allAry = [self getIssueListWithWhereFormat:whereFormt];
-    if (type == ClassifyTypeAlarm) {
-       NSArray *data = [self getWeekAlarmData:model.allAry];
-
-        NSMutableDictionary *echartData = [NSMutableDictionary new];
-        [echartData addEntriesFromDictionary:@{@"xAxis":@{@"type":@"time",
-                                                          @"name":@"",
-        },
-                                               @"yAxis":@{@"interval":@5,
-                                                          @"type":@"value",
-                                                          @"name":@"",
-                                               },
-                                               @"title":@{@"text":NSLocalizedString(@"local.AlarmEchartTitle", @"")},
-                                               @"legend":@{@"data":NSLocalizedString(@"local.alarm", @"")},
-        }];
-        
-        [echartData addEntriesFromDictionary:@{@"series":@[@{@"data":data,
-                                                           @"id":@"itemA",
-                                                           @"name":NSLocalizedString(@"local.alarm", @""),
-                                                           @"type":@"line",
-        }]}];
-        model.echartDatas = echartData;
-       }
+    
     return model;
 }
 -(NSArray *)getWeekAlarmData:(NSArray *)allData{

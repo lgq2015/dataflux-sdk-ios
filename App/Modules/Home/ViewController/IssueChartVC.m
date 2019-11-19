@@ -13,30 +13,103 @@
 #import "IssueChartEchartCell.h"
 #import "IssueChartListCell.h"
 #import "IssueReportListView.h"
-
+#import "AlarmChartListModel.h"
+#import "HLSafeMutableArray.h"
+#import "AlarmItemModel.h"
 @interface IssueChartVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) NSMutableArray<ClassifyModel *> *dataSource;
+@property (nonatomic, strong) HLSafeMutableArray *dataSource;
+@property (nonatomic, strong) NSDictionary *currentChart;
 @end
 
 @implementation IssueChartVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = [NSMutableArray new];
+    self.dataSource = [HLSafeMutableArray new];
 
     [self createUI];
-    [self refreshData];
+    [self refreshDataWithIsChangeTeam:YES];
 }
-- (void)refreshData{
+- (void)refreshDataWithIsChangeTeam:(BOOL)isChange{
     [self.dataSource removeAllObjects];
        ClassifyModel *crontabModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeCrontab];
        ClassifyModel *taskModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeTask];
        ClassifyModel *alarmModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeAlarm];
        ClassifyModel *reportModel = [[IssueListManger sharedIssueListManger] getIssueWithClassifyType:ClassifyTypeReport];
        [self.dataSource addObjectsFromArray:@[crontabModel,taskModel,alarmModel,reportModel]];
-     [self.tableView reloadData];
-       
+    if (isChange) {
+     NSDate *currentdate = [NSDate date];
+     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+     NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+    [datecomps setDay:-6];
+    NSDate *startcalculatedate = [calendar dateByAddingComponents:datecomps toDate:currentdate options:0];
+    NSString *end=[currentdate getUTCTimeStr];
+    NSString *start = [startcalculatedate getUTCTimeStr];
+   WeakSelf
+    [[PWHttpEngine sharedInstance] alarmEchartWithStartTime:start endTime:end callBack:^(id response) {
+        AlarmChartListModel *model = response;
+        if (model.isSuccess) {
+            
+            if (self.dataSource.count>0) {
+                ClassifyModel *chart = self.dataSource[2];
+                weakSelf.currentChart =[weakSelf getWeekAlarmData:model.list];
+                chart.echartDatas =weakSelf.currentChart;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView reloadData];
+                });
+            }
+        }
+    }];
+    }else{
+        self.currentChart?alarmModel.echartDatas = self.currentChart:nil;
+        [self.tableView reloadData];
+    }
+
 }
+-(NSDictionary *)getWeekAlarmData:(NSArray *)allData{
+     
+    NSMutableArray *datas = [NSMutableArray new];
+   
+    for (NSInteger i=0; i<7; i++) {
+        NSDate *currentdate = [NSDate date];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+        NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentdate];
+        NSDate *startDate = [calendar dateFromComponents:components];
+        NSDateComponents *datecomps = [[NSDateComponents alloc] init];
+        [datecomps setDay:-i];
+        NSDate *calculatedate = [calendar dateByAddingComponents:datecomps toDate:startDate options:0];
+        NSMutableArray *item = [NSMutableArray new];
+        [item addObject:[calculatedate getMonthDayTimeStr]];
+       __block NSString *count = @"0";
+        [allData enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(AlarmItemModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([[calculatedate getMonthDayTimeStr] isEqualToString:model.title]) {
+                count = model.count;
+                *stop = YES;
+            }
+        }];
+        [item addObject:count];
+        [datas insertObject:item atIndex:0];
+    }
+    NSMutableDictionary *echartData = [NSMutableDictionary new];
+         [echartData addEntriesFromDictionary:@{@"xAxis":@{@"type":@"time",
+                                                           @"name":@"",
+         },
+                                                @"yAxis":@{@"interval":@5,
+                                                           @"type":@"value",
+                                                           @"name":@"",
+                                                },
+                                                @"title":@{@"text":NSLocalizedString(@"local.AlarmEchartTitle", @"")},
+                                                @"legend":@{@"data":NSLocalizedString(@"local.alarm", @"")},
+         }];
+    
+         [echartData addEntriesFromDictionary:@{@"series":@[@{@"data":datas,
+                                                            @"id":@"itemA",
+                                                            @"name":NSLocalizedString(@"local.alarm", @""),
+                                                            @"type":@"line",
+         }]}];
+    return echartData;
+}
+
 - (void)createUI{
    
     self.tableView.contentInset = UIEdgeInsetsMake(12, 0, 0, 0);
@@ -54,22 +127,14 @@
 
 }
 -(void)headerRefreshing{
-    [self refreshData];
+    [self refreshDataWithIsChangeTeam:YES];
     [self.header endRefreshing];
 }
 #pragma mark ========== UITableViewDelegate ==========
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.dataSource[indexPath.row].cellHeight;
+    ClassifyModel *model = self.dataSource[indexPath.row];
+    return model.cellHeight;
 }
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (self.dataSource[indexPath.row].type == ClassifyTypeReport) {
-//        return;
-//    }else{
-//        IssueChartListVC *chartList = [IssueChartListVC new];
-//        chartList.model = self.dataSource[indexPath.row];
-//        [self.navigationController pushViewController:chartList animated:YES];
-//    }
-//}
 #pragma mark ========== UITableViewDataSource ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
@@ -97,15 +162,16 @@
 }
 - (void)pushListViewWithIdentify:(NSInteger)ide{
     IssueReportListView *list = [IssueReportListView new];
+    ClassifyModel *model = [self.dataSource lastObject];
     list.type = ide;
     if (ide==1) {
-        list.datas = [self.dataSource lastObject].dayAry;
+        list.datas = model.dayAry;
         list.title = NSLocalizedString(@"local.dailyReport", @"");
     }else if (ide==2){
-        list.datas = [self.dataSource lastObject].webAry;
+        list.datas = model.webAry;
         list.title = NSLocalizedString(@"local.webSecurityReport", @"");
     }else{
-        list.datas = [self.dataSource lastObject].serviceAry;
+        list.datas = model.serviceAry;
         list.title = NSLocalizedString(@"local.serviceReport", @"");
     }
     [self.navigationController pushViewController:list animated:YES];

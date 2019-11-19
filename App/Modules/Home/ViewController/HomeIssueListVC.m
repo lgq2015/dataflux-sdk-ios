@@ -56,7 +56,7 @@
         
         [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
         [weakSelf.listVC dealWithNotificationData];
-        [weakSelf.chartVC refreshData];
+        [weakSelf.chartVC refreshDataWithIsChangeTeam:YES];
     }];
     // Do any additional setup after loading the view.
 }
@@ -224,7 +224,7 @@
 }
 - (void)issueUpdate{
     [self.listVC reloadDataWithSelectObject:nil refresh:NO];
-    [self.chartVC refreshData];
+    [self.chartVC refreshDataWithIsChangeTeam:NO];
 }
 - (void)mineTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
@@ -247,13 +247,13 @@
     [self loadAllIssueList:^{
         dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf.listVC reloadDataWithSelectObject:nil refresh:NO];
-        [weakSelf.chartVC refreshData];
+        [weakSelf.chartVC refreshDataWithIsChangeTeam:YES];
         });
        }];
 }
 - (void)addTeamSuccess:(NSNotification *)notification{
     [self changeTopLeftNavTitleName];
-    [self.chartVC refreshData];
+    [self.chartVC refreshDataWithIsChangeTeam:YES];
     [self.tableView reloadData];
     WeakSelf
     [userManager addTeamSuccess:^(BOOL isSuccess) {
@@ -315,7 +315,6 @@
     self.selObj = sel;
     [[IssueListManger sharedIssueListManger] setCurrentSelectObject:sel];
     [self.listVC reloadDataWithSelectObject:sel refresh:YES];
-    [self.chartVC refreshData];
 }
 #pragma mark ========== ZTChangeTeamNavViewDelegate ==========
 -(void)changeTeamViewShow{
