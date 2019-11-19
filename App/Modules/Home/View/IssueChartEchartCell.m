@@ -21,12 +21,12 @@
 -(void)setModel:(ClassifyModel *)model{
     [super setModel:model];
     if (!_echartView) {
-        _echartView = [[EchartView alloc]initWithDict:model.echartDatas];
+        _echartView = [[EchartView alloc]initWithDict:model.echartDatas smooth:YES];
         _echartView.frame = CGRectMake(Interval(12), ZOOM_SCALE(140), kWidth-Interval(56), ZOOM_SCALE(200));
         _echartView.kEchartView.frame = CGRectMake(0, 0, kWidth-Interval(56), ZOOM_SCALE(200));
         [self addSubview:_echartView];
     }else{
-        [self.echartView refreshEchartsWithNewData:model.echartDatas];
+        [self.echartView refreshEchartsWithNewData:model.echartDatas smooth:YES];
     }
     
 }

@@ -15,7 +15,14 @@
     if (self) {
         self= [super init];
        
-        [self setupEchartWithDict:dict];
+        [self setupEchartWithDict:dict smooth:NO];
+    }
+    return self;
+}
+- (instancetype)initWithDict:(NSDictionary *)dict smooth:(BOOL)smooth{
+    if (self) {
+        self= [super init];
+        [self setupEchartWithDict:dict smooth:smooth];
     }
     return self;
 }
@@ -26,7 +33,8 @@
     }
     return self;
 }
-- (void)refreshEchartsWithNewData:(NSDictionary *)data{
+
+- (void)refreshEchartsWithNewData:(NSDictionary *)data smooth:(BOOL)smooth{
     NSArray *series = PWSafeArrayVal(data, @"series");
      NSArray *xdata = series[0][@"data"];
      if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {
@@ -121,7 +129,7 @@
          // 类型为折线
          series1.type = linedata[@"type"];
          // 曲线平滑
-         // series1.smooth = YES;
+         series1.smooth = smooth;
          // 坐标点大小
          series1.symbolSize = @(1.5);
          // 坐标点样式, 设置连线的宽度
@@ -136,10 +144,10 @@
      }
      
      [self.option setSeries:seriesArr];
-         [self.kEchartView refreshEchartsWithOption:self.option];
+     [self.kEchartView refreshEchartsWithOption:self.option];
 }
 }
-- (void)setupEchartWithDict:(NSDictionary *)data{
+- (void)setupEchartWithDict:(NSDictionary *)data smooth:(BOOL)smooth{
     DLog(@"echartData ==== %@",data);
     NSArray *series = PWSafeArrayVal(data, @"series");
     NSArray *xdata = series[0][@"data"];
@@ -241,7 +249,7 @@
     // 纵轴默认为数值型(就是坐标系统生成), 改为 @"category" 会有问题, 读者可以自行尝试
     yAxis.type = [yAxisDict stringValueForKey:@"type" default:@"value"];
     // 分割段数，默认为5
-    
+    yAxis.min = @1;
     // 分割线类型
     // yAxis.splitLine.lineStyle.type = @"dashed";   //'solid' | 'dotted' | 'dashed' 虚线类型
     
@@ -271,7 +279,7 @@
         // 类型为折线
         series1.type = linedata[@"type"];
         // 曲线平滑
-        // series1.smooth = YES;
+        series1.smooth = smooth;
         // 坐标点大小
         series1.symbolSize = @(1.5);
         // 坐标点样式, 设置连线的宽度

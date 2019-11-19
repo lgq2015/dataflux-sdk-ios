@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WKEchartsView *kEchartView;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary *)dict smooth:(BOOL)smooth;
 - (instancetype)initWithDayPieDict:(NSDictionary *)dict;
-- (void)refreshEchartsWithNewData:(NSDictionary *)data;
+- (void)refreshEchartsWithNewData:(NSDictionary *)data smooth:(BOOL)smooth;
 @end
 
 NS_ASSUME_NONNULL_END
