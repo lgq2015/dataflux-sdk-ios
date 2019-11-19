@@ -44,7 +44,7 @@
         NSDate *currentdate = [NSDate date];
              NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
              NSDateComponents *datecomps = [[NSDateComponents alloc] init];
-            [datecomps setDay:-6];
+            [datecomps setDay:-7];
             NSDate *startcalculatedate = [calendar dateByAddingComponents:datecomps toDate:currentdate options:0];
             NSString *end=[currentdate getUTCTimeStr];
             NSString *start = [startcalculatedate getUTCTimeStr];
