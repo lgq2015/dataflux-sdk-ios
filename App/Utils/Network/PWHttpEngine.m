@@ -442,7 +442,7 @@
     }else{
         [param addEntriesFromDictionary:@{@"pageSize":@40}];
     }
-    if (![start isEqualToString:@""]) {
+    if (![start isEqualToString:@""] &&start !=nil) {
         [param addEntriesFromDictionary:@{@"createDate_start":start,@"createDate_end":end}];
     }
     return [PWNetworking requsetHasTokenWithUrl:url
