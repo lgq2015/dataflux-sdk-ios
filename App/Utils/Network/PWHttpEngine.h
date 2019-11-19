@@ -129,4 +129,5 @@ typedef NS_ENUM(NSInteger, NotiRuleStyle){
 -(PWURLSessionTask *)setTeamRolesIsManger:(BOOL)isManger userId:(NSString *)userId callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)teamModifyWithParam:(NSDictionary *)param callBack:(void (^)(id response))callback;
 -(PWURLSessionTask *)alarmEchartWithStartTime:(NSString *)start endTime:(NSString *)end callBack:(void (^)(id response))callback;
+-(PWURLSessionTask *)reportListWithSubType:(NSString *)subType pageMarker:(long )pageMarker callBack:(void (^)(id response))callback;
 @end

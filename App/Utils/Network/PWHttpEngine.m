@@ -29,6 +29,7 @@
 #import "FavoritesListModel.h"
 #import "ChangeManagerResultModel.h"
 #import "AlarmChartListModel.h"
+#import "ReportListModel.h"
 
 @implementation PWHttpEngine {
 
@@ -750,6 +751,24 @@
     };
     AlarmChartListModel *model = [AlarmChartListModel new];
     return [PWNetworking requsetHasTokenWithUrl:PW_General_count withRequestType:NetworkGetType refreshRequest:YES
+                                             cache:NO params:param
+                                     progressBlock:nil
+                                      successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
+                                         failBlock:[self pw_createFailBlock:model withCallBack:callback]];
+}
+-(PWURLSessionTask *)reportListWithSubType:(NSString *)subType pageMarker:(long )pageMarker callBack:(void (^)(id response))callback{
+    NSMutableDictionary *param = [NSMutableDictionary new];
+    [param addEntriesFromDictionary:@{@"subType":subType,
+                            @"type":@"report",
+                            @"pageSize":@20,
+                            @"orderBy":@"seq",
+                            @"orderMethod":@"desc",
+    }];
+    if (pageMarker>0) {
+        [param addEntriesFromDictionary:@{@"pageMarker":[NSNumber numberWithLong:pageMarker]}];
+    }
+    ReportListModel *model = [ReportListModel new];
+    return [PWNetworking requsetHasTokenWithUrl:PW_General_list withRequestType:NetworkGetType refreshRequest:YES
                                              cache:NO params:param
                                      progressBlock:nil
                                       successBlock:[self pw_createSuccessBlock:model withCallBack:callback]
