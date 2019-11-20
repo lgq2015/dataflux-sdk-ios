@@ -116,7 +116,7 @@
             reportModel.cellIdentifier = @"IssueChartListCell";
             reportModel.cellHeight = ZOOM_SCALE(54)+i*ZOOM_SCALE(44);
             weakSelf.reportModel = reportModel;
-            [weakSelf.dataSource addObject:reportModel];
+            weakSelf.dataSource.count==4?weakSelf.dataSource[3] = reportModel:[weakSelf.dataSource addObject:reportModel];
             [weakSelf.tableView reloadData];
         });
     });
