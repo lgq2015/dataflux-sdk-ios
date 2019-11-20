@@ -357,21 +357,7 @@
 - (void)loadTopDatas{
     __block NSMutableArray *ary = [self.manager.calenderScrollView.calendarList mutableCopy];
     if (self.isLoadTop) {
-        NSDate *currentDate = [NSDate date];
-        NSString *start = [[currentDate beginningOfMonth] getUTCTimeStr];
-        [[PWHttpEngine sharedInstance] getCalendarListWithStartTime:start EndTime:[currentDate getUTCTimeStr] pageMarker:-1 orderMethod:@"desc" callBack:^(id response) {
-            [self.manager endRefreshing];
-            CalendarListModel *model = (CalendarListModel *)response;
-            if (model.isSuccess) {
-                if (model.list.count>0) {
-                    [ary removeObjectAtIndex:0];
-                    [ary insertObject:model.list atIndex:0];
-                    [self.calendarList removeAllObjects];
-                    [self.calendarList addObjectsFromArray:ary];
-                    [self.manager tablewViewDatasAddBeforeRemove:ary];
-                }
-            }
-        }];
+        [self loadCurrentList];
     }else{
         NSMutableArray *first = [ary firstObject];
         CalendarIssueModel *firstmodel = [first firstObject];
