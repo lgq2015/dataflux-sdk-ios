@@ -316,6 +316,7 @@
             }else{
                 self.isLoadTop = NO;
         [self loadListWithStartTime:[first getUTCTimeStr] endTime:[[date dateByAddingDays:1] getUTCTimeStr] loadNew:NO];
+                [self.manager.calenderScrollView.tableView scrollToTop];
             }
     }
     }
