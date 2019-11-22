@@ -334,7 +334,7 @@
 
 
 -(void)tableViewDidSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CalendarIssueModel *model = self.manager.calenderScrollView.calendarList[indexPath.section][indexPath.row];
+ __block   CalendarIssueModel *model = self.manager.calenderScrollView.calendarList[indexPath.section][indexPath.row];
     if (model.issueId && model.issueId.length>0) {
         [PWNetworking requsetHasTokenWithUrl:PW_issueDetail(model.issueId) withRequestType:NetworkGetType refreshRequest:NO cache:NO params:nil progressBlock:nil successBlock:^(id response) {
             if ([response[ERROR_CODE] isEqualToString:@""]) {
@@ -342,6 +342,19 @@
                 IssueListViewModel *detailModel = [[IssueListViewModel alloc]initWithDictionary:content];
                 IssueDetailsVC *detail = [[IssueDetailsVC alloc]init];
                 detail.model = detailModel;
+                WeakSelf
+                CalendarViewType type = [userManager getCurrentCalendarViewType];
+                if (type == CalendarViewTypeGeneral) {
+                    detail.calendarRefresh = ^(){
+                     model.isEnd = YES;
+                     [weakSelf.manager.calenderScrollView.tableView reloadData];
+                   };
+                }else{
+                    detail.calendarLogRefresh = ^(){
+                     [weakSelf loadTopDatas];
+                    };
+                }
+               
                 [self.navigationController pushViewController:detail animated:YES];
             }
         } failBlock:^(NSError *error) {

@@ -45,6 +45,7 @@ static const int IgnoreBtnTag = 15;
 @property (nonatomic, strong) PopItemView *itemView;
 @property (nonatomic, strong) TouchLargeButton *watchBtn;
 @property (nonatomic, strong) TouchLargeButton *ignoreBtn;
+@property (nonatomic, assign) BOOL calRefresh;
 
 @property (nonatomic, copy) NSString *oldStr;     //输入内容
 @end
@@ -161,11 +162,19 @@ static const int IgnoreBtnTag = 15;
             if (navSel) {
                 weakSelf.watchBtn.selected = YES;
             }
+            weakSelf.calRefresh = YES;
             [weakSelf getNewChatDatasAndScrollTop:NO];
+            if (weakSelf.calendarLogRefresh) {
+                weakSelf.calendarLogRefresh();
+            }
         };
         
         _engineHeader.recoverClick = ^(){
             weakSelf.navigationItem.rightBarButtonItems = nil;
+            if(weakSelf.calendarRefresh){
+                weakSelf.calendarRefresh();
+            }
+            weakSelf.calRefresh = YES;
         };
     }
     return _engineHeader;
@@ -180,9 +189,14 @@ static const int IgnoreBtnTag = 15;
                 weakSelf.watchBtn.selected = YES;
             }
              [weakSelf getNewChatDatasAndScrollTop:NO];
+            weakSelf.calRefresh = YES;
         };
         _userHeader.recoverClick = ^(){
             weakSelf.navigationItem.rightBarButtonItems = nil;
+            if(weakSelf.calendarRefresh){
+                weakSelf.calendarRefresh();
+            }
+           weakSelf.calRefresh = YES;
         };
     }
     return _userHeader;
@@ -730,6 +744,12 @@ static const int IgnoreBtnTag = 15;
 }
 -(void)dealloc{
 //    [self postLastReadSeq];
+    if (self.calRefresh) {
+        if (self.calendarLogRefresh) {
+               self.calendarLogRefresh();
+           }
+    }
+   
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
     [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
     [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
