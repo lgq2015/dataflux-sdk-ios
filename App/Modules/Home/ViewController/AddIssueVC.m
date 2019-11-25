@@ -35,6 +35,7 @@
 @property (nonatomic, strong) UILabel *assignLab;
 @property (nonatomic, copy) NSString *upBatchId;
 @property (nonatomic, copy) NSString *assignedToAccountId;
+@property (nonatomic, strong) MemberInfoModel *assignModel;
 // type = 1 严重 type = 2  警告 3  一般
 @property (nonatomic, assign) NSString *level;
 @end
@@ -253,6 +254,7 @@
         chooseVC.MemberInfo = ^(MemberInfoModel * _Nonnull model) {
             self.assignLab.text = model.name;
             self.assignedToAccountId = model.memberID;
+            self.assignModel = model;
         };
         [self.navigationController pushViewController:chooseVC animated:YES];
 }
@@ -376,6 +378,7 @@
                 model.issueId = [responseModel.contentDict stringValueForKey:@"id" default:@""];
                 model.accountId = getPWUserID;
                 model.isFromUser = YES;
+                model.assignedToAccountInfo = [self.assignModel toDictionary];;
                 model.watchInfoJSONStr = userManager.curUserInfo.userID;
                 model.time = [NSString getLocalDateFormateUTCDate:[[NSDate date] getNowUTCTimeStr] formatter:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
                 IssueDetailsVC *details = [[IssueDetailsVC alloc]init];
