@@ -36,6 +36,9 @@
 
 - (void)refreshEchartsWithNewData:(NSDictionary *)data smooth:(BOOL)smooth{
     NSArray *series = PWSafeArrayVal(data, @"series");
+    if (series.count == 0) {
+        return;
+    }
      NSArray *xdata = series[0][@"data"];
      if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {
          [self createPieWithDict:data isDayReport:NO];
@@ -151,6 +154,9 @@
     DLog(@"echartData ==== %@",data);
     NSArray *series = PWSafeArrayVal(data, @"series");
     NSArray *xdata = series[0][@"data"];
+    if (series.count == 0) {
+           return;
+       }
     if ([[series firstObject] containsObjectForKey:@"type"]&&[[series[0] stringValueForKey:@"type" default:@""] isEqualToString:@"pie"]) {
         [self createPieWithDict:data isDayReport:NO];
     }else{
