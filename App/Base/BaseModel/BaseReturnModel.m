@@ -22,7 +22,7 @@
 
 - (void)setValueWithDict:(NSDictionary *)dict {
     self.errorCode = [dict stringValueForKey:ERROR_CODE default:@""];
-    self.errorMsg = [self.errorCode toErrString];
+    self.errorMsg = [[self.errorCode toErrString] isEqualToString:self.errorCode]?[dict stringValueForKey:@"message" default:@""]:[self.errorCode toErrString];
     if ([dict[@"content"] isKindOfClass:NSDictionary.class]) {
         self.contentDict = dict[@"content"];
     }

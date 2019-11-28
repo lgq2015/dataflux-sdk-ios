@@ -15,8 +15,7 @@
     }else{
         mergeValue = self;
     }
-
-    return [NSLocalizedString(mergeValue, nil) isEqualToString:mergeValue]? NSLocalizedString(@"local.NetErr.TheServerIsBusyPleaseTryAgainLater", @""):NSLocalizedString(mergeValue, nil);
+    return [NSLocalizedString(mergeValue, nil) isEqualToString:mergeValue]? self:NSLocalizedString(mergeValue, nil);
 }
 
 @end
