@@ -302,8 +302,6 @@
     [option setSeries:seriesArr];
     
     /** 初始化图表 */
-    self.kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 300)];
-    [self addSubview:self.kEchartView];
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
         self.kEchartView.scrollView.bounces = NO;
@@ -350,7 +348,7 @@
     //对齐位置
     legend.x = PYPositionCenter;
     legend.y = PYPositionBottom;
-    legend.show = @NO;
+    legend.show = NO;
     legend.itemHeight = @10;
     legend.itemWidth = @20;
     legend.data =nameArray;
@@ -383,10 +381,15 @@
     
     [option setSeries:dataArr];
     /* 初始化图标 */
-    self.kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth  , 300)];
-    [self addSubview:self.kEchartView];
     [self.kEchartView setOption:option];
     [self.kEchartView loadEcharts];
+}
+-(WKEchartsView *)kEchartView{
+    if (!_kEchartView) {
+      _kEchartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, 0, kWidth  , 300)];
+      [self addSubview:_kEchartView];
+    }
+    return _kEchartView;
 }
 -(NSString *)addItemStyleColorWithType:(NSString *)str{
     if ([str isEqualToString:@"info"]) {

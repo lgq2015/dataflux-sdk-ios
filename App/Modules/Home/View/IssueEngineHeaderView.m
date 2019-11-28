@@ -312,10 +312,12 @@
         EchartView *pieView = [[EchartView alloc]initWithDayPieDict:dict[@"data"]];
         [self.echartContenterView addSubview:pieView];
         return pieView;
-    }else{
+    }else if([[dict stringValueForKey:@"type" default:@""] isEqualToString:@"pieGraph"] ||[[dict stringValueForKey:@"type" default:@""] isEqualToString:@"lineGraph"]){
         EchartView *chart = [[EchartView alloc]initWithDict:dict[@"data"]];
         [self.echartContenterView addSubview:chart];
         return chart;
+    }else{
+        return nil;
     }
 }
 #pragma mark ========== 替换 ==========
