@@ -113,9 +113,11 @@
         }else{
           UILabel *parentLab = [PWCommonCtrl lableWithFrame:CGRectZero font:RegularFONT(15) textColor:PWSubTitleColor text:self.parentModel.title];
             [itemView addSubview:parentLab];
+            parentLab.textAlignment = NSTextAlignmentRight;
             [parentLab mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.mas_equalTo(itemView).offset(-16);
                 make.centerY.mas_equalTo(itemView);
+                make.left.mas_equalTo(itemNameLab.mas_right).offset(10);
             }];
         }
         
@@ -251,10 +253,11 @@
 -(void)itemClick:(UITapGestureRecognizer*)tap{
         ChooseAssignVC *chooseVC = [[ChooseAssignVC alloc]init];
         chooseVC.assignID = self.assignedToAccountId;
+        WeakSelf
         chooseVC.MemberInfo = ^(MemberInfoModel * _Nonnull model) {
-            self.assignLab.text = model.name;
-            self.assignedToAccountId = model.memberID;
-            self.assignModel = model;
+            weakSelf.assignLab.text = model.name;
+            weakSelf.assignedToAccountId = model.memberID;
+            weakSelf.assignModel = model;
         };
         [self.navigationController pushViewController:chooseVC animated:YES];
 }
