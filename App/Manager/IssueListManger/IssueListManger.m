@@ -138,6 +138,7 @@ NSString *const ILMStringAll = @"ALL";
 }
 -(SelectObject *)getCurrentSelectObject{
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
+    DLog(@"KCurrentIssueListType == %@",KCurrentIssueListType);
     BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
     if (isContain) {
         
@@ -162,7 +163,7 @@ NSString *const ILMStringAll = @"ALL";
         sel.issueSortType = 1;
         sel.issueType = 1;
         sel.issueLevel = 1;
-        sel.issueFrom = 1;
+        sel.issueFrom = 2;
         OriginModel *origin = [OriginModel new];
         origin.name =  NSLocalizedString(@"local.AllOrigin", @"");
         origin.origin =ILMStringAll;
@@ -180,10 +181,7 @@ NSString *const ILMStringAll = @"ALL";
 }
 -(void)setCurrentSelectObject:(SelectObject *)sel{
     YYCache *cache = [[YYCache alloc]initWithName:KSelectObject];
-    BOOL isContain= [cache containsObjectForKey:KCurrentIssueListType];
-    if(isContain){
-        cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning=YES;
-    }
+   
     [cache setObject:sel forKey:KCurrentIssueListType];
 }
 - (void)setSearchIssueTitleArray:(NSArray *)array{
@@ -398,8 +396,8 @@ NSString *const ILMStringAll = @"ALL";
                     dispatch_async_on_main_queue(^{
                         [self setLastFetchTime];
                         if (callBackStatus == nil) {
-                            //                            [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
-                            //                        userInfo:@{@"updateView":@(YES)}];
+                          [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+                                                    userInfo:@{@"updateView":@(YES)}];
                         } else{
                             callBackStatus(listModel);
                             

@@ -250,6 +250,9 @@
 - (void)hometeamSwitch{
     [self.headerView teamSwitchChangeBtnTitle];
     [self changeTopLeftNavTitleName];
+    SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    NSString *title = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
+    [self.mineTypeBtn setTitle:title forState:UIControlStateNormal];
     WeakSelf
     [self loadAllIssueList:^{
         dispatch_async(dispatch_get_main_queue(), ^{
