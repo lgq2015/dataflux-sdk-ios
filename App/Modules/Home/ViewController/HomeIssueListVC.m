@@ -251,6 +251,7 @@
     [self.headerView teamSwitchChangeBtnTitle];
     [self changeTopLeftNavTitleName];
     SelectObject *selO =[[IssueListManger sharedIssueListManger] getCurrentSelectObject];
+    self.selObj = selO;
     NSString *title = selO.issueFrom == IssueFromMe?NSLocalizedString(@"local.MyIssue", @""):NSLocalizedString(@"local.AllIssue", @"");
     [self.mineTypeBtn setTitle:title forState:UIControlStateNormal];
     WeakSelf
