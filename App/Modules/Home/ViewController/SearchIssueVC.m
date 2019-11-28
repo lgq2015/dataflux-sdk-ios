@@ -86,10 +86,13 @@
     [self.tableView reloadData];
 }
 - (void)updateAllData{
-    [self.datas removeAllObjects];
-    NSArray *issueData = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:self.currentSelect issueTitle:self.searchText];
-    [self.datas addObjectsFromArray:issueData];
-    [self dealDatas];
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+          [self.datas removeAllObjects];
+             NSArray *issueData = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:self.currentSelect issueTitle:self.searchText];
+             [self.datas addObjectsFromArray:issueData];
+             [self dealDatas];
+       }                                           getAllDatas:NO];
+   
 }
 -(void)footerRefreshing{
     self.currentPage++;

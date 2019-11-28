@@ -369,7 +369,12 @@ static const int IgnoreBtnTag = 15;
         [[PWHttpEngine sharedInstance] issueIgnoreWithIssueId:self.model.issueId callBack:^(id response) {
             BaseReturnModel *model = response;
             if (model.isSuccess) {
-                weakSelf.updateAllClick();
+                if(weakSelf.updateAllClick){
+                    weakSelf.updateAllClick();
+                }
+                if(weakSelf.calendarRefresh){
+                    weakSelf.calendarRefresh();
+                }
                 [weakSelf backBtnClicked];
             }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
