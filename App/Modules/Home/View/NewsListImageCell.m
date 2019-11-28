@@ -28,7 +28,6 @@
 }
 -(void)setModel:(NewsListModel *)model{
     _model = model;
-    _model = model;
     if (_model.isStarred) {
         self.timeLab.hidden = YES;
         self.topStateLab.hidden = NO;
