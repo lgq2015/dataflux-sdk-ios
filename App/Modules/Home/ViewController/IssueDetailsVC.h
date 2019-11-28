@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IssueDetailsVC : RootViewController
 @property (nonatomic, strong) IssueListViewModel *model;
-@property (nonatomic, copy) void(^updateAllClick)(void);
 @property (nonatomic, copy) void(^calendarRefresh)(void);
 @property (nonatomic, copy) void(^calendarLogRefresh)(void);
 

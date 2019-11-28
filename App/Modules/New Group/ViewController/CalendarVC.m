@@ -25,10 +25,13 @@
 @property (nonatomic, assign) BOOL isLoadTop;
 @property (nonatomic, strong) HLSafeMutableArray *calendarList;
 @property (nonatomic, strong) CalendarSelView *selView;
+@property (nonatomic, assign) BOOL goDetail;//来判断 是否需要刷新列表
 @end
 
 @implementation CalendarVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    self.goDetail = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createNav];
@@ -36,10 +39,10 @@
     [self loadCalendarDot];
     [self loadCurrentList];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(issueTeamSwitch:)
+                                             selector:@selector(resetCalenderData)
                                                  name:KNotificationSwitchTeam
                                                object:nil];
-
+    [kNotificationCenter addObserver:self selector:@selector(reloadIssue) name:KNotificationReloadIssueList object:nil];
     // Do any additional setup after loading the view.
 }
 -(NSMutableArray *)calendarList{
@@ -57,7 +60,7 @@
     }
     return _selView;
 }
-- (void)issueTeamSwitch:(NSNotification *)notification{
+- (void)resetCalenderData{
     [self.manager showSingleWeek];
     [self.manager.calenderScrollView backToday];
     [eventsByDate removeAllObjects];
@@ -66,6 +69,15 @@
     [self.manager goToDate:[NSDate date]];
     [self loadCalendarDot];
     [self loadCurrentList];
+}
+- (void)reloadIssue{
+    // 不是从日历进入且当前视图为情报视图  进行刷新
+    if (!self.goDetail) {
+        CalendarViewType type = [userManager getCurrentCalendarViewType];
+        if (type == CalendarViewTypeGeneral) {
+            [self resetCalenderData];
+        }
+    }
 }
 #pragma mark ========== UI ==========
 - (void)createNav{
@@ -345,6 +357,7 @@
                 WeakSelf
                 CalendarViewType type = [userManager getCurrentCalendarViewType];
                 if (type == CalendarViewTypeGeneral) {
+                    self.goDetail = YES;
                     detail.calendarRefresh = ^(){
                      model.isEnd = YES;
                      [weakSelf.manager.calenderScrollView.tableView reloadData];

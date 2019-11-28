@@ -45,8 +45,7 @@
                             selector:@selector(onNewIssueAddUpdate:)
                                 name:KNotificationNewIssue
                               object:nil];
-    [kNotificationCenter addObserver:self selector:@selector(headerRefreshing) name:KNotificationReloadIssueList object:nil];
-
+   
     [self createUI];
 }
 - (void)dealWithNotificationData{
@@ -285,10 +284,6 @@
     model.isRead = YES;
     IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
     detailsVC.model = model;
-    WeakSelf
-    detailsVC.updateAllClick = ^(void){
-        [weakSelf updateAllData];
-    };
     [self.navigationController pushViewController:detailsVC animated:YES];
     [self.tableView reloadData];
     [[[ZhugeIOIssueHelper new] eventLookIssue] track];

@@ -151,7 +151,7 @@ static const int IgnoreBtnTag = 15;
             }
         });
     }];
-    [self getNewChatDatasAndScrollTop:NO];
+//    [self getNewChatDatasAndScrollTop:NO];
 }
 -(IssueEngineHeaderView *)engineHeader{
     if (!_engineHeader) {
@@ -230,9 +230,8 @@ static const int IgnoreBtnTag = 15;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.tableHeaderView = self.engineHeader;
             });
-        }else{
-            [SVProgressHUD dismiss];
         }
+         [SVProgressHUD dismiss];
     } failBlock:^(NSError *error) {
         [SVProgressHUD dismiss];
         [error errorToast];
@@ -324,7 +323,6 @@ static const int IgnoreBtnTag = 15;
             NSString *showTip = button.selected? NSLocalizedString(@"local.AlreadyUnfollowed", @""):NSLocalizedString(@"local.FocusOnSuccess", @"");
             self.watchBtn.selected = !button.selected;
             [SVProgressHUD showSuccessWithStatus:showTip];
-            KPostNotification(KNotificationReloadIssueList, nil);
         }else{
             [iToast alertWithTitleCenter:model.errorMsg];
         }
@@ -366,16 +364,17 @@ static const int IgnoreBtnTag = 15;
     WeakSelf
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"local.tip.IgnoreTipTitle", @"") message:NSLocalizedString(@"local.tip.IgnoreTipContent", @"") preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [PWCommonCtrl actionWithTitle:NSLocalizedString(@"local.verify", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+        [SVProgressHUD show];
         [[PWHttpEngine sharedInstance] issueIgnoreWithIssueId:self.model.issueId callBack:^(id response) {
             BaseReturnModel *model = response;
             if (model.isSuccess) {
-                if(weakSelf.updateAllClick){
-                    weakSelf.updateAllClick();
-                }
                 if(weakSelf.calendarRefresh){
                     weakSelf.calendarRefresh();
                 }
-                [weakSelf backBtnClicked];
+                [SVProgressHUD dismissWithDelay:0.2 completion:^{
+                    KPostNotification(KNotificationReloadIssueList, nil);
+                    [weakSelf backBtnClicked];
+                }];
             }else{
                 [iToast alertWithTitleCenter:model.errorMsg];
             }
@@ -757,8 +756,8 @@ static const int IgnoreBtnTag = 15;
    
     [[IssueListManger sharedIssueListManger] readIssue:self.model.issueId];
     [[IssueChatDataManager sharedInstance] logReadSeqWithissueId:self.model.issueId];
-    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
-                                     userInfo:@{@"updateView":@(YES)}];
+//    [kNotificationCenter postNotificationName:KNotificationUpdateIssueList object:nil
+//                                     userInfo:@{@"updateView":@(YES)}];
 
     NSString *levelTitle = @"";
     switch (self.model.state) {

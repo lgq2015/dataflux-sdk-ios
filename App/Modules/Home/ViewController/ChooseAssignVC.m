@@ -206,7 +206,7 @@
         BaseReturnModel *model = response;
         [SVProgressHUD dismiss];
         if (model.isSuccess) {
-            KPostNotification(KNotificationReloadIssueList, nil);
+//            KPostNotification(KNotificationReloadIssueList, nil);
             if (weakSelf.MemberInfo) {
                 weakSelf.MemberInfo(self.currentModel);
             }

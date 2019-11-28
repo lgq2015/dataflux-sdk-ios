@@ -51,6 +51,8 @@
                                   selector:@selector(issueUpdate)
                                       name:KNotificationUpdateIssueList
                                     object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(reloadIssue) name:KNotificationReloadIssueList object:nil];
+
     WeakSelf
     [self loadAllIssueList:^{
         
@@ -77,6 +79,11 @@
         
     }];
    
+}
+- (void)reloadIssue{
+    [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
+        [self issueUpdate];
+       }                                           getAllDatas:NO];
 }
 - (void)createNav{
     UIView *nav = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, HomeNavHeight)];

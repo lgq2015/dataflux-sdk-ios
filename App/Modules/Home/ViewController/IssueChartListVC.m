@@ -36,6 +36,7 @@
                                   selector:@selector(updateAllData)
                                       name:KNotificationUpdateIssueList
                                     object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(loadAllData) name:KNotificationReloadIssueList object:nil];
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -128,15 +129,18 @@
        [self.tableView reloadData];
      }
 }
-- (void)updateAllData{
+- (void)loadAllData{
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
-            [self.datas removeAllObjects];
-              NSArray *issueData = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:self.currentSelect];
-              [self.datas addObjectsFromArray:issueData];
-              [self dealDatas];
+        [self updateAllData];
         }                                           getAllDatas:NO];
     
    
+}
+-(void)updateAllData{
+    [self.datas removeAllObjects];
+    NSArray *issueData = [[IssueListManger sharedIssueListManger] getIssueListWithSelectObject:self.currentSelect];
+    [self.datas addObjectsFromArray:issueData];
+    [self dealDatas];
 }
 -(void)footerRefreshing{
     self.currentPage++;
@@ -188,10 +192,6 @@
     model.isRead = YES;
     IssueDetailsVC *detailsVC = [[IssueDetailsVC alloc]init];
     detailsVC.model = model;
-    WeakSelf
-    detailsVC.updateAllClick = ^(void){
-        [weakSelf updateAllData];
-    };
     [self.navigationController pushViewController:detailsVC animated:YES];
     [self.tableView reloadData];
     [[[ZhugeIOIssueHelper new] eventLookIssue] track];
