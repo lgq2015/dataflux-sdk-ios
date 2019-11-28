@@ -66,8 +66,10 @@
     }else{
         self.currentChart?alarmModel.echartDatas = self.currentChart:nil;
         self.reportModel? [self.dataSource addObject:self.reportModel]:nil;
-        [self.tableView reloadData];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+               [self.tableView reloadData];
+           });
 }
 -(void)getRepprtList{
     __block ClassifyModel *reportModel = [ClassifyModel new];
@@ -81,6 +83,8 @@
                    ReportListModel *model = response;
                    if (model.isSuccess) {
                        reportModel.dayAry = model.list;
+                   }else{
+                       [iToast alertWithTitleCenter:model.errorMsg];
                    }
                  dispatch_group_leave(grpupT);
                }];
@@ -91,6 +95,8 @@
                    ReportListModel *model = response;
                    if (model.isSuccess) {
                        reportModel.serviceAry = model.list;
+                   }else{
+                       [iToast alertWithTitleCenter:model.errorMsg];
                    }
                  dispatch_group_leave(grpupT);
                }];
@@ -101,6 +107,8 @@
                       ReportListModel *model = response;
                       if (model.isSuccess) {
                           reportModel.webAry = model.list;
+                      }else{
+                        [iToast alertWithTitleCenter:model.errorMsg];
                       }
                     dispatch_group_leave(grpupT);
                   }];
