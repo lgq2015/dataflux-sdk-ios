@@ -36,7 +36,7 @@
                                   selector:@selector(updateAllData)
                                       name:KNotificationUpdateIssueList
                                     object:nil];
-    [kNotificationCenter addObserver:self selector:@selector(loadAllData) name:KNotificationReloadIssueList object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(updateAllData) name:KNotificationReloadChartList object:nil];
     [self createUI];
     // Do any additional setup after loading the view.
 }
@@ -51,6 +51,7 @@
     self.tableView.delegate = self;
     self.tableView.backgroundColor = PWBackgroundColor;
     self.tableView.frame = CGRectMake(0, ZOOM_SCALE(42), kWidth, kHeight-kTopHeight-ZOOM_SCALE(42));
+    self.tableView.mj_header = self.header;
     self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
     self.headerView =[[IssueSelectHeaderView alloc]initWithFrame:CGRectMake(0, 0, kWidth, ZOOM_SCALE(42)) selectObject:self.currentSelect type:SelectHeaderStatistical classifyType:self.model.type];
     self.headerView.delegate = self;
@@ -65,6 +66,9 @@
     [self.tableView registerClass:[IssueCell class] forCellReuseIdentifier:@"IssueCell"];
     [self updateAllData];
     [self dealDatas];
+}
+-(void)headerRefreshing{
+    [self updateAllData];
 }
 -(SelectObject *)currentSelect{
     if (!_currentSelect) {
@@ -130,10 +134,11 @@
      }
 }
 - (void)loadAllData{
+    
     [[IssueListManger sharedIssueListManger] fetchIssueList:^(BaseReturnModel *model) {
         [self updateAllData];
         }                                           getAllDatas:NO];
-    
+     [self updateAllData];
    
 }
 -(void)updateAllData{

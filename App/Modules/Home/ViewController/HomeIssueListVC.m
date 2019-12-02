@@ -166,6 +166,7 @@
             line.frame = CGRectMake(0, HomeNavHeight+41.5, kWidth, 0.5);
             contentView.frame = CGRectMake(0,HomeNavHeight+84, kWidth, kHeight-kTabBarHeight-HomeNavHeight-84);
             self.mineTypeBtn.hidden = NO;
+            [self.listVC.tableView becomeFirstResponder];
         }else{
             [self transitionFromViewController:self.listVC toViewController:self.chartVC duration:0.2 options:UIViewAnimationOptionAutoreverse animations:nil completion:^(BOOL finished) {
                 [contentView addSubview:self.chartVC.view];
@@ -175,6 +176,7 @@
             line.frame = CGRectMake(0, HomeNavHeight-0.5, kWidth, 0.5);
             contentView.frame = CGRectMake(0,HomeNavHeight , kWidth, kHeight-kTabBarHeight-HomeNavHeight);
             self.mineTypeBtn.hidden = YES;
+            [self.chartVC.tableView becomeFirstResponder];
         }
     }];
 }
@@ -232,6 +234,7 @@
 - (void)issueUpdate{
     [self.listVC reloadDataWithSelectObject:nil refresh:NO];
     [self.chartVC refreshDataWithIsChangeTeam:NO];
+    KPostNotification(KNotificationReloadChartList, nil);
 }
 - (void)mineTypeBtnClick:(UIButton *)button{
     button.selected = !button.selected;
