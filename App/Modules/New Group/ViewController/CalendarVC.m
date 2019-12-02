@@ -367,7 +367,10 @@
                      [weakSelf loadTopDatas];
                     };
                 }
-               
+                if (detailModel.recovered != model.isEnd) {
+                    model.isEnd = detailModel.recovered;
+                    [self.manager.calenderScrollView.tableView reloadData];
+                }
                 [self.navigationController pushViewController:detail animated:YES];
             }
         } failBlock:^(NSError *error) {
