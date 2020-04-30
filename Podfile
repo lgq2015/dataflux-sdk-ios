@@ -32,6 +32,7 @@ target 'App' do
   pod 'MCDingTalk', '~> 1.0.1'
   pod 'NBULog', '~> 2.0.0'
   pod 'NBULog/Console' , '~> 2.0.0'
+  pod 'FTAutoTrack', '~>1.0.2-alpha.2'
 end
 
 target 'AppDev' do
@@ -65,6 +66,8 @@ target 'AppDev' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
+    pod 'FTAutoTrack', '~>1.0.2-alpha.2'
+
 end
 
 target 'AppPreMade' do
@@ -98,6 +101,7 @@ target 'AppPreMade' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
+    pod 'FTAutoTrack', '~>1.0.2-alpha.2'
 end
 
 

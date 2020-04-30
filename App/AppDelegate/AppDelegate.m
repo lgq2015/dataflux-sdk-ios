@@ -17,6 +17,8 @@
 #import "PWSocketManager.h"
 #import "HeartBeatManager.h"
 #import "IssueListManger.h"
+#import <FTAutoTrack/FTAutoTrack.h>
+#import <FTMobileAgent/FTMobileAgent.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
@@ -63,6 +65,15 @@
                      apsForProduction:production
                 advertisingIdentifier:nil];
     }
+    FTMobileConfig *config = [[FTMobileConfig alloc]initWithMetricsUrl:@"http://172.16.0.12:32758/v1/write/metrics?token=tkn_4c4f9f29f39c493199bb5abe7df6af21" akId:@"accid" akSecret:@"accsk" enableRequestSigning:YES];
+    config.enableLog = YES;
+    config.enableAutoTrack = YES;
+    config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
+    config.monitorInfoType = FTMonitorInfoTypeAll;
+    [config enableTrackScreenFlow:YES];
+    [config setProduct:@"profWang_iOS_test"];
+    [FTMobileAgent startWithConfigOptions:config];
+    [[FTMobileAgent sharedInstance] startMonitorFlush];
         return YES;
 }
 
