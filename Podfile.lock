@@ -15,16 +15,19 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - AlipaySDK-iOS (15.5.9)
-  - CocoaLumberjack (3.6.0):
-    - CocoaLumberjack/Core (= 3.6.0)
-  - CocoaLumberjack/Core (3.6.0)
+  - CocoaLumberjack (3.6.1):
+    - CocoaLumberjack/Core (= 3.6.1)
+  - CocoaLumberjack/Core (3.6.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - FTAutoTrack (1.0.2-alpha.3):
+    - FTMobileAgent (~> 1.0.2-alpha.4)
+  - FTMobileAgent (1.0.2-alpha.4)
   - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.2.1)
-  - JCore (2.1.4)
-  - JPush (3.2.6):
+  - JCore (2.2.5)
+  - JPush (3.2.8):
     - JCore (< 3.0.0, >= 2.0.0)
   - JSONModel (1.8.0)
   - LBXScan/LBXNative (2.3):
@@ -68,7 +71,7 @@ PODS:
   - Tencent_Open_SDK (1.0.3)
   - TTTAttributedLabel (2.0.0)
   - WebViewJavascriptBridge (6.0.3)
-  - WechatOpenSDK (1.8.6)
+  - WechatOpenSDK (1.8.7.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -80,6 +83,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AlipaySDK-iOS (~> 15.5.9)
   - FMDB (~> 2.7.5)
+  - FTAutoTrack (~> 1.0.2-alpha.3)
   - iOS-Echarts (~> 1.4.4)
   - IQKeyboardManager (~> 6.2.0)
   - JPush (~> 3.2.6)
@@ -109,6 +113,8 @@ SPEC REPOS:
     - AlipaySDK-iOS
     - CocoaLumberjack
     - FMDB
+    - FTAutoTrack
+    - FTMobileAgent
     - iOS-Echarts
     - IQKeyboardManager
     - JCore
@@ -137,12 +143,14 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AlipaySDK-iOS: 1c5283b30977a24acecc0114662697f7dc78f618
-  CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FTAutoTrack: e3594a8f09f2289a506dd6dc2b358f7eb2af33ef
+  FTMobileAgent: 485f515ea0f4bf944eb9f83d77299a8e8cbbc673
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
-  JCore: d345c049141877eb61c33011455fdb5fcab1673f
-  JPush: 41dd48a69bd8c08abc692dc7f2b23c0fb281471f
+  JCore: d75c0306dc99875d323d23e5a063b3a3ef22335a
+  JPush: 8ce888d6dedfa417e90c8b6bc87405a16ce2e699
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   LumberjackConsole: fd454c900893c83ca8f3dc0248a705b9634850d1
@@ -160,10 +168,10 @@ SPEC CHECKSUMS:
   Tencent_Open_SDK: 6172e25b71ad99ca4d260c27cf1eb04ca6311c1a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
-  WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 87c5ec4b2e1783b9837a6ea9ca21818285523bc1
 
-PODFILE CHECKSUM: 084184f4085aee49f39fe750923d05e012df5b42
+PODFILE CHECKSUM: fae2a1925f3c6ff6f92a069d7581d2678f13f03f
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.1
