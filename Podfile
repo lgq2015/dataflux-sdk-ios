@@ -65,7 +65,17 @@ target 'AppDev' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
-    pod 'FTMobileSDK', '~>1.0.2-alpha.9'
+    pod 'FTMobileSDK', '~>1.0.2-alpha.10'
+    post_install do |installer_representation|
+            installer_representation.pods_project.targets.each do |target|
+                if target.name == 'FTMobileSDK'
+                    target.build_configurations.each do |config|
+                            config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)','FT_TRACK_GPUUSAGE=0']
+                            puts "===================>target build configure #{config.build_settings}"
+                    end
+                end
+            end
+        end
 end
 
 target 'AppPreMade' do
