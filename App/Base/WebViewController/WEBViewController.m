@@ -48,8 +48,9 @@
         config.userContentController = userContentController;
         config.selectionGranularity = WKSelectionGranularityDynamic;
         config.allowsInlineMediaPlayback = YES;
-        config.mediaPlaybackRequiresUserAction = false;
-        
+        if (@available(iOS 10.0, *)) {
+            config.mediaTypesRequiringUserActionForPlayback = false;
+        }
         CGRect frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
         _webView = [[WKWebView alloc] initWithFrame:frame configuration:config];
     }
@@ -64,7 +65,7 @@
     NSURL *baseUrl=[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     
     [self.webView loadHTMLString:htmlstring baseURL: baseUrl];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView showJSconsole:NO enableLogging:NO];
     [self.bridge registerHandler:@"shareClick" handler:^(id data, WVJBResponseCallback responseCallback) {
         DLog(@"ObjC Echo called with: %@", data);
         responseCallback(data);

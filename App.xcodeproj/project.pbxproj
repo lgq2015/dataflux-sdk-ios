@@ -351,6 +351,9 @@
 		4A3BB9982465578700D364BB /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BB9942465578700D364BB /* theme */; };
 		4A3BB9992465578700D364BB /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BB9942465578700D364BB /* theme */; };
 		4A3BB99A2465578700D364BB /* theme in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BB9942465578700D364BB /* theme */; };
+		4A3BB9A624657E0C00D364BB /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */; };
+		4A3BB9A724657E0C00D364BB /* WebViewJavascriptLeakAvoider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */; };
+		4A3BB9A824657E0C00D364BB /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */; };
 		4A3CDA25229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA26229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
 		4A3CDA27229BD29400C2EC62 /* TouchLargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */; };
@@ -1643,6 +1646,12 @@
 		4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectNotiRuleTypeView.m; sourceTree = "<group>"; };
 		4A3BB9932465578700D364BB /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; path = js; sourceTree = "<group>"; };
 		4A3BB9942465578700D364BB /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; path = theme; sourceTree = "<group>"; };
+		4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptLeakAvoider.m; sourceTree = "<group>"; };
+		4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		4A3BB9A324657E0C00D364BB /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		4A3BB9A424657E0C00D364BB /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		4A3BB9A524657E0C00D364BB /* WebViewJavascriptLeakAvoider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptLeakAvoider.h; sourceTree = "<group>"; };
 		4A3CDA23229BD29400C2EC62 /* TouchLargeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchLargeButton.h; sourceTree = "<group>"; };
 		4A3CDA24229BD29400C2EC62 /* TouchLargeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchLargeButton.m; sourceTree = "<group>"; };
 		4A3CDA2C229BDB2100C2EC62 /* CalendarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
@@ -2744,6 +2753,19 @@
 			path = BaseModel;
 			sourceTree = "<group>";
 		};
+		4A3BB99F24657E0C00D364BB /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */,
+				4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */,
+				4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */,
+				4A3BB9A324657E0C00D364BB /* WebViewJavascriptBridgeBase.h */,
+				4A3BB9A424657E0C00D364BB /* WebViewJavascriptBridge.h */,
+				4A3BB9A524657E0C00D364BB /* WebViewJavascriptLeakAvoider.h */,
+			);
+			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
 		4A3CDA28229BDABB00C2EC62 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3194,6 +3216,7 @@
 		4A6C2875219C15970059BB08 /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				4A3BB99F24657E0C00D364BB /* WebViewJavascriptBridge */,
 				4A63A4B82330E8B90027C7A1 /* iOS-Echarts */,
 				4A092CED2229294900FB2A35 /* views */,
 			);
@@ -5223,6 +5246,7 @@
 				4A3CDA66229C095900C2EC62 /* LTSCalendarCollectionViewFlowLayout.m in Sources */,
 				4A092CC22227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
 				4A63A5F52330E8BA0027C7A1 /* PYDataZoom.m in Sources */,
+				4A3BB9A624657E0C00D364BB /* WebViewJavascriptBridgeBase.m in Sources */,
 				4AF66390225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4A50D94222F9903D00B2493F /* BookSuccessVC.m in Sources */,
 				4A50F3F1228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
@@ -5377,6 +5401,7 @@
 				4A00DE3422DC449C008462AF /* UtilsConstManager.m in Sources */,
 				CAD9CAC22243EBF00063ABFF /* PasswordVerifyVC.m in Sources */,
 				4A63A5EF2330E8BA0027C7A1 /* PYLinkStyle.m in Sources */,
+				4A3BB9A724657E0C00D364BB /* WebViewJavascriptLeakAvoider.m in Sources */,
 				4A3CDA96229FCA4200C2EC62 /* CalendarListModel.m in Sources */,
 				CA1CF5E8221ECB3A00D15316 /* iToast.m in Sources */,
 				4A01C65B22EF138B008D1609 /* SelectSourceVC.m in Sources */,
@@ -5438,6 +5463,7 @@
 				4AAC141F2276F3520043AD5E /* NoDataView.m in Sources */,
 				4A63A3392328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A63A58F2330E8BA0027C7A1 /* PYWordCloudSeries.m in Sources */,
+				4A3BB9A824657E0C00D364BB /* WebViewJavascriptBridge.m in Sources */,
 				4A241F7123040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2BAF0EB2C27B4EA84A85 /* IssueChatBaseCell.m in Sources */,
 				6B6E2B6F6C59D48F6832F421 /* IssueChatImageCell.m in Sources */,
@@ -6236,7 +6262,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = development_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "AppDev/AppDev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6272,7 +6298,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = distribution_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "AppDev/AppDev-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 			};

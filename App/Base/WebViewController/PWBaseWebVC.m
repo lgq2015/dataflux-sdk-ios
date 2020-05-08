@@ -75,7 +75,11 @@
     
         config.selectionGranularity = WKSelectionGranularityDynamic;
         config.allowsInlineMediaPlayback = YES;
-        config.mediaPlaybackRequiresUserAction = false;
+        if (@available(iOS 10.0, *)) {
+            config.mediaTypesRequiringUserActionForPlayback = false;
+        } else {
+            // Fallback on earlier versions
+        }
         
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
        
@@ -112,7 +116,9 @@
         
         config.selectionGranularity = WKSelectionGranularityDynamic;
         config.allowsInlineMediaPlayback = YES;
-        config.mediaPlaybackRequiresUserAction = false;
+    if (@available(iOS 10.0, *)) {
+        config.mediaTypesRequiringUserActionForPlayback = false;
+    }
         
       WKWebView  *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     
@@ -169,7 +175,7 @@
     [self dealFileFormat:request];
     [self.view addSubview:self.webView];
     
-    self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    self.jsBridge = [WebViewJavascriptBridge bridgeForWebView:self.webView showJSconsole:NO enableLogging:NO];
     [self.jsBridge registerHandler:@"sendEvent" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dict = [data jsonValueDecoded];
         DLog(@"%@",dict);

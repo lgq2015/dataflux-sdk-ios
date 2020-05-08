@@ -20,11 +20,11 @@
 #import "PWNetworking.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSString+verify.h"
-#import <WebViewJavascriptBridge.h>
 #import "UserManager.h"
 #import "PWFMDB.h"
-#import <WebViewJavascriptBridge.h>
+#import "WebViewJavascriptBridge.h"
 #import "NSDate+PWH.h"
+#import <WebKit/WebKit.h>
 #import "PWHttpEngine.h"
 #import "BaseReturnModel.h"
 #import "NSError+CommonToast.h"
