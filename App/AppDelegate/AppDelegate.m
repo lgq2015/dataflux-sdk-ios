@@ -17,8 +17,7 @@
 #import "PWSocketManager.h"
 #import "HeartBeatManager.h"
 #import "IssueListManger.h"
-#import <FTAutoTrack/FTAutoTrack.h>
-#import <FTMobileAgent/FTMobileAgent.h>
+#import <FTMobileAgent.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;

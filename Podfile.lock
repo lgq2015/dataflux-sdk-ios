@@ -21,9 +21,12 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FTAutoTrack (1.0.2-alpha.4):
-    - FTMobileAgent (~> 1.0.2-alpha.4)
-  - FTMobileAgent (1.0.2-alpha.4)
+  - FTMobileSDK (1.0.2-alpha.9):
+    - FTMobileSDK/FTAutoTrack (= 1.0.2-alpha.9)
+    - FTMobileSDK/FTMobileAgent (= 1.0.2-alpha.9)
+  - FTMobileSDK/FTAutoTrack (1.0.2-alpha.9):
+    - FTMobileSDK/FTMobileAgent
+  - FTMobileSDK/FTMobileAgent (1.0.2-alpha.9)
   - iOS-Echarts (1.4.4)
   - IQKeyboardManager (6.2.1)
   - JCore (2.2.5)
@@ -83,7 +86,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AlipaySDK-iOS (~> 15.5.9)
   - FMDB (~> 2.7.5)
-  - FTAutoTrack (~> 1.0.2-alpha.4)
+  - FTMobileSDK (~> 1.0.2-alpha.9)
   - iOS-Echarts (~> 1.4.4)
   - IQKeyboardManager (~> 6.2.0)
   - JPush (~> 3.2.6)
@@ -113,8 +116,7 @@ SPEC REPOS:
     - AlipaySDK-iOS
     - CocoaLumberjack
     - FMDB
-    - FTAutoTrack
-    - FTMobileAgent
+    - FTMobileSDK
     - iOS-Echarts
     - IQKeyboardManager
     - JCore
@@ -145,8 +147,7 @@ SPEC CHECKSUMS:
   AlipaySDK-iOS: 1c5283b30977a24acecc0114662697f7dc78f618
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FTAutoTrack: 2ca4e3ee1212fb6e81a066a9e452bf40215c5b1d
-  FTMobileAgent: 485f515ea0f4bf944eb9f83d77299a8e8cbbc673
+  FTMobileSDK: 50780e8ec95566ff02d9b6da8caf59cdbd927e6c
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
   JCore: d75c0306dc99875d323d23e5a063b3a3ef22335a
@@ -172,6 +173,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 87c5ec4b2e1783b9837a6ea9ca21818285523bc1
 
-PODFILE CHECKSUM: 87b5ecbbfc7aef68f8cc6b3f18dc8dbdf867efa1
+PODFILE CHECKSUM: 2bde773e86e02c518289f698dd5fac0a25d5420a
 
 COCOAPODS: 1.9.1
