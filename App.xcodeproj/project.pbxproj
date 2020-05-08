@@ -400,7 +400,6 @@
 		4A3CDA9B229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA99229FCA6000C2EC62 /* CalendarIssueModel.m */; };
 		4A3CDA9C229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CDA99229FCA6000C2EC62 /* CalendarIssueModel.m */; };
 		4A3E7E7E246250220004A499 /* libresolv.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3E7E7D246250220004A499 /* libresolv.9.tbd */; };
-		4A3E7F0A24641B1A0004A499 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3E7F0924641B1A0004A499 /* IOKit.framework */; };
 		4A47136922AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47136822AE4F3700EB90F7 /* IssueSelectHeaderView.m */; };
 		4A47136A22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47136822AE4F3700EB90F7 /* IssueSelectHeaderView.m */; };
 		4A47136B22AE4F3700EB90F7 /* IssueSelectHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47136822AE4F3700EB90F7 /* IssueSelectHeaderView.m */; };
@@ -1514,7 +1513,6 @@
 		4A3CDA98229FCA6000C2EC62 /* CalendarIssueModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarIssueModel.h; sourceTree = "<group>"; };
 		4A3CDA99229FCA6000C2EC62 /* CalendarIssueModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarIssueModel.m; sourceTree = "<group>"; };
 		4A3E7E7D246250220004A499 /* libresolv.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.9.tbd; path = usr/lib/libresolv.9.tbd; sourceTree = SDKROOT; };
-		4A3E7F0924641B1A0004A499 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../IOKit.framework; sourceTree = "<group>"; };
 		4A47136722AE4F3700EB90F7 /* IssueSelectHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IssueSelectHeaderView.h; sourceTree = "<group>"; };
 		4A47136822AE4F3700EB90F7 /* IssueSelectHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueSelectHeaderView.m; sourceTree = "<group>"; };
 		4A47136C22AE729F00EB90F7 /* SelectObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectObject.h; sourceTree = "<group>"; };
@@ -2094,7 +2092,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A3E7F0A24641B1A0004A499 /* IOKit.framework in Frameworks */,
 				4A3E7E7E246250220004A499 /* libresolv.9.tbd in Frameworks */,
 				B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */,
 			);
@@ -3754,7 +3751,6 @@
 		AA4215202FD2BC75048B9D47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4A3E7F0924641B1A0004A499 /* IOKit.framework */,
 				4A3E7E7D246250220004A499 /* libresolv.9.tbd */,
 				B970E690A7749BE7FFE2775D /* libPods-App.a */,
 				73E624C4B08AB0A8CAA180BF /* libPods-AppDev.a */,
