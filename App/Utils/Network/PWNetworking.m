@@ -177,7 +177,7 @@ static NSTimeInterval   requestTimeout = 60.f;
         DLog(@"method = %@ baseUrl = %@ param = %@ response = %@ header = %@  ", typestr, url, params, responseObject, manager.requestSerializer.HTTPRequestHeaders);
 
         if (cache) [[PWCacheManager shareManager] cacheResponseObject:responseObject requestUrl:url params:params];
-        [weakManager invalidateSessionCancelingTasks:YES];
+        [weakManager invalidateSessionCancelingTasks:YES resetSession:NO];
 
 //        [[self allTasks] removeObject:session];
     };
@@ -211,7 +211,7 @@ static NSTimeInterval   requestTimeout = 60.f;
             if (failBlock) failBlock(error);
         }
 //           [[self allTasks] removeObject:session];
-        [weakManager invalidateSessionCancelingTasks:YES];
+        [weakManager invalidateSessionCancelingTasks:YES resetSession:NO];
     };
 
     //处理进度
@@ -224,27 +224,25 @@ static NSTimeInterval   requestTimeout = 60.f;
 
     switch (type) {
         case NetworkGetType: {
-            session = [manager GET:url
-                        parameters:params
-                          progress:progress success:success failure:failure];
+            session = [manager GET:url parameters:params headers:nil progress:progress success:success failure:failure];
         }
             break;
         case NetworkPostType: {  // body传输
             session = [manager POST:url
-                         parameters:params
+                         parameters:params headers:nil
                            progress:progress success:success failure:failure];
 
         }
             break;
         case NetworkPatchType:
             session = [manager PATCH:url
-                    parameters:params
+                    parameters:params headers:nil
                              success:success
                              failure:failure];
             break;
         case NetworkDeleteType:
             session = [manager DELETE:url
-                    parameters:params
+                    parameters:params headers:nil
                               success:success
                               failure:failure];
             break;
@@ -286,7 +284,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     }
     
     session = [manager POST:url
-                 parameters:params
+                 parameters:params headers:nil
   constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
       
@@ -441,7 +439,7 @@ static NSTimeInterval   requestTimeout = 60.f;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"X-Auth-Token"];
     session = [manager GET:url
-                parameters:nil
+                parameters:nil headers:nil
                   progress:^(NSProgress * _Nonnull downloadProgress) {
                       if (progressBlock) progressBlock(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
                       

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target 'App' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
@@ -7,7 +7,7 @@ target 'App' do
  
   # Pods for App
   pod 'SDWebImage', '~>3.8'
-  pod 'AFNetworking', '~> 3.0'
+  pod 'AFNetworking', '~> 4.0'
   pod 'JSONModel', '~> 1.8.0'
   pod 'Masonry', '~> 1.1.0'
   pod 'ReactiveCocoa' , '2.0'
@@ -39,7 +39,7 @@ target 'AppDev' do
     
     # Pods for App
     pod 'SDWebImage', '~>3.8'
-    pod 'AFNetworking', '~> 3.0'
+    pod 'AFNetworking', '~> 4.0'
     pod 'JSONModel', '~> 1.8.0'
     pod 'Masonry', '~> 1.1.0'
     pod 'ReactiveCocoa' , '2.0'
@@ -82,7 +82,7 @@ target 'AppPreMade' do
     
     # Pods for App
     pod 'SDWebImage', '~>3.8'
-    pod 'AFNetworking', '~> 3.0'
+    pod 'AFNetworking', '~> 4.0'
     pod 'JSONModel', '~> 1.8.0'
     pod 'Masonry', '~> 1.1.0'
     pod 'ReactiveCocoa' , '2.0'
