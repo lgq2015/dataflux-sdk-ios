@@ -171,9 +171,8 @@
 }
 - (void)btnClickedOperations{
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",self.model.mobile];
-    UIWebView * callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self addSubview:callWebview];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 - (void)setTeamMemberSelect:(BOOL)isSelect{
    UIImageView *selImage= [self.contentView viewWithTag:55];

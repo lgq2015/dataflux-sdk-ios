@@ -356,9 +356,8 @@
         return;
     }
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",mobile];
-    UIWebView * callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
 
     if(self.type==PWMemberViewTypeExpert){
         [[[[ZhugeIOIssueHelper new] eventCallExpert] attrCallPhone:YES] track];

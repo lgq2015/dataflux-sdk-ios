@@ -131,9 +131,8 @@
 }
 - (void)btnClickedOperations{
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"400-882-3320"];
-    UIWebView * callWebview = [[UIWebView alloc] init];
-    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-    [self.view addSubview:callWebview];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
 }
 #pragma mark 请求
 - (void)requesetContactUserData{
