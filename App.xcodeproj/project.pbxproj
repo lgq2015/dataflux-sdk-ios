@@ -932,6 +932,9 @@
 		4ACF4A5F24668CB300D20DA9 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */; };
 		4ACF4A6024668CB500D20DA9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */; };
 		4ACF4A6124668CB600D20DA9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */; };
+		4ACF4A652466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
+		4ACF4A662466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
+		4ACF4A672466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
@@ -2148,6 +2151,7 @@
 		4AC857B3223CD02A00DAE1F6 /* IssueAttachmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IssueAttachmentModel.m; sourceTree = "<group>"; };
 		4AC857B7223D045800DAE1F6 /* WEBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WEBViewController.h; sourceTree = "<group>"; };
 		4AC857B8223D045800DAE1F6 /* WEBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEBViewController.m; sourceTree = "<group>"; };
+		4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
 		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E8221FFC06002ADF62 /* WebItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebItemView.h; sourceTree = "<group>"; };
@@ -2379,6 +2383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE2F6C2A4D1F68EF40F9CE3D /* libPods-App.a in Frameworks */,
+				4ACF4A652466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2387,6 +2392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A3E7E7E246250220004A499 /* libresolv.9.tbd in Frameworks */,
+				4ACF4A662466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */,
 				B3F01C123AE5346D4F3F7157 /* libPods-AppDev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2396,6 +2402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DE47111EAD1F5FA60C6E174 /* libPods-AppPreMade.a in Frameworks */,
+				4ACF4A672466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3222,6 +3229,7 @@
 		4A6C2875219C15970059BB08 /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */,
 				4A3BB99F24657E0C00D364BB /* WebViewJavascriptBridge */,
 				4A63A4B82330E8B90027C7A1 /* iOS-Echarts */,
 				4A092CED2229294900FB2A35 /* views */,
@@ -6157,6 +6165,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/App/ThridParty",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -6208,6 +6220,10 @@
 				CURRENT_PROJECT_VERSION = 20200426.1656;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/App/ThridParty",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -6258,6 +6274,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/App/ThridParty",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -6295,6 +6312,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/App/ThridParty",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"COCOAPODS=1",
@@ -6328,6 +6346,10 @@
 				CURRENT_PROJECT_VERSION = 20200426.1656;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/App/ThridParty",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -6360,6 +6382,10 @@
 				CURRENT_PROJECT_VERSION = 20200426.1656;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/App/ThridParty",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"COCOAPODS=1",
 					"PREPROD=1",
