@@ -29,7 +29,6 @@
 #import "IssueListViewModel.h"
 #import "NewsWebView.h"
 #import "NewsListModel.h"
-#import <AlipaySDK/AlipaySDK.h>
 #import "HomeIssueIndexGuidanceView.h"
 #import "IssueListManger.h"
 #import "IssueDetailsVC.h"
@@ -435,31 +434,7 @@
 #pragma mark ========== OpenURL 回调 ==========
 // 支持所有iOS系统。注：此方法是老方法，建议同时实现 application:openURL:options: 若APP不支持iOS9以下，可直接废弃当前，直接使用application:openURL:options:
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    if ([url.host isEqualToString:@"safepay"]) {
-        // 支付跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"Alipay result = %@",resultDic);
-            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
-        }];
-        // 授权跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"Alipay result = %@",resultDic);
-            // 解析 auth code
-            NSString *result = resultDic[@"result"];
-            NSString *authCode = nil;
-            if (result.length>0) {
-                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
-                for (NSString *subResult in resultArr) {
-                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
-                        authCode = [subResult substringFromIndex:10];
-                        break;
-                    }
-                }
-            }
-            DLog(@"AliPay authCode = %@", authCode?:@"");
-            [[NSNotificationCenter defaultCenter] postNotificationName:KZhifubaoPayResult object:resultDic];
-        }];
-    }
+   
     [WXApi handleOpenURL:url delegate:self];
     return YES;
 }
@@ -467,30 +442,6 @@
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options{
 
-    if ([url.host isEqualToString:@"safepay"]) {
-        // 支付跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"AliPay result = %@",resultDic);
-        }];
-        // 授权跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            DLog(@"AliPay result = %@",resultDic);
-            // 解析 auth code
-            NSString *result = resultDic[@"result"];
-            NSString *authCode = nil;
-            if (result.length>0) {
-                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
-                for (NSString *subResult in resultArr) {
-                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
-                        authCode = [subResult substringFromIndex:10];
-                        break;
-                    }
-                }
-            }
-            DLog(@"AliPay Result authCode = %@", authCode?:@"");
-        }];
-         return YES;
-    }
     [WXApi handleOpenURL:url delegate:self];
     [self handleOpenUrl:url];
     return YES;

@@ -11,7 +11,6 @@
 #import "BookSuccessVC.h"
 #import "ServiceDetailVC+ChangeNavColor.h"
 #import "ZYPayWayUIManager.h"
-#import <AlipaySDK/AlipaySDK.h>
 #import "ZTCreateTeamVC.h"
 @interface ServiceDetailVC ()<UIScrollViewDelegate>
 
@@ -69,16 +68,16 @@
     #else //正式环境
     appScheme = @"prof-wang";
     #endif
-    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-        DLog(@"ServiceDetailVC PayResult = %@",resultDic);
-        int statusCode = [resultDic[@"resultStatus"]  intValue];
-        if (statusCode == 9000){
-            DLog(@"Pay Success");
-        }
-        else{
-            DLog(@"Pay failed")
-        }
-    }];
+//    [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+//        DLog(@"ServiceDetailVC PayResult = %@",resultDic);
+//        int statusCode = [resultDic[@"resultStatus"]  intValue];
+//        if (statusCode == 9000){
+//            DLog(@"Pay Success");
+//        }
+//        else{
+//            DLog(@"Pay failed")
+//        }
+//    }];
 }
 #pragma mark ===通知支付回调处理=====
 - (void)zhifubaoCallBack:(NSNotification *)notif{
