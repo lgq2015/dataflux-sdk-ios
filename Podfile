@@ -61,7 +61,7 @@ target 'AppDev' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
-    pod 'FTMobileSDK', '~>1.0.2-alpha.11'
+    pod 'FTMobileSDK', '~>1.0.2-alpha.12'
     post_install do |installer_representation|
             installer_representation.pods_project.targets.each do |target|
                 if target.name == 'FTMobileSDK'

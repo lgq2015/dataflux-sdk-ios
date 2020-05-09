@@ -926,6 +926,12 @@
 		4AC857B9223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
 		4AC857BA223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
 		4AC857BB223D045800DAE1F6 /* WEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AC857B8223D045800DAE1F6 /* WEBViewController.m */; };
+		4ACF4A5C24668CAF00D20DA9 /* WebViewJavascriptLeakAvoider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */; };
+		4ACF4A5D24668CB000D20DA9 /* WebViewJavascriptLeakAvoider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */; };
+		4ACF4A5E24668CB200D20DA9 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */; };
+		4ACF4A5F24668CB300D20DA9 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */; };
+		4ACF4A6024668CB500D20DA9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */; };
+		4ACF4A6124668CB600D20DA9 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */; };
 		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
@@ -4684,6 +4690,7 @@
 				4A63A5CD2330E8BA0027C7A1 /* PYAxisPointer.m in Sources */,
 				4A61146721DE0B5300E4138B /* MineCellModel.m in Sources */,
 				4A63A5DC2330E8BA0027C7A1 /* PYLegend.m in Sources */,
+				4ACF4A5E24668CB200D20DA9 /* WebViewJavascriptBridgeBase.m in Sources */,
 				4AE9C4E921D205B5003BB9CB /* SettingUpVC.m in Sources */,
 				4A50D93C22F9902300B2493F /* ServiceDetailVC.m in Sources */,
 				4A50D91A22F13B6100B2493F /* OriginModel.m in Sources */,
@@ -4937,6 +4944,7 @@
 				4ABF437821B76B6D002AF34E /* MainTabBarController.m in Sources */,
 				4A00DDAC22D2EED0008462AF /* AddNotiRuleVC.m in Sources */,
 				4AC857AF223CCCD000DAE1F6 /* IssueAttachmentCell.m in Sources */,
+				4ACF4A5C24668CAF00D20DA9 /* WebViewJavascriptLeakAvoider.m in Sources */,
 				4A63A5D32330E8BA0027C7A1 /* PYLineStyle.m in Sources */,
 				4A6C288F219D59700059BB08 /* RefreshTableView.m in Sources */,
 				4A63A60F2330E8BA0027C7A1 /* NSObject+PYObject.m in Sources */,
@@ -5036,6 +5044,7 @@
 				4AAC141E2276F3510043AD5E /* NoDataView.m in Sources */,
 				4A63A3382328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A63A58E2330E8BA0027C7A1 /* PYWordCloudSeries.m in Sources */,
+				4ACF4A6024668CB500D20DA9 /* WebViewJavascriptBridge.m in Sources */,
 				4A241F7023040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E2275D749DE08B206778F /* IssueChatBaseCell.m in Sources */,
 				6B6E26B4CF5E28E8EB4263A4 /* IssueChatImageCell.m in Sources */,
@@ -5537,6 +5546,7 @@
 				4A63A5CF2330E8BA0027C7A1 /* PYAxisPointer.m in Sources */,
 				CA1CF625221ECB5000D15316 /* SettingUpVC.m in Sources */,
 				4A63A5DE2330E8BA0027C7A1 /* PYLegend.m in Sources */,
+				4ACF4A5F24668CB300D20DA9 /* WebViewJavascriptBridgeBase.m in Sources */,
 				CA1CF626221ECB5000D15316 /* NaviBarView.m in Sources */,
 				4A50D93E22F9902300B2493F /* ServiceDetailVC.m in Sources */,
 				4A50D91C22F13B6100B2493F /* OriginModel.m in Sources */,
@@ -5790,6 +5800,7 @@
 				CA1CF67B221ECB5000D15316 /* PWGridView.m in Sources */,
 				4A00DDAE22D2EED0008462AF /* AddNotiRuleVC.m in Sources */,
 				4AC8575C22362C4E00DAE1F6 /* BorderView.m in Sources */,
+				4ACF4A5D24668CB000D20DA9 /* WebViewJavascriptLeakAvoider.m in Sources */,
 				4A63A5D52330E8BA0027C7A1 /* PYLineStyle.m in Sources */,
 				CA1CF67C221ECB5000D15316 /* AppDelegate.m in Sources */,
 				4A63A6112330E8BA0027C7A1 /* NSObject+PYObject.m in Sources */,
@@ -5889,6 +5900,7 @@
 				4AAC14202276F3520043AD5E /* NoDataView.m in Sources */,
 				4A63A33A2328D7B90027C7A1 /* SearchBarView.m in Sources */,
 				4A63A5902330E8BA0027C7A1 /* PYWordCloudSeries.m in Sources */,
+				4ACF4A6124668CB600D20DA9 /* WebViewJavascriptBridge.m in Sources */,
 				4A241F7223040AE200DC47A9 /* AuthTeamListModel.m in Sources */,
 				6B6E225626C0E2CFF78F1C45 /* IssueChatBaseCell.m in Sources */,
 				6B6E26A4B516FB0817B6E536 /* IssueChatImageCell.m in Sources */,
