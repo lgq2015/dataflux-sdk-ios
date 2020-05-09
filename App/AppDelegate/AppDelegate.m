@@ -70,7 +70,6 @@
     config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
     config.monitorInfoType = FTMonitorInfoTypeAll;
     [config enableTrackScreenFlow:YES];
-    [config setProduct:@"profWang_iOS_test"];
     [FTMobileAgent startWithConfigOptions:config];
     [[FTMobileAgent sharedInstance] startMonitorFlush];
         return YES;
