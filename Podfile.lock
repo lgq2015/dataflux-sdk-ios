@@ -20,15 +20,15 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FTMobileSDK (1.0.2-alpha.13):
-    - FTMobileSDK/FTAutoTrack (= 1.0.2-alpha.13)
-    - FTMobileSDK/FTMobileAgent (= 1.0.2-alpha.13)
-  - FTMobileSDK/FTAutoTrack (1.0.2-alpha.13):
+  - FTMobileSDK (1.0.2-alpha.14):
+    - FTMobileSDK/FTAutoTrack (= 1.0.2-alpha.14)
+    - FTMobileSDK/FTMobileAgent (= 1.0.2-alpha.14)
+  - FTMobileSDK/FTAutoTrack (1.0.2-alpha.14):
     - FTMobileSDK/FTMobileAgent
-  - FTMobileSDK/FTMobileAgent (1.0.2-alpha.13)
+  - FTMobileSDK/FTMobileAgent (1.0.2-alpha.14)
   - IQKeyboardManager (6.2.1)
   - JCore (2.2.5)
-  - JPush (3.3.2):
+  - JPush (3.3.3):
     - JCore (< 3.0.0, >= 2.0.0)
   - JSONModel (1.8.0)
   - LBXScan/LBXNative (2.3):
@@ -81,7 +81,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - FMDB (~> 2.7.5)
-  - FTMobileSDK (~> 1.0.2-alpha.13)
+  - FTMobileSDK (~> 1.0.2-alpha.14)
   - IQKeyboardManager (~> 6.2.0)
   - JPush (~> 3.3.2)
   - JSONModel (~> 1.8.0)
@@ -134,10 +134,10 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FTMobileSDK: a2581b4dd4e6c166ab89ebdb9c12940e3d3755cd
+  FTMobileSDK: 7daf3dc3b5b823e025c1553b4ad85f46edb74bed
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
   JCore: d75c0306dc99875d323d23e5a063b3a3ef22335a
-  JPush: 9468c84a3809dc3ac2fc1c89c6d1d6c858a91bf5
+  JPush: 61b3dc8c2bdefb7c48e7ca283f9fe42e71bfe063
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
   LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
   LumberjackConsole: fd454c900893c83ca8f3dc0248a705b9634850d1
@@ -157,6 +157,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 87c5ec4b2e1783b9837a6ea9ca21818285523bc1
 
-PODFILE CHECKSUM: 8bdd2c7590d90a36058409498af72219ac06a647
+PODFILE CHECKSUM: 3d1b4b1a951016c82b8f5c70612ee12ac5f95442
 
 COCOAPODS: 1.9.1
