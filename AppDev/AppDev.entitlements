@@ -21,6 +21,8 @@
 	<array>
 		<string>CloudDocuments</string>
 	</array>
+	<key>com.apple.developer.networking.wifi-info</key>
+	<true/>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
 	<array>
 		<string>iCloud.com.wangjiao.prof.wang.icloud</string>
