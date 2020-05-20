@@ -15,7 +15,7 @@
 #import "PWPhotoOrAlbumImagePicker.h"
 #import "UIImage+fixOrientation.h"
 #import "ZhugeIOMineHelper.h"
-
+#import <FTMobileAgent.h>
 @interface PersonalInfoVC ()<UITableViewDelegate,UITableViewDataSource,PWPhotoPickerProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
@@ -55,6 +55,7 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
     [self.tableView reloadData];
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
+    self.tableView.vtpAddIndexPath = YES;
     [self.view addSubview:self.tableView];
 }
 - (void)updateUser{

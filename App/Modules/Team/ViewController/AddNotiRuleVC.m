@@ -20,6 +20,7 @@
 #import "PWBaseWebVC.h"
 #import "MoreRuleLinkCell.h"
 #import "MoreRuleBtnCell.h"
+#import <FTMobileAgent.h>
 @interface AddNotiRuleVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIButton *navRightBtn;
 @property (nonatomic, assign) AddNotiRuleViewStyle style;
@@ -59,6 +60,7 @@
     [self.tableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
     [self.tableView registerClass:MoreRuleLinkCell.class forCellReuseIdentifier:@"MoreRuleLinkCell"];
     [self.tableView registerClass:MoreRuleBtnCell.class forCellReuseIdentifier:@"MoreRuleBtnCell"];
+    self.tableView.vtpAddIndexPath = YES;
     [self dealDatas];
    
     

@@ -12,7 +12,7 @@
 #import "ChangeUserInfoVC.h"
 #import "PWBaseWebVC.h"
 #import "ZhugeIOMineHelper.h"
-
+#import <FTMobileAgent.h>
 @interface SecurityPrivacyVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -41,6 +41,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
     self.tableView.frame = CGRectMake(0, 0, kWidth, kHeight-kTopHeight);
+    self.tableView.vtpAddIndexPath = YES;
     [self.view addSubview:self.tableView];
 }
 #pragma mark ========== UITableViewDataSource ==========

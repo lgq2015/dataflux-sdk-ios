@@ -38,6 +38,7 @@
 #import "IssueSourceManger.h"
 #import "LoginPWVC.h"
 #import "NSString+ErrorCode.h"
+#import <FTMobileAgent.h>
 
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
@@ -90,11 +91,136 @@
     [self isShowVCName:YES];
 #endif
 }
-#pragma mark ========== 初始化网络配置 ==========
--(void)NetWorkConfig{
-  
+-(void)configFTSDK{
+    FTMobileConfig *config = [[FTMobileConfig alloc]initWithMetricsUrl:@"http://172.16.0.12:32758/v1/write/metrics?token=tkn_4c4f9f29f39c493199bb5abe7df6af21" akId:@"accid" akSecret:@"accsk" enableRequestSigning:YES];
+       config.enableLog = YES;
+       config.enableAutoTrack = YES;
+       config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
+       config.monitorInfoType = FTMonitorInfoTypeAll;
+       [config enableTrackScreenFlow:YES];
+       [FTMobileAgent startWithConfigOptions:config];
+       [[FTMobileAgent sharedInstance] startMonitorFlush];
+    
+    NSDictionary *pages = @{@"LaunchVC":@"启动页面",
+                            @"LoginPWVC":@"密码登录页面",
+                            @"LoginVerifyCodeVC":@"验证码登录页面",
+                            @"RegisterVC":@"注册页面",
+                            @"FindPasswordVC":@"找回密码页面",
+                            @"HomeIssueListVC":@"情报主页面",
+                            @"IssueListVC":@"情报列表页面",
+                            @"IssueChartVC":@"情报统计视图页面",
+                            @"ScanViewController":@"扫码页面",
+                            @"AddIssueVC":@"创建任务页面",
+                            @"IssueDetailsVC":@"情报详情页面",
+                            @"ZTCreateTeamVC":@"创建团队/团队管理页面",
+                            @"SearchIssueVC":@"情报搜索页面",
+                            @"CalendarVC":@"日历页面",
+                            @"LibraryVC":@"智库页面",
+                            @"LibrarySearchVC":@"智库搜索页面",
+                            @"HandBookArticleVC":@"智库手册页面",
+                            @"TeamVC":@"团队页面",
+                            @"IssueSourceListVC":@"云服务页面",
+                            @"MineMessageVC":@"我的消息页面",
+                            @"InviteMembersVC":@"选择团队邀请方式页面",
+                            @"QrCodeInviteVC":@"二维码邀请页面",
+                            @"InviteByPhoneOrEmail":@"邮箱/手机号邀请页面",
+                            @"MineViewController":@"我的页面",
+                            @"MessageDetailVC":@"我的消息详情页面",
+                            @"MineCollectionVC":@"我的收藏页面",
+                            @"FeedbackVC":@"意见和反馈页面",
+                            @"AboutUsVC":@"关于王教授页面",
+                            @"FounctionIntroductionVC":@"功能介绍页面",
+                            @"SettingUpVC":@"设置页面",
+                            @"SecurityPrivacyVC":@"安全与隐私页面",
+                            @"PasswordVerifyVC":@"密码验证页面",
+                            @"VerifyCodeVC":@"验证码验证页面",
+                            @"ContactUsVC":@"联系我们页面",
+                            @"PersonalInfoVC":@"个人信息页面",
+                            @"PWPhotoPickerViewController":@"选择照片页面",
+                            @"ChangeUserInfoVC":@"修改手机号/邮箱页面",
+                            @"NotificationRuleVC":@"通知规则列表页面",
+                            @"AddNotiRuleVC":@"添加通知规则页面",
+                            @"SelectVC":@"通知规则选择条件页面",
+                            @"NoticeTimeVC":@"通知规则选择时间页面",
+                            @"DefineOriginVC":@"填写自定义情报来源页面",
+                            @"SelectAssignVC":@"选择团队成员页面",
+                            @"AtTeamMemberListVC":@"选择@某人的页面",
+    };
+    NSDictionary *vtps = @{@"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIButton[3]":@"点击情报视图切换",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIButton[0]":@"点击进入扫码页面",
+                           @"ScanViewController/UIWindow/UITransitionView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIButton[0]":@"取消扫码",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/ZTChangeTeamNavView/UIButton[0]":@"首页显示团队列表",
+                           @"UIWindow/UIView/UITableView[0]":@"点击首页切换团队/创建团队",
+                           @"IssueChartVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIView/UITableView/IssueChartCell/TouchLargeButton[3]":@"点击进入情报列表页面",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/IssueSelectHeaderView/TouchLargeButton[1]":@"点击情报首页筛选",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/IssueSelectHeaderView/TouchLargeButton[3]":@"点击情报首页排序",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/IssueSelectHeaderView/UIButton[0]":@"点击创建任务",
+                           @"IssueChartListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[1]":@"点击首页情视图列表表查看详情",
+                           @"IssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIView/UITableView[0]":@"点击首页情报列表查看详情",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/TouchLargeButton[2]":@"点击首页情报范围",
+                           @"HomeIssueListVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIView[4]":@"点击首页搜索",
+                           @"SearchIssueVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/SearchBarView/UIButton[2]":@"点击取消情报搜索",
+                           @"MainTabBarController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/PWTabBar/UITabBarButton[1]":@"跳转情报页面",
+                           @"MainTabBarController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/PWTabBar/UITabBarButton[2]":@"跳转日历页面",
+                           @"MainTabBarController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/PWTabBar/UITabBarButton[3]":@"跳转智库页面",
+                           @"MainTabBarController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/PWTabBar/UITabBarButton[4]":@"跳转团队页面",
+                           @"MainTabBarController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/PWTabBar/UITabBarButton[5]":@"跳转我的页面",
+                           @"UIWindow/CalendarSelView/UIView/UIButton[2]":@"选中日历日志视图",
+                           @"UIWindow/CalendarSelView/UIView/UIButton[0]":@"选中日历情报视图",
+                           @"CalendarVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView/UIButton[1]":@"点击切换情报视图",
+                           @"CalendarVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/LTSCalendarScrollView/CalendarArrowView/UIView/TouchLargeButton[0]":@"点击日历视图展开收缩",
+                           @"CalendarVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/LTSCalendarScrollView/UITableView/CalendarListCell[4]":@"点击日历中的情报详情",
+                           @"LibraryVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIView[2]":@"点击智库搜索",
+                           @"LibrarySearchVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/SearchBarView/UIButton[2]":@"点击取消智库页面搜索",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]":@"点击查看成员详情",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UIButton[1]":@"点击查看团队消息",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/ZTTeamVCTopCell/UITableViewCellContentView/TouchLargeButton[0]":@"点击邀请成员",
+                           @"InviteMembersVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/InviteCardView[0]":@"点击二维码邀请",
+                           @"InviteMembersVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/InviteCardView[1]":@"点击邮箱邀请",
+                           @"InviteMembersVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/InviteCardView[2]":@"点击手机号邀请",
+                           @"SelectConditionVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[1]":@"点击选择通知规则来源页面",
+                           @"AddNotiRuleVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[1]":@"点击设置通知规则选择条件",
+                           @"AddNotiRuleVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationBar/UINavigationBarContentView/UIButtonBarStackView/UITAMICAdaptorView/UIButton[0]":@"点击保存通知规则",
+                           @"NotificationRuleVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationBar/UINavigationBarContentView/UIButtonBarStackView/UITAMICAdaptorView/UIButton[0]":@"点击添加通知规则",
+                           @"":@"点击选择通知方式",
+                           @"":@"点击弹出通知类型选项",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/ZTTeamVCTopCell/UITableViewCellContentView/TouchLargeButton[6]":@"点击通知规则",
+                           @"PersonalInfoVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[1]":@"点击修改姓名",
+                           @"PersonalInfoVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[2]":@"点击修改手机号",
+                           @"PersonalInfoVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[0]":@"点击修改头像",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/UIView[8]":@"点击我的头像",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[1]":@"点击联系我们",
+                           @"ChangeUserInfoVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/ChangeCardItem[3]":@"选择密码验证",
+                           @"ChangeUserInfoVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/ChangeCardItem[2]":@"选择手机号验证",
+                           @"SecurityPrivacyVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[0]":@"点击隐私权政策",
+                           @"SecurityPrivacyVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[0]":@"点击修改密码",
+                           @"SettingUpVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[0]":@"点击隐私与安全",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[2]/row[0]":@"点击设置页面",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[0]":@"点击我的消息",
+                           @"MineMessageVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]":@"点击我的消息详情",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[0]/row[1]":@"点击我的收藏",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[0]":@"点击意见和反馈",
+                           @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[3]":@"点击关于王教授",
+                           @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[0]":@"点击功能介绍",
+                            @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[1]":@"点击服务协议",
+                           @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[2]":@"点击检测新版本",
+                           @"UIWindow/ZTPopCommentView/ZTPopCommentToolView/UIButton[1]":@"点击@某人",
+                           @"UIWindow/ZTPopCommentView/ZTPopCommentToolView/UIButton[0]":@"点击添加附件",
+                           @"UIWindow/ZTPopCommentView/ZTPopCommentToolView/UIButton[2]":@"点击弹框中的发送按钮",
+                           @"UIWindow/ZTPopCommentView/ChatInputHeaderView/UIButton[1]":@"点击放大缩小回复弹框",
+                           @"IssueDetailsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/IssueDtealsBV[1]":@"点击弹出情报回复弹框",
+                           @"IssueDetailsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/IssueEngineHeaderView/UIView/AssignView[8]":@"点击指派处理人",
+                           @"IssueDetailsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/IssueEngineHeaderView/UIView/TouchLargeButton[2]":@"点击修复情报",
+                           @"NotificationRuleVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/NotiRuleCell/UITableViewCellContentView/UIView/MGSwipeButtonsView/UIView/MGSwipeButton[0]":@"点击删除通知规则",
+                           @"NotificationRuleVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/NotiRuleCell/UITableViewCellContentView/TouchLargeButton[0]":@"改变通知规则订阅状态",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/ZTTeamVCTopCell/UITableViewCellContentView/TouchLargeButton[6]":@"点击进入通知规则",
+                           @"TeamVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView/ZTTeamVCTopCell/UITableViewCellContentView/TouchLargeButton[2]":@"点击选择云服务页面",
+    };
+    [[FTMobileAgent sharedInstance] isPageVtpDescEnabled:YES];
+    [[FTMobileAgent sharedInstance] isFlowChartDescEnabled:YES];
+    [[FTMobileAgent sharedInstance] addPageDescDict:pages];
+    [[FTMobileAgent sharedInstance] addVtpDescDict:vtps];
 }
-
 #pragma mark ========== 初始化用户系统 ==========
 -(void)initUserManager{
 

@@ -15,7 +15,7 @@
 #import "ClearCacheTool.h"
 #import "PrivacySecurityControls.h"
 #import "ZhugeIOMineHelper.h"
-
+#import <FTMobileAgent.h>
 @interface SettingUpVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)  UIButton *exitBtn;
@@ -51,6 +51,7 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
     [self.tableView reloadData];
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
+    self.tableView.vtpAddIndexPath = YES;
     [self.view addSubview:self.tableView];
 
     [self.exitBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -17,7 +17,6 @@
 #import "PWSocketManager.h"
 #import "HeartBeatManager.h"
 #import "IssueListManger.h"
-#import <FTMobileAgent.h>
 
 @interface AppDelegate ()<JPUSHRegisterDelegate>
 @property (nonatomic, strong) MainTabBarController *mainTB;
@@ -35,6 +34,7 @@
     [self initSVProgressHUD];
     [self configLog];
     [self configUSharePlatforms];
+    [self configFTSDK];
     //网络监听
     [self monitorNetworkStatus];
     if( ![getUserNotificationSettings isEqualToString:PWUnRegister]){
@@ -64,14 +64,7 @@
                      apsForProduction:production
                 advertisingIdentifier:nil];
     }
-    FTMobileConfig *config = [[FTMobileConfig alloc]initWithMetricsUrl:@"http://172.16.0.12:32758/v1/write/metrics?token=tkn_4c4f9f29f39c493199bb5abe7df6af21" akId:@"accid" akSecret:@"accsk" enableRequestSigning:YES];
-    config.enableLog = YES;
-    config.enableAutoTrack = YES;
-    config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
-    config.monitorInfoType = FTMonitorInfoTypeAll;
-    [config enableTrackScreenFlow:YES];
-    [FTMobileAgent startWithConfigOptions:config];
-    [[FTMobileAgent sharedInstance] startMonitorFlush];
+   
         return YES;
 }
 
