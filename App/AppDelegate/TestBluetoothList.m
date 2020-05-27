@@ -9,7 +9,6 @@
 #import "TestBluetoothList.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <FTMobileAgent.h>
-#import "TestBluetoothConnectes.h"
 @interface TestBluetoothList ()<CBCentralManagerDelegate,CBPeripheralDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) NSMutableArray<CBPeripheral *> *devicesListArray;
@@ -32,19 +31,18 @@
     self.tableView.rowHeight = 60;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
     [self.tableView reloadData];
-    self.tableView.mj_header = self.header;
+//    self.tableView.mj_header = self.header;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     [self.view addSubview:self.tableView];
-    [self addNavigationItemWithTitles:@[@"connected"] isLeft:NO target:self action:@selector(goConnectesVC) tags:@[@1]];
 }
 
 -(void)headerRefreshing{
     [self.devicesListArray removeAllObjects];
+    [self.tableView reloadData];
+    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
     [self.header endRefreshing];
 }
-- (void)goConnectesVC{
-    [self.navigationController pushViewController:[TestBluetoothConnectes new] animated:YES];
-}
+
 - (void)bluteeh{
     self.devicesListArray = [NSMutableArray new];
     NSDictionary *options = @{CBCentralManagerOptionShowPowerAlertKey:@NO};
@@ -85,32 +83,17 @@
     }
 }
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    if (peripheral.name.length == 0) {
-        return;
-    }
-    if(![self.devicesListArray containsObject:peripheral] && peripheral.name>0)
+    
+    if(![self.devicesListArray containsObject:peripheral])
         [self.devicesListArray addObject:peripheral];
     [self.tableView reloadData];
     NSLog(@"%@", peripheral.identifier);
     NSLog(@"%@", RSSI);
    
     // RSSI 是设备信号强度
-    // advertisementData 设备广告标识
     // 一般把新扫描到的设备添加到一个数组中，并更新列表
 }
 -(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
-    NSArray *device = [kUserDefaults objectForKey:@"CBPeripheralList"];
-    if (![device containsObject:peripheral.identifier.UUIDString]) {
-        NSMutableArray *array = [NSMutableArray new];
-        [array addObjectsFromArray:device];
-        [array addObject:peripheral.identifier.UUIDString];
-        [kUserDefaults setObject:array forKey:@"CBPeripheralList"];
-        NSMutableArray *cbuuid= [NSMutableArray new];
-        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [cbuuid addObject:[CBUUID UUIDWithString:obj]];
-        }];
-        [[FTMobileAgent sharedInstance] setConnectBluetoothCBUUID:cbuuid];
-    }
     [self.tableView reloadData];
 }
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error{
@@ -126,7 +109,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
     CBPeripheral *peripheral = self.devicesListArray[indexPath.row];
     NSString *state = peripheral.state == CBPeripheralStateConnected? @"connected":@"";
-    cell.textLabel.text = peripheral.name;
+    cell.textLabel.text = peripheral.name?peripheral.name:@"Unnamed";
    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@",state,[self.devicesListArray[indexPath.row].identifier UUIDString]];
     

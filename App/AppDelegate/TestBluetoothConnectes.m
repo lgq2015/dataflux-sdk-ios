@@ -29,21 +29,25 @@
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
 }
 - (void)testGetCB{
-    NSArray *device = [kUserDefaults objectForKey:@"CBPeripheralList"];
-    NSMutableArray *array = [NSMutableArray new];
-    [device enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [array addObject:[[NSUUID alloc]initWithUUIDString:obj]];
-    }];
-    NSArray *cb =  [self.centralManager retrievePeripheralsWithIdentifiers:array];
-    if (cb.count>0) {
-        [self.devicesListArray addObjectsFromArray:cb];
-
-    }
-    [self.tableView reloadData];
-    DLog(@"%@",cb);
+    NSArray *device =  [self.centralManager retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:@"6E61AEFD-4504-F4F3-840F-614F9E41E0FF"]]];
+               
+//    NSArray *device = [kUserDefaults objectForKey:@"CBPeripheralList"];
+//    NSMutableArray *array = [NSMutableArray new];
+//    [device enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//
+//        [array addObject:[[NSUUID alloc]initWithUUIDString:obj]];
+//    }];
+//    NSArray *cb =  [self.centralManager retrievePeripheralsWithIdentifiers:array];
+//    if (cb.count>0) {
+//        [self.devicesListArray addObjectsFromArray:cb];
+//
+//    }
+//    [self.tableView reloadData];
+    DLog(@"%@",device);
 }
 - (void)createUI{
+    [self addNavigationItemWithTitles:@[@"connectedState"] isLeft:NO target:self action:@selector(goConnectesVC) tags:@[@1]];
+
     self.devicesListArray = [NSMutableArray new];
 
     
@@ -59,13 +63,22 @@
     [self.view addSubview:self.tableView];
     [self.tableView reloadData];
 }
+- (void)goConnectesVC:(UIButton *)button{
+    NSArray *device =  [self.centralManager retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:@"6E61AEFD-4504-F4F3-840F-614F9E41E0FF"]]];
+       DLog(@"device:%@",device);
+    CBPeripheral *per = device[0];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:per.state==2?@"已连接":@"未连接" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
     NSString *strMessage = nil;
     switch (central.state) {
         case CBManagerStatePoweredOn: {
             //周边外设扫描
-//            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+              [self.centralManager scanForPeripheralsWithServices:nil options:nil];
               [self testGetCB];
+              
             return;
         }
             break;
@@ -93,6 +106,19 @@
             break;
     }
 }
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
+    if (peripheral.name.length == 0) {
+        return;
+    }
+    if(![self.devicesListArray containsObject:peripheral] && peripheral.name>0)
+        [self.devicesListArray addObject:peripheral];
+    [self.tableView reloadData];
+    NSLog(@"%@", peripheral.identifier);
+    NSLog(@"%@", RSSI);
+   
+    // RSSI 是设备信号强度
+    // 一般把新扫描到的设备添加到一个数组中，并更新列表
+}
 #pragma mark ========== UITableViewDelegate ==========
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.devicesListArray.count;
@@ -100,12 +126,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
-    CBPeripheral *peripheral = self.devicesListArray[indexPath.row];
-    cell.textLabel.text = peripheral.name;
-    cell.detailTextLabel.text = [peripheral.identifier UUIDString];
-   
-   
-    return cell;
+     CBPeripheral *peripheral = self.devicesListArray[indexPath.row];
+     NSString *state = peripheral.state == CBPeripheralStateConnected? @"connected":@"";
+     cell.textLabel.text = peripheral.name;
+    
+     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@",state,[self.devicesListArray[indexPath.row].identifier UUIDString]];
+     
+     return cell;
 }
 /*
 #pragma mark - Navigation
