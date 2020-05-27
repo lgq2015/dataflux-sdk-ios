@@ -39,7 +39,7 @@
 #import "LoginPWVC.h"
 #import "NSString+ErrorCode.h"
 #import <FTMobileAgent.h>
-
+#import <CoreBluetooth/CoreBluetooth.h>
 @implementation AppDelegate (AppService)
 #pragma mark ========== 初始化服务 ==========
 -(void)initService{
@@ -227,6 +227,16 @@
     [[FTMobileAgent sharedInstance] isFlowChartDescEnabled:YES];
     [[FTMobileAgent sharedInstance] addPageDescDict:pages];
     [[FTMobileAgent sharedInstance] addVtpDescDict:vtps];
+   
+    
+    NSArray *device = [kUserDefaults objectForKey:@"CBPeripheralList"];
+    if (device.count>0) {
+        NSMutableArray *cbuuid= [NSMutableArray new];
+        [device enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           [cbuuid addObject:[CBUUID UUIDWithString:obj]];
+        }];
+        [[FTMobileAgent sharedInstance] setConnectBluetoothCBUUID:cbuuid];
+    }
 }
 #pragma mark ========== 初始化用户系统 ==========
 -(void)initUserManager{

@@ -433,6 +433,8 @@
 		4A47138722B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
 		4A47138822B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
 		4A47138922B2401300EB90F7 /* NoAssignCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A47138622B2401300EB90F7 /* NoAssignCell.m */; };
+		4A4F0DC4247D436A000A2A76 /* TestBluetoothList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F0DC3247D436A000A2A76 /* TestBluetoothList.m */; };
+		4A4F0DC7247E0728000A2A76 /* TestBluetoothConnectes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F0DC6247E0728000A2A76 /* TestBluetoothConnectes.m */; };
 		4A4FF17A22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
 		4A4FF17B22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
 		4A4FF17C22C9A7F800F8985E /* TriangleDrawRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */; };
@@ -1715,6 +1717,10 @@
 		4A47138122B22C8800EB90F7 /* ChooseAssignVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseAssignVC.m; sourceTree = "<group>"; };
 		4A47138522B2401300EB90F7 /* NoAssignCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoAssignCell.h; sourceTree = "<group>"; };
 		4A47138622B2401300EB90F7 /* NoAssignCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoAssignCell.m; sourceTree = "<group>"; };
+		4A4F0DC2247D436A000A2A76 /* TestBluetoothList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestBluetoothList.h; sourceTree = "<group>"; };
+		4A4F0DC3247D436A000A2A76 /* TestBluetoothList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestBluetoothList.m; sourceTree = "<group>"; };
+		4A4F0DC5247E0728000A2A76 /* TestBluetoothConnectes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestBluetoothConnectes.h; sourceTree = "<group>"; };
+		4A4F0DC6247E0728000A2A76 /* TestBluetoothConnectes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestBluetoothConnectes.m; sourceTree = "<group>"; };
 		4A4FF17822C9A7F800F8985E /* TriangleDrawRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleDrawRect.h; sourceTree = "<group>"; };
 		4A4FF17922C9A7F800F8985E /* TriangleDrawRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleDrawRect.m; sourceTree = "<group>"; };
 		4A50D91822F13B6100B2493F /* OriginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OriginModel.h; sourceTree = "<group>"; };
@@ -3132,6 +3138,10 @@
 				4A6C2865219BF75E0059BB08 /* AppDelegate.m */,
 				4ABF449221C0B246002AF34E /* AppDelegate+AppService.h */,
 				4ABF449321C0B246002AF34E /* AppDelegate+AppService.m */,
+				4A4F0DC2247D436A000A2A76 /* TestBluetoothList.h */,
+				4A4F0DC3247D436A000A2A76 /* TestBluetoothList.m */,
+				4A4F0DC5247E0728000A2A76 /* TestBluetoothConnectes.h */,
+				4A4F0DC6247E0728000A2A76 /* TestBluetoothConnectes.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -5126,6 +5136,7 @@
 				4A092D96222E7E6500FB2A35 /* PWPhotoGroupCell.m in Sources */,
 				CA1CF582221ECB3A00D15316 /* PWMNView.m in Sources */,
 				CA1CF583221ECB3A00D15316 /* SDCycleScrollView.m in Sources */,
+				4A4F0DC4247D436A000A2A76 /* TestBluetoothList.m in Sources */,
 				4A63A5DA2330E8BA0027C7A1 /* PYPolar.m in Sources */,
 				4AC22014228E521D0098848C /* ChatInputHeaderView.m in Sources */,
 				4A092CCC2228CDC400FB2A35 /* MemberInfoModel.m in Sources */,
@@ -5461,6 +5472,7 @@
 				6B6E2AAE1991FDE1C3A681C2 /* BaseReturnModel.m in Sources */,
 				4A56F78222F0610F00E56ED0 /* SourceModel.m in Sources */,
 				4AB12668237ABA52008A657B /* IssueChartEchartCell.m in Sources */,
+				4A4F0DC7247E0728000A2A76 /* TestBluetoothConnectes.m in Sources */,
 				6B6E238D7E703151708B8567 /* CarrierItemModel.m in Sources */,
 				6B6E2D5E2D2A4238A8419B9A /* NSDictionary+URL.m in Sources */,
 				4A50D94722F9906000B2493F /* ServiceDetailVC+ChangeNavColor.m in Sources */,
