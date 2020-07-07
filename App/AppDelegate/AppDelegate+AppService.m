@@ -92,14 +92,20 @@
 #endif
 }
 -(void)configFTSDK{
-    FTMobileConfig *config = [[FTMobileConfig alloc]initWithMetricsUrl:@"http://172.16.0.12:32758/v1/write/metrics?token=tkn_4c4f9f29f39c493199bb5abe7df6af21" akId:@"accid" akSecret:@"accsk" enableRequestSigning:YES];
-       config.enableLog = YES;
-       config.enableAutoTrack = YES;
-       config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
-       config.monitorInfoType = FTMonitorInfoTypeAll;
-       [config enableTrackScreenFlow:YES];
-       [FTMobileAgent startWithConfigOptions:config];
-       [[FTMobileAgent sharedInstance] startMonitorFlush];
+    FTMobileConfig *config =[[FTMobileConfig alloc]initWithMetricsUrl:@"http://172.16.0.12:32758" datawayToken:@"tkn_4c4f9f29f39c493199bb5abe7df6af21" akId:@"accid" akSecret:@"accsk" enableRequestSigning:YES];
+    
+    config.enableLog = YES;
+    config.enableAutoTrack = YES;
+    config.enableTrackAppCrash = YES;
+    config.enableScreenFlow = YES;
+    config.traceConsoleLog = YES;
+    config.networkTrace = YES;
+    config.eventFlowLog = YES;
+    config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
+    config.monitorInfoType = FTMonitorInfoTypeAll;
+    [config setTraceServiceName:@"王教授(Dev)"];
+    [FTMobileAgent startWithConfigOptions:config];
+    [[FTMobileAgent sharedInstance] startMonitorFlush];
     
     NSDictionary *pages = @{@"LaunchVC":@"启动页面",
                             @"LoginPWVC":@"密码登录页面",
@@ -209,7 +215,7 @@
                            @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[0]":@"点击意见和反馈",
                            @"MineViewController/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[0]/section[1]/row[3]":@"点击关于王教授",
                            @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[0]":@"点击功能介绍",
-                            @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[1]":@"点击服务协议",
+                           @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[1]":@"点击服务协议",
                            @"AboutUsVC/UIWindow/UITransitionView/UIDropShadowView/UILayoutContainerView/UITransitionView/UIViewControllerWrapperView/UILayoutContainerView/UINavigationTransitionView/UIViewControllerWrapperView/UIView/UITableView[2]/section[0]/row[2]":@"点击检测新版本",
                            @"UIWindow/ZTPopCommentView/ZTPopCommentToolView/UIButton[1]":@"点击@某人",
                            @"UIWindow/ZTPopCommentView/ZTPopCommentToolView/UIButton[0]":@"点击添加附件",
@@ -227,7 +233,7 @@
     [[FTMobileAgent sharedInstance] isFlowChartDescEnabled:YES];
     [[FTMobileAgent sharedInstance] addPageDescDict:pages];
     [[FTMobileAgent sharedInstance] addVtpDescDict:vtps];
-
+    
 }
 #pragma mark ========== 初始化用户系统 ==========
 -(void)initUserManager{

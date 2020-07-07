@@ -28,9 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self initService];
     [self initWindow];
-//    [self initUserManager];
     [self initZhuge:launchOptions];
-//    [self initUMeng];
     [self initSVProgressHUD];
     [self configLog];
     [self configUSharePlatforms];

@@ -20,18 +20,6 @@
 @end
 @implementation PWFMDB
 
-- (FMDatabaseQueue *)dbQueue
-{
-    if (!_dbQueue) {
-        FMDatabaseQueue *fmdb = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
-        self.dbQueue = fmdb;
-        [_db close];
-        self.db = [fmdb valueForKey:@"_db"];
-    }
-    return _dbQueue;
-}
-
-
 
 static PWFMDB *jqdb = nil;
 
@@ -47,7 +35,7 @@ static PWFMDB *jqdb = nil;
 + (instancetype)shareDatabase:(NSString *)dbName path:(NSString *)dbPath
 {
     if (!jqdb) {
-
+        
         NSString *path;
         if (!dbName) {
             dbName = @"PWFMDB.sqlite";
@@ -57,13 +45,15 @@ static PWFMDB *jqdb = nil;
         } else {
             path = [dbPath stringByAppendingPathComponent:dbName];
         }
-        DLog(@"%@",path);
-        FMDatabase *fmdb = [FMDatabase databaseWithPath:path];
-        if ([fmdb open]) {
+        FMDatabaseQueue *dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
+        FMDatabase *fmdb = [dbQueue valueForKey:@"_db"];
+        if ([fmdb  open]) {
             jqdb = PWFMDB.new;
             jqdb.db = fmdb;
             jqdb.dbPath = path;
+            jqdb.dbQueue = dbQueue;
         }
+        DLog(@"%@",path);
     }
     if (![jqdb.db open]) {
         DLog(@"database can not open !");
