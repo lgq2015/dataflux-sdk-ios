@@ -57,7 +57,7 @@ target 'AppDev' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
-    pod 'FTMobileSDK', '~>1.0.2-alpha.25'
+    pod 'FTMobileSDK', '~>1.0.3-alpha.2'
     post_install do |installer_representation|
             installer_representation.pods_project.targets.each do |target|
                 if target.name == 'FTMobileSDK'
@@ -82,7 +82,6 @@ target 'AppPreMade' do
     pod 'ReactiveCocoa' , '2.0'
     pod 'MJRefresh', '~> 3.1.15.7'
     pod 'YYKit','~> 1.0.9'
-    pod 'FMDB','~> 2.7.5'
     pod 'FMDB','~> 2.7.5'
     pod 'Zhugeio','~> 3.2.3'
     pod 'TTTAttributedLabel','~> 2.0.0'
