@@ -104,6 +104,7 @@
     config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
     config.monitorInfoType = FTMonitorInfoTypeAll;
     [config setTraceServiceName:@"王教授(Dev)"];
+    config.networkContentType = @[@"application/json",@"application/xml",@"application/javascript",@"text/html",@"text/xml",@"text/plain",@"application/x-www-form-urlencoded"];
     [FTMobileAgent startWithConfigOptions:config];
     [[FTMobileAgent sharedInstance] startMonitorFlush];
     
