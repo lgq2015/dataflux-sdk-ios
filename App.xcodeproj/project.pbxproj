@@ -342,6 +342,7 @@
 		4A241F7F2316595E00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
 		4A241F802316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
 		4A241F812316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
+		4A299BD1251AEEBA00400931 /* ft_page_vtp_desc.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4A299BD0251AEEBA00400931 /* ft_page_vtp_desc.xml */; };
 		4A3BB956246551C500D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
 		4A3BB957246551C500D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
 		4A3BB958246551C600D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
@@ -1655,6 +1656,7 @@
 		4A241F79230A4D0B00DC47A9 /* FavoritesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesListModel.m; sourceTree = "<group>"; };
 		4A241F7D2316595E00DC47A9 /* SelectNotiRuleTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectNotiRuleTypeView.h; sourceTree = "<group>"; };
 		4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectNotiRuleTypeView.m; sourceTree = "<group>"; };
+		4A299BD0251AEEBA00400931 /* ft_page_vtp_desc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ft_page_vtp_desc.xml; sourceTree = "<group>"; };
 		4A3BB9932465578700D364BB /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; path = js; sourceTree = "<group>"; };
 		4A3BB9942465578700D364BB /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; path = theme; sourceTree = "<group>"; };
 		4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
@@ -3142,6 +3144,7 @@
 				4A4F0DC3247D436A000A2A76 /* TestBluetoothList.m */,
 				4A4F0DC5247E0728000A2A76 /* TestBluetoothConnectes.h */,
 				4A4F0DC6247E0728000A2A76 /* TestBluetoothConnectes.m */,
+				4A299BD0251AEEBA00400931 /* ft_page_vtp_desc.xml */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -4496,6 +4499,7 @@
 				CA1CF618221ECB3A00D15316 /* frame-19@2x.png in Resources */,
 				2BE9F186225AF9CD00C33669 /* zysocial_qq.png in Resources */,
 				2BE9F17D225AF9CD00C33669 /* zysocial_wechat.png in Resources */,
+				4A299BD1251AEEBA00400931 /* ft_page_vtp_desc.xml in Resources */,
 				CA1CF619221ECB3A00D15316 /* frame-8@2x.png in Resources */,
 				4AF663AA225F747600E551B9 /* SVProgressHUD.bundle in Resources */,
 				2BD42128227A8669009E854A /* ZTTeamProductCell.xib in Resources */,
@@ -6273,7 +6277,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppDev/AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20200715.1821;
+				CURRENT_PROJECT_VERSION = 20200923.1150;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
@@ -6312,7 +6316,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppDev/AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20200715.1821;
+				CURRENT_PROJECT_VERSION = 20200923.1150;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
