@@ -92,21 +92,17 @@
 #endif
 }
 -(void)configFTSDK{
-    FTMobileConfig *config =[[FTMobileConfig alloc]initWithMetricsUrl:@"https://openway.dataflux.cn" datawayToken:@"tkn_d24c479141bc4a6da4596f5ea5391097"];
-    
-    config.enableLog = YES;
-    config.enableAutoTrack = YES;
+    FTMobileConfig *config =[[FTMobileConfig alloc]initWithMetricsUrl:@"http://10.100.64.161:9529"];
+    config.appid = @"appid_43a369ea403311eb94f2a6cef984dc00";
+    config.enableSDKDebugLog = YES;
     config.enableTrackAppCrash = YES;
     config.traceConsoleLog = YES;
     config.networkTrace = YES;
-    config.eventFlowLog = YES;
-    config.enabledPageVtpDesc = YES;
-    config.autoTrackEventType = FTAutoTrackEventTypeAppClick|FTAutoTrackEventTypeAppLaunch|FTAutoTrackEventTypeAppViewScreen;
     config.monitorInfoType = FTMonitorInfoTypeAll;
-    [config setTraceServiceName:@"王教授(Dev)"];
-    config.networkContentType = @[@"application/json",@"application/xml",@"application/javascript",@"text/html",@"text/xml",@"text/plain",@"application/x-www-form-urlencoded"];
+    config.serviceName =@"王教授(Dev)";
+    config.enableTrackAppANR = YES;
+    config.enableTrackAppUIBlock = YES;
     [FTMobileAgent startWithConfigOptions:config];
-    [[FTMobileAgent sharedInstance] startMonitorFlush];
 }
 #pragma mark ========== 初始化用户系统 ==========
 -(void)initUserManager{

@@ -60,7 +60,6 @@
     [self.tableView registerClass:MineViewCell.class forCellReuseIdentifier:@"MineViewCell"];
     [self.tableView registerClass:MoreRuleLinkCell.class forCellReuseIdentifier:@"MoreRuleLinkCell"];
     [self.tableView registerClass:MoreRuleBtnCell.class forCellReuseIdentifier:@"MoreRuleBtnCell"];
-    self.tableView.vtpAddIndexPath = YES;
     [self dealDatas];
    
     

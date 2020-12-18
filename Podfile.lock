@@ -14,27 +14,24 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - CocoaLumberjack (3.6.1):
-    - CocoaLumberjack/Core (= 3.6.1)
-  - CocoaLumberjack/Core (3.6.1)
+  - CocoaLumberjack (3.7.0):
+    - CocoaLumberjack/Core (= 3.7.0)
+  - CocoaLumberjack/Core (3.7.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FTMobileSDK (1.0.3-beta.2):
-    - FTMobileSDK/FTAutoTrack (= 1.0.3-beta.2)
-    - FTMobileSDK/FTMobileAgent (= 1.0.3-beta.2)
-  - FTMobileSDK/FTAutoTrack (1.0.3-beta.2):
-    - FTMobileSDK/FTMobileAgent
-  - FTMobileSDK/FTMobileAgent (1.0.3-beta.2)
+  - FTMobileSDK (1.0.4-alpha.6):
+    - FTMobileSDK/FTMobileAgent (= 1.0.4-alpha.6)
+  - FTMobileSDK/FTMobileAgent (1.0.4-alpha.6)
   - IQKeyboardManager (6.2.1)
-  - JCore (2.3.0)
-  - JPush (3.3.3):
+  - JCore (2.4.0)
+  - JPush (3.3.6):
     - JCore (< 3.0.0, >= 2.0.0)
   - JSONModel (1.8.0)
-  - LBXScan/LBXNative (2.3):
+  - LBXScan/LBXNative (2.5.1):
     - LBXScan/Types (~> 2.2)
-  - LBXScan/Types (2.3)
-  - LBXScan/UI (2.3):
+  - LBXScan/Types (2.5.1)
+  - LBXScan/UI (2.5.1):
     - LBXScan/Types (~> 2.2)
   - LumberjackConsole (3.6.0):
     - CocoaLumberjack (>= 3.x)
@@ -81,7 +78,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - FMDB (~> 2.7.5)
-  - FTMobileSDK (~> 1.0.3-beta.2)
+  - FTMobileSDK (~> 1.0.4-alpha.6)
   - IQKeyboardManager (~> 6.2.0)
   - JPush (~> 3.3.2)
   - JSONModel (~> 1.8.0)
@@ -132,14 +129,14 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FTMobileSDK: 71005ca93171f77babb6340ff369f9015e9dc3be
+  FTMobileSDK: 15865fc93c40f9515f89e48f4a5ae91d5b8bf268
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
-  JCore: 7fb83e1e75e00df37e9e1e33f3adae79182ad57c
-  JPush: 61b3dc8c2bdefb7c48e7ca283f9fe42e71bfe063
+  JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
+  JPush: a401b946dcc76b37335422487201bc1ecc8dd296
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
-  LBXScan: e51449f0832d1fe17da632af0d22adeb3cfa3543
+  LBXScan: 90ca10d0c38fb4a5a6980d7782354f3f69f50093
   LumberjackConsole: fd454c900893c83ca8f3dc0248a705b9634850d1
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MCDingTalk: a701d7de8d13bb722ff3994eb90c0c02a56c49b7
@@ -157,6 +154,6 @@ SPEC CHECKSUMS:
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   Zhugeio: 87c5ec4b2e1783b9837a6ea9ca21818285523bc1
 
-PODFILE CHECKSUM: 6df63f3fb834743bb3289ea99ca1693f23e28b2b
+PODFILE CHECKSUM: ac29429809eca6e9bf317919a35c30ccfa6afa4d
 
 COCOAPODS: 1.9.2

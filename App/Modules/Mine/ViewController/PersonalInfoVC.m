@@ -55,7 +55,6 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, Interval(16), 0, 0);
     [self.tableView reloadData];
     [self.tableView registerClass:[MineViewCell class] forCellReuseIdentifier:@"MineViewCell"];
-    self.tableView.vtpAddIndexPath = YES;
     [self.view addSubview:self.tableView];
 }
 - (void)updateUser{

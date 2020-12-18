@@ -114,7 +114,6 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 58, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.vtpAddIndexPath = YES;
     if (@available(iOS 11.0, *)) {
         self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
