@@ -37,6 +37,9 @@
 #define UNIVERSAL_LINK      @"https://testing-app.prof.wang/"
 #define DINGDING_APPKEY     @"dingoagikluhqlvit4wovq"
 #define ZHUGE_APPKEY     @"84172f6680f6406e9f6ec0c132613104"
+#define FT_SDK_URL     @"http://10.100.64.161:9529"
+#define FT_SDK_APPID     @"appid_43a369ea403311eb94f2a6cef984dc00"
+#define FT_SERVICE_NAME  @"王教授(Dev)"
 #elif PREPROD //预发环境
 
 #define IS_HTTPS  1
@@ -87,7 +90,9 @@
 #define UNIVERSAL_LINK      @"https://app.prof.wang/"
 #define DINGDING_APPKEY    @"dingoagfockwplqrickp6y"
 #define ZHUGE_APPKEY     @"6545d1143506459d92fd0b080a071ac0"
-
+#define FT_SDK_URL     @"https://rumkit.dataflux.cn"
+#define FT_SDK_APPID     @"appid_9c6374ee45c411eb9f6226d4f2600a50"
+#define FT_SERVICE_NAME  @"王教授"
 #endif
 
 #define DING_DING_WEBHOOK_HELP API_DOC@"b1c8103c9274483a3db9340fdd0a66a0120662b9#toc39"

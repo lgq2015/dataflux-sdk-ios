@@ -241,7 +241,7 @@
         }];
         [self.mTableView reloadData];
     }
-    [self layoutIfNeeded];
+    [self.superview layoutIfNeeded];
 }
 - (void)dealWithEchartView:(NSDictionary *)dict{
     if ([dict[@"extraJSON"] isKindOfClass:NSDictionary.class]) {
@@ -251,7 +251,7 @@
             if ([displayItems[j] isKindOfClass:NSDictionary.class]){
                 NSDictionary *dict = displayItems[j];
                 UIView *chartView = [self createChartViewWithDict:dict];
-                [self setNeedsUpdateConstraints];
+                [self.superview setNeedsUpdateConstraints];
                 [chartView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.right.mas_equalTo(self.echartContenterView);
                     if (temp1 == nil) {
@@ -271,7 +271,7 @@
                 }];
                 temp1 = chartView;
             }
-            [self layoutIfNeeded];
+            [self.superview layoutIfNeeded];
         }
     }
 }

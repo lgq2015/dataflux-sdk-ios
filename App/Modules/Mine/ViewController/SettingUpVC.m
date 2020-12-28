@@ -16,7 +16,6 @@
 #import "PrivacySecurityControls.h"
 #import "ZhugeIOMineHelper.h"
 #import <FTMobileAgent.h>
-#import "TestBluetoothList.h"
 @interface SettingUpVC ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)  UIButton *exitBtn;
@@ -42,9 +41,8 @@
 
     MineCellModel *notification = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.notification", @"") isSwitch:isSwitch];
     MineCellModel *aboutUs = [[MineCellModel alloc]initWithTitle:NSLocalizedString(@"local.ClearCache", @"") describeText:@""];
-    MineCellModel *test = [[MineCellModel alloc]initWithTitle:@"蓝牙" describeText:@""];
 
-    NSArray *array =@[changePassword,notification,aboutUs,test];
+    NSArray *array =@[changePassword,notification,aboutUs];
     [self.dataSource addObjectsFromArray:array];
     self.tableView.frame = CGRectMake(0, 5, kWidth, self.dataSource.count*45);
     self.tableView.delegate = self;
@@ -218,7 +216,7 @@
         [cleanAlert addAction:cancle];
         [self presentViewController:cleanAlert animated:YES completion:nil];
     }else if(indexPath.row == 3){
-        [self.navigationController pushViewController:[TestBluetoothList new] animated:YES];
+
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }

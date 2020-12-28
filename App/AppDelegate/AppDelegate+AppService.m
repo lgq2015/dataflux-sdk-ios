@@ -92,14 +92,14 @@
 #endif
 }
 -(void)configFTSDK{
-    FTMobileConfig *config =[[FTMobileConfig alloc]initWithMetricsUrl:@"http://10.100.64.161:9529"];
-    config.appid = @"appid_43a369ea403311eb94f2a6cef984dc00";
+    FTMobileConfig *config =[[FTMobileConfig alloc]initWithMetricsUrl:FT_SDK_URL];
+    config.appid = FT_SDK_APPID;
     config.enableSDKDebugLog = YES;
     config.enableTrackAppCrash = YES;
     config.traceConsoleLog = YES;
     config.networkTrace = YES;
     config.monitorInfoType = FTMonitorInfoTypeAll;
-    config.serviceName =@"王教授(Dev)";
+    config.serviceName = FT_SERVICE_NAME;
     config.enableTrackAppANR = YES;
     config.enableTrackAppUIBlock = YES;
     [FTMobileAgent startWithConfigOptions:config];
