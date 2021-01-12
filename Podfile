@@ -28,7 +28,7 @@ target 'App' do
   pod 'MCDingTalk', '~> 1.0.1'
   pod 'NBULog', '~> 2.0.0'
   pod 'NBULog/Console' , '~> 2.0.0'
-  pod 'FTMobileSDK', '~>1.0.4-alpha.9'
+  pod 'FTMobileSDK', '~>1.0.4-alpha.10'
 end
 
 target 'AppDev' do
@@ -58,7 +58,7 @@ target 'AppDev' do
     pod 'MCDingTalk', '~> 1.0.1'
     pod 'NBULog', '~> 2.0.0'
     pod 'NBULog/Console' , '~> 2.0.0'
-    pod 'FTMobileSDK', '~>1.0.4-alpha.9'
+    pod 'FTMobileSDK', '~>1.0.4-alpha.10'
 end
 
 target 'AppPreMade' do
