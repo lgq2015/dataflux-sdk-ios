@@ -343,6 +343,9 @@
 		4A241F802316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
 		4A241F812316595F00DC47A9 /* SelectNotiRuleTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */; };
 		4A299BD1251AEEBA00400931 /* ft_page_vtp_desc.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4A299BD0251AEEBA00400931 /* ft_page_vtp_desc.xml */; };
+		4A2D284425A5CF8600A86433 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D284325A5CF8600A86433 /* PWBaseWebVC.m */; };
+		4A2D284525A5CF8600A86433 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D284325A5CF8600A86433 /* PWBaseWebVC.m */; };
+		4A2D284625A5CF8600A86433 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D284325A5CF8600A86433 /* PWBaseWebVC.m */; };
 		4A3BB956246551C500D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
 		4A3BB957246551C500D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
 		4A3BB958246551C600D364BB /* iCloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52638B235FF8CB0075BC93 /* iCloudManager.m */; };
@@ -938,7 +941,6 @@
 		4ACF4A652466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
 		4ACF4A662466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
 		4ACF4A672466AEB300D20DA9 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */; };
-		4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		4AD848EA221FFC06002ADF62 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		4AE5374821C68BD2004CF320 /* PWSegmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374721C68BD2004CF320 /* PWSegmentStyle.m */; };
 		4AE5374B21C69956004CF320 /* PWScrollSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5374A21C69956004CF320 /* PWScrollSegmentView.m */; };
@@ -1422,8 +1424,6 @@
 		CA1CF6C6221ED77300D15316 /* FeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB48AE8221D4AE9009F9E94 /* FeedbackVC.m */; };
 		CA49D23722201003000F6258 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
 		CA49D23822201004000F6258 /* WebItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E9221FFC06002ADF62 /* WebItemView.m */; };
-		CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
-		CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */; };
 		CAC13C922317A1E200A7854D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAC13C902317A1E200A7854D /* InfoPlist.strings */; };
 		CAC13C962317A20B00A7854D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAC13C942317A20B00A7854D /* InfoPlist.strings */; };
 		CAC13C9A2317A22F00A7854D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAC13C982317A22F00A7854D /* InfoPlist.strings */; };
@@ -1658,6 +1658,7 @@
 		4A241F7D2316595E00DC47A9 /* SelectNotiRuleTypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectNotiRuleTypeView.h; sourceTree = "<group>"; };
 		4A241F7E2316595E00DC47A9 /* SelectNotiRuleTypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectNotiRuleTypeView.m; sourceTree = "<group>"; };
 		4A299BD0251AEEBA00400931 /* ft_page_vtp_desc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ft_page_vtp_desc.xml; sourceTree = "<group>"; };
+		4A2D284325A5CF8600A86433 /* PWBaseWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4A3BB9932465578700D364BB /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; path = js; sourceTree = "<group>"; };
 		4A3BB9942465578700D364BB /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; path = theme; sourceTree = "<group>"; };
 		4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
@@ -2162,7 +2163,6 @@
 		4AC857B8223D045800DAE1F6 /* WEBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WEBViewController.m; sourceTree = "<group>"; };
 		4ACF4A642466AEB200D20DA9 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWBaseWebVC.h; sourceTree = "<group>"; };
-		4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWBaseWebVC.m; sourceTree = "<group>"; };
 		4AD848E8221FFC06002ADF62 /* WebItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebItemView.h; sourceTree = "<group>"; };
 		4AD848E9221FFC06002ADF62 /* WebItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebItemView.m; sourceTree = "<group>"; };
 		4AE5374621C68BD2004CF320 /* PWSegmentStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWSegmentStyle.h; sourceTree = "<group>"; };
@@ -2777,12 +2777,12 @@
 		4A3BB99F24657E0C00D364BB /* WebViewJavascriptBridge */ = {
 			isa = PBXGroup;
 			children = (
-				4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */,
-				4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */,
-				4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */,
 				4A3BB9A324657E0C00D364BB /* WebViewJavascriptBridgeBase.h */,
-				4A3BB9A424657E0C00D364BB /* WebViewJavascriptBridge.h */,
+				4A3BB9A024657E0C00D364BB /* WebViewJavascriptBridgeBase.m */,
 				4A3BB9A524657E0C00D364BB /* WebViewJavascriptLeakAvoider.h */,
+				4A3BB9A124657E0C00D364BB /* WebViewJavascriptLeakAvoider.m */,
+				4A3BB9A424657E0C00D364BB /* WebViewJavascriptBridge.h */,
+				4A3BB9A224657E0C00D364BB /* WebViewJavascriptBridge.m */,
 			);
 			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
@@ -3263,7 +3263,7 @@
 			isa = PBXGroup;
 			children = (
 				4AD848E2221FA247002ADF62 /* PWBaseWebVC.h */,
-				4AD848E3221FA247002ADF62 /* PWBaseWebVC.m */,
+				4A2D284325A5CF8600A86433 /* PWBaseWebVC.m */,
 				4AC857B7223D045800DAE1F6 /* WEBViewController.h */,
 				4AC857B8223D045800DAE1F6 /* WEBViewController.m */,
 			);
@@ -4848,6 +4848,7 @@
 				4A50D94122F9903D00B2493F /* BookSuccessVC.m in Sources */,
 				4AF6638F225F2E6500E551B9 /* PWImageGroupView.m in Sources */,
 				4A50F3F0228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
+				4A2D284425A5CF8600A86433 /* PWBaseWebVC.m in Sources */,
 				4AB489B321EC6640009F9E94 /* IssueCell.m in Sources */,
 				4AB48ACF2213CADD009F9E94 /* SecurityPrivacyVC.m in Sources */,
 				4A092CC12227D4E500FB2A35 /* QrCodeInviteVC.m in Sources */,
@@ -4970,7 +4971,6 @@
 				4AFB77EF2383B8B300C58E8C /* AlarmItemModel.m in Sources */,
 				4AC856E9223121BA00DAE1F6 /* HandbookModel.m in Sources */,
 				4A092D43222BFAA900FB2A35 /* DetectionVersionAlert.m in Sources */,
-				4AD848E4221FA247002ADF62 /* PWBaseWebVC.m in Sources */,
 				4A092CD02228D67D00FB2A35 /* TeamMemberCell.m in Sources */,
 				2BFEF34A225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
 				4AC856F7223147A300DAE1F6 /* SCIndexView.m in Sources */,
@@ -5382,7 +5382,6 @@
 				2B5211042257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF5D0221ECB3A00D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF5D1221ECB3A00D15316 /* PPBadgeControl.m in Sources */,
-				CA49D23922201024000F6258 /* PWBaseWebVC.m in Sources */,
 				4A00DDD522D48D7E008462AF /* NotiRuleCell.m in Sources */,
 				CA1CF5D5221ECB3A00D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9B229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
@@ -5399,6 +5398,7 @@
 				CA1CF5DA221ECB3A00D15316 /* PWMemoryCache.m in Sources */,
 				CA1CF5DD221ECB3A00D15316 /* PWLRUManager.m in Sources */,
 				2BFEF34B225E0A54008A0233 /* QLPreviewController+title.m in Sources */,
+				4A2D284525A5CF8600A86433 /* PWBaseWebVC.m in Sources */,
 				CA1CF5DE221ECB3A00D15316 /* NewsListCell.m in Sources */,
 				CA1CF5DF221ECB3A00D15316 /* PWNetworking.m in Sources */,
 				4A092C6A2224D79100FB2A35 /* ClearCacheTool.m in Sources */,
@@ -5706,6 +5706,7 @@
 				4A50D94322F9903D00B2493F /* BookSuccessVC.m in Sources */,
 				4A50F3F2228E9D7D00AD7715 /* ChooseChatStateView.m in Sources */,
 				4A759AD1224DCBF90057BD02 /* UIResponder+FirstResponder.m in Sources */,
+				4A2D284625A5CF8600A86433 /* PWBaseWebVC.m in Sources */,
 				CA1CF651221ECB5000D15316 /* TAPageControl.m in Sources */,
 				CA1CF652221ECB5000D15316 /* IssueCell.m in Sources */,
 				4AF663B52265A9CC00E551B9 /* UITextField+HLLHelper.m in Sources */,
@@ -5811,7 +5812,6 @@
 				2B5211052257CA60004DA56D /* ZTOpenUrl.m in Sources */,
 				CA1CF675221ECB5000D15316 /* PWCommonCtrl.m in Sources */,
 				CA1CF676221ECB5000D15316 /* PPBadgeControl.m in Sources */,
-				CA49D23A22201024000F6258 /* PWBaseWebVC.m in Sources */,
 				4A00DDD622D48D7E008462AF /* NotiRuleCell.m in Sources */,
 				CA1CF67A221ECB5000D15316 /* LibraryDraggableLibraryView.m in Sources */,
 				4A3CDA9C229FCA6000C2EC62 /* CalendarIssueModel.m in Sources */,
@@ -6169,7 +6169,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20201228.1919;
+				CURRENT_PROJECT_VERSION = 20210112.1940;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
@@ -6225,7 +6225,7 @@
 				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20201228.1919;
+				CURRENT_PROJECT_VERSION = 20210112.1940;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6275,7 +6275,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppDev/AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20201228.1750;
+				CURRENT_PROJECT_VERSION = 20210112.1940;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
@@ -6317,7 +6317,7 @@
 				INFOPLIST_FILE = "AppDev/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.3.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6340,7 +6340,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppDev/AppDev.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20201228.1750;
+				CURRENT_PROJECT_VERSION = 20210112.1940;
 				DEVELOPMENT_TEAM = FDRMD28QMM;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6381,7 +6381,7 @@
 				INFOPLIST_FILE = "AppDev/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.3.4;
+				MARKETING_VERSION = 1.3.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangjiao.prof.wang.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
