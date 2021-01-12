@@ -37,7 +37,7 @@
 #define UNIVERSAL_LINK      @"https://testing-app.prof.wang/"
 #define DINGDING_APPKEY     @"dingoagikluhqlvit4wovq"
 #define ZHUGE_APPKEY     @"84172f6680f6406e9f6ec0c132613104"
-#define FT_SDK_URL     @"http://10.100.64.161:9529"
+#define FT_SDK_URL     @"http://10.100.64.249:9529"
 #define FT_SDK_APPID     @"appid_43a369ea403311eb94f2a6cef984dc00"
 #define FT_SERVICE_NAME  @"王教授(Dev)"
 #elif PREPROD //预发环境
